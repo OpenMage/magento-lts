@@ -742,4 +742,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         return $this->_getData('name');
     }
 
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        return parent::_beforeDelete();
+    }
 }

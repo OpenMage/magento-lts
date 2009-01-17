@@ -448,4 +448,10 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Core_Model_Abstract
             );
         }
     }
+
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        return parent::_beforeDelete();
+    }
 }

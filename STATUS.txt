@@ -85,6 +85,7 @@ FIXED BUGS:
     #5689: Customer Export
     #5694: Unable to use capital letters in e-mail address 
     #5695: Fatal error after password recovery in the admin page
+    #5712: Paypal Standard Shipping and Tax Issue
     #5714: magento crash when seting wrong package name
     #5720: no product description in default theme. Also prevented bug in blank.
     #5722: Error on Web Services -> Users
@@ -111,10 +112,17 @@ FIXED BUGS:
     #5856: Exception after in the shopping cart with 0.00 tax rate
     #5873: Security Warning in Admin
     #5875: Sitemap error
+    #5833: Multistore: Call to a member function getStoreIds()
     #5881: catalogindex_reindex_all cron job fails
     #5882: Session of Admin User persists even after user is deleted 
     #5891: Cannot add Custom Options in Safari 3x
     #5911: Can't add (inch) symbol
+    #6066: Configurable products not reducing when purchased
+    #6072: Virtual products and Paypal Standard 
+    #6120: People can order configurable products when they are out of stock
+    #6121: Payment screen does not work correctly using Modern theme
+    #6147: Cannot check out shopping cart that use Check / Money Order as payment option
+    #6269: Fatal Error with Multiple Websites - getStoreIds()
     Fixed dynamic SKU & weight, fixed SKU for products with custom options, multiselect options
     Fixed admin notifications URL
     Fixed cache management issues
@@ -196,6 +204,13 @@ FIXED BUGS:
     Fixed wrong SOAP content type
     Fixed errors in invoice/packingslip PDF print-out (added missing fonts, fixed overlapping columns and text wrapping, displaying of non-latin1 texts)
     Fixed non-working store switcher
+    Fixed paypal direct/express/standard errors and shipping calculation when only virtual products are in cart
+    Fixed internal redirects validation for secure URLs
+    Fixed configurable products stock deduction
+    Fixed minimal MySQL version checking in installation wizard
+    Fixed admin order refund - base tax amount was not stored after refund
+    Fixed single page checkout issues in modern theme
+
     
 
 CHANGES:
@@ -269,6 +284,9 @@ CHANGES:
     
     iPhone theme updated for 1.1
     Upgraded core/helper/string for binary-safe string operations
+
+    Added html escaping in search queries in admin dashboard
+    Added displaying maximum allowed dataflow upload file size according to server settings
 
 
 NOTES:

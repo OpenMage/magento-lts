@@ -80,7 +80,6 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
         $customer = Mage::getSingleton('customer/session')->getCustomer();
         $visitorItemCollection = Mage::getResourceModel('catalog/product_compare_item_collection')
             ->setObject('catalog/product_compare_item')
-            ->useProductItem(true)
             ->setVisitorId(Mage::getSingleton('log/visitor')->getId())
             ->load();
 

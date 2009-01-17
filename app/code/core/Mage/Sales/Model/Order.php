@@ -1417,4 +1417,10 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
             return false;
         }
     }
+
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        return parent::_beforeDelete();
+    }
 }

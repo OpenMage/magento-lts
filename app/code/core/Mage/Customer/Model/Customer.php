@@ -924,4 +924,9 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         return false;
     }
 
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        return parent::_beforeDelete();
+    }
 }

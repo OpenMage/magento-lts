@@ -127,4 +127,10 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
             }
         }
     }
+
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        return parent::_beforeDelete();
+    }
 }

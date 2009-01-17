@@ -142,4 +142,10 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     {
         return Mage::getResourceModel('tag/popular_collection');
     }
+
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        return parent::_beforeDelete();
+    }
 }

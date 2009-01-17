@@ -429,4 +429,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         return $this->_getData('name');
     }
 
+    protected function _beforeDelete()
+    {
+        $this->_protectFromNonAdmin();
+        return parent::_beforeDelete();
+    }
 }
