@@ -185,6 +185,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
         $fullPath = 'stores/'.$this->getCode().'/'.$path;
         $data = $config->getNode($fullPath);
+        if (!$data && !Mage::isInstalled()) {
+            $data = $config->getNode('default/' . $path);
+        }
         if (!$data) {
             return null;
         }
@@ -358,6 +361,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                 default:
                     throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid base url type'));
             }
+
             $this->_baseUrlCache[$cacheKey] = rtrim($url, '/').'/';
         }
 #echo "CACHE: ".$cacheKey.','.$this->_baseUrlCache[$cacheKey].' *** ';
