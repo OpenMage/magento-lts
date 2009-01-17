@@ -483,30 +483,25 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         $entityKeyName = is_numeric($entityTypeId) ? 'entity_type_id' : 'entity_type_code';
         $attributeKeyName = is_numeric($id) ? 'attribute_id' : 'attribute_code';
 
-        $select = $this->_conn->select()
+        $select = $this->getConnection()->select()
             ->from(
                 array('e' => $this->getTable('eav/entity_type')),
-                array('e.entity_table')
-            )
-            ->from(
+                array('entity_table'))
+            ->join(
                 array('a' => $this->getTable('eav/attribute')),
-                array('a.backend_type')
-            )
-            ->where('a.entity_type_id=e.entity_type_id')
+                'a.entity_type_id=e.entity_type_id',
+                array('backend_type'))
             ->where("e.{$entityKeyName}=?", $entityTypeId)
             ->where("a.{$attributeKeyName}=?", $id)
             ->limit(1);
-
-        $stmt = $this->_conn->query($select);
-
-        if ($stmt->rowCount() == 1) {
-            $row = $stmt->fetchObject();
-            $table = $this->getTable($row->entity_table);
-            if ($row->backend_type && $row->backend_type != 'static') {
-                $table .= '_' . $row->backend_type;
+        if ($result = $this->getConnection()->fetchRow($select)) {
+            $table = $this->getTable($result['entity_table']);
+            if ($result['backend_type'] != 'static') {
+                $table .= '_' . $result['backend_type'];
             }
             return $table;
         }
+
         return false;
     }
 

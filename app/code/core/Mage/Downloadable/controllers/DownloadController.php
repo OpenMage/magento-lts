@@ -150,8 +150,13 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
     {
         $id = $this->getRequest()->getParam('id', 0);
         $linkPurchasedItem = Mage::getModel('downloadable/link_purchased_item')->load($id);
+        if ( $linkPurchasedItem->getId() != $id ) {
+                $this->_getCustomerSession()->addNotice(Mage::helper('downloadable')->__("Requested link doesn't exist."));
+                return $this->_redirect('*/customer/products');
+        }
         if (!Mage::helper('downloadable')->getIsShareable($linkPurchasedItem)) {
-            if (!$this->_getCustomerSession()->getCustomerId()) {
+            $customerId = $this->_getCustomerSession()->getCustomerId();
+            if (!$customerId) {
                 $product = Mage::getModel('catalog/product')->load($linkPurchasedItem->getProductId());
                 if ($product->getId()) {
                     $notice = Mage::helper('downloadable')->__(
@@ -165,6 +170,11 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
                 $this->_getCustomerSession()->authenticate($this);
                 $this->_getCustomerSession()->setBeforeAuthUrl(Mage::getUrl('downloadable/customer/products/'), array('_secure' => true));
                 return ;
+            }
+            $linkPurchased = Mage::getModel('downloadable/link_purchased')->load($linkPurchasedItem->getPurchasedId());
+            if ($linkPurchased->getCustomerId() != $customerId) {
+                $this->_getCustomerSession()->addNotice(Mage::helper('downloadable')->__("Requested link doesn't exist."));
+                return $this->_redirect('*/customer/products');
             }
         }
         $downloadsLeft = $linkPurchasedItem->getNumberOfDownloadsBought() - $linkPurchasedItem->getNumberOfDownloadsUsed();
