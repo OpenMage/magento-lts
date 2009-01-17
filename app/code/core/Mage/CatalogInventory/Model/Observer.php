@@ -292,9 +292,13 @@ class Mage_CatalogInventory_Model_Observer
         /**
          * Before creating order item need subtract ordered qty from product stock
          */
-        if (!$item->getId()) {
+
+        $children = $item->getChildrenItems();
+
+        if (!$item->getId() && empty($children)) {
             Mage::getSingleton('cataloginventory/stock')->registerItemSale($item);
         }
+
         return $this;
     }
 

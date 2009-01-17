@@ -82,7 +82,11 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
     {
         $p = $this->getPayment();
         $a = $this->getBillingAddress();
-        $s = $this->getShippingAddress();
+        if ($this->getShippingAddress()) {
+            $s = $this->getShippingAddress();
+        } else {
+            $s = $a;
+        }
 
         $proArr = array(
             'TENDER'        => self::TENDER_CC,

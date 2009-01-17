@@ -565,13 +565,24 @@ abstract class Mage_Core_Controller_Varien_Action
         return $refererUrl;
     }
 
+    /**
+     * Check url to be used as internal
+     *
+     * @param   string $url
+     * @return  bool
+     */
     protected function _isUrlInternal($url)
     {
-        if (strpos($url, 'http') !== false
-            && strpos($url, Mage::app()->getStore()->getBaseUrl()) !== 0) {
-        	return false;
+        if (strpos($url, 'http') !== false) {
+            /**
+             * Url must start from base secure or base unsecure url
+             */
+            if ((strpos($url, Mage::app()->getStore()->getBaseUrl()) === 0)
+                || (strpos($url, Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true)) === 0)) {
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 
     /**

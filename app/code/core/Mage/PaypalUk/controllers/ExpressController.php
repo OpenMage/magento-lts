@@ -156,7 +156,7 @@ class Mage_PaypalUk_ExpressController extends Mage_Core_Controller_Front_Action
             if (!$address->getShippingMethod()) {
                 if ($shippingMethod = $this->getRequest()->getParam('shipping_method')) {
                     $this->getReview()->saveShippingMethod($shippingMethod);
-                } else {
+                 } else if (!$this->getReview()->getQuote()->getIsVirtual()) {
                     $payPalSession->addError(Mage::helper('paypalUk')->__('Please select a valid shipping method'));
                     $this->_redirect('paypaluk/express/review');
                     return;
@@ -243,7 +243,11 @@ class Mage_PaypalUk_ExpressController extends Mage_Core_Controller_Front_Action
             $order = Mage::getModel('sales/order');
             /* @var $order Mage_Sales_Model_Order */
 
-            $order = $convertQuote->addressToOrder($shipping);
+            if ($this->getReview()->getQuote()->isVirtual()) {
+                $order = $convertQuote->addressToOrder($billing);
+            } else {
+                $order = $convertQuote->addressToOrder($shipping);
+            }
             $order->setBillingAddress($convertQuote->addressToOrderAddress($billing));
             $order->setShippingAddress($convertQuote->addressToOrderAddress($shipping));
             $order->setPayment($convertQuote->paymentToOrderPayment($this->getReview()->getQuote()->getPayment()));

@@ -95,7 +95,12 @@ class Mage_Paypal_Model_Express_Review
             $order = Mage::getModel('sales/order');
             /* @var $order Mage_Sales_Model_Order */
 
-            $order = $convertQuote->addressToOrder($shipping);
+            if ($this->getQuote()->isVirtual()) {
+                $order = $convertQuote->addressToOrder($billing);
+            } else {
+                $order = $convertQuote->addressToOrder($shipping);
+            }
+
             $order->setBillingAddress($convertQuote->addressToOrderAddress($billing));
             $order->setShippingAddress($convertQuote->addressToOrderAddress($shipping));
             $order->setPayment($convertQuote->paymentToOrderPayment($this->getQuote()->getPayment()));

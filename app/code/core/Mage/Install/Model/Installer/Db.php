@@ -53,9 +53,10 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
             $result = $connection->query($connection->quoteInto('SHOW VARIABLES LIKE ?', 'version'));
             $row = $result->fetch();
             $version = $row['Value'];
+            preg_match("([0-9.]+)",$version,$toCompare);
             $requiredVersion = (string)Mage::getSingleton('install/config')->getNode('check/mysql/version');
 
-            if (version_compare($version, $requiredVersion) == -1) {
+            if (version_compare(isset($toCompare[0])?$toCompare[0]:$version, $requiredVersion) == -1) {
                 Mage::throwException(Mage::helper('install')->__('Database server version does not match system requirements (required: %s, actual: %s)', $requiredVersion, $version));
             }
         }

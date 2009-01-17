@@ -127,7 +127,13 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
     public function getStandardCheckoutFormFields()
     {
-        $a = $this->getQuote()->getShippingAddress();
+        if ($this->getQuote()->getIsVirtual()) {
+            $a = $this->getQuote()->getBillingAddress();
+            $b = $this->getQuote()->getShippingAddress();
+        } else {
+            $a = $this->getQuote()->getShippingAddress();
+            $b = $this->getQuote()->getBillingAddress();
+        }
         //getQuoteCurrencyCode
         $currency_code = $this->getQuote()->getBaseCurrencyCode();
         /*
@@ -181,14 +187,16 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         if ($transaciton_type=='O') {
             $businessName = Mage::getStoreConfig('paypal/wps/business_name');
             $storeName = Mage::getStoreConfig('store/system/name');
-            $amount = $a->getBaseSubtotal()-$a->getBaseDiscountAmount();
+            $amount = ($a->getBaseSubtotal()+$b->getBaseSubtotal())-($a->getBaseDiscountAmount()+$b->getBaseDiscountAmount());
             $sArr = array_merge($sArr, array(
                     'cmd'           => '_ext-enter',
                     'redirect_cmd'  => '_xclick',
                     'item_name'     => $businessName ? $businessName : $storeName,
                     'amount'        => sprintf('%.2f', $amount),
                 ));
-            $tax = sprintf('%.2f', $this->getQuote()->getShippingAddress()->getBaseTaxAmount());
+            $_shippingTax = $this->getQuote()->getShippingAddress()->getBaseTaxAmount();
+            $_billingTax = $this->getQuote()->getBillingAddress()->getBaseTaxAmount();
+            $tax = sprintf('%.2f', $_shippingTax + $_billingTax);
             if ($tax>0) {
                   $sArr = array_merge($sArr, array(
                         'tax' => $tax
@@ -226,16 +234,18 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
         $totalArr = $a->getTotals();
         $shipping = sprintf('%.2f', $this->getQuote()->getShippingAddress()->getBaseShippingAmount());
-        if ($shipping>0) {
+        if ($shipping>0 && !$this->getQuote()->getIsVirtual()) {
           if ($transaciton_type=='O') {
               $sArr = array_merge($sArr, array(
                     'shipping' => $shipping
               ));
           } else {
+              $shippingTax = $this->getQuote()->getShippingAddress()->getBaseShippingTaxAmount();
               $sArr = array_merge($sArr, array(
                     'item_name_'.$i   => $totalArr['shipping']->getTitle(),
                     'quantity_'.$i    => 1,
                     'amount_'.$i      => $shipping,
+                    'tax_'.$i         => sprintf('%.2f',$shippingTax),
               ));
               $i++;
           }

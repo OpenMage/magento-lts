@@ -125,7 +125,11 @@ class Mage_PaypalUk_Model_Express extends Mage_Payment_Model_Method_Abstract
     */
     public function markSetExpressCheckout()
     {
-        $address = $this->getQuote()->getShippingAddress();
+        if ($this->getQuote()->isVirtual()) {
+            $address = $this->getQuote()->getBillingAddress();
+        } else {
+            $address = $this->getQuote()->getShippingAddress();
+        }
 
         $this->getApi()
             ->setTrxtype($this->getPaymentAction())

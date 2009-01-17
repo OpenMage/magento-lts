@@ -389,6 +389,12 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                     $product->addCustomOption('attributes', serialize($attributes));
                     $product->addCustomOption('product_qty_'.$subProduct->getId(), 1, $subProduct);
                     $product->addCustomOption('simple_product', $subProduct->getId(), $subProduct);
+
+                    $subProduct->setParentProductId($product->getId())
+                        ->setCartQty(1);
+
+                    $result[] = $subProduct;
+
                     return $result;
                 }
             }
@@ -410,6 +416,10 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
             $options['simple_name'] = $simpleOption->getProduct()->getName();
             $options['simple_sku']  = $simpleOption->getProduct()->getSku();
         }
+
+        $options['product_calculations'] = self::CALCULATE_PARENT;
+        $options['shipment_type'] = self::SHIPMENT_TOGETHER;
+
         return $options;
     }
 

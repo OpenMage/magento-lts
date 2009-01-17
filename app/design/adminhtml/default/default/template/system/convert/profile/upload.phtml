@@ -1,4 +1,13 @@
 <h4 class="icon-head head-edit-form fieldset-legend">Upload File</h4>
+<div id="messages">
+    <ul class="messages">
+        <li class="notice-msg">
+            <ul>
+                <li><?php echo $this->__('Your server PHP settings allow you to upload files not more than %s at a time. Please modify post_max_size (currently is %s) and upload_max_filesize (currently is %s) values in php.ini if you want to upload larger files.', $this->getDataMaxSize(), $this->getPostMaxSize(), $this->getUploadMaxSize())?></li>
+            </ul>
+        </li>
+    </ul>
+</div>
 <fieldset>
         <legend>Upload File</legend>
         <span class="field-row">

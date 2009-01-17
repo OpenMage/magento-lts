@@ -62,14 +62,14 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         	#$this->getAddress()->collectShippingRates()->save();
 
             $groups = $this->getAddress()->getGroupedAllShippingRates();
-            if (!empty($groups)) {
+            /*if (!empty($groups)) {
                 $ratesFilter = new Varien_Filter_Object_Grid();
                 $ratesFilter->addFilter(Mage::app()->getStore()->getPriceFilter(), 'price');
 
                 foreach ($groups as $code => $groupItems) {
                 	$groups[$code] = $ratesFilter->filter($groupItems);
                 }
-            }
+            }*/
             return $this->_rates = $groups;
         }
         return $this->_rates;
@@ -91,5 +91,20 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     public function setMethod($varName)
     {
         $this->_method=$varName;
+    }
+
+    public function getShippingPrice($price, $flag)
+    {
+        return $this->formatPrice($this->helper('tax')->getShippingPrice($price, $flag, $this->getAddress()));
+    }
+
+    public function formatPrice($price)
+    {
+        return $this->getReview()->getQuote()->getStore()->convertPrice($price, true);
+    }
+
+    public function isVirtual()
+    {
+        return $this->getReview()->getQuote()->getIsVirtual();
     }
 }

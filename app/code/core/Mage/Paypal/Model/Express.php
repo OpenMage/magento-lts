@@ -181,7 +181,11 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
 
     public function markSetExpressCheckout()
     {
-        $address = $this->getQuote()->getShippingAddress();
+        if ($this->getQuote()->isVirtual()) {
+            $address = $this->getQuote()->getBillingAddress();
+        } else {
+            $address = $this->getQuote()->getShippingAddress();
+        }
         $this->getApi()
             ->setPaymentType($this->getPaymentAction())
             ->setAmount($address->getBaseGrandTotal())
@@ -191,7 +195,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
 
         $this->catchError();
 
-         $this->getSession()->setExpressCheckoutMethod('mark');
+        $this->getSession()->setExpressCheckoutMethod('mark');
 
         return $this;
     }
@@ -307,6 +311,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     public function placeOrder(Varien_Object $payment)
     {
         $api = $this->getApi();
+
         $api->setAmount($payment->getOrder()->getBaseGrandTotal())
             ->setCurrencyCode($payment->getOrder()->getBaseCurrencyCode());
 

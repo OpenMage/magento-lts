@@ -169,10 +169,14 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('id'=>$profile->getId())));
                 return;
             }
+            if ($this->getRequest()->getParam('continue')) {
+                $this->_redirect('*/*/edit', array('id'=>$profile->getId()));
+            } else {
+                $this->_redirect('*/*');
+            }
         }
-        if ($this->getRequest()->getParam('continue')) {
-            $this->_redirect('*/*/edit', array('id'=>$profile->getId()));
-        } else {
+        else {
+            Mage::getSingleton('adminhtml/session')->addError($this->__('Invalid POST data (please check post_max_size and upload_max_filesize settings in you php.ini file)'));
             $this->_redirect('*/*');
         }
     }

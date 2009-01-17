@@ -125,8 +125,16 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                             $qty = min($orderItem->getQtyToRefund(), $invoiceItem->getQty());
                         }
                     }
+
                     $item->setQty($qty);
-                    $item->setBackToStock(isset($savedData[$orderItem->getId()]['back_to_stock']));
+
+                    $children = $orderItem->getChildrenItems();
+                    if (!empty($children)) {
+                        $item->setBackToStock(false);
+                    } else {
+                        $item->setBackToStock(isset($savedData[$orderItem->getId()]['back_to_stock']));
+                    }
+
                     $creditmemo->addItem($item);
                 }
             } else {
@@ -161,8 +169,16 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                             $qty = $orderItem->getQtyToRefund();
                         }
                     }
+
                     $item->setQty($qty);
-                    $item->setBackToStock(isset($savedData[$orderItem->getId()]['back_to_stock']));
+
+                    $children = $orderItem->getChildrenItems();
+                    if (!empty($children)) {
+                        $item->setBackToStock(false);
+                    } else {
+                        $item->setBackToStock(isset($savedData[$orderItem->getId()]['back_to_stock']));
+                    }
+
                     $creditmemo->addItem($item);
                 }
             }

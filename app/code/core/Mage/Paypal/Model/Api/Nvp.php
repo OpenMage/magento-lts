@@ -231,7 +231,11 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     {
         $p = $this->getPayment();
         $a = $this->getBillingAddress();
-        $s = $this->getShippingAddress();
+        if ($this->getShippingAddress()) {
+            $s = $this->getShippingAddress();
+        } else {
+            $s = $a;
+        }
 
         $nvpArr = array(
             'PAYMENTACTION'  => $this->getPaymentType(),

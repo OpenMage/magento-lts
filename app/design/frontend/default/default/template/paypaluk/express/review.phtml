@@ -40,36 +40,47 @@
                 <div class="head">
                     <h4><?php echo $this->__('Shipping Method') ?></h4>
                 </div>
-
-                <?php if (!($_shippingRateGroups = $this->getShippingRates())): ?>
-                    <strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong>
+                <?php if ($this->isVirtual()): ?>
+                    <strong><?php echo $this->__('No shipping method required.') ?></strong>
                 <?php else: ?>
+                    <?php if (!($_shippingRateGroups = $this->getShippingRates())): ?>
+                        <strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong>
+                    <?php else: ?>
 
-                <form method="post" action="<?php echo $this->getUrl('paypaluk/express/saveShippingMethod') ?>">
-                    <select name="shipping_method" id="shipping_method" style="width:250px" onchange="saveShippingMethod(this.value)">
-                    <?php if(!$this->getAddressShippingMethod()): ?>
-                        <option value=""><?php echo $this->__('Please select a shipping method...') ?></option>
-                    <?php endif ?>
-                    <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
-                        <optgroup label="<?php echo $this->getCarrierName($code) ?>" style="font-style:normal;">
-                        <?php foreach ($_rates as $_rate): ?>
-                           <?php if ($_rate->getErrorMessage()): ?>
-                                <option value="">
-                                    <?php echo $_rate->getErrorMessage() ?>
-                                </option>
-                           <?php else: ?>
-                               <option value="<?php echo $_rate->getCode() ?>" <?php if($_rate->getCode()===$this->getAddressShippingMethod()): ?>selected="selected"<?php endif ?> style="margin-left:16px">
-                                    <?php echo $_rate->getMethodDescription() ?> - <?php echo $_rate->getPrice() ?>
-                               </option>
-                           <?php endif ?>
+                    <form method="post" action="<?php echo $this->getUrl('paypaluk/express/saveShippingMethod') ?>">
+                        <select name="shipping_method" id="shipping_method" style="width:250px" onchange="saveShippingMethod(this.value)">
+                        <?php if(!$this->getAddressShippingMethod()): ?>
+                            <option value=""><?php echo $this->__('Please select a shipping method...') ?></option>
+                        <?php endif ?>
+                        <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
+                            <optgroup label="<?php echo $this->getCarrierName($code) ?>" style="font-style:normal;">
+                            <?php foreach ($_rates as $_rate): ?>
+                               <?php if ($_rate->getErrorMessage()): ?>
+                                    <option value="">
+                                        <?php echo $_rate->getErrorMessage() ?>
+                                    </option>
+                               <?php else: ?>
+                                   <option value="<?php echo $_rate->getCode() ?>" <?php if($_rate->getCode()===$this->getAddressShippingMethod()): ?>selected="selected"<?php endif ?> style="margin-left:16px">
+                                        <?php echo $_rate->getMethodDescription() ?> -
+
+                                        <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                                        <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+
+                                        <?php echo $_excl; ?>
+                                        <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                            (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                                        <?php endif; ?>
+                                   </option>
+                               <?php endif ?>
+                            <?php endforeach; ?>
+                            </optgroup>
                         <?php endforeach; ?>
-                        </optgroup>
-                    <?php endforeach; ?>
-                    </select>
-                    <br/><br/>
-                    <button id="update_shipping_method" class="form-button" type="submit"><span><?php echo $this->__('Update Shipping Method') ?></span></button>
-                </form>
+                        </select>
+                        <br/><br/>
+                        <button id="update_shipping_method" class="form-button" type="submit"><span><?php echo $this->__('Update Shipping Method') ?></span></button>
+                    </form>
 
+                    <?php endif; ?>
                 <?php endif; ?>
 
             </div>
@@ -117,7 +128,9 @@
 </div>
 
 <script type="text/javascript">
-    $('update_shipping_method') && $('update_shipping_method').hide();
+    if ($('update_shipping_method')) {
+        $('update_shipping_method') && $('update_shipping_method').hide();
+    }
     var submitted = false;
 
     function saveShippingMethod(value)
@@ -133,7 +146,7 @@
         if (submitted) {
             return false;
         }
-        if ($('shipping_method').value=='') {
+        if ($('shipping_method') && $('shipping_method').value=='') {
             alert('Please select a valid shipping method before submitting the order.');
             return false;
         }
