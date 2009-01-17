@@ -127,4 +127,19 @@ class Mage_Reports_Model_Event_Observer
             $observer->getEvent()->getWishlist()->getId()
         );
     }
+
+    /**
+     * event clean
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Reports_Model_Event_Observer
+     */
+    public function eventClean(Varien_Event_Observer $observer)
+    {
+        $event = Mage::getModel('reports/event');
+        /* @var $event Mage_Reports_Model_Event */
+        $event->clean();
+
+        return $this;
+    }
 }

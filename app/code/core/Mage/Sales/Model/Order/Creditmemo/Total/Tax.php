@@ -29,8 +29,10 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
 {
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
-        $totalTax       = 0;
-        $baseTotalTax   = 0;
+        $shippingTaxAmount     = 0;
+        $baseShippingTaxAmount = 0;
+        $totalTax              = 0;
+        $baseTotalTax          = 0;
 
         foreach ($creditmemo->getAllItems() as $item) {
             if ($item->getOrderItem()->isDummy()) {
@@ -62,20 +64,37 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
             $creditmemo->setShippingTaxAmount($invoice->getShippingTaxAmount());
             $creditmemo->setBaseShippingTaxAmount($invoice->getBaseShippingTaxAmount());
         } else {
-            $totalTax += $creditmemo->getShippingTaxAmount();
-            $baseTotalTax += $creditmemo->getBaseShippingTaxAmount();
+            $shippingAmount = $creditmemo->getOrder()->getBaseShippingAmount();
+            $shippingRefundedAmount = $creditmemo->getOrder()->getBaseShippingRefunded();
+
+            $shippingTaxAmount = 0;
+            $baseShippingTaxAmount = 0;
+
+            if (($shippingAmount - $shippingRefundedAmount) > $creditmemo->getShippingAmount()) {
+                $shippingTaxAmount = $creditmemo->getShippingAmount()*($creditmemo->getOrder()->getShippingTaxAmount()/$shippingAmount);
+                $baseShippingTaxAmount = $creditmemo->getBaseShippingAmount()*($creditmemo->getOrder()->getBaseShippingTaxAmount()/$shippingAmount);
+                $shippingTaxAmount = $creditmemo->getStore()->roundPrice($shippingTaxAmount);
+                $baseShippingTaxAmount = $creditmemo->getStore()->roundPrice($baseShippingTaxAmount);
+            } elseif (($shippingAmount - $shippingRefundedAmount) == $creditmemo->getShippingAmount()) {
+                $shippingTaxAmount = $creditmemo->getOrder()->getShippingTaxAmount() - $creditmemo->getOrder()->getShippingTaxRefunded();
+                $baseShippingTaxAmount = $creditmemo->getOrder()->getBaseShippingTaxAmount() - $creditmemo->getOrder()->getBaseShippingTaxRefunded();
+            }
+            $totalTax += $shippingTaxAmount;
+            $baseTotalTax += $baseShippingTaxAmount;
         }
 
-        $totalTax       = $totalTax - $creditmemo->getOrder()->getTaxRefunded();
-        $baseTotalTax   = $baseTotalTax - $creditmemo->getOrder()->getBaseTaxRefunded();
+        $tmpBaseTotalTax   = $baseTotalTax - ($creditmemo->getOrder()->getBaseTaxRefunded() - $creditmemo->getOrder()->getBaseShippingTaxRefunded());
 
-        if ($baseTotalTax<0) {
+        if ($tmpBaseTotalTax<0) {
             $baseTotalTax = 0;
             $totalTax = 0;
         }
 
         $creditmemo->setTaxAmount($totalTax);
         $creditmemo->setBaseTaxAmount($baseTotalTax);
+
+        $creditmemo->setShippingTaxAmount($shippingTaxAmount);
+        $creditmemo->setBaseShippingTaxAmount($baseShippingTaxAmount);
 
         $creditmemo->setGrandTotal($creditmemo->getGrandTotal() + $totalTax);
         $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() + $baseTotalTax);

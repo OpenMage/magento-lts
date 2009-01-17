@@ -143,6 +143,7 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                     'customer_note_notify' => array('type'=>'static'),
                     'customer_is_guest' => array('type'=>'static'),
                     'customer_taxvat'   => array('type'=>'static'),
+                    'customer_dob'      => array('type'=>'static'),
                 ),
             ),
 
@@ -438,6 +439,7 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                     'customer_is_guest' => array('type'=>'int', 'visible'=>false),
                     'email_sent' => array('type'=>'int', 'visible'=>false),
                     'customer_taxvat'   => array('type'=>'varchar', 'visible'=>false),
+                    'customer_dob'      => array('type'=>'datetime', 'backend'=>'eav/entity_attribute_backend_datetime'),
                 ),
             ),
             'order_address' => array(

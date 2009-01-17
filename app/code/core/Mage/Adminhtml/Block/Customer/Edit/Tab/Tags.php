@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_W
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('entity_id', array(
             'header'    => Mage::helper('customer')->__('ID'),
             'width'     =>5,
             'align'     =>'center',
@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Tags extends Mage_Adminhtml_Block_W
             'is_system' =>true
         ));
 
-        $this->setColumnFilter('id')
+        $this->setColumnFilter('entity_id')
             ->setColumnFilter('email')
             ->setColumnFilter('name');
 

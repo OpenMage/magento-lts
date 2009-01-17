@@ -43,4 +43,50 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
         }
         return $this;
     }
+
+    public function canSendNewOrderConfirmationEmail($store = null)
+    {
+        return Mage::getStoreConfigFlag(Mage_Sales_Model_Order::XML_PATH_EMAIL_ENABLED, $store);
+    }
+
+    public function canSendNewOrderEmail($store = null)
+    {
+        return $this->canSendNewOrderConfirmationEmail($store);
+    }
+
+    public function canSendOrderCommentEmail($store = null)
+    {
+        return Mage::getStoreConfigFlag(Mage_Sales_Model_Order::XML_PATH_UPDATE_EMAIL_ENABLED, $store);
+    }
+
+    public function canSendNewShipmentEmail($store = null)
+    {
+        return Mage::getStoreConfigFlag(Mage_Sales_Model_Order_Shipment::XML_PATH_EMAIL_ENABLED, $store);
+    }
+
+    public function canSendShipmentCommentEmail($store = null)
+    {
+        return Mage::getStoreConfigFlag(Mage_Sales_Model_Order_Shipment::XML_PATH_UPDATE_EMAIL_ENABLED, $store);
+    }
+
+    public function canSendNewInvoiceEmail($store = null)
+    {
+        return Mage::getStoreConfigFlag(Mage_Sales_Model_Order_Invoice::XML_PATH_EMAIL_ENABLED, $store);
+    }
+
+    public function canSendInvoiceCommentEmail($store = null)
+    {
+        return Mage::getStoreConfigFlag(Mage_Sales_Model_Order_Invoice::XML_PATH_UPDATE_EMAIL_ENABLED, $store);
+    }
+
+    public function canSendNewCreditmemoEmail($store = null)
+    {
+        return Mage::getStoreConfigFlag(Mage_Sales_Model_Order_Creditmemo::XML_PATH_EMAIL_ENABLED, $store);
+    }
+
+    public function canSendCreditmemoCommentEmail($store = null)
+    {
+        return Mage::getStoreConfigFlag(Mage_Sales_Model_Order_Creditmemo::XML_PATH_UPDATE_EMAIL_ENABLED, $store);
+    }
+
 }

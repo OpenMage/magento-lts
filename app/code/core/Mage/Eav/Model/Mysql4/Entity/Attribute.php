@@ -67,14 +67,16 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
      */
     public function loadByCode(Mage_Core_Model_Abstract $object, $entityTypeId, $code)
     {
-        $this->_loadTypeAttributes($entityTypeId);
-        $data = isset(self::$_entityAttributes[$entityTypeId][$code]) ? self::$_entityAttributes[$entityTypeId][$code] : array();
-        if (!$data) {
-            return false;
+        $select = $this->_getLoadSelect('attribute_code', $code, $object)
+            ->where('entity_type_id=?', $entityTypeId);
+        $data = $this->_getReadAdapter()->fetchRow($select);
+
+        if ($data) {
+            $object->setData($data);
+            $this->_afterLoad($object);
+            return true;
         }
-        $object->setData($data);
-        $this->_afterLoad($object);
-        return true;
+        return false;
     }
 
     /**

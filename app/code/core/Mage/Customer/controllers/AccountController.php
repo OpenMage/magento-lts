@@ -223,7 +223,12 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             }
 
             try {
-                $validationResult = $customer->validate();
+                $validationCustomer = $customer->validate();
+                if (is_array($validationCustomer)) {
+                    $errors = array_merge($validationCustomer, $errors);
+                }
+                $validationResult = count($errors) == 0;
+
                 if (true === $validationResult) {
                     $customer->save();
 
@@ -243,10 +248,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     }
                 } else {
                     $this->_getSession()->setCustomerFormData($this->getRequest()->getPost());
-                    if (is_array($validationResult)) {
-                        foreach ($validationResult as $errorMessage) {
-                            $this->_getSession()->addError($errorMessage);
-                        }
+                    if (is_array($errors)) {
                         foreach ($errors as $errorMessage) {
                             $this->_getSession()->addError($errorMessage);
                         }

@@ -287,7 +287,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
         $declaredValue = $xml->addChild('DeclaredValue');
             $declaredValue->addChild('Value', $r->getValue());
 //            $declaredValue->addChild('CurrencyCode', 'USD');
-            $declaredValue->addChild('CurrencyCode', Mage::app()->getBaseCurrencyCode());
+            $declaredValue->addChild('CurrencyCode', $this->getCurrencyCode());
 
         if ($this->getConfigData('residence_delivery')) {
             $specialServices = $xml->addChild('SpecialServices');
@@ -540,6 +540,36 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
             return $codes[$type][$code];
         }
     }
+
+    /**
+     *  Return FeDex currency ISO code by Magento Base Currency Code
+     *
+     *  @param    none
+     *  @return	  string 3-digit currency code
+     */
+    public function getCurrencyCode ()
+    {
+        $codes = array(
+            'DOP' => 'RDD', // Dominican Peso
+            'XCD' => 'ECD', // Caribbean Dollars
+            'ARS' => 'ARN', // Argentina Peso
+            'SGD' => 'SID', // Singapore Dollars
+            'KRW' => 'WON', // South Korea Won
+            'JMD' => 'JAD', // Jamaican Dollars
+            'CHF' => 'SFR', // Swiss Francs
+            'JPY' => 'JYE', // Japanese Yen
+            'KWD' => 'KUD', // Kuwaiti Dinars
+            'GBP' => 'UKL', // British Pounds
+            'AED' => 'DHS', // UAE Dirhams
+            'MXN' => 'NMP', // Mexican Pesos
+            'UYU' => 'UYP', // Uruguay New Pesos
+            'CLP' => 'CHP', // Chilean Pesos
+            'TWD' => 'NTD', // New Taiwan Dollars
+        );
+        $currencyCode = Mage::app()->getBaseCurrencyCode();
+        return isset($codes[$currencyCode]) ? $codes[$currencyCode] : $currencyCode;
+    }
+
 
     public function getTracking($trackings)
     {

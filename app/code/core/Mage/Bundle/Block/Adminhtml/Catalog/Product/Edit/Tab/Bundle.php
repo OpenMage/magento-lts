@@ -32,13 +32,24 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_Adminhtml_Block_Widget
+class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     protected $_product = null;
     public function __construct()
     {
         parent::__construct();
+        $this->setSkipGenerateContent(true);
         $this->setTemplate('bundle/product/edit/bundle.phtml');
+    }
+
+    public function getTabUrl()
+    {
+        return $this->getUrl('*/*/bundles', array('_current' => true));
+    }
+
+    public function getTabClass()
+    {
+        return 'ajax';
     }
 
     protected function _prepareLayout()
@@ -80,5 +91,20 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
         return Mage::registry('product');
     }
 
-
+    public function getTabLabel()
+    {
+        return Mage::helper('bundle')->__('Bundle Items');
+    }
+    public function getTabTitle()
+    {
+        return Mage::helper('bundle')->__('Bundle Items');
+    }
+    public function canShowTab()
+    {
+        return true;
+    }
+    public function isHidden()
+    {
+        return false;
+    }
 }

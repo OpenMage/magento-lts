@@ -263,6 +263,9 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
     public function getTabContent($tab)
     {
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
+            if ($tab->getSkipGenerateContent()) {
+                return '';
+            }
             return $tab->toHtml();
         }
         return $tab->getContent();

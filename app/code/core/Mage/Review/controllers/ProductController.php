@@ -29,10 +29,33 @@
  *
  * @category   Mage
  * @package    Mage_Review
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 {
+
+    public function preDispatch()
+    {
+        parent::preDispatch();
+
+        $allowGuest = Mage::helper('review')->getIsGuestAllowToWrite();
+        if (!$this->getRequest()->isDispatched()) {
+            return;
+        }
+
+        $action = $this->getRequest()->getActionName();
+        if (!$allowGuest && $action == 'post' && $this->getRequest()->isPost()) {
+            if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
+                $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+                Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', array('_current' => true)));
+                Mage::getSingleton('review/session')->setFormData($this->getRequest()->getPost())
+                    ->setRedirectUrl($this->_getRefererUrl());
+                $this->_redirectUrl(Mage::helper('customer')->getLoginUrl());
+            }
+        }
+
+        return $this;
+    }
     /**
      * Initialize and check product
      *
@@ -65,8 +88,15 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     public function postAction()
     {
-        $data   = $this->getRequest()->getPost();
-        $rating = $this->getRequest()->getParam('ratings', array());
+        if ($data = Mage::getSingleton('review/session')->getFormData(true)) {
+            $rating = array();
+            if (isset($data['ratings']) && is_array($data['ratings'])) {
+                $rating = $data['ratings'];
+            }
+        } else {
+            $data   = $this->getRequest()->getPost();
+            $rating = $this->getRequest()->getParam('ratings', array());
+        }
 
         if (($product = $this->_initProduct()) && !empty($data)) {
             $session    = Mage::getSingleton('core/session');
@@ -114,6 +144,10 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             }
         }
 
+        if ($redirectUrl = Mage::getSingleton('review/session')->getRedirectUrl(true)) {
+            $this->_redirectUrl($redirectUrl);
+            return;
+        }
         $this->_redirectReferer();
     }
 

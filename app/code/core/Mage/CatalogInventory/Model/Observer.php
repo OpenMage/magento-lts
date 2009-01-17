@@ -94,7 +94,8 @@ class Mage_CatalogInventory_Model_Observer
      */
     public function copyInventoryData($observer)
     {
-        $newProduct = $observer->getEvent()->getProduct();
+        $newProduct = $observer->getEvent()->getNewProduct();
+
         $newProduct->unsStockItem();
         $newProduct->setStockData(array(
             'use_config_min_qty'        => 1,
@@ -145,25 +146,25 @@ class Mage_CatalogInventory_Model_Observer
      */
     public function checkQuoteItemQty($observer)
     {
-        $item = $observer->getEvent()->getItem();
-        /* @var $item Mage_Sales_Model_Quote_Item */
-        if (!$item || !$item->getProductId() || $item->getQuote()->getIsSuperMode()) {
+        $quoteItem = $observer->getEvent()->getItem();
+        /* @var $quoteItem Mage_Sales_Model_Quote_Item */
+        if (!$quoteItem || !$quoteItem->getProductId() || $quoteItem->getQuote()->getIsSuperMode()) {
             return $this;
         }
 
         /**
          * Get Qty
          */
-        $qty = $item->getQty();
+        $qty = $quoteItem->getQty();
 
         /**
          * Check item for options
          */
-        if (($options = $item->getQtyOptions()) && $qty > 0) {
+        if (($options = $quoteItem->getQtyOptions()) && $qty > 0) {
             foreach ($options as $option) {
                 /* @var $option Mage_Sales_Model_Quote_Item_Option */
                 $optionQty = $qty * $option->getValue();
-                $increaseOptionQty = ($item->getQtyToAdd() ? $item->getQtyToAdd() : $qty) * $option->getValue();
+                $increaseOptionQty = ($quoteItem->getQtyToAdd() ? $quoteItem->getQtyToAdd() : $qty) * $option->getValue();
 
                 $stockItem = $option->getProduct()->getStockItem();
                 /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
@@ -188,48 +189,69 @@ class Mage_CatalogInventory_Model_Observer
 
                 if ($result->getHasError()) {
                     $option->setHasError(true);
-                    $item->setHasError(true)
+                    $quoteItem->setHasError(true)
                         ->setMessage($result->getQuoteMessage());
-                    $item->getQuote()->setHasError(true)
+                    $quoteItem->getQuote()->setHasError(true)
                         ->addMessage($result->getQuoteMessage(), $result->getQuoteMessageIndex());
                 }
             }
         }
         else {
-            $stockItem = $item->getProduct()->getStockItem();
+            $stockItem = $quoteItem->getProduct()->getStockItem();
             /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
             if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
                 Mage::throwException(Mage::helper('cataloginventory')->__('Stock item for Product is not valid'));
             }
 
-            if ($item->getParentItem()) {
-                $qtyForCheck = $item->getParentItem()->getQty()*$qty;
+
+            /**
+             * When we work with subitem (as subproduct of bundle or configurable product)
+             */
+            if ($quoteItem->getParentItem()) {
+                $qty = $quoteItem->getParentItem()->getQty()*$qty;
+                /**
+                 * we are using 0 becose original qty was processed
+                 */
+                $qtyForCheck = $this->_getProductQtyForCheck($quoteItem->getProduct()->getId(), 0);
             }
             else {
-                $increaseQty = $item->getQtyToAdd() ? $item->getQtyToAdd() : $qty;
-                $qtyForCheck = $this->_getProductQtyForCheck($item->getProduct()->getId(), $increaseQty);
+                $increaseQty = $quoteItem->getQtyToAdd() ? $quoteItem->getQtyToAdd() : $qty;
+                $qtyForCheck = $this->_getProductQtyForCheck($quoteItem->getProduct()->getId(), $increaseQty);
             }
 
             $result = $stockItem->checkQuoteItemQty($qty, $qtyForCheck);
+
             if (!is_null($result->getItemIsQtyDecimal())) {
-                $item->setIsQtyDecimal($result->getItemIsQtyDecimal());
+                $quoteItem->setIsQtyDecimal($result->getItemIsQtyDecimal());
+                if ($quoteItem->getParentItem()) {
+                    $quoteItem->getParentItem()->setIsQtyDecimal($result->getItemIsQtyDecimal());
+                }
             }
-            if (!is_null($result->getItemQty())) {
-                $item->setData('qty', $result->getItemQty());
+
+            /**
+             * Just base (parent) item qty can be changed
+             * qty of child products are declared just duering add process
+             */
+            if (!is_null($result->getItemQty()) && !$quoteItem->getParentItem()) {
+                $quoteItem->setData('qty', $result->getItemQty());
             }
+
             if (!is_null($result->getItemUseOldQty())) {
-                $item->setUseOldQty($result->getItemUseOldQty());
+                $quoteItem->setUseOldQty($result->getItemUseOldQty());
             }
             if (!is_null($result->getMessage())) {
-                $item->setMessage($result->getMessage());
+                $quoteItem->setMessage($result->getMessage());
+                if ($quoteItem->getParentItem()) {
+                    $quoteItem->getParentItem()->setMessage($result->getMessage());
+                }
             }
             if (!is_null($result->getItemBackorders())) {
-                $item->setBackorders($result->getItemBackorders());
+                $quoteItem->setBackorders($result->getItemBackorders());
             }
 
             if ($result->getHasError()) {
-                $item->setHasError(true);
-                $item->getQuote()->setHasError(true)
+                $quoteItem->setHasError(true);
+                $quoteItem->getQuote()->setHasError(true)
                     ->addMessage($result->getQuoteMessage(), $result->getQuoteMessageIndex());
             }
         }
@@ -342,6 +364,20 @@ class Mage_CatalogInventory_Model_Observer
         if ($item->getId() && $item->getBackToStock() && ($productId = $item->getProductId()) && ($qty = $item->getQty())) {
             Mage::getSingleton('cataloginventory/stock')->backItemQty($productId, $qty);
         }
+        return $this;
+    }
+
+    /**
+     * Update items stock status and low stock date.
+     *
+     * @param Varien_Event_Observer $observer
+     * @return  Mage_CatalogInventory_Model_Observer
+     */
+    public function updateItemsStockUponConfigChange($observer)
+    {
+        Mage::getResourceSingleton('cataloginventory/stock')->updateSetOutOfStock();
+        Mage::getResourceSingleton('cataloginventory/stock')->updateSetInStock();
+        Mage::getResourceSingleton('cataloginventory/stock')->updateLowStockDate();
         return $this;
     }
 }

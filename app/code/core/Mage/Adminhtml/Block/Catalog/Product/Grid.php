@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
     {
         parent::__construct();
         $this->setId('productGrid');
-        $this->setDefaultSort('id');
+        $this->setDefaultSort('entity_id');
         $this->setDefaultDir('desc');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id',
+        $this->addColumn('entity_id',
             array(
                 'header'=> Mage::helper('catalog')->__('ID'),
                 'width' => '50px',

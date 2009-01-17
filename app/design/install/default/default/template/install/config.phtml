@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,7 +21,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /**
@@ -43,31 +43,31 @@
     <ul>
         <li>
             <div class="input-box">
-                <label for="host"><?php echo $this->__('Host') ?> <span class="required">*</span></label><br/>
-                <input type="text" name="config[db_host]" id="host" value="<?php echo $this->getFormData()->getDbHost() ?>" title="<?php echo $this->__('Database host') ?>" class="required-entry input-text"/>
+                <label for="host"><?php echo $this->__('Host') ?> <span class="required">*</span></label><br />
+                <input type="text" name="config[db_host]" id="host" value="<?php echo $this->getFormData()->getDbHost() ?>" title="<?php echo $this->__('Database host') ?>" class="required-entry input-text" />
                 <p style="margin-top:4px; line-height:1.3em; color:#666;">
-                    <small><?php echo $this->__('You can specify server port, ex.: localhost:3307<br/>If you are not using default UNIX socket, you can specify it here instead of host, ex.: /var/run/mysqld/mysqld.sock') ?></small>
+                    <small><?php echo $this->__('You can specify server port, ex.: localhost:3307<br />If you are not using default UNIX socket, you can specify it here instead of host, ex.: /var/run/mysqld/mysqld.sock') ?></small>
                 </p>
             </div>
             <div class="input-box">
-                <label for="dbname"><?php echo $this->__('Database Name') ?> <span class="required">*</span></label><br/>
-                <input type="text" name="config[db_name]" id="dbname" value="<?php echo $this->getFormData()->getDbName() ?>" title="<?php echo $this->__('Database Name') ?>" class="required-entry input-text"/>
+                <label for="dbname"><?php echo $this->__('Database Name') ?> <span class="required">*</span></label><br />
+                <input type="text" name="config[db_name]" id="dbname" value="<?php echo $this->getFormData()->getDbName() ?>" title="<?php echo $this->__('Database Name') ?>" class="required-entry input-text" />
             </div>
         </li>
         <li>
             <div class="input-box">
-                <label for="user"><?php echo $this->__('User Name') ?> <span class="required">*</span></label><br/>
-                <input type="text" name="config[db_user]" id="user" value="<?php echo $this->getFormData()->getDbUser() ?>" title="<?php echo $this->__('Database user name') ?>" class="required-entry input-text"/>
+                <label for="user"><?php echo $this->__('User Name') ?> <span class="required">*</span></label><br />
+                <input type="text" name="config[db_user]" id="user" value="<?php echo $this->getFormData()->getDbUser() ?>" title="<?php echo $this->__('Database user name') ?>" class="required-entry input-text" />
             </div>
             <div class="input-box">
-                <label for="password"><?php echo $this->__('User Password') ?></label><br/>
-                <input type="password" name="config[db_pass]" id="password" value="" title="<?php echo $this->__('Database user password') ?>" class="input-text"/>
+                <label for="password"><?php echo $this->__('User Password') ?></label><br />
+                <input type="password" name="config[db_pass]" id="password" value="" title="<?php echo $this->__('Database user password') ?>" class="input-text" />
             </div>
         </li>
         <li>
             <div class="input-box">
-                <label for="prefix"><?php echo $this->__('Tables Prefix') ?><br/>
-                <input type="text" name="config[db_prefix]" id="prefix" value="<?php echo $this->getFormData()->getDbPrefix() ?>" title="<?php echo $this->__('Tables Prefix') ?>" class="validate-data input-text"/>
+                <label for="prefix"><?php echo $this->__('Tables Prefix') ?></label><br />
+                <input type="text" name="config[db_prefix]" id="prefix" value="<?php echo $this->getFormData()->getDbPrefix() ?>" title="<?php echo $this->__('Tables Prefix') ?>" class="validate-data input-text" />
                 <p style="margin-top:4px; line-height:1.3em; color:#666;">
                     <small><?php echo $this->__('(Optional. Leave blank for no prefix)') ?></small>
                 </p>
@@ -81,36 +81,36 @@
     <h4 class="legend"><?php echo $this->__('Web access options') ?></h4>
     <ul>
         <li>
-            <label for="base_url"><?php echo $this->__('Base URL') ?> <span class="required">*</span></label><br/>
-            <input type="text" name="config[unsecure_base_url]" id="base_url" value="<?php echo $this->getFormData()->getUnsecureBaseUrl() ?>" title="<?php echo $this->__('Base URL') ?>" class="required-entry input-text"/>
+            <label for="base_url"><?php echo $this->__('Base URL') ?> <span class="required">*</span></label><br />
+            <input type="text" name="config[unsecure_base_url]" id="base_url" value="<?php echo $this->getFormData()->getUnsecureBaseUrl() ?>" title="<?php echo $this->__('Base URL') ?>" class="required-entry input-text" />
         </li>
         <li>
-            <label for="admin_frontname"><?php echo $this->__('Admin Path') ?> <span class="required">*</span></label><br/>
-            <input type="text" name="config[admin_frontname]" id="admin_frontname" value="<?php echo $this->getFormData()->getAdminFrontname() ?>" title="<?php echo $this->__('Admin Path') ?>" class="required-entry validate-data input-text"/>
+            <label for="admin_frontname"><?php echo $this->__('Admin Path') ?> <span class="required">*</span></label><br />
+            <input type="text" name="config[admin_frontname]" id="admin_frontname" value="<?php echo $this->getFormData()->getAdminFrontname() ?>" title="<?php echo $this->__('Admin Path') ?>" class="required-entry validate-data input-text" />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small><?php echo $this->__('Additional path added after Base URL to access your Administrative Panel (e.g. admin, backend, control etc.).') ?></small>
             </p>
         </li>
         <li>
-            <input type="checkbox" name="skip_base_url_validation" id="skip_base_url_validation" value="1" <?php if($this->getSkipBaseUrlValidation()): ?>checked="checked"<?php endif ?>>
-            <label for="skip_base_url_validation"><?php echo $this->__('Skip Base URL validation before next step') ?></label><br/>
+            <input type="checkbox" name="skip_base_url_validation" id="skip_base_url_validation" value="1" <?php if($this->getSkipBaseUrlValidation()): ?>checked="checked"<?php endif; ?> />
+            <label for="skip_base_url_validation"><?php echo $this->__('Skip Base URL validation before next step') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small><?php echo $this->__('Check this box only if it is not possible to automatically validate Base URL.') ?></small>
             </p>
         </li>
         <li>
-            <input type="checkbox" name="config[use_rewrites]" id="use_rewrites" value="1" <?php if($this->getFormData()->getUseRewrites()): ?>checked="checked"<?php endif ?>>
-            <label for="use_rewrites"><?php echo $this->__('Use Web Server (Apache) Rewrites') ?></label><br/>
+            <input type="checkbox" name="config[use_rewrites]" id="use_rewrites" value="1" <?php if($this->getFormData()->getUseRewrites()): ?>checked="checked"<?php endif; ?> />
+            <label for="use_rewrites"><?php echo $this->__('Use Web Server (Apache) Rewrites') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small>
-                    <?php echo $this->__('You could enable this option to use web server rewrites functionality for improved search engines optimization.') ?><br/>
+                    <?php echo $this->__('You could enable this option to use web server rewrites functionality for improved search engines optimization.') ?><br />
                     <strong><?php echo $this->__('Please make sure that <code>mod_rewrite</code> is enabled in Apache configuration.') ?></strong>
                 </small>
             </p>
         </li>
         <li>
-            <input type="checkbox" name="config[use_secure]" id="use_secure" value="1" <?php if($this->getFormData()->getUseSecure()): ?>checked="checked"<?php endif ?> onclick="this.checked ? $('use_secure_options').show() : $('use_secure_options').hide(); return true">
-            <label for="use_secure"><?php echo $this->__('Use Secure URLs (SSL)') ?></label><br/>
+            <input type="checkbox" name="config[use_secure]" id="use_secure" value="1" <?php if($this->getFormData()->getUseSecure()): ?>checked="checked"<?php endif ?> onclick="this.checked ? $('use_secure_options').show() : $('use_secure_options').hide(); return true;" />
+            <label for="use_secure"><?php echo $this->__('Use Secure URLs (SSL)') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small><?php echo $this->__('Enable this option only if you have SSL available.') ?></small>
             </p>
@@ -118,22 +118,22 @@
     </ul>
     <ul id="use_secure_options" <?php if(!$this->getFormData()->getUseSecure()): ?>style="display:none"<?php endif ?>>
         <li>
-            <label for="secure_base_url"><?php echo $this->__('Secure Base URL') ?> <span class="required">*</span></label><br/>
-            <input type="text" name="config[secure_base_url]" id="secure_base_url" value="<?php echo $this->getFormData()->getSecureBaseUrl() ?>" title="<?php echo $this->__('Secure Base URL') ?>" class="required-entry input-text"/>
+            <label for="secure_base_url"><?php echo $this->__('Secure Base URL') ?> <span class="required">*</span></label><br />
+            <input type="text" name="config[secure_base_url]" id="secure_base_url" value="<?php echo $this->getFormData()->getSecureBaseUrl() ?>" title="<?php echo $this->__('Secure Base URL') ?>" class="required-entry input-text" />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small><?php echo $this->__('Provide a complete base URL for SSL connection. For example: %s', '<strong>https://www.mydomain.com/magento/</strong>') ?></small>
             </p>
         </li>
         <li>
-            <input type="checkbox" name="config[use_secure_admin]" id="use_secure_admin" value="1" <?php if($this->getFormData()->getUseSecureAdmin()): ?>checked="checked"<?php endif ?>>
-            <label for="use_secure_admin"><?php echo $this->__('Run admin interface with SSL') ?></label><br/>
-            <p style="margin-top:4px; line-height:1.3em; color:#666;">
+            <input type="checkbox" name="config[use_secure_admin]" id="use_secure_admin" value="1" <?php if($this->getFormData()->getUseSecureAdmin()): ?>checked="checked"<?php endif; ?> />
+            <label for="use_secure_admin"><?php echo $this->__('Run admin interface with SSL') ?></label><br />
+            <!--<p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small><?php echo $this->__('') ?></small>
-            </p>
+            </p>-->
         </li>
         <li>
-            <input type="checkbox" name="skip_url_validation" id="skip_url_validation" value="1" <?php if($this->getSkipUrlValidation()): ?>checked="checked"<?php endif ?>>
-            <label for="skip_url_validation"><?php echo $this->__('Skip Secure URL validation before next step') ?></label><br/>
+            <input type="checkbox" name="skip_url_validation" id="skip_url_validation" value="1" <?php if($this->getSkipUrlValidation()): ?>checked="checked"<?php endif; ?> />
+            <label for="skip_url_validation"><?php echo $this->__('Skip Secure URL validation before next step') ?></label><br />
             <p style="margin-top:4px; line-height:1.3em; color:#666;">
                 <small><?php echo $this->__('Check this box only if it is not possible to automatically validate Secure URL, for example if HTTP authentication is required.') ?></small>
             </p>
@@ -147,7 +147,7 @@
     <ul>
         <li>
             <div class="input-box">
-                <label for="password"><?php echo $this->__('Save session data in') ?></label><br/>
+                <label for="password"><?php echo $this->__('Save session data in') ?></label><br />
                 <?php echo $this->getSessionSaveSelect() ?>
             </div>
         </li>

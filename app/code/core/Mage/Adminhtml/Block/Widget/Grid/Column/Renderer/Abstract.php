@@ -65,6 +65,17 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
         return $this->_getValue($row);
     }
 
+    /**
+     * Render column for export
+     *
+     * @param Varien_Object $row
+     * @return string
+     */
+    public function renderExport(Varien_Object $row)
+    {
+        return $this->render($row);
+    }
+
     protected function _getValue(Varien_Object $row)
     {
         if ($getter = $this->getColumn()->getGetter()) {

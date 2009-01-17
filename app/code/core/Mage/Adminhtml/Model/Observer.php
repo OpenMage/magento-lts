@@ -51,4 +51,18 @@ class Mage_Adminhtml_Model_Observer
         return $this;
     }
 
+    /**
+     * Prepare massaction separated data
+     *
+     * @return Mage_Adminhtml_Model_Observer
+     */
+    public function massactionPrepareKey()
+    {
+        $request = Mage::app()->getFrontController()->getRequest();
+        if ($key = $request->getPost('massaction_prepare_key')) {
+            $value = split(',', $request->getPost($key));
+            $request->setPost($key, $value ? $value : null);
+        }
+        return $this;
+    }
 }

@@ -112,13 +112,12 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         return $x + round(($columnWidth - $width) / 2);
     }
 
-    protected function insertLogo(&$page)
+    protected function insertLogo(&$page, $store = null)
     {
-        $image = Mage::getStoreConfig('sales/identity/logo');
+        $image = Mage::getStoreConfig('sales/identity/logo', $store);
         if ($image) {
-            $image = Mage::getStoreConfig('system/filesystem/media') . '/sales/store/logo/' . $image;
+            $image = Mage::getStoreConfig('system/filesystem/media', $store) . '/sales/store/logo/' . $image;
             if (is_file($image)) {
-
                 $image = Zend_Pdf_Image::imageWithPath($image);
                 $page->drawImage($image, 25, 800, 125, 825);
             }
@@ -126,7 +125,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         //return $page;
     }
 
-    protected function insertAddress(&$page)
+    protected function insertAddress(&$page, $store = null)
     {
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
         $this->_setFontRegular($page, 5);
@@ -137,7 +136,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
         $page->setLineWidth(0);
         $this->y = 820;
-        foreach (explode("\n", Mage::getStoreConfig('sales/identity/address')) as $value){
+        foreach (explode("\n", Mage::getStoreConfig('sales/identity/address', $store)) as $value){
             if ($value!=='') {
                 $page->drawText(trim(strip_tags($value)), 130, $this->y, 'UTF-8');
                 $this->y -=7;
@@ -146,9 +145,29 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         //return $page;
     }
 
+    /**
+     * Format address
+     *
+     * @param string $address
+     * @return array
+     */
+    protected function _formatAddress($address)
+    {
+        $return = array();
+        foreach (split("\|", $address) as $str) {
+            foreach (Mage::helper('core/string')->str_split($str, 65, true, true) as $part) {
+                if (empty($part)) {
+                    continue;
+                }
+                $return[] = $part;
+            }
+        }
+        return $return;
+    }
+
     protected function insertOrder(&$page, $order, $putOrderId = true)
     {
-
+        /* @var $order Mage_Sales_Model_Order */
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(0.5));
 
         $page->drawRectangle(25, 790, 570, 755);
@@ -172,7 +191,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         /* Calculate blocks info */
 
         /* Billing Address */
-        $billingAddress  = explode('|', $order->getBillingAddress()->format('pdf'));
+        $billingAddress = $this->_formatAddress($order->getBillingAddress()->format('pdf'));
 
         /* Payment */
         $paymentInfo = Mage::helper('payment')->getInfoBlock($order->getPayment())
@@ -189,7 +208,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         /* Shipping Address and Method */
         if (!$order->getIsVirtual()) {
             /* Shipping Address */
-            $shippingAddress = explode('|', $order->getShippingAddress()->format('pdf'));
+            $shippingAddress = $this->_formatAddress($order->getShippingAddress()->format('pdf'));
+
             $shippingMethod  = $order->getShippingDescription();
         }
 
@@ -205,16 +225,16 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         }
 
         if (!$order->getIsVirtual()) {
-            $y = 730-max(count($billingAddress), count($shippingAddress))*10+5;
+            $y = 730 - (max(count($billingAddress), count($shippingAddress)) * 10 + 5);
         }
         else {
-            $y = 730-count($billingAddress)*10 + 5;
+            $y = 730 - (count($billingAddress) * 10 + 5);
         }
 
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(1));
         $page->drawRectangle(25, 730, 570, $y);
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
-		$this->_setFontRegular($page);
+        $this->_setFontRegular($page);
         $this->y = 720;
 
         foreach ($billingAddress as $value){
@@ -296,16 +316,16 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 $this->_setFontRegular($page, 6);
                 foreach ($order->getTracksCollection() as $track) {
 
-                	$CarrierCode = $track->getCarrierCode();
-                	if ($CarrierCode!='custom')
-                	{
-                		$carrier = Mage::getSingleton('shipping/config')->getCarrierInstance($CarrierCode);
-                		$carrierTitle = $carrier->getConfigData('title');
-                	}
-                	else
-                	{
-                		$carrierTitle = Mage::helper('sales')->__('Custom Value');
-                	}
+                    $CarrierCode = $track->getCarrierCode();
+                    if ($CarrierCode!='custom')
+                    {
+                        $carrier = Mage::getSingleton('shipping/config')->getCarrierInstance($CarrierCode);
+                        $carrierTitle = $carrier->getConfigData('title');
+                    }
+                    else
+                    {
+                        $carrierTitle = Mage::helper('sales')->__('Custom Value');
+                    }
 
                     $truncatedCarrierTitle = substr($carrierTitle, 0, 35) . (strlen($carrierTitle) > 35 ? '...' : '');
                     $truncatedTitle = substr($track->getTitle(), 0, 45) . (strlen($track->getTitle()) > 45 ? '...' : '');

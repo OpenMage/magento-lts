@@ -170,11 +170,16 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
 
     public function canReturnToStock() {
 
-        $canReturnToStock = Mage::getStoreConfig('cataloginventory/options/can_subtract');
-        if (Mage::getStoreConfig('cataloginventory/options/can_subtract')) {
+        $canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
+        if (Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)) {
             return true;
         } else {
             return false;
         }
+    }
+
+    public function canSendCreditmemoEmail()
+    {
+        return Mage::helper('sales')->canSendNewCreditmemoEmail($this->getOrder()->getStore()->getId());
     }
 }

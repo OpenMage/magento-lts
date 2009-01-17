@@ -36,7 +36,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
         $this->getLayout()->getBlock('head')->setTitle(Mage::helper('customer')->__('Create New Customer Account'));
         return parent::_prepareLayout();
     }
-    
+
     /**
      * Retrieve form posting url
      *
@@ -46,7 +46,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     {
         return $this->helper('customer')->getRegisterPostUrl();
     }
-    
+
     /**
      * Retrieve back url
      *
@@ -60,7 +60,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
         }
         return $url;
     }
-    
+
     /**
      * Retrieve form data
      *
@@ -75,7 +75,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
         }
         return $data;
     }
-    
+
     /**
      * Retrieve customer country identifier
      *
@@ -103,5 +103,16 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
             return $region;
         }
         return null;
+    }
+
+    /**
+     *  Newsletter module availability
+     *
+     *  @param    none
+     *  @return	  boolean
+     */
+    public function isNewsletterEnabled()
+    {
+        return !Mage::getStoreConfigFlag('advanced/modules_disable_output/Mage_Newsletter');
     }
 }

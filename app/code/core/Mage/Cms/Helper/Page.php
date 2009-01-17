@@ -62,7 +62,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 
         if ($page->getCustomTheme()) {
             $apply = true;
-            $today = strtotime('today');
+            $today = Mage::app()->getLocale()->date()->toValue();
             if (($from = $page->getCustomThemeFrom()) && strtotime($from)>$today) {
                 $apply = false;
             }

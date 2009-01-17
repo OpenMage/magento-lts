@@ -5,10 +5,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -22,7 +22,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 
@@ -68,7 +68,6 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>mage/adminhtml/form.js</script></action>
                 <action method="addJs"><script>mage/adminhtml/accordion.js</script></action>
                 <action method="addJs"><script>mage/adminhtml/tools.js</script></action>
-                <action method="addJs"><script>mage/adminhtml/bundle.js</script></action>
                 <action method="addJs"><script>mage/adminhtml/uploader.js</script></action>
                 <action method="addJs"><script>mage/adminhtml/product.js</script></action>
 
@@ -86,7 +85,6 @@ Default layout, loads most of the pages
 
                 <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
                 <action method="addItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
-                <action method="addItem"><type>js</type><name>calendar/lang/calendar-en.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
                 <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
 
                 <action method="addItem"><type>js</type><name>extjs/ext-tree.js</name><params/><if/><condition>can_load_ext_js</condition></action>
@@ -95,6 +93,8 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>js_css</type><name>extjs/resources/css/ytheme-magento.css</name><params/><if/><condition>can_load_ext_js</condition></action>
 
                 <action method="addItem"><type>js</type><name>mage/adminhtml/rules.js</name><params/><if/><condition>can_load_rules_js</condition></action>
+
+                <block type="core/html_calendar" name="head.calendar" as="calendar" template="page/js/calendar.phtml"/>
             </block>
 
             <block type="adminhtml/page_header" name="header" as="header"></block>

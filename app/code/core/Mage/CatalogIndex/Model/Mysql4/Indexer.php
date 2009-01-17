@@ -57,10 +57,15 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
         if (!is_null($products)) {
             if ($products instanceof Mage_Catalog_Model_Product) {
                 $products = $products->getId();
-            } else if (!is_numeric($products) && !is_array($products)) {
+            } elseif ($products instanceof Mage_Catalog_Model_Product_Condition_Interface) {
+            	$suffix = 'entity_id IN ('.$products->getIdsSelect($this->_getWriteAdapter())->__toString().')';
+            }
+            else if (!is_numeric($products) && !is_array($products)) {
                 Mage::throwException('Invalid products supplied for indexing');
             }
-            $suffix = $this->_getWriteAdapter()->quoteInto('entity_id in (?)', $products);
+            if (empty($suffix)) {
+                $suffix = $this->_getWriteAdapter()->quoteInto('entity_id in (?)', $products);
+            }
         }
         if (!is_null($store)) {
             if ($store instanceof Mage_Core_Model_Store) {
@@ -255,7 +260,7 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
             $type = $index['type_id'];
             $id = (is_null($forcedId) ? $index['entity_id'] : $forcedId);
 
-            if ($id && $index['attribute_id'] && $index['value']) {
+            if ($id && $index['attribute_id'] && isset($index['value'])) {
                 $attribute = $this->_loadAttribute($index['attribute_id']);
                 if ($attribute->getFrontendInput() == 'multiselect') {
                     $index['value'] = explode(',', $index['value']);

@@ -23,11 +23,9 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-
-class Mage_Core_AjaxController extends Mage_Core_Controller_Front_Action {
-
-    public function translateAction()
+class Mage_Core_AjaxController extends Mage_Core_Controller_Front_Action
+{
+    public function translateAction ()
     {
         if ($translate = $this->getRequest()->getPost('translate')) {
             try {
@@ -36,10 +34,11 @@ class Mage_Core_AjaxController extends Mage_Core_Controller_Front_Action {
                 }
                 Mage::getModel('core/translate_inline')->processAjaxPost($translate);
                 echo "{success:true}";
-            } catch (Exception $e) {
-                echo "{error:true,message:'".$e->getMessage()."'}";
+            }
+            catch (Exception $e) {
+                echo "{error:true,message:'" . $e->getMessage() . "'}";
             }
         }
-        exit;
+        exit();
     }
 }

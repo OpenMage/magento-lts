@@ -50,15 +50,15 @@ class Mage_Adminhtml_Block_Review_Edit_Form extends Mage_Adminhtml_Block_Widget_
             'method'    => 'post'
         ));
 
-        $fieldset = $form->addFieldset('review_details', array('legend' => Mage::helper('review')->__('Review Details')));
+        $fieldset = $form->addFieldset('review_details', array('legend' => Mage::helper('review')->__('Review Details'), 'class' => 'fieldset-wide'));
 
         $fieldset->addField('product_name', 'note', array(
             'label'     => Mage::helper('review')->__('Product'),
-            'text'      => '<a href="' . $this->getUrl('*/catalog_product/edit', array('id' => $product->getId())) . '" target="_blank">' . $product->getName() . '</a>'
+            'text'      => '<a href="' . $this->getUrl('*/catalog_product/edit', array('id' => $product->getId())) . '" onclick="this.target=\'blank\'">' . $product->getName() . '</a>'
         ));
 
         if ($customer->getId()) {
-            $customerText = Mage::helper('review')->__('<a href="%1$s" target="_blank">%2$s %3$s</a> <a href="mailto:%4$s">(%4$s)</a>',
+            $customerText = Mage::helper('review')->__('<a href="%1$s" onclick="this.target=\'blank\'">%2$s %3$s</a> <a href="mailto:%4$s">(%4$s)</a>',
                 $this->getUrl('*/customer/edit', array('id' => $customer->getId(), 'active_tab'=>'review')),
                 $this->htmlEscape($customer->getFirstname()),
                 $this->htmlEscape($customer->getLastname()),
@@ -130,7 +130,7 @@ class Mage_Adminhtml_Block_Review_Edit_Form extends Mage_Adminhtml_Block_Widget_
             'label'     => Mage::helper('review')->__('Review'),
             'required'  => true,
             'name'      => 'detail',
-            'style'     => 'width: 98%; height: 600px;',
+            'style'     => 'height:24em;',
         ));
 
         $form->setUseContainer(true);

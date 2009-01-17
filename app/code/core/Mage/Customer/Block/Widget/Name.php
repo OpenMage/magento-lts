@@ -34,9 +34,29 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
         $this->setTemplate('customer/widget/name.phtml');
     }
 
+    /**
+     * Can show config value
+     *
+     * @param string $key
+     * @return bool
+     */
+    protected function _showConfig($key)
+    {
+        $value = $this->getConfig($key);
+        if (empty($value)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Can show prefix
+     *
+     * @return bool
+     */
     public function showPrefix()
     {
-        return $this->getConfig('prefix_show')!='';
+        return $this->_showConfig('prefix_show');
     }
 
     public function isPrefixRequired()
@@ -51,7 +71,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
             return false;
         }
         $options = explode(';', $options);
-        foreach ($options as $i=>&$v) {
+        foreach ($options as &$v) {
             $v = $this->htmlEscape(trim($v));
         }
         return $options;
@@ -59,17 +79,17 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
 
     public function showMiddlename()
     {
-        return $this->getConfig('middlename_show')!='';
+        return $this->_showConfig('middlename_show');
     }
 
     public function showSuffix()
     {
-        return $this->getConfig('suffix_show')!='';
+        return $this->_showConfig('suffix_show');
     }
 
     public function isSuffixRequired()
     {
-        return $this->getConfig('suffix_show')=='req';
+        return $this->getConfig('suffix_show') == 'req';
     }
 
     public function getSuffixOptions()
@@ -79,7 +99,7 @@ class Mage_Customer_Block_Widget_Name extends Mage_Customer_Block_Widget_Abstrac
             return false;
         }
         $options = explode(';', $options);
-        foreach ($options as $i=>&$v) {
+        foreach ($options as &$v) {
             $v = $this->htmlEscape(trim($v));
         }
         return $options;

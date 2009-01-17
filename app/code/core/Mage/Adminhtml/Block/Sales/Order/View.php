@@ -48,11 +48,25 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         $this->setId('sales_order_view');
 
         if ($this->_isAllowedAction('edit') && $this->getOrder()->canEdit()) {
-            $message = Mage::helper('sales')->__('Are you sure? This order will be cancelled and a new one will be created instead');
+            $onclickJs = 'deleteConfirm(\''
+                . Mage::helper('sales')->__('Are you sure? This order will be cancelled and a new one will be created instead')
+                . '\', \'' . $this->getEditUrl() . '\');';
             $this->_addButton('order_edit', array(
-                 'label'    => Mage::helper('sales')->__('Edit'),
-                 'onclick'  => 'deleteConfirm(\''.$message.'\', \'' . $this->getEditUrl() . '\')',
+                'label'    => Mage::helper('sales')->__('Edit'),
+                'onclick'  => $onclickJs,
             ));
+            // see if order has non-editable products as items
+            $nonEditableTypes = array_keys(Mage::getResourceSingleton('sales/order')->aggregateProductsByTypes(
+                $this->getOrder()->getId(), array_keys(Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()), false
+            ));
+            if ($nonEditableTypes) {
+                $this->_updateButton('order_edit', 'onclick',
+                    'if (!confirm(\'' . Mage::helper('sales')->__(
+                        'This order contains items (%s) that cannot be added to order from admin interface and will not be put to new order.',
+                        implode(', ', $nonEditableTypes)
+                    ) . '\')) return false;' . $onclickJs
+                );
+            }
         }
 
         if ($this->_isAllowedAction('cancel') && $this->getOrder()->canCancel()) {

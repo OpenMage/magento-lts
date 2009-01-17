@@ -125,6 +125,38 @@ class Mage_Core_Model_Mysql4_Translate_String extends Mage_Core_Model_Mysql4_Abs
         return parent::_afterSave($object);
     }
 
+    /**
+     * Delete translates
+     *
+     * @param string $string
+     * @param string $locale
+     * @param int|null $storeId
+     *
+     * @return Mage_Core_Model_Mysql4_Translate_String
+     */
+    public function deleteTranslate($string, $locale = null, $storeId = null)
+    {
+        if (is_null($locale)) {
+            $locale = Mage::app()->getLocale()->getLocaleCode();
+        }
+
+        $where = array(
+            $this->_getWriteAdapter()->quoteInto('locale=?', $locale),
+            $this->_getWriteAdapter()->quoteInto('string=?', $string),
+        );
+
+        if ($storeId === false) {
+            $where[] = $this->_getWriteAdapter()->quoteInto('store_id>?', 0);
+        }
+        elseif (!is_null($storeId)) {
+            $where[] = $this->_getWriteAdapter()->quoteInto('store_id=?', $storeId);
+        }
+
+        $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
+
+        return $this;
+    }
+
     public function saveTranslate($string, $translate, $locale=null, $storeId=null)
     {
         $write = $this->_getWriteAdapter();

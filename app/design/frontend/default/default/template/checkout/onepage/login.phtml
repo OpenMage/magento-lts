@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,7 +21,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div class="col2-set">
@@ -62,7 +62,8 @@
         <?php endif; ?>
     </div>
     <div class="col-2">
-        <h4>Login</h4><?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+        <h4><?php echo $this->__('Login') ?></h4>
+        <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
         <form id="login-form" action="<?php echo $this->getPostAction() ?>" method="post">
             <p><strong><?php echo $this->__('Already registered?') ?></strong><br />
             <?php echo $this->__('Please log in below:') ?></p>
@@ -87,7 +88,7 @@
     <div class="col-1">
         <div class="button-set">
             <p class="required">&nbsp;</p>
-            <button class="form-button" onclick="checkout.setMethod();"><span><?php echo $this->__('Continue') ?></span></button>
+            <button class="form-button" onclick="checkout.setMethod();"><span><?php echo ($this->getQuote()->isAllowedGuestCheckout() ? $this->__('Continue') : $this->__('Register')) ?></span></button>
         </div>
     </div>
     <div class="col-2">

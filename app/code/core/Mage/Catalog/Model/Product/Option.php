@@ -220,7 +220,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             }
             $isEdit = (bool)$this->getId()? true:false;
 
-            if ($this->getData('is_delete') == '1') {// better strlen()
+            if ($this->getData('is_delete') == '1') {
                 if ($isEdit) {
                     $this->getValueInstance()->deleteValue($this->getId());
                     $this->deletePrices($this->getId());
@@ -228,7 +228,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                     $this->delete();
                 }
             } else {
-                if ($this->getData('previous_type') != '') {//better strlen()
+                if ($this->getData('previous_type') != '') {
                     $previousType = $this->getData('previous_type');
                     //if previous option has dfferent group from one is came now need to remove all data of previous group
                     if ($this->getGroupByType($previousType) != $this->getGroupByType($this->getData('type'))) {
@@ -274,6 +274,8 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
 
             $this->getValueInstance()->setOption($this)
                 ->saveValues();
+        } elseif ($this->getGroupByType($this->getType()) == self::OPTION_GROUP_SELECT) {
+            Mage::throwException(Mage::helper('catalog')->__('Select type options required values rows.'));
         }
 
         return parent::_afterSave();
@@ -388,4 +390,17 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
         return $newOption;
     }
 
+    /**
+     * Duplicate options for product
+     *
+     * @param int $oldProductId
+     * @param int $newProductId
+     * @return Mage_Catalog_Model_Product_Option
+     */
+    public function duplicate($oldProductId, $newProductId)
+    {
+        $this->getResource()->duplicate($this, $oldProductId, $newProductId);
+
+        return $this;
+    }
 }

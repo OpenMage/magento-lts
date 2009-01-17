@@ -168,8 +168,8 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
 
         $incrementInstance = Mage::getModel($this->getIncrementModel())
             ->setPrefix($entityStoreConfig->getIncrementPrefix())
-            ->setPadLength($entityStoreConfig->getIncrementPadLength())
-            ->setPadChar($entityStoreConfig->getIncrementPadChar())
+            ->setPadLength($this->getIncrementPadLength())
+            ->setPadChar($this->getIncrementPadChar())
             ->setLastId($entityStoreConfig->getIncrementLastId());
 
         /**

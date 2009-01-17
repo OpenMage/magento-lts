@@ -42,4 +42,14 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit extends Mage_Adminhtml_Block_Wi
         parent::__construct();
         $this->setTemplate('catalog/category/edit.phtml');
     }
+
+    protected function _prepareLayout()
+    {
+        if (Mage::app()->getConfig()->getModuleConfig('Mage_GoogleOptimizer')->is('active', true)) {
+            $this->setChild('googleoptimizer_js',
+                $this->getLayout()->createBlock('googleoptimizer/js')->setTemplate('googleoptimizer/js.phtml')
+            );
+        }
+        return parent::_prepareLayout();
+    }
 }

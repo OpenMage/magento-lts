@@ -27,21 +27,24 @@
 
 class Mage_Core_Model_Mysql4_Design extends Mage_Core_Model_Mysql4_Abstract
 {
-	protected function _construct()
-	{
-		$this->_init('core/design_change', 'design_change_id');
-	}
+    protected function _construct()
+    {
+        $this->_init('core/design_change', 'design_change_id');
+    }
 
     public function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        if ($object->getDateFrom()) {
-            $object->setDateFrom($this->formatDate($object->getDateFrom()));
+        $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+        if ($date = $object->getDateFrom()) {
+            $date = Mage::app()->getLocale()->date($date, $format, null, false);
+            $object->setDateFrom($date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
         } else {
             $object->setDateFrom(null);
         }
 
-        if ($object->getDateTo()) {
-            $object->setDateTo($this->formatDate($object->getDateTo()));
+        if ($date = $object->getDateTo()) {
+            $date = Mage::app()->getLocale()->date($date, $format, null, false);
+            $object->setDateTo($date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
         } else {
             $object->setDateTo(null);
         }

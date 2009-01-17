@@ -40,7 +40,7 @@ class Mage_Core_Model_Design_Package
      *
      * @var string|integer|Mage_Core_Model_Store
      */
-    protected $_store;
+    protected $_store = null;
 
     /**
      * Package area
@@ -72,11 +72,6 @@ class Mage_Core_Model_Design_Package
 
 	protected $_config = null;
 
-	public function __construct()
-	{
-
-	}
-
 	/**
 	 * Set store
 	 *
@@ -96,6 +91,9 @@ class Mage_Core_Model_Design_Package
 	 */
 	public function getStore()
 	{
+	    if ($this->_store === null) {
+	        return Mage::app()->getStore();
+	    }
 		return $this->_store;
 	}
 
@@ -140,7 +138,7 @@ class Mage_Core_Model_Design_Package
     	        $this->_name = $customPackage;
             }
             else {
-                $this->_name = Mage::getStoreConfig('design/package/name');
+                $this->_name = Mage::getStoreConfig('design/package/name', $this->getStore());
             }
         }
         else {
@@ -385,7 +383,7 @@ class Mage_Core_Model_Design_Package
 
     public function getFallbackTheme()
     {
-        return Mage::getStoreConfig('design/theme/default');
+        return Mage::getStoreConfig('design/theme/default', $this->getStore());
     }
 
     public function getLayoutFilename($file, array $params=array())
@@ -505,7 +503,7 @@ class Mage_Core_Model_Design_Package
             if (!empty(self::$_customThemeTypeCache[$regexpsConfigPath])) {
                 return self::$_customThemeTypeCache[$regexpsConfigPath];
             }
-            $configValueSerialized = Mage::getStoreConfig($regexpsConfigPath);
+            $configValueSerialized = Mage::getStoreConfig($regexpsConfigPath, $this->getStore());
             if ($configValueSerialized) {
                 $regexps = @unserialize($configValueSerialized);
                 if (!empty($regexps)) {

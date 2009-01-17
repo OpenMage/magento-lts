@@ -31,6 +31,15 @@
  */
 class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
 {
+    const XML_PATH_PRODUCT_URL_SUFFIX   = 'catalog/seo/product_url_suffix';
+
+    /**
+     * Cache for product rewrite suffix
+     *
+     * @var array
+     */
+    protected $_productUrlSuffix = array();
+
     protected $_statuses;
 
     protected $_priceBlock;
@@ -44,16 +53,10 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     public function getProductUrl($product)
     {
         if ($product instanceof Mage_Catalog_Model_Product) {
-            $urlKey = $product->getUrlKey() ? $product->getUrlKey() : $product->getName();
-            $params = array(
-                's'         => $this->_prepareString($urlKey),
-                'id'        => $product->getId(),
-                'category'  => $product->getCategoryId()
-            );
-            return $this->_getUrl('catalog/product/view', $params);
+            return $product->getProductUrl();
         }
-        if ((int) $product) {
-            return $this->_getUrl('catalog/product/view', array('id'=>$product));
+        elseif (is_numeric($product)) {
+            return Mage::getModel('catalog/product')->load($product)->getProductUrl();
         }
         return false;
     }
@@ -164,10 +167,23 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         }
 
         return $product->isVisibleInCatalog() && $product->isVisibleInSiteVisibility();
-        // TODO shold be check both status and visibility
-        //if ('catalog' == $where) {
-        //}
+    }
 
-        return false;
+    /**
+     * Retrieve product rewrite sufix for store
+     *
+     * @param int $storeId
+     * @return string
+     */
+    public function getProductUrlSuffix($storeId = null)
+    {
+        if (is_null($storeId)) {
+            $storeId = Mage::app()->getStore()->getId();
+        }
+
+        if (!isset($this->_productUrlSuffix[$storeId])) {
+            $this->_productUrlSuffix[$storeId] = Mage::getStoreConfig(self::XML_PATH_PRODUCT_URL_SUFFIX, $storeId);
+        }
+        return $this->_productUrlSuffix[$storeId];
     }
 }

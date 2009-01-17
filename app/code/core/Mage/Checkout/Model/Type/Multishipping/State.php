@@ -39,9 +39,24 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
     const STEP_OVERVIEW         = 'multishipping_overview';
     const STEP_SUCCESS          = 'multishipping_success';
 
+    /**
+     * Allow steps array
+     *
+     * @var array
+     */
     protected $_steps;
+
+    /**
+     * Checkout model
+     *
+     * @var Mage_Checkout_Model_Type_Multishipping
+     */
     protected $_checkout;
 
+    /**
+     * Init model, steps
+     *
+     */
     public function __construct()
     {
         parent::__construct();
@@ -63,10 +78,19 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
             )),
         );
 
+        foreach ($this->_steps as $step) {
+            $step->setIsComplete(false);
+        }
+
         $this->_checkout = Mage::getSingleton('checkout/type_multishipping');
         $this->_steps[$this->getActiveStep()]->setIsActive(true);
     }
 
+    /**
+     * Retrieve checkout model
+     *
+     * @return Mage_Checkout_Model_Type_Multishipping
+     */
     public function getCheckout()
     {
         return $this->_checkout;
@@ -111,6 +135,48 @@ class Mage_Checkout_Model_Type_Multishipping_State extends Varien_Object
                 $stepObject->unsIsActive();
             }
             $this->_steps[$step]->setIsActive(true);
+        }
+        return $this;
+    }
+
+    /**
+     * Mark step as completed
+     *
+     * @param string $step
+     * @return Mage_Checkout_Model_Type_Multishipping_State
+     */
+    public function setCompleteStep($step)
+    {
+        if (isset($this->_steps[$step])) {
+            $this->getCheckoutSession()->setStepData($step, 'is_complete', true);
+        }
+        return $this;
+    }
+
+    /**
+     * Retrieve step complete status
+     *
+     * @param string $step
+     * @return bool
+     */
+    public function getCompleteStep($step)
+    {
+        if (isset($this->_steps[$step])) {
+            return $this->getCheckoutSession()->getStepData($step, 'is_complete');
+        }
+        return false;
+    }
+
+    /**
+     * Unset complete status from step
+     *
+     * @param string $step
+     * @return Mage_Checkout_Model_Type_Multishipping_State
+     */
+    public function unsCompleteStep($step)
+    {
+        if (isset($this->_steps[$step])) {
+            $this->getCheckoutSession()->setStepData($step, 'is_complete', false);
         }
         return $this;
     }

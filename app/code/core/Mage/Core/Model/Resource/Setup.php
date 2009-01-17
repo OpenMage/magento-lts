@@ -43,7 +43,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Setup Connection
      *
-     * @var Zend_Db_Adapter_Abstract
+     * @var Varien_Db_Adapter_Pdo_Mysql
      */
     protected $_conn;
     protected $_tables = array();

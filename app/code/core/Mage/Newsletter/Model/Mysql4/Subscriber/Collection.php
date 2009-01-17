@@ -42,8 +42,6 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Varien_Data_Col
      */
     protected $_subscriberTable;
 
-
-
     /**
      * Queue link table name
      *
@@ -131,13 +129,17 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Varien_Data_Col
      */
     public function showCustomerInfo()
     {
+        $customer = Mage::getModel('customer/customer');
+        /* @var $customer Mage_Customer_Model_Customer */
+        $firstname  = $customer->getAttribute('firstname');
+        $lastname   = $customer->getAttribute('lastname');
 
-        $customersCollection = Mage::getModel('customer/customer')->getCollection();
-        /* @var $customersCollection Mage_Customer_Model_Entity_Customer_Collection */
-        $firstname = $customersCollection->getAttribute('firstname');
-        $lastname  = $customersCollection->getAttribute('lastname');
+//        $customersCollection = Mage::getModel('customer/customer')->getCollection();
+//        /* @var $customersCollection Mage_Customer_Model_Entity_Customer_Collection */
+//        $firstname = $customersCollection->getAttribute('firstname');
+//        $lastname  = $customersCollection->getAttribute('lastname');
 
-        $this->_select
+        $this->getSelect()
             ->joinLeft(
                 array('customer_lastname_table'=>$lastname->getBackend()->getTable()),
                 'customer_lastname_table.entity_id=main_table.customer_id
@@ -158,7 +160,7 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Varien_Data_Col
 
     public function addSubscriberTypeField()
     {
-        $this->_select
+        $this->getSelect()
             ->from(null, array('type'=>new Zend_Db_Expr('IF(main_table.customer_id = 0, 1, 2)')));
         return $this;
     }
@@ -171,7 +173,11 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Varien_Data_Col
      */
     public function showStoreInfo()
     {
-        $this->_select->join(array('store'=>$this->_storeTable), 'store.store_id = main_table.store_id', array('website_id','group_id'));
+        $this->getSelect()->join(
+            array('store' => $this->_storeTable),
+            'store.store_id = main_table.store_id',
+            array('group_id', 'website_id')
+        );
 
         return $this;
     }

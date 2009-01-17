@@ -118,15 +118,8 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Abstract
             }
         }
 
-
-
-
-
-
         foreach($collection->getItems() as $item) {
-
             $this->getTemplate()->send($item, array('subscriber'=>$item), null, $this);
-
         }
 
         if(count($collection->getItems()) < $count-1 || count($collection->getItems()) == 0) {

@@ -695,7 +695,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $data = array();
         foreach ($this->_columns as $column) {
             if (!$column->getIsSystem()) {
-                $data[] = '"'.$column->getHeader().'"';
+                $data[] = '"'.$column->getExportHeader().'"';
             }
         }
         $csv.= implode(',', $data)."\n";
@@ -704,7 +704,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $data = array();
             foreach ($this->_columns as $column) {
                 if (!$column->getIsSystem()) {
-                    $data[] = '"'.str_replace(array('"', '\\'), array('""', '\\\\'), $column->getRowField($item)).'"';
+                    $data[] = '"'.str_replace(array('"', '\\'), array('""', '\\\\'), $column->getRowFieldExport($item)).'"';
                 }
             }
             $csv.= implode(',', $data)."\n";
@@ -715,7 +715,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $data = array();
             foreach ($this->_columns as $column) {
                 if (!$column->getIsSystem()) {
-                    $data[] = '"'.str_replace(array('"', '\\'), array('""', '\\\\'), $column->getRowField($this->getTotals())).'"';
+                    $data[] = '"'.str_replace(array('"', '\\'), array('""', '\\\\'), $column->getRowFieldExport($this->getTotals())).'"';
                 }
             }
             $csv.= implode(',', $data)."\n";
@@ -838,9 +838,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Retrieve row identifier
-     *
-     * By default we retrieve row edit url
+     * Deprecated since 1.1.7
      *
      * @return string
      */

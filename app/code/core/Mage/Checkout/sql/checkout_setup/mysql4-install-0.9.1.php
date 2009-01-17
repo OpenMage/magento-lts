@@ -19,7 +19,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Mage
- * @package    Mage_Chronopay
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -38,7 +38,7 @@ CREATE TABLE `{$installer->getTable('checkout_agreement')}` (
    `is_active` tinyint(4) NOT NULL default '0',
     PRIMARY KEY  (`agreement_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-            
+
 CREATE TABLE `{$this->getTable('checkout_agreement_store')}` (
     `agreement_id` int(10) unsigned not null,
     `store_id` smallint(5) unsigned not null,

@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,64 +21,64 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <div class="input-left">
-    <h3><?php echo $this->__('Personal Information') ?></h3>
+    <h3><?php echo Mage::helper('customer')->__('Personal Information') ?></h3>
     <p>
         <?php echo $this->getCustomer()->toString('{{firstname}} {{lastname}}<br/>{{email}}') ?>
         <br/>
-        <a href="<?php echo $this->getAccountUrl() ?>"><?php echo $this->__('Edit Personal Information') ?></a>
+        <a href="<?php echo $this->getAccountUrl() ?>"><?php echo Mage::helper('customer')->__('Edit Personal Information') ?></a>
     </p>
     <h3><?php echo _('Newsletters') ?></h3>
     <?php echo $this->getSubscriptionText() ?>
-    <p><a href="<?php echo $this->getManageNewsletterUrl() ?>"><?php echo $this->__('Edit Newsletter Subscription') ?></a></p>
+    <p><a href="<?php echo $this->getManageNewsletterUrl() ?>"><?php echo Mage::helper('customer')->__('Edit Newsletter Subscription') ?></a></p>
 </div>
 <div class="input-right">
-<h3><?php echo $this->__('Addresses') ?></h3>
+<h3><?php echo Mage::helper('customer')->__('Addresses') ?></h3>
 <?php if($_addresses = $this->getPrimaryAddresses()): ?>
     <?php foreach ($_addresses as $_address): ?>
     <address>
         <?php echo $_address->format('html') ?>
-        <br /><a href="<?php echo $this->getAddressEditUrl($_address) ?>"><?php echo $this->__('Edit Address') ?></a>
+        <br /><a href="<?php echo $this->getAddressEditUrl($_address) ?>"><?php echo Mage::helper('customer')->__('Edit Address') ?></a>
     </address>
     <?php endforeach; ?>
 <?php endif; ?>
-<a href="<?php echo $this->getAddressesUrl() ?>"><?php echo $this->__('Go to Address Book') ?></a>
+<a href="<?php echo $this->getAddressesUrl() ?>"><?php echo Mage::helper('customer')->__('Go to Address Book') ?></a>
 </div>
 <div class="clear"></div>
 <div>
-    <h3><?php echo $this->__('Last 5 Orders') ?></h3>
+    <h3><?php echo Mage::helper('customer')->__('Last 5 Orders') ?></h3>
     <p>
-    <?php echo $this->__('Order List...') ?><br/>
-    <a href=""><?php echo $this->__('View Order List') ?></a>
+    <?php echo Mage::helper('customer')->__('Order List...') ?><br/>
+    <a href=""><?php echo Mage::helper('customer')->__('View Order List') ?></a>
     </p>
 </div>
 
 <div class="input-left">
-    <h3><?php echo $this->__('Personal Information') ?></h3>
+    <h3><?php echo Mage::helper('customer')->__('Personal Information') ?></h3>
 </div>
 
 <?php if ($this->helper('wishlist')->isAllow()) : ?>
 <div class="input-right">
-    <h3><?php echo $this->__('My Wishlist') ?></h3>
+    <h3><?php echo Mage::helper('customer')->__('My Wishlist') ?></h3>
 </div>
 <?php endif; ?>
 
 <div class="input-left">
-    <h3><?php echo $this->__('My Reviews') ?></h3>
+    <h3><?php echo Mage::helper('customer')->__('My Reviews') ?></h3>
 </div>
 
 <div class="input-right">
-    <h3><?php echo $this->__('My Tags') ?></h3>
+    <h3><?php echo Mage::helper('customer')->__('My Tags') ?></h3>
 </div>
 
 <div class="input-left">
-    <h3><?php echo $this->__('Last Viewed Items') ?></h3>
+    <h3><?php echo Mage::helper('customer')->__('Last Viewed Items') ?></h3>
 </div>
 
 <div class="input-right">
-    <h3><?php echo $this->__('Shopping Cart') ?></h3>
+    <h3><?php echo Mage::helper('customer')->__('Shopping Cart') ?></h3>
 </div>

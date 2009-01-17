@@ -5,10 +5,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -22,7 +22,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -481,22 +481,22 @@
                             <show_in_store>1</show_in_store>
                         </active>
                         <file translate="label comment">
-                            <label>File Name</label>
+                            <label>System Log File Name</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>located in {{base_dir}}/var/log</comment>
+                            <comment>Logging from Mage::log(). File is located in {{base_dir}}/var/log</comment>
                         </file>
                         <exception_file translate="label comment">
-                            <label>Exception Log File Name</label>
+                            <label>Exceptions Log File Name</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>located in {{base_dir}}/var/log</comment>
+                            <comment>Logging from Mage::logException(). File is located in {{base_dir}}/var/log</comment>
                         </exception_file>
                     </fields>
                 </log>
@@ -546,6 +546,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <can_be_empty>1</can_be_empty>
                         </allow>
                         <default translate="label">
                             <label>Default country</label>
@@ -575,15 +576,6 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <code translate="label">
-                            <label>Locale</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_locale</source_model>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </code>
                         <timezone translate="label">
                             <label>Timezone</label>
                             <frontend_type>select</frontend_type>
@@ -591,8 +583,35 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </timezone>
+                        <code translate="label">
+                            <label>Locale</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_locale</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </code>
+                        <firstday translate="label">
+                            <label>First Day of Week</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_locale_weekdays</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </firstday>
+                        <weekend translate="label">
+                            <label>Weekend Days</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_locale_weekdays</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </weekend>
                     </fields>
                 </locale>
             </groups>
@@ -745,7 +764,7 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </use_custom>
-                        <custom translate="label">
+                        <custom translate="label comment">
                             <label>Custom admin URL</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_admin_custom</backend_model>
@@ -870,7 +889,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <base_url translate="label">
+                        <base_url translate="label comment">
                             <label>Base URL</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_baseurl</backend_model>
@@ -880,7 +899,7 @@
                             <show_in_store>1</show_in_store>
                             <comment>Please make sure that Base URL ends with '/' (slash), e.g. http://yourdomain/magento/</comment>
                         </base_url>
-                        <base_link_url translate="label">
+                        <base_link_url translate="label comment">
                             <label>Base Link URL</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_baseurl</backend_model>
@@ -1005,6 +1024,52 @@
                         </cookie_path>
                     </fields>
                 </cookie>
+                <session translate="label">
+                    <label>Session Validation Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>60</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <use_remote_addr translate="label">
+                            <label>Validate REMOTE_ADDR</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </use_remote_addr>
+                        <use_http_via translate="label">
+                            <label>Validate HTTP_VIA</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </use_http_via>
+                        <use_http_x_forwarded_for translate="label">
+                            <label>Validate HTTP_X_FORWARDED_FOR</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </use_http_x_forwarded_for>
+                        <use_http_user_agent translate="label">
+                            <label>Validate HTTP_USER_AGENT</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </use_http_user_agent>
+                    </fields>
+                </session>
             </groups>
         </web>
     </sections>

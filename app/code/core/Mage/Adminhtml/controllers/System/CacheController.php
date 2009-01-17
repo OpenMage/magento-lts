@@ -84,7 +84,7 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
                 case 'refresh_catalog_rewrites':
                     try {
                         Mage::getSingleton('catalog/url')->refreshRewrites();
-                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Catalog Rewrites were refreshed succesfuly'));
+                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Catalog Rewrites were refreshed successfully'));
                     }
                     catch (Mage_Core_Exception $e) {
                         $this->_getSession()->addError($e->getMessage());
@@ -97,7 +97,7 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
                 case 'clear_images_cache':
                     try {
                         Mage::getModel('catalog/product_image')->clearCache();
-                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Image cache were cleared succesfuly'));
+                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Image cache were cleared successfully'));
                     }
                     catch (Mage_Core_Exception $e) {
                         $this->_getSession()->addError($e->getMessage());
@@ -117,7 +117,7 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
 
                         $flag->setState(Mage_CatalogIndex_Model_Catalog_Index_Flag::STATE_QUEUED)->save();
                         Mage::getSingleton('catalogindex/indexer')->plainReindex();
-                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Layered Navigation Indices were refreshed succesfuly'));
+                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Layered Navigation Indices were refreshed successfully'));
                     }
                     catch (Mage_Core_Exception $e) {
                         $this->_getSession()->addError($e->getMessage());
@@ -168,7 +168,7 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
     {
         try {
             Mage::getSingleton('catalog/url')->refreshRewrites();
-            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Catalog Rewrites was refreshed succesfuly'));
+            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Catalog Rewrites was refreshed successfully'));
         }
         catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
@@ -184,7 +184,7 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
     {
         try {
             Mage::getModel('catalog/product_image')->clearCache();
-            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Image cache was cleared succesfuly'));
+            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Image cache was cleared successfully'));
         }
         catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
@@ -200,7 +200,7 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
     {
         try {
             Mage::getSingleton('catalogindex/indexer')->plainReindex();
-            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Layered Navigation Indices was refreshed succesfuly'));
+            $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Layered Navigation Indices was refreshed successfully'));
         }
         catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());

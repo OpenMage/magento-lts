@@ -19,7 +19,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Mage
- * @package    Mage_Chronopay
+ * @package    Mage_Checkout
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,9 +29,8 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->run("
-ALTER TABLE `{$installer->getTable('checkout_agreement')}`
-ADD COLUMN `content_height` varchar(25) NULL DEFAULT NULL AFTER `content`;
-");
+$installer->getConnection()->addColumn($installer->getTable('checkout_agreement'), 'content_height',
+    'varchar(25) NULL DEFAULT NULL AFTER `content`'
+);
 
 $installer->endSetup();

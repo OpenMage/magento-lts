@@ -121,10 +121,9 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                             continue;
                         }
 
+                        $qty = $selection->getSelectionQty();
                         if ($selection->getSelectionCanChangeQty() && $option->getType() != 'multi' && $option->getType() != 'checkbox') {
-                            $qty = 1;
-                        } else {
-                            $qty = $selection->getSelectionQty();
+                            $qty = min(1, $qty);
                         }
 
                         $selectionMinimalPrices[] = $this->getSelectionPrice($product, $selection, $qty);
@@ -389,12 +388,12 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
     {
         $specialPrice = $product->getSpecialPrice();
         if (is_numeric($specialPrice)) {
-            $today = floor(time()/86400)*86400;
-            $from = floor(strtotime($product->getSpecialFromDate())/86400)*86400;
-            $to = floor(strtotime($product->getSpecialToDate())/86400)*86400;
+            $storeDate  = Mage::app()->getLocale()->storeDate($product->getStore());
+            $fromDate   = Mage::app()->getLocale()->date($product->getSpecialFromDate(), null, null, false);
+            $toDate     = Mage::app()->getLocale()->date($product->getSpecialToDate(), null, null, false);
 
-            if ($product->getSpecialFromDate() && $today < $from) {
-            } elseif ($product->getSpecialToDate() && $today > $to) {
+            if ($product->getSpecialFromDate() && $storeDate->compare($fromDate)<0) {
+            } elseif ($product->getSpecialToDate() && $storeDate->compare($toDate)>0) {
             } else {
                 // special price in percents
                 $specialPrice = ($finalPrice*$specialPrice)/100;
@@ -409,12 +408,14 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         $resource = Mage::getResourceSingleton('bundle/bundle');
         $selectionResource = Mage::getResourceSingleton('bundle/selection');
         $productPriceTypeId = Mage::getSingleton('eav/entity_attribute')->getIdByCode('catalog_product', 'price_type');
+
         if ($wId instanceof Mage_Core_Model_Store) {
             $store = $wId->getId();
+            $wId = $wId->getWebsiteId();
         } else {
-            $wId = Mage::app()->getStore();
-            $store = Mage::app()->getStore()->getId();
+            $store = Mage::app()->getWebsite($wId)->getDefaultGroup()->getDefaultStoreId();
         }
+        $storeDate = Mage::app()->getLocale()->storeDate($store);
 
         if (!$gId) {
             $gId = Mage::getSingleton('customer/session')->getCustomerGroupId();
@@ -432,7 +433,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         $options = array(0);
         $results = $resource->getSelectionsData($productId);
 
-        if (!$attributes[0]['value']) { //dynamic
+        if (!$attributes || !$attributes[0]['value']) { //dynamic
             $dataRetreiver = Mage::getSingleton('catalogindex/data_simple');
 
             $childrenQty = array();
@@ -489,13 +490,12 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
 
         $finalPrice = $basePrice;
 
-        $today = floor(time()/86400)*86400;
-        $from = floor(strtotime($specialPriceFrom)/86400)*86400;
-        $to = floor(strtotime($specialPriceTo)/86400)*86400;
+        $fromDate   = Mage::app()->getLocale()->date($specialPriceFrom, null, null, false);
+        $toDate     = Mage::app()->getLocale()->date($specialPriceTo, null, null, false);
 
         if ($specialPrice !== null && $specialPrice !== false) {
-            if ($specialPriceFrom && $today < $from) {
-            } elseif ($specialPriceTo && $today > $to) {
+            if ($specialPriceFrom && $storeDate->compare($fromDate)<0) {
+            } elseif ($specialPriceTo && $storeDate->compare($toDate)>0) {
             } else {
                 // special price in percents
                 $specialPrice = ($finalPrice*$specialPrice)/100;
@@ -527,8 +527,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         }
 
         if ($rulePrice === false) {
-            $date = mktime(0,0,0);
-            $rulePrice = Mage::getResourceModel('catalogrule/rule')->getRulePrice($date, $wId, $gId, $productId);
+            $rulePrice = Mage::getResourceModel('catalogrule/rule')->getRulePrice($storeDate, $wId, $gId, $productId);
         }
 
         if ($rulePrice !== null && $rulePrice !== false) {

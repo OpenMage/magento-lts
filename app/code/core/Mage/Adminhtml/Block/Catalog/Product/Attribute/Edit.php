@@ -56,6 +56,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
         }
 
         $this->_updateButton('save', 'label', Mage::helper('catalog')->__('Save Attribute'));
+        $this->_addButton(
+            'save_and_edit_button',
+            array(
+                'label'     => Mage::helper('catalog')->__('Save And Continue Edit'),
+                'onclick'   => 'saveAndContinueEdit()',
+                'class'     => 'save'
+            ),
+            100
+        );
 
         if (! Mage::registry('entity_attribute')->getIsUserDefined()) {
             $this->_removeButton('delete');
@@ -81,6 +90,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/'.$this->_controller.'/save', array('_current'=>true));
+        return $this->getUrl('*/'.$this->_controller.'/save', array('_current'=>true, 'back'=>null));
     }
 }

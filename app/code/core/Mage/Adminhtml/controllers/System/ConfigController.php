@@ -63,10 +63,10 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $current = $this->getRequest()->getParam('section');
         $website = $this->getRequest()->getParam('website');
         $store   = $this->getRequest()->getParam('store');
-		
+
         $configFields = Mage::getSingleton('adminhtml/config');
- 
-        
+
+
         $sections     = $configFields->getSections($current);
         $section      = $sections->$current;
         $hasChildren  = $configFields->hasChildren($section, $website, $store);
@@ -83,14 +83,14 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
         $this->getLayout()->getBlock('left')
             ->append($this->getLayout()->createBlock('adminhtml/system_config_tabs')->initTabs());
-       
+
         if ($this->_isSectionAllowed($this->getRequest()->getParam('section'))) {
             $this->_addContent($this->getLayout()->createBlock('adminhtml/system_config_edit')->initForm());
-           
+
             $this->_addJs($this->getLayout()->createBlock('adminhtml/template')->setTemplate('system/shipping/ups.phtml'));
             $this->_addJs($this->getLayout()->createBlock('adminhtml/template')->setTemplate('system/config/js.phtml'));
             $this->_addJs($this->getLayout()->createBlock('adminhtml/template')->setTemplate('system/shipping/applicable_country.phtml'));
-            
+
             $this->renderLayout();
         }
     }
@@ -105,8 +105,8 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         /* @var $session Mage_Adminhtml_Model_Session */
 
         $groups = $this->getRequest()->getPost('groups');
-       
-   	
+
+
         if (isset($_FILES['groups']['name']) && is_array($_FILES['groups']['name'])) {
             /**
              * Carefully merge $_FILES and $_POST information
@@ -128,12 +128,27 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             if (!$this->_isSectionAllowed($this->getRequest()->getParam('section'))) {
                 throw new Exception(Mage::helper('adminhtml')->__('This section is not allowed.'));
             }
+
+            // custom save logic
+            $this->_saveSection();
+            $section = $this->getRequest()->getParam('section');
+            $website = $this->getRequest()->getParam('website');
+            $store   = $this->getRequest()->getParam('store');
             Mage::getModel('adminhtml/config_data')
-                ->setSection($this->getRequest()->getParam('section'))
-                ->setWebsite($this->getRequest()->getParam('website'))
-                ->setStore($this->getRequest()->getParam('store'))
+                ->setSection($section)
+                ->setWebsite($website)
+                ->setStore($store)
                 ->setGroups($groups)
                 ->save();
+
+            // reinit configuration
+            Mage::getConfig()->reinit();
+            Mage::app()->reinitStores();
+
+            // website and store codes can be used in event implementation, so set them as well
+            Mage::dispatchEvent("admin_system_config_changed_section_{$section}",
+                array('website' => $website, 'store' => $store)
+            );
 
             $session->addSuccess(Mage::helper('adminhtml')->__('Configuration successfully saved'));
         }
@@ -149,6 +164,36 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $this->_saveState($this->getRequest()->getPost('config_state'));
 
         $this->_redirect('*/*/edit', array('_current' => array('section', 'website', 'store')));
+    }
+
+    /**
+     *  Custom save logic for section
+     *
+     *  @param    none
+     *  @return	  void
+     */
+    protected function _saveSection ()
+    {
+        $method = '_save' . uc_words($this->getRequest()->getParam('section'), '');
+        if (method_exists($this, $method)) {
+            $this->$method();
+        }
+    }
+
+    /**
+     *  Description goes here...
+     *
+     *  @param    none
+     *  @return	  void
+     */
+    protected function _saveAdvanced ()
+    {
+        Mage::app()->cleanCache(
+            array(
+                'layout',
+                Mage_Core_Model_Layout_Update::LAYOUT_GENERAL_CACHE_TAG
+            )
+        );
     }
 
     /**

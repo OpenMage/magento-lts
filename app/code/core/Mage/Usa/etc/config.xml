@@ -5,10 +5,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -22,7 +22,7 @@
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -107,7 +107,7 @@
                 <account></account>
                 <active>0</active>
                 <sallowspecific>0</sallowspecific>
-                <allowed_methods>E,N,S,G,IE</allowed_methods>
+                <allowed_methods>E,N,S,G,IE,E SAT,E 10:30AM</allowed_methods>
                 <contentdesc>Big Box</contentdesc>
                 <cutoff_cost></cutoff_cost>
                 <dutypaymenttype>R</dutypaymenttype>
@@ -124,6 +124,9 @@
                 <max_package_weight>150</max_package_weight>
                 <handling_type>F</handling_type>
                 <handling_action>O</handling_action>
+                <shipment_days>1,2,3,4,5,6</shipment_days>
+                <intl_shipment_days>1,2,3,4,5</intl_shipment_days>
+                <additional_protection_rounding>0</additional_protection_rounding>
             </dhl>
 
             <fedex>
@@ -173,14 +176,14 @@
             <usps>
                 <active>0</active>
                 <sallowspecific>0</sallowspecific>
-                <allowed_methods>First-Class,First-Class Mail Letter,First-Class Mail Flat,First-Class Mail Parcel,First-Class Mail International,Express Mail,Express Mail PO to PO,Priority Mail,Parcel Post,Express Mail Flat-Rate Envelope,Priority Mail Flat-Rate Box,Bound Printed Matter,Media Mail,Library Mail,Priority Mail Flat-Rate Envelope,Global Express Guaranteed,Global Express Guaranteed Non-Document Rectangular,Global Express Guaranteed Non-Document Non-Rectangular,Express Mail International (EMS),Express Mail International (EMS) Flat Rate Envelope,Priority Mail International,Priority Mail International Flat Rate Box</allowed_methods>
+                <allowed_methods>Bound Printed Matter,Express Mail,Express Mail Flat-Rate Envelope,Express Mail Flat-Rate Envelope Hold For Pickup,Express Mail Flat-Rate Envelope Sunday/Holiday Guarantee,Express Mail Hold For Pickup,Express Mail International (EMS),Express Mail International (EMS) Flat-Rate Envelope,Express Mail PO to PO,Express Mail Sunday/Holiday Guarantee,First Class Mail International Large Envelope,First Class Mail International Letters,First Class Mail International Package,First-Class,First-Class Mail,First-Class Mail Flat,First-Class Mail International,First-Class Mail Letter,First-Class Mail Parcel,Global Express Guaranteed,Global Express Guaranteed Non-Document Non-Rectangular,Global Express Guaranteed Non-Document Rectangular,Library Mail,Media Mail,Parcel Post,Priority Mail,Priority Mail Flat-Rate Box,Priority Mail Flat-Rate Envelope,Priority Mail International,Priority Mail International Flat-Rate Box,Priority Mail International Flat-Rate Envelope,Priority Mail International Large Flat-Rate Box,Priority Mail Large Flat-Rate Box,USPS GXG Envelopes</allowed_methods>
                 <container>VARIABLE</container>
                 <cutoff_cost></cutoff_cost>
                 <free_method></free_method>
                 <gateway_url>http://production.shippingapis.com/ShippingAPI.dll</gateway_url>
                 <handling></handling>
                 <machinable>true</machinable>
-                <methods>First-Class,First-Class Mail Letter,First-Class Mail Flat,First-Class Mail Parcel,First-Class Mail International,Express Mail,Express Mail PO to PO,Priority Mail,Parcel Post,Express Mail Flat-Rate Envelope,Priority Mail Flat-Rate Box,Bound Printed Matter,Media Mail,Library Mail,Priority Mail Flat-Rate Envelope,Global Express Guaranteed,Global Express Guaranteed Non-Document Rectangular,Global Express Guaranteed Non-Document Non-Rectangular,Express Mail International (EMS),Express Mail International (EMS) Flat Rate Envelope,Priority Mail International,Priority Mail International Flat Rate Box</methods>
+                <methods>Bound Printed Matter,Express Mail,Express Mail Flat-Rate Envelope,Express Mail Flat-Rate Envelope Hold For Pickup,Express Mail Flat-Rate Envelope Sunday/Holiday Guarantee,Express Mail Hold For Pickup,Express Mail International (EMS),Express Mail International (EMS) Flat-Rate Envelope,Express Mail PO to PO,Express Mail Sunday/Holiday Guarantee,First Class Mail International Large Envelope,First Class Mail International Letters,First Class Mail International Package,First-Class,First-Class Mail,First-Class Mail Flat,First-Class Mail International,First-Class Mail Letter,First-Class Mail Parcel,Global Express Guaranteed,Global Express Guaranteed Non-Document Non-Rectangular,Global Express Guaranteed Non-Document Rectangular,Library Mail,Media Mail,Parcel Post,Priority Mail,Priority Mail Flat-Rate Box,Priority Mail Flat-Rate Envelope,Priority Mail International,Priority Mail International Flat-Rate Box,Priority Mail International Flat-Rate Envelope,Priority Mail International Large Flat-Rate Box,Priority Mail Large Flat-Rate Box,USPS GXG Envelopes</methods>
                 <model>usa/shipping_carrier_usps</model>
                 <size>REGULAR</size>
                 <title>United States Postal Service</title>

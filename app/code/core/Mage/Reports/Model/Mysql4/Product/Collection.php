@@ -34,9 +34,24 @@
 
 class Mage_Reports_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 {
+    const SELECT_COUNT_SQL_TYPE_CART    = 1;
+
     protected $_productEntityId;
     protected $_productEntityTableName;
     protected $_productEntityTypeId;
+    protected $_selectCountSqlType = 0;
+
+    /**
+     * Set Type for COUNT SQL Select
+     *
+     * @param int $type
+     * @return Mage_Reports_Model_Mysql4_Product_Collection
+     */
+    public function setSelectCountSqlType($type)
+    {
+        $this->_selectCountSqlType = $type;
+        return $this;
+    }
 
     public function setProductEntityId($value)
     {
@@ -100,6 +115,18 @@ class Mage_Reports_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Re
 
     public function getSelectCountSql()
     {
+        if ($this->_selectCountSqlType == self::SELECT_COUNT_SQL_TYPE_CART) {
+            $countSelect = clone $this->getSelect();
+            $countSelect->reset()
+                ->from(array('quote_item_table' => $this->getTable('sales/quote_item')), 'COUNT(DISTINCT quote_item_table.product_id)')
+                ->join(
+                    array('quote_table' => $this->getTable('sales/quote')),
+                    'quote_table.entity_id = quote_item_table.quote_id AND quote_table.is_active = 1',
+                    array()
+                );
+            return $countSelect->__toString();
+        }
+
         $countSelect = clone $this->getSelect();
         $countSelect->reset(Zend_Db_Select::ORDER);
         $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);

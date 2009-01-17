@@ -119,6 +119,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
 
         $billingAddress = $quote->getBillingAddress();
         $address = $quote->getShippingAddress();
+
         $googleAddress = $this->getData('root/calculate/addresses/anonymous-address');
 
         $googleAddresses = array();
@@ -178,7 +179,13 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                         $errors[$rate->getCarrierTitle()] = 1;
                     } else {
                         $k = $rate->getCarrierTitle().' - '.$rate->getMethodTitle();
-                        $price = $rate->getPrice();
+
+                        if ($address->getFreeShipping()) {
+                            $price = 0;
+                        } else {
+                            $price = $rate->getPrice();
+                        }
+
                         if ($price) {
                             $price = Mage::helper('tax')->getShippingPrice($price, false, $address);
                         }
@@ -212,8 +219,8 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                         if ($this->getData('root/calculate/tax/VALUE')=='true') {
                             $address->setShippingMethod($rateCodes[$methodName]);
 
-                            $address->setCollectShippingRates(false)->collectTotals();
-                            $billingAddress->setCollectShippingRates(false)->collectTotals();
+                            $address->setCollectShippingRates(true)->collectTotals();
+                            $billingAddress->setCollectShippingRates(true)->collectTotals();
 
                             $taxAmount = $address->getTaxAmount();
                             $taxAmount += $billingAddress->getTaxAmount();
@@ -228,8 +235,8 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
             } elseif ($this->getData('root/calculate/tax/VALUE')=='true') {
                 $address->setShippingMethod(null);
 
-                $address->setCollectShippingRates(false)->collectTotals();
-                $billingAddress->setCollectShippingRates(false)->collectTotals();
+                $address->setCollectShippingRates(true)->collectTotals();
+                $billingAddress->setCollectShippingRates(true)->collectTotals();
 
                 $taxAmount = $address->getTaxAmount();
                 $taxAmount += $billingAddress->getTaxAmount();
@@ -406,17 +413,22 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         }
         if (!empty($method)) {
             $excludingTax = $shipping['shipping-cost']['VALUE'];
+            $qAddress->setShippingMethod($method)
+                ->setShippingDescription($shipping['shipping-name']['VALUE'])
+                ->setShippingAmount($excludingTax, true)
+                ->setBaseShippingAmount($excludingTax, true);
+
             if (!Mage::helper('tax')->shippingPriceIncludesTax()) {
                 $includingTax = Mage::helper('tax')->getShippingPrice($excludingTax, true, $qAddress, $qAddress->getQuote()->getCustomerTaxClassId());
                 $shippingTax = $includingTax - $excludingTax;
                 $qAddress->setShippingTaxAmount($shippingTax)
                     ->setBaseShippingTaxAmount($shippingTax);
+            } else {
+                if ($method == 'googlecheckout_carrier') {
+                    $qAddress->setShippingTaxAmount(0)
+                        ->setBaseShippingTaxAmount(0);
+                }
             }
-
-            $qAddress->setShippingMethod($method)
-                ->setShippingDescription($shipping['shipping-name']['VALUE'])
-                ->setShippingAmount($excludingTax, true)
-                ->setBaseShippingAmount($excludingTax, true);
         } else {
             $qAddress->setShippingMethod(null);
         }
@@ -487,6 +499,10 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $msg .= '<br />'.$this->__('Expiration: %s', '<strong>'.$expDate->toString().'</strong>');
 
         $order->addStatusToHistory($order->getStatus(), $msg);
+
+        $order->setPaymentAuthorizationAmount($payment->getAmountAuthorized());
+        $order->setPaymentAuthorizationExpiration(Mage::getModel('core/date')->gmtTimestamp($this->getData('root/authorization-expiration-date/VALUE')));
+
         $order->save();
     }
 
@@ -509,6 +525,15 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         if (!$order->hasInvoices() && abs($order->getGrandTotal()-$latestCharged)<.0001) {
             $invoice = $this->_createInvoice();
             $msg .= '<br />'.$this->__('Invoice auto-created: %s', '<strong>'.$invoice->getIncrementId().'</strong>');
+        }
+
+        foreach ($order->getInvoiceCollection() as $orderInvoice) {
+            $open = Mage_Sales_Model_Order_Invoice::STATE_OPEN;
+            $paid = Mage_Sales_Model_Order_Invoice::STATE_PAID;
+            if ($orderInvoice->getState() == $open && $orderInvoice->getGrandTotal() == $latestCharged) {
+                $orderInvoice->setState($paid)->save();
+                break;
+            }
         }
 
         $order->addStatusToHistory($order->getStatus(), $msg);

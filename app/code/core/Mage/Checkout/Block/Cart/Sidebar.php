@@ -34,6 +34,8 @@
  */
 class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
 {
+    const XML_PATH_CHECKOUT_SIDEBAR_COUNT   = 'checkout/sidebar/count';
+
     public function __construct()
     {
         parent::__construct();
@@ -45,17 +47,25 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
      *
      * @return array
      */
-    public function getRecentItems()
+    public function getRecentItems($count = null)
     {
+        if ($count === null) {
+            $count = $this->getData('item_count');
+        }
+        if ($count === null) {
+            $count = Mage::getStoreConfig(self::XML_PATH_CHECKOUT_SIDEBAR_COUNT);
+        }
         $items = array();
         if (!$this->getSummaryCount()) {
-        	return $items;
+            return $items;
         }
         $i = 0;
         $allItems = array_reverse($this->getItems());
         foreach ($allItems as $item) {
-        	$items[] = $item;
-        	if (++$i==3) break;
+            $items[] = $item;
+            if (++$i == $count) {
+                break;
+            }
         }
         return $items;
     }
@@ -95,12 +105,21 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
         return $this->_addTax($this->getSubtotal(true));
     }
 
-    private function _addTax($price) {
+    private function _addTax($price, $exclShippingTax=true) {
         $totals = $this->getTotals();
         if (isset($totals['tax'])) {
-            $price += $totals['tax']->getValue();
+            if ($exclShippingTax) {
+                $price += $totals['tax']->getValue()-$this->_getShippingTaxAmount();
+            } else {
+                $price += $totals['tax']->getValue();
+            }
         }
         return $price;
+    }
+
+    protected function _getShippingTaxAmount()
+    {
+        return $this->getQuote()->getShippingAddress()->getShippingTaxAmount();
     }
 
     public function getSummaryCount()

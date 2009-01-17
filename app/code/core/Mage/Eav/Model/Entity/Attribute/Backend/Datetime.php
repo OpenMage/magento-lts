@@ -43,23 +43,21 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
      */
     public function formatDate($date)
     {
-    	if (empty($date)) {
-    		return null;
-    	}
-        if (!is_numeric($date)) {
-            $_date = Mage::app()->getLocale()->date(
-                    $date,
-                    Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
-                    Mage::app()->getDistroLocaleCode(),
-                    false
-                );
-            $date = strtotime($_date->toString());
-        }
-        if ($date == -1){
+        if (empty($date)) {
             return null;
         }
-
-        return date('Y-m-d H:i:s', $date);
+        // unix timestamp given - simply instantiate date object
+        if (preg_match('/^[0-9]+$/', $date)) {
+            $date = new Zend_Date((int)$date);
+        }
+        // parse this date in current locale, do not apply GMT offset
+        else {
+            $date = Mage::app()->getLocale()->date($date,
+               Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
+               null, false
+            );
+        }
+        return $date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
     }
 
 }

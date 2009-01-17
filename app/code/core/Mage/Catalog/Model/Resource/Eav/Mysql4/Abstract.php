@@ -130,6 +130,9 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
             'store_id'      => $this->getDefaultStoreId()
         );
         $this->_getWriteAdapter()->insert($attribute->getBackend()->getTable(), $row);
+        if ($object->getStoreId() != $this->getDefaultStoreId()) {
+            $this->_updateAttribute($object, $attribute, $this->_getWriteAdapter()->lastInsertId(), $value);
+        }
         return $this;
     }
 

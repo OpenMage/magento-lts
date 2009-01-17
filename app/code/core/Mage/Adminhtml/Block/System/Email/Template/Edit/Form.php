@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
         $form = new Varien_Data_Form();
 
         $fieldset = $form->addFieldset('base_fieldset',
-            array('legend'=>Mage::helper('adminhtml')->__('Template Information'))
+            array('legend'=>Mage::helper('adminhtml')->__('Template Information'),'class'=>'fieldset-wide')
         );
 
         $fieldset->addField('template_code', 'text', array(
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
             'required' => true,
             'theme' => 'advanced',
             'state' => 'html',
-           	'style' => 'width:98%; height: 600px;',
+           	'style' => 'height:24em;',
         ));
 
         if (Mage::registry('email_template')->getId()) {

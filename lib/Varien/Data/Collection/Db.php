@@ -61,6 +61,14 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
     protected $_bindParams = array();
 
+    /**
+     * All collection data array
+     * Used for getData method
+     *
+     * @var array
+     */
+    protected $_data = null;
+
     public function __construct($conn=null)
     {
         parent::__construct();
@@ -632,7 +640,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
         $this->printLogQuery($printQuery, $logQuery);
 
-        $data = $this->_fetchAll($this->_select);
+        $data = $this->getData();
+        $this->resetData();
+
         if (is_array($data)) {
             foreach ($data as $row) {
                 $item = $this->getNewEmptyItem();
@@ -646,6 +656,44 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
         $this->_setIsLoaded();
         $this->_afterLoad();
+        return $this;
+    }
+
+    /**
+     * Get all data array for collection
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        if ($this->_data === null) {
+            $this->_renderFilters()
+                 ->_renderOrders()
+                 ->_renderLimit();
+        	$this->_data = $this->_fetchAll($this->_select);
+        	$this->_afterLoadData();
+        }
+        return $this->_data;
+    }
+
+    /**
+     * Proces loaded collection data
+     *
+     * @return Varien_Data_Collection_Db
+     */
+    protected function _afterLoadData()
+    {
+        return $this;
+    }
+
+    /**
+     * Reset loaded for collection data array
+     *
+     * @return Varien_Data_Collection_Db
+     */
+    public function resetData()
+    {
+        $this->_data = null;
         return $this;
     }
 
@@ -688,6 +736,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $this->_initSelect();
         $this->_setIsLoaded(false);
         $this->_items = array();
+        $this->_data = array();
         return $this;
     }
 

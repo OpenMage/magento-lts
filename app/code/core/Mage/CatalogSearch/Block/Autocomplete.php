@@ -29,39 +29,68 @@
  */
 class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
 {
+    protected $_suggestData = null;
+
     protected function _toHtml()
     {
         $html = '';
 
-		if (!$this->_beforeToHtml()) {
-			return $html;
-		}
+        if (!$this->_beforeToHtml()) {
+            return $html;
+        }
 
-		$collection = $this->helper('catalogSearch')->getSuggestCollection();
-		if (!$collection->getSize()) {
-		    return $html;
-		}
+        $suggestData = $this->getSuggestData();
+        if (!($count = count($suggestData))) {
+            return $html;
+        }
 
-		$query = $this->helper('catalogSearch')->getQueryText();
-		$counter=0;
+        $count--;
 
-		$html = '<ul><li style="display:none"></li>';
-		$itemsHtml = '';
-		$firstHtml = '';
-		foreach ($collection as $item) {
-		    if ($item->getQueryText() == $query) {
-                $firstHtml.= '<li title="'.$this->htmlEscape($item->getQueryText()).'" class="'.((++$counter)%2?'odd':'even').'">';
-                $firstHtml.= '<div style="float:right">'.$item->getNumResults().'</div>'.$this->htmlEscape($item->getQueryText()).'</li>';
-		    }
-		    else {
-		        $itemsHtml.= '<li title="'.$this->htmlEscape($item->getQueryText()).'" class="'.((++$counter)%2?'odd':'even').'">';
-                $itemsHtml.= '<div style="float:right">'.$item->getNumResults().'</div>'.$this->htmlEscape($item->getQueryText()).'</li>';
-		    }
-		}
+        $html = '<ul><li style="display:none"></li>';
+        foreach ($suggestData as $index => $item) {
+            if ($index == 0) {
+                $item['row_class'] .= ' first';
+            }
 
-		$html.= $firstHtml.$itemsHtml;
-		$html.= '</ul>';
+            if ($index == $count) {
+                $item['row_class'] .= ' last';
+            }
+
+            $html .=  '<li title="'.$this->htmlEscape($item['title']).'" class="'.$item['row_class'].'">'
+                . '<span class="amount">'.$item['num_of_results'].'</span>'.$this->htmlEscape($item['title']).'</li>';
+        }
+
+        $html.= '</ul>';
 
         return $html;
     }
+
+    public function getSuggestData()
+    {
+        if (!$this->_suggestData) {
+            $collection = $this->helper('catalogSearch')->getSuggestCollection();
+            $query = $this->helper('catalogSearch')->getQueryText();
+            $counter = 0;
+            $data = array();
+            foreach ($collection as $item) {
+                $_data = array(
+                    'title' => $item->getQueryText(),
+                    'row_class' => (++$counter)%2?'odd':'even',
+                    'num_of_results' => $item->getNumResults()
+                );
+
+                if ($item->getQueryText() == $query) {
+                    array_unshift($data, $_data);
+                }
+                else {
+                    $data[] = $_data;
+                }
+            }
+            $this->_suggestData = $data;
+        }
+        return $this->_suggestData;
+    }
+/*
+ *
+*/
 }

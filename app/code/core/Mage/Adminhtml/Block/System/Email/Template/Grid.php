@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid extends Mage_Adminhtml_Blo
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id',
+        $this->addColumn('template_id',
             array(
             	  'header'=>Mage::helper('adminhtml')->__('ID'),
             	  'index'=>'template_id'

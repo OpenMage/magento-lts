@@ -125,7 +125,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
 
                 if ($inputType == 'date') {
                     $element->setImage($this->getSkinUrl('images/grid-cal.gif'));
-                    $element->setFormat(Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT));
+                    $element->setFormat(Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT));
                 }
             }
         }

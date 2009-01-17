@@ -109,4 +109,14 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * Clean compare items
+     *
+     * @return Mage_Catalog_Model_Product_Compare_Item
+     */
+    public function clean()
+    {
+        $this->getResource()->clean($this);
+        return $this;
+    }
 }

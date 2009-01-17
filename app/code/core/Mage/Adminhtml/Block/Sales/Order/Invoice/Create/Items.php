@@ -166,4 +166,9 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
         }
         return false;
     }
+
+    public function canSendInvoiceEmail()
+    {
+        return Mage::helper('sales')->canSendNewInvoiceEmail($this->getOrder()->getStore()->getId());
+    }
 }

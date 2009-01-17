@@ -67,10 +67,11 @@ class Mage_Backup_Model_Fs_Collection extends Varien_Data_Collection
 
     public function load($printQuery = false, $logQuery = false)
     {
-        $this->_loadFiles();
-
-        if($this->getPageSize()) {
-            $this->_items = array_slice($this->_items, ($this->getCurPage()-1)*$this->getPageSize(), $this->getPageSize());
+        if (!$this->_isLoaded) {
+            $this->_loadFiles();
+            if($this->getPageSize()) {
+                $this->_items = array_slice($this->_items, ($this->getCurPage()-1)*$this->getPageSize(), $this->getPageSize());
+            }
         }
 
         return $this;
@@ -78,7 +79,7 @@ class Mage_Backup_Model_Fs_Collection extends Varien_Data_Collection
 
     protected function _loadFiles()
     {
-        if(!$this->_isLoaded) {
+        if (!$this->_isLoaded) {
 
             $readPath = Mage::getBaseDir('var') . DS . "backups";
 

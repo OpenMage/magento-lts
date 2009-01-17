@@ -320,6 +320,11 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         $product = $this->getProduct();
 
+        $_appendAllSelections = false;
+        if ($product->getSkipCheckRequiredOption()) {
+            $_appendAllSelections = true;
+        }
+
         if ($options = $buyRequest->getBundleOption()) {
             $qtys = $buyRequest->getBundleOptionQty();
             foreach ($options as $_optionId => $_selections) {
@@ -378,7 +383,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
             }
 
-            $optionsCollection->appendSelections($selections, false, false);
+            $optionsCollection->appendSelections($selections, false, $_appendAllSelections);
 
             $selections = $selections->getItems();
         } else {
@@ -393,7 +398,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     $product->getTypeInstance()->getOptionsIds()
                 );
 
-            $options = $optionCollection->appendSelections($selectionCollection, false, false);
+            $options = $optionCollection->appendSelections($selectionCollection, false, $_appendAllSelections);
 
             foreach ($options as $option) {
                 if ($option->getRequired() && count($option->getSelections()) == 1) {
@@ -465,7 +470,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
             return $result;
         }
-        return Mage::helper('bundle')->__('Please specify the bundle option(s)');
+        return Mage::helper('bundle')->__('Please specify product option(s)');
     }
 
     /**

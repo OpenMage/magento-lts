@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
     {
         parent::__construct();
         $this->setId('catalog_category_products');
-        $this->setDefaultSort('id');
+        $this->setDefaultSort('entity_id');
         $this->setUseAjax(true);
     }
 
@@ -99,7 +99,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
             'align'     => 'center',
             'index'     => 'entity_id'
         ));
-        $this->addColumn('id', array(
+        $this->addColumn('entity_id', array(
             'header'    => Mage::helper('catalog')->__('ID'),
             'sortable'  => true,
             'width'     => '60',

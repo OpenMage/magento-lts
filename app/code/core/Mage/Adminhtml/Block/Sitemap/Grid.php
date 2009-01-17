@@ -90,6 +90,14 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
             ));
         }
 
+        $this->addColumn('action', array(
+            'header'   => Mage::helper('sitemap')->__('Action'),
+            'filter'   => false,
+            'sortable' => false,
+            'width'    => '100',
+            'renderer' => 'adminhtml/sitemap_grid_renderer_action'
+        ));
+
         return parent::_prepareColumns();
     }
 

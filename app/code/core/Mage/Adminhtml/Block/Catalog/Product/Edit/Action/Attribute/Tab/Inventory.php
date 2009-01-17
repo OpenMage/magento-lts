@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Inventory
      */
     public function getDefaultConfigValue($field)
     {
-        return Mage::getStoreConfig('cataloginventory/options/'.$field, $this->getStoreId());
+        return Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . $field, $this->getStoreId());
     }
 
     /**

@@ -5,10 +5,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -22,7 +22,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -30,7 +30,7 @@
         <payment>
             <groups>
                 <paypal_direct translate="label" module="paypal">
-                    <label>PayPal Direct (Website Payments Pro)</label>
+                    <label>PayPal Website Payments Pro - Direct Payments</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>101</sort_order>
                     <show_in_default>1</show_in_default>
@@ -110,7 +110,7 @@
                     </fields>
                 </paypal_direct>
                 <paypal_express translate="label" module="paypal">
-                    <label>Paypal Express (Website Payments Pro)</label>
+                    <label>PayPal Express Checkout</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>101</sort_order>
                     <show_in_default>1</show_in_default>
@@ -181,7 +181,7 @@
                     </fields>
                 </paypal_express>
                 <paypal_standard translate="label" module="paypal">
-                     <label>PayPal Standard (Website Payments Standard)</label>
+                    <label>PayPal Website Payments Standard</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>102</sort_order>
                     <show_in_default>1</show_in_default>
@@ -281,7 +281,7 @@
             <show_in_store>0</show_in_store>
             <groups>
                 <wpp translate="label">
-                    <label>Website Payments Pro (Express, Direct)</label>
+                    <label>Website Payments Pro and Express Checkout (API Signature)</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
@@ -315,6 +315,14 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </api_username>
+                        <page_style translate="label">
+                            <label>Page Style</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </page_style>
                         <proxy_host translate="label">
                             <label>Proxy Host</label>
                             <frontend_type>text</frontend_type>
@@ -358,7 +366,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </use_proxy>
-                        <paypal_url translate="label">
+                        <paypal_url translate="label comment">
                             <label>Paypal URL</label>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>

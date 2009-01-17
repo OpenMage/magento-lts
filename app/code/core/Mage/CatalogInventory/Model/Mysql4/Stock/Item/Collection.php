@@ -79,4 +79,40 @@ class Mage_CatalogInventory_Model_Mysql4_Stock_Item_Collection extends Mage_Core
         $this->addFieldToFilter('product_id', array('in'=>$productIds));
         return $this;
     }
+
+    public function addManagedFilter($isStockManagedInConfig)
+    {
+        if ($isStockManagedInConfig) {
+            $this->getSelect()->where('(manage_stock = 1 OR use_config_manage_stock = 1)');
+        } else {
+            $this->addFieldToFilter('manage_stock', 1);
+        }
+
+        return $this;
+    }
+
+    public function addQtyFilter($comparsionMethod, $qty)
+    {
+        $allowedMethods = array('<', '>', '=', '<=', '>=', '<>');
+        if (!in_array($comparsionMethod, $allowedMethods)) {
+            Mage::throwException(Mage::helper('cataloginventory')->__('%s is not correct comparsion method.', $comparsionMethod));
+        }
+		$this->getSelect()->where("qty {$comparsionMethod} ?", $qty);
+        return $this;
+    }
+
+    /**
+     * Load data
+     *
+     * @return  Varien_Data_Collection_Db
+     */
+    public function load($printQuery = false, $logQuery = false)
+    {
+        if (!$this->isLoaded()) {
+            $this->getSelect()->joinInner(array('_products_table' => $this->getTable('catalog/product')),
+                'main_table.product_id=_products_table.entity_id', 'type_id'
+            );
+        }
+        return parent::load($printQuery, $logQuery);
+    }
 }

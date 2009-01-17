@@ -119,6 +119,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
                 $this->save();
             }
         }//eof foreach()
+        return $this;
     }
 
     /**
@@ -187,4 +188,16 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
         return $this->__toArray();
     }
 
+    /**
+     * Duplicate product options value
+     *
+     * @param int $oldOptionId
+     * @param int $newOptionId
+     * @return Mage_Catalog_Model_Product_Option_Value
+     */
+    public function duplicate($oldOptionId, $newOptionId)
+    {
+        $this->getResource()->duplicate($this, $oldOptionId, $newOptionId);
+        return $this;
+    }
 }

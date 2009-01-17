@@ -157,8 +157,12 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $this->_checkIfInstalled();
 
         $locale = $this->getRequest()->getParam('locale');
+        $timezone = $this->getRequest()->getParam('timezone');
+        $currency = $this->getRequest()->getParam('currency');
         if ($locale) {
             Mage::getSingleton('install/session')->setLocale($locale);
+            Mage::getSingleton('install/session')->setTimezone($timezone);
+            Mage::getSingleton('install/session')->setCurrency($currency);
         }
 
         $this->_redirect('*/*/locale');
@@ -338,7 +342,10 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
              * Clear session config data
              */
             Mage::getSingleton('install/session')->getConfigData(true);
-            $this->getResponse()->setRedirect($step->getNextUrl());
+
+            Mage::app()->getStore()->resetConfig();
+
+            $this->getResponse()->setRedirect(Mage::getUrl($step->getNextUrlPath()));
         }
         catch (Exception $e){
             Mage::getSingleton('install/session')->addError($e->getMessage());

@@ -68,6 +68,10 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
         foreach ($indexFilters as $filter) {
             $this->getProductCollection()->addFieldToFilter('entity_id', array('in'=>new Zend_Db_Expr($filter)));
         }
+        $priceFilters = Mage::getModel('catalogindex/indexer')->buildEntityPriceFilter($attributes, $values, $filteredAttributes, $this->getProductCollection());
+        foreach ($priceFilters as $code=>$filter) {
+            $this->getProductCollection()->getSelect()->joinInner(array("_price_filter_{$code}"=>$filter), "`_price_filter_{$code}`.`entity_id` = `e`.`entity_id`", array());
+        }
 
         foreach ($attributes as $attribute) {
             $code      = $attribute->getAttributeCode();

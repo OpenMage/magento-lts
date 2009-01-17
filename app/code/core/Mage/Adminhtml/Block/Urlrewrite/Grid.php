@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
     {
         parent::__construct();
         $this->setId('urlrewriteGrid');
-        $this->setDefaultSort('id');
+        $this->setDefaultSort('url_rewrite_id');
     }
 
     protected function _prepareCollection()
@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Grid extends Mage_Adminhtml_Block_Widget_G
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('url_rewrite_id', array(
             'header'    => $this->__('ID'),
             'width'     => '50px',
             'index'     => 'url_rewrite_id'

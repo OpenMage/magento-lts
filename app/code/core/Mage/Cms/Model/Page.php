@@ -37,6 +37,8 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 
     const NOROUTE_PAGE_ID = 'no-route';
 
+    protected $_eventPrefix = 'cms_page';
+
     protected function _construct()
     {
         $this->_init('cms/page');

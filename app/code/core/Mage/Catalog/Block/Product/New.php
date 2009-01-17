@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * New products block
  *
@@ -38,34 +37,22 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
 
     const DEFAULT_PRODUCTS_COUNT = 5;
 
-    public function __construct()
-    {
-        parent::__construct();
-
-        $storeId    = Mage::app()->getStore()->getId();
-
-        $product    = Mage::getModel('catalog/product');
-        /* @var $product Mage_Catalog_Model_Product */
-        $todayDate  = $product->getResource()->formatDate(time());
-        $products   = $product->setStoreId($storeId)->getCollection()
-            ->addAttributeToFilter('news_from_date', array('date'=>true, 'to'=> $todayDate))
-            ->addAttributeToFilter(array(array('attribute'=>'news_to_date', 'date'=>true, 'from'=>$todayDate), array('attribute'=>'news_to_date', 'is' => new Zend_Db_Expr('null'))),'','left')
-            ->addAttributeToSort('news_from_date','desc')
-            ->addAttributeToSelect(array('name', 'price', 'small_image'), 'inner')
-            ->addAttributeToSelect(array('special_price', 'special_from_date', 'special_to_date'), 'left')
-            ->addAttributeToSelect('status')
-        ;
-        /* @var $products Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
-
-        Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($products);
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($products);
-
-        $this->setProductCollection($products);
-    }
-
     protected function _beforeToHtml()
     {
-        $this->getProductCollection()->setOrder('news_from_date')->setPageSize($this->getProductsCount())->setCurPage(1);
+        $todayDate  = Mage::app()->getLocale()->date()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+        $collection = $this->_addProductAttributesAndPrices(Mage::getResourceModel('catalog/product_collection'))
+            ->addStoreFilter()
+            ->addAttributeToFilter('news_from_date', array('date' => true, 'to' => $todayDate))
+            ->addAttributeToFilter('news_to_date', array('or'=> array(
+                0 => array('date' => true, 'from' => $todayDate),
+                1 => array('is' => new Zend_Db_Expr('null')))
+            ), 'left')
+            ->addAttributeToSort('news_from_date', 'desc')
+            ->setPageSize($this->getProductsCount())
+            ->setCurPage(1)
+        ;
+        $this->setProductCollection($collection);
+
         return parent::_beforeToHtml();
     }
 

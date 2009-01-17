@@ -753,7 +753,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         $this->_protectFromNonAdmin();
         return parent::_beforeDelete();
     }
-    
+
     /**
      * rewrite in order to clear configuration cache
      *
@@ -761,8 +761,24 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     protected function _afterDelte()
     {
-    	parent::_afterDelte();
-    	Mage::getConfig()->removeCache();
-    	return $this;
+        parent::_afterDelte();
+        Mage::getConfig()->removeCache();
+        return $this;
+    }
+
+    /**
+     * Reinit and reset Config Data
+     *
+     * @return Mage_Core_Model_Store
+     */
+    public function resetConfig()
+    {
+        Mage::getConfig()->reinit();
+        $this->_dirCache        = array();
+        $this->_configCache     = array();
+        $this->_baseUrlCache    = array();
+        $this->_urlCache        = array();
+
+        return $this;
     }
 }

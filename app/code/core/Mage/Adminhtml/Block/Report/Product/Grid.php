@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
     {
         parent::__construct();
         $this->setId('productsReportGrid');
-        $this->setDefaultSort('id');
+        $this->setDefaultSort('entity_id');
         $this->setDefaultDir('desc');
     }
 
@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('entity_id', array(
             'header'    =>Mage::helper('reports')->__('ID'),
             'width'     =>'50px',
             'index'     =>'entity_id',

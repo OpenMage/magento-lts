@@ -36,7 +36,6 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     public function __construct()
     {
         $this->_attributesMap['order']         = array('order_id' => 'entity_id');
-        $this->_attributesMap['order_item']    = array('item_id'  => 'entity_id');
         $this->_attributesMap['order_address'] = array('address_id' => 'entity_id');
         $this->_attributesMap['order_payment'] = array('payment_id' => 'entity_id');
 

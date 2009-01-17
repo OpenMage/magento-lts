@@ -277,7 +277,10 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     protected function _addSetInfo()
     {
         if ($this->_addSetInfoFlag) {
-            $attributeIds = array_keys($this->_items);
+            $attributeIds = array();
+            foreach ($this->_data as &$dataItem) {
+            	$attributeIds[] = $dataItem['attribute_id'];
+            }
             $attributeToSetInfo = array();
 
             if (count($attributeIds) > 0) {
@@ -304,19 +307,25 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
                 }
             }
 
-            foreach ($this->getItems() as $attribute) {
-                if (isset($attributeToSetInfo[$attribute->getId()])) {
-                    $setInfo = $attributeToSetInfo[$attribute->getId()];
+            foreach ($this->_data as &$attributeData) {
+                if (isset($attributeToSetInfo[$attributeData['attribute_id']])) {
+                    $setInfo = $attributeToSetInfo[$attributeData['attribute_id']];
                 } else {
                     $setInfo = array();
                 }
 
-                $attribute->setAttributeSetInfo($setInfo);
+                $attributeData['attribute_set_info'] = $setInfo;
             }
 
             unset($attributeToSetInfo);
             unset($attributeIds);
         }
+    }
+
+    protected function _afterLoadData()
+    {
+        $this->_addSetInfo();
+        return parent::_afterLoadData();
     }
 
     /**
@@ -345,10 +354,21 @@ GROUP BY `main_table`.attribute_id
         return $this;
     }
 
-    protected function _afterLoad()
+    /**
+     * Specify collection attribute codes filter
+     *
+     * @param   string || array $code
+     * @return  Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     */
+    public function setCodeFilter($code)
     {
-        $this->_addSetInfo();
-        return parent::_afterLoad();
+        if (empty($code)) {
+        	return $this;
+        }
+        if (!is_array($code)) {
+        	$code = array($code);
+        }
+        $this->getSelect()->where('main_table.attribute_code IN(?)', $code);
+        return $this;
     }
-
 }

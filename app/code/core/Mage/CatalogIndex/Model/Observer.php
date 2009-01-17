@@ -70,10 +70,24 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         Mage::getSingleton('catalogindex/indexer')->plainReindex(null, Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE);
     }
 
+    /**
+     * Process catalog index after price rules were applied
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogIndex_Model_Observer
+     */
     public function processPriceRuleApplication(Varien_Event_Observer $observer)
     {
         $eventProduct = $observer->getEvent()->getProduct();
-        Mage::getSingleton('catalogindex/indexer')->plainReindex($eventProduct, Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE);
+        $productCondition = $observer->getEvent()->getProductCondition();
+        if ($productCondition) {
+            $eventProduct = $productCondition;
+        }
+        Mage::getSingleton('catalogindex/indexer')->plainReindex(
+            $eventProduct,
+            Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE
+        );
+        return $this;
     }
 
     public function registerParentIds(Varien_Event_Observer $observer)

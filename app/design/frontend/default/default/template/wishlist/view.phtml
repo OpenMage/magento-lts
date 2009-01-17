@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,7 +21,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
@@ -63,9 +63,9 @@
                 </td>
                 <td class="a-center">
                 <?php if($item->isSaleable()): ?>
-                    <a href="#" onclick="setLocation('<?php echo $this->getItemAddToCartUrl($item) ?>');return false;" class="link-cart"><?php echo $this->__('Add to Cart') ?></a><br />
+                    <a href="<?php echo $this->getItemAddToCartUrl($item) ?>" class="link-cart"><?php echo $this->__('Add to Cart') ?></a><br />
                 <?php endif; ?>
-                    <a href="#" onclick="confirmRemoveWishlistItem('<?php echo $this->getItemRemoveUrl($item) ?>');return false;" class="link-remove" ><?php echo $this->__('Remove Item') ?></a>
+                    <a href="<?php echo $this->getItemRemoveUrl($item) ?>" onclick="return confirmRemoveWishlistItem();" class="link-remove" ><?php echo $this->__('Remove Item') ?></a>
                 </td>
             </tr>
         <?php endforeach ?>
@@ -88,10 +88,8 @@
 </div>
 <script type="text/javascript">
 //<![CDATA[
-function confirmRemoveWishlistItem(url){
-    if(confirm('<?php echo $this->__('Are you sure you want to remove this product from your wishlist?') ?>')) {
-        setLocation(url);
-    }
+function confirmRemoveWishlistItem() {
+    return confirm('<?php echo $this->__('Are you sure you want to remove this product from your wishlist?') ?>');
 }
 
 function focusComment(obj) {

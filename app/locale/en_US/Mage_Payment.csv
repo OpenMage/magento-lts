@@ -19,6 +19,8 @@
 "Expiration Date: %s/%s","Expiration Date: %s/%s"
 "Make Check payable to","Make Check payable to"
 "Make Check payable to: %s","Make Check payable to: %s"
+"Maximum Order Total","Maximum Order Total"
+"Minimum Order Total","Minimum Order Total"
 "Month","Month"
 "Name on Card","Name on Card"
 "Name on the Card: %s","Name on the Card: %s"

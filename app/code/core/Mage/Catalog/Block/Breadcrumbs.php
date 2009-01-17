@@ -37,13 +37,16 @@ class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template
     protected function _prepareLayout()
     {
         if ($breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs')) {
-            $breadcrumbsBlock->addCrumb('home',
-                array('label'=>Mage::helper('catalog')->__('Home'), 'title'=>Mage::helper('catalog')->__('Go to Home Page'), 'link'=>Mage::getBaseUrl())
-            );
+            $breadcrumbsBlock->addCrumb('home', array(
+                'label'=>Mage::helper('catalog')->__('Home'),
+                'title'=>Mage::helper('catalog')->__('Go to Home Page'),
+                'link'=>Mage::getBaseUrl()
+            ));
 
             $title = (string)Mage::getStoreConfig('system/store/name');
             $path = Mage::helper('catalog')->getBreadcrumbPath($this->getCategory());
-            foreach ($path as $name=>$breadcrumb) {
+
+            foreach ($path as $name => $breadcrumb) {
                 $breadcrumbsBlock->addCrumb($name, $breadcrumb);
                 $title = $breadcrumb['label'].' '.Mage::getStoreConfig('catalog/seo/title_separator').' '.$title;
             }

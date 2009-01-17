@@ -74,6 +74,10 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
 
     public function getBackUrl()
     {
+        if ($this->getData('back_url')) {
+            return $this->getData('back_url');
+        }
+
         if ($this->getCustomerAddressCount()) {
             return $this->getUrl('customer/address');
         } else {

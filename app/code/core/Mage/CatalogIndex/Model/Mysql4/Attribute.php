@@ -56,6 +56,10 @@ class Mage_CatalogIndex_Model_Mysql4_Attribute extends Mage_CatalogIndex_Model_M
     {
         $select = clone $entitySelect;
         $select->reset(Zend_Db_Select::COLUMNS);
+        $select->reset(Zend_Db_Select::ORDER);
+        $select->reset(Zend_Db_Select::LIMIT_COUNT);
+        $select->reset(Zend_Db_Select::LIMIT_OFFSET);
+
         $fields = array('count'=>'COUNT(DISTINCT index.entity_id)', 'index.value');
 
         $select->from('', $fields)
@@ -65,7 +69,7 @@ class Mage_CatalogIndex_Model_Mysql4_Attribute extends Mage_CatalogIndex_Model_M
             ->group('index.value');
 
         $select = $select->__toString();
-        $alias = $this->_getReadAdapter()->quoteTableAs($this->getMainTable(), 'index');
+//        $alias = $this->_getReadAdapter()->quoteTableAs($this->getMainTable(), 'index');
         $result = $this->_getReadAdapter()->fetchAll($select);
 
         $counts = array();

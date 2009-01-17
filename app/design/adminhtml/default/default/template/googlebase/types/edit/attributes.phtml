@@ -1,0 +1,125 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage_GoogleBase
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php if( $this->getAttributeSetSelected() ): ?>
+<script type="text/javascript">
+Gbase = {};
+Gbase.Attribute = Class.create();
+Gbase.Attribute.prototype = {
+    idLabel : '<?php echo $this->getFieldId() ?>',
+    top : '',
+    templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
+    templateText : '',
+    itemsCount : 0,
+    initialize : function(template) {
+        this.templateText = template;
+        this.top = $('gbase_attribute_top');
+    },
+
+    add : function(data) {
+        if(!data){
+            data = {};
+        }
+        this.top = $('gbase_attribute_top');
+
+        data.index = this.itemsCount++;
+        this.template = new Template(this.templateText, this.templateSyntax);
+        Element.insert(this.top, {'after':this.template.evaluate(data)});
+        this.top = $(this.idLabel + '_' + data.index);
+
+        //set selected type
+        if (data.attribute_id) {
+            $A($(this.idLabel + '_'+data.index+'_attribute').options).each(function(option){
+                if (option.value==data.attribute_id) option.selected = true;
+            });
+        }
+
+        //set selected is_require
+        if (data.gbase_attribute) {
+            $A($(this.idLabel + '_'+data.index+'_gattribute').options).each(function(option){
+                if (option.value==data.gbase_attribute) option.selected = true;
+            });
+        }
+        return data.index;
+    },
+
+    remove : function(event){
+        var element = $(Event.findElement(event, 'div'));
+        if(element){
+            Element.select(element, '.delete').each(function(elem){elem.value='1'});
+            Element.select(element, ['input', 'select']).each(function(elem){elem.hide(); elem.className = '';});
+            Element.hide(element);
+        }
+    }
+}
+
+var attributesSelectTemplate = '<div id="<?php echo $this->getFieldId() ?>_{{index}}"  class="option-box"> ' +
+    '<table class="option-header" cellpadding="0" cellspacing="0">' +
+        '<thead>' +
+            '<tr>' +
+                '<th class="opt-type"><?php echo Mage::helper('googlebase')->__('Attribute') ?></th>' +
+                '<th class="opt-req"><?php echo Mage::helper('googlebase')->__('Google Base Attribute') ?></th>' +
+                '<th>&nbsp;</th>' +
+            '</tr>' +
+        '</thead>' +
+        '<tbody>' +
+            '<tr>' +
+                '<td><?php echo $this->getAttributesSelectHtml() ?>' +
+                '<input type="hidden" name="<?php echo $this->getFieldName() ?>[{{index}}][delete]" value="" class="delete">' +
+                '</td>' +
+                '<td><?php echo $this->getGbaseAttributesSelectHtml() ?></td>' +
+                '<td>&nbsp;<?php echo $this->getDeleteButtonHtml() ?></td>' +
+            '</tr>' +
+        '</tbody>' +
+    '</table>' +
+'</div>';
+var optionIndex = 0;
+gBaseAttribute = new Gbase.Attribute(attributesSelectTemplate);
+</script>
+
+<div class="entry-edit custom-options bundle" id="gbase_attributes_container">
+    <div class="entry-edit-head">
+        <h4><?php echo $this->__('Attributes') ?></h4>
+        <div class="right"><?php echo $this->getAddButtonHtml() ?></div>
+    </div>
+
+    <div id="gbase_attribute" class="box">
+        <div id="gbase_attribute_top"></div>
+    </div>
+</div>
+
+<?php if($attributes = $this->getAttributesData()): ?>
+<script type="text/javascript">
+    <?php foreach ($attributes as $data): ?>
+        gBaseAttribute.add(<?php echo $this->_toJson($data) ?>);
+    <?php endforeach; ?>
+</script>
+<?php endif; ?>
+
+<?php else: ?>
+    <?php echo Mage::helper('googlebase')->__("Please, select Attribute Set and Google Item Type to load attributes") ?>
+<?php endif; ?>

@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
             . ' onclick="'.$this->getOnClick().'"'
             . ' style="'.$this->getStyle() .'"'
             . ($this->getValue()?' value="'.$this->getValue() . '"':'')
-            . ($this->getDisabled() ? 'disabled' : '')
+            . ($this->getDisabled() ? 'disabled="disabled"' : '')
             . '><span>' .$this->getLabel().'</span></button>'.$this->getAfterHtml();
 
         return $html;

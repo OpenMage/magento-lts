@@ -54,12 +54,14 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
             'name'      => 'custom_theme_from',
             'label'     => Mage::helper('cms')->__('Custom Theme From'),
             'image'     => $this->getSkinUrl('images/grid-cal.gif'),
+            'format'    => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
         ));
 
         $fieldset->addField('custom_theme_to', 'date', array(
             'name'      => 'custom_theme_to',
             'label'     => Mage::helper('cms')->__('Custom Theme To'),
             'image'     => $this->getSkinUrl('images/grid-cal.gif'),
+            'format'    => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
         ));
 
         $layouts = array();

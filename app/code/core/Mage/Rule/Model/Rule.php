@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
 {
     protected $_conditions;
@@ -33,7 +32,7 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
 
     protected function _construct()
     {
-    	$this->_init('rule/rule');
+        $this->_init('rule/rule');
         parent::_construct();
     }
 
@@ -59,6 +58,11 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * Retrieve Condition model
+     *
+     * @return Mage_SalesRule_Model_Rule_Condition_Abstract
+     */
     public function getConditions()
     {
         if (empty($this->_conditions)) {
@@ -130,39 +134,39 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
     public function loadPost(array $rule)
     {
         $arr = $this->_convertFlatToRecursive($rule);
-		if (isset($arr['conditions'])) {
-    		$this->getConditions()->loadArray($arr['conditions'][1]);
-		}
-		if (isset($arr['actions'])) {
-    		$this->getActions()->loadArray($arr['actions'][1]);
-		}
+        if (isset($arr['conditions'])) {
+            $this->getConditions()->loadArray($arr['conditions'][1]);
+        }
+        if (isset($arr['actions'])) {
+            $this->getActions()->loadArray($arr['actions'][1]);
+        }
 
-    	return $this;
+        return $this;
     }
 
     protected function _convertFlatToRecursive(array $rule)
     {
-    	$arr = array();
-    	foreach ($rule as $key=>$value) {
-    	    if (($key==='conditions' || $key==='actions') && is_array($value)) {
-    	    	foreach ($value as $id=>$data) {
-    	    		$path = explode('.', $id);
-    	    		$node =& $arr;
-    	    		for ($i=0, $l=sizeof($path); $i<$l; $i++) {
-    	    			if (!isset($node[$key][$path[$i]])) {
-    	    				$node[$key][$path[$i]] = array();
-    	    			}
-    	    			$node =& $node[$key][$path[$i]];
-    	    		}
-    	    		foreach ($data as $k=>$v) {
-    	    			$node[$k] = $v;
-    	    		}
-    	    	}
-    	    } else {
-    	        $this->setData($key, $value);
-    	    }
-    	}
-    	return $arr;
+        $arr = array();
+        foreach ($rule as $key=>$value) {
+            if (($key==='conditions' || $key==='actions') && is_array($value)) {
+                foreach ($value as $id=>$data) {
+                    $path = explode('--', $id);
+                    $node =& $arr;
+                    for ($i=0, $l=sizeof($path); $i<$l; $i++) {
+                        if (!isset($node[$key][$path[$i]])) {
+                            $node[$key][$path[$i]] = array();
+                        }
+                        $node =& $node[$key][$path[$i]];
+                    }
+                    foreach ($data as $k=>$v) {
+                        $node[$k] = $v;
+                    }
+                }
+            } else {
+                $this->setData($key, $value);
+            }
+        }
+        return $arr;
     }
 
     /**
@@ -204,10 +208,10 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
     protected function _afterLoad()
     {
         parent::_afterLoad();
-		$conditionsArr = unserialize($this->getConditionsSerialized());
-		if (!empty($conditionsArr) && is_array($conditionsArr)) {
+        $conditionsArr = unserialize($this->getConditionsSerialized());
+        if (!empty($conditionsArr) && is_array($conditionsArr)) {
             $this->getConditions()->loadArray($conditionsArr);
-		}
+        }
 
         $actionsArr = unserialize($this->getActionsSerialized());
         if (!empty($actionsArr) && is_array($actionsArr)) {
@@ -223,6 +227,19 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
 
     protected function _beforeSave()
     {
+        // check if discount amount > 0
+        if ((int)$this->getDiscountAmount() < 0) {
+            Mage::throwException(Mage::helper('rule')->__('Invalid discount amount.'));
+        }
+
+        // convert dates into Zend_Date and hope it will validate 'em
+        foreach (array('from_date', 'to_date') as $dateType) {
+            if ($date = $this->getData($dateType)) {
+                $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+                $this->setData($dateType, Mage::app()->getLocale()->date($date, $format, null, false));
+            }
+        }
+
         if ($this->getConditions()) {
             $this->setConditionsSerialized(serialize($this->getConditions()->asArray()));
             $this->unsConditions();

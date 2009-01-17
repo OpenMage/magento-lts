@@ -645,39 +645,38 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function validate()
     {
         $errors = array();
-        $helper = Mage::helper('customer');
 
-        if (!Zend_Validate::is($this->getFirstname(), 'NotEmpty')) {
-            $errors[] = $helper->__('First name can\'t be empty');
+        if (!Zend_Validate::is( trim($this->getFirstname()) , 'NotEmpty')) {
+            $errors[] = Mage::helper('customer')->__('First name can\'t be empty');
         }
 
-        if (!Zend_Validate::is($this->getLastname(), 'NotEmpty')) {
-            $errors[] = $helper->__('Last name can\'t be empty');
+        if (!Zend_Validate::is( trim($this->getLastname()) , 'NotEmpty')) {
+            $errors[] = Mage::helper('customer')->__('Last name can\'t be empty');
         }
 
         if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
-            $errors[] = $helper->__('Invalid email address');
+            $errors[] = Mage::helper('customer')->__('Invalid email address "%s"', $this->getEmail());
         }
 
         $password = $this->getPassword();
-        if (!$this->getId() && !Zend_Validate::is($password, 'NotEmpty')) {
-            $errors[] = $helper->__('Password can\'t be empty');
+        if (!$this->getId() && !Zend_Validate::is($password , 'NotEmpty')) {
+            $errors[] = Mage::helper('customer')->__('Password can\'t be empty');
         }
         if ($password && !Zend_Validate::is($password, 'StringLength', array(6))) {
-            $errors[] = $helper->__('Password minimal length must be more %s', 6);
+            $errors[] = Mage::helper('customer')->__('Password minimal length must be more %s', 6);
         }
         $confirmation = $this->getConfirmation();
         if ($password != $confirmation) {
-            $errors[] = $helper->__('Please make sure your passwords match.');
+            $errors[] = Mage::helper('customer')->__('Please make sure your passwords match.');
         }
 
         if (('req' === Mage::helper('customer/address')->getConfig('dob_show'))
             && '' == trim($this->getDob())) {
-            $errors[] = $helper->__('Date of Birth is required.');
+            $errors[] = Mage::helper('customer')->__('Date of Birth is required.');
         }
         if (('req' === Mage::helper('customer/address')->getConfig('taxvat_show'))
             && '' == trim($this->getTaxvat())) {
-            $errors[] = $helper->__('TAX/VAT number is required.');
+            $errors[] = Mage::helper('customer')->__('TAX/VAT number is required.');
         }
 
         if (empty($errors)) {

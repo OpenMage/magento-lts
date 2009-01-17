@@ -66,7 +66,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
             $block->setRefererUrl($this->_getRefererUrl());
         }
 
-        $this->getLayout()->getBlock('head')->setTitle($this->__('My Tags'));
+        $this->getLayout()->getBlock('head')->setTitle(Mage::helper('tag')->__('My Tags'));
         $this->renderLayout();
     }
 
@@ -86,7 +86,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
             }
 
             $this->_initLayoutMessages('checkout/session');
-            $this->getLayout()->getBlock('head')->setTitle($this->__('My Tags'));
+            $this->getLayout()->getBlock('head')->setTitle(Mage::helper('tag')->__('My Tags'));
             $this->renderLayout();
         }
         else {
@@ -127,11 +127,11 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
                 $model = Mage::registry('tagModel');
                 $model->deactivate();
                 $tag = Mage::getModel('tag/tag')->load($tagId)->aggregate();
-                Mage::getSingleton('tag/session')->addSuccess($this->__('You tag was successfully deleted'));
+                Mage::getSingleton('tag/session')->addSuccess(Mage::helper('tag')->__('Your tag was successfully deleted'));
                 $this->getResponse()->setRedirect(Mage::getUrl('*/*/'));
                 return;
             } catch (Exception $e) {
-                Mage::getSingleton('tag/session')->addError($this->__('Unable to remove tag. Please, try again later.'));
+                Mage::getSingleton('tag/session')->addError(Mage::helper('tag')->__('Unable to remove tag. Please, try again later.'));
             }
         }
         else {
@@ -151,7 +151,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
         $tagName    = (string) $this->getRequest()->getPost('tagName');
 
         if (strlen($tagName) === 0) {
-            Mage::getSingleton('tag/session')->addError($this->__('Tag can\'t be empty.'));
+            Mage::getSingleton('tag/session')->addError(Mage::helper('tag')->__('Tag can\'t be empty.'));
             $this->_redirect('*/*/edit', array('tagId'=>$tagId));
             return;
         }
@@ -174,7 +174,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
                     }
                     else {
                         $isNew  = true;
-                        $message= $this->__('Thank you. Your tag has been accepted for moderation.');
+                        $message= Mage::helper('tag')->__('Thank you. Your tag has been accepted for moderation.');
                         $status = $tagModel->getPendingStatus();
                     }
 
@@ -210,13 +210,13 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
                     $tagModel->aggregate();
                     $this->getResponse()->setRedirect(Mage::getUrl('*/*/'));
                 }
-                $message = ($message) ? $message : $this->__('You tag was successfully saved');
+                $message = ($message) ? $message : Mage::helper('tag')->__('Your tag was successfully saved');
                 Mage::getSingleton('tag/session')->addSuccess($message);
                 $this->_redirect('*/*/');
                 return;
             } catch (Exception $e) {
                 Mage::getSingleton('tag/session')->addError(
-                    $this->__('Unable to save your tag. Please, try again later.')
+                    Mage::helper('tag')->__('Unable to save your tag. Please, try again later.')
                 );
             }
         }

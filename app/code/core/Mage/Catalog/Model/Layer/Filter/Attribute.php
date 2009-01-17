@@ -49,6 +49,9 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {
         $filter = $request->getParam($this->_requestVar);
+        if (is_array($filter)) {
+            return $this;
+        }
         $text = $this->_getOptionText($filter);
         if ($filter && $text) {
             /*$entityIds = Mage::getSingleton('catalogindex/attribute')->getFilteredEntities($this->getAttributeModel(), $filter, $this->_getFilterEntityIds());

@@ -94,7 +94,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('catalog')->__('Save And Continue Edit'),
-                        'onclick'   => 'saveAndContinueEdit()',
+                        'onclick'   => 'saveAndContinueEdit(\''.$this->getSaveAndContinueUrl().'\')',
                         'class' => 'save'
                     ))
             );
@@ -160,6 +160,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     public function getSaveUrl()
     {
         return $this->getUrl('*/*/save', array('_current'=>true, 'back'=>null));
+    }
+
+    public function getSaveAndContinueUrl()
+    {
+        return $this->getUrl('*/*/save', array(
+            '_current'  => true,
+            'back'      => 'edit',
+            'tab'       => '{{tab_id}}'
+        ));
     }
 
     public function getProductId()

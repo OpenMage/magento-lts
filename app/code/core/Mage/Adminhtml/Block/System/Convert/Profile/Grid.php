@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Grid extends Mage_Adminhtml_Bl
     {
         parent::__construct();
         $this->setId('convertProfileGrid');
-        $this->setDefaultSort('id');
+        $this->setDefaultSort('profile_id');
     }
 
     protected function _prepareCollection()
@@ -53,7 +53,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Grid extends Mage_Adminhtml_Bl
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('profile_id', array(
             'header'    => Mage::helper('adminhtml')->__('ID'),
             'width'     => '50px',
             'index'     => 'profile_id',

@@ -76,12 +76,14 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         $result = array();
 
         foreach ($collection as $product) {
+//            $result[] = $product->getData();
             $result[] = array( // Basic product data
                 'product_id' => $product->getId(),
                 'sku'        => $product->getSku(),
                 'name'       => $product->getName(),
                 'set'        => $product->getAttributeSetId(),
-                'type'       => $product->getTypeId()
+                'type'       => $product->getTypeId(),
+                'category_ids'       => $product->getCategoryIds()
             );
         }
 
@@ -154,13 +156,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
             }
         }
 
-        if (isset($productData['categories']) && is_array($productData['categories'])) {
-            $product->setCategoryIds($productData['categories']);
-        }
-
-        if (isset($productData['websites']) && is_array($productData['websites'])) {
-            $product->setWebsiteIds($productData['websites']);
-        }
+        $this->_prepareDataForSave($product, $productData);
 
         if (is_array($errors = $product->validate())) {
             $this->_fault('data_invalid', implode("\n", $errors));
@@ -201,20 +197,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
             }
         }
 
-        if (isset($productData['categories']) && is_array($productData['categories'])) {
-            $product->setCategoryIds($productData['categories']);
-        }
-
-        if (isset($productData['websites']) && is_array($productData['websites'])) {
-            foreach ($productData['websites'] as &$website) {
-                if (is_string($website)) {
-                    try {
-                        $website = Mage::app()->getWebsite($website)->getId();
-                    } catch (Exception $e) { }
-                }
-            }
-            $product->setWebsiteIds($productData['websites']);
-        }
+        $this->_prepareDataForSave($product, $productData);
 
         try {
             if (is_array($errors = $product->validate())) {
@@ -231,6 +214,35 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         }
 
         return true;
+    }
+
+    /**
+     *  Set additional data before product saved
+     *
+     *  @param    Mage_Catalog_Model_Product $product
+     *  @param    array $productData
+     *  @return	  object
+     */
+    protected function _prepareDataForSave ($product, $productData)
+    {
+        if (isset($productData['categories']) && is_array($productData['categories'])) {
+            $product->setCategoryIds($productData['categories']);
+        }
+
+        if (isset($productData['websites']) && is_array($productData['websites'])) {
+            foreach ($productData['websites'] as &$website) {
+                if (is_string($website)) {
+                    try {
+                        $website = Mage::app()->getWebsite($website)->getId();
+                    } catch (Exception $e) { }
+                }
+            }
+            $product->setWebsiteIds($productData['websites']);
+        }
+
+        if (isset($productData['stock_data']) && is_array($productData['stock_data'])) {
+            $product->setStockData($productData['stock_data']);
+        }
     }
 
     /**

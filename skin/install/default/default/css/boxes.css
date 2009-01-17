@@ -3,10 +3,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -18,7 +18,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /****************************************************/
@@ -64,7 +64,8 @@ input.input-text, select, textarea { border:1px solid #b6b6b6; font:12px arial, 
 option, optgroup { font:12px arial, helvetica, sans-serif; }
 optgroup { font-weight:bold; }
 input.input-text, textarea { padding:2px; }
-input.form-radio { margin-right:3px;}
+input.radio,
+input.checkbox { margin-right:5px; }
 .qty { width:2.5em; }
 .group-select label, .form-list label, .payment-methods label { font-weight:bold;}
 .button-set { /* Container for form buttons*/
@@ -77,8 +78,6 @@ input.form-radio { margin-right:3px;}
 .form-button, .form-button-alt {
     overflow:visible;
     width:auto;
-    background-color:transparent;
-    border:0;
     padding:1px 8px;
     background:#f18200;
     color:#fff;
@@ -268,26 +267,10 @@ p.required {
 /********************** Base Layout */
 
 /* Structure */
-.header {
-    z-index:999;
-    text-align:left;
-    }
-.header-top {
-    position:relative;
-    width:930px;
-    margin:0 auto;
-    }
-.header-nav {
-    width:950px;
-    margin:0 auto;
-    }
-.middle {
-    min-height:400px;
-    width:900px;
-    margin:0 auto;
-    text-align:left;
-    position:relative;
-    }
+.header { text-align:left; }
+.header-top { width:930px; margin:0 auto; }
+.header-nav { width:950px; margin:0 auto; }
+.middle { min-height:400px; width:900px; margin:0 auto; text-align:left; position:relative; }
 .side-col { width:195px; }
 .col-left { float:left; }
 .col-main { float:left; }
@@ -300,7 +283,7 @@ p.required {
 /* Style */
 .header { border-top:5px solid #0d2131; }
 .header-top-container { border-bottom:1px solid #415966; background:url(../images/header_top_container_bg.jpg) repeat-x 50% 0; }
-.header-top { padding:10px; }
+.header-top { padding:10px 10px 20px; }
 .header-nav-container { background:url(../images/nav_bg.jpg) repeat-y 50% 0 #0a263d; }
 .middle-container { background:url(../images/main_container_bg.gif) no-repeat 50% 0 #fbfaf6; }
 .middle { background:url(../images/main_bg.gif) no-repeat #fffffe;  padding:25px 25px 80px 25px; }
@@ -310,11 +293,7 @@ p.required {
 /********************** Header */
 
 /* Logo */
-h1#logo {
-    float:left;
-    width:202px;
-    margin:3px 0 10px 12px;
-    }
+h1#logo { float:left; width:202px; margin:3px 0 0 12px; }
 .page-popup h1#logo { display:none; }
 
 

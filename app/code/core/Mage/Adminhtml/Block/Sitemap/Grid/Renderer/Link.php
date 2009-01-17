@@ -41,7 +41,13 @@ class Mage_Adminhtml_Block_Sitemap_Grid_Renderer_Link extends Mage_Adminhtml_Blo
      */
     public function render(Varien_Object $row)
     {
-        return str_replace('//', '/', Mage::getBaseUrl('web') . $row->getSitemapPath() . $row->getSitemapFilename());
+        $fileName = preg_replace('/^\//', '', $row->getSitemapPath() . $row->getSitemapFilename());
+        $url = $this->htmlEscape(Mage::getBaseUrl('web') . $fileName);
+
+        if (file_exists(BP . DS . $fileName)) {
+            return sprintf('<a href="%1$s">%1$s</a>', $url);
+        }
+        return $url;
     }
 
 }

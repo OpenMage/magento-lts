@@ -112,4 +112,16 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
         return '';
     }
 
+    /**
+     * Split SKU of an item by dashes and spaces
+     * Words will not be broken, unless thir length is greater than $length
+     *
+     * @param string $sku
+     * @param int $length
+     * @return array
+     */
+    public function splitSku($sku, $length = 30)
+    {
+        return Mage::helper('core/string')->str_split($sku, $length, true, false, '[\-\s]');
+    }
 }

@@ -48,6 +48,7 @@
                 </connection>
             </default_setup>
          </resources>
+         <!--<session_cache_limiter></session_cache_limiter>-->
          <session_save>{{session_save}}</session_save>
      </global>
      <admin>

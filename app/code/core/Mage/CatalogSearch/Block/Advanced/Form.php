@@ -40,15 +40,15 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
         }
 
         // add Home breadcrumb
-        $this->getLayout()->getBlock('breadcrumbs')
-            ->addCrumb('home',
-                array('label'=>Mage::helper('catalogsearch')->__('Home'),
-                    'title'=>Mage::helper('catalogsearch')->__('Go to Home Page'),
-                    'link'=>Mage::getBaseUrl())
-                )
-            ->addCrumb('search',
-                array('label'=>Mage::helper('catalogsearch')->__('Catalog Advanced Search'))
-                );
+        if ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs')) {
+            $breadcrumbs->addCrumb('home', array(
+                'label'=>Mage::helper('catalogsearch')->__('Home'),
+                'title'=>Mage::helper('catalogsearch')->__('Go to Home Page'),
+                'link'=>Mage::getBaseUrl()
+            ))->addCrumb('search', array(
+                'label'=>Mage::helper('catalogsearch')->__('Catalog Advanced Search')
+            ));
+        }
         return parent::_prepareLayout();
     }
 
@@ -71,7 +71,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
      */
     public function getAttributeLabel($attribute)
     {
-        return Mage::helper('catalogsearch')->__($attribute->getFrontend()->getLabel());
+        return Mage::helper('catalog')->__($attribute->getFrontend()->getLabel());
     }
 
     /**
@@ -198,6 +198,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
             ->setExtraParams($extra)
             ->setValue($this->getAttributeValue($attribute))
             ->setOptions($options)
+			->setClass('multiselect')
             ->getHtml();
     }
 

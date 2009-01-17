@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,7 +21,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /**
@@ -41,7 +41,7 @@
 
 <p>This Open Software License (the "License") applies to any original work of authorship (the "Original Work") whose owner (the "Licensor") has placed the following licensing notice adjacent to the copyright notice for the Original Work:</p>
 <h5>Licensed under the Open Software License version 3.0</h5>
-<p>Grant of Copyright License. Licensor grants You a worldwide, royalty-free, non-exclusive, sublicensable license, for the duration of the copyright, to do the following:
+<p>Grant of Copyright License. Licensor grants You a worldwide, royalty-free, non-exclusive, sublicensable license, for the duration of the copyright, to do the following:</p>
 <ul class="disc">
     <li>to reproduce the Original Work in copies, either alone or as part of a collective work</li>
     <li>to translate, adapt, alter, transform, modify, or arrange the Original Work, thereby creating derivative works ("Derivative Works") based upon the Original Work</li>
@@ -82,25 +82,29 @@
 </div>
 
 <script type="text/javascript">
+//<![CDATA[
 function changeSubmitStatus(obj) {
     $('submitButton').disabled = !obj.checked;
     if(obj.checked){
-        $('submitButton').setStyle({'background-color':'','border-color':''});
+        $('submitButton').setStyle({'background':'#f18200','borderColor':''});
     }
     else{
-        $('submitButton').setStyle({'background-color':'#BBB','border-color':'#BBB'});
+        $('submitButton').setStyle({'background':'#bbb','borderColor':'#bbb'});
     }
 }
+//]]>
 </script>
     <p>
-        <input type="checkbox" name="agree" value="1" id="agree" onclick="changeSubmitStatus(this)"/>
-        <label for="agree">&nbsp; <?php echo $this->__('I agree to the above terms and conditions') ?>.</label>
+        <input type="checkbox" name="agree" value="1" id="agree" onclick="changeSubmitStatus(this)" class="checkbox" />
+        <label for="agree"><?php echo $this->__('I agree to the above terms and conditions') ?>.</label>
     </p>
     <div class="button-set">
-        <button class="form-button" type="submit" id="submitButton" disabled="true"><span><?php echo $this->__('Continue') ?></span></button>
+        <button class="form-button" type="submit" id="submitButton" disabled="disabled"><span><?php echo $this->__('Continue') ?></span></button>
     </div>
 </form>
 <script type="text/javascript">
+//<![CDATA[
     changeSubmitStatus($('agree'));
+//]]>
 </script>
 <?php endif ?>

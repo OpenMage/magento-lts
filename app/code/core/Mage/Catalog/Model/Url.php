@@ -152,6 +152,8 @@ class Mage_Catalog_Model_Url
         $this->refreshCategoryRewrite($this->getStores($storeId)->getRootCategoryId(), $storeId, false);
         $this->refreshProductRewrites($storeId);
         $this->getResource()->clearCategoryProduct($storeId);
+
+        return $this;
     }
 
     /**
@@ -182,9 +184,7 @@ class Mage_Catalog_Model_Url
                 $parentPath = '';
             }
 
-            if ($categoryUrlSuffix) {
-                $parentPath = preg_replace('#('.preg_quote($categoryUrlSuffix, '#').')/$#i', '/', $parentPath);
-            }
+            $parentPath = Mage::helper('catalog/category')->getCategoryUrlPath($parentPath, true, $category->getStoreId());
 
             $idPath      = 'category/' . $category->getId();
             $targetPath  = 'catalog/category/view/id/'.$category->getId();
@@ -251,12 +251,9 @@ class Mage_Catalog_Model_Url
         $productUrlSuffix  = $this->getProductUrlSuffix($category->getStoreId());
         $categoryUrlSuffix = $this->getCategoryUrlSuffix($category->getStoreId());
         if ($category->getUrlPath()) {
-            if ($categoryUrlSuffix) {
-                $categoryUrl = preg_replace('#('.preg_quote($categoryUrlSuffix, '#').')$#i', '', $category->getUrlPath());
-            }
-            else {
-                $categoryUrl = $category->getUrlPath();
-            }
+
+            $categoryUrl = Mage::helper('catalog/category')->getCategoryUrlPath($category->getUrlPath(), false, $category->getStoreId());
+
             $idPath = 'product/'.$product->getId().'/'.$category->getId();
             $targetPath = 'catalog/product/view/id/'.$product->getId().'/category/'.$category->getId();
             $requestPath = $categoryUrl . '/' . $urlKey . $productUrlSuffix;
@@ -512,10 +509,7 @@ class Mage_Catalog_Model_Url
      */
     public function getProductUrlSuffix($storeId)
     {
-        if (!isset($this->_productUrlSuffix[$storeId])) {
-            $this->_productUrlSuffix[$storeId] = (string)Mage::app()->getStore($storeId)->getConfig('catalog/seo/product_url_suffix');
-        }
-        return $this->_productUrlSuffix[$storeId];
+        return Mage::helper('catalog/product')->getProductUrlSuffix($storeId);
     }
 
     /**
@@ -526,9 +520,6 @@ class Mage_Catalog_Model_Url
      */
     public function getCategoryUrlSuffix($storeId)
     {
-        if (!isset($this->_categoryUrlSuffix[$storeId])) {
-            $this->_categoryUrlSuffix[$storeId] = (string)Mage::app()->getStore($storeId)->getConfig('catalog/seo/category_url_suffix');
-        }
-        return $this->_categoryUrlSuffix[$storeId];
+        return Mage::helper('catalog/category')->getCategoryUrlSuffix($storeId);
     }
 }

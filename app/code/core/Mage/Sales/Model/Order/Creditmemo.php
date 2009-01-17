@@ -36,12 +36,14 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Core_Model_Abstract
     const XML_PATH_EMAIL_IDENTITY               = 'sales_email/creditmemo/identity';
     const XML_PATH_EMAIL_COPY_TO                = 'sales_email/creditmemo/copy_to';
     const XML_PATH_EMAIL_COPY_METHOD            = 'sales_email/creditmemo/copy_method';
+    const XML_PATH_EMAIL_ENABLED                = 'sales_email/creditmemo/enabled';
 
     const XML_PATH_UPDATE_EMAIL_TEMPLATE        = 'sales_email/creditmemo_comment/template';
     const XML_PATH_UPDATE_EMAIL_GUEST_TEMPLATE  = 'sales_email/creditmemo_comment/guest_template';
     const XML_PATH_UPDATE_EMAIL_IDENTITY        = 'sales_email/creditmemo_comment/identity';
     const XML_PATH_UPDATE_EMAIL_COPY_TO         = 'sales_email/creditmemo_comment/copy_to';
     const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/creditmemo_comment/copy_method';
+    const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/creditmemo_comment/enabled';
 
     protected static $_states;
 
@@ -277,6 +279,13 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Core_Model_Abstract
         );
         $this->getOrder()->setShippingRefunded(
             $this->getOrder()->getShippingRefunded()+$this->getShippingAmount()
+        );
+
+        $this->getOrder()->setBaseShippingTaxRefunded(
+            $this->getOrder()->getBaseShippingTaxRefunded()+$this->getBaseShippingTaxAmount()
+        );
+        $this->getOrder()->setShippingTaxRefunded(
+            $this->getOrder()->getShippingTaxRefunded()+$this->getShippingTaxAmount()
         );
 
         $this->getOrder()->setAdjustmentPositive(
@@ -515,6 +524,10 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Core_Model_Abstract
      */
     public function sendEmail($notifyCustomer=true, $comment='')
     {
+        if (!Mage::helper('sales')->canSendNewCreditmemoEmail($this->getOrder()->getStore()->getId())) {
+            return $this;
+        }
+
         $currentDesign = Mage::getDesign()->setAllGetOld(array(
             'package' => Mage::getStoreConfig('design/package/name', $this->getStoreId()),
             'store' => $this->getStoreId()
@@ -598,6 +611,10 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Core_Model_Abstract
      */
     public function sendUpdateEmail($notifyCustomer=true, $comment='')
     {
+        if (!Mage::helper('sales')->canSendCreditmemoCommentEmail($this->getOrder()->getStore()->getId())) {
+            return $this;
+        }
+
         $currentDesign = Mage::getDesign()->setAllGetOld(array(
             'package' => Mage::getStoreConfig('design/package/name', $this->getStoreId()),
         ));

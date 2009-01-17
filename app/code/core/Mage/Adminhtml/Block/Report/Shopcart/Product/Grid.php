@@ -48,7 +48,9 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
             ->setStoreId('')
             ->addStoreFilter('')
             ->addCartsCount()
-            ->addOrdersCount();
+            ->addOrdersCount()
+            ->setSelectCountSqlType(Mage_Reports_Model_Mysql4_Product_Collection::SELECT_COUNT_SQL_TYPE_CART);
+        /* @var $collection Mage_Reports_Model_Mysql4_Product_Collection */
 
         $this->setCollection($collection);
         return parent::_prepareCollection();

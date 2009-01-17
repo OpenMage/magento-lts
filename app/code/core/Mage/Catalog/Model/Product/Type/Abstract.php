@@ -94,7 +94,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         if (is_null($this->_setAttributes)) {
             $attributes = $this->getProduct()->getResource()
-                ->loadAllAttributes()
+                ->loadAllAttributes($this->getProduct())
                 ->getAttributesByCode();
             $this->_setAttributes = array();
             foreach ($attributes as $attribute) {

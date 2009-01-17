@@ -24,7 +24,9 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Mysql PDO DB adapter
+ */
 class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
 {
     const DEBUG_CONNECT         = 0;
@@ -65,6 +67,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
      */
     protected $_debugTimer          = 0;
 
+    /**
+     * Begin new DB transaction for connection
+     *
+     * @return Varien_Db_Adapter_Pdo_Mysql
+     */
     public function beginTransaction()
     {
         if ($this->_transactionLevel===0) {
@@ -76,6 +83,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         return $this;
     }
 
+    /**
+     * Commit DB transaction
+     *
+     * @return Varien_Db_Adapter_Pdo_Mysql
+     */
     public function commit()
     {
         if ($this->_transactionLevel===1) {
@@ -87,17 +99,28 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         return $this;
     }
 
+    /**
+     * Rollback DB transaction
+     *
+     * @return Varien_Db_Adapter_Pdo_Mysql
+     */
     public function rollback()
     {
         if ($this->_transactionLevel===1) {
             $this->_debugTimer();
-            return parent::rollback();
+            parent::rollback();
             $this->_debugStat(self::DEBUG_TRANSACTION, 'ROLLBACK');
         }
         $this->_transactionLevel--;
         return $this;
     }
 
+    /**
+     * Convert date to DB format
+     *
+     * @param   mixed $date
+     * @return  string
+     */
     public function convertDate($date)
     {
         if ($date instanceof Zend_Date) {
@@ -106,6 +129,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         return strftime('%Y-%m-%d', strtotime($date));
     }
 
+    /**
+     * Convert date and time to DB format
+     *
+     * @param   mixed $date
+     * @return  string
+     */
     public function convertDateTime($datetime)
     {
         if ($datetime instanceof Zend_Date) {
@@ -114,7 +143,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         return strftime('%Y-%m-%d %H:%M:%S', strtotime($datetime));
     }
 
-
+    /**
+     * Creates a PDO object and connects to the database.
+     */
     protected function _connect()
     {
         if ($this->_connection) {
@@ -228,7 +259,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     /**
      * Split multi statement query
      *
- * @author      Magento Core Team <core@magentocommerce.com>
      * @param $sql string
      * @return array
      */
@@ -282,6 +312,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         return $stmts;
     }
 
+    /**
+     * Delete foreign key if it exist
+     *
+     * @param   string $table
+     * @param   string $fk
+     * @return  bool
+     */
     public function dropForeignKey($table, $fk)
     {
         $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
@@ -291,6 +328,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         return true;
     }
 
+    /**
+     * Delte index if it exist
+     *
+     * @param   string $table
+     * @param   string $key
+     * @return  bool
+     */
     public function dropKey($table, $key)
     {
         $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
@@ -301,16 +345,15 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     }
 
     /**
-     * ADD CONSTRAINT
+     * Add foreign key to table. If FK with same name exist - it will be deleted
      *
-     *
-     * @param string $fkName
-     * @param string $tableName
-     * @param string $keyName
-     * @param string $refTableName
-     * @param string $refKeyName
-     * @param string $onUpdate
-     * @param string $onDelete
+     * @param string $fkName foreign key name
+     * @param string $tableName main table name
+     * @param string $keyName main table field name
+     * @param string $refTableName refered table name
+     * @param string $refKeyName refered table field name
+     * @param string $onUpdate on update statement
+     * @param string $onDelete on delete statement
      */
     public function addConstraint($fkName, $tableName, $keyName, $refTableName, $refKeyName, $onDelete = 'cascade', $onUpdate = 'cascade')
     {
@@ -332,6 +375,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         return $this->raw_query($sql);
     }
 
+    /**
+     * Check table column exist
+     *
+     * @param   string $tableName
+     * @param   string $columnName
+     * @return  bool
+     */
     public function tableColumnExists($tableName, $columnName)
     {
         foreach ($this->fetchAll('DESCRIBE `'.$tableName.'`') as $row) {
@@ -342,6 +392,14 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         return false;
     }
 
+    /**
+     * Add new column to table
+     *
+     * @param   string $tableName
+     * @param   string $columnName
+     * @param   string $definition
+     * @return  bool
+     */
     public function addColumn($tableName, $columnName, $definition)
     {
         if ($this->tableColumnExists($tableName, $columnName)) {
@@ -351,6 +409,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         return $result;
     }
 
+    /**
+     * Delete table column
+     *
+     * @param   string $tableName
+     * @param   string $columnName
+     * @return  bool
+     */
     public function dropColumn($tableName, $columnName)
     {
         if (!$this->tableColumnExists($tableName, $columnName)) {

@@ -36,6 +36,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     const TYPE_CODE = 'grouped';
     protected $_associatedProducts  = null;
     protected $_associatedProductIds= null;
+    protected $_statusFilters = null;
     protected $_isComposite = true;
 
     /**
@@ -47,17 +48,64 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     {
         if (is_null($this->_associatedProducts)) {
             $this->_associatedProducts = array();
+
+            if (!Mage::app()->getStore()->isAdmin()) {
+                $this->setSaleableStatus();
+            }
+
             $collection = $this->getAssociatedProductCollection()
                 ->addAttributeToSelect('*')
                 ->addFilterByRequiredOptions()
                 ->setPositionOrder()
-                ->addStoreFilter($this->getStoreFilter());
+                ->addStoreFilter($this->getStoreFilter())
+                ->addAttributeToFilter('status', array('in' => $this->getStatusFilters()));
 
             foreach ($collection as $product) {
                 $this->_associatedProducts[] = $product;
             }
         }
         return $this->_associatedProducts;
+    }
+
+    /**
+     *  Add status filter to collection
+     *
+     *  @param    int $status
+     *  @return	  void
+     */
+    public function addStatusFilter ($status)
+    {
+        $this->_statusFilters[] = $status;
+        return $this;
+    }
+
+    /**
+     *  Set only saleable filter
+     *
+     *  @param    none
+     *  @return	  void
+     */
+    public function setSaleableStatus ()
+    {
+        $this->_statusFilters = Mage::getSingleton('catalog/product_status')->getSaleableStatusIds();
+        return $this;
+    }
+
+    /**
+     *  Return all assigned status filters
+     *
+     *  @param    none
+     *  @return	  void
+     */
+    public function getStatusFilters ()
+    {
+        if ($this->_statusFilters === null) {
+            return array(
+                Mage_Catalog_Model_Product_Status::STATUS_ENABLED,
+                Mage_Catalog_Model_Product_Status::STATUS_DISABLED
+            );
+        }
+        return $this->_statusFilters;
     }
 
     /**

@@ -198,7 +198,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
 
     public function shortcutSetExpressCheckout()
     {
-        $this->getQuote()->reserveOrderId();
+        $this->getQuote()->reserveOrderId()->save();
         $this->getApi()
             ->setPaymentType($this->getPaymentAction())
             ->setAmount($this->getQuote()->getBaseGrandTotal())

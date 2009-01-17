@@ -3,10 +3,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -18,7 +18,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /****************************************************/
@@ -121,7 +121,8 @@ a.form-button-alt { padding:2px 9px; text-decoration:none; }
 
 /* Form lists */
 .form-list li { margin-bottom:6px; }
-.form-list li .input-box .input-text, .form-list li .input-box textarea { width:250px; }
+.form-list li .input-box .input-text,
+.form-list li .input-box textarea { width:250px; }
 .form-list li .input-box select { width:256px; }
 .form-list li.addElement { border-top:1px solid #DDD; padding-top:10px; }
 
@@ -150,24 +151,15 @@ a.form-button-alt { padding:2px 9px; text-decoration:none; }
 
 /* Form Messages */
 .validation-advice, .required { color:#EB340A; }
-.validation-advice {
-    clear:both;
-    min-height:15px;
-    margin-top:3px;
-    background:url(../images/validation_advice_bg.gif) no-repeat 2px 1px;
-    padding-left:17px;
-    font-size:.95em;
-    font-weight:bold;
-    line-height:1.25em;
-    }
-.validation-failed {
-    border:1px dashed #EB340A !important;
-    background:#faebe7 !important;
-    }
-label.required {
-    font-weight:bold;
-    }
+.validation-advice { clear:both; min-height:15px; margin-top:3px; background:url(../images/validation_advice_bg.gif) no-repeat 2px 1px; padding-left:17px; font-size:.95em; font-weight:bold; line-height:1.25em; }
+.validation-failed { border:1px dashed #EB340A !important; background:#faebe7 !important; }
+/* Expiration date and cvv number validation fix */
+.v-fix { float:left; }
+.v-fix .validation-advice { display:block; margin-right:-12em; width:12em; position:relative; }
+
+label.required { font-weight:bold; }
 p.required { font-size:.95em; text-align:right; }
+
 
 
 /********************** Messages  */
@@ -249,8 +241,8 @@ p.required { font-size:.95em; text-align:right; }
     overflow:hidden;
     }
 
-.box-header {font-size:1.05em;text-align:left;background:#EEEEEE none repeat scroll 0%;font-weight:bold;padding:2px 8px;margin:10px 0px}
-.category-head  .link-feed {float:right; margin-top:10px; position:relative; }
+.box-header {font-size:1.05em;text-align:left;background:#EEEEEE none repeat scroll 0%;font-weight:bold;padding:2px 8px;margin:10px 0; }
+.category-head .link-feed {float:right; margin-top:10px; position:relative; }
 
 /********************* Tables */
 td.label        { font-weight:bold; }
@@ -356,26 +348,10 @@ table.view-by td {
 
 /* Structure */
 .wrapper { min-width:954px; }
-.header {
-    text-align:left;
-    }
-.header-top {
-    position:relative;
-    z-index:999;
-    width:930px;
-    margin:0 auto;
-    }
-.header-nav {
-    width:950px;
-    margin:0 auto;
-    }
-.middle {
-    min-height:400px;
-    width:900px;
-    margin:0 auto;
-    text-align:left;
-    position:relative;
-    }
+.header { text-align:left; }
+.header-top { width:930px; margin:0 auto; position:relative; z-index:100; }
+.header-nav { width:950px; margin:0 auto; }
+.middle { width:900px; min-height:400px; margin:0 auto; text-align:left; }
 .side-col { width:195px; }
 .col-left { float:left; }
 .col-main { float:left; }
@@ -436,29 +412,14 @@ h1#logo {
 
 
 /* Mini search */
-.mini-search {
-    position:absolute;
-    top:0;
-    right:0;
-    width:300px;
-    height:30px;
-    padding:1px 20px 0 40px;
-    background:url(../images/mini_search_bg.gif) no-repeat;
-    }
+.mini-search { position:absolute; top:0; right:0; width:300px; height:30px; padding:1px 20px 0 40px; background:url(../images/mini_search_bg.gif) 0 0 no-repeat; }
 .mini-search .input-text { width:212px; margin-right:4px; }
-
-.search-autocomplete {
-    border:1px solid #5c7989;
-    background:#f9f5f0;
-    position:absolute;
-    left:40px;
-    top:22px;
-    width:216px !important;
-    }
-.search-autocomplete li { border-bottom:1px solid #f4eee7; padding:2px 8px 1px 8px; }
-.search-autocomplete li.odd { background:#fffefb; }
-.search-autocomplete li.selected { background:#f7e8dd; }
-
+.search-autocomplete { z-index:999; }
+.search-autocomplete ul { border:1px solid #5c7989; background-color:#f9f5f0; }
+.search-autocomplete li { border-bottom:1px solid #f4eee7; padding:2px 8px 1px 8px; cursor:pointer; }
+.search-autocomplete li .amount { float:right; font-weight:bold; }
+.search-autocomplete li.odd { background-color:#fffefb; }
+.search-autocomplete li.selected { background-color:#f7e8dd; }
 
 
 /********************** Sidebars */
@@ -502,11 +463,11 @@ h1#logo {
 .base-mini .head h4 .count { text-transform:none; color:#2f2f2f; white-space:nowrap; font-weight:normal; font-size:.95em; }
 .base-mini h5 { font-size:1em; }
 .base-mini .content, .base-mini ol { background:#f8f7f5; }
-.base-mini ol li { padding:7px 4px 7px 8px; /*position:relative;*/ }
+.base-mini ol li { padding:7px 4px 7px 8px; }
 .base-mini ol li.odd { background:#f4f3f3; }
 .base-mini ol li.even { background:#fafafa; }
 .base-mini .actions { background:url(../images/base_mini_actions_bg.gif) repeat-x #dee5e8; padding:6px; }
-.base-mini .product-images { /*position:absolute; z-index:1; left:8px;*/ float:left; width:52px; height:52px; }
+.base-mini .product-images { float:left; width:52px; height:52px; }
 .base-mini .product-images a img { border:1px solid #a9a9a9; vertical-align:top; }
 .base-mini .product-checkbox { float:left; width:10px; }
 .base-mini .product-names { margin-left:18px; }
@@ -526,7 +487,7 @@ h1#logo {
 .mini-product-tags .content a, .mini-product-tags .content a:hover { color:#1b2d3b; }
 
 .mini-newsletter h4 { background-image:url(../images/icon_newspaper.gif); }
-.mini-newsletter .input-text { margin-bottom:3px; }
+.mini-newsletter input.input-text { display:block; margin:3px 0; width:167px; }
 
 .mini-cart .head h4 { background-image:url(../images/icon_basket.gif); }
 .mini-cart .subtotal { background:#fbebd9; margin-top:5px; padding:2px 0; text-align:center; }
@@ -547,13 +508,7 @@ h1#logo {
 
 /********************** Footer */
 .footer-container { border-top:15px solid #B6D1E2; }
-.footer {
-    width:930px;
-    margin:0 auto;
-    padding:10px 10px 4em;
-    background-color:#618499;
-    /*position:relative;*/
-    }
+.footer { width:930px; margin:0 auto; padding:10px 10px 4em; background-color:#618499; }
 .footer .store-switcher { display:inline; padding:0 10px 0 0; vertical-align:middle; }
 .footer .informational label { color:#fff; font-weight:bold; padding-right:3px; }
 .footer .informational ul {
@@ -774,12 +729,10 @@ a.minimal-price-link .price { font-weight:normal; color:#1e7ec8; }
 
 
 /********************* Tool Tips */
-.tool-tip { border:1px solid #7ba7c9; background:#eaf6ff; position:absolute; }
+.tool-tip { position:absolute; border:1px solid #7ba7c9; background:#eaf6ff; }
+.tool-tip .btn-close { padding:6px 6px 0; margin-bottom:-9px; text-align:right; }
 .tool-tip .inline-content { padding:8px; }
 .tool-tip .block-content { padding:15px 20px; }
-.tool-tip .btn-close { display:block; position:absolute; right:6px; text-align:right; top:6px; }
-
-
 /************************************************************/
 /******************[ Mage_CSS_E Shop Pages]******************/
 /************************************************************/
@@ -893,11 +846,11 @@ table.recently-list td {width:20%; }
 .product-img-box .more-views ul { margin-left:-9px; }
 .product-img-box .more-views li { float:left; margin:0 0 9px 9px; }
 .product-img-box .more-views li a { float:left; width:56px; height:56px; border:2px solid #ddd; overflow:hidden; }
-.product-img-box .more-views li a img { margin:-32px 0 0 -32px; }
 
 .product-info-box { margin-top:10px; border:1px solid #c4c6c8; margin-top:0; }
 .product-info-box .product-name { margin-bottom:.3em; color:#0a263c; font-size:1.2em; }
 .product-info-box .price-box { margin:10px 0; }
+.product-info-box .data-table .price-box { margin:0; padding:0; }
 .product-info-box .availability { margin:10px 0; padding:0; font-size:0.92em; }
 
 .add-to-cart-box { float:right; }
@@ -1027,7 +980,9 @@ select.address-select { width:630px; }
 .shipment-methods dd { margin-bottom:13px; }
 .payment-methods dt { margin-bottom:5px; }
 .payment-methods dd { padding:5px 20px; }
-
+.payment-methods select.month { width:146px !important; margin-right:10px; }
+.payment-methods select.year { width:100px !important; }
+.payment-methods input.cvv { width:3em !important; }
 
 /* Shopping Cart */
 .shopping-cart  { margin-bottom:0; }
@@ -1120,22 +1075,11 @@ tr.grand_total td, p.grand_total { padding-top:5px; padding-bottom:5px; }
 
 
 /* One-Page checkout */
+.one-page-checkout li.section { position:relative; }
 .one-page-checkout .group-select { margin-right:0; }
-.one-page-checkout .box {
-    border:1px solid #bbb6a5;
-    border-top:0;
-    padding:15px 20px;
-    background:#faf7ee;
-    }
-.one-page-checkout .head {
-    margin-bottom:0 ;
-    padding:4px 8px 6px 8px;
-    background:url(../images/opc_off_head_bg.gif) repeat-x 0 100% #eee;
-    border-width:0 1px 0 1px;
-    border-color:#D9DDE3;
-    border-style:solid;
-    border-top:1px solid #fff;
-    }
+.one-page-checkout .box { border:1px solid #bbb6a5; border-top:0; padding:15px 20px; background:#faf7ee; }
+.one-page-checkout .head { margin-bottom:0; padding:4px 8px 6px 8px; background:url(../images/opc_off_head_bg.gif) repeat-x 0 100% #eee; border-width:0 1px 0 1px; border-color:#D9DDE3; border-style:solid; border-top:1px solid #fff; }
+.one-page-checkout .tool-tip { right:8px; }
 .one-page-checkout .head a { display:none; }  /* Hide Edit button in step header */
 .one-page-checkout h3 { color:#999; font-size:1.05em; }
 .one-page-checkout h4 { border-bottom:1px solid #E4E4E4; padding-bottom:2px; text-transform:uppercase; }
@@ -1151,7 +1095,7 @@ tr.grand_total td, p.grand_total { padding-top:5px; padding-bottom:5px; }
 .one-page-checkout .active h3 { color:#F18200; }
 .one-page-checkout .allow .step-count { background:#dbe6eb; }
 .one-page-checkout .active .step-count { color:#fff; border:1px solid #f19900; background:#F18200; }
-.one-page-checkout .active .box { display:block; border-color:#BBAFA0;  background:url(../images/multi_address_box_bg.gif) repeat-x #FBFAF6; }
+.one-page-checkout .active .box { display:block; border-color:#BBAFA0; background:#FBFAF6 url(../images/multi_address_box_bg.gif) 0 0 repeat-x; }
 .one-page-checkout dd .form-list ul { margin:5px 17px 15px 17px; }
 .one-page-checkout .checkmo-mailing-address { padding-left:20px; }
 .one-page-checkout-progress .page-head { margin-bottom:1em; }
@@ -1221,6 +1165,7 @@ tr.grand_total td, p.grand_total { padding-top:5px; padding-bottom:5px; }
     font-size:.95em;
     line-height:1em;
     }
+.multi-address-checkout-box .tool-tip { left:-23px; }
 .multi-address-checkout-box .count-head h4 {  margin:0; }
 .multi-address-checkout-box .head h5 { color:#E26703; }
 .multi-address-checkout-box .head a { font-weight:normal; }
@@ -1600,7 +1545,3 @@ table.print .price-incl-tax .price { display:inline; }
 .order-info ul { display:inline; }
 .order-info li { display:inline; padding-right:7px; padding-left:3px; }
 .order-info li.selected {font-weight:bold; background:url(../images/point-con.gif) no-repeat fixed center bottom; }
-
-/* Expiration date and cvv number validation case */
-.input-box .v-fix { position:relative; float:left; }
-.input-box .v-fix .validation-advice { position:relative; margin-right:-12em; float:left; display:inline; width:12em; }

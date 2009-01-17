@@ -47,13 +47,13 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
             $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
             $pdf->pages[] = $page;
 
-             $order = $creditmemo->getOrder();
+            $order = $creditmemo->getOrder();
 
             /* Add image */
-            $this->insertLogo($page);
+            $this->insertLogo($page, $creditmemo->getStore());
 
             /* Add address */
-            $this->insertAddress($page);
+            $this->insertAddress($page, $creditmemo->getStore());
 
             /* Add head */
             $this->insertOrder($page, $order, Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_CREDITMEMO_PUT_ORDER_ID, $order->getStoreId()));

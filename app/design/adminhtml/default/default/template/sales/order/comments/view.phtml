@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,7 +21,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php if ($_entity = $this->getEntity()): ?>
@@ -30,10 +30,12 @@
         <label class="normal" for="history_comment"><?php echo Mage::helper('sales')->__('Comment Text') ?></label>
         <textarea name="comment[comment]" rows="3" cols="5" style="height:6em; width:99%;" id="history_comment"></textarea>
     </span>
+    <?php if ($this->canSendCommentEmail()): ?>
     <div class="f-left">
         <input name="comment[is_customer_notified]" type="checkbox" id="history_notify" value="1" />
         <label class="normal" for="history_notify"><?php echo Mage::helper('sales')->__('Notify Customer') ?></label>
     </div>
+    <?php endif; ?>
     <div class="f-right">
         <?php echo $this->getChildHtml('submit_button') ?>
     </div>

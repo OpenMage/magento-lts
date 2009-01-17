@@ -36,14 +36,20 @@ class Mage_SalesRule_Model_Rule_Condition_Product extends Mage_CatalogRule_Model
         $attributes['quote_item_row_total'] = Mage::helper('salesrule')->__('Row total in cart');
     }
 
+    /**
+     * Validate Product Rule Condition
+     *
+     * @param Varien_Object $object
+     * @return bool
+     */
     public function validate(Varien_Object $object)
     {
-    	$product = Mage::getModel('catalog/product')
-    		->load($object->getProductId())
-    		->setQuoteItemQty($object->getQty())
-    		->setQuoteItemPrice($object->getPrice())
-    		->setQuoteItemRowTotal($object->getRowTotal());
+        $product = Mage::getModel('catalog/product')
+            ->load($object->getProductId())
+            ->setQuoteItemQty($object->getQty())
+            ->setQuoteItemPrice($object->getPrice())
+            ->setQuoteItemRowTotal($object->getRowTotal());
 
-    	return parent::validate($product);
+        return parent::validate($product);
     }
 }

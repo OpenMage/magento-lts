@@ -3,10 +3,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -18,9 +18,11 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* Clearing */
+.wrapper,
+.footer,
 .bundle .option-title,
 .columns,
 .main-col,
@@ -50,6 +52,7 @@ ul.tabs li a,
 
 .clear { display:block; clear:both; height:0; font-size:0; line-height:0; overflow:hidden; }
 
+input.input-file { padding:2px; }
 input.checkbox,
 input.radio { width:13px; height:13px; }
 button.disabled,
@@ -58,7 +61,7 @@ button.disabled:active { filter:alpha(opacity=80); }
 
 /* Opacity fix */
 #loading-mask { filter:alpha(opacity=80); }
-#message-popup-window-mask { filter:alpha(opacity=80); }
+#message-popup-window-mask { filter:alpha(opacity=20); }
 .content-header-floating { filter:alpha(opacity=85); }
 
 /* Scalable Button Override */
@@ -82,9 +85,10 @@ div.collapseable a               { width:100%; }
 .content-header {zoom:1;}
 
 #tree-div {overflow-x:auto !important; height:auto !important; overflow-y:hidden !important; padding-bottom:30px; }
-#category_info_tabs_general_content .checkbox { display:inline; margin:0 0 0 21px; }
 
-#nav ul li, #nav ul li.active { float:left; clear:left; width:185px; }
+#nav ul li,
+#nav ul li.active { float:left; clear:left; width:185px; }
+#nav ul a span { zoom:1; }
 
 .grid-severity-critical,
 .grid-severity-major,

@@ -50,6 +50,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         $addUrl = $this->getUrl("*/*/add", array(
             '_current'=>true,
             'id'=>null,
+            '_query' => false
         ));
 
         $this->setChild('add_sub_button',
@@ -66,7 +67,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
                 ->setData(array(
                     'label'     => Mage::helper('catalog')->__('Add Root Category'),
                     'onclick'   => "addNew('".$addUrl."', true)",
-                    'class'     => 'add'
+                    'class'     => 'add',
+                    'id'        => 'add_root_category_button'
                 ))
         );
 

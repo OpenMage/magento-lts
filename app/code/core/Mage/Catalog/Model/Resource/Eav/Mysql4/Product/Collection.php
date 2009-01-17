@@ -45,6 +45,20 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
     protected $_allIdsCache = null;
     protected $_addTaxPercents = false;
 
+    public function __construct($resource=null)
+    {
+        /**
+         * Preload attributes for EAV optimization
+         */
+        $attributes = Mage::getSingleton('catalog/config')->getProductAttributes();
+        $attributes = array_merge($attributes, array(
+            'tax_class_id', 'tier_price'
+        ));
+
+        Mage::getSingleton('eav/config')->preloadAttributes('catalog_product', $attributes);
+        parent::__construct($resource);
+    }
+
     /**
      * Initialize resources
      */
@@ -54,6 +68,23 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
         $this->_productWebsiteTable = $this->getResource()->getTable('catalog/product_website');
         $this->_productCategoryTable= $this->getResource()->getTable('catalog/category_product');
     }
+
+    /**
+     * Add attribute to entities in collection
+     *
+     * If $attribute=='*' select all attributes
+     *
+     * @param array|string|integer|Mage_Core_Model_Config_Element $attribute
+     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     */
+    public function addAttributeToSelect($attribute, $joinType=false)
+    {
+        if (is_array($attribute)) {
+            Mage::getSingleton('eav/config')->preloadAttributes('catalog_product', $attribute);
+        }
+        return parent::addAttributeToSelect($attribute, $joinType);
+    }
+
 
     protected function _beforeLoad()
     {
@@ -496,9 +527,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
     {
         $wId = Mage::app()->getWebsite()->getId();
         $gId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+        $storeDate = Mage::app()->getLocale()->storeDate($this->getStoreId());
 
         $conditions  = "_price_rule.product_id = e.entity_id AND ";
-        $conditions .= "_price_rule.rule_date = '".date('Y-m-d H:i:s', mktime(0, 0, 0))."' AND ";
+
+        $conditions .= "_price_rule.rule_date = '".$this->getResource()->formatDate($storeDate, false)."' AND ";
         $conditions .= "_price_rule.website_id = '{$wId}' AND ";
         $conditions .= "_price_rule.customer_group_id = '{$gId}'";
 
@@ -553,7 +586,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 
     public function addAttributeToFilter($attribute, $condition=null, $joinType='inner'){
         $this->_allIdsCache = null;
-        return parent::addAttributeToFilter($attribute, $condition, $joinType);
+        if (is_string($attribute) && $attribute == 'is_saleable') {
+            return $this->getSelect()->where($this->_getConditionSql('(IF(manage_stock, is_in_stock, 1))', $condition));
+        } else {
+            return parent::addAttributeToFilter($attribute, $condition, $joinType);
+        }
     }
 
     public function addTaxPercents(){
@@ -640,7 +677,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
     {
         $storeId = Mage::app()->getStore()->getId();
         if ($attribute == 'price' && $storeId != 0) {
-            $customerGroup = Mage::getSingleton('customer/session')->getCustomer()->getCustomerGroupId();
+            $customerGroup = Mage::getSingleton('customer/session')->getCustomerGroupId();
 
             $priceAttributeId = $this->getAttribute('price')->getId();
 

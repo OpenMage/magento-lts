@@ -392,14 +392,17 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
         }
         foreach ($attributes as $attributeCode) {
             $attribute = Mage::getResourceSingleton('catalog/category')->getAttribute($attributeCode);
-            $tableAs   = "_$attributeCode";
-            $select->joinLeft(
-                array($tableAs => $attribute->getBackend()->getTable()),
-                sprintf('`%1$s`.entity_id=e.entity_id AND `%1$s`.attribute_id=%2$d AND `%1$s`.entity_type_id=e.entity_type_id AND `%1$s`.store_id=%3$d',
-                    $tableAs, $attribute->getData('attribute_id'), Mage_Core_Model_App::ADMIN_STORE_ID
-                ),
-                array($attributeCode => 'value')
-            );
+            // join non-static attribute table
+            if (!$attribute->getBackend()->isStatic()) {
+                $tableAs   = "_$attributeCode";
+                $select->joinLeft(
+                    array($tableAs => $attribute->getBackend()->getTable()),
+                    sprintf('`%1$s`.entity_id=e.entity_id AND `%1$s`.attribute_id=%2$d AND `%1$s`.entity_type_id=e.entity_type_id AND `%1$s`.store_id=%3$d',
+                        $tableAs, $attribute->getData('attribute_id'), Mage_Core_Model_App::ADMIN_STORE_ID
+                    ),
+                    array($attributeCode => 'value')
+                );
+            }
         }
 
         // count children products qty plus self products qty

@@ -47,6 +47,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
         return Mage::registry('product');
     }
 
+    /**
+     * Retrieve Catalog Inventory  Stock Item Model
+     *
+     * @return Mage_CatalogInventory_Model_Stock_Item
+     */
     public function getStockItem()
     {
         return Mage::registry('product')->getStockItem();
@@ -60,10 +65,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
     public function getFieldValue($field)
     {
         if ($this->getStockItem()) {
-            return $this->getStockItem()->getData($field);
+            return $this->getStockItem()->getDataUsingMethod($field);
         }
 
-        return Mage::getStoreConfig('cataloginventory/options/'.$field);
+        return Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . $field);
     }
 
     public function getConfigFieldValue($field)
@@ -74,12 +79,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
             }
         }
 
-        return Mage::getStoreConfig('cataloginventory/options/'.$field);
+        return Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . $field);
     }
 
     public function getDefaultConfigValue($field)
     {
-        return Mage::getStoreConfig('cataloginventory/options/'.$field);
+        return Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . $field);
     }
 
     public function isNew()

@@ -255,7 +255,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
      */
     public function getCsvString($fields = array()) {
         $delimiter  = $this->getVar('delimiter', ',');
-        $enclosure  = $this->getVar('enclose', '"');
+        $enclosure  = $this->getVar('enclose', '');
         $escapeChar = $this->getVar('escape', '\\');
 
         if ($delimiter == '\t') {
@@ -266,6 +266,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         foreach ($fields as $value) {
             if (strpos($value, $delimiter) !== false ||
+                empty($enclosure) ||
                 strpos($value, $enclosure) !== false ||
                 strpos($value, "\n") !== false ||
                 strpos($value, "\r") !== false ||

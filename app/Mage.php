@@ -82,7 +82,7 @@ final class Mage {
 
     public static function getVersion()
     {
-        return '1.1.6';
+        return '1.1.7';
     }
 
     /**
@@ -449,6 +449,10 @@ final class Mage {
 
             Varien_Profiler::stop('app');
         }
+        catch (Mage_Core_Model_Session_Exception $e) {
+            header('Location: ' . Mage::getBaseUrl());
+            die();
+        }
         catch (Mage_Core_Model_Store_Exception $e) {
             $baseUrl = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
             header('Location: ' . $baseUrl.'/404/');
@@ -598,7 +602,7 @@ final class Mage {
             }
             catch (Exception $e) {}
 
-            $baseUrl = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
+            $baseUrl = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
             $reportUrl = $baseUrl . '/report/?id='
                 . $reportId . '&s=' . $storeCode;
 

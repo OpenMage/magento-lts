@@ -62,11 +62,9 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
                 $url = Mage::getBaseUrl('media') . $url;
             }
 
-            $html = '<a href="'.$url.'" target="_blank" onclick="imagePreview(\''.$this->getHtmlId().'_image\');return false;">
-            <img src="'.$url.'" id="'.$this->getHtmlId().'_image" alt="'.$this->getValue().'" height="22" width="22" alt="" class="v-middle small-image-preview" />
-            </a>';
+            $html = '<a href="'.$url.'" onclick="imagePreview(\''.$this->getHtmlId().'_image\'); return false;"><img src="'.$url.'" id="'.$this->getHtmlId().'_image" title="'.$this->getValue().'" alt="'.$this->getValue().'" height="22" width="22" class="small-image-preview v-middle" /></a> ';
         }
-        $this->setClass(null);
+        $this->setClass('input-file');
         $html.= parent::getElementHtml();
         $html.= $this->_getDeleteCheckbox();
 
@@ -82,9 +80,9 @@ class Varien_Data_Form_Element_Image extends Varien_Data_Form_Element_Abstract
     {
         $html = '';
         if ($this->getValue()) {
-            $html .= '<span class="nobr">';
+            $html .= '<span class="delete-image">';
             $html .= '<input type="checkbox" name="'.parent::getName().'[delete]" value="1" class="checkbox" id="'.$this->getHtmlId().'_delete"'.($this->getDisabled() ? ' disabled="disabled"': '').'/>';
-            $html .= '<label class="'.($this->getDisabled() ? 'disabled' : 'normal'). '" for="'.$this->getHtmlId().'_delete"> '.__('Delete Image').'</label>';
+            $html .= '<label for="'.$this->getHtmlId().'_delete"'.($this->getDisabled() ? ' class="disabled"' : '').'> '.__('Delete Image').'</label>';
             $html .= $this->_getHiddenInput();
             $html .= '</span>';
         }

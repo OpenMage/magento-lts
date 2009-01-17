@@ -259,23 +259,26 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
      * Move tree node
      *
      * @param Varien_Data_Tree_Node $node
-     * @param Varien_Data_Tree_Node $parentNode
+     * @param Varien_Data_Tree_Node $newParent
      * @param Varien_Data_Tree_Node $prevNode
      */
-    public function move($category, $newParent, $prevNode = null)
+    public function move($node, $newParent, $prevNode = null)
     {
         $position = 1;
 
-        $oldPath = $category->getData($this->_pathField);
+        $oldPath = $node->getData($this->_pathField);
         $newPath = $newParent->getData($this->_pathField);
 
-        $newPath = $newPath . '/' . $category->getId();
+        $newPath = $newPath . '/' . $node->getId();
         $oldPathLength = strlen($oldPath);
 
         $newLevel = $newParent->getLevel()+1;
-        $levelDisposition = $newLevel-$category->getLevel();
+        $levelDisposition = $newLevel-$node->getLevel();
 
-        $data = array($this->_levelField=>new Zend_Db_Expr("{$this->_levelField} + '{$levelDisposition}'"), $this->_pathField=>new Zend_Db_Expr("CONCAT('$newPath', RIGHT($this->_pathField, LENGTH($this->_pathField) - {$oldPathLength}))"));
+        $data = array(
+            $this->_levelField => new Zend_Db_Expr("{$this->_levelField} + '{$levelDisposition}'"),
+            $this->_pathField  => new Zend_Db_Expr("CONCAT('$newPath', RIGHT($this->_pathField, LENGTH($this->_pathField) - {$oldPathLength}))")
+        );
         $condition = $this->_conn->quoteInto("$this->_pathField REGEXP ?", "^$oldPath(/|$)");
 
         $this->_conn->beginTransaction();
@@ -296,7 +299,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             $this->_conn->update($this->_table, $reorderData, $reorderCondition);
             $this->_conn->update($this->_table, $data, $condition);
             $this->_conn->update($this->_table, array($this->_orderField => $position, $this->_levelField=>$newLevel),
-                $this->_conn->quoteInto("{$this->_idField} = ?", $category->getId())
+                $this->_conn->quoteInto("{$this->_idField} = ?", $node->getId())
             );
 
             $this->_conn->commit();

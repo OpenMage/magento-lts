@@ -121,4 +121,9 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
         }
         return true;
     }
+
+    public function canSendShipmentEmail()
+    {
+        return Mage::helper('sales')->canSendNewShipmentEmail($this->getOrder()->getStore()->getId());
+    }
 }

@@ -5,10 +5,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -22,7 +22,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 
@@ -35,7 +35,7 @@
             <block type="adminhtml/catalog_product_edit_tabs" name="product_tabs"></block>
         </reference>
         <reference name="js">
-            <block type="adminhtml/template" template="catalog/product/js.phtml"></block>
+            <block type="adminhtml/template" template="catalog/product/js.phtml" name="catalog_product_js"></block>
         </reference>
     </adminhtml_catalog_product_new>
 
@@ -48,7 +48,7 @@
             <block type="adminhtml/catalog_product_edit_tabs" name="product_tabs"></block>
         </reference>
         <reference name="js">
-            <block type="adminhtml/template" template="catalog/product/js.phtml"></block>
+            <block type="adminhtml/template" template="catalog/product/js.phtml" name="catalog_product_js"></block>
         </reference>
     </adminhtml_catalog_product_edit>
 
@@ -63,9 +63,8 @@ Layout handle for grouped products
 -->
 
     <adminhtml_catalog_product_grouped>
-        <remove name="product_tabs"/>
-        <reference name="left">
-            <block type="adminhtml/catalog_product_edit_tabs_grouped" name="grouped_product_tabs"></block>
+        <reference name="product_tabs">
+            <action method="addTab"><name>super</name><block>adminhtml/catalog_product_edit_tab_super_group</block></action>
         </reference>
     </adminhtml_catalog_product_grouped>
 
@@ -73,10 +72,17 @@ Layout handle for grouped products
 Layout handle for configurable products
 -->
 
-    <adminhtml_catalog_product_configurable>
+    <adminhtml_catalog_product_configurable_new>
         <remove name="product_tabs"/>
         <reference name="left">
             <block type="adminhtml/catalog_product_edit_tabs_configurable" name="configurable_product_tabs"></block>
+        </reference>
+    </adminhtml_catalog_product_configurable_new>
+
+    <adminhtml_catalog_product_configurable>
+        <reference name="product_tabs">
+            <action method="addTab"><name>configurable</name><block>adminhtml/catalog_product_edit_tab_super_config</block></action>
+            <action method="bindShadowTabs"><first>configurable</first><second>customer_options</second></action>
         </reference>
     </adminhtml_catalog_product_configurable>
 

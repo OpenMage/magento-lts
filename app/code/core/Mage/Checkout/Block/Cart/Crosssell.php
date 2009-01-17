@@ -60,7 +60,6 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
                     ->addProductFilter($this->_getCartProductIds())
                     ->addExcludeProductFilter($ninProductIds)
                     ->setPageSize($this->_maxItemCount-count($items))
-                    ->setGroupBy('e.entity_id')
                     ->setRandomOrder()
                     ->load();
                 foreach ($collection as $item) {
@@ -102,24 +101,22 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
         return Mage::getSingleton('checkout/session')->getQuote();
     }
 
+    /**
+     * Get crosssell products collection
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
+     */
     protected function _getCollection()
     {
         $collection = Mage::getModel('catalog/product_link')->useCrossSellLinks()
             ->getProductCollection()
-            ->addAttributeToSelect('name')
-            ->addAttributeToSelect('price')
-            ->addAttributeToSelect('special_price')
-            ->addAttributeToSelect('special_from_date')
-            ->addAttributeToSelect('special_to_date')
-            ->addAttributeToSelect('image')
-            ->addAttributeToSelect('thumbnail')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->addStoreFilter()
             ->setPageSize($this->_maxItemCount);
+        $this->_addProductAttributesAndPrices($collection);
 
         Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($collection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
-
         Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($collection);
 
         return $collection;

@@ -3,10 +3,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -18,7 +18,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 var varienGrid = new Class.create();
 
@@ -105,9 +105,10 @@ varienGrid.prototype = {
         Element.addClassName(element, 'on-mouse');
 
         if (!Element.hasClassName('pointer')
-            && (this.rowClickCallback !== openGridRow || element.id)) {
-            if(element.id)
-            Element.addClassName(element, 'pointer');
+            && (this.rowClickCallback !== openGridRow || element.title)) {
+            if (element.title) {
+                Element.addClassName(element, 'pointer');
+            }
         }
     },
     rowMouseOut : function(event){
@@ -276,8 +277,8 @@ function openGridRow(grid, event){
         return;
     }
 
-    if(element.id){
-        setLocation(element.id);
+    if(element.title){
+        setLocation(element.title);
     }
 }
 
@@ -285,65 +286,53 @@ var varienGridMassaction = Class.create();
 varienGridMassaction.prototype = {
     /* Predefined vars */
     checkedValues: $H({}),
+    checkedString: '',
     oldCallbacks: {},
     items: {},
     gridIds: [],
     currentItem: false,
     fieldTemplate: new Template('<input type="hidden" name="#{name}" value="#{value}" />'),
     initialize: function (containerId, grid, checkedValues, formFieldNameInternal, formFieldName) {
-       this.setOldCallback('row_click', grid.rowClickCallback);
-       this.setOldCallback('init',      grid.initCallback);
-       this.setOldCallback('init_row',  grid.initRowCallback);
-       this.setOldCallback('pre_init',  grid.preInitCallback);
+        this.setOldCallback('row_click', grid.rowClickCallback);
+        this.setOldCallback('init',      grid.initCallback);
+        this.setOldCallback('init_row',  grid.initRowCallback);
+        this.setOldCallback('pre_init',  grid.preInitCallback);
 
-       this.useAjax   = false;
-       this.grid      = grid;
-       this.containerId = containerId;
-       this.initMassactionElements();
+        this.useAjax        = false;
+        this.grid           = grid;
+        this.containerId    = containerId;
+        this.initMassactionElements();
 
-       checkedValues.each(function(item){
-           this.checkedValues.set(item, item);
-       }.bind(this));
+        this.checkedString          = checkedValues;
+        this.formFieldName          = formFieldName;
+        this.formFieldNameInternal  = formFieldNameInternal;
 
-       this.formFieldName = formFieldName;
-       this.formFieldNameInternal = formFieldNameInternal;
-
-       this.grid.initCallback = this.onGridInit.bind(this);
-       this.grid.preInitCallback = this.onGridPreInit.bind(this);
-       this.grid.initRowCallback = this.onGridRowInit.bind(this);
-       this.grid.rowClickCallback = this.onGridRowClick.bind(this);
-       this.initCheckboxes();
-       this.checkCheckboxes();
+        this.grid.initCallback      = this.onGridInit.bind(this);
+        this.grid.preInitCallback   = this.onGridPreInit.bind(this);
+        this.grid.initRowCallback   = this.onGridRowInit.bind(this);
+        this.grid.rowClickCallback  = this.onGridRowClick.bind(this);
+        this.initCheckboxes();
+        this.checkCheckboxes();
     },
     setUseAjax: function(flag) {
-       this.useAjax = flag;
+        this.useAjax = flag;
     },
     initMassactionElements: function() {
-       this.container = $(this.containerId);
-       this.form      = $(this.containerId + '-form');
-       this.count      = $(this.containerId + '-count');
-       this.validator = new Validation(this.form);
-       this.formHiddens    = $(this.containerId + '-form-hiddens');
-       this.formAdditional = $(this.containerId + '-form-additional');
-       this.select    = $(this.containerId + '-select');
-       this.select.observe('change', this.onSelectChange.bindAsEventListener(this));
+        this.container      = $(this.containerId);
+        this.form           = $(this.containerId + '-form');
+        this.count          = $(this.containerId + '-count');
+        this.validator      = new Validation(this.form);
+        this.formHiddens    = $(this.containerId + '-form-hiddens');
+        this.formAdditional = $(this.containerId + '-form-additional');
+        this.select         = $(this.containerId + '-select');
+        this.select.observe('change', this.onSelectChange.bindAsEventListener(this));
     },
     setGridIds: function(gridIds) {
         this.gridIds = gridIds;
         this.updateCount();
     },
-    getGridIds: function(gridIds) {
+    getGridIds: function() {
         return this.gridIds;
-    },
-    getOnlyExistsCheckedValues: function()
-    {
-        var result = [];
-        this.checkedValues.each(function(pair){
-            if(this.getGridIds().indexOf(pair.key)!=-1) {
-                result.push(pair.value);
-            }
-        }.bind(this));
-        return result;
     },
     setItems: function(items) {
         this.items = items;
@@ -385,8 +374,8 @@ varienGridMassaction.prototype = {
                 return;
             }
             var trElement = Event.findElement(evt, 'tr');
-            if (trElement.id) {
-                setLocation(trElement.id);
+            if (trElement.title) {
+                setLocation(trElement.title);
             }
             return;
         }
@@ -427,55 +416,40 @@ varienGridMassaction.prototype = {
     },
     checkCheckboxes: function() {
         this.getCheckboxes().each(function(checkbox) {
-            checkbox.checked = this.checkedValues.keys().indexOf(checkbox.value)!==-1;
+            checkbox.checked = varienStringArray.has(checkbox.value, this.checkedString);
         }.bind(this));
     },
     selectAll: function() {
-        this.addCheckedValues(this.getGridIds());
+        this.setCheckedValues(this.getGridIds());
         this.checkCheckboxes();
         this.updateCount();
         return false;
     },
     unselectAll: function() {
-        this.setCheckedValues([]);
+        this.setCheckedValues('');
         this.checkCheckboxes();
         this.updateCount();
         return false;
     },
     selectVisible: function() {
-        this.addCheckedValues(this.getCheckboxesValues());
+        this.setCheckedValues(this.getCheckboxesValuesAsString());
         this.checkCheckboxes();
         this.updateCount();
         return false;
     },
     unselectVisible: function() {
-        this.unsetCheckedValues(this.getCheckboxesValues());
+        this.getCheckboxesValues().each(function(key){
+            this.checkedString = varienStringArray.remove(key, this.checkedString);
+        }.bind(this));
         this.checkCheckboxes();
         this.updateCount();
         return false;
     },
     setCheckedValues: function(values) {
-        this.checkedValues.each(function(item){
-            this.checkedValues.unset(item.key);
-        }.bind(this));
-        values.each(function(item){
-            this.checkedValues.set(item, item);
-        }.bind(this));
-    },
-    addCheckedValues: function(values) {
-        values.each(function(item){
-            this.checkedValues.set(item, item);
-        }.bind(this));
-    },
-    unsetCheckedValues: function(values) {
-        if(values.size()) {
-            values.each(function(item){
-                this.checkedValues.unset(item);
-            }.bind(this));
-        }
+        this.checkedString = values;
     },
     getCheckedValues: function() {
-        return this.checkedValues.keys();
+        return this.checkedString;
     },
     getCheckboxes: function() {
         var result = [];
@@ -494,21 +468,24 @@ varienGridMassaction.prototype = {
         }.bind(this));
         return result;
     },
+    getCheckboxesValuesAsString: function()
+    {
+        return this.getCheckboxesValues().join(',');
+    },
     setCheckbox: function(checkbox) {
         if(checkbox.checked) {
-            this.checkedValues.set(checkbox.value, checkbox.value);
+            this.checkedString = varienStringArray.add(checkbox.value, this.checkedString);
         } else {
-            this.checkedValues.unset(checkbox.value);
+            this.checkedString = varienStringArray.remove(checkbox.value, this.checkedString);
         }
         this.updateCount();
     },
     updateCount: function() {
-        // Maybe in future this.count.update(this.getOnlyExistsCheckedValues().size());
-        this.count.update(this.getCheckedValues().size());
+        this.count.update(varienStringArray.count(this.checkedString));
         if(!this.grid.reloadParams) {
             this.grid.reloadParams = {};
         }
-        this.grid.reloadParams[this.formFieldNameInternal] = this.getCheckedValues().join(',');
+        this.grid.reloadParams[this.formFieldNameInternal] = this.checkedString;
     },
     getSelectedItem: function() {
         if(this.getItem(this.select.value)) {
@@ -524,23 +501,16 @@ varienGridMassaction.prototype = {
             return;
         }
         this.currentItem = item;
-        var fieldName = (item.field ? item.field : this.formFieldName) + '[]';
+        var fieldName = (item.field ? item.field : this.formFieldName);
         var fieldsHtml = '';
 
         if(this.currentItem.confirm && !window.confirm(this.currentItem.confirm)) {
             return;
         }
 
-        /* Maybe in future
-        this.getOnlyExistsCheckedValues().each(function(item){
-            fieldsHtml += this.fieldTemplate.evaluate({name: fieldName, value: item});
-        }.bind(this)); */
-
-        this.getCheckedValues().each(function(item){
-            fieldsHtml += this.fieldTemplate.evaluate({name: fieldName, value: item});
-        }.bind(this));
-
-        this.formHiddens.update(fieldsHtml);
+        this.formHiddens.update('');
+        new Insertion.Bottom(this.formHiddens, this.fieldTemplate.evaluate({name: fieldName, value: this.checkedString}));
+        new Insertion.Bottom(this.formHiddens, this.fieldTemplate.evaluate({name: 'massaction_prepare_key', value: fieldName}));
 
         if(!this.validator.validate()) {
             return;
@@ -558,17 +528,17 @@ varienGridMassaction.prototype = {
         }
     },
     onMassactionComplete: function(transport) {
-           if(this.currentItem.complete) {
-               try {
-                  var listener = this.getListener(this.currentItem.complete) || Prototype.emptyFunction;
-                  listener(grid, this, transport);
-               } catch (e) {}
-           }
+        if(this.currentItem.complete) {
+            try {
+                var listener = this.getListener(this.currentItem.complete) || Prototype.emptyFunction;
+                listener(grid, this, transport);
+            } catch (e) {}
+       }
     },
     getListener: function(strValue) {
         return eval(strValue);
     }
-}
+};
 
 var varienGridAction = {
     execute: function(select) {
@@ -589,5 +559,53 @@ var varienGridAction = {
         } else {
             setLocation(config.href);
         }
+    }
+};
+
+var varienStringArray = {
+    remove: function(str, haystack)
+    {
+        haystack = ',' + haystack + ',';
+        haystack = haystack.replace(new RegExp(',' + str + ',', 'g'), ',');
+        return this.trimComma(haystack);
+    },
+    add: function(str, haystack)
+    {
+        haystack = ',' + haystack + ',';
+        if (haystack.search(new RegExp(',' + str + ',', 'g'), haystack) === -1) {
+            haystack += str + ',';
+        }
+        return this.trimComma(haystack);
+    },
+    has: function(str, haystack)
+    {
+        haystack = ',' + haystack + ',';
+        if (haystack.search(new RegExp(',' + str + ',', 'g'), haystack) === -1) {
+            return false;
+        }
+        return true;
+    },
+    count: function(haystack)
+    {
+        if (typeof haystack != 'string') {
+            return 0;
+        }
+        if (match = haystack.match(new RegExp(',', 'g'))) {
+            return match.length + 1;
+        }
+        return 0;
+    },
+    each: function(haystack, fnc)
+    {
+        var haystack = haystack.split(',');
+        for (var i=0; i<haystack.length; i++) {
+            fnc(haystack[i]);
+        }
+    },
+    trimComma: function(string)
+    {
+        string = string.replace(new RegExp('^(,+)','i'), '');
+        string = string.replace(new RegExp('(,+)$','i'), '');
+        return string;
     }
 };

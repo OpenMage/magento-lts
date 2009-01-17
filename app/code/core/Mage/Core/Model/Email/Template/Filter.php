@@ -143,8 +143,15 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         }
         $params['_absolute'] = $this->_useAbsoluteLinks;
 
-        $path = $params['url'];
-        unset($params['url']);
+        if (isset($params['direct_url'])) {
+            $path = '';
+            $params['_direct'] = $params['direct_url'];
+            unset($params['direct_url']);
+        }
+        else {
+            $path = $params['url'];
+            unset($params['url']);
+        }
 
         if (!self::$_urlInstance) {
             self::$_urlInstance = Mage::getModel('core/url')->setStore(

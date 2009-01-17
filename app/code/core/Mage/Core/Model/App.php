@@ -207,6 +207,13 @@ class Mage_Core_Model_App
      */
     protected $_updateMode = false;
 
+    /**
+     * Use session var instead of SID for session in URL
+     *
+     * @var bool
+     */
+    protected $_useSessionVar = false;
+
     static protected $_isInstalled = NULL;
 
     /**
@@ -290,6 +297,10 @@ class Mage_Core_Model_App
             return $this;
         }
 
+        /**
+         * prevent running a store from another website or store group,
+         * if website or store group was specified explicitly in Mage::run()
+         */
         $curStoreObj = $this->_stores[$this->_currentStore];
         if ($type == 'website' && $storeObj->getWebsiteId() == $curStoreObj->getWebsiteId()) {
             $this->_currentStore = $store;
@@ -645,6 +656,23 @@ class Mage_Core_Model_App
         return $this->_store;
     }
 
+    /**
+     * Retrieve default store for default group and website
+     *
+     * @return Mage_Core_Model_Store
+     */
+    public function getDefaultStoreView()
+    {
+        foreach ($this->getWebsites() as $_website) {
+            if ($_website->getIsDefault()) {
+                if ($_defaultStore = $this->getGroup($_website->getDefaultGroupId())->getDefaultStore()) {
+                    return $_defaultStore;
+                }
+            }
+        }
+        return null;
+    }
+
     public function getDistroLocaleCode()
     {
         return self::DISTRO_LOCALE_CODE;
@@ -777,6 +805,9 @@ class Mage_Core_Model_App
      */
     public function getHelper($name)
     {
+        if (strpos($name, '/') === false) {
+            $name .= '/data';
+        }
         if (!isset($this->_helpers[$name])) {
             $class = Mage::getConfig()->getHelperClassName($name);
             $this->_helpers[$name] = new $class();
@@ -860,7 +891,7 @@ class Mage_Core_Model_App
     protected function _getCacheTags($tags=array())
     {
         foreach ($tags as $index=>$value) {
-        	$tags[$index] = $this->_getCacheId($value);
+            $tags[$index] = $this->_getCacheId($value);
         }
         return $tags;
     }
@@ -888,10 +919,17 @@ class Mage_Core_Model_App
                     'file_name_prefix'=>'mage',
                 );
             }
+            $lifetime = Mage::getConfig()->getNode('global/cache/lifetime');
+            if ($lifetime !== false) {
+                $lifetime = (int) $lifetime;
+            }
+            else {
+                $lifetime = 7200;
+            }
             $this->_cache = Zend_Cache::factory('Core', $backend,
                 array(
                     'caching'=>true,
-                    'lifetime'=>7200,
+                    'lifetime'=>$lifetime,
                     'automatic_cleaning_factor'=>0,
                 ),
                 $backendAttributes
@@ -1129,5 +1167,27 @@ class Mage_Core_Model_App
     public function throwStoreException()
     {
         throw new Mage_Core_Model_Store_Exception('');
+    }
+
+    /**
+     * Set use session var instead of SID for URL
+     *
+     * @param bool $var
+     * @return Mage_Core_Model_App
+     */
+    public function setUseSessionVar($var)
+    {
+        $this->_useSessionVar = (bool)$var;
+        return $this;
+    }
+
+    /**
+     * Retrieve use flag session var instead of SID for URL
+     *
+     * @return bool
+     */
+    public function getUseSessionVar()
+    {
+        return $this->_useSessionVar;
     }
 }

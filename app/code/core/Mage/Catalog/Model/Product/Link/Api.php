@@ -36,7 +36,8 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
     protected $_typeMap = array(
         'related'       => Mage_Catalog_Model_Product_Link::LINK_TYPE_RELATED,
         'up_sell'       => Mage_Catalog_Model_Product_Link::LINK_TYPE_UPSELL,
-        'cross_sell'    => Mage_Catalog_Model_Product_Link::LINK_TYPE_CROSSSELL
+        'cross_sell'    => Mage_Catalog_Model_Product_Link::LINK_TYPE_CROSSSELL,
+        'grouped'       => Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED
     );
 
     public function __construct()

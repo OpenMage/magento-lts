@@ -149,23 +149,26 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
     public function setRandomOrder()
     {
         $this->getSelect()->order(new Zend_Db_Expr('RAND()'));
-        $this->_setIdFieldName('link_id');
         return $this;
     }
 
+    /**
+     * Deprecated since 1.1.7
+     *
+     * @param mixed $groupBy
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
+     */
     public function setGroupBy($groupBy)
     {
-        $this->getSelect()->group($groupBy);
         return $this;
     }
 
     protected function _beforeLoad()
     {
-        parent::_beforeLoad();
         if ($this->getLinkModel()) {
             $this->_joinLinks();
         }
-        return $this;
+        return parent::_beforeLoad();
     }
 
     protected function _joinLinks()
@@ -213,6 +216,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
                 );
             }
         }
+
+        /**
+         * same products must not repeat in collection (see #4835)
+         */
+        $this->getSelect()->group('e.entity_id');
 
         return $this;
     }

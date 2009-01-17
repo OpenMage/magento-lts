@@ -70,34 +70,7 @@ class Mage_Reports_Model_Mysql4_Event_Collection extends Mage_Core_Model_Mysql4_
      */
     public function addRecentlyFiler($typeId, $subjectId, $subtype = 0, $ignore = null, $limit = 15)
     {
-        $stores = array();
-        if (Mage::app()->getStore()->getId() == 0) {
-            if (!is_null($this->_storeIds)) {
-                $stores = $this->_storeIds;
-            }
-            else {
-                foreach (Mage::app()->getStores() as $store) {
-                    $stores[] = $store->getId();
-                }
-            }
-        }
-        else {
-            switch (Mage::getStoreConfig('catalog/recently_products/scope')) {
-                case 'website':
-                    $resourceStore = Mage::app()->getStore()->getWebsite()->getStores();
-                    break;
-                case 'group':
-                    $resourceStore = Mage::app()->getStore()->getGroup()->getStores();
-                    break;
-                default:
-                    $resourceStore = array(Mage::app()->getStore());
-                    break;
-            }
-
-            foreach ($resourceStore as $store) {
-                $stores[] = $store->getId();
-            }
-        }
+        $stores = $this->getResource()->getCurrentStoreIds($this->_storeIds);
         $this->_select
             ->where('event_type_id=?', $typeId)
             ->where('subject_id=?', $subjectId)

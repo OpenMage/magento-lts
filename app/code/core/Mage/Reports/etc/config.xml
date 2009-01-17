@@ -5,10 +5,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -22,13 +22,13 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Reports>
-            <version>0.7.6</version>
+            <version>0.7.7</version>
         </Mage_Reports>
     </modules>
     <global>
@@ -144,6 +144,15 @@
                     </reports>
                 </observers>
             </wishlist_share>
+            <log_log_clean_after>
+                <observers>
+                    <reports>
+                        <type>singleton</type>
+                        <class>reports/event_observer</class>
+                        <method>eventClean</method>
+                    </reports>
+                </observers>
+            </log_log_clean_after>
         </events>
     </global>
 
@@ -428,6 +437,8 @@
         <catalog>
             <recently_products>
                 <scope>website</scope>
+                <viewed_count>5</viewed_count>
+                <compared_count>5</compared_count>
             </recently_products>
         </catalog>
     </default>

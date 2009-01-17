@@ -65,6 +65,11 @@ class Mage_Adminhtml_Model_Extension_Collection extends Mage_Adminhtml_Model_Ext
     protected function _collectRecursive($dir, &$result, $dirsFirst = true)
     {
         $_result = glob($dir . DS . '*');
+
+        if (!is_array($_result)) {
+            return;
+        }
+
         if (!$dirsFirst) {
             // collect all the stuff recursively
             foreach ($_result as $item) {

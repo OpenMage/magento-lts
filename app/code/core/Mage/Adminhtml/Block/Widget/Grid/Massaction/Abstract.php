@@ -185,9 +185,11 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     {
         if($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
             $selected = explode(',', $selected);
-            return Zend_Json::encode($selected);
+            return join(',', $selected);
+//            return Zend_Json::encode($selected);
         } else {
-            return '[]';
+            return '';
+//            return '[]';
         }
     }
 
@@ -219,9 +221,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     public function getJavaScript()
     {
         return "
-                var {$this->getJsObjectName()} = new varienGridMassaction('{$this->getHtmlId()}', {$this->getGridJsObjectName()}, {$this->getSelectedJson()}, '{$this->getFormFieldNameInternal()}', '{$this->getFormFieldName()}');
+                var {$this->getJsObjectName()} = new varienGridMassaction('{$this->getHtmlId()}', {$this->getGridJsObjectName()}, '{$this->getSelectedJson()}', '{$this->getFormFieldNameInternal()}', '{$this->getFormFieldName()}');
                 {$this->getJsObjectName()}.setItems({$this->getItemsJson()});
-                {$this->getJsObjectName()}.setGridIds({$this->getGridIdsJson()});
+                {$this->getJsObjectName()}.setGridIds('{$this->getGridIdsJson()}');
                 ". ($this->getUseAjax() ? "{$this->getJsObjectName()}.setUseAjax(true);" : '');
     }
 
@@ -230,9 +232,11 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         $gridIds = $this->getParentBlock()->getCollection()->getAllIds();
 
         if(!empty($gridIds)) {
-            return Zend_Json::encode($gridIds);
+            return join(",", $gridIds);
+            //return Zend_Json::encode($gridIds);
         }
-        return '[]';
+        return '';
+        //return '[]';
     }
 
     public function getHtmlId()

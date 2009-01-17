@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,52 +21,63 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div class="create-order-sidebar-block" id="sidebar_data_<?php echo $this->getDataId() ?>">
-	<div class="head">
-		<h5><?php echo $this->getHeaderText() ?> <span class="normal">(<?php echo $this->getItemCount() ?>)</span></h5>
-		<a href="#" title="<?php echo Mage::helper('sales')->__('Refresh') ?>" onclick="order.loadArea('sidebar_<?php echo $this->getDataId() ?>', 'sidebar_data_<?php echo $this->getDataId() ?>');return false;">
+    <div class="head">
+        <h5><?php echo $this->getHeaderText() ?> <span class="normal">(<?php echo $this->getItemCount() ?>)</span></h5>
+        <a href="#" title="<?php echo Mage::helper('sales')->__('Refresh') ?>" onclick="order.loadArea('sidebar_<?php echo $this->getDataId() ?>', 'sidebar_data_<?php echo $this->getDataId() ?>');return false;">
             <img src="<?php echo $this->getSkinUrl('images/fam_refresh.gif') ?>" alt="<?php echo Mage::helper('sales')->__('Refresh') ?>" width="16" height="16"/>
         </a>
-	</div>
-	<div class="content">
-		<div class="auto-scroll">
-		<?php if($this->getItemCount()): ?>
-		<table width="100%">
-			<tr>
-				<th><?php echo Mage::helper('sales')->__('Item') ?></th>
-				<?php if ($this->canDisplayItemQty()): ?>
-				<th width="20" class="a-center"><?php echo Mage::helper('sales')->__('Qty') ?></th>
-				<?php endif; ?>
-				<?php if($this->canDisplayPrice()): ?>
-				<th width="60"><?php echo Mage::helper('sales')->__('Price') ?></th>
-				<?php endif; ?>
-				<?php if($this->canRemoveItems()): ?>
-				<th width="16" class="a-center"><img src="<?php echo $this->getSkinUrl('images/fam_bin.gif') ?>" alt="<?php echo Mage::helper('sales')->__('Remove') ?>" width="16" height="16"/></th>
-				<?php endif; ?>
-				<th width="16" class="a-center"><img src="<?php echo $this->getSkinUrl('images/fam_package_go.gif') ?>" alt="<?php echo Mage::helper('sales')->__('Add To Order') ?>" width="16" height="16"/></th>
-			</tr>
-			<?php foreach ($this->getItems() as $_item): ?>
-			<tr>
-				<td><?php echo $_item->getName() ?></td>
-				<?php if ($this->canDisplayItemQty()): ?>
-				<td class="a-center"><?php echo $_item->getQty()*1 ?></td>
-				<?php endif; ?>
-				<?php if($this->canDisplayPrice()): ?>
-				<td><?php echo $this->convertPrice($_item->getPrice()) ?></td>
-				<?php endif; ?>
-				<?php if($this->canRemoveItems()): ?>
-				<td class="a-center"><input type="checkbox" name="sidebar[remove][<?php echo $this->getItemId($_item) ?>]" value="<?php echo $this->getDataId() ?>" title="<?php echo Mage::helper('sales')->__('Remove') ?>"/></td>
-				<?php endif; ?>
-				<td class="a-center"><input type="checkbox" name="sidebar[<?php echo $this->getSidebarStorageAction() ?>][<?php echo $this->getIdentifierId($_item) ?>]" value="<?php echo $this->canDisplayItemQty() ? $_item->getQty()*1 : 1 ?>" title="<?php echo Mage::helper('sales')->__('Add To Order') ?>"/></td>
-			</tr>
-			<?php endforeach; ?>
-		</table>
-		<?php else: ?>
-			<p class="center"><?php echo Mage::helper('sales')->__('No items') ?></p>
-		<?php endif ?>
-		</div>
-	</div>
+    </div>
+    <div class="content">
+        <div class="auto-scroll">
+        <?php if($this->getItemCount()): ?>
+        <table style="width:100%">
+            <col />
+            <?php if ($this->canDisplayItemQty()): ?>
+            <col width="20" />
+            <?php endif; ?>
+            <?php if($this->canDisplayPrice()): ?>
+            <col width="60" />
+            <?php endif; ?>
+            <?php if($this->canRemoveItems()): ?>
+            <col width="16" />
+            <?php endif; ?>
+            <col width="16" />
+            <tr>
+                <th><?php echo Mage::helper('sales')->__('Item') ?></th>
+                <?php if ($this->canDisplayItemQty()): ?>
+                <th class="a-center"><?php echo Mage::helper('sales')->__('Qty') ?></th>
+                <?php endif; ?>
+                <?php if($this->canDisplayPrice()): ?>
+                <th><?php echo Mage::helper('sales')->__('Price') ?></th>
+                <?php endif; ?>
+                <?php if($this->canRemoveItems()): ?>
+                <th class="a-center"><img src="<?php echo $this->getSkinUrl('images/fam_bin.gif') ?>" alt="<?php echo Mage::helper('sales')->__('Remove') ?>" width="16" height="16"/></th>
+                <?php endif; ?>
+                <th class="a-center"><img src="<?php echo $this->getSkinUrl('images/fam_package_go.gif') ?>" alt="<?php echo Mage::helper('sales')->__('Add To Order') ?>" width="16" height="16"/></th>
+            </tr>
+            <?php foreach ($this->getItems() as $_item): ?>
+            <tr>
+                <td><?php echo $_item->getName() ?></td>
+                <?php if ($this->canDisplayItemQty()): ?>
+                <td class="a-center"><?php echo $_item->getQty()*1 ?></td>
+                <?php endif; ?>
+                <?php if($this->canDisplayPrice()): ?>
+                <td><?php echo $this->convertPrice($_item->getPrice()) ?></td>
+                <?php endif; ?>
+                <?php if($this->canRemoveItems()): ?>
+                <td class="a-center"><input type="checkbox" name="sidebar[remove][<?php echo $this->getItemId($_item) ?>]" value="<?php echo $this->getDataId() ?>" title="<?php echo Mage::helper('sales')->__('Remove') ?>"/></td>
+                <?php endif; ?>
+                <td class="a-center"><input type="checkbox" name="sidebar[<?php echo $this->getSidebarStorageAction() ?>][<?php echo $this->getIdentifierId($_item) ?>]" value="<?php echo $this->canDisplayItemQty() ? $_item->getQty()*1 : 1 ?>" title="<?php echo Mage::helper('sales')->__('Add To Order') ?>"/></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php else: ?>
+            <p class="center"><?php echo Mage::helper('sales')->__('No items') ?></p>
+        <?php endif ?>
+        </div>
+    </div>
 </div>

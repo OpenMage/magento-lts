@@ -99,6 +99,14 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
             $stockData['is_in_stock'] = $data['is_in_stock'];
         }
 
+        if (isset($data['manage_stock'])) {
+            $stockData['manage_stock'] = $data['manage_stock'];
+        }
+
+        if (isset($data['use_config_manage_stock'])) {
+            $stockData['use_config_manage_stock'] = $data['use_config_manage_stock'];
+        }
+
         $product->setStockData($stockData);
 
         try {

@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('queue_id', array(
             'header'    =>  Mage::helper('newsletter')->__('ID'),
             'index'     =>	'queue_id',
             'width'		=>	10

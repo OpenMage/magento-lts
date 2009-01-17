@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,7 +21,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <fieldset class="form-list">
@@ -55,16 +55,16 @@
             <div class="input-box">
                 <label for="<?php echo $_code ?>_expiration"><?php echo $this->__('Expiration Date') ?> <span class="required">*</span></label><br />
                 <div class="v-fix">
-                <select id="<?php echo $_code ?>_expiration" style="width:140px;" name="payment[cc_exp_month]" class="required-entry validate-cc-exp">
+                <select id="<?php echo $_code ?>_expiration" name="payment[cc_exp_month]" class="month required-entry validate-cc-exp">
                 <?php $_ccExpMonth = $this->getInfoData('cc_exp_month') ?>
                 <?php foreach ($this->getCcMonths() as $k=>$v): ?>
                     <option value="<?php echo $k?$k:'' ?>"<?php if($k==$_ccExpMonth): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
                 <?php endforeach ?>
                 </select>
                 </div>
-                <div class="v-fix" style="padding-left:5px;">
+                <div class="v-fix">
                 <?php $_ccExpYear = $this->getInfoData('cc_exp_year') ?>
-                <select id="<?php echo $_code ?>_expiration_yr" style="width:103px;" name="payment[cc_exp_year]" class="required-entry">
+                <select id="<?php echo $_code ?>_expiration_yr" name="payment[cc_exp_year]" class="year required-entry">
                 <?php foreach ($this->getCcYears() as $k=>$v): ?>
                     <option value="<?php echo $k?$k:'' ?>"<?php if($k==$_ccExpYear): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
                 <?php endforeach ?>
@@ -76,7 +76,7 @@
         <li>
             <div class="input-box">
                 <label for="<?php echo $_code ?>_cc_cid"><?php echo $this->__('Card Verification Number') ?> <span class="required">*</span></label><br />
-                <div class="v-fix"><input type="text" title="<?php echo $this->__('Card Verification Number') ?>" class="required-entry input-text validate-cc-cvn" id="<?php echo $_code ?>_cc_cid" name="payment[cc_cid]" style="width:3em;" value="" /></div>
+                <div class="v-fix"><input type="text" title="<?php echo $this->__('Card Verification Number') ?>" class="cvv required-entry input-text validate-cc-cvn" id="<?php echo $_code ?>_cc_cid" name="payment[cc_cid]" value="" /></div>
                 &nbsp;
                 <a href="#" class="cvv-what-is-this"><?php echo $this->__('What is this?') ?></a>
             </div>

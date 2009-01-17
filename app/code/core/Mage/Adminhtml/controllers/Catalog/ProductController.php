@@ -169,12 +169,21 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         $product = $this->_initProduct();
 
+        Mage::dispatchEvent('catalog_product_new_action', array('product' => $product));
+
         if ($this->getRequest()->getParam('popup')) {
             $this->loadLayout('popup');
         } else {
+            $_additionalLayoutPart = '';
+            if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE
+                && !($product->getTypeInstance()->getUsedProductAttributeIds()))
+            {
+                $_additionalLayoutPart = '_new';
+            }
             $this->loadLayout(array(
                 'default',
-                'adminhtml_catalog_product_'.$product->getTypeId()
+                strtolower($this->getFullActionName()),
+                'adminhtml_catalog_product_'.$product->getTypeId() . $_additionalLayoutPart
             ));
             $this->_setActiveMenu('catalog/products');
         }
@@ -190,9 +199,19 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         $product = $this->_initProduct();
 
+        Mage::dispatchEvent('catalog_product_edit_action', array('product' => $product));
+
+        $_additionalLayoutPart = '';
+        if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE
+            && !($product->getTypeInstance()->getUsedProductAttributeIds()))
+        {
+            $_additionalLayoutPart = '_new';
+        }
+
         $this->loadLayout(array(
             'default',
-            'adminhtml_catalog_product_'.$product->getTypeId()
+            strtolower($this->getFullActionName()),
+            'adminhtml_catalog_product_'.$product->getTypeId() . $_additionalLayoutPart
         ));
 
         $this->_setActiveMenu('catalog/products');
@@ -726,7 +745,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $this->_getSession()->addError($e->getMessage());
         }
         catch (Exception $e) {
-            $this->_getSession->addException($e, $this->__('There was an error while updating product(s) status'));
+            $this->_getSession()->addException($e, $this->__('There was an error while updating product(s) status'));
         }
 
         $this->_redirect('*/*/', array('store'=> $storeId));

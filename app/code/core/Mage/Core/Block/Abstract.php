@@ -647,13 +647,13 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 $translate->setTranslateInline(true);
             }
         }
-        
+
         $html = $this->_afterToHtml($html);
         Mage::dispatchEvent('core_block_abstract_to_html_after', array('block' => $this));
 
         return $html;
     }
-    
+
     /**
      * Processing block html after rendering
      *
@@ -950,5 +950,35 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function countChildren()
     {
         return count($this->_children);
+    }
+
+    /**
+     * Prepare url for save to cache
+     *
+     * @return Mage_Core_Block_Abstract
+     */
+    protected function _beforeCacheUrl()
+    {
+        if (Mage::app()->useCache('block_html')) {
+            Mage::app()->setUseSessionVar(true);
+        }
+        return $this;
+    }
+
+    /**
+     * Replace URLs from cache
+     *
+     * @param string $html
+     * @return string
+     */
+    protected function _afterCacheUrl($html)
+    {
+        if (Mage::app()->useCache('block_html')) {
+            Mage::app()->setUseSessionVar(false);
+            Varien_Profiler::start('CACHE_URL');
+            $html = Mage::getSingleton('core/url')->sessionUrlVar($html);
+            Varien_Profiler::stop('CACHE_URL');
+        }
+        return $html;
     }
 }

@@ -29,19 +29,30 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adminhtml_Block_Widget_Grid
+class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     public function __construct()
     {
         parent::__construct();
         $this->setId('super_product_grid');
-        $this->setDefaultSort('id');
+        $this->setDefaultSort('entity_id');
+        $this->setSkipGenerateContent(true);
         $this->setUseAjax(true);
         if ($this->_getProduct()->getId()) {
             $this->setDefaultFilter(array('in_products'=>1));
         }
+    }
+
+    public function getTabUrl()
+    {
+        return $this->getUrl('*/*/superGroup', array('_current'=>true));
+    }
+
+    public function getTabClass()
+    {
+        return 'ajax';
     }
 
     /**
@@ -105,7 +116,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             'index'     => 'entity_id'
         ));
 
-        $this->addColumn('id', array(
+        $this->addColumn('entity_id', array(
             'header'    => Mage::helper('catalog')->__('ID'),
             'sortable'  => true,
             'width'     => '60px',
@@ -163,5 +174,22 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             $products = $this->_getProduct()->getTypeInstance()->getAssociatedProductIds();
         }
         return $products;
+    }
+
+    public function getTabLabel()
+    {
+        return Mage::helper('catalog')->__('Associated Products');
+    }
+    public function getTabTitle()
+    {
+        return Mage::helper('catalog')->__('Associated Products');
+    }
+    public function canShowTab()
+    {
+        return true;
+    }
+    public function isHidden()
+    {
+        return false;
     }
 }

@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id',
+        $this->addColumn('entity_id',
             array(
                 'header'=> Mage::helper('adminhtml')->__('ID'),
                 'width' => '50px',

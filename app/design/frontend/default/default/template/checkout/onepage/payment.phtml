@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,7 +21,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <script type="text/javascript">
@@ -29,10 +29,10 @@ var payment = new Payment('co-payment-form', '<?php echo $this->getUrl('checkout
 </script>
 <form action="" id="co-payment-form">
     <?php echo $this->getChildHtml('methods') ?>
-    <div class="tool-tip" id="payment-tool-tip" style="left:0;position:absolute;display:none;padding-top:15px;">
-        <a href="#" id="payment-tool-tip-close" class="btn-close">
-            <img src="<?php echo $this->getSkinUrl('images/btn_window_close.gif') ?>" alt="<?php echo $this->__('Close') ?>" />
-        </a>
+    <div class="tool-tip" id="payment-tool-tip" style="display:none;">
+        <div class="btn-close">
+            <a href="#" id="payment-tool-tip-close"><img src="<?php echo $this->getSkinUrl('images/btn_window_close.gif') ?>" alt="<?php echo $this->__('Close') ?>" /></a>
+        </div>
         <div class="block-content">
         <img src="<?php echo $this->getSkinUrl('images/cvv.gif') ?>" alt="<?php echo $this->__('Card Verification Number Visual Reference') ?>" />
         </div>
@@ -54,8 +54,8 @@ var payment = new Payment('co-payment-form', '<?php echo $this->getUrl('checkout
     function toggleToolTip(event){
         if($('payment-tool-tip')){
             $('payment-tool-tip').setStyle({
-                top: (Event.pointerY(event)-400)+'px',
-                left: (Event.pointerX(event)+100)+'px'
+                //left: (Event.pointerX(event)+100)+'px'
+                top: (Event.pointerY(event)-515)+'px'
             })
             $('payment-tool-tip').toggle();
         }

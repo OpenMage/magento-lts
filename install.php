@@ -93,6 +93,7 @@
  * Web access options:
  * --admin_frontname <path>     // optional, admin panel path, "admin" by default
  * --url                        // required, URL the store is supposed to be available at
+ * --skip_url_validation        // optional, skip validating base url during installation or not. No by default
  * --use_rewrites               // optional, Use Web Server (Apache) Rewrites,
  *                              // You could enable this option to use web server rewrites functionality for improved SEO
  *                              // Please make sure that mod_rewrite is enabled in Apache configuration

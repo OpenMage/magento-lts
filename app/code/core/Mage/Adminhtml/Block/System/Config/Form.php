@@ -260,6 +260,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     'can_use_default_value' => $this->canUseDefaultValue((int)$e->show_in_default),
                     'can_use_website_value' => $this->canUseWebsiteValue((int)$e->show_in_website),
                 ));
+                if (isset($e->frontend_type) && 'multiselect' === (string)$e->frontend_type && isset($e->can_be_empty)) {
+                    $field->setCanBeEmpty(true);
+                }
 
                 $field->setRenderer($fieldRenderer);
 
@@ -274,8 +277,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         }
         return $this;
     }
-	
-    
+
+
     /**
      * Enter description here...
      *

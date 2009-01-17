@@ -72,6 +72,12 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
 
     protected function _beforeSave()
     {
+        // prevent overriding product data
+        if (isset($this->_data['attribute_code'])
+            && Mage::getModel('catalog/product')->isReservedAttribute($this)) {
+            Mage::throwException(Mage::helper('eav')->__('The attribute code \'%s\' is reserved by system. Please, try another attribute code.', $this->_data['attribute_code']));
+        }
+
         // prevent changing attribute scope, if used in configurable products
         if (isset($this->_origData['is_global'])) {
             if (!isset($this->_data['is_global'])) {
@@ -90,6 +96,12 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
 
             if (!$this->getFrontendModel()) {
                 $this->setFrontendModel('eav/entity_attribute_frontend_datetime');
+            }
+
+            // save default date value as timestamp
+            if ($defaultValue = $this->getDefaultValue()) {
+                $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+                $this->setDefaultValue(Mage::app()->getLocale()->date($defaultValue, $format, null, false)->toValue());
             }
         }
 

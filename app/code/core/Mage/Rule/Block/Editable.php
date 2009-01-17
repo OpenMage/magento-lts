@@ -38,11 +38,11 @@ class Mage_Rule_Block_Editable extends Mage_Core_Block_Abstract
 	        $valueName = Mage::helper('core/string')->truncate($valueName, 30);
 	    }
 	    if ($element->getShowAsText()) {
-	        $html = ' <input type="hidden" id="'.$element->getHtmlId().'" name="'.$element->getName().'" value="'.$element->getValue().'"/> ';
+	        $html = ' <input type="hidden" class="hidden" id="'.$element->getHtmlId().'" name="'.$element->getName().'" value="'.$element->getValue().'"/> ';
 
 	        $html.= htmlspecialchars($valueName).'&nbsp;';
 	    } else {
-    		$html = ' <span class="rule-param" id="'.$element->getParamId().'">';
+    		$html = ' <span class="rule-param"' . ($element->getParamId() ? ' id="' . $element->getParamId() . '"' : '') . '>';
 
     		$html.= '<a href="javascript:void(0)" class="label">';
 

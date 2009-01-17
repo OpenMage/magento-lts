@@ -73,4 +73,14 @@ class Mage_Sales_Model_Observer
             $quoteItem->save();
         }
     }
+
+    /**
+     * When applying a catalog price rule, make related quotes recollect on demand
+     *
+     * @param object $observer
+     */
+    public function markQuotesRecollectOnCatalogRules($observer)
+    {
+        Mage::getResourceSingleton('sales/quote')->markQuotesRecollectOnCatalogRules();
+    }
 }

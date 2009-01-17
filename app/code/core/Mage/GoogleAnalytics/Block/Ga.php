@@ -32,7 +32,11 @@
  */
 class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
 {
-
+    /**
+     * Retrieve Quote Data HTML
+     *
+     * @return unknown
+     */
     public function getQuoteOrdersHtml()
     {
         $quote = $this->getQuote();
@@ -62,6 +66,11 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
         return $html;
     }
 
+    /**
+     * Retrieve Order Data HTML
+     *
+     * @return string
+     */
     public function getOrderHtml()
     {
 
@@ -81,6 +90,7 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
         $address = $order->getBillingAddress();
 
         $html  = '<script type="text/javascript">' . "\n";
+		$html .= '//<![CDATA[';
         $html .= 'pageTracker._addTrans(';
         $html .= '"' . $order->getIncrementId() . '",';
         $html .= '"' . $order->getAffiliation() . '",';
@@ -104,11 +114,17 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
         }
 
         $html .= 'pageTracker._trackTrans();' . "\n";
+		$html .= '//]]>';
         $html .= '</script>';
 
         return $html;
     }
 
+    /**
+     * Retrieve Google Account Identifier
+     *
+     * @return string
+     */
     public function getAccount()
     {
         if (!$this->hasData('account')) {
@@ -117,14 +133,28 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
         return $this->getData('account');
     }
 
+    /**
+     * Retrieve current page URL
+     *
+     * @return string
+     */
     public function getPageName()
     {
         if (!$this->hasData('page_name')) {
-            $this->setPageName($this->getRequest()->getPathInfo());
+            $queryStr = '';
+            if ($request = Mage::app()->getFrontController()->getRequest()) {
+                $queryStr = substr($request->getRequestUri(), strpos($request->getRequestUri(), '?'));
+            }
+            $this->setPageName(Mage::getSingleton('core/url')->escape($this->getRequest()->getPathInfo()) . $queryStr);
         }
         return $this->getData('page_name');
     }
 
+    /**
+     * Prepare and return block's html output
+     *
+     * @return string
+     */
     protected function _toHtml()
     {
         if (!Mage::getStoreConfigFlag('google/analytics/active')) {
@@ -134,15 +164,16 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
         $this->addText('
 <!-- BEGIN GOOGLE ANALYTICS CODE -->
 <script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol)
-? "https://ssl." : "http://www.");
-document.write("\<script src=\'" + gaJsHost
-+ "google-analytics.com/ga.js\' type=\'text/javascript\'>\<\/script>" );
+//<![CDATA[
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src=\'" + gaJsHost + "google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E"));
+//]]>
 </script>
 <script type="text/javascript">
+//<![CDATA[
 var pageTracker = _gat._getTracker("' . $this->getAccount() . '");
-pageTracker._initData();
-pageTracker._trackPageview("' . $this->getPageName() . '");
+pageTracker._trackPageview("'.$this->getPageName().'");
+//]]>
 </script>
 <!-- END GOOGLE ANALYTICS CODE -->
         ');
@@ -156,5 +187,4 @@ pageTracker._trackPageview("' . $this->getPageName() . '");
 
         return parent::_toHtml();
     }
-
 }

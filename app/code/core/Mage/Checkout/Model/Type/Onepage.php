@@ -187,14 +187,10 @@ class Mage_Checkout_Model_Type_Onepage
             }
         }
 
-        if ($address->getCustomerPassword()) {
-            $customer = Mage::getModel('customer/customer');
-            $this->getQuote()->setPasswordHash($customer->encryptPassword($address->getCustomerPassword()));
+        if (true !== $result = $this->_processValidateCustomer($address)) {
+            return $result;
         }
 
-        if ($address->getDob()) {
-            $this->getQuote()->setCustomerDob(Mage::app()->getLocale()->date($address->getDob(), null, null, false)->toString('yyyy-MM-dd'));
-        }
         $this->getQuote()->collectTotals();
         $this->getQuote()->save();
 
@@ -204,6 +200,60 @@ class Mage_Checkout_Model_Type_Onepage
             ->setStepData('shipping', 'allow', true);
 
         return array();
+    }
+
+    /**
+     * Validate customer data and set some its data for further usage in quote
+     * Will return either true or array with error messages
+     *
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return true|array
+     */
+    protected function _processValidateCustomer(Mage_Sales_Model_Quote_Address $address)
+    {
+        // set customer date of birth for further usage
+        $dob = '';
+        if ($address->getDob()) {
+            // possible bug here (read date inappropriate and/or save in UTC)
+            $dob = Mage::app()->getLocale()->date($address->getDob(), null, null, false)->toString('yyyy-MM-dd');
+            $this->getQuote()->setCustomerDob($dob);
+        }
+
+        // set customer tax/vat number for further usage
+        if ($address->getTaxvat()) {
+            $this->getQuote()->setCustomerTaxvat($address->getTaxvat());
+        }
+
+        // invoke customer model, if it is registering
+        if ($address->getCustomerPassword()) {
+            // set customer password hash for further usage
+            $customer = Mage::getModel('customer/customer');
+            $this->getQuote()->setPasswordHash($customer->encryptPassword($address->getCustomerPassword()));
+
+            // validate customer
+            foreach (array(
+                'firstname'    => 'firstname',
+                'lastname'     => 'lastname',
+                'email'        => 'email',
+                'password'     => 'customer_password',
+                'confirmation' => 'confirm_password',
+                'taxvat'       => 'taxvat',
+            ) as $key => $dataKey) {
+                $customer->setData($key, $address->getData($dataKey));
+            }
+            if ($dob) {
+                $customer->setDob($dob);
+            }
+            $validationResult = $customer->validate();
+            if (true !== $validationResult && is_array($validationResult)) {
+                return array(
+                    'error'   => -1,
+                    'message' => implode(', ', $validationResult)
+                );
+            }
+        }
+
+        return true;
     }
 
     public function saveShipping($data, $customerAddressId)
@@ -362,6 +412,10 @@ class Mage_Checkout_Model_Type_Onepage
 
             if ($this->getQuote()->getCustomerDob() && !$billing->getCustomerDob()) {
                 $billing->setCustomerDob($this->getQuote()->getCustomerDob());
+            }
+
+            if ($this->getQuote()->getCustomerTaxvat() && !$billing->getCustomerTaxvat()) {
+                $billing->setCustomerTaxvat($this->getQuote()->getCustomerTaxvat());
             }
 
             Mage::helper('core')->copyFieldset('checkout_onepage_billing', 'to_customer', $billing, $customer);

@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('entity_id', array(
                 'header'    => Mage::helper('review')->__('ID'),
                 'width'     => '50px',
                 'index'     => 'entity_id',

@@ -73,11 +73,11 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     public function getStreet($line=0)
     {
         $street = parent::getData('street');
-        if (-1===$line) {
+        if (-1 === $line) {
             return $street;
         } else {
             $arr = is_array($street) ? $street : explode("\n", $street);
-            if (0===$line || $line === null) {
+            if (0 === $line || $line === null) {
                 return $arr;
             } elseif (isset($arr[$line-1])) {
                 return $arr[$line-1];
@@ -89,12 +89,12 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 
     public function getStreet1()
     {
-        return $this->getSteet(1);
+        return $this->getStreet(1);
     }
 
     public function getStreet2()
     {
-        return $this->getSteet(2);
+        return $this->getStreet(2);
     }
 
     public function getStreet3()

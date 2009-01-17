@@ -34,6 +34,7 @@
  */
 class Mage_Catalog_Model_Layer extends Varien_Object
 {
+    protected $_productCollections = array();
 
     /**
      * Retrieve current layer product collection
@@ -42,11 +43,13 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      */
     public function getProductCollection()
     {
-        $collection = $this->getData('product_collection');
-        if (is_null($collection)) {
+        if (isset($this->_productCollections[$this->getCurrentCategory()->getId()])) {
+            $collection = $this->_productCollections[$this->getCurrentCategory()->getId()];
+        }
+        else {
             $collection = $this->getCurrentCategory()->getProductCollection();
             $this->prepareProductCollection($collection);
-            $this->setData('product_collection', $collection);
+            $this->_productCollections[$this->getCurrentCategory()->getId()] = $collection;
         }
 
         return $collection;
@@ -88,6 +91,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
 
     /**
      * Retrieve current category model
+     * If no category found in registry, the root will be taken
      *
      * @return Mage_Catalog_Model_Category
      */
@@ -99,11 +103,36 @@ class Mage_Catalog_Model_Layer extends Varien_Object
                 $this->setData('current_category', $category);
             }
             else {
-                $category = false;
+                $category = Mage::getModel('catalog/category')->load($this->getCurrentStore()->getRootCategoryId());
                 $this->setData('current_category', $category);
             }
         }
         return $category;
+    }
+
+    /**
+     * Change current category object
+     *
+     * @param mixed $category
+     * @return Mage_Catalog_Model_Layer
+     */
+    public function setCurrentCategory($category)
+    {
+        if (is_numeric($category)) {
+            $category = Mage::getModel('catalog/category')->load($category);
+        }
+        if (!$category instanceof Mage_Catalog_Model_Category) {
+            Mage::throwException(Mage::helper('catalog')->__('Category must be instance of Mage_Catalog_Model_Category'));
+        }
+        if (!$category->getId()) {
+            Mage::throwException(Mage::helper('catalog')->__('Invalid category'));
+        }
+
+        if ($category->getId() != $this->getCurrentCategory()->getId()) {
+            $this->setData('current_category', $category);
+        }
+
+        return $this;
     }
 
     /**

@@ -53,7 +53,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Products extends Mage_Adminhtml_Block_Widget
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('product_id', array(
             'header'    => Mage::helper('tag')->__('ID'),
             'align'     => 'center',
             'width'     => '60px',

@@ -30,9 +30,8 @@
  *
  * Used to retrieve core configuration values
  *
- * @category   Mage
- * @package    Mage_Core
- * @link        http://var-dev.varien.com/wiki/doku.php?id=magento:api:mage:core:config
+ * @category    Mage
+ * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 

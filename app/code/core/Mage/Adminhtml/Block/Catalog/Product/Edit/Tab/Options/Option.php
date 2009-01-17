@@ -106,33 +106,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                 ))
         );
 
-        //text
-        $this->setChild('text_option_type',
-            $this->getLayout()->createBlock(
-                'adminhtml/catalog_product_edit_tab_options_type_text'
-            )
-        );
+        $path = 'global/catalog/product/options/custom/groups';
 
-        //file
-        $this->setChild('file_option_type',
-            $this->getLayout()->createBlock(
-                'adminhtml/catalog_product_edit_tab_options_type_file'
-            )
-        );
-
-        //select
-        $this->setChild('select_option_type',
-            $this->getLayout()->createBlock(
-                'adminhtml/catalog_product_edit_tab_options_type_select'
-            )
-        );
-
-        //date
-        $this->setChild('date_option_type',
-            $this->getLayout()->createBlock(
-                'adminhtml/catalog_product_edit_tab_options_type_date'
-            )
-        );
+        foreach (Mage::getConfig()->getNode($path)->children() as $group) {
+            $this->setChild($group->getName() . '_option_type',
+                $this->getLayout()->createBlock(
+                    (string) Mage::getConfig()->getNode($path . '/' . $group->getName() . '/render')
+                )
+            );
+        }
 
         return parent::_prepareLayout();
     }

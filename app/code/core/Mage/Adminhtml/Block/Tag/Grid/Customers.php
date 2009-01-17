@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('entity_id', array(
             'header'    =>Mage::helper('tag')->__('ID'),
             'width'     => '40px',
             'align'     =>'center',
@@ -120,7 +120,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
             'is_system' =>true
         ));
 
-        $this->setColumnFilter('id')
+        $this->setColumnFilter('entity_id')
             ->setColumnFilter('email')
             ->setColumnFilter('firstname')
             ->setColumnFilter('lastname');

@@ -79,16 +79,17 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
             'Please enter valid password.' => $this->__('Please enter valid password.'),
             'Please enter 6 or more characters. Leading or trailing spaces will be ignored.' =>
                 $this->__('Please enter 6 or more characters. Leading or trailing spaces will be ignored.'),
+            'Please use letters only (a-z or A-Z) in this field.' => $this->__('Please use letters only (a-z or A-Z) in this field.'),
             'Please enter a number greater than 0 in this field.' =>
                 $this->__('Please enter a number greater than 0 in this field.'),
             'Please enter a valid credit card number.' => $this->__('Please enter a valid credit card number.'),
             'Please wait, loading...' => $this->__('Please wait, loading...'),
             'Please choose to register or to checkout as a guest' => $this->__('Please choose to register or to checkout as a guest'),
             'Error: Passwords do not match' => $this->__('Error: Passwords do not match'),
-            'Your order can not be completed at this time as there is no shipping methods available for it. Please make neccessary changes in your shipping address.' => 
+            'Your order can not be completed at this time as there is no shipping methods available for it. Please make necessary changes in your shipping address.' =>
                 $this->__('Your order can not be completed at this time as there is no shipping methods available for it. Please make neccessary changes in your shipping address.'),
             'Please specify shipping method.' => $this->__('Please specify shipping method.'),
-            'Your order can not be completed at this time as there is no payment methods available for it.' => 
+            'Your order can not be completed at this time as there is no payment methods available for it.' =>
                 $this->__('Your order can not be completed at this time as there is no payment methods available for it.'),
             'Please specify payment method.' => $this->__('Please specify payment method.'),
 

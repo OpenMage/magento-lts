@@ -136,7 +136,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
 
         $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
         $r->setWeightPounds(floor($weight));
-        $r->setWeightOunces(floor(($weight-floor($weight))*16));
+        $r->setWeightOunces(($weight-floor($weight))*16);
         if ($request->getFreeMethodWeight()!=$request->getPackageWeight()) {
             $r->setFreeMethodWeight($request->getFreeMethodWeight());
         }
@@ -383,9 +383,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                 'Global Express Guaranteed Non-Document Rectangular'     => 'EXPRESS',
                 'Global Express Guaranteed Non-Document Non-Rectangular' => 'EXPRESS',
                 'Express Mail International (EMS)'                       => 'EXPRESS',
-                'Express Mail International (EMS) Flat Rate Envelope'    => 'EXPRESS',
+                'Express Mail International (EMS) Flat-Rate Envelope'    => 'EXPRESS',
                 'Priority Mail International'                            => 'PRIORITY',
-                'Priority Mail International Flat Rate Box'              => 'PRIORITY',
+                'Priority Mail International Flat-Rate Box'              => 'PRIORITY',
+                'Priority Mail International Large Flat-Rate Box'        => 'PRIORITY'
             ),
 
             'first_class_mail_type'=>array(
@@ -396,8 +397,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
 
             'container'=>array(
                 'VARIABLE'           => Mage::helper('usa')->__('Variable'),
-                'FLAT RATE BOX'      => Mage::helper('usa')->__('Flat Rate Box'),
-                'FLAT RATE ENVELOPE' => Mage::helper('usa')->__('Flat Rate Envelope'),
+                'FLAT RATE BOX'      => Mage::helper('usa')->__('Flat-Rate Box'),
+                'FLAT RATE ENVELOPE' => Mage::helper('usa')->__('Flat-Rate Envelope'),
                 'RECTANGULAR'        => Mage::helper('usa')->__('Rectangular'),
                 'NONRECTANGULAR'     => Mage::helper('usa')->__('Non-rectangular'),
             ),

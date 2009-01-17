@@ -44,8 +44,8 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
         $this->setCriticalText(addslashes($this->__('CRITICAL')));
 
 
-        $this->setNoticeMessageText($this->getLastNotice()->getTitle());
-        $this->setNoticeMessageUrl($this->getLastNotice()->getUrl());
+        $this->setNoticeMessageText(addslashes($this->getLastNotice()->getTitle()));
+        $this->setNoticeMessageUrl(addslashes($this->getLastNotice()->getUrl()));
 
         switch ($this->getLastNotice()->getSeverity()) {
             default:

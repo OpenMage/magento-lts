@@ -46,12 +46,14 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
     const XML_PATH_EMAIL_IDENTITY               = 'sales_email/order/identity';
     const XML_PATH_EMAIL_COPY_TO                = 'sales_email/order/copy_to';
     const XML_PATH_EMAIL_COPY_METHOD            = 'sales_email/order/copy_method';
+    const XML_PATH_EMAIL_ENABLED                = 'sales_email/order/enabled';
 
     const XML_PATH_UPDATE_EMAIL_TEMPLATE        = 'sales_email/order_comment/template';
     const XML_PATH_UPDATE_EMAIL_GUEST_TEMPLATE  = 'sales_email/order_comment/guest_template';
     const XML_PATH_UPDATE_EMAIL_IDENTITY        = 'sales_email/order_comment/identity';
     const XML_PATH_UPDATE_EMAIL_COPY_TO         = 'sales_email/order_comment/copy_to';
     const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/order_comment/copy_method';
+    const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/order_comment/enabled';
 
     /**
      * Order states
@@ -566,6 +568,10 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
      */
     public function sendNewOrderEmail()
     {
+        if (!Mage::helper('sales')->canSendNewOrderEmail($this->getStore()->getId())) {
+            return $this;
+        }
+
         $translate = Mage::getSingleton('core/translate');
         /* @var $translate Mage_Core_Model_Translate */
         $translate->setTranslateInline(false);
@@ -633,6 +639,10 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
      */
     public function sendOrderUpdateEmail($notifyCustomer=true, $comment='')
     {
+        if (!Mage::helper('sales')->canSendOrderCommentEmail($this->getStore()->getId())) {
+            return $this;
+        }
+
         $copyTo = $this->_getEmails(self::XML_PATH_UPDATE_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_COPY_METHOD, $this->getStoreId());
         if (!$notifyCustomer && !$copyTo) {
@@ -754,11 +764,17 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
         return $this;
     }
 
-    public function getItemsCollection()
+    public function getItemsCollection($filterByTypes = array(), $nonChildrenOnly = false)
     {
         if (is_null($this->_items)) {
             $this->_items = Mage::getResourceModel('sales/order_item_collection')
                 ->setOrderFilter($this->getId());
+            if ($filterByTypes) {
+                $this->_items->filterByTypes($filterByTypes);
+            }
+            if ($nonChildrenOnly) {
+                $this->_items->filterByParent();
+            }
 
             if ($this->getId()) {
                 foreach ($this->_items as $item) {
@@ -785,6 +801,8 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
             ->getCollection()
             ->addIdFilter($products)
             ->load();
+        Mage::getSingleton('catalog/product_visibility')
+            ->addVisibleInSiteFilterToCollection($productsCollection);
         foreach ($collection as $item) {
             $item->setProduct($productsCollection->getItemById($item->getProductId()));
         }
@@ -1240,6 +1258,16 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
     public function getCreatedAtFormated($format)
     {
         return Mage::getBlockSingleton('core/text')->formatDate($this->getCreatedAt(), $format);
+    }
+
+    /**
+     * Retrieve created at store date object
+     *
+     * @return Zend_Date
+     */
+    public function getCreatedAtDate()
+    {
+        return Mage::app()->getLocale()->storeDate($this->getStore(), $this->getCreatedAt(), true);
     }
 
     public function getEmailCustomerNote()

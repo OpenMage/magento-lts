@@ -64,8 +64,20 @@ class Mage_Core_Model_Translate_Inline
         }
 
         $resource = Mage::getResourceModel('core/translate_string');
+        /* @var $resource Mage_Core_Model_Mysql4_Translate_String */
         foreach ($translate as $t) {
-            $resource->saveTranslate($t['original'], $t['custom'], null, Mage::getDesign()->getArea() == 'adminhtml' ? 0 : null);
+            if (Mage::getDesign()->getArea() == 'adminhtml') {
+                $storeId = 0;
+            }
+            elseif (empty($t['perstore'])) {
+                $resource->deleteTranslate($t['original'], null, false);
+                $storeId = 0;
+            }
+            else {
+                $storeId = Mage::app()->getStore()->getId();
+            }
+
+            $resource->saveTranslate($t['original'], $t['custom'], null, $storeId);
         }
     }
 

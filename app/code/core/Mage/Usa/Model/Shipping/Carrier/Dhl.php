@@ -51,6 +51,18 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
 
     const SUCCESS_CODE = 203;
 
+    const ADDITIONAL_PROTECTION_ASSET = 'AP';
+    const ADDITIONAL_PROTECTION_NOT_REQUIRED = 'NR';
+
+    const ADDITIONAL_PROTECTION_VALUE_CONFIG = 0;
+    const ADDITIONAL_PROTECTION_VALUE_SUBTOTAL = 1;
+    const ADDITIONAL_PROTECTION_VALUE_SUBTOTAL_WITH_DISCOUNT = 2;
+
+    const ADDITIONAL_PROTECTION_ROUNDING_FLOOR = 0;
+    const ADDITIONAL_PROTECTION_ROUNDING_CEIL = 1;
+    const ADDITIONAL_PROTECTION_ROUNDING_ROUND = 2;
+
+
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
         if (!$this->getConfigFlag('active')) {
@@ -71,6 +83,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         $this->_request = $request;
 
         $r = new Varien_Object();
+
+        $r->setStoreId($request->getStoreId());
 
         if ($request->getLimitMethod()) {
             $r->setService($request->getLimitMethod());
@@ -258,18 +272,39 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         $r->setService($freeMethod);
     }
 
+//    protected function _getShipDate($includeSaturday=true)
+//    {
+//        $i = 0;
+//        $weekday = date('w');
+//        /*
+//        * need to omit saturday and sunday
+//        * dhl will not work on sunday
+//        * 0 (for Sunday) through 6 (for Saturday)
+//        */
+//        if (!$weekday || $weekday===0) $i += 1;
+//        elseif (!$includeSaturday && $weekday==6) $i += 2;
+//        return date('Y-m-d', strtotime("+$i day"));
+//    }
 
-    protected function _getShipDate($includeSaturday=true)
+    protected function _getShipDate($domestic=true)
     {
-        $i = 0;
+        if ($domestic) {
+            $days = explode(',', $this->getConfigData('shipment_days'));
+        } else {
+            $days = explode(',', $this->getConfigData('intl_shipment_days'));
+        }
+
+        if (!$days) {
+            return date('Y-m-d');
+        }
+
+        $i=0;
         $weekday = date('w');
-        /*
-        * need to omit saturday and sunday
-        * dhl will not work on sunday
-        * 0 (for Sunday) through 6 (for Saturday)
-        */
-        if (!$weekday || $weekday===0) $i += 1;
-        elseif (!$includeSaturday && $weekday==6) $i += 2;
+        while(!in_array($weekday, $days) && $i < 10) {
+            $i++;
+            $weekday = date('w', strtotime("+$i day"));
+        }
+
         return date('Y-m-d', strtotime("+$i day"));
     }
 
@@ -299,7 +334,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
             } else {
                  $shipment = $xml->addChild('IntlShipment');
                  $shipKey=$r->getShippingIntlKey();
-                  $r->setShipDate($this->_getShipDate(false));
+                 $r->setShipDate($this->_getShipDate(false));
                  /*
                  * For internation shippingment customsvalue must be posted
                  */
@@ -310,19 +345,26 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         } else {
             foreach ($methods as $method) {
                 $shipment = false;
-                $r->setService($method);
+                if (in_array($method, array_keys($this->getCode('special_express')))) {
+                    $r->setService('E');
+                    $r->setExtendedService($this->getCode('special_express', $method));
+                } else {
+                    $r->setService($method);
+                    $r->setExtendedService(null);
+                }
                 if ($r->getDestCountryId() == self::USA_COUNTRY_ID && $method!=$internationcode) {
                     $shipment = $xml->addChild('Shipment');
                     $shipKey=$r->getShippingKey();
                     $r->setShipDate($shipDate);
                 }elseif($r->getDestCountryId() != self::USA_COUNTRY_ID && $method==$internationcode){
-                     $shipment = $xml->addChild('IntlShipment');
-                     $shipKey=$r->getShippingIntlKey();
-                     $r->setShipDate($this->_getShipDate(false));
-                     /*
-                     * For internation shippingment customsvalue must be posted
-                     */
-                     $shippingDuty = $shipment->addChild('Dutiable');
+                    $shipment = $xml->addChild('IntlShipment');
+                    $shipKey=$r->getShippingIntlKey();
+                    $r->setShipDate($this->_getShipDate(false));
+
+                    /*
+                    * For internation shippingment customsvalue must be posted
+                    */
+                    $shippingDuty = $shipment->addChild('Dutiable');
                         $shippingDuty->addChild('DutiableFlag',($r->getDutiable()?'Y':'N'));
                         $shippingDuty->addChild('CustomsValue',$r->getValue());
                 }
@@ -361,6 +403,61 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
     protected function _createShipmentXml($shipment,$shipKey)
     {
         $r = $this->_rawRequest;
+
+        $store = Mage::app()->getStore($r->getStoreId());
+
+        $_haz = $this->getConfigFlag('hazardous_materials');
+
+        $_subtotal = $r->getValue();
+        $_subtotalWithDiscount = $r->getValueWithDiscount();
+
+        $_width = max(0, (double) $this->getConfigData('default_width'));
+        $_height = max(0, (double) $this->getConfigData('default_height'));
+        $_length = max(0, (double) $this->getConfigData('default_length'));
+
+        $_apEnabled = $this->getConfigFlag('additional_protection_enabled');
+        $_apUseSubtotal = $this->getConfigData('additional_protection_use_subtotal');
+        $_apConfigValue = max(0, (double) $this->getConfigData('additional_protection_value'));
+        $_apMinValue = max(0, (double) $this->getConfigData('additional_protection_min_value'));
+        $_apValueRounding = $this->getConfigData('additional_protection_rounding');
+
+        $apValue = 0;
+        $apCode = self::ADDITIONAL_PROTECTION_NOT_REQUIRED;
+        if ($_apEnabled) {
+            if ($_apMinValue <= $_subtotal) {
+                switch ($_apUseSubtotal) {
+                    case self::ADDITIONAL_PROTECTION_VALUE_SUBTOTAL:
+                        $apValue = $_subtotal;
+                        break;
+                    case self::ADDITIONAL_PROTECTION_VALUE_SUBTOTAL_WITH_DISCOUNT:
+                        $apValue = $_subtotalWithDiscount;
+                        break;
+                    default:
+                    case self::ADDITIONAL_PROTECTION_VALUE_CONFIG:
+                        $apValue = $_apConfigValue;
+                        break;
+                }
+
+                if ($apValue) {
+                    $apCode = self::ADDITIONAL_PROTECTION_ASSET;
+
+
+                    switch ($_apValueRounding) {
+                        case self::ADDITIONAL_PROTECTION_ROUNDING_CEIL:
+                            $apValue = ceil($apValue);
+                            break;
+                        case self::ADDITIONAL_PROTECTION_ROUNDING_ROUND:
+                            $apValue = round($apValue);
+                            break;
+                        default:
+                        case self::ADDITIONAL_PROTECTION_ROUNDING_FLOOR:
+                            $apValue = floor($apValue);
+                            break;
+                    }
+                }
+            }
+        }
+
         $shipment->addAttribute('action', 'RateEstimate');
             $shipment->addAttribute('version', '1.0');
 
@@ -374,6 +471,31 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
             $shipmentDetail->addChild('ShipmentType')->addChild('Code', $r->getShipmentType());
             $shipmentDetail->addChild('Weight', $r->getWeight());
             $shipmentDetail->addChild('ContentDesc', $r->getContentDesc());
+            $additionalProtection = $shipmentDetail->addChild('AdditionalProtection');
+                $additionalProtection->addChild('Code', $apCode);
+                $additionalProtection->addChild('Value', floor($apValue));
+
+            if ($_width && $_height && $_length) {
+                $dimensions = $shipmentDetail->addChild('Dimensions');
+                    $dimensions->addChild('Length', $_length);
+                    $dimensions->addChild('Width', $_width);
+                    $dimensions->addChild('Height', $_height);
+            }
+
+            if ($_haz || ($r->getExtendedService())) {
+                $specialServices = $shipmentDetail->addChild('SpecialServices');
+            }
+
+            if ($_haz) {
+                $hazardousMaterials = $specialServices->addChild('SpecialService');
+                $hazardousMaterials->addChild('Code', 'HAZ');
+            }
+
+            if ($r->getExtendedService()) {
+                $extendedService = $specialServices->addChild('SpecialService');
+                $extendedService->addChild('Code', $r->getExtendedService());
+            }
+
 
          /*
          * R = Receiver (if receiver, need AccountNbr)
@@ -383,6 +505,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
          $billing = $shipment->addChild('Billing');
             $billing->addChild('Party')->addChild('Code', 'S');
             $billing->addChild('DutyPaymentType',$r->getDutyPaymentType());
+
+            /*
+            $cod = $billing->addChild('CODPayment');
+                $cod->addChild('Code', 'P');
+                $cod->addChild('Value', 100);
+                */
+
 
         $receiverAddress = $shipment->addChild('Receiver')->addChild('Address');
             $receiverAddress->addChild('Street', htmlspecialchars($r->getDestStreet()?$r->getDestStreet():'NA'));
@@ -460,7 +589,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
             $result->append($error);
         }
 
-        foreach($this->_dhlRates as $method => $data) {
+        foreach($this->_dhlRates as $rate) {
+            $method = $rate['service'];
+            $data = $rate['data'];
             $rate = Mage::getModel('shipping/rate_result_method');
             $rate->setCarrier('dhl');
             $rate->setCarrierTitle($this->getConfigData('title'));
@@ -656,8 +787,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         $codes = array(
             'service'=>array(
                 'IE' => Mage::helper('usa')->__('International Express'),
-                //'E SAT' => Mage::helper('usa')->__('Express Saturday'),
-                //'E 10:30AM' => Mage::helper('usa')->__('Express 10:30 AM'),
+                'E SAT' => Mage::helper('usa')->__('Express Saturday'),
+                'E 10:30AM' => Mage::helper('usa')->__('Express 10:30 AM'),
                 'E' => Mage::helper('usa')->__('Express'),
                 'N' => Mage::helper('usa')->__('Next Afternoon'),
                 'S' => Mage::helper('usa')->__('Second Day Service'),
@@ -678,6 +809,16 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                 'S' => Mage::helper('usa')->__('Sender'),
                 'R' => Mage::helper('usa')->__('Receiver'),
                 '3' => Mage::helper('usa')->__('Third Party'),
+           ),
+
+           'special_express'=>array(
+                'E SAT'=>'SAT',
+                'E 10:30AM'=>'1030',
+           ),
+
+           'descr_to_service'=>array(
+                'E SAT'=>'Saturday',
+                'E 10:30AM'=>'10:30 A.M',
            ),
 
         );
@@ -722,6 +863,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
     {
         $r = $this->_rawRequest;
         $services = $this->getCode('service');
+        $regexps = $this->getCode('descr_to_service');
         $desc=(string)$shipXml->EstimateDetail->ServiceLevelCommitment->Desc;
         $totalEstimate=(string)$shipXml->EstimateDetail->RateEstimate->TotalChargeEstimate;
         /*
@@ -730,9 +872,18 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         */
         if($desc && $totalEstimate){
             $service = (string)$shipXml->EstimateDetail->Service->Code;
+            $description = (string)$shipXml->EstimateDetail->ServiceLevelCommitment->Desc;
+            if ($service == 'E') {
+                foreach ($regexps as $expService=>$exp) {
+                    if (preg_match('/'.preg_quote($exp, '/').'/', $description)) {
+                        $service = $expService;
+                    }
+                }
+            }
+
             $data['term'] = (isset($services[$service])?$services[$service]:$desc);
             $data['price_total'] = $this->getMethodPrice($totalEstimate, $service);
-            $this->_dhlRates[$service] = $data;
+            $this->_dhlRates[] = array('service'=>$service, 'data'=>$data);
         }
     }
 
@@ -1017,5 +1168,23 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
     public function isStateProvinceRequired()
     {
         return true;
+    }
+
+    public function getAdditionalProtectionValueTypes()
+    {
+        return array(
+            self::ADDITIONAL_PROTECTION_VALUE_CONFIG=>Mage::helper('usa')->__('Configuration'),
+            self::ADDITIONAL_PROTECTION_VALUE_SUBTOTAL=>Mage::helper('usa')->__('Subtotal'),
+            self::ADDITIONAL_PROTECTION_VALUE_SUBTOTAL_WITH_DISCOUNT=>Mage::helper('usa')->__('Subtotal With Discount'),
+            );
+    }
+
+    public function getAdditionalProtectionRoundingTypes()
+    {
+        return array(
+            self::ADDITIONAL_PROTECTION_ROUNDING_FLOOR => Mage::helper('usa')->__('To lower'),
+            self::ADDITIONAL_PROTECTION_ROUNDING_CEIL  => Mage::helper('usa')->__('To upper'),
+            self::ADDITIONAL_PROTECTION_ROUNDING_ROUND => Mage::helper('usa')->__('Round'),
+            );
     }
 }

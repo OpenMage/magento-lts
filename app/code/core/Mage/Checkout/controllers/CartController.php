@@ -121,6 +121,12 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             }
         }
 
+        /**
+         * if customer enteres shopping cart we should mark quote
+         * as modified bc he can has checkout page in another window.
+         */
+        $this->_getSession()->setCartWasUpdated(true);
+
         Varien_Profiler::start(__METHOD__ . 'cart_display');
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
@@ -157,6 +163,8 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             $cart->save();
 
+            $this->_getSession()->setCartWasUpdated(true);
+
             /**
              * @todo remove wishlist observer processAddToCart
              */
@@ -171,7 +179,8 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             if ($this->_getSession()->getUseNotice(true)) {
                 $this->_getSession()->addNotice($e->getMessage());
             } else {
-                foreach (explode("\n", $e->getMessage()) as $message) {
+                $messages = array_unique(explode("\n", $e->getMessage()));
+                foreach ($messages as $message) {
                     $this->_getSession()->addError($message);
                 }
             }
@@ -216,6 +225,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 }
             }
             $cart->save();
+            $this->_getSession()->setCartWasUpdated(true);
         }
         $this->_goBack();
     }
@@ -312,6 +322,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $this->_getQuote()->setCouponCode(strlen($couponCode) ? $couponCode : '')
                 ->collectTotals()
                 ->save();
+
             if ($couponCode) {
                 if ($couponCode == $this->_getQuote()->getCouponCode()) {
                     $this->_getSession()->addSuccess(

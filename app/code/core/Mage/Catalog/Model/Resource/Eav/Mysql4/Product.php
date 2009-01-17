@@ -41,6 +41,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
      */
     public function __construct()
     {
+        parent::__construct();
+        Mage::getSingleton('eav/config')->preloadAttributes('catalog_product', $this->_getDefaultAttributes());
         $resource = Mage::getSingleton('core/resource');
         $this->setType('catalog_product')
             ->setConnection(
@@ -59,7 +61,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
      */
     protected function _getDefaultAttributes()
     {
-        return array('entity_type_id', 'attribute_set_id', 'type_id', 'created_at', 'updated_at');
+        return array('entity_id', 'entity_type_id', 'attribute_set_id', 'type_id', 'created_at', 'updated_at');
     }
 
     /**
@@ -392,16 +394,14 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
             ->where("g.linked_product_id = ?", $childId)
             ->where("link_type_id = ?", $groupedLinkTypeId);
 
+        $groupedIds = $this->_getReadAdapter()->fetchCol($groupedSelect);
+
         $configurableSelect = $this->_getReadAdapter()->select()
             ->from(array('c'=>$configurableProductsTable), 'c.parent_id')
             ->where("c.product_id = ?", $childId);
 
-        $select = $this->_getReadAdapter()->select();
-        $select
-            ->from(array('e'=>$this->getTable('catalog/product')), 'DISTINCT(e.entity_id)')
-            ->where('e.entity_id in ('.new Zend_Db_Expr($groupedSelect).' UNION '.new Zend_Db_Expr($configurableSelect).')');
-
-        return $this->_getReadAdapter()->fetchCol($select);
+        $configurableIds = $this->_getReadAdapter()->fetchCol($configurableSelect);
+        return array_merge($groupedIds, $configurableIds);
     }
 
     /**
@@ -417,5 +417,28 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
             ->where('product_id=?', $product->getId())
             ->where('category_id=?', $categoryId);
         return $this->_getReadAdapter()->fetchOne($select);
+    }
+
+    /**
+     * Duplicate product store values
+     *
+     * @param int $oldId
+     * @param int $newId
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product
+     */
+    public function duplicate($oldId, $newId)
+    {
+        $eavTables = array('datetime', 'decimal', 'int', 'text', 'varchar');
+
+        // duplicate EAV store values
+        foreach ($eavTables as $suffix) {
+            $tableName = $this->getTable('catalog_product_entity_' . $suffix);
+            $sql = 'REPLACE INTO `' . $tableName . '` '
+                . 'SELECT NULL, `entity_type_id`, `attribute_id`, `store_id`, ' . $newId . ', `value`'
+                . 'FROM `' . $tableName . '` WHERE `entity_id`=' . $oldId . ' AND `store_id`>0';
+            $this->_getWriteAdapter()->query($sql);
+        }
+
+        return $this;
     }
 }

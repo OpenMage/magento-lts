@@ -32,66 +32,57 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Reports_Block_Product_Compared extends Mage_Catalog_Block_Product_Abstract
+class Mage_Reports_Block_Product_Compared extends Mage_Reports_Block_Product_Abstract
 {
+    const XML_PATH_RECENTLY_COMPARED_COUNT  = 'catalog/recently_products/compared_count';
+
+    protected $_eventTypeId = Mage_Reports_Model_Event::EVENT_PRODUCT_COMPARE;
+
+    /**
+     * Retrieve page size (count)
+     *
+     * @return int
+     */
+    protected function getPageSize()
+    {
+        if ($this->hasData('page_size')) {
+            return $this->getData('page_size');
+        }
+        return Mage::getStoreConfig(self::XML_PATH_RECENTLY_COMPARED_COUNT);
+    }
+
+    protected function _getProductsToSkip()
+    {
+        $ids = array();
+        foreach (Mage::helper('catalog/product_compare')->getItemCollection() as $_item) {
+            $ids[] = $_item->getId();
+        }
+        if (($product = Mage::registry('product')) && $product->getId()) {
+            $ids[] = $product->getId();
+        }
+        return $ids;
+    }
+
     protected function _hasComparedProductsBefore()
     {
         return Mage::getSingleton('reports/session')->getData('compared_products');
     }
 
-    public function __construct()
+    protected function _toHtml()
     {
-        parent::__construct();
         if ($this->_hasComparedProductsBefore() === false) {
-            return $this;
-        }
-//        $this->setTemplate('reports/product_compared.phtml');
-
-        $ignore = array();
-        foreach (Mage::helper('catalog/product_compare')->getItemCollection() as $_item) {
-            $ignore[] = $_item->getId();
+            return '';
         }
 
-        if (($product = Mage::registry('product')) && $product->getId()) {
-            $ignore[] = $product->getId();
-        }
-
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $customer = Mage::getSingleton('customer/session')->getCustomer();
-            $subjectId = $customer->getId();
-            $subtype = 0;
-        } else {
-            $subjectId = Mage::getSingleton('log/visitor')->getId();
-            $subtype = 1;
-        }
-        $collection = Mage::getModel('reports/event')
-            ->getCollection()
-            ->addRecentlyFiler(3, $subjectId, $subtype, $ignore);
-        $productIds = array();
-        foreach ($collection as $event) {
-            $productIds[] = $event->getObjectId();
-        }
-        unset($collection);
-
+        $collection = $this->_getRecentProductsCollection();
+        $hasProducts = (bool)count($collection);
         if (is_null($this->_hasComparedProductsBefore())) {
-            Mage::getSingleton('reports/session')->setData('compared_products', count($productIds) > 0);
+            Mage::getSingleton('reports/session')->setData('compared_products', $hasProducts);
+        }
+        if ($hasProducts) {
+            $this->setRecentlyComparedProducts($collection);
         }
 
-        $productCollection = null;
-        if ($productIds) {
-            $productCollection = Mage::getModel('catalog/product')
-                ->getCollection()
-                ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-                ->addUrlRewrite()
-                ->addIdFilter($productIds);
-            Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($productCollection);
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($productCollection);
-            $productCollection->setPageSize(5)->setCurPage(1)->load();
-
-            foreach ($productCollection as $product) {
-                $product->setDoNotUseCategoryId(true);
-            }
-        }
-        $this->setRecentlyComparedProducts($productCollection);
+        return parent::_toHtml();
     }
 }

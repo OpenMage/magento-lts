@@ -56,6 +56,21 @@ class Mage_CatalogInventory_Model_Mysql4_Stock_Item extends Mage_Core_Model_Mysq
     }
 
     /**
+     * Retrieve select object and join it to product entity table to get type ids
+     *
+     * @param  string $field
+     * @param  mixed $value
+     * @param  object $object
+     * @return Zend_Db_Select
+     */
+    protected function _getLoadSelect($field, $value, $object)
+    {
+        return parent::_getLoadSelect($field, $value, $object)
+            ->joinInner(array('p' => $this->getTable('catalog/product')), 'product_id=p.entity_id', 'type_id')
+        ;
+    }
+
+    /**
      * Add join for catalog in stock field to product collection
      *
      * @param Mage_Catalog_Model_Entity_Product_Collection $productCollection
@@ -63,8 +78,15 @@ class Mage_CatalogInventory_Model_Mysql4_Stock_Item extends Mage_Core_Model_Mysq
      */
     public function addCatalogInventoryToProductCollection($productCollection)
     {
-        $productCollection->joinField('inventory_in_stock', 'cataloginventory/stock_item',
-                                      'is_in_stock', 'product_id=entity_id', null, 'left');
+        $isStockManagedInConfig = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK);
+        $productCollection->joinTable('cataloginventory/stock_item',
+            'product_id=entity_id',
+            array(
+                'is_saleable' => new Zend_Db_Expr('(IF(IF(use_config_manage_stock, ' . $isStockManagedInConfig . ', manage_stock), is_in_stock, 1))'),
+                'inventory_in_stock' => 'is_in_stock'
+            ),
+            null, 'left');
+
         return $this;
     }
 }

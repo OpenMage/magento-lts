@@ -41,6 +41,7 @@
                             <frontend_type>select</frontend_type>
                             <frontend_model>directory/adminhtml_frontend_currency_base</frontend_model>
                             <source_model>adminhtml/system_config_source_currency</source_model>
+                            <backend_model>adminhtml/system_config_backend_currency_base</backend_model>
                             <sort_order>1</sort_order>
                             <comment>Currency will be used for all online payment transactions</comment>
                             <show_in_default>1</show_in_default>
@@ -51,6 +52,7 @@
                             <label>Default display currency</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_currency</source_model>
+                            <backend_model>adminhtml/system_config_backend_currency_default</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -60,6 +62,7 @@
                             <label>Allowed currencies</label>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>adminhtml/system_config_source_currency</source_model>
+                            <backend_model>adminhtml/system_config_backend_currency_allow</backend_model>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

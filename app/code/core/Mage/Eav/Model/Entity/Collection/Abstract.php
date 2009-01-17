@@ -683,7 +683,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
     public function setPage($pageNum, $pageSize)
     {
         $this->setCurPage($pageNum)
-            ->getPageSize($pageSize);
+            ->setPageSize($pageSize);
         return $this;
     }
 
@@ -716,7 +716,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
      *
      * @return array
      */
-    public function getAllIds()
+    public function getAllIds($limit=null, $offset=null)
     {
         $idsSelect = clone $this->getSelect();
         $idsSelect->reset(Zend_Db_Select::ORDER);
@@ -724,6 +724,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
         $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $idsSelect->reset(Zend_Db_Select::COLUMNS);
         $idsSelect->from(null, 'e.'.$this->getEntity()->getIdFieldName());
+        $idsSelect->limit($limit, $offset);
         return $this->getConnection()->fetchCol($idsSelect, $this->_bindParams);
     }
 

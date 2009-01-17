@@ -68,19 +68,19 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         }
 
         if (!$io->isWriteable($realPath)) {
-            Mage::throwException(Mage::helper('sitemap')->__('Please make sure that "%s" is writable by web-sebver.', $this->getSitemapPath()));
+            Mage::throwException(Mage::helper('sitemap')->__('Please make sure that "%s" is writable by web-server.', $this->getSitemapPath()));
         }
         /**
          * Check allow filename
          */
         if (!preg_match('#^[a-zA-Z0-9_\.]+$#', $this->getSitemapFilename())) {
-            Mage::throwException(Mage::helper('sitemap')->__('Please use only letters (a-z or A-Z), numbers (0-9) or underscore (_) only in the filename. No spaces or other characters are allowed.'));
+            Mage::throwException(Mage::helper('sitemap')->__('Please use only letters (a-z or A-Z), numbers (0-9) or underscore (_) in the filename. No spaces or other characters are allowed.'));
         }
         if (!preg_match('#\.xml$#', $this->getSitemapFilename())) {
             $this->setSitemapFilename($this->getSitemapFilename() . '.xml');
         }
 
-        $this->setSitemapPath(rtrim(str_replace(Mage::getBaseDir(), '', $realPath), '/') . '/');
+        $this->setSitemapPath(rtrim(str_replace(str_replace('\\', '/', Mage::getBaseDir()), '', $realPath), '/') . '/');
 
         return parent::_beforeSave();
     }
@@ -99,11 +99,21 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
         return $this->_filePath;
     }
 
+    /**
+     * Generate XML file
+     *
+     * @return Mage_Sitemap_Model_Sitemap
+     */
     public function generateXml()
     {
         $io = new Varien_Io_File();
         $io->setAllowCreateFolders(true);
         $io->open(array('path' => $this->getPath()));
+
+        if ($io->fileExists($this->getSitemapFilename()) && !$io->isWriteable($this->getSitemapFilename())) {
+            Mage::throwException(Mage::helper('sitemap')->__('File "%s" cannot be saved. Please, make sure the directory "%s" is writeable by web server.', $this->getSitemapFilename(), $this->getPath()));
+        }
+
         $io->streamOpen($this->getSitemapFilename());
 
         $io->streamWrite('<?xml version="1.0" encoding="UTF-8"?>' . "\n");

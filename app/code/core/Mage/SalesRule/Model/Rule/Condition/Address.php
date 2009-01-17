@@ -106,12 +106,23 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
         return $this->getData('value_select_options');
     }
 
+    /**
+     * Validate Address Rule Condition
+     *
+     * @param Varien_Object $object
+     * @return bool
+     */
     public function validate(Varien_Object $object)
     {
-        switch ($this->getAttribute()) {
-        default:
-            $obj = $object->getQuote()->getShippingAddress();
+        $address = $object;
+        if (!$address instanceof Mage_Sales_Model_Quote_Address) {
+            if ($object->getQuote()->isVirtual()) {
+                $address = $object->getQuote()->getBillingAddress();
+            }
+            else {
+                $address = $object->getQuote()->getShippingAddress();
+            }
         }
-        return parent::validate($obj);
+        return parent::validate($address);
     }
 }

@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Wishlist extends Mage_Adminhtm
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('product_id', array(
             'header'    => Mage::helper('customer')->__('Product ID'),
             'index'     => 'product_id',
             'type'      => 'number',

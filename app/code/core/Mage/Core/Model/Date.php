@@ -199,15 +199,7 @@ class Mage_Core_Model_Date
     }
 
     /**
-     * Check if specified $year, $month, $day, $hour, $minute, $second are valid.
-     *
-     * @param int $year
-     * @param int $month
-     * @param int $day
-     * @param int $hour
-     * @param int $minute
-     * @param int $second
-     * @return bool
+     * Deprecated since 1.1.7
      */
     public function checkDateTime($year, $month, $day, $hour = 0, $minute = 0, $second = 0)
     {
@@ -224,16 +216,7 @@ class Mage_Core_Model_Date
     }
 
     /**
-     * Parse a string against predefined date format
-     *
-     * Date format must match at least substring (with offset 0) of predefined format.
-     *
-     * Array of integer values always will be returned:
-     * array($year, $month, $day, $hour, $minute, $second)
-     *
-     * @param string $dateTimeString
-     * @param string $dateTimeFormat
-     * @return array
+     * Deprecated since 1.1.7
      */
     public function parseDateTime($dateTimeString, $dateTimeFormat)
     {

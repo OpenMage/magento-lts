@@ -414,7 +414,8 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             return false;
         }
         if (is_null($this->_isCanDelete)) {
-            $this->_isCanDelete = (Mage::getModel('core/website')->getCollection()->getSize() > 2);
+            $this->_isCanDelete = (Mage::getModel('core/website')->getCollection()->getSize() > 2)
+                && !$this->getIsDefault();
         }
         return $this->_isCanDelete;
     }
@@ -444,16 +445,16 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         $this->_protectFromNonAdmin();
         return parent::_beforeDelete();
     }
-    
+
     /**
      * rewrite in order to clear configuration cache
      *
      * @return Mage_Core_Model_Website
      */
-    protected function _afterDelte()
+    protected function _afterDelete()
     {
-    	parent::_afterDelte();
-    	Mage::getConfig()->removeCache();
-    	return $this;
+        parent::_afterDelete();
+        Mage::getConfig()->removeCache();
+        return $this;
     }
 }

@@ -93,4 +93,33 @@ class Mage_Sales_Model_Mysql4_Order_Item_Collection extends Mage_Core_Model_Mysq
         }
         return $this;
     }
+
+    /**
+     * Filter collection by specified product types
+     *
+     * @param array $typeIds
+     * @return Mage_Sales_Model_Mysql4_Order_Item_Collection
+     */
+    public function filterByTypes($typeIds)
+    {
+        $this->addFieldToFilter('product_type', array('in' => $typeIds));
+        return $this;
+    }
+
+    /**
+     * Filter collection by parent_item_id
+     *
+     * @param int $parentId
+     * @return Mage_Sales_Model_Mysql4_Order_Item_Collection
+     */
+    public function filterByParent($parentId = null)
+    {
+        if (empty($parentId)) {
+            $this->addFieldToFilter('parent_item_id', array('null' => true));
+        }
+        else {
+            $this->addFieldToFilter('parent_item_id', $parentId);
+        }
+        return $this;
+    }
 }

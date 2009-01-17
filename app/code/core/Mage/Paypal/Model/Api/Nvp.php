@@ -31,6 +31,11 @@
  */
 class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 {
+    public function getPageStyle()
+    {
+        return $this->getConfigData('page_style');
+    }
+
     public function getApiEndpoint()
     {
         if (!$this->getData('api_endpoint')) {
@@ -89,6 +94,13 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             'CANCELURL'     => $this->getCancelUrl(),
             'INVNUM'        => $this->getInvNum()
         );
+
+        if ($this->getPageStyle()) {
+            $nvpArr = array_merge($nvpArr, array(
+                'PAGESTYLE' => $this->getPageStyle()
+            ));
+        }
+
         $this->setUserAction(self::USER_ACTION_CONTINUE);
 
         // for mark SetExpressCheckout API call
@@ -259,7 +271,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             'LASTNAME'       => $a->getLastname(),
             'STREET'         => $a->getStreet(1),
             'CITY'           => $a->getCity(),
-            'STATE'          => $a->getRegionCode(),
+            'STATE'          => ($a->getRegionCode() ? $a->getRegionCode() : $a->getRegion()),
             'ZIP'            => $a->getPostcode(),
             'COUNTRYCODE'    => 'US', // only US supported for direct payment
             'EMAIL'          => $this->getEmail(),

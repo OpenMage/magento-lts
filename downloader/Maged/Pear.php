@@ -125,7 +125,7 @@ class Maged_Pear
                 if (!(substr($key, 0, 5)==='mage_' && substr($key, -4)==='_dir')) {
                     continue;
                 }
-                $config->set($key, preg_replace('#^\.#', $this->getBaseDir(), $config->get($key)));
+                $config->set($key, preg_replace('#^\.#', addslashes($this->getBaseDir()), $config->get($key)));
                 //echo $key.' : '.$config->get($key).'<br>';
             }
 
@@ -265,7 +265,7 @@ class Maged_Pear
         } else {
             throw Maged_Exception("Invalid run parameters");
         }
-        
+
         if (!$run->get('no-header')) {
 ?>
 <html><head><style type="text/css">

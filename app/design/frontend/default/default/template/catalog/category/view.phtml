@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,7 +21,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -31,19 +31,28 @@
  * @see Mage_Catalog_Block_Category_View
  */
 ?>
+<?php
+    $_helper    = $this->helper('catalog/output');
+    $_category  = $this->getCurrentCategory();
+    $_imgHtml   = '';
+    if ($_imageUrl = $_category->getImageUrl()) {
+        $_imgHtml = '<img src="'.$_imageUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" width="475" />';
+        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+    }
+?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <?php if($this->isContentMode()): ?>
     <div class="category-head">
     <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
         <a href="<?php echo $this->getRssLink() ?>" class="link-feed right"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
     <?php endif; ?>
-    <h2><?php echo $this->htmlEscape($this->getCurrentCategory()->getName()) ?></h2>
+    <h2><?php echo $_helper->categoryAttribute($_category, $this->htmlEscape($_category->getName()), 'name') ?></h2>
     </div>
-    <?php if($_imageUrl=$this->getCurrentCategory()->getImageUrl()): ?>
-        <p><img src="<?php echo $_imageUrl ?>" alt="<?php echo $this->htmlEscape($this->getCurrentCategory()->getName()) ?>" width="475" /></p>
+    <?php if($_imgHtml): ?>
+        <p><?php echo $_imgHtml?></p>
     <?php endif; ?>
-    <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
-        <p class="category-description"><?php echo $_description ?></p>
+    <?php if($_description=$_category->getDescription()): ?>
+        <p class="category-description"><?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?></p>
     <?php endif; ?>
     <?php echo $this->getCmsBlockHtml() ?>
 <?php elseif($this->isMixedMode()): ?>
@@ -51,13 +60,13 @@
     <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
         <a href="<?php echo $this->getRssLink() ?>" class="link-feed right"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
     <?php endif; ?>
-    <h2><?php echo $this->htmlEscape($this->getCurrentCategory()->getName()) ?></h2>
+    <h2><?php echo $_helper->categoryAttribute($_category, $this->htmlEscape($_category->getName()), 'name') ?></h2>
     </div>
-    <?php if($_imageUrl=$this->getCurrentCategory()->getImageUrl()): ?>
-        <p><img src="<?php echo $_imageUrl ?>" alt="<?php echo $this->htmlEscape($this->getCurrentCategory()->getName()) ?>" width="475" /></p>
+    <?php if($_imgHtml): ?>
+        <p><?php echo $_imgHtml?></p>
     <?php endif; ?>
-    <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
-        <p class="category-description"><?php echo $_description ?></p>
+    <?php if($_description=$_category->getDescription()): ?>
+        <p class="category-description"><?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?></p>
     <?php endif; ?>
 <?php /*
     <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
@@ -72,13 +81,13 @@
     <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
         <a href="<?php echo $this->getRssLink() ?>" class="link-feed right"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
     <?php endif; ?>
-    <h2><?php echo $this->htmlEscape($this->getCurrentCategory()->getName()) ?></h2>
+    <h2><?php echo $_helper->categoryAttribute($_category, $this->htmlEscape($_category->getName()), 'name') ?></h2>
     </div>
-    <?php if($_imageUrl=$this->getCurrentCategory()->getImageUrl()): ?>
-        <p><img src="<?php echo $_imageUrl ?>" alt="<?php echo $this->htmlEscape($this->getCurrentCategory()->getName()) ?>" width="475" /></p>
+    <?php if($_imgHtml): ?>
+        <p><?php echo $_imgHtml?></p>
     <?php endif; ?>
-    <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
-        <p class="category-description"><?php echo $_description ?></p>
+    <?php if($_description=$_category->getDescription()): ?>
+        <p class="category-description"><?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?></p>
     <?php endif; ?>
     <?php echo $this->getProductListHtml() ?>
 <?php endif; ?>

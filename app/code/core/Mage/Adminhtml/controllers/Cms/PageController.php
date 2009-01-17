@@ -102,8 +102,13 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
         $this->_initAction()
             ->_addBreadcrumb($id ? Mage::helper('cms')->__('Edit Page') : Mage::helper('cms')->__('New Page'), $id ? Mage::helper('cms')->__('Edit Page') : Mage::helper('cms')->__('New Page'))
             ->_addContent($this->getLayout()->createBlock('adminhtml/cms_page_edit')->setData('action', $this->getUrl('*/cms_page/save')))
-            ->_addLeft($this->getLayout()->createBlock('adminhtml/cms_page_edit_tabs'))
-            ->renderLayout();
+            ->_addLeft($this->getLayout()->createBlock('adminhtml/cms_page_edit_tabs'));
+
+        if (Mage::app()->getConfig()->getModuleConfig('Mage_GoogleOptimizer')->is('active', true)) {
+            $this->_addJs($this->getLayout()->createBlock('googleoptimizer/js')->setTemplate('googleoptimizer/js.phtml'));
+        }
+
+        $this->renderLayout();
     }
 
     /**
@@ -128,25 +133,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
             $model->setData($data);
 
-            $format = Mage::app()->getLocale()->getDateFormat(
-                Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
-            );
-
-            if (!empty($data['custom_theme_from'])) {
-                $date = Mage::app()->getLocale()->date($data['custom_theme_from'], $format);
-                $time = $date->getTimestamp();
-	    		$model->setCustomThemeFrom(
-                    Mage::getSingleton('core/date')->gmtDate(null, $time)
-                );
-            }
-
-            if (!empty($data['custom_theme_to'])) {
-                $date = Mage::app()->getLocale()->date($data['custom_theme_to'], $format);
-                $time = $date->getTimestamp();
-	    		$model->setCustomThemeTo(
-                    Mage::getSingleton('core/date')->gmtDate(null, $time)
-                );
-            }
+            Mage::dispatchEvent('cms_page_prepare_save', array('page' => $model, 'request' => $this->getRequest()));
 
             // try to save it
             try {

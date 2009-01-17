@@ -261,8 +261,8 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     public function updateQuoteCustomerShippingAddress($addressId)
     {
         if ($address = $this->getCustomer()->getAddressById($addressId)) {
-            $address->setCollectShippingRates(true);
             $this->getQuote()->getShippingAddressByCustomerAddressId($addressId)
+                ->setCollectShippingRates(true)
                 ->importCustomerAddress($address)
                 ->collectTotals();
             $this->getQuote()->save();

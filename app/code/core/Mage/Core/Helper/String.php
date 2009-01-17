@@ -146,14 +146,16 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * Binary-safe variant of str_split()
      * + option not to break words
      * + option to trim spaces (between each word)
+     * + option to set character(s) (pcre pattern) to be considered as words separator
      *
      * @param string $str
      * @param int $length
      * @param bool $keepWords
      * @param bool $trim
+     * @param string $wordSeparatorRegex
      * @return array
      */
-    public function str_split($str, $length = 1, $keepWords = false, $trim = false)
+    public function str_split($str, $length = 1, $keepWords = false, $trim = false, $wordSeparatorRegex = '\s')
     {
         $result = array();
         $strlen = $this->strlen($str);
@@ -172,7 +174,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
         // split smartly, keeping words
         else {
-            $split = preg_split('/(\s+)/is', $str, null, PREG_SPLIT_DELIM_CAPTURE);
+            $split = preg_split('/(' . $wordSeparatorRegex . '+)/is', $str, null, PREG_SPLIT_DELIM_CAPTURE);
             $i        = 0;
             $space    = '';
             $spaceLen = 0;
@@ -206,7 +208,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 }
                 // break too long part recursively
                 else {
-                    foreach ($this->str_split($part, $length, false, $trim) as $subpart) {
+                    foreach ($this->str_split($part, $length, false, $trim, $wordSeparatorRegex) as $subpart) {
                         $i++;
                         $result[$i] = $subpart;
                     }
@@ -218,6 +220,10 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
             if (empty($result[$count - 1])) {
                 unset($result[$count - 1]);
             }
+        }
+        // remove first element, if empty
+        if (isset($result[0]) && empty($result[0])) {
+            array_shift($result);
         }
         return $result;
     }

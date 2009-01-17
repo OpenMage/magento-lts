@@ -62,6 +62,14 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tabs extends Mage_Adminhtml_Block_Widge
             'title'     => Mage::helper('cms')->__('Meta Data'),
             'content'   => $this->getLayout()->createBlock('adminhtml/cms_page_edit_tab_meta')->toHtml(),
         ));
+        if (Mage::app()->getConfig()->getModuleConfig('Mage_GoogleOptimizer')->is('active', true)
+            && Mage::helper('googleoptimizer')->isOptimizerActive()) {
+            $this->addTab('googleoptimizer_section', array(
+                'label'     => Mage::helper('googleoptimizer')->__('Page View Optimization'),
+                'title'     => Mage::helper('googleoptimizer')->__('Page View Optimization'),
+                'content'   => $this->getLayout()->createBlock('googleoptimizer/adminhtml_cms_page_edit_tab_googleoptimizer')->toHtml(),
+            ));
+        }
         return parent::_beforeToHtml();
     }
 

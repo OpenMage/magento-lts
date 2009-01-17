@@ -55,15 +55,18 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
                 );
         $rssObj->_addHeader($data);
 
-        $stockItemWhere = "({{table}}.low_stock_date is not null) and ({{table}}.low_stock_date>'0000-00-00')";
+        $_configManageStock = (int)Mage::getStoreConfigFlag(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK);
+        $stockItemWhere = "({{table}}.low_stock_date is not null) "
+            . " and ({{table}}.low_stock_date>'0000-00-00') "
+            . " and IF({{table}}.use_config_manage_stock=1," . $_configManageStock . ",{{table}}.manage_stock)=1";
 
         $product = Mage::getModel('catalog/product');
         $collection = $product->getCollection()
             ->addAttributeToSelect('name', true)
+            ->addAttributeToSelect('name', true)
             ->joinTable('cataloginventory/stock_item', 'product_id=entity_id', array('qty'=>'qty', 'notify_stock_qty'=>'notify_stock_qty', 'use_config' => 'use_config_notify_stock_qty','low_stock_date' => 'low_stock_date'), $stockItemWhere, 'inner')
             ->setOrder('low_stock_date')
         ;
-
         $_globalNotifyStockQty = (float) Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY);
 
         /*

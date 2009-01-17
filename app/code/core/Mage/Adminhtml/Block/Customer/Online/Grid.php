@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
 
     protected function _beforeToHtml()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('customer_id', array(
             'header'=>Mage::helper('customer')->__('ID'),
             'width'=>'40px',
             'align'=>'right',

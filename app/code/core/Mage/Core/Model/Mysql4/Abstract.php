@@ -321,7 +321,7 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
      */
     protected function _getLoadSelect($field, $value, $object)
     {
-	   	$select = $this->_getReadAdapter()->select()
+           $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable())
             ->where($this->getMainTable().'.'.$field.'=?', $value);
         return $select;
@@ -395,16 +395,20 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
         $data = array();
         $fields = $this->_getWriteAdapter()->describeTable($this->getMainTable());
         foreach (array_keys($fields) as $field) {
-            $fieldValue = $object->getData($field);
-            if ($fieldValue instanceof Zend_Db_Expr) {
-                $data[$field] = $fieldValue;
+            if ($object->hasData($field)) {
+                $fieldValue = $object->getData($field);
+                if ($fieldValue instanceof Zend_Db_Expr) {
+                    $data[$field] = $fieldValue;
+                }
+                else {
+                    if (null !== $fieldValue) {
+                        $data[$field] = $this->_prepareValueForSave($fieldValue, $fields[$field]['DATA_TYPE']);
+                    }
+                    elseif (!empty($fields[$field]['NULLABLE'])) {
+                        $data[$field] = null;
+                    }
+                }
             }
-        	elseif (!is_null($fieldValue)) {
-        	    $data[$field] = $this->_prepareValueForSave($fieldValue, $fields[$field]['DATA_TYPE']);
-        	}
-        	else {
-//        	    $data[$field] = $fieldValue;
-        	}
         }
         return $data;
     }
@@ -555,7 +559,7 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
         $data = $this->_getConnection('read')->fetchAll('checksum table '.$table);
         $checksum = 0;
         foreach ($data as $row) {
-        	$checksum+= $row[self::CHECKSUM_KEY_NAME];
+            $checksum+= $row[self::CHECKSUM_KEY_NAME];
         }
         return $checksum;
     }

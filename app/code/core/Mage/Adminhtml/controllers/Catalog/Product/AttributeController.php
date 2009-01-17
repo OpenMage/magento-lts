@@ -134,6 +134,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost()) {
+            $redirectBack   = $this->getRequest()->getParam('back', false);
             $model = Mage::getModel('catalog/entity_attribute');
             /* @var $model Mage_Catalog_Model_Entity_Attribute */
 
@@ -199,8 +200,10 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                         'attribute'=> $model->getId(),
                         '_current' => true
                     ));
+                } elseif ($redirectBack) {
+                    $this->_redirect('*/*/edit', array('attribute_id' => $model->getId(),'_current'=>true));
                 } else {
-                    $this->_redirect('*/*/');
+                    $this->_redirect('*/*/', array());
                 }
                 return;
             } catch (Exception $e) {

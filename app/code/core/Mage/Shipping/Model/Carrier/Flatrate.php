@@ -51,24 +51,24 @@ class Mage_Shipping_Model_Carrier_Flatrate
             return false;
         }
 
+        $freeBoxes = 0;
+        if ($request->getAllItems()) {
+            foreach ($request->getAllItems() as $item) {
+                if ($item->getFreeShipping() && !$item->getProduct()->getTypeInstance()->isVirtual()) {
+                    $freeBoxes+=$item->getQty();
+                }
+            }
+        }
+        $this->setFreeBoxes($freeBoxes);
+
         $result = Mage::getModel('shipping/rate_result');
         if ($this->getConfigData('type') == 'O') { // per order
             $shippingPrice = $this->getConfigData('price');
         } elseif ($this->getConfigData('type') == 'I') { // per item
-            $shippingPrice = $request->getPackageQty() * $this->getConfigData('price');
-
-            if ($request->getAllItems()) {
-                foreach ($request->getAllItems() as $item) {
-                    if ($item->getFreeShipping() && !$item->getProduct()->getTypeInstance()->isVirtual()) {
-                        $shippingPrice -= $item->getQty() * $this->getConfigData('price');
-                    }
-                }
-            }
+            $shippingPrice = ($request->getPackageQty() * $this->getConfigData('price')) - ($this->getFreeBoxes() * $this->getConfigData('price'));
         } else {
             $shippingPrice = false;
         }
-
-
 
         $shippingPrice = $this->getFinalPriceWithHandlingFee($shippingPrice);
 
@@ -81,9 +81,10 @@ class Mage_Shipping_Model_Carrier_Flatrate
             $method->setMethod('flatrate');
             $method->setMethodTitle($this->getConfigData('name'));
 
-            if ($request->getFreeShipping() === true) {
+            if ($request->getFreeShipping() === true || $request->getPackageQty() == $this->getFreeBoxes()) {
                 $shippingPrice = '0.00';
             }
+
 
             $method->setPrice($shippingPrice);
             $method->setCost($shippingPrice);

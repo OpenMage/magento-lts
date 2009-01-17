@@ -101,7 +101,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save');
+        return $this->getUrl('*/*/save', array('store'=>Mage::helper('adminhtml/catalog_product_edit_action_attribute')->getSelectedStoreId()));
     }
 
 }

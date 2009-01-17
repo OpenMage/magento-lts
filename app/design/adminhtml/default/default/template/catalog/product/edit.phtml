@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,7 +21,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -33,26 +33,27 @@
 
 
 <div class="content-header">
-   <h3 class="icon-head head-products"><?php echo $this->getHeader() ?></h3>
-	<p class="content-buttons form-buttons"><?php echo $this->getBackButtonHtml() ?>
-		<?php echo $this->getCancelButtonHtml() ?>
-		<?php if($this->getProductId()): ?>
-			<?php echo $this->getDeleteButtonHtml() ?>
-			<?php if($this->getProductSetId() && $this->getIsConfigured()): ?>
-			<?php echo $this->getDuplicateButtonHtml() ?>
-			<?php endif; ?>
-		<?php endif; ?>
-		<?php if($this->getProductSetId() && $this->getIsConfigured()): ?>
-			<?php echo $this->getSaveButtonHtml() ?>
-			<?php echo $this->getSaveAndEditButtonHtml() ?>
-		<?php endif; ?>
-	</p>
+    <h3 class="icon-head head-products"><?php echo $this->getHeader() ?></h3>
+    <p class="content-buttons form-buttons"><?php echo $this->getBackButtonHtml() ?>
+    <?php echo $this->getCancelButtonHtml() ?>
+    <?php if($this->getProductId()): ?>
+        <?php echo $this->getDeleteButtonHtml() ?>
+        <?php if($this->getProductSetId() && $this->getIsConfigured()): ?>
+            <?php echo $this->getDuplicateButtonHtml() ?>
+        <?php endif; ?>
+    <?php endif; ?>
+    <?php if($this->getProductSetId() && $this->getIsConfigured()): ?>
+        <?php echo $this->getSaveButtonHtml() ?>
+        <?php echo $this->getSaveAndEditButtonHtml() ?>
+    <?php endif; ?>
+    </p>
 </div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="product_edit_form" enctype="multipart/form-data">
 <div style="display:none"></div>
 </form>
 <script type="text/javascript">
 //<![CDATA[
+    var productTemplateSyntax = /(^|.|\r|\n)({{(\w+)}})/;
     var productForm = new varienForm('product_edit_form', '<?php echo $this->getValidationUrl() ?>');
     productForm._processValidationResult = function(transport) {
         var response = transport.responseText.evalJSON();
@@ -70,15 +71,17 @@
             productForm._submit();
         }
     };
-    function saveAndContinueEdit(){
-        productForm.submit($('product_edit_form').action+'back/edit/tab/' + product_info_tabsJsTabs.activeTab.id);
+    function saveAndContinueEdit(urlTemplate) {
+        var template = new Template(urlTemplate, productTemplateSyntax);
+        var url = template.evaluate({tab_id:product_info_tabsJsTabs.activeTab.id});
+        productForm.submit(url);
     }
-    function setSettings(baseUrl, setElement, typeElement){
-        var url = baseUrl+'set/'+$F(setElement)+'/type/'+$F(typeElement)+'/';
-        setLocation(url);
+    function setSettings(urlTemplate, setElement, typeElement) {
+        var template = new Template(urlTemplate, productTemplateSyntax);
+        setLocation(template.evaluate({attribute_set:$F(setElement),type:$F(typeElement)}));
     }
 
-     function setSuperSettings(baseUrl, attributesClass, validateField){
+     function setSuperSettings(urlTemplate, attributesClass, validateField) {
         var attributesFields = $$('.' + attributesClass);
         var attributes = Form.serializeElements(attributesFields, true).attribute;
         if(typeof attributes == 'string') {
@@ -91,8 +94,11 @@
             $(validateField).value = 'has-attributes';
         }
 
-        if(productForm.validator.validate()) {
-            var url = baseUrl+'attributes/'+encode_base64(attributes.join(',')).replace(new RegExp('/','g'),'%2F').replace(new RegExp('=','g'),'%3D')+'/';
+        if (productForm.validator.validate()) {
+            var template = new Template(urlTemplate, productTemplateSyntax);
+            var url = template.evaluate({
+                attributes: encode_base64(attributes.join(',')).replace(new RegExp('/','g'),'%2F').replace(new RegExp('=','g'),'%3D')
+            });
             setLocation(url);
         }
     }

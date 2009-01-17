@@ -61,6 +61,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar extends Mage_Adminhtml_Blo
         $this->setChild('pcompared', $this->getLayout()->createBlock('adminhtml/sales_order_create_sidebar_pcompared'));
         $this->setChild('pviewed', $this->getLayout()->createBlock('adminhtml/sales_order_create_sidebar_pviewed'));
         if ($this->getCustomerId()) {
+            $button = clone $button;
+            $button->unsId();
             $this->setChild('bottom_button', $button);
         }
         return parent::_prepareLayout();

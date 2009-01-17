@@ -157,7 +157,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             'attributes' => $attributes
         ));
 
-        $this->addColumn('id', array(
+        $this->addColumn('entity_id', array(
             'header'    => Mage::helper('catalog')->__('ID'),
             'sortable'  => true,
             'width'     => '60px',
@@ -196,11 +196,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             'index'     => 'price'
         ));
 
-        $this->addColumn('inventory', array(
+        $this->addColumn('is_saleable', array(
             'header'    => Mage::helper('catalog')->__('Inventory'),
             'renderer'  => 'adminhtml/catalog_product_edit_tab_super_config_grid_renderer_inventory',
             'filter'    => 'adminhtml/catalog_product_edit_tab_super_config_grid_filter_inventory',
-            'index'     => 'inventory_in_stock'
+            'index'     => 'is_saleable'
         ));
 
         foreach ($attributes as $attribute) {

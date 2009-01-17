@@ -399,7 +399,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $url = $this->_redirect('*/*/');
         }
         catch (Exception $e){
-            echo $e;
             $this->_getSession()->addException($e, $this->__('Order saving error: %s', $e->getMessage()));
             $url = $this->_redirect('*/*/');
         }

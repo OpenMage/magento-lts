@@ -608,15 +608,20 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
     public function validateMinimumAmount()
     {
-        if ($this->getAddressType()!=self::TYPE_SHIPPING) {
-            return true;
-        }
         $storeId = $this->getQuote()->getStoreId();
         if (!Mage::getStoreConfigFlag('sales/minimum_order/active', $storeId)) {
             return true;
         }
+
+        if ($this->getQuote()->getIsVirtual() && $this->getAddressType() == self::TYPE_SHIPPING) {
+            return true;
+        }
+        elseif (!$this->getQuote()->getIsVirtual() && $this->getAddressType() != self::TYPE_SHIPPING) {
+            return true;
+        }
+
         $amount = Mage::getStoreConfig('sales/minimum_order/amount', $storeId);
-        if ($this->getBaseSubtotalWithDiscount()<$amount) {
+        if ($this->getBaseSubtotalWithDiscount() < $amount) {
             return false;
         }
         return true;

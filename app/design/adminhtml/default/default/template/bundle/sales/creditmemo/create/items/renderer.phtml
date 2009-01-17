@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,9 +21,15 @@
  * @category   design_default
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+/**
+ * @see Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer
+ */
+?>
+
 <?php $_item = $this->getItem() ?>
 <?php $items = $this->getChilds($_item); ?>
 <?php $_count = count ($items) ?>
@@ -59,7 +65,10 @@
     <tr<?php echo (++$_index==$_count && !$_showlastRow)?' class="border"':'' ?>>
         <?php if (!$_item->getOrderItem()->getParentItem()): ?>
         <td><h5 class="title"><?php echo $this->htmlEscape($_item->getName()) ?></h5>
-            <div class="nobr"><strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> <?php echo $_item->getSku() ?></div>
+            <div>
+                <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong>
+                <?php echo implode('<br />', Mage::helper('catalog')->splitSku($_item->getSku())); ?>
+            </div>
         </td>
         <?php else: ?>
         <td><div class="option-value"><?php echo $this->getValueHtml($_item)?></div></td>
@@ -84,7 +93,7 @@
                 <?php endif; ?>
             <?php else: ?>
                 &nbsp;
-                        <?php endif; ?>
+            <?php endif; ?>
         </td>
         <td>
             <?php if ($this->canShowPriceInfo($_item)): ?>
@@ -133,7 +142,7 @@
                 </table>
             <?php else: ?>
                 &nbsp;
-                        <?php endif; ?>
+            <?php endif; ?>
         </td>
         <td class="a-center">
             <?php if ($this->canShowPriceInfo($_item)): ?>
@@ -142,18 +151,18 @@
                 <?php endif; ?>
             <?php else: ?>
                 &nbsp;
-                        <?php endif; ?>
+            <?php endif; ?>
         </td>
         <td class="a-center">
             <?php if ($this->canShowPriceInfo($_item)): ?>
                 <?php if ($this->canEditQty()) : ?>
                     <input type="text" class="input-text qty-input" name="creditmemo[items][<?php echo $_item->getOrderItemId() ?>][qty]" value="<?php echo $_item->getQty()*1 ?>" />
                 <?php else: ?>
-                    <?php echo $this->getQty()*1 ?>
-                                <?php endif; ?>
+                    <?php echo $_item->getQty()*1 ?>
+                <?php endif; ?>
             <?php else: ?>
                 &nbsp;
-                        <?php endif; ?>
+            <?php endif; ?>
         </td>
         <td class="a-right">
             <?php if ($this->canShowPriceInfo($_item)): ?>
@@ -175,21 +184,21 @@
                 <?php endif; ?>
             <?php else: ?>
                 &nbsp;
-                        <?php endif; ?>
+            <?php endif; ?>
         </td>
         <td class="a-right">
             <?php if ($this->canShowPriceInfo($_item)): ?>
                 <?php echo $this->displayPriceAttribute('tax_amount') ?>
             <?php else: ?>
                 &nbsp;
-                        <?php endif; ?>
+            <?php endif; ?>
         </td>
         <td class="a-right">
             <?php if ($this->canShowPriceInfo($_item)): ?>
                 <?php echo $this->displayPriceAttribute('discount_amount') ?>
             <?php else: ?>
                 &nbsp;
-                        <?php endif; ?>
+            <?php endif; ?>
         </td>
         <td class="a-right last">
             <?php if ($this->canShowPriceInfo($_item)): ?>
@@ -199,7 +208,7 @@
                 ) ?>
             <?php else: ?>
                 &nbsp;
-                        <?php endif; ?>
+            <?php endif; ?>
         </td>
     </tr>
 <?php endforeach; ?>
@@ -215,7 +224,7 @@
                 </dl>
             <?php else: ?>
                 &nbsp;
-                        <?php endif; ?>
+            <?php endif; ?>
             <?php echo $_item->getDescription() ?>
         </td>
         <td>&nbsp;</td>

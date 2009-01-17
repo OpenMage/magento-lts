@@ -5,10 +5,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -22,7 +22,7 @@
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -79,7 +79,7 @@
                             <label>Free shipping with minimum order amount</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_enabledisable</source_model>
-                            <sort_order>21</sort_order>
+                            <sort_order>121</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -87,7 +87,7 @@
                         <free_shipping_subtotal translate="label">
                             <label>Minimum order amount for free shipping</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>22</sort_order>
+                            <sort_order>122</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -115,7 +115,7 @@
                             <frontend_type>select</frontend_type>
                             <frontend_class>free-method</frontend_class>
                             <source_model>usa/shipping_carrier_dhl_source_freemethod</source_model>
-                            <sort_order>20</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -210,7 +210,7 @@
                         <sort_order translate="label">
                             <label>Sort order</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>100</sort_order>
+                            <sort_order>200</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -226,7 +226,7 @@
                         <sallowspecific translate="label">
                             <label>Ship to applicable countries</label>
                             <frontend_type>select</frontend_type>
-                            <sort_order>90</sort_order>
+                            <sort_order>190</sort_order>
                             <frontend_class>shipping-applicable-country</frontend_class>
                             <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
@@ -236,7 +236,7 @@
                         <specificcountry translate="label">
                             <label>Ship to Specific countries</label>
                             <frontend_type>multiselect</frontend_type>
-                            <sort_order>91</sort_order>
+                            <sort_order>191</sort_order>
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -259,6 +259,108 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </specificerrmsg>
+
+                        <additional_protection_enabled translate="label">
+                            <label>Additional Protection Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </additional_protection_enabled>
+                        <additional_protection_min_value translate="label">
+                            <label>Additional Protection Min Subtotal</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>131</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </additional_protection_min_value>
+                        <additional_protection_use_subtotal translate="label">
+                            <label>Additional Protection Value</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_dhl_source_protection_value</source_model>
+                            <sort_order>132</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </additional_protection_use_subtotal>
+                        <additional_protection_value translate="label comment">
+                            <label>Additional Protection Configuration Value</label>
+                            <comment>Used only when 'Additional Protection Value' is set to 'Configuration'. Can contain only numeric amount.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>133</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </additional_protection_value>
+
+                        <additional_protection_rounding translate="label comment">
+                            <label>Additional Protection Value Rounding Method</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>usa/shipping_carrier_dhl_source_protection_rounding</source_model>
+                            <sort_order>134</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </additional_protection_rounding>
+
+                        <hazardous_materials translate="label">
+                            <label>Shipment Contains Hazardous Materials</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>135</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </hazardous_materials>
+
+                        <default_length translate="label">
+                            <label>Default Package Length</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>136</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_length>
+                        <default_width translate="label">
+                            <label>Default Package Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>137</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_width>
+                        <default_height translate="label">
+                            <label>Default Package Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>138</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_height>
+
+                        <shipment_days translate="label">
+                            <label>Domestic Shipment Days</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_locale_weekdays</source_model>
+                            <sort_order>139</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </shipment_days>
+
+                        <intl_shipment_days translate="label">
+                            <label>International Shipment Days</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_locale_weekdays</source_model>
+                            <sort_order>140</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </intl_shipment_days>
+
                     </fields>
                 </dhl>
                 <fedex translate="label" module="usa">
@@ -269,7 +371,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <account translate="label">
+                        <account translate="label comment">
                             <label>Account ID</label>
                             <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
@@ -277,6 +379,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <comment>Please make sure to use only digits here. No dashes are allowed.</comment>
                         </account>
                         <active translate="label">
                             <label>Enabled</label>

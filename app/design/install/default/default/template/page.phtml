@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,7 +21,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -29,27 +29,25 @@
  * Template for Mage_Page_Block_Html
  */
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <title><?php echo $this->__('Magento Installation Wizard') ?></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php echo $this->__('Magento Installation Wizard') ?></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <link rel="icon" href="<?php echo $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon" />
-    <link rel="shortcut icon" href="<?php echo $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon" />
+<link rel="icon" href="<?php echo $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon" />
+<link rel="shortcut icon" href="<?php echo $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon" />
 
-    <script type="text/javascript" src="<?php echo $this->getJsUrl() ?>prototype/prototype.js"></script>
-    <script type="text/javascript" src="<?php echo $this->getJsUrl() ?>prototype/validation.js"></script>
-    <script type="text/javascript" src="<?php echo $this->getJsUrl() ?>mage/translate.js" ></script>
-    <script type="text/javascript" src="<?php echo $this->getJsUrl() ?>varien/js.js"></script>
-    <script type="text/javascript" src="<?php echo $this->getJsUrl() ?>varien/form.js"></script>
-    <link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/reset.css') ?>" type="text/css" media="all" />
-    <link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/boxes.css') ?>" type="text/css" media="all" />
-    <link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/clears.css') ?>" type="text/css" media="all" />
-    <link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/custom.css') ?>" type="text/css" media="all" />
-    <!--[if IE]><link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/iestyles.css') ?>" type="text/css" media="all" /><![endif]-->
-    <!--[if lt IE 7]><link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/ie7minus.css') ?>" type="text/css" media="all" /><![endif]-->
+<script type="text/javascript" src="<?php echo $this->getJsUrl() ?>prototype/prototype.js"></script>
+<script type="text/javascript" src="<?php echo $this->getJsUrl() ?>prototype/validation.js"></script>
+<script type="text/javascript" src="<?php echo $this->getJsUrl() ?>mage/translate.js" ></script>
+<script type="text/javascript" src="<?php echo $this->getJsUrl() ?>varien/js.js"></script>
+<script type="text/javascript" src="<?php echo $this->getJsUrl() ?>varien/form.js"></script>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/reset.css') ?>" type="text/css" media="all" />
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/boxes.css') ?>" type="text/css" media="all" />
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/clears.css') ?>" type="text/css" media="all" />
+<!--[if IE]><link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/iestyles.css') ?>" type="text/css" media="all" /><![endif]-->
+<!--[if lt IE 7]><link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/ie7minus.css') ?>" type="text/css" media="all" /><![endif]-->
 </head>
 
 <body>
@@ -58,14 +56,14 @@
         <div class="header-top-container">
             <div class="header-top">
                 <h1 id="logo">
-                    <a href="<?php echo $this->getUrl('') ?>"><img src="<?php echo $this->getSkinUrl('images/logo.gif') ?>" alt="<?php echo $this->__('Magento') ?>"/></a>
+                    <a href="<?php echo $this->getUrl('') ?>"><img src="<?php echo $this->getSkinUrl('images/logo.gif') ?>" title="<?php echo $this->__('Magento') ?>" alt="<?php echo $this->__('Magento') ?>" /></a>
                 </h1>
 
                 <?php echo $this->getChildHtml('topSearch') ?>
 
                 <div class="quick-access">
                     <div class="account-access">
-                       <strong><?php echo $this->getWelcome() ?></strong> <?php echo $this->getChildHtml('topLeftLinks') ?>
+                       <strong>&nbsp;<?php echo $this->getWelcome() ?></strong> <?php echo $this->getChildHtml('topLeftLinks') ?>
                     </div>
                     <div class="shop-access">
                         <?php echo $this->getChildHtml('topRightLinks') ?>
@@ -84,11 +82,9 @@
         <div class="middle col-2-left-layout">
             <?php echo $this->getChildHtml('breadcrumbs') ?>
 
-
-
             <!-- [start] left -->
             <div class="col-left side-col">
-                <?php echo $this->getChildHtml('left') ?>&nbsp;
+                <?php echo $this->getChildHtml('left') ?>
             </div>
             <div id="main" class="col-main">
             <!-- [start] global messages -->
@@ -109,7 +105,9 @@
         <p class="legality">
             <?php echo $this->__('Help Us to Keep Magento Healthy') ?> - <a href="http://www.magentocommerce.com/bug-tracking" id="bug_tracking_link"><strong><?php echo $this->__('Report All Bugs') ?></strong></a> <?php echo $this->__('(ver. %s)', Mage::getVersion()) ?><br/>
 <script type="text/javascript">
+//<![CDATA[
     $('bug_tracking_link').target = "varien_external";
+//]]>
 </script>
             <?php echo $this->__('Magento is a trademark of Irubin Consulting Inc. DBA Varien. Copyright &copy; %s Irubin Consulting Inc.', date('Y')) ?>
         </p>

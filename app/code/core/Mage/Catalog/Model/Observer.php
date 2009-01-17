@@ -79,4 +79,16 @@ class Mage_Catalog_Model_Observer
         Mage::getModel('catalog/url')->refreshRewrites();
         return $this;
     }
+
+    /**
+     * Catalog Product Compare Items Clean
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Catalog_Model_Observer
+     */
+    public function catalogProductCompareClean(Varien_Event_Observer $observer)
+    {
+        Mage::getModel('catalog/product_compare_item')->clean();
+        return $this;
+    }
 }

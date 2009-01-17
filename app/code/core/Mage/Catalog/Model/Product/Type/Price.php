@@ -187,12 +187,12 @@ class Mage_Catalog_Model_Product_Type_Price
     {
         $specialPrice = $product->getSpecialPrice();
         if (is_numeric($specialPrice)) {
-            $today = floor(time()/86400)*86400;
-            $from = floor(strtotime($product->getSpecialFromDate())/86400)*86400;
-            $to = floor(strtotime($product->getSpecialToDate())/86400)*86400;
+            $storeDate  = Mage::app()->getLocale()->storeDate($product->getStore());
+            $fromDate   = Mage::app()->getLocale()->date($product->getSpecialFromDate(), null, null, false);
+            $toDate     = Mage::app()->getLocale()->date($product->getSpecialToDate(), null, null, false);
 
-            if ($product->getSpecialFromDate() && $today < $from) {
-            } elseif ($product->getSpecialToDate() && $today > $to) {
+            if ($product->getSpecialFromDate() && $storeDate->compare($fromDate)<0) {
+            } elseif ($product->getSpecialToDate() && $storeDate->compare($toDate)>0) {
             } else {
                $finalPrice = min($finalPrice, $specialPrice);
             }
@@ -310,31 +310,29 @@ class Mage_Catalog_Model_Product_Type_Price
         if ($wId instanceof Mage_Core_Model_Store) {
             $sId = $wId->getId();
             $wId = $wId->getWebsiteId();
+        } else {
+            $sId = Mage::app()->getWebsite($wId)->getDefaultGroup()->getDefaultStoreId();
         }
+        $storeDate = Mage::app()->getLocale()->storeDate($sId);
+
         if ($gId instanceof Mage_Customer_Model_Group) {
             $gId = $gId->getId();
         }
         $finalPrice = $basePrice;
 
-        $today = floor(time()/86400)*86400;
-        $from = floor(strtotime($specialPriceFrom)/86400)*86400;
-        $to = floor(strtotime($specialPriceTo)/86400)*86400;
+        $fromDate   = Mage::app()->getLocale()->date($specialPriceFrom, null, null, false);
+        $toDate     = Mage::app()->getLocale()->date($specialPriceTo, null, null, false);
 
         if ($specialPrice !== null && $specialPrice !== false) {
-            if ($specialPriceFrom && $today < $from) {
-            } elseif ($specialPriceTo && $today > $to) {
+            if ($specialPriceFrom && $storeDate->compare($fromDate)<0) {
+            } elseif ($specialPriceTo && $storeDate->compare($toDate)>0) {
             } else {
                $finalPrice = min($finalPrice, $specialPrice);
             }
         }
 
-        if(!isset($sId)) {
-            $sId = 0;
-        }
-
         if ($rulePrice === false) {
-            $date = mktime(0,0,0);
-            $rulePrice = Mage::getResourceModel('catalogrule/rule')->getRulePrice($date, $wId, $gId, $productId);
+            $rulePrice = Mage::getResourceModel('catalogrule/rule')->getRulePrice($storeDate, $wId, $gId, $productId);
         }
         if ($rulePrice !== null && $rulePrice !== false) {
             $finalPrice = min($finalPrice, $rulePrice);

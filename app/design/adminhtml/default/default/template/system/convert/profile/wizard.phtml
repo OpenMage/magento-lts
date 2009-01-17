@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,7 +21,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -304,11 +304,12 @@ Event.observe(window, 'load', function(){
             <span class="field-row">
                 <label for="parse_delimiter"><?php echo $this->__("Value Delimiter:") ?></label>
                 <input class="input-text" style="width:3em" id="parse_delimiter" name="gui_data[parse][delimiter]" value="<?php echo $this->getValue('gui_data/parse/delimiter', ',') ?>"/>
-				<?php echo $this->__("(\\t for tab)") ?>
+				<small><?php echo $this->__("(\\t for tab)") ?></small>
             </span>
             <span class="field-row">
                 <label for="parse_enclose"><?php echo $this->__("Enclose Values In:") ?></label>
-                <input class="input-text" style="width:3em" id="parse_enclose" name="gui_data[parse][enclose]" value="<?php echo $this->getValue('gui_data/parse/enclose', '') ?>"/>
+                <input class="input-text" style="width:3em" id="parse_enclose" name="gui_data[parse][enclose]" value="<?php echo $this->getValue('gui_data/parse/enclose', '', '"') ?>"/>
+                <small><?php echo $this->__("Warning! Empty value can cause problems with CSV format.") ?></small>
             </span>
         </div>
         <span class="field-row">

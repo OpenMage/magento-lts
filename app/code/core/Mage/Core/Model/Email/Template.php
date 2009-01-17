@@ -62,8 +62,6 @@ class Mage_Core_Model_Email_Template extends Varien_Object
 
     static protected $_defaultTemplates;
 
-
-
     /**
      * Configuration of desing package for template
      *
@@ -94,6 +92,23 @@ class Mage_Core_Model_Email_Template extends Varien_Object
         return $this->_mail;
     }
 
+    /**
+     * Declare template processing filter
+     *
+     * @param   Varien_Filter_Template $filter
+     * @return  Mage_Core_Model_Email_Template
+     */
+    public function setTemplateFilter(Varien_Filter_Template $filter)
+    {
+        $this->_templateFilter = $filter;
+        return $this;
+    }
+
+    /**
+     * Get filter object for template processing logi
+     *
+     * @return Mage_Core_Model_Email_Template_Filter
+     */
     public function getTemplateFilter()
     {
         if (empty($this->_templateFilter)) {
@@ -144,9 +159,7 @@ class Mage_Core_Model_Email_Template extends Varien_Object
         $this->setTemplateType($data['type']=='html' ? self::TYPE_HTML : self::TYPE_TEXT);
 
         $templateText = Mage::app()->getTranslator()->getTemplateFile(
-            $data['file'],
-            'email',
-            $locale
+            $data['file'], 'email', $locale
         );
 
         if (preg_match('/<!--@subject\s*(.*?)\s*@-->/', $templateText, $matches)) {
@@ -247,7 +260,12 @@ class Mage_Core_Model_Email_Template extends Varien_Object
         return $this;
     }
 
-
+    /**
+     * Process email template code
+     *
+     * @param   array $variables
+     * @return  string
+     */
     public function getProcessedTemplate(array $variables = array())
     {
         $processor = $this->getTemplateFilter();
@@ -256,10 +274,8 @@ class Mage_Core_Model_Email_Template extends Varien_Object
             $variables['this'] = $this;
         }
 
-        $processor
-            ->setIncludeProcessor(array($this, 'getInclude'))
+        $processor->setIncludeProcessor(array($this, 'getInclude'))
             ->setVariables($variables);
-
 
         $this->_applyDesignConfig();
         $processedResult = $processor->filter($this->getTemplateText());
@@ -267,8 +283,13 @@ class Mage_Core_Model_Email_Template extends Varien_Object
         return $processedResult;
     }
 
-
-
+    /**
+     * Get template code for include directive
+     *
+     * @param   string $template
+     * @param   array $variables
+     * @return  string
+     */
     public function getInclude($template, array $variables)
     {
         $thisClass = __CLASS__;
@@ -285,7 +306,7 @@ class Mage_Core_Model_Email_Template extends Varien_Object
      * @param   string      $email		  E-mail
      * @param   string|null $name         receiver name
      * @param   array       $variables    template variables
-     * @return boolean
+     * @return  boolean
      **/
     public function send($email, $name=null, array $variables = array())
     {
@@ -308,9 +329,7 @@ class Mage_Core_Model_Email_Template extends Varien_Object
             foreach ($email as $emailOne) {
                 $mail->addTo($emailOne, $name);
             }
-        }
-        else {
-          //  $mail->addTo($email, $name);
+        } else {
             $mail->addTo($email, '=?utf-8?B?'.base64_encode($name).'?=');
         }
 
@@ -324,7 +343,6 @@ class Mage_Core_Model_Email_Template extends Varien_Object
         }
 
         $mail->setSubject('=?utf-8?B?'.base64_encode($this->getProcessedTemplateSubject($variables)).'?=');
-        //$mail->setSubject($this->getProcessedTemplateSubject($variables));
         $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
 
         try {
@@ -338,19 +356,23 @@ class Mage_Core_Model_Email_Template extends Varien_Object
         return true;
     }
 
+    /**
+     * Send transactional email to recipient
+     *
+     * @param   int $templateId
+     * @param   string|array $sender sneder informatio, can be declared as part of config path
+     * @param   string $email recipient email
+     * @param   string $name recipient name
+     * @param   array $vars varianles which can be used in template
+     * @param   int|null $storeId
+     * @return  Mage_Core_Model_Email_Template
+     */
     public function sendTransactional($templateId, $sender, $email, $name, $vars=array(), $storeId=null)
     {
         $this->setSentSuccess(false);
-
-        if (is_null($storeId)) {
-            if ($this->getDesignConfig() && $this->getDesignConfig()->getStore()) {
-                $storeId = $this->getDesignConfig()->getStore();
-            }
-            else {
-                $storeId = Mage::app()->getStore();
-            }
+        if (($storeId === null) && $this->getDesignConfig()->getStore()) {
+            $storeId = $this->getDesignConfig()->getStore();
         }
-        Mage::app()->getLocale()->emulate($storeId);
 
         if (is_numeric($templateId)) {
             $this->load($templateId);
@@ -371,8 +393,7 @@ class Mage_Core_Model_Email_Template extends Varien_Object
             $this->setSenderEmail($sender['email']);
         }
 
-        $this->setSentSuccess( $this->send($email, $name, $vars) );
-        Mage::app()->getLocale()->revert();
+        $this->setSentSuccess($this->send($email, $name, $vars));
         return $this;
     }
 
@@ -386,7 +407,12 @@ class Mage_Core_Model_Email_Template extends Varien_Object
         return $this;
     }
 
-
+    /**
+     * Process email subject
+     *
+     * @param   array $variables
+     * @return  string
+     */
     public function getProcessedTemplateSubject(array $variables)
     {
         $processor = $this->getTemplateFilter();
@@ -403,41 +429,64 @@ class Mage_Core_Model_Email_Template extends Varien_Object
         return $processedResult;
     }
 
+    /**
+     * Initialize design information for email template and subject processing
+     *
+     * @param   array $config
+     * @return  Mage_Core_Model_Email_Template
+     */
     public function setDesignConfig(array $config)
     {
-        if(is_null($this->_designConfig)) {
-            $this->_designConfig = new Varien_Object();
-        }
         $this->getDesignConfig()->setData($config);
         return $this;
     }
 
+    /**
+     * Get design configuration data
+     *
+     * @return Varien_Object
+     */
     public function getDesignConfig()
     {
+        if(is_null($this->_designConfig)) {
+            $this->_designConfig = new Varien_Object();
+        }
         return $this->_designConfig;
     }
 
+    /**
+     * Apply declared configuration for design
+     *
+     * @return Mage_Core_Model_Email_Template
+     */
     protected function _applyDesignConfig()
     {
         if ($this->getDesignConfig()) {
+            $design = Mage::getDesign();
             $this->getDesignConfig()
-                ->setOldArea(Mage::getDesign()->getArea())
-                ->setOldStore(Mage::getDesign()->getStore())
-                ->setOldThemeSkin(Mage::getDesign()->getTheme('skin'));
+                ->setOldArea($design->getArea())
+                ->setOldStore($design->getStore());
 
             if ($this->getDesignConfig()->getArea()) {
                 Mage::getDesign()->setArea($this->getDesignConfig()->getArea());
             }
 
             if ($this->getDesignConfig()->getStore()) {
-                Mage::getDesign()->setStore($this->getDesignConfig()->getStore());
-                Mage::getDesign()->setTheme('skin', '');
+                Mage::app()->getLocale()->emulate($this->getDesignConfig()->getStore());
+                $design->setStore($this->getDesignConfig()->getStore());
+                $design->setTheme('');
+                $design->setPackageName('');
             }
 
         }
         return $this;
     }
 
+    /**
+     * Revert design settings to previous
+     *
+     * @return Mage_Core_Model_Email_Template
+     */
     protected function _cancelDesignConfig()
     {
         if ($this->getDesignConfig()) {
@@ -447,9 +496,11 @@ class Mage_Core_Model_Email_Template extends Varien_Object
 
             if ($this->getDesignConfig()->getOldStore()) {
                 Mage::getDesign()->setStore($this->getDesignConfig()->getOldStore());
-                Mage::getDesign()->setTheme('skin', $this->getDesignConfig()->getOldThemeSkin());
+                Mage::getDesign()->setTheme('');
+                Mage::getDesign()->setPackageName('');
             }
         }
+        Mage::app()->getLocale()->revert();
         return $this;
     }
 
@@ -463,6 +514,18 @@ class Mage_Core_Model_Email_Template extends Varien_Object
         elseif ($bcc) {
             $this->getMail()->addBcc($bcc);
         }
+        return $this;
+    }
+
+    /**
+     * Set Return Path
+     *
+     * @param string $email
+     * @return Mage_Core_Model_Email_Template
+     */
+    public  function setReturnPath($email)
+    {
+        $this->getMail()->setReturnPath($email);
         return $this;
     }
 }

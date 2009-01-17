@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
     protected function _prepareColumns()
     {
 
-        $this->addColumn('id', array(
+        $this->addColumn('entity_id', array(
             'header'    =>Mage::helper('reports')->__('ID'),
             'width'     => '50px',
             'align'     =>'right',

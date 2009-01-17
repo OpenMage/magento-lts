@@ -163,12 +163,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             'value' => $model->getDefaultValue(),
         ));
 
+        $dateFormatIso = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
         $fieldset->addField('default_value_date', 'date', array(
-            'name'  => 'default_value_date',
-            'label' => Mage::helper('catalog')->__('Default value'),
-            'title' => Mage::helper('catalog')->__('Default value'),
-            'image' => $this->getSkinUrl('images/grid-cal.gif'),
-            'value' => $model->getDefaultValue(),
+            'name'   => 'default_value_date',
+            'label'  => Mage::helper('catalog')->__('Default value'),
+            'title'  => Mage::helper('catalog')->__('Default value'),
+            'image'  => $this->getSkinUrl('images/grid-cal.gif'),
+            'value'  => $model->getDefaultValue(),
+            'format'       => $dateFormatIso
         ));
 
         $fieldset->addField('default_value_textarea', 'textarea', array(
@@ -299,14 +301,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             'class' => 'validate-digits',
         ));
 
-        if ($model->getIsUserDefined() || !$model->getId()) {
+//        if ($model->getIsUserDefined() || !$model->getId()) {
             $fieldset->addField('is_visible_on_front', 'select', array(
                 'name' => 'is_visible_on_front',
                 'label' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
                 'title' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
                 'values' => $yesno,
             ));
-        }
+//        }
 
 
         if ($model->getId()) {

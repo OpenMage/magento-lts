@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
     {
         parent::__construct();
         $this->setId('up_sell_product_grid');
-        $this->setDefaultSort('id');
+        $this->setDefaultSort('entity_id');
         $this->setUseAjax(true);
         if ($this->_getProduct()->getId()) {
             $this->setDefaultFilter(array('in_products'=>1));
@@ -99,7 +99,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
             'index'     => 'entity_id'
         ));
 
-        $this->addColumn('id', array(
+        $this->addColumn('entity_id', array(
             'header'    => Mage::helper('catalog')->__('ID'),
             'sortable'  => true,
             'width'     => '60px',

@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -19,7 +19,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* Set min-width */
 .wrapper { width:expression(document.body.clientWidth<1004?'1003px':'auto'); zoom:1; }
@@ -35,21 +35,18 @@
 
 .main-col { height:450px; zoom:1; }
 
-#nav ul { border-bottom-width:2px;}
-#nav ul li{ background:none !important; padding:0 !important; float:none; width:auto;border-left:1px solid #b6b6b6;border-right:1px solid #b6b6b6; }
-#nav ul li.active {float:none; width:auto; }
-#nav ul { border-top:1px solid #4d5255 !imporant;border-bottom:1px solid #b6b6b6; padding-top:0 !important; padding-bottom:0 !important; }
-#nav ul ul { border:1px solid #b6b6b6; border-left-width:0; border-right-width:0; background-image:none;}
-#nav ul li a { background:#e5edef;}
-#nav ul li a:hover  { background:#d0dfe2;}
+#nav ul li { background:none !important; padding:0 !important; float:none; width:auto; border-left:1px solid #b6b6b6; border-right:1px solid #b6b6b6; vertical-align:top; }
+#nav ul li.active { float:none; width:auto; }
+#nav ul { border-bottom:2px solid #b6b6b6; padding-top:0 !important; padding-bottom:0 !important; }
+#nav ul ul { border-top:1px solid #b6b6b6; background-image:none; }
+#nav ul li a { background-color:#e5edef; }
+#nav ul li a:hover  { background-color:#d0dfe2; }
 #nav ul,
 #nav ul li,
 #nav ul a,
 #nav ul a span { zoom:1; }
-#nav ul li.parent { margin-bottom:-3px; }
-#nav ul li.parent li.parent { margin-bottom:-3px; }
 
-#message-popup-window-mask .flash-window { position:absolute; top:200px; }
+#message-popup-window-mask .flash-window { position:absolute; top:350px; }
 
 /* Hover Fix */
 iframe.hover-fix { position:absolute; left:-1px; top:-1px; z-index:-1; background:transparent; filter:progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0); }

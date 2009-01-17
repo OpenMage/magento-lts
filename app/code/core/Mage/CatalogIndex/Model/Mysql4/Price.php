@@ -65,14 +65,16 @@ class Mage_CatalogIndex_Model_Mysql4_Price extends Mage_CatalogIndex_Model_Mysql
 
     protected function _getTaxRateConditions($tableName = 'main_table')
     {
-        return Mage::helper('tax')->getPriceTaxSql($tableName . '.value', $this->getStoreId(), 'IFNULL(tax_class_c.value, tax_class_d.value)');
+        return Mage::helper('tax')->getPriceTaxSql($tableName . '.value', 'IFNULL(tax_class_c.value, tax_class_d.value)');
     }
 
     public function getMaxValue($attribute = null, $entitySelect)
     {
-
         $select = clone $entitySelect;
         $select->reset(Zend_Db_Select::COLUMNS);
+        $select->reset(Zend_Db_Select::ORDER);
+        $select->reset(Zend_Db_Select::LIMIT_COUNT);
+        $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
         $select->from('', "MAX(price_table.value{$this->_getTaxRateConditions('price_table')})")
             ->join(array('price_table'=>$this->getMainTable()), 'price_table.entity_id=e.entity_id', array())
@@ -80,8 +82,10 @@ class Mage_CatalogIndex_Model_Mysql4_Price extends Mage_CatalogIndex_Model_Mysql
             ->where('price_table.attribute_id = ?', $attribute->getId());
         Mage::helper('tax')->joinTaxClass($select, $this->getStoreId(), 'price_table');
 
-        if ($attribute->getAttributeCode() == 'price')
+        if ($attribute->getAttributeCode() == 'price') {
             $select->where('price_table.customer_group_id = ?', $this->getCustomerGroupId());
+        }
+
         return $this->_getReadAdapter()->fetchOne($select)*$this->getRate();
     }
 
@@ -115,6 +119,9 @@ class Mage_CatalogIndex_Model_Mysql4_Price extends Mage_CatalogIndex_Model_Mysql
     {
         $select = clone $entitySelect;
         $select->reset(Zend_Db_Select::COLUMNS);
+        $select->reset(Zend_Db_Select::ORDER);
+        $select->reset(Zend_Db_Select::LIMIT_COUNT);
+        $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
         $fields = array('count'=>'COUNT(DISTINCT price_table.entity_id)', 'range'=>"FLOOR(((price_table.value{$this->_getTaxRateConditions('price_table')})*{$this->getRate()})/{$range})+1");
 

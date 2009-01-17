@@ -28,6 +28,11 @@
 class Mage_Core_Model_Layout_Update
 {
     /**
+     * Additional tag for cleaning layout cache convenience
+     */
+    const LAYOUT_GENERAL_CACHE_TAG = 'LAYOUT_GENERAL_CACHE_TAG';
+
+    /**
      * Layout Update Simplexml Element Class Name
      *
      * @var string
@@ -188,7 +193,9 @@ class Mage_Core_Model_Layout_Update
             return false;
         }
         $str = $this->asString();
-        return Mage::app()->saveCache($str, $this->getCacheId(), $this->getHandles(), null);
+        $tags = $this->getHandles();
+        $tags[] = self::LAYOUT_GENERAL_CACHE_TAG;
+        return Mage::app()->saveCache($str, $this->getCacheId(), $tags, null);
     }
 
     /**

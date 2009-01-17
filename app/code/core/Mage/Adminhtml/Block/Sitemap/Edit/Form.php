@@ -98,6 +98,11 @@ class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget
             $model->setStoreId(Mage::app()->getStore(true)->getId());
         }
 
+        $fieldset->addField('generate', 'hidden', array(
+            'name'     => 'generate',
+            'value'    => ''
+        ));
+
         $form->setValues($model->getData());
 
         $form->setUseContainer(true);

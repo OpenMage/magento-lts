@@ -155,20 +155,20 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         $xml = $this->getUpdate()->asSimplexml();
         $removeInstructions = $xml->xpath("//remove");
         foreach ($removeInstructions as $infoNode) {
-        	$attributes = $infoNode->attributes();
-        	if ($acl = (string)$attributes->acl && !Mage::getSingleton('admin/session')->isAllowed($acl)) {
-        	    $block->addAttribute('ignore', true);
-        	}
-        	if ($blockName = (string)$attributes->name) {
+            $attributes = $infoNode->attributes();
+            if ($acl = (string)$attributes->acl && !Mage::getSingleton('admin/session')->isAllowed($acl)) {
+                $block->addAttribute('ignore', true);
+            }
+            if ($blockName = (string)$attributes->name) {
                 $ignoreNodes = $xml->xpath("//block[@name='".$blockName."']");
                 foreach ($ignoreNodes as $block) {
-                	$block->addAttribute('ignore', true);
+                    $block->addAttribute('ignore', true);
                 }
                 $ignoreNodes = $xml->xpath("//reference[@name='".$blockName."']");
                 foreach ($ignoreNodes as $block) {
-                	$block->addAttribute('ignore', true);
+                    $block->addAttribute('ignore', true);
                 }
-        	}
+            }
         }
 
         $this->setXml($xml);
@@ -312,6 +312,17 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                         $arg = $arg->asArray();
                         unset($arg['@']);
                         $args[$key] = call_user_func_array(array(Mage::helper($helperName), $helperMethod), $arg);
+                    } else {
+                        /**
+                         * if there is no helper we hope that this is assoc array
+                         */
+                        $arr = array();
+                        foreach($arg as $subkey => $value) {
+                            $arr[(string)$subkey] = (string)$value;
+                        }
+                        if (!empty($arr)) {
+                            $args[$key] = $arr;
+                        }
                     }
                 }
             }
@@ -324,7 +335,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             }
 
             $this->_translateLayoutNode($node, $args);
-
             call_user_func_array(array($block, $method), $args);
         }
 
@@ -456,7 +466,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         }
         return $block;
     }
-    
+
 
     /**
      * Retrieve all blocks from registry as array

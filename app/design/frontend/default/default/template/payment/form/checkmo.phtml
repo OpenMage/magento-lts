@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,25 +21,23 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<fieldset class="form-list">
 <?php if ($this->getMethod()->getMailingAddress() || $this->getMethod()->getPayableTo()): ?>
-    <ul id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none">
-        <li>
-            <div class="input-box">
-                <?php if ($this->getMethod()->getPayableTo()): ?>
-                    <?php echo $this->__('<label>Make Check payable to</label>: %s', $this->getMethod()->getPayableTo()) ?><br />
-                <?php endif; ?>
-                <?php if ($this->getMethod()->getMailingAddress()): ?>
-                    <label><?php echo Mage::helper('payment')->__('Send Check to:') ?></label>
-                    <div class="checkmo-mailing-address">
-                        <?php echo nl2br($this->getMethod()->getMailingAddress()) ?>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </li>
-    </ul>
+<ul class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
+    <li>
+        <div class="input-box">
+            <?php if ($this->getMethod()->getPayableTo()): ?>
+                <?php echo $this->__('<label>Make Check payable to</label>: %s', $this->getMethod()->getPayableTo()) ?><br />
+            <?php endif; ?>
+            <?php if ($this->getMethod()->getMailingAddress()): ?>
+                <label><?php echo Mage::helper('payment')->__('Send Check to:') ?></label>
+                <div class="checkmo-mailing-address">
+                    <?php echo nl2br($this->getMethod()->getMailingAddress()) ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </li>
+</ul>
 <?php endif; ?>
-</fieldset>

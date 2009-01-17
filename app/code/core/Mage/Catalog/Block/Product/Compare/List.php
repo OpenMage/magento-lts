@@ -61,7 +61,8 @@
             $this->_items
                 ->loadComaparableAttributes()
                 ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-                ->addMinimalPrice();
+                ->addMinimalPrice()
+                ->addTaxPercents();
 
             Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($this->_items);
         }

@@ -53,6 +53,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
         return $statuses;
     }
 
+    public function canSendCommentEmail()
+    {
+        return Mage::helper('sales')->canSendOrderCommentEmail($this->getOrder()->getStore()->getId());
+    }
+
     /**
      * Retrieve order model
      *

@@ -658,7 +658,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             }
 
             /**
-             * We specify qty after we know about parent (for stocj)
+             * We specify qty after we know about parent (for stock)
              */
             $item->addQty($candidate->getCartQty());
 
@@ -881,10 +881,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $this->setVirtualItemsQty(0);
 
         foreach ($this->getAllVisibleItems() as $item) {
-            //if ($item->getProduct()->getIsVirtual()) {
-            //    $this->setVirtualItemsQty($this->getVirtualItemsQty() + $item->getQty());
-            //}
-
             if ($item->getParentItem()) {
                 continue;
             }
@@ -894,20 +890,18 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                     if ($child->getProduct()->getIsVirtual()) {
                         $this->setVirtualItemsQty($this->getVirtualItemsQty() + $child->getQty()*$item->getQty());
                     }
-                    $this->setItemsCount($this->getItemsCount()+1);
-                    $this->setItemsQty((float) $this->getItemsQty()+$child->getQty()*$item->getQty());
                 }
-            } else {
-                if ($item->getProduct()->getIsVirtual()) {
-                    $this->setVirtualItemsQty($this->getVirtualItemsQty() + $item->getQty());
-                }
-                $this->setItemsCount($this->getItemsCount()+1);
-                $this->setItemsQty((float) $this->getItemsQty()+$item->getQty());
             }
 
-            //$this->setItemsCount($this->getItemsCount()+1);
-            //$this->setItemsQty((float) $this->getItemsQty()+$item->getQty());
+            if ($item->getProduct()->getIsVirtual()) {
+                $this->setVirtualItemsQty($this->getVirtualItemsQty() + $item->getQty());
+            }
+            $this->setItemsCount($this->getItemsCount()+1);
+            $this->setItemsQty((float) $this->getItemsQty()+$item->getQty());
         }
+
+        $this->setData('trigger_recollect', 0);
+
         return $this;
     }
 
@@ -974,11 +968,33 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         return $this;
     }
 
-    public function validateMinimumAmount()
+    public function validateMinimumAmount($multishipping = false)
     {
-        foreach ($this->getAllAddresses() as $address) {
-            if (!$address->validateMinimumAmount()) {
+        $storeId = $this->getStoreId();
+        $minOrderActive = Mage::getStoreConfigFlag('sales/minimum_order/active', $storeId);
+        $minOrderMulti  = Mage::getStoreConfigFlag('sales/minimum_order/multi_address', $storeId);
+
+        if (!$minOrderActive) {
+            return true;
+        }
+
+        if ($multishipping && !$minOrderMulti) {
+            $baseTotal = 0;
+            foreach ($this->getAllAddresses() as $address) {
+                /* @var $address Mage_Sales_Model_Quote_Address */
+                $baseTotal += $address->getBaseSubtotalWithDiscount();
+            }
+
+            if ($baseTotal < Mage::getStoreConfig('sales/minimum_order/amount', $storeId)) {
                 return false;
+            }
+        }
+        else {
+            foreach ($this->getAllAddresses() as $address) {
+                /* @var $address Mage_Sales_Model_Quote_Address */
+                if (!$address->validateMinimumAmount()) {
+                    return false;
+                }
             }
         }
         return true;
@@ -1075,5 +1091,19 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->setCouponCode($quote->getCouponCode());
         }
         return $this;
+    }
+
+    /**
+     * Trigger collect totals after loading, if required
+     *
+     * @return Mage_Sales_Model_Quote
+     */
+    protected function _afterLoad()
+    {
+        // collect totals and save me, if required
+        if (1 == $this->getData('trigger_recollect')) {
+            $this->collectTotals()->save();
+        }
+        return parent::_afterLoad();
     }
 }

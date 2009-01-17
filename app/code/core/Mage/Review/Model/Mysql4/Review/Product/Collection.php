@@ -152,7 +152,7 @@ class Mage_Review_Model_Mysql4_Review_Product_Collection extends Mage_Catalog_Mo
      *
      * @return array
      */
-    public function getAllIds()
+    public function getAllIds($limit=null, $offset=null)
     {
         $idsSelect = clone $this->getSelect();
         $idsSelect->reset(Zend_Db_Select::ORDER);

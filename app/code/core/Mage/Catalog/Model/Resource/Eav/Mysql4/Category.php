@@ -85,13 +85,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
 
         $toUpdateChild = explode('/',substr($object->getPath(),0,strrpos($object->getPath(),'/')));
          $child = $this->getChildrenCount($object->getId());
-         $child+=1; 
+         $child+=1;
         // BUG here
         $this->_getWriteAdapter()->update(
-		        $this->getEntityTable(),
-		        array('children_count'=>new Zend_Db_Expr('`children_count`-'.$child)),
-		        $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $toUpdateChild))
-      		  ;
+                $this->getEntityTable(),
+                array('children_count'=>new Zend_Db_Expr('`children_count`-'.$child)),
+                $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $toUpdateChild))
+                ;
 
         if ($child = $this->_getTree()->getNodeById($object->getId())) {
             $children = $child->getChildren();
@@ -120,10 +120,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
            $toUpdateChild = explode('/',$object->getPath());
 
             $this->_getWriteAdapter()->update(
-		        $this->getEntityTable(),
-		        array('children_count'=>new Zend_Db_Expr('`children_count`+1')),
-		        $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $toUpdateChild))
-      		  ;
+                $this->getEntityTable(),
+                array('children_count'=>new Zend_Db_Expr('`children_count`+1')),
+                $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $toUpdateChild))
+                ;
 
         }
         return $this;
@@ -143,14 +143,16 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
         }
         $categoryIds = explode('/', $object->getPath());
 
-
-
-
         $this->refreshProductIndex($categoryIds);
-        //$this->_saveCountChidren($object);
         return parent::_afterSave($object);
     }
 
+    /**
+     * Deprecated since 1.1.7
+     *
+     * @param Varien_Object $object
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category
+     */
     protected function _saveCountChidren($object)
     {
         $chidren = $object->getChildren();
@@ -370,7 +372,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
         $positions = $this->_getWriteAdapter()->fetchPairs($select);
         return $positions;
     }
-    
+
     public function getChildrenCount($categoryId)
     {
         $select = $this->_getReadAdapter()->select()
@@ -378,76 +380,38 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
             ->where('entity_id=?', $categoryId);
 
         $child = $this->_getReadAdapter()->fetchOne($select);
-        
+
         return $child;
     }
 
-   // public function move(Mage_Catalog_Model_Category $category, $newParentId)
     public function move($categoryId, $newParentId)
     {
-        $category   = Mage::getModel('catalog/category')->load($categoryId);
-        $oldParent  = $category->getParentCategory();
-        $newParent  = Mage::getModel('catalog/category')->load($newParentId);
-        
-        $child = $this->getChildrenCount($category->getId());
-        $child+=1;
+        $category  = Mage::getModel('catalog/category')->load($categoryId);
+        $oldParent = $category->getParentCategory();
+        $newParent = Mage::getModel('catalog/category')->load($newParentId);
 
+        $childrenCount = $this->getChildrenCount($category->getId()) + 1;
 
-        $toUpdateChild = explode('/',$newParent->getPath());
+        // update children count of new parents
+        $parentIds = explode('/', $newParent->getPath());
         $this->_getWriteAdapter()->update(
-		        $this->getEntityTable(),
-		        array('children_count'=>new Zend_Db_Expr('`children_count`+' . $child)),
-		        $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $toUpdateChild))
-      		  ;
+            $this->getEntityTable(),
+            array('children_count' => new Zend_Db_Expr("`children_count` + {$childrenCount}")),
+            $this->_getWriteAdapter()->quoteInto('entity_id IN (?)', $parentIds)
+        );
 
-      	$toUpdateChild = explode('/', $oldParent->getPath());
-      	$this->_getWriteAdapter()->update(
-		        $this->getEntityTable(),
-		        array('children_count'=>new Zend_Db_Expr('`children_count`-' . $child)),
-		        $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $toUpdateChild))
-      		  ;
-        return ;
+        // update children count of old parents
+          $parentIds = explode('/', $oldParent->getPath());
+          $this->_getWriteAdapter()->update(
+            $this->getEntityTable(),
+            array('children_count' => new Zend_Db_Expr("`children_count` - {$childrenCount}")),
+            $this->_getWriteAdapter()->quoteInto('entity_id IN (?)', $parentIds)
+        );
 
+        // update parent id
+        $this->_getWriteAdapter()->query("UPDATE {$this->getEntityTable()} SET parent_id = {$newParent->getId()} WHERE entity_id = {$categoryId}");
 
-        $oldStoreId = $category->getStoreId();
-        $parent = Mage::getModel('catalog/category')
-            ->setStoreId($category->getStoreId())
-            ->load($category->getParentId());
-
-        $newParent = Mage::getModel('catalog/category')
-            ->setStoreId($category->getStoreId())
-            ->load($newParentId);
-        $oldParentStores = $parent->getStoreIds();
-        $newParentStores = $newParent->getStoreIds();
-
-        $category->setParentId($newParentId)
-            ->save();
-        $parent->save();
-        $newParent->save();
-
-        // Add to new stores
-        $addToStores = array_diff($newParentStores, $oldParentStores);
-        foreach ($addToStores as $storeId) {
-            $newCategory = clone $category;
-            $newCategory->setStoreId($storeId)
-               ->save();
-            $children = $category->getAllChildren();
-
-            if ($children && $arrChildren = explode(',', $children)) {
-                foreach ($arrChildren as $childId) {
-                    if ($childId == $category->getId()) {
-                        continue;
-                    }
-
-                    $child = Mage::getModel('catalog/category')
-                       ->setStoreId($oldStoreId)
-                       ->load($childId)
-                       ->setStoreId($storeId)
-                       ->save();
-                }
-            }
-        }
-        return $this;
+        return;
     }
 
     public function checkId($id)

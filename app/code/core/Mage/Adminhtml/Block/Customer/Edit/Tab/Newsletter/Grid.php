@@ -65,7 +65,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid extends Mage_Adminh
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('queue_id', array(
             'header'    =>  Mage::helper('customer')->__('ID'),
             'align'     =>  'left',
             'index'     =>  'queue_id',

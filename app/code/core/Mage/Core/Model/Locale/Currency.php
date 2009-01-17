@@ -126,11 +126,17 @@ class Mage_Core_Model_Locale_Currency extends Zend_Currency
         if ($trimSettings) {
         	$sign = trim($sign);
         }
-        //place the sign next to the number
+        // place the sign next to the number
         if ($options['position'] == self::RIGHT) {
             $value = $value . $sign;
         } else if ($options['position'] == self::LEFT) {
-            $value = $sign . $value;
+            // do not place sign before minus. And do not allow space between minus and sign
+            if (0 === strpos($value, '-', 0)) {
+                $value = '-' . ltrim($sign) . substr($value, 1);
+            }
+            else {
+                $value = $sign . $value;
+            }
         }
         return trim($value);
     }

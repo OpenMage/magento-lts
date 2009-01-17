@@ -56,26 +56,22 @@ class Mage_SalesRule_Model_Observer
         $ruleIds = explode(',', $order->getAppliedRuleIds());
         $ruleIds = array_unique($ruleIds);
 
-        // create rule and customer rule models
-        $rule = Mage::getModel('salesrule/rule');
         $ruleCustomer = null;
         $customerId = $order->getCustomerId();
-        if ($customerId) {
-            $ruleCustomer = Mage::getModel('salesrule/rule_customer');
-        }
 
         // use each rule (and apply to customer, if applicable)
         foreach ($ruleIds as $ruleId) {
             if (!$ruleId) {
                 continue;
             }
-
+            $rule = Mage::getModel('salesrule/rule');
             $rule->load($ruleId);
             if ($rule->getId()) {
                 $rule->setTimesUsed($rule->getTimesUsed() + 1);
                 $rule->save();
 
-                if ($ruleCustomer) {
+                if ($customerId) {
+                    $ruleCustomer = Mage::getModel('salesrule/rule_customer');
                     $ruleCustomer->loadByCustomerRule($customerId, $ruleId);
 
                     if ($ruleCustomer->getId()) {

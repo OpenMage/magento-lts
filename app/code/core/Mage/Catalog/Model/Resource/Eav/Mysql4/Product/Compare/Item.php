@@ -78,4 +78,37 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item extends Mage_C
         }
         return $this->_getReadAdapter()->fetchOne($select);
     }
+
+    /**
+     * Clean compare table
+     *
+     * @param Mage_Catalog_Model_Product_Compare_Item $object
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item
+     */
+    public function clean(Mage_Catalog_Model_Product_Compare_Item $object)
+    {
+        while (true) {
+            $select = $this->_getReadAdapter()->select()
+                ->from(array('compare_table' => $this->getMainTable()), array('catalog_compare_item_id'))
+                ->joinLeft(
+                    array('visitor_table' => $this->getTable('log/visitor')),
+                    'compare_table.visitor_id = visitor_table.visitor_id',
+                    array())
+                ->where('compare_table.visitor_id NOT IS NULL')
+                ->where('visitor_table.visitor_id IS NULL')
+                ->limit(1000);
+            $itemIds = $this->_getReadAdapter()->fetchCol($select);
+
+            if (!$itemIds) {
+                break;
+            }
+
+            $this->_getWriteAdapter()->delete(
+                $this->getMainTable(),
+                $this->_getWriteAdapter()->quoteInto('catalog_compare_item_id IN(?)', $eventIds)
+            );
+        }
+
+        return $this;
+    }
 }

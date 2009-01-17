@@ -61,20 +61,20 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
 //            /**
 //             * go to category view page
 //             */
-//          
+//
 //            $continueShoppingUrl = $currentCategory->getUrl().(count($this->_getRequest()->getQuery())!=0?'?'.http_build_qu//ery($this->_getRequest()->getQuery(), '', '&amp;'):'');
-//         
+//
 //       } else {
 //            $continueShoppingUrl = $this->_getUrl('*/*/*', array('_current'=>true));
 //        }
-        
+
 		$continueShoppingUrl = $this->getCurrentUrl();
-		
+
         $params = array(
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => Mage::helper('core')->urlEncode($continueShoppingUrl),
             'product' => $product->getId()
         );
-        
+
         if ($this->_getRequest()->getRouteName() == 'checkout'
             && $this->_getRequest()->getControllerName() == 'cart') {
             $params['in_cart'] = 1;
@@ -83,7 +83,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
         if (count($additional)){
             $params = array_merge($params, $additional);
         }
-       
+
         return $this->_getUrl('checkout/cart/add', $params);
     }
 
@@ -149,7 +149,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
      */
     public function getSummaryCount()
     {
-        return Mage::getSingleton('checkout/cart')->getSummaryQty();
+        return $this->getCart()->getSummaryQty();
     }
 
     /**

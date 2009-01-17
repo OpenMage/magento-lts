@@ -3,10 +3,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -18,7 +18,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /****************************************************/
@@ -71,18 +71,12 @@ input.checkbox { margin-right:3px; }
 .qty { width:2.5em; }
 .group-select label, .form-list label, .payment-methods label { font-weight:bold; }
 input.input-text:focus, textarea:focus, select:focus { background-color:#fafaec; }
-.button-set { /* Container for form buttons*/
-    clear:both;
-    margin-top:4em;
-    border-top:1px solid #e4e4e4;
-    padding-top:8px;
-    text-align:right;
-    }
-
+.button-set { clear:both; margin-top:4em; border-top:1px solid #e4e4e4; padding-top:8px; text-align:right; }
+button::-moz-focus-inner { padding:0; border:0; }
 .form-button,
-.form-button-alt { overflow:visible; padding:1px 0 0; border:0; background:transparent; font:bold 12px/19px Arial, Helvetica, sans-serif; cursor:pointer; text-align:center; vertical-align:middle; }
+.form-button-alt { overflow:visible; border:0; background:transparent; font:bold 12px/19px Arial, Helvetica, sans-serif; cursor:pointer; text-align:center; vertical-align:middle; }
 .form-button span,
-.form-button-alt span { float:left; height:19px; border:1px solid #406a83; margin:-1px 0 0; padding:0 8px; font:bold 12px/19px Arial, Helvetica, sans-serif; background:#91c1cb url(../images/bkg_btn.gif) 0 100% repeat-x; white-space:nowrap; color:#fff; /*position:relative;*/ }
+.form-button-alt span { float:left; height:19px; border:1px solid #406a83; padding:0 8px; font:bold 12px/19px Arial, Helvetica, sans-serif; background:#91c1cb url(../images/bkg_btn.gif) 0 100% repeat-x; white-space:nowrap; color:#fff; }
 
 .btn-checkout {
     display:block;
@@ -404,29 +398,14 @@ h1#logo {
 
 
 /* Mini search */
-.mini-search {
-    position:absolute;
-    top:0;
-    right:0;
-    width:300px;
-    height:30px;
-    padding:1px 10px 0 40px;
-    background:url(../images/mini_search_bg.gif) no-repeat;
-    }
+.mini-search { position:absolute; top:0; right:0; width:300px; height:30px; padding:1px 10px 0 40px; background:url(../images/mini_search_bg.gif) no-repeat; }
 .mini-search .input-text { width:212px; margin-right:4px; }
-
-.search-autocomplete {
-    border:1px solid #5c7989;
-    background:#f9f5f0;
-    position:absolute;
-    left:40px;
-    top:22px;
-    width:216px !important;
-    }
-.search-autocomplete li { border-bottom:1px solid #f4eee7; padding:2px 8px 1px 8px; }
-.search-autocomplete li.odd { background:#fffefb; }
-.search-autocomplete li.selected { background:#f7e8dd; }
-
+.search-autocomplete { z-index:999; }
+.search-autocomplete ul { border:1px solid #5c7989; background-color:#f9f5f0; }
+.search-autocomplete li { border-bottom:1px solid #f4eee7; padding:2px 8px 1px 8px; cursor:pointer; }
+.search-autocomplete li .amount { float:right; font-weight:bold; }
+.search-autocomplete li.odd { background-color:#fffefb; }
+.search-autocomplete li.selected { background-color:#f7e8dd; }
 
 
 /********************** Sidebars */
@@ -840,14 +819,17 @@ table.recently-list td {width:20%; }
 .product-img-box .more-views h4 { border-bottom:1px solid #ccc; margin-bottom:.8em; font-size:.95em; text-transform:uppercase; }
 .product-img-box .more-views ul { margin-left:-9px; }
 .product-img-box .more-views li { float:left; margin:0 0 9px 9px; }
-.product-img-box .more-views li a { float:left; width:56px; height:56px; border:2px solid #ddd; position:relative; overflow:hidden; }
+.product-img-box .more-views li a { float:left; width:56px; height:56px; border:2px solid #ddd; overflow:hidden; }
+/* To turn on floating images preview please remove comments and set image size 120x120px in \template\catalog\product\view\media.phtml */
+/*.product-img-box .more-views li a { position:relative; }
 .product-img-box .more-views li a img { margin:-32px 0 0 -32px; }
 .product-img-box .more-views li a:hover { border:2px solid #ddd; overflow:visible; z-index:999; }
-.product-img-box .more-views li a:hover img { border:2px solid #ddd; margin:0; position:absolute; top:-34px; left:-34px; }
+.product-img-box .more-views li a:hover img { border:2px solid #ddd; margin:0; position:absolute; top:-34px; left:-34px; }*/
 
 .product-info-box { border:1px solid #c4c6c8; }
 .product-info-box .product-name { margin-bottom:.3em; color:#0a263c; font-size:1.2em; }
 .product-info-box .price-box { margin:10px 0; }
+.product-info-box .data-table .price-box { margin:0; padding:0; }
 .product-info-box .availability { margin:10px 0; padding:0; font-size:0.92em; }
 
 .add-to-cart-box { float:right; }
@@ -1551,5 +1533,5 @@ table.print .price-incl-tax .price { display:inline; }
 .order-info li.selected {font-weight:bold; background:url(../images/point-con.gif) no-repeat fixed center bottom; }
 
 /* Expiration date and cvv number validation case */
-.input-box .v-fix { position:relative; float:left; }
-.input-box .v-fix .validation-advice { position:relative; margin-right:-12em; float:left; display:inline; width:12em; }
+.v-fix { float:left; }
+.v-fix .validation-advice { display:block; margin-right:-12em; width:12em; position:relative; }

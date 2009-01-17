@@ -57,6 +57,7 @@ class Mage_Sitemap_Model_Mysql4_Cms_Page extends Mage_Core_Model_Mysql4_Abstract
                 'main_table.page_id=store_table.page_id',
                 array()
             )
+            ->where('main_table.is_active=1')
             ->where('store_table.store_id IN(?)', array(0, $storeId));
         $query = $this->_getWriteAdapter()->query($select);
         while ($row = $query->fetch()) {

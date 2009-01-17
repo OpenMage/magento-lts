@@ -34,12 +34,14 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Core_Model_Abstract
     const XML_PATH_EMAIL_IDENTITY               = 'sales_email/shipment/identity';
     const XML_PATH_EMAIL_COPY_TO                = 'sales_email/shipment/copy_to';
     const XML_PATH_EMAIL_COPY_METHOD            = 'sales_email/shipment/copy_method';
+    const XML_PATH_EMAIL_ENABLED                = 'sales_email/shipment/enabled';
 
     const XML_PATH_UPDATE_EMAIL_TEMPLATE        = 'sales_email/shipment_comment/template';
     const XML_PATH_UPDATE_EMAIL_GUEST_TEMPLATE  = 'sales_email/shipment_comment/guest_template';
     const XML_PATH_UPDATE_EMAIL_IDENTITY        = 'sales_email/shipment_comment/identity';
     const XML_PATH_UPDATE_EMAIL_COPY_TO         = 'sales_email/shipment_comment/copy_to';
     const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/shipment_comment/copy_method';
+    const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/shipment_comment/enabled';
 
     protected $_items;
     protected $_tracks;
@@ -292,6 +294,10 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Core_Model_Abstract
      */
     public function sendEmail($notifyCustomer=true, $comment='')
     {
+        if (!Mage::helper('sales')->canSendNewShipmentEmail($this->getOrder()->getStore()->getId())) {
+            return $this;
+        }
+
         $currentDesign = Mage::getDesign()->setAllGetOld(array(
             'package' => Mage::getStoreConfig('design/package/name', $this->getStoreId()),
             'store' => $this->getStoreId()
@@ -373,6 +379,10 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Core_Model_Abstract
      */
     public function sendUpdateEmail($notifyCustomer = true, $comment='')
     {
+        if (!Mage::helper('sales')->canSendShipmentCommentEmail($this->getOrder()->getStore()->getId())) {
+            return $this;
+        }
+
         $currentDesign = Mage::getDesign()->setAllGetOld(array(
             'package' => Mage::getStoreConfig('design/package/name', $this->getStoreId()),
         ));
@@ -467,5 +477,15 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Core_Model_Abstract
     {
         $this->_protectFromNonAdmin();
         return parent::_beforeDelete();
+    }
+
+    /**
+     * Retrieve store model instance
+     *
+     * @return Mage_Core_Model_Store
+     */
+    public function getStore()
+    {
+        return $this->getOrder()->getStore();
     }
 }

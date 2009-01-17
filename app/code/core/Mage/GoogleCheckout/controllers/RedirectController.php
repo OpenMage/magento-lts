@@ -70,7 +70,7 @@ class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_
                 Mage::getModel('checkout/cart')->init()->save();
                 if (Mage::getStoreConfigFlag('google/checkout/hide_cart_contents')) {
                     $session->setGoogleCheckoutQuoteId($session->getQuoteId());
-                    $session->unsQuoteId();
+                    $session->setQuoteId(null);
                 }
             }
         }
@@ -116,7 +116,7 @@ class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_
                 $session->getQuote()->delete();
             }
             $session->setQuoteId($session->getGoogleCheckoutQuoteId());
-            $session->unsGoogleCheckoutQuoteId();
+            $session->setGoogleCheckoutQuoteId(null);
         }
 
         $this->_redirect('checkout/cart');

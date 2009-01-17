@@ -39,7 +39,6 @@ class Mage_Newsletter_Model_Template extends Varien_Object
     const TYPE_TEXT = 1;
     const TYPE_HTML = 2;
 
-
     protected $_preprocessFlag = false;
     protected $_mail;
 
@@ -103,8 +102,8 @@ class Mage_Newsletter_Model_Template extends Varien_Object
     public function isValidForSend()
     {
         return !Mage::getStoreConfigFlag('system/smtp/disable')
-            && $this->getTemplateSenderName() 
-            && $this->getTemplateSenderEmail() 
+            && $this->getTemplateSenderName()
+            && $this->getTemplateSenderEmail()
             && $this->getTemplateSubject();
     }
 
@@ -129,16 +128,16 @@ class Mage_Newsletter_Model_Template extends Varien_Object
 
     public function isPreprocessed()
     {
-    	return strlen($this->getTemplateTextPreprocessed()) > 0;
+        return strlen($this->getTemplateTextPreprocessed()) > 0;
     }
 
     public function getTemplateTextPreprocessed()
     {
-    	if($this->_preprocessFlag) {
-    		$this->setTemplateTextPreprocessed($this->getProcessedTemplate());
-    	}
+        if($this->_preprocessFlag) {
+            $this->setTemplateTextPreprocessed($this->getProcessedTemplate());
+        }
 
-    	return $this->getData('template_text_preprocessed');
+        return $this->getData('template_text_preprocessed');
     }
 
     public function getProcessedTemplate(array $variables = array(), $usePreprocess=false)
@@ -146,7 +145,7 @@ class Mage_Newsletter_Model_Template extends Varien_Object
         $processor = new Varien_Filter_Template();
 
         if(!$this->_preprocessFlag) {
-        	$variables['this'] = $this;
+            $variables['this'] = $this;
         }
 
         $processor
@@ -154,13 +153,11 @@ class Mage_Newsletter_Model_Template extends Varien_Object
             ->setVariables($variables);
 
         if($usePreprocess && $this->isPreprocessed()) {
-        	return $processor->filter($this->getTemplateTextPreprocessed());
+            return $processor->filter($this->getTemplateTextPreprocessed());
         }
 
         return $processor->filter($this->getTemplateText());
     }
-
-
 
     public function getInclude($template, array $variables)
     {
@@ -202,7 +199,7 @@ class Mage_Newsletter_Model_Template extends Varien_Object
         }
 
         $email = '';
-        if($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
+        if ($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
             $email = $subscriber->getSubscriberEmail();
             if (is_null($name) && ($subscriber->hasCustomerFirstname() || $subscriber->hasCustomerLastname()) ) {
                 $name = $subscriber->getCustomerFirstname() . ' ' . $subscriber->getCustomerLastname();
@@ -211,6 +208,9 @@ class Mage_Newsletter_Model_Template extends Varien_Object
             $email = (string) $subscriber;
         }
 
+        if (Mage::getStoreConfigFlag(Mage_Newsletter_Model_Subscriber::XML_PATH_SENDING_SET_RETURN_PATH)) {
+            $this->getMail()->setReturnPath($this->getTemplateSenderEmail());
+        }
 
         ini_set('SMTP', Mage::getStoreConfig('system/smtp/host'));
         ini_set('smtp_port', Mage::getStoreConfig('system/smtp/port'));
@@ -231,8 +231,8 @@ class Mage_Newsletter_Model_Template extends Varien_Object
         try {
             $mail->send();
             $this->_mail = null;
-         	if(!is_null($queue)) {
-            	$subscriber->received($queue);
+            if(!is_null($queue)) {
+                $subscriber->received($queue);
             }
         }
         catch (Exception $e) {
@@ -241,13 +241,13 @@ class Mage_Newsletter_Model_Template extends Varien_Object
                 $problem = Mage::getModel('newsletter/problem');
                 $problem->addSubscriberData($subscriber);
                 if(!is_null($queue)) {
-                	$problem->addQueueData($queue);
+                    $problem->addQueueData($queue);
                 }
                 $problem->addErrorData($e);
                 $problem->save();
 
                 if(!is_null($queue)) {
-                  $subscriber->received($queue);
+                    $subscriber->received($queue);
                 }
             } else {
                 // Otherwise throw error to upper level
@@ -271,36 +271,36 @@ class Mage_Newsletter_Model_Template extends Varien_Object
 
     public function preprocess()
     {
-    	$this->_preprocessFlag = true;
-    	$this->save();
-    	$this->_preprocessFlag = false;
-    	return $this;
+        $this->_preprocessFlag = true;
+        $this->save();
+        $this->_preprocessFlag = false;
+        return $this;
     }
 
-	public function getProcessedTemplateSubject(array $variables)
-	{
-		$processor = new Varien_Filter_Template();
+    public function getProcessedTemplateSubject(array $variables)
+    {
+        $processor = new Varien_Filter_Template();
 
-		if(!$this->_preprocessFlag) {
-			$variables['this'] = $this;
-		}
+        if(!$this->_preprocessFlag) {
+            $variables['this'] = $this;
+        }
 
-		$processor->setVariables($variables);
+        $processor->setVariables($variables);
 
-		return $processor->filter($this->getTemplateSubject());
-	}
+        return $processor->filter($this->getTemplateSubject());
+    }
 
-	public function getTemplateText()
-	{
-	    if (!$this->getData('template_text') && !$this->getId()) {
-	        $this->setData(
-	           'template_text',
-	           Mage::helper('newsletter')->__(
-	               '<!-- This tag is for unsubscribe link  --> Follow this link to unsubscribe <a href="{{var subscriber.getUnsubscriptionLink()}}">{{var subscriber.getUnsubscriptionLink()}}</a>'
-	           )
-	        );
-	    }
+    public function getTemplateText()
+    {
+        if (!$this->getData('template_text') && !$this->getId()) {
+            $this->setData(
+               'template_text',
+               Mage::helper('newsletter')->__(
+                   '<!-- This tag is for unsubscribe link  --> Follow this link to unsubscribe <a href="{{var subscriber.getUnsubscriptionLink()}}">{{var subscriber.getUnsubscriptionLink()}}</a>'
+               )
+            );
+        }
 
-	    return $this->getData('template_text');
-	}
+        return $this->getData('template_text');
+    }
 }

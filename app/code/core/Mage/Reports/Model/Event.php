@@ -65,4 +65,15 @@ class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
         $this->getResource()->updateCustomerType($this, $visitorId, $customerId, $types);
         return $this;
     }
+
+    /**
+     * Clean events (visitors)
+     *
+     * @return Mage_Reports_Model_Event
+     */
+    public function clean()
+    {
+        $this->getResource()->clean($this);
+        return $this;
+    }
 }

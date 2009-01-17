@@ -87,6 +87,17 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
             ),
         ));
 
+        $fieldset->addField('is_html', 'select', array(
+            'label'     => Mage::helper('checkout')->__('Show Content as'),
+            'title'     => Mage::helper('checkout')->__('Show Content as'),
+            'name'      => 'is_html',
+            'required'  => true,
+            'options'   => array(
+                0 => Mage::helper('checkout')->__('Text'),
+                1 => Mage::helper('checkout')->__('HTML'),
+            ),
+        ));
+
         if (!Mage::app()->isSingleStoreMode()) {
             $fieldset->addField('store_id', 'multiselect', array(
                 'name'      => 'stores[]',
@@ -118,7 +129,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
             'name'      => 'content',
             'label'     => Mage::helper('checkout')->__('Content'),
             'title'     => Mage::helper('checkout')->__('Content'),
-            'style'     => 'height:24em;',			
+            'style'     => 'height:24em;',
             'wysiwyg'   => false,
             'required'  => true,
         ));

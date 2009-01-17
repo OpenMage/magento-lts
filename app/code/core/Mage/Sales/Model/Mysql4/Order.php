@@ -43,4 +43,29 @@ class Mage_Sales_Model_Mysql4_Order extends Mage_Eav_Model_Entity_Abstract
         $write = $resource->getConnection('sales_write');
         $this->setConnection($read, $write);
     }
+
+    /**
+     * Count existent products of order items by specified product types
+     *
+     * @param int $orderId
+     * @param array $productTypeIds
+     * @param bool $isProductTypeIn
+     * @return array
+     */
+    public function aggregateProductsByTypes($orderId, $productTypeIds = array(), $isProductTypeIn = false)
+    {
+        $select = $this->getReadConnection()->select()
+            ->from(array('o' => $this->getTable('sales/order_item')), new Zend_Db_Expr('o.product_type, COUNT(*)'))
+            ->joinInner(array('p' => $this->getTable('catalog/product')), 'o.product_id=p.entity_id', array())
+            ->where('o.order_id=?', $orderId)
+            ->group('(1)')
+        ;
+        if ($productTypeIds) {
+            $select->where($this->getReadConnection()->quoteInto(
+                sprintf('(o.product_type %s (?))', ($isProductTypeIn ? 'IN' : 'NOT IN')),
+                $productTypeIds
+            ));
+        }
+        return $this->getReadConnection()->fetchPairs($select);
+    }
 }

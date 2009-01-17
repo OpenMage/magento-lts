@@ -16,7 +16,7 @@ class Mage_Paypal_Block_Standard_Redirect extends Mage_Core_Block_Abstract
             $form->addField($field, 'hidden', array('name'=>$field, 'value'=>$value));
         }
         $html = '<html><body>';
-        $html.= $this->__('You will be redirected to paypal in a few seconds.');
+        $html.= $this->__('You will be redirected to Paypal in a few seconds.');
         $html.= $form->toHtml();
         $html.= '<script type="text/javascript">document.getElementById("paypal_standard_checkout").submit();</script>';
         $html.= '</body></html>';

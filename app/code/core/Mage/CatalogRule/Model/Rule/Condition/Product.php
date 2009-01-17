@@ -34,10 +34,14 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
      */
     public function getAttributeObject()
     {
-        $obj = Mage::getSingleton('eav/config')
-            ->getAttribute('catalog_product', $this->getAttribute());
-        if ($obj && !$obj->getEntity()) {
-            $obj->setEntity(Mage::getResourceSingleton('catalog/product'));
+        try {
+            $obj = Mage::getSingleton('eav/config')
+                ->getAttribute('catalog_product', $this->getAttribute());
+        }
+        catch (Exception $e) {
+            $obj = new Varien_Object();
+            $obj->setEntity(Mage::getResourceSingleton('catalog/product'))
+                ->setFrontendInput('text');
         }
         return $obj;
     }

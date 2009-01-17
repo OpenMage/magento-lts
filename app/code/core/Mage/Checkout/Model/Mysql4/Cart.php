@@ -74,4 +74,17 @@ class Mage_Checkout_Model_Mysql4_Cart extends Mage_Core_Model_Mysql4_Abstract
 
         return $read->fetchAll($select);
     }
+
+    /**
+     * Make collection not to load products that are in specified quote
+     *
+     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
+     * @param int $quoteId
+     */
+    public function addExcludeProductFilter($collection, $quoteId) {
+        $collection->getSelect()->where(new Zend_Db_Expr(sprintf(
+            'e.entity_id NOT IN (SELECT product_id FROM %s WHERE quote_id=%d)',
+            $this->getTable('sales/quote_item'), $quoteId
+        )));
+    }
 }

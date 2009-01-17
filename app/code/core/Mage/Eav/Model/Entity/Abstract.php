@@ -440,32 +440,10 @@ abstract class Mage_Eav_Model_Entity_Abstract
      */
     public function loadAllAttributes($object=null)
     {
-        $attributeCodes = Mage::getSingleton('eav/config')->getEntityAttributeCodes($this->getEntityType());
+        $attributeCodes = Mage::getSingleton('eav/config')->getEntityAttributeCodes($this->getEntityType(), $object);
         foreach ($attributeCodes as $code) {
         	$this->getAttribute($code);
         }
-        return $this;
-        /*
-        if (is_null($object)) {
-            $attributeCodes = Mage::getSingleton('eav/config')->getEntityAttributeCodes($this->getEntityType());
-            foreach ($attributeCodes as $code) {
-            	$this->getAttribute($code);
-            }
-            return $this;
-        }
-        elseif($object->getAttributeSetId()) {
-            $setId = $object->getAttributeSetId();
-        }
-        else {
-            $setId = $this->getEntityType()->getDefaultAttributeSetId();
-        }
-
-        $attributes = $this->getEntityType()->getAttributeCollection($setId);
-        $attributes->load();
-
-        foreach ($attributes->getItems() as $attribute) {
-            $this->getAttribute($attribute);
-        }*/
         return $this;
     }
 

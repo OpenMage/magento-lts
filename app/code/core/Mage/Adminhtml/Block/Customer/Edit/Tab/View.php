@@ -133,12 +133,36 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         return $this->formatDate($this->getCustomer()->getCreatedAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
     }
 
+    public function getStoreCreateDate()
+    {
+        $date = Mage::app()->getLocale()->storeDate($this->getCustomer()->getStoreId(), $this->getCustomer()->getCreatedAt(), true);
+        return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
+    }
+
+    public function getStoreCreateDateTimezone()
+    {
+        $date = Mage::app()->getLocale()->storeDate($this->getCustomer()->getStoreId(), $this->getCustomer()->getCreatedAt(), true);
+        return $date->getTimezone();
+    }
+
     public function getLastLoginDate()
     {
         if ($date = $this->getCustomerLog()->getLoginAt()) {
             return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
         }
         return Mage::helper('customer')->__('Never');
+    }
+
+    public function getStoreLastLoginDate()
+    {
+        $date = Mage::app()->getLocale()->storeDate($this->getCustomer()->getStoreId(), $this->getCustomer()->getLoginAt(), true);
+        return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
+    }
+
+    public function getStoreLastLoginDateTimezone()
+    {
+        $date = Mage::app()->getLocale()->storeDate($this->getCustomer()->getStoreId(), $this->getCustomer()->getLoginAt(), true);
+        return $date->getTimezone();
     }
 
     public function getCurrentStatus()
@@ -166,6 +190,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
     public function getCreatedInStore()
     {
         return Mage::app()->getStore($this->getCustomer()->getStoreId())->getName();
+    }
+
+    public function getStoreId()
+    {
+        return $this->getCustomer()->getStoreId();
     }
 
     public function getBillingAddressHtml()

@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
         parent::__construct();
         $this->setId('customerGrid');
         $this->setUseAjax(true);
-        $this->setDefaultSort('id');
+        $this->setDefaultSort('entity_id');
     }
 
     protected function _prepareCollection()
@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
             ->joinAttribute('billing_postcode', 'customer_address/postcode', 'default_billing', null, 'left')
             ->joinAttribute('billing_city', 'customer_address/city', 'default_billing', null, 'left')
             ->joinAttribute('billing_telephone', 'customer_address/telephone', 'default_billing', null, 'left')
-            ->joinAttribute('billing_regione', 'customer_address/region', 'default_billing', null, 'left')
+            ->joinAttribute('billing_region', 'customer_address/region', 'default_billing', null, 'left')
             ->joinAttribute('billing_country_id', 'customer_address/country_id', 'default_billing', null, 'left');
 
         $this->setCollection($collection);
@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('entity_id', array(
             'header'    => Mage::helper('customer')->__('ID'),
             'width'     => '50px',
             'index'     => 'entity_id',
@@ -118,10 +118,10 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
             'index'     => 'billing_country_id',
         ));
 
-        $this->addColumn('billing_regione', array(
+        $this->addColumn('billing_region', array(
             'header'    => Mage::helper('customer')->__('State/Province'),
             'width'     => '100',
-            'index'     => 'billing_regione',
+            'index'     => 'billing_region',
         ));
 
         $this->addColumn('customer_since', array(

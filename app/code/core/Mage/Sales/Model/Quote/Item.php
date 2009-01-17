@@ -100,8 +100,15 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     {
         $oldQty = $this->getQty();
         $qty = $this->_prepareQty($qty);
-        $this->setQtyToAdd($qty);
-        $this->setQty($oldQty+$qty);
+
+        /**
+         * We can't modify quontity of existing items which have parent
+         * This qty declared just once duering add process and is not editable
+         */
+        if (!$this->getParentItem() || !$this->getId()) {
+            $this->setQtyToAdd($qty);
+            $this->setQty($oldQty+$qty);
+        }
         return $this;
     }
 

@@ -557,6 +557,11 @@ EOT;
 
     protected function _getAllTaxTablesXml()
     {
+        if (Mage::getStoreConfigFlag('google/checkout/disable_default_tax_tables', $this->getQuote()->getStoreId())) {
+            return '<tax-tables merchant-calculated="true" />';
+        }
+
+
         $xml = <<<EOT
             <tax-tables merchant-calculated="true">
                 {$this->_getTaxTableXml($this->_getShippingTaxRules(), 'default')}

@@ -91,4 +91,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
 
         return $html;
     }
+
+    public function canSendNewOrderConfirmationEmail()
+    {
+        return Mage::helper('sales')->canSendNewOrderConfirmationEmail($this->getQuote()->getStoreId());
+    }
 }

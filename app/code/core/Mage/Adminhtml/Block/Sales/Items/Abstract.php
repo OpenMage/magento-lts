@@ -343,7 +343,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     public function displayTaxPercent(Varien_Object $item)
     {
         if ($item->getTaxPercent()) {
-            return sprintf('%.2f%%', $item->getTaxPercent());
+            return sprintf('%s%%', $item->getTaxPercent() + 0);
         } else {
             return '0%';
         }
@@ -414,9 +414,8 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
      */
 
     public function canReturnToStock() {
-
-        $canReturnToStock = Mage::getStoreConfig('cataloginventory/options/can_subtract');
-        if (Mage::getStoreConfig('cataloginventory/options/can_subtract')) {
+        $canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
+        if (Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)) {
             return true;
         } else {
             return false;

@@ -25,9 +25,16 @@
  */
 class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 {
-
+    /**
+     * Retrieve is secure mode for ULR logic
+     *
+     * @return bool
+     */
     public function getSecure()
     {
+        if ($this->hasData('secure_is_forced')) {
+            return $this->getData('secure');
+        }
         return Mage::getStoreConfigFlag('web/secure/use_in_adminhtml');
     }
 

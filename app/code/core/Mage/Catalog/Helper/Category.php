@@ -33,6 +33,14 @@
  */
 class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
 {
+    const XML_PATH_CATEGORY_URL_SUFFIX  = 'catalog/seo/category_url_suffix';
+
+    /**
+     * Cache for category rewrite suffix
+     *
+     * @var array
+     */
+    protected $_categoryUrlSuffix = array();
 
     /**
      * Retrieve current store categories
@@ -82,6 +90,9 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      */
     public function getCategoryUrl($category)
     {
+        if ($category instanceof Mage_Catalog_Model_Category) {
+            return $category->getUrl();
+        }
         return Mage::getModel('catalog/category')
             ->setData($category->getData())
             ->getUrl();
@@ -119,4 +130,48 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         return true;
     }
 
+/**
+     * Retrieve category rewrite sufix for store
+     *
+     * @param int $storeId
+     * @return string
+     */
+    public function getCategoryUrlSuffix($storeId = null)
+    {
+        if (is_null($storeId)) {
+            $storeId = Mage::app()->getStore()->getId();
+        }
+
+        if (!isset($this->_categoryUrlSuffix[$storeId])) {
+            $this->_categoryUrlSuffix[$storeId] = Mage::getStoreConfig(self::XML_PATH_CATEGORY_URL_SUFFIX, $storeId);
+        }
+        return $this->_categoryUrlSuffix[$storeId];
+    }
+
+    /**
+     * Retrieve clear url for category as parrent
+     *
+     * @param string $url
+     * @param bool $slash
+     * @param int $storeId
+     *
+     * @return string
+     */
+    public function getCategoryUrlPath($urlPath, $slash = false, $storeId = null)
+    {
+        if (!$this->getCategoryUrlSuffix($storeId)) {
+            return $urlPath;
+        }
+
+        if ($slash) {
+            $regexp     = '#('.preg_quote($this->getCategoryUrlSuffix($storeId), '#').')/$#i';
+            $replace    = '/';
+        }
+        else {
+            $regexp     = '#('.preg_quote($this->getCategoryUrlSuffix($storeId), '#').')$#i';
+            $replace    = '';
+        }
+
+        return preg_replace($regexp, $replace, $urlPath);
+    }
 }

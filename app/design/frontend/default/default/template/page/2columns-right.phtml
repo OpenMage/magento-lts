@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,7 +21,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /**
@@ -36,47 +36,45 @@
 <body <?php echo $this->getBodyClass()?'class="'.$this->getBodyClass().'"':'' ?>>
 <div class="wrapper">
 <?php /*<p class="demo-notice"><?php echo $this->__('This is a demo store. Any orders placed through this store will not be honored or fulfilled.') ?></p> */ ?>
-        <!-- [start] header -->
+        <!-- start header -->
         <div class="header">
             <?php echo $this->getChildHtml('header') ?>
         </div>
-        <!-- [end] header -->
+        <!-- end header -->
 
-        <!-- [start] middle -->
+        <!-- start middle -->
         <div class="middle-container">
             <div class="middle col-2-right-layout">
 <?php echo $this->getChildHtml('breadcrumbs') ?>
-            <!-- [start] center -->
+            <!-- start center -->
                 <div id="main" class="col-main">
-                <!-- [start] global messages -->
+                <!-- start global messages -->
                     <?php echo $this->getChildHtml('global_messages') ?>
-                <!-- [end] global messages -->
+                <!-- end global messages -->
 
-                <!-- [start] content -->
-                    <?php echo $this->getChildHtml('content') ?>
-                <!-- [end] content -->
-                    &nbsp;
+                <!-- start content -->
+                    <?php echo $this->getChildHtml('content') ?>&nbsp;
+                <!-- end content -->
                 </div>
-            <!-- [end] center -->
+            <!-- end center -->
 
-            <!-- [start] right -->
+            <!-- start right -->
             <div class="col-right side-col">
-                <?php echo $this->getChildHtml('right') ?>
-                &nbsp;
+                <?php echo $this->getChildHtml('right') ?>&nbsp;
             </div>
-            <!-- [end] right -->
+            <!-- end right -->
 
         </div>
             </div>
-        <!-- [end] middle -->
+        <!-- end middle -->
 
-        <!-- [start] footer -->
+        <!-- start footer -->
         <div class="footer-container">
             <div class="footer">
                 <?php echo $this->getChildHtml('footer') ?>
             </div>
         </div>
-        <!-- [end] footer -->
+        <!-- end footer -->
 
 <?php echo $this->getChildHtml('before_body_end') ?>
 </div>

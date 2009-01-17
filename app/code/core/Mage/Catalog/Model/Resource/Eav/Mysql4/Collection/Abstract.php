@@ -45,6 +45,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract extends Mage_Ea
 
     public function setStoreId($storeId)
     {
+        if ($storeId instanceof Mage_Core_Model_Store) {
+            $storeId = $storeId->getId();
+        }
         $this->_storeId = $storeId;
         return $this;
     }

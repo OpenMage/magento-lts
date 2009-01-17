@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Newsletter_Problem_Grid extends Mage_Adminhtml_Block_
     		'width'		=> '20px'
     	));
 
-        $this->addColumn('id', array(
+        $this->addColumn('problem_id', array(
             'header' => Mage::helper('newsletter')->__('ID'),
             'index'  => 'problem_id',
             'width'	 => '50px'

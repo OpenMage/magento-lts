@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Reviews extends Mage_Adminhtml_Bloc
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('entity_id', array(
             'header'    => Mage::helper('customer')->__('ID'),
             'width'     => 5,
             'align'     => 'center',
@@ -122,7 +122,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Reviews extends Mage_Adminhtml_Bloc
                 'sortable'  => false,
         ));
 
-        $this->setColumnFilter('id')
+        $this->setColumnFilter('entity_id')
             ->setColumnFilter('email')
             ->setColumnFilter('name');
 

@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   Mage
+ * @package    Mage_GoogleBase
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_GoogleBase>
+            <version>0.1.0</version>
+        </Mage_GoogleBase>
+    </modules>
+    <global>
+        <models>
+            <googlebase>
+                <class>Mage_GoogleBase_Model</class>
+                <resourceModel>googlebase_mysql4</resourceModel>
+            </googlebase>
+            <googlebase_mysql4>
+                <class>Mage_GoogleBase_Model_Mysql4</class>
+                <entities>
+                    <types>
+                        <table>googlebase_types</table>
+                    </types>
+                    <items>
+                        <table>googlebase_items</table>
+                    </items>
+                    <attributes>
+                        <table>googlebase_attributes</table>
+                    </attributes>
+                </entities>
+            </googlebase_mysql4>
+        </models>
+        <helpers>
+            <googlebase>
+                <class>Mage_GoogleBase_Helper</class>
+            </googlebase>
+        </helpers>
+        <resources>
+            <googlebase_setup>
+                <setup>
+                    <module>Mage_GoogleBase</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </googlebase_setup>
+            <googlebase_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </googlebase_write>
+            <googlebase_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </googlebase_read>
+        </resources>
+        <blocks>
+            <googlebase><class>Mage_GoogleBase_Block</class></googlebase>
+        </blocks>
+    </global>
+    <adminhtml>
+        <routers>
+            <googlebase>
+                <use>standard</use>
+                <args>
+                    <module>Mage_GoogleBase</module>
+                    <frontName>googlebase</frontName>
+                </args>
+            </googlebase>
+        </routers>
+        <translate>
+            <modules>
+                <Mage_GoogleBase>
+                    <files>
+                        <default>Mage_GoogleBase.csv</default>
+                    </files>
+                </Mage_GoogleBase>
+            </modules>
+        </translate>
+        <events>
+            <catalog_product_save_after>
+                <observers>
+                    <googlebase_observer>
+                        <type>singleton</type>
+                        <class>googlebase/observer</class>
+                        <method>saveProductItem</method>
+                    </googlebase_observer>
+                </observers>
+            </catalog_product_save_after>
+            <catalog_product_delete_before>
+                <observers>
+                    <googlebase_observer>
+                        <type>singleton</type>
+                        <class>googlebase/observer</class>
+                        <method>deleteProductItem</method>
+                    </googlebase_observer>
+                </observers>
+            </catalog_product_delete_before>
+        </events>
+        <layout>
+            <updates>
+                <googlebase>
+                    <file>googlebase.xml</file>
+                </googlebase>
+            </updates>
+        </layout>
+        <menu>
+            <catalog>
+                <children>
+                    <googlebase translate="title" module="googlebase">
+                        <title>Google Base</title>
+                        <children>
+                            <types translate="title" module="googlebase">
+                                <title>Manage Attributes</title>
+                                <action>googlebase/types</action>
+                            </types>
+                            <items translate="title" module="googlebase">
+                                <title>Manage Items</title>
+                                <action>googlebase/items</action>
+                            </items>
+                        </children>
+                    </googlebase>
+                 </children>
+            </catalog>
+        </menu>
+    </adminhtml>
+    <frontend>
+        <routers>
+            <googlebase>
+                <use>standard</use>
+                <args>
+                    <module>Mage_GoogleBase</module>
+                    <frontName>googlebase</frontName>
+                </args>
+            </googlebase>
+        </routers>
+    </frontend>
+    <default>
+        <google>
+            <base>
+                <active>0</active>
+            </base>
+        </google>
+    </default>
+</config>

@@ -223,6 +223,24 @@ class Mage_Core_Model_Locale
     }
 
     /**
+     * Retrieve days of week option list
+     *
+     * @return array
+     */
+    public function getOptionWeekdays()
+    {
+        $options= array();
+        $days = $this->getLocale()->getTranslationList('days');
+        foreach (array_values($days['format']['wide']) as $code => $name) {
+            $options[] = array(
+               'label' => $name,
+               'value' => $code,
+            );
+        }
+        return $options;
+    }
+
+    /**
      * Retrieve country option list
      *
      * @return array
@@ -376,14 +394,7 @@ class Mage_Core_Model_Locale
      */
     public function getDateStrFormat($type)
     {
-        $convert = array('yyyy-MM-ddTHH:mm:ssZZZZ'=>'%c',   'EEEE'=>'%A',   'EEE'=>'%a','D'=>'%j',
-                         'MMMM'=>'%B',  'MMM'=>'%b',        'MM'=>'%m',     'M'=>'%m',  'dd'=>'%d',
-                         'd'=>'%e',     'yyyy'=>'%Y',       'yy'=>'%y');
-        $format = $this->getDateFormat($type);
-        foreach ($convert as $key=>$value) {
-            $format = preg_replace('/(^|[^%])'.$key.'/', '$1'.$value, $format);
-        }
-        return $format;
+        return Varien_Date::convertZendToStrftime($this->getDateFormat($type), true, false);
     }
 
     /**
@@ -394,13 +405,7 @@ class Mage_Core_Model_Locale
      */
     public function getTimeStrFormat($type)
     {
-        $convert = array('a'=>'%p', 'hh'=>'%I', 'h'=>'%I', 'HH'=>'%H', 'mm'=>'%M', 'ss'=>'%S', 'z'=>'%Z', 'v'=>'%Z');
-
-        $format = $this->getTimeFormat($type);
-        foreach ($convert as $key=>$value) {
-            $format = preg_replace('/(^|[^%])'.$key.'/', '$1'.$value, $format);
-        }
-        return $format;
+        return Varien_Date::convertZendToStrftime($this->getTimeFormat($type), false, true);
     }
 
     /**
@@ -426,6 +431,28 @@ class Mage_Core_Model_Locale
         }
         //$date->add(-(substr($date->get(Zend_Date::GMT_DIFF), 0,3)), Zend_Date::HOUR);
 
+        return $date;
+    }
+
+    /**
+     * Create Zend_Date object with date converted to store timezone and store Locale
+     *
+     * @param   mixed $store Information about store
+     * @param   string|integer|Zend_Date|array|null $date date in UTC
+     * @param   boolean $includeTime flag for including time to date
+     * @return  Zend_Date
+     */
+    public function storeDate($store=null, $date=null, $includeTime=false)
+    {
+        $timezone = Mage::app()->getStore($store)->getConfig(self::XML_PATH_DEFAULT_TIMEZONE);
+        $date = new Zend_Date($date, null, $this->getLocale());
+        $date->setTimezone($timezone);
+        if (!$includeTime) {
+            $date->setHour(0)
+                ->setMinute(0)
+                ->setSecond(0);
+        }
+//        $date->getTimezone();
         return $date;
     }
 

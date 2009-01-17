@@ -122,7 +122,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
 
     public function getContinueUrl()
     {
-        return $this->getUrl('*/*/new', array('_current'=>true));
+        return $this->getUrl('*/*/new', array(
+            '_current'   => true,
+            'attributes' => '{{attributes}}'
+        ));
     }
 
     public function getBackUrl()

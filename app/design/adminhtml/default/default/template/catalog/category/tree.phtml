@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,7 +21,7 @@
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div class="categories-side-col">
@@ -70,6 +70,10 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
         var data = config['data'];
 
         this.storeId = parameters['store_id'];
+
+        if ( this.storeId != 0) {
+            $('add_root_category_button').hide();
+        }
 
         if ((typeof parameters['root_visible']) != 'undefined') {
             this.rootVisible = parameters['root_visible']*1;
@@ -121,6 +125,14 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
                 return false;
             }
         }
+
+        if ( newStoreId==0 )    {
+            $('add_root_category_button').show();
+        }
+        else    {
+            $('add_root_category_button').hide();
+        }
+
 
         if (this.cache[this.storeId]) {
             var hash = this.loader.buildHash(this.root);
@@ -355,12 +367,46 @@ Ext.onReady(function()
 
 });
 
+function _recursTree( tree, valToDelete )    {
+    tree.each(function(item, index) {
+        if (item.id == valToDelete) {
+            tree = tree.without( item );
+        }
+        else    {
+            if (item.children)  {
+                item.children = _recursTree(item.children, valToDelete);
+                if (item.children.size()==0)  {
+                    delete item.children;
+                }
+            }
+        }
+
+    });
+    return tree;
+}
+
+function processTreeCache(valToDelete)  {
+    var treeCache = this.tree.cache;
+    var str = '';
+    for (store in treeCache)    {
+        treeCache[store].data = _recursTree( treeCache[store].data, valToDelete);
+    }
+}
+
 function addNew(url, isRoot)
 {
     if (isRoot) {
         tree.currentNodeId = tree.root.id;
     }
     tree.addNodeTo = tree.currentNodeId;
+
+    if (/store\/\d+/.test(url)) {
+        url = url.replace(/store\/\d+/, "store/" + tree.storeId);
+    }
+    else    {
+        url+= "store/" + tree.storeId + "/";
+    }
+
     url+= 'parent/'+tree.currentNodeId;
     updateContent(url);
 }

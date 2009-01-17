@@ -43,19 +43,19 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
 
     protected function _prepareLayout()
     {
+        $title = $this->__("Search results for: '%s'", $this->helper('catalogSearch')->getEscapedQueryText());
+
         // add Home breadcrumb
-        $this->getLayout()->getBlock('breadcrumbs')
-            ->addCrumb('home', array(
+        if ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs')) {
+            $breadcrumbs->addCrumb('home', array(
                 'label' => $this->__('Home'),
                 'title' => $this->__('Go to Home Page'),
                 'link'  => Mage::getBaseUrl()
+            ))->addCrumb('search', array(
+                'label' => $title,
+                'title' => $title
             ));
-
-        $title = $this->__("Search results for: '%s'", $this->helper('catalogSearch')->getEscapedQueryText());
-        $this->getLayout()->getBlock('breadcrumbs')->addCrumb('search', array(
-            'label' => $title,
-            'title' => $title
-        ));
+        }
         $this->getLayout()->getBlock('head')->setTitle($title);
 
         return parent::_prepareLayout();

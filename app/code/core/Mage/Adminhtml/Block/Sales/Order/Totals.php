@@ -63,6 +63,16 @@ class Mage_Adminhtml_Block_Sales_Order_Totals extends Mage_Adminhtml_Block_Sales
     }
 
     /**
+     * Retrieve Order instance
+     *
+     * @return Mage_Sales_Model_Order
+     */
+    public function getOrder()
+    {
+        return $this->getData('order');
+    }
+
+    /**
      * Retrieve currency instance
      *
      * @return Mage_Directory_Model_Currency

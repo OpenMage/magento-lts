@@ -412,6 +412,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
     {
         $customer = $this->getCustomerModel();
         $customer->setId(null);
+        $customer->setImportMode(true);
 
         if (empty($importData['website'])) {
             $message = Mage::helper('customer')->__('Skip import row, required field "%s" not defined', 'website');
@@ -522,6 +523,10 @@ class Mage_Customer_Model_Convert_Adapter_Customer
             }
 
             $customer->setData($field, $setValue);
+        }
+
+        if (isset($importData['is_subscribed'])) {
+            $customer->setData('is_subscribed', $importData['is_subscribed']);
         }
 
         $importBillingAddress = $importShippingAddress = true;

@@ -32,13 +32,19 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Adminhtml_Block_Widget
+class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     public function __construct()
     {
         parent::__construct();
+        $this->setProductId($this->getRequest()->getParam('id'));
         $this->setTemplate('catalog/product/edit/super/config.phtml');
         $this->setId('config_super_product');
+    }
+
+    public function getTabClass()
+    {
+        return 'ajax';
     }
 
     protected function _prepareLayout()
@@ -184,6 +190,23 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     public function escapeJs($string)
     {
         return addcslashes($string, "'\r\n\\");
+    }
+
+    public function getTabLabel()
+    {
+        return Mage::helper('catalog')->__('Associated Products');
+    }
+    public function getTabTitle()
+    {
+        return Mage::helper('catalog')->__('Associated Products');
+    }
+    public function canShowTab()
+    {
+        return true;
+    }
+    public function isHidden()
+    {
+        return false;
     }
 
 }// Class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config END

@@ -73,7 +73,6 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 //        if (isset($childAttributes['translate'])) {
 //            $titleNodeName  = (string)$childAttributes['translate'];
 //        }
-        $titleNodeName = 'title';
 
         return Mage::helper($helperName)->__((string)$child->$titleNodeName);
     }

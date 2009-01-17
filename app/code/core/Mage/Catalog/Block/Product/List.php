@@ -46,6 +46,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     {
         if (is_null($this->_productCollection)) {
             $layer = Mage::getSingleton('catalog/layer');
+            /* @var $layer Mage_Catalog_Model_Layer */
             if ($this->getShowRootCategory()) {
                 $this->setCategoryId(Mage::app()->getStore()->getRootCategoryId());
             }
@@ -63,11 +64,27 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
                 }
             }
 
+            $origCategory = null;
             if ($this->getCategoryId()) {
                 $category = Mage::getModel('catalog/category')->load($this->getCategoryId());
-                $layer->setCurrentCategory($category);
+                if ($category->getId()) {
+                    $origCategory = $layer->getCurrentCategory();
+                    $layer->setCurrentCategory($category);
+                }
             }
             $this->_productCollection = $layer->getProductCollection();
+
+            if ($sortField = $this->getSortBy()) {
+                $sortOrder = 'asc';
+                if (strtolower($this->getSortOrder()) == 'desc') {
+                    $sortOrder = 'desc';
+                }
+                $this->_productCollection->addAttributeToSort($sortField, $sortOrder);
+            }
+
+            if ($origCategory) {
+                $layer->setCurrentCategory($origCategory);
+            }
         }
         return $this->_productCollection;
     }

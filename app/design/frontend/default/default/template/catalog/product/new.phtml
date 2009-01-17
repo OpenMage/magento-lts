@@ -4,10 +4,10 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
@@ -21,13 +21,13 @@
  * @category   default_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php if (($_products = $this->getProductCollection()) && $_products->getSize()): ?>
 <div class="box recently">
     <h3><?php echo $this->__('New Products') ?></h3>
-    <table cellspacing="0" class="recently-list" id="recently-compared-list-table">
+    <table cellspacing="0" class="recently-list" id="new-products-list-table">
     <tr>
     <?php $i=0; foreach ($_products->getItems() as $_product): ?>
         <?php if ($i>5): continue; endif; ?>
@@ -39,7 +39,7 @@
             </div>
                 <p><a class="product-name" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>)"><?php echo $this->htmlEscape($_product->getName()) ?></a></p>
                 <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
-                <?php echo $this->getPriceHtml($_product) ?>
+                <?php echo $this->getPriceHtml($_product, true, '-new') ?>
                 <?php if($_product->isSaleable()): ?>
                 <button class="form-button" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><?php echo $this->__('Add to Cart') ?></span></button>
                 <?php else: ?>

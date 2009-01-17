@@ -128,6 +128,17 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $this->getRenderer()->render($row);
     }
 
+    /**
+     * Retrieve row column field value for export
+     *
+     * @param   Varien_Object $row
+     * @return  string
+     */
+    public function getRowFieldExport(Varien_Object $row)
+    {
+        return $this->getRenderer()->renderExport($row);
+    }
+
     public function setRenderer($renderer)
     {
         $this->_renderer = $renderer;
@@ -195,6 +206,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $rendererClass;
     }
 
+    /**
+     * Retrieve column renderer
+     *
+     * @return Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+     */
     public function getRenderer()
     {
         if (!$this->_renderer) {
@@ -285,5 +301,18 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
             return '&nbsp;';
         }
         return null;
+    }
+
+    /**
+     * Retrieve Header Name for Export
+     *
+     * @return string
+     */
+    public function getExportHeader()
+    {
+        if ($this->getHeaderExport()) {
+            return $this->getHeaderExport();
+        }
+        return $this->getHeader();
     }
 }
