@@ -452,4 +452,20 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
 
         return false;
     }
+
+    /**
+     * Return product weight based on simple product
+     * weight or configurable product weight
+     *
+     * @return decimal
+     */
+    public function getWeight()
+    {
+        if ($this->getProduct()->hasCustomOptions() && ($simpleProductOption = $this->getProduct()->getCustomOption('simple_product'))) {
+            $simpleProduct = $simpleProductOption->getProduct();
+            return $simpleProduct->getWeight();
+        } else {
+            return $this->getProduct()->getData('weight');
+        }
+    }
 }

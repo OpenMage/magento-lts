@@ -107,11 +107,16 @@ class Mage_Api_Model_Server_Adapter_Soap
                 ->setHeader('Content-Type','text/xml')
                 ->setBody($template->filter($wsdlContent));
 
-        } else {
+        } elseif ($this->_extensionLoaded()) {
             $this->_soap = new SoapServer(Mage::getUrl('*/*/*', array('wsdl'=>1)));
             use_soap_error_handler(false);
             $this->_soap->setClass($this->getHandler());
-            $this->_soap->handle();
+            $this->getController()->getResponse()
+                ->setHeader('Content-Type', 'text/xml')
+                ->setBody($this->_soap->handle());
+
+        } else {
+            $this->fault('0', 'Unable to load Soap extension on the server');
         }
         return $this;
     }
@@ -124,6 +129,30 @@ class Mage_Api_Model_Server_Adapter_Soap
      */
     public function fault($code, $message)
     {
-        throw new SoapFault($code, $message);
+        if ($this->_extensionLoaded()) {
+            throw new SoapFault($code, $message);
+        } else {
+            die('<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+                <SOAP-ENV:Body>
+                <SOAP-ENV:Fault>
+                <faultcode>' . $code . '</faultcode>
+                <faultstring>' . $message . '</faultstring>
+                </SOAP-ENV:Fault>
+                </SOAP-ENV:Body>
+                </SOAP-ENV:Envelope>');
+        }
+
     }
+
+    /**
+     *  Check whether Soap extension is loaded
+     *
+     *  @param    none
+     *  @return	  boolean
+     */
+    protected function _extensionLoaded ()
+    {
+        return class_exists('SoapServer');
+    }
+
 } // Class Mage_Api_Model_Server_Adapter_Soap End

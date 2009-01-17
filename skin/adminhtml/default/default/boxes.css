@@ -797,9 +797,9 @@ padding:6px 8px 4px 8px;
 .head-billing-address           { background-image:url(images/fam_house.gif); }
 .head-shipping-method           { background-image:url(images/fam_lorry.gif); }
 .head-payment-method            { background-image:url(images/fam_creditcards.gif); }
-.head-order-date                { background-image:url(images/fam/calendar.png); }
-.head-customer-sales-statistics { background-image:url(images/fam/money.png); }
-.head-notification              { background-image:url(images/fam/folder_table.png); }
+.head-order-date                { background-image:url(images/fam_calendar.gif); }
+.head-customer-sales-statistics { background-image:url(images/fam_money.gif); }
+.head-notification              { background-image:url(images/fam_folder_table.gif); }
 
 
 

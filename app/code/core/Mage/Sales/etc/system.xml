@@ -116,7 +116,7 @@
                         <logo translate="label">
                             <label>Logo (200x50)</label>
                             <frontend_type>image</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <backend_model>adminhtml/system_config_backend_image_pdf</backend_model>
                             <upload_dir config="system/filesystem/media" scope_info="1">sales/store/logo</upload_dir>
                             <base_url type="media" scope_info="1">sales/store/logo</base_url>
                             <sort_order>100</sort_order>

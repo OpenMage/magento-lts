@@ -75,7 +75,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image extends Mage_Core_Model_C
                 $file['tmp_name'] = $_FILES['groups']['tmp_name'][$this->getGroupId()]['fields'][$this->getField()]['value'];
                 $file['name'] = $_FILES['groups']['name'][$this->getGroupId()]['fields'][$this->getField()]['value'];
                 $uploader = new Varien_File_Uploader($file);
-                $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
+                $uploader->setAllowedExtensions($this->_getAllowedExtensions());
                 $uploader->setAllowRenameFiles(true);
                 $uploader->save($uploadDir);
             } catch (Exception $e) {
@@ -133,5 +133,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image extends Mage_Core_Model_C
         return $path;
     }
 
+    protected function _getAllowedExtensions()
+    {
+        return array('jpg', 'jpeg', 'gif', 'png');
+    }
 }
-

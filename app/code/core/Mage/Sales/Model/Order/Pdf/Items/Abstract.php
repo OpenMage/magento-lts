@@ -246,4 +246,24 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
         return $result;
     }
 
+    protected function _setFontRegular($size = 7)
+    {
+        $font = Zend_Pdf_Font::fontWithPath(Mage::getBaseDir() . '/lib/LinLibertineFont/LinLibertineC_Re-2.8.0.ttf');
+        $this->getPage()->setFont($font, $size);
+        return $font;
+    }
+
+    protected function _setFontBold($size = 7)
+    {
+        $font = Zend_Pdf_Font::fontWithPath(Mage::getBaseDir() . '/lib/LinLibertineFont/LinLibertine_Bd-2.8.1.ttf');
+        $this->getPage()->setFont($font, $size);
+        return $font;
+    }
+
+    protected function _setFontItalic($size = 7)
+    {
+        $font = Zend_Pdf_Font::fontWithPath(Mage::getBaseDir() . '/lib/LinLibertineFont/LinLibertine_It-2.8.2.ttf');
+        $this->getPage()->setFont($font, $size);
+        return $font;
+    }
 }

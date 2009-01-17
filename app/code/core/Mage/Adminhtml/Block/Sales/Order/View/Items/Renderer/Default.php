@@ -69,10 +69,20 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
         }
 
         if($this->getItem()->getOrder()) {
-            return $this->getItem()->getOrder()->getShippingAddress()->getName();
+            if ($this->getItem()->getOrder()->getShippingAddress()) {
+                return $this->getItem()->getOrder()->getShippingAddress()->getName();
+            } else if ($this->getItem()->getOrder()->getBillingAddress()) {
+                return $this->getItem()->getOrder()->getBillingAddress()->getName();
+            }
         }
 
-        return $this->getItem()->getShippingAddress()->getName();
+        if ($this->getItem()->getShippingAddress()) {
+            return $this->getItem()->getShippingAddress()->getName();
+        } else if ($this->getItem()->getBillingAddress()) {
+            return $this->getItem()->getBillingAddress()->getName();
+        }
+
+        return '';
     }
 
     /**

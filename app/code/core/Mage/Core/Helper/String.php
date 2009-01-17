@@ -102,18 +102,117 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     public function splitInjection($str, $length = 50, $needle = '-', $insert = ' ')
     {
-        $str = str_split($str, $length);
+        $str = $this->str_split($str, $length);
         $newStr = '';
         foreach ($str as $part) {
             if ($this->strlen($part) >= $length) {
-                $lastDelimetr = strpos(strrev($part), $needle);
+                $lastDelimetr = iconv_strpos(strrev($part), $needle, null, self::ICONV_CHARSET);
                 $tmpNewStr = '';
-                $tmpNewStr = $this->substr(strrev($part), 0, $lastDelimetr).$insert.substr(strrev($part), $lastDelimetr);
+                $tmpNewStr = $this->substr(strrev($part), 0, $lastDelimetr) . $insert . $this->substr(strrev($part), $lastDelimetr);
                 $newStr .= strrev($tmpNewStr);
             } else {
                 $newStr .= $part;
             }
         }
         return $newStr;
+    }
+
+    /**
+     * Binary-safe strrev()
+     *
+     * @param string $str
+     * @return string
+     */
+    public function strrev($str)
+    {
+        $result = '';
+        $strlen = $this->strlen($str);
+        if (!$strlen) {
+            return $result;
+        }
+        for ($i = $strlen-1; $i >= 0; $i--) {
+            $result .= iconv_substr($str, $i, 1, self::ICONV_CHARSET);
+        }
+        return $result;
+    }
+
+    /**
+     * Binary-safe variant of str_split()
+     * + option not to break words
+     * + option to trim spaces (between each word)
+     *
+     * @param string $str
+     * @param int $length
+     * @param bool $keepWords
+     * @param bool $trim
+     * @return array
+     */
+    public function str_split($str, $length = 1, $keepWords = false, $trim = false)
+    {
+        $result = array();
+        $strlen = $this->strlen($str);
+        if ((!$strlen) || (!is_int($length)) || ($length <= 0)) {
+            return $result;
+        }
+        // trim
+        if ($trim) {
+            $str = trim(preg_replace('/\s{2,}/is', ' ', $str));
+        }
+        // do a usual str_split, but safe for our encoding
+        if ((!$keepWords) || ($length < 2)) {
+            for ($offset = 0; $offset < $strlen; $offset += $length) {
+                $result[] = iconv_substr($str, $offset, $length, self::ICONV_CHARSET);
+            }
+        }
+        // split smartly, keeping words
+        else {
+            $split = preg_split('/(\s+)/is', $str, null, PREG_SPLIT_DELIM_CAPTURE);
+            $i        = 0;
+            $space    = '';
+            $spaceLen = 0;
+            foreach ($split as $key => $part) {
+                if ($trim) {
+                    // ignore spaces (even keys)
+                    if ($key % 2) {
+                        continue;
+                    }
+                    $space    = ' ';
+                    $spaceLen = 1;
+                }
+                if (empty($result[$i])) {
+                    $currentLength = 0;
+                    $result[$i]    = '';
+                    $space         = '';
+                    $spaceLen      = 0;
+                }
+                else {
+                    $currentLength = iconv_strlen($result[$i], self::ICONV_CHARSET);
+                }
+                $partLength = iconv_strlen($part, self::ICONV_CHARSET);
+                // add part to current last element
+                if (($currentLength + $spaceLen + $partLength) <= $length) {
+                    $result[$i] .= $space . $part;
+                }
+                // add part to new element
+                elseif ($partLength <= $length) {
+                    $i++;
+                    $result[$i] = $part;
+                }
+                // break too long part recursively
+                else {
+                    foreach ($this->str_split($part, $length, false, $trim) as $subpart) {
+                        $i++;
+                        $result[$i] = $subpart;
+                    }
+                }
+            }
+        }
+        // remove last element, if empty
+        if ($count = count($result)) {
+            if (empty($result[$count - 1])) {
+                unset($result[$count - 1]);
+            }
+        }
+        return $result;
     }
 }

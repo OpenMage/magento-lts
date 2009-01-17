@@ -35,7 +35,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
         $pdf    = $this->getPdf();
         $page   = $this->getPage();
 
-        $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 7);
+        $this->_setFontRegular();
 
         $shipItems = $this->getChilds($item);
         $items = array_merge(array($item->getOrderItem()), $item->getOrderItem()->getChildrenItems());
@@ -43,14 +43,15 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
         $_prevOptionId = '';
 
         foreach ($items as $_item) {
+            $shift  = array(0, 10, 0);
 
             $attributes = $this->getSelectionAttributes($_item);
 
             if ($_item->getParentItem()) {
                 if ($_prevOptionId != $attributes['option_id']) {
-                    $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA_ITALIC), 7);
+                    $this->_setFontItalic();
                     $page->drawText($attributes['option_label'], 60, $pdf->y, 'UTF-8');
-                    $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 7);
+                    $this->_setFontRegular();
                     $_prevOptionId = $attributes['option_id'];
                     $pdf->y -= 10;
                 }
@@ -77,79 +78,42 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                 $feed = 60;
                 $name = $_item->getName();
             }
-            if (strlen($name) > 80) {
-                $drawTextValue = explode(" ", $name);
-                $drawTextParts = array();
-                $i = 0;
-                foreach ($drawTextValue as $drawTextPart) {
-                    if (!empty($drawTextParts{$i}) &&
-                        (strlen($drawTextParts{$i}) + strlen($drawTextPart)) < 80 ) {
-                        $drawTextParts{$i} .= ' '. $drawTextPart;
-                    } else {
-                        $i++;
-                        $drawTextParts{$i} = $drawTextPart;
-                    }
+            foreach (Mage::helper('core/string')->str_split($name, 60, true, true) as $key => $part) {
+                $page->drawText($part, $feed, $pdf->y-$shift[0], 'UTF-8');
+                if ($key > 0) {
+                    $shift[0] += 10;
                 }
-                $shift{0} = 0;
-                foreach ($drawTextParts as $drawTextPart) {
-                    $page->drawText($drawTextPart, $feed, $pdf->y-$shift{0}, 'UTF-8');
-                    $shift{0} += 10;
-                }
-
-            } else {
-                $page->drawText($name, $feed, $pdf->y, 'UTF-8');
             }
 
-            $shift{1} = 10;
-
-            if (strlen($_item->getSku()) > 36) {
-                $drawTextValue = str_split($_item->getSku(), 36);
-                $shift{2} = 0;
-                foreach ($drawTextValue as $drawTextPart) {
-                    $page->drawText($drawTextPart, 440, $pdf->y-$shift{2}, 'UTF-8');
-                    $shift{2} += 10;
+            foreach (Mage::helper('core/string')->str_split($item->getSku(), 30) as $key => $part) {
+                $page->drawText($part, 440, $pdf->y-$shift[2], 'UTF-8');
+                if ($key > 0) {
+                    $shift[2] += 10;
                 }
-
-            } else {
-                $page->drawText($_item->getSku(), 440, $pdf->y, 'UTF-8');
             }
 
             $pdf->y -=max($shift)+10;
         }
 
         if ($item->getOrderItem()->getProductOptions() || $item->getOrderItem()->getDescription()) {
-            $shift{1} = 10;
+            $shift[1] = 10;
             $options = $item->getOrderItem()->getProductOptions();
             if (isset($options['options'])) {
                 foreach ($options['options'] as $option) {
-                    $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA_ITALIC), 7);
-
-                    $optionTxt = strip_tags($option['label']);
-                    if (strlen($optionTxt) > 80) {
-                        $optionTxt = str_split($optionTxt, 80);
-                        foreach ($optionTxt as $_option) {
-                            $page->drawText($_option, 60, $pdf->y-$shift{1}, 'UTF-8');
-                            $shift{1} += 10;
-                        }
-                    } else {
-                        $page->drawText($optionTxt, 60, $pdf->y-$shift{1}, 'UTF-8');
-                        $shift{1} += 10;
+                    $this->_setFontItalic();
+                    foreach (Mage::helper('core/string')->str_split(strip_tags($option['label']), 60,false,true) as $_option) {
+                        $page->drawText($_option, 60, $pdf->y-$shift[1], 'UTF-8');
+                        $shift[1] += 10;
                     }
 
-                    $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 7);
+                    $this->_setFontRegular();
 
                     if ($option['value']) {
                         $values = explode(', ', strip_tags($option['value']));
                         foreach ($values as $value) {
-                            if (strlen($value) > 80) {
-                                $value = str_split($value, 80);
-                                foreach ($value as $_value) {
-                                    $page->drawText($_value, 65, $pdf->y-$shift{1}, 'UTF-8');
-                                    $shift{1} += 10;
-                                }
-                            } else {
-                                $page->drawText($value, 65, $pdf->y-$shift{1}, 'UTF-8');
-                                $shift{1} += 10;
+                            foreach (Mage::helper('core/string')->str_split($value, 70,true,true) as $_value) {
+                                $page->drawText($_value, 65, $pdf->y-$shift[1], 'UTF-8');
+                                $shift[1] += 10;
                             }
                         }
                     }

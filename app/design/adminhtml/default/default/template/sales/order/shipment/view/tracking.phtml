@@ -36,7 +36,6 @@
         <tr>
             <td>
                 <select name="carrier" class="select" style="width:110px" onchange="selectCarrier(this)">
-                    <option value="&nbsp;"></option>
                     <?php foreach ($this->getCarriers() as $_code=>$_name): ?>
                     <option value="<?php echo $_code ?>"><?php echo $_name ?></option>
                     <?php endforeach; ?>

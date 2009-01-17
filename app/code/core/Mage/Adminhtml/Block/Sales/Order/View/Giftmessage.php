@@ -137,10 +137,20 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
         }
 
         if($this->getEntity()->getOrder()) {
-            return $this->getEntity()->getOrder()->getShippingAddress()->getName();
+            if ($this->getEntity()->getOrder()->getShippingAddress()) {
+                return $this->getEntity()->getOrder()->getShippingAddress()->getName();
+            } else if ($this->getEntity()->getOrder()->getBillingAddress()) {
+                return $this->getEntity()->getOrder()->getBillingAddress()->getName();
+            }
         }
 
-        return $this->getEntity()->getShippingAddress()->getName();
+        if ($this->getEntity()->getShippingAddress()) {
+            return $this->getEntity()->getShippingAddress()->getName();
+        } else if ($this->getEntity()->getBillingAddress()) {
+            return $this->getEntity()->getBillingAddress()->getName();
+        }
+
+        return '';
     }
 
     /**

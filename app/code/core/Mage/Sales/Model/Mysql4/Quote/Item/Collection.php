@@ -83,9 +83,9 @@ class Mage_Sales_Model_Mysql4_Quote_Item_Collection extends Mage_Core_Model_Mysq
          * Assign parent items
          */
         foreach ($this as $item) {
-        	if ($item->getParentItemId()) {
-        	    $item->setParentItem($this->getItemById($item->getParentItemId()));
-        	}
+            if ($item->getParentItemId()) {
+                $item->setParentItem($this->getItemById($item->getParentItemId()));
+            }
         }
 
         /**
@@ -144,15 +144,16 @@ class Mage_Sales_Model_Mysql4_Quote_Item_Collection extends Mage_Core_Model_Mysq
 
             if ($product = $productCollection->getItemById($item->getProductId())) {
                 $product->setCustomOptions(array());
-                $item->setProduct($product);
+
                 foreach ($item->getOptions() as $option) {
-                    if ($product = $productCollection->getItemById($option->getProductId())) {
-                        $option->setProduct($product);
+                    if ($optionProduct = $productCollection->getItemById($option->getProductId())) {
+                        $option->setProduct($optionProduct);
                     }
                     else {
-                    	$option->setProduct($item->getProduct());
+                        $option->setProduct($product);
                     }
                 }
+                $item->setProduct($product);
             }
             else {
                 $item->isDeleted(true);

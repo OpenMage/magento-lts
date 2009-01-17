@@ -27,3 +27,8 @@ suhosin.session.cryptua = off
 ; turn off compatibility with PHP4 when dealing with objects
     
 zend.ze1_compatibility_mode = off
+
+; PHP for some reason ignores this setting in system php.ini 
+; and disables mcrypt if this line is missing in local php.ini
+
+extension=mcrypt.so
