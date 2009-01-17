@@ -134,6 +134,9 @@ class Mage_Wishlist_IndexController extends Mage_Core_Controller_Front_Action
      */
     public function updateAction()
     {
+        if (!$this->_validateFormKey()) {
+            return $this->_redirect('*/*/');
+        }
         $post = $this->getRequest()->getPost();
         if($post && isset($post['description']) && is_array($post['description'])) {
             $wishlist = $this->_getWishlist();
@@ -301,6 +304,10 @@ class Mage_Wishlist_IndexController extends Mage_Core_Controller_Front_Action
 
     public function sendAction()
     {
+        if (!$this->_validateFormKey()) {
+            return $this->_redirect('*/*/');
+        }
+
         $emails = explode(',', $this->getRequest()->getPost('emails'));
         $message= nl2br(htmlspecialchars((string) $this->getRequest()->getPost('message')));
         $error  = false;

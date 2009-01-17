@@ -131,15 +131,15 @@ class Mage_Core_Model_Mysql4_Config extends Mage_Core_Model_Mysql4_Abstract
         }
 
         // extend website config values to all associated stores
-        foreach ($websites as $wId=>$website) {
+        foreach ($websites as $website) {
             $extendSource = $xmlConfig->getNode('websites/'.$website['code']);
             if (isset($website['stores'])) {
-                foreach ($website['stores'] as $sId=>$sCode) {
+                foreach ($website['stores'] as $sCode) {
                     $storeNode = $xmlConfig->getNode('stores/'.$sCode);
                     /**
-                     * $extendSource need overwrite source
+                     * $extendSource DO NOT need overwrite source
                      */
-                    $storeNode->extend($extendSource, true);
+                    $storeNode->extend($extendSource, false);
                 }
             }
         }
@@ -173,7 +173,6 @@ class Mage_Core_Model_Mysql4_Config extends Mage_Core_Model_Mysql4_Abstract
             ));
         }
 
-#echo "<xmp>".$xmlConfig->getNode()->asNiceXml()."</xmp>"; exit;
         return $this;
     }
 

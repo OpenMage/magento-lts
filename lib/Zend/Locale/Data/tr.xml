@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.92 $"/>
-		<generation date="$Date: 2007/11/14 16:26:58 $"/>
+		<version number="$Revision: 1.107 $"/>
+		<generation date="$Date: 2008/06/17 14:19:19 $"/>
 		<language type="tr"/>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0} ({1})</localePattern>
+			<localeSeparator>, </localeSeparator>
+		</localeDisplayPattern>
 		<languages>
 			<language type="aa">Afar</language>
 			<language type="ab">Abazca</language>
@@ -23,7 +27,7 @@
 			<language type="akk">Akad Dili</language>
 			<language type="ale">Aleut</language>
 			<language type="alg">Algonquian Dilleri</language>
-			<language type="alt">Güney Altay</language>
+			<language type="alt">Güney Altayca</language>
 			<language type="am">Amharik</language>
 			<language type="an">Aragonca</language>
 			<language type="ang">Eski İngilizce</language>
@@ -399,7 +403,7 @@
 			<language type="sas">Sasak</language>
 			<language type="sat">Santali</language>
 			<language type="sc">Sardunya Dili</language>
-			<language type="scn">Sicilya Dili</language>
+			<language type="scn">Sicilyaca</language>
 			<language type="sco">İskoç</language>
 			<language type="sd">Sindhi</language>
 			<language type="se">Kuzey Sami</language>
@@ -441,9 +445,10 @@
 			<language type="sux">Sümerce</language>
 			<language type="sv">İsveççe</language>
 			<language type="sw">Swahili</language>
+			<language type="syc">Klasik Süryanice</language>
 			<language type="syr">Süryanice</language>
 			<language type="ta">Tamil</language>
-			<language type="tai">Tay Dili (Diğer)</language>
+			<language type="tai">Tai Dili</language>
 			<language type="te">Telugu</language>
 			<language type="tem">Timne</language>
 			<language type="ter">Tereno</language>
@@ -503,6 +508,7 @@
 			<language type="ypk">Yupik Dilleri</language>
 			<language type="za">Zhuang</language>
 			<language type="zap">Zapotek Dili</language>
+			<language type="zbl">Blis Sembolleri</language>
 			<language type="zen">Zenaga</language>
 			<language type="zh">Çince</language>
 			<language type="zh_Hans">Basitleştirilmiş Çince</language>
@@ -510,12 +516,14 @@
 			<language type="znd">Zande</language>
 			<language type="zu">Zulu</language>
 			<language type="zun">Zuni</language>
-			<language type="zxx">Dil içeriği yok</language>
+			<language type="zxx">Dilbilim içeriği yok</language>
 			<language type="zza">Zazaca</language>
 		</languages>
 		<scripts>
 			<script type="Arab">Arapça</script>
+			<script type="Armi">Armi</script>
 			<script type="Armn">Ermenice</script>
+			<script type="Avst">Avestçe</script>
 			<script type="Bali">Bali Dili</script>
 			<script type="Batk">Batak</script>
 			<script type="Beng">Bengalce</script>
@@ -525,6 +533,7 @@
 			<script type="Brai">Braille</script>
 			<script type="Bugi">Bugis</script>
 			<script type="Buhd">Buhid</script>
+			<script type="Cakm">Cakm</script>
 			<script type="Cans">UCAS</script>
 			<script type="Cari">Karya</script>
 			<script type="Cham">Cham</script>
@@ -566,6 +575,8 @@
 			<script type="Khar">Kharoshthi</script>
 			<script type="Khmr">Khmer</script>
 			<script type="Knda">Kannada</script>
+			<script type="Kore">Korece</script>
+			<script type="Kthi">Kthi</script>
 			<script type="Lana">Lanna</script>
 			<script type="Laoo">Lao Dili</script>
 			<script type="Latf">Fraktur Latin</script>
@@ -578,6 +589,7 @@
 			<script type="Lyci">Likya Dili</script>
 			<script type="Lydi">Lidya DIli</script>
 			<script type="Mand">Mandaean</script>
+			<script type="Mani">Mani Alfabesi</script>
 			<script type="Maya">Maya Hiyeroglifleri</script>
 			<script type="Mero">Meroitik</script>
 			<script type="Mlym">Malayalam</script>
@@ -593,12 +605,17 @@
 			<script type="Osma">Osmanya</script>
 			<script type="Perm">Eski Permic</script>
 			<script type="Phag">Phags-pa</script>
+			<script type="Phli">Phli</script>
+			<script type="Phlp">Phlp</script>
+			<script type="Phlv">Kitap Pehlevi Dili</script>
 			<script type="Phnx">Fonetik</script>
 			<script type="Plrd">Pollard Fonetik</script>
+			<script type="Prti">Prti</script>
 			<script type="Qaai">Kalıtsal</script>
 			<script type="Rjng">Rejang</script>
 			<script type="Roro">Rongorongo</script>
 			<script type="Runr">Runik</script>
+			<script type="Samr">Samarit</script>
 			<script type="Sara">Sarati</script>
 			<script type="Saur">Saurashtra</script>
 			<script type="Sgnw">İşaret Dili Yazımı</script>
@@ -614,10 +631,11 @@
 			<script type="Tale">Tai Le</script>
 			<script type="Talu">New Tai Lue</script>
 			<script type="Taml">Tamil</script>
+			<script type="Tavt">Tavt</script>
 			<script type="Telu">Telugu</script>
 			<script type="Teng">Tengwar</script>
 			<script type="Tfng">Tifinagh</script>
-			<script type="Tglg">Tagolagca</script>
+			<script type="Tglg">Takalotça</script>
 			<script type="Thaa">Thaana</script>
 			<script type="Thai">Tayca</script>
 			<script type="Tibt">Tibetçe</script>
@@ -627,6 +645,8 @@
 			<script type="Xpeo">Eski Farsça</script>
 			<script type="Xsux">Sümer-Akad Çivi Yazısı</script>
 			<script type="Yiii">Yi</script>
+			<script type="Zmth">Zmth</script>
+			<script type="Zsym">Zsym</script>
 			<script type="Zxxx">Yazılı Olmayan</script>
 			<script type="Zyyy">Common</script>
 			<script type="Zzzz">Bilinmeyen veya Geçersiz Betik</script>
@@ -691,6 +711,7 @@
 			<territory type="BH">Bahreyn</territory>
 			<territory type="BI">Burundi</territory>
 			<territory type="BJ">Benin</territory>
+			<territory type="BL">Saint Barthelemy</territory>
 			<territory type="BM">Bermuda</territory>
 			<territory type="BN">Brunei</territory>
 			<territory type="BO">Bolivya</territory>
@@ -735,7 +756,7 @@
 			<territory type="ET">Etiyopya</territory>
 			<territory type="FI">Finlandiya</territory>
 			<territory type="FJ">Fiji</territory>
-			<territory type="FK">Falkland Adaları (Malvinalar)</territory>
+			<territory type="FK">Falkland Adaları</territory>
 			<territory type="FM">Mikronezya Federal Eyaletleri</territory>
 			<territory type="FO">Faroe Adaları</territory>
 			<territory type="FR">Fransa</territory>
@@ -758,7 +779,7 @@
 			<territory type="GU">Guam</territory>
 			<territory type="GW">Gine-Bissau</territory>
 			<territory type="GY">Guyana</territory>
-			<territory type="HK">Hong Kong SAR - Çin</territory>
+			<territory type="HK">Hong Kong</territory>
 			<territory type="HM">Heard Adası ve McDonald Adaları</territory>
 			<territory type="HN">Honduras</territory>
 			<territory type="HR">Hırvatistan</territory>
@@ -804,13 +825,14 @@
 			<territory type="MC">Monako</territory>
 			<territory type="MD">Moldovya Cumhuriyeti</territory>
 			<territory type="ME">Karadağ</territory>
+			<territory type="MF">Saint Martin</territory>
 			<territory type="MG">Madagaskar</territory>
 			<territory type="MH">Marshall Adaları</territory>
 			<territory type="MK">Makedonya</territory>
 			<territory type="ML">Mali</territory>
 			<territory type="MM">Myanmar</territory>
 			<territory type="MN">Moğolistan</territory>
-			<territory type="MO">Makao S.A.R. Çin</territory>
+			<territory type="MO">Makao</territory>
 			<territory type="MP">Kuzey Mariana Adaları</territory>
 			<territory type="MQ">Martinik</territory>
 			<territory type="MR">Moritanya</territory>
@@ -916,20 +938,30 @@
 		</territories>
 		<variants>
 			<variant type="1901">Geleneksel Alman Yazım Kuralları</variant>
+			<variant type="1994">Standart Resia Yazım Kuralları</variant>
 			<variant type="1996">1996 Alman Yazım Kuralları</variant>
+			<variant type="1606NICT">1606'ya Dek Geç Ortaçağ Fransızcası</variant>
 			<variant type="AREVELA">Doğu Ermenicesi</variant>
 			<variant type="AREVMDA">Batı Ermenicesi</variant>
+			<variant type="BAKU1926">Birleştirilmiş Yeni Türk Alfabesi</variant>
+			<variant type="BISKE">San Giorgio/Bila Lehçesi</variant>
 			<variant type="BOONT">Boontling</variant>
-			<variant type="FONIPA">IPA Fonetik</variant>
-			<variant type="FONUPA">UPA Fonetik</variant>
+			<variant type="FONIPA">IPA Ses Bilimi</variant>
+			<variant type="FONUPA">UPA Ses Bilimi</variant>
+			<variant type="LIPAW">Resia Lipovaz Lehçesi</variant>
 			<variant type="MONOTON">Monotonik</variant>
 			<variant type="NEDIS">Natisone Lehçesi</variant>
+			<variant type="NJIVA">Gniva/Njiva Lehçesi</variant>
+			<variant type="OSOJS">Oseacco/Osojane Lehçesi</variant>
 			<variant type="POLYTON">Politonik</variant>
 			<variant type="POSIX">Bilgisayar</variant>
 			<variant type="REVISED">Gözden Geçirilmiş Yazım Kuralları</variant>
 			<variant type="ROZAJ">Resia Lehçesi</variant>
 			<variant type="SAAHO">Saho</variant>
+			<variant type="SCOTLAND">İskoç Standart İngilizcesi</variant>
 			<variant type="SCOUSE">Scouse</variant>
+			<variant type="SOLBA">Stolvizza/Solbica Lehçesi</variant>
+			<variant type="TARASK">Taraskievica Yazım Kuralları</variant>
 		</variants>
 		<keys>
 			<key type="calendar">Takvim</key>
@@ -944,11 +976,13 @@
 			<type type="gb2312han" key="collation">Basitleştirilmiş Çince Sıralaması - GB2312</type>
 			<type type="gregorian" key="calendar">Miladi Takvim</type>
 			<type type="hebrew" key="calendar">Yahudi Takvimi</type>
+			<type type="indian" key="calendar">Ulusal Hint Takvimi</type>
 			<type type="islamic" key="calendar">Hicri Takvim</type>
 			<type type="islamic-civil" key="calendar">Arap Takvimi</type>
 			<type type="japanese" key="calendar">Japon Takvimi</type>
 			<type type="phonebook" key="collation">Telefon Defteri Sıralaması</type>
 			<type type="pinyin" key="collation">Pinyin Sıralaması</type>
+			<type type="roc" key="calendar">Çin Cumhuriyeti Takvimi</type>
 			<type type="stroke" key="collation">Stroke Sıralaması</type>
 			<type type="traditional" key="collation">Geleneksel Sıralama</type>
 		</types>
@@ -956,9 +990,14 @@
 			<measurementSystemName type="US">ABD</measurementSystemName>
 			<measurementSystemName type="metric">Metrik</measurementSystemName>
 		</measurementSystemNames>
+		<codePatterns>
+			<codePattern type="language">Dil: {0}</codePattern>
+			<codePattern type="script">Betik: {0}</codePattern>
+			<codePattern type="territory">Bölge: {0}</codePattern>
+		</codePatterns>
 	</localeDisplayNames>
 	<characters>
-		<exemplarCharacters>[a-c ç d-g ğ h ı i İ j-o ö p r s ş t u ü v y z]</exemplarCharacters>
+		<exemplarCharacters>[a-c ç d-g ğ h ı i İ {i̇} j-o ö p r s ş t u ü v y z]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[á à ă â å ä ā æ é è ĕ ê ë ē í ì ĭ î ï ī ñ ó ò ŏ ô ø ō œ q ß ú ù ŭ û ū w x ÿ]</exemplarCharacters>
 		<exemplarCharacters type="currencySymbol">[a-z]</exemplarCharacters>
 	</characters>
@@ -971,6 +1010,13 @@
 	<dates>
 		<localizedPatternChars>GanjkHmsSEDFwWxhKzAeugXZvcL</localizedPatternChars>
 		<calendars>
+			<calendar type="chinese">
+				<dateTimeFormats>
+					<availableFormats>
+						<dateFormatItem id="yyMMM">yy MMM</dateFormatItem>
+					</availableFormats>
+				</dateTimeFormats>
+			</calendar>
 			<calendar type="coptic">
 				<months>
 					<monthContext type="format">
@@ -1165,17 +1211,107 @@
 						<dateFormatItem id="H">H</dateFormatItem>
 						<dateFormatItem id="HHmm">HH:mm</dateFormatItem>
 						<dateFormatItem id="HHmmss">HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
+						<dateFormatItem id="MEd">d-M E</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
 						<dateFormatItem id="MMMEd">d MMM E</dateFormatItem>
+						<dateFormatItem id="MMMMEd">d MMMM E</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
+						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="Md">d/M</dateFormatItem>
+						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="hhmm">hh:mm a</dateFormatItem>
 						<dateFormatItem id="hhmmss">hh:mm:ss a</dateFormatItem>
 						<dateFormatItem id="mmss">mm:ss</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
+						<dateFormatItem id="y">yyyy</dateFormatItem>
+						<dateFormatItem id="yM">M/yyyy</dateFormatItem>
+						<dateFormatItem id="yMEd">d/M/yyyy EEE</dateFormatItem>
+						<dateFormatItem id="yMMM">MMM yyyy</dateFormatItem>
+						<dateFormatItem id="yMMMEd">d MMM yyyy EEE</dateFormatItem>
+						<dateFormatItem id="yMMMM">MMMM yyyy</dateFormatItem>
+						<dateFormatItem id="yQ">Q yyyy</dateFormatItem>
+						<dateFormatItem id="yQQQ">QQQ yyyy</dateFormatItem>
 						<dateFormatItem id="yyMM">MM/yy</dateFormatItem>
 						<dateFormatItem id="yyMMM">MMM yy</dateFormatItem>
 						<dateFormatItem id="yyQ">Q yy</dateFormatItem>
+						<dateFormatItem id="yyQQQQ">QQQQ yy</dateFormatItem>
 						<dateFormatItem id="yyyy">yyyy</dateFormatItem>
 					</availableFormats>
+					<intervalFormats>
+						<intervalFormatFallback>{0} - {1}</intervalFormatFallback>
+						<intervalFormatItem id="M">
+							<greatestDifference id="M">M-M</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MEd">
+							<greatestDifference id="M">dd.MM E - dd.MM E</greatestDifference>
+							<greatestDifference id="d">dd.MM E - dd.MM E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMM">
+							<greatestDifference id="M">MMM-MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMEd">
+							<greatestDifference id="M">d MMM E - d MMM E</greatestDifference>
+							<greatestDifference id="d">d MMM E - d MMM E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMd">
+							<greatestDifference id="M">d MMM - d MMM</greatestDifference>
+							<greatestDifference id="d">d-d MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Md">
+							<greatestDifference id="M">dd.MM - dd.MM</greatestDifference>
+							<greatestDifference id="d">dd.MM - dd.MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d-d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="h">
+							<greatestDifference id="h">HH-HH</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="h">HH:mm-HH:mm</greatestDifference>
+							<greatestDifference id="m">HH:mm-HH:mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="h">HH:mm-HH:mm v</greatestDifference>
+							<greatestDifference id="m">HH:mm-HH:mm v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hv">
+							<greatestDifference id="h">HH-HH v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="y">
+							<greatestDifference id="y">y-y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yM">
+							<greatestDifference id="M">MM.yyyy - MM.yyyy</greatestDifference>
+							<greatestDifference id="y">MM.yyyy - MM.yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="M">dd.MM.yyyy E - dd.MM.yyyy E</greatestDifference>
+							<greatestDifference id="d">dd.MM.yyyy E - dd.MM.yyyy E</greatestDifference>
+							<greatestDifference id="y">dd.MM.yyyy E - dd.MM.yyyy E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMM">
+							<greatestDifference id="M">MMM-MMM yyyy</greatestDifference>
+							<greatestDifference id="y">MMM yyyy - MMM yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEd">
+							<greatestDifference id="M">dd MMM yyyy E - dd MMM yyyy E</greatestDifference>
+							<greatestDifference id="d">dd MMM yyyy E - dd MMM yyyy E</greatestDifference>
+							<greatestDifference id="y">dd MMM yyyy E - dd MMM yyyy E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="M">d MMM - d MMM yyyy</greatestDifference>
+							<greatestDifference id="d">d-d MMM yyyy</greatestDifference>
+							<greatestDifference id="y">d MMM yyyy - d MMM yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="M">dd.MM.yyyy - dd.MM.yyyy</greatestDifference>
+							<greatestDifference id="d">dd.MM.yyyy - dd.MM.yyyy</greatestDifference>
+							<greatestDifference id="y">dd.MM.yyyy - dd.MM.yyyy</greatestDifference>
+						</intervalFormatItem>
+					</intervalFormats>
 				</dateTimeFormats>
 				<fields>
 					<field type="era">
@@ -1323,6 +1459,7 @@
 			<hourFormat>+HH:mm;-HH:mm</hourFormat>
 			<gmtFormat>GMT{0}</gmtFormat>
 			<regionFormat>{0} Saati</regionFormat>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Etc/Unknown">
 				<exemplarCity>Bilinmeyen</exemplarCity>
 			</zone>
@@ -1336,11 +1473,10 @@
 				<exemplarCity>Güney Kutbu</exemplarCity>
 			</zone>
 			<zone type="Antarctica/DumontDUrville">
+				<exemplarCity>Dumont D'Urville</exemplarCity>
 			</zone>
 			<zone type="Europe/Vienna">
 				<exemplarCity>Viyana</exemplarCity>
-			</zone>
-			<zone type="Australia/Melbourne">
 			</zone>
 			<zone type="Australia/Sydney">
 				<exemplarCity>Sidney</exemplarCity>
@@ -1357,14 +1493,8 @@
 			<zone type="Asia/Bahrain">
 				<exemplarCity>Bahreyn</exemplarCity>
 			</zone>
-			<zone type="Africa/Kinshasa">
-			</zone>
-			<zone type="Africa/Lubumbashi">
-			</zone>
 			<zone type="Europe/Zurich">
 				<exemplarCity>Zürih</exemplarCity>
-			</zone>
-			<zone type="Pacific/Easter">
 			</zone>
 			<zone type="Asia/Kashgar">
 				<exemplarCity>Kaşgar</exemplarCity>
@@ -1522,8 +1652,6 @@
 			<zone type="America/Mexico_City">
 				<exemplarCity>Meksiko City</exemplarCity>
 			</zone>
-			<zone type="America/Cancun">
-			</zone>
 			<zone type="Asia/Kuching">
 				<exemplarCity>Kuçing</exemplarCity>
 			</zone>
@@ -1617,9 +1745,19 @@
 			<zone type="Europe/Zaporozhye">
 				<exemplarCity>Zaporojye</exemplarCity>
 			</zone>
-			<zone type="America/Anchorage">
+			<zone type="America/North_Dakota/New_Salem">
+				<exemplarCity>New Salem, Kuzey Dakota</exemplarCity>
+			</zone>
+			<zone type="America/North_Dakota/Center">
+				<exemplarCity>Merkez, Kuzey Dakota</exemplarCity>
 			</zone>
 			<zone type="America/Chicago">
+			</zone>
+			<zone type="America/Indiana/Knox">
+				<exemplarCity>Knox</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Marengo">
+				<exemplarCity>Marengo</exemplarCity>
 			</zone>
 			<zone type="Asia/Samarkand">
 				<exemplarCity>Semerkand</exemplarCity>
@@ -1644,62 +1782,39 @@
 					<standard>Acre Saati</standard>
 					<daylight>Acre Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>ACT (Acre)</standard>
-					<daylight>ACST (Acre)</daylight>
-				</short>
 			</metazone>
 			<metazone type="Afghanistan">
 				<long>
 					<standard>Afganistan Saati</standard>
 				</long>
-				<short>
-					<standard>AFT</standard>
-				</short>
 			</metazone>
 			<metazone type="Africa_Central">
 				<long>
 					<standard>Orta Afrika Saati</standard>
 				</long>
-				<short>
-					<standard>CAT</standard>
-				</short>
 			</metazone>
 			<metazone type="Africa_Eastern">
 				<long>
 					<standard>Doğu Afrika Saati</standard>
 				</long>
-				<short>
-					<standard>EAT</standard>
-				</short>
 			</metazone>
 			<metazone type="Africa_Southern">
 				<long>
+					<generic>Güney Afrika Saati</generic>
 					<standard>Güney Afrika Standart Saati</standard>
 				</long>
-				<short>
-					<standard>SAST</standard>
-				</short>
 			</metazone>
 			<metazone type="Africa_Western">
 				<long>
 					<standard>Batı Afrika Saati</standard>
 					<daylight>Batı Afrika Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>WAT</standard>
-					<daylight>WAST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Aktyubinsk">
 				<long>
 					<standard>Aktyubinsk Saati</standard>
 					<daylight>Aktyubinsk Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>AKTT</standard>
-					<daylight>AKTST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Alaska">
 				<long>
@@ -1707,31 +1822,25 @@
 					<standard>Alaska Standart Saati</standard>
 					<daylight>Alaska Yaz Saati</daylight>
 				</long>
-				<short>
-					<generic>AKT</generic>
-					<standard>AKST</standard>
-					<daylight>AKDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Alaska_Hawaii">
 				<long>
+					<generic>Alaska-Hawaii Saati</generic>
 					<standard>Alaska-Hawaii Standart Saati</standard>
 					<daylight>Alaska-Hawaii Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>AHST</standard>
-					<daylight>AHDT</daylight>
-				</short>
+			</metazone>
+			<metazone type="Almaty">
+				<long>
+					<standard>Almatı Saati</standard>
+					<daylight>Almatı Yaz Saati</daylight>
+				</long>
 			</metazone>
 			<metazone type="Amazon">
 				<long>
 					<standard>Amazon Saati</standard>
 					<daylight>Amazon Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>AMT</standard>
-					<daylight>AMST</daylight>
-				</short>
 			</metazone>
 			<metazone type="America_Central">
 				<long>
@@ -1739,11 +1848,6 @@
 					<standard>Merkezi Standart Saati</standard>
 					<daylight>Merkezi Yaz Saati</daylight>
 				</long>
-				<short>
-					<generic>CT</generic>
-					<standard>CST</standard>
-					<daylight>CDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="America_Eastern">
 				<long>
@@ -1751,11 +1855,6 @@
 					<standard>Doğu Standart Saati</standard>
 					<daylight>Doğu Yaz Saati</daylight>
 				</long>
-				<short>
-					<generic>ET</generic>
-					<standard>EST</standard>
-					<daylight>EDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="America_Mountain">
 				<long>
@@ -1763,11 +1862,6 @@
 					<standard>ABD Sıradağlar Standart Saati</standard>
 					<daylight>ABD Sıradağlar Yaz Saati</daylight>
 				</long>
-				<short>
-					<generic>MT</generic>
-					<standard>MST</standard>
-					<daylight>MDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="America_Pacific">
 				<long>
@@ -1775,21 +1869,12 @@
 					<standard>Pasifik Standart Saati</standard>
 					<daylight>Pasifik Yaz Saati</daylight>
 				</long>
-				<short>
-					<generic>PT</generic>
-					<standard>PST</standard>
-					<daylight>PDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Anadyr">
 				<long>
 					<standard>Anadır Saati</standard>
 					<daylight>Anadır Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>ANAT</standard>
-					<daylight>ANAST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Aqtau">
 				<long>
@@ -1818,7 +1903,7 @@
 					<daylight>Arap Yaz Saati</daylight>
 				</long>
 				<short>
-					<generic>13:25 S. Arabistan Saati</generic>
+					<generic>AT (Arabistan)</generic>
 					<standard>AST (Arap)</standard>
 					<daylight>ADT (Arap)</daylight>
 				</short>
@@ -1828,18 +1913,11 @@
 					<standard>Arjantin Saati</standard>
 					<daylight>Arjantin Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>ART</standard>
-					<daylight>ARST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Argentina_Western">
 				<long>
 					<standard>Batı Arjantin Saati</standard>
 				</long>
-				<short>
-					<standard>WART</standard>
-				</short>
 			</metazone>
 			<metazone type="Armenia">
 				<long>
@@ -1856,10 +1934,6 @@
 					<standard>Aşkabat Saati</standard>
 					<daylight>Aşkabat Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>ASHT</standard>
-					<daylight>ASHST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Atlantic">
 				<long>
@@ -1867,11 +1941,6 @@
 					<standard>Atlantik Standart Saati</standard>
 					<daylight>Atlantik Yaz Saati</daylight>
 				</long>
-				<short>
-					<generic>AT</generic>
-					<standard>AST</standard>
-					<daylight>ADT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Australia_Central">
 				<long>
@@ -1879,20 +1948,13 @@
 					<standard>Orta Avustralya Standart Saati</standard>
 					<daylight>Orta Avustralya Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>ACST</standard>
-					<daylight>ACDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Australia_CentralWestern">
 				<long>
 					<generic>Orta Batı Saati</generic>
 					<standard>Batı Merkezi Standart Saati</standard>
+					<daylight>Avustralya Batı Merkezi Yaz Saati</daylight>
 				</long>
-				<short>
-					<generic>CWT</generic>
-					<standard>CWST</standard>
-				</short>
 			</metazone>
 			<metazone type="Australia_Eastern">
 				<long>
@@ -1900,10 +1962,6 @@
 					<standard>Doğu Avustralya Standart Saati</standard>
 					<daylight>Doğu Avustralya Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>AEST</standard>
-					<daylight>AEDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Australia_Western">
 				<long>
@@ -1911,38 +1969,29 @@
 					<standard>Batı Avustralya Standart Saati</standard>
 					<daylight>Batı Avustralya Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>AWST</standard>
-					<daylight>AWDT</daylight>
-				</short>
+			</metazone>
+			<metazone type="Azerbaijan">
+				<long>
+					<standard>Azerbaycan Saati</standard>
+					<daylight>Azerbaycan Yaz Saati</daylight>
+				</long>
 			</metazone>
 			<metazone type="Azores">
 				<long>
 					<standard>Azor Saati</standard>
 					<daylight>Azor Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>AZOT</standard>
-					<daylight>AZOST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Baku">
 				<long>
 					<standard>Bakü Saati</standard>
 					<daylight>Bakü Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>BAKT</standard>
-					<daylight>BAKST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Bangladesh">
 				<long>
 					<standard>Bangladeş Saati</standard>
 				</long>
-				<short>
-					<standard>BDT</standard>
-				</short>
 			</metazone>
 			<metazone type="Bering">
 				<long>
@@ -1950,107 +1999,71 @@
 					<standard>Bering Standart Saati</standard>
 					<daylight>Bering Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>BST (Bering)</standard>
-					<daylight>BDT (Bering)</daylight>
-				</short>
 			</metazone>
 			<metazone type="Bhutan">
 				<long>
 					<standard>Bhutan Saati</standard>
 				</long>
-				<short>
-					<standard>BTT</standard>
-				</short>
 			</metazone>
 			<metazone type="Bolivia">
 				<long>
 					<standard>Bolivya Saati</standard>
 				</long>
-				<short>
-					<standard>BOT</standard>
-				</short>
 			</metazone>
 			<metazone type="Borneo">
 				<long>
 					<standard>Borneo Saati</standard>
 					<daylight>Borneo Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>BORT</standard>
-					<daylight>BORST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Brasilia">
 				<long>
 					<standard>Brasilia Saati</standard>
 					<daylight>Brasilia Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>BRT</standard>
-					<daylight>BRST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Brunei">
 				<long>
 					<standard>Brunei Saati</standard>
 				</long>
-				<short>
-					<standard>BNT</standard>
-				</short>
 			</metazone>
 			<metazone type="Cape_Verde">
 				<long>
 					<standard>Cape Verde Saati</standard>
 					<daylight>Cape Verde Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>CVT</standard>
-					<daylight>CVST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Chamorro">
 				<long>
+					<generic>Chamorro Saati</generic>
 					<standard>Chamorro Standart Saati</standard>
 				</long>
-				<short>
-					<standard>ChST</standard>
-				</short>
 			</metazone>
 			<metazone type="Changbai">
 				<long>
 					<standard>Changbai Saati</standard>
 				</long>
-				<short>
-					<standard>CHAT</standard>
-				</short>
 			</metazone>
 			<metazone type="Chatham">
 				<long>
 					<standard>Chatham Standart Saati</standard>
 					<daylight>Chatham Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>CHAST</standard>
-					<daylight>CHADT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Chile">
 				<long>
 					<standard>Şili Saati</standard>
 					<daylight>Şili Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>CLT</standard>
-					<daylight>CLST</daylight>
-				</short>
 			</metazone>
 			<metazone type="China">
 				<long>
+					<generic>Çin Saati</generic>
 					<standard>Çin Standart Saati</standard>
 					<daylight>Çin Yaz Saati</daylight>
 				</long>
 				<short>
+					<generic>CT (Çin)</generic>
 					<standard>CST (Çin)</standard>
 					<daylight>CDT (Çin)</daylight>
 				</short>
@@ -2060,46 +2073,28 @@
 					<standard>Çoybalsan Saati</standard>
 					<daylight>Çoybalsan Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>CHOT</standard>
-					<daylight>CHOST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Christmas">
 				<long>
 					<standard>Christmas Adası Saati</standard>
 				</long>
-				<short>
-					<standard>CXT</standard>
-				</short>
 			</metazone>
 			<metazone type="Cocos">
 				<long>
 					<standard>Cocos Adaları Saati</standard>
 				</long>
-				<short>
-					<standard>CCT</standard>
-				</short>
 			</metazone>
 			<metazone type="Colombia">
 				<long>
 					<standard>Kolombiya Saati</standard>
 					<daylight>Kolombiya Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>COT</standard>
-					<daylight>COST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Cook">
 				<long>
 					<standard>Cook Adaları Saati</standard>
 					<daylight>Cook Adaları Yarı Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>CKT</standard>
-					<daylight>CKHST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Cuba">
 				<long>
@@ -2116,217 +2111,133 @@
 				<long>
 					<standard>Dakka Saati</standard>
 				</long>
-				<short>
-					<standard>DACT</standard>
-				</short>
 			</metazone>
 			<metazone type="Davis">
 				<long>
 					<standard>Davis Saati</standard>
 				</long>
-				<short>
-					<standard>DAVT</standard>
-				</short>
 			</metazone>
 			<metazone type="DumontDUrville">
 				<long>
 					<standard>Dumont-d'Urville Saati</standard>
 				</long>
-				<short>
-					<standard>DDUT</standard>
-				</short>
 			</metazone>
 			<metazone type="Dushanbe">
 				<long>
 					<standard>Duşanbe Saati</standard>
 					<daylight>Duşanbe Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>DUST</standard>
-					<daylight>DUSST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Dutch_Guiana">
 				<long>
 					<standard>Hollanda Guyanası Saati</standard>
 				</long>
-				<short>
-					<standard>NEGT</standard>
-				</short>
 			</metazone>
 			<metazone type="East_Timor">
 				<long>
 					<standard>Doğu Timor Saati</standard>
 				</long>
-				<short>
-					<standard>TLT</standard>
-				</short>
 			</metazone>
 			<metazone type="Easter">
 				<long>
 					<standard>Easter Adası Saati</standard>
 					<daylight>Easter Adası Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>EAST</standard>
-					<daylight>EASST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Ecuador">
 				<long>
 					<standard>Ekvator Saati</standard>
 				</long>
-				<short>
-					<standard>ECT</standard>
-				</short>
 			</metazone>
 			<metazone type="Europe_Central">
 				<long>
 					<standard>Orta Avrupa Saati</standard>
 					<daylight>Orta Avrupa Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>CET</standard>
-					<daylight>CEST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Europe_Eastern">
 				<long>
 					<standard>Doğu Avrupa Saati</standard>
 					<daylight>Doğu Avrupa Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>EET</standard>
-					<daylight>EEST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Europe_Western">
 				<long>
 					<standard>Batı Avrupa Saati</standard>
 					<daylight>Batı Avrupa Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>WET</standard>
-					<daylight>WEST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Falkland">
 				<long>
 					<standard>Falkland Adaları Saati</standard>
 					<daylight>Falkland Adaları Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>FKT</standard>
-					<daylight>FKST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Fiji">
 				<long>
 					<standard>Fiji Saati</standard>
 					<daylight>Fiji Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>FJT</standard>
-					<daylight>FJST</daylight>
-				</short>
 			</metazone>
 			<metazone type="French_Guiana">
 				<long>
 					<standard>Fransız Guyanası Saati</standard>
 				</long>
-				<short>
-					<standard>GFT</standard>
-				</short>
 			</metazone>
 			<metazone type="French_Southern">
 				<long>
 					<standard>Fransız Güney Bölgeleri Saati</standard>
 				</long>
-				<short>
-					<standard>TFT</standard>
-				</short>
 			</metazone>
 			<metazone type="Frunze">
 				<long>
 					<standard>Bişkek Saati</standard>
 					<daylight>Bişkek Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>FRUT</standard>
-					<daylight>FRUST</daylight>
-				</short>
 			</metazone>
 			<metazone type="GMT">
 				<long>
 					<standard>Greenwich Merkez Saati</standard>
 				</long>
-				<short>
-					<standard>GMT</standard>
-				</short>
 			</metazone>
 			<metazone type="Galapagos">
 				<long>
 					<standard>Galapagos Saati</standard>
 				</long>
-				<short>
-					<standard>GALT</standard>
-				</short>
 			</metazone>
 			<metazone type="Gambier">
 				<long>
 					<standard>Gambier Saati</standard>
 				</long>
-				<short>
-					<standard>GAMT</standard>
-				</short>
 			</metazone>
 			<metazone type="Georgia">
 				<long>
 					<standard>Gürcistan Saati</standard>
 					<daylight>Gürcistan Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>GET</standard>
-					<daylight>GEST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Gilbert_Islands">
 				<long>
 					<standard>Gilbert Adaları Saati</standard>
 				</long>
-				<short>
-					<standard>GILT</standard>
-				</short>
 			</metazone>
 			<metazone type="Greenland_Central">
 				<long>
 					<standard>Orta Grönland Saati</standard>
 					<daylight>Orta Grönland Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>CGT</standard>
-					<daylight>CGST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Greenland_Eastern">
 				<long>
 					<standard>Doğu Grönland Saati</standard>
 					<daylight>Doğu Grönland Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>EGT</standard>
-					<daylight>EGST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Greenland_Western">
 				<long>
 					<standard>Batı Grönland Saati</standard>
 					<daylight>Batı Grönland Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>WGT</standard>
-					<daylight>WGST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Guam">
 				<long>
@@ -2338,187 +2249,124 @@
 			</metazone>
 			<metazone type="Gulf">
 				<long>
+					<generic>Körfez Saati</generic>
 					<standard>Gulf Standart Saati</standard>
 				</long>
-				<short>
-					<standard>GST</standard>
-				</short>
 			</metazone>
 			<metazone type="Guyana">
 				<long>
 					<standard>Guyana Saati</standard>
 				</long>
-				<short>
-					<standard>GYT</standard>
-				</short>
 			</metazone>
 			<metazone type="Hawaii_Aleutian">
 				<long>
 					<standard>Hawaii-Aleutian Standart Saati</standard>
 				</long>
-				<short>
-					<standard>HST</standard>
-				</short>
 			</metazone>
 			<metazone type="Hong_Kong">
 				<long>
 					<standard>Hong Kong Saati</standard>
 					<daylight>Hong Kong Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>HKT</standard>
-					<daylight>HKST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Hovd">
 				<long>
 					<standard>Hovd Saati</standard>
 					<daylight>Hovd Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>HOVT</standard>
-					<daylight>HOVST</daylight>
-				</short>
 			</metazone>
 			<metazone type="India">
 				<long>
 					<standard>Hindistan Standart Saati</standard>
 				</long>
-				<short>
-					<standard>IST</standard>
-				</short>
 			</metazone>
 			<metazone type="Indian_Ocean">
 				<long>
 					<standard>Hint Okyanusu Saati</standard>
 				</long>
-				<short>
-					<standard>IOT</standard>
-				</short>
 			</metazone>
 			<metazone type="Indochina">
 				<long>
-					<standard>13:25 GMT+07:00</standard>
+					<standard>Çinhindi Saati</standard>
 				</long>
-				<short>
-					<standard>13:25 GMT+07:00</standard>
-				</short>
 			</metazone>
 			<metazone type="Indonesia_Central">
 				<long>
 					<standard>Orta Endonezya Saati</standard>
 				</long>
-				<short>
-					<standard>CIT</standard>
-				</short>
 			</metazone>
 			<metazone type="Indonesia_Eastern">
 				<long>
 					<standard>Doğu Endonezya Saati</standard>
 				</long>
-				<short>
-					<standard>EIT</standard>
-				</short>
 			</metazone>
 			<metazone type="Indonesia_Western">
 				<long>
 					<standard>Batı Endonezya Saati</standard>
 				</long>
-				<short>
-					<standard>WIT</standard>
-				</short>
 			</metazone>
 			<metazone type="Iran">
 				<long>
 					<standard>İran Standart Saati</standard>
 					<daylight>İran Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>IRST</standard>
-					<daylight>IRDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Irkutsk">
 				<long>
 					<standard>Irkutsk Saati</standard>
 					<daylight>Irkutsk Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>IRKT</standard>
-					<daylight>IRKST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Israel">
 				<long>
+					<generic>İsrail Saati</generic>
 					<standard>İsrail Standart Saati</standard>
 					<daylight>İsrail Yaz Saati</daylight>
 				</long>
 				<short>
 					<standard>IST (İsrail)</standard>
-					<daylight>IDT</daylight>
 				</short>
 			</metazone>
 			<metazone type="Japan">
 				<long>
+					<generic>Japonya Saati</generic>
 					<standard>Japonya Standart Saati</standard>
 					<daylight>Japonya Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>JST</standard>
-					<daylight>JDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Kamchatka">
 				<long>
 					<standard>Petropavlovsk-Kamçatski Saati</standard>
 					<daylight>Petropavlovsk-Kamçatski Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>PETT</standard>
-					<daylight>PETST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Karachi">
 				<long>
 					<standard>Karaçi Saati</standard>
 				</long>
-				<short>
-					<standard>KART</standard>
-				</short>
 			</metazone>
 			<metazone type="Kashgar">
 				<long>
 					<standard>Kaşgar Saati</standard>
 				</long>
-				<short>
-					<standard>KAST</standard>
-				</short>
 			</metazone>
 			<metazone type="Kazakhstan_Eastern">
 				<long>
+					<generic>Doğu Kazakistan Saati</generic>
 					<standard>Doğu Kazakistan Standart Saati</standard>
 				</long>
-				<short>
-					<standard>EKST</standard>
-				</short>
 			</metazone>
 			<metazone type="Kazakhstan_Western">
 				<long>
+					<generic>Batı Kazakistan Saati</generic>
 					<standard>Batı Kazakistan Standart Saati</standard>
 				</long>
-				<short>
-					<standard>WKST</standard>
-				</short>
 			</metazone>
 			<metazone type="Kizilorda">
 				<long>
 					<standard>Kızılorda Saati</standard>
 					<daylight>Kızılorda Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>KIZT</standard>
-					<daylight>KIZST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Korea">
 				<long>
@@ -2526,78 +2374,48 @@
 					<standard>Kore Standart Saati</standard>
 					<daylight>Kore Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>KST</standard>
-					<daylight>KDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Kosrae">
 				<long>
 					<standard>Kosrae Saati</standard>
 				</long>
-				<short>
-					<standard>KOST</standard>
-				</short>
 			</metazone>
 			<metazone type="Krasnoyarsk">
 				<long>
 					<standard>Krasnoyarsk Saati</standard>
 					<daylight>Krasnoyarsk Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>KRAT</standard>
-					<daylight>KRAST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Kuybyshev">
 				<long>
 					<standard>Kuybişev Saati</standard>
 					<daylight>Kuybişev Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>KUYT</standard>
-					<daylight>KUYST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Kwajalein">
 				<long>
 					<standard>Kwajalein Saati</standard>
 				</long>
-				<short>
-					<standard>KWAT</standard>
-				</short>
 			</metazone>
 			<metazone type="Kyrgystan">
 				<long>
 					<standard>Kırgızistan Saati</standard>
 				</long>
-				<short>
-					<standard>KGT</standard>
-				</short>
 			</metazone>
 			<metazone type="Lanka">
 				<long>
 					<standard>Lanka Saati</standard>
 				</long>
-				<short>
-					<standard>LKT</standard>
-				</short>
 			</metazone>
 			<metazone type="Line_Islands">
 				<long>
 					<standard>Line Adaları Saati</standard>
 				</long>
-				<short>
-					<standard>LINT</standard>
-				</short>
 			</metazone>
 			<metazone type="Long_Shu">
 				<long>
 					<standard>Long-Shu Saati</standard>
 				</long>
-				<short>
-					<standard>LONT</standard>
-				</short>
 			</metazone>
 			<metazone type="Lord_Howe">
 				<long>
@@ -2605,129 +2423,87 @@
 					<standard>Lord Howe Standart Saati</standard>
 					<daylight>Lord Howe Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>LHDT</standard>
-				</short>
 			</metazone>
 			<metazone type="Macau">
 				<long>
 					<standard>Makao Saati</standard>
 					<daylight>Makao Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>MOT</standard>
-					<daylight>MOST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Magadan">
 				<long>
 					<standard>Magadan Saati</standard>
 					<daylight>Magadan Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>MAGT</standard>
-					<daylight>MAGST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Malaya">
 				<long>
 					<standard>Malaya Saati</standard>
 				</long>
-				<short>
-					<standard>MALT</standard>
-				</short>
 			</metazone>
 			<metazone type="Malaysia">
 				<long>
 					<standard>Malezya Saati</standard>
 				</long>
-				<short>
-					<standard>MYT</standard>
-				</short>
 			</metazone>
 			<metazone type="Maldives">
 				<long>
 					<standard>Maldivler Saati</standard>
 				</long>
-				<short>
-					<standard>MVT</standard>
-				</short>
 			</metazone>
 			<metazone type="Marquesas">
 				<long>
 					<standard>Markiz Saati</standard>
 				</long>
-				<short>
-					<standard>MART</standard>
-				</short>
 			</metazone>
 			<metazone type="Marshall_Islands">
 				<long>
 					<standard>Marshall Adaları Saati</standard>
 				</long>
-				<short>
-					<standard>MHT</standard>
-				</short>
 			</metazone>
 			<metazone type="Mauritius">
 				<long>
 					<standard>Mauritius Saati</standard>
 				</long>
-				<short>
-					<standard>MUT</standard>
-				</short>
 			</metazone>
 			<metazone type="Mawson">
 				<long>
 					<standard>Mawson Saati</standard>
 				</long>
-				<short>
-					<standard>MAWT</standard>
-				</short>
 			</metazone>
 			<metazone type="Mongolia">
 				<long>
 					<standard>Ulan Batur Saati</standard>
 					<daylight>Ulan Batur Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>ULAT</standard>
-					<daylight>ULAST</daylight>
-				</short>
+			</metazone>
+			<metazone type="Moscow">
+				<long>
+					<generic>Moskova Saati</generic>
+					<standard>Moskova Standart Saati</standard>
+					<daylight>Moskova Yaz Saati</daylight>
+				</long>
 			</metazone>
 			<metazone type="Myanmar">
 				<long>
 					<standard>Myanmar Saati</standard>
 				</long>
-				<short>
-					<standard>MMT</standard>
-				</short>
 			</metazone>
 			<metazone type="Nauru">
 				<long>
 					<standard>Nauru Saati</standard>
 				</long>
-				<short>
-					<standard>NRT</standard>
-				</short>
 			</metazone>
 			<metazone type="Nepal">
 				<long>
 					<standard>Nepal Saati</standard>
 				</long>
-				<short>
-					<standard>NPT</standard>
-				</short>
 			</metazone>
 			<metazone type="New_Caledonia">
 				<long>
 					<standard>Yeni Kaledonya Saati</standard>
 					<daylight>Yeni Kaledonya Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>NCT</standard>
-					<daylight>NCST</daylight>
-				</short>
 			</metazone>
 			<metazone type="New_Zealand">
 				<long>
@@ -2735,10 +2511,6 @@
 					<standard>Yeni Zelanda Standart Saati</standard>
 					<daylight>Yeni Zelanda Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>NZST</standard>
-					<daylight>NZDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Newfoundland">
 				<long>
@@ -2746,129 +2518,78 @@
 					<standard>Newfoundland Standart Saati</standard>
 					<daylight>Newfoundland Yaz Saati</daylight>
 				</long>
-				<short>
-					<generic>NT</generic>
-					<standard>NST</standard>
-					<daylight>NDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Niue">
 				<long>
 					<standard>Niue Saati</standard>
 				</long>
-				<short>
-					<standard>NUT</standard>
-				</short>
 			</metazone>
 			<metazone type="Norfolk">
 				<long>
 					<standard>Norfolk Adası Saati</standard>
 				</long>
-				<short>
-					<standard>NFT</standard>
-				</short>
 			</metazone>
 			<metazone type="Noronha">
 				<long>
 					<standard>Fernando de Noronha Saati</standard>
 					<daylight>Fernando de Noronha Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>FNT</standard>
-					<daylight>FNST</daylight>
-				</short>
 			</metazone>
 			<metazone type="North_Mariana">
 				<long>
 					<standard>Kuzey Mariana Adaları Saati</standard>
 				</long>
-				<short>
-					<standard>MPT</standard>
-				</short>
 			</metazone>
 			<metazone type="Novosibirsk">
 				<long>
 					<standard>Novosibirsk Saati</standard>
 					<daylight>Novosibirsk Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>NOVT</standard>
-					<daylight>NOVST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Omsk">
 				<long>
 					<standard>Omsk Saati</standard>
 					<daylight>Omsk Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>OMST</standard>
-					<daylight>OMSST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Pakistan">
 				<long>
 					<standard>Pakistan Saati</standard>
 					<daylight>Pakistan Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>PKT</standard>
-					<daylight>PKST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Palau">
 				<long>
 					<standard>Palau Saati</standard>
 				</long>
-				<short>
-					<standard>PWT</standard>
-				</short>
 			</metazone>
 			<metazone type="Papua_New_Guinea">
 				<long>
 					<standard>Papua Yeni Gine Saati</standard>
 				</long>
-				<short>
-					<standard>PGT</standard>
-				</short>
 			</metazone>
 			<metazone type="Paraguay">
 				<long>
 					<standard>Paraguay Saati</standard>
 					<daylight>Paraguay Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>PYT</standard>
-					<daylight>PYST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Peru">
 				<long>
 					<standard>Peru Saati</standard>
 					<daylight>Peru Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>PET</standard>
-					<daylight>PEST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Philippines">
 				<long>
 					<standard>Filipinler Saati</standard>
 					<daylight>Filipinler Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>PHT</standard>
-					<daylight>PHST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Phoenix_Islands">
 				<long>
 					<standard>Phoenix Adaları Saati</standard>
 				</long>
-				<short>
-					<standard>PHOT</standard>
-				</short>
 			</metazone>
 			<metazone type="Pierre_Miquelon">
 				<long>
@@ -2876,72 +2597,44 @@
 					<standard>Pierre ve Miquelon Standart Saati</standard>
 					<daylight>Pierre ve Miquelon Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>PMST</standard>
-					<daylight>PMDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Pitcairn">
 				<long>
 					<standard>Pitcairn Saati</standard>
 				</long>
-				<short>
-					<standard>PNT</standard>
-				</short>
 			</metazone>
 			<metazone type="Ponape">
 				<long>
 					<standard>Ponape Saati</standard>
 				</long>
-				<short>
-					<standard>PONT</standard>
-				</short>
 			</metazone>
 			<metazone type="Qyzylorda">
 				<long>
 					<standard>Kızılorda Saati</standard>
 					<daylight>Kızılorda Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>QYZT</standard>
-					<daylight>QYZST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Reunion">
 				<long>
 					<standard>Reunion Saati</standard>
 				</long>
-				<short>
-					<standard>RET</standard>
-				</short>
 			</metazone>
 			<metazone type="Rothera">
 				<long>
 					<standard>Rothera Saati</standard>
 				</long>
-				<short>
-					<standard>ROTT</standard>
-				</short>
 			</metazone>
 			<metazone type="Sakhalin">
 				<long>
 					<standard>Sakhalin Saati</standard>
 					<daylight>Sakhalin Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>SAKT</standard>
-					<daylight>SAKST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Samara">
 				<long>
 					<standard>Samara Saati</standard>
 					<daylight>Samara Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>SAMT</standard>
-					<daylight>SAMST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Samarkand">
 				<long>
@@ -2957,43 +2650,27 @@
 				<long>
 					<standard>Samoa Standart Saati</standard>
 				</long>
-				<short>
-					<standard>SST</standard>
-				</short>
 			</metazone>
 			<metazone type="Seychelles">
 				<long>
 					<standard>Seyşeller Saati</standard>
 				</long>
-				<short>
-					<standard>SCT</standard>
-				</short>
 			</metazone>
 			<metazone type="Shevchenko">
 				<long>
 					<standard>Şevçenko Saati</standard>
 					<daylight>Şevçenko Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>SHET</standard>
-					<daylight>SHEST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Singapore">
 				<long>
 					<standard>Singapur Standart Saati</standard>
 				</long>
-				<short>
-					<standard>SGT</standard>
-				</short>
 			</metazone>
 			<metazone type="Solomon">
 				<long>
 					<standard>Solomon Adaları Saati</standard>
 				</long>
-				<short>
-					<standard>SBT</standard>
-				</short>
 			</metazone>
 			<metazone type="South_Georgia">
 				<long>
@@ -3007,247 +2684,151 @@
 				<long>
 					<standard>Surinam Saati</standard>
 				</long>
-				<short>
-					<standard>SRT</standard>
-				</short>
 			</metazone>
 			<metazone type="Sverdlovsk">
 				<long>
 					<standard>Sverdlovsk Saati</standard>
 					<daylight>Sverdlovsk Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>SVET</standard>
-					<daylight>SVEST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Syowa">
 				<long>
 					<standard>Showa Saati</standard>
 				</long>
-				<short>
-					<standard>SYOT</standard>
-				</short>
 			</metazone>
 			<metazone type="Tahiti">
 				<long>
 					<standard>Tahiti Saati</standard>
 				</long>
-				<short>
-					<standard>TAHT</standard>
-				</short>
 			</metazone>
 			<metazone type="Tajikistan">
 				<long>
 					<standard>Tacikistan Saati</standard>
 				</long>
-				<short>
-					<standard>TJT</standard>
-				</short>
 			</metazone>
 			<metazone type="Tashkent">
 				<long>
 					<standard>Taşkent Saati</standard>
 					<daylight>Taşkent Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>TAST</standard>
-					<daylight>TASST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Tbilisi">
 				<long>
 					<standard>Tiflis Saati</standard>
 					<daylight>Tiflis Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>TBIT</standard>
-					<daylight>TBIST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Tokelau">
 				<long>
 					<standard>Tokelau Saati</standard>
 				</long>
-				<short>
-					<standard>TKT</standard>
-				</short>
 			</metazone>
 			<metazone type="Tonga">
 				<long>
 					<standard>Tonga Saati</standard>
 					<daylight>Tonga Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>TOT</standard>
-					<daylight>TOST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Truk">
 				<long>
 					<standard>Truk Saati</standard>
 				</long>
-				<short>
-					<standard>TRUT</standard>
-				</short>
 			</metazone>
 			<metazone type="Turkey">
 				<long>
 					<standard>Türkiye Saati</standard>
 					<daylight>Türkiye Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>TRT</standard>
-					<daylight>TRST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Turkmenistan">
 				<long>
 					<standard>Türkmenistan Saati</standard>
 					<daylight>Türkmenistan Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>TMT</standard>
-					<daylight>TMST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Tuvalu">
 				<long>
 					<standard>Tuvalu Saati</standard>
 				</long>
-				<short>
-					<standard>TVT</standard>
-				</short>
 			</metazone>
 			<metazone type="Uralsk">
 				<long>
-					<standard>Kazakistan</standard>
-					<daylight>Kazakistan Yaz Saati</daylight>
+					<standard>Oral Saati</standard>
+					<daylight>Oral Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>URAT</standard>
-					<daylight>URAST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Uruguay">
 				<long>
 					<standard>Uruguay Saati</standard>
 					<daylight>Uruguay Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>UYT</standard>
-					<daylight>UYST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Urumqi">
 				<long>
 					<standard>Urumçi Saati</standard>
 				</long>
-				<short>
-					<standard>URUT</standard>
-				</short>
 			</metazone>
 			<metazone type="Uzbekistan">
 				<long>
 					<standard>Özbekistan Saati</standard>
 					<daylight>Özbekistan Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>UZT</standard>
-					<daylight>UZST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Vanuatu">
 				<long>
 					<standard>Vanuatu Saati</standard>
 					<daylight>Vanuatu Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>VUT</standard>
-					<daylight>VUST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Venezuela">
 				<long>
 					<standard>Venezuela Saati</standard>
 				</long>
-				<short>
-					<standard>VET</standard>
-				</short>
 			</metazone>
 			<metazone type="Vladivostok">
 				<long>
 					<standard>Vladivostok Saati</standard>
 					<daylight>Vladivostok Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>VLAT</standard>
-					<daylight>VLAST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Volgograd">
 				<long>
 					<standard>Volgograd Saati</standard>
 					<daylight>Volgograd Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>VOLT</standard>
-					<daylight>VOLST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Vostok">
 				<long>
 					<standard>Vostok Saati</standard>
 				</long>
-				<short>
-					<standard>VOST</standard>
-				</short>
 			</metazone>
 			<metazone type="Wake">
 				<long>
 					<standard>Wake Adası Saati</standard>
 				</long>
-				<short>
-					<standard>WAKT</standard>
-				</short>
 			</metazone>
 			<metazone type="Wallis">
 				<long>
 					<standard>Wallis ve Futuna Saati</standard>
 				</long>
-				<short>
-					<standard>WFT</standard>
-				</short>
 			</metazone>
 			<metazone type="Yakutsk">
 				<long>
 					<standard>Yakutsk Saati</standard>
 					<daylight>Yakutsk Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>YAKT</standard>
-					<daylight>YAKST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Yekaterinburg">
 				<long>
 					<standard>Yekaterinburg Saati</standard>
 					<daylight>Yekaterinburg Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>YEKT</standard>
-					<daylight>YEKST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Yerevan">
 				<long>
 					<standard>Erivan Saati</standard>
 					<daylight>Erivan Yaz Saati</daylight>
 				</long>
-				<short>
-					<standard>YERT</standard>
-					<daylight>YERST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Yukon">
 				<long>
@@ -3255,11 +2836,6 @@
 					<standard>Yukon Standart Saati</standard>
 					<daylight>Yukon Yaz Saati</daylight>
 				</long>
-				<short>
-					<generic>YT</generic>
-					<standard>YST</standard>
-					<daylight>YDT</daylight>
-				</short>
 			</metazone>
 		</timeZoneNames>
 	</dates>
@@ -3267,6 +2843,16 @@
 		<symbols>
 			<decimal>,</decimal>
 			<group>.</group>
+			<list>;</list>
+			<percentSign>%</percentSign>
+			<nativeZeroDigit>0</nativeZeroDigit>
+			<patternDigit>#</patternDigit>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+			<exponential>E</exponential>
+			<perMille>‰</perMille>
+			<infinity>∞</infinity>
+			<nan>NaN</nan>
 		</symbols>
 		<decimalFormats>
 			<decimalFormatLength>
@@ -3285,16 +2871,17 @@
 		<percentFormats>
 			<percentFormatLength>
 				<percentFormat>
-					<pattern>% #,##0</pattern>
+					<pattern>% #,##0</pattern>
 				</percentFormat>
 			</percentFormatLength>
 		</percentFormats>
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>#,##0.00 ¤</pattern>
+					<pattern>#,##0.00 ¤</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
+			<unitPattern count="other">{0} {1}</unitPattern>
 		</currencyFormats>
 		<currencies>
 			<currency type="ADP">
@@ -3600,6 +3187,9 @@
 				<symbol>lari</symbol>
 			</currency>
 			<currency type="GHC">
+				<displayName>Gana Sedisi (1979-2007)</displayName>
+			</currency>
+			<currency type="GHS">
 				<displayName>Gana Sedisi</displayName>
 			</currency>
 			<currency type="GIP">
@@ -3967,8 +3557,11 @@
 			<currency type="SDD">
 				<displayName>Sudan Dinarı</displayName>
 			</currency>
-			<currency type="SDP">
+			<currency type="SDG">
 				<displayName>Sudan Lirası</displayName>
+			</currency>
+			<currency type="SDP">
+				<displayName>Eski Sudan Lirası</displayName>
 			</currency>
 			<currency type="SEK">
 				<displayName>İsveç Kronu</displayName>
@@ -3993,7 +3586,7 @@
 			</currency>
 			<currency type="SOS">
 				<displayName>Somali Şilini</displayName>
-				<symbol>So. Sh.</symbol>
+				<symbol>Sh.</symbol>
 			</currency>
 			<currency type="SRD">
 				<displayName>Surinam Doları</displayName>
@@ -4043,11 +3636,11 @@
 				<displayName>Timor Esküdosu</displayName>
 			</currency>
 			<currency type="TRL">
-				<displayName>Türk Lirası</displayName>
+				<displayName>Eski Türk Lirası</displayName>
 				<symbol>TL</symbol>
 			</currency>
 			<currency type="TRY">
-				<displayName>Yeni Türk Lirası</displayName>
+				<displayName>Türk Lirası</displayName>
 				<symbol>YTL</symbol>
 			</currency>
 			<currency type="TTD">
@@ -4085,6 +3678,9 @@
 			<currency type="USS">
 				<displayName>ABD Doları (Aynı gün)</displayName>
 			</currency>
+			<currency type="UYI">
+				<displayName>Uruguay Peso en Unidades Indexadas</displayName>
+			</currency>
 			<currency type="UYP">
 				<displayName>Uruguay Pezosu (1975-1993)</displayName>
 			</currency>
@@ -4098,6 +3694,10 @@
 			<currency type="VEB">
 				<displayName>Venezuela Bolivarı</displayName>
 				<symbol>Be</symbol>
+			</currency>
+			<currency type="VEF">
+				<displayName>Güçlü Venezuela Bolivarı</displayName>
+				<symbol>BsF</symbol>
 			</currency>
 			<currency type="VND">
 				<displayName>Vietnam Dongu</displayName>
@@ -4206,6 +3806,29 @@
 			</currency>
 		</currencies>
 	</numbers>
+	<units>
+		<unit type="day">
+			<unitPattern count="other">{0} gün</unitPattern>
+		</unit>
+		<unit type="hour">
+			<unitPattern count="other">{0} saat</unitPattern>
+		</unit>
+		<unit type="minute">
+			<unitPattern count="other">{0} dakika</unitPattern>
+		</unit>
+		<unit type="month">
+			<unitPattern count="other">{0} ay</unitPattern>
+		</unit>
+		<unit type="second">
+			<unitPattern count="other">{0} saniye</unitPattern>
+		</unit>
+		<unit type="week">
+			<unitPattern count="other">{0} hafta</unitPattern>
+		</unit>
+		<unit type="year">
+			<unitPattern count="other">{0} yıl</unitPattern>
+		</unit>
+	</units>
 	<posix>
 		<messages>
 			<yesstr>evet:e</yesstr>

@@ -46,6 +46,7 @@ class Mage_GoogleBase_SelectionController extends Mage_Adminhtml_Controller_Acti
 
     public function gridAction()
     {
+        $this->loadLayout();
         return $this->getResponse()->setBody(
             $this->getLayout()
                 ->createBlock('googlebase/adminhtml_items_product')

@@ -17,7 +17,7 @@
  * @subpackage Zend_Auth_Adapter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: OpenId.php 8862 2008-03-16 15:36:00Z thomas $
+ * @version    $Id: OpenId.php 12519 2008-11-10 18:41:24Z alexander $
  */
 
 
@@ -94,6 +94,13 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
      * @var bool
      */
     private $_check_immediate = false;
+
+    /**
+     * HTTP client to make HTTP requests
+     *
+     * @var Zend_Http_Client $_httpClient
+     */
+    private $_httpClient = null;
 
     /**
      * Constructor
@@ -208,6 +215,15 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
     }
 
     /**
+     * Sets HTTP client object to make HTTP requests
+     *
+     * @param Zend_Http_Client $client HTTP client object to be used
+     */
+    public function setHttpClient($client) {
+        $this->_httpClient = $client;
+    }
+
+    /**
      * Authenticates the given OpenId identity.
      * Defined by Zend_Auth_Adapter_Interface.
      *
@@ -218,6 +234,7 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
         $id = $this->_id;
         if (!empty($id)) {
             $consumer = new Zend_OpenId_Consumer($this->_storage);
+            $consumer->setHttpClient($this->_httpClient);
             /* login() is never returns on success */
             if (!$this->_check_immediate) {
                 if (!$consumer->login($id,
@@ -228,7 +245,7 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
                     return new Zend_Auth_Result(
                         Zend_Auth_Result::FAILURE,
                         $id,
-                        array("Authentication failed"));
+                        array("Authentication failed", $consumer->getError()));
                 }
             } else {
                 if (!$consumer->check($id,
@@ -239,19 +256,14 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
                     return new Zend_Auth_Result(
                         Zend_Auth_Result::FAILURE,
                         $id,
-                        array("Authentication failed"));
+                        array("Authentication failed", $consumer->getError()));
                 }
             }
         } else {
             $params = (isset($_SERVER['REQUEST_METHOD']) &&
                        $_SERVER['REQUEST_METHOD']=='POST') ? $_POST: $_GET;
-            if (!isset($params['openid_mode'])) {
-                return new Zend_Auth_Result(
-                    Zend_Auth_Result::FAILURE,
-                    $id,
-                    array("Authentication failed"));
-            }
             $consumer = new Zend_OpenId_Consumer($this->_storage);
+            $consumer->setHttpClient($this->_httpClient);
             if ($consumer->verify(
                     $params,
                     $id,
@@ -264,7 +276,7 @@ class Zend_Auth_Adapter_OpenId implements Zend_Auth_Adapter_Interface
                 return new Zend_Auth_Result(
                     Zend_Auth_Result::FAILURE,
                     $id,
-                    array("Authentication failed"));
+                    array("Authentication failed", $consumer->getError()));
             }
         }
     }

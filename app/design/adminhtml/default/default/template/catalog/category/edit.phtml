@@ -56,7 +56,17 @@
 
     }
 
-    function updateContent(url, params, refreshTree){
+    /**
+     * Update category content area
+     */
+    function updateContent(url, params, refreshTree) {
+        if (!params) {
+            params = {};
+        }
+        if (!params.form_key) {
+            params.form_key = FORM_KEY;
+        }
+
        /*if(params.node_name)
        {
            var currentNode = tree.getNodeById(tree.currentNodeId);
@@ -67,7 +77,7 @@
             categoryContainer,
             url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true' ),
             {
-                parameters:  params || {},
+                parameters:  params,
                 method:      'post',
                 loaderArea:  categoryContainer,
                 onSuccess: function(transport) {
@@ -86,12 +96,14 @@
         );
     }
 
+    /**
+     * Refresh tree nodes after saving or deleting a category
+     */
     function refreshTreeArea(transport)
     {
         if (tree && editingCategoryBreadcrumbs) {
             // category deleted - delete its node
             if (tree.nodeForDelete) {
-                processTreeCache( tree.nodeForDelete );
                 var parentNode = tree.getNodeById(tree.nodeForDelete).parentNode;
                 parentNode.removeChild(tree.getNodeById(tree.nodeForDelete));
                 tree.nodeForDelete = false;

@@ -32,74 +32,87 @@ SessionError.prototype = {
     }
 };
 
-Ajax.Request = Object.extend(Ajax.Request, {
-  initialize: function($super, url, options) {
-    $super(options);
-    this.transport = Ajax.getTransport();
-    this.request((url.match(new RegExp('\\?',"g")) ? url + '&isAjax=1' : url + '?isAjax=1'));
-  },
-  respondToReadyState: function(readyState) {
-    var state = Ajax.Request.Events[readyState], response = new Ajax.Response(this);
-
-    if (state == 'Complete') {
-      try {
-        this._complete = true;
-        if (response.isJSON()) {
-           var _checkData  = response.evalJSON();
-           if(typeof _checkData == 'object' && _checkData.ajaxExpired && _checkData.ajaxRedirect) {
-               window.location.replace(_checkData.ajaxRedirect);
-               throw new SessionError('session expired');
-           }
+Ajax.Request.addMethods({
+    initialize: function($super, url, options){
+        $super(options);
+        this.transport = Ajax.getTransport();
+        if (!url.match(new RegExp('[?&]isAjax=true',''))) {
+            url = url.match(new RegExp('\\?',"g")) ? url + '&isAjax=true' : url + '?isAjax=true';
         }
-        (this.options['on' + response.status]
-         || this.options['on' + (this.success() ? 'Success' : 'Failure')]
-         || Prototype.emptyFunction)(response, response.headerJSON);
-      } catch (e) {
-        this.dispatchException(e);
-        if (e instanceof SessionError) {
-            return;
+        if (!this.options.parameters) {
+            this.options.parameters = {
+                form_key: FORM_KEY
+            };
         }
-      }
+        if (!this.options.parameters.form_key) {
+            this.options.parameters.form_key = FORM_KEY;
+        }
+        
+        this.request(url);
+    },
+    respondToReadyState: function(readyState) {
+        var state = Ajax.Request.Events[readyState], response = new Ajax.Response(this);
 
-      var contentType = response.getHeader('Content-type');
-      if (this.options.evalJS == 'force'
-          || (this.options.evalJS && this.isSameOrigin() && contentType
-          && contentType.match(/^\s*(text|application)\/(x-)?(java|ecma)script(;.*)?\s*$/i)))
-        this.evalResponse();
-    }
+        if (state == 'Complete') {
+            try {
+                this._complete = true;
+                if (response.responseJSON && typeof(response.responseJSON) == 'object') {
+                    if (response.responseJSON.ajaxExpired && response.responseJSON.ajaxRedirect) {
+                        window.location.replace(response.responseJSON.ajaxRedirect);
+                        throw new SessionError('session expired');
+                    }
+                }
 
-    try {
-      (this.options['on' + state] || Prototype.emptyFunction)(response, response.headerJSON);
-      Ajax.Responders.dispatch('on' + state, this, response, response.headerJSON);
-    } catch (e) {
-      this.dispatchException(e);
-    }
+                (this.options['on' + response.status]
+                 || this.options['on' + (this.success() ? 'Success' : 'Failure')]
+                 || Prototype.emptyFunction)(response, response.headerJSON);
+            } catch (e) {
+                this.dispatchException(e);
+                if (e instanceof SessionError) {
+                    return;
+                }
+            }
 
-    if (state == 'Complete') {
-      // avoid memory leak in MSIE: clean up
-      this.transport.onreadystatechange = Prototype.emptyFunction;
+            var contentType = response.getHeader('Content-type');
+            if (this.options.evalJS == 'force'
+                || (this.options.evalJS && this.isSameOrigin() && contentType
+                && contentType.match(/^\s*(text|application)\/(x-)?(java|ecma)script(;.*)?\s*$/i))) {
+                this.evalResponse();
+            }
+        }
+
+        try {
+            (this.options['on' + state] || Prototype.emptyFunction)(response, response.headerJSON);
+            Ajax.Responders.dispatch('on' + state, this, response, response.headerJSON);
+        } catch (e) {
+            this.dispatchException(e);
+        }
+
+        if (state == 'Complete') {
+            // avoid memory leak in MSIE: clean up
+            this.transport.onreadystatechange = Prototype.emptyFunction;
+        }
     }
-  }
 });
 
 Ajax.Updater.respondToReadyState = Ajax.Request.respondToReadyState;
-Ajax.Updater = Object.extend(Ajax.Updater, {
-  initialize: function($super, container, url, options) {
-    this.container = {
-      success: (container.success || container),
-      failure: (container.failure || (container.success ? null : container))
-    };
-
-    options = Object.clone(options);
-    var onComplete = options.onComplete;
-    options.onComplete = (function(response, json) {
-      this.updateContent(response.responseText);
-      if (Object.isFunction(onComplete)) onComplete(response, json);
-    }).bind(this);
-
-    $super((url.match(new RegExp('\\?',"g")) ? url + '&isAjax=1' : url + '?isAjax=1'), options);
-  }
-});
+//Ajax.Updater = Object.extend(Ajax.Updater, {
+//  initialize: function($super, container, url, options) {
+//    this.container = {
+//      success: (container.success || container),
+//      failure: (container.failure || (container.success ? null : container))
+//    };
+//
+//    options = Object.clone(options);
+//    var onComplete = options.onComplete;
+//    options.onComplete = (function(response, json) {
+//      this.updateContent(response.responseText);
+//      if (Object.isFunction(onComplete)) onComplete(response, json);
+//    }).bind(this);
+//
+//    $super((url.match(new RegExp('\\?',"g")) ? url + '&isAjax=1' : url + '?isAjax=1'), options);
+//  }
+//});
 
 var varienLoader = new Class.create();
 

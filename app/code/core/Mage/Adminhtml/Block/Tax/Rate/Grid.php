@@ -60,6 +60,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
             'index'         => 'tax_country_id',
             'filter_index'  => 'main_table.tax_country_id',
             'renderer'      => 'adminhtml/tax_rate_grid_renderer_country',
+            'sortable'      => false
         ));
 
         $this->addColumn('region_name', array(

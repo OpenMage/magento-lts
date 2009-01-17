@@ -20,7 +20,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Mage
- * @package    Mage_Core
+ * @package    Mage_Cron
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -29,7 +29,7 @@
     <sections>
         <system>
             <groups>
-                <cron translate="label comment" module="core">
+                <cron translate="label comment" module="cron">
                     <label>Cron (Scheduled Tasks) - all the times are in minutes</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>15</sort_order>

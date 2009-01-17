@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Report_Sales_Sales_Grid extends Mage_Adminhtml_Block_
             'type'      =>'number'
         ));
 
-        $currency_code = (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode();
+        $currency_code = $this->getCurrentCurrencyCode();
 
         $this->addColumn('subtotal', array(
             'header'    =>Mage::helper('reports')->__('Subtotal'),

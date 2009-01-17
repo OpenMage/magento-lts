@@ -63,17 +63,16 @@
         </resources_alias>
         <acl>
             <resources>
-                <all>
-                    <directory translate="title" module="directory">
-                        <title>Directory</title>
-                        <country translate="title" module="directory">
-                            <title>Country</title>
-                        </country>
-                        <region translate="title" module="directory">
-                            <title>Region</title>
-                        </region>
-                    </directory>
-                </all>
+                <directory translate="title" module="directory">
+                    <title>Directory</title>
+                    <sort_order>5</sort_order>
+                    <country translate="title" module="directory">
+                        <title>Country</title>
+                    </country>
+                    <region translate="title" module="directory">
+                        <title>Region</title>
+                    </region>
+                </directory>
             </resources>
         </acl>
     </api>

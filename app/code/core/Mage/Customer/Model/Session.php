@@ -100,13 +100,17 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
 
     /**
      * Get customer group id
-     * If customer is not logged in, the default customer group id from config will be returned
+     * If customer is not logged in system not logged in group id will be returned
      *
      * @return int
      */
     public function getCustomerGroupId()
     {
-        return $this->getCustomer()->getGroupId();
+        if ($this->isLoggedIn()) {
+            return $this->getCustomer()->getGroupId();
+        } else {
+            return Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
+        }
     }
 
     /**

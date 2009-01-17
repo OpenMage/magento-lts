@@ -278,7 +278,13 @@ class Mage_Core_Model_Email_Template extends Varien_Object
             ->setVariables($variables);
 
         $this->_applyDesignConfig();
-        $processedResult = $processor->filter($this->getTemplateText());
+        try{
+            $processedResult = $processor->filter($this->getTemplateText());
+        }
+        catch ( Exception $e)   {
+            $this->_cancelDesignConfig();
+            throw $e;
+        }
         $this->_cancelDesignConfig();
         return $processedResult;
     }
@@ -341,6 +347,8 @@ class Mage_Core_Model_Email_Template extends Varien_Object
         } else {
             $mail->setBodyHTML($text);
         }
+
+
 
         $mail->setSubject('=?utf-8?B?'.base64_encode($this->getProcessedTemplateSubject($variables)).'?=');
         $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
@@ -424,7 +432,13 @@ class Mage_Core_Model_Email_Template extends Varien_Object
         $processor->setVariables($variables);
 
         $this->_applyDesignConfig();
-        $processedResult = $processor->filter($this->getTemplateSubject());
+        try{
+            $processedResult = $processor->filter($this->getTemplateSubject());
+        }
+        catch ( Exception $e)   {
+            $this->_cancelDesignConfig();
+            throw $e;
+        }
         $this->_cancelDesignConfig();
         return $processedResult;
     }
@@ -526,6 +540,18 @@ class Mage_Core_Model_Email_Template extends Varien_Object
     public  function setReturnPath($email)
     {
         $this->getMail()->setReturnPath($email);
+        return $this;
+    }
+
+    /**
+     * Add Reply-To header
+     *
+     * @param string $email
+     * @return Mage_Core_Model_Email_Template
+     */
+    public function setReplyTo($email)
+    {
+        $this->getMail()->addHeader('Reply-To', $email);
         return $this;
     }
 }

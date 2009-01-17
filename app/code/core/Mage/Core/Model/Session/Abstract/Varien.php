@@ -41,18 +41,24 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
         Varien_Profiler::start(__METHOD__.'/setOptions');
         if (is_writable(Mage::getBaseDir('session'))) {
-            session_save_path(Mage::getBaseDir('session'));
+            session_save_path($this->getSessionSavePath());
         }
         Varien_Profiler::stop(__METHOD__.'/setOptions');
 
-        if ($this->getSessionSaveMethod() == 'files') {
-            session_module_name('files');
-        }
-        else {
-            ini_set('session.save_handler', 'user');
-            $sessionResource = Mage::getResourceSingleton('core/session');
-            /* @var $sessionResource Mage_Core_Model_Mysql4_Session */
-            $sessionResource->setSaveHandler();
+        switch($this->getSessionSaveMethod()) {
+            case 'db':
+                ini_set('session.save_handler', 'user');
+                $sessionResource = Mage::getResourceSingleton('core/session');
+                /* @var $sessionResource Mage_Core_Model_Mysql4_Session */
+                $sessionResource->setSaveHandler();
+                break;
+            case 'memcache':
+                ini_set('session.save_handler', 'memcache');
+                session_save_path($this->getSessionSavePath());
+                break;
+            default:
+                session_module_name('files');
+                break;
         }
 
         if (intval($this->getCookieLifetime()) > 0) {
@@ -101,16 +107,18 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         }
         else {
             if ($this->_data['_cookie_revalidate'] < time()) {
-                setcookie(
-                    session_name(),
-                    session_id(),
-                    time() + ini_get('session.gc_maxlifetime'),
-                    ini_get('session.cookie_path'),
-                    ini_get('session.cookie_domain')
-                );
+                if (!headers_sent()) {
+                    setcookie(
+                        session_name(),
+                        session_id(),
+                        time() + ini_get('session.gc_maxlifetime'),
+                        ini_get('session.cookie_path'),
+                        ini_get('session.cookie_domain')
+                    );
 
-                $time = time() + round(ini_get('session.gc_maxlifetime') / 4);
-                $this->_data['_cookie_revalidate'] = $time;
+                    $time = time() + round(ini_get('session.gc_maxlifetime') / 4);
+                    $this->_data['_cookie_revalidate'] = $time;
+                }
             }
         }
     }
@@ -177,6 +185,16 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     }
 
     /**
+     * Get sesssion save path
+     *
+     * @return string
+     */
+    public function getSessionSavePath()
+    {
+        return Mage::getBaseDir('session');
+    }
+
+    /**
      * Use REMOTE_ADDR in validator key
      *
      * @return bool
@@ -239,14 +257,16 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         }
         else {
             if (!$this->_validate()) {
-                // remove session cookie
-                setcookie(
-                    session_name(),
-                    null,
-                    null,
-                    ini_get('session.cookie_path'),
-                    ini_get('session.cookie_domain')
-                );
+                if (!headers_sent()) {
+                    // remove session cookie
+                    setcookie(
+                        session_name(),
+                        null,
+                        null,
+                        ini_get('session.cookie_path'),
+                        ini_get('session.cookie_domain')
+                    );
+                }
                 // throw core session exception
                 throw new Mage_Core_Model_Session_Exception('');
             }

@@ -1,0 +1,180 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php $_item = $this->getItem() ?>
+<?php $this->setPriceDataObject($_item) ?>
+<tr class="border">
+    <td class="giftmessage-single-item">
+        <?php if ($this->canDisplayContainer()): ?>
+        <div id="<?php echo $this->getHtmlId() ?>" class="item-container">
+        <?php endif; ?>
+        <?php if ($this->canDisplayGiftmessage()): ?>
+        <div class="item-text">
+            <?php echo $this->getColumnHtml($_item, 'name') ?>
+              <div class="action-link-holder">
+                <a class="action-link" href="#" onclick="return giftMessagesController.toogleGiftMessage('<?php echo $this->getHtmlId() ?>')">
+                <span class="default-text">
+                  <span class="add"<?php if($this->getMessage()->getId()): ?> style="display:none;"<?php endif;?>><?php echo $this->helper('sales')->__('Add Gift Messsage') ?></span>
+                  <span class="edit"<?php if(!$this->getMessage()->getId()): ?> style="display:none;"<?php endif;?>><?php echo $this->helper('sales')->__('Edit Gift Messsage') ?></span></span><span class="close-text" style="display:none;"><?php echo $this->helper('sales')->__('Save and Close Message') ?></span></a>
+              </div>
+        </div>
+        <div class="gift-form" style="display:none;" id="<?php echo $this->getFieldId('edit') ?>">
+        <form id="<?php echo $this->getFieldId('form') ?>" action="<?php echo $this->getSaveUrl() ?>">
+            <div class="entry-edit">
+                <fieldset>
+                    <input type="hidden" id="<?php echo $this->getFieldId('type') ?>" name="<?php echo $this->getFieldName('type') ?>" value="order_item" />
+                    <span class="field-row">
+                        <label for="<?php echo $this->getFieldId('sender') ?>"><?php echo $this->helper('sales')->__('From Name') ?></label><br />
+                        <input class="input-text" type="text" id="<?php echo $this->getFieldId('sender') ?>" name="<?php echo $this->getFieldName('sender') ?>" value="<?php echo $this->htmlEscape($this->getMessage()->getSender()) ?>" />
+                    </span>
+                    <span class="field-row">
+                        <label for="<?php echo $this->getFieldId('recipient') ?>"><?php echo $this->helper('sales')->__('To Name') ?></label><br />
+                        <input class="input-text" type="text" id="<?php echo $this->getFieldId('recipient') ?>" name="<?php echo $this->getFieldName('recipient') ?>"  value="<?php echo $this->htmlEscape($this->getMessage()->getRecipient()) ?>" />
+                    </span>
+                    <div class="clear"></div>
+                    <span class="field-row last">
+                        <label for="<?php echo $this->getFieldId('message') ?>"><?php echo $this->helper('sales')->__('Gift Message') ?></label><br />
+                        <textarea id="<?php echo $this->getFieldId('message') ?>" onchange="giftMessagesController.toogleRequired('<?php echo $this->getFieldId('message') ?>', ['<?php echo $this->getFieldId('sender') ?>','<?php echo $this->getFieldId('recipient') ?>']);" name="<?php echo $this->getFieldName('message') ?>" rows="3" cols="5"><?php echo $this->htmlEscape($this->getMessage()->getMessage()) ?></textarea>
+                    </span>
+                </fieldset>
+            </div>
+        </form>
+        </div>
+        <?php else: ?>
+        <div class="item-text">
+            <?php echo $this->getColumnHtml($_item, 'downloadable') ?>
+        </div>
+        <?php endif; ?>
+        <?php if ($this->canDisplayContainer()): ?>
+        </div>
+        <?php endif ?>
+    </td>
+    <td class="a-center"><?php echo $_item->getStatus() ?></td>
+    <td class="a-right"><?php echo $this->displayPriceAttribute('original_price') ?></td>
+    <td class="a-right">
+    <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+        <span class="price-excl-tax">
+					<?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+              <span class="label"><?php echo $this->helper('tax')->__('Excl. Tax'); ?>:</span>
+          <?php endif; ?>
+          <?php echo $this->displayPriceAttribute('price') ?>
+        </span>
+    <?php endif; ?>
+    <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+        <span class="price-incl-tax">
+          <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+              <span class="label"><?php echo $this->helper('tax')->__('Incl. Tax'); ?>:</span>
+          <?php endif; ?>
+          <?php if ($_item->getWeeeTaxAppliedAmount() && Mage::helper('weee')->typeOfDisplay($_item, 0, 'sales')): // including ?>
+              <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getPriceInclTax($_item)+$_item->getWeeeTaxAppliedAmount()); ?>
+          <?php elseif ($_item->getWeeeTaxAppliedAmount() && Mage::helper('weee')->typeOfDisplay($_item, 1, 'sales')): // incl. + weee ?>
+              <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getPriceInclTax($_item)+$_item->getWeeeTaxAppliedAmount()); ?>
+              <br />
+              <small>
+              <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getPriceInclTax($_item)); ?>
+              <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+                  <span class="nobr">+ <?php echo $tax['title']; ?>: <?php echo Mage::helper('core')->currency($tax['amount'],true,true); ?></span><br />
+              <?php endforeach; ?>
+              </small>
+          <?php elseif ($_item->getWeeeTaxAppliedAmount() && Mage::helper('weee')->typeOfDisplay($_item, 2, 'sales')): // excl. + weee + final ?>
+              <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getPriceInclTax($_item)); ?>
+              <br />
+              <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+                  <span class="nobr"><small><?php echo $tax['title']; ?>: <?php echo Mage::helper('core')->currency($tax['amount'],true,true); ?></small></span><br />
+              <?php endforeach; ?>
+              <span class="nobr">
+              <?php echo Mage::helper('weee')->__('Total'); ?>:
+              <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getPriceInclTax($_item)+$_item->getWeeeTaxAppliedAmount()); ?>
+              </span>
+          <?php else: // excl. ?>
+              <?php echo $this->displayPriceInclTax($_item); ?>
+          <?php endif; ?>
+        </span>
+    <?php endif; ?>
+    </td>
+    <td><?php echo $this->getColumnHtml($_item, 'qty') ?></td>
+
+    <td class="a-right">
+    <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+        <span class="price-excl-tax">
+					<?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+              <span class="label"><?php echo $this->helper('tax')->__('Excl. Tax'); ?>:</span>
+          <?php endif; ?>
+          <?php echo $this->displayPriceAttribute('row_total') ?>
+        </span>
+    <?php endif; ?>
+    <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+        <span class="price-incl-tax">
+
+          <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+              <span class="label"><?php echo $this->helper('tax')->__('Incl. Tax'); ?>:</span>
+          <?php endif; ?>
+
+          <?php if ($_item->getWeeeTaxAppliedRowAmount() && Mage::helper('weee')->typeOfDisplay($_item, 0, 'sales')): // including ?>
+              <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getSubtotalInclTax($_item)+$_item->getWeeeTaxAppliedRowAmount()); ?>
+          <?php elseif ($_item->getWeeeTaxAppliedRowAmount() && Mage::helper('weee')->typeOfDisplay($_item, 1, 'sales')): // incl. + weee ?>
+              <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getSubtotalInclTax($_item)+$_item->getWeeeTaxAppliedRowAmount()); ?>
+              <br />
+              <small>
+              <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getSubtotalInclTax($_item)); ?>
+              <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+                  <span class="nobr">+ <?php echo $tax['title']; ?>: <?php echo Mage::helper('core')->currency($tax['row_amount'],true,true); ?></span><br />
+              <?php endforeach; ?>
+              </small>
+          <?php elseif ($_item->getWeeeTaxAppliedRowAmount() && Mage::helper('weee')->typeOfDisplay($_item, 2, 'sales')): // excl. + weee + final ?>
+              <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getSubtotalInclTax($_item)); ?>
+              <br />
+              <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+                  <span class="nobr"><small><?php echo $tax['title']; ?>: <?php echo Mage::helper('core')->currency($tax['row_amount'],true,true); ?></small></span><br />
+              <?php endforeach; ?>
+              <span class="nobr">
+              <?php echo Mage::helper('weee')->__('Total'); ?>:
+              <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getSubtotalInclTax($_item)+$_item->getWeeeTaxAppliedRowAmount()); ?>
+              </span>
+          <?php else: // excl. ?>
+              <?php echo $this->displaySubtotalInclTax($_item); ?>
+          <?php endif; ?>
+
+<!--
+
+					<?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+              <span class="label"><?php echo $this->helper('tax')->__('Incl. Tax'); ?>:</span>
+          <?php endif; ?>
+          <?php echo $this->displaySubtotalInclTax($_item); ?>
+-->
+        </span>
+    <?php endif; ?>
+    </td>
+    <td class="a-right"><?php echo $this->displayPriceAttribute('tax_amount') ?></td>
+    <td class="a-right"><?php echo $this->displayTaxPercent($_item) ?></td>
+    <td class="a-right"><?php echo $this->displayPriceAttribute('discount_amount') ?></td>
+    <td class="a-right last">
+        <?php echo $this->displayPrices(
+            $_item->getBaseRowTotal() - $_item->getBaseDiscountAmount() + $_item->getBaseTaxAmount(),
+            $_item->getRowTotal() - $_item->getDiscountAmount() + $_item->getTaxAmount() + $_item->getWeeeTaxAppliedRowAmount()
+        ); ?>
+    </td>
+</tr>

@@ -31,57 +31,59 @@ VarienRulesForm.prototype = {
 
         var elems = $(parent).getElementsByClassName('rule-param');
 
-    	for (var i=0; i<elems.length; i++) {
+        for (var i=0; i<elems.length; i++) {
             this.initParam(elems[i]);
         }
     },
 
     initParam: function (container) {
-    	container.rulesObject = this;
+        container.rulesObject = this;
 
         var label = Element.down(container, '.label');
         if (label) {
-		    Event.observe(label, 'click', this.showParamInputField.bind(this, container));
+            Event.observe(label, 'click', this.showParamInputField.bind(this, container));
         }
 
-		var elem = Element.down(container, '.element');
-		if (elem) {
-		    var trig = elem.down('.rule-chooser-trigger');
-		    if (trig) {
+        var elem = Element.down(container, '.element');
+        if (elem) {
+            var trig = elem.down('.rule-chooser-trigger');
+            if (trig) {
                 Event.observe(trig, 'click', this.toggleChooser.bind(this, container));
-		    }
+            }
 
-		    var apply = elem.down('.rule-param-apply');
-		    if (apply) {
-		        Event.observe(apply, 'click', this.hideParamInputField.bind(this, container));
-		    } else {
-    		    elem = elem.down();
-    		    Event.observe(elem, 'change', this.hideParamInputField.bind(this, container));
-    		    Event.observe(elem, 'blur', this.hideParamInputField.bind(this, container));
-		    }
-		}
+            var apply = elem.down('.rule-param-apply');
+            if (apply) {
+                Event.observe(apply, 'click', this.hideParamInputField.bind(this, container));
+            } else {
+                elem = elem.down();
+                if (!elem.multiple) {
+                    Event.observe(elem, 'change', this.hideParamInputField.bind(this, container));
+                }
+                Event.observe(elem, 'blur', this.hideParamInputField.bind(this, container));
+            }
+        }
 
-		var remove = Element.down(container, '.rule-param-remove');
-		if (remove) {
-		    Event.observe(remove, 'click', this.removeRuleEntry.bind(this, container));
-		}
+        var remove = Element.down(container, '.rule-param-remove');
+        if (remove) {
+            Event.observe(remove, 'click', this.removeRuleEntry.bind(this, container));
+        }
     },
 
     showChooserElement: function (chooser) {
-	    this.chooserSelectedItems = $H({});
-	    var values = this.updateElement.value.split(','), s='';
-	    for (i=0; i<values.length; i++) {
-	        s = values[i].strip();
-	        if (s!='') {
-	           this.chooserSelectedItems.set(s,1);
-	        }
-	    }
-	    new Ajax.Updater(chooser, chooser.getAttribute('url'), {
+        this.chooserSelectedItems = $H({});
+        var values = this.updateElement.value.split(','), s='';
+        for (i=0; i<values.length; i++) {
+            s = values[i].strip();
+            if (s!='') {
+               this.chooserSelectedItems.set(s,1);
+            }
+        }
+        new Ajax.Updater(chooser, chooser.getAttribute('url'), {
             evalScripts: true,
-            parameters: { 'selected[]':this.chooserSelectedItems.keys() },
+            parameters: {'form_key': FORM_KEY, 'selected[]':this.chooserSelectedItems.keys() },
             onSuccess: this._processSuccess.bind(this) && this.showChooserLoaded.bind(this, chooser),
             onFailure: this._processFailure.bind(this)
-	    });
+        });
     },
 
     showChooserLoaded: function(chooser, transport) {
@@ -113,24 +115,24 @@ VarienRulesForm.prototype = {
     },
 
     toggleChooser: function (container, event) {
-    	var chooser = container.up('li').down('.rule-chooser');
-    	if (!chooser) {
-    	    return;
-    	}
-    	if (chooser.style.display=='block') {
-    	    chooser.style.display = 'none';
-    	    this.cleanChooser(container, event);
-    	} else {
-    	    this.showChooserElement(chooser);
-    	}
+        var chooser = container.up('li').down('.rule-chooser');
+        if (!chooser) {
+            return;
+        }
+        if (chooser.style.display=='block') {
+            chooser.style.display = 'none';
+            this.cleanChooser(container, event);
+        } else {
+            this.showChooserElement(chooser);
+        }
     },
 
     cleanChooser: function (container, event) {
-    	var chooser = container.up('li').down('.rule-chooser');
-    	if (!chooser) {
-    	    return;
-    	}
-    	chooser.innerHTML = '';
+        var chooser = container.up('li').down('.rule-chooser');
+        if (!chooser) {
+            return;
+        }
+        chooser.innerHTML = '';
     },
 
     showParamInputField: function (container, event) {
@@ -138,77 +140,88 @@ VarienRulesForm.prototype = {
             this.hideParamInputField(this.shownElement, event);
         }
 
-    	Element.addClassName(container, 'rule-param-edit');
-    	var elemContainer = Element.down(container, '.element');
+        Element.addClassName(container, 'rule-param-edit');
+        var elemContainer = Element.down(container, '.element');
 
-    	var elem = Element.down(elemContainer, 'input.input-text');
-    	if (elem) {
-    	    elem.focus();
-        	if (elem && elem.id && elem.id.match(/:value$/)) {
-        	    this.updateElement = elem;
+        var elem = Element.down(elemContainer, 'input.input-text');
+        if (elem) {
+            elem.focus();
+            if (elem && elem.id && elem.id.match(/__value$/)) {
+                this.updateElement = elem;
                 //this.showChooser(container, event);
-        	}
+            }
 
-    	}
+        }
 
-    	var elem = Element.down(elemContainer, 'select');
-    	if (elem) {
-    	   elem.focus();
-    	   // trying to emulate enter to open dropdown
-//    	   if (document.createEventObject) {
-//        	   var event = document.createEventObject();
-//        	   event.altKey = true;
-//    	       event.keyCode = 40;
-//    	       elem.fireEvent("onkeydown", evt);
-//    	   } else {
-//    	       var event = document.createEvent("Events");
-//    	       event.altKey = true;
-//    	       event.keyCode = 40;
-//    	       elem.dispatchEvent(event);
-//    	   }
-    	}
+        var elem = Element.down(elemContainer, 'select');
+        if (elem) {
+           elem.focus();
+           // trying to emulate enter to open dropdown
+//         if (document.createEventObject) {
+//             var event = document.createEventObject();
+//             event.altKey = true;
+//             event.keyCode = 40;
+//             elem.fireEvent("onkeydown", evt);
+//         } else {
+//             var event = document.createEvent("Events");
+//             event.altKey = true;
+//             event.keyCode = 40;
+//             elem.dispatchEvent(event);
+//         }
+        }
 
-    	this.shownElement = container;
+        this.shownElement = container;
     },
 
     hideParamInputField: function (container, event) {
-    	Element.removeClassName(container, 'rule-param-edit');
-    	var label = Element.down(container, '.label'), elem;
+        Element.removeClassName(container, 'rule-param-edit');
+        var label = Element.down(container, '.label'), elem;
 
-    	if (!container.hasClassName('rule-param-new-child')) {
-        	elem = Element.down(container, 'select');
-        	if (elem && elem.selectedIndex>=0) {
-        	    var str = elem.options[elem.selectedIndex].text;
-        		label.innerHTML = str!='' ? str : '...';
-        	}
+        if (!container.hasClassName('rule-param-new-child')) {
+            elem = Element.down(container, 'select');
+            if (elem && elem.options) {
+                var selectedOptions = [];
+                for (i=0; i<elem.options.length; i++) {
+                    if (elem.options[i].selected) {
+                        selectedOptions.push(elem.options[i].text);
+                    }
+                }
 
-        	elem = Element.down(container, 'input.input-text');
-        	if (elem) {
-        	    var str = elem.value.replace(/(^\s+|\s+$)/g, '');
-        	    elem.value = str;
-        	    if (str=='') {
-        	        str = '...';
-        	    } else if (str.length>30) {
-        	        str = str.substr(0, 30)+'...';
-        	    }
-        		label.innerHTML = str;
-        	}
-    	} else {
-    	    elem = Element.down(container, 'select');
+                var str = selectedOptions.join(', ');
+                label.innerHTML = str!='' ? str : '...';
+//              if (elem && elem.selectedIndex>=0) {
+//                  var str = elem.options[elem.selectedIndex].text;
+//                  label.innerHTML = str!='' ? str : '...';
+//              }
+            }
 
-    	    if (elem.value) {
-    	        this.addRuleNewChild(elem);
-    	    }
+            elem = Element.down(container, 'input.input-text');
+            if (elem) {
+                var str = elem.value.replace(/(^\s+|\s+$)/g, '');
+                elem.value = str;
+                if (str=='') {
+                    str = '...';
+                } else if (str.length>30) {
+                    str = str.substr(0, 30)+'...';
+                }
+                label.innerHTML = str;
+            }
+        } else {
+            elem = Element.down(container, 'select');
 
-        	elem.value = '';
-    	}
+            if (elem.value) {
+                this.addRuleNewChild(elem);
+            }
 
-    	if (elem && elem.id && elem.id.match(/:value$/)) {
+            elem.value = '';
+        }
+
+        if (elem && elem.id && elem.id.match(/__value$/)) {
             this.hideChooser(container, event);
             this.updateElement = null;
-    	}
+        }
 
-    	this.shownElement = null;
+        this.shownElement = null;
     },
 
     addRuleNewChild: function (elem) {
@@ -233,7 +246,7 @@ VarienRulesForm.prototype = {
 
         new Ajax.Updater(new_elem, this.newChildUrl, {
             evalScripts: true,
-            parameters: { type:new_type.replace('/','-'), id:new_id },
+            parameters: {form_key: FORM_KEY, type:new_type.replace('/','-'), id:new_id },
             onComplete: this.onAddNewChildComplete.bind(this, new_elem),
             onSuccess: this._processSuccess.bind(this),
             onFailure: this._processFailure.bind(this)

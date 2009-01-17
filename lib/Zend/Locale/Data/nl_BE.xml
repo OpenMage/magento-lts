@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.57 $"/>
-		<generation date="$Date: 2007/07/19 22:31:39 $"/>
+		<version number="$Revision: 1.65 $"/>
+		<generation date="$Date: 2008/06/17 14:12:12 $"/>
 		<language type="nl"/>
 		<territory type="BE"/>
 	</identity>
@@ -17,7 +17,8 @@
 		<territories>
 			<territory type="013">Centraal-Amerika</territory>
 			<territory type="IM">Het Eiland Man</territory>
-			<territory type="KG">Kirgizië</territory>
+			<territory type="MV">Malediven</territory>
+			<territory type="SB">Salomoneilanden</territory>
 		</territories>
 		<types>
 			<type type="traditional" key="collation">Traditioneel</type>
@@ -38,6 +39,32 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
+				<dateTimeFormats>
+					<intervalFormats>
+						<intervalFormatItem id="MEd">
+							<greatestDifference id="M">E d/MM - E d/MM</greatestDifference>
+							<greatestDifference id="d">E d/MM - E d/MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Md">
+							<greatestDifference id="M">d/MM - d/MM</greatestDifference>
+							<greatestDifference id="d">d/MM - d/MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yM">
+							<greatestDifference id="M">MM/yy - MM/yy</greatestDifference>
+							<greatestDifference id="y">MM/yy - MM/yy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="M">E d/MM/yy - E d/MM/yy</greatestDifference>
+							<greatestDifference id="d">E d/MM/yy - E d/MM/yy</greatestDifference>
+							<greatestDifference id="y">E d/MM/yy - E d/MM/yy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="M">d/MM/yy - d/MM/yy</greatestDifference>
+							<greatestDifference id="d">d/MM/yy - d/MM/yy</greatestDifference>
+							<greatestDifference id="y">d/MM/yy - d/MM/yy</greatestDifference>
+						</intervalFormatItem>
+					</intervalFormats>
+				</dateTimeFormats>
 			</calendar>
 		</calendars>
 	</dates>
@@ -45,7 +72,7 @@
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>#,##0.00 ¤</pattern>
+					<pattern>#,##0.00 ¤</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 		</currencyFormats>

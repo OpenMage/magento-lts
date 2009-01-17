@@ -290,12 +290,12 @@ class Mage_Newsletter_Model_Subscriber extends Varien_Object
             $this->setSubscriberConfirmCode($this->randomSequence());
         }
 
-        if(($this->getCustomerId() && !$customerSession->isLoggedIn())
-           || ($this->getCustomerId()
-               && $customerSession->getCustomerId() != $this->getCustomerId()
-               )) {
-            return $this->getSubscriberStatus();
-        }
+//        if(($this->getCustomerId() && !$customerSession->isLoggedIn())
+//           || ($this->getCustomerId()
+//               && $customerSession->getCustomerId() != $this->getCustomerId()
+//               )) {
+//            return $this->getSubscriberStatus();
+//        }
 
         if (!$this->getId() || $this->getStatus()==self::STATUS_UNSUBSCRIBED || $this->getStatus()==self::STATUS_NOT_ACTIVE) {
             if (Mage::getStoreConfig(self::XML_PATH_CONFIRMATION_FLAG) == 1) {

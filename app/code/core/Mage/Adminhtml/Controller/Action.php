@@ -18,21 +18,24 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Base adminhtml controller
  *
- * @category   Mage
- * @package    Mage_Adminhtml
-*/
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Action
 {
+
     const FLAG_IS_URLS_CHECKED = 'check_url_settings';
+
     /**
      * Used module name in current adminhtml controller
      */
@@ -109,6 +112,11 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         return true;
     }
 
+    /**
+     * Controller predispatch method
+     *
+     * @return Mage_Adminhtml_Controller_Action
+     */
     public function preDispatch()
     {
         Mage::getDesign()->setArea('adminhtml')
@@ -122,8 +130,22 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         parent::preDispatch();
 
+        if ($this->getRequest()->isPost() && !$this->_validateFormKey()) {
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+            $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
+            if ($this->getRequest()->getQuery('isAjax', false) || $this->getRequest()->getQuery('ajax', false)) {
+                $this->getResponse()->setBody(Zend_Json::encode(array(
+                    'error' => true,
+                    'error_msg' => Mage::helper('adminhtml')->__('Invalid Form Key')
+                )));
+            } else {
+                $this->_redirectReferer();
+            }
+            return $this;
+        }
+
         if ($this->getRequest()->isDispatched()
-            && $this->getRequest()->getActionName()!=='denied'
+            && $this->getRequest()->getActionName() !== 'denied'
             && !$this->_isAllowed()) {
             $this->_forward('denied');
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
@@ -160,7 +182,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         if ($defaultSecure == '{{base_url}}' || $defaultUnsecure == '{{base_url}}') {
             $this->_getSession()->addNotice(
-                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure Url / Base Secure Url. It is highly recommended to change this value in you Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', array('section'=>'web')))
+                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure Url / Base Secure Url. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', array('section'=>'web')))
             );
             return $this;
         }
@@ -181,7 +203,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
             if ($url) {
                 $this->_getSession()->addNotice(
-                    $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure Url / Base Secure Url. It is highly recommended to change this value in you Magento <a href="%s">configuration</a>.', $url)
+                    $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure Url / Base Secure Url. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $url)
                 );
                 return $this;
             }
@@ -270,23 +292,30 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * Declare headers and content file in responce for file download
      *
      * @param string $fileName
-     * @param string $content
+     * @param string $content set to null to avoid starting output, $contentLength should be set explicitly in that case
      * @param string $contentType
+     * @param int $contentLength explicit content length, if strlen($content) isn't applicable
+     * @return Mage_Adminhtml_Controller_Action
      */
-    protected function _prepareDownloadResponse($fileName, $content, $contentType = 'application/octet-stream')
+    protected function _prepareDownloadResponse($fileName, $content, $contentType = 'application/octet-stream', $contentLength = null)
     {
-        if (!is_null($this->getRequest()->getQuery('ft'))) {
-            $this->_redirect('*/dashboard');
-            return ;
+        $session = Mage::getSingleton('admin/session');
+        if ($session->isFirstPageAfterLogin()) {
+            $this->_redirect($session->getUser()->getStartupPageUrl());
+            return $this;
         }
         $this->getResponse()
             ->setHttpResponseCode(200)
             ->setHeader('Pragma', 'public', true)
             ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
             ->setHeader('Content-type', $contentType, true)
-            ->setHeader('Content-Length', strlen($content))
-            ->setHeader('Content-Disposition', 'attachment; filename='.$fileName)
-            ->setBody($content);
+            ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength)
+            ->setHeader('Content-Disposition', 'attachment; filename=' . $fileName)
+            ->setHeader('Last-Modified', date('r'));
+        if (!is_null($content)) {
+            $this->getResponse()->setBody($content);
+        }
+        return $this;
     }
 
     /**
@@ -319,4 +348,5 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     {
         return Mage::helper('adminhtml')->getUrl($route, $params);
     }
+    
 }

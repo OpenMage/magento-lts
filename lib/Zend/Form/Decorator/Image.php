@@ -37,7 +37,7 @@
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Image.php 8680 2008-03-07 22:25:35Z matthew $
+ * @version    $Id: Image.php 10008 2008-07-09 16:52:08Z matthew $
  */
 class Zend_Form_Decorator_Image extends Zend_Form_Decorator_Abstract
 {
@@ -127,11 +127,14 @@ class Zend_Form_Decorator_Image extends Zend_Form_Decorator_Abstract
             return $content;
         }
 
-        $tag       = $this->getTag();
-        $placement = $this->getPlacement();
-        $separator = $this->getSeparator();
+        $tag           = $this->getTag();
+        $placement     = $this->getPlacement();
+        $separator     = $this->getSeparator();
+        $name          = $element->getFullyQualifiedName();
+        $attribs       = $this->getAttribs();
+        $attribs['id'] = $element->getId();
 
-        $image = $view->formImage($element->getName(), $element->getImageValue(), $this->getAttribs()); 
+        $image = $view->formImage($name, $element->getImageValue(), $attribs); 
 
         if (null !== $tag) {
             #require_once 'Zend/Form/Decorator/HtmlTag.php';

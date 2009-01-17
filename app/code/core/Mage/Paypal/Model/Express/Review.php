@@ -28,7 +28,7 @@
 class Mage_Paypal_Model_Express_Review
 {
     /**
-     * Enter description here...
+     * Retrieve checkout session object
      *
      * @return Mage_Checkout_Model_Session
      */
@@ -38,7 +38,7 @@ class Mage_Paypal_Model_Express_Review
     }
 
     /**
-     * Enter description here...
+     * Retrieve current quote
      *
      * @return Mage_Sales_Model_Quote
      */
@@ -48,7 +48,7 @@ class Mage_Paypal_Model_Express_Review
     }
 
     /**
-     * Enter description here...
+     * Retrieve address by id
      *
      * @param int $addressId
      * @return Mage_Customer_Model_Address
@@ -63,6 +63,12 @@ class Mage_Paypal_Model_Express_Review
         return $address;
     }
 
+    /**
+     * Saving shipping methon into quote
+     *
+     * @param string $shippingMethod
+     * @return array
+     */
     public function saveShippingMethod($shippingMethod)
     {
         if (empty($shippingMethod)) {
@@ -81,11 +87,11 @@ class Mage_Paypal_Model_Express_Review
     }
 
     /**
-     * Enter description here...
-     *
-     * @return array
+     * Saving and placing order
      * following method is obsolete
      * to set cctransid, we can only set to payment method
+     *
+     * @return array
      */
     public function saveOrder()
     {
@@ -128,6 +134,7 @@ class Mage_Paypal_Model_Express_Review
 
             $orderId = $order->getIncrementId();
             $this->getCheckout()->setLastQuoteId($this->getQuote()->getId());
+            $this->getCheckout()->setLastSuccessQuoteId($this->getQuote()->getId());
             $this->getCheckout()->setLastOrderId($order->getId());
             $this->getCheckout()->setLastRealOrderId($order->getIncrementId());
 

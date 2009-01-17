@@ -51,9 +51,9 @@ class Mage_GoogleOptimizer_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_storeId;
     }
 
-    public function isOptimizerActive()
+    public function isOptimizerActive($store = null)
     {
-        return Mage::app()->getStore()->getConfig(self::XML_PATH_ENABLED);
+        return Mage::getStoreConfig(self::XML_PATH_ENABLED, $store);
     }
 
     /**

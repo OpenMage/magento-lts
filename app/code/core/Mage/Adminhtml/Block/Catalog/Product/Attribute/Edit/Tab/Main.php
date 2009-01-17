@@ -103,49 +103,70 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             'values'=> $scopes
         ));
 
+        $inputTypes = array(
+            array(
+                'value' => 'text',
+                'label' => Mage::helper('catalog')->__('Text Field')
+            ),
+            array(
+                'value' => 'textarea',
+                'label' => Mage::helper('catalog')->__('Text Area')
+            ),
+            array(
+                'value' => 'date',
+                'label' => Mage::helper('catalog')->__('Date')
+            ),
+            array(
+                'value' => 'boolean',
+                'label' => Mage::helper('catalog')->__('Yes/No')
+            ),
+            array(
+                'value' => 'multiselect',
+                'label' => Mage::helper('catalog')->__('Multiple Select')
+            ),
+            array(
+                'value' => 'select',
+                'label' => Mage::helper('catalog')->__('Dropdown')
+            ),
+            array(
+                'value' => 'price',
+                'label' => Mage::helper('catalog')->__('Price')
+            ),
+            array(
+                'value' => 'gallery',
+                'label' => Mage::helper('catalog')->__('Gallery')
+            ),
+            array(
+                'value' => 'media_image',
+                'label' => Mage::helper('catalog')->__('Media Image')
+            ),
+        );
+
+        $response = new Varien_Object();
+        $response->setTypes(array());
+        Mage::dispatchEvent('adminhtml_product_attribute_types', array('response'=>$response));
+
+        $_disabledTypes = array();
+        $_hiddenFields = array();
+        foreach ($response->getTypes() as $type) {
+            $inputTypes[] = $type;
+            if (isset($type['hide_fields'])) {
+                $_hiddenFields[$type['value']] = $type['hide_fields'];
+            }
+            if (isset($type['disabled_types'])) {
+                $_disabledTypes[$type['value']] = $type['disabled_types'];
+            }
+        }
+        Mage::register('attribute_type_hidden_fields', $_hiddenFields);
+        Mage::register('attribute_type_disabled_types', $_disabledTypes);
+
+
         $fieldset->addField('frontend_input', 'select', array(
             'name' => 'frontend_input',
             'label' => Mage::helper('catalog')->__('Catalog Input Type for Store Owner'),
             'title' => Mage::helper('catalog')->__('Catalog Input Type for Store Owner'),
             'value' => 'text',
-            'values'=>  array(
-                array(
-                    'value' => 'text',
-                    'label' => Mage::helper('catalog')->__('Text Field')
-                ),
-                array(
-                    'value' => 'textarea',
-                    'label' => Mage::helper('catalog')->__('Text Area')
-                ),
-                array(
-                    'value' => 'date',
-                    'label' => Mage::helper('catalog')->__('Date')
-                ),
-                array(
-                    'value' => 'boolean',
-                    'label' => Mage::helper('catalog')->__('Yes/No')
-                ),
-                array(
-                    'value' => 'multiselect',
-                    'label' => Mage::helper('catalog')->__('Multiple Select')
-                ),
-                array(
-                    'value' => 'select',
-                    'label' => Mage::helper('catalog')->__('Dropdown')
-                ),
-                array(
-                    'value' => 'price',
-                    'label' => Mage::helper('catalog')->__('Price')
-                ),
-                array(
-                    'value' => 'gallery',
-                    'label' => Mage::helper('catalog')->__('Gallery')
-                ),
-                array(
-                    'value' => 'media_image',
-                    'label' => Mage::helper('catalog')->__('Media Image')
-                ),
-            )
+            'values'=> $inputTypes
         ));
 
         $fieldset->addField('default_value_text', 'text', array(
@@ -291,6 +312,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
                 array('value' => '1', 'label' => Mage::helper('catalog')->__('Filterable (with results)')),
                 array('value' => '2', 'label' => Mage::helper('catalog')->__('Filterable (no results)')),
             ),
+        ));
+
+        $fieldset->addField('is_filterable_in_search', 'select', array(
+            'name' => 'is_filterable_in_search',
+            'label' => Mage::helper('catalog')->__("Use In Search Results Layered Navigation"),
+            'title' => Mage::helper('catalog')->__('Can be used only with catalog input type Dropdown, Multiple Select and Price'),
+            'note' => Mage::helper('catalog')->__('Can be used only with catalog input type Dropdown, Multiple Select and Price'),
+            'values' => $yesno,
         ));
 
         $fieldset->addField('position', 'text', array(

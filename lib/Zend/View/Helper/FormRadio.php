@@ -98,7 +98,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
             switch (strtolower($key)) {
                 case 'placement':
                     unset($label_attribs[$key]);
-                    $value = strtolower($val);
+                    $val = strtolower($val);
                     if (in_array($val, array('prepend', 'append'))) {
                         $labelPlacement = $val;
                     }
@@ -129,6 +129,8 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
         }
 
         // add radio buttons to the list.
+        #require_once 'Zend/Filter/Alnum.php';
+        $filter = new Zend_Filter_Alnum();
         foreach ($options as $opt_value => $opt_label) {
 
             // Should the label be escaped?
@@ -150,12 +152,16 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
                 $checked = ' checked="checked"';
             }
 
+            // generate ID
+            $optId = $id . '-' . $filter->filter($opt_value);
+
             // Wrap the radios in labels
             $radio = '<label'
                     . $this->_htmlAttribs($label_attribs) . '>'
                     . (('prepend' == $labelPlacement) ? $opt_label : '')
                     . '<input type="' . $this->_inputType . '"'
                     . ' name="' . $name . '"'
+                    . ' id="' . $optId . '"'
                     . ' value="' . $this->view->escape($opt_value) . '"'
                     . $checked
                     . $disabled

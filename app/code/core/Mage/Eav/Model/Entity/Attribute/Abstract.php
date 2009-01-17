@@ -36,6 +36,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract
     extends Mage_Core_Model_Abstract
     implements Mage_Eav_Model_Entity_Attribute_Interface
 {
+    const TYPE_STATIC = 'static';
+
     /**
      * Attribute name
      *
@@ -436,5 +438,15 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract
             $this->_attributeIdCache[$k] = $this->getResource()->getIdByCode($entityType, $code);
         }
         return $this->_attributeIdCache[$k];
+    }
+
+    /**
+     * Check if attribute is static
+     *
+     * @return bool
+     */
+    public function isStatic()
+    {
+        return $this->getBackendType() == self::TYPE_STATIC;
     }
 }

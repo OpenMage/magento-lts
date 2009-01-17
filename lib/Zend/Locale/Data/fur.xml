@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.22 $"/>
-		<generation date="$Date: 2007/07/19 22:31:39 $"/>
+		<version number="$Revision: 1.29 $"/>
+		<generation date="$Date: 2008/06/17 14:12:15 $"/>
 		<language type="fur"/>
 	</identity>
 	<localeDisplayNames>
@@ -13,8 +13,8 @@
 			<language type="af">afrikaans</language>
 			<language type="am">amaric</language>
 			<language type="an">aragonês</language>
-			<language type="ang">vieri inglês (450-1100)</language>
-			<language type="apa">lenghis Apache</language>
+			<language type="ang">vieri inglês</language>
+			<language type="apa">lenghe Apache</language>
 			<language type="ar">arap</language>
 			<language type="arc">aramaic</language>
 			<language type="as">assamês</language>
@@ -31,7 +31,7 @@
 			<language type="bs">bosniac</language>
 			<language type="ca">catalan</language>
 			<language type="ce">cecen</language>
-			<language type="cel">celtiche (altre)</language>
+			<language type="cel">lenghe celtiche</language>
 			<language type="ch">chamorro</language>
 			<language type="co">cors</language>
 			<language type="cop">coptic</language>
@@ -60,12 +60,12 @@
 			<language type="fy">frisian</language>
 			<language type="ga">gaelic irlandês</language>
 			<language type="gd">gaelic scozês</language>
-			<language type="gem">gjermaniche (altre)</language>
+			<language type="gem">lenghe gjermaniche</language>
 			<language type="gl">galizian</language>
 			<language type="got">gotic</language>
 			<language type="grc">vieri grêc</language>
 			<language type="gv">manx</language>
-			<language type="he">Ebraic</language>
+			<language type="he">ebraic</language>
 			<language type="hi">hindi</language>
 			<language type="hr">cravuat</language>
 			<language type="ht">haitian</language>
@@ -125,10 +125,11 @@
 			<language type="pro">vieri provenzâl</language>
 			<language type="ps">pashto</language>
 			<language type="pt">portughês</language>
+			<language type="pt_BR">portughês brasilian</language>
 			<language type="qu">quechua</language>
 			<language type="rm">rumanç</language>
 			<language type="ro">romen</language>
-			<language type="roa">romanze (altre)</language>
+			<language type="roa">lenghe romanze</language>
 			<language type="ru">rus</language>
 			<language type="sa">sanscrit</language>
 			<language type="sc">sardegnûl</language>
@@ -140,10 +141,10 @@
 			<language type="si">sinalês</language>
 			<language type="sk">slovac</language>
 			<language type="sl">sloven</language>
-			<language type="sla">sclave (altre)</language>
+			<language type="sla">lenghe sclave</language>
 			<language type="sm">samoan</language>
 			<language type="so">somal</language>
-			<language type="sq">Albanês</language>
+			<language type="sq">albanês</language>
 			<language type="sr">serp</language>
 			<language type="sux">sumeric</language>
 			<language type="sv">svedês</language>
@@ -165,6 +166,8 @@
 			<language type="wa">valon</language>
 			<language type="yi">yiddish</language>
 			<language type="zh">cinês</language>
+			<language type="zh_Hans">cinês semplificât</language>
+			<language type="zh_Hant">cinês tradizionâl</language>
 			<language type="zu">zulu</language>
 		</languages>
 		<scripts>
@@ -174,11 +177,11 @@
 			<script type="Beng">bengalês</script>
 			<script type="Brai">Braille</script>
 			<script type="Bugi">buginês</script>
-			<script type="Cans">Simbui unificâts aborigjens canadês</script>
+			<script type="Cans">Silabari unificât aborigjens canadês</script>
 			<script type="Copt">copt</script>
 			<script type="Cprt">cipriot</script>
 			<script type="Cyrl">cirilic</script>
-			<script type="Cyrs">cirilic (variant dal vieri slavonic de glesie)</script>
+			<script type="Cyrs">cirilic dal vieri slavonic de glesie</script>
 			<script type="Deva">devanagari</script>
 			<script type="Egyd">demotic egjizian</script>
 			<script type="Egyh">jeratic egjizian</script>
@@ -199,8 +202,8 @@
 			<script type="Khmr">khmer</script>
 			<script type="Knda">kannada</script>
 			<script type="Laoo">lao</script>
-			<script type="Latf">latin (variant Fraktur)</script>
-			<script type="Latg">latin (variant gaeliche)</script>
+			<script type="Latf">latin Fraktur</script>
+			<script type="Latg">latin gaelic</script>
 			<script type="Latn">latin</script>
 			<script type="Lina">lineâr A</script>
 			<script type="Linb">lineâr B</script>
@@ -209,9 +212,9 @@
 			<script type="Mong">mongul</script>
 			<script type="Runr">runic</script>
 			<script type="Syrc">siriac</script>
-			<script type="Syre">siriac (variant Estrangelo)</script>
-			<script type="Syrj">siriac (variant ocidentâl)</script>
-			<script type="Syrn">siriac (variant orientâl)</script>
+			<script type="Syre">siriac Estrangelo</script>
+			<script type="Syrj">siriac ocidentâl</script>
+			<script type="Syrn">siriac orientâl</script>
 			<script type="Taml">tamil</script>
 			<script type="Telu">telegu</script>
 			<script type="Tglg">tagalog</script>
@@ -227,6 +230,7 @@
 		<territories>
 			<territory type="001">Mont</territory>
 			<territory type="002">Afriche</territory>
+			<territory type="003">Americhe dal Nord</territory>
 			<territory type="005">Americhe meridionâl</territory>
 			<territory type="009">Oceanie</territory>
 			<territory type="011">Afriche ocidentâl</territory>
@@ -281,6 +285,7 @@
 			<territory type="BH">Bahrain</territory>
 			<territory type="BI">Burundi</territory>
 			<territory type="BJ">Benin</territory>
+			<territory type="BL">Sant Barthélemy</territory>
 			<territory type="BM">Bermuda</territory>
 			<territory type="BN">Brunei</territory>
 			<territory type="BO">Bolivie</territory>
@@ -292,7 +297,7 @@
 			<territory type="BY">Bielorussie</territory>
 			<territory type="BZ">Belize</territory>
 			<territory type="CA">Canade</territory>
-			<territory type="CC">Isulis Cocos (Keeling)</territory>
+			<territory type="CC">Isulis Cocos</territory>
 			<territory type="CD">Republiche Democratiche dal Congo</territory>
 			<territory type="CF">Republiche centri africane</territory>
 			<territory type="CG">Congo</territory>
@@ -318,7 +323,7 @@
 			<territory type="DZ">Alzerie</territory>
 			<territory type="EC">Ecuador</territory>
 			<territory type="EE">Estonie</territory>
-			<territory type="EG">Egit</territory>
+			<territory type="EG">Egjit</territory>
 			<territory type="EH">Sahara ocidentâl</territory>
 			<territory type="ER">Eritree</territory>
 			<territory type="ES">Spagne</territory>
@@ -347,7 +352,7 @@
 			<territory type="GU">Guam</territory>
 			<territory type="GW">Guinea-Bissau</territory>
 			<territory type="GY">Guyana</territory>
-			<territory type="HK">Regjon aministrative speciâl di Hong Kong, Cine</territory>
+			<territory type="HK">Regjon aministrative speciâl de Cine di Hong Kong</territory>
 			<territory type="HM">Isule Heard e Isulis McDonald</territory>
 			<territory type="HN">Honduras</territory>
 			<territory type="HR">Cravuazie</territory>
@@ -356,6 +361,7 @@
 			<territory type="ID">Indonesie</territory>
 			<territory type="IE">Irlande</territory>
 			<territory type="IL">Israêl</territory>
+			<territory type="IM">Isule di Man</territory>
 			<territory type="IN">India</territory>
 			<territory type="IO">Teritori britanic dal Ocean Indian</territory>
 			<territory type="IQ">Iraq</territory>
@@ -390,13 +396,14 @@
 			<territory type="MA">Maroc</territory>
 			<territory type="MC">Monaco</territory>
 			<territory type="MD">Moldavie</territory>
+			<territory type="MF">Sant Martin</territory>
 			<territory type="MG">Madagascar</territory>
 			<territory type="MH">Isulis Marshall</territory>
 			<territory type="MK">Macedonie</territory>
 			<territory type="ML">Mali</territory>
 			<territory type="MM">Birmanie</territory>
 			<territory type="MN">Mongolie</territory>
-			<territory type="MO">Regjon aministradive di Macao, Cine</territory>
+			<territory type="MO">Regjon aministrative speciâl de Cine di Macao</territory>
 			<territory type="MP">Isulis Mariana dal Nord</territory>
 			<territory type="MQ">Martiniche</territory>
 			<territory type="MR">Mauritanie</territory>
@@ -437,8 +444,10 @@
 			<territory type="PY">Paraguay</territory>
 			<territory type="QA">Qatar</territory>
 			<territory type="QO">Oceanie periferiche</territory>
+			<territory type="QU">Union europeane</territory>
 			<territory type="RE">Reunion</territory>
 			<territory type="RO">Romanie</territory>
+			<territory type="RS">Serbie</territory>
 			<territory type="RU">Russie</territory>
 			<territory type="RW">Ruande</territory>
 			<territory type="SA">Arabie Saudide</territory>
@@ -495,9 +504,11 @@
 			<territory type="ZA">Sud Afriche</territory>
 			<territory type="ZM">Zambia</territory>
 			<territory type="ZW">Zimbabwe</territory>
+			<territory type="ZZ">Regjon no cognossude o no valide</territory>
 		</territories>
 		<variants>
 			<variant type="1901">Ortografie todescje tradizionâl</variant>
+			<variant type="1994">Ortografie resiane standard</variant>
 			<variant type="1996">Ortografie todescje dal 1996</variant>
 			<variant type="NEDIS">Dialet des valadis dal Nadison</variant>
 			<variant type="POLYTON">Politoniche</variant>
@@ -505,35 +516,49 @@
 			<variant type="ROZAJ">Resian</variant>
 		</variants>
 		<keys>
-			<key type="calendar">Lunari</key>
-			<key type="collation">Ordenament</key>
-			<key type="currency">Monede</key>
+			<key type="calendar">calendari</key>
+			<key type="collation">ordenament</key>
+			<key type="currency">monede</key>
 		</keys>
 		<types>
-			<type type="big5han" key="collation">cinês tradizionâl (Big5)</type>
-			<type type="buddhist" key="calendar">Lunari budist</type>
-			<type type="chinese" key="calendar">Lunari cinês</type>
-			<type type="direct" key="collation">Ordin diret</type>
-			<type type="gb2312han" key="collation">cinês semplificât (GB2312)</type>
-			<type type="gregorian" key="calendar">Lunari gregorian</type>
-			<type type="hebrew" key="calendar">Lunari ebreu</type>
-			<type type="islamic" key="calendar">Lunari islamic</type>
-			<type type="islamic-civil" key="calendar">Lunari islamic civîl</type>
-			<type type="japanese" key="calendar">Lunari gjaponês</type>
-			<type type="phonebook" key="collation">Ordin dal elenc telefonic</type>
-			<type type="pinyin" key="collation">Ordin pinyin</type>
-			<type type="stroke" key="collation">Ordin Stroke</type>
-			<type type="traditional" key="collation">tradizionâl</type>
+			<type type="big5han" key="collation">ordin cinês tradizionâl - Big5</type>
+			<type type="buddhist" key="calendar">calendari budist</type>
+			<type type="chinese" key="calendar">calendari cinês</type>
+			<type type="direct" key="collation">ordin diret</type>
+			<type type="gb2312han" key="collation">ordin cinês semplificât - GB2312</type>
+			<type type="gregorian" key="calendar">calendari gregorian</type>
+			<type type="hebrew" key="calendar">calendari ebreu</type>
+			<type type="indian" key="calendar">calendari nazionâl indian</type>
+			<type type="islamic" key="calendar">calendari islamic</type>
+			<type type="islamic-civil" key="calendar">calendari islamic civîl</type>
+			<type type="japanese" key="calendar">calendari gjaponês</type>
+			<type type="phonebook" key="collation">ordin elenc telefonic</type>
+			<type type="pinyin" key="collation">ordin pinyin</type>
+			<type type="roc" key="calendar">calendari de Republiche di Cine</type>
+			<type type="stroke" key="collation">ordin segns</type>
+			<type type="traditional" key="collation">ordin tradizionâl</type>
 		</types>
 		<measurementSystemNames>
 			<measurementSystemName type="US">anglosasson</measurementSystemName>
 			<measurementSystemName type="metric">metric</measurementSystemName>
 		</measurementSystemNames>
+		<codePatterns>
+			<codePattern type="language">Lenghe: {0}</codePattern>
+			<codePattern type="script">Scriture: {0}</codePattern>
+			<codePattern type="territory">Regjon: {0}</codePattern>
+		</codePatterns>
 	</localeDisplayNames>
 	<characters>
 		<exemplarCharacters>[a à â b c ç d e è ê f-i ì î j-o ò ô p-u ù û v-z]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[å č é ë ğ ï ñ ó š ü]</exemplarCharacters>
+		<exemplarCharacters type="currencySymbol">[a-z]</exemplarCharacters>
 	</characters>
+	<delimiters>
+		<quotationStart>‘</quotationStart>
+		<quotationEnd>’</quotationEnd>
+		<alternateQuotationStart>“</alternateQuotationStart>
+		<alternateQuotationEnd>”</alternateQuotationEnd>
+	</delimiters>
 	<dates>
 		<calendars>
 			<calendar type="gregorian">
@@ -633,6 +658,14 @@
 							<quarter type="4">Cuart trimestri</quarter>
 						</quarterWidth>
 					</quarterContext>
+					<quarterContext type="stand-alone">
+						<quarterWidth type="narrow">
+							<quarter type="1">1</quarter>
+							<quarter type="2">2</quarter>
+							<quarter type="3">3</quarter>
+							<quarter type="4">4</quarter>
+						</quarterWidth>
+					</quarterContext>
 				</quarters>
 				<am>a.</am>
 				<pm>p.</pm>
@@ -649,7 +682,7 @@
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
-							<pattern>d MMMM yyyy EEEE</pattern>
+							<pattern>EEEE d 'di' MMMM 'dal' yyyy</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
@@ -697,12 +730,53 @@
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="Hm">H:mm</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
+						<dateFormatItem id="MEd">E d/M</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
+						<dateFormatItem id="MMMEd">E d MMM</dateFormatItem>
+						<dateFormatItem id="MMMMEd">E d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
+						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="MMd">d/MM</dateFormatItem>
+						<dateFormatItem id="Md">d/M</dateFormatItem>
+						<dateFormatItem id="d">d</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
+						<dateFormatItem id="y">yyyy</dateFormatItem>
+						<dateFormatItem id="yM">M/yyyy</dateFormatItem>
+						<dateFormatItem id="yMEd">EEE, d/M/yyyy</dateFormatItem>
+						<dateFormatItem id="yMMM">MMM yyyy</dateFormatItem>
+						<dateFormatItem id="yMMMEd">EEE d MMM yyyy</dateFormatItem>
+						<dateFormatItem id="yMMMM">MMMM yyyy</dateFormatItem>
+						<dateFormatItem id="yQ">Q yyyy</dateFormatItem>
+						<dateFormatItem id="yQQQ">QQQ yyyy</dateFormatItem>
 						<dateFormatItem id="yyMM">MM/yy</dateFormatItem>
 						<dateFormatItem id="yyQ">Q yy</dateFormatItem>
 						<dateFormatItem id="yyyyMMMM">MMMM yyyy</dateFormatItem>
 					</availableFormats>
+					<intervalFormats>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="y">E dd/MM/yyyy - E dd/MM/yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMM">
+							<greatestDifference id="M">MM - MM/yyyy</greatestDifference>
+							<greatestDifference id="y">MM/yyyy - MM/yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEd">
+							<greatestDifference id="M">E dd/MM/yyyy - E dd/MM/yyyy</greatestDifference>
+							<greatestDifference id="d">E dd/MM/yyyy - E dd/MM/yyyy</greatestDifference>
+							<greatestDifference id="y">E dd/MM/yyyy - E dd/MM/yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMM">
+							<greatestDifference id="M">MM - MM/yyyy</greatestDifference>
+							<greatestDifference id="y">MM/yyyy - MM/yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="M">dd/MM/yyyy - d/MM</greatestDifference>
+							<greatestDifference id="d">d - d/MM/yyyy</greatestDifference>
+							<greatestDifference id="y">dd/MM/yyyy - dd/MM/yyyy</greatestDifference>
+						</intervalFormatItem>
+					</intervalFormats>
 				</dateTimeFormats>
 				<fields>
 					<field type="era">
@@ -719,6 +793,13 @@
 					</field>
 					<field type="day">
 						<displayName>dì</displayName>
+						<relative type="0">vuê</relative>
+						<relative type="1">doman</relative>
+						<relative type="2">passantdoman</relative>
+						<relative type="3">tra trê dîs</relative>
+						<relative type="-1">îr</relative>
+						<relative type="-2">îr l'altri</relative>
+						<relative type="-3">trê dîs fa</relative>
 					</field>
 					<field type="weekday">
 						<displayName>dì de setemane</displayName>
@@ -745,6 +826,9 @@
 			<hourFormat>+HH:mm;-HH:mm</hourFormat>
 			<gmtFormat>GMT{0}</gmtFormat>
 			<regionFormat>{0}</regionFormat>
+			<zone type="Etc/Unknown">
+				<exemplarCity>No cognossude</exemplarCity>
+			</zone>
 			<zone type="America/Sao_Paulo">
 				<exemplarCity>San Pauli dal Brasîl</exemplarCity>
 			</zone>
@@ -760,21 +844,71 @@
 			<zone type="Europe/Moscow">
 				<exemplarCity>Mosche</exemplarCity>
 			</zone>
+			<zone type="America/New_York">
+				<exemplarCity>Gnove York</exemplarCity>
+			</zone>
+			<metazone type="Europe_Central">
+				<long>
+					<standard>Ore de Europe centrâl</standard>
+					<daylight>Ore estive de Europe centrâl</daylight>
+				</long>
+			</metazone>
+			<metazone type="Europe_Eastern">
+				<long>
+					<standard>Ore de Europe orientâl</standard>
+					<daylight>Ore estive de Europe orientâl</daylight>
+				</long>
+			</metazone>
+			<metazone type="Europe_Western">
+				<long>
+					<standard>Ore de Europe ocidentâl</standard>
+					<daylight>Ore estive de Europe ocidentâl</daylight>
+				</long>
+			</metazone>
+			<metazone type="Moscow">
+				<long>
+					<generic>Ore di Mosche</generic>
+				</long>
+			</metazone>
 		</timeZoneNames>
 	</dates>
 	<numbers>
 		<symbols>
-			<decimal>,</decimal>
-			<group>.</group>
+			<decimal>.</decimal>
+			<group>,</group>
 		</symbols>
+		<decimalFormats>
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
+		</decimalFormats>
+		<scientificFormats>
+			<scientificFormatLength>
+				<scientificFormat>
+					<pattern>#E0</pattern>
+				</scientificFormat>
+			</scientificFormatLength>
+		</scientificFormats>
+		<percentFormats>
+			<percentFormatLength>
+				<percentFormat>
+					<pattern>#,##0%</pattern>
+				</percentFormat>
+			</percentFormatLength>
+		</percentFormats>
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>#,##0.00 ¤</pattern>
+					<pattern>¤ #,##0.00</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 		</currencyFormats>
 		<currencies>
+			<currency type="AMD">
+				<displayName count="one">Dram armen</displayName>
+			</currency>
 			<currency type="ARS">
 				<displayName>Peso argjentin</displayName>
 			</currency>
@@ -809,7 +943,7 @@
 				<displayName>Yuan Renminbi cinês</displayName>
 			</currency>
 			<currency type="CSD">
-				<displayName>Dinar serp</displayName>
+				<displayName>Vieri dinar serp</displayName>
 			</currency>
 			<currency type="CUP">
 				<displayName>Peso cuban</displayName>
@@ -844,6 +978,9 @@
 			<currency type="INR">
 				<displayName>Rupie indiane</displayName>
 			</currency>
+			<currency type="IRR">
+				<displayName>Rial iranian</displayName>
+			</currency>
 			<currency type="ITL">
 				<displayName>Lire taliane</displayName>
 			</currency>
@@ -853,23 +990,38 @@
 			<currency type="KRW">
 				<displayName>Won de Coree dal Sud</displayName>
 			</currency>
+			<currency type="LVL">
+				<displayName>Lats leton</displayName>
+			</currency>
 			<currency type="MXN">
 				<displayName>Peso messican</displayName>
 			</currency>
 			<currency type="NAD">
 				<displayName>Dolar namibian</displayName>
 			</currency>
+			<currency type="NIO">
+				<displayName>Córdoba oro nicaraguan</displayName>
+			</currency>
+			<currency type="NOK">
+				<displayName>Corone norvegjêse</displayName>
+			</currency>
 			<currency type="NZD">
 				<displayName>Dollar neozelandês</displayName>
 			</currency>
+			<currency type="PKR">
+				<displayName>Rupie pachistane</displayName>
+			</currency>
 			<currency type="PLN">
 				<displayName>Zloty polac</displayName>
+			</currency>
+			<currency type="RSD">
+				<displayName>Dinar serp</displayName>
 			</currency>
 			<currency type="RUB">
 				<displayName>Rubli rus</displayName>
 			</currency>
 			<currency type="SEK">
-				<displayName>Corone svedês</displayName>
+				<displayName>Corone svedese</displayName>
 			</currency>
 			<currency type="SIT">
 				<displayName>Talar sloven</displayName>
@@ -878,19 +1030,58 @@
 				<displayName>Corone slovache</displayName>
 			</currency>
 			<currency type="TRL">
+				<displayName>Viere Lire turche</displayName>
+			</currency>
+			<currency type="TRY">
 				<displayName>Lire turche</displayName>
 			</currency>
 			<currency type="USD">
 				<displayName>Dolar american</displayName>
+				<symbol>$</symbol>
+			</currency>
+			<currency type="XXX">
+				<displayName>Monede no valide o no cognossude</displayName>
 			</currency>
 			<currency type="ZAR">
 				<displayName>Rand sudafrican</displayName>
 			</currency>
 		</currencies>
 	</numbers>
+	<units>
+		<unit type="day">
+			<unitPattern count="one">{0} zornade</unitPattern>
+			<unitPattern count="other">{0} zornadis</unitPattern>
+		</unit>
+		<unit type="hour">
+			<unitPattern count="one">{0} ore</unitPattern>
+			<unitPattern count="other">{0} oris</unitPattern>
+		</unit>
+		<unit type="minute">
+			<unitPattern count="one">{0} minût</unitPattern>
+			<unitPattern count="other">{0} minûts</unitPattern>
+		</unit>
+		<unit type="month">
+			<unitPattern count="one">{0} mês</unitPattern>
+			<unitPattern count="other">{0} mês</unitPattern>
+		</unit>
+		<unit type="second">
+			<unitPattern count="one">{0} secont</unitPattern>
+			<unitPattern count="other">{0} seconts</unitPattern>
+		</unit>
+		<unit type="week">
+			<unitPattern count="one">{0} setemane</unitPattern>
+			<unitPattern count="other">{0} setemanis</unitPattern>
+		</unit>
+		<unit type="year">
+			<unitPattern count="one">{0} an</unitPattern>
+			<unitPattern count="other">{0} agns</unitPattern>
+		</unit>
+	</units>
 	<posix>
 		<messages>
 			<yesstr>sì:si:s</yesstr>
+			<nostr>no:n</nostr>
 		</messages>
 	</posix>
 </ldml>
+

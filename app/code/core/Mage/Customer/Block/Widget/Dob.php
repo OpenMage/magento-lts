@@ -65,4 +65,14 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
     {
         return $this->getTime() ? date('Y', $this->getTime()) : '';
     }
+
+    /**
+     * Returns format which will be applied for DOB in javascript
+     *
+     * @return string
+     */
+    public function getDateFormat()
+    {
+        return Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+    }
 }

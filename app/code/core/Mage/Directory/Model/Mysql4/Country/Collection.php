@@ -115,7 +115,7 @@ class Mage_Directory_Model_Mysql4_Country_Collection extends Varien_Data_Collect
 
         $sort = array();
         foreach ($options as $index=>$data) {
-            $name = Mage::app()->getLocale()->getLocale()->getCountryTranslation($data['value']);
+            $name = Mage::app()->getLocale()->getCountryTranslation($data['value']);
             if (!empty($name)) {
                 $sort[$name] = $data['value'];
             }

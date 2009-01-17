@@ -31,7 +31,6 @@
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     protected $_product = null;
@@ -44,7 +43,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
 
     public function getTabUrl()
     {
-        return $this->getUrl('*/*/bundles', array('_current' => true));
+        return $this->getUrl('bundle/product_edit/form', array('_current' => true));
     }
 
     public function getTabClass()

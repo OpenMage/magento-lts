@@ -20,7 +20,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Mage
- * @package    Mage_Cms
+ * @package    Mage_Poll
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -31,7 +31,7 @@
             <groups>
                 <polls>
                     <fields>
-                        <poll_check_by_ip translate="label" module="cms">
+                        <poll_check_by_ip translate="label" module="poll">
                             <label>Disallow voting in a poll multiple times from same IP-address</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>

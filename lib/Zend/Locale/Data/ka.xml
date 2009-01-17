@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.47 $"/>
-		<generation date="$Date: 2007/11/28 21:17:49 $"/>
+		<version number="$Revision: 1.56 $"/>
+		<generation date="$Date: 2008/06/26 03:47:57 $"/>
 		<language type="ka"/>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0} ({1})</localePattern>
+			<localeSeparator>, </localeSeparator>
+		</localeDisplayPattern>
 		<languages>
 			<language type="ab">აფხაზური</language>
 			<language type="ady">ადიღეური</language>
@@ -104,13 +108,16 @@
 			<language type="nl_BE">ფლომანდიური</language>
 			<language type="nn">ნორვეგიული ნინორსკი</language>
 			<language type="no">ნორვეგიული</language>
+			<language type="nv">ნავახო</language>
 			<language type="oc">ოციტანური</language>
 			<language type="or">ორიული</language>
+			<language type="os">ოსური</language>
 			<language type="peo">ძველი სპარსული</language>
 			<language type="pl">პოლონური</language>
 			<language type="pra">პრაკრიტის ენები</language>
 			<language type="ps">პუშტუ</language>
 			<language type="pt">პორტუგალიური</language>
+			<language type="pt_BR">ბრაზილიური პორტუგალიური</language>
 			<language type="pt_PT">იბერიულ-პორტუგალიური</language>
 			<language type="ro">რუმინული</language>
 			<language type="ru">რუსული</language>
@@ -127,7 +134,7 @@
 			<language type="so">სომალიური</language>
 			<language type="sq">ალბანური</language>
 			<language type="sr">სერბული</language>
-			<language type="st">st</language>
+			<language type="st">სამხრეთ სოთოს ენა</language>
 			<language type="sux">შუმერული</language>
 			<language type="sv">შვედური</language>
 			<language type="sw">სუაჰილი</language>
@@ -135,6 +142,7 @@
 			<language type="th">ტაილანდური</language>
 			<language type="tk">თურქმენული</language>
 			<language type="tlh">კლინგონი</language>
+			<language type="tn">ტსვანა</language>
 			<language type="tr">თურქული</language>
 			<language type="tw">თუი</language>
 			<language type="udm">უდმურტიული</language>
@@ -147,6 +155,8 @@
 			<language type="xh">ქსოზა</language>
 			<language type="yi">იდიში</language>
 			<language type="zh">ჩინური</language>
+			<language type="zh_Hans">გამარტივებული ჩინური</language>
+			<language type="zh_Hant">ტრადიციული ჩინური</language>
 			<language type="zu">ზულუ</language>
 		</languages>
 		<scripts>
@@ -239,7 +249,7 @@
 			<territory type="AE">არაბეთის გაერთიანებული ემირატები</territory>
 			<territory type="AF">ავღანეთი</territory>
 			<territory type="AG">ანტიგუა და ბარბუდა</territory>
-			<territory type="AI">ანტიგუა</territory>
+			<territory type="AI">ანგვილა</territory>
 			<territory type="AL">ალბანეთი</territory>
 			<territory type="AM">სომხეთი</territory>
 			<territory type="AN">ნიდერლანდების ანტილები</territory>
@@ -267,6 +277,7 @@
 			<territory type="BR">ბრაზილია</territory>
 			<territory type="BS">ბაჰამის კუნძულები</territory>
 			<territory type="BT">ბუტანი</territory>
+			<territory type="BV">ბუვეს კუნძული</territory>
 			<territory type="BW">ბოტსვანა</territory>
 			<territory type="BY">ბელორუსია</territory>
 			<territory type="BZ">ბელიზი</territory>
@@ -312,13 +323,14 @@
 			<territory type="GD">გრენადა</territory>
 			<territory type="GE">საქართველო</territory>
 			<territory type="GH">განა</territory>
-			<territory type="GI">ჰიბრალტარი</territory>
+			<territory type="GI">გიბრალტარი</territory>
 			<territory type="GL">გრენლანდია</territory>
 			<territory type="GM">გამბია</territory>
 			<territory type="GN">გვინეა</territory>
 			<territory type="GP">გვადელუპე</territory>
 			<territory type="GQ">ეკვატორული გვინეა</territory>
 			<territory type="GR">საბერძნეთი</territory>
+			<territory type="GS">სამხრეთი ჯორჯია და სამხრეთ სენდვიჩის კუნძულები</territory>
 			<territory type="GT">გვატემალა</territory>
 			<territory type="GU">გუამი</territory>
 			<territory type="GW">გვინეა-ბისაუ</territory>
@@ -438,6 +450,7 @@
 			<territory type="SY">სირია</territory>
 			<territory type="SZ">სვაზილენდი</territory>
 			<territory type="TD">ჩადი</territory>
+			<territory type="TF">ფრანგული სამხრეთის ტერიტორიები</territory>
 			<territory type="TG">ტოგო</territory>
 			<territory type="TH">ტაილანდი</territory>
 			<territory type="TJ">ტაჯიკეთი</territory>
@@ -482,9 +495,11 @@
 			<type type="gb2312han" key="collation">გამარტივებული ჩინური</type>
 			<type type="gregorian" key="calendar">გრიგორიანული კალენდარი</type>
 			<type type="hebrew" key="calendar">ებრაული კალენდარი</type>
+			<type type="indian" key="calendar">ინდური ეროვნული კალენდარი</type>
 			<type type="islamic" key="calendar">ისლამური კალენდარი</type>
 			<type type="islamic-civil" key="calendar">ისლამური სამოქალაქო კალენდარი</type>
 			<type type="japanese" key="calendar">იაპონური კალენდარი</type>
+			<type type="roc" key="calendar">ჩინეთის რესპუბლიკის კალენდარი</type>
 			<type type="traditional" key="collation">ტრადიციული</type>
 		</types>
 		<measurementSystemNames>
@@ -495,6 +510,12 @@
 	<characters>
 		<exemplarCharacters>[ა ⴀ ბ ⴁ გ ⴂ დ ⴃ ე ⴄ ვ ⴅ ზ ⴆ ჱ ⴡ თ ⴇ ი ⴈ კ ⴉ ლ ⴊ მ ⴋ ნ ⴌ ჲ ⴢ ო ⴍ პ ⴎ ჟ ⴏ რ ⴐ ს ⴑ ტ ⴒ ჳ ⴣ უ ⴓ ფ ⴔ ქ ⴕ ღ ⴖ ყ ⴗ შ ⴘ ჩ ⴙ ც ⴚ ძ ⴛ წ ⴜ ჭ ⴝ ხ ⴞ ჴ ⴤ ჯ ⴟ ჰ ⴠ ჵ ⴥ ჶ-ჺ]</exemplarCharacters>
 	</characters>
+	<delimiters>
+		<quotationStart>“</quotationStart>
+		<quotationEnd>”</quotationEnd>
+		<alternateQuotationStart>‘</alternateQuotationStart>
+		<alternateQuotationEnd>’</alternateQuotationEnd>
+	</delimiters>
 	<dates>
 		<calendars>
 			<calendar type="gregorian">
@@ -673,7 +694,7 @@
 						<dateFormatItem id="HHmm">HH:mm</dateFormatItem>
 						<dateFormatItem id="HHmmss">HH:mm:ss</dateFormatItem>
 						<dateFormatItem id="MMMdd">dd MMM</dateFormatItem>
-						<dateFormatItem id="MMdd">MM-dd</dateFormatItem>
+						<dateFormatItem id="MMdd">dd/MM</dateFormatItem>
 						<dateFormatItem id="hhmm">hh:mm a</dateFormatItem>
 						<dateFormatItem id="hhmmss">hh:mm:ss a</dateFormatItem>
 						<dateFormatItem id="yyMM">MM/yy</dateFormatItem>
@@ -732,23 +753,120 @@
 			<hourFormat>+HH:mm;-HH:mm</hourFormat>
 			<gmtFormat>GMT{0}</gmtFormat>
 			<regionFormat>{0}</regionFormat>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Etc/Unknown">
 				<exemplarCity>უცნობი</exemplarCity>
 			</zone>
 			<zone type="America/Antigua">
-				<exemplarCity>ანტიგუა და ბარბუდა</exemplarCity>
+				<exemplarCity>ბარბუდა</exemplarCity>
 			</zone>
 			<zone type="America/Anguilla">
 				<exemplarCity>ანგილა</exemplarCity>
 			</zone>
 			<zone type="America/Curacao">
-				<exemplarCity>ნიდერლანდის ანტილები</exemplarCity>
+				<exemplarCity>ნიდერლანდის</exemplarCity>
 			</zone>
 			<zone type="Africa/Luanda">
 				<exemplarCity>ანგოლა</exemplarCity>
 			</zone>
+			<zone type="Antarctica/Rothera">
+				<exemplarCity>როთერა</exemplarCity>
+			</zone>
+			<zone type="Antarctica/Palmer">
+				<exemplarCity>პალმერი</exemplarCity>
+			</zone>
+			<zone type="Antarctica/South_Pole">
+				<exemplarCity>სამხრეთი პოლუსი</exemplarCity>
+			</zone>
+			<zone type="Antarctica/Syowa">
+				<exemplarCity>სიოუა</exemplarCity>
+			</zone>
+			<zone type="Antarctica/Mawson">
+				<exemplarCity>მოუსონი</exemplarCity>
+			</zone>
+			<zone type="Antarctica/Davis">
+				<exemplarCity>დევისი</exemplarCity>
+			</zone>
+			<zone type="Antarctica/Vostok">
+				<exemplarCity>ვოსტოკი</exemplarCity>
+			</zone>
+			<zone type="Antarctica/Casey">
+				<exemplarCity>კეისი</exemplarCity>
+			</zone>
+			<zone type="Antarctica/DumontDUrville">
+				<exemplarCity>დიუმონ დ'ურვილი</exemplarCity>
+			</zone>
+			<zone type="Antarctica/McMurdo">
+				<exemplarCity>მაკმურდო</exemplarCity>
+			</zone>
+			<zone type="America/Argentina/Rio_Gallegos">
+				<exemplarCity>რიო გალეგოსი</exemplarCity>
+			</zone>
+			<zone type="America/Mendoza">
+				<exemplarCity>მენდოზა</exemplarCity>
+			</zone>
+			<zone type="America/Argentina/San_Juan">
+				<exemplarCity>სან ხუანი</exemplarCity>
+			</zone>
+			<zone type="America/Argentina/Ushuaia">
+				<exemplarCity>უშუაია</exemplarCity>
+			</zone>
+			<zone type="America/Argentina/La_Rioja">
+				<exemplarCity>ლა რიოხა</exemplarCity>
+			</zone>
+			<zone type="America/Argentina/San_Luis">
+				<exemplarCity>სან ლუისი</exemplarCity>
+			</zone>
+			<zone type="America/Catamarca">
+				<exemplarCity>კატამარკა</exemplarCity>
+			</zone>
+			<zone type="America/Jujuy">
+				<exemplarCity>ჯუჯუი</exemplarCity>
+			</zone>
+			<zone type="America/Argentina/Tucuman">
+				<exemplarCity>ტუკუმანი</exemplarCity>
+			</zone>
+			<zone type="America/Cordoba">
+				<exemplarCity>კორდობა</exemplarCity>
+			</zone>
+			<zone type="America/Buenos_Aires">
+				<exemplarCity>ბუენოს აირესი</exemplarCity>
+			</zone>
+			<zone type="Australia/Perth">
+				<exemplarCity>პერთი</exemplarCity>
+			</zone>
+			<zone type="Australia/Eucla">
+				<exemplarCity>ეუკლა</exemplarCity>
+			</zone>
+			<zone type="Australia/Darwin">
+				<exemplarCity>დარვინი</exemplarCity>
+			</zone>
 			<zone type="Australia/Adelaide">
-				<exemplarCity>ავსტრალია (ადელაიდა)</exemplarCity>
+				<exemplarCity>ადელაიდა</exemplarCity>
+			</zone>
+			<zone type="Australia/Broken_Hill">
+				<exemplarCity>ბროუკენ ჰილი</exemplarCity>
+			</zone>
+			<zone type="Australia/Currie">
+				<exemplarCity>ქური</exemplarCity>
+			</zone>
+			<zone type="Australia/Melbourne">
+				<exemplarCity>მელბურნი</exemplarCity>
+			</zone>
+			<zone type="Australia/Hobart">
+				<exemplarCity>ჰობარტი</exemplarCity>
+			</zone>
+			<zone type="Australia/Lindeman">
+				<exemplarCity>ლინდმანი</exemplarCity>
+			</zone>
+			<zone type="Australia/Sydney">
+				<exemplarCity>სიდნეი</exemplarCity>
+			</zone>
+			<zone type="Australia/Brisbane">
+				<exemplarCity>ბრისბეინი</exemplarCity>
+			</zone>
+			<zone type="Australia/Lord_Howe">
+				<exemplarCity>ლორდ ჰოუი</exemplarCity>
 			</zone>
 			<zone type="America/Aruba">
 				<exemplarCity>არუბა</exemplarCity>
@@ -768,6 +886,51 @@
 			<zone type="America/La_Paz">
 				<exemplarCity>ბოლივია</exemplarCity>
 			</zone>
+			<zone type="America/Eirunepe">
+				<exemplarCity>ეირუნეპე</exemplarCity>
+			</zone>
+			<zone type="America/Rio_Branco">
+				<exemplarCity>რიო ბრანკო</exemplarCity>
+			</zone>
+			<zone type="America/Porto_Velho">
+				<exemplarCity>პორტო ველჰო</exemplarCity>
+			</zone>
+			<zone type="America/Boa_Vista">
+				<exemplarCity>ბოა ვისტა</exemplarCity>
+			</zone>
+			<zone type="America/Manaus">
+				<exemplarCity>მანაუსი</exemplarCity>
+			</zone>
+			<zone type="America/Cuiaba">
+				<exemplarCity>კუიაბა</exemplarCity>
+			</zone>
+			<zone type="America/Campo_Grande">
+				<exemplarCity>კამპო გრანდე</exemplarCity>
+			</zone>
+			<zone type="America/Belem">
+				<exemplarCity>ბელემი</exemplarCity>
+			</zone>
+			<zone type="America/Araguaina">
+				<exemplarCity>არაგუაინა</exemplarCity>
+			</zone>
+			<zone type="America/Sao_Paulo">
+				<exemplarCity>საო პაულო</exemplarCity>
+			</zone>
+			<zone type="America/Bahia">
+				<exemplarCity>ბაია</exemplarCity>
+			</zone>
+			<zone type="America/Fortaleza">
+				<exemplarCity>ფორტალეზა</exemplarCity>
+			</zone>
+			<zone type="America/Maceio">
+				<exemplarCity>მასეიო</exemplarCity>
+			</zone>
+			<zone type="America/Recife">
+				<exemplarCity>რეციფე</exemplarCity>
+			</zone>
+			<zone type="America/Noronha">
+				<exemplarCity>ნორონია</exemplarCity>
+			</zone>
 			<zone type="America/Nassau">
 				<exemplarCity>ბაჰამის კუნძულები</exemplarCity>
 			</zone>
@@ -776,6 +939,93 @@
 			</zone>
 			<zone type="America/Belize">
 				<exemplarCity>ბელიზი</exemplarCity>
+			</zone>
+			<zone type="America/Dawson">
+				<exemplarCity>დოუსონი</exemplarCity>
+			</zone>
+			<zone type="America/Whitehorse">
+				<exemplarCity>უაითჰორსი</exemplarCity>
+			</zone>
+			<zone type="America/Inuvik">
+				<exemplarCity>ინუვიკი</exemplarCity>
+			</zone>
+			<zone type="America/Vancouver">
+				<exemplarCity>ვანკუვერი</exemplarCity>
+			</zone>
+			<zone type="America/Dawson_Creek">
+				<exemplarCity>დოუსონ ქრიკი</exemplarCity>
+			</zone>
+			<zone type="America/Yellowknife">
+				<exemplarCity>იელოუნაიფი</exemplarCity>
+			</zone>
+			<zone type="America/Edmonton">
+				<exemplarCity>ედმონტონი</exemplarCity>
+			</zone>
+			<zone type="America/Swift_Current">
+				<exemplarCity>სვიფტ კარენტი</exemplarCity>
+			</zone>
+			<zone type="America/Cambridge_Bay">
+				<exemplarCity>კემბრიჯ ბეი</exemplarCity>
+			</zone>
+			<zone type="America/Regina">
+				<exemplarCity>რეჯინა</exemplarCity>
+			</zone>
+			<zone type="America/Winnipeg">
+				<exemplarCity>უინიპეგი</exemplarCity>
+			</zone>
+			<zone type="America/Resolute">
+				<exemplarCity>რეზოლუტე</exemplarCity>
+			</zone>
+			<zone type="America/Rainy_River">
+				<exemplarCity>რეინი რივერი</exemplarCity>
+			</zone>
+			<zone type="America/Rankin_Inlet">
+				<exemplarCity>რენკინ ინლეტი</exemplarCity>
+			</zone>
+			<zone type="America/Coral_Harbour">
+				<exemplarCity>ქორალ ჰარბორი</exemplarCity>
+			</zone>
+			<zone type="America/Thunder_Bay">
+				<exemplarCity>თანდერ ბეი</exemplarCity>
+			</zone>
+			<zone type="America/Nipigon">
+				<exemplarCity>ნიპიგონი</exemplarCity>
+			</zone>
+			<zone type="America/Toronto">
+				<exemplarCity>ტორონტო</exemplarCity>
+			</zone>
+			<zone type="America/Montreal">
+				<exemplarCity>მონრეალი</exemplarCity>
+			</zone>
+			<zone type="America/Iqaluit">
+				<exemplarCity>იქალუიტი</exemplarCity>
+			</zone>
+			<zone type="America/Pangnirtung">
+				<exemplarCity>პანგნირტუნგი</exemplarCity>
+			</zone>
+			<zone type="America/Moncton">
+				<exemplarCity>მონქტონი</exemplarCity>
+			</zone>
+			<zone type="America/Halifax">
+				<exemplarCity>ჰალიფაქსი</exemplarCity>
+			</zone>
+			<zone type="America/Goose_Bay">
+				<exemplarCity>გუზ ბეი</exemplarCity>
+			</zone>
+			<zone type="America/Glace_Bay">
+				<exemplarCity>გლეის ბეი</exemplarCity>
+			</zone>
+			<zone type="America/Blanc-Sablon">
+				<exemplarCity>ბლან-საბლონი</exemplarCity>
+			</zone>
+			<zone type="America/St_Johns">
+				<exemplarCity>სენტ ჯონსი</exemplarCity>
+			</zone>
+			<zone type="Africa/Kinshasa">
+				<exemplarCity>კინშასა</exemplarCity>
+			</zone>
+			<zone type="Africa/Lubumbashi">
+				<exemplarCity>ლუბუმბაში</exemplarCity>
 			</zone>
 			<zone type="Africa/Bangui">
 				<exemplarCity>ცენტრალური აფრიკის რესპუბლიკა</exemplarCity>
@@ -786,8 +1036,23 @@
 			<zone type="Africa/Abidjan">
 				<exemplarCity>სპილოს ძვლის სანაპირო</exemplarCity>
 			</zone>
+			<zone type="Pacific/Easter">
+				<exemplarCity>ისთერი</exemplarCity>
+			</zone>
 			<zone type="Africa/Douala">
 				<exemplarCity>კამერუნი</exemplarCity>
+			</zone>
+			<zone type="Asia/Kashgar">
+				<exemplarCity>კაშგარი</exemplarCity>
+			</zone>
+			<zone type="Asia/Urumqi">
+				<exemplarCity>ურუმქი</exemplarCity>
+			</zone>
+			<zone type="Asia/Chongqing">
+				<exemplarCity>ჩონგქინგი</exemplarCity>
+			</zone>
+			<zone type="Asia/Harbin">
+				<exemplarCity>ჰარბინი</exemplarCity>
 			</zone>
 			<zone type="America/Bogota">
 				<exemplarCity>კოლუმბია</exemplarCity>
@@ -807,6 +1072,9 @@
 			<zone type="Africa/Algiers">
 				<exemplarCity>ალჟირი</exemplarCity>
 			</zone>
+			<zone type="Pacific/Galapagos">
+				<exemplarCity>გალაპაგოსი</exemplarCity>
+			</zone>
 			<zone type="Africa/Cairo">
 				<exemplarCity>ეგვიპტე</exemplarCity>
 			</zone>
@@ -816,8 +1084,23 @@
 			<zone type="Africa/Asmera">
 				<exemplarCity>ერითრეა</exemplarCity>
 			</zone>
+			<zone type="Atlantic/Canary">
+				<exemplarCity>კანარი</exemplarCity>
+			</zone>
+			<zone type="Africa/Ceuta">
+				<exemplarCity>სეუტა</exemplarCity>
+			</zone>
 			<zone type="Africa/Addis_Ababa">
 				<exemplarCity>ეთიოპია</exemplarCity>
+			</zone>
+			<zone type="Pacific/Truk">
+				<exemplarCity>ტრუკი</exemplarCity>
+			</zone>
+			<zone type="Pacific/Ponape">
+				<exemplarCity>პონაპე</exemplarCity>
+			</zone>
+			<zone type="Pacific/Kosrae">
+				<exemplarCity>კოსრაე</exemplarCity>
 			</zone>
 			<zone type="Africa/Libreville">
 				<exemplarCity>გაბონი</exemplarCity>
@@ -826,10 +1109,19 @@
 				<exemplarCity>გრენადა</exemplarCity>
 			</zone>
 			<zone type="America/Cayenne">
-				<exemplarCity>ფრანგული გუიანა</exemplarCity>
+				<exemplarCity>გუიანა</exemplarCity>
 			</zone>
 			<zone type="Africa/Accra">
 				<exemplarCity>განა</exemplarCity>
+			</zone>
+			<zone type="America/Thule">
+				<exemplarCity>თულე</exemplarCity>
+			</zone>
+			<zone type="America/Scoresbysund">
+				<exemplarCity>სკორსბისუნდი</exemplarCity>
+			</zone>
+			<zone type="America/Danmarkshavn">
+				<exemplarCity>დენმარკშავნი</exemplarCity>
 			</zone>
 			<zone type="Africa/Banjul">
 				<exemplarCity>გამბია</exemplarCity>
@@ -852,17 +1144,50 @@
 			<zone type="America/Guyana">
 				<exemplarCity>გუიანა</exemplarCity>
 			</zone>
+			<zone type="Asia/Jakarta">
+				<exemplarCity>ჯაკარტა</exemplarCity>
+			</zone>
+			<zone type="Asia/Pontianak">
+				<exemplarCity>პონტიანაკი</exemplarCity>
+			</zone>
+			<zone type="Asia/Makassar">
+				<exemplarCity>მაკასარი</exemplarCity>
+			</zone>
+			<zone type="Asia/Jayapura">
+				<exemplarCity>ჯაიაპურა</exemplarCity>
+			</zone>
 			<zone type="America/Jamaica">
 				<exemplarCity>იამაიკა</exemplarCity>
 			</zone>
 			<zone type="Africa/Nairobi">
 				<exemplarCity>კენია</exemplarCity>
 			</zone>
+			<zone type="Pacific/Enderbury">
+				<exemplarCity>ენდერბური</exemplarCity>
+			</zone>
+			<zone type="Pacific/Kiritimati">
+				<exemplarCity>კირიტიმატი</exemplarCity>
+			</zone>
+			<zone type="Pacific/Tarawa">
+				<exemplarCity>ტარაუა</exemplarCity>
+			</zone>
 			<zone type="America/Cayman">
-				<exemplarCity>კაიმანის კუნძულები</exemplarCity>
+				<exemplarCity>კაიმანის</exemplarCity>
+			</zone>
+			<zone type="Asia/Aqtau">
+				<exemplarCity>აქტაუ</exemplarCity>
+			</zone>
+			<zone type="Asia/Oral">
+				<exemplarCity>ორალი</exemplarCity>
+			</zone>
+			<zone type="Asia/Aqtobe">
+				<exemplarCity>აქტობე</exemplarCity>
+			</zone>
+			<zone type="Asia/Qyzylorda">
+				<exemplarCity>ყიზილორდა</exemplarCity>
 			</zone>
 			<zone type="Asia/Almaty">
-				<exemplarCity>ყაზახეთი (ალმატი)</exemplarCity>
+				<exemplarCity>ალმატი</exemplarCity>
 			</zone>
 			<zone type="Africa/Monrovia">
 				<exemplarCity>ლიბერია</exemplarCity>
@@ -876,8 +1201,23 @@
 			<zone type="Africa/Casablanca">
 				<exemplarCity>მაროკო</exemplarCity>
 			</zone>
+			<zone type="Pacific/Kwajalein">
+				<exemplarCity>კვაჯალეინი</exemplarCity>
+			</zone>
+			<zone type="Pacific/Majuro">
+				<exemplarCity>მახურო</exemplarCity>
+			</zone>
 			<zone type="Africa/Bamako">
 				<exemplarCity>მალი</exemplarCity>
+			</zone>
+			<zone type="Asia/Hovd">
+				<exemplarCity>ჰოვდი</exemplarCity>
+			</zone>
+			<zone type="Asia/Ulaanbaatar">
+				<exemplarCity>ულანბატარი</exemplarCity>
+			</zone>
+			<zone type="Asia/Choibalsan">
+				<exemplarCity>ჩოიბალსანი</exemplarCity>
 			</zone>
 			<zone type="America/Martinique">
 				<exemplarCity>მარტინიკი</exemplarCity>
@@ -890,6 +1230,33 @@
 			</zone>
 			<zone type="Africa/Blantyre">
 				<exemplarCity>მალავი</exemplarCity>
+			</zone>
+			<zone type="America/Tijuana">
+				<exemplarCity>ტიხუანა</exemplarCity>
+			</zone>
+			<zone type="America/Hermosillo">
+				<exemplarCity>ჰერმოსიო</exemplarCity>
+			</zone>
+			<zone type="America/Mazatlan">
+				<exemplarCity>მაზატლანი</exemplarCity>
+			</zone>
+			<zone type="America/Chihuahua">
+				<exemplarCity>ჩიჰუაჰუა</exemplarCity>
+			</zone>
+			<zone type="America/Monterrey">
+				<exemplarCity>მონტერეი</exemplarCity>
+			</zone>
+			<zone type="America/Mexico_City">
+				<exemplarCity>მექსიკო სითი</exemplarCity>
+			</zone>
+			<zone type="America/Merida">
+				<exemplarCity>მერიდა</exemplarCity>
+			</zone>
+			<zone type="America/Cancun">
+				<exemplarCity>კანკუნი</exemplarCity>
+			</zone>
+			<zone type="Asia/Kuching">
+				<exemplarCity>კუჩინგი</exemplarCity>
 			</zone>
 			<zone type="Africa/Maputo">
 				<exemplarCity>მოზამბიკი</exemplarCity>
@@ -906,14 +1273,74 @@
 			<zone type="America/Managua">
 				<exemplarCity>ნიკარაგუა</exemplarCity>
 			</zone>
+			<zone type="Pacific/Chatham">
+				<exemplarCity>ჩათამი</exemplarCity>
+			</zone>
 			<zone type="America/Lima">
 				<exemplarCity>პერუ</exemplarCity>
+			</zone>
+			<zone type="Pacific/Marquesas">
+				<exemplarCity>მარკეზასი</exemplarCity>
+			</zone>
+			<zone type="Pacific/Gambier">
+				<exemplarCity>გამბიერი</exemplarCity>
 			</zone>
 			<zone type="America/Miquelon">
 				<exemplarCity>სენტ პიერი და მიკელონი</exemplarCity>
 			</zone>
+			<zone type="Atlantic/Azores">
+				<exemplarCity>აზორეს</exemplarCity>
+			</zone>
+			<zone type="Atlantic/Madeira">
+				<exemplarCity>მადეირა</exemplarCity>
+			</zone>
 			<zone type="America/Asuncion">
 				<exemplarCity>პარაგვაი</exemplarCity>
+			</zone>
+			<zone type="Europe/Kaliningrad">
+				<exemplarCity>კალინინგრადი</exemplarCity>
+			</zone>
+			<zone type="Europe/Moscow">
+				<exemplarCity>მოსკოვი</exemplarCity>
+			</zone>
+			<zone type="Europe/Volgograd">
+				<exemplarCity>ვოლგოგრადი</exemplarCity>
+			</zone>
+			<zone type="Europe/Samara">
+				<exemplarCity>სამარა</exemplarCity>
+			</zone>
+			<zone type="Asia/Yekaterinburg">
+				<exemplarCity>ეკატერინბურგი</exemplarCity>
+			</zone>
+			<zone type="Asia/Omsk">
+				<exemplarCity>ომსკი</exemplarCity>
+			</zone>
+			<zone type="Asia/Novosibirsk">
+				<exemplarCity>ნოვოსიბირსკი</exemplarCity>
+			</zone>
+			<zone type="Asia/Krasnoyarsk">
+				<exemplarCity>კრასნოიარსკი</exemplarCity>
+			</zone>
+			<zone type="Asia/Irkutsk">
+				<exemplarCity>ირკუტსკი</exemplarCity>
+			</zone>
+			<zone type="Asia/Yakutsk">
+				<exemplarCity>იაკუტსკი</exemplarCity>
+			</zone>
+			<zone type="Asia/Vladivostok">
+				<exemplarCity>ვლადივოსტოკი</exemplarCity>
+			</zone>
+			<zone type="Asia/Sakhalin">
+				<exemplarCity>სახალინი</exemplarCity>
+			</zone>
+			<zone type="Asia/Magadan">
+				<exemplarCity>მაგადანი</exemplarCity>
+			</zone>
+			<zone type="Asia/Kamchatka">
+				<exemplarCity>კამჩატკა</exemplarCity>
+			</zone>
+			<zone type="Asia/Anadyr">
+				<exemplarCity>ანადირი</exemplarCity>
 			</zone>
 			<zone type="Africa/Kigali">
 				<exemplarCity>რუანდა</exemplarCity>
@@ -940,7 +1367,7 @@
 				<exemplarCity>სვაზილენდი</exemplarCity>
 			</zone>
 			<zone type="America/Grand_Turk">
-				<exemplarCity>ტერკის და კაიკოს კუნძულები</exemplarCity>
+				<exemplarCity>ტერკის და კაიკოს</exemplarCity>
 			</zone>
 			<zone type="Africa/Ndjamena">
 				<exemplarCity>ჩადი</exemplarCity>
@@ -954,14 +1381,116 @@
 			<zone type="Africa/Dar_es_Salaam">
 				<exemplarCity>ტანზანია</exemplarCity>
 			</zone>
+			<zone type="Europe/Uzhgorod">
+				<exemplarCity>უჟგოროდი</exemplarCity>
+			</zone>
+			<zone type="Europe/Kiev">
+				<exemplarCity>კიევი</exemplarCity>
+			</zone>
+			<zone type="Europe/Simferopol">
+				<exemplarCity>სიმფეროპოლი</exemplarCity>
+			</zone>
+			<zone type="Europe/Zaporozhye">
+				<exemplarCity>ზაპოროჟიე</exemplarCity>
+			</zone>
 			<zone type="Africa/Kampala">
 				<exemplarCity>უგანდა</exemplarCity>
 			</zone>
+			<zone type="Pacific/Midway">
+				<exemplarCity>მიდუეი</exemplarCity>
+			</zone>
+			<zone type="Pacific/Johnston">
+				<exemplarCity>ჯონსტონი</exemplarCity>
+			</zone>
+			<zone type="Pacific/Wake">
+				<exemplarCity>უეიკი</exemplarCity>
+			</zone>
 			<zone type="America/Adak">
-				<exemplarCity>ამერიკის შეერთებული შტატები (ადაკი)</exemplarCity>
+				<exemplarCity>ადაკი</exemplarCity>
+			</zone>
+			<zone type="America/Nome">
+				<exemplarCity>ნომი</exemplarCity>
+			</zone>
+			<zone type="Pacific/Honolulu">
+				<exemplarCity>ჰონოლულუ</exemplarCity>
+			</zone>
+			<zone type="America/Anchorage">
+				<exemplarCity>ენქორაჯი</exemplarCity>
+			</zone>
+			<zone type="America/Yakutat">
+				<exemplarCity>იაკუტატი</exemplarCity>
+			</zone>
+			<zone type="America/Juneau">
+				<exemplarCity>ჯუნო</exemplarCity>
+			</zone>
+			<zone type="America/Los_Angeles">
+				<exemplarCity>ლოს ანჯელესი</exemplarCity>
+			</zone>
+			<zone type="America/Boise">
+				<exemplarCity>ბუასი</exemplarCity>
+			</zone>
+			<zone type="America/Phoenix">
+				<exemplarCity>ფენიქსი</exemplarCity>
+			</zone>
+			<zone type="America/Shiprock">
+				<exemplarCity>შიპროკი</exemplarCity>
+			</zone>
+			<zone type="America/Denver">
+				<exemplarCity>დენვერი</exemplarCity>
+			</zone>
+			<zone type="America/North_Dakota/New_Salem">
+				<exemplarCity>ნიუ სალემი, ჩრდილოეთი დაკოტა</exemplarCity>
+			</zone>
+			<zone type="America/North_Dakota/Center">
+				<exemplarCity>ცენტრი, ჩრდილოეთი დაკოტა</exemplarCity>
+			</zone>
+			<zone type="America/Chicago">
+				<exemplarCity>ჩიკაგო</exemplarCity>
+			</zone>
+			<zone type="America/Menominee">
+				<exemplarCity>მენომინი</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Vincennes">
+				<exemplarCity>ვინსენი, ინდიანა</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Petersburg">
+				<exemplarCity>პიტერსბურგი</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Tell_City">
+				<exemplarCity>თელ სითი, ინდიანა</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Knox">
+				<exemplarCity>ნოქსი, ინდიანა</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Winamac">
+				<exemplarCity>უინემაკი, ინდიანა</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Marengo">
+				<exemplarCity>მარენგო</exemplarCity>
+			</zone>
+			<zone type="America/Indianapolis">
+				<exemplarCity>ინდიანაპოლისი</exemplarCity>
+			</zone>
+			<zone type="America/Louisville">
+				<exemplarCity>ლუისვილი</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Vevay">
+				<exemplarCity>ვივეი, ინდიანა</exemplarCity>
+			</zone>
+			<zone type="America/Kentucky/Monticello">
+				<exemplarCity>მონტიჩელო</exemplarCity>
+			</zone>
+			<zone type="America/Detroit">
+				<exemplarCity>დეტროიტი</exemplarCity>
+			</zone>
+			<zone type="America/New_York">
+				<exemplarCity>ნიუ იორკი</exemplarCity>
 			</zone>
 			<zone type="America/Montevideo">
 				<exemplarCity>ურუგვაი</exemplarCity>
+			</zone>
+			<zone type="Asia/Samarkand">
+				<exemplarCity>სამარყანდი</exemplarCity>
 			</zone>
 			<zone type="America/Caracas">
 				<exemplarCity>ვენესუელა</exemplarCity>
@@ -981,6 +1510,15 @@
 		<symbols>
 			<decimal>,</decimal>
 			<group>.</group>
+			<list>;</list>
+			<percentSign>%</percentSign>
+			<nativeZeroDigit>0</nativeZeroDigit>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+			<exponential>E</exponential>
+			<perMille>‰</perMille>
+			<infinity>∞</infinity>
+			<nan>NaN</nan>
 		</symbols>
 		<decimalFormats>
 			<decimalFormatLength>
@@ -999,9 +1537,10 @@
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>¤ #,##0.00</pattern>
+					<pattern>¤ #,##0.00</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
+			<unitPattern count="other">{0} {1}</unitPattern>
 		</currencyFormats>
 		<currencies>
 			<currency type="ADP">
@@ -1596,6 +2135,29 @@
 			</currency>
 		</currencies>
 	</numbers>
+	<units>
+		<unit type="day">
+			<unitPattern count="other">{0} დღე</unitPattern>
+		</unit>
+		<unit type="hour">
+			<unitPattern count="other">{0} საათი</unitPattern>
+		</unit>
+		<unit type="minute">
+			<unitPattern count="other">{0} წუთი</unitPattern>
+		</unit>
+		<unit type="month">
+			<unitPattern count="other">{0} თვე</unitPattern>
+		</unit>
+		<unit type="second">
+			<unitPattern count="other">{0} წამი</unitPattern>
+		</unit>
+		<unit type="week">
+			<unitPattern count="other">{0} კვირა</unitPattern>
+		</unit>
+		<unit type="year">
+			<unitPattern count="other">{0} წელი</unitPattern>
+		</unit>
+	</units>
 	<posix>
 		<messages>
 			<yesstr>დიახ</yesstr>

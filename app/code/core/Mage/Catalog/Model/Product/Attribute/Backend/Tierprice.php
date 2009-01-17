@@ -110,7 +110,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
 
     public function afterSave($object)
     {
-        $this->_getResource()->deleteProductPrices($object);
+        $this->_getResource()->deleteProductPrices($object, $this->getAttribute());
         $tierPrices = $object->getData($this->getAttribute()->getName());
 
         if (!is_array($tierPrices)) {
@@ -139,7 +139,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
 
     public function afterDelete($object)
     {
-        $this->_getResource()->deleteProductPrices($object);
+        $this->_getResource()->deleteProductPrices($object, $this->getAttribute());
         return $this;
     }
 }

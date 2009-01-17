@@ -142,19 +142,31 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * Escape data
+     * Escape html entities
      *
      * @param   mixed $data
+     * @param   array $allowedTags
      * @return  mixed
      */
-    public function htmlEscape($data)
+    public function htmlEscape($data, $allowedTags = null)
     {
         if (is_array($data)) {
+            $result = array();
             foreach ($data as $item) {
-            	return $this->htmlEscape($item);
+            	$result[] = $this->htmlEscape($item);
+            }
+        } else {
+            // process single item
+            if (is_array($allowedTags) and !empty($allowedTags)) {
+                $allowed = implode('|', $allowedTags);
+                $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
+                $result = htmlspecialchars($result);
+                $result = preg_replace('/##([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)##/si', '<$1$2$3>', $result);
+            } else {
+                $result = htmlspecialchars($data);
             }
         }
-        return htmlspecialchars($data);
+        return $result;
     }
 
     /**
@@ -167,9 +179,11 @@ abstract class Mage_Core_Helper_Abstract
     public function jsQuoteEscape($data, $quote='\'')
     {
         if (is_array($data)) {
+            $result = array();
             foreach ($data as $item) {
-                return $this->jsEscape($item, $quote);
+                $result[] = str_replace($quote, '\\'.$quote, $item);
             }
+            return $result;
         }
         return str_replace($quote, '\\'.$quote, $data);
     }

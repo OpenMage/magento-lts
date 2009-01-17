@@ -1,0 +1,300 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   Mage
+ * @package    Mage_Weee
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Weee>
+            <version>0.12</version>
+        </Mage_Weee>
+    </modules>
+
+    <global>
+        <models>
+            <weee>
+                <class>Mage_Weee_Model</class>
+                <resourceModel>weee_mysql4</resourceModel>
+            </weee>
+
+            <weee_mysql4>
+                <class>Mage_Weee_Model_Mysql4</class>
+                <entities>
+                    <tax>
+                        <table>weee_tax</table>
+                    </tax>
+                    <discount>
+                        <table>weee_discount</table>
+                    </discount>
+                </entities>
+            </weee_mysql4>
+        </models>
+
+        <resources>
+            <weee_setup>
+                <setup>
+                    <module>Mage_Weee</module>
+                    <class>Mage_Weee_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </weee_setup>
+            <weee_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </weee_write>
+            <weee_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </weee_read>
+        </resources>
+
+        <blocks>
+            <weee><class>Mage_Weee_Block</class></weee>
+        </blocks>
+
+        <events>
+            <adminhtml_catalog_product_edit_prepare_form>
+                <observers>
+                    <weee>
+                        <type>singleton</type>
+                        <class>weee/observer</class>
+                        <method>setWeeeRendererInForm</method>
+                    </weee>
+                </observers>
+            </adminhtml_catalog_product_edit_prepare_form>
+            <adminhtml_catalog_product_form_prepare_excluded_field_list>
+                <observers>
+                    <weee>
+                        <type>singleton</type>
+                        <class>weee/observer</class>
+                        <method>updateExcludedFieldList</method>
+                    </weee>
+                </observers>
+            </adminhtml_catalog_product_form_prepare_excluded_field_list>
+            <catalogindex_prepare_price_select>
+                <observers>
+                    <weee>
+                        <type>model</type>
+                        <class>weee/observer</class>
+                        <method>prepareCatalogIndexSelect</method>
+                    </weee>
+                </observers>
+            </catalogindex_prepare_price_select>
+
+            <adminhtml_product_attribute_types>
+                <observers>
+                    <weee>
+                        <type>model</type>
+                        <class>weee/observer</class>
+                        <method>addWeeeTaxAttributeType</method>
+                    </weee>
+                </observers>
+            </adminhtml_product_attribute_types>
+            <catalog_entity_attribute_save_before>
+                <observers>
+                    <weee>
+                        <type>model</type>
+                        <class>weee/observer</class>
+                        <method>assignBackendModelToAttribute</method>
+                    </weee>
+                </observers>
+            </catalog_entity_attribute_save_before>
+
+            <adminhtml_catalog_product_edit_element_types>
+                <observers>
+                    <weee>
+                        <type>singleton</type>
+                        <class>weee/observer</class>
+                        <method>updateElementTypes</method>
+                    </weee>
+                </observers>
+            </adminhtml_catalog_product_edit_element_types>
+
+            <catalogrule_after_apply>
+                <observers>
+                    <weee>
+                        <type>singleton</type>
+                        <class>weee/observer</class>
+                        <method>updateDiscountPercents</method>
+                    </weee>
+                </observers>
+            </catalogrule_after_apply>
+
+            <catalog_product_view_config>
+                <observers>
+                    <weee>
+                        <type>singleton</type>
+                        <class>weee/observer</class>
+                        <method>updateCofigurableProductOptions</method>
+                    </weee>
+                </observers>
+            </catalog_product_view_config>
+            <bundle_product_view_config>
+                <observers>
+                    <weee>
+                        <type>singleton</type>
+                        <class>weee/observer</class>
+                        <method>updateBundleProductOptions</method>
+                    </weee>
+                </observers>
+            </bundle_product_view_config>
+        </events>
+        <fieldsets>
+            <sales_convert_quote_item>
+                <weee_tax_applied>
+                    <to_order_item>*</to_order_item>
+                </weee_tax_applied>
+                <weee_tax_applied_amount>
+                    <to_order_item>*</to_order_item>
+                </weee_tax_applied_amount>
+                <weee_tax_applied_row_amount>
+                    <to_order_item>*</to_order_item>
+                </weee_tax_applied_row_amount>
+                <base_weee_tax_applied_amount>
+                    <to_order_item>*</to_order_item>
+                </base_weee_tax_applied_amount>
+                <base_weee_tax_applied_row_amount>
+                    <to_order_item>*</to_order_item>
+                </base_weee_tax_applied_row_amount>
+                <weee_tax_disposition>
+                    <to_order_item>*</to_order_item>
+                </weee_tax_disposition>
+                <base_weee_tax_disposition>
+                    <to_order_item>*</to_order_item>
+                </base_weee_tax_disposition>
+                <weee_tax_row_disposition>
+                    <to_order_item>*</to_order_item>
+                </weee_tax_row_disposition>
+                <base_weee_tax_row_disposition>
+                    <to_order_item>*</to_order_item>
+                </base_weee_tax_row_disposition>
+            </sales_convert_quote_item>
+
+            <sales_convert_order_item>
+                <weee_tax_applied>
+                    <to_cm_item>*</to_cm_item>
+                    <to_invoice_item>*</to_invoice_item>
+                </weee_tax_applied>
+                <weee_tax_applied_amount>
+                    <to_cm_item>*</to_cm_item>
+                    <to_invoice_item>*</to_invoice_item>
+                </weee_tax_applied_amount>
+                <weee_tax_applied_row_amount>
+                    <to_cm_item>*</to_cm_item>
+                    <to_invoice_item>*</to_invoice_item>
+                </weee_tax_applied_row_amount>
+                <base_weee_tax_applied_amount>
+                    <to_cm_item>*</to_cm_item>
+                    <to_invoice_item>*</to_invoice_item>
+                </base_weee_tax_applied_amount>
+                <base_weee_tax_applied_row_amount>
+                    <to_cm_item>*</to_cm_item>
+                    <to_invoice_item>*</to_invoice_item>
+                </base_weee_tax_applied_row_amount>
+                <weee_tax_disposition>
+                    <to_cm_item>*</to_cm_item>
+                    <to_invoice_item>*</to_invoice_item>
+                </weee_tax_disposition>
+                <base_weee_tax_disposition>
+                    <to_cm_item>*</to_cm_item>
+                    <to_invoice_item>*</to_invoice_item>
+                </base_weee_tax_disposition>
+                <weee_tax_row_disposition>
+                    <to_cm_item>*</to_cm_item>
+                    <to_invoice_item>*</to_invoice_item>
+                </weee_tax_row_disposition>
+                <base_weee_tax_row_disposition>
+                    <to_cm_item>*</to_cm_item>
+                    <to_invoice_item>*</to_invoice_item>
+                </base_weee_tax_row_disposition>
+            </sales_convert_order_item>
+        </fieldsets>
+
+        <sales>
+            <quote>
+                <totals>
+                    <weee>
+                        <class>weee/total_quote_weee</class>
+                        <after>subtotal,shipping,tax</after>
+                        <before>grand_total</before>
+                    </weee>
+                </totals>
+            </quote>
+            <order_invoice>
+                <totals>
+                    <weee>
+                        <class>weee/total_invoice_weee</class>
+                        <after>subtotal,tax</after>
+                        <before>grand_total</before>
+                    </weee>
+                </totals>
+            </order_invoice>
+            <order_creditmemo>
+                <totals>
+                    <weee>
+                        <class>weee/total_creditmemo_weee</class>
+                        <after>subtotal,tax</after>
+                        <before>grand_total</before>
+                    </weee>
+                </totals>
+            </order_creditmemo>
+        </sales>
+    </global>
+
+
+    <default>
+        <sales>
+            <totals_sort>
+                <weee>50</weee>
+            </totals_sort>
+        </sales>
+        <tax>
+            <weee>
+                <enable>0</enable>
+                <display>0</display>
+                <display_list>0</display_list>
+                <display_sales>0</display_sales>
+                <display_email>0</display_email>
+                <discount>0</discount>
+                <apply_vat>0</apply_vat>
+                <include_in_subtotal>0</include_in_subtotal>
+            </weee>
+        </tax>
+    </default>
+
+    <frontend>
+        <layout>
+             <updates>
+                  <weee>
+                        <file>weee.xml</file>
+                  </weee>
+             </updates>
+        </layout>
+    </frontend>
+</config>

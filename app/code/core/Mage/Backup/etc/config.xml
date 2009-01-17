@@ -64,9 +64,9 @@
     </global>
     <adminhtml>
         <menu>
-            <system translate="title" module="backup">
+            <system>
                 <children>
-                    <tools translate="title" module="backup">
+                    <tools>
                         <children>
                             <backup translate="title" module="backup">
                                 <title>Backups</title>
@@ -86,5 +86,24 @@
                 </Mage_Backup>
             </modules>
         </translate>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <tools>
+                                    <children>
+                                        <backup translate="title" module="backup">
+                                            <title>Backups</title>
+                                        </backup>
+                                    </children>
+                                </tools>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
     </adminhtml>
 </config>

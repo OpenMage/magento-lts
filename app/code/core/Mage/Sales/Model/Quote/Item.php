@@ -371,6 +371,32 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     }
 
     /**
+     * Can specify specific actions for ability to change given quote options values
+     * Exemple: cataloginventory decimal qty validation may change qty to int,
+     * so need to change quote item qty option value.
+     *
+     * @param array         $options
+     * @param Varien_Object $option
+     * @param mixed         $value
+     *
+     * @return object       Mage_Catalog_Model_Product_Type_Abstract
+     */
+    public function updateQtyOption(Varien_Object $option, $value)
+    {
+        $optionProduct = $option->getProduct();
+
+        $options = $this->getQtyOptions();
+        if (isset($options[$optionProduct->getId()])) {
+            $options[$optionProduct->getId()]->setValue($value);
+        }
+
+        $this->getProduct()->getTypeInstance()
+            ->updateQtyOption($this->getOptions(), $option, $value);
+
+        return $this;
+    }
+
+    /**
      *Remove option from item options
      *
      * @param string $code

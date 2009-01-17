@@ -101,6 +101,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         }
 
         try {
+            $modelSet->validate($this->getRequest()->getParam('attribute_set_name'));
             $modelSet->save();
             if( $this->getRequest()->getParam('gotoEdit') == 1 ) {
                 $modelSet->initFromSkeleton($this->getRequest()->getParam('skeleton_set'))
@@ -110,8 +111,9 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
                 $this->_getSession()->addSuccess($this->__('Attribute set successfully saved.'));
             } else {
                 $this->_getSession()->addSuccess($this->__('Attribute set successfully saved.'));
-                $this->_initLayoutMessages('adminhtml/session');
-                $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
+//                $this->_initLayoutMessages('adminhtml/session');
+//                $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
+                $response->setUrl($this->getUrl('*/*/edit', array('id' => $modelSet->getId())));
                 //$this->_redirect('*/*/'); Why? there is Ajax.
             }
         }

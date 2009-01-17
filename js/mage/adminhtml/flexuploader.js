@@ -39,6 +39,7 @@ if(!window.Flex) {
         onFilesComplete: false,
         onFileProgress: true,
         onFileRemove: false,
+        onContainerHideBefore:null,
         initialize: function(containerId, uploaderSrc, config) {
             this.containerId = containerId;
             this.container   = $(containerId);
@@ -51,13 +52,16 @@ if(!window.Flex) {
             Element.insert(
                 // window.document.body,
                 this.containerId,
-                {'before':'<div id="'+this.flexContainerId+'" class="flex" style="position:relative;"></div>'}
+                {'before':'<div id="'+this.flexContainerId+'" class="flex" style="position:relative;float:right;"></div>'}
             );
-
+            flexWidth = 230;
+            if (this.config.width) {
+                flexWidth = this.config.width;
+            }
             this.flex = new Flex.Object({
                 left: 100,
                 top: 300,
-                width:  230,
+                width:  flexWidth,
                 height: 20,
                 src:    uploaderSrc
                 // wmode: 'transparent'
@@ -82,6 +86,7 @@ if(!window.Flex) {
                 // this.getInnerElement('upload').hide();
                 this.getInnerElement('install-flash').show();
             }
+            this.onContainerHideBefore = this.handleContainerHideBefore.bind(this);
         },
         getInnerElement: function(elementName) {
             return $(this.containerId + '-' + elementName);
@@ -113,6 +118,7 @@ if(!window.Flex) {
             this.uploader.addEventListener('complete',  this.handleComplete.bind(this));
             this.uploader.addEventListener('progress',  this.handleProgress.bind(this));
             this.uploader.addEventListener('error',     this.handleError.bind(this));
+            this.uploader.addEventListener('removeall', this.handleRemoveAll.bind(this));
             // this.getInnerElement('browse').disabled = false;
             // this.getInnerElement('upload').disabled = false;
         },
@@ -130,11 +136,24 @@ if(!window.Flex) {
             if (this.onFileRemove) {
                 this.onFileRemove(id);
             }
+            this.files = this.uploader.getFilesInfo();
+            this.updateFiles();
+        },
+        removeAllFiles: function() {
+            this.files.each(function(file) {
+                this.removeFile(file.id);
+            }.bind(this));
+            this.files = this.uploader.getFilesInfo();
+            this.updateFiles();
         },
         handleSelect: function (event) {
             this.files = event.getData().files;
+            this.checkFileSize();
             this.updateFiles();
             this.getInnerElement('upload').show();
+            if (this.onFileSelect) {
+                this.onFileSelect();
+            }
         },
         handleProgress: function (event) {
             var file = event.getData().file;
@@ -153,6 +172,16 @@ if(!window.Flex) {
                 this.onFilesComplete(this.files);
             }
         },
+        handleRemoveAll: function (event) {
+            this.files.each(function(file) {
+                $(this.getFileId(file.id)).remove();
+            }.bind(this));
+            if (this.onFileRemoveAll) {
+                this.onFileRemoveAll();
+            }
+            this.files = this.uploader.getFilesInfo();
+            this.updateFiles();
+        },
         handleRemove: function (event) {
             this.files = this.uploader.getFilesInfo();
             this.updateFiles();
@@ -164,7 +193,14 @@ if(!window.Flex) {
         },
         updateFile:  function (file) {
             if (!$(this.getFileId(file))) {
-                Element.insert(this.container, {bottom: this.fileRowTemplate.evaluate(this.getFileVars(file))});
+                if (this.config.replace_browse_with_remove) {
+                    $(this.containerId+'-new').show();
+                    $(this.containerId+'-new').innerHTML = this.fileRowTemplate.evaluate(this.getFileVars(file));
+                    $(this.containerId+'-old').hide();
+                    this.flex.getBridge().hideBrowseButton();
+                } else {
+                    Element.insert(this.container, {bottom: this.fileRowTemplate.evaluate(this.getFileVars(file))});
+                }
             }
             if (file.status == 'full_complete' && file.response.isJSON()) {
                 var response = file.response.evalJSON();
@@ -179,11 +215,15 @@ if(!window.Flex) {
                             + (response.cookie.path.blank() ? "" : "; path=" + response.cookie.path)
                             + (response.cookie.domain.blank() ? "" : "; domain=" + response.cookie.domain);
                     }
-                    if (typeof response.error != 'undefined') {
+                    if (typeof response.error != 'undefined' && response.error != 0) {
                         file.status = 'error';
                         file.errorText = response.error;
                     }
                 }
+            }
+            
+            if (file.status == 'full_complete' && !file.response.isJSON()) {
+                file.status = 'error';
             }
 
             var progress = $(this.getFileId(file)).getElementsByClassName('progress-text')[0];
@@ -196,18 +236,29 @@ if(!window.Flex) {
                 } else {
                     progress.update('');
                 }
-                this.getDeleteButton(file).hide();
+                if (! this.config.replace_browse_with_remove) {
+                    this.getDeleteButton(file).hide();
+                }
             } else if (file.status=='error') {
                 $(this.getFileId(file)).addClassName('error');
                 $(this.getFileId(file)).removeClassName('progress');
                 $(this.getFileId(file)).removeClassName('new');
                 var errorText = file.errorText ? file.errorText : this.errorText(file);
+                if (this.config.replace_browse_with_remove) {
+                    this.flex.getBridge().hideBrowseButton();
+                } else {
+                    this.getDeleteButton(file).show();
+                }
+
                 progress.update(errorText);
-                this.getDeleteButton(file).show();
+
             } else if (file.status=='full_complete') {
                 $(this.getFileId(file)).addClassName('complete');
                 $(this.getFileId(file)).removeClassName('progress');
                 $(this.getFileId(file)).removeClassName('error');
+                if (this.config.replace_browse_with_remove) {
+                    this.flex.getBridge().hideRemoveButton();
+                }
                 progress.update(this.translate('Complete'));
             }
         },
@@ -244,6 +295,24 @@ if(!window.Flex) {
         round: function(number) {
             return Math.round(number*100)/100;
         },
+        checkFileSize: function() {
+            newFiles = [];
+            hasTooBigFiles = false;
+            this.files.each(function(file){
+                if (file.size > maxUploadFileSizeInBytes) {
+                    hasTooBigFiles = true;
+                    this.uploader.removeFile(file.id)
+                } else {
+                    newFiles.push(file)
+                }
+            }.bind(this));
+            this.files = newFiles;
+            if (hasTooBigFiles) {
+                alert(
+                    this.translate('Maximum allowed file size for upload is')+' '+maxUploadFileSize+".\n"+this.translate('Please check your server PHP settings.')
+                );
+            }
+        },
         translate: function(text) {
             try {
                 if(Translator){
@@ -279,6 +348,23 @@ if(!window.Flex) {
             }
 
             return error;
+        },
+        handleContainerHideBefore: function(container) {
+            if (container && Element.descendantOf(this.container, container) && !this.checkAllComplete()) {
+                if (! confirm('There are files that were selected but not uploaded yet. After switching to another tab your selections will be lost. Do you wish to continue ?')) {
+                    return 'cannotchange';
+                } else {
+                    this.removeAllFiles();
+                }
+            }
+        },
+        checkAllComplete: function() {
+            if (this.files) {
+                return !this.files.any(function(file) {
+                    return (file.status !== 'full_complete')
+                });
+            }
+            return true;
         }
     }
 }

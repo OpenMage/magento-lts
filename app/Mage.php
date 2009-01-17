@@ -82,7 +82,7 @@ final class Mage {
 
     public static function getVersion()
     {
-        return '1.1.8';
+        return '1.2.0';
     }
 
     /**
@@ -149,6 +149,9 @@ final class Mage {
      */
     public static function setRoot($appRoot='')
     {
+        if (self::registry('appRoot')) {
+            return ;
+        }
         if (''===$appRoot) {
             // automagically find application root by dirname of Mage.php
             $appRoot = dirname(__FILE__);
@@ -455,11 +458,18 @@ final class Mage {
         }
         catch (Mage_Core_Model_Store_Exception $e) {
             $baseUrl = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
-            header('Location: ' . $baseUrl.'/404/');
+            if (!headers_sent()) {
+                header('Location: ' . $baseUrl.'/404/');
+            }
+            else {
+                print '<script type="text/javascript">';
+                print "window.location.href = '{$baseUrl}';";
+                print '</script>';
+            }
             die();
         }
         catch (Exception $e) {
-            if (self::app()->isInstalled() || self::$_isDownloader) {
+            if (self::isInstalled() || self::$_isDownloader) {
                 self::printException($e);
                 exit();
             }
@@ -476,6 +486,43 @@ final class Mage {
                 self::printException($ne, $e->getMessage());
             }
         }
+    }
+
+    /**
+     * Retrieve application installation flag
+     *
+     * @param string|array $options
+     * @return bool
+     */
+    public static function isInstalled($options = array())
+    {
+        $isInstalled = self::registry('_is_installed');
+        if ($isInstalled === null) {
+            self::setRoot();
+
+            if (is_string($options)) {
+                $options = array(
+                    'etc_dir' => $options
+                );
+            }
+            $etcDir = 'etc';
+            if (!empty($options['etc_dir'])) {
+                $etcDir = $options['etc_dir'];
+            }
+            $localConfigFile = self::getRoot() . DS . $etcDir . DS . 'local.xml';
+
+            $isInstalled = false;
+
+            if (is_readable($localConfigFile)) {
+                $localConfig = simplexml_load_file($localConfigFile);
+                date_default_timezone_set('UTC');
+                if (($date = $localConfig->global->install->date) && strtotime($date)) {
+                    $isInstalled = true;
+                }
+            }
+            self::register('_is_installed', $isInstalled);
+        }
+        return $isInstalled;
     }
 
     /**

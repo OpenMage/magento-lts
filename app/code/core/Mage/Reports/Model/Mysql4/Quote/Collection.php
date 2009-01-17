@@ -102,8 +102,8 @@ class Mage_Reports_Model_Mysql4_Quote_Collection extends Mage_Sales_Model_Mysql4
     public function addSubtotal($storeIds = '', $filter = null)
     {
         if (is_array($storeIds)) {
-            $this->getSelect()->from("", array("subtotal" => "(main_table.base_subtotal_with_discount/main_table.store_to_base_rate)"));
-            $this->_joinedFields['subtotal'] = '(main_table.base_subtotal_with_discount/main_table.store_to_base_rate)';
+            $this->getSelect()->from("", array("subtotal" => "(main_table.base_subtotal_with_discount*main_table.base_to_global_rate)"));
+            $this->_joinedFields['subtotal'] = '(main_table.base_subtotal_with_discount*main_table.base_to_global_rate)';
         } else {
             $this->getSelect()->from("", array("subtotal" => "main_table.base_subtotal_with_discount"));
             $this->_joinedFields['subtotal'] = 'main_table.base_subtotal_with_discount';

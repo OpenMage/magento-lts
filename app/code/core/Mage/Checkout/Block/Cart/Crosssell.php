@@ -33,37 +33,49 @@
  */
 class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abstract
 {
+    /**
+     * Items quantity will be capped to this value
+     *
+     * @var int
+     */
     protected $_maxItemCount = 4;
 
+    /**
+     * Get crosssell items
+     *
+     * @return array
+     */
     public function getItems()
     {
         $items = $this->getData('items');
         if (is_null($items)) {
             $items = array();
-            $ninProductIds = $this->_getCartProductIds();
-            if ($lastAdded = (int) $this->_getLastAddedProductId()) {
-                $collection = $this->_getCollection()
-                    ->addProductFilter($lastAdded);
-                if (!empty($ninProductIds)) {
-                    $collection->addExcludeProductFilter($ninProductIds);
-                }
-                $collection->load();
+            if ($ninProductIds = $this->_getCartProductIds()) {
+                if ($lastAdded = (int) $this->_getLastAddedProductId()) {
+                    $collection = $this->_getCollection()
+                        ->addProductFilter($lastAdded);
+                    if (!empty($ninProductIds)) {
+                        $collection->addExcludeProductFilter($ninProductIds);
+                    }
+                    $collection->load();
 
-                foreach ($collection as $item) {
-                    $ninProductIds[] = $item->getId();
-                    $items[] = $item;
+                    foreach ($collection as $item) {
+                        $ninProductIds[] = $item->getId();
+                        $items[] = $item;
+                    }
                 }
-            }
 
-            if (count($items)<$this->_maxItemCount) {
-                $collection = $this->_getCollection()
-                    ->addProductFilter($this->_getCartProductIds())
-                    ->addExcludeProductFilter($ninProductIds)
-                    ->setPageSize($this->_maxItemCount-count($items))
-                    ->setRandomOrder()
-                    ->load();
-                foreach ($collection as $item) {
-                    $items[] = $item;
+                if (count($items)<$this->_maxItemCount) {
+                    $collection = $this->_getCollection()
+                        ->addProductFilter($this->_getCartProductIds())
+                        ->addExcludeProductFilter($ninProductIds)
+                        ->setPageSize($this->_maxItemCount-count($items))
+                        ->setGroupBy()
+                        ->setRandomOrder()
+                        ->load();
+                    foreach ($collection as $item) {
+                        $items[] = $item;
+                    }
                 }
             }
 
@@ -71,11 +83,22 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
         }
         return $items;
     }
+
+    /**
+     * Count items
+     *
+     * @return int
+     */
     public function getItemCount()
     {
         return count($this->getItems());
     }
 
+    /**
+     * Get ids of products that are in cart
+     *
+     * @return array
+     */
     protected function _getCartProductIds()
     {
         $ids = $this->getData('_cart_product_ids');
@@ -91,11 +114,21 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
         return $ids;
     }
 
+    /**
+     * Get last product ID that was added to cart and remove this information from session
+     *
+     * @return int
+     */
     protected function _getLastAddedProductId()
     {
         return Mage::getSingleton('checkout/session')->getLastAddedProductId(true);
     }
 
+    /**
+     * Get quote instance
+     *
+     * @return Mage_Sales_Model_Quote
+     */
     public function getQuote()
     {
         return Mage::getSingleton('checkout/session')->getQuote();

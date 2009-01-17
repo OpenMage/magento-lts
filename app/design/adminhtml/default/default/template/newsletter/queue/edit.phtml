@@ -29,39 +29,40 @@
         <tr>
             <td><h3><?php echo $this->getHeaderText() ?></h3></td>
             <td class="form-buttons">
-            	  <?php echo $this->getBackButtonHtml() ?>
-            	  <?php if(!$this->getIsPreview()): ?>
-            	  <?php echo $this->getResetButtonHtml() ?>
-            	  <?php if(!$this->getIsTextType()): ?>
-            	  <?php endif ?>
-                  <?php echo $this->getSaveButtonHtml() ?>
-				  <?php endif ?>
-				  <?php if($this->getCanResume()): ?>
-				  <?php echo $this->getResumeButtonHtml() ?>
-				  <?php endif ?>
+                <?php echo $this->getBackButtonHtml() ?>
+                <?php if(!$this->getIsPreview()): ?>
+                    <?php echo $this->getResetButtonHtml() ?>
+                    <?php if(!$this->getIsTextType()): ?>
+                    <?php endif ?>
+                    <?php echo $this->getSaveButtonHtml() ?>
+                <?php endif ?>
+                <?php if($this->getCanResume()): ?>
+                    <?php echo $this->getResumeButtonHtml() ?>
+                <?php endif ?>
             </td>
         </tr>
     </table>
 </div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="queue_edit_form">
-<div class="no-display">
-    <input type="hidden" name="_resume" id="_resume_flag" value="" />
-</div>
-<?php echo $this->getChildHtml('form') ?>
+    <?php echo $this->getBlockHtml('formkey')?>
+    <div class="no-display">
+        <input type="hidden" name="_resume" id="_resume_flag" value="" />
+    </div>
+    <?php echo $this->getChildHtml('form') ?>
 </form>
 <script type="text/javascript">
 //<![CDATA[
 var queueForm = new varienForm('queue_edit_form');
 
 var queueControl = {
-	save: function() {
-		$('_resume_flag').value = '';
-		queueForm.submit();
-	},
-	resume: function() {
-		$('_resume_flag').value = '1';
-		queueForm.submit();
-	}
+    save: function() {
+        $('_resume_flag').value = '';
+        queueForm.submit();
+    },
+    resume: function() {
+        $('_resume_flag').value = '1';
+        queueForm.submit();
+    }
 };
 //]]>
 </script>

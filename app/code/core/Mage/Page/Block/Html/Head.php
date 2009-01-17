@@ -245,4 +245,17 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         return $this->_data['robots'];
     }
 
+    /**
+     * Get miscellanious scripts/styles to be included in head before head closing tag
+     *
+     * @return string
+     */
+    public function getIncludes()
+    {
+        if (empty($this->_data['includes'])) {
+            $this->_data['includes'] = Mage::getStoreConfig('design/head/includes');
+        }
+        return $this->_data['includes'];
+    }
+
 }

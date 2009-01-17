@@ -47,7 +47,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
         }
         return $checkout;
     }
-    
+
     /**
      * Retrieve quote model
      *
@@ -57,7 +57,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     {
         return $this->getCheckoutSession()->getQuote();
     }
-    
+
     /**
      * Retrieve quote items
      *
@@ -67,7 +67,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     {
         return $this->getQuote()->getAllItems();
     }
-    
+
     /**
      * Retrieve customer session vodel
      *
@@ -82,7 +82,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
         }
         return $customer;
     }
-    
+
     /**
      * Retrieve customer object
      *
@@ -92,7 +92,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     {
         return $this->getCustomerSession()->getCustomer();
     }
-    
+
     /**
      * Retrieve customer default shipping address
      *
@@ -114,7 +114,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
         }
         return $address;
     }
-    
+
     /**
      * Retrieve customer default billing address
      *
@@ -129,11 +129,12 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
         }
         return $address;
     }
-    
+
     protected function _createOrderFromAddress($address)
     {
         $order = Mage::getModel('sales/order')->createFromQuoteAddress($address)
             ->setCustomerId($this->getCustomer()->getId())
+            ->setGlobalCurrencyCode('USD')
             ->setBaseCurrencyCode('USD')
             ->setStoreCurrencyCode('USD')
             ->setOrderCurrencyCode('USD')
@@ -141,7 +142,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             ->setStoreToOrderRate(1);
         return $order;
     }
-    
+
     protected function _emailOrderConfirmation($email, $name, $order)
     {
         $mailer = Mage::getModel('core/email')

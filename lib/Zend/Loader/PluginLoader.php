@@ -37,11 +37,24 @@
 class Zend_Loader_PluginLoader implements Zend_Loader_PluginLoader_Interface
 {
     /**
-     * Static registry property
+     * Class map cache file
+     * @var string
+     */
+    protected static $_includeFileCache;
+
+    /**
+     * Instance loaded plugin paths
      *
      * @var array
      */
-    static protected $_staticPrefixToPaths = array();
+    protected $_loadedPluginPaths = array();
+
+    /**
+     * Instance loaded plugins
+     *
+     * @var array
+     */
+    protected $_loadedPlugins = array();
 
     /**
      * Instance registry property
@@ -51,18 +64,25 @@ class Zend_Loader_PluginLoader implements Zend_Loader_PluginLoader_Interface
     protected $_prefixToPaths = array();
 
     /**
+     * Statically loaded plugin path mappings
+     *
+     * @var array
+     */
+    protected static $_staticLoadedPluginPaths = array();
+
+    /**
      * Statically loaded plugins
      *
      * @var array
      */
-    static protected $_staticLoadedPlugins = array();
+    protected static $_staticLoadedPlugins = array();
 
     /**
-     * Instance loaded plugins
+     * Static registry property
      *
      * @var array
      */
-    protected $_loadedPlugins = array();
+    protected static $_staticPrefixToPaths = array();
 
     /**
      * Whether to use a statically named registry for loading plugins
@@ -265,9 +285,9 @@ class Zend_Loader_PluginLoader implements Zend_Loader_PluginLoader_Interface
     public function getClassName($name)
     {
         $name = $this->_formatName($name);
-        if ($this->_useStaticRegistry &&
-            isset(self::$_staticLoadedPlugins[$this->_useStaticRegistry][$name]))
-        {
+        if ($this->_useStaticRegistry 
+            && isset(self::$_staticLoadedPlugins[$this->_useStaticRegistry][$name])
+        ) {
             return self::$_staticLoadedPlugins[$this->_useStaticRegistry][$name];
         } elseif (isset($this->_loadedPlugins[$name])) {
             return $this->_loadedPlugins[$name];
@@ -277,63 +297,164 @@ class Zend_Loader_PluginLoader implements Zend_Loader_PluginLoader_Interface
     }
 
     /**
+     * Get path to plugin class
+     * 
+     * @param  mixed $name 
+     * @return string|false False if not found
+     */
+    public function getClassPath($name)
+    {
+        $name = $this->_formatName($name);
+        if ($this->_useStaticRegistry 
+            && !empty(self::$_staticLoadedPluginPaths[$this->_useStaticRegistry][$name])
+        ) {
+            return self::$_staticLoadedPluginPaths[$this->_useStaticRegistry][$name];
+        } elseif (!empty($this->_loadedPluginPaths[$name])) {
+            return $this->_loadedPluginPaths[$name];
+        }
+
+        if ($this->isLoaded($name)) {
+            $class = $this->getClassName($name);
+            $r     = new ReflectionClass($class);
+            $path  = $r->getFileName();
+            if ($this->_useStaticRegistry) {
+                self::$_staticLoadedPluginPaths[$this->_useStaticRegistry][$name] = $path;
+            } else {
+                $this->_loadedPluginPaths[$name] = $path;
+            }
+            return $path;
+        }
+
+        return false;
+    }
+
+    /**
      * Load a plugin via the name provided
      *
      * @param  string $name
-     * @return string
+     * @return string Class name of loaded class
+     * @throws Zend_Loader_Exception if class not found
      */
     public function load($name)
     {
         $name = $this->_formatName($name);
+        if ($this->isLoaded($name)) {
+            return $this->getClassName($name);
+        }
+
         if ($this->_useStaticRegistry) {
             $registry = self::$_staticPrefixToPaths[$this->_useStaticRegistry];
         } else {
             $registry = $this->_prefixToPaths;
         }
 
-        if ($this->isLoaded($name)) {
-            return $this->getClassName($name);
-        }
-
-        $found = false;
-
-        $registry = array_reverse($registry, true);
+        $registry  = array_reverse($registry, true);
+        $found     = false;
+        $classFile = str_replace('_', DIRECTORY_SEPARATOR, $name) . '.php';
+        $incFile   = self::getIncludeFileCache();
         foreach ($registry as $prefix => $paths) {
-            $paths = array_reverse($paths, true);
+            $className = $prefix . $name;
+
+            if (class_exists($className, false)) {
+                $found = true;
+                break;
+            }
+
+            $paths     = array_reverse($paths, true);
+
             foreach ($paths as $path) {
-
-                $classFile = str_replace('_', DIRECTORY_SEPARATOR, $name) . '.php';
-                $className = $prefix . $name;
-
-                if (class_exists($className, false)) {
-                    $found = true;
-                    break 2;
-                }
-
-                if (Zend_Loader::isReadable($path . $classFile)) {
-                    include_once $path . $classFile;
-
-                    if (!class_exists($className, false)) {
-                        #require_once 'Zend/Loader/PluginLoader/Exception.php';
-                        throw new Zend_Loader_PluginLoader_Exception('File ' . $classFile . ' was loaded but class named ' . $className . ' was not found within it.');
+                $loadFile = $path . $classFile;
+                if (Zend_Loader::isReadable($loadFile)) {
+                    include_once $loadFile;
+                    if (class_exists($className, false)) {
+                        if (null !== $incFile) {
+                            self::_appendIncFile($loadFile);
+                        }
+                        $found = true;
+                        break 2;
                     }
-
-                    $found = true;
-                    break 2;
                 }
             }
         }
 
-        if ($found) {
-            if ($this->_useStaticRegistry) {
-                self::$_staticLoadedPlugins[$this->_useStaticRegistry][$name] = $className;
-            } else {
-                $this->_loadedPlugins[$name] = $className;
+        if (!$found) {
+            $message = "Plugin by name '$name' was not found in the registry; used paths:";
+            foreach ($registry as $prefix => $paths) {
+                $message .= "\n$prefix: " . implode(PATH_SEPARATOR, $paths);
             }
-            return $className;
+            #require_once 'Zend/Loader/PluginLoader/Exception.php';
+            throw new Zend_Loader_PluginLoader_Exception($message);
+       }
+
+        if ($this->_useStaticRegistry) {
+            self::$_staticLoadedPlugins[$this->_useStaticRegistry][$name]     = $className;
+            self::$_staticLoadedPluginPaths[$this->_useStaticRegistry][$name] = (isset($loadFile) ? $loadFile : '');
+        } else {
+            $this->_loadedPlugins[$name]     = $className;
+            $this->_loadedPluginPaths[$name] = (isset($loadFile) ? $loadFile : '');
+        }
+        return $className;
+    }
+
+    /**
+     * Set path to class file cache
+     *
+     * Specify a path to a file that will add include_once statements for each 
+     * plugin class loaded. This is an opt-in feature for performance purposes.
+     * 
+     * @param  string $file 
+     * @return void
+     * @throws Zend_Loader_PluginLoader_Exception if file is not writeable or path does not exist
+     */
+    public static function setIncludeFileCache($file)
+    {
+        if (null === $file) {
+            self::$_includeFileCache = null;
+            return;
         }
 
-        #require_once 'Zend/Loader/PluginLoader/Exception.php';
-        throw new Zend_Loader_PluginLoader_Exception('Plugin by name ' . $name . ' was not found in the registry.');
+        if (!file_exists($file) && !file_exists(dirname($file))) {
+            #require_once 'Zend/Loader/PluginLoader/Exception.php';
+            throw new Zend_Loader_PluginLoader_Exception('Specified file does not exist and/or directory does not exist (' . $file . ')');
+        }
+        if (file_exists($file) && !is_writable($file)) {
+            #require_once 'Zend/Loader/PluginLoader/Exception.php';
+            throw new Zend_Loader_PluginLoader_Exception('Specified file is not writeable (' . $file . ')');
+        }
+        if (!file_exists($file) && file_exists(dirname($file)) && !is_writable(dirname($file))) {
+            #require_once 'Zend/Loader/PluginLoader/Exception.php';
+            throw new Zend_Loader_PluginLoader_Exception('Specified file is not writeable (' . $file . ')');
+        }
+
+        self::$_includeFileCache = $file;
+    }
+
+    /**
+     * Retrieve class file cache path
+     * 
+     * @return string|null
+     */
+    public static function getIncludeFileCache()
+    {
+        return self::$_includeFileCache;
+    }
+
+    /**
+     * Append an include_once statement to the class file cache
+     * 
+     * @param  string $incFile 
+     * @return void
+     */
+    protected static function _appendIncFile($incFile)
+    {
+        if (!file_exists(self::$_includeFileCache)) {
+            $file = '<?php';
+        } else {
+            $file = file_get_contents(self::$_includeFileCache);
+        }
+        if (!strstr($file, $incFile)) {
+            $file .= "\ninclude_once '$incFile';";
+            file_put_contents(self::$_includeFileCache, $file);
+        }
     }
 }

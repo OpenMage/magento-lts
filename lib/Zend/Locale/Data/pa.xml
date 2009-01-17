@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.56 $"/>
-		<generation date="$Date: 2007/07/19 23:40:49 $"/>
+		<version number="$Revision: 1.61 $"/>
+		<generation date="$Date: 2008/06/26 03:47:58 $"/>
 		<language type="pa"/>
 	</identity>
 	<localeDisplayNames>
 		<languages>
+			<language type="ab">ਅਬਖਾਜ਼ੀਅਨ</language>
+			<language type="ace">ਅਚੀਨੀ</language>
+			<language type="ach">ਅਕੋਲੀ</language>
 			<language type="af">ਅਫ਼ਰੀਕੀ</language>
+			<language type="apa">ਅਪਾਚੇ ਭਾਸ਼ਾ</language>
 			<language type="ar">ਅਰਬੀ</language>
+			<language type="as">ਅਸਾਮੀ</language>
+			<language type="aus">ਆਸਟਰੇਲੀਅਨ ਭਾਸ਼ਾ</language>
 			<language type="az">ਅਜ਼ੇਰਬੈਜਨਿ</language>
+			<language type="bat">ਬੈਲਟਿਕ ਭਾਸ਼ਾ</language>
+			<language type="be">ਬੇਲਾਰੂਸੀਅਨ</language>
 			<language type="bn">ਬੰਗਾਲੀ</language>
 			<language type="da">ਡੈਨਿਸ਼</language>
 			<language type="de">ਜਰਮਨ</language>
@@ -19,7 +27,7 @@
 			<language type="es">ਸਪੇਨਿਸ਼</language>
 			<language type="fi">ਫਿਨਿਸ਼</language>
 			<language type="fr">ਫਰੈਂਚ</language>
-			<language type="gu">ਗੁਜਰਤਿ</language>
+			<language type="gu">ਗੁਜਰਾਤੀ</language>
 			<language type="hi">ਹਿੰਦੀ</language>
 			<language type="id">ਇੰਡੋਨੇਸ਼ੀਆਈ</language>
 			<language type="it">ਇਤਾਲਵੀ</language>
@@ -35,6 +43,7 @@
 			<language type="th">ਥਾਈ</language>
 			<language type="tw">ਤ੍ਵਿ</language>
 			<language type="ug">ਉਇਘੁਰ</language>
+			<language type="und">und</language>
 		</languages>
 		<scripts>
 			<script type="Deva">ਦੇਵਨਾਗਰੀ</script>
@@ -119,9 +128,6 @@
 							<day type="thu">ਵੀਰ.</day>
 							<day type="fri">ਸ਼ੁਕਰ.</day>
 							<day type="sat">ਸ਼ਨੀ.</day>
-						</dayWidth>
-						<dayWidth type="narrow">
-							<day type="sun">ਐ</day>
 						</dayWidth>
 						<dayWidth type="wide">
 							<day type="sun">ਐਤਵਾਰ</day>
@@ -225,8 +231,8 @@
 					</dateTimeFormatLength>
 					<availableFormats>
 						<dateFormatItem id="HHmmss">HH:mm:ss 	13:25:59</dateFormatItem>
-						<dateFormatItem id="Md">d/M    14/9</dateFormatItem>
-						<dateFormatItem id="mmss">mm:ss 	25:59</dateFormatItem>
+						<dateFormatItem id="Md">d/M</dateFormatItem>
+						<dateFormatItem id="mmss">mm:ss</dateFormatItem>
 						<dateFormatItem id="yyMMM">MMM yy</dateFormatItem>
 						<dateFormatItem id="yyQ">Q yy</dateFormatItem>
 					</availableFormats>
@@ -292,7 +298,7 @@
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>¤ #,##,##0.00</pattern>
+					<pattern>¤ #,##,##0.00</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 		</currencyFormats>
@@ -320,3 +326,4 @@
 		</messages>
 	</posix>
 </ldml>
+

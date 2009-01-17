@@ -92,6 +92,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
             ->setTime((int)$this->getRequest()->getParam('time'))
             ->setType($this->getRequest()->getParam('type'))
             ->setPath(Mage::getBaseDir("var") . DS . "backups");
+        /* @var $backup Mage_Backup_Model_Backup */
 
         if (!$backup->exists()) {
             $this->_redirect('*/*');
@@ -99,16 +100,9 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
 
         $fileName = 'backup-' . date('YmdHis', $backup->getTime()) . '.sql.gz';
 
-        $this->getResponse()
-            ->setHttpResponseCode(200)
-            ->setHeader('Pragma', 'public', true)
-            ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
-            ->setHeader('Content-type', 'application/octet-stream', true)
-            ->setHeader('Content-Length', $backup->getSize())
-            ->setHeader('Content-Disposition', 'attachment; filename='.$fileName)
-            ->clearBody();
-        $this->getResponse()
-            ->sendHeaders();
+        $this->_prepareDownloadResponse($fileName, null, 'application/octet-stream', $backup->getSize());
+
+        $this->getResponse()->sendHeaders();
 
         $backup->output();
         exit();

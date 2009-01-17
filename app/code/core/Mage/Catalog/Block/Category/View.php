@@ -41,7 +41,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
 
         if ($headBlock = $this->getLayout()->getBlock('head')) {
             if ($title = $this->getCurrentCategory()->getMetaTitle()) {
-                $headBlock->setTitle($title.' '.Mage::getStoreConfig('catalog/seo/title_separator').' '.Mage::getStoreConfig('system/store/name'));
+                $headBlock->setTitle($title);
             }
             if ($description = $this->getCurrentCategory()->getMetaDescription()) {
                 $headBlock->setDescription($description);

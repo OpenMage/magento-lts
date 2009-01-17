@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.64 $"/>
-		<generation date="$Date: 2007/07/14 23:02:17 $"/>
+		<version number="$Revision: 1.70 $"/>
+		<generation date="$Date: 2008/06/15 08:09:47 $"/>
 		<language type="ta"/>
 	</identity>
 	<localeDisplayNames>
@@ -16,7 +16,7 @@
 			<language type="as">அஸ்ஸாமி</language>
 			<language type="ay">அயமரா</language>
 			<language type="az">அசர்பாய்ஜானி</language>
-			<language type="ba">பாஷ்கிர்0</language>
+			<language type="ba">பாஷ்கிர்</language>
 			<language type="be">பைலோருஷ்ன்</language>
 			<language type="bg">பல்கேரியன்</language>
 			<language type="bh">பிஹாரி</language>
@@ -40,7 +40,7 @@
 			<language type="eu">பஸ்க்</language>
 			<language type="fa">பர்ஸியன்</language>
 			<language type="fi">பின்னிஷ்</language>
-			<language type="fil">பிலிபினோ</language>
+			<language type="fil">ஃபிலிபினோ</language>
 			<language type="fj">பிஜி</language>
 			<language type="fo">பைரோஸி</language>
 			<language type="fr">பிரெஞ்சு</language>
@@ -65,11 +65,11 @@
 			<language type="iu">இனுகிடட்</language>
 			<language type="ja">ஜப்பானீஸ்</language>
 			<language type="jv">ஜாவானீஸ்</language>
-			<language type="ka">கன்னடம்</language>
+			<language type="ka">ஜியோர்ஜியன்</language>
 			<language type="kk">கசாக்</language>
 			<language type="kl">கிரின்லென்டிக்</language>
 			<language type="km">கம்போடியன்</language>
-			<language type="kn">கன்னடா</language>
+			<language type="kn">கன்னடம்</language>
 			<language type="ko">கொரியன்</language>
 			<language type="kok">கொங்கனி</language>
 			<language type="ks">காஷ்மிரி</language>
@@ -153,9 +153,20 @@
 			<language type="yo">யோருப்பா</language>
 			<language type="za">ஜுவாங்</language>
 			<language type="zh">சீனம்</language>
+			<language type="zh_Hans">எளிய சீனம்</language>
+			<language type="zh_Hant">மரபு சீனம்</language>
 			<language type="zu">ஜூலூ</language>
 		</languages>
 		<territories>
+			<territory type="002">ஆப்ரிக்கா</territory>
+			<territory type="013">மத்திய அமெரிக்கா</territory>
+			<territory type="014">கிழக்கு ஆப்ரிக்கா</territory>
+			<territory type="029">கரீபியன்</territory>
+			<territory type="030">கிழக்கு ஆசியா</territory>
+			<territory type="053">ஆஸ்திரேலியா மற்றும்  நியூசிலாந்து</territory>
+			<territory type="142">ஆசியா</territory>
+			<territory type="143">மத்திய ஆசியா</territory>
+			<territory type="151">கிழக்கு ஐரோப்பா</territory>
 			<territory type="AD">அன்டோரா</territory>
 			<territory type="AE">ஐக்கிய அரபு கூட்டாட்சி</territory>
 			<territory type="AF">ஆப்கானிஸ்தான்</territory>
@@ -163,9 +174,12 @@
 			<territory type="AL">அல்பேனியா</territory>
 			<territory type="AM">ஆர்மீனியா</territory>
 			<territory type="AO">அங்கோலா</territory>
+			<territory type="AQ">அன்டார்டிகா</territory>
 			<territory type="AR">அர்ஜெண்டினா</territory>
+			<territory type="AS">அமெரிக்க சமோவா</territory>
 			<territory type="AT">ஆஸ்திரியா</territory>
 			<territory type="AU">ஆஸ்திரேலியா</territory>
+			<territory type="AX">ஆலந்து தீவுகள்</territory>
 			<territory type="AZ">அஜர்பைஜான்</territory>
 			<territory type="BA">போஸ்னியா ஹெர்ஸிகோவினா</territory>
 			<territory type="BB">பார்படோஸ்</territory>
@@ -176,6 +190,7 @@
 			<territory type="BH">பஹ்ரைன்</territory>
 			<territory type="BI">புருண்டி</territory>
 			<territory type="BJ">பெனின்</territory>
+			<territory type="BM">பெர்முடா</territory>
 			<territory type="BN">புரூனேய்</territory>
 			<territory type="BO">பொலிவியா</territory>
 			<territory type="BR">பிரேஸில்</territory>
@@ -185,10 +200,12 @@
 			<territory type="BY">பெலாரூஸ்</territory>
 			<territory type="BZ">பெலிஸ்</territory>
 			<territory type="CA">கனடா</territory>
+			<territory type="CD">காங்கோ - கின்சாசா</territory>
 			<territory type="CF">மத்திய ஆப்ரிக்கக் குடியரசு</territory>
 			<territory type="CG">காங்கோ</territory>
 			<territory type="CH">ஸ்விட்சர்லாந்து</territory>
 			<territory type="CI">ஐவரி கோஸ்ட்</territory>
+			<territory type="CK">குக் தீவுகள்</territory>
 			<territory type="CL">சிலி</territory>
 			<territory type="CM">கேமரூன்</territory>
 			<territory type="CN">சீன</territory>
@@ -196,6 +213,7 @@
 			<territory type="CR">கோஸ்டாரிகா</territory>
 			<territory type="CU">கியூபா</territory>
 			<territory type="CV">கேப் வெர்டே</territory>
+			<territory type="CX">கிறிஸ்துமஸ் தீவு</territory>
 			<territory type="CY">சைப்ரஸ்</territory>
 			<territory type="CZ">செக் குடியரசு</territory>
 			<territory type="DE">ஜெர்மன்</territory>
@@ -266,6 +284,7 @@
 			<territory type="MM">மியான்மார்</territory>
 			<territory type="MN">மங்கோலியா</territory>
 			<territory type="MT">மால்டா</territory>
+			<territory type="MU">மோரிசியஸ்</territory>
 			<territory type="MV">மாலத்தீவு</territory>
 			<territory type="MW">மலாவீ</territory>
 			<territory type="MX">மெக்சிகோ</territory>
@@ -302,6 +321,7 @@
 			<territory type="TD">சாட்</territory>
 			<territory type="TH">தாய்லாந்து</territory>
 			<territory type="TJ">தாஜிகிஸ்தான்</territory>
+			<territory type="TL">கிழக்கு திமோர்</territory>
 			<territory type="TM">துர்க்மெனிஸ்தான்</territory>
 			<territory type="TN">துனிசியா</territory>
 			<territory type="TO">தொங்கா</territory>
@@ -325,6 +345,8 @@
 	</localeDisplayNames>
 	<characters>
 		<exemplarCharacters>[ஃ அ-ஊ எ-ஐ ஒ-க ங ச ஜ ஞ ட ண த ந-ப ம-வ ஷ-ஹ ா-ூ ெ-ை ொ-்]</exemplarCharacters>
+		<exemplarCharacters type="auxiliary">[a g i m t]</exemplarCharacters>
+		<exemplarCharacters type="currencySymbol">[a-z]</exemplarCharacters>
 	</characters>
 	<delimiters>
 		<quotationStart>'</quotationStart>
@@ -425,10 +447,10 @@
 							<quarter type="4">Q4</quarter>
 						</quarterWidth>
 						<quarterWidth type="wide">
-							<quarter type="1">வந்ந௧  1</quarter>
-							<quarter type="2">ரெஂட௨ 2</quarter>
-							<quarter type="3">மூடு௩ 3</quarter>
-							<quarter type="4">நால்௪ 4</quarter>
+							<quarter type="1">1ஆம் காலாண்டு</quarter>
+							<quarter type="2">2ஆம் காலாண்டு</quarter>
+							<quarter type="3">3ஆம் காலாண்டு</quarter>
+							<quarter type="4">4ஆம் காலாண்டு</quarter>
 						</quarterWidth>
 					</quarterContext>
 				</quarters>
@@ -436,8 +458,8 @@
 				<pm>மாலை</pm>
 				<eras>
 					<eraNames>
-						<era type="0">வர்ஷು.</era>
-						<era type="1">ஸந்.</era>
+						<era type="0">கிறிஸ்துவுக்கு முன்</era>
+						<era type="1">அனோ டோமினி</era>
 					</eraNames>
 					<eraAbbr>
 						<era type="0">கிமு</era>
@@ -508,13 +530,49 @@
 			<hourFormat>+HH:mm;-HH:mm</hourFormat>
 			<gmtFormat>GMT{0}</gmtFormat>
 			<regionFormat>{0}</regionFormat>
+			<zone type="Australia/Brisbane">
+				<exemplarCity>பிரிஸ்பேன்</exemplarCity>
+			</zone>
+			<zone type="America/Campo_Grande">
+				<exemplarCity>கேம்போ கிராண்டே</exemplarCity>
+			</zone>
+			<zone type="America/Cambridge_Bay">
+				<exemplarCity>கேம்பிரிட்ஜ் பே</exemplarCity>
+			</zone>
+			<zone type="Pacific/Easter">
+				<exemplarCity>ஈஸ்டர்</exemplarCity>
+			</zone>
+			<zone type="Asia/Jakarta">
+				<exemplarCity>ஜகார்த்தா</exemplarCity>
+			</zone>
+			<zone type="Asia/Jayapura">
+				<exemplarCity>ஜெயபூரா</exemplarCity>
+			</zone>
+			<zone type="America/Los_Angeles">
+				<exemplarCity>லாஸ் ஏஞ்சல்ஸ்</exemplarCity>
+			</zone>
+			<zone type="America/Phoenix">
+				<exemplarCity>ஃபோனிக்ஸ்</exemplarCity>
+			</zone>
+			<zone type="America/Denver">
+				<exemplarCity>தேன்வர்</exemplarCity>
+			</zone>
+			<zone type="America/North_Dakota/Center">
+				<exemplarCity>சென்டர்</exemplarCity>
+			</zone>
+			<zone type="America/Chicago">
+				<exemplarCity>சிகாகோ</exemplarCity>
+			</zone>
+			<zone type="America/Indianapolis">
+				<exemplarCity>இந்தியானாபோலிஸ்</exemplarCity>
+			</zone>
+			<zone type="America/New_York">
+				<exemplarCity>நியூயார்க்</exemplarCity>
+			</zone>
 			<metazone type="India">
 				<long>
 					<standard>இந்திய நேரப்படி</standard>
 				</long>
-				<short>
-					<standard>IST</standard>
-				</short>
 				<commonlyUsed>true</commonlyUsed>
 			</metazone>
 		</timeZoneNames>
@@ -537,7 +595,7 @@
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>¤ #,##,##0.00</pattern>
+					<pattern>¤ #,##,##0.00</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 		</currencyFormats>

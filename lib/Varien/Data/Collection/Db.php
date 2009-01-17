@@ -126,7 +126,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Get Zend_Db_Select instance
      *
-     * @return Zend_Db_Select
+     * @return Varien_Db_Select
      */
     public function getSelect()
     {
@@ -158,9 +158,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     }
 
     /**
-     * Get sql for get record count
+     * Get SQL for get record count
      *
-     * @return  string
+     * @return Varien_Db_Select
      */
     public function getSelectCountSql()
     {
@@ -170,10 +170,11 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $countSelect->reset(Zend_Db_Select::ORDER);
         $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
+        $countSelect->reset(Zend_Db_Select::COLUMNS);
 
-        $sql = $countSelect->__toString();
-        $sql = preg_replace('/^select\s+.+?\s+from\s+/is', 'select count(*) from ', $sql);
-        return $sql;
+        $countSelect->from('', 'COUNT(*)');
+
+        return $countSelect;
     }
 
     /**
@@ -352,16 +353,16 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @return string
      */
     protected function _getConditionSql($fieldName, $condition) {
-    	if (is_array($fieldName)) {
-    		foreach ($fieldName as $f) {
+        if (is_array($fieldName)) {
+            foreach ($fieldName as $f) {
                 $orSql = array();
                 foreach ($condition as $orCondition) {
                     $orSql[] = "(".$this->_getConditionSql($f[0], $f[1]).")";
                 }
                 $sql = "(".join(" or ", $orSql).")";
-    		}
-    		return $sql;
-    	}
+            }
+            return $sql;
+        }
 
         $sql = '';
         $fieldName = $this->_getConditionFieldName($fieldName);
@@ -670,8 +671,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $this->_renderFilters()
                  ->_renderOrders()
                  ->_renderLimit();
-        	$this->_data = $this->_fetchAll($this->_select);
-        	$this->_afterLoadData();
+            $this->_data = $this->_fetchAll($this->_select);
+            $this->_afterLoadData();
         }
         return $this->_data;
     }
@@ -736,7 +737,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $this->_initSelect();
         $this->_setIsLoaded(false);
         $this->_items = array();
-        $this->_data = array();
+        $this->_data = null;
         return $this;
     }
 

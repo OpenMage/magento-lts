@@ -779,7 +779,7 @@ table.recently-list td {width:20%; }
 .advanced-search li label { width:150px; float:left; }
 .advanced-search .input-text { width:250px; }
 .advanced-search select { width:256px; padding:2px; }
-.advanced-search .field-row { display:inline; width:250px; }
+.advanced-search .field-row { float:left; width:256px; }
 .advanced-search .range .input-text { width:70px; }
 .advanced-search .range select { width:90px; padding:1px; }
 
@@ -1027,6 +1027,12 @@ td.attributes-col h4.title a { font-weight:bold; }
 .show-details td { border-top:1px solid #d2d8db; }
 .tax-details td { font-size:0.91em; color:#626465; background-color:#dae1e4; }
 .tax-details-first td { border-top:1px solid #d2d8db; }
+
+/* Shopping cart tax info */
+.cart-tax-info, .cart-price { padding-right:20px; }
+.cart-tax-total { cursor:pointer; }
+.cart-tax-total { padding-right:20px; background:url(../images/bg_collapse.gif) right 5px no-repeat; cursor:pointer; }
+.cart-tax-total-expanded { background-position:right -52px; }
 
 
 .shopping-cart-collaterals {

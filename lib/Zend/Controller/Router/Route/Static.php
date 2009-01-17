@@ -19,8 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/** Zend_Controller_Router_Route_Interface */
-#require_once 'Zend/Controller/Router/Route/Interface.php';
+/** Zend_Controller_Router_Route_Abstract */
+#require_once 'Zend/Controller/Router/Route/Abstract.php';
 
 /**
  * StaticRoute is used for managing static URIs.
@@ -32,12 +32,16 @@
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Controller_Router_Route_Static implements Zend_Controller_Router_Route_Interface
+class Zend_Controller_Router_Route_Static extends Zend_Controller_Router_Route_Abstract
 {
 
     protected $_route = null;
     protected $_defaults = array();
 
+    public function getVersion() {
+        return 1;
+    }
+    
     /**
      * Instantiates route based on passed Zend_Config structure
      *
@@ -82,7 +86,7 @@ class Zend_Controller_Router_Route_Static implements Zend_Controller_Router_Rout
      * @param array $data An array of variable and value pairs used as parameters
      * @return string Route path with user submitted parameters
      */
-    public function assemble($data = array())
+    public function assemble($data = array(), $reset = false, $encode = false)
     {
         return $this->_route;
     }

@@ -4,23 +4,26 @@
  *
  * LICENSE
  *
- * This source file is subject to version 1.0 of the Zend Framework
- * license, that is bundled with this package in the file LICENSE.txt, and
- * is available through the world-wide-web at the following URL:
- * http://framework.zend.com/license/new-bsd. If you did not receive
- * a copy of the Zend Framework license and are unable to obtain it
- * through the world-wide-web, please send a note to license@zend.com
- * so we can mail you a copy immediately.
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://framework.zend.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@zend.com so we can send you a copy immediately.
  *
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Standalone.php 8838 2008-03-15 19:55:17Z thomas $
+ * @version    $Id: Standalone.php 13197 2008-12-13 13:31:29Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 /** Zend_View_Helper_Placeholder_Registry */
 #require_once 'Zend/View/Helper/Placeholder/Registry.php';
+
+/** Zend_View_Helper_Abstract.php */
+#require_once 'Zend/View/Helper/Abstract.php';
 
 /**
  * Base class for targetted placeholder helpers
@@ -30,7 +33,7 @@
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */ 
-abstract class Zend_View_Helper_Placeholder_Container_Standalone implements IteratorAggregate, Countable, ArrayAccess
+abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_View_Helper_Abstract implements IteratorAggregate, Countable, ArrayAccess
 {  
     /**
      * @var Zend_View_Helper_Placeholder_Container_Abstract
@@ -49,9 +52,11 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone implements Iter
     protected $_regKey;
 
     /**
-     * @var Zend_View_Interface
+     * Flag wheter to automatically escape output, must also be
+     * enforced in the child class if __toString/toString is overriden
+     * @var book
      */
-    public $view;
+    protected $_autoEscape = true;
 
     /**
      * Constructor
@@ -61,7 +66,6 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone implements Iter
     public function __construct()
     {
         $this->setRegistry(Zend_View_Helper_Placeholder_Registry::getRegistry());
-        $registry = $this->getRegistry();
         $this->setContainer($this->getRegistry()->getContainer($this->_regKey));
     }
 
@@ -88,15 +92,25 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone implements Iter
     }
 
     /**
-     * Set viewobject
+     * Set whether or not auto escaping should be used
      * 
-     * @param  Zend_View_Interface $view 
+     * @param  bool $autoEscape whether or not to auto escape output
      * @return Zend_View_Helper_Placeholder_Container_Standalone
      */
-    public function setView(Zend_View_Interface $view)
+    public function setAutoEscape($autoEscape = true)
     {
-        $this->view = $view;
+        $this->_autoEscape = ($autoEscape) ? true : false;
         return $this;
+    }
+    
+    /**
+     * Return whether autoEscaping is enabled or disabled
+     *
+     * return bool
+     */
+    public function getAutoEscape()
+    {
+        return $this->_autoEscape;
     }
 
     /**

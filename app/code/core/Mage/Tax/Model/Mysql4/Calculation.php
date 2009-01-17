@@ -78,9 +78,15 @@ class Mage_Tax_Model_Mysql4_Calculation extends Mage_Core_Model_Mysql4_Abstract
                             'priority'=>$rate['priority'],
                             );
 
+
+            if (isset($rate['hidden'])) {
+                $row['hidden'] = $rate['hidden'];
+            }
+
             if (isset($rate['amount'])) {
                 $row['amount'] = $rate['amount'];
             }
+
             if (isset($rate['base_amount'])) {
                 $row['base_amount'] = $rate['base_amount'];
             }

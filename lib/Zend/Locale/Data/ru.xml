@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.110 $"/>
-		<generation date="$Date: 2007/07/20 04:40:45 $"/>
+		<version number="$Revision: 1.126 $"/>
+		<generation date="$Date: 2008/06/26 03:47:58 $"/>
 		<language type="ru"/>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0} ({1})</localePattern>
+			<localeSeparator>, </localeSeparator>
+		</localeDisplayPattern>
 		<languages>
 			<language type="aa">афар</language>
 			<language type="ab">абхазский</language>
@@ -16,7 +20,7 @@
 			<language type="ady">адыгейский</language>
 			<language type="ae">авестийский</language>
 			<language type="af">африкаанс</language>
-			<language type="afa">афразийские (другие)</language>
+			<language type="afa">афразийский язык</language>
 			<language type="afh">африхили</language>
 			<language type="ain">айну</language>
 			<language type="ak">акан</language>
@@ -33,12 +37,12 @@
 			<language type="arc">арамейский</language>
 			<language type="arn">арауканский</language>
 			<language type="arp">арапахо</language>
-			<language type="art">искусственные (другие)</language>
+			<language type="art">искусственный язык</language>
 			<language type="arw">аравакский</language>
 			<language type="as">ассамский</language>
 			<language type="ast">астурийский</language>
 			<language type="ath">атапачские языки</language>
-			<language type="aus">австралийские языки</language>
+			<language type="aus">австралийский язык</language>
 			<language type="av">аварский</language>
 			<language type="awa">авадхи</language>
 			<language type="ay">аймара</language>
@@ -49,7 +53,7 @@
 			<language type="bal">белуджский</language>
 			<language type="ban">балийский</language>
 			<language type="bas">баса</language>
-			<language type="bat">балтийские (другие)</language>
+			<language type="bat">балтийский язык</language>
 			<language type="be">белорусский</language>
 			<language type="bej">беджа</language>
 			<language type="bem">бемба</language>
@@ -63,7 +67,7 @@
 			<language type="bla">сиксика</language>
 			<language type="bm">бамбарийский</language>
 			<language type="bn">бенгальский</language>
-			<language type="bnt">банту (другие)</language>
+			<language type="bnt">банту</language>
 			<language type="bo">тибетский</language>
 			<language type="br">бретонский</language>
 			<language type="bra">брауи</language>
@@ -71,12 +75,12 @@
 			<language type="btk">батакский</language>
 			<language type="bua">бурятский</language>
 			<language type="bug">бугийский</language>
-			<language type="byn">билин</language>
+			<language type="byn">билин (блин)</language>
 			<language type="ca">каталанский</language>
 			<language type="cad">каддо</language>
-			<language type="cai">Центральной Америки индейцев (другие)</language>
+			<language type="cai">язык индейцев Центральной Америки</language>
 			<language type="car">кариб</language>
-			<language type="cau">кавказские (другие)</language>
+			<language type="cau">кавказский язык</language>
 			<language type="cch">атсам</language>
 			<language type="ce">чеченский</language>
 			<language type="ceb">кебуано</language>
@@ -88,22 +92,22 @@
 			<language type="chm">марийский (черемисский)</language>
 			<language type="chn">чинук жаргон</language>
 			<language type="cho">чоктав</language>
-			<language type="chp">чипеваян</language>
+			<language type="chp">чипевайян</language>
 			<language type="chr">чероки</language>
 			<language type="chy">чейенн</language>
-			<language type="cmc">Хамитские языки</language>
+			<language type="cmc">чамский язык</language>
 			<language type="co">корсиканский</language>
 			<language type="cop">коптский</language>
-			<language type="cpe">англо-креольские и пиджины (другие)</language>
-			<language type="cpf">франко-креольские и пиджины (другие)</language>
-			<language type="cpp">португало-креольские и пиджины (другие)</language>
+			<language type="cpe">англо-креольские и пиджин</language>
+			<language type="cpf">франко-креольские и пиджины</language>
+			<language type="cpp">португало-креольские и пиджины</language>
 			<language type="cr">криийский</language>
 			<language type="crh">крымско-татарский</language>
-			<language type="crp">креольские и пиджины (другие)</language>
+			<language type="crp">креольские и пиджины</language>
 			<language type="cs">чешский</language>
 			<language type="csb">кашубианский</language>
 			<language type="cu">церковнославянский</language>
-			<language type="cus">кушитские (другие)</language>
+			<language type="cus">кушитский язык</language>
 			<language type="cv">чувашский</language>
 			<language type="cy">валлийский</language>
 			<language type="da">датский</language>
@@ -111,17 +115,17 @@
 			<language type="dar">даргва</language>
 			<language type="day">даяк</language>
 			<language type="de">немецкий</language>
-			<language type="de_AT">Австрийский немецкий</language>
+			<language type="de_AT">австрийский немецкий</language>
 			<language type="de_CH">Швейцарский верхненемецкий</language>
 			<language type="del">делаварский</language>
 			<language type="den">славянский</language>
 			<language type="dgr">догриб</language>
 			<language type="din">динка</language>
 			<language type="doi">догри</language>
-			<language type="dra">дравидийские (другие)</language>
+			<language type="dra">дравидийский язык</language>
 			<language type="dsb">нижнелужицкий</language>
 			<language type="dua">дуала</language>
-			<language type="dum">нидерландский средневековый</language>
+			<language type="dum">средненидерландский</language>
 			<language type="dv">мальдивский</language>
 			<language type="dyu">диула (дьюла)</language>
 			<language type="dz">дзонг-кэ</language>
@@ -132,10 +136,10 @@
 			<language type="el">греческий</language>
 			<language type="elx">эламский</language>
 			<language type="en">английский</language>
-			<language type="en_AU">Австралийский английский</language>
+			<language type="en_AU">австралийский английский</language>
 			<language type="en_CA">Канадский английский</language>
-			<language type="en_GB">Британский английский</language>
-			<language type="en_US">английский (США)</language>
+			<language type="en_GB">британский английский</language>
+			<language type="en_US">американский английский</language>
 			<language type="enm">среднеанглийский</language>
 			<language type="eo">эсперанто</language>
 			<language type="es">испанский</language>
@@ -150,7 +154,7 @@
 			<language type="ff">фулах</language>
 			<language type="fi">финский</language>
 			<language type="fil">филиппинский</language>
-			<language type="fiu">финно-угорские (другие)</language>
+			<language type="fiu">финно-угорский язык</language>
 			<language type="fj">фиджи</language>
 			<language type="fo">фарерский</language>
 			<language type="fon">фон</language>
@@ -161,20 +165,20 @@
 			<language type="fro">старофранцузский</language>
 			<language type="frr">фризский северный</language>
 			<language type="frs">восточный фризский</language>
-			<language type="fur">фриуланский</language>
+			<language type="fur">фриульский</language>
 			<language type="fy">фризский</language>
 			<language type="ga">ирландский</language>
 			<language type="gaa">га</language>
 			<language type="gay">гайо</language>
 			<language type="gba">гбая</language>
 			<language type="gd">гэльский</language>
-			<language type="gem">германские (другие)</language>
+			<language type="gem">германский язык</language>
 			<language type="gez">геэз</language>
 			<language type="gil">гильбертский</language>
 			<language type="gl">галисийский</language>
 			<language type="gmh">средневерхненемецкий</language>
 			<language type="gn">гуарани</language>
-			<language type="goh">староверхненемецкий</language>
+			<language type="goh">древневерхненемецкий</language>
 			<language type="gon">гонди</language>
 			<language type="gor">горонтало</language>
 			<language type="got">готский</language>
@@ -191,7 +195,7 @@
 			<language type="hi">хинди</language>
 			<language type="hil">хилигайнон</language>
 			<language type="him">химачали</language>
-			<language type="hit">хетский</language>
+			<language type="hit">хеттский</language>
 			<language type="hmn">хмонг</language>
 			<language type="ho">хиримоту</language>
 			<language type="hr">хорватский</language>
@@ -210,11 +214,11 @@
 			<language type="ijo">иджо</language>
 			<language type="ik">инупиак</language>
 			<language type="ilo">илоко</language>
-			<language type="inc">индийские (другие)</language>
-			<language type="ine">индоевропейские (другие)</language>
+			<language type="inc">индийский язык</language>
+			<language type="ine">индоевропейский язык</language>
 			<language type="inh">ингушский</language>
 			<language type="io">идо</language>
-			<language type="ira">иранские (другие)</language>
+			<language type="ira">иранский язык</language>
 			<language type="iro">ирокезские языки</language>
 			<language type="is">исландский</language>
 			<language type="it">итальянский</language>
@@ -227,7 +231,7 @@
 			<language type="ka">грузинский</language>
 			<language type="kaa">каракалпакский</language>
 			<language type="kab">кабильский</language>
-			<language type="kac">качин</language>
+			<language type="kac">качинский</language>
 			<language type="kaj">каджи</language>
 			<language type="kam">камба</language>
 			<language type="kar">каренский</language>
@@ -237,7 +241,7 @@
 			<language type="kfo">коро</language>
 			<language type="kg">конго</language>
 			<language type="kha">кхаси</language>
-			<language type="khi">койсанские (другие)</language>
+			<language type="khi">койсанский язык</language>
 			<language type="kho">хотанский</language>
 			<language type="ki">кикуйю</language>
 			<language type="kj">кунама</language>
@@ -287,20 +291,20 @@
 			<language type="mai">майтхили</language>
 			<language type="mak">макассарский</language>
 			<language type="man">мандинго</language>
-			<language type="map">австронезийские (другие)</language>
+			<language type="map">австронезийский</language>
 			<language type="mas">масаи</language>
-			<language type="mdf">мокша</language>
+			<language type="mdf">мокшанский</language>
 			<language type="mdr">мандарский</language>
 			<language type="men">менде</language>
 			<language type="mg">малагасийский</language>
 			<language type="mga">среднеирландский</language>
-			<language type="mh">маршаллийский</language>
+			<language type="mh">маршалльский</language>
 			<language type="mi">маори</language>
 			<language type="mic">микмак</language>
 			<language type="min">минангкабау</language>
-			<language type="mis">смешанные (другие)</language>
+			<language type="mis">смешанные языки</language>
 			<language type="mk">македонский</language>
-			<language type="mkh">монкхмерские (другие)</language>
+			<language type="mkh">монкхмерский язык</language>
 			<language type="ml">малаялам</language>
 			<language type="mn">монгольский</language>
 			<language type="mnc">маньчжурский</language>
@@ -308,11 +312,11 @@
 			<language type="mno">манобо языки</language>
 			<language type="mo">молдавский</language>
 			<language type="moh">мохаук</language>
-			<language type="mos">моей</language>
+			<language type="mos">моси</language>
 			<language type="mr">маратхи</language>
 			<language type="ms">малайский</language>
 			<language type="mt">мальтийский</language>
-			<language type="mul">разных семей языки</language>
+			<language type="mul">несколько языков</language>
 			<language type="mun">мунда языки</language>
 			<language type="mus">крик</language>
 			<language type="mwl">мирандийский</language>
@@ -322,7 +326,7 @@
 			<language type="myv">эрзя</language>
 			<language type="na">науру</language>
 			<language type="nah">ацтекский</language>
-			<language type="nai">Северной Америки индейцев (другие)</language>
+			<language type="nai">язык индейцев Северной Америки</language>
 			<language type="nap">неаполитанский</language>
 			<language type="nb">норвежский букмол</language>
 			<language type="nd">ндебели (северный)</language>
@@ -331,16 +335,16 @@
 			<language type="new">неварский</language>
 			<language type="ng">ндонга</language>
 			<language type="nia">ниас</language>
-			<language type="nic">нигер-кордофанские (другие)</language>
+			<language type="nic">нигер-кордофанский язык</language>
 			<language type="niu">ниуэ</language>
 			<language type="nl">голландский</language>
 			<language type="nl_BE">Бельгийский фламандский</language>
-			<language type="nn">новонорвежский</language>
+			<language type="nn">норвежский нюнорск</language>
 			<language type="no">норвежский</language>
 			<language type="nog">ногайский</language>
 			<language type="non">старонорвежский</language>
 			<language type="nqo">нко</language>
-			<language type="nr">ндебели (южный)</language>
+			<language type="nr">ндебели южный</language>
 			<language type="nso">сото северный</language>
 			<language type="nub">нубийские языки</language>
 			<language type="nv">навахо</language>
@@ -359,14 +363,14 @@
 			<language type="ota">старотурецкий</language>
 			<language type="oto">отомангские языки</language>
 			<language type="pa">панджаби (пенджаби)</language>
-			<language type="paa">папуасско-австралийские (другие)</language>
+			<language type="paa">папуасский язык</language>
 			<language type="pag">пангасинан</language>
 			<language type="pal">пехлевийский</language>
 			<language type="pam">пампанга</language>
 			<language type="pap">папьяменто</language>
 			<language type="pau">палау</language>
 			<language type="peo">староперсидский</language>
-			<language type="phi">филиппинские (другие)</language>
+			<language type="phi">филиппинский язык</language>
 			<language type="phn">финикийский</language>
 			<language type="pi">пали</language>
 			<language type="pl">польский</language>
@@ -375,7 +379,7 @@
 			<language type="pro">старопровансальский</language>
 			<language type="ps">пашто (пушту)</language>
 			<language type="pt">португальский</language>
-			<language type="pt_BR">Бразильский португальский</language>
+			<language type="pt_BR">бразильский португальский</language>
 			<language type="pt_PT">Португальский иберийский</language>
 			<language type="qu">кечуа</language>
 			<language type="raj">раджастхани</language>
@@ -384,15 +388,16 @@
 			<language type="rm">ретороманский</language>
 			<language type="rn">рунди</language>
 			<language type="ro">румынский</language>
-			<language type="roa">романские (другие)</language>
+			<language type="roa">романский язык</language>
 			<language type="rom">цыганский</language>
+			<language type="root">корневой язык</language>
 			<language type="ru">русский</language>
 			<language type="rup">арумынский</language>
 			<language type="rw">киньяруанда</language>
 			<language type="sa">санскрит</language>
 			<language type="sad">сандаве</language>
 			<language type="sah">якутский</language>
-			<language type="sai">южной америки индейцев (другие)</language>
+			<language type="sai">язык индейцев Южной Америки</language>
 			<language type="sal">салишские языки</language>
 			<language type="sam">самаритянский арамейский</language>
 			<language type="sas">сасаки</language>
@@ -403,27 +408,27 @@
 			<language type="sd">синдхи</language>
 			<language type="se">саамский (северный)</language>
 			<language type="sel">селькупский</language>
-			<language type="sem">семитские (другие)</language>
+			<language type="sem">семитский язык</language>
 			<language type="sg">санго</language>
 			<language type="sga">староирландский</language>
-			<language type="sgn">знаковые языки</language>
+			<language type="sgn">язык глухонемых</language>
 			<language type="sh">сербскохорватский</language>
 			<language type="shn">шанский</language>
 			<language type="si">сингальский</language>
 			<language type="sid">сидама</language>
 			<language type="sio">сиу языки</language>
-			<language type="sit">синотибетские (другие)</language>
+			<language type="sit">синотибетский язык</language>
 			<language type="sk">словацкий</language>
 			<language type="sl">словенский</language>
-			<language type="sla">славянские (другие)</language>
+			<language type="sla">славянский язык</language>
 			<language type="sm">самоанский</language>
 			<language type="sma">саамский (южный)</language>
 			<language type="smi">саамские языки</language>
 			<language type="smj">луле-саамский</language>
-			<language type="smn">энаре-саамский</language>
+			<language type="smn">инари-саамский</language>
 			<language type="sms">скольт-саамский</language>
 			<language type="sn">шона</language>
-			<language type="snk">сонинкийский</language>
+			<language type="snk">сонинке</language>
 			<language type="so">сомали</language>
 			<language type="sog">согдийский</language>
 			<language type="son">cонгаи</language>
@@ -432,7 +437,7 @@
 			<language type="srn">сранан тонго</language>
 			<language type="srr">серер</language>
 			<language type="ss">свази</language>
-			<language type="ssa">нило-сахарские (другие)</language>
+			<language type="ssa">нило-сахарский язык</language>
 			<language type="st">сото южный</language>
 			<language type="su">сунданский</language>
 			<language type="suk">сукума</language>
@@ -440,9 +445,10 @@
 			<language type="sux">шумерский</language>
 			<language type="sv">шведский</language>
 			<language type="sw">суахили</language>
+			<language type="syc">классический сирийский</language>
 			<language type="syr">сирийский</language>
 			<language type="ta">тамильский</language>
-			<language type="tai">тайские (другие)</language>
+			<language type="tai">тайский язык</language>
 			<language type="te">телугу</language>
 			<language type="tem">темне</language>
 			<language type="ter">терено</language>
@@ -460,7 +466,7 @@
 			<language type="tmh">тамашек</language>
 			<language type="tn">тсвана</language>
 			<language type="to">тонга</language>
-			<language type="tog">тонга (ньяса)</language>
+			<language type="tog">ньяса (тонга)</language>
 			<language type="tpi">ток-писин</language>
 			<language type="tr">турецкий</language>
 			<language type="ts">тсонга</language>
@@ -468,7 +474,7 @@
 			<language type="tt">татарский</language>
 			<language type="tum">тумбука</language>
 			<language type="tup">тупи</language>
-			<language type="tut">алтайские (другие)</language>
+			<language type="tut">алтайский язык</language>
 			<language type="tvl">тувалу</language>
 			<language type="tw">тви</language>
 			<language type="ty">таитянский</language>
@@ -478,14 +484,14 @@
 			<language type="uga">угаритский</language>
 			<language type="uk">украинский</language>
 			<language type="umb">умбунду</language>
-			<language type="und">неидентифицированный</language>
+			<language type="und">неизвестный или недействительный язык</language>
 			<language type="ur">урду</language>
 			<language type="uz">узбекский</language>
 			<language type="vai">ваи</language>
 			<language type="ve">венда</language>
 			<language type="vi">вьетнамский</language>
 			<language type="vo">волапюк</language>
-			<language type="vot">удмуртский (вотяцкий)</language>
+			<language type="vot">водский</language>
 			<language type="wa">валлонский</language>
 			<language type="wak">вакашские языки</language>
 			<language type="wal">воламо</language>
@@ -499,14 +505,15 @@
 			<language type="yap">яп</language>
 			<language type="yi">идиш</language>
 			<language type="yo">йоруба</language>
-			<language type="ypk">юпик</language>
+			<language type="ypk">юпикский язык</language>
 			<language type="za">чжуань</language>
 			<language type="zap">сапотекский</language>
+			<language type="zbl">блиссимволика</language>
 			<language type="zen">зенагский</language>
 			<language type="zh">китайский</language>
-			<language type="zh_Hans">Упрощенный китайский</language>
+			<language type="zh_Hans">упрощенный китайский</language>
 			<language type="zh_Hant">Традиционный китайский</language>
-			<language type="znd">занди</language>
+			<language type="znd">занде</language>
 			<language type="zu">зулу</language>
 			<language type="zun">зуньи</language>
 			<language type="zxx">без языкового содержания</language>
@@ -514,15 +521,24 @@
 		</languages>
 		<scripts>
 			<script type="Arab">Арабская</script>
+			<script type="Armi">Арамейская</script>
 			<script type="Armn">Армянская</script>
+			<script type="Avst">Авестийская</script>
 			<script type="Bali">Балийская</script>
 			<script type="Batk">Батакская</script>
 			<script type="Beng">Бенгальская</script>
+			<script type="Blis">Блиссимволика</script>
 			<script type="Bopo">Бопомофо</script>
+			<script type="Brah">Брахми</script>
 			<script type="Brai">Брайля</script>
+			<script type="Bugi">Бугинизийская</script>
 			<script type="Buhd">Бухид</script>
+			<script type="Cakm">Чакмийская</script>
 			<script type="Cans">Унифицированные Символы Канадских Аборигенов</script>
+			<script type="Cari">Карийская</script>
+			<script type="Cham">Чамская</script>
 			<script type="Cher">Чероки</script>
+			<script type="Cirt">Кирт</script>
 			<script type="Copt">Коптская</script>
 			<script type="Cprt">Кипрская</script>
 			<script type="Cyrl">Кириллица</script>
@@ -533,7 +549,9 @@
 			<script type="Egyh">Египетская иератическая</script>
 			<script type="Egyp">Египетская иероглифическая</script>
 			<script type="Ethi">Эфиопская</script>
+			<script type="Geok">Грузинская хуцури</script>
 			<script type="Geor">Грузинская</script>
+			<script type="Glag">Глаголица</script>
 			<script type="Goth">Готская</script>
 			<script type="Grek">Греческая</script>
 			<script type="Gujr">Гуджарати</script>
@@ -545,50 +563,90 @@
 			<script type="Hant">Традиционная китайская</script>
 			<script type="Hebr">Иврит</script>
 			<script type="Hira">Хирагана</script>
+			<script type="Hmng">Пахау хмонг</script>
 			<script type="Hrkt">Катакана или хирагана</script>
+			<script type="Hung">Старовенгерская</script>
+			<script type="Inds">Хараппская (письменность долины Инда)</script>
 			<script type="Ital">Староитальянская</script>
 			<script type="Java">Яванская</script>
 			<script type="Jpan">Японская</script>
+			<script type="Kali">Кайа</script>
 			<script type="Kana">Катакана</script>
+			<script type="Khar">Кхароштхи</script>
 			<script type="Khmr">Кхмерская</script>
 			<script type="Knda">Каннада</script>
+			<script type="Kore">Корейская</script>
+			<script type="Kthi">Кайтхи</script>
+			<script type="Lana">Ланна</script>
 			<script type="Laoo">Лаосская</script>
+			<script type="Latf">Латинская фрактура</script>
 			<script type="Latg">Гэльская латинская</script>
 			<script type="Latn">Латиница</script>
+			<script type="Lepc">Лепха</script>
 			<script type="Limb">Лимбу</script>
 			<script type="Lina">Линейное письмо А</script>
 			<script type="Linb">Линейное письмо Б</script>
+			<script type="Lyci">Лициан</script>
 			<script type="Lydi">Лидийская</script>
+			<script type="Mand">Мандейская</script>
+			<script type="Mani">Манихейская</script>
+			<script type="Maya">Майя</script>
+			<script type="Mero">Мероитская</script>
 			<script type="Mlym">Малаяльская</script>
 			<script type="Mong">Монгольская</script>
+			<script type="Moon">Азбука Муна</script>
+			<script type="Mtei">Манипури</script>
 			<script type="Mymr">Майанмарская</script>
+			<script type="Nkoo">Нко</script>
 			<script type="Ogam">Огамическая</script>
+			<script type="Olck">Ол Чики</script>
+			<script type="Orkh">Орхоно-енисейская</script>
 			<script type="Orya">Ория</script>
 			<script type="Osma">Османская</script>
+			<script type="Perm">Древнепермская</script>
+			<script type="Phag">Пагспа</script>
+			<script type="Phlv">Пахлави книжная</script>
+			<script type="Phnx">Финикийская</script>
+			<script type="Plrd">Поллардовская фонетика</script>
 			<script type="Qaai">Унаследованная</script>
+			<script type="Rjng">Реджангская</script>
 			<script type="Roro">Ронго-ронго</script>
 			<script type="Runr">Руническая</script>
+			<script type="Samr">Самаритянская</script>
+			<script type="Sara">Сарати</script>
 			<script type="Saur">Саураштра</script>
+			<script type="Sgnw">Язык знаков</script>
 			<script type="Shaw">Алфавит Шоу</script>
 			<script type="Sinh">Сингальская</script>
+			<script type="Sund">Сунданская</script>
+			<script type="Sylo">Силоти Нагри</script>
 			<script type="Syrc">Сирийская</script>
+			<script type="Syre">Сирийская эстрангело</script>
+			<script type="Syrj">Западносирийская</script>
+			<script type="Syrn">Восточно-сирийская</script>
 			<script type="Tagb">Тагбанва</script>
+			<script type="Tale">Тайский Ле</script>
+			<script type="Talu">Новый Тайский Ле</script>
 			<script type="Taml">Тамильская</script>
 			<script type="Telu">Телугу</script>
+			<script type="Teng">Тенгварская</script>
+			<script type="Tfng">Древнеливийская</script>
 			<script type="Tglg">Тагалог</script>
 			<script type="Thaa">Таана</script>
 			<script type="Thai">Тайская</script>
 			<script type="Tibt">Тибетская</script>
 			<script type="Ugar">Угаритская</script>
+			<script type="Vaii">Вайская</script>
+			<script type="Visp">Видимая речь</script>
 			<script type="Xpeo">Староперсидская</script>
 			<script type="Xsux">Шумеро-аккадская клинопись</script>
 			<script type="Yiii">Йи (ицзу)</script>
 			<script type="Zxxx">Ненаписанная</script>
-			<script type="Zyyy">Неопределенная</script>
+			<script type="Zyyy">Общепринятая</script>
 			<script type="Zzzz">Неизвестная или недействительная письменность</script>
 		</scripts>
 		<territories>
-			<territory type="001">Всемирное</territory>
+			<territory type="001">Мир</territory>
 			<territory type="002">Африка</territory>
 			<territory type="003">Северная Америка</territory>
 			<territory type="005">Южная Америка</territory>
@@ -600,6 +658,7 @@
 			<territory type="017">Центральная Африка</territory>
 			<territory type="018">Южная Африка [018]</territory>
 			<territory type="019">Центральная и Южная Америка</territory>
+			<territory type="021">Северная Америка (021)</territory>
 			<territory type="029">Карибы</territory>
 			<territory type="030">Восточная Азия</territory>
 			<territory type="034">Южная Азия</territory>
@@ -627,9 +686,9 @@
 			<territory type="AI">Ангуилла</territory>
 			<territory type="AL">Албания</territory>
 			<territory type="AM">Армения</territory>
-			<territory type="AN">Голландские Антильские Острова</territory>
+			<territory type="AN">Нидерландские Антильские острова</territory>
 			<territory type="AO">Ангола</territory>
-			<territory type="AQ">Антарктида</territory>
+			<territory type="AQ">Антарктика</territory>
 			<territory type="AR">Аргентина</territory>
 			<territory type="AS">Американское Самоа</territory>
 			<territory type="AT">Австрия</territory>
@@ -637,7 +696,7 @@
 			<territory type="AW">Аруба</territory>
 			<territory type="AX">Аландские острова</territory>
 			<territory type="AZ">Азербайджан</territory>
-			<territory type="BA">Босния</territory>
+			<territory type="BA">Босния и Герцеговина</territory>
 			<territory type="BB">Барбадос</territory>
 			<territory type="BD">Бангладеш</territory>
 			<territory type="BE">Бельгия</territory>
@@ -646,6 +705,7 @@
 			<territory type="BH">Бахрейн</territory>
 			<territory type="BI">Бурунди</territory>
 			<territory type="BJ">Бенин</territory>
+			<territory type="BL">Остров Святого Бартоломея</territory>
 			<territory type="BM">Бермудские Острова</territory>
 			<territory type="BN">Бруней Даруссалам</territory>
 			<territory type="BO">Боливия</territory>
@@ -657,7 +717,7 @@
 			<territory type="BY">Беларусь</territory>
 			<territory type="BZ">Белиз</territory>
 			<territory type="CA">Канада</territory>
-			<territory type="CC">Кокосовые Острова (Киилинг)</territory>
+			<territory type="CC">Кокосовые острова</territory>
 			<territory type="CD">Демократическая Республика Конго</territory>
 			<territory type="CF">Центрально-Африканская Республика</territory>
 			<territory type="CG">Конго</territory>
@@ -674,7 +734,7 @@
 			<territory type="CV">Острова Зеленого Мыса</territory>
 			<territory type="CX">Остров Рождества</territory>
 			<territory type="CY">Кипр</territory>
-			<territory type="CZ">Чешская Республика</territory>
+			<territory type="CZ">Чешская республика</territory>
 			<territory type="DE">Германия</territory>
 			<territory type="DJ">Джибути</territory>
 			<territory type="DK">Дания</territory>
@@ -713,8 +773,8 @@
 			<territory type="GU">Гуам</territory>
 			<territory type="GW">Гвинея-Биссау</territory>
 			<territory type="GY">Гайана</territory>
-			<territory type="HK">Гонконг, Особый Административный Район Китая</territory>
-			<territory type="HM">Острова Херд и Мак-Дональд</territory>
+			<territory type="HK">Гонконг</territory>
+			<territory type="HM">Острова Херд и Макдональд</territory>
 			<territory type="HN">Гондурас</territory>
 			<territory type="HR">Хорватия</territory>
 			<territory type="HT">Гаити</territory>
@@ -724,7 +784,7 @@
 			<territory type="IL">Израиль</territory>
 			<territory type="IM">Остров Мэн</territory>
 			<territory type="IN">Индия</territory>
-			<territory type="IO">Британские Территории в Индийском Океане</territory>
+			<territory type="IO">Британская территория в Индийском океане</territory>
 			<territory type="IQ">Ирак</territory>
 			<territory type="IR">Иран</territory>
 			<territory type="IS">Исландия</territory>
@@ -739,10 +799,10 @@
 			<territory type="KI">Кирибати</territory>
 			<territory type="KM">Коморские Острова</territory>
 			<territory type="KN">Сент-Киттс и Невис</territory>
-			<territory type="KP">Северная Корея</territory>
-			<territory type="KR">Южная Корея</territory>
+			<territory type="KP">Корейская Народно-Демократическая Республика</territory>
+			<territory type="KR">Республика Корея</territory>
 			<territory type="KW">Кувейт</territory>
-			<territory type="KY">Каймановы Острова</territory>
+			<territory type="KY">Каймановы острова</territory>
 			<territory type="KZ">Казахстан</territory>
 			<territory type="LA">Лаос</territory>
 			<territory type="LB">Ливан</territory>
@@ -759,13 +819,14 @@
 			<territory type="MC">Монако</territory>
 			<territory type="MD">Молдова</territory>
 			<territory type="ME">Черногория</territory>
+			<territory type="MF">Остров Святого Мартина</territory>
 			<territory type="MG">Мадагаскар</territory>
 			<territory type="MH">Маршалловы Острова</territory>
 			<territory type="MK">Македония</territory>
 			<territory type="ML">Мали</territory>
 			<territory type="MM">Мьянма</territory>
 			<territory type="MN">Монголия</territory>
-			<territory type="MO">Макао, Особый Административный Район Китая</territory>
+			<territory type="MO">Макао</territory>
 			<territory type="MP">Северные Марианские Острова</territory>
 			<territory type="MQ">Мартиник</territory>
 			<territory type="MR">Мавритания</territory>
@@ -806,7 +867,7 @@
 			<territory type="PY">Парагвай</territory>
 			<territory type="QA">Катар</territory>
 			<territory type="QO">Внешняя Океания</territory>
-			<territory type="QU">Европейский Союз</territory>
+			<territory type="QU">Европейский союз</territory>
 			<territory type="RE">Реюньон</territory>
 			<territory type="RO">Румыния</territory>
 			<territory type="RS">Сербия</territory>
@@ -850,7 +911,7 @@
 			<territory type="UA">Украина</territory>
 			<territory type="UG">Уганда</territory>
 			<territory type="UM">Внешние малые острова (США)</territory>
-			<territory type="US">Соединенные Штаты</territory>
+			<territory type="US">США</territory>
 			<territory type="UY">Уругвай</territory>
 			<territory type="UZ">Узбекистан</territory>
 			<territory type="VA">Ватикан</territory>
@@ -860,7 +921,7 @@
 			<territory type="VI">Американские Виргинские Острова</territory>
 			<territory type="VN">Вьетнам</territory>
 			<territory type="VU">Вануату</territory>
-			<territory type="WF">Эллис и Футуна</territory>
+			<territory type="WF">Уоллис и Футуна</territory>
 			<territory type="WS">Самоа</territory>
 			<territory type="YE">Йемен</territory>
 			<territory type="YT">Майотта</territory>
@@ -869,38 +930,63 @@
 			<territory type="ZW">Зимбабве</territory>
 			<territory type="ZZ">Неизвестный или недействительный регион</territory>
 		</territories>
+		<variants>
+			<variant type="1901">Традиционная немецкая орфография</variant>
+			<variant type="1994">Стандартизированная резьянская орфография</variant>
+			<variant type="1996">Правила немецкой орфографии установленные с 1996 года</variant>
+			<variant type="1606NICT">Поздне-средневековый французский до 1606 г.</variant>
+			<variant type="AREVELA">Восточно-армянский</variant>
+			<variant type="AREVMDA">Западно-армянский</variant>
+			<variant type="BAKU1926">Унифицированный тюрско-латинский алфавит</variant>
+			<variant type="FONIPA">Международный фонетический алфавит</variant>
+			<variant type="MONOTON">Монотонный</variant>
+			<variant type="POLYTON">Многотональный</variant>
+			<variant type="POSIX">Компьютерный</variant>
+			<variant type="ROZAJ">Резьянский</variant>
+			<variant type="SAAHO">Сахо</variant>
+			<variant type="SCOTLAND">Англо-шотландский</variant>
+			<variant type="TARASK">Тарашкевица</variant>
+			<variant type="VALENCIA">Валенсийский</variant>
+		</variants>
 		<keys>
 			<key type="calendar">Календарь</key>
-			<key type="collation">Сортировка</key>
+			<key type="collation">Сопоставление</key>
 			<key type="currency">Валюта</key>
 		</keys>
 		<types>
 			<type type="big5han" key="collation">традиционный китайский - Big5</type>
-			<type type="buddhist" key="calendar">Буддийский кадендарь</type>
+			<type type="buddhist" key="calendar">Буддийский календарь</type>
 			<type type="chinese" key="calendar">Китайский календарь</type>
 			<type type="direct" key="collation">прямой порядок</type>
 			<type type="gb2312han" key="collation">упрощенный китайский - GB2312</type>
 			<type type="gregorian" key="calendar">Григорианский календарь</type>
 			<type type="hebrew" key="calendar">Еврейский календарь</type>
+			<type type="indian" key="calendar">Национальный календарь Индии</type>
 			<type type="islamic" key="calendar">Исламский календарь</type>
 			<type type="islamic-civil" key="calendar">Исламский гражданский календарь</type>
 			<type type="japanese" key="calendar">Японский календарь</type>
 			<type type="phonebook" key="collation">порядок телефонной книги</type>
 			<type type="pinyin" key="collation">пиньинь</type>
+			<type type="roc" key="calendar">Китайский календарь</type>
 			<type type="stroke" key="collation">по чертам</type>
-			<type type="traditional" key="collation">традиционный</type>
+			<type type="traditional" key="collation">традиционный порядок</type>
 		</types>
 		<measurementSystemNames>
 			<measurementSystemName type="US">Англо-американская</measurementSystemName>
 			<measurementSystemName type="metric">Метрическая</measurementSystemName>
 		</measurementSystemNames>
+		<codePatterns>
+			<codePattern type="language">Язык: {0}</codePattern>
+			<codePattern type="script">Написание: {0}</codePattern>
+			<codePattern type="territory">Регион: {0}</codePattern>
+		</codePatterns>
 	</localeDisplayNames>
 	<layout>
 		<inList>titlecase-firstword</inList>
 	</layout>
 	<characters>
 		<exemplarCharacters>[а-е ё ж-я]</exemplarCharacters>
-		<exemplarCharacters type="auxiliary">[i v x]</exemplarCharacters>
+		<exemplarCharacters type="auxiliary">[a-e g i m n p r t-x]</exemplarCharacters>
 		<exemplarCharacters type="currencySymbol">[a-z]</exemplarCharacters>
 	</characters>
 	<delimiters>
@@ -912,15 +998,6 @@
 	<dates>
 		<localizedPatternChars>GanjkHmsSEDFwWxhKzAeugXZvcL</localizedPatternChars>
 		<calendars>
-			<calendar type="buddhist">
-				<months>
-					<monthContext type="format">
-						<monthWidth type="abbreviated">
-							<month type="3">мар.</month>
-						</monthWidth>
-					</monthContext>
-				</months>
-			</calendar>
 			<calendar type="gregorian">
 				<months>
 					<monthContext type="format">
@@ -937,20 +1014,6 @@
 							<month type="10">окт.</month>
 							<month type="11">нояб.</month>
 							<month type="12">дек.</month>
-						</monthWidth>
-						<monthWidth type="narrow">
-							<month type="1">Я</month>
-							<month type="2">Ф</month>
-							<month type="3">М</month>
-							<month type="4">А</month>
-							<month type="5">М</month>
-							<month type="6">И</month>
-							<month type="7">И</month>
-							<month type="8">А</month>
-							<month type="9">С</month>
-							<month type="10">О</month>
-							<month type="11">Н</month>
-							<month type="12">Д</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1">января</month>
@@ -1093,7 +1156,7 @@
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
-							<pattern>d MMMM yyyy 'г'.</pattern>
+							<pattern>EEEE, d MMMM yyyy 'г'.</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
@@ -1145,13 +1208,28 @@
 						<dateFormatItem id="H">H</dateFormatItem>
 						<dateFormatItem id="HHmm">HH:mm</dateFormatItem>
 						<dateFormatItem id="HHmmss">HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="Hm">H:mm</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
+						<dateFormatItem id="MEd">E, M-d</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
 						<dateFormatItem id="MMMEd">E MMM d</dateFormatItem>
+						<dateFormatItem id="MMMMEd">E MMMM d</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="MMdd">dd.MM</dateFormatItem>
 						<dateFormatItem id="Md">d.M</dateFormatItem>
+						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="mmss">mm:ss</dateFormatItem>
-						<dateFormatItem id="yyMM">MM/yy</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
+						<dateFormatItem id="y">yyyy</dateFormatItem>
+						<dateFormatItem id="yM">yyyy-M</dateFormatItem>
+						<dateFormatItem id="yMEd">EEE, yyyy-M-d</dateFormatItem>
+						<dateFormatItem id="yMMM">MMM. y</dateFormatItem>
+						<dateFormatItem id="yMMMEd">E, d MMM. y</dateFormatItem>
+						<dateFormatItem id="yMMMM">MMMM y</dateFormatItem>
+						<dateFormatItem id="yQ">Q y</dateFormatItem>
+						<dateFormatItem id="yQQQ">yyyy QQQ</dateFormatItem>
+						<dateFormatItem id="yyMM">MM.yy</dateFormatItem>
 						<dateFormatItem id="yyMMM">MMM yy</dateFormatItem>
 						<dateFormatItem id="yyMMMEEEd">EEE, d MMM yy</dateFormatItem>
 						<dateFormatItem id="yyQ">Q yy</dateFormatItem>
@@ -1161,6 +1239,90 @@
 						<dateFormatItem id="yyyyMMMM">MMMM yyyy</dateFormatItem>
 						<dateFormatItem id="yyyyQQQQ">QQQQ yyyy 'г'.</dateFormatItem>
 					</availableFormats>
+					<intervalFormats>
+						<intervalFormatFallback>{0} - {1}</intervalFormatFallback>
+						<intervalFormatItem id="M">
+							<greatestDifference id="M">M-M</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MEd">
+							<greatestDifference id="M">E, MM-dd – E, MM-dd</greatestDifference>
+							<greatestDifference id="d">E, MM-dd – E, MM-dd</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMM">
+							<greatestDifference id="M">MMM-MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMEd">
+							<greatestDifference id="M">d MMM - d MMM</greatestDifference>
+							<greatestDifference id="d">d-d MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMM">
+							<greatestDifference id="M">LLLL-LLLL</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMd">
+							<greatestDifference id="M">d MMM - d MMM</greatestDifference>
+							<greatestDifference id="d">d-d MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Md">
+							<greatestDifference id="M">dd.MM - dd.MM</greatestDifference>
+							<greatestDifference id="d">dd.MM - dd.MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d-d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="h">
+							<greatestDifference id="a">HH-HH</greatestDifference>
+							<greatestDifference id="h">HH-HH</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="a">HH:mm-HH:mm</greatestDifference>
+							<greatestDifference id="h">HH:mm-HH:mm</greatestDifference>
+							<greatestDifference id="m">HH:mm-HH:mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="a">HH:mm-HH:mm v</greatestDifference>
+							<greatestDifference id="h">HH:mm-HH:mm v</greatestDifference>
+							<greatestDifference id="m">HH:mm-HH:mm v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hv">
+							<greatestDifference id="a">HH-HH v</greatestDifference>
+							<greatestDifference id="h">HH-HH v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="y">
+							<greatestDifference id="y">y-y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yM">
+							<greatestDifference id="M">MM.yy - MM.yy</greatestDifference>
+							<greatestDifference id="y">MM.yy - MM.yy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="M">dd.MM.yy - dd.MM.yy</greatestDifference>
+							<greatestDifference id="d">dd.MM.yy - dd.MM.yy</greatestDifference>
+							<greatestDifference id="y">dd.MM.yy - dd.MM.yy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMM">
+							<greatestDifference id="M">MMM-MMM yyyy 'г'.</greatestDifference>
+							<greatestDifference id="y">MMM yyyy - MMM yyyy 'г'.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEd">
+							<greatestDifference id="M">d MMM - d MMM yyyy 'г'.</greatestDifference>
+							<greatestDifference id="d">d-d MMM yyyy 'г'.</greatestDifference>
+							<greatestDifference id="y">d MMM yyyy - d MMM yyyy 'г'.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMM">
+							<greatestDifference id="M">LLLL-LLLL yyyy 'г'.</greatestDifference>
+							<greatestDifference id="y">LLLL yyyy - LLLL yyyy 'г'.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="M">d MMM - d MMM yyyy 'г'.</greatestDifference>
+							<greatestDifference id="d">d-d MMM yyyy 'г'.</greatestDifference>
+							<greatestDifference id="y">d MMM yyyy - d MMM yyyy 'г'.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="M">dd.MM.yy - dd.MM.yy</greatestDifference>
+							<greatestDifference id="d">dd.MM.yy - dd.MM.yy</greatestDifference>
+							<greatestDifference id="y">dd.MM.yy - dd.MM.yy</greatestDifference>
+						</intervalFormatItem>
+					</intervalFormats>
 				</dateTimeFormats>
 				<fields>
 					<field type="era">
@@ -1303,31 +1465,13 @@
 						</monthWidth>
 					</monthContext>
 				</months>
-				<timeFormats>
-					<timeFormatLength type="short">
-						<timeFormat>
-							<pattern>'Эсфанд'</pattern>
-						</timeFormat>
-					</timeFormatLength>
-				</timeFormats>
 			</calendar>
 		</calendars>
 		<timeZoneNames>
 			<hourFormat>+HH:mm;-HH:mm</hourFormat>
 			<gmtFormat>GMT{0}</gmtFormat>
 			<regionFormat>{0}</regionFormat>
-			<zone type="Africa/Timbuktu">
-				<exemplarCity>Тимбукту</exemplarCity>
-			</zone>
-			<zone type="America/Argentina/ComodRivadavia">
-				<exemplarCity>Комодоро-Ривадавия</exemplarCity>
-			</zone>
-			<zone type="Europe/Belfast">
-				<exemplarCity>Белфаст</exemplarCity>
-			</zone>
-			<zone type="Pacific/Yap">
-				<exemplarCity>Яп, о-ва</exemplarCity>
-			</zone>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Etc/Unknown">
 				<exemplarCity>Неизвестный</exemplarCity>
 			</zone>
@@ -1402,6 +1546,9 @@
 			</zone>
 			<zone type="America/Argentina/La_Rioja">
 				<exemplarCity>Ла-Риоха</exemplarCity>
+			</zone>
+			<zone type="America/Argentina/San_Luis">
+				<exemplarCity>Сан-Луис</exemplarCity>
 			</zone>
 			<zone type="America/Catamarca">
 				<exemplarCity>Катамарка</exemplarCity>
@@ -1597,6 +1744,9 @@
 			</zone>
 			<zone type="America/Winnipeg">
 				<exemplarCity>Виннипег</exemplarCity>
+			</zone>
+			<zone type="America/Resolute">
+				<exemplarCity>Резолют</exemplarCity>
 			</zone>
 			<zone type="America/Rainy_River">
 				<exemplarCity>Рейни-Ривер</exemplarCity>
@@ -2279,9 +2429,6 @@
 			<zone type="Europe/Ljubljana">
 				<exemplarCity>Любляна</exemplarCity>
 			</zone>
-			<zone type="Atlantic/Jan_Mayen">
-				<exemplarCity>Ян-Майен, о-в</exemplarCity>
-			</zone>
 			<zone type="Arctic/Longyearbyen">
 				<exemplarCity>Лонгйир</exemplarCity>
 			</zone>
@@ -2438,6 +2585,9 @@
 			<zone type="America/Indiana/Petersburg">
 				<exemplarCity>Петерсбург</exemplarCity>
 			</zone>
+			<zone type="America/Indiana/Tell_City">
+				<exemplarCity>Телл-Сити</exemplarCity>
+			</zone>
 			<zone type="America/Indiana/Knox">
 				<exemplarCity>Нокс</exemplarCity>
 			</zone>
@@ -2516,13 +2666,427 @@
 			<zone type="Africa/Harare">
 				<exemplarCity>Хараре</exemplarCity>
 			</zone>
+			<metazone type="Acre">
+				<long>
+					<generic>Акри время</generic>
+					<standard>Акри стандартное время</standard>
+					<daylight>Акри летнее время</daylight>
+				</long>
+				<short>
+					<generic>Акри время</generic>
+					<standard>Акри стандартное время</standard>
+					<daylight>Акри летнее время</daylight>
+				</short>
+			</metazone>
+			<metazone type="Afghanistan">
+				<long>
+					<standard>Афганистан время</standard>
+				</long>
+				<short>
+					<standard>Афганистан время</standard>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Africa_Central">
+				<long>
+					<standard>Центральноафриканское время</standard>
+				</long>
+			</metazone>
+			<metazone type="Africa_Eastern">
+				<long>
+					<standard>Восточноафриканское время</standard>
+				</long>
+			</metazone>
+			<metazone type="Africa_Southern">
+				<long>
+					<standard>Южноафриканское время</standard>
+				</long>
+			</metazone>
+			<metazone type="Africa_Western">
+				<long>
+					<standard>Западноафриканское время</standard>
+					<daylight>Западноафриканское летнее время</daylight>
+				</long>
+			</metazone>
+			<metazone type="Aktyubinsk">
+				<long>
+					<standard>Актюбинск стандартное время</standard>
+					<daylight>Актюбинск летнее время</daylight>
+				</long>
+				<short>
+					<standard>Актюбинск стандартное время</standard>
+					<daylight>Актюбинск летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Alaska">
+				<long>
+					<generic>Аляска время</generic>
+					<standard>Аляска стандартное время</standard>
+					<daylight>Аляска летнее время</daylight>
+				</long>
+				<short>
+					<generic>Аляска время</generic>
+					<standard>Аляска стандартное время</standard>
+					<daylight>Аляска летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Alaska_Hawaii">
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Almaty">
+				<long>
+					<standard>Алма-Ата стандартное время</standard>
+					<daylight>Алма-Ата летнее время</daylight>
+				</long>
+				<short>
+					<standard>Алма-Ата стандартное время</standard>
+					<daylight>Алма-Ата летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="America_Central">
+				<long>
+					<generic>Средне-американское время</generic>
+					<standard>Средне-американское стандартное время</standard>
+					<daylight>Средне-американское летнее время</daylight>
+				</long>
+				<short>
+					<generic>Средне-американское время</generic>
+					<standard>Средне-американское стандартное время</standard>
+					<daylight>Средне-американское летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="America_Eastern">
+				<long>
+					<generic>Восточно-американское время</generic>
+					<standard>Восточно-американское стандартное время</standard>
+					<daylight>Восточно-американское летнее время</daylight>
+				</long>
+				<short>
+					<generic>Восточно-американское время</generic>
+					<standard>Восточно-американское стандартное время</standard>
+					<daylight>Восточно-американское летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="America_Mountain">
+				<long>
+					<generic>Горное время (США)</generic>
+					<standard>Горное стандартное время (США)</standard>
+					<daylight>Горное летнее время (США)</daylight>
+				</long>
+				<short>
+					<generic>Горное время (США)</generic>
+					<standard>Горное стандартное время (США)</standard>
+					<daylight>Горное летнее время (США)</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="America_Pacific">
+				<long>
+					<generic>Тихоокеанское время</generic>
+					<standard>Тихоокеанское стандартное время</standard>
+					<daylight>Тихоокеанское летнее время</daylight>
+				</long>
+				<short>
+					<generic>Тихоокеанское время</generic>
+					<standard>Тихоокеанское стандартное время</standard>
+					<daylight>Тихоокеанское летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Anadyr">
+				<long>
+					<standard>Анадырь стандартное время</standard>
+					<daylight>Анадырь летнее время</daylight>
+				</long>
+				<short>
+					<standard>Анадырь стандартное время</standard>
+					<daylight>Анадырь летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Aqtau">
+				<long>
+					<standard>Актау стандартное время</standard>
+					<daylight>Актау летнее время</daylight>
+				</long>
+				<short>
+					<standard>Актау стандартное время</standard>
+					<daylight>Актау летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Aqtobe">
+				<long>
+					<standard>Актобе стандартное время</standard>
+					<daylight>Актобе летнее время</daylight>
+				</long>
+				<short>
+					<standard>Актобе стандартное время</standard>
+					<daylight>Актобе летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Arabian">
+				<long>
+					<generic>Саудовская Аравия время</generic>
+					<standard>Саудовская Аравия стандартное время</standard>
+					<daylight>Саудовская Аравия летнее время</daylight>
+				</long>
+				<short>
+					<generic>Саудовская Аравия время</generic>
+					<standard>Саудовская Аравия стандартное время</standard>
+					<daylight>Саудовская Аравия летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Argentina">
+				<long>
+					<standard>Аргентина стандартное время</standard>
+					<daylight>Аргентина летнее время</daylight>
+				</long>
+				<short>
+					<standard>Аргентина стандартное время</standard>
+					<daylight>Аргентина летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Argentina_Western">
+				<long>
+					<standard>Аргентина (запад) стандартное время</standard>
+				</long>
+				<short>
+					<standard>Аргентина (запад) стандартное время</standard>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Armenia">
+				<long>
+					<generic>Армения время</generic>
+					<standard>Армения стандартное время</standard>
+					<daylight>Армения летнее время</daylight>
+				</long>
+				<short>
+					<generic>Армения время</generic>
+					<standard>Армения стандартное время</standard>
+					<daylight>Армения летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Atlantic">
+				<long>
+					<generic>Атлантическое время</generic>
+					<standard>Атлантическое стандартное время</standard>
+					<daylight>Атлантическое летнее время</daylight>
+				</long>
+				<short>
+					<generic>Атлантическое время</generic>
+					<standard>Атлантическое стандартное время</standard>
+					<daylight>Атлантическое летнее время</daylight>
+				</short>
+			</metazone>
+			<metazone type="Brasilia">
+				<long>
+					<standard>Бразилия стандартное время</standard>
+					<daylight>Бразилия дневное время</daylight>
+				</long>
+				<short>
+					<standard>Бразилия стандартное время</standard>
+					<daylight>Бразилия дневное время</daylight>
+				</short>
+			</metazone>
+			<metazone type="China">
+				<long>
+					<standard>Китайское стандартное время</standard>
+				</long>
+				<short>
+					<standard>Китайское стандартное время</standard>
+				</short>
+			</metazone>
+			<metazone type="Europe_Central">
+				<long>
+					<standard>Центральноевропейское время</standard>
+					<daylight>Центральноевропейское летнее время</daylight>
+				</long>
+				<short>
+					<standard>Центральноевропейское время</standard>
+					<daylight>Центральноевропейское летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Europe_Eastern">
+				<long>
+					<standard>Восточноевропейское время</standard>
+					<daylight>Восточноевропейское летнее время</daylight>
+				</long>
+				<short>
+					<standard>Восточноевропейское время</standard>
+					<daylight>Восточноевропейское летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Hong_Kong">
+				<long>
+					<standard>Гонконгское стандартное время</standard>
+					<daylight>Гонконгское летнее время</daylight>
+				</long>
+				<short>
+					<standard>Гонконгское стандартное время</standard>
+					<daylight>Гонконгское летнее время</daylight>
+				</short>
+			</metazone>
+			<metazone type="India">
+				<long>
+					<standard>Индийское стандартное время</standard>
+				</long>
+				<short>
+					<standard>Индийское стандартное время</standard>
+				</short>
+			</metazone>
+			<metazone type="Indochina">
+				<long>
+					<standard>Индокитайское стандартное время</standard>
+				</long>
+				<short>
+					<standard>Индокитайское стандартное время</standard>
+				</short>
+			</metazone>
+			<metazone type="Indonesia_Central">
+				<long>
+					<standard>Центральная Индонезия стандартное время</standard>
+				</long>
+				<short>
+					<standard>Центральная Индонезия стандартное время</standard>
+				</short>
+			</metazone>
+			<metazone type="Indonesia_Eastern">
+				<long>
+					<standard>Восточная Индонезия стандартное время</standard>
+				</long>
+				<short>
+					<standard>Восточная Индонезия стандартное время</standard>
+				</short>
+			</metazone>
+			<metazone type="Indonesia_Western">
+				<long>
+					<standard>Западная Индонезия стандартное время</standard>
+				</long>
+				<short>
+					<standard>Западная Индонезия стандартное время</standard>
+				</short>
+			</metazone>
+			<metazone type="Israel">
+				<long>
+					<standard>Израиль стандартное время</standard>
+					<daylight>Израиль летнее время</daylight>
+				</long>
+				<short>
+					<standard>Израиль стандартное время</standard>
+					<daylight>Израиль летнее время</daylight>
+				</short>
+			</metazone>
+			<metazone type="Japan">
+				<long>
+					<standard>Японское стандартное время</standard>
+				</long>
+				<short>
+					<standard>Японское стандартное время</standard>
+				</short>
+			</metazone>
+			<metazone type="Korea">
+				<long>
+					<standard>Корейское стандартное время</standard>
+				</long>
+				<short>
+					<standard>Корейское стандартное время</standard>
+				</short>
+			</metazone>
+			<metazone type="Kuybyshev">
+				<long>
+					<standard>Куйбышевское время</standard>
+					<daylight>Куйбышевское летнее время</daylight>
+				</long>
+				<short>
+					<standard>Куйбышевское время</standard>
+					<daylight>Куйбышевское летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Moscow">
+				<long>
+					<generic>Московское время</generic>
+					<standard>Московское стандартное время</standard>
+					<daylight>Московское летнее время</daylight>
+				</long>
+				<short>
+					<generic>Московское время</generic>
+					<standard>Московское стандартное время</standard>
+					<daylight>Московское летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Samara">
+				<long>
+					<standard>Самарское стандартное время</standard>
+					<daylight>Самарское летнее время</daylight>
+				</long>
+				<short>
+					<standard>Самарское стандартное время</standard>
+					<daylight>Самарское летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Turkey">
+				<long>
+					<generic>Турецкое время</generic>
+					<standard>Турецкое стандартное время</standard>
+					<daylight>Турецкое летнее время</daylight>
+				</long>
+				<short>
+					<generic>Турецкое время</generic>
+					<standard>Турецкое стандартное время</standard>
+					<daylight>Турецкое летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
+			<metazone type="Volgograd">
+				<long>
+					<standard>Волгоградское время</standard>
+					<daylight>Волгоградское летнее время</daylight>
+				</long>
+				<short>
+					<standard>Волгоградское время</standard>
+					<daylight>Волгоградское летнее время</daylight>
+				</short>
+				<commonlyUsed>true</commonlyUsed>
+			</metazone>
 		</timeZoneNames>
 	</dates>
 	<numbers>
 		<symbols>
 			<decimal>,</decimal>
 			<group> </group>
+			<list>;</list>
+			<percentSign>%</percentSign>
+			<nativeZeroDigit>0</nativeZeroDigit>
+			<patternDigit>#</patternDigit>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+			<exponential>E</exponential>
+			<perMille>‰</perMille>
+			<infinity>∞</infinity>
 		</symbols>
+		<decimalFormats>
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
+		</decimalFormats>
 		<scientificFormats>
 			<scientificFormatLength>
 				<scientificFormat>
@@ -2533,20 +3097,23 @@
 		<percentFormats>
 			<percentFormatLength>
 				<percentFormat>
-					<pattern>#,##0 %</pattern>
+					<pattern>#,##0 %</pattern>
 				</percentFormat>
 			</percentFormatLength>
 		</percentFormats>
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>#,##0.00 ¤</pattern>
+					<pattern>#,##0.00 ¤</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 		</currencyFormats>
 		<currencies>
 			<currency type="ADP">
 				<displayName>Андоррская песета</displayName>
+				<displayName count="few">андоррские песеты</displayName>
+				<displayName count="other">андоррских песет</displayName>
+				<symbol>андоррских песет</symbol>
 			</currency>
 			<currency type="AED">
 				<displayName>Дирхам (ОАЭ)</displayName>
@@ -2559,10 +3126,14 @@
 			</currency>
 			<currency type="ALL">
 				<displayName>Албанский лек</displayName>
+				<displayName count="few">албанских лека</displayName>
+				<displayName count="other">албанских леков</displayName>
 				<symbol>lek</symbol>
 			</currency>
 			<currency type="AMD">
 				<displayName>Армянский драм</displayName>
+				<displayName count="few">армянских драма</displayName>
+				<displayName count="other">армянских драмов</displayName>
 				<symbol>dram</symbol>
 			</currency>
 			<currency type="ANG">
@@ -2574,12 +3145,16 @@
 			</currency>
 			<currency type="AOK">
 				<displayName>Ангольская кванза (1977-1990)</displayName>
+				<displayName count="few">ангольские кванзы</displayName>
+				<displayName count="other">ангольских кванз</displayName>
 			</currency>
 			<currency type="AON">
 				<displayName>Ангольская новая кванза (1990-2000)</displayName>
 			</currency>
 			<currency type="AOR">
 				<displayName>Ангольская кванза реюстадо (1995-1999)</displayName>
+				<displayName count="few">ангольские кванзы реюстадо (1995-1999)</displayName>
+				<displayName count="other">ангольских кванз реюстадо (1995-1999)</displayName>
 			</currency>
 			<currency type="ARA">
 				<displayName>Аргентинский аустрал</displayName>
@@ -2713,7 +3288,7 @@
 				<displayName>Конголезский франк</displayName>
 			</currency>
 			<currency type="CHE">
-				<displayName>WIR Евро</displayName>
+				<displayName>WIR евро</displayName>
 			</currency>
 			<currency type="CHF">
 				<displayName>Швейцарский франк</displayName>
@@ -2847,6 +3422,9 @@
 			<currency type="GHC">
 				<displayName>Ганский седи</displayName>
 			</currency>
+			<currency type="GHS">
+				<displayName>Седи Ганы</displayName>
+			</currency>
 			<currency type="GIP">
 				<displayName>Гибралтарский фунт</displayName>
 			</currency>
@@ -2975,7 +3553,7 @@
 				<displayName>Доллар Каймановых островов</displayName>
 			</currency>
 			<currency type="KZT">
-				<displayName>Тенге (казахский)</displayName>
+				<displayName>Казахский тенге</displayName>
 				<symbol>T</symbol>
 			</currency>
 			<currency type="LAK">
@@ -3187,6 +3765,10 @@
 			</currency>
 			<currency type="RUB">
 				<displayName>Российский рубль</displayName>
+				<displayName count="few">Российских рубля</displayName>
+				<displayName count="many">Российских рублей</displayName>
+				<displayName count="one">Российский рубль</displayName>
+				<displayName count="other">Российского рубля</displayName>
 				<symbol>руб.</symbol>
 			</currency>
 			<currency type="RUR">
@@ -3237,7 +3819,7 @@
 			</currency>
 			<currency type="SOS">
 				<displayName>Сомалийский шиллинг</displayName>
-				<symbol>So. Sh.</symbol>
+				<symbol>Sh.</symbol>
 			</currency>
 			<currency type="SRD">
 				<displayName>Суринамский доллар</displayName>
@@ -3288,10 +3870,19 @@
 			</currency>
 			<currency type="TRL">
 				<displayName>Турецкая лира</displayName>
+				<displayName count="few">турецкие лиры</displayName>
+				<displayName count="many">турецких лир</displayName>
+				<displayName count="one">туркцкая лира</displayName>
+				<displayName count="other">турецких лир</displayName>
 				<symbol>TL</symbol>
 			</currency>
 			<currency type="TRY">
 				<displayName>Новая турецкая лира</displayName>
+				<displayName count="few">новые турецкие лиры</displayName>
+				<displayName count="many">Новых турецких лир</displayName>
+				<displayName count="one">Новая турецкая лира</displayName>
+				<displayName count="other">новых турецких лир</displayName>
+				<symbol>YTL</symbol>
 			</currency>
 			<currency type="TTD">
 				<displayName>Доллар Тринидада и Тобаго</displayName>
@@ -3316,7 +3907,7 @@
 				<displayName>Старый угандийский шиллинг</displayName>
 			</currency>
 			<currency type="UGX">
-				<displayName>Угандийский шиллинг</displayName>
+				<displayName>У£гандийский шиллинг</displayName>
 			</currency>
 			<currency type="USD">
 				<displayName>Доллар США</displayName>

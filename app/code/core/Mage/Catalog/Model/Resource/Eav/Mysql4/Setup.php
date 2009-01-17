@@ -1305,7 +1305,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
         $categories = array();
 
         $select = $this->getConnection()->select();
-        $select->from($this->getTable('catalog/category_entity'));
+        $select->from($this->getTable('catalog/category'));
         $categories = $this->getConnection()->fetchAll($select);
 
         if (is_array($categories)) {
@@ -1320,7 +1320,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                 $this
                     ->getConnection()
                     ->update(
-                        $this->getTable('catalog/category_entity'),
+                        $this->getTable('catalog/category'),
                         array('path' => $path),
                         "entity_id = {$category['entity_id']}"
                     );
@@ -1339,7 +1339,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
     {
         $select = $this->getConnection()->select();
 
-        $select->from($this->getTable('catalog/category_entity'));
+        $select->from($this->getTable('catalog/category'));
         $select->where('entity_id = ?', $id);
 
         return $this->getConnection()->fetchRow($select);
@@ -1374,7 +1374,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
     public function rebuildCategoryLevels()
     {
         $select = $this->getConnection()->select()
-            ->from($this->getTable('catalog/category_entity'));
+            ->from($this->getTable('catalog/category'));
 
         $categories = $this->getConnection()->fetchAll($select);
 
@@ -1383,7 +1383,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
             $this
                 ->getConnection()
                 ->update(
-                    $this->getTable('catalog/category_entity'),
+                    $this->getTable('catalog/category'),
                     array('level' => $level),
                     "entity_id = {$category['entity_id']}"
                 );

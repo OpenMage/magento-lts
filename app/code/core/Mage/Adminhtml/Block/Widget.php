@@ -56,8 +56,25 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
         $this->getLayout()->getBlock('breadcrumbs')->addLink($label, $title, $link);
     }
 
+    /**
+     * Create buttonn and return its html
+     *
+     * @param string $label
+     * @param string $onclick
+     * @param string $class
+     * @param string $id
+     * @return string
+     */
     public function getButtonHtml($label, $onclick, $class='', $id=null) {
-        return $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array('label' => $label, 'onclick' => $onclick, 'class' => $class, 'type'=>'button', 'id'=>$id))->toHtml();
+        return $this->getLayout()->createBlock('adminhtml/widget_button')
+            ->setData(array(
+                'label'     => $label,
+                'onclick'   => $onclick,
+                'class'     => $class,
+                'type'      => 'button',
+                'id'        => $id,
+            ))
+            ->toHtml();
     }
 
     public function getGlobalIcon()

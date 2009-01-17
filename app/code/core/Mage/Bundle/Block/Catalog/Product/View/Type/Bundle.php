@@ -89,8 +89,18 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     'price' => Mage::helper('core')->currency($_selection->getFinalPrice(), false, false),
                     'priceValue' => Mage::helper('core')->currency($_selection->getSelectionPriceValue(), false, false),
                     'priceType' => $_selection->getSelectionPriceType(),
-                    'tierPrice' => $_selection->getTierPrice()
+                    'tierPrice' => $_selection->getTierPrice(),
+                    'plusDisposition' => 0,
+                    'minusDisposition' => 0,
                 );
+        		$responseObject = new Varien_Object();
+        		$args = array('response_object'=>$responseObject, 'selection'=>$_selection);
+        		Mage::dispatchEvent('bundle_product_view_config', $args);
+        		if (is_array($responseObject->getAdditionalOptions())) {
+        			foreach ($responseObject->getAdditionalOptions() as $o=>$v) {
+        				$selection[$o] = $v;
+        			}
+        		}
                 $option['selections'][$_selection->getSelectionId()] = $selection;
 
                 if (($_selection->getIsDefault() || ($selectionCount == 1 && $_option->getRequired())) && $_selection->isSalable()) {

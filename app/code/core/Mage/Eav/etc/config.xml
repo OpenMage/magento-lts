@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Eav>
-            <version>0.7.10</version>
+            <version>0.7.11</version>
         </Mage_Eav>
     </modules>
     <global>

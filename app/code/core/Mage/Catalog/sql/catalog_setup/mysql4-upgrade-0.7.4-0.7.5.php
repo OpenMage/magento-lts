@@ -36,7 +36,7 @@ CREATE TABLE {$this->getTable('catalog_product_website')} (
   CONSTRAINT `FK_CATALOG_PRODUCT_WEBSITE_WEBSITE` FOREIGN KEY `FK_CATALOG_PRODUCT_WEBSITE_WEBSITE` (`website_id`)
     REFERENCES `{$this->getTable('core_website')}` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_CATALOG_WEBSITE_PRODUCT_PRODUCT` FOREIGN KEY `FK_CATALOG_WEBSITE_PRODUCT_PRODUCT` (`product_id`)
-    REFERENCES `{$this->getTable('catalog_product_entity')}` (`entity_id`) ON DELETE CASCADE
+    REFERENCES `{$this->getTable('catalog/product')}` (`entity_id`) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS {$this->getTable('catalog_product_status')};
@@ -58,11 +58,11 @@ DROP TABLE IF EXISTS {$this->getTable('catalog_product_store')};
 ");
 
 
-$categoryTable = $this->getTable('catalog_category_entity');
+$categoryTable = $this->getTable('catalog/category');
 $installer->getConnection()->dropForeignKey($categoryTable, 'FK_CATALOG_CATEGORY_ENTITY_TREE_NODE');
 
 try {
-	$this->run("ALTER TABLE `{$this->getTable('catalog_category_entity')}` ADD `path` VARCHAR( 255 ) NOT NULL, ADD `position` INT NOT NULL;");
+    $this->run("ALTER TABLE `{$this->getTable('catalog/category')}` ADD `path` VARCHAR( 255 ) NOT NULL, ADD `position` INT NOT NULL;");
 } catch (Exception $e) {
 }
 

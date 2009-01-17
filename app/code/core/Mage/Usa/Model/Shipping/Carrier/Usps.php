@@ -172,7 +172,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     protected function _getXmlQuotes()
     {
         $r = $this->_rawRequest;
-
         if ($r->getDestCountryId() == self::USA_COUNTRY_ID || $r->getDestCountryId() == self::PUERTORICO_COUNTRY_ID) {
             $xml = new SimpleXMLElement('<RateV3Request/>');
 
@@ -232,7 +231,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         } catch (Exception $e) {
             $responseBody = '';
         }
-        return $this->_parseXmlResponse($responseBody);
+
+        return $this->_parseXmlResponse($responseBody);;
     }
 
     protected function _parseXmlResponse($response)

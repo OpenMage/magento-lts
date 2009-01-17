@@ -30,7 +30,7 @@
  * @subpackage Element
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Checkbox.php 8631 2008-03-07 17:36:42Z matthew $
+ * @version    $Id: Checkbox.php 9323 2008-04-25 21:13:17Z matthew $
  */
 class Zend_Form_Element_Checkbox extends Zend_Form_Element_Xhtml
 {
@@ -185,8 +185,25 @@ class Zend_Form_Element_Checkbox extends Zend_Form_Element_Xhtml
      * 
      * @return bool
      */
-    public function isChecked($flag)
+    public function isChecked()
     {
         return $this->checked;
+    }
+
+    /**
+     * Render
+     *
+     * Ensure that options property is set when rendering.
+     * 
+     * @param  Zend_View_Interface $view 
+     * @return string
+     */
+    public function render(Zend_View_Interface $view = null)
+    {
+        $this->options = array(
+            'checked'   => $this->getCheckedValue(),
+            'unChecked' => $this->getUncheckedValue(),
+        );
+        return parent::render($view);
     }
 }

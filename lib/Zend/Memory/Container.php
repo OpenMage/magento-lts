@@ -17,12 +17,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/** Zend_Memory_Exception */
-#require_once 'Zend/Memory/Exception.php';
-
 /** Zend_Memory_Container_Interface */
 #require_once 'Zend/Memory/Container/Interface.php';
-
 
 /**
  * Memory value container

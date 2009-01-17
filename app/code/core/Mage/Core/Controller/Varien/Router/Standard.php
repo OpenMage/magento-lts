@@ -238,7 +238,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     protected function _checkShouldBeSecure($request, $path='')
     {
-        if (!Mage::app()->isInstalled() || $request->getPost()) {
+        if (!Mage::isInstalled() || $request->getPost()) {
             return;
         }
 

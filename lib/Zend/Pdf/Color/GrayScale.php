@@ -18,16 +18,11 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
-/** Zend_Pdf_Exception */
-#require_once 'Zend/Pdf/Exception.php';
-
 /** Zend_Pdf_Color */
 #require_once 'Zend/Pdf/Color.php';
 
 /** Zend_Pdf_Element_Numeric */
 #require_once 'Zend/Pdf/Element/Numeric.php';
-
 
 /**
  * GrayScale color implementation

@@ -93,7 +93,7 @@ Bundle.Selection.prototype = {
 
         new Ajax.Updater(bOption.idLabel + '_search_' + parts[2], '<?php echo $this->getSelectionSearchUrl() ?>', {
             method: 'post',
-            parameters : {'index' : parts[2], 'products[]' : products},
+            parameters : {'index' : parts[2], 'products[]' : products, 'form_key': FORM_KEY},
             evalScripts : true
         });
 

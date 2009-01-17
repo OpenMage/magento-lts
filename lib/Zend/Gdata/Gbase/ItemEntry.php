@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gbase
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -31,6 +32,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gbase
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -86,23 +88,31 @@ class Zend_Gdata_Gbase_ItemEntry extends Zend_Gdata_Gbase_Entry
             }
         }
         $this->_baseAttributes = $baseAttributes;
-        return this;
+        return $this;
     }
 
     /**
      * Uploads changes in this entry to the server using Zend_Gdata_App
      *
-     * @param boolean $dryRun Whether the transaction is dry run or not
+     * @param boolean $dryRun Whether the transaction is dry run or not.
+     * @param string|null $uri The URI to send requests to, or null if $data
+     *        contains the URI.
+     * @param string|null $className The name of the class that should we
+     *        deserializing the server response. If null, then
+     *        'Zend_Gdata_App_Entry' will be used.
+     * @param array $extraHeaders Extra headers to add to the request, as an
+     *        array of string-based key/value pairs.
      * @return Zend_Gdata_App_Entry The updated entry
      * @throws Zend_Gdata_App_Exception
      */
-    public function save($dryRun = false)
+    public function save($dryRun = false,
+                         $uri = null,
+                         $className = null,
+                         $extraHeaders = array())
     {
-        $uri = null;
-
         if ($dryRun == true) {
             $editLink = $this->getEditLink();
-            if ($editLink !== null) {
+            if ($uri == null && $editLink !== null) {
                 $uri = $editLink->getHref() . '?dry-run=true';
             }
             if ($uri === null) {
@@ -110,9 +120,12 @@ class Zend_Gdata_Gbase_ItemEntry extends Zend_Gdata_Gbase_Entry
                 throw new Zend_Gdata_App_InvalidArgumentException('You must specify an URI which needs deleted.');
             }
             $service = new Zend_Gdata_App($this->getHttpClient());
-            return $service->updateEntry($this, $uri);
+            return $service->updateEntry($this,
+                                         $uri,
+                                         $className,
+                                         $extraHeaders);
         } else {
-            parent::save();
+            parent::save($uri, $className, $extraHeaders);
         }
     }
 

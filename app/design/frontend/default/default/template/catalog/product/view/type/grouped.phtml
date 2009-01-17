@@ -54,10 +54,12 @@
     <tbody>
     <?php if (count($_associatedProducts)): ?>
     <?php foreach ($_associatedProducts as $_item): ?>
+        <?php $_finalPriceInclTax = $this->helper('tax')->getPrice($_item, $_item->getFinalPrice(), true) ?>
         <tr>
             <td><?php echo $this->htmlEscape($_item->getName()) ?></td>
             <td class="a-right">
                 <?php echo $this->getPriceHtml($_item, true) ?>
+                <?php echo $this->getTierPriceHtml($_item) ?>
             </td>
             <?php if ($_product->isSaleable()): ?>
             <td class="a-center">

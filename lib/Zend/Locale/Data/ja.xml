@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.115 $"/>
-		<generation date="$Date: 2007/11/14 16:26:58 $"/>
+		<version number="$Revision: 1.147 $"/>
+		<generation date="$Date: 2008/06/17 17:13:48 $"/>
 		<language type="ja"/>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0}({1})</localePattern>
+			<localeSeparator>，</localeSeparator>
+		</localeDisplayPattern>
 		<languages>
 			<language type="aa">アファル語</language>
 			<language type="ab">アブハズ語</language>
@@ -111,6 +115,8 @@
 			<language type="dar">ダルガン語</language>
 			<language type="day">ダヤク語</language>
 			<language type="de">ドイツ語</language>
+			<language type="de_AT">ドイツ語（オーストリア）</language>
+			<language type="de_CH">正統ドイツ語（スイス）</language>
 			<language type="del">デラウェア語</language>
 			<language type="den">スレイビー語</language>
 			<language type="dgr">ドグリブ語</language>
@@ -130,9 +136,14 @@
 			<language type="el">ギリシャ語</language>
 			<language type="elx">エラム語</language>
 			<language type="en">英語</language>
+			<language type="en_CA">カナダ英語</language>
+			<language type="en_GB">イギリス英語</language>
+			<language type="en_US">アメリカ英語</language>
 			<language type="enm">中世英語</language>
 			<language type="eo">エスペラント語</language>
 			<language type="es">スペイン語</language>
+			<language type="es_419">スペイン語（ラテンアメリカ）</language>
+			<language type="es_ES">スペイン語（イベリア半島）</language>
 			<language type="et">エストニア語</language>
 			<language type="eu">バスク語</language>
 			<language type="ewo">エウォンド語</language>
@@ -147,6 +158,8 @@
 			<language type="fo">フェロー語</language>
 			<language type="fon">フォン語</language>
 			<language type="fr">フランス語</language>
+			<language type="fr_CA">フランス語（カナダ）</language>
+			<language type="fr_CH">フランス語（スイス）</language>
 			<language type="frm">中期フランス語</language>
 			<language type="fro">古フランス語</language>
 			<language type="frs">東フリジア語</language>
@@ -323,6 +336,7 @@
 			<language type="nic">ニジェール・コルドファン諸語</language>
 			<language type="niu">ニウーエイ語</language>
 			<language type="nl">オランダ語</language>
+			<language type="nl_BE">フレミッシュ語</language>
 			<language type="nn">ノルウェー語 (ニーノシュク)</language>
 			<language type="no">ノルウェー語</language>
 			<language type="nog">ノガイ語</language>
@@ -338,7 +352,7 @@
 			<language type="nyn">ニャンコレ語</language>
 			<language type="nyo">ニョロ語</language>
 			<language type="nzi">ンゼマ語</language>
-			<language type="oc">オック語 (1500以降)、プロバンス語</language>
+			<language type="oc">オック語</language>
 			<language type="oj">オブジワ語</language>
 			<language type="om">オロモ語</language>
 			<language type="or">オリヤー語</language>
@@ -363,6 +377,8 @@
 			<language type="pro">古期プロバンス語</language>
 			<language type="ps">パシュトゥー語</language>
 			<language type="pt">ポルトガル語</language>
+			<language type="pt_BR">ポルトガル語 (ブラジル)</language>
+			<language type="pt_PT">ポルトガル語（イベリア半島）</language>
 			<language type="qu">ケチュア語</language>
 			<language type="raj">ラージャスターン語</language>
 			<language type="rap">ラパヌイ語</language>
@@ -491,6 +507,8 @@
 			<language type="zap">ザポテック語</language>
 			<language type="zen">ゼナガ語</language>
 			<language type="zh">中国語</language>
+			<language type="zh_Hans">簡体中国語</language>
+			<language type="zh_Hant">繁体中国語</language>
 			<language type="znd">ザンデ語</language>
 			<language type="zu">ズールー語</language>
 			<language type="zun">ズニ語</language>
@@ -522,7 +540,7 @@
 			<script type="Egyh">エジプト神官文字</script>
 			<script type="Egyp">エジプト聖刻文字</script>
 			<script type="Ethi">エチオピア文字</script>
-			<script type="Geok">クツリ文字 (アソンタブルリとヌスフリ)</script>
+			<script type="Geok">グルジア文字（フツリ）</script>
 			<script type="Geor">グルジア文字</script>
 			<script type="Glag">グラゴール文字</script>
 			<script type="Goth">ゴート文字</script>
@@ -548,6 +566,7 @@
 			<script type="Khar">カローシュティー文字</script>
 			<script type="Khmr">クメール文字</script>
 			<script type="Knda">カンナダ文字</script>
+			<script type="Kore">韓国語の文字</script>
 			<script type="Laoo">ラオ文字</script>
 			<script type="Latf">ラテン文字 (ドイツ文字)</script>
 			<script type="Latg">ラテン文字 (ゲール語の文字)</script>
@@ -583,8 +602,8 @@
 			<script type="Sylo">シロティ・ナグリ文字</script>
 			<script type="Syrc">シリア文字</script>
 			<script type="Syre">シリア文字 (エストランゲロ文字)</script>
-			<script type="Syrj">シリア文字 (東方シリア文字)</script>
-			<script type="Syrn">シリア文字 (西方シリア文字)</script>
+			<script type="Syrj">シリア文字 (西方シリア文字)</script>
+			<script type="Syrn">シリア文字 (東方シリア文字)</script>
 			<script type="Tagb">タグバンワ文字</script>
 			<script type="Tale">タイレ文字</script>
 			<script type="Talu">新タイ・ルー文字</script>
@@ -666,6 +685,7 @@
 			<territory type="BH">バーレーン</territory>
 			<territory type="BI">ブルンジ</territory>
 			<territory type="BJ">ベニン</territory>
+			<territory type="BL">サン・バルテルミー</territory>
 			<territory type="BM">バミューダ</territory>
 			<territory type="BN">ブルネイ</territory>
 			<territory type="BO">ボリビア</territory>
@@ -733,7 +753,7 @@
 			<territory type="GU">グアム</territory>
 			<territory type="GW">ギニアビサウ</territory>
 			<territory type="GY">ガイアナ</territory>
-			<territory type="HK">中華人民共和国香港特別行政区</territory>
+			<territory type="HK">香港</territory>
 			<territory type="HM">ハード島・マクドナルド諸島</territory>
 			<territory type="HN">ホンジュラス</territory>
 			<territory type="HR">クロアチア</territory>
@@ -779,13 +799,14 @@
 			<territory type="MC">モナコ</territory>
 			<territory type="MD">モルドバ</territory>
 			<territory type="ME">モンテネグロ</territory>
+			<territory type="MF">セント・マーチン</territory>
 			<territory type="MG">マダガスカル</territory>
 			<territory type="MH">マーシャル諸島共和国</territory>
 			<territory type="MK">マケドニア</territory>
 			<territory type="ML">マリ</territory>
 			<territory type="MM">ミャンマー</territory>
 			<territory type="MN">モンゴル</territory>
-			<territory type="MO">中華人民共和国マカオ特別行政区</territory>
+			<territory type="MO">マカオ</territory>
 			<territory type="MP">北マリアナ諸島</territory>
 			<territory type="MQ">マルティニーク島</territory>
 			<territory type="MR">モーリタニア</territory>
@@ -926,18 +947,23 @@
 			<type type="islamic-civil" key="calendar">太陽イスラム暦</type>
 			<type type="japanese" key="calendar">和暦</type>
 			<type type="phonebook" key="collation">電話帳方式</type>
-			<type type="pinyin" key="collation">拼音順</type>
+			<type type="pinyin" key="collation">ピンイン順</type>
 			<type type="stroke" key="collation">画数順</type>
 			<type type="traditional" key="collation">旧式</type>
 		</types>
 		<measurementSystemNames>
-			<measurementSystemName type="US">フィート法</measurementSystemName>
+			<measurementSystemName type="US">ヤード・ポンド法</measurementSystemName>
 			<measurementSystemName type="metric">メートル法</measurementSystemName>
 		</measurementSystemNames>
+		<codePatterns>
+			<codePattern type="language">言語: {0}</codePattern>
+			<codePattern type="script">文字: {0}</codePattern>
+			<codePattern type="territory">地域: {0}</codePattern>
+		</codePatterns>
 	</localeDisplayNames>
 	<characters>
-		<exemplarCharacters>[ゝ ゞ ヽ ヾ ぁァ あア ぃィ いイ ぅゥ うウ ヴ ぇェ えエ ぉォ おオ ヵ かカ がガ きキ ぎギ くク ぐグ ヶ けケ げゲ こコ ごゴ さサ ざザ しシ じジ すス ずズ せセ ぜゼ そソ ぞゾ たタ だダ ちチ ぢヂ っッ つツ づヅ てテ でデ とト どド なナ にニ ぬヌ ねネ のノ はハ ばバ ぱパ ひヒ びビ ぴピ ふフ ぶブ ぷプ へヘ べベ ぺペ ほホ ぼボ ぽポ まマ みミ むム めメ もモ ゃャ やヤ ゅュ ゆユ ょョ よヨ らラ りリ るル れレ ろロ ゎヮ わワ ゐヰ ゑヱ をヲ んン 一 丁 七 万-下 不 与 且 世 丘 丙 両 並 中 丸 丹 主 久 乏 乗 乙 九 乱 乳 乾 亀 了 予 争 事 二 互 五 井 亜 亡 交 亨 享-亭 人 仁 今 介 仏 仕 他 付 仙 代-以 仮 仰 仲 件 任 企 伏-休 会 伝 伯 伴 伸 伺 似 但 位-佐 体 何 余 作 佳 併 使 例 侍 供 依 価 侮 侯 侵 便 係 促 俊 俗 保 信 修 俳 俵 俸 倉 個 倍 倒 候 借 倣 値 倫 倹 偉 偏 停 健 側-偶 偽 傍 傑 傘 備 催 債 傷 傾 働 像 僕 僚 僧 儀 億 儒 償 優 元-兆 先 光 克 免 児 党 入 全 八-六 共 兵 具 典 兼 内 円 冊 再 冒 冗 写 冠 冬 冷 准 凍 凝 凡 処 凶 凸-出 刀 刃 分-刈 刊 刑 列 初 判 別 利 到 制-券 刺 刻 則 削 前 剖 剛 剣 剤 副 剰 割 創 劇 力 功 加 劣 助 努 励 労 効 劾 勅 勇 勉 動 勘 務 勝 募 勢 勤 勧 勲 勺 匁 包 化 北 匠 匹-医 匿 十 千 升 午 半 卑-協 南 単 博 占 印 危 即-卵 卸 厄 厘 厚 原 厳 去 参 又 及-収 叔 取 受 叙 口-句 叫 召 可 台 史 右 号 司 各 合 吉 同-向 君 吟 否 含 吸 吹 呈-告 周 味 呼 命 和 咲 哀 品 員 哲 唆 唇 唐 唯 唱 商 問 啓 善 喚 喜 喝 喪 喫 営 嗣 嘆 嘉 嘱 器 噴 嚇 囚 四 回 因 団 困 囲 図 固 国 圏 園 土 圧 在 地 坂 均 坊 坑 坪 垂 型 垣 埋 城 域 執 培 基 堀 堂 堅 堕 堤 堪 報 場 塀 塁 塊 塑 塔 塗 塚 塩 塾 境 墓 増 墜 墨 墳 墾 壁 壇 壊 壌 士 壮 声-売 変 夏 夕 外 多 夜 夢 大 天-夫 央 失 奇 奉 奏 契 奔 奥 奨 奪 奮 女 奴 好 如-妄 妊 妙 妥 妨 妹 妻 姉 始 姓 委 姫 姻 姿 威 娘 娠 娯 婆 婚 婦 婿 媒 嫁 嫌 嫡 嬢 子 孔 字 存 孝 季 孤 学 孫 宅 宇-安 完 宗-定 宜 宝 実 客-室 宮 宰 害-家 容 宿 寂 寄 密 富 寒 寛 寝 察 寡 寧 審 寮 寸 寺 対 寿 封 専 射 将 尉-尋 導 小 少 尚 就 尺 尼-局 居 屈 届 屋 展 属 層 履 屯 山 岐 岩 岬 岳 岸 峠 峡 峰 島 崇 崎 崩 川 州 巡 巣 工-巨 差 己 巻 市 布 帆 希 帝 帥 師 席 帯 帰 帳 常 帽 幅 幕 幣 干-年 幸 幹 幻-幾 庁 広 床 序 底 店 府 度 座 庫 庭 庶-庸 廃 廉 廊 延 廷 建 弁 弊 式 弐 弓-引 弘 弟 弦 弧 弱 張 強 弾 当 形 彩 彫 彰 影 役 彼 往 征 径 待 律 後 徐 徒 従 得 御 復 循 微 徳 徴 徹 心 必 忌 忍 志-忙 応 忠 快 念 怒 怖 思 怠 急 性 怪 恋 恐 恒 恥 恨 恩 恭 息 恵 悔 悟 悠 患 悦 悩 悪 悲 悼 情 惑 惜 惨 惰 想 愁 愉 意 愚 愛 感 慈 態 慌 慎 慕 慢 慣 慨 慮 慰 慶 憂 憎 憤 憩 憲 憶 憾 懇 懐 懲 懸 成-戒 戦 戯 戸 戻 房 所 扇 扉 手 才 打 払 扱 扶 批 承 技 抄 把 抑 投 抗 折 抜 択 披 抱 抵 抹 押 抽 担 拍 拐 拒 拓 拘 拙 招 拝 拠 拡 括 拷 拾 持 指 挑 挙 挟 振 挿 捕 捜 捨 据 掃 授 掌 排 掘 掛 採 探 接 控 推 措 掲 描 提 揚 換 握 揮 援 揺 損 搬 搭 携 搾 摂 摘 摩 撃 撤 撮 撲 擁 操 擦 擬 支 改 攻 放 政 故 敏 救 敗 教 敢 散 敬 数 整 敵 敷 文 斉 斎 斗 料 斜 斤 斥 断 新 方 施 旅 旋 族 旗 既 日 旧-早 旬 昆 昇 昌 明 易 昔 星 映 春 昨 昭 是 昼 時 晩 普 景 晴 晶 暁 暇 暑 暖 暗 暦 暫 暮 暴 曇 曜 曲 更 書 曹 替 最 月 有 服 朕 朗 望 朝 期 木 未-札 朱 朴 机 朽 杉 材 村 束 条 来 杯 東 松 板 析 林 枚 果 枝 枠 枢 枯 架 柄 某 染 柔 柱 柳 査 栄 栓 校 株 核 根 格 栽 桃 案 桑 桜 桟 梅 械 棄 棋 棒 棚 棟 森 棺 植 検 業 極 楼 楽 概 構 様 槽 標 模 権 横 樹 橋 機 欄 欠 次 欧 欲 欺 款 歌 歓 止 正 武 歩 歯 歳 歴 死 殉-残 殖 殴 段 殺 殻 殿 母 毎 毒 比 毛 氏 民 気 水 氷 永 汁 求 汗 汚 江 池 決 汽 沈 沖 没 沢 河 沸 油 治 沼 沿 況 泉 泊 泌 法 泡-泣 泥 注 泰 泳 洋 洗 洞 津 洪 活 派 流 浄 浅 浜 浦 浪 浮 浴 海 浸 消 涙 涯 液 涼 淑 淡 深 混 添 清 渇-渉 渋 渓 減 渡 渦 温 測 港 湖 湯 湾-満 源 準 溝 溶 滅 滋 滑 滝 滞 滴 漁 漂 漆 漏 演 漠 漢 漫 漬 漸 潔 潜 潟 潤 潮 澄 激 濁 濃 濫 濯 瀬 火 灯 灰 災 炉 炊 炎 炭 点 為 烈 無 焦 然 焼 煙 照 煩 煮 熟 熱 燃 燥 爆 爵 父 片 版 牛 牧 物 牲 特 犠 犬 犯 状 狂 狩 独 狭 猛 猟 猫 献 猶 猿 獄 獣 獲 玄 率 玉 王 珍 珠 班 現 球 理 琴 環 璽 瓶 甘 甚 生 産 用 田-申 男 町 画 界 畑 畔 留 畜 畝 略 番 異 畳 疎 疑 疫 疲 疾 病 症 痘 痛 痢 痴 療 癒 癖 発 登 白 百 的 皆 皇 皮 皿 盆 益 盗 盛 盟 監 盤 目 盲 直 相 盾 省 看 県 真 眠 眺 眼 着 睡 督 瞬 矛 矢 知 短 矯 石 砂 研 砕 砲 破 硝 硫 硬 碁 碑 確 磁 磨 礁 礎 示 礼 社 祈 祉 祖 祚 祝 神 祥 票 祭 禁 禄 禅 禍-福 秀 私 秋 科 秒 秘 租 秩 称 移 程 税 稚 種 稲 稼 稿 穀 穂 積 穏 穫 穴 究 空 突 窃 窒 窓 窮 窯 立 竜 章 童 端 競 竹 笑 笛 符 第 筆 等 筋 筒 答 策 箇 算 管 箱 節 範 築 篤 簡 簿 籍 米 粉 粋 粒 粗 粘 粛 粧 精 糖 糧 糸 系 糾 紀 約 紅 紋 納 純 紙-紛 素-索 紫 累 細 紳 紹 紺 終 組 経 結 絞 絡 給 統 絵 絶 絹 継 続 維 綱 網 綿 緊 総 緑 緒 線 締 編 緩 緯 練 縁 縄 縛 縦 縫 縮 績 繁 繊 織 繕 繭 繰 缶 罪 置 罰 署 罷 羅 羊 美 群 義 羽 翁 翌 習 翻 翼 老 考 者 耐 耕 耗 耳 聖 聞 聴 職 肉 肌 肖 肝 肢 肥 肩 肪 肯 育 肺 胃 胆 背 胎 胞 胴 胸 能 脂 脅 脈 脚 脱 脳 脹 腐 腕 腰 腸 腹 膚 膜 膨 臓 臣 臨 自 臭 至 致 興 舌 舎 舗 舞 舟 航 般 舶 船 艇 艦 良 色 芋 芝 花 芳 芸 芽 苗 若 苦 英 茂 茎 茶 草 荒 荘 荷 菊 菌 菓 菜 華 落 葉 著 葬 蒸 蓄 蔵 薄 薦 薪-薬 藩 藻 虐 虚 虜 虞 虫 蚊 蚕 蛇 蛍 蛮 融 血 衆 行 術 街 衛 衝 衡 衣 表 衰 衷 袋 被 裁 裂 装 裏 裕 補 裸 製 複 褐 褒 襟 襲 西 要 覆 覇 見 規 視 覚 覧 親 観 角 解 触 言 訂 計 討 訓 託 記 訟 訪 設 許 訳 訴 診 証 詐 詔 評 詞 詠 試 詩 詰-詳 誇 誉 誌 認 誓 誕 誘 語 誠 誤 説 読 課 調 談 請 論 諭 諮 諸 諾 謀 謁 謄 謙 講 謝 謡 謹 識 譜 警 議 譲 護 谷 豆 豊 豚 象 豪 貝 貞 負-貢 貧-販 貫 責 貯 貴 買 貸 費 貿 賀 賃 賄 資 賊 賓 賛 賜 賞 賠 賢 賦 質 購 贈 赤 赦 走 赴 起 超 越 趣 足 距 跡 路 跳 践 踊 踏 躍 身 車 軌 軍 軒 軟 転 軸 軽 較 載 輝 輩 輪 輸 轄 辛 辞 辱 農 辺 込 迅 迎 近 返 迫 迭 述 迷 追 退 送 逃 逆 透 逐 逓 途 通 逝 速 造 連 逮 週 進 逸 遂 遅 遇 遊 運 遍 過 道-違 遠 遣 適 遭 遮 遵 遷 選 遺 避 還 邦 邪 邸 郊 郎 郡 部 郭 郵 郷 都 酌 配 酒 酔 酢 酪 酬 酵 酷 酸 醜 醸 釈 里-量 金 針 釣 鈍 鈴 鉄 鉛 鉢 鉱 銀 銃 銅 銑 銘 銭 鋭 鋳 鋼 錘 錠 錬 錯 録 鍛 鎖 鎮 鏡 鐘 鑑 長 門 閉 開 閑 間 関 閣 閥 閲 闘 防 阻 附 降 限 陛 院-陥 陪 陰 陳 陵 陶 陸 険 陽 隅 隆 隊 階 随 隔 際 障 隠 隣 隷 隻 雄-雇 雉 雌 雑 離 難 雨 雪 雰 雲 零 雷 電 需 震 霊 霜 霧 露 青 静 非 面 革 靴 韓 音 韻 響 頂 項 順 預-頒 領 頭 頻 頼 題 額 顔 顕 願 類 顧 風 飛 食 飢 飯 飲 飼-飾 養 餓 館 首 香 馬 駄-駆 駐 騎 騒 験 騰 驚 骨 髄 高 髪 鬼 魂 魅 魔 魚 鮮 鯨 鳥 鳴 鶏 麗 麦 麻 黄 黒 黙 鼓 鼻 齢]</exemplarCharacters>
-		<exemplarCharacters type="auxiliary">[拼 錄 鳯]</exemplarCharacters>
+		<exemplarCharacters>[ゞ ゝヽ ヾ ぁァ あア ぃィ いイ ぅゥ うウ ヴ ぇェ えエ ぉォ おオ ヵ かカ がガ きキ ぎギ くク ぐグ ヶ けケ げゲ こコ ごゴ さサ ざザ しシ じジ すス ずズ せセ ぜゼ そソ ぞゾ たタ だダ ちチ ぢヂ っッ つツ づヅ てテ でデ とト どド なナ にニ ぬヌ ねネ のノ はハ ばバ ぱパ ひヒ びビ ぴピ ふフ ぶブ ぷプ へヘ べベ ぺペ ほホ ぼボ ぽポ まマ みミ むム めメ もモ ゃャ やヤ ゅュ ゆユ ょョ よヨ らラ りリ るル れレ ろロ ゎヮ わワ ゐヰ ゑヱ をヲ んン 一 丁 七 万-下 不 与 且 世 丘 丙 両 並 中 丸 丹 主 久 乏 乗 乙 九 乱 乳 乾 亀 了 予 争 事 二 互 五 井 亜 亡 交 亨 享-亭 人 仁 今 介 仏 仕 他 付 仙 代-以 仮 仰 仲 件 任 企 伏-休 会 伝 伯 伴 伸 伺 似 但 位-佐 体 何 余 作 佳 併 使 例 侍 供 依 価 侮 侯 侵 便 係 促 俊 俗 保 信 修 俳 俵 俸 倉 個 倍 倒 候 借 倣 値 倫 倹 偉 偏 停 健 側-偶 偽 傍 傑 傘 備 催 債 傷 傾 働 像 僕 僚 僧 儀 億 儒 償 優 元-兆 先 光 克 免 児 党 入 全 八-六 共 兵 具 典 兼 内 円 冊 再 冒 冗 写 冠 冬 冷 准 凍 凝 凡 処 凶 凸-出 刀 刃 分-刈 刊 刑 列 初 判 別 利 到 制-券 刺 刻 則 削 前 剖 剛 剣 剤 副 剰 割 創 劇 力 功 加 劣 助 努 励 労 効 劾 勅 勇 勉 動 勘 務 勝 募 勢 勤 勧 勲 勺 匁 包 化 北 匠 匹-医 匿 十 千 升 午 半 卑-協 南 単 博 占 印 危 即-卵 卸 厄 厘 厚 原 厳 去 参 又 及-収 叔 取 受 叙 口-句 叫 召 可 台 史 右 号 司 各 合 吉 同-向 君 吟 否 含 吸 吹 呈-告 周 味 呼 命 和 咲 哀 品 員 哲 唆 唇 唐 唯 唱 商 問 啓 善 喚 喜 喝 喪 喫 営 嗣 嘆 嘉 嘱 器 噴 嚇 囚 四 回 因 団 困 囲 図 固 国 圏 園 土 圧 在 地 坂 均 坊 坑 坪 垂 型 垣 埋 城 域 執 培 基 堀 堂 堅 堕 堤 堪 報 場 塀 塁 塊 塑 塔 塗 塚 塩 塾 境 墓 増 墜 墨 墳 墾 壁 壇 壊 壌 士 壮 声-売 変 夏 夕 外 多 夜 夢 大 天-夫 央 失 奇 奉 奏 契 奔 奥 奨 奪 奮 女 奴 好 如-妄 妊 妙 妥 妨 妹 妻 姉 始 姓 委 姫 姻 姿 威 娘 娠 娯 婆 婚 婦 婿 媒 嫁 嫌 嫡 嬢 子 孔 字 存 孝 季 孤 学 孫 宅 宇-安 完 宗-定 宜 宝 実 客-室 宮 宰 害-家 容 宿 寂 寄 密 富 寒 寛 寝 察 寡 寧 審 寮 寸 寺 対 寿 封 専 射 将 尉-尋 導 小 少 尚 就 尺 尼-局 居 屈 届 屋 展 属 層 履 屯 山 岐 岩 岬 岳 岸 峠 峡 峰 島 崇 崎 崩 川 州 巡 巣 工-巨 差 己 巻 市 布 帆 希 帝 帥 師 席 帯 帰 帳 常 帽 幅 幕 幣 干-年 幸 幹 幻-幾 庁 広 床 序 底 店 府 度 座 庫 庭 庶-庸 廃 廉 廊 延 廷 建 弁 弊 式 弐 弓-引 弘 弟 弦 弧 弱 張 強 弾 当 形 彩 彫 彰 影 役 彼 往 征 径 待 律 後 徐 徒 従 得 御 復 循 微 徳 徴 徹 心 必 忌 忍 志-忙 応 忠 快 念 怒 怖 思 怠 急 性 怪 恋 恐 恒 恥 恨 恩 恭 息 恵 悔 悟 悠 患 悦 悩 悪 悲 悼 情 惑 惜 惨 惰 想 愁 愉 意 愚 愛 感 慈 態 慌 慎 慕 慢 慣 慨 慮 慰 慶 憂 憎 憤 憩 憲 憶 憾 懇 懐 懲 懸 成-戒 戦 戯 戸 戻 房 所 扇 扉 手 才 打 払 扱 扶 批 承 技 抄 把 抑 投 抗 折 抜 択 披 抱 抵 抹 押 抽 担 拍 拐 拒 拓 拘 拙 招 拝 拠 拡 括 拷 拾 持 指 挑 挙 挟 振 挿 捕 捜 捨 据 掃 授 掌 排 掘 掛 採 探 接 控 推 措 掲 描 提 揚 換 握 揮 援 揺 損 搬 搭 携 搾 摂 摘 摩 撃 撤 撮 撲 擁 操 擦 擬 支 改 攻 放 政 故 敏 救 敗 教 敢 散 敬 数 整 敵 敷 文 斉 斎 斗 料 斜 斤 斥 断 新 方 施 旅 旋 族 旗 既 日 旧-早 旬 昆 昇 昌 明 易 昔 星 映 春 昨 昭 是 昼 時 晩 普 景 晴 晶 暁 暇 暑 暖 暗 暦 暫 暮 暴 曇 曜 曲 更 書 曹 替 最 月 有 服 朕 朗 望 朝 期 木 未-札 朱 朴 机 朽 杉 材 村 束 条 来 杯 東 松 板 析 林 枚 果 枝 枠 枢 枯 架 柄 某 染 柔 柱 柳 査 栄 栓 校 株 核 根 格 栽 桃 案 桑 桜 桟 梅 械 棄 棋 棒 棚 棟 森 棺 植 検 業 極 楼 楽 概 構 様 槽 標 模 権 横 樹 橋 機 欄 欠 次 欧 欲 欺 款 歌 歓 止 正 武 歩 歯 歳 歴 死 殉-残 殖 殴 段 殺 殻 殿 母 毎 毒 比 毛 氏 民 気 水 氷 永 汁 求 汗 汚 江 池 決 汽 沈 沖 没 沢 河 沸 油 治 沼 沿 況 泉 泊 泌 法 泡-泣 泥 注 泰 泳 洋 洗 洞 津 洪 活 派 流 浄 浅 浜 浦 浪 浮 浴 海 浸 消 涙 涯 液 涼 淑 淡 深 混 添 清 渇-渉 渋 渓 減 渡 渦 温 測 港 湖 湯 湾-満 源 準 溝 溶 滅 滋 滑 滝 滞 滴 漁 漂 漆 漏 演 漠 漢 漫 漬 漸 潔 潜 潟 潤 潮 澄 激 濁 濃 濫 濯 瀬 火 灯 灰 災 炉 炊 炎 炭 点 為 烈 無 焦 然 焼 煙 照 煩 煮 熟 熱 燃 燥 爆 爵 父 片 版 牛 牧 物 牲 特 犠 犬 犯 状 狂 狩 独 狭 猛 猟 猫 献 猶 猿 獄 獣 獲 玄 率 玉 王 珍 珠 班 現 球 理 琴 環 璽 瓶 甘 甚 生 産 用 田-申 男 町 画 界 畑 畔 留 畜 畝 略 番 異 畳 疎 疑 疫 疲 疾 病 症 痘 痛 痢 痴 療 癒 癖 発 登 白 百 的 皆 皇 皮 皿 盆 益 盗 盛 盟 監 盤 目 盲 直 相 盾 省 看 県 真 眠 眺 眼 着 睡 督 瞬 矛 矢 知 短 矯 石 砂 研 砕 砲 破 硝 硫 硬 碁 碑 確 磁 磨 礁 礎 示 礼 社 祈 祉 祖 祚 祝 神 祥 票 祭 禁 禄 禅 禍-福 秀 私 秋 科 秒 秘 租 秩 称 移 程 税 稚 種 稲 稼 稿 穀 穂 積 穏 穫 穴 究 空 突 窃 窒 窓 窮 窯 立 竜 章 童 端 競 竹 笑 笛 符 第 筆 等 筋 筒 答 策 箇 算 管 箱 節 範 築 篤 簡 簿 籍 米 粉 粋 粒 粗 粘 粛 粧 精 糖 糧 糸 系 糾 紀 約 紅 紋 納 純 紙-紛 素-索 紫 累 細 紳 紹 紺 終 組 経 結 絞 絡 給 統 絵 絶 絹 継 続 維 綱 網 綿 緊 総 緑 緒 線 締 編 緩 緯 練 縁 縄 縛 縦 縫 縮 績 繁 繊 織 繕 繭 繰 缶 罪 置 罰 署 罷 羅 羊 美 群 義 羽 翁 翌 習 翻 翼 老 考 者 耐 耕 耗 耳 聖 聞 聴 職 肉 肌 肖 肝 肢 肥 肩 肪 肯 育 肺 胃 胆 背 胎 胞 胴 胸 能 脂 脅 脈 脚 脱 脳 脹 腐 腕 腰 腸 腹 膚 膜 膨 臓 臣 臨 自 臭 至 致 興 舌 舎 舗 舞 舟 航 般 舶 船 艇 艦 良 色 芋 芝 花 芳 芸 芽 苗 若 苦 英 茂 茎 茶 草 荒 荘 荷 菊 菌 菓 菜 華 落 葉 著 葬 蒸 蓄 蔵 薄 薦 薪-薬 藩 藻 虐 虚 虜 虞 虫 蚊 蚕 蛇 蛍 蛮 融 血 衆 行 術 街 衛 衝 衡 衣 表 衰 衷 袋 被 裁 裂 装 裏 裕 補 裸 製 複 褐 褒 襟 襲 西 要 覆 覇 見 規 視 覚 覧 親 観 角 解 触 言 訂 計 討 訓 託 記 訟 訪 設 許 訳 訴 診 証 詐 詔 評 詞 詠 試 詩 詰-詳 誇 誉 誌 認 誓 誕 誘 語 誠 誤 説 読 課 調 談 請 論 諭 諮 諸 諾 謀 謁 謄 謙 講 謝 謡 謹 識 譜 警 議 譲 護 谷 豆 豊 豚 象 豪 貝 貞 負-貢 貧-販 貫 責 貯 貴 買 貸 費 貿 賀 賃 賄 資 賊 賓 賛 賜 賞 賠 賢 賦 質 購 贈 赤 赦 走 赴 起 超 越 趣 足 距 跡 路 跳 践 踊 踏 躍 身 車 軌 軍 軒 軟 転 軸 軽 較 載 輝 輩 輪 輸 轄 辛 辞 辱 農 辺 込 迅 迎 近 返 迫 迭 述 迷 追 退 送 逃 逆 透 逐 逓 途 通 逝 速 造 連 逮 週 進 逸 遂 遅 遇 遊 運 遍 過 道-違 遠 遣 適 遭 遮 遵 遷 選 遺 避 還 邦 邪 邸 郊 郎 郡 部 郭 郵 郷 都 酌 配 酒 酔 酢 酪 酬 酵 酷 酸 醜 醸 釈 里-量 金 針 釣 鈍 鈴 鉄 鉛 鉢 鉱 銀 銃 銅 銑 銘 銭 鋭 鋳 鋼 錘 錠 錬 錯 録 鍛 鎖 鎮 鏡 鐘 鑑 長 門 閉 開 閑 間 関 閣 閥 閲 闘 防 阻 附 降 限 陛 院-陥 陪 陰 陳 陵 陶 陸 険 陽 隅 隆 隊 階 随 隔 際 障 隠 隣 隷 隻 雄-雇 雉 雌 雑 離 難 雨 雪 雰 雲 零 雷 電 需 震 霊 霜 霧 露 青 静 非 面 革 靴 韓 音 韻 響 頂 項 順 預-頒 領 頭 頻 頼 題 額 顔 顕 願 類 顧 風 飛 食 飢 飯 飲 飼-飾 養 餓 館 首 香 馬 駄-駆 駐 騎 騒 験 騰 驚 骨 髄 高 髪 鬼 魂 魅 魔 魚 鮮 鯨 鳥 鳴 鶏 麗 麦 麻 黄 黒 黙 鼓 鼻 齢]</exemplarCharacters>
+		<exemplarCharacters type="auxiliary">[兌 拼 楔 錄 鳯]</exemplarCharacters>
 		<exemplarCharacters type="currencySymbol">[a-z]</exemplarCharacters>
 	</characters>
 	<delimiters>
@@ -949,74 +975,53 @@
 	<dates>
 		<localizedPatternChars>GanjkHmsSEDFwWxhKzAeugXZvcL</localizedPatternChars>
 		<calendars>
-			<calendar type="buddhist">
-				<am>午前</am>
-				<pm>午後</pm>
-				<dateFormats>
-					<dateFormatLength type="full">
-						<dateFormat>
-							<pattern>yyyy, MMMM D 日, EEEE</pattern>
-						</dateFormat>
-					</dateFormatLength>
-					<dateFormatLength type="long">
-						<dateFormat>
-							<pattern>yyyy 年, MMMM D 日, EEEE</pattern>
-						</dateFormat>
-					</dateFormatLength>
-					<dateFormatLength type="medium">
-						<dateFormat>
-							<pattern>yyyy 年, MMMM D 日, EEEE</pattern>
-						</dateFormat>
-					</dateFormatLength>
-					<dateFormatLength type="short">
-						<dateFormat>
-							<pattern>yyyy/M/d</pattern>
-						</dateFormat>
-					</dateFormatLength>
-				</dateFormats>
-				<dateTimeFormats>
-					<availableFormats>
-						<dateFormatItem id="MMMMd">MMMM d 日</dateFormatItem>
-						<dateFormatItem id="Md">M/d</dateFormatItem>
-						<dateFormatItem id="yyMM">yy 年 MM 月</dateFormatItem>
-						<dateFormatItem id="yyMMM">yy 年 MMM</dateFormatItem>
-						<dateFormatItem id="yyQ">yy 年 Q</dateFormatItem>
-					</availableFormats>
-				</dateTimeFormats>
-			</calendar>
 			<calendar type="gregorian">
 				<months>
 					<monthContext type="format">
 						<monthWidth type="abbreviated">
-							<month type="1">1 月</month>
-							<month type="2">2 月</month>
-							<month type="3">3 月</month>
-							<month type="4">4 月</month>
-							<month type="5">5 月</month>
-							<month type="6">6 月</month>
-							<month type="7">7 月</month>
-							<month type="8">8 月</month>
-							<month type="9">9 月</month>
-							<month type="10">10 月</month>
-							<month type="11">11 月</month>
-							<month type="12">12 月</month>
+							<month type="1">1月</month>
+							<month type="2">2月</month>
+							<month type="3">3月</month>
+							<month type="4">4月</month>
+							<month type="5">5月</month>
+							<month type="6">6月</month>
+							<month type="7">7月</month>
+							<month type="8">8月</month>
+							<month type="9">9月</month>
+							<month type="10">10月</month>
+							<month type="11">11月</month>
+							<month type="12">12月</month>
 						</monthWidth>
 						<monthWidth type="wide">
-							<month type="1">1 月</month>
-							<month type="2">2 月</month>
-							<month type="3">3 月</month>
-							<month type="4">4 月</month>
-							<month type="5">5 月</month>
-							<month type="6">6 月</month>
-							<month type="7">7 月</month>
-							<month type="8">8 月</month>
-							<month type="9">9 月</month>
-							<month type="10">10 月</month>
-							<month type="11">11 月</month>
-							<month type="12">12 月</month>
+							<month type="1">1月</month>
+							<month type="2">2月</month>
+							<month type="3">3月</month>
+							<month type="4">4月</month>
+							<month type="5">5月</month>
+							<month type="6">6月</month>
+							<month type="7">7月</month>
+							<month type="8">8月</month>
+							<month type="9">9月</month>
+							<month type="10">10月</month>
+							<month type="11">11月</month>
+							<month type="12">12月</month>
 						</monthWidth>
 					</monthContext>
 					<monthContext type="stand-alone">
+						<monthWidth type="abbreviated">
+							<month type="1">1月</month>
+							<month type="2">2月</month>
+							<month type="3">3月</month>
+							<month type="4">4月</month>
+							<month type="5">5月</month>
+							<month type="6">6月</month>
+							<month type="7">7月</month>
+							<month type="8">8月</month>
+							<month type="9">9月</month>
+							<month type="10">10月</month>
+							<month type="11">11月</month>
+							<month type="12">12月</month>
+						</monthWidth>
 						<monthWidth type="narrow">
 							<month type="1">1</month>
 							<month type="2">2</month>
@@ -1075,10 +1080,18 @@
 							<quarter type="4">Q4</quarter>
 						</quarterWidth>
 						<quarterWidth type="wide">
-							<quarter type="1">第 1 四半期</quarter>
-							<quarter type="2">第 2 四半期</quarter>
-							<quarter type="3">第 3 四半期</quarter>
-							<quarter type="4">第 4 四半期</quarter>
+							<quarter type="1">第1四半期</quarter>
+							<quarter type="2">第2四半期</quarter>
+							<quarter type="3">第3四半期</quarter>
+							<quarter type="4">第4四半期</quarter>
+						</quarterWidth>
+					</quarterContext>
+					<quarterContext type="stand-alone">
+						<quarterWidth type="narrow">
+							<quarter type="1">1</quarter>
+							<quarter type="2">2</quarter>
+							<quarter type="3">3</quarter>
+							<quarter type="4">4</quarter>
 						</quarterWidth>
 					</quarterContext>
 				</quarters>
@@ -1124,7 +1137,7 @@
 					</timeFormatLength>
 					<timeFormatLength type="long">
 						<timeFormat>
-							<pattern>H:mm:ss:z</pattern>
+							<pattern>HH:mm:ssz</pattern>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="medium">
@@ -1145,18 +1158,119 @@
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
-						<dateFormatItem id="Ed">d 日（E）</dateFormatItem>
+						<dateFormatItem id="Ed">d日(EEE)</dateFormatItem>
 						<dateFormatItem id="GGGGyMd">GGGGy年M月d日</dateFormatItem>
-						<dateFormatItem id="H">H 時</dateFormatItem>
-						<dateFormatItem id="MMMEd">MMM/d（E）</dateFormatItem>
-						<dateFormatItem id="MMMMd">MMMM d 日</dateFormatItem>
+						<dateFormatItem id="H">H時</dateFormatItem>
+						<dateFormatItem id="Hm">H:mm</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
+						<dateFormatItem id="MEd">M/d(E)</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
+						<dateFormatItem id="MMMEd">M月d日(E)</dateFormatItem>
+						<dateFormatItem id="MMMMEd">M月d日(E)</dateFormatItem>
+						<dateFormatItem id="MMMMd">M月d日</dateFormatItem>
+						<dateFormatItem id="MMMd">M月d日</dateFormatItem>
 						<dateFormatItem id="MMdd">MM/dd</dateFormatItem>
 						<dateFormatItem id="Md">M/d</dateFormatItem>
+						<dateFormatItem id="d">d日</dateFormatItem>
 						<dateFormatItem id="mmss">mm:ss</dateFormatItem>
-						<dateFormatItem id="yyMMM">yy 年 MMM</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
+						<dateFormatItem id="y">y</dateFormatItem>
+						<dateFormatItem id="yM">y/M</dateFormatItem>
+						<dateFormatItem id="yMEd">y/M/d(EEE)</dateFormatItem>
+						<dateFormatItem id="yMMM">y年M月</dateFormatItem>
+						<dateFormatItem id="yMMMEd">y年M月d日(EEE)</dateFormatItem>
+						<dateFormatItem id="yMMMM">y年M月</dateFormatItem>
+						<dateFormatItem id="yQ">y/Q</dateFormatItem>
+						<dateFormatItem id="yQQQ">yyyyQQQ</dateFormatItem>
+						<dateFormatItem id="yyMMM">y年M月</dateFormatItem>
 						<dateFormatItem id="yyQ">yy/Q</dateFormatItem>
+						<dateFormatItem id="yyyy">y年</dateFormatItem>
 						<dateFormatItem id="yyyyMM">yyyy/MM</dateFormatItem>
 					</availableFormats>
+					<intervalFormats>
+						<intervalFormatFallback>{0}～{1}</intervalFormatFallback>
+						<intervalFormatItem id="M">
+							<greatestDifference id="M">M月～M月</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MEd">
+							<greatestDifference id="M">MM/dd(E)～MM/dd(E)</greatestDifference>
+							<greatestDifference id="d">MM/dd(E)～MM/dd(E)</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMM">
+							<greatestDifference id="M">M月～M月</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMEd">
+							<greatestDifference id="M">M月d日(E)～M月d日(E)</greatestDifference>
+							<greatestDifference id="d">M月d日(E)～d日(E)</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMM">
+							<greatestDifference id="M">LLLL～LLLL</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMd">
+							<greatestDifference id="M">M月d日～M月d日</greatestDifference>
+							<greatestDifference id="d">M月d日～d日</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Md">
+							<greatestDifference id="M">MM/dd～MM/dd</greatestDifference>
+							<greatestDifference id="d">MM/dd～MM/dd</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d日～d日</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="h">
+							<greatestDifference id="a">H時～H時</greatestDifference>
+							<greatestDifference id="h">H時～H時</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="a">H時mm分～H時mm分</greatestDifference>
+							<greatestDifference id="h">H時mm分～H時mm分</greatestDifference>
+							<greatestDifference id="m">H時mm分～H時mm分</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="a">H時mm分～H時mm分v</greatestDifference>
+							<greatestDifference id="h">H時mm分～H時mm分v</greatestDifference>
+							<greatestDifference id="m">H時mm分～H時mm分v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hv">
+							<greatestDifference id="a">H時～H時v</greatestDifference>
+							<greatestDifference id="h">H時～H時v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="y">
+							<greatestDifference id="y">y年～y年</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yM">
+							<greatestDifference id="M">yy/MM～yy/MM</greatestDifference>
+							<greatestDifference id="y">yy/MM～yy/MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="M">yy/MM/dd(E)～yy/MM/dd(E)</greatestDifference>
+							<greatestDifference id="d">yy/MM/dd(E)～yy/MM/dd(E)</greatestDifference>
+							<greatestDifference id="y">yy/MM/dd(E)～yy/MM/dd(E)</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMM">
+							<greatestDifference id="M">y年M月～M月</greatestDifference>
+							<greatestDifference id="y">y年M月～y年M月</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEd">
+							<greatestDifference id="M">y年M月d日(E)～M月d日(E)</greatestDifference>
+							<greatestDifference id="d">y年M月d日(E)～d日(E)</greatestDifference>
+							<greatestDifference id="y">y年M月d日(E)～y年M月d日(E)</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMM">
+							<greatestDifference id="M">y年M月～M月</greatestDifference>
+							<greatestDifference id="y">y年M月～y年M月</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="M">y年M月d日～M月d日</greatestDifference>
+							<greatestDifference id="d">y年M月d日～d日</greatestDifference>
+							<greatestDifference id="y">y年M月d日～y年M月d日</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="M">yy/MM/dd～yy/MM/dd</greatestDifference>
+							<greatestDifference id="d">yy/MM/dd～yy/MM/dd</greatestDifference>
+							<greatestDifference id="y">yy/MM/dd～yy/MM/dd</greatestDifference>
+						</intervalFormatItem>
+					</intervalFormats>
 				</dateTimeFormats>
 				<fields>
 					<field type="era">
@@ -1195,7 +1309,7 @@
 						<displayName>秒</displayName>
 					</field>
 					<field type="zone">
-						<displayName>時間帯</displayName>
+						<displayName>タイムゾーン</displayName>
 					</field>
 				</fields>
 			</calendar>
@@ -1453,55 +1567,69 @@
 					</dateFormatLength>
 					<dateFormatLength type="medium">
 						<dateFormat>
-							<pattern>G yy/MM/dd</pattern>
+							<pattern>Gyy/MM/dd</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="short">
 						<dateFormat>
-							<pattern>G yy/MM/dd</pattern>
+							<pattern>Gyy/MM/dd</pattern>
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
 				<timeFormats>
-					<timeFormatLength type="full">
-						<timeFormat>
-							<pattern>H時mm分ss秒v</pattern>
-						</timeFormat>
-					</timeFormatLength>
 					<timeFormatLength type="long">
 						<timeFormat>
-							<pattern>H:mm:ss:z</pattern>
-						</timeFormat>
-					</timeFormatLength>
-					<timeFormatLength type="medium">
-						<timeFormat>
-							<pattern>H:mm:ss</pattern>
-						</timeFormat>
-					</timeFormatLength>
-					<timeFormatLength type="short">
-						<timeFormat>
-							<pattern>H:mm</pattern>
+							<pattern>HH:mm:ssz</pattern>
 						</timeFormat>
 					</timeFormatLength>
 				</timeFormats>
+				<dateTimeFormats>
+					<availableFormats>
+						<dateFormatItem id="Ed">d日(EEE)</dateFormatItem>
+						<dateFormatItem id="MMMEd">M月d日(EEE)</dateFormatItem>
+						<dateFormatItem id="y">Gy年</dateFormatItem>
+						<dateFormatItem id="yyMM">Gyy/MM</dateFormatItem>
+						<dateFormatItem id="yyMMM">Gy年M月</dateFormatItem>
+						<dateFormatItem id="yyQ">Gyy/Q</dateFormatItem>
+						<dateFormatItem id="yyyy">Gy年</dateFormatItem>
+					</availableFormats>
+				</dateTimeFormats>
+			</calendar>
+			<calendar type="roc">
+				<eras>
+					<eraAbbr>
+						<era type="0">民国前</era>
+						<era type="1">民国</era>
+					</eraAbbr>
+				</eras>
+				<dateFormats>
+					<dateFormatLength type="full">
+						<dateFormat>
+							<pattern>Gy年M月d日EEEE</pattern>
+						</dateFormat>
+					</dateFormatLength>
+					<dateFormatLength type="long">
+						<dateFormat>
+							<pattern>Gy年M月d日EEEE</pattern>
+						</dateFormat>
+					</dateFormatLength>
+					<dateFormatLength type="medium">
+						<dateFormat>
+							<pattern>Gyy/MM/dd(EE)</pattern>
+						</dateFormat>
+					</dateFormatLength>
+					<dateFormatLength type="short">
+						<dateFormat>
+							<pattern>Gyy/MM/dd(E)</pattern>
+						</dateFormat>
+					</dateFormatLength>
+				</dateFormats>
 			</calendar>
 		</calendars>
 		<timeZoneNames>
-			<hourFormat>+HHmm;-HHmm</hourFormat>
+			<hourFormat>+HH:mm;-HH:mm</hourFormat>
 			<gmtFormat>GMT{0}</gmtFormat>
 			<regionFormat>{0}時間</regionFormat>
-			<zone type="Africa/Timbuktu">
-				<exemplarCity>アフリカ/ティンブクトゥ</exemplarCity>
-			</zone>
-			<zone type="America/Argentina/ComodRivadavia">
-				<exemplarCity>アメリカ/アルゼンチン/コモドロリバダビア</exemplarCity>
-			</zone>
-			<zone type="Europe/Belfast">
-				<exemplarCity>ヨーロッパ/ベルファスト</exemplarCity>
-			</zone>
-			<zone type="Pacific/Yap">
-				<exemplarCity>太平洋/ヤップ</exemplarCity>
-			</zone>
 			<zone type="Etc/Unknown">
 				<exemplarCity>不明</exemplarCity>
 			</zone>
@@ -1533,64 +1661,67 @@
 				<exemplarCity>ルアンダ</exemplarCity>
 			</zone>
 			<zone type="Antarctica/Rothera">
-				<exemplarCity>南極/ロデラ</exemplarCity>
+				<exemplarCity>ロデラ</exemplarCity>
 			</zone>
 			<zone type="Antarctica/Palmer">
-				<exemplarCity>南極/パーマー</exemplarCity>
+				<exemplarCity>パーマー</exemplarCity>
 			</zone>
 			<zone type="Antarctica/South_Pole">
-				<exemplarCity>南極/南極点</exemplarCity>
+				<exemplarCity>南極点</exemplarCity>
 			</zone>
 			<zone type="Antarctica/Syowa">
-				<exemplarCity>南極/昭和基地</exemplarCity>
+				<exemplarCity>昭和基地</exemplarCity>
 			</zone>
 			<zone type="Antarctica/Mawson">
-				<exemplarCity>南極/モーソン</exemplarCity>
+				<exemplarCity>モーソン</exemplarCity>
 			</zone>
 			<zone type="Antarctica/Davis">
-				<exemplarCity>南極/デービス</exemplarCity>
+				<exemplarCity>デービス</exemplarCity>
 			</zone>
 			<zone type="Antarctica/Vostok">
-				<exemplarCity>南極/ボストーク</exemplarCity>
+				<exemplarCity>ボストーク</exemplarCity>
 			</zone>
 			<zone type="Antarctica/Casey">
-				<exemplarCity>南極/ケーシー</exemplarCity>
+				<exemplarCity>ケーシー</exemplarCity>
 			</zone>
 			<zone type="Antarctica/DumontDUrville">
-				<exemplarCity>南極/デュモンデュルビル</exemplarCity>
+				<exemplarCity>デュモン デュルビル</exemplarCity>
 			</zone>
 			<zone type="Antarctica/McMurdo">
-				<exemplarCity>南極/マクムード</exemplarCity>
+				<exemplarCity>マクムード</exemplarCity>
 			</zone>
 			<zone type="America/Argentina/Rio_Gallegos">
-				<exemplarCity>アメリカ/アルゼンチン/リオガイェゴス</exemplarCity>
+				<exemplarCity>リオガイェゴス</exemplarCity>
 			</zone>
 			<zone type="America/Mendoza">
-				<exemplarCity>アメリカ/メンドーサ</exemplarCity>
+				<exemplarCity>メンドーサ</exemplarCity>
 			</zone>
 			<zone type="America/Argentina/San_Juan">
-				<exemplarCity>アメリカ/アルゼンチン/サンファン</exemplarCity>
+				<exemplarCity>サンファン</exemplarCity>
 			</zone>
 			<zone type="America/Argentina/Ushuaia">
-				<exemplarCity>アメリカ/アルゼンチン/ウスアイア</exemplarCity>
+				<exemplarCity>ウスアイア</exemplarCity>
 			</zone>
 			<zone type="America/Argentina/La_Rioja">
-				<exemplarCity>アメリカ/アルゼンチン/ラリオハ</exemplarCity>
+				<exemplarCity>ラリオハ</exemplarCity>
+			</zone>
+			<zone type="America/Argentina/San_Luis">
+				<exemplarCity>サンルイス</exemplarCity>
 			</zone>
 			<zone type="America/Catamarca">
-				<exemplarCity>アメリカ/カタマルカ</exemplarCity>
+				<exemplarCity>カタマルカ</exemplarCity>
 			</zone>
 			<zone type="America/Jujuy">
-				<exemplarCity>アメリカ/フフイ</exemplarCity>
+				<exemplarCity>フフイ</exemplarCity>
 			</zone>
 			<zone type="America/Argentina/Tucuman">
-				<exemplarCity>アメリカ/アルゼンチン/トゥクマン</exemplarCity>
+				<exemplarCity>トゥクマン</exemplarCity>
 			</zone>
 			<zone type="America/Cordoba">
-				<exemplarCity>アメリカ/コルドバ</exemplarCity>
+				<exemplarCity>コルドバ</exemplarCity>
 			</zone>
 			<zone type="America/Buenos_Aires">
-				<exemplarCity>アメリカ/ブエノスアイレス</exemplarCity>
+				<exemplarCity>ブエノスアイレス</exemplarCity>
 			</zone>
 			<zone type="Pacific/Pago_Pago">
 				<exemplarCity>パゴパゴ</exemplarCity>
@@ -1599,37 +1730,40 @@
 				<exemplarCity>ウィーン</exemplarCity>
 			</zone>
 			<zone type="Australia/Perth">
-				<exemplarCity>オーストラリア/パース</exemplarCity>
+				<exemplarCity>パース</exemplarCity>
+			</zone>
+			<zone type="Australia/Eucla">
+				<exemplarCity>ユークラ</exemplarCity>
 			</zone>
 			<zone type="Australia/Darwin">
-				<exemplarCity>オーストラリア/ダーウィン</exemplarCity>
+				<exemplarCity>ダーウィン</exemplarCity>
 			</zone>
 			<zone type="Australia/Adelaide">
-				<exemplarCity>オーストラリア/アデレード</exemplarCity>
+				<exemplarCity>アデレード</exemplarCity>
 			</zone>
 			<zone type="Australia/Broken_Hill">
-				<exemplarCity>オーストラリア/ブロークンヒル</exemplarCity>
+				<exemplarCity>ブロークンヒル</exemplarCity>
 			</zone>
 			<zone type="Australia/Currie">
 				<exemplarCity>カリー</exemplarCity>
 			</zone>
 			<zone type="Australia/Melbourne">
-				<exemplarCity>オーストラリア/メルボルン</exemplarCity>
+				<exemplarCity>メルボルン</exemplarCity>
 			</zone>
 			<zone type="Australia/Hobart">
-				<exemplarCity>オーストラリア/ホバート</exemplarCity>
+				<exemplarCity>ホバート</exemplarCity>
 			</zone>
 			<zone type="Australia/Lindeman">
-				<exemplarCity>オーストラリア/リンデマン</exemplarCity>
+				<exemplarCity>リンデマン</exemplarCity>
 			</zone>
 			<zone type="Australia/Sydney">
-				<exemplarCity>オーストラリア/シドニー</exemplarCity>
+				<exemplarCity>シドニー</exemplarCity>
 			</zone>
 			<zone type="Australia/Brisbane">
-				<exemplarCity>オーストラリア/ブリスベン</exemplarCity>
+				<exemplarCity>ブリスベン</exemplarCity>
 			</zone>
 			<zone type="Australia/Lord_Howe">
-				<exemplarCity>オーストラリア/ロードハウ</exemplarCity>
+				<exemplarCity>ロードハウ</exemplarCity>
 			</zone>
 			<zone type="America/Aruba">
 				<exemplarCity>アルバ</exemplarCity>
@@ -1671,49 +1805,49 @@
 				<exemplarCity>ラパス</exemplarCity>
 			</zone>
 			<zone type="America/Eirunepe">
-				<exemplarCity>アメリカ/エイルネペ</exemplarCity>
+				<exemplarCity>エイルネペ</exemplarCity>
 			</zone>
 			<zone type="America/Rio_Branco">
-				<exemplarCity>アメリカ/リオブランコ</exemplarCity>
+				<exemplarCity>リオブランコ</exemplarCity>
 			</zone>
 			<zone type="America/Porto_Velho">
-				<exemplarCity>アメリカ/ポルトベリョ</exemplarCity>
+				<exemplarCity>ポルトベーリョ</exemplarCity>
 			</zone>
 			<zone type="America/Boa_Vista">
-				<exemplarCity>アメリカ/ボアビスタ</exemplarCity>
+				<exemplarCity>ボアビスタ</exemplarCity>
 			</zone>
 			<zone type="America/Manaus">
-				<exemplarCity>アメリカ/マナウス</exemplarCity>
+				<exemplarCity>マナウス</exemplarCity>
 			</zone>
 			<zone type="America/Cuiaba">
-				<exemplarCity>アメリカ/クイアバ</exemplarCity>
+				<exemplarCity>クイアバ</exemplarCity>
 			</zone>
 			<zone type="America/Campo_Grande">
-				<exemplarCity>アメリカ/カンポグランデ</exemplarCity>
+				<exemplarCity>カンポグランデ</exemplarCity>
 			</zone>
 			<zone type="America/Belem">
-				<exemplarCity>アメリカ/ベレム</exemplarCity>
+				<exemplarCity>ベレン</exemplarCity>
 			</zone>
 			<zone type="America/Araguaina">
-				<exemplarCity>アメリカ/アラグァイナ</exemplarCity>
+				<exemplarCity>アラグァイナ</exemplarCity>
 			</zone>
 			<zone type="America/Sao_Paulo">
-				<exemplarCity>アメリカ/サンパウロ</exemplarCity>
+				<exemplarCity>サンパウロ</exemplarCity>
 			</zone>
 			<zone type="America/Bahia">
-				<exemplarCity>アメリカ/バイア</exemplarCity>
+				<exemplarCity>バイーア</exemplarCity>
 			</zone>
 			<zone type="America/Fortaleza">
-				<exemplarCity>アメリカ/フォルタレザ</exemplarCity>
+				<exemplarCity>フォルタレザ</exemplarCity>
 			</zone>
 			<zone type="America/Maceio">
-				<exemplarCity>アメリカ/マセイオ</exemplarCity>
+				<exemplarCity>マセイオ</exemplarCity>
 			</zone>
 			<zone type="America/Recife">
-				<exemplarCity>アメリカ/レシフェ</exemplarCity>
+				<exemplarCity>レシフェ</exemplarCity>
 			</zone>
 			<zone type="America/Noronha">
-				<exemplarCity>アメリカ/ノロニャ</exemplarCity>
+				<exemplarCity>ノロニャ</exemplarCity>
 			</zone>
 			<zone type="America/Nassau">
 				<exemplarCity>ナッサウ</exemplarCity>
@@ -1731,64 +1865,67 @@
 				<exemplarCity>ベリーズ</exemplarCity>
 			</zone>
 			<zone type="America/Dawson">
-				<exemplarCity>アメリカ/ドーソン</exemplarCity>
+				<exemplarCity>ドーソン</exemplarCity>
 			</zone>
 			<zone type="America/Whitehorse">
-				<exemplarCity>アメリカ/ホワイトホース</exemplarCity>
+				<exemplarCity>ホワイトホース</exemplarCity>
 			</zone>
 			<zone type="America/Inuvik">
-				<exemplarCity>アメリカ/イヌヴィク</exemplarCity>
+				<exemplarCity>イヌヴィク</exemplarCity>
 			</zone>
 			<zone type="America/Vancouver">
-				<exemplarCity>アメリカ/バンクーバー</exemplarCity>
+				<exemplarCity>バンクーバー</exemplarCity>
 			</zone>
 			<zone type="America/Dawson_Creek">
-				<exemplarCity>アメリカ/ドーソンクリーク</exemplarCity>
+				<exemplarCity>ドーソンクリーク</exemplarCity>
 			</zone>
 			<zone type="America/Yellowknife">
-				<exemplarCity>アメリカ/イエローナイフ</exemplarCity>
+				<exemplarCity>イエローナイフ</exemplarCity>
 			</zone>
 			<zone type="America/Edmonton">
-				<exemplarCity>アメリカ/エドモントン</exemplarCity>
+				<exemplarCity>エドモントン</exemplarCity>
 			</zone>
 			<zone type="America/Swift_Current">
-				<exemplarCity>アメリカ/スウィフトカレント</exemplarCity>
+				<exemplarCity>スウィフトカレント</exemplarCity>
 			</zone>
 			<zone type="America/Cambridge_Bay">
-				<exemplarCity>アメリカ/ケンブリッジベイ</exemplarCity>
+				<exemplarCity>ケンブリッジベイ</exemplarCity>
 			</zone>
 			<zone type="America/Regina">
-				<exemplarCity>アメリカ/レジャイナ</exemplarCity>
+				<exemplarCity>レジャイナ</exemplarCity>
 			</zone>
 			<zone type="America/Winnipeg">
-				<exemplarCity>アメリカ/ウィニペグ</exemplarCity>
+				<exemplarCity>ウィニペグ</exemplarCity>
+			</zone>
+			<zone type="America/Resolute">
+				<exemplarCity>レソリュート</exemplarCity>
 			</zone>
 			<zone type="America/Rainy_River">
-				<exemplarCity>アメリカ/レイニーリバー</exemplarCity>
+				<exemplarCity>レイニーリバー</exemplarCity>
 			</zone>
 			<zone type="America/Rankin_Inlet">
-				<exemplarCity>アメリカ/ランキン湾</exemplarCity>
+				<exemplarCity>ランキン湾</exemplarCity>
 			</zone>
 			<zone type="America/Coral_Harbour">
 				<exemplarCity>コーラルハーバー</exemplarCity>
 			</zone>
 			<zone type="America/Thunder_Bay">
-				<exemplarCity>アメリカ/サンダーベイ</exemplarCity>
+				<exemplarCity>サンダーベイ</exemplarCity>
 			</zone>
 			<zone type="America/Nipigon">
-				<exemplarCity>アメリカ/ニピゴン</exemplarCity>
+				<exemplarCity>ニピゴン</exemplarCity>
 			</zone>
 			<zone type="America/Toronto">
-				<exemplarCity>アメリカ/トロント</exemplarCity>
+				<exemplarCity>トロント</exemplarCity>
 			</zone>
 			<zone type="America/Montreal">
-				<exemplarCity>アメリカ/モントリオール</exemplarCity>
+				<exemplarCity>モントリオール</exemplarCity>
 			</zone>
 			<zone type="America/Iqaluit">
-				<exemplarCity>アメリカ/イカルイット</exemplarCity>
+				<exemplarCity>イカルイット</exemplarCity>
 			</zone>
 			<zone type="America/Pangnirtung">
-				<exemplarCity>アメリカ/パンナータング</exemplarCity>
+				<exemplarCity>パンナータング</exemplarCity>
 			</zone>
 			<zone type="America/Moncton">
 				<exemplarCity>モンクトン</exemplarCity>
@@ -1797,10 +1934,13 @@
 				<exemplarCity>ハリファクス</exemplarCity>
 			</zone>
 			<zone type="America/Goose_Bay">
-				<exemplarCity>アメリカ/グースベイ</exemplarCity>
+				<exemplarCity>グースベイ</exemplarCity>
 			</zone>
 			<zone type="America/Glace_Bay">
-				<exemplarCity>アメリカ/グレースベイ</exemplarCity>
+				<exemplarCity>グレースベイ</exemplarCity>
+			</zone>
+			<zone type="America/Blanc-Sablon">
+				<exemplarCity>ブラン・サブロン</exemplarCity>
 			</zone>
 			<zone type="America/St_Johns">
 				<exemplarCity>セントジョンズ</exemplarCity>
@@ -1809,10 +1949,10 @@
 				<exemplarCity>ココス</exemplarCity>
 			</zone>
 			<zone type="Africa/Kinshasa">
-				<exemplarCity>アフリカ/キンシャサ</exemplarCity>
+				<exemplarCity>キンシャサ</exemplarCity>
 			</zone>
 			<zone type="Africa/Lubumbashi">
-				<exemplarCity>アフリカ/ルブンバシ</exemplarCity>
+				<exemplarCity>ルブンバシ</exemplarCity>
 			</zone>
 			<zone type="Africa/Bangui">
 				<exemplarCity>バンギ</exemplarCity>
@@ -1830,7 +1970,7 @@
 				<exemplarCity>ラロトンガ</exemplarCity>
 			</zone>
 			<zone type="Pacific/Easter">
-				<exemplarCity>太平洋/イースター</exemplarCity>
+				<exemplarCity>イースター島</exemplarCity>
 			</zone>
 			<zone type="America/Santiago">
 				<exemplarCity>アメリカ/サンチアゴ</exemplarCity>
@@ -1839,19 +1979,19 @@
 				<exemplarCity>ドゥアラ</exemplarCity>
 			</zone>
 			<zone type="Asia/Kashgar">
-				<exemplarCity>アジア/カシガル</exemplarCity>
+				<exemplarCity>カシガル</exemplarCity>
 			</zone>
 			<zone type="Asia/Urumqi">
-				<exemplarCity>アジア/ウルムチ</exemplarCity>
+				<exemplarCity>ウルムチ</exemplarCity>
 			</zone>
 			<zone type="Asia/Chongqing">
-				<exemplarCity>アジア/重慶</exemplarCity>
+				<exemplarCity>重慶</exemplarCity>
 			</zone>
 			<zone type="Asia/Shanghai">
 				<exemplarCity>上海</exemplarCity>
 			</zone>
 			<zone type="Asia/Harbin">
-				<exemplarCity>アジア/ハルビン</exemplarCity>
+				<exemplarCity>ハルビン</exemplarCity>
 			</zone>
 			<zone type="America/Bogota">
 				<exemplarCity>ボゴタ</exemplarCity>
@@ -1890,7 +2030,7 @@
 				<exemplarCity>アルジェ</exemplarCity>
 			</zone>
 			<zone type="Pacific/Galapagos">
-				<exemplarCity>太平洋/ガラパゴス</exemplarCity>
+				<exemplarCity>ガラパゴス</exemplarCity>
 			</zone>
 			<zone type="America/Guayaquil">
 				<exemplarCity>アメリカ/グアヤキル</exemplarCity>
@@ -1908,10 +2048,10 @@
 				<exemplarCity>アスマラ</exemplarCity>
 			</zone>
 			<zone type="Atlantic/Canary">
-				<exemplarCity>大西洋/カナリー</exemplarCity>
+				<exemplarCity>カナリア諸島</exemplarCity>
 			</zone>
 			<zone type="Africa/Ceuta">
-				<exemplarCity>アフリカ/セウタ</exemplarCity>
+				<exemplarCity>セウタ</exemplarCity>
 			</zone>
 			<zone type="Europe/Madrid">
 				<exemplarCity>ヨーロッパ/マドリード</exemplarCity>
@@ -1929,13 +2069,13 @@
 				<exemplarCity>スタンリー</exemplarCity>
 			</zone>
 			<zone type="Pacific/Truk">
-				<exemplarCity>太平洋/トラック</exemplarCity>
+				<exemplarCity>トラック</exemplarCity>
 			</zone>
 			<zone type="Pacific/Ponape">
-				<exemplarCity>太平洋/ポナペ</exemplarCity>
+				<exemplarCity>ポナペ</exemplarCity>
 			</zone>
 			<zone type="Pacific/Kosrae">
-				<exemplarCity>太平洋/コシャエ</exemplarCity>
+				<exemplarCity>コシャエ</exemplarCity>
 			</zone>
 			<zone type="Atlantic/Faeroe">
 				<exemplarCity>フェロー</exemplarCity>
@@ -1965,16 +2105,16 @@
 				<exemplarCity>ジブラルタル</exemplarCity>
 			</zone>
 			<zone type="America/Thule">
-				<exemplarCity>アメリカ/チューレ</exemplarCity>
+				<exemplarCity>チューレ</exemplarCity>
 			</zone>
 			<zone type="America/Godthab">
 				<exemplarCity>アメリカ/ゴッドホープ</exemplarCity>
 			</zone>
 			<zone type="America/Scoresbysund">
-				<exemplarCity>アメリカ/スコレスビスン</exemplarCity>
+				<exemplarCity>スコレスビスン</exemplarCity>
 			</zone>
 			<zone type="America/Danmarkshavn">
-				<exemplarCity>アメリカ/デンマークシャウン</exemplarCity>
+				<exemplarCity>デンマークシャウン</exemplarCity>
 			</zone>
 			<zone type="Africa/Banjul">
 				<exemplarCity>バンジュル</exemplarCity>
@@ -2016,16 +2156,16 @@
 				<exemplarCity>ブダペスト</exemplarCity>
 			</zone>
 			<zone type="Asia/Jakarta">
-				<exemplarCity>アジア/ジャカルタ</exemplarCity>
+				<exemplarCity>ジャカルタ</exemplarCity>
 			</zone>
 			<zone type="Asia/Pontianak">
-				<exemplarCity>アジア/ポンティアナク</exemplarCity>
+				<exemplarCity>ポンティアナク</exemplarCity>
 			</zone>
 			<zone type="Asia/Makassar">
-				<exemplarCity>アジア/マカッサル</exemplarCity>
+				<exemplarCity>マカッサル</exemplarCity>
 			</zone>
 			<zone type="Asia/Jayapura">
-				<exemplarCity>アジア/ジャヤプラ</exemplarCity>
+				<exemplarCity>ジャヤプラ</exemplarCity>
 			</zone>
 			<zone type="Europe/Dublin">
 				<exemplarCity>ダブリン</exemplarCity>
@@ -2067,13 +2207,13 @@
 				<exemplarCity>プノンペン</exemplarCity>
 			</zone>
 			<zone type="Pacific/Enderbury">
-				<exemplarCity>太平洋/エンダベリー</exemplarCity>
+				<exemplarCity>エンダベリー</exemplarCity>
 			</zone>
 			<zone type="Pacific/Kiritimati">
-				<exemplarCity>太平洋/キリティマティ</exemplarCity>
+				<exemplarCity>キリティマティ</exemplarCity>
 			</zone>
 			<zone type="Pacific/Tarawa">
-				<exemplarCity>太平洋/タラワ</exemplarCity>
+				<exemplarCity>タラワ</exemplarCity>
 			</zone>
 			<zone type="Indian/Comoro">
 				<exemplarCity>コモロ</exemplarCity>
@@ -2094,19 +2234,19 @@
 				<exemplarCity>ケイマン</exemplarCity>
 			</zone>
 			<zone type="Asia/Aqtau">
-				<exemplarCity>アジア/アクタウ</exemplarCity>
+				<exemplarCity>アクタウ</exemplarCity>
 			</zone>
 			<zone type="Asia/Oral">
-				<exemplarCity>アジア/オラル</exemplarCity>
+				<exemplarCity>オラル</exemplarCity>
 			</zone>
 			<zone type="Asia/Aqtobe">
-				<exemplarCity>アジア/アクトベ</exemplarCity>
+				<exemplarCity>アクトベ</exemplarCity>
 			</zone>
 			<zone type="Asia/Qyzylorda">
-				<exemplarCity>アジア/キジルオルダ</exemplarCity>
+				<exemplarCity>キジルオルダ</exemplarCity>
 			</zone>
 			<zone type="Asia/Almaty">
-				<exemplarCity>アジア/アルマトイ</exemplarCity>
+				<exemplarCity>アルマトイ</exemplarCity>
 			</zone>
 			<zone type="Asia/Vientiane">
 				<exemplarCity>ビエンチャン</exemplarCity>
@@ -2154,10 +2294,10 @@
 				<exemplarCity>アンタナナリボ</exemplarCity>
 			</zone>
 			<zone type="Pacific/Kwajalein">
-				<exemplarCity>太平洋/クワゼリン</exemplarCity>
+				<exemplarCity>クワジェリン</exemplarCity>
 			</zone>
 			<zone type="Pacific/Majuro">
-				<exemplarCity>太平洋/マジュロ</exemplarCity>
+				<exemplarCity>マジュロ</exemplarCity>
 			</zone>
 			<zone type="Africa/Bamako">
 				<exemplarCity>アフリカ/バマコ</exemplarCity>
@@ -2166,13 +2306,13 @@
 				<exemplarCity>ラングーン</exemplarCity>
 			</zone>
 			<zone type="Asia/Hovd">
-				<exemplarCity>アジア/ホブド</exemplarCity>
+				<exemplarCity>ホブド</exemplarCity>
 			</zone>
 			<zone type="Asia/Ulaanbaatar">
-				<exemplarCity>アジア/ウランバートル</exemplarCity>
+				<exemplarCity>ウランバートル</exemplarCity>
 			</zone>
 			<zone type="Asia/Choibalsan">
-				<exemplarCity>アジア/チョイバルサン</exemplarCity>
+				<exemplarCity>チョイバルサン</exemplarCity>
 			</zone>
 			<zone type="Asia/Macau">
 				<exemplarCity>マカオ</exemplarCity>
@@ -2202,34 +2342,34 @@
 				<exemplarCity>ブランタイア</exemplarCity>
 			</zone>
 			<zone type="America/Tijuana">
-				<exemplarCity>アメリカ/ティフアナ</exemplarCity>
+				<exemplarCity>ティフアナ</exemplarCity>
 			</zone>
 			<zone type="America/Hermosillo">
-				<exemplarCity>アメリカ/エルモシヨ</exemplarCity>
+				<exemplarCity>エルモシヨ</exemplarCity>
 			</zone>
 			<zone type="America/Mazatlan">
-				<exemplarCity>アメリカ/マサトラン</exemplarCity>
+				<exemplarCity>マサトラン</exemplarCity>
 			</zone>
 			<zone type="America/Chihuahua">
-				<exemplarCity>アメリカ/チワワ</exemplarCity>
+				<exemplarCity>チワワ</exemplarCity>
 			</zone>
 			<zone type="America/Monterrey">
-				<exemplarCity>アメリカ/モンテレイ</exemplarCity>
+				<exemplarCity>モンテレイ</exemplarCity>
 			</zone>
 			<zone type="America/Mexico_City">
-				<exemplarCity>アメリカ/メキシコシティー</exemplarCity>
+				<exemplarCity>メキシコシティー</exemplarCity>
 			</zone>
 			<zone type="America/Merida">
-				<exemplarCity>アメリカ/メリダ</exemplarCity>
+				<exemplarCity>メリダ</exemplarCity>
 			</zone>
 			<zone type="America/Cancun">
-				<exemplarCity>アメリカ/カンクン</exemplarCity>
+				<exemplarCity>カンクン</exemplarCity>
 			</zone>
 			<zone type="Asia/Kuala_Lumpur">
 				<exemplarCity>アジア/クアラルンプール</exemplarCity>
 			</zone>
 			<zone type="Asia/Kuching">
-				<exemplarCity>アジア/クチン</exemplarCity>
+				<exemplarCity>クチン</exemplarCity>
 			</zone>
 			<zone type="Africa/Maputo">
 				<exemplarCity>マプト</exemplarCity>
@@ -2268,7 +2408,7 @@
 				<exemplarCity>ニウエ</exemplarCity>
 			</zone>
 			<zone type="Pacific/Chatham">
-				<exemplarCity>太平洋/チャタム</exemplarCity>
+				<exemplarCity>チャタム</exemplarCity>
 			</zone>
 			<zone type="Pacific/Auckland">
 				<exemplarCity>太平洋/オークランド</exemplarCity>
@@ -2286,10 +2426,10 @@
 				<exemplarCity>太平洋/タヒチ</exemplarCity>
 			</zone>
 			<zone type="Pacific/Marquesas">
-				<exemplarCity>太平洋/マルケサス</exemplarCity>
+				<exemplarCity>マルケサス</exemplarCity>
 			</zone>
 			<zone type="Pacific/Gambier">
-				<exemplarCity>太平洋/ガンビア</exemplarCity>
+				<exemplarCity>ガンビア</exemplarCity>
 			</zone>
 			<zone type="Pacific/Port_Moresby">
 				<exemplarCity>ポートモレスビー</exemplarCity>
@@ -2316,10 +2456,10 @@
 				<exemplarCity>ガザ</exemplarCity>
 			</zone>
 			<zone type="Atlantic/Azores">
-				<exemplarCity>大西洋/アゾレス</exemplarCity>
+				<exemplarCity>アゾレス諸島</exemplarCity>
 			</zone>
 			<zone type="Atlantic/Madeira">
-				<exemplarCity>大西洋/マデイラ</exemplarCity>
+				<exemplarCity>マデイラ</exemplarCity>
 			</zone>
 			<zone type="Europe/Lisbon">
 				<exemplarCity>ヨーロッパ/リスボン</exemplarCity>
@@ -2340,46 +2480,49 @@
 				<exemplarCity>ブカレスト</exemplarCity>
 			</zone>
 			<zone type="Europe/Kaliningrad">
-				<exemplarCity>ヨーロッパ/カリーニングラード</exemplarCity>
+				<exemplarCity>カリーニングラード</exemplarCity>
 			</zone>
 			<zone type="Europe/Moscow">
-				<exemplarCity>ヨーロッパ/モスクワ</exemplarCity>
+				<exemplarCity>モスクワ</exemplarCity>
+			</zone>
+			<zone type="Europe/Volgograd">
+				<exemplarCity>ボルゴグラード</exemplarCity>
 			</zone>
 			<zone type="Europe/Samara">
-				<exemplarCity>ヨーロッパ/サマラ</exemplarCity>
+				<exemplarCity>サマラ</exemplarCity>
 			</zone>
 			<zone type="Asia/Yekaterinburg">
-				<exemplarCity>アジア/エカテリンブルグ</exemplarCity>
+				<exemplarCity>エカテリンブルグ</exemplarCity>
 			</zone>
 			<zone type="Asia/Omsk">
-				<exemplarCity>アジア/オムスク</exemplarCity>
+				<exemplarCity>オムスク</exemplarCity>
 			</zone>
 			<zone type="Asia/Novosibirsk">
-				<exemplarCity>アジア/ノボシビルスク</exemplarCity>
+				<exemplarCity>ノボシビルスク</exemplarCity>
 			</zone>
 			<zone type="Asia/Krasnoyarsk">
-				<exemplarCity>アジア/クラスノヤルスク</exemplarCity>
+				<exemplarCity>クラスノヤルスク</exemplarCity>
 			</zone>
 			<zone type="Asia/Irkutsk">
-				<exemplarCity>アジア/イルクーツク</exemplarCity>
+				<exemplarCity>イルクーツク</exemplarCity>
 			</zone>
 			<zone type="Asia/Yakutsk">
-				<exemplarCity>アジア/ヤクーツク</exemplarCity>
+				<exemplarCity>ヤクーツク</exemplarCity>
 			</zone>
 			<zone type="Asia/Vladivostok">
-				<exemplarCity>アジア/ウラジオストク</exemplarCity>
+				<exemplarCity>ウラジオストク</exemplarCity>
 			</zone>
 			<zone type="Asia/Sakhalin">
-				<exemplarCity>アジア/サハリン</exemplarCity>
+				<exemplarCity>サハリン</exemplarCity>
 			</zone>
 			<zone type="Asia/Magadan">
-				<exemplarCity>アジア/マガダン</exemplarCity>
+				<exemplarCity>マガダン</exemplarCity>
 			</zone>
 			<zone type="Asia/Kamchatka">
-				<exemplarCity>アジア/カムチャッカ</exemplarCity>
+				<exemplarCity>カムチャッカ</exemplarCity>
 			</zone>
 			<zone type="Asia/Anadyr">
-				<exemplarCity>アジア/アナジル</exemplarCity>
+				<exemplarCity>アナジル</exemplarCity>
 			</zone>
 			<zone type="Africa/Kigali">
 				<exemplarCity>キガリ</exemplarCity>
@@ -2404,9 +2547,6 @@
 			</zone>
 			<zone type="Atlantic/St_Helena">
 				<exemplarCity>セントヘレナ</exemplarCity>
-			</zone>
-			<zone type="Atlantic/Jan_Mayen">
-				<exemplarCity>大西洋/ヤンマイエン</exemplarCity>
 			</zone>
 			<zone type="Arctic/Longyearbyen">
 				<exemplarCity>北極/ロングイヤービーエン</exemplarCity>
@@ -2484,34 +2624,34 @@
 				<exemplarCity>ダルエスサラーム</exemplarCity>
 			</zone>
 			<zone type="Europe/Uzhgorod">
-				<exemplarCity>ヨーロッパ/ウジゴロド</exemplarCity>
+				<exemplarCity>ウジゴロド</exemplarCity>
 			</zone>
 			<zone type="Europe/Kiev">
-				<exemplarCity>ヨーロッパ/キエフ</exemplarCity>
+				<exemplarCity>キエフ</exemplarCity>
 			</zone>
 			<zone type="Europe/Simferopol">
-				<exemplarCity>ヨーロッパ/シンフェローポリ</exemplarCity>
+				<exemplarCity>シンフェローポリ</exemplarCity>
 			</zone>
 			<zone type="Europe/Zaporozhye">
-				<exemplarCity>ヨーロッパ/ザポロージェ</exemplarCity>
+				<exemplarCity>ザポロージェ</exemplarCity>
 			</zone>
 			<zone type="Africa/Kampala">
 				<exemplarCity>カンパラ</exemplarCity>
 			</zone>
 			<zone type="Pacific/Midway">
-				<exemplarCity>太平洋/ミッドウェー</exemplarCity>
+				<exemplarCity>ミッドウェー</exemplarCity>
 			</zone>
 			<zone type="Pacific/Johnston">
-				<exemplarCity>太平洋/ジョンストン</exemplarCity>
+				<exemplarCity>ジョンストン</exemplarCity>
 			</zone>
 			<zone type="Pacific/Wake">
-				<exemplarCity>太平洋/ウェイク</exemplarCity>
+				<exemplarCity>ウェーク</exemplarCity>
 			</zone>
 			<zone type="America/Adak">
-				<exemplarCity>アメリカ/アダック</exemplarCity>
+				<exemplarCity>アダック</exemplarCity>
 			</zone>
 			<zone type="America/Nome">
-				<exemplarCity>アメリカ/ノーメ</exemplarCity>
+				<exemplarCity>ノーメ</exemplarCity>
 			</zone>
 			<zone type="Pacific/Honolulu">
 				<exemplarCity>ホノルル</exemplarCity>
@@ -2520,61 +2660,70 @@
 				<exemplarCity>アンカレッジ</exemplarCity>
 			</zone>
 			<zone type="America/Yakutat">
-				<exemplarCity>アメリカ/ヤクタット</exemplarCity>
+				<exemplarCity>ヤクタット</exemplarCity>
 			</zone>
 			<zone type="America/Juneau">
-				<exemplarCity>アメリカ/ジュノー</exemplarCity>
+				<exemplarCity>ジュノー</exemplarCity>
 			</zone>
 			<zone type="America/Los_Angeles">
 				<exemplarCity>ロサンゼルス</exemplarCity>
 			</zone>
 			<zone type="America/Boise">
-				<exemplarCity>アメリカ/ボイシ</exemplarCity>
+				<exemplarCity>ボイシ</exemplarCity>
 			</zone>
 			<zone type="America/Phoenix">
 				<exemplarCity>フェニックス</exemplarCity>
 			</zone>
 			<zone type="America/Shiprock">
-				<exemplarCity>アメリカ/シップロック</exemplarCity>
+				<exemplarCity>シップロック</exemplarCity>
 			</zone>
 			<zone type="America/Denver">
 				<exemplarCity>デンバー</exemplarCity>
 			</zone>
+			<zone type="America/North_Dakota/New_Salem">
+				<exemplarCity>ノースダコタ州ニューセーラム</exemplarCity>
+			</zone>
 			<zone type="America/North_Dakota/Center">
-				<exemplarCity>アメリカ/ノースダコタ/センター</exemplarCity>
+				<exemplarCity>ノースダコタ州センター</exemplarCity>
 			</zone>
 			<zone type="America/Chicago">
 				<exemplarCity>シカゴ</exemplarCity>
 			</zone>
 			<zone type="America/Menominee">
-				<exemplarCity>アメリカ/メノミニー</exemplarCity>
+				<exemplarCity>メノミニー</exemplarCity>
 			</zone>
 			<zone type="America/Indiana/Vincennes">
-				<exemplarCity>ビンセンス</exemplarCity>
+				<exemplarCity>インディアナ州ビンセンス</exemplarCity>
 			</zone>
 			<zone type="America/Indiana/Petersburg">
-				<exemplarCity>ピーターズバーグ</exemplarCity>
+				<exemplarCity>インディアナ州ピーターズバーグ</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Tell_City">
+				<exemplarCity>インディアナ州テルシティ</exemplarCity>
 			</zone>
 			<zone type="America/Indiana/Knox">
-				<exemplarCity>アメリカ/ノクス</exemplarCity>
+				<exemplarCity>インディアナ州ノックス</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Winamac">
+				<exemplarCity>インディアナ州ウィナマック</exemplarCity>
 			</zone>
 			<zone type="America/Indiana/Marengo">
-				<exemplarCity>アメリカ/インディアナ/マレンゴ</exemplarCity>
+				<exemplarCity>インディアナ州マレンゴ</exemplarCity>
 			</zone>
 			<zone type="America/Indianapolis">
 				<exemplarCity>インディアナポリス</exemplarCity>
 			</zone>
 			<zone type="America/Louisville">
-				<exemplarCity>アメリカ/ルイスビル</exemplarCity>
+				<exemplarCity>ルイスビル</exemplarCity>
 			</zone>
 			<zone type="America/Indiana/Vevay">
-				<exemplarCity>アメリカ/インディアナ/ビベー</exemplarCity>
+				<exemplarCity>インディアナ州ビベー</exemplarCity>
 			</zone>
 			<zone type="America/Kentucky/Monticello">
-				<exemplarCity>アメリカ/モンティチェロ</exemplarCity>
+				<exemplarCity>ケンタッキー州モンティチェロ</exemplarCity>
 			</zone>
 			<zone type="America/Detroit">
-				<exemplarCity>アメリカ/デトロイト</exemplarCity>
+				<exemplarCity>デトロイト</exemplarCity>
 			</zone>
 			<zone type="America/New_York">
 				<exemplarCity>ニューヨーク</exemplarCity>
@@ -2627,122 +2776,125 @@
 			<zone type="Africa/Harare">
 				<exemplarCity>ハラーレ</exemplarCity>
 			</zone>
+			<metazone type="Africa_Central">
+				<long>
+					<generic>中央アフリカ時間</generic>
+					<standard>中央アフリカ時間</standard>
+				</long>
+			</metazone>
+			<metazone type="Africa_Eastern">
+				<long>
+					<generic>東アフリカ時間</generic>
+					<standard>東アフリカ時間</standard>
+				</long>
+			</metazone>
+			<metazone type="Africa_Southern">
+				<long>
+					<generic>南アフリカ時間</generic>
+					<standard>南アフリカ標準時</standard>
+				</long>
+			</metazone>
+			<metazone type="Africa_Western">
+				<long>
+					<generic>西アフリカ時間</generic>
+					<standard>西アフリカ時間</standard>
+					<daylight>西アフリカ夏時間</daylight>
+				</long>
+			</metazone>
 			<metazone type="Alaska">
 				<long>
+					<generic>アラスカ時間</generic>
 					<standard>アラスカ標準時</standard>
 					<daylight>アラスカ夏時間</daylight>
 				</long>
-				<short>
-					<standard>AKST</standard>
-					<daylight>AKDT</daylight>
-				</short>
+			</metazone>
+			<metazone type="Amazon">
+				<long>
+					<standard>アマゾン時間</standard>
+					<daylight>アマゾン夏時間</daylight>
+				</long>
 			</metazone>
 			<metazone type="America_Central">
 				<long>
-					<standard>中部標準時</standard>
-					<daylight>中部夏時間</daylight>
+					<generic>アメリカ中部時間</generic>
+					<standard>アメリカ中部標準時</standard>
+					<daylight>アメリカ中部夏時間</daylight>
 				</long>
-				<short>
-					<standard>CST</standard>
-					<daylight>CDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="America_Eastern">
 				<long>
-					<standard>東部標準時</standard>
-					<daylight>東部夏時間</daylight>
+					<generic>アメリカ東部時間</generic>
+					<standard>アメリカ東部標準時</standard>
+					<daylight>アメリカ東部夏時間</daylight>
 				</long>
-				<short>
-					<standard>EST</standard>
-					<daylight>EDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="America_Mountain">
 				<long>
-					<standard>山地標準時</standard>
-					<daylight>山地夏時間</daylight>
+					<generic>アメリカ山地時間</generic>
+					<standard>アメリカ山地標準時</standard>
+					<daylight>アメリカ山地夏時間</daylight>
 				</long>
-				<short>
-					<standard>MST</standard>
-					<daylight>MDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="America_Pacific">
 				<long>
-					<standard>太平洋標準時</standard>
-					<daylight>太平洋夏時間</daylight>
+					<generic>アメリカ太平洋時間</generic>
+					<standard>アメリカ太平洋標準</standard>
+					<daylight>アメリカ太平洋夏時間</daylight>
 				</long>
-				<short>
-					<standard>PST</standard>
-					<daylight>PDT</daylight>
-				</short>
+			</metazone>
+			<metazone type="Argentina">
+				<long>
+					<generic>アルゼンチン時間</generic>
+					<daylight>アルゼンチン夏時間</daylight>
+				</long>
 			</metazone>
 			<metazone type="Atlantic">
 				<long>
+					<generic>大西洋時間</generic>
 					<standard>大西洋標準時</standard>
 					<daylight>大西洋夏時間</daylight>
 				</long>
-				<short>
-					<standard>AST</standard>
-					<daylight>ADT</daylight>
-				</short>
+			</metazone>
+			<metazone type="Brasilia">
+				<long>
+					<standard>ブラジリア時間</standard>
+					<daylight>ブラジリア夏時間</daylight>
+				</long>
 			</metazone>
 			<metazone type="China">
 				<long>
 					<standard>中国標準時</standard>
 					<daylight>中国夏時間</daylight>
 				</long>
-				<short>
-					<standard>CTT</standard>
-				</short>
 			</metazone>
 			<metazone type="Europe_Central">
 				<long>
 					<standard>中欧標準時</standard>
 					<daylight>中欧夏時間</daylight>
 				</long>
-				<short>
-					<standard>CET</standard>
-					<daylight>CEST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Europe_Eastern">
 				<long>
 					<standard>東欧標準時</standard>
 					<daylight>東欧夏時間</daylight>
 				</long>
-				<short>
-					<standard>EET</standard>
-					<daylight>EEST</daylight>
-				</short>
 			</metazone>
 			<metazone type="GMT">
 				<long>
 					<standard>グリニッジ標準時</standard>
 				</long>
-				<short>
-					<standard>GMT</standard>
-				</short>
 			</metazone>
 			<metazone type="Israel">
 				<long>
 					<standard>イスラエル標準時</standard>
 					<daylight>イスラエル夏時間</daylight>
 				</long>
-				<short>
-					<standard>IST</standard>
-					<daylight>IDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Japan">
 				<long>
 					<standard>日本標準時</standard>
 					<daylight>日本夏時間</daylight>
 				</long>
-				<short>
-					<standard>JST</standard>
-					<daylight>JDT</daylight>
-				</short>
 				<commonlyUsed>true</commonlyUsed>
 			</metazone>
 			<metazone type="Newfoundland">
@@ -2750,10 +2902,6 @@
 					<standard>ニューファンドランド島標準時</standard>
 					<daylight>ニューファンドランド島夏時間</daylight>
 				</long>
-				<short>
-					<standard>NST</standard>
-					<daylight>NDT</daylight>
-				</short>
 			</metazone>
 		</timeZoneNames>
 	</dates>
@@ -3095,6 +3243,9 @@
 				<symbol>lari</symbol>
 			</currency>
 			<currency type="GHC">
+				<displayName>ガーナ セディ (1979-2007)</displayName>
+			</currency>
+			<currency type="GHS">
 				<displayName>ガーナ セディ</displayName>
 			</currency>
 			<currency type="GIP">
@@ -3410,7 +3561,7 @@
 				<symbol>Pra</symbol>
 			</currency>
 			<currency type="PLN">
-				<displayName>ーランド ズウォティ</displayName>
+				<displayName>ポーランド ズウォティ</displayName>
 				<symbol>Zl</symbol>
 			</currency>
 			<currency type="PLZ">
@@ -3431,11 +3582,11 @@
 			</currency>
 			<currency type="ROL">
 				<displayName>ルーマニア 旧レイ</displayName>
-				<symbol choice="true">=0#Old lei|1#Old leu|1</symbol>
+				<symbol choice="true">0≤Old lei|1≤Old leu|1</symbol>
 			</currency>
 			<currency type="RON">
 				<displayName>ルーマニア レイ</displayName>
-				<symbol choice="true">=0#lei|1#leu|1</symbol>
+				<symbol choice="true">0≤lei|1≤leu|1</symbol>
 			</currency>
 			<currency type="RSD">
 				<displayName>ディナール (セルビア)</displayName>
@@ -3464,8 +3615,11 @@
 			<currency type="SDD">
 				<displayName>スーダン ディナール</displayName>
 			</currency>
-			<currency type="SDP">
+			<currency type="SDG">
 				<displayName>スーダン ポンド</displayName>
+			</currency>
+			<currency type="SDP">
+				<displayName>旧スーダン ポンド</displayName>
 			</currency>
 			<currency type="SEK">
 				<displayName>スウェーデン クローナ</displayName>
@@ -3490,7 +3644,7 @@
 			</currency>
 			<currency type="SOS">
 				<displayName>ソマリア シリング</displayName>
-				<symbol>So. Sh.</symbol>
+				<symbol>Sh.</symbol>
 			</currency>
 			<currency type="SRD">
 				<displayName>スリナム ドル</displayName>
@@ -3545,6 +3699,7 @@
 			</currency>
 			<currency type="TRY">
 				<displayName>新トルコリラ</displayName>
+				<symbol>YTL</symbol>
 			</currency>
 			<currency type="TTD">
 				<displayName>トリニダードトバゴ ドル</displayName>
@@ -3593,6 +3748,9 @@
 			<currency type="VEB">
 				<displayName>ベネズエラ ボリバル</displayName>
 				<symbol>Be</symbol>
+			</currency>
+			<currency type="VEF">
+				<displayName>ベネズエラ ボリバルフエルテ</displayName>
 			</currency>
 			<currency type="VND">
 				<displayName>ベトナム ドン</displayName>
@@ -3702,6 +3860,29 @@
 			</currency>
 		</currencies>
 	</numbers>
+	<units>
+		<unit type="day">
+			<unitPattern count="other">{0}日</unitPattern>
+		</unit>
+		<unit type="hour">
+			<unitPattern count="other">{0}時間</unitPattern>
+		</unit>
+		<unit type="minute">
+			<unitPattern count="other">{0}分</unitPattern>
+		</unit>
+		<unit type="month">
+			<unitPattern count="other">{0}ヶ月</unitPattern>
+		</unit>
+		<unit type="second">
+			<unitPattern count="other">{0}秒</unitPattern>
+		</unit>
+		<unit type="week">
+			<unitPattern count="other">{0}週間</unitPattern>
+		</unit>
+		<unit type="year">
+			<unitPattern count="other">{0}年</unitPattern>
+		</unit>
+	</units>
 	<posix>
 		<messages>
 			<yesstr>はい:ハイ</yesstr>

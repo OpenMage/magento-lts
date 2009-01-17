@@ -41,7 +41,7 @@ class Mage_Directory_Model_Currency_Filter implements Zend_Filter_Interface
     /**
      * Currency object
      *
-     * @var Zend_Currency
+     * @var Mage_Core_Model_Locale_Currency
      */
     protected $_currency;
 

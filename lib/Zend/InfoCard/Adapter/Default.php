@@ -17,19 +17,13 @@
  * @subpackage Zend_InfoCard_Adapter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Default.php 8064 2008-02-16 10:58:39Z thomas $
- * @author     John Coggeshall <john@zend.com>
+ * @version    $Id: Default.php 13213 2008-12-14 11:05:07Z thomas $
  */
 
 /**
  * Zend_InfoCard_Adapter_Interface
  */
 #require_once 'Zend/InfoCard/Adapter/Interface.php';
-
-/**
- * Zend_InfoCard_Adapter_Exception
- */
-#require_once 'Zend/InfoCard/Adapter/Exception.php';
 
 /**
  * The default InfoCard component Adapter which serves as a pass-thru placeholder
@@ -42,7 +36,6 @@
  * @subpackage Zend_InfoCard_Adapter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @author     John Coggeshall <john@zend.com>
  */
 class Zend_InfoCard_Adapter_Default implements Zend_InfoCard_Adapter_Interface
 {

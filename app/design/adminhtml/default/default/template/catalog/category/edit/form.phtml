@@ -48,11 +48,12 @@
 <?php endif; ?>
 <iframe name="iframeSave" style="display:none; width:100%;" src="<?php echo $this->getJsUrl() ?>blank.html"></iframe>
 <form target="iframeSave" id="category_edit_form" action="<?php echo $this->getSaveUrl() ?>" method="post" enctype="multipart/form-data">
-<div class="no-display">
-    <input type="hidden" name="category_products" id="in_category_products" value="" />
-    <input type="hidden" name="active_tab_id" id="active_tab_id" value="" />
-</div>
-<div id="category_tab_content"></div>
+    <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
+    <div class="no-display">
+        <input type="hidden" name="category_products" id="in_category_products" value="" />
+        <input type="hidden" name="active_tab_id" id="active_tab_id" value="" />
+    </div>
+    <div id="category_tab_content"></div>
 </form>
 <script type="text/javascript">
 //<![CDATA[

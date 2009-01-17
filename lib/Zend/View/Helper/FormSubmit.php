@@ -69,7 +69,7 @@ class Zend_View_Helper_FormSubmit extends Zend_View_Helper_FormElement
             $endTag= '>';
         }
 
-        // ignore disable/enable, always show the button.
+        // Render the button.
         $xhtml = '<input type="submit"'
                . ' name="' . $this->view->escape($name) . '"'
                . ' id="' . $this->view->escape($id) . '"'

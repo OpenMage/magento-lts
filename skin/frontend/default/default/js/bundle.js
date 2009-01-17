@@ -64,10 +64,13 @@ Product.Bundle.prototype = {
 
     reloadPrice: function() {
         var calculatedPrice = 0;
+        var dispositionPrice = 0;
         for (var option in this.config.selected) {
             if (this.config.options[option]) {
                 for (var i=0; i < this.config.selected[option].length; i++) {
-                    calculatedPrice += Number(this.selectionPrice(option, this.config.selected[option][i]));
+                    var prices = this.selectionPrice(option, this.config.selected[option][i]);
+                    calculatedPrice += Number(prices[0]);
+                    dispositionPrice += Number(prices[1]);
                 }
             }
         }
@@ -78,6 +81,7 @@ Product.Bundle.prototype = {
         }
 
         optionsPrice.changePrice('bundle', calculatedPrice);
+        optionsPrice.changePrice('nontaxable', dispositionPrice);
         optionsPrice.reload();
 
         return calculatedPrice;
@@ -115,7 +119,14 @@ Product.Bundle.prototype = {
                 price = (this.config.basePrice*selection.priceValue)/100;
             }
         }
-        return price*qty;
+        //price += this.config.options[optionId].selections[selectionId].plusDisposition;
+        //price -= this.config.options[optionId].selections[selectionId].minusDisposition;
+        //return price*qty;
+        var disposition = this.config.options[optionId].selections[selectionId].plusDisposition +
+            this.config.options[optionId].selections[selectionId].minusDisposition;
+
+        var result = new Array(price*qty, disposition*qty);
+        return result;
     },
 
     populateQty: function(optionId, selectionId){
@@ -141,8 +152,14 @@ Product.Bundle.prototype = {
         }
     },
 
-    changeOptionQty: function (element) {
-        if (Number(element.value) == 0) {
+    changeOptionQty: function (element, event) {
+        var checkQty = true;
+        if (typeof(event) != 'undefined') {
+            if (event.keyCode == 8 || event.keyCode == 46) {
+                checkQty = false;
+            }
+        }
+        if (checkQty && (Number(element.value) == 0 || isNaN(Number(element.value)))) {
             element.value = 1;
         }
         parts = element.id.split('-');

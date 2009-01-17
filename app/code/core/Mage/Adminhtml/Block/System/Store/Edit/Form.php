@@ -18,34 +18,34 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml store edit form
  *
- * @category   Mage
- * @package    Mage_Adminhtml
+ * @category    Mage
+ * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+
     /**
-     * Init class
+     * Class constructor
      *
      */
     public function __construct()
     {
         parent::__construct();
-
         $this->setId('coreStoreForm');
     }
 
     /**
+     * Prepare form data
      *
      * return Mage_Adminhtml_Block_Widget_Form
      */
@@ -55,22 +55,11 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
             $websiteModel = Mage::registry('store_data');
             $showWebsiteFieldset = true;
             $showGroupFieldset = $showStoreFieldset = false;
-//            if (Mage::registry('store_action') == 'add') {
-//                $groupModel = Mage::getModel('core/store_group');
-//                $storeModel = Mage::getModel('core/store');
-//                $showGroupFieldset = $showStoreFieldset = true;
-//            }
-        }
-        elseif (Mage::registry('store_type') == 'group') {
+        } elseif (Mage::registry('store_type') == 'group') {
             $groupModel = Mage::registry('store_data');
             $showGroupFieldset = true;
             $showWebsiteFieldset = $showStoreFieldset = false;
-//            if (Mage::registry('store_action') == 'add') {
-//                $storeModel = Mage::getModel('core/store');
-//                $showStoreFieldset = true;
-//            }
-        }
-        elseif (Mage::registry('store_type') == 'store') {
+        } elseif (Mage::registry('store_type') == 'store') {
             $storeModel = Mage::registry('store_data');
             $showWebsiteFieldset = $showGroupFieldset = false;
             $showStoreFieldset = true;

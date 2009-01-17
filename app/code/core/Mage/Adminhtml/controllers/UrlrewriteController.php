@@ -23,184 +23,179 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+/**
+ * Urlrewrites adminhtml controller
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Action
 {
-
     /**
-     * Create initial action
+     * Instantiate urlrewrite, product and category
+     *
+     * @return Mage_Adminhtml_UrlrewriteController
      */
-    protected function _initAction()
+    protected function _initRegistry()
     {
-        $this->loadLayout();
-        $this->_setActiveMenu('catalog/urlrewrite');
-        return $this;
-    }
-
-    protected function _initUrlrewrite($idFieldName = 'id')
-    {
-        $id = (int) $this->getRequest()->getParam($idFieldName);
-        $model = Mage::getModel('core/url_rewrite');
-
-        if ($id) {
-            $model->load($id);
+        // initialize urlrewrite, product and category models
+        Mage::register('current_urlrewrite', Mage::getModel('core/url_rewrite')
+            ->load($this->getRequest()->getParam('id', 0))
+        );
+        $productId  = $this->getRequest()->getParam('product', 0);
+        $categoryId = $this->getRequest()->getParam('category', 0);
+        if (Mage::registry('current_urlrewrite')->getId()) {
+            $productId  = Mage::registry('current_urlrewrite')->getProductId();
+            $categoryId = Mage::registry('current_urlrewrite')->getCategoryId();
         }
 
-        Mage::register('urlrewrite_urlrewrite', $model);
+        Mage::register('current_product', Mage::getModel('catalog/product')->load($productId));
+        Mage::register('current_category', Mage::getModel('catalog/category')->load($categoryId));
+
         return $this;
     }
 
     /**
-     * Create index url action
+     * Show urlrewrites index page
+     *
      */
     public function indexAction()
     {
-    	$this->_initAction();
+        $this->loadLayout();
+        $this->_setActiveMenu('catalog/urlrewrite');
+        $this->_initRegistry();
         $this->_addContent(
             $this->getLayout()->createBlock('adminhtml/urlrewrite')
         );
-
         $this->renderLayout();
     }
 
     /**
-     * Delete urlrewrite action
-     */
-    public function deleteAction()
-    {
-        $this->_initUrlrewrite();
-        $model = Mage::registry('urlrewrite_urlrewrite');
-        if ($model->getId()) {
-            try {
-                $model->delete();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Urlrewrite was deleted'));
-            }
-            catch (Exception $e){
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-            }
-        }
-        $this->_redirect('*/urlrewrite');
-    }
-
-    /**
-     * Create edit url action
+     * Show urlrewrite edit/create page
+     *
      */
     public function editAction()
     {
-        $id = $this->getRequest()->getParam('id');
-        $model = Mage::getModel('core/url_rewrite');
-        if ($model) {
-        	$model->load($id);
-        }
-
-        Mage::register('urlrewrite_urlrewrite', $model);
-
-        $this->_initAction()
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Edit Url'),
-            Mage::helper('adminhtml')->__('Edit Url'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/urlrewrite_edit'))
-            ->renderLayout();
-    }
-
-    /**
-     * Create new url action
-     */
-    public function newAction()
-    {
         $this->loadLayout();
-
-//        $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
-
-        $this->_initAction()->_addContent($this->getLayout()->createBlock('adminhtml/urlrewrite_add'));
-
+        $this->_setActiveMenu('catalog/urlrewrite');
+        $this->_initRegistry();
+        $this->_addContent($this->getLayout()->createBlock('adminhtml/urlrewrite_edit'));
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
-
         $this->renderLayout();
     }
 
     /**
-     * Save urlrewrite action
+     * Ajax products grid action
+     *
      */
-    public function saveAction()
-    {
-
-        if ($data = $this->getRequest()->getPost()) {
-            $this->_initUrlrewrite();
-            $model = Mage::registry('urlrewrite_urlrewrite');
-
-            // Saving urlrewrite data
-            try {
-            	if (!$model->getId()) {
-            		$model->setIsSystem(0);
-            		$model->setStoreId($data['store_id']);
-                    $model->setIdPath($data['id_path']);
-                    $model->setTargetPath($data['target_path']);
-                    $model->setProductId($data['product_id'] ? $data['product_id'] : null);
-                    $model->setCategoryId($data['category_id'] ? $data['category_id'] : null);
-            	}
-            	$model->setRequestPath($data['request_path']);
-            	$model->setOptions($data['options']);
-                $model->setDescription($data['description']);
-            	$model->save();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Urlrewrite was successfully saved'));
-            }
-            catch (Exception $e){
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage())->setUrlrewriteData($data);
-
-                $this->getResponse()->setRedirect($this->getUrl('*/urlrewrite/edit', array('id'=>$model->getId())));
-                return;
-            }
-        }
-        $this->getResponse()->setRedirect($this->getUrl('*/urlrewrite'));
-    }
-
-    public function jsonProductInfoAction()
-    {
-        $response = new Varien_Object();
-        $id = $this->getRequest()->getParam('id');
-        if( intval($id) > 0 ) {
-            $product = Mage::getModel('catalog/product')
-                ->load($id);
-            $response->setId($id);
-            $response->addData($product->getData());
-            $response->setError(0);
-        } else {
-            $response->setError(1);
-            $response->setMessage(Mage::helper('adminhtml')->__('Unable to get product id.'));
-        }
-        $this->getResponse()->setBody($response->toJSON());
-    }
-
     public function productGridAction()
     {
         $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/urlrewrite_product_grid')->toHtml());
     }
 
-    public function getCategoryInfoAction()
+    /**
+     * Ajax categories tree loader action
+     *
+     */
+    public function categoriesJsonAction()
     {
-        $response = new Varien_Object();
-        $id = $this->getRequest()->getParam('id');
-        if( intval($id) > 0 ) {
-            $product = Mage::getModel('catalog/product')
-                ->load($id);
-            Mage::register('product', $product);
-            $tree = new Mage_Adminhtml_Block_Urlrewrite_Category_Tree();
+        $id = $this->getRequest()->getParam('id', null);
+        $this->getResponse()->setBody(Mage::getBlockSingleton('adminhtml/urlrewrite_category_tree')
+            ->getTreeArray($id, true, 1)
+        );
+    }
 
-        } else {
-            $tree = new Mage_Adminhtml_Block_Urlrewrite_Category_Tree();
+    /**
+     * Urlrewrite save action
+     *
+     */
+    public function saveAction()
+    {
+        $this->_initRegistry();
+
+        if ($data = $this->getRequest()->getPost()) {
+            try {
+                // set basic urlrewrite data
+                $model = Mage::registry('current_urlrewrite');
+
+                $model->setIdPath($this->getRequest()->getParam('id_path'))
+                    ->setTargetPath($this->getRequest()->getParam('target_path'))
+                    ->setOptions($this->getRequest()->getParam('options'))
+                    ->setDescription($this->getRequest()->getParam('description'))
+                    ->setRequestPath($this->getRequest()->getParam('request_path'))
+                ;
+                if (!$model->getId()) {
+                    $model->setIsSystem(0);
+                }
+                if (!$model->getIsSystem()) {
+                    $model->setStoreId($this->getRequest()->getParam('store_id', 0));
+                }
+
+                // override urlrewrite data, basing on current registry combination
+                $category = Mage::registry('current_category')->getId() ? Mage::registry('current_category') : null;
+                if ($category) {
+                    $model->setCategoryId($category->getId());
+                }
+                $product  = Mage::registry('current_product')->getId() ? Mage::registry('current_product') : null;
+                if ($product) {
+                    $model->setProductId($product->getId());
+                }
+                if ($product || $category) {
+                    $catalogUrlModel = Mage::getSingleton('catalog/url');
+                    $model->setIdPath($catalogUrlModel->generatePath('id', $product, $category));
+                    $model->setTargetPath($catalogUrlModel->generatePath('target', $product, $category));
+                }
+
+                // save and redirect
+                $model->save();
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__(
+                    'Urlrewrite has been successfully saved'
+                ));
+                $this->_redirect('*/*/');
+                return;
+            }
+            catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')
+                    ->addError($e->getMessage())
+                    ->setUrlrewriteData($data)
+                ;
+                // return intentionally omitted
+            }
         }
-
-       $this->getResponse()->setBody($tree->getTreeJson());
+        $this->_redirectReferer();
     }
 
-    private function _formatUrlKey($str)
+    /**
+     * Urlrewrite delete action
+     *
+     */
+    public function deleteAction()
     {
-    	$urlKey = preg_replace('#[^0-9a-z\/\.]+#i', '-', $str);
-    	$urlKey = strtolower($urlKey);
-    	$urlKey = trim($urlKey, '-');
+        $this->_initRegistry();
 
-    	return $urlKey;
+        if (Mage::registry('current_urlrewrite')->getId()) {
+            try {
+                Mage::registry('current_urlrewrite')->delete();
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__(
+                    'Urlrewrite has been successfully deleted'
+                ));
+            }
+            catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->_redirectReferer();
+                return;
+            }
+        }
+        $this->_redirect('*/*/');
     }
 
+    /**
+     * Check whether this contoller is allowed in admin permissions
+     *
+     * @return bool
+     */
     protected function _isAllowed()
     {
         return Mage::getSingleton('admin/session')->isAllowed('catalog/urlrewrite');

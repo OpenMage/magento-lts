@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.5 $"/>
-		<generation date="$Date: 2007/07/19 22:31:40 $"/>
+		<version number="$Revision: 1.11 $"/>
+		<generation date="$Date: 2008/06/26 03:47:58 $"/>
 		<language type="to"/>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0} ({1})</localePattern>
+			<localeSeparator>, </localeSeparator>
+		</localeDisplayPattern>
 		<languages>
 			<language type="ar">lea fakaʻalepea</language>
 			<language type="art">lea faʻu pē kehe</language>
@@ -59,10 +63,18 @@
 		<scripts>
 			<script type="Arab">tohinima fakaʻalepea</script>
 			<script type="Brai">tohinima maʻa e kakai kui</script>
+			<script type="Cyrl">tohinima fakalūsia</script>
 			<script type="Grek">tohinima fakakalisi</script>
+			<script type="Hani">tohinima fakasiaina</script>
+			<script type="Hans">tohinima fakasiaina fakafaingofua</script>
+			<script type="Hant">tohinima fakasiaina fakatukutala</script>
 			<script type="Hebr">tohinima fakahepelū</script>
 			<script type="Jpan">tohinima fakasiapani</script>
+			<script type="Kore">tohinima fakakolea</script>
 			<script type="Latn">tohinima fakalatina</script>
+			<script type="Zxxx">tohinima taʻetohitohiʻi</script>
+			<script type="Zyyy">tohinima meʻataha</script>
+			<script type="Zzzz">tohinima taʻeʻiloa</script>
 		</scripts>
 		<territories>
 			<territory type="001">Māmani</territory>
@@ -97,16 +109,24 @@
 			<territory type="155">ʻEulope hihifo</territory>
 			<territory type="172">Komoniueli</territory>
 			<territory type="419">ʻAmelika fakalatina mo Kalipea</territory>
+			<territory type="AG">Anitikua mo Palaputa</territory>
+			<territory type="AI">Anikuila</territory>
 			<territory type="AQ">ʻAnetātika</territory>
 			<territory type="AS">Haʻamoa fakaʻamelika</territory>
 			<territory type="AU">ʻAositelēlia</territory>
 			<territory type="BE">Pelesiume</territory>
 			<territory type="BR">Palāsili</territory>
+			<territory type="BS">Pahama</territory>
+			<territory type="BV">Motu Puveti</territory>
+			<territory type="BW">Potisiuana</territory>
+			<territory type="BZ">Pelise</territory>
 			<territory type="CA">Kānata</territory>
 			<territory type="CH">Suisilani</territory>
 			<territory type="CK">ʻOtumotu Kuki</territory>
 			<territory type="CN">Siaina</territory>
+			<territory type="CX">Motu Kilisimasi</territory>
 			<territory type="DE">Siamane</territory>
+			<territory type="DM">Tominika</territory>
 			<territory type="EG">ʻIsipite</territory>
 			<territory type="ES">Sepeni</territory>
 			<territory type="FI">Finilani</territory>
@@ -114,19 +134,44 @@
 			<territory type="FM">Mikolonisia</territory>
 			<territory type="FR">Falanisē</territory>
 			<territory type="GB">Pilitānia</territory>
+			<territory type="GD">Kelenatā</territory>
+			<territory type="GG">Kuenisī</territory>
+			<territory type="GH">Kana</territory>
+			<territory type="GI">Sipalālitā</territory>
+			<territory type="GM">Kamipia</territory>
 			<territory type="GR">Kalisi</territory>
+			<territory type="GS">ʻOtumotu Siosia-tonga mo Saniuisi-tonga</territory>
+			<territory type="GU">Kuami</territory>
+			<territory type="GY">Kuiana</territory>
+			<territory type="HK">Hongi Kongi</territory>
+			<territory type="HM">ʻOtumotu Heati mo Makitonali</territory>
+			<territory type="HN">Honitulasi</territory>
 			<territory type="IE">ʻAealani</territory>
 			<territory type="IL">ʻIsileli</territory>
+			<territory type="IM">Motu Mani</territory>
 			<territory type="IN">ʻInitia</territory>
+			<territory type="IO">Potu fonua moana ʻInitia fakapilitānia</territory>
 			<territory type="IT">ʻĪtali</territory>
+			<territory type="JE">Selusī</territory>
 			<territory type="JP">Siapani</territory>
+			<territory type="KE">Kenia</territory>
 			<territory type="KI">Kilipasi</territory>
 			<territory type="KP">Kōloa tokelau</territory>
 			<territory type="KR">Kōlea tonga</territory>
 			<territory type="LK">Sīloni</territory>
+			<territory type="LR">Laipelia</territory>
+			<territory type="LS">Lesoto</territory>
 			<territory type="MH">ʻOtumotu Māsolo</territory>
+			<territory type="MP">ʻOtumotu Maliana tokelau</territory>
+			<territory type="MS">Moʻungaselati</territory>
+			<territory type="MT">Malita</territory>
+			<territory type="MU">Maulitiusi</territory>
+			<territory type="MW">Malaui</territory>
 			<territory type="MX">Mekesikō</territory>
+			<territory type="NA">Namipia</territory>
 			<territory type="NC">Niu Kaletonia</territory>
+			<territory type="NF">Motu Nōfoliki</territory>
+			<territory type="NG">Naisilia</territory>
 			<territory type="NL">Holani</territory>
 			<territory type="NO">Noauē</territory>
 			<territory type="NR">Naulu</territory>
@@ -134,22 +179,34 @@
 			<territory type="NZ">Nuʻusila</territory>
 			<territory type="PA">Panamā</territory>
 			<territory type="PF">Polinisia fakafalanisē</territory>
+			<territory type="PG">Papuaniukini</territory>
+			<territory type="PK">Pakisitani</territory>
+			<territory type="PN">Pitikeni</territory>
 			<territory type="PT">Potukali</territory>
+			<territory type="PW">Palau</territory>
 			<territory type="QU">ʻEulope fakataha</territory>
-			<territory type="RU">Lusia</territory>
+			<territory type="RU">Lūsia</territory>
+			<territory type="RW">Luanitā</territory>
 			<territory type="SB">ʻOtumotu Solomone</territory>
+			<territory type="SC">ʻOtumotu Seiseli</territory>
 			<territory type="SE">Suēteni</territory>
 			<territory type="SG">Singapula</territory>
+			<territory type="TF">Potu fonua tonga fakafalanisē</territory>
 			<territory type="TK">Tokelau</territory>
 			<territory type="TO">Tonga</territory>
 			<territory type="TR">Toake</territory>
+			<territory type="TT">Tilinitati mo Topako</territory>
 			<territory type="TV">Tūvalu</territory>
+			<territory type="UM">ʻOtumotu siʻi ʻo ʻAmelika</territory>
 			<territory type="US">Puleʻanga fakataha ʻAmelika</territory>
 			<territory type="VA">Vatikani</territory>
+			<territory type="VG">ʻOtumotu Vilikini fakapilitānia</territory>
+			<territory type="VI">ʻOtumotu Vilikini fakaʻamelika</territory>
 			<territory type="VU">Vanuatu</territory>
 			<territory type="WF">ʻUvea mo Futuna</territory>
 			<territory type="WS">Haʻamoa</territory>
 			<territory type="ZA">ʻAfelika tonga</territory>
+			<territory type="ZW">Simipapue</territory>
 			<territory type="ZZ">Potu fonua taʻeʻiloa pe hala</territory>
 		</territories>
 		<keys>
@@ -160,8 +217,10 @@
 		<types>
 			<type type="buddhist" key="calendar">fakaputa</type>
 			<type type="chinese" key="calendar">fakasiaina</type>
+			<type type="direct" key="collation">hangatonu</type>
 			<type type="gregorian" key="calendar">fakakelekolia</type>
 			<type type="hebrew" key="calendar">fakahepelū</type>
+			<type type="indian" key="calendar">fakaʻinitia</type>
 			<type type="islamic" key="calendar">fakamohameti</type>
 			<type type="islamic-civil" key="calendar">fakamohameti-sivile</type>
 			<type type="japanese" key="calendar">fakasiapani</type>
@@ -174,8 +233,11 @@
 	<characters>
 		<exemplarCharacters>[a á ā e é ē f h ʻ i í ī k-n {ng} o ó ō p s-u ú ū v]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[à ă â å ä æ b c ç d è ĕ ê ë g ì ĭ î ï j ñ ò ŏ ô ö ø œ q r ß ù ŭ û ü w-y ÿ z]</exemplarCharacters>
+		<exemplarCharacters type="currencySymbol">[a-z]</exemplarCharacters>
 	</characters>
 	<delimiters>
+		<quotationStart>“</quotationStart>
+		<quotationEnd>”</quotationEnd>
 		<alternateQuotationStart>«</alternateQuotationStart>
 		<alternateQuotationEnd>»</alternateQuotationEnd>
 	</delimiters>
@@ -197,20 +259,6 @@
 							<month type="10">ʻOka</month>
 							<month type="11">Nōv</month>
 							<month type="12">Tis</month>
-						</monthWidth>
-						<monthWidth type="narrow">
-							<month type="1">S</month>
-							<month type="2">F</month>
-							<month type="3">M</month>
-							<month type="4">E</month>
-							<month type="5">M</month>
-							<month type="6">S</month>
-							<month type="7">S</month>
-							<month type="8">A</month>
-							<month type="9">S</month>
-							<month type="10">O</month>
-							<month type="11">N</month>
-							<month type="12">T</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1">Sānuali</month>
@@ -242,20 +290,6 @@
 							<month type="11">N</month>
 							<month type="12">T</month>
 						</monthWidth>
-						<monthWidth type="wide">
-							<month type="1">Sānuali</month>
-							<month type="2">Fēpueli</month>
-							<month type="3">Maʻasi</month>
-							<month type="4">ʻEpeleli</month>
-							<month type="5">Mē</month>
-							<month type="6">Sune</month>
-							<month type="7">Siulai</month>
-							<month type="8">ʻAokosi</month>
-							<month type="9">Sēpitema</month>
-							<month type="10">ʻOkatopa</month>
-							<month type="11">Nōvema</month>
-							<month type="12">Tisema</month>
-						</monthWidth>
 					</monthContext>
 				</months>
 				<days>
@@ -268,15 +302,6 @@
 							<day type="thu">Tuʻa</day>
 							<day type="fri">Fal</day>
 							<day type="sat">Tok</day>
-						</dayWidth>
-						<dayWidth type="narrow">
-							<day type="sun">S</day>
-							<day type="mon">M</day>
-							<day type="tue">T</day>
-							<day type="wed">P</day>
-							<day type="thu">T</day>
-							<day type="fri">F</day>
-							<day type="sat">T</day>
 						</dayWidth>
 						<dayWidth type="wide">
 							<day type="sun">Sāpate</day>
@@ -297,15 +322,6 @@
 							<day type="thu">T</day>
 							<day type="fri">F</day>
 							<day type="sat">T</day>
-						</dayWidth>
-						<dayWidth type="wide">
-							<day type="sun">Sāpate</day>
-							<day type="mon">Mōnite</day>
-							<day type="tue">Tusite</day>
-							<day type="wed">Pulelulu</day>
-							<day type="thu">Tuʻapulelulu</day>
-							<day type="fri">Falaite</day>
-							<day type="sat">Tokonaki</day>
 						</dayWidth>
 					</dayContext>
 				</days>
@@ -377,10 +393,54 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
+				<timeFormats>
+					<timeFormatLength type="full">
+						<timeFormat>
+							<pattern>HH:mm:ss v</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="long">
+						<timeFormat>
+							<pattern>HH:mm:ss z</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="medium">
+						<timeFormat>
+							<pattern>HH:mm:ss</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="short">
+						<timeFormat>
+							<pattern>HH:mm</pattern>
+						</timeFormat>
+					</timeFormatLength>
+				</timeFormats>
 				<dateTimeFormats>
+					<dateTimeFormatLength>
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="Hm">H:mm</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
+						<dateFormatItem id="MEd">E d-M</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
+						<dateFormatItem id="MMMEd">E d MMM</dateFormatItem>
+						<dateFormatItem id="MMMMEd">E d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
+						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="Md">d-M</dateFormatItem>
+						<dateFormatItem id="d">d</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
+						<dateFormatItem id="y">yyyy</dateFormatItem>
+						<dateFormatItem id="yM">M-yyyy</dateFormatItem>
+						<dateFormatItem id="yMEd">EEE d-M-yyyy</dateFormatItem>
+						<dateFormatItem id="yMMM">MMM yyyy</dateFormatItem>
+						<dateFormatItem id="yMMMEd">EEE d MMM yyyy</dateFormatItem>
+						<dateFormatItem id="yMMMM">MMMM yyyy</dateFormatItem>
+						<dateFormatItem id="yQ">yyyy Q</dateFormatItem>
+						<dateFormatItem id="yQQQ">yyyy QQQ</dateFormatItem>
 						<dateFormatItem id="yyMM">MM-yy</dateFormatItem>
 						<dateFormatItem id="yyMMM">MMM yy</dateFormatItem>
 						<dateFormatItem id="yyQ">Q yy</dateFormatItem>
@@ -428,11 +488,80 @@
 				</fields>
 			</calendar>
 		</calendars>
+		<timeZoneNames>
+			<hourFormat>+HH:mm;-HH:mm</hourFormat>
+			<gmtFormat>GMT{0}</gmtFormat>
+			<regionFormat>Houa {0}</regionFormat>
+			<metazone type="Fiji">
+				<long>
+					<standard>houa fakafisi</standard>
+					<daylight>houa fakafisi fakamaama</daylight>
+				</long>
+			</metazone>
+			<metazone type="Hawaii_Aleutian">
+				<long>
+					<standard>houa fakahauaʻi</standard>
+				</long>
+			</metazone>
+			<metazone type="New_Zealand">
+				<long>
+					<generic>houa fakanuʻusila</generic>
+					<standard>houa fakanuʻusila fakasīpinga</standard>
+					<daylight>houa fakanuʻusila fakamaama</daylight>
+				</long>
+			</metazone>
+			<metazone type="Niue">
+				<long>
+					<standard>houa fakaniuē</standard>
+				</long>
+			</metazone>
+			<metazone type="Samoa">
+				<long>
+					<standard>houa fakahaʻamoa</standard>
+				</long>
+			</metazone>
+			<metazone type="Tahiti">
+				<long>
+					<standard>houa fakatahisi</standard>
+				</long>
+			</metazone>
+			<metazone type="Tokelau">
+				<long>
+					<standard>houa fakatokelau</standard>
+				</long>
+			</metazone>
+			<metazone type="Tonga">
+				<long>
+					<standard>houa fakatonga</standard>
+					<daylight>houa fakatonga lotohē</daylight>
+				</long>
+			</metazone>
+			<metazone type="Tuvalu">
+				<long>
+					<standard>houa fakatūvalu</standard>
+				</long>
+			</metazone>
+			<metazone type="Wallis">
+				<long>
+					<standard>houa fakaʻuvea mo futuna</standard>
+				</long>
+			</metazone>
+		</timeZoneNames>
 	</dates>
 	<numbers>
 		<symbols>
 			<decimal>.</decimal>
 			<group>,</group>
+			<list>;</list>
+			<percentSign>%</percentSign>
+			<nativeZeroDigit>0</nativeZeroDigit>
+			<patternDigit>#</patternDigit>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+			<exponential>E</exponential>
+			<perMille>‰</perMille>
+			<infinity>∞</infinity>
+			<nan>NaN</nan>
 		</symbols>
 		<decimalFormats>
 			<decimalFormatLength>
@@ -458,11 +587,26 @@
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>¤ #,##0.00</pattern>
+					<pattern>¤ #,##0.00</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
+			<unitPattern count="other">{0} {1}</unitPattern>
 		</currencyFormats>
 	</numbers>
+	<units>
+		<unit type="day">
+			<unitPattern count="other">{0} ʻa</unitPattern>
+		</unit>
+		<unit type="minute">
+			<unitPattern count="other">{0} m</unitPattern>
+		</unit>
+		<unit type="week">
+			<unitPattern count="other">{0} u</unitPattern>
+		</unit>
+		<unit type="year">
+			<unitPattern count="other">{0} t</unitPattern>
+		</unit>
+	</units>
 	<posix>
 		<messages>
 			<yesstr>ʻio</yesstr>

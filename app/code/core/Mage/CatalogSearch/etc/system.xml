@@ -51,6 +51,60 @@
                         </site_map>
                     </fields>
                 </seo>
+                <search translate="label" module="catalogsearch">
+                    <label>Catalog Search</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>500</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <min_query_length translate="label">
+                            <label>Minimal Query Length</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </min_query_length>
+                        <max_query_length translate="label">
+                            <label>Maximum Query Length</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_query_length>
+                        <max_query_words translate="label comment">
+                            <label>Maximum Query Words Count</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Applies for "Like" Search type only</comment>
+                        </max_query_words>
+                        <search_type translate="label">
+                            <label>Search Type</label>
+                            <frontend_type>select</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_catalog_search_type</backend_model>
+                            <source_model>adminhtml/system_config_source_catalog_search_type</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </search_type>
+                        <use_layered_navigation_count translate="label comment">
+                            <label>Apply Layered Navigation if search results are less than</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please enter "0" to enable layered navigation for any number of results</comment>
+                        </use_layered_navigation_count>
+                    </fields>
+                </search>
             </groups>
         </catalog>
     </sections>

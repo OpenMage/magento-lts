@@ -11,11 +11,14 @@
         coupon_code
         giftcert_code
         custbalance_amount
+        global_currency_code
         base_currency_code
         store_currency_code
         quote_currency_code
         store_to_base_rate
         store_to_quote_rate
+        base_to_global_rate
+        base_to_quote_rate
         grand_total
         orig_order_id
         applied_rule_ids

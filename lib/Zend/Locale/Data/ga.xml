@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.61 $"/>
-		<generation date="$Date: 2007/07/19 22:31:39 $"/>
+		<version number="$Revision: 1.65 $"/>
+		<generation date="$Date: 2008/06/26 03:47:57 $"/>
 		<language type="ga"/>
 	</identity>
 	<fallback>en_IE</fallback>
@@ -174,9 +174,11 @@
 			<script type="Hebr">Eabhrach</script>
 			<script type="Hira">Híreagánach</script>
 			<script type="Hrkt">Catacánach nó Híreagánach</script>
+			<script type="Jpan">Seapánach</script>
 			<script type="Kana">Catacánach</script>
 			<script type="Knda">Cannadach</script>
-			<script type="Latg">Laidineach (Cló Gaelach)</script>
+			<script type="Kore">Cóiréach</script>
+			<script type="Latg">Cló Gaelach</script>
 			<script type="Latn">Laidineach</script>
 			<script type="Mlym">Mailéalamach</script>
 			<script type="Mong">Mongólach</script>
@@ -299,7 +301,7 @@
 			<territory type="GU">Guam</territory>
 			<territory type="GW">An Ghuine-Bhissau</territory>
 			<territory type="GY">An Ghuáin</territory>
-			<territory type="HK">R.R.S. na Síne Hong Cong</territory>
+			<territory type="HK">Hong Cong</territory>
 			<territory type="HM">Oileán Heard agus Oileáin McDonald</territory>
 			<territory type="HN">Hondúras</territory>
 			<territory type="HR">An Chróit</territory>
@@ -351,7 +353,7 @@
 			<territory type="ML">Mailí</territory>
 			<territory type="MM">Maenmar</territory>
 			<territory type="MN">An Mhongóil</territory>
-			<territory type="MO">R.R.S. na Síne Macáó</territory>
+			<territory type="MO">Macáó</territory>
 			<territory type="MP">Oileáin Mariana Thuaidh</territory>
 			<territory type="MQ">Martainíc</territory>
 			<territory type="MR">An Mharatáin</territory>
@@ -556,15 +558,6 @@
 							<day type="thu">Déar</day>
 							<day type="fri">Aoine</day>
 							<day type="sat">Sath</day>
-						</dayWidth>
-						<dayWidth type="narrow">
-							<day type="sun">D</day>
-							<day type="mon">L</day>
-							<day type="tue">M</day>
-							<day type="wed">C</day>
-							<day type="thu">D</day>
-							<day type="fri">A</day>
-							<day type="sat">S</day>
 						</dayWidth>
 						<dayWidth type="wide">
 							<day type="sun">Dé Domhnaigh</day>
@@ -1410,7 +1403,7 @@
 			</currency>
 			<currency type="SOS">
 				<displayName>Scilling na Sómáile</displayName>
-				<symbol>So. Sh.</symbol>
+				<symbol>Sh.</symbol>
 			</currency>
 			<currency type="SRG">
 				<displayName>Guilder Shuranaim</displayName>

@@ -147,6 +147,12 @@ varienGrid.prototype = {
         }
     },
     reload : function(url){
+        if (!this.reloadParams) {
+            this.reloadParams = {form_key: FORM_KEY};
+        }
+        else {
+            this.reloadParams.form_key = FORM_KEY;
+        }
         url = url || this.url;
         if(this.useAjax){
             new Ajax.Updater(
@@ -288,6 +294,7 @@ varienGridMassaction.prototype = {
     checkedValues: $H({}),
     checkedString: '',
     oldCallbacks: {},
+    errorText:'',
     items: {},
     gridIds: [],
     currentItem: false,
@@ -495,6 +502,11 @@ varienGridMassaction.prototype = {
         }
     },
     apply: function() {
+        if(varienStringArray.count(this.checkedString) == 0) {
+                alert(this.errorText);
+                return;
+            }
+
         var item = this.getSelectedItem();
         if(!item) {
             this.validator.validate();
@@ -592,6 +604,8 @@ var varienStringArray = {
         }
         if (match = haystack.match(new RegExp(',', 'g'))) {
             return match.length + 1;
+        } else if (haystack.length != 0) {
+            return 1;
         }
         return 0;
     },

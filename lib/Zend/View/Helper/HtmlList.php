@@ -57,13 +57,16 @@ class Zend_View_Helper_HtmlList extends Zend_View_Helper_FormElement
 
         foreach ($items as $item) {
             if (!is_array($item)) {
-                if ($escape) $item = $this->view->escape($item); 
-                $list .= '<li>' . $item . '</li>';
+                if ($escape) {
+                    $item = $this->view->escape($item);
+                }
+                $list .= '<li>' . $item . '</li>' . self::EOL;
             } else {
-                if (5 < strlen($list)) {
-                    $list = substr($list, 0, strlen($list) - 5) . $this->htmlList($item, $ordered, $attribs, $escape) . '</li>';
+                if (6 < strlen($list)) {
+                    $list = substr($list, 0, strlen($list) - 6)
+                     . $this->htmlList($item, $ordered, $attribs, $escape) . '</li>' . self::EOL;
                 } else {
-                    $list .= '<li>' . $this->htmlList($item, $ordered) . '</li>';
+                    $list .= '<li>' . $this->htmlList($item, $ordered, $attribs, $escape) . '</li>' . self::EOL;
                 }
             }
         }
@@ -79,6 +82,6 @@ class Zend_View_Helper_HtmlList extends Zend_View_Helper_FormElement
             $tag = 'ol';
         }
 
-        return '<' . $tag . $attribs . '>' . $list . '</' . $tag . '>';
+        return '<' . $tag . $attribs . '>' . self::EOL . $list . '</' . $tag . '>' . self::EOL;
     }
 }

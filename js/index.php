@@ -36,7 +36,7 @@
 
 // no files specified return 404
 if (empty($_GET['f'])) {
-    header('404 Not found');
+    header('HTTP/1.0 404 Not Found');
     echo "SYNTAX: index.php/x.js?f=dir1/file1.js,dir2/file2.js";
     exit;
 }
@@ -52,35 +52,59 @@ if (isset($_GET['c'])) {
 // get files content
 $files = is_array($_GET['f']) ? $_GET['f'] : explode(',', $_GET['f']);
 
+// set allowed content-type
+$contentTypeAllowed = array(
+    'text/javascript',
+    'text/css',
+//    'image/gif',
+//    'image/png',
+//    'image/jpeg',
+);
+// set allowed file extensions
+$fileExtAllowed     = array(
+    'js',
+    'css',
+//    'gif',
+//    'png',
+//    'js'
+);
+
 $out = '';
 $lastModified = 0;
 foreach ($files as $f) {
-    // get correct file disk path
-    $p = trim(str_replace('/', DIRECTORY_SEPARATOR, $f), DIRECTORY_SEPARATOR);
-
-    // validate file path
-    if (empty($p) || strpos($p, '..')!==false || strpos($p, '//')!==false || !file_exists($p)) {
+    $fileRealPath = realpath($f);
+    // check file path (security)
+    if (strpos($fileRealPath, realpath(dirname(__FILE__))) !== 0) {
         continue;
     }
+
+    $fileExt = strtolower(pathinfo($fileRealPath, PATHINFO_EXTENSION));
+
+    // check file extension
+    if (empty($fileExt) || !in_array($fileExt, $fileExtAllowed)) {
+        continue;
+    }
+
     // try automatically get content type if requested
-    if ($contentType===true) {
+    if ($contentType === true) {
         $contentTypes = array(
             'js' => 'text/javascript',
-//            'css' => 'text/css',
+            'css' => 'text/css',
 //            'gif' => 'image/gif',
 //            'png' => 'image/png',
 //            'jpg' => 'image/jpeg',
         );
-        $ext = strtolower(pathinfo($p, PATHINFO_EXTENSION));
-        if (empty($contentTypes[$ext])) { // security
+        if (empty($contentTypes[$fileExt])) { // security
             continue;
         }
-        $contentType = !empty($contentTypes[$ext]) ? $contentTypes[$ext] : false;
+        $contentType = !empty($contentTypes[$fileExt]) ? $contentTypes[$fileExt] : false;
     }
 
     // append file contents
-    $out .= file_get_contents($p);
-    $lastModified = max($lastModified, filemtime($p));
+    // we must have blank line at the end of all files but if somebody forget to add it
+    // we need add it here
+    $out .= file_get_contents($fileRealPath) . "\n";
+    $lastModified = max($lastModified, filemtime($fileRealPath));
 }
 
 //checking if client have older copy then we have on server
@@ -97,7 +121,7 @@ header('Cache-Control: must-revalidate');
 header('Last-modified: ' . gmdate('r', $lastModified));
 
 // optional custom content type, can be emulated by index.php/x.js or x.css
-if (is_string($contentType)) {
+if (is_string($contentType) && in_array($contentType, $contentTypeAllowed)) {
     header('Content-type: '.$contentType);
 }
 

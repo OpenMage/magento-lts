@@ -41,7 +41,7 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
 
     public function getActiveFilters()
     {
-        $filters = Mage::getSingleton('catalog/layer')->getState()->getFilters();
+        $filters = $this->getLayer()->getState()->getFilters();
         if (!is_array($filters)) {
             $filters = array();
         }
@@ -59,5 +59,13 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
         $params['_use_rewrite'] = true;
         $params['_query']   = $filterState;
         return Mage::getUrl('*/*/*', $params);
+    }
+
+    public function getLayer()
+    {
+        if (!$this->hasData('layer')) {
+            $this->setLayer(Mage::getSingleton('catalog/layer'));
+        }
+        return $this->_getData('layer');
     }
 }

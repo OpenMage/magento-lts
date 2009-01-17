@@ -140,6 +140,7 @@ abstract class Mage_Rule_Model_Condition_Abstract
             'numeric' => array('==', '!=', '>=', '>', '<=', '<', '()', '!()'),
             'date' => array('==', '>=', '<='),
             'select' => array('==', '!='),
+            'multiselect' => array('==', '!=', '{}', '!{}'),
             'grid' => array('()', '!()'),
         ));
         return $this;
@@ -226,21 +227,30 @@ abstract class Mage_Rule_Model_Condition_Abstract
         }
 
         $options = $this->getValueSelectOptions();
+        $valueArr = array();
         if (!empty($options)) {
             foreach ($options as $o) {
-                if (is_array($o['value'])) {
-                    foreach ($o['value'] as $v) {
-                        if ($v['value']==$value) {
-                            return $v['label'];
+                if (is_array($value)) {
+                    if (in_array($o['value'], $value)) {
+                        $valueArr[] = $o['label'];
+                    }
+                } else {
+                    if (is_array($o['value'])) {
+                        foreach ($o['value'] as $v) {
+                            if ($v['value']==$value) {
+                                return $v['label'];
+                            }
                         }
                     }
-                }
-                if ($o['value']==$value) {
-                    return $o['label'];
+                    if ($o['value']==$value) {
+                        return $o['label'];
+                    }
                 }
             }
         }
-
+        if (!empty($valueArr)) {
+            $value = implode(', ', $valueArr);
+        }
         return $value;
     }
 
@@ -411,18 +421,31 @@ abstract class Mage_Rule_Model_Condition_Abstract
         return $str;
     }
 
+    /**
+     * Validate product attrbute value for condition
+     *
+     * @param   mixed $validatedValue product attribute value
+     * @return  bool
+     */
     public function validateAttribute($validatedValue)
     {
         if (is_object($validatedValue)) {
             return false;
         }
 
+        /**
+         * Condition attribute value
+         */
         $value = $this->getValueParsed();
+
+        /**
+         * Comparison operator
+         */
         $op = $this->getOperator();
 
         // if operator requires array and it is not, or on opposite, return false
         if ((($op=='()' || $op=='!()') && !is_array($value))
-            || (!($op=='()' || $op=='!()') && is_array($value))) {
+            || (!($op=='()' || $op=='!()' || $op=='!=' || $op=='==' || $op=='{}' || $op=='!{}') && is_array($value))) {
             return false;
         }
 
@@ -430,10 +453,19 @@ abstract class Mage_Rule_Model_Condition_Abstract
 
         switch ($op) {
             case '==': case '!=':
-                if (is_array($validatedValue)) {
-                    $result = in_array($value, $validatedValue);
+                if (is_array($value)) {
+                    if (is_array($validatedValue)) {
+                        $result = array_diff($validatedValue, $value);
+                        $result = empty($result) && (sizeof($validatedValue) == sizeof($value));
+                    } else {
+                        return false;
+                    }
                 } else {
-                    $result = $validatedValue==$value;
+                    if (is_array($validatedValue)) {
+                        $result = in_array($value, $validatedValue);
+                    } else {
+                        $result = $validatedValue==$value;
+                    }
                 }
                 break;
 
@@ -454,10 +486,19 @@ abstract class Mage_Rule_Model_Condition_Abstract
                 break;
 
             case '{}': case '!{}':
-                if (is_array($validatedValue)) {
-                    $result = false;
+                if (is_array($value)) {
+                    if (is_array($validatedValue)) {
+                        $result = array_diff($value, $validatedValue);
+                        $result = empty($result);
+                    } else {
+                        return false;
+                    }
                 } else {
-                    $result = stripos((string)$validatedValue, (string)$value)!==false;
+                    if (is_array($validatedValue)) {
+                        $result = false;
+                    } else {
+                        $result = stripos((string)$validatedValue, (string)$value)!==false;
+                    }
                 }
                 break;
 

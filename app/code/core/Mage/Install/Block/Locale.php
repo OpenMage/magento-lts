@@ -62,7 +62,8 @@ class Mage_Install_Block_Locale extends Mage_Install_Block_Abstract
      */
     public function getPostUrl()
     {
-        return $this->getUrl('*/*/localePost');
+        return $this->getCurrentStep()->getNextUrl();
+        //return $this->getUrl('*/*/localePost');
     }
 
     /**

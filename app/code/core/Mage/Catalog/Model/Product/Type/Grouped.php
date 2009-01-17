@@ -40,6 +40,21 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     protected $_isComposite = true;
 
     /**
+     * Return relation info about used products
+     *
+     * @return Varien_Object Object with information data
+     */
+    public function getRelationInfo()
+    {
+        $info = new Varien_Object();
+        $info->setTable('catalog/product_link')
+            ->setParentFieldName('product_id')
+            ->setChildFieldName('linked_product_id')
+            ->setWhere('link_type_id=' . Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED);
+        return $info;
+    }
+
+    /**
      * Retrieve array of associated products
      *
      * @return array
@@ -178,7 +193,8 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
         $productsInfo = $buyRequest->getSuperGroup();
         if (!empty($productsInfo) && is_array($productsInfo)) {
             $products = array();
-            if ($associatedProducts = $this->getAssociatedProducts()) {
+            $associatedProducts = $this->getAssociatedProducts();
+            if ($associatedProducts) {
                 $productId = $this->getProduct()->getId();
                 foreach ($associatedProducts as $subProduct) {
                     if(isset($productsInfo[$subProduct->getId()])) {
@@ -186,6 +202,14 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                         if (!empty($qty)) {
                             $subProduct->setCartQty($qty);
                             $subProduct->addCustomOption('product_type', self::TYPE_CODE, $this->getProduct());
+                            $subProduct->addCustomOption('info_buyRequest',
+                                serialize(array(
+                                    'super_product_config' => array(
+                                        'product_type'  => self::TYPE_CODE,
+                                        'product_id'    => $this->getProduct()->getId()
+                                    )
+                                ))
+                            );
                             $products[] = $subProduct;
                         }
                     }

@@ -20,7 +20,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    Mage
- * @package     Mage_Catalog
+ * @package     Mage_CatalogInventory
  * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -36,6 +36,7 @@
                     <list translate="title" module="cataloginventory">
                         <title>Retrieve stock data by product ids</title>
                         <method>items</method>
+                        <acl>cataloginventory/info</acl>
                     </list>
                     <update translate="title" module="cataloginventory">
                         <title>Update product stock data</title>
@@ -59,14 +60,16 @@
         </resources_alias>
         <acl>
             <resources>
-                <all>
-                    <cataloginventory translate="title" module="catalog">
-                        <title>Catalog Inventory</title>
-                        <update translate="title" module="catalog">
-                            <title>Update</title>
-                        </update>
-                    </cataloginventory>
-                </all>
+                <cataloginventory translate="title" module="cataloginventory">
+                    <title>Catalog Inventory</title>
+                    <sort_order>4</sort_order>
+                    <update translate="title" module="cataloginventory">
+                        <title>Update</title>
+                    </update>
+                    <info translate="title" module="cataloginventory">
+                        <title>Retrieve stock data</title>
+                    </info>
+                </cataloginventory>
             </resources>
         </acl>
     </api>

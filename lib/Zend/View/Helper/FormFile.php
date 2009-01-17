@@ -46,15 +46,13 @@ class Zend_View_Helper_FormFile extends Zend_View_Helper_FormElement
      * array, all other parameters are ignored, and the array elements
      * are extracted in place of added parameters.
      *
-     * @param mixed $value The element value.
-     *
      * @param array $attribs Attributes for the element tag.
      *
      * @return string The element XHTML.
      */
-    public function formFile($name, $value = null, $attribs = null)
+    public function formFile($name, $attribs = null)
     {
-        $info = $this->_getInfo($name, $value, $attribs);
+        $info = $this->_getInfo($name, null, $attribs);
         extract($info); // name, id, value, attribs, options, listsep, disable
 
         // is it disabled?
@@ -62,7 +60,7 @@ class Zend_View_Helper_FormFile extends Zend_View_Helper_FormElement
         if ($disable) {
             $disabled = ' disabled="disabled"';
         } 
-        
+
         // XHTML or HTML end tag?
         $endTag = ' />';
         if (($this->view instanceof Zend_View_Abstract) && !$this->view->doctype()->isXhtml()) {
@@ -73,7 +71,6 @@ class Zend_View_Helper_FormFile extends Zend_View_Helper_FormElement
         $xhtml = '<input type="file"'
                 . ' name="' . $this->view->escape($name) . '"'
                 . ' id="' . $this->view->escape($id) . '"'
-                . ' value="' . $this->view->escape($value) . '"'
                 . $disabled
                 . $this->_htmlAttribs($attribs) 
                 . $endTag;

@@ -280,6 +280,14 @@
                         if( group_name == '' ) {
                             this.addGroup();
                         } else if( group_name != false && group_name != null && group_name != '' ) {
+
+                            for (var i=0; i < TreePanels.root.childNodes.length; i++) {
+                                if (TreePanels.root.childNodes[i].text.toLowerCase() == group_name.toLowerCase()) {
+                                    errorText = "<?php echo Mage::helper('catalog')->__('Attribute group with the \"/name/\" name already exists') ?>";
+                                    alert(errorText.replace("/name/",group_name));
+                                    return;
+                                }
+                            }
                             var newNode = new Ext.tree.TreeNode({
                                     text : group_name,
                                     cls : 'folder',
@@ -306,6 +314,9 @@
                             return;
                         }
                         editSet.req.attribute_set_name = $('attribute_set_name').value;
+                        if (!editSet.req.form_key) {
+                            editSet.req.form_key = FORM_KEY;
+                        }
                         var req = {data : Ext.util.JSON.encode(editSet.req)};
                         var con = new Ext.lib.Ajax.request('POST', '<?php echo $this->getMoveUrl() ?>', {success:editSet.success,failure:editSet.failure}, req);
                     },

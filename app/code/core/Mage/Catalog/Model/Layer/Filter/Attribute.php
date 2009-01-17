@@ -35,17 +35,33 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
 {
     const OPTIONS_ONLY_WITH_RESULTS = 1;
 
+    /**
+     * Construct attribute filter
+     */
     public function __construct()
     {
         parent::__construct();
         $this->_requestVar = 'attribute';
     }
 
+    /**
+     * Get option text from frontend model by option id
+     *
+     * @param   int $optionId
+     * @return  unknown
+     */
     protected  function _getOptionText($optionId)
     {
         return $this->getAttributeModel()->getFrontend()->getOption($optionId);
     }
 
+    /**
+     * Apply attribute option filter to product collection
+     *
+     * @param   Zend_Controller_Request_Abstract $request
+     * @param   Varien_Object $filterBlock
+     * @return  Mage_Catalog_Model_Layer_Filter_Attribute
+     */
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {
         $filter = $request->getParam($this->_requestVar);
@@ -54,16 +70,6 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
         }
         $text = $this->_getOptionText($filter);
         if ($filter && $text) {
-            /*$entityIds = Mage::getSingleton('catalogindex/attribute')->getFilteredEntities($this->getAttributeModel(), $filter, $this->_getFilterEntityIds());
-            if ($entityIds) {
-                $this->getLayer()->getProductCollection()
-                    ->addFieldToFilter('entity_id', array('in' => $entityIds));
-
-                $this->getLayer()->getState()->addFilter(
-                    $this->_createItem($text, $filter)
-                );
-                $this->_items = array();
-            }*/
             Mage::getSingleton('catalogindex/attribute')->applyFilterToCollection(
                 $this->getLayer()->getProductCollection(),
                 $this->getAttributeModel(),
@@ -75,41 +81,59 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
         return $this;
     }
 
-    protected function _initItems()
+    /**
+     * Get data array for building attribute filter items
+     *
+     * @return array
+     */
+    protected function _getItemsData()
     {
         $attribute = $this->getAttributeModel();
-        $options = $attribute->getFrontend()->getSelectOptions();
-
-        //$optionsCount = Mage::getSingleton('catalogindex/attribute')->getCount($attribute, $this->_getFilterEntityIds());
-        $optionsCount = Mage::getSingleton('catalogindex/attribute')->getCount($attribute, $this->_getBaseCollectionSql());
         $this->_requestVar = $attribute->getAttributeCode();
 
-        $items=array();
+        $key = $this->getLayer()->getStateKey().'_'.$this->_requestVar;
+        $data = $this->getLayer()->getAggregator()->getCacheData($key);
 
-        foreach ($options as $option) {
-            if (strlen($option['value'])) {
-                // Check filter type
-                if ($attribute->getIsFilterable() == self::OPTIONS_ONLY_WITH_RESULTS) {
-                    if (!empty($optionsCount[$option['value']])) {
-                        $items[] = Mage::getModel('catalog/layer_filter_item')
-                            ->setFilter($this)
-                            ->setLabel($option['label'])
-                            ->setValue($option['value'])
-                            ->setCount($optionsCount[$option['value']]);
+        if ($data === null) {
+            $options = $attribute->getFrontend()->getSelectOptions();
+            $optionsCount = Mage::getSingleton('catalogindex/attribute')->getCount(
+                $attribute,
+                $this->_getBaseCollectionSql()
+            );
+            $data = array();
+
+            foreach ($options as $option) {
+                if (is_array($option['value'])) {
+                    continue;
+                }
+                if (Mage::helper('core/string')->strlen($option['value'])) {
+                    // Check filter type
+                    if ($attribute->getIsFilterable() == self::OPTIONS_ONLY_WITH_RESULTS) {
+                        if (!empty($optionsCount[$option['value']])) {
+                            $data[] = array(
+                                'label' => $option['label'],
+                                'value' => $option['value'],
+                                'count' => $optionsCount[$option['value']],
+                            );
+                        }
+                    }
+                    else {
+                        $data[] = array(
+                            'label' => $option['label'],
+                            'value' => $option['value'],
+                            'count' => isset($optionsCount[$option['value']]) ? $optionsCount[$option['value']] : 0,
+                        );
                     }
                 }
-                else {
-                    $items[] = Mage::getModel('catalog/layer_filter_item')
-                        ->setFilter($this)
-                        ->setLabel($option['label'])
-                        ->setValue($option['value'])
-                        ->setCount(isset($optionsCount[$option['value']]) ? $optionsCount[$option['value']] : 0);
-                }
             }
+
+            $tags = array(
+                Mage_Eav_Model_Entity_Attribute::CACHE_TAG.':'.$attribute->getId()
+            );
+
+            $tags = $this->getLayer()->getStateTags($tags);
+            $this->getLayer()->getAggregator()->saveCacheData($data, $key, $tags);
         }
-
-
-        $this->_items = $items;
-        return $this;
+        return $data;
     }
 }

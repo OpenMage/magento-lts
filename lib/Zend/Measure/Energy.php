@@ -12,23 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Energy.php 8064 2008-02-16 10:58:39Z thomas $
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @category  Zend
+ * @package   Zend_Measure
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @version   $Id: Energy.php 13209 2008-12-13 22:34:06Z thomas $
  */
-
 
 /**
  * Implement needed classes
  */
-#require_once 'Zend/Measure/Exception.php';
 #require_once 'Zend/Measure/Abstract.php';
 #require_once 'Zend/Locale.php';
 
-
 /**
+ * Class for handling energy conversions
+ *
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Energy
@@ -37,112 +36,116 @@
  */
 class Zend_Measure_Energy extends Zend_Measure_Abstract
 {
-    // Energy definitions
     const STANDARD = 'JOULE';
 
-    const ATTOJOULE              = 'ATTOJOULE';
-    const BOARD_OF_TRADE_UNIT    = 'BOARD_OF_TRADE_UNIT';
-    const BTU                    = 'BTU';
-    const BTU_THERMOCHEMICAL     = 'BTU_TERMOCHEMICAL';
-    const CALORIE                = 'CALORIE';
-    const CALORIE_15C            = 'CALORIE_15C';
-    const CALORIE_NUTRITIONAL    = 'CALORIE_NUTRITIONAL';
-    const CALORIE_THERMOCHEMICAL = 'CALORIE_THERMOCHEMICAL';
-    const CELSIUS_HEAT_UNIT      = 'CELSIUS_HEAT_UNIT';
-    const CENTIJOULE             = 'CENTIJOULE';
-    const CHEVAL_VAPEUR_HEURE    = 'CHEVAL_VAPEUR_HEURE';
-    const DECIJOULE              = 'DECIJOULE';
-    const DEKAJOULE              = 'DEKAJOULE';
-    const DEKAWATT_HOUR          = 'DEKAWATT_HOUR';
-    const DEKATHERM              = 'DEKATHERM';
-    const ELECTRONVOLT           = 'ELECTRONVOLT';
-    const ERG                    = 'ERG';
-    const EXAJOULE               = 'EXAJOULE';
-    const EXAWATT_HOUR           = 'EXAWATT_HOUR';
-    const FEMTOJOULE             = 'FEMTOJOULE';
-    const FOOT_POUND             = 'FOOT_POUND';
-    const FOOT_POUNDAL           = 'FOOT_POUNDAL';
-    const GALLON_UK_AUTOMOTIVE   = 'GALLON_UK_AUTOMOTIVE';
-    const GALLON_US_AUTOMOTIVE   = 'GALLON_US_AUTOMOTIVE';
-    const GALLON_UK_AVIATION     = 'GALLON_UK_AVIATION';
-    const GALLON_US_AVIATION     = 'GALLON_US_AVIATION';
-    const GALLON_UK_DIESEL       = 'GALLON_UK_DIESEL';
-    const GALLON_US_DIESEL       = 'GALLON_US_DIESEL';
-    const GALLON_UK_DISTILATE    = 'GALLON_UK_DISTILATE';
-    const GALLON_US_DISTILATE    = 'GALLON_US_DISTILATE';
-    const GALLON_UK_KEROSINE_JET = 'GALLON_UK_KEROSINE_JET';
-    const GALLON_US_KEROSINE_JET = 'GALLON_US_KEROSINE_JET';
-    const GALLON_UK_LPG          = 'GALLON_UK_LPG';
-    const GALLON_US_LPG          = 'GALLON_US_LPG';
-    const GALLON_UK_NAPHTA       = 'GALLON_UK_NAPHTA';
-    const GALLON_US_NAPHTA       = 'GALLON_US_NAPHTA';
-    const GALLON_UK_KEROSENE     = 'GALLON_UK_KEROSINE';
-    const GALLON_US_KEROSENE     = 'GALLON_US_KEROSINE';
-    const GALLON_UK_RESIDUAL     = 'GALLON_UK_RESIDUAL';
-    const GALLON_US_RESIDUAL     = 'GALLON_US_RESIDUAL';
-    const GIGAELECTRONVOLT       = 'GIGAELECTRONVOLT';
-    const GIGACALORIE            = 'GIGACALORIE';
-    const GIGACALORIE_15C        = 'GIGACALORIE_15C';
-    const GIGAJOULE              = 'GIGAJOULE';
-    const GIGAWATT_HOUR          = 'GIGAWATT_HOUR';
-    const GRAM_CALORIE           = 'GRAM_CALORIE';
-    const HARTREE                = 'HARTREE';
-    const HECTOJOULE             = 'HECTOJOULE';
-    const HECTOWATT_HOUR         = 'HECTOWATT_HOUR';
-    const HORSEPOWER_HOUR        = 'HORSEPOWER_HOUR';
-    const HUNDRED_CUBIC_FOOT_GAS = 'HUNDRED_CUBIC_FOOT_GAS';
-    const INCH_OUNCE             = 'INCH_OUNCE';
-    const INCH_POUND             = 'INCH_POUND';
-    const JOULE                  = 'JOULE';
-    const KILOCALORIE_15C        = 'KILOCALORIE_15C';
-    const KILOCALORIE            = 'KILOCALORIE';
+    const ATTOJOULE                  = 'ATTOJOULE';
+    const BOARD_OF_TRADE_UNIT        = 'BOARD_OF_TRADE_UNIT';
+    const BTU                        = 'BTU';
+    const BTU_THERMOCHEMICAL         = 'BTU_TERMOCHEMICAL';
+    const CALORIE                    = 'CALORIE';
+    const CALORIE_15C                = 'CALORIE_15C';
+    const CALORIE_NUTRITIONAL        = 'CALORIE_NUTRITIONAL';
+    const CALORIE_THERMOCHEMICAL     = 'CALORIE_THERMOCHEMICAL';
+    const CELSIUS_HEAT_UNIT          = 'CELSIUS_HEAT_UNIT';
+    const CENTIJOULE                 = 'CENTIJOULE';
+    const CHEVAL_VAPEUR_HEURE        = 'CHEVAL_VAPEUR_HEURE';
+    const DECIJOULE                  = 'DECIJOULE';
+    const DEKAJOULE                  = 'DEKAJOULE';
+    const DEKAWATT_HOUR              = 'DEKAWATT_HOUR';
+    const DEKATHERM                  = 'DEKATHERM';
+    const ELECTRONVOLT               = 'ELECTRONVOLT';
+    const ERG                        = 'ERG';
+    const EXAJOULE                   = 'EXAJOULE';
+    const EXAWATT_HOUR               = 'EXAWATT_HOUR';
+    const FEMTOJOULE                 = 'FEMTOJOULE';
+    const FOOT_POUND                 = 'FOOT_POUND';
+    const FOOT_POUNDAL               = 'FOOT_POUNDAL';
+    const GALLON_UK_AUTOMOTIVE       = 'GALLON_UK_AUTOMOTIVE';
+    const GALLON_US_AUTOMOTIVE       = 'GALLON_US_AUTOMOTIVE';
+    const GALLON_UK_AVIATION         = 'GALLON_UK_AVIATION';
+    const GALLON_US_AVIATION         = 'GALLON_US_AVIATION';
+    const GALLON_UK_DIESEL           = 'GALLON_UK_DIESEL';
+    const GALLON_US_DIESEL           = 'GALLON_US_DIESEL';
+    const GALLON_UK_DISTILATE        = 'GALLON_UK_DISTILATE';
+    const GALLON_US_DISTILATE        = 'GALLON_US_DISTILATE';
+    const GALLON_UK_KEROSINE_JET     = 'GALLON_UK_KEROSINE_JET';
+    const GALLON_US_KEROSINE_JET     = 'GALLON_US_KEROSINE_JET';
+    const GALLON_UK_LPG              = 'GALLON_UK_LPG';
+    const GALLON_US_LPG              = 'GALLON_US_LPG';
+    const GALLON_UK_NAPHTA           = 'GALLON_UK_NAPHTA';
+    const GALLON_US_NAPHTA           = 'GALLON_US_NAPHTA';
+    const GALLON_UK_KEROSENE         = 'GALLON_UK_KEROSINE';
+    const GALLON_US_KEROSENE         = 'GALLON_US_KEROSINE';
+    const GALLON_UK_RESIDUAL         = 'GALLON_UK_RESIDUAL';
+    const GALLON_US_RESIDUAL         = 'GALLON_US_RESIDUAL';
+    const GIGAELECTRONVOLT           = 'GIGAELECTRONVOLT';
+    const GIGACALORIE                = 'GIGACALORIE';
+    const GIGACALORIE_15C            = 'GIGACALORIE_15C';
+    const GIGAJOULE                  = 'GIGAJOULE';
+    const GIGAWATT_HOUR              = 'GIGAWATT_HOUR';
+    const GRAM_CALORIE               = 'GRAM_CALORIE';
+    const HARTREE                    = 'HARTREE';
+    const HECTOJOULE                 = 'HECTOJOULE';
+    const HECTOWATT_HOUR             = 'HECTOWATT_HOUR';
+    const HORSEPOWER_HOUR            = 'HORSEPOWER_HOUR';
+    const HUNDRED_CUBIC_FOOT_GAS     = 'HUNDRED_CUBIC_FOOT_GAS';
+    const INCH_OUNCE                 = 'INCH_OUNCE';
+    const INCH_POUND                 = 'INCH_POUND';
+    const JOULE                      = 'JOULE';
+    const KILOCALORIE_15C            = 'KILOCALORIE_15C';
+    const KILOCALORIE                = 'KILOCALORIE';
     const KILOCALORIE_THERMOCHEMICAL = 'KILOCALORIE_THERMOCHEMICAL';
-    const KILOELECTRONVOLT       = 'KILOELECTRONVOLT';
-    const KILOGRAM_CALORIE       = 'KILOGRAM_CALORIE';
-    const KILOGRAM_FORCE_METER   = 'KILOGRAM_FORCE_METER';
-    const KILOJOULE              = 'KILOJOULE';
-    const KILOPOND_METER         = 'KILOPOND_METER';
-    const KILOTON                = 'KILOTON';
-    const KILOWATT_HOUR          = 'KILOWATT_HOUR';
-    const LITER_ATMOSPHERE       = 'LITER_ATMOSPHERE';
-    const MEGAELECTRONVOLT       = 'MEGAELECTRONVOLT';
-    const MEGACALORIE            = 'MEGACALORIE';
-    const MEGACALORIE_15C        = 'MEGACALORIE_15C';
-    const MEGAJOULE              = 'MEGAJOULE';
-    const MEGALERG               = 'MEGALERG';
-    const MEGATON                = 'MEGATON';
-    const MEGAWATTHOUR           = 'MEGAWATTHOUR';
-    const METER_KILOGRAM_FORCE   = 'METER_KILOGRAM_FORCE';
-    const MICROJOULE             = 'MICROJOULE';
-    const MILLIJOULE             = 'MILLIJOULE';
-    const MYRIAWATT_HOUR         = 'MYRIAWATT_HOUR';
-    const NANOJOULE              = 'NANOJOULE';
-    const NEWTON_METER           = 'NEWTON_METER';
-    const PETAJOULE              = 'PETAJOULE';
-    const PETAWATTHOUR           = 'PETAWATTHOUR';
-    const PFERDESTAERKENSTUNDE   = 'PFERDESTAERKENSTUNDE';
-    const PICOJOULE              = 'PICOJOULE';
-    const Q_UNIT                 = 'Q_UNIT';
-    const QUAD                   = 'QUAD';
-    const TERAELECTRONVOLT       = 'TERAELECTRONVOLT';
-    const TERAJOULE              = 'TERAJOULE';
-    const TERAWATTHOUR           = 'TERAWATTHOUR';
-    const THERM                  = 'THERM';
-    const THERM_US               = 'THERM_US';
-    const THERMIE                = 'THERMIE';
-    const TON                    = 'TON';
-    const TONNE_COAL             = 'TONNE_COAL';
-    const TONNE_OIL              = 'TONNE_OIL';
-    const WATTHOUR               = 'WATTHOUR';
-    const WATTSECOND             = 'WATTSECOND';
-    const YOCTOJOULE             = 'YOCTOJOULE';
-    const YOTTAJOULE             = 'YOTTAJOULE';
-    const YOTTAWATTHOUR          = 'YOTTAWATTHOUR';
-    const ZEPTOJOULE             = 'ZEPTOJOULE';
-    const ZETTAJOULE             = 'ZETTAJOULE';
-    const ZETTAWATTHOUR          = 'ZETTAWATTHOUR';
+    const KILOELECTRONVOLT           = 'KILOELECTRONVOLT';
+    const KILOGRAM_CALORIE           = 'KILOGRAM_CALORIE';
+    const KILOGRAM_FORCE_METER       = 'KILOGRAM_FORCE_METER';
+    const KILOJOULE                  = 'KILOJOULE';
+    const KILOPOND_METER             = 'KILOPOND_METER';
+    const KILOTON                    = 'KILOTON';
+    const KILOWATT_HOUR              = 'KILOWATT_HOUR';
+    const LITER_ATMOSPHERE           = 'LITER_ATMOSPHERE';
+    const MEGAELECTRONVOLT           = 'MEGAELECTRONVOLT';
+    const MEGACALORIE                = 'MEGACALORIE';
+    const MEGACALORIE_15C            = 'MEGACALORIE_15C';
+    const MEGAJOULE                  = 'MEGAJOULE';
+    const MEGALERG                   = 'MEGALERG';
+    const MEGATON                    = 'MEGATON';
+    const MEGAWATTHOUR               = 'MEGAWATTHOUR';
+    const METER_KILOGRAM_FORCE       = 'METER_KILOGRAM_FORCE';
+    const MICROJOULE                 = 'MICROJOULE';
+    const MILLIJOULE                 = 'MILLIJOULE';
+    const MYRIAWATT_HOUR             = 'MYRIAWATT_HOUR';
+    const NANOJOULE                  = 'NANOJOULE';
+    const NEWTON_METER               = 'NEWTON_METER';
+    const PETAJOULE                  = 'PETAJOULE';
+    const PETAWATTHOUR               = 'PETAWATTHOUR';
+    const PFERDESTAERKENSTUNDE       = 'PFERDESTAERKENSTUNDE';
+    const PICOJOULE                  = 'PICOJOULE';
+    const Q_UNIT                     = 'Q_UNIT';
+    const QUAD                       = 'QUAD';
+    const TERAELECTRONVOLT           = 'TERAELECTRONVOLT';
+    const TERAJOULE                  = 'TERAJOULE';
+    const TERAWATTHOUR               = 'TERAWATTHOUR';
+    const THERM                      = 'THERM';
+    const THERM_US                   = 'THERM_US';
+    const THERMIE                    = 'THERMIE';
+    const TON                        = 'TON';
+    const TONNE_COAL                 = 'TONNE_COAL';
+    const TONNE_OIL                  = 'TONNE_OIL';
+    const WATTHOUR                   = 'WATTHOUR';
+    const WATTSECOND                 = 'WATTSECOND';
+    const YOCTOJOULE                 = 'YOCTOJOULE';
+    const YOTTAJOULE                 = 'YOTTAJOULE';
+    const YOTTAWATTHOUR              = 'YOTTAWATTHOUR';
+    const ZEPTOJOULE                 = 'ZEPTOJOULE';
+    const ZETTAJOULE                 = 'ZETTAJOULE';
+    const ZETTAWATTHOUR              = 'ZETTAWATTHOUR';
 
-    protected $_UNITS = array(
+    /**
+     * Calculations for all energy units
+     *
+     * @var array
+     */
+    protected $_units = array(
         'ATTOJOULE'              => array('1.0e-18',           'aJ'),
         'BOARD_OF_TRADE_UNIT'    => array('3600000',           'BOTU'),
         'BTU'                    => array('1055.0559',         'Btu'),

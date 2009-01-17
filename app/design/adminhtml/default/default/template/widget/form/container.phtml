@@ -24,12 +24,22 @@
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+/**
+ * @see Mage_Adminhtml_Block_Widget_Form_Container
+ */
+ ?>
 <?php echo $this->getFormInitScripts() ?>
 <div class="content-header">
     <?php echo $this->getHeaderHtml() ?>
-	<p class="content-buttons form-buttons"><?php echo $this->getButtonsHtml() ?></p>
+    <p class="content-buttons form-buttons"><?php echo $this->getButtonsHtml('header') ?></p>
 </div>
 <?php echo $this->getFormHtml() ?>
+<?php if ($this->hasFooterButtons()): ?>
+    <div class="content-footer">
+        <p class="content-buttons form-buttons"><?php echo $this->getButtonsHtml('footer') ?></p>
+    </div>
+<?php endif; ?>
 <script type="text/javascript">
     var editForm = new varienForm('edit_form', '<?php echo $this->getValidationUrl() ?>');
 </script>

@@ -161,6 +161,9 @@ class Mage_CatalogInventory_Model_Observer
          * Check item for options
          */
         if (($options = $quoteItem->getQtyOptions()) && $qty > 0) {
+            $qty = $quoteItem->getProduct()->getTypeInstance()->prepareQuoteItemQty($qty);
+            $quoteItem->setData('qty', $qty);
+
             foreach ($options as $option) {
                 /* @var $option Mage_Sales_Model_Quote_Item_Option */
                 $optionQty = $qty * $option->getValue();
@@ -171,14 +174,22 @@ class Mage_CatalogInventory_Model_Observer
                 if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
                     Mage::throwException(Mage::helper('cataloginventory')->__('Stock item for Product in option is not valid'));
                 }
+
                 $qtyForCheck = $this->_getProductQtyForCheck($option->getProduct()->getId(), $increaseOptionQty);
-                $result = $stockItem->checkQuoteItemQty($optionQty, $qtyForCheck);
+
+                $result = $stockItem->checkQuoteItemQty($optionQty, $qtyForCheck, $option->getValue());
 
                 if (!is_null($result->getItemIsQtyDecimal())) {
                     $option->setIsQtyDecimal($result->getItemIsQtyDecimal());
                 }
-                if (!is_null($result->getItemQty())) {
-                    $option->setValue(($result->getItemQty() / $qty));
+
+                if ($result->getHasQtyOptionUpdate()) {
+                    $quoteItem->updateQtyOption($option, $result->getOrigQty());
+                    $option->setValue($result->getOrigQty());
+                    /**
+                     * if option's qty was updates we also need to update quote item qty
+                     */
+                    $quoteItem->setData('qty', intval($qty));
                 }
                 if (!is_null($result->getMessage())) {
                     $option->setMessage($result->getMessage());
@@ -208,18 +219,19 @@ class Mage_CatalogInventory_Model_Observer
              * When we work with subitem (as subproduct of bundle or configurable product)
              */
             if ($quoteItem->getParentItem()) {
-                $qty = $quoteItem->getParentItem()->getQty()*$qty;
+                $rowQty = $quoteItem->getParentItem()->getQty()*$qty;
                 /**
-                 * we are using 0 becose original qty was processed
+                 * we are using 0 because original qty was processed
                  */
                 $qtyForCheck = $this->_getProductQtyForCheck($quoteItem->getProduct()->getId(), 0);
             }
             else {
                 $increaseQty = $quoteItem->getQtyToAdd() ? $quoteItem->getQtyToAdd() : $qty;
+                $rowQty = $qty;
                 $qtyForCheck = $this->_getProductQtyForCheck($quoteItem->getProduct()->getId(), $increaseQty);
             }
 
-            $result = $stockItem->checkQuoteItemQty($qty, $qtyForCheck);
+            $result = $stockItem->checkQuoteItemQty($rowQty, $qtyForCheck, $qty);
 
             if (!is_null($result->getItemIsQtyDecimal())) {
                 $quoteItem->setIsQtyDecimal($result->getItemIsQtyDecimal());
@@ -230,10 +242,14 @@ class Mage_CatalogInventory_Model_Observer
 
             /**
              * Just base (parent) item qty can be changed
-             * qty of child products are declared just duering add process
+             * qty of child products are declared just during add process
+             * exception for updating also managed by product type
              */
-            if (!is_null($result->getItemQty()) && !$quoteItem->getParentItem()) {
-                $quoteItem->setData('qty', $result->getItemQty());
+            if ($result->getHasQtyOptionUpdate()
+                && (!$quoteItem->getParentItem()
+                    || $quoteItem->getParentItem()->getProduct()->getTypeInstance()
+                        ->getForceChildItemQtyChanges())) {
+                $quoteItem->setData('qty', $result->getOrigQty());
             }
 
             if (!is_null($result->getItemUseOldQty())) {

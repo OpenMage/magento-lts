@@ -149,6 +149,7 @@ class Mage_Log_Model_Mysql4_Visitor_Collection extends Varien_Data_Collection_Db
         $email  = $customersCollection->getAttribute('email');
 
         $this->_select
+            ->from('', array('type' => 'IF(customer_id, \''.Mage_Log_Model_Visitor::VISITOR_TYPE_CUSTOMER.'\', \''.Mage_Log_Model_Visitor::VISITOR_TYPE_VISITOR.'\')'))
             ->joinLeft(
                 array('customer_lastname_table'=>$lastname->getBackend()->getTable()),
                 'customer_lastname_table.entity_id=customer_table.customer_id

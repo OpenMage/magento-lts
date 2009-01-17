@@ -46,7 +46,7 @@ abstract class Zend_Pdf_Resource_Font_Simple_Parsed extends Zend_Pdf_Resource_Fo
     public function __construct(Zend_Pdf_FileParser_Font_OpenType $fontParser)
     {
         parent::__construct();
-    	
+        
         
         $fontParser->parse();
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.36 $"/>
-		<generation date="$Date: 2007/07/19 22:31:40 $"/>
+		<version number="$Revision: 1.40 $"/>
+		<generation date="$Date: 2008/06/15 08:09:47 $"/>
 		<language type="syr"/>
 	</identity>
 	<localeDisplayNames>
@@ -14,9 +14,12 @@
 			<territory type="SY">ܣܘܪܝܝܐ</territory>
 		</territories>
 	</localeDisplayNames>
+	<layout>
+		<orientation characters="right-to-left"/>
+	</layout>
 	<characters>
 		<exemplarCharacters>[ܑ ܰ-݊ ܃-܉ ܁ ܂ ܀ ܊-܍ ܐ ܒ-ܔ ܖ ܕ ܗ-ܬ]</exemplarCharacters>
-		<exemplarCharacters type="auxiliary">[\u070F\u200C \u200D ܭ-ܯ ݍ-ݏ]</exemplarCharacters>
+		<exemplarCharacters type="auxiliary">[܏\u200C \u200D ܭ-ܯ ݍ-ݏ]</exemplarCharacters>
 	</characters>
 	<dates>
 		<calendars>
@@ -38,18 +41,18 @@
 							<month type="12">܏ܟܢ ܏ܐ</month>
 						</monthWidth>
 						<monthWidth type="wide">
-							<month type="1">1</month>
-							<month type="2">2</month>
-							<month type="3">3</month>
-							<month type="4">4</month>
-							<month type="5">5</month>
-							<month type="6">6</month>
-							<month type="7">7</month>
-							<month type="8">8</month>
-							<month type="9">9</month>
-							<month type="10">10</month>
-							<month type="11">11</month>
-							<month type="12">12</month>
+							<month type="1">܏ܟܢ ܏ܒ</month>
+							<month type="2">ܫܒܛ</month>
+							<month type="3">ܐܕܪ</month>
+							<month type="4">ܢܝܣܢ</month>
+							<month type="5">ܐܝܪ</month>
+							<month type="6">ܚܙܝܪܢ</month>
+							<month type="7">ܬܡܘܙ</month>
+							<month type="8">ܐܒ</month>
+							<month type="9">ܐܝܠܘܠ</month>
+							<month type="10">܏ܬܫ ܏ܐ</month>
+							<month type="11">܏ܬܫ ܏ܒ</month>
+							<month type="12">܏ܟܢ ܏ܐ</month>
 						</monthWidth>
 					</monthContext>
 					<monthContext type="stand-alone">
@@ -204,7 +207,7 @@
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>¤ #,##0.00;¤ #,##0.00-</pattern>
+					<pattern>¤ #,##0.00;¤ #,##0.00-</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 		</currencyFormats>

@@ -70,16 +70,16 @@ class Mage_Reports_Model_Mysql4_Refunded_Collection extends Mage_Sales_Model_Ent
         } else {
             $this->addExpressionAttributeToSelect(
                     'refunded',
-                    'SUM({{base_total_refunded}}/{{store_to_base_rate}})',
-                    array('base_total_refunded', 'store_to_base_rate'))
+                    'SUM({{base_total_refunded}}*{{base_to_global_rate}})',
+                    array('base_total_refunded', 'base_to_global_rate'))
                 ->addExpressionAttributeToSelect(
                     'online_refunded',
-                    'SUM({{base_total_online_refunded}}/{{store_to_base_rate}})',
-                    array('base_total_online_refunded', 'store_to_base_rate'))
+                    'SUM({{base_total_online_refunded}}*{{base_to_global_rate}})',
+                    array('base_total_online_refunded', 'base_to_global_rate'))
                 ->addExpressionAttributeToSelect(
                     'offline_refunded',
-                    'SUM({{base_total_offline_refunded}}/{{store_to_base_rate}})',
-                    array('base_total_offline_refunded', 'store_to_base_rate'));
+                    'SUM({{base_total_offline_refunded}}*{{base_to_global_rate}})',
+                    array('base_total_offline_refunded', 'base_to_global_rate'));
         }
 
         return $this;

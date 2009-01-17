@@ -58,6 +58,7 @@
                     <input name="<?php echo $_code ?>[to]" value="<?php echo $this->htmlEscape($this->getAttributeValue($_attribute, 'to')) ?>" id="<?php echo $_code ?>_to" title="<?php echo $this->htmlEscape($this->getAttributeLabel($_attribute)) ?>"  class="input-text validate-number" type="text" />
 
                     (<?php echo $this->getCurrency($_attribute); ?>)
+                </div>
                 <?php break;
                 case 'select': ?>
                     <?php echo $this->getAttributeSelectElement($_attribute) ?>
@@ -80,7 +81,7 @@
 </fieldset>
 <div class="button-set">
     <p class="required">* <?php echo $this->__('Required Fields') ?></p>
-    <button class="form-button" type="submit" name="search" id="search"><span><?php echo $this->__('Search') ?></span></button>
+    <button class="form-button" type="submit"><span><?php echo $this->__('Search') ?></span></button>
 </div>
 </form>
 <script type="text/javascript">

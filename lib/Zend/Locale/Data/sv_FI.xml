@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.50 $"/>
-		<generation date="$Date: 2007/07/19 22:31:40 $"/>
+		<version number="$Revision: 1.56 $"/>
+		<generation date="$Date: 2008/06/17 14:12:12 $"/>
 		<language type="sv"/>
 		<territory type="FI"/>
 	</identity>
 	<localeDisplayNames>
+		<languages>
+			<language type="phn">fenikiska</language>
+		</languages>
 		<territories>
+			<territory type="019">Amerika</territory>
+			<territory type="BA">Bosnien-Hercegovina</territory>
+			<territory type="HK">Hongkong</territory>
+			<territory type="MO">Macao</territory>
 			<territory type="UM">USA:s yttre öar</territory>
 		</territories>
+		<variants>
+			<variant type="1996">1996 års stavning</variant>
+			<variant type="FONIPA">internationell fonetisk notation (IPA)</variant>
+			<variant type="FONUPA">uralisk fonetisk notation (UPA)</variant>
+		</variants>
+		<types>
+			<type type="big5han" key="collation">kinesiska i big5-sorteringsordning</type>
+			<type type="gb2312han" key="collation">kinesiska i gb2312-sorteringsordning</type>
+			<type type="phonebook" key="collation">telefonkatalogssorteringsordning</type>
+			<type type="pinyin" key="collation">kinesiska i pinyin-sorteringsordning</type>
+			<type type="stroke" key="collation">kinesiska i strecksorteringsordning</type>
+			<type type="traditional" key="collation">traditionell sorteringsordning</type>
+		</types>
+		<measurementSystemNames>
+			<measurementSystemName type="US">imperiska enheter</measurementSystemName>
+		</measurementSystemNames>
 	</localeDisplayNames>
 	<characters>
+		<exemplarCharacters>[a à b-e é f-v x-z å ä ö]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[à ã ç é ë í ñ ó š w ÿ ü ž]</exemplarCharacters>
 	</characters>
 	<dates>
@@ -24,97 +48,10 @@
 					</field>
 				</fields>
 			</calendar>
-			<calendar type="hebrew">
-				<months>
-					<monthContext type="format">
-						<monthWidth type="abbreviated">
-							<month type="1">tishrí</month>
-							<month type="2">heshván</month>
-							<month type="3">kislév</month>
-							<month type="4">tevét</month>
-							<month type="5">shevát</month>
-							<month type="6">adár</month>
-							<month type="7">adár II</month>
-							<month type="8">nisán</month>
-							<month type="9">ijjár</month>
-							<month type="10">siván</month>
-							<month type="11">tammúz</month>
-							<month type="12">ab</month>
-							<month type="13">elúl</month>
-						</monthWidth>
-						<monthWidth type="wide">
-							<month type="1">tishrí</month>
-							<month type="2">heshván</month>
-							<month type="3">kislév</month>
-							<month type="4">tevét</month>
-							<month type="5">shevát</month>
-							<month type="6">adár</month>
-							<month type="7">adár II</month>
-							<month type="8">nisán</month>
-							<month type="9">ijjár</month>
-							<month type="10">siván</month>
-							<month type="11">tammúz</month>
-							<month type="12">ab</month>
-							<month type="13">elúl</month>
-						</monthWidth>
-					</monthContext>
-				</months>
-			</calendar>
-			<calendar type="islamic">
-				<months>
-					<monthContext type="format">
-						<monthWidth type="abbreviated">
-							<month type="1">muharram</month>
-							<month type="2">safar</month>
-							<month type="3">rabi’ al-awwal</month>
-							<month type="4">rabi’ al-akhir</month>
-							<month type="5">jumada-l-ula</month>
-							<month type="6">jumada-l-akhira</month>
-							<month type="7">rajab</month>
-							<month type="8">sha’ban</month>
-							<month type="9">ramadan</month>
-							<month type="10">shawwal</month>
-							<month type="11">dhu-l-ga’da</month>
-							<month type="12">dhu-l-hijja</month>
-						</monthWidth>
-						<monthWidth type="wide">
-							<month type="1">muharram</month>
-							<month type="2">safar</month>
-							<month type="3">rabi’ al-awwal</month>
-							<month type="4">rabi’ al-akhir</month>
-							<month type="5">jumada-l-ula</month>
-							<month type="6">jumada-l-akhira</month>
-							<month type="7">rajab</month>
-							<month type="8">sha’ban</month>
-							<month type="9">ramadan</month>
-							<month type="10">shawwal</month>
-							<month type="11">dhu-l-ga’da</month>
-							<month type="12">dhu-l-hijja</month>
-						</monthWidth>
-					</monthContext>
-				</months>
-			</calendar>
-			<calendar type="islamic-civil">
-				<months>
-					<monthContext type="format">
-						<monthWidth type="wide">
-							<month type="1">muharram</month>
-							<month type="2">safar</month>
-							<month type="3">rabi’ al-awwal</month>
-							<month type="4">rabi’ al-akhir</month>
-							<month type="5">jumada-l-ula</month>
-							<month type="6">jumada-l-akhira</month>
-							<month type="7">rajab</month>
-							<month type="8">sha’ban</month>
-							<month type="9">ramadan</month>
-							<month type="10">shawwal</month>
-							<month type="11">dhu-l-ga’da</month>
-							<month type="12">dhu-l-hijja</month>
-						</monthWidth>
-					</monthContext>
-				</months>
-			</calendar>
 		</calendars>
+		<timeZoneNames>
+			<hourFormat>+HH:mm;−HH:mm</hourFormat>
+		</timeZoneNames>
 	</dates>
 </ldml>
 

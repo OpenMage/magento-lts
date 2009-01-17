@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
 
     public function getHeaderHtml()
     {
-        $out = '<div id="order:header">';
+        $out = '<div id="order-header">';
         $out.= $this->getLayout()->createBlock('adminhtml/sales_order_create_header')->toHtml();
         $out.= '</div>';
         return $out;

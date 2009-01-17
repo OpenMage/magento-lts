@@ -94,7 +94,7 @@
                             <children>
                                 <config>
                                     <children>
-                                        <google>
+                                        <google translate="title" module="googleanalytics">
                                             <title>Google API</title>
                                         </google>
                                     </children>

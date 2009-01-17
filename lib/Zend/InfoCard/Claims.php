@@ -16,14 +16,8 @@
  * @package    Zend_InfoCard
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Claims.php 8064 2008-02-16 10:58:39Z thomas $
- * @author     John Coggeshall <john@zend.com>
+ * @version    $Id: Claims.php 13213 2008-12-14 11:05:07Z thomas $
  */
-
-/**
- * Zend_InfoCard_Exception
- */
-#require_once 'Zend/InfoCard/Exception.php';
 
 /**
  * Result value of the InfoCard component, contains any error messages and claims
@@ -33,7 +27,6 @@
  * @package    Zend_InfoCard
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @author     John Coggeshall <john@zend.com>
  */
 class Zend_InfoCard_Claims
 {
@@ -139,6 +132,7 @@ class Zend_InfoCard_Claims
             }
 
             if(empty($leader)) {
+                #require_once 'Zend/InfoCard/Exception.php';
                 throw new Zend_InfoCard_Exception("Failed to determine default namespace");
             }
 
@@ -165,6 +159,7 @@ class Zend_InfoCard_Claims
             }
         }
 
+        #require_once 'Zend/InfoCard/Exception.php';
         throw new Zend_InfoCard_Exception("At least one claim must exist in specified namespace to make it the default namespace");
     }
 
@@ -212,6 +207,7 @@ class Zend_InfoCard_Claims
     public function setClaims(Array $claims)
     {
         if(!is_null($this->_claims)) {
+            #require_once 'Zend/InfoCard/Exception.php';
             throw new Zend_InfoCard_Exception("Claim objects are read-only");
         }
 
@@ -236,6 +232,7 @@ class Zend_InfoCard_Claims
                 return $this;
         }
 
+        #require_once 'Zend/InfoCard/Exception.php';
         throw new Zend_InfoCard_Exception("Attempted to set unknown error code");
     }
 
@@ -281,6 +278,7 @@ class Zend_InfoCard_Claims
      */
     public function __unset($k)
     {
+        #require_once 'Zend/InfoCard/Exception.php';
         throw new Zend_InfoCard_Exception("Claim objects are read-only");
     }
 
@@ -306,6 +304,7 @@ class Zend_InfoCard_Claims
      */
     public function __set($k, $v)
     {
+        #require_once 'Zend/InfoCard/Exception.php';
         throw new Zend_InfoCard_Exception("Claim objects are read-only");
     }
 }

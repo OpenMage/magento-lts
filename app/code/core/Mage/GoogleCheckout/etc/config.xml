@@ -28,10 +28,19 @@
 <config>
     <modules>
         <Mage_GoogleCheckout>
-            <version>0.7.0</version>
+            <version>0.7.1</version>
         </Mage_GoogleCheckout>
     </modules>
     <global>
+        <sales>
+	        <quote>
+		        <item>
+			        <product_attributes>
+                        <disable_googlecheckout/>
+			        </product_attributes>
+		        </item>
+	        </quote>
+        </sales>
         <models>
             <googlecheckout>
                 <class>Mage_GoogleCheckout_Model</class>
@@ -136,7 +145,7 @@ Something like this is to be added to resolve bug #4890
                             <children>
                                 <config>
                                     <children>
-                                        <google>
+                                        <google translate="title" module="googlecheckout">
                                             <title>Google API</title>
                                         </google>
                                     </children>

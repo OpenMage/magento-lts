@@ -24,9 +24,8 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- * Adminhtml urlrewrite list block
+ * Block for Urlrewrites grid container
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -34,13 +33,33 @@
  */
 class Mage_Adminhtml_Block_Urlrewrite extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
+    /**
+     * Part for generating apropriate grid block name
+     *
+     * @var string
+     */
+    protected $_controller = 'urlrewrite';
 
+    /**
+     * Set custom labels and headers
+     *
+     */
     public function __construct()
     {
-        $this->_controller = 'urlrewrite';
         $this->_headerText = Mage::helper('adminhtml')->__('Url Rewrite Management');
-        $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add Url Rewrite');
+        $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add Urlrewrite');
         parent::__construct();
     }
 
+    /**
+     * Customize grid row URLs
+     *
+     * @see Mage_Adminhtml_Block_Urlrewrite_Selector
+     * @return string
+     */
+    public function getCreateUrl()
+    {
+        $modes = array_keys(Mage::getBlockSingleton('adminhtml/urlrewrite_selector')->getModes());
+        return $this->getUrl('*/*/edit') . array_shift($modes);
+    }
 }

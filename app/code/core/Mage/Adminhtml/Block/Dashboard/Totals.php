@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Dashboard_Totals extends Mage_Adminhtml_Block_Dashboa
 
     protected function _prepareLayout()
     {
-        $isFilter = $this->getRequest()->getParam('store') || $this->getRequest()->getParam('website');
+        $isFilter = $this->getRequest()->getParam('store') || $this->getRequest()->getParam('website') || $this->getRequest()->getParam('group');
 
         $collection = Mage::getResourceModel('reports/order_collection')
             ->calculateTotals($isFilter);

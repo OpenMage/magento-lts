@@ -13,15 +13,10 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Controller
+ * @package    Zend_Server
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-/**
- * Zend_Server_Reflection_Exception
- */
-#require_once 'Zend/Server/Reflection/Exception.php';
 
 /**
  * Zend_Server_Reflection_ReturnValue
@@ -43,7 +38,7 @@
  * @subpackage Reflection
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Prototype.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version $Id: Prototype.php 13217 2008-12-14 11:09:37Z thomas $
  */
 class Zend_Server_Reflection_Prototype
 {
@@ -59,12 +54,14 @@ class Zend_Server_Reflection_Prototype
         $this->_return = $return;
 
         if (!is_array($params) && (null !== $params)) {
+            #require_once 'Zend/Server/Reflection/Exception.php';
             throw new Zend_Server_Reflection_Exception('Invalid parameters');
         }
 
         if (is_array($params)) {
             foreach ($params as $param) {
                 if (!$param instanceof Zend_Server_Reflection_Parameter) {
+                    #require_once 'Zend/Server/Reflection/Exception.php';
                     throw new Zend_Server_Reflection_Exception('One or more params are invalid');
                 }
             }

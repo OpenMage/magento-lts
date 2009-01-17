@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         $items = $this->getParentBlock()->getItems();
         foreach ($items as $item) {
             $stockItem = $item->getProduct()->getStockItem();
-            $check = $stockItem->checkQuoteItemQty($item->getQty(),$item->getQty());
+            $check = $stockItem->checkQuoteItemQty($item->getQty(), $item->getQty(), $item->getQty());
             $item->setMessage($check->getMessage());
             $item->setHasError($check->getHasError());
             if ($item->getProduct()->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_DISABLED) {
@@ -151,7 +151,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
             foreach ($prices as $data) {
                 $qty    = $data['price_qty']*1;
                 $price  = $this->convertPrice($data['price']);
-            	$info[] = $this->helper('sales')->__('Buy %s for price %s', $qty, $price);
+                $info[] = $this->helper('sales')->__('Buy %s for price %s', $qty, $price);
             }
             return implode(', ', $info);
         }
@@ -167,7 +167,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
             foreach ($prices as $data) {
                 $qty    = $data['price_qty']*1;
                 $price  = $this->convertPrice($data['price']);
-            	$info[] = $this->helper('sales')->__('%s for %s', $qty, $price);
+                $info[] = $this->helper('sales')->__('%s for %s', $qty, $price);
             }
             $html = implode('<br/>', $info);
         }

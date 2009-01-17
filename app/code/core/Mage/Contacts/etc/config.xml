@@ -98,7 +98,7 @@
                             <children>
                                 <config>
                                     <children>
-                                        <contacts>
+                                        <contacts translate="title" module="contacts">
                                             <title>Contacts Section</title>
                                         </contacts>
                                     </children>

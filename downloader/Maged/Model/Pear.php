@@ -69,7 +69,7 @@ class Maged_Model_Pear extends Maged_Model
         $packages = array();
 
         $reg = $pear->getRegistry();
-        
+
         foreach ($this->pear()->getMagentoChannels() as $channel=>$channelName) {
             $pear->run('list', array('channel'=>$channel));
             $output = $pear->getOutput();
@@ -99,11 +99,11 @@ class Maged_Model_Pear extends Maged_Model
                 $pear->getFrontend()->clear();
                 $result = $pear->run('list-upgrades', array('channel'=>$channel));
                 $output = $pear->getOutput();
-    
+
                 if (empty($output)) {
                     continue;
                 }
-    
+
                 foreach ($output as $channelData) {
                     if (empty($channelData['output']['data']) || !is_array($channelData['output']['data'])) {
                         continue;
@@ -120,7 +120,7 @@ class Maged_Model_Pear extends Maged_Model
         }
         $states = array('snapshot'=>0, 'devel'=>1, 'alpha'=>2, 'beta'=>3, 'stable'=>4);
         $preferredState = $states[$this->getPreferredState()];
-        
+
         foreach ($packages as $channel=>&$pkgs) {
             foreach ($pkgs as $pkgName=>&$pkg) {
                 if ($pkgName=='Mage_Pear_Helpers') {
@@ -129,12 +129,13 @@ class Maged_Model_Pear extends Maged_Model
                 }
                 $actions = array();
                 $systemPkg = $channel==='connect.magentocommerce.com/core' && $pkgName==='Mage_Downloader';
-                
+
                 if (!empty($pkg['upgrade_latest'])) {
                     $status = 'upgrade-available';
-                    
+
                     $releases = array();
                     $pear->getFrontend()->clear();
+
                     if ($pear->run('remote-info', array(), array($channel.'/'.$pkgName))) {
                         $output = $pear->getOutput();
                         if (!empty($output[0]['output']['releases'])) {
@@ -168,8 +169,8 @@ class Maged_Model_Pear extends Maged_Model
                         $actions['uninstall'] = 'Uninstall';
                     }
                 }
-                $pkg['actions'] = $actions;
-                $pkg['status'] = $status;
+                $packages[$channel][$pkgName]['actions'] = $actions;
+                $packages[$channel][$pkgName]['status'] = $status;
             }
         }
 
@@ -245,7 +246,7 @@ class Maged_Model_Pear extends Maged_Model
 
         $this->controller()->endInstall();
     }
-    
+
     public function getDistConfig()
     {
         if (is_null($this->get('dist_config'))) {
@@ -257,7 +258,7 @@ class Maged_Model_Pear extends Maged_Model
         }
         return $this->get('dist_config');
     }
-    
+
     public function getDistCurrent()
     {
         if (is_null($this->get('dist_current'))) {
@@ -274,7 +275,7 @@ class Maged_Model_Pear extends Maged_Model
         }
         return $this->get('dist_current');
     }
-    
+
     public function getDistAvailable()
     {
         if (is_null($this->get('dist_available'))) {
@@ -295,7 +296,7 @@ class Maged_Model_Pear extends Maged_Model
         }
         return $this->get('dist_available');
     }
-    
+
     public function getDistByVersion($version)
     {
         foreach ($this->getDistConfig()->distributions->distribution as $dist) {
@@ -305,7 +306,7 @@ class Maged_Model_Pear extends Maged_Model
         }
         return false;
     }
-    
+
     public function getPreferredState()
     {
         if (is_null($this->get('preferred_state'))) {
@@ -314,7 +315,7 @@ class Maged_Model_Pear extends Maged_Model
         }
         return $this->get('preferred_state');
     }
-    
+
     public function distUpgrade($version)
     {
         $dist = $this->getDistByVersion($version);
@@ -332,7 +333,7 @@ class Maged_Model_Pear extends Maged_Model
             'params'=>$packages,
             'no-footer'=>true,
         ));
-        
+
         if (!$result instanceof PEAR_Error) {
             $this->pear()->runHtmlConsole(array(
                 'command'=>'install',
@@ -341,7 +342,7 @@ class Maged_Model_Pear extends Maged_Model
                 'no-header'=>true,
             ));
         }
-        
+
         try {
             Mage::app()->cleanAllSessions();
             Mage::app()->cleanCache();

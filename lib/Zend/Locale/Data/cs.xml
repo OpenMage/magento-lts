@@ -1,59 +1,74 @@
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.104 $"/>
-		<generation date="$Date: 2007/11/14 16:26:57 $"/>
+		<version number="$Revision: 1.117 $"/>
+		<generation date="$Date: 2008/06/26 03:47:57 $"/>
 		<language type="cs"/>
 	</identity>
 	<localeDisplayNames>
 		<languages>
 			<language type="aa">afarština</language>
 			<language type="ab">abcházština</language>
+			<language type="ae">avestánština</language>
 			<language type="af">afrikánština</language>
+			<language type="ain">ainština</language>
+			<language type="ak">akanština</language>
+			<language type="akk">akkadština</language>
 			<language type="am">amharština</language>
+			<language type="an">aragonština</language>
+			<language type="anp">angika</language>
 			<language type="ar">arabština</language>
+			<language type="arp">arapažština</language>
 			<language type="as">assaméština</language>
+			<language type="av">avarština</language>
 			<language type="ay">aymárština</language>
 			<language type="az">azerbajdžánština</language>
 			<language type="ba">baskirština</language>
+			<language type="bal">balúčština</language>
 			<language type="be">běloruština</language>
 			<language type="bg">bulharština</language>
 			<language type="bh">biharština</language>
+			<language type="bho">bhojpurština</language>
 			<language type="bi">bislámština</language>
+			<language type="bm">bambarština</language>
 			<language type="bn">bengálština</language>
 			<language type="bo">tibetština</language>
 			<language type="br">bretaňština</language>
-			<language type="bs">bosensky</language>
+			<language type="bs">bosenština</language>
 			<language type="ca">katalánština</language>
 			<language type="co">korsičtina</language>
 			<language type="cs">čeština</language>
 			<language type="cy">velština</language>
 			<language type="da">dánština</language>
 			<language type="de">němčina</language>
+			<language type="de_AT">německy (Rakousko)</language>
 			<language type="dz">bhútánština</language>
 			<language type="el">řečtina</language>
 			<language type="en">angličtina</language>
-			<language type="en_AU">anglicky (Austrálie)</language>
-			<language type="en_GB">anglicky (Velká Británie)</language>
-			<language type="en_US">anglicky (USA)</language>
+			<language type="en_CA">anglicky (Kanada)</language>
+			<language type="en_US">angličtina (USA)</language>
 			<language type="eo">esperanto</language>
 			<language type="es">španělština</language>
 			<language type="et">estonština</language>
 			<language type="eu">baskičtina</language>
 			<language type="fa">perština</language>
 			<language type="fi">finština</language>
-			<language type="fil">tagaložsky</language>
+			<language type="fil">tagalogština</language>
 			<language type="fj">fidži</language>
 			<language type="fo">faerština</language>
 			<language type="fr">francouzština</language>
+			<language type="fr_CA">francouzsky (Kanada)</language>
 			<language type="fy">fríština</language>
 			<language type="ga">irština</language>
 			<language type="gd">skotská galština</language>
 			<language type="gl">haličština</language>
 			<language type="gn">guaranština</language>
+			<language type="grc">starořečtina</language>
 			<language type="gu">gujaratština</language>
 			<language type="gv">manština</language>
 			<language type="ha">hausa</language>
+			<language type="haw">havajský</language>
 			<language type="he">hebrejština</language>
 			<language type="hi">hindština</language>
 			<language type="hr">chorvatština</language>
@@ -83,6 +98,8 @@
 			<language type="lo">laoština</language>
 			<language type="lt">litevština</language>
 			<language type="lv">lotyština</language>
+			<language type="mag">magadhiština</language>
+			<language type="mai">maithiliština</language>
 			<language type="mg">malgaština</language>
 			<language type="mi">maorština</language>
 			<language type="mk">makedonština</language>
@@ -95,8 +112,8 @@
 			<language type="my">barmština</language>
 			<language type="na">nauru</language>
 			<language type="ne">nepálština</language>
-			<language type="nl">holandsky</language>
-			<language type="nn">norsky (nynorsk)</language>
+			<language type="nl">nizozemština</language>
+			<language type="nn">norština (nynorsk)</language>
 			<language type="no">norština</language>
 			<language type="oc">occitan</language>
 			<language type="om">Oromo (Afan)</language>
@@ -105,8 +122,6 @@
 			<language type="pl">polština</language>
 			<language type="ps">Pashto (Pushto)</language>
 			<language type="pt">portugalština</language>
-			<language type="pt_BR">portugalsky (Brazílie)</language>
-			<language type="pt_PT">portugalsky (Portugalsko)</language>
 			<language type="qu">kečuánština</language>
 			<language type="rm">rétorománština</language>
 			<language type="rn">kirundi</language>
@@ -120,6 +135,7 @@
 			<language type="si">sinhálština</language>
 			<language type="sk">slovenština</language>
 			<language type="sl">slovinština</language>
+			<language type="sla">slovanský jazyk</language>
 			<language type="sm">samoyština</language>
 			<language type="sn">shona</language>
 			<language type="so">somálština</language>
@@ -128,6 +144,7 @@
 			<language type="ss">siswatština</language>
 			<language type="st">sesotho</language>
 			<language type="su">sundanština</language>
+			<language type="sux">sumerský</language>
 			<language type="sv">švédština</language>
 			<language type="sw">svahilština</language>
 			<language type="ta">tamilština</language>
@@ -137,28 +154,32 @@
 			<language type="ti">tigrinijština</language>
 			<language type="tk">turkmenština</language>
 			<language type="tl">tagalog</language>
-			<language type="tlh">klingonsky</language>
+			<language type="tlh">klingonština</language>
 			<language type="tn">setswanština</language>
 			<language type="to">tonga</language>
+			<language type="tpi">tok pisin</language>
 			<language type="tr">turečtina</language>
 			<language type="ts">tsonga</language>
 			<language type="tt">tatarština</language>
 			<language type="tw">twi</language>
+			<language type="ty">tahitština</language>
 			<language type="ug">uighurština</language>
+			<language type="uga">ugaritština</language>
 			<language type="uk">ukrajinština</language>
 			<language type="und">neznámý nebo neplatný jazyk</language>
 			<language type="ur">urdština</language>
 			<language type="uz">uzbečtina</language>
 			<language type="vi">vietnamština</language>
 			<language type="vo">volapuk</language>
+			<language type="wa">valonština</language>
 			<language type="wo">wolof</language>
 			<language type="xh">xhosa</language>
 			<language type="yi">jidiš</language>
 			<language type="yo">yoruba</language>
 			<language type="za">zhuang</language>
 			<language type="zh">čínština</language>
-			<language type="zh_Hans">čínsky (zjednodušeně)</language>
-			<language type="zh_Hant">čínsky (tradičně)</language>
+			<language type="zh_Hans">čínština (zjednodušená)</language>
+			<language type="zh_Hant">čínština (tradiční)</language>
 			<language type="zu">zulu</language>
 		</languages>
 		<scripts>
@@ -287,7 +308,7 @@
 			<territory type="154">Severní Evropa</territory>
 			<territory type="155">Západní Evropa</territory>
 			<territory type="200">Československo</territory>
-			<territory type="419">Jižní Amerika a Karibik</territory>
+			<territory type="419">Latinská Amerika a Karibské moře</territory>
 			<territory type="830">Normanské ostrovy</territory>
 			<territory type="AD">Andorra</territory>
 			<territory type="AE">Spojené arabské emiráty</territory>
@@ -360,7 +381,7 @@
 			<territory type="FI">Finsko</territory>
 			<territory type="FJ">Fidži</territory>
 			<territory type="FK">Falklandské ostrovy</territory>
-			<territory type="FM">Mikronésie, federativní stát</territory>
+			<territory type="FM">Mikronézie</territory>
 			<territory type="FO">Faerské ostrovy</territory>
 			<territory type="FR">Francie</territory>
 			<territory type="GA">Gabon</territory>
@@ -382,7 +403,7 @@
 			<territory type="GU">Guam</territory>
 			<territory type="GW">Guinea-Bissau</territory>
 			<territory type="GY">Guyana</territory>
-			<territory type="HK">Hongkong, zvláštní administrativní oblast Číny</territory>
+			<territory type="HK">Hongkong</territory>
 			<territory type="HM">Ostrovy Heard a McDonald</territory>
 			<territory type="HN">Honduras</territory>
 			<territory type="HR">Chorvatsko</territory>
@@ -428,13 +449,14 @@
 			<territory type="MC">Monako</territory>
 			<territory type="MD">Moldavsko, republika</territory>
 			<territory type="ME">Černá Hora</territory>
+			<territory type="MF">Svatý Martin</territory>
 			<territory type="MG">Madagaskar</territory>
 			<territory type="MH">Marshallovy ostrovy</territory>
 			<territory type="MK">Macedonia</territory>
 			<territory type="ML">Mali</territory>
 			<territory type="MM">Myanmar</territory>
 			<territory type="MN">Mongolsko</territory>
-			<territory type="MO">Macao S.A.R., China</territory>
+			<territory type="MO">Macao</territory>
 			<territory type="MP">Severní Mariany</territory>
 			<territory type="MQ">Martinik</territory>
 			<territory type="MR">Mauritánie</territory>
@@ -552,6 +574,14 @@
 			<type type="islamic-civil" key="calendar">Muslimský občanský kalendář</type>
 			<type type="japanese" key="calendar">Japonský kalendář</type>
 		</types>
+		<measurementSystemNames>
+			<measurementSystemName type="US">USA</measurementSystemName>
+			<measurementSystemName type="metric">Metrický</measurementSystemName>
+		</measurementSystemNames>
+		<codePatterns>
+			<codePattern type="language">Jazyk: {0}</codePattern>
+			<codePattern type="territory">Region: {0}</codePattern>
+		</codePatterns>
 	</localeDisplayNames>
 	<layout>
 		<inList>titlecase-firstword</inList>
@@ -585,20 +615,6 @@
 							<month type="10">10</month>
 							<month type="11">11</month>
 							<month type="12">12</month>
-						</monthWidth>
-						<monthWidth type="narrow">
-							<month type="1">l</month>
-							<month type="2">ú</month>
-							<month type="3">b</month>
-							<month type="4">d</month>
-							<month type="5">k</month>
-							<month type="6">č</month>
-							<month type="7">č</month>
-							<month type="8">s</month>
-							<month type="9">z</month>
-							<month type="10">ř</month>
-							<month type="11">l</month>
-							<month type="12">p</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1">ledna</month>
@@ -787,6 +803,86 @@
 						<dateFormatItem id="yyyyM">M.yyyy</dateFormatItem>
 						<dateFormatItem id="yyyyMMMM">MMMM yyyy</dateFormatItem>
 					</availableFormats>
+					<intervalFormats>
+						<intervalFormatFallback>{0} - {1}</intervalFormatFallback>
+						<intervalFormatItem id="M">
+							<greatestDifference id="M">M.-M.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MEd">
+							<greatestDifference id="M">E, d.M. - E, d.M.</greatestDifference>
+							<greatestDifference id="d">E, d.M. - E, d.M.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMM">
+							<greatestDifference id="M">MMM-MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMEd">
+							<greatestDifference id="M">E, d. MMM - E, d. MMM</greatestDifference>
+							<greatestDifference id="d">E, d. - E, d. MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMM">
+							<greatestDifference id="M">LLLL-LLLL</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMd">
+							<greatestDifference id="M">d. MMM - d. MMM</greatestDifference>
+							<greatestDifference id="d">d.-d. MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Md">
+							<greatestDifference id="M">d.M. - d.M.</greatestDifference>
+							<greatestDifference id="d">d.M. - d.M.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d.-d.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="h">
+							<greatestDifference id="h">H-H</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="h">H:mm-H:mm</greatestDifference>
+							<greatestDifference id="m">H:mm-H:mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="h">H:mm-H:mm v</greatestDifference>
+							<greatestDifference id="m">H:mm-H:mm v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hv">
+							<greatestDifference id="h">H-H v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="y">
+							<greatestDifference id="y">y-y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yM">
+							<greatestDifference id="M">M.yy - M.yy</greatestDifference>
+							<greatestDifference id="y">M.yy - M.yy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="M">E, d.M.yy - E, d.M.yy</greatestDifference>
+							<greatestDifference id="d">E, d.M.yy - E, d.M.yy</greatestDifference>
+							<greatestDifference id="y">E, d.M.yy - E, d.M.yy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMM">
+							<greatestDifference id="M">MMM-MMM yyyy</greatestDifference>
+							<greatestDifference id="y">MMM yyyy - MMM yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEd">
+							<greatestDifference id="M">E, d. MMM - E, d. MMM yyyy</greatestDifference>
+							<greatestDifference id="d">E, d. - E, d. MMM yyyy</greatestDifference>
+							<greatestDifference id="y">E, d. MMM yyyy - E, d. MMM yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMM">
+							<greatestDifference id="M">LLLL-LLLL yyyy</greatestDifference>
+							<greatestDifference id="y">LLLL yyyy - LLLL yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="M">d. MMM - d. MMM yyyy</greatestDifference>
+							<greatestDifference id="d">d.-d. MMM yyyy</greatestDifference>
+							<greatestDifference id="y">d. MMM yyyy - d. MMM yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="M">d.M.yy - d.M.yy</greatestDifference>
+							<greatestDifference id="d">d.M.yy - d.M.yy</greatestDifference>
+							<greatestDifference id="y">d.M.yy - d.M.yy</greatestDifference>
+						</intervalFormatItem>
+					</intervalFormats>
 				</dateTimeFormats>
 				<fields>
 					<field type="era">
@@ -834,6 +930,9 @@
 			<hourFormat>+HH:mm;-HH:mm</hourFormat>
 			<gmtFormat>GMT{0}</gmtFormat>
 			<regionFormat>{0}</regionFormat>
+			<zone type="Etc/Unknown">
+				<exemplarCity>Není známo</exemplarCity>
+			</zone>
 			<zone type="Asia/Dubai">
 				<exemplarCity>Dubaj</exemplarCity>
 			</zone>
@@ -1112,125 +1211,76 @@
 					<standard>Aljašský standardní čas</standard>
 					<daylight>Aljašský letní čas</daylight>
 				</long>
-				<short>
-					<standard>AKST</standard>
-					<daylight>AKDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="America_Central">
 				<long>
 					<standard>Centrální standardní čas</standard>
 					<daylight>Centrální letní čas</daylight>
 				</long>
-				<short>
-					<standard>CST</standard>
-					<daylight>CDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="America_Eastern">
 				<long>
 					<standard>Východní standardní čas</standard>
 					<daylight>Východní letní čas</daylight>
 				</long>
-				<short>
-					<standard>EST</standard>
-					<daylight>EDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="America_Mountain">
 				<long>
 					<standard>Horský standardní čas</standard>
 					<daylight>Horský letní čas</daylight>
 				</long>
-				<short>
-					<standard>MST</standard>
-					<daylight>MDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="America_Pacific">
 				<long>
 					<standard>Pacifický standardní čas</standard>
 					<daylight>Pacifický letní čas</daylight>
 				</long>
-				<short>
-					<standard>PST</standard>
-					<daylight>PDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Atlantic">
 				<long>
 					<standard>Atlantický standardní čas</standard>
 					<daylight>Atlantický letní čas</daylight>
 				</long>
-				<short>
-					<standard>AST</standard>
-					<daylight>ADT</daylight>
-				</short>
 			</metazone>
 			<metazone type="China">
 				<long>
 					<standard>Čínský standardní čas</standard>
 				</long>
-				<short>
-					<standard>CTT</standard>
-				</short>
 			</metazone>
 			<metazone type="Europe_Central">
 				<long>
 					<standard>Středoevropský standardní čas</standard>
 					<daylight>Středoevropský letní čas</daylight>
 				</long>
-				<short>
-					<standard>CET</standard>
-					<daylight>CEST</daylight>
-				</short>
 			</metazone>
 			<metazone type="Europe_Eastern">
 				<long>
 					<standard>Východoevropský standardní čas</standard>
 					<daylight>Východoevropský letní čas</daylight>
 				</long>
-				<short>
-					<standard>EET</standard>
-					<daylight>EEST</daylight>
-				</short>
 			</metazone>
 			<metazone type="GMT">
 				<long>
 					<standard>Greenwichský střední čas</standard>
 				</long>
-				<short>
-					<standard>GMT</standard>
-				</short>
 			</metazone>
 			<metazone type="Israel">
 				<long>
 					<standard>Izraelský standardní čas</standard>
 					<daylight>Izraelský letní čas</daylight>
 				</long>
-				<short>
-					<standard>IST</standard>
-					<daylight>IDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Japan">
 				<long>
 					<standard>Japonský standardní čas</standard>
 					<daylight>Japonský letní čas</daylight>
 				</long>
-				<short>
-					<standard>JST</standard>
-					<daylight>JDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Newfoundland">
 				<long>
 					<standard>Newfoundlandský standardní čas</standard>
 					<daylight>Newfoundlandský letní čas</daylight>
 				</long>
-				<short>
-					<standard>CNT</standard>
-				</short>
 			</metazone>
 		</timeZoneNames>
 	</dates>
@@ -1238,11 +1288,42 @@
 		<symbols>
 			<decimal>,</decimal>
 			<group> </group>
+			<list>;</list>
+			<percentSign>%</percentSign>
+			<nativeZeroDigit>0</nativeZeroDigit>
+			<patternDigit>#</patternDigit>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+			<exponential>E</exponential>
+			<perMille>‰</perMille>
+			<infinity>∞</infinity>
+			<nan>NaN</nan>
 		</symbols>
+		<decimalFormats>
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
+		</decimalFormats>
+		<scientificFormats>
+			<scientificFormatLength>
+				<scientificFormat>
+					<pattern>#E0</pattern>
+				</scientificFormat>
+			</scientificFormatLength>
+		</scientificFormats>
+		<percentFormats>
+			<percentFormatLength>
+				<percentFormat>
+					<pattern>#,##0%</pattern>
+				</percentFormat>
+			</percentFormatLength>
+		</percentFormats>
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>#,##0.00 ¤</pattern>
+					<pattern>#,##0.00 ¤</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 		</currencyFormats>
@@ -1843,8 +1924,10 @@
 				<symbol>leu</symbol>
 			</currency>
 			<currency type="RON">
+				<displayName>Leu rumunské</displayName>
 			</currency>
 			<currency type="RSD">
+				<displayName>Dinár srbský</displayName>
 			</currency>
 			<currency type="RUB">
 				<displayName>Rubl ruský</displayName>
@@ -1896,7 +1979,7 @@
 			</currency>
 			<currency type="SOS">
 				<displayName>Šilink somálský</displayName>
-				<symbol>So. Sh.</symbol>
+				<symbol>Sh.</symbol>
 			</currency>
 			<currency type="SRG">
 				<displayName>Zlatý surinamský</displayName>
@@ -1947,6 +2030,7 @@
 			</currency>
 			<currency type="TRY">
 				<displayName>Lira nová turecká</displayName>
+				<symbol>YTL</symbol>
 			</currency>
 			<currency type="TTD">
 				<displayName>Dolar Trinidad a Tobago</displayName>
@@ -1997,7 +2081,7 @@
 				<symbol>Be</symbol>
 			</currency>
 			<currency type="VND">
-				<displayName>Vietnamský dong</displayName>
+				<displayName>Dong vietnamský</displayName>
 			</currency>
 			<currency type="VUV">
 				<displayName>Vatu</displayName>
@@ -2089,6 +2173,30 @@
 			</currency>
 		</currencies>
 	</numbers>
+	<units>
+		<unit type="day">
+			<unitPattern count="few">{0} dny</unitPattern>
+			<unitPattern count="one">{0} den</unitPattern>
+		</unit>
+		<unit type="hour">
+			<unitPattern count="one">{0} hodina</unitPattern>
+		</unit>
+		<unit type="minute">
+			<unitPattern count="one">{0} minuta</unitPattern>
+		</unit>
+		<unit type="month">
+			<unitPattern count="one">{0} měsíc</unitPattern>
+		</unit>
+		<unit type="second">
+			<unitPattern count="one">{0} sekunda</unitPattern>
+		</unit>
+		<unit type="week">
+			<unitPattern count="one">{0} týden</unitPattern>
+		</unit>
+		<unit type="year">
+			<unitPattern count="one">{0} rok</unitPattern>
+		</unit>
+	</units>
 	<posix>
 		<messages>
 			<yesstr>ano:a</yesstr>

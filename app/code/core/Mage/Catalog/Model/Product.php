@@ -781,7 +781,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Create duplicate
      *
-     * @return unknown
+     * @return Mage_Catalog_Model_Product
      */
     public function duplicate()
     {
@@ -871,6 +871,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $this->getOptionInstance()->duplicate($this->getId(), $newProduct->getId());
         $this->getResource()->duplicate($this->getId(), $newProduct->getId());
 
+        // TODO - duplicate product on all stores of the websites it is associated with
         /*if ($storeIds = $this->getWebsiteIds()) {
             foreach ($storeIds as $storeId) {
                 $this->setStoreId($storeId)
@@ -980,11 +981,12 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Get product url
      *
+     * @param  bool $useSid
      * @return string
      */
-    public function getProductUrl()
+    public function getProductUrl($useSid = true)
     {
-        return $this->_urlModel->getProductUrl($this);
+        return $this->_urlModel->getProductUrl($this, $useSid);
     }
 
     public function formatUrlKey($str)

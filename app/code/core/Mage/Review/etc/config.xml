@@ -116,6 +116,34 @@
                 </children>
              </catalog>
         </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <catalog>
+                            <children>
+                                <reviews_ratings translate="title" module="review">
+                                    <title>Reviews and Ratings</title>
+                                    <children>
+                                        <reviews translate="title">
+                                            <title>Customer Reviews</title>
+                                            <children>
+                                                <all translate="title">
+                                                    <title>All Reviews</title>
+                                                </all>
+                                                <pending translate="title">
+                                                    <title>Pending Reviews</title>
+                                                </pending>
+                                            </children>
+                                        </reviews>
+                                     </children>
+                                </reviews_ratings>
+                            </children>
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
         <translate>
             <modules>
                 <Mage_Review>

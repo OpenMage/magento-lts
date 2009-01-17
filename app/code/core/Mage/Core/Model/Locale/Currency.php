@@ -35,6 +35,45 @@ class Mage_Core_Model_Locale_Currency extends Zend_Currency
     const US_LOCALE = 'en_US';
     protected $_locale;
 
+    /**
+     * Creates a currency instance. Every supressed parameter is used from the actual or the given locale.
+     *
+     * @param  string             $currency OPTIONAL currency short name
+     * @param  string|Zend_Locale $locale   OPTIONAL locale name
+     * @throws Zend_Currency_Exception When currency is invalid
+     */
+    public function __construct($currency = null, $locale = null)
+    {
+        parent::__construct($currency, $locale);
+        $this->_options['symbol_choice'] = self::getSymbolChoice($currency, $this->_locale);
+    }
+
+    /**
+     * Returns the actual or details of available currency symbol choice,
+     *
+     * @param  string             $currency (Optional) Currency name
+     * @param  string|Zend_Locale $locale   (Optional) Locale to display informations
+     * @return string
+     */
+    public function getSymbolChoice($currency = null, $locale = null)
+    {
+        if (($currency === null) and ($locale === null)) {
+            return $this->_options['symbol_choice'];
+        }
+
+        $params = self::_checkParams($currency, $locale);
+
+        //Get the symbol choice
+        $symbolChoice = Zend_Locale_Data::getContent($params['locale'], 'currencysymbolchoice', $params['currency']);
+        if (empty($symbolChoice) === true) {
+            $symbolChoice = Zend_Locale_Data::getContent($params['locale'], 'currencysymbolchoice', $params['name']);
+        }
+        if (empty($symbolChoice) === true) {
+            return null;
+        }
+        return $symbolChoice;
+    }
+
     public function setLocale($locale = null)
     {
         $this->_locale = $locale;
@@ -43,102 +82,35 @@ class Mage_Core_Model_Locale_Currency extends Zend_Currency
     }
 
     /**
-     * Returns a localized currency string
+     * Place the sign next to the number
      *
-     * @param  int|float  $value    Currency value
-     * @param  array      $options  OPTIONAL options to set temporary
+     * @param string $value
+     * @param string $sign
+     * @param array $options
      * @return string
      */
-    public function toCurrency($value, array $options = array())
+    protected function _concatSign($value, $sign, $options)
     {
-        //return parent::toCurrency($value, $options);
-        //validate the passed number
-        if (!isset($value) || !is_numeric($value)) {
-            #require_once 'Zend/Currency/Exception.php';
-            throw new Zend_Currency_Exception("Value '$value' has to be numeric");
+        $trimSign = $this->getStore()->getConfig(self::XML_PATH_TRIM_CURRENCY_SIGN);
+        if (is_null($trimSign) && $this->_locale && $this->_locale == self::US_LOCALE) {
+            $trimSign = true;
+        }
+        if ($trimSign) {
+            $sign = trim($sign);
         }
 
-        $options = array_merge($this->_options, $this->checkOptions($options));
-
-        //format the number
-        if (empty($options['format'])) {
-            $options['format'] = $this->_locale;
-        }
-
-        // select currency symbol if needed
-        if ($options['symbol_choice']) {
-            $symbols = explode('|', $options['symbol']);
-            if (is_array($symbols)) {
-                foreach ($symbols as $symbol) {
-                    $type = $position = null;
-                    if (($tmp = iconv_strpos($symbol, '≤')) !== false) {
-                        $type = 1;
-                        $position = $tmp;
-                    }
-                    if (($tmp = iconv_strpos($symbol, '<')) !== false) {
-                        $type = 2;
-                        $position = $tmp;
-                    }
-
-                    if (!is_null($position)) {
-                        $number = iconv_substr($symbol, 0, $position);
-                        $sign = iconv_substr($symbol, $position+1);
-
-                        if (($type == 1 && $number <= $value) || ($type == 2 && $number < $value)) {
-                            $options['symbol'] = $sign;
-                        }
-                    }
-                }
-            }
-        }
-
-        $value = Zend_Locale_Format::toNumber($value, array('locale' => $options['format'], 'precision' => $options['precision']));
-
-        //localize the number digits
-        if (!empty ($options['script'])) {
-            $value = Zend_Locale_Format::convertNumerals($value, 'Latn', $options['script']);
-        }
-
-        //get the sign to be placed next to the number
-        if (!is_numeric($options['display'])) {
-            $sign = " " . $options['display'] . " ";
-        } else {
-            switch($options['display']) {
-                case self::USE_SYMBOL:
-                    $sign = " " . $options['symbol'] . " ";
-                    break;
-                case self::USE_SHORTNAME:
-                    $sign = " " . $options['currency'] . " ";
-                    break;
-                case self::USE_NAME:
-                    $sign = " " . $options['name'] . " ";
-                    break;
-                default:
-                    $sign = "";
-                    break;
-            }
-        }
-
-        $trimSettings = $this->getStore()->getConfig(self::XML_PATH_TRIM_CURRENCY_SIGN);
-        if (is_null($trimSettings) && $this->_locale && $this->_locale->toString() == self::US_LOCALE) {
-            $trimSettings = true;
-        }
-        if ($trimSettings) {
-        	$sign = trim($sign);
-        }
-        // place the sign next to the number
-        if ($options['position'] == self::RIGHT) {
-            $value = $value . $sign;
-        } else if ($options['position'] == self::LEFT) {
-            // do not place sign before minus. And do not allow space between minus and sign
+        // Place the sign next to the number
+        if ($options['position'] === self::RIGHT) {
+            $result = $value . $sign;
+        } else if ($options['position'] === self::LEFT) {
+            // Do not place sign before minus. And do not allow space between minus and sign
             if (0 === strpos($value, '-', 0)) {
-                $value = '-' . ltrim($sign) . substr($value, 1);
-            }
-            else {
-                $value = $sign . $value;
+                $result = '-' . ltrim($sign) . substr($value, 1);
+            } else {
+                $result = $sign . $value;
             }
         }
-        return trim($value);
+        return $result;
     }
 
     /**

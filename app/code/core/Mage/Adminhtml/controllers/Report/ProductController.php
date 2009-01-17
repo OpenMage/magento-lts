@@ -147,6 +147,40 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    public function downloadsAction()
+    {
+        $this->_initAction()
+            ->_setActiveMenu('report/product/downloads')
+            ->_addBreadcrumb(Mage::helper('reports')->__('Downloads'), Mage::helper('reports')->__('Downloads'))
+            ->_addContent($this->getLayout()->createBlock('adminhtml/report_product_downloads'))
+            ->renderLayout();
+    }
+
+    /**
+     * Export products downloads report to CSV format
+     */
+    public function exportDownloadsCsvAction()
+    {
+        $fileName   = 'products_downloads.csv';
+        $content    = $this->getLayout()->createBlock('adminhtml/report_product_downloads_grid')
+            ->setSaveParametersInSession(true)
+            ->getCsv();
+
+        $this->_prepareDownloadResponse($fileName, $content);
+    }
+
+    /**
+     * Export products downloads report to XLS format
+     */
+    public function exportDownloadsExcelAction()
+    {
+        $fileName   = 'products_downloads.xml';
+        $content    = $this->getLayout()->createBlock('adminhtml/report_product_downloads_grid')
+            ->setSaveParametersInSession(true)
+            ->getExcel($fileName);
+
+        $this->_prepareDownloadResponse($fileName, $content);
+    }
 
     protected function _isAllowed()
     {

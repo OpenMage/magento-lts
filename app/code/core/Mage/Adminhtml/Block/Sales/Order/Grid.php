@@ -41,6 +41,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
         $this->setUseAjax(true);
         $this->setDefaultSort('created_at');
         $this->setDefaultDir('DESC');
+        $this->setSaveParametersInSession(true);
     }
 
     protected function _prepareCollection()
@@ -121,7 +122,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             'header' => Mage::helper('sales')->__('G.T. (Base)'),
             'index' => 'base_grand_total',
             'type'  => 'currency',
-            'currency' => 'store_currency_code',
+            'currency' => 'base_currency_code',
         ));
 
         $this->addColumn('grand_total', array(

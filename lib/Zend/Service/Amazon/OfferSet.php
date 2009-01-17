@@ -18,7 +18,7 @@
  * @subpackage Amazon
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: OfferSet.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: OfferSet.php 12662 2008-11-15 15:29:58Z beberlei $
  */
 
 
@@ -31,6 +31,51 @@
  */
 class Zend_Service_Amazon_OfferSet
 {
+    /**
+     * @var string
+     */
+    public $LowestNewPrice;
+
+    /**
+     * @var string
+     */
+    public $LowestNewPriceCurrency;
+
+    /**
+     * @var string
+     */
+    public $LowestUsedPrice;
+
+    /**
+     * @var string
+     */
+    public $LowestUsedPriceCurrency;
+
+    /**
+     * @var int
+     */
+    public $TotalNew;
+
+    /**
+     * @var int
+     */
+    public $TotalUsed;
+
+    /**
+     * @var int
+     */
+    public $TotalCollectible;
+
+    /**
+     * @var int
+     */
+    public $TotalRefurbished;
+
+    /**
+     * @var Zend_Service_Amazon_Offer[]
+     */
+    public $Offers;
+
     /**
      * Parse the given Offer Set Element
      *

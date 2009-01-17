@@ -36,6 +36,7 @@
                     <list translate="title" module="customer">
                         <title>Retrieve customers</title>
                         <method>items</method>
+                        <acl>customer/info</acl>
                     </list>
                     <create translate="title" module="customer">
                         <title>Create customer</title>
@@ -43,6 +44,7 @@
                     </create>
                     <info translate="title" module="customer">
                         <title>Retrieve customer data</title>
+                        <acl>customer/info</acl>
                     </info>
                     <update translate="title" module="customer">
                         <title>Update customer data</title>
@@ -91,13 +93,15 @@
                     <list translate="title" module="customer">
                         <title>Retrieve customer addresses</title>
                         <method>items</method>
+                        <acl>customer/address/info</acl>
                     </list>
                     <create translate="title" module="customer">
                         <title>Create customer address</title>
                         <acl>customer/address/create</acl>
                     </create>
                     <info translate="title" module="customer">
-                        <title>Retrieve customer data</title>
+                        <title>Retrieve address data</title>
+                        <acl>customer/address/info</acl>
                     </info>
                     <update translate="title" module="customer">
                         <title>Update customer address data</title>
@@ -130,9 +134,24 @@
         </resources>
         <acl>
             <resources>
-                <all>
-                    <customer translate="title" module="customer">
-                         <title>Customers</title>
+                <customer translate="title" module="customer">
+                     <title>Customers</title>
+                     <sort_order>3</sort_order>
+                     <create translate="title" module="customer">
+                        <title>Create</title>
+                     </create>
+                     <update translate="title" module="customer">
+                        <title>Update</title>
+                     </update>
+                     <delete translate="title" module="customer">
+                        <title>Delete</title>
+                     </delete>
+                     <info translate="title" module="customer">
+                        <title>Retrieve customers info</title>
+                     </info>
+                     <address translate="title" module="customer">
+                         <title>Addresses</title>
+                         <sort_order>100</sort_order>
                          <create translate="title" module="customer">
                             <title>Create</title>
                          </create>
@@ -142,20 +161,11 @@
                          <delete translate="title" module="customer">
                             <title>Delete</title>
                          </delete>
-                         <address translate="title" module="customer">
-                             <title>Addresses</title>
-                             <create translate="title" module="customer">
-                                <title>Create</title>
-                             </create>
-                             <update translate="title" module="customer">
-                                <title>Update</title>
-                             </update>
-                             <delete translate="title" module="customer">
-                                <title>Delete</title>
-                             </delete>
-                         </address>
-                    </customer>
-                </all>
+                         <info translate="title" module="customer">
+                            <title>Retrieve address info</title>
+                         </info>
+                     </address>
+                </customer>
             </resources>
         </acl>
     </api>

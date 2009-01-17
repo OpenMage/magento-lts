@@ -4,13 +4,13 @@
  *
  * LICENSE
  *
- * This source file is subject to version 1.0 of the Zend Framework
- * license, that is bundled with this package in the file LICENSE.txt, and
- * is available through the world-wide-web at the following URL:
- * http://framework.zend.com/license/new-bsd. If you did not receive
- * a copy of the Zend Framework license and are unable to obtain it
- * through the world-wide-web, please send a note to license@zend.com
- * so we can mail you a copy immediately.
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://framework.zend.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@zend.com so we can send you a copy immediately.
  *
  * @package    Zend_View
  * @subpackage Helper
@@ -22,6 +22,9 @@
 /** Zend_Registry */
 #require_once 'Zend/Registry.php';
 
+/** Zend_View_Helper_Abstract.php */
+#require_once 'Zend/View/Helper/Abstract.php';
+
 /**
  * Helper for setting and retrieving the doctype
  *
@@ -29,22 +32,25 @@
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
-class Zend_View_Helper_Doctype
+ */
+class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
 {
     /**#@+
      * DocType constants
      */
+    const XHTML11             = 'XHTML11';
     const XHTML1_STRICT       = 'XHTML1_STRICT';
     const XHTML1_TRANSITIONAL = 'XHTML1_TRANSITIONAL';
     const XHTML1_FRAMESET     = 'XHTML1_FRAMESET';
+    const XHTML_BASIC1        = 'XHTML_BASIC1';
     const HTML4_STRICT        = 'HTML4_STRICT';
     const HTML4_LOOSE         = 'HTML4_LOOSE';
     const HTML4_FRAMESET      = 'HTML4_FRAMESET';
+    const HTML5               = 'HTML5';
     const CUSTOM_XHTML        = 'CUSTOM_XHTML';
     const CUSTOM              = 'CUSTOM';
     /**#@-*/
-    
+
     /**
      * Default DocType
      * @var string
@@ -67,7 +73,7 @@ class Zend_View_Helper_Doctype
      * Constructor
      *
      * Map constants to doctype strings, and set default doctype
-     * 
+     *
      * @return void
      */
     public function __construct()
@@ -75,12 +81,15 @@ class Zend_View_Helper_Doctype
         if (!Zend_Registry::isRegistered($this->_regKey)) {
             $this->_registry = new ArrayObject(array(
                 'doctypes' => array(
+                    self::XHTML11             => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">',
                     self::XHTML1_STRICT       => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">',
                     self::XHTML1_TRANSITIONAL => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">',
                     self::XHTML1_FRAMESET     => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">',
+                    self::XHTML_BASIC1        => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.0//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd">',
                     self::HTML4_STRICT        => '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">',
                     self::HTML4_LOOSE         => '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
                     self::HTML4_FRAMESET      => '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">',
+                    self::HTML5               => '<!DOCTYPE html>',
                 )
             ));
             Zend_Registry::set($this->_regKey, $this->_registry);
@@ -89,23 +98,26 @@ class Zend_View_Helper_Doctype
             $this->_registry = Zend_Registry::get($this->_regKey);
         }
     }
-    
+
     /**
      * Set or retrieve doctype
-     * 
-     * @param  string $doctype 
+     *
+     * @param  string $doctype
      * @return Zend_View_Helper_Doctype
      */
     public function doctype($doctype = null)
     {
         if (null !== $doctype) {
             switch ($doctype) {
+                case self::XHTML11:
                 case self::XHTML1_STRICT:
                 case self::XHTML1_TRANSITIONAL:
                 case self::XHTML1_FRAMESET:
+                case self::XHTML_BASIC1:
                 case self::HTML4_STRICT:
                 case self::HTML4_LOOSE:
                 case self::HTML4_FRAMESET:
+                case self::HTML5:
                     $this->setDoctype($doctype);
                     break;
                 default:
@@ -129,8 +141,8 @@ class Zend_View_Helper_Doctype
 
     /**
      * Set doctype
-     * 
-     * @param  string $doctype 
+     *
+     * @param  string $doctype
      * @return Zend_View_Helper_Doctype
      */
     public function setDoctype($doctype)
@@ -138,10 +150,10 @@ class Zend_View_Helper_Doctype
         $this->_registry['doctype'] = $doctype;
         return $this;
     }
-    
+
     /**
      * Retrieve doctype
-     * 
+     *
      * @return string
      */
     public function getDoctype()
@@ -151,17 +163,17 @@ class Zend_View_Helper_Doctype
 
     /**
      * Get doctype => string mappings
-     * 
+     *
      * @return array
      */
     public function getDoctypes()
     {
         return $this->_registry['doctypes'];
     }
-    
+
     /**
      * Is doctype XHTML?
-     * 
+     *
      * @return boolean
      */
     public function isXhtml()
@@ -171,7 +183,7 @@ class Zend_View_Helper_Doctype
 
     /**
      * String representation of doctype
-     * 
+     *
      * @return string
      */
     public function __toString()

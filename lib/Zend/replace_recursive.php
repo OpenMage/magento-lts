@@ -16,6 +16,11 @@ function replace_recursive($dir)
         if (substr($file, -4)!=='.php') {
             continue;
         }
+
+        if (false !== strpos($file, 'replace_recursive.php')) {
+            continue;
+        }
+
         $orig = file_get_contents($file);
 
         $replaced = preg_replace("/([^#])require_once/", "\$1#require_once", $orig);

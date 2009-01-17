@@ -30,7 +30,7 @@
  * @subpackage Element
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Password.php 8113 2008-02-18 13:15:27Z matthew $
+ * @version    $Id: Password.php 9337 2008-04-28 18:14:48Z matthew $
  */
 class Zend_Form_Element_Password extends Zend_Form_Element_Xhtml
 {
@@ -39,6 +39,33 @@ class Zend_Form_Element_Password extends Zend_Form_Element_Xhtml
      * @var string
      */
     public $helper = 'formPassword';
+
+    /**
+     * Whether or not to render the password
+     * @var bool
+     */
+    public $renderPassword = false;
+
+    /**
+     * Set flag indicating whether or not to render the password
+     * @param  bool $flag 
+     * @return Zend_Form_Element_Password
+     */
+    public function setRenderPassword($flag)
+    {
+        $this->renderPassword = (bool) $flag;
+        return $this;
+    }
+
+    /**
+     * Get value of renderPassword flag
+     * 
+     * @return bool
+     */
+    public function renderPassword()
+    {
+        return $this->renderPassword;
+    }
 
     /**
      * Override isValid()

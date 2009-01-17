@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.35 $"/>
-		<generation date="$Date: 2007/07/19 22:31:39 $"/>
+		<version number="$Revision: 1.41 $"/>
+		<generation date="$Date: 2008/06/15 09:11:18 $"/>
 		<language type="or"/>
 	</identity>
 	<localeDisplayNames>
@@ -15,7 +15,7 @@
 		</territories>
 	</localeDisplayNames>
 	<characters>
-		<exemplarCharacters>[ଅ-ଋ ଏ ଐ ଓ-ନ ପ-ର ଲ ଳ ଶ-ହ ୟ ୱ ଵ ଂ ଃ ଁ ୍ ଼ ା-ୃ େ ୈ ୋ ୌ]</exemplarCharacters>
+		<exemplarCharacters>[୦-୯ ଅ-ଋ ଏ ଐ ଓ-ନ ପ-ର ଲ ଳ ଶ-ହ {ଡ଼}ଡ଼ {ଢ଼}ଢ଼ ୟ ୱ ଵ ଂ ଃ ଁ ୍ ଼ ା-ୃ େ ୈ ୋ ୌ]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[\u200C \u200D]</exemplarCharacters>
 	</characters>
 	<dates>
@@ -24,18 +24,18 @@
 				<months>
 					<monthContext type="format">
 						<monthWidth type="abbreviated">
-							<month type="1">1</month>
-							<month type="2">2</month>
-							<month type="3">3</month>
-							<month type="4">4</month>
-							<month type="5">5</month>
-							<month type="6">6</month>
-							<month type="7">7</month>
-							<month type="8">8</month>
-							<month type="9">9</month>
-							<month type="10">10</month>
-							<month type="11">11</month>
-							<month type="12">12</month>
+							<month type="1">ଜାନୁଆରୀ</month>
+							<month type="2">ଫେବ୍ରୁୟାରୀ</month>
+							<month type="3">ମାର୍ଚ୍ଚ</month>
+							<month type="4">ଅପ୍ରେଲ</month>
+							<month type="5">ମେ</month>
+							<month type="6">ଜୁନ</month>
+							<month type="7">ଜୁଲାଇ</month>
+							<month type="8">ଅଗଷ୍ଟ</month>
+							<month type="9">ସେପ୍ଟେମ୍ବର</month>
+							<month type="10">ଅକ୍ଟୋବର</month>
+							<month type="11">ନଭେମ୍ବର</month>
+							<month type="12">ଡିସେମ୍ବର</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1">ଜାନୁଆରୀ</month>
@@ -129,12 +129,12 @@
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
-							<pattern>EEEE d MMMM yyyy</pattern>
+							<pattern>MMMM d,EEEE, yyyy</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
 						<dateFormat>
-							<pattern>d MMMM yyyy</pattern>
+							<pattern>MMMM d, yyyy</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="medium">
@@ -194,6 +194,8 @@
 	</dates>
 	<numbers>
 		<symbols>
+			<decimal>.</decimal>
+			<group>,</group>
 			<nativeZeroDigit>୦</nativeZeroDigit>
 		</symbols>
 		<decimalFormats>
@@ -213,9 +215,20 @@
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>¤ #,##,##0.00</pattern>
+					<pattern>¤ #,##,##0.00</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 		</currencyFormats>
+		<currencies>
+			<currency type="INR">
+				<displayName>ଟଙକା</displayName>
+			</currency>
+		</currencies>
 	</numbers>
+	<posix>
+		<messages>
+			<yesstr>ହଁ</yesstr>
+			<nostr>ନା</nostr>
+		</messages>
+	</posix>
 </ldml>

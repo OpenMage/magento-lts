@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.46 $"/>
-		<generation date="$Date: 2007/07/21 17:40:15 $"/>
+		<version number="$Revision: 1.54 $"/>
+		<generation date="$Date: 2008/06/17 14:12:14 $"/>
 		<language type="ur"/>
 	</identity>
 	<localeDisplayNames>
@@ -119,6 +119,7 @@
 			<language type="zu">زُولُو</language>
 		</languages>
 		<scripts>
+			<script type="Arab">العربية</script>
 			<script type="Zxxx">Zxxx</script>
 			<script type="Zzzz">Zzzz</script>
 		</scripts>
@@ -323,12 +324,45 @@
 			<territory type="ZW">زمبابوے</territory>
 			<territory type="ZZ">Unknown or Invalid Region</territory>
 		</territories>
+		<keys>
+			<key type="calendar">کیلنڈر</key>
+			<key type="collation">موازنہ</key>
+			<key type="currency">کرنسی</key>
+		</keys>
+		<types>
+			<type type="big5han" key="collation">روایتی چینی چھانٹ ترتیب-Big5</type>
+			<type type="buddhist" key="calendar">بدھ کیلنڈر</type>
+			<type type="chinese" key="calendar">روایتی چینی کیلنڈر</type>
+			<type type="direct" key="collation">بلاواسطہ چھانٹ ترتیب</type>
+			<type type="gb2312han" key="collation">سادہ چینی چھانٹ ترتیب-GB2312</type>
+			<type type="gregorian" key="calendar">گریگوری کیلنڈر</type>
+			<type type="hebrew" key="calendar">عبرانی کیلنڈر</type>
+			<type type="indian" key="calendar">ہندی کیلنڈر</type>
+			<type type="islamic" key="calendar">اسلامی کیلنڈر</type>
+			<type type="islamic-civil" key="calendar">ہجری کیلنڈر</type>
+			<type type="japanese" key="calendar">جاپانی کیلنڈر</type>
+			<type type="phonebook" key="collation">فون نامہ چھانٹ ترتیب</type>
+			<type type="pinyin" key="collation">پن ین چھانٹ ترتیب</type>
+			<type type="roc" key="calendar">سادہ چینی کیلنڈر</type>
+			<type type="stroke" key="collation">لکیری چھانٹ ترتیب</type>
+			<type type="traditional" key="collation">روایتی چھانٹ ترتیب</type>
+		</types>
+		<measurementSystemNames>
+			<measurementSystemName type="US">امریکی</measurementSystemName>
+			<measurementSystemName type="metric">اعشاری</measurementSystemName>
+		</measurementSystemNames>
+		<codePatterns>
+			<codePattern type="language">زبان:{0}</codePattern>
+			<codePattern type="script">رسم الخط:{0}</codePattern>
+			<codePattern type="territory">خطہ:{0}</codePattern>
+		</codePatterns>
 	</localeDisplayNames>
 	<layout>
 		<orientation characters="right-to-left"/>
 	</layout>
 	<characters>
-		<exemplarCharacters>[ء-ؤ ئ-ب ٻ پ ة-ث ٹ ٺ ټ ٽ ج چ ح-ذ ڈ ر ز ڑ ژ س-غ ف ق ک گ ل-ن ں ه ھ ہ و ي ی ے]</exemplarCharacters>
+		<exemplarCharacters>[أ ؤ ا آ ب پ ت ٹ ث ج چ ح-د ڈ ذ ر ڑ ز ژ س-غ ف ق ک گ ل-ن ں و ہ ی ء ئ ے ٻ ة ٺ ټ ٽ ه ھ ي]</exemplarCharacters>
+		<exemplarCharacters type="auxiliary">[ؐ ؑ ؓ ؔ َ ِ ُ ٰ ً ّ]</exemplarCharacters>
 	</characters>
 	<dates>
 		<calendars>
@@ -340,14 +374,30 @@
 							<month type="2">فروری</month>
 							<month type="3">مار چ</month>
 							<month type="4">اپريل</month>
-							<month type="5">مئی</month>
+							<month type="5">مئ</month>
 							<month type="6">جون</month>
-							<month type="7">جولائی</month>
+							<month type="7">جولائ</month>
 							<month type="8">اگست</month>
 							<month type="9">ستمبر</month>
 							<month type="10">اکتوبر</month>
 							<month type="11">نومبر</month>
 							<month type="12">دسمبر</month>
+						</monthWidth>
+					</monthContext>
+					<monthContext type="stand-alone">
+						<monthWidth type="narrow">
+							<month type="1">ج</month>
+							<month type="2">ف</month>
+							<month type="3">م</month>
+							<month type="4">ا</month>
+							<month type="5">م</month>
+							<month type="6">ج</month>
+							<month type="7">ج</month>
+							<month type="8">ا</month>
+							<month type="9">س</month>
+							<month type="10">ا</month>
+							<month type="11">ن</month>
+							<month type="12">د</month>
 						</monthWidth>
 					</monthContext>
 				</months>
@@ -366,7 +416,7 @@
 							<day type="sun">اتوار</day>
 							<day type="mon">پير</day>
 							<day type="tue">منگل</day>
-							<day type="wed">بدھ</day>
+							<day type="wed">بده</day>
 							<day type="thu">جمعرات</day>
 							<day type="fri">جمعہ</day>
 							<day type="sat">ہفتہ</day>
@@ -386,6 +436,12 @@
 				</days>
 				<quarters>
 					<quarterContext type="format">
+						<quarterWidth type="abbreviated">
+							<quarter type="1">1سہ ماہی</quarter>
+							<quarter type="2">2سہ ماہی</quarter>
+							<quarter type="3">3سہ ماہی</quarter>
+							<quarter type="4">4سہ ماہی</quarter>
+						</quarterWidth>
 						<quarterWidth type="wide">
 							<quarter type="1">پہلی سہ ماہی</quarter>
 							<quarter type="2">دوسری سہ ماہی</quarter>
@@ -393,9 +449,17 @@
 							<quarter type="4">چوتهی سہ ماہی</quarter>
 						</quarterWidth>
 					</quarterContext>
+					<quarterContext type="stand-alone">
+						<quarterWidth type="narrow">
+							<quarter type="1">1</quarter>
+							<quarter type="2">2</quarter>
+							<quarter type="3">3</quarter>
+							<quarter type="4">4</quarter>
+						</quarterWidth>
+					</quarterContext>
 				</quarters>
-				<am>AM</am>
-				<pm>PM</pm>
+				<am>قبل دوپہر</am>
+				<pm>بعد دوپہر</pm>
 				<eras>
 					<eraNames>
 						<era type="0">قبل مسيح</era>
@@ -409,44 +473,44 @@
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
-							<pattern>EEEE, yyyy MMMM dd</pattern>
+							<pattern>EEEE, d, MMMM yyyy</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
 						<dateFormat>
-							<pattern>yyyy MMMM d</pattern>
+							<pattern>d, MMMM yyyy</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="medium">
 						<dateFormat>
-							<pattern>yyyy MMM d</pattern>
+							<pattern>d, MMM yyyy</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="short">
 						<dateFormat>
-							<pattern>yyyy-MM-dd</pattern>
+							<pattern>d/M/yy</pattern>
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
 				<timeFormats>
 					<timeFormatLength type="full">
 						<timeFormat>
-							<pattern>HH:mm:ss v</pattern>
+							<pattern>h:mm:ss a v</pattern>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="long">
 						<timeFormat>
-							<pattern>HH:mm:ss z</pattern>
+							<pattern>h:mm:ss a z</pattern>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="medium">
 						<timeFormat>
-							<pattern>HH:mm:ss</pattern>
+							<pattern>h:mm:ss a</pattern>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="short">
 						<timeFormat>
-							<pattern>HH:mm</pattern>
+							<pattern>h:mm a</pattern>
 						</timeFormat>
 					</timeFormatLength>
 				</timeFormats>
@@ -457,17 +521,152 @@
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
+						<dateFormatItem id="M">LL</dateFormatItem>
+						<dateFormatItem id="MEd">E, M-d</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
+						<dateFormatItem id="MMMEd">E MMM d</dateFormatItem>
+						<dateFormatItem id="MMMMEd">E MMMM d</dateFormatItem>
+						<dateFormatItem id="MMMMd">MMMM d</dateFormatItem>
+						<dateFormatItem id="MMMd">MMM d</dateFormatItem>
+						<dateFormatItem id="Md">M-d</dateFormatItem>
+						<dateFormatItem id="d">د</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
+						<dateFormatItem id="y">yyyy</dateFormatItem>
+						<dateFormatItem id="yM">yyyy-M</dateFormatItem>
+						<dateFormatItem id="yMEd">EEE, yyyy-d-M</dateFormatItem>
+						<dateFormatItem id="yMMM">yyyy MMM</dateFormatItem>
+						<dateFormatItem id="yMMMEd">EEE, yyyy MMM d</dateFormatItem>
+						<dateFormatItem id="yMMMM">yyyy MMMM</dateFormatItem>
+						<dateFormatItem id="yQ">Q yyyy</dateFormatItem>
+						<dateFormatItem id="yQQQ">yyyy QQQ</dateFormatItem>
 						<dateFormatItem id="yyQ">yy Q</dateFormatItem>
 					</availableFormats>
+					<intervalFormats>
+						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
+						<intervalFormatItem id="M">
+							<greatestDifference id="M">M تا M</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MEd">
+							<greatestDifference id="M">E, MM-dd تا E, MM-dd</greatestDifference>
+							<greatestDifference id="d">E, MMM dd – E, MMM dd</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMM">
+							<greatestDifference id="M">LLL-LLL</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMEd">
+							<greatestDifference id="M">E, MMM d – E, MMM d</greatestDifference>
+							<greatestDifference id="d">E, MMM d – E, MMM d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMM">
+							<greatestDifference id="M">LLLL-LLLL</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMd">
+							<greatestDifference id="M">MMM d تا MMM d</greatestDifference>
+							<greatestDifference id="d">MMM d تا d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Md">
+							<greatestDifference id="M">MM-dd تا MM-dd</greatestDifference>
+							<greatestDifference id="d">M/d تا d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d-d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="h">
+							<greatestDifference id="a">h a تا h a</greatestDifference>
+							<greatestDifference id="h">h–h a</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="a">h:mm a تا h:mm a</greatestDifference>
+							<greatestDifference id="h">h:mm تا h:mm a</greatestDifference>
+							<greatestDifference id="m">h:mm تا h:mm a</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="a">h:mm a – h:mm a v</greatestDifference>
+							<greatestDifference id="h">h:mm تا h:mm a v</greatestDifference>
+							<greatestDifference id="m">h:mm تا h:mm a v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hv">
+							<greatestDifference id="a">h a – h a v</greatestDifference>
+							<greatestDifference id="h">h تا h a v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="y">
+							<greatestDifference id="y">y تا y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yM">
+							<greatestDifference id="M">yyyy-MM تا MM</greatestDifference>
+							<greatestDifference id="y">yyyy-MM تا yyyy-MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="M">E, yyyy-MM-dd – E, yyyy-MM-dd</greatestDifference>
+							<greatestDifference id="d">E, yyyy-MM-dd تا E, yyyy-MM-dd</greatestDifference>
+							<greatestDifference id="y">E, yyyy-MM-dd – E, yyyy-MM-dd</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMM">
+							<greatestDifference id="M">MMM–MMM yyyy</greatestDifference>
+							<greatestDifference id="y">MMM–MMM yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEd">
+							<greatestDifference id="M">E, MMM d – E, MMM d, yyyy</greatestDifference>
+							<greatestDifference id="d">E, MMM d – E, MMM d, yyyy</greatestDifference>
+							<greatestDifference id="y">E, MMM d, yyyy تا E, MMM d, yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMM">
+							<greatestDifference id="M">yyyy-MM تا MM</greatestDifference>
+							<greatestDifference id="y">yyyy-MM تا yyyy-MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="M">MMM d تا MMM d, yyyy</greatestDifference>
+							<greatestDifference id="d">MMM d–d, yyyy</greatestDifference>
+							<greatestDifference id="y">MMM d, yyyy تا MMM d, yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="M">yyyy-MM-dd تا MM-dd</greatestDifference>
+							<greatestDifference id="d">yyyy-MM-dd تا dd</greatestDifference>
+							<greatestDifference id="y">MM-dd-yyyy تا MM-dd-yyyy</greatestDifference>
+						</intervalFormatItem>
+					</intervalFormats>
 				</dateTimeFormats>
 				<fields>
+					<field type="era">
+						<displayName>دور</displayName>
+					</field>
+					<field type="year">
+						<displayName>سال</displayName>
+					</field>
+					<field type="month">
+						<displayName>مہینہ</displayName>
+					</field>
+					<field type="week">
+						<displayName>ہفتہ</displayName>
+					</field>
 					<field type="day">
+						<displayName>دن</displayName>
 						<relative type="0">آج</relative>
 						<relative type="1">کل</relative>
+						<relative type="2">پرسوں</relative>
+						<relative type="3">ترسوں</relative>
 						<relative type="-1">کل</relative>
+						<relative type="-2">پرسوں</relative>
+						<relative type="-3">ترسوں</relative>
+					</field>
+					<field type="weekday">
+						<displayName>ہفتے کا دن</displayName>
 					</field>
 					<field type="dayperiod">
 						<displayName>رات/صبح</displayName>
+					</field>
+					<field type="hour">
+						<displayName>گھنٹہ</displayName>
+					</field>
+					<field type="minute">
+						<displayName>منٹ</displayName>
+					</field>
+					<field type="second">
+						<displayName>سیکنڈ</displayName>
+					</field>
+					<field type="zone">
+						<displayName>زون</displayName>
 					</field>
 				</fields>
 			</calendar>
@@ -475,27 +674,38 @@
 				<months>
 					<monthContext type="format">
 						<monthWidth type="wide">
+							<month type="1">محرم</month>
+							<month type="2">صفر</month>
+							<month type="3">ر بيع الاول</month>
+							<month type="4">ر بيع الثانی</month>
+							<month type="5">جمادی الاول</month>
+							<month type="6">جمادی الثانی</month>
+							<month type="7">رجب</month>
+							<month type="8">شعبان</month>
+							<month type="9">رمضان</month>
+							<month type="10">شوال</month>
 						</monthWidth>
 					</monthContext>
 				</months>
-				<days>
-					<dayContext type="format">
-						<dayWidth type="wide">
-						</dayWidth>
-					</dayContext>
-				</days>
 				<quarters>
 					<quarterContext type="format">
 						<quarterWidth type="wide">
+							<quarter type="1">پہلی سہ ماہی</quarter>
+							<quarter type="2">دوسری سہ ماہی</quarter>
+							<quarter type="3">تيسری سہ ماہی</quarter>
+							<quarter type="4">چوتهی سہ ماہی</quarter>
 						</quarterWidth>
 					</quarterContext>
 				</quarters>
-				<fields>
-					<field type="day">
-					</field>
-					<field type="dayperiod">
-					</field>
-				</fields>
+				<eras>
+					<eraNames>
+						<era type="1">عيسوی سن</era>
+					</eraNames>
+					<eraAbbr>
+						<era type="0">ق م</era>
+						<era type="1">CE</era>
+					</eraAbbr>
+				</eras>
 			</calendar>
 		</calendars>
 		<timeZoneNames>
@@ -634,7 +844,46 @@
 		<symbols>
 			<decimal>.</decimal>
 			<group>,</group>
+			<list>;</list>
+			<percentSign>%</percentSign>
+			<nativeZeroDigit>0</nativeZeroDigit>
+			<patternDigit>#</patternDigit>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+			<exponential>ق</exponential>
+			<perMille>‰</perMille>
+			<infinity>∞</infinity>
+			<nan>یہ عدد نہیں</nan>
 		</symbols>
+		<decimalFormats>
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
+		</decimalFormats>
+		<scientificFormats>
+			<scientificFormatLength>
+				<scientificFormat>
+					<pattern>#E0</pattern>
+				</scientificFormat>
+			</scientificFormatLength>
+		</scientificFormats>
+		<percentFormats>
+			<percentFormatLength>
+				<percentFormat>
+					<pattern>#,##0%</pattern>
+				</percentFormat>
+			</percentFormatLength>
+		</percentFormats>
+		<currencyFormats>
+			<currencyFormatLength>
+				<currencyFormat>
+					<pattern>¤#,##0.00</pattern>
+				</currencyFormat>
+			</currencyFormatLength>
+			<unitPattern count="one">‏{0} {1} ‏</unitPattern>
+		</currencyFormats>
 		<currencies>
 			<currency type="AED">
 				<displayName>متحدہ عرب اماراتی درہم</displayName>

@@ -342,6 +342,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                     $shippingDuty->addChild('DutiableFlag',($r->getDutiable()?'Y':'N'));
                     $shippingDuty->addChild('CustomsValue',$r->getValue());
             }
+            $hasShipCode = true;
+            $this->_createShipmentXml($shipment,$shipKey);
         } else {
             foreach ($methods as $method) {
                 $shipment = false;
@@ -381,6 +383,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         }
 
         $request = $xml->asXML();
+
         try {
             $url = $this->getConfigData('gateway_url');
             if (!$url) {
@@ -397,7 +400,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         } catch (Exception $e) {
             $responseBody = '';
         }
-        return $this->_parseXmlResponse($responseBody);
+        $res = $this->_parseXmlResponse($responseBody);
+
+        return $res;
     }
 
     protected function _createShipmentXml($shipment,$shipKey)

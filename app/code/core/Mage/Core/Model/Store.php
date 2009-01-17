@@ -369,14 +369,14 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     {
         if ($this->isAdmin()
             || !$this->getConfig(self::XML_PATH_USE_REWRITES)
-            || !Mage::app()->isInstalled()) {
+            || !Mage::isInstalled()) {
             $url .= basename($_SERVER['SCRIPT_FILENAME']).'/';
         }
         return $url;
     }
     protected function _updatePathUseStoreView($url)
     {
-        if (Mage::app()->isInstalled() &&
+        if (Mage::isInstalled() &&
 //            !$this->isAdmin() &&
             $this->getConfig(self::XML_PATH_STORE_IN_URL)) {
             $url .= $this->getCode().'/';
@@ -395,7 +395,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             return true;
         }
 
-        if (Mage::app()->isInstalled()) {
+        if (Mage::isInstalled()) {
             $secureBaseUrl = Mage::getStoreConfig('web/secure/base_route_url');
             if (!$secureBaseUrl) {
                 return false;
@@ -577,6 +577,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Convert price from default currency to current currency
      *
      * @param   double $price
+     * @param   boolean $format             Format price to currency format
+     * @param   boolean $includeContainer   Enclose into <span class="price"><span>
      * @return  double
      */
     public function convertPrice($price, $format=false, $includeContainer = true)
@@ -595,7 +597,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     }
 
     /**
-     * round price
+     * Round price
      *
      * @param mixed $price
      * @return double

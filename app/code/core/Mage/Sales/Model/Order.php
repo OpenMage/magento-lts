@@ -79,7 +79,7 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
     protected $_creditmemos;
     protected $_relatedObjects = array();
     protected $_orderCurrency = null;
-    protected $_storeCurrency = null;
+    protected $_baseCurrency = null;
 
     /**
      * Initialize resource model
@@ -522,6 +522,13 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
             $this->setShippingCanceled($this->getShippingAmount() - $this->getShippingInvoiced());
             $this->setBaseShippingCanceled($this->getBaseShippingAmount() - $this->getBaseShippingInvoiced());
 
+            $this->setDiscountCanceled(
+                $this->getDiscountAmount() - $this->getDiscountInvoiced()
+            );
+            $this->setBaseDiscountCanceled(
+                $this->getBaseDiscountAmount() - $this->getBaseDiscountInvoiced()
+            );
+
             $this->setState($cancelState, true);
         }
         return $this;
@@ -578,6 +585,8 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
 
         $paymentBlock = Mage::helper('payment')->getInfoBlock($this->getPayment())
             ->setIsSecureMode(true);
+
+        $paymentBlock->getMethod()->setStore($this->getStore()->getId());
 
         $mailTemplate = Mage::getModel('core/email_template');
         /* @var $mailTemplate Mage_Core_Model_Email_Template */
@@ -927,7 +936,8 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
             $this->_statusHistory = Mage::getResourceModel('sales/order_status_history_collection')
                 ->addAttributeToSelect('*')
                 ->setOrderFilter($this->getId())
-                ->setOrder('created_at', 'desc');
+                ->setOrder('created_at', 'desc')
+                ->setOrder('entity_id', 'desc');
 
             if ($this->getId()) {
                 foreach ($this->_statusHistory as $status) {
@@ -1048,23 +1058,33 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
      *
      * @return Mage_Directory_Model_Currency
      */
-    public function getStoreCurrency()
+    public function getBaseCurrency()
     {
-        if (is_null($this->_storeCurrency)) {
-            $this->_storeCurrency = Mage::getModel('directory/currency')->load($this->getStoreCurrencyCode());
+        if (is_null($this->_baseCurrency)) {
+            $this->_baseCurrency = Mage::getModel('directory/currency')->load($this->getBaseCurrencyCode());
         }
-        return $this->_storeCurrency;
+        return $this->_baseCurrency;
     }
 
+    /**
+     * Retrieve order website currency for working with base prices
+     * Deprecated method, please use getBaseCurrency instead.
+     *
+     * @return Mage_Directory_Model_Currency
+     */
+    public function getStoreCurrency()
+    {
+        return $this->getStoreCurrency();
+    }
 
     public function formatBasePrice($price)
     {
-        return $this->getStoreCurrency()->format($price);
+        return $this->getBaseCurrency()->format($price);
     }
 
     public function isCurrencyDifferent()
     {
-        return $this->getOrderCurrencyCode() != $this->getStoreCurrencyCode();
+        return $this->getOrderCurrencyCode() != $this->getBaseCurrencyCode();
     }
 
     /**
@@ -1267,7 +1287,7 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
      */
     public function getCreatedAtDate()
     {
-        return Mage::app()->getLocale()->storeDate($this->getStore(), $this->getCreatedAt(), true);
+        return Mage::app()->getLocale()->storeDate($this->getStore(), $this->_getResource()->mktime(($this->getCreatedAt())), true);
     }
 
     public function getEmailCustomerNote()
@@ -1363,7 +1383,7 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
         $this->_creditmemos = null;
         $this->_relatedObjects = array();
         $this->_orderCurrency = null;
-        $this->_storeCurrency = null;
+        $this->_baseCurrency = null;
 
         return $this;
     }

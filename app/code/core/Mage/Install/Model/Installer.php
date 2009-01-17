@@ -55,7 +55,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      */
     public function isApplicationInstalled()
     {
-        return Mage::app()->isInstalled();
+        return Mage::isInstalled();
     }
 
     /**

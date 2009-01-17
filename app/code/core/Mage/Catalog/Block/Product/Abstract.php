@@ -36,6 +36,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
 {
     private $_priceBlock = array();
     private $_priceBlockDefaultTemplate = 'catalog/product/price.phtml';
+    private $_tierPriceDefaultTemplate  = 'catalog/product/view/tierprices.phtml';
     private $_priceBlockTypes = array();
 
     private $_reviewsHelperBlock;
@@ -189,6 +190,31 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         return $this->getData('product');
     }
 
+    public function getTierPriceTemplate()
+    {
+        if (!$this->hasData('tier_price_template')) {
+            return $this->_tierPriceDefaultTemplate;
+        }
+
+        return $this->getData('tier_price_template');
+    }
+    /**
+     * Returns product tierprice block html
+     *
+     * @param Mage_Catalog_Model_Product $product
+     */
+    public function getTierPriceHtml($product = null)
+    {
+        if (is_null($product)) {
+            $product = $this->getProduct();
+        }
+        return $this->_getPriceBlock($product->getTypeId())
+            ->setTemplate($this->getTierPriceTemplate())
+            ->setProduct($product)
+            ->setInGrouped($this->getProduct()->isGrouped())
+            ->toHtml();
+    }
+
     /**
      * Get tier prices (formatted)
      *
@@ -243,5 +269,27 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             ->addFinalPrice()
             ->addTaxPercents()
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes());
+    }
+
+    /**
+     * Retrieve given media attribute label or product name if no label
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param string $mediaAttributeCode
+     *
+     * @return string
+     */
+    public function getImageLabel($product=null, $mediaAttributeCode='image')
+    {
+        if (is_null($product)) {
+            $product = $this->getProduct();
+        }
+
+        $label = $product->getData($mediaAttributeCode.'_label');
+        if (empty($label)) {
+            $label = $product->getName();
+        }
+
+        return $label;
     }
 }

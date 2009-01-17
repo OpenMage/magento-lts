@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -25,10 +26,16 @@
 #require_once 'Zend/Gdata/Extension.php';
 
 /**
+ * @see Zend_Gdata_Extension_EntryLink
+ */
+#require_once 'Zend/Gdata/Extension/EntryLink.php';
+
+/**
  * Data model class to represent a location (gd:where element)
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -50,19 +57,19 @@ class Zend_Gdata_Extension_Where extends Zend_Gdata_Extension
         $this->_entryLink = $entryLink;
     }
 
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
-        if ($this->_label != null) {
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
+        if ($this->_label !== null) {
             $element->setAttribute('label', $this->_label);
         }
-        if ($this->_rel != null) {
+        if ($this->_rel !== null) {
             $element->setAttribute('rel', $this->_rel);
         }
-        if ($this->_valueString != null) {
+        if ($this->_valueString !== null) {
             $element->setAttribute('valueString', $this->_valueString);
         }
-        if ($this->entryLink != null) {
+        if ($this->entryLink !== null) {
             $element->appendChild($this->_entryLink->getDOM($element->ownerDocument));
         }
         return $element;

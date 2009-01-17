@@ -51,6 +51,20 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     protected $_isComposite = true;
 
     /**
+     * Return relation info about used products
+     *
+     * @return Varien_Object Object with information data
+     */
+    public function getRelationInfo()
+    {
+        $info = new Varien_Object();
+        $info->setTable('catalog/product_super_link')
+            ->setParentFieldName('parent_id')
+            ->setChildFieldName('product_id');
+        return $info;
+    }
+
+    /**
      * Retrieve product type attributes
      *
      * @return array
@@ -483,9 +497,31 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     {
         if ($this->getProduct()->hasCustomOptions() && ($simpleProductOption = $this->getProduct()->getCustomOption('simple_product'))) {
             $simpleProduct = $simpleProductOption->getProduct();
-            return $simpleProduct->getWeight();
-        } else {
-            return $this->getProduct()->getData('weight');
+            if ($simpleProduct) {
+                return $simpleProduct->getWeight();
+            }
         }
+
+        return $this->getProduct()->getData('weight');
+    }
+
+    /**
+     * Implementation of product specify logic of which product needs to be assigned to option.
+     * For example if product which was added to option already removed from catalog.
+     *
+     * @param Mage_Catalog_Model_Product $optionProduct
+     * @param Mage_Sales_Model_Quote_Item_Option $option
+     * @return Mage_Catalog_Model_Product_Type_Abstract
+     */
+    public function assignProductToOption($optionProduct, $option)
+    {
+        if ($optionProduct) {
+            $option->setProduct($optionProduct);
+        } else {
+            $option->getItem()->setHasError('error');
+            $option->getItem()->addMessage(Mage::helper('catalog')->__('Selected configuration is not available.', $this->getProduct()->getName()));
+        }
+
+        return $this;
     }
 }

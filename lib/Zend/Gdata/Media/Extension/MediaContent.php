@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Media
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -27,11 +28,12 @@
 /**
  * Represents the media:content element of Media RSS.
  * Represents media objects.  Multiple media objects representing
- * the same content can be represented using a 
+ * the same content can be represented using a
  * media:group (Zend_Gdata_Media_Extension_MediaGroup) element.
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Media
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -46,7 +48,7 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
     protected $_url = null;
 
     /**
-     * @var int 
+     * @var int
      */
     protected $_fileSize = null;
 
@@ -72,7 +74,7 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
 
     /**
      * @var int
-     */ 
+     */
     protected $_bitrate = null;
 
     /**
@@ -114,14 +116,12 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
      * Creates an individual MediaContent object.
      */
     public function __construct($url = null, $fileSize = null, $type = null,
-            $medium = null, $isDefault = null, $expression = null, 
-            $bitrate = null, $framerate = null, $samplingrate = null, 
+            $medium = null, $isDefault = null, $expression = null,
+            $bitrate = null, $framerate = null, $samplingrate = null,
             $channels = null, $duration = null, $height = null, $width = null,
             $lang = null)
     {
-        foreach (Zend_Gdata_Media::$namespaces as $nsPrefix => $nsUri) {
-            $this->registerNamespace($nsPrefix, $nsUri);
-        }
+        $this->registerAllNamespaces(Zend_Gdata_Media::$namespaces);
         parent::__construct();
         $this->_url = $url;
         $this->_fileSize = $fileSize;
@@ -141,58 +141,58 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
 
 
     /**
-     * Retrieves a DOMElement which corresponds to this element and all 
+     * Retrieves a DOMElement which corresponds to this element and all
      * child properties.  This is used to build an entry back into a DOM
      * and eventually XML text for sending to the server upon updates, or
-     * for application storage/persistence.  
+     * for application storage/persistence.
      *
      * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all 
+     * @return DOMElement The DOMElement representing this element and all
      * child properties.
      */
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
-        if ($this->_url != null) {
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
+        if ($this->_url !== null) {
             $element->setAttribute('url', $this->_url);
         }
-        if ($this->_fileSize != null) {
+        if ($this->_fileSize !== null) {
             $element->setAttribute('fileSize', $this->_fileSize);
         }
-        if ($this->_type != null) {
+        if ($this->_type !== null) {
             $element->setAttribute('type', $this->_type);
         }
-        if ($this->_medium != null) {
+        if ($this->_medium !== null) {
             $element->setAttribute('medium', $this->_medium);
         }
-        if ($this->_isDefault != null) {
+        if ($this->_isDefault !== null) {
             $element->setAttribute('isDefault', $this->_isDefault);
         }
-        if ($this->_expression != null) {
+        if ($this->_expression !== null) {
             $element->setAttribute('expression', $this->_expression);
         }
-        if ($this->_bitrate != null) {
+        if ($this->_bitrate !== null) {
             $element->setAttribute('bitrate', $this->_bitrate);
         }
-        if ($this->_framerate != null) {
+        if ($this->_framerate !== null) {
             $element->setAttribute('framerate', $this->_framerate);
         }
-        if ($this->_samplingrate != null) {
+        if ($this->_samplingrate !== null) {
             $element->setAttribute('samplingrate', $this->_samplingrate);
         }
-        if ($this->_channels != null) {
+        if ($this->_channels !== null) {
             $element->setAttribute('channels', $this->_channels);
         }
-        if ($this->_duration != null) {
+        if ($this->_duration !== null) {
             $element->setAttribute('duration', $this->_duration);
         }
-        if ($this->_height != null) {
+        if ($this->_height !== null) {
             $element->setAttribute('height', $this->_height);
         }
-        if ($this->_width != null) {
+        if ($this->_width !== null) {
             $element->setAttribute('width', $this->_width);
         }
-        if ($this->_lang != null) {
+        if ($this->_lang !== null) {
             $element->setAttribute('lang', $this->_lang);
         }
         return $element;
@@ -200,7 +200,7 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
 
     /**
      * Given a DOMNode representing an attribute, tries to map the data into
-     * instance members.  If no mapping is defined, the name and value are 
+     * instance members.  If no mapping is defined, the name and value are
      * stored in an array.
      *
      * @param DOMNode $attribute The DOMNode attribute needed to be handled
@@ -259,8 +259,8 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
      * Returns the URL representing this MediaContent object
      *
      * @return string   The URL representing this MediaContent object.
-     */ 
-    public function __toString() 
+     */
+    public function __toString()
     {
         return $this->getUrl();
     }

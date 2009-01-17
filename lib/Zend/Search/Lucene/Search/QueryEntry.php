@@ -19,12 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
 /** Zend_Search_Lucene_Index_Term */
 #require_once 'Zend/Search/Lucene/Index/Term.php';
-
-/** Zend_Search_Lucene_Exception */
-#require_once 'Zend/Search/Lucene/Exception.php';
 
 /** Zend_Search_Lucene_Search_QueryEntry_Term */
 #require_once 'Zend/Search/Lucene/Search/QueryEntry/Term.php';
@@ -34,11 +30,6 @@
 
 /** Zend_Search_Lucene_Search_QueryEntry_Subquery */
 #require_once 'Zend/Search/Lucene/Search/QueryEntry/Subquery.php';
-
-
-/** Zend_Search_Lucene_Search_QueryParserException */
-#require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
-
 
 /**
  * @category   Zend

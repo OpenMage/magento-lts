@@ -12,73 +12,75 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Binary.php 8064 2008-02-16 10:58:39Z thomas $
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @category  Zend
+ * @package   Zend_Measure
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @version   $Id: Binary.php 13209 2008-12-13 22:34:06Z thomas $
  */
-
 
 /**
  * Implement needed classes
  */
-#require_once 'Zend/Measure/Exception.php';
 #require_once 'Zend/Measure/Abstract.php';
 #require_once 'Zend/Locale.php';
 
-
 /**
+ * Class for handling binary conversions
+ *
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Binary
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- *
  */
 class Zend_Measure_Binary extends Zend_Measure_Abstract
 {
-    // Binary definitions
     const STANDARD = 'BYTE';
 
-    const BIT              = 'BIT';
-    const CRUMB            = 'CRUMB';
-    const NIBBLE           = 'NIBBLE';
-    const BYTE             = 'BYTE';
-    const KILOBYTE         = 'KILOBYTE';
-    const KIBIBYTE         = 'KIBIBYTE';
-    const KILO_BINARY_BYTE = 'KILO_BINARY_BYTE';
-    const KILOBYTE_SI      = 'KILOBYTE_SI';
-    const MEGABYTE         = 'MEGABYTE';
-    const MEBIBYTE         = 'MEBIBYTE';
-    const MEGA_BINARY_BYTE = 'MEGA_BINARY_BYTE';
-    const MEGABYTE_SI      = 'MEGABYTE_SI';
-    const GIGABYTE         = 'GIGABYTE';
-    const GIBIBYTE         = 'GIBIBYTE';
-    const GIGA_BINARY_BYTE = 'GIGA_BINARY_BYTE';
-    const GIGABYTE_SI      = 'GIGABYTE_SI';
-    const TERABYTE         = 'TERABYTE';
-    const TEBIBYTE         = 'TEBIBYTE';
-    const TERA_BINARY_BYTE = 'TERA_BINARY_BYTE';
-    const TERABYTE_SI      = 'TERABYTE_SI';
-    const PETABYTE         = 'PETABYTE';
-    const PEBIBYTE         = 'PEBIBYTE';
-    const PETA_BINARY_BYTE = 'PETA_BINARY_BYTE';
-    const PETABYTE_SI      = 'PETABYTE_SI';
-    const EXABYTE          = 'EXABYTE';
-    const EXBIBYTE         = 'EXBIBYTE';
-    const EXA_BINARY_BYTE  = 'EXA_BINARY_BYTE';
-    const EXABYTE_SI       = 'EXABYTE_SI';
-    const ZETTABYTE        = 'ZETTABYTE';
-    const ZEBIBYTE         = 'ZEBIBYTE';
-    const ZETTA_BINARY_BYTE= 'ZETTA_BINARY_BYTE';
-    const ZETTABYTE_SI     = 'ZETTABYTE_SI';
-    const YOTTABYTE        = 'YOTTABYTE';
-    const YOBIBYTE         = 'YOBIBYTE';
-    const YOTTA_BINARY_BYTE= 'YOTTA_BINARY_BYTE';
-    const YOTTABYTE_SI     = 'YOTTABYTE_SI';
+    const BIT               = 'BIT';
+    const CRUMB             = 'CRUMB';
+    const NIBBLE            = 'NIBBLE';
+    const BYTE              = 'BYTE';
+    const KILOBYTE          = 'KILOBYTE';
+    const KIBIBYTE          = 'KIBIBYTE';
+    const KILO_BINARY_BYTE  = 'KILO_BINARY_BYTE';
+    const KILOBYTE_SI       = 'KILOBYTE_SI';
+    const MEGABYTE          = 'MEGABYTE';
+    const MEBIBYTE          = 'MEBIBYTE';
+    const MEGA_BINARY_BYTE  = 'MEGA_BINARY_BYTE';
+    const MEGABYTE_SI       = 'MEGABYTE_SI';
+    const GIGABYTE          = 'GIGABYTE';
+    const GIBIBYTE          = 'GIBIBYTE';
+    const GIGA_BINARY_BYTE  = 'GIGA_BINARY_BYTE';
+    const GIGABYTE_SI       = 'GIGABYTE_SI';
+    const TERABYTE          = 'TERABYTE';
+    const TEBIBYTE          = 'TEBIBYTE';
+    const TERA_BINARY_BYTE  = 'TERA_BINARY_BYTE';
+    const TERABYTE_SI       = 'TERABYTE_SI';
+    const PETABYTE          = 'PETABYTE';
+    const PEBIBYTE          = 'PEBIBYTE';
+    const PETA_BINARY_BYTE  = 'PETA_BINARY_BYTE';
+    const PETABYTE_SI       = 'PETABYTE_SI';
+    const EXABYTE           = 'EXABYTE';
+    const EXBIBYTE          = 'EXBIBYTE';
+    const EXA_BINARY_BYTE   = 'EXA_BINARY_BYTE';
+    const EXABYTE_SI        = 'EXABYTE_SI';
+    const ZETTABYTE         = 'ZETTABYTE';
+    const ZEBIBYTE          = 'ZEBIBYTE';
+    const ZETTA_BINARY_BYTE = 'ZETTA_BINARY_BYTE';
+    const ZETTABYTE_SI      = 'ZETTABYTE_SI';
+    const YOTTABYTE         = 'YOTTABYTE';
+    const YOBIBYTE          = 'YOBIBYTE';
+    const YOTTA_BINARY_BYTE = 'YOTTA_BINARY_BYTE';
+    const YOTTABYTE_SI      = 'YOTTABYTE_SI';
 
-    protected $_UNITS = array(
+    /**
+     * Calculations for all binary units
+     *
+     * @var array
+     */
+    protected $_units = array(
         'BIT'              => array('0.125',                     'b'),
         'CRUMB'            => array('0.25',                      'crumb'),
         'NIBBLE'           => array('0.5',                       'nibble'),

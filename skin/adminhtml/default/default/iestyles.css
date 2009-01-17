@@ -48,7 +48,10 @@ ul.tabs li span,
 ul.tabs li a,
 .address-list li,
 .entry-edit .entry-edit-head,
-.notification-global { zoom:1; } /* IE version of clearing */
+.notification-global,
+.files .row,
+.files-wide .row,
+.uploader .file-row { zoom:1; }
 
 .clear { display:block; clear:both; height:0; font-size:0; line-height:0; overflow:hidden; }
 

@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Report_Sales_Refunded_Grid extends Mage_Adminhtml_Blo
             'type'      =>'number'
         ));
 
-        $currency_code = (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode();
+        $currency_code = $this->getCurrentCurrencyCode();
 
         $this->addColumn('refunded', array(
             'header'    =>Mage::helper('reports')->__('Total Refunded'),

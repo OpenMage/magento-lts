@@ -148,18 +148,30 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if ($freeRateId===false) {
             return;
         }
-        $price = 0;
+        $price = null;
         if ($request->getFreeMethodWeight()>0) {
             $this->_setFreeMethodRequest($freeMethod);
 
             $result = $this->_getQuotes();
-            if ($result && ($rates = $result->getAllRates())
-                && count($rates)>0
-                && $rates[0] instanceof Mage_Shipping_Model_Rate_Result_Method) {
-                $price = $rates[0]->getPrice();
+            if ($result && ($rates = $result->getAllRates()) && count($rates)>0) {
+                if ((count($rates) == 1) && ($rates[0] instanceof Mage_Shipping_Model_Rate_Result_Method)) {
+                    $price = $rates[0]->getPrice();
+                }
+                if (count($rates) > 1) {
+                    foreach ($rates as $rate) {
+                        if ($rate instanceof Mage_Shipping_Model_Rate_Result_Method && $rate->getMethod() == $freeMethod) {
+                            $price = $rate->getPrice();
+                        }
+                    }
+                }
             }
         }
-        $this->_result->getRateById($freeRateId)->setPrice($price);
+        /**
+         * if we did not get our free shipping method in response we must use its old price
+         */
+        if (!is_null($price)) {
+            $this->_result->getRateById($freeRateId)->setPrice($price);
+        }
     }
 
     public function getMethodPrice($cost, $method='')
@@ -235,7 +247,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         $this->_numBoxes = 1;
         $weight = $this->convertWeightToLbs($weight);
         $maxPackageWeight = $this->getConfigData('max_package_weight');
-        if($weight > $maxPackageWeight) {
+        if($weight > $maxPackageWeight && $maxPackageWeight != 0) {
             $this->_numBoxes = ceil($weight/$maxPackageWeight);
             $weight = $weight/$this->_numBoxes;
         }

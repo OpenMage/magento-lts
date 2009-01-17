@@ -18,7 +18,7 @@
  * @subpackage Zend_OpenId_Consumer
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php 8858 2008-03-16 12:10:04Z thomas $
+ * @version    $Id: File.php 12969 2008-12-01 12:54:06Z dmitry $
  */
 
 /**
@@ -70,24 +70,40 @@ class Zend_OpenId_Consumer_Storage_File extends Zend_OpenId_Consumer_Storage
         $this->_dir = $dir;
         if (!is_dir($this->_dir)) {
             if (!@mkdir($this->_dir, 0700, 1)) {
+                /**
+                 * @see Zend_OpenId_Exception
+                 */
+                #require_once 'Zend/OpenId/Exception.php';
                 throw new Zend_OpenId_Exception(
                     'Cannot access storage directory ' . $dir,
                     Zend_OpenId_Exception::ERROR_STORAGE);
             }
         }
         if (($f = fopen($this->_dir.'/assoc.lock', 'w+')) === null) {
+            /**
+             * @see Zend_OpenId_Exception
+             */
+            #require_once 'Zend/OpenId/Exception.php';
             throw new Zend_OpenId_Exception(
                 'Cannot create a lock file in the directory ' . $dir,
                 Zend_OpenId_Exception::ERROR_STORAGE);
         }
         fclose($f);
         if (($f = fopen($this->_dir.'/discovery.lock', 'w+')) === null) {
+            /**
+             * @see Zend_OpenId_Exception
+             */
+            #require_once 'Zend/OpenId/Exception.php';
             throw new Zend_OpenId_Exception(
                 'Cannot create a lock file in the directory ' . $dir,
                 Zend_OpenId_Exception::ERROR_STORAGE);
         }
         fclose($f);
         if (($f = fopen($this->_dir.'/nonce.lock', 'w+')) === null) {
+            /**
+             * @see Zend_OpenId_Exception
+             */
+            #require_once 'Zend/OpenId/Exception.php';
             throw new Zend_OpenId_Exception(
                 'Cannot create a lock file in the directory ' . $dir,
                 Zend_OpenId_Exception::ERROR_STORAGE);
@@ -125,17 +141,25 @@ class Zend_OpenId_Consumer_Storage_File extends Zend_OpenId_Consumer_Storage
         $data = serialize(array($url, $handle, $macFunc, $secret, $expires));
         fwrite($f, $data);
         if (function_exists('symlink')) {
-            symlink($name1, $name2);
-        } else {
-            $f2 = @fopen($name2, 'w+');
-            if ($f2) {
-                fwrite($f2, $data);
-                fclose($f2);
+            @unlink($name2);
+            if (symlink($name1, $name2)) {
+                fclose($f);
+                fclose($lock);
+                return true;
             }
+        }
+        $f2 = @fopen($name2, 'w+');
+        if ($f2) {
+            fwrite($f2, $data);
+            fclose($f2);
+            @unlink($name1);
+            $ret = true;
+        } else {
+        	$ret = false;
         }
         fclose($f);
         fclose($lock);
-        return true;
+        return $ret;
     }
 
     /**
@@ -376,12 +400,13 @@ class Zend_OpenId_Consumer_Storage_File extends Zend_OpenId_Consumer_Storage
     /**
      * The function checks the uniqueness of openid.response_nonce
      *
+     * @param string $provider openid.openid_op_endpoint field from authentication response
      * @param  string $nonce openid.response_nonce field from authentication response
      * @return bool
      */
-    public function isUniqueNonce($nonce)
+    public function isUniqueNonce($provider, $nonce)
     {
-        $name = $this->_dir . '/nonce_' . md5($nonce);
+        $name = $this->_dir . '/nonce_' . md5($provider.';'.$nonce);
         $lock = @fopen($this->_dir . '/nonce.lock', 'w+');
         if ($lock === false) {
             return false;
@@ -395,7 +420,7 @@ class Zend_OpenId_Consumer_Storage_File extends Zend_OpenId_Consumer_Storage
             fclose($lock);
             return false;
         }
-        fwrite($f, $nonce);
+        fwrite($f, $provider.';'.$nonce);
         fclose($f);
         fclose($lock);
         return true;

@@ -748,7 +748,7 @@ abstract class Zend_Pdf_Font
             if ($fontParser->isAdobeLatinSubset) {
                 $font = new Zend_Pdf_Resource_Font_Simple_Parsed_TrueType($fontParser, $embeddingOptions);
             } else {
-            	/* Use Composite Type 0 font which supports Unicode character mapping */
+                /* Use Composite Type 0 font which supports Unicode character mapping */
                 $cidFont = new Zend_Pdf_Resource_Font_CidFont_TrueType($fontParser, $embeddingOptions);
                 $font    = new Zend_Pdf_Resource_Font_Type0($cidFont);
             }

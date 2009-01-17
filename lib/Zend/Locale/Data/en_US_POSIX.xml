@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.52 $"/>
-		<generation date="$Date: 2007/07/19 22:31:39 $"/>
+		<version number="$Revision: 1.55 $"/>
+		<generation date="$Date: 2008/06/15 08:09:47 $"/>
 		<language type="en"/>
 		<territory type="US"/>
 		<variant type="POSIX"/>
@@ -37,7 +37,7 @@
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>¤ #0.00</pattern>
+					<pattern>¤ #0.00</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 		</currencyFormats>

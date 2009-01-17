@@ -16,9 +16,12 @@
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Action.php 8838 2008-03-15 19:55:17Z thomas $
+ * @version    $Id: Action.php 10664 2008-08-05 10:56:06Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
+
+/** Zend_View_Helper_Abstract.php */
+#require_once 'Zend/View/Helper/Abstract.php';
 
 /**
  * Helper for rendering output of a controller action
@@ -28,7 +31,7 @@
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_View_Helper_Action 
+class Zend_View_Helper_Action extends Zend_View_Helper_Abstract 
 {
     /**
      * @var string
@@ -50,13 +53,6 @@ class Zend_View_Helper_Action
      */
     public $response;
     
-    /**
-     * Instance of parent Zend_View object
-     *
-     * @var Zend_View_Interface
-     */
-    public $view = null;
-
     /**
      * Constructor
      *
@@ -146,22 +142,10 @@ class Zend_View_Helper_Action
         } 
  
         $return = $this->response->getBody();
-        
+        $this->resetObjects(); 
         return $return;
     }
     
-    /**
-     * Set view object
-     *
-     * @param  Zend_View_Interface $view
-     * @return Zend_View_Helper_Action
-     */
-    public function setView(Zend_View_Interface $view)
-    {
-        $this->view = $view;
-        return $this;
-    }
-
     /**
      * Clone the current View
      *

@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php 
+<?php
 /**
  * @methods
  *  getTitle() - string
@@ -35,14 +35,15 @@
 ?>
 
 <div class="content-header">
-	<table cellspacing="0">
-		<tr>
-			<td><h3><?php echo Mage::helper('adminhtml')->__($this->getTitle()) ?></h3></td><td class="form-buttons"><?php echo $this->getSaveButtonHtml() ?></td>
-		 </tr>
-	</table>
+    <table cellspacing="0">
+        <tr>
+            <td><h3><?php echo Mage::helper('adminhtml')->__($this->getTitle()) ?></h3></td><td class="form-buttons"><?php echo $this->getSaveButtonHtml() ?></td>
+         </tr>
+    </table>
 </div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="config_edit_form" enctype="multipart/form-data">
-<?php echo $this->getChildHtml('form') ?>
+    <?php echo $this->getBlockHtml('formkey')?>
+    <?php echo $this->getChildHtml('form') ?>
 </form>
 <script type="text/javascript">
     var configForm = new varienForm('config_edit_form');

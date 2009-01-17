@@ -35,17 +35,18 @@ class Zend_Translate {
     /**
      * Adapter names constants
      */
-    const AN_ARRAY   = 'array';
-    const AN_CSV     = 'csv';
-    const AN_GETTEXT = 'gettext';
-    const AN_QT      = 'qt';
-    const AN_TBX     = 'tbx';
-    const AN_TMX     = 'tmx';
-    const AN_XLIFF   = 'xliff';
-    const AN_XMLTM   = 'xmltm';
+    const AN_ARRAY   = 'Array';
+    const AN_CSV     = 'Csv';
+    const AN_GETTEXT = 'Gettext';
+    const AN_INI     = 'Ini';
+    const AN_QT      = 'Qt';
+    const AN_TBX     = 'Tbx';
+    const AN_TMX     = 'Tmx';
+    const AN_XLIFF   = 'Xliff';
+    const AN_XMLTM   = 'XmlTm';
 
-    const LOCALE_DIRECTORY = 1;
-    const LOCALE_FILENAME  = 2;
+    const LOCALE_DIRECTORY = 'directory';
+    const LOCALE_FILENAME  = 'filename';
 
     /**
      * Adapter
@@ -54,7 +55,6 @@ class Zend_Translate {
      */
     private $_adapter;
     private static $_cache = null;
-
 
     /**
      * Generates the standard translation object
@@ -71,7 +71,6 @@ class Zend_Translate {
         $this->setAdapter($adapter, $data, $locale, $options);
     }
 
-
     /**
      * Sets a new adapter
      *
@@ -83,44 +82,20 @@ class Zend_Translate {
      */
     public function setAdapter($adapter, $data, $locale = null, array $options = array())
     {
-        switch (strtolower($adapter)) {
-            case 'array':
-                $adapter = 'Zend_Translate_Adapter_Array';
-                break;
-            case 'csv':
-                $adapter = 'Zend_Translate_Adapter_Csv';
-                break;
-            case 'gettext':
-                $adapter = 'Zend_Translate_Adapter_Gettext';
-                break;
-            case 'qt':
-                $adapter = 'Zend_Translate_Adapter_Qt';
-                break;
-            case 'tbx':
-                $adapter = 'Zend_Translate_Adapter_Tbx';
-                break;
-            case 'tmx':
-                $adapter = 'Zend_Translate_Adapter_Tmx';
-                break;
-            case 'xliff':
-                $adapter = 'Zend_Translate_Adapter_Xliff';
-                break;
-            case 'xmltm':
-                $adapter = 'Zend_Translate_Adapter_XmlTm';
-                break;
+        if (Zend_Loader::isReadable('Zend/Translate/Adapter/' . ucfirst($adapter). '.php')) {
+            $adapter = 'Zend_Translate_Adapter_' . ucfirst($adapter);
         }
 
-        @Zend_Loader::loadClass($adapter);
+        Zend_Loader::loadClass($adapter);
         if (self::$_cache !== null) {
             call_user_func(array($adapter, 'setCache'), self::$_cache);
         }
         $this->_adapter = new $adapter($data, $locale, $options);
         if (!$this->_adapter instanceof Zend_Translate_Adapter) {
             #require_once 'Zend/Translate/Exception.php';
-            throw new Zend_Translate_Exception("Adapter " . $adapter . " does not extend Zend_Translate_Adapter'");
+            throw new Zend_Translate_Exception("Adapter " . $adapter . " does not extend Zend_Translate_Adapter");
         }
     }
-
 
     /**
      * Returns the adapters name and it's options
@@ -132,17 +107,60 @@ class Zend_Translate {
         return $this->_adapter;
     }
 
+    /**
+     * Returns the set cache
+     *
+     * @return Zend_Cache_Core The set cache
+     */
+    public static function getCache()
+    {
+        return self::$_cache;
+    }
 
     /**
      * Sets a cache for all instances of Zend_Translate
      *
-     * @param Zend_Cache_Core $cache Cache to store to
+     * @param  Zend_Cache_Core $cache Cache to store to
+     * @return void
      */
     public static function setCache(Zend_Cache_Core $cache)
     {
         self::$_cache = $cache;
     }
 
+    /**
+     * Returns true when a cache is set
+     *
+     * @return boolean
+     */
+    public static function hasCache()
+    {
+        if (self::$_cache !== null) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Removes any set cache
+     *
+     * @return void
+     */
+    public static function removeCache()
+    {
+        self::$_cache = null;
+    }
+
+    /**
+     * Clears all set cache data
+     *
+     * @return void
+     */
+    public static function clearCache()
+    {
+        self::$_cache->clean();
+    }
 
     /**
      * Calls all methods from the adapter

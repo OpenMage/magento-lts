@@ -65,4 +65,5 @@
 .add-to-holder:after,
 .listing-type-grid .grid-row:after,
 .advanced-search-summary-box:after,
-.shopping-cart-totals .checkout-types:after { content:"."; display:block; clear:both; height:0; font-size:0; line-height:0; visibility:hidden; overflow:hidden;	}
+.shopping-cart-totals .checkout-types:after,
+.advanced-search li:after { content:"."; display:block; clear:both; font-size:0; line-height:0; height:0; overflow:hidden; }

@@ -154,15 +154,15 @@
                     <children>
                         <catalog>
                             <children>
-                                <googlebase>
+                                <googlebase translate="title" module="googlebase">
                                     <title>Google Base</title>
                                     <sort_order>500</sort_order>
                                     <children>
-                                        <types>
+                                        <types translate="title">
                                             <title>Manage Attributes</title>
                                             <sort_order>0</sort_order>
                                         </types>
-                                        <items>
+                                        <items translate="title">
                                             <title>Manage Items</title>
                                             <sort_order>5</sort_order>
                                         </items>

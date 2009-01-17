@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sales>
-            <version>0.9.26</version>
+            <version>0.9.29</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -89,11 +89,14 @@
                 <customer_dob><to_order>*</to_order></customer_dob>
                 <customer_taxvat><to_order>*</to_order></customer_taxvat>
 
+                <global_currency_code><to_order>*</to_order></global_currency_code>
                 <base_currency_code><to_order>*</to_order></base_currency_code>
                 <store_currency_code><to_order>*</to_order></store_currency_code>
                 <quote_currency_code><to_order>order_currency_code</to_order></quote_currency_code>
                 <store_to_base_rate><to_order>*</to_order></store_to_base_rate>
                 <store_to_quote_rate><to_order>store_to_order_rate</to_order></store_to_quote_rate>
+                <base_to_global_rate><to_order>*</to_order></base_to_global_rate>
+                <base_to_quote_rate><to_order>base_to_order_rate</to_order></base_to_quote_rate>
 
                 <coupon_code><to_order>*</to_order></coupon_code>
                 <giftcert_code><to_order>*</to_order></giftcert_code>
@@ -203,11 +206,14 @@
                 <customer_note_notify><to_quote>*</to_quote></customer_note_notify>
                 <customer_is_guest><to_quote>*</to_quote></customer_is_guest>
 
+                <global_currency_code><to_quote>*</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></global_currency_code>
                 <base_currency_code><to_quote>*</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></base_currency_code>
                 <store_currency_code><to_quote>*</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></store_currency_code>
                 <order_currency_code><to_quote>quote_currency_code</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></order_currency_code>
                 <store_to_base_rate><to_quote>*</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></store_to_base_rate>
                 <store_to_order_rate><to_quote>store_to_quote_rate</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></store_to_order_rate>
+                <base_to_global_rate><to_quote>*</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></base_to_global_rate>
+                <base_to_order_rate><to_quote>base_to_quote_rate</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></base_to_order_rate>
 
                 <grand_total><to_quote>*</to_quote><to_quote_address_shipping>*</to_quote_address_shipping></grand_total>
                 <base_grand_total><to_quote>*</to_quote><to_quote_address_shipping>*</to_quote_address_shipping></base_grand_total>
@@ -700,7 +706,7 @@
             <resources>
                 <admin>
                     <children>
-                        <sales translate="title">
+                        <sales translate="title" module="sales">
                             <title>Sales</title>
                             <children>
                                 <order translate="title">
@@ -741,6 +747,26 @@
                                 </creditmemo>
                             </children>
                         </sales>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <sales translate="title">
+                                            <title>Sales Section</title>
+                                            <sort_order>60</sort_order>
+                                        </sales>
+                                        <sales_email translate="title">
+                                            <title>Sales Emails Section</title>
+                                            <sort_order>65</sort_order>
+                                        </sales_email>
+                                        <sales_pdf translate="title">
+                                            <title>PDF Print-outs</title>
+                                            <sort_order>66</sort_order>
+                                        </sales_pdf>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
                     </children>
                 </admin>
             </resources>

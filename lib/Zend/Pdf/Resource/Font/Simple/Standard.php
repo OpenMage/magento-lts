@@ -70,7 +70,7 @@ abstract class Zend_Pdf_Resource_Font_Simple_Standard extends Zend_Pdf_Resource_
     {
         $this->_fontType = Zend_Pdf_Font::TYPE_STANDARD;
 
-    	parent::__construct();
+        parent::__construct();
         $this->_resource->Subtype  = new Zend_Pdf_Element_Name('Type1');
     }
 

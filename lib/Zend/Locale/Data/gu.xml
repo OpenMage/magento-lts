@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.56 $"/>
-		<generation date="$Date: 2007/07/19 22:31:39 $"/>
+		<version number="$Revision: 1.59 $"/>
+		<generation date="$Date: 2008/06/15 08:09:47 $"/>
 		<language type="gu"/>
 	</identity>
 	<localeDisplayNames>
@@ -16,6 +16,7 @@
 			<language type="be">બેલરૂશિયન</language>
 			<language type="bg">બલ્ગેરિયન</language>
 			<language type="bh">બિહારી</language>
+			<language type="bho">ભોજપુરી</language>
 			<language type="bn">બંગાળી</language>
 			<language type="br">બ્રેટોન</language>
 			<language type="bs">બૉઝ્નિયન</language>
@@ -96,7 +97,7 @@
 			<language type="su">સુન્ડનીઝ</language>
 			<language type="sv">સ્વીડીશ</language>
 			<language type="sw">સ્વાહિલી</language>
-			<language type="ta">તમિળ</language>
+			<language type="ta">તમિલ</language>
 			<language type="te">તેલુગુ</language>
 			<language type="th">થાઇ</language>
 			<language type="ti">ટગ્રિન્યા</language>
@@ -111,6 +112,11 @@
 			<language type="yi">યિડિશ</language>
 			<language type="zu">ઝુલુ</language>
 		</languages>
+		<scripts>
+			<script type="Arab">અરેબી</script>
+			<script type="Armn">અર્મેનિયાઈ</script>
+			<script type="Beng">બંગાળી</script>
+		</scripts>
 		<territories>
 			<territory type="CN">ચીન</territory>
 			<territory type="DE">જમિની</territory>
@@ -123,6 +129,11 @@
 			<territory type="TR">તુર્કસ્તાન</territory>
 			<territory type="US">સંયુકત રાજ્ય અમેરિકા</territory>
 		</territories>
+		<keys>
+			<key type="calendar">કેલેન્ડર</key>
+			<key type="collation">ક્રમ</key>
+			<key type="currency">ચલણ</key>
+		</keys>
 	</localeDisplayNames>
 	<characters>
 		<exemplarCharacters>[૦-૯ ૐ અ-ઋ ૠ ઍ એ-ઑ ઓ-ન પ-ર લ ળ વ-હ ઼ ઁ-ઃ ઽ ્ ા-ૅ ે-ૉ ો ૌ]</exemplarCharacters>
@@ -333,7 +344,7 @@
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>¤ #,##,##0.00</pattern>
+					<pattern>¤ #,##,##0.00</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 		</currencyFormats>
@@ -350,3 +361,4 @@
 		</messages>
 	</posix>
 </ldml>
+

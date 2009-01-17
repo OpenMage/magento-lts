@@ -504,6 +504,9 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
             '49_residential' => $r->getDestType(),
         );
         $params['10_action'] = $params['10_action']=='4'? 'Shop' : 'Rate';
+        $serviceCode = $r->getProduct() ? $r->getProduct() : '';
+        $serviceDescription = $serviceCode ? $this->getShipmentByCode($serviceCode) : '';
+
 $xmlRequest .= <<< XMLRequest
 <?xml version="1.0"?>
 <RatingServiceSelectionRequest xml:lang="en-US">
@@ -515,10 +518,6 @@ $xmlRequest .= <<< XMLRequest
     <RequestAction>Rate</RequestAction>
     <RequestOption>{$params['10_action']}</RequestOption>
   </Request>
-  <Service>
-      <Code></Code>
-      <Description></Description>
-  </Service>
   <PickupType>
           <Code>{$params['47_rate_chart']['code']}</Code>
           <Description>{$params['47_rate_chart']['label']}</Description>
@@ -526,6 +525,10 @@ $xmlRequest .= <<< XMLRequest
 
   <Shipment>
 
+      <Service>
+          <Code>{$serviceCode}</Code>
+          <Description>{$serviceDescription}</Description>
+      </Service>
       <Shipper>
       <Address>
           <City>{$params['origCity']}</City>

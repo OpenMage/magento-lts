@@ -59,8 +59,8 @@ class Mage_Adminhtml_Block_Review_Add extends Mage_Adminhtml_Block_Widget_Form_C
                     formHidden : true,
 
                     gridRowClick : function(data, click) {
-                        if(Event.findElement(click,\'TR\').id){
-                            review.productInfoUrl = Event.findElement(click,\'TR\').id;
+                        if(Event.findElement(click,\'TR\').title){
+                            review.productInfoUrl = Event.findElement(click,\'TR\').title;
                             review.loadProductData();
                             review.showForm();
                             review.formHidden = false;
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Review_Add extends Mage_Adminhtml_Block_Widget_Form_C
                     },
 
                     loadProductData : function() {
-                        var con = new Ext.lib.Ajax.request(\'POST\', review.productInfoUrl, {success:review.reqSuccess,failure:review.reqFailure});
+                        var con = new Ext.lib.Ajax.request(\'POST\', review.productInfoUrl, {success:review.reqSuccess,failure:review.reqFailure}, {form_key:FORM_KEY});
                     },
 
                     showForm : function() {
@@ -80,8 +80,15 @@ class Mage_Adminhtml_Block_Review_Add extends Mage_Adminhtml_Block_Widget_Form_C
 
                     updateRating: function() {
                         elements = [$("select_stores"), $("rating_detail").getElementsBySelector("input[type=\'radio\']")].flatten();
-                         $(\'save_button\').disabled = true;
-                        new Ajax.Updater("rating_detail", "'.$this->getUrl('*/*/ratingItems').'", {parameters:Form.serializeElements(elements), evalScripts: true,  onComplete:function(){ $(\'save_button\').disabled = false; } });
+                        $(\'save_button\').disabled = true;
+                        var params = Form.serializeElements(elements);
+                        if (!params.isAjax) {
+                            params.isAjax = "true";
+                        }
+                        if (!params.form_key) {
+                            params.form_key = FORM_KEY;
+                        }
+                        new Ajax.Updater("rating_detail", "'.$this->getUrl('*/*/ratingItems').'", {parameters:params, evalScripts: true,  onComplete:function(){ $(\'save_button\').disabled = false; } });
                     },
 
                     reqSuccess :function(o) {

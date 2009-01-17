@@ -17,7 +17,7 @@
  * @package    Zend_Filter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlEntities.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: HtmlEntities.php 11783 2008-10-09 17:38:54Z andries $
  */
 
 
@@ -81,6 +81,7 @@ class Zend_Filter_HtmlEntities implements Zend_Filter_Interface
     public function setQuoteStyle($quoteStyle)
     {
         $this->_quoteStyle = $quoteStyle;
+        return $this;
     }
 
     /**

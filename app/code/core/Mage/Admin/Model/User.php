@@ -18,51 +18,67 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Permissions
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Admin
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Admin user model
+ *
+ * @category    Mage
+ * @package     Mage_Admin
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 {
+
     const XML_PATH_FORGOT_EMAIL_TEMPLATE    = 'admin/emails/forgot_email_template';
     const XML_PATH_FORGOT_EMAIL_IDENTITY    = 'admin/emails/forgot_email_identity';
     const XML_PATH_STARTUP_PAGE             = 'admin/startup/page';
 
+    /**
+     * Varien constructor
+     */
     protected function _construct()
     {
         $this->_init('admin/user');
     }
 
-    public function save() {
-
+    /**
+     * Save user
+     *
+     * @return Mage_Admin_Model_User
+     */
+    public function save()
+    {
         $data = array(
-                'firstname' => $this->getFirstname(),
-                'lastname'  => $this->getLastname(),
-                'email'     => $this->getEmail(),
-                'modified'  => now(),
-                'extra'     => serialize($this->getExtra())
-            );
+            'firstname' => $this->getFirstname(),
+            'lastname'  => $this->getLastname(),
+            'email'     => $this->getEmail(),
+            'modified'  => now(),
+            'extra'     => serialize($this->getExtra())
+        );
 
         if($this->getId() > 0) {
-            $data['user_id']   = $this->getId();
+            $data['user_id'] = $this->getId();
         }
 
         if( $this->getUsername() ) {
-            $data['username']   = $this->getUsername();
+            $data['username'] = $this->getUsername();
         }
 
         if ($this->getPassword()) {
-            $data['password']   = $this->_getEncodedPassword($this->getPassword());
+            $data['password'] = $this->_getEncodedPassword($this->getPassword());
         }
 
         if ($this->getNewPassword()) {
-            $data['password']   = $this->_getEncodedPassword($this->getNewPassword());
+            $data['password'] = $this->_getEncodedPassword($this->getNewPassword());
         }
 
         if ( !is_null($this->getIsActive()) ) {
-            $data['is_active']  = intval($this->getIsActive());
+            $data['is_active'] = intval($this->getIsActive());
         }
 
         $this->setData($data);
@@ -70,12 +86,22 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * Delete user
+     *
+     * @return Mage_Admin_Model_User
+     */
     public function delete()
     {
         $this->_getResource()->delete($this);
         return $this;
     }
 
+    /**
+     * Save user roles
+     *
+     * @return Mage_Admin_Model_User
+     */
     public function saveRelations()
     {
         $this->_getResource()->_saveRelations($this);
@@ -127,13 +153,13 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $translate->setTranslateInline(false);
 
         Mage::getModel('core/email_template')
-            ->setDesignConfig(array('area'=>'adminhtml', 'store'=>$this->getStoreId()))
+            ->setDesignConfig(array('area' => 'adminhtml', 'store' => $this->getStoreId()))
             ->sendTransactional(
                 Mage::getStoreConfig(self::XML_PATH_FORGOT_EMAIL_TEMPLATE),
                 Mage::getStoreConfig(self::XML_PATH_FORGOT_EMAIL_IDENTITY),
                 $this->getEmail(),
                 $this->getName(),
-                array('user'=>$this, 'password'=>$this->getPlainPassword()));
+                array('user' => $this, 'password' => $this->getPlainPassword()));
 
         $translate->setTranslateInline(true);
 
@@ -142,7 +168,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 
     public function getName($separator=' ')
     {
-        return $this->getFirstname().$separator.$this->getLastname();
+        return $this->getFirstname() . $separator . $this->getLastname();
     }
 
     public function getId()
@@ -157,7 +183,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function getAclRole()
     {
-        return 'U'.$this->getUserId();
+        return 'U' . $this->getUserId();
     }
 
     /**
@@ -222,35 +248,60 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         return Mage::helper('core')->getHash($pwd, 2);
     }
 
+    /**
+     * Find first menu item that user is able to access
+     *
+     * @param Mage_Core_Model_Config_Element $parent
+     * @param string $path
+     * @param integer $level
+     * @return string
+     */
     public function findFirstAvailableMenu($parent=null, $path='', $level=0)
     {
         if ($parent == null) {
             $parent = Mage::getConfig()->getNode('adminhtml/menu');
         }
         foreach ($parent->children() as $childName=>$child) {
-            $aclResource = 'admin/'.$path.$childName;
+            $aclResource = 'admin/' . $path . $childName;
             if (Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
                 if (!$child->children) {
                     return (string)$child->action;
                 } else if ($child->children) {
-                    $action = $this->findFirstAvailableMenu($child->children, $path.$childName.'/', $level+1);
-                    return $action?$action:(string)$child->action;
+                    $action = $this->findFirstAvailableMenu($child->children, $path . $childName . '/', $level+1);
+                    return $action ? $action : (string)$child->action;
                 }
             }
         }
     }
 
+    /**
+     * Find admin start page url
+     *
+     * @deprecated Please use getStartupPageUrl() method instead
+     * @see getStartupPageUrl()
+     * @return string
+     */
     public function getStatrupPageUrl()
     {
+        return $this->getStartupPageUrl();
+    }
+
+    /**
+     * Find admin start page url
+     *
+     * @return string
+     */
+    public function getStartupPageUrl()
+    {
         $startupPage = Mage::getStoreConfig(self::XML_PATH_STARTUP_PAGE);
-        $aclResource = 'admin/'.$startupPage;
+        $aclResource = 'admin/' . $startupPage;
         if (Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
             $nodePath = 'adminhtml/menu/' . join('/children/', split('/', $startupPage)) . '/action';
             if ($url = Mage::getConfig()->getNode($nodePath)) {
                 return $url;
             }
         }
-
         return $this->findFirstAvailableMenu();
     }
+
 }

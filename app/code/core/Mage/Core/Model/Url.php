@@ -93,7 +93,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Reserved Route parametr keys
      *
-     * @var unknown_type
+     * @var array
      */
     protected $_reservedRouteParams = array(
         '_store', '_type', '_secure', '_forced_secure', '_use_rewrite',
@@ -106,6 +106,13 @@ class Mage_Core_Model_Url extends Varien_Object
      * @var Zend_Controller_Request_Http
      */
     protected $_request;
+
+    /**
+     * Use Session ID for generate URL
+     *
+     * @var bool
+     */
+    protected $_useSession = true;
 
     protected function _construct()
     {
@@ -155,10 +162,32 @@ class Mage_Core_Model_Url extends Varien_Object
         return $this;
     }
 
+    /**
+     * Set use session rule
+     *
+     * @param bool $useSession
+     * @return Mage_Core_Model_Url
+     */
+    public function setUseSession($useSession)
+    {
+        $this->_useSession = (bool)$useSession;
+        return $this;
+    }
+
     public function setRouteFrontName($name)
     {
         $this->setData('route_front_name', $name);
         return $this;
+    }
+
+    /**
+     * Retrieve use session rule
+     *
+     * @return bool
+     */
+    public function getUseSession()
+    {
+        return $this->_useSession;
     }
 
     /**
@@ -579,7 +608,7 @@ class Mage_Core_Model_Url extends Varien_Object
                     if (!$helper) {
                         return $this;
                     }
-                    self::$_encryptedSessionId = $helper->encrypt($session->getSessionId());
+                    self::$_encryptedSessionId = $session->getEncryptedSessionId();
                 }
                 $this->setQueryParam(
                     Mage_Core_Model_Session_Abstract::SESSION_ID_QUERY_PARAM,
@@ -599,7 +628,7 @@ class Mage_Core_Model_Url extends Varien_Object
             if (!$helper) {
                 return $this;
             }
-            self::$_encryptedSessionId = $helper->encrypt($session->getSessionId());
+            self::$_encryptedSessionId = $session->getEncryptedSessionId();
         }
         $this->setQueryParam(
             Mage_Core_Model_Session_Abstract::SESSION_ID_QUERY_PARAM,
@@ -771,6 +800,9 @@ class Mage_Core_Model_Url extends Varien_Object
      */
     protected function _prepareSessionUrl($url)
     {
+        if (!$this->getUseSession()) {
+            return $this;
+        }
         $session = Mage::getSingleton('core/session');
         /* @var $session Mage_Core_Model_Session */
         if (Mage::app()->getUseSessionVar()) {

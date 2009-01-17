@@ -17,12 +17,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
 /** Zend_Pdf_Resource_Image */
 #require_once 'Zend/Pdf/Resource/Image.php';
-
-/** Zend_Pdf_Exception */
-#require_once 'Zend/Pdf/Exception.php';
 
 /** Zend_Pdf_Element_Numeric */
 #require_once 'Zend/Pdf/Element/Numeric.php';
@@ -32,7 +28,6 @@
 
 /** Zend_Pdf_ElementFactory */
 #require_once 'Zend/Pdf/ElementFactory.php';
-
 
 /**
  * PNG image
@@ -82,6 +77,7 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
     public function __construct($imageFileName)
     {
         if (($imageFile = @fopen($imageFileName, 'rb')) === false ) {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception( "Can not open '$imageFileName' file for reading." );
         }
 
@@ -90,6 +86,7 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
         //Check if the file is a PNG
         fseek($imageFile, 1, SEEK_CUR); //First signature byte (%)
         if ('PNG' != fread($imageFile, 3)) {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Image is not a PNG');
         }
         fseek($imageFile, 12, SEEK_CUR); //Signature bytes (Includes the IHDR chunk) IHDR processed linerarly because it doesnt contain a variable chunk length
@@ -104,6 +101,7 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
         $prefilter = ord(fread($imageFile,1));
 
         if (($interlacing = ord(fread($imageFile,1))) != Zend_Pdf_Resource_Image_Png::PNG_INTERLACING_DISABLED) {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception( "Only non-interlaced images are currently supported." );
         }
 
@@ -170,6 +168,7 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
                             // Fall through to the next case
 
                         case Zend_Pdf_Resource_Image_Png::PNG_CHANNEL_RGB_ALPHA:
+                            #require_once 'Zend/Pdf/Exception.php';
                             throw new Zend_Pdf_Exception( "tRNS chunk illegal for Alpha Channel Images" );
                             break;
                     }
@@ -200,6 +199,7 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
 
             case Zend_Pdf_Resource_Image_Png::PNG_CHANNEL_INDEXED:
                 if(empty($paletteData)) {
+                    #require_once 'Zend/Pdf/Exception.php';
                     throw new Zend_Pdf_Exception( "PNG Corruption: No palette data read for indexed type PNG." );
                 }
                 $colorSpace = new Zend_Pdf_Element_Array();
@@ -217,6 +217,7 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
                  * will become the Shadow Mask (SMask).
                  */
                 if($bits > 8) {
+                    #require_once 'Zend/Pdf/Exception.php';
                     throw new Zend_Pdf_Exception("Alpha PNGs with bit depth > 8 are not yet supported");
                 }
 
@@ -250,6 +251,7 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
                  * will become the Shadow Mask (SMask).
                  */
                 if($bits > 8) {
+                    #require_once 'Zend/Pdf/Exception.php';
                     throw new Zend_Pdf_Exception("Alpha PNGs with bit depth > 8 are not yet supported");
                 }
 
@@ -278,10 +280,12 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
                 break;
 
             default:
+                #require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception( "PNG Corruption: Invalid color space." );
         }
 
         if(empty($imageData)) {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception( "Corrupt PNG Image. Mandatory IDAT chunk not found." );
         }
 

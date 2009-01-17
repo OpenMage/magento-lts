@@ -492,13 +492,13 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
         array_multisort($resVectorsSizes, SORT_ASC, SORT_NUMERIC,
                         $resVectorsIds,   SORT_ASC, SORT_NUMERIC,
                         $resVectors);
-        
+
         foreach ($resVectors as $nextResVector) {
             if($this->_resVector === null) {
                 $this->_resVector = $nextResVector;
             } else {
                 //$this->_resVector = array_intersect_key($this->_resVector, $nextResVector);
-                
+
                 /**
                  * This code is used as workaround for array_intersect_key() slowness problem.
                  */
@@ -544,7 +544,7 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
                 // prohibited
                 // Do nothing. matchedDocs() may include non-matching id's
                 // Calculating prohibited vector may take significant time, but do not affect the result
-                // Skipped.  
+                // Skipped.
             } else {
                 // neither required, nor prohibited
                 // array union
@@ -556,14 +556,14 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
         array_multisort($requiredVectorsSizes, SORT_ASC, SORT_NUMERIC,
                         $requiredVectorsIds,   SORT_ASC, SORT_NUMERIC,
                         $requiredVectors);
-        
+
         $required = null;
         foreach ($requiredVectors as $nextResVector) {
             if($required === null) {
                 $required = $nextResVector;
             } else {
                 //$required = array_intersect_key($required, $nextResVector);
-                
+
                 /**
                  * This code is used as workaround for array_intersect_key() slowness problem.
                  */
@@ -581,8 +581,8 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
                 break;
             }
         }
-                
-        
+
+
         if ($required !== null) {
             $this->_resVector = &$required;
         } else {
@@ -676,14 +676,25 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
      * It also initializes necessary internal structures
      *
      * @param Zend_Search_Lucene_Interface $reader
+     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      */
-    public function execute(Zend_Search_Lucene_Interface $reader)
+    public function execute(Zend_Search_Lucene_Interface $reader, $docsFilter = null)
     {
         // Initialize weight if it's not done yet
         $this->_initWeight($reader);
 
-        foreach ($this->_subqueries as $subquery) {
-            $subquery->execute($reader);
+        if ($docsFilter === null) {
+            // Create local documents filter if it's not provided by upper query
+            $docsFilter = new Zend_Search_Lucene_Index_DocsFilter();
+        }
+
+        foreach ($this->_subqueries as $subqueryId => $subquery) {
+            if ($this->_signs == null  ||  $this->_signs[$subqueryId] === true) {
+                // Subquery is required
+                $subquery->execute($reader, $docsFilter);
+            } else {
+                $subquery->execute($reader);
+            }
         }
 
         if ($this->_signs === null) {

@@ -39,7 +39,11 @@ wishlistControl = {
 		new Ajax.Updater(
                 <?php echo $this->getJsObjectName() ?>.containerId,
                 url+'?ajax=true&delete='+itemId,
-                {onComplete:<?php echo $this->getJsObjectName() ?>.initGrid.bind(<?php echo $this->getJsObjectName() ?>), evalScripts:true}
+                {
+                    parameters: {form_key: FORM_KEY},
+                    onComplete:<?php echo $this->getJsObjectName() ?>.initGrid.bind(<?php echo $this->getJsObjectName() ?>),
+                    evalScripts:true
+                }
             );
 
         return false;

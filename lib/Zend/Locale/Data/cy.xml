@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.52 $"/>
-		<generation date="$Date: 2007/07/19 22:31:38 $"/>
+		<version number="$Revision: 1.56 $"/>
+		<generation date="$Date: 2008/06/15 18:49:20 $"/>
 		<language type="cy"/>
 	</identity>
 	<localeDisplayNames>
 		<languages>
 			<language type="af">Affricaneg</language>
-			<language type="am">Amharic</language>
+			<language type="am">Amhareg</language>
 			<language type="ar">Arabeg</language>
-			<language type="as">Assameg</language>
+			<language type="as">Asameg</language>
 			<language type="az">Azerbaijani</language>
 			<language type="be">Belarwsiyn</language>
-			<language type="bg">Bwlgaraidd</language>
+			<language type="bg">Bwlgareg</language>
 			<language type="bh">Bihari</language>
 			<language type="bn">Bengali; Bangla</language>
 			<language type="br">Llydaweg</language>
-			<language type="bs">Bosnian</language>
+			<language type="bs">Bosnieg</language>
 			<language type="ca">Catalaneg</language>
-			<language type="cs">Tsieceg</language>
+			<language type="cs">Tsiec</language>
 			<language type="cy">Cymraeg</language>
 			<language type="da">Daneg</language>
 			<language type="de">Almaeneg</language>
@@ -30,22 +30,22 @@
 			<language type="es">Sbaeneg</language>
 			<language type="et">Estoneg</language>
 			<language type="eu">Basgeg</language>
-			<language type="fa">Persian</language>
+			<language type="fa">Persieg</language>
 			<language type="fi">Ffineg</language>
 			<language type="fil">Tagalog</language>
-			<language type="fo">Ffaroes</language>
+			<language type="fo">Ffaroeg</language>
 			<language type="fr">Ffrangeg</language>
 			<language type="fy">Ffrisieg</language>
 			<language type="ga">Gwyddeleg</language>
 			<language type="gd">Gaeleg yr Alban</language>
-			<language type="gl">Galisaidd</language>
+			<language type="gl">Galiseg</language>
 			<language type="gn">Guarani</language>
 			<language type="gu">Gwjarati</language>
 			<language type="he">Hebraeg</language>
 			<language type="hi">Hindi</language>
-			<language type="hr">Croataidd</language>
+			<language type="hr">Croateg</language>
 			<language type="hu">Hwngareg</language>
-			<language type="hy">Armenian</language>
+			<language type="hy">Armeneg</language>
 			<language type="ia">Interlingua</language>
 			<language type="id">Indonesieg</language>
 			<language type="ie">Interlingue</language>
@@ -53,11 +53,11 @@
 			<language type="it">Eidaleg</language>
 			<language type="ja">Siapaneeg</language>
 			<language type="jv">Jafanaeg</language>
-			<language type="ka">Georgian</language>
+			<language type="ka">Georgeg</language>
 			<language type="km">Cambodieg</language>
 			<language type="kn">Kannada</language>
-			<language type="ko">Iaith Corea</language>
-			<language type="ku">Kurdish</language>
+			<language type="ko">Corëeg</language>
+			<language type="ku">Cwrdeg</language>
 			<language type="ky">Kyrgyz</language>
 			<language type="la">Lladin</language>
 			<language type="ln">Lingala</language>
@@ -74,27 +74,25 @@
 			<language type="nl">Iseldireg</language>
 			<language type="nn">Norwyeg (Nynorsk)</language>
 			<language type="no">Norwyeg</language>
-			<language type="oc">Ocitan</language>
+			<language type="oc">Ocsitaneg</language>
 			<language type="or">Oriya</language>
 			<language type="pa">Pwnjabi</language>
 			<language type="pl">Pwyleg</language>
 			<language type="ps">Pashto</language>
 			<language type="pt">Portiwgaleg</language>
-			<language type="pt_BR">Portiwgeeg (Brasil)</language>
-			<language type="pt_PT">Portuguese (Portugal)</language>
 			<language type="ro">Rwmaneg</language>
 			<language type="ru">Rwsieg</language>
 			<language type="sa">Sansgrit</language>
 			<language type="sd">Sindhi</language>
-			<language type="sh">Croataidd-Serbo</language>
-			<language type="si">Sinhalese</language>
-			<language type="sk">Slofac</language>
-			<language type="sl">Slofenia</language>
+			<language type="sh">Serbo-Croateg</language>
+			<language type="si">Sinhaleg</language>
+			<language type="sk">Slofaceg</language>
+			<language type="sl">Slofeneg</language>
 			<language type="so">Somaleg</language>
 			<language type="sq">Albaneg</language>
-			<language type="sr">Serbaidd</language>
-			<language type="st">Sesotho</language>
-			<language type="su">Sundanes</language>
+			<language type="sr">Serbeg</language>
+			<language type="st">Sesotheg</language>
+			<language type="su">Sundaneg</language>
 			<language type="sv">Swedeg</language>
 			<language type="sw">Swahili</language>
 			<language type="ta">Tamil</language>
@@ -102,18 +100,19 @@
 			<language type="th">Tai</language>
 			<language type="ti">Tigrinya</language>
 			<language type="tk">Tyrcmeneg</language>
-			<language type="tlh">Clingoneg</language>
+			<language type="tlh">Klingon</language>
 			<language type="tr">Twrceg</language>
 			<language type="tw">Twi</language>
 			<language type="ug">Uighur</language>
-			<language type="uk">Iwcranaidd</language>
+			<language type="uk">Wcreineg</language>
+			<language type="und">anh</language>
 			<language type="ur">Urdu</language>
-			<language type="uz">Usbec</language>
-			<language type="vi">Fietmin</language>
+			<language type="uz">Wsbeceg</language>
+			<language type="vi">Fietnameg</language>
 			<language type="xh">Xhosa</language>
 			<language type="yi">Iddew-Almaeneg</language>
 			<language type="zh">Tseineeg</language>
-			<language type="zu">Swlw</language>
+			<language type="zu">Zwlw</language>
 		</languages>
 		<scripts>
 			<script type="Latn">Lladin</script>
@@ -389,6 +388,10 @@
 			<territory type="ZM">Sambia</territory>
 			<territory type="ZW">Simbabwe</territory>
 		</territories>
+		<measurementSystemNames>
+			<measurementSystemName type="US">UD</measurementSystemName>
+			<measurementSystemName type="metric">Metrig</measurementSystemName>
+		</measurementSystemNames>
 	</localeDisplayNames>
 	<characters>
 		<exemplarCharacters>[a á à â ä b c {ch} d {dd} e é è ê ë f {ff} g-i í ì î ï l {ll} m n {ng} o ó ò ô ö p {ph} r {rh} s t {th} u ú ù û ü w ẃ ẁ ŵ ẅ y ý ỳ ŷ ÿ]</exemplarCharacters>
@@ -435,6 +438,12 @@
 						</monthWidth>
 					</monthContext>
 					<monthContext type="stand-alone">
+						<monthWidth type="abbreviated">
+							<month type="2">Chwe</month>
+							<month type="3">Maw</month>
+							<month type="4">Ebr</month>
+							<month type="7">Gor</month>
+						</monthWidth>
 						<monthWidth type="narrow">
 							<month type="1">I</month>
 							<month type="2">C</month>
@@ -448,6 +457,9 @@
 							<month type="10">H</month>
 							<month type="11">T</month>
 							<month type="12">R</month>
+						</monthWidth>
+						<monthWidth type="wide">
+							<month type="7">Gorffennaf</month>
 						</monthWidth>
 					</monthContext>
 				</months>
@@ -473,6 +485,9 @@
 						</dayWidth>
 					</dayContext>
 					<dayContext type="stand-alone">
+						<dayWidth type="abbreviated">
+							<day type="fri">Gwe</day>
+						</dayWidth>
 						<dayWidth type="narrow">
 							<day type="sun">S</day>
 							<day type="mon">L</day>
@@ -487,26 +502,42 @@
 				<quarters>
 					<quarterContext type="format">
 						<quarterWidth type="abbreviated">
-							<quarter type="1">Q1</quarter>
-							<quarter type="2">Q2</quarter>
-							<quarter type="3">Q3</quarter>
-							<quarter type="4">Q4</quarter>
+							<quarter type="1">Ch1</quarter>
+							<quarter type="2">Ch2</quarter>
+							<quarter type="3">Ch3</quarter>
+							<quarter type="4">Ch4</quarter>
 						</quarterWidth>
 						<quarterWidth type="wide">
-							<quarter type="1">Q1</quarter>
-							<quarter type="2">Q2</quarter>
-							<quarter type="3">Q3</quarter>
-							<quarter type="4">Q4</quarter>
+							<quarter type="1">Chwarter 1af</quarter>
+							<quarter type="2">2il chwarter</quarter>
+							<quarter type="3">3ydd chwarter</quarter>
+							<quarter type="4">4ydd chwarter</quarter>
+						</quarterWidth>
+					</quarterContext>
+					<quarterContext type="stand-alone">
+						<quarterWidth type="narrow">
+							<quarter type="1">1</quarter>
+							<quarter type="2">2</quarter>
+							<quarter type="3">3</quarter>
+							<quarter type="4">4</quarter>
 						</quarterWidth>
 					</quarterContext>
 				</quarters>
 				<am>AM</am>
 				<pm>PM</pm>
 				<eras>
+					<eraNames>
+						<era type="0">Cyn Crist</era>
+						<era type="1">Oed Crist</era>
+					</eraNames>
 					<eraAbbr>
-						<era type="0">BCE</era>
-						<era type="1">CE</era>
+						<era type="0">CC</era>
+						<era type="1">OC</era>
 					</eraAbbr>
+					<eraNarrow>
+						<era type="0">C</era>
+						<era type="1">O</era>
+					</eraNarrow>
 				</eras>
 				<dateFormats>
 					<dateFormatLength type="full">
@@ -533,22 +564,22 @@
 				<timeFormats>
 					<timeFormatLength type="full">
 						<timeFormat>
-							<pattern>HH:mm:ss v</pattern>
+							<pattern>h:mm:ss a v</pattern>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="long">
 						<timeFormat>
-							<pattern>HH:mm:ss z</pattern>
+							<pattern>h:mm:ss a z</pattern>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="medium">
 						<timeFormat>
-							<pattern>HH:mm:ss</pattern>
+							<pattern>h:mm:ss a</pattern>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="short">
 						<timeFormat>
-							<pattern>HH:mm</pattern>
+							<pattern>h:mm a</pattern>
 						</timeFormat>
 					</timeFormatLength>
 				</timeFormats>
@@ -563,6 +594,7 @@
 						<dateFormatItem id="HHmmss">HH:mm:ss</dateFormatItem>
 						<dateFormatItem id="MMMMdd">dd MMMM</dateFormatItem>
 						<dateFormatItem id="MMdd">dd/MM</dateFormatItem>
+						<dateFormatItem id="Md">d/M</dateFormatItem>
 						<dateFormatItem id="hhmm">hh:mm a</dateFormatItem>
 						<dateFormatItem id="hhmmss">hh:mm:ss a</dateFormatItem>
 						<dateFormatItem id="yyMMdd">yy-MM-dd</dateFormatItem>
@@ -571,7 +603,130 @@
 						<dateFormatItem id="yyyyMM">MM/yyyy</dateFormatItem>
 						<dateFormatItem id="yyyyMMMM">MMMM yyyy</dateFormatItem>
 					</availableFormats>
+					<intervalFormats>
+						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
+						<intervalFormatItem id="M">
+							<greatestDifference id="M">M-M</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MEd">
+							<greatestDifference id="M">E, d/M – E, d/M</greatestDifference>
+							<greatestDifference id="d">E, d/M – E, d/M</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMM">
+							<greatestDifference id="M">MMM-MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMEd">
+							<greatestDifference id="M">E, d MMM – E, d MMM</greatestDifference>
+							<greatestDifference id="d">E, d MMM – E, d MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMM">
+							<greatestDifference id="M">LLLL-LLLL</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMd">
+							<greatestDifference id="M">d MMM – d MMM</greatestDifference>
+							<greatestDifference id="d">MMM d–d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Md">
+							<greatestDifference id="M">d/M – d/M</greatestDifference>
+							<greatestDifference id="d">d/M – d/M</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d-d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="h">
+							<greatestDifference id="a">h a – h a</greatestDifference>
+							<greatestDifference id="h">h–h a</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="a">h:mm a – h:mm a</greatestDifference>
+							<greatestDifference id="h">h:mm–h:mm a</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm a</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="a">h:mm a – h:mm a v</greatestDifference>
+							<greatestDifference id="h">h:mm–h:mm a v</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm a v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hv">
+							<greatestDifference id="a">h a – h a v</greatestDifference>
+							<greatestDifference id="h">h–h a v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="y">
+							<greatestDifference id="y">y-y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yM">
+							<greatestDifference id="M">M/yy – M/yy</greatestDifference>
+							<greatestDifference id="y">M/yy – M/yy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="M">E, d/M/yy - E, d/M/yy</greatestDifference>
+							<greatestDifference id="d">E, d/M/yy - E, d/M/yy</greatestDifference>
+							<greatestDifference id="y">E, d/M/yy - E, d/M/yy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMM">
+							<greatestDifference id="M">MMM - MMM, yyyy</greatestDifference>
+							<greatestDifference id="y">MMM yyyy - MMM yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEd">
+							<greatestDifference id="M">E, d MMM - E, d MMM, yyyy</greatestDifference>
+							<greatestDifference id="d">E, d MMM - E, d MMM, yyyy</greatestDifference>
+							<greatestDifference id="y">E, d MMM, yyyy - E, d MMM, yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMM">
+							<greatestDifference id="M">yyyy-MM – MM</greatestDifference>
+							<greatestDifference id="y">yyyy-MM – yyyy-MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="M">d MMM - d MMM, yyyy</greatestDifference>
+							<greatestDifference id="d">d-d MMM, yyyy</greatestDifference>
+							<greatestDifference id="y">d MMM, yyyy - d MMM, yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="M">d/M/yy - d/M/yy</greatestDifference>
+							<greatestDifference id="d">d/M/yy - d/M/yy</greatestDifference>
+							<greatestDifference id="y">d/M/yy - d/M/yy</greatestDifference>
+						</intervalFormatItem>
+					</intervalFormats>
 				</dateTimeFormats>
+				<fields>
+					<field type="era">
+						<displayName>Oes</displayName>
+					</field>
+					<field type="year">
+						<displayName>Blwyddyn</displayName>
+					</field>
+					<field type="month">
+						<displayName>Mis</displayName>
+					</field>
+					<field type="week">
+						<displayName>Wythnos</displayName>
+					</field>
+					<field type="day">
+						<displayName>Dydd</displayName>
+						<relative type="2">Drennydd</relative>
+						<relative type="3">Ymhen tridiau</relative>
+						<relative type="-2">Echdoe</relative>
+						<relative type="-3">Dridiau yn ôl</relative>
+					</field>
+					<field type="weekday">
+						<displayName>Dydd o'r Wythnos</displayName>
+					</field>
+					<field type="dayperiod">
+						<displayName>AM/PM</displayName>
+					</field>
+					<field type="hour">
+						<displayName>Awr</displayName>
+					</field>
+					<field type="minute">
+						<displayName>Munud</displayName>
+					</field>
+					<field type="second">
+						<displayName>Eiliad</displayName>
+					</field>
+					<field type="zone">
+						<displayName>Cylchfa</displayName>
+					</field>
+				</fields>
 			</calendar>
 		</calendars>
 		<timeZoneNames>

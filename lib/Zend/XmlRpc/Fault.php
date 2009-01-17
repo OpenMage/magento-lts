@@ -4,13 +4,13 @@
  *
  * LICENSE
  *
- * This source file is subject to version 1.0 of the Zend Framework
- * license, that is bundled with this package in the file LICENSE.txt, and
- * is available through the world-wide-web at the following URL:
- * http://framework.zend.com/license/new-bsd. If you did not receive
- * a copy of the Zend Framework license and are unable to obtain it
- * through the world-wide-web, please send a note to license@zend.com
- * so we can mail you a copy immediately.
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://framework.zend.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@zend.com so we can send you a copy immediately.
  *
  * @package    Zend_XmlRpc
  * @subpackage Server
@@ -22,11 +22,6 @@
  * Zend_XmlRpc_Value
  */
 #require_once 'Zend/XmlRpc/Value.php';
-
-/**
- * Zend_XmlRpc_Exception
- */
-#require_once 'Zend/XmlRpc/Exception.php';
 
 /**
  * XMLRPC Faults
@@ -197,6 +192,7 @@ class Zend_XmlRpc_Fault
     public function loadXml($fault)
     {
         if (!is_string($fault)) {
+            #require_once 'Zend/XmlRpc/Exception.php';
             throw new Zend_XmlRpc_Exception('Invalid XML provided to fault');
         }
 
@@ -204,6 +200,7 @@ class Zend_XmlRpc_Fault
             $xml = @new SimpleXMLElement($fault);
         } catch (Exception $e) {
             // Not valid XML
+            #require_once 'Zend/XmlRpc/Exception.php';
             throw new Zend_XmlRpc_Exception('Failed to parse XML fault: ' .  $e->getMessage(), 500);
         }
 
@@ -215,6 +212,7 @@ class Zend_XmlRpc_Fault
 
         if (!$xml->fault->value->struct) {
             // not a proper fault
+            #require_once 'Zend/XmlRpc/Exception.php';
             throw new Zend_XmlRpc_Exception('Invalid fault structure', 500);
         }
 
@@ -231,6 +229,7 @@ class Zend_XmlRpc_Fault
         }
 
         if (empty($code) && empty($message)) {
+            #require_once 'Zend/XmlRpc/Exception.php';
             throw new Zend_XmlRpc_Exception('Fault code and string required');
         }
 
@@ -261,6 +260,7 @@ class Zend_XmlRpc_Fault
     public static function isFault($xml)
     {
         $fault = new self();
+        #require_once 'Zend/XmlRpc/Exception.php';
         try {
             $isFault = $fault->loadXml($xml);
         } catch (Zend_XmlRpc_Exception $e) {
@@ -287,7 +287,7 @@ class Zend_XmlRpc_Fault
         $valueDOM->loadXML($value->saveXML());
 
         // Build response XML
-        $dom  = new DOMDocument('1.0', 'ISO-8859-1');
+        $dom  = new DOMDocument('1.0', $this->getEncoding());
         $r    = $dom->appendChild($dom->createElement('methodResponse'));
         $f    = $r->appendChild($dom->createElement('fault'));
         $f->appendChild($dom->importNode($valueDOM->documentElement, 1));

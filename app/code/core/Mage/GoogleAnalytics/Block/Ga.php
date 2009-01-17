@@ -90,7 +90,7 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
         $address = $order->getBillingAddress();
 
         $html  = '<script type="text/javascript">' . "\n";
-		$html .= '//<![CDATA[';
+        $html .= "//<![CDATA[\n";
         $html .= 'pageTracker._addTrans(';
         $html .= '"' . $order->getIncrementId() . '",';
         $html .= '"' . $order->getAffiliation() . '",';
@@ -103,6 +103,10 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
         $html .= ');' . "\n";
 
         foreach ($order->getAllItems() as $item) {
+            if ($item->getParentItemId()) {
+                continue;
+            }
+
             $html .= 'pageTracker._addItem(';
             $html .= '"' . $order->getIncrementId() . '",';
             $html .= '"' . $item->getSku() . '",';
@@ -114,7 +118,7 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
         }
 
         $html .= 'pageTracker._trackTrans();' . "\n";
-		$html .= '//]]>';
+        $html .= '//]]>';
         $html .= '</script>';
 
         return $html;
@@ -141,11 +145,11 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
     public function getPageName()
     {
         if (!$this->hasData('page_name')) {
-            $queryStr = '';
-            if ($request = Mage::app()->getFrontController()->getRequest()) {
-                $queryStr = substr($request->getRequestUri(), strpos($request->getRequestUri(), '?'));
-            }
-            $this->setPageName(Mage::getSingleton('core/url')->escape($this->getRequest()->getPathInfo()) . $queryStr);
+            //$queryStr = '';
+            //if ($this->getRequest() && $this->getRequest()->getQuery()) {
+            //    $queryStr = '?' . http_build_query($this->getRequest()->getQuery());
+            //}
+            $this->setPageName(Mage::getSingleton('core/url')->escape($_SERVER['REQUEST_URI']));
         }
         return $this->getData('page_name');
     }

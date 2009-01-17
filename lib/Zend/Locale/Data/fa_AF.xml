@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.55 $"/>
-		<generation date="$Date: 2007/07/19 22:31:39 $"/>
+		<version number="$Revision: 1.59 $"/>
+		<generation date="$Date: 2008/06/17 14:12:16 $"/>
 		<language type="fa"/>
 		<territory type="AF"/>
 	</identity>
@@ -127,7 +127,7 @@
 			<territory type="UY">یوروگوای</territory>
 			<territory type="VC">سنت وینسنت و گرینادین</territory>
 			<territory type="VE">ونزویلا</territory>
-			<territory type="WS">ساموآی غربی</territory>
+			<territory type="WS">ساموآ</territory>
 			<territory type="ZW">زیمبابوی</territory>
 		</territories>
 	</localeDisplayNames>
@@ -211,8 +211,30 @@
 							<month type="11">د</month>
 							<month type="12">ح</month>
 						</monthWidth>
+						<monthWidth type="wide">
+							<month type="1">حمل</month>
+							<month type="2">ثور</month>
+							<month type="3">جوزا</month>
+							<month type="4">سرطان</month>
+							<month type="5">اسد</month>
+							<month type="6">سنبله</month>
+							<month type="7">میزان</month>
+							<month type="8">عقرب</month>
+							<month type="9">قوس</month>
+							<month type="10">جدی</month>
+							<month type="11">دلو</month>
+							<month type="12">حوت</month>
+						</monthWidth>
 					</monthContext>
 				</months>
+				<eras>
+					<eraNames>
+						<era type="0">هجری شمسی</era>
+					</eraNames>
+					<eraAbbr>
+						<era type="0">ه‍. ش.</era>
+					</eraAbbr>
+				</eras>
 			</calendar>
 		</calendars>
 	</dates>
@@ -232,6 +254,9 @@
 			</percentFormatLength>
 		</percentFormats>
 		<currencies>
+			<currency type="AFN">
+				<symbol>؋</symbol>
+			</currency>
 			<currency type="AUD">
 				<displayName>دالر آسترالیا</displayName>
 			</currency>

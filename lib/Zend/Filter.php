@@ -17,7 +17,7 @@
  * @package    Zend_Filter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Filter.php 8434 2008-02-27 19:15:13Z darby $
+ * @version    $Id: Filter.php 12770 2008-11-22 16:12:23Z matthew $
  */
 
 
@@ -95,7 +95,7 @@ class Zend_Filter implements Zend_Filter_Interface
         foreach ($namespaces as $namespace) {
             $className = $namespace . '_' . ucfirst($classBaseName);
             try {
-                @Zend_Loader::loadClass($className);
+                Zend_Loader::loadClass($className);
             } catch (Zend_Exception $ze) {
                 continue;
             }

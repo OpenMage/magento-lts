@@ -38,7 +38,6 @@ $installer = $this;
 $installer->startSetup();
 
 $oldLayout = $installer->getConnection()->fetchOne("SELECT layout_update_xml FROM {$installer->getTable('cms_page')} WHERE `identifier`='home' LIMIT 1");
-header('Content-Type: text/plain');
 $newLayout = str_replace(array(
     '<block type="catalog/product_new" name="home.catalog.product.new" alias="product_new" template="catalog/product/new.phtml" after="cms_page"/>',
     '<block type="reports/product_viewed" name="home.reports.product.viewed" alias="product_viewed" template="reports/home_product_viewed.phtml" after="product_new"/>',

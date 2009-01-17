@@ -28,19 +28,23 @@
 /**
  * Cache management form page
  *
- * @category   Mage
- * @package    Mage_Adminhtml
+ * @category    Mage
+ * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget_Form
 {
-
+    /**
+     * Initialize cache management form
+     *
+     * @return Mage_Adminhtml_Block_System_Cache_Form
+     */
     public function initForm()
     {
         $form = new Varien_Data_Form();
 
         $fieldset = $form->addFieldset('cache_enable', array(
-            'legend' => Mage::helper('adminhtml')->__('Cache control')
+            'legend' => Mage::helper('adminhtml')->__('Cache Control')
         ));
 
         $fieldset->addField('all_cache', 'select', array(
@@ -65,42 +69,19 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
             ));
         }
 
-//        $fieldset = $form->addFieldset('catalog', array(
-//            'legend'=>$hlp->__('Catalog')
-//        ));
-
-//        $fieldset->addField('refresh_catalog_rewrites', 'checkbox', array(
-//            'name'=>'refresh_catalog_rewrites',
-//            'label'=>$hlp->__('Refresh Catalog Rewrites'),
-//            'value'=>1,
-//        ));
-//
-//        $fieldset->addField('clear_images_cache', 'checkbox', array(
-//            'name'=>'clear_images_cache',
-//            'label'=>$hlp->__('Clear Images Cache'),
-//            'value'=>1,
-//        ));
-//
-//        $fieldset->addField('refresh_layered_navigation', 'checkbox', array(
-//            'name'=>'refresh_layered_navigation',
-//            'label'=>$hlp->__('Refresh Layered Navigation Indices'),
-//            'value'=>1,
-//        ));
-
-/*
-        $fieldset = $form->addFieldset('database', array(
-            'legend'=>$hlp->__('Database')
+        $fieldset = $form->addFieldset('beta_cache_enable', array(
+            'legend' => Mage::helper('adminhtml')->__('Cache Control (beta)')
         ));
 
-        $values = Mage::getSingleton('adminhtml/system_config_source_dev_dbautoup')
-            ->toOptionArray();
-        $fieldset->addField('db_auto_update', 'select', array(
-            'name'=>'db_auto_update',
-            'label'=>$hlp->__('Auto Updates'),
-            'value'=>Mage::getSingleton('core/resource')->getAutoUpdate(),
-            'values'=>$values,
-        ));
-*/
+        foreach (Mage::helper('core')->getCacheBetaTypes() as $type=>$label) {
+            $fieldset->addField('beta_enable_'.$type, 'checkbox', array(
+                'name'=>'beta['.$type.']',
+                'label'=>$label,
+                'value'=>1,
+                'checked'=>(int)Mage::app()->useCache($type),
+            ));
+        }
+
         $this->setForm($form);
 
         return $this;

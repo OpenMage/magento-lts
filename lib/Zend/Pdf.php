@@ -18,10 +18,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
-/** Zend_Pdf_Exception */
-#require_once 'Zend/Pdf/Exception.php';
-
 /** Zend_Pdf_Page */
 #require_once 'Zend/Pdf/Page.php';
 
@@ -73,10 +69,8 @@
 /** Zend_Pdf_Image_Png */
 #require_once 'Zend/Pdf/Resource/Image/Png.php';
 
-
 /** Zend_Memory */
 #require_once 'Zend/Memory.php';
-
 
 /**
  * General entity which describes PDF document.
@@ -144,14 +138,14 @@ class Zend_Pdf
      *
      * @var array
      */
-    private $_originalProperties = array();
+    protected $_originalProperties = array();
 
     /**
      * Document level javascript
      *
      * @var string
      */
-    private $_javaScript = null;
+    protected $_javaScript = null;
 
     /**
      * Document named actions
@@ -160,7 +154,7 @@ class Zend_Pdf
      *
      * @var array   - array of Zend_Pdf_Action objects
      */
-    private $_namedActions = array();
+    protected $_namedActions = array();
 
 
     /**
@@ -168,7 +162,7 @@ class Zend_Pdf
      *
      * @var Zend_Pdf_Trailer
      */
-    private $_trailer = null;
+    protected $_trailer = null;
 
 
     /**
@@ -176,14 +170,14 @@ class Zend_Pdf
      *
      * @var Zend_Pdf_ElementFactory_Interface
      */
-    private $_objFactory = null;
+    protected $_objFactory = null;
 
     /**
      * Memory manager for stream objects
      *
      * @var Zend_Memory_Manager|null
      */
-    private static $_memoryManager = null;
+    protected static $_memoryManager = null;
 
     /**
      * Pdf file parser.
@@ -191,7 +185,15 @@ class Zend_Pdf
      *
      * @var Zend_Pdf_Parser
      */
-    private $_parser;
+    protected $_parser;
+
+
+    /**
+     * List of inheritable attributesfor pages tree
+     *
+     * @var array
+     */
+    protected static $_inheritableAttributes = array('Resources', 'MediaBox', 'CropBox', 'Rotate');
 
     /**
      * Request used memory manager
@@ -254,6 +256,7 @@ class Zend_Pdf
     public function save($filename, $updateOnly = false)
     {
         if (($file = @fopen($filename, $updateOnly ? 'ab':'wb')) === false ) {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception( "Can not open '$filename' file for writing." );
         }
 
@@ -288,6 +291,10 @@ class Zend_Pdf
         if ($source !== null) {
             $this->_parser  = new Zend_Pdf_Parser($source, $this->_objFactory, $load);
             $this->_trailer = $this->_parser->getTrailer();
+            if ($this->_trailer->Encrypt !== null) {
+                #require_once 'Zend/Pdf/Exception.php';
+                throw new Zend_Pdf_Exception('Encrypted document modification is not supported');
+            }
             if ($revision !== null) {
                 $this->rollback($revision);
             } else {
@@ -295,9 +302,7 @@ class Zend_Pdf
             }
 
             if ($this->_trailer->Info !== null) {
-                foreach ($this->_trailer->Info->getKeys() as $key) {
-                    $this->properties[$key] = $this->_trailer->Info->$key->value;
-                }
+                $this->properties = $this->_trailer->Info->toPhp();
 
                 if (isset($this->properties['Trapped'])) {
                     switch ($this->properties['Trapped']) {
@@ -403,24 +408,16 @@ class Zend_Pdf
     }
 
 
-
-    /**
-     * List of inheritable attributesfor pages tree
-     *
-     * @var array
-     */
-    private static $_inheritableAttributes = array('Resources', 'MediaBox', 'CropBox', 'Rotate');
-
-
     /**
      * Load pages recursively
      *
      * @param Zend_Pdf_Element_Reference $pages
      * @param array|null $attributes
      */
-    private function _loadPages(Zend_Pdf_Element_Reference $pages, $attributes = array())
+    protected function _loadPages(Zend_Pdf_Element_Reference $pages, $attributes = array())
     {
         if ($pages->getType() != Zend_Pdf_Element::TYPE_DICTIONARY) {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Wrong argument');
         }
 
@@ -464,7 +461,7 @@ class Zend_Pdf
      *
      * @todo Dump pages as a balanced tree instead of a plain set.
      */
-    private function _dumpPages()
+    protected function _dumpPages()
     {
         $pagesContainer = $this->_trailer->Root->Pages;
         $pagesContainer->touch();
@@ -574,7 +571,7 @@ class Zend_Pdf
      * Extract fonts attached to the document
      *
      * returns array of Zend_Pdf_Resource_Font_Extracted objects
-     * 
+     *
      * @return array
      */
     public function extractFonts()
@@ -587,42 +584,43 @@ class Zend_Pdf
                 // Page doesn't contain have any font reference
                 continue;
             }
-            
+
             $fontResources = $pageResources->Font;
 
             foreach ($fontResources->getKeys() as $fontResourceName) {
                 $fontDictionary = $fontResources->$fontResourceName;
-    
+
                 if (! ($fontDictionary instanceof Zend_Pdf_Element_Reference  ||
                        $fontDictionary instanceof Zend_Pdf_Element_Object) ) {
                     // Font dictionary has to be an indirect object or object reference
                     continue;
                 }
-    
+
                 $fontResourcesUnique[$fontDictionary->toString($this->_objFactory)] = $fontDictionary;
             }
         }
-        
+
         $fonts = array();
+        #require_once 'Zend/Pdf/Exception.php';
         foreach ($fontResourcesUnique as $resourceReference => $fontDictionary) {
             try {
                 // Try to extract font
                 $extractedFont = new Zend_Pdf_Resource_Font_Extracted($fontDictionary);
 
-                $fonts[$resourceReference] = $extractedFont; 
+                $fonts[$resourceReference] = $extractedFont;
             } catch (Zend_Pdf_Exception $e) {
                 if ($e->getMessage() != 'Unsupported font type.') {
                     throw $e;
                 }
             }
         }
-        
+
         return $fonts;
-    } 
+    }
 
     /**
      * Extract font attached to the page by specific font name
-     * 
+     *
      * $fontName should be specified in UTF-8 encoding
      *
      * @return Zend_Pdf_Resource_Font_Extracted|null
@@ -630,25 +628,26 @@ class Zend_Pdf
     public function extractFont($fontName)
     {
         $fontResourcesUnique = array();
+        #require_once 'Zend/Pdf/Exception.php';
         foreach ($this->pages as $page) {
             $pageResources = $page->extractResources();
-            
+
             if ($pageResources->Font === null) {
                 // Page doesn't contain have any font reference
                 continue;
             }
-            
+
             $fontResources = $pageResources->Font;
 
             foreach ($fontResources->getKeys() as $fontResourceName) {
                 $fontDictionary = $fontResources->$fontResourceName;
-    
+
                 if (! ($fontDictionary instanceof Zend_Pdf_Element_Reference  ||
                        $fontDictionary instanceof Zend_Pdf_Element_Object) ) {
                     // Font dictionary has to be an indirect object or object reference
                     continue;
                 }
-                
+
                 $resourceReference = $fontDictionary->toString($this->_objFactory);
                 if (isset($fontResourcesUnique[$resourceReference])) {
                     continue;
@@ -656,14 +655,14 @@ class Zend_Pdf
                     // Mark resource as processed
                     $fontResourcesUnique[$resourceReference] = 1;
                 }
-   
+
                 if ($fontDictionary->BaseFont->value != $fontName) {
                     continue;
                 }
-                
+
                 try {
                     // Try to extract font
-                    return new Zend_Pdf_Resource_Font_Extracted($fontDictionary); 
+                    return new Zend_Pdf_Resource_Font_Extracted($fontDictionary);
                 } catch (Zend_Pdf_Exception $e) {
                     if ($e->getMessage() != 'Unsupported font type.') {
                         throw $e;
@@ -674,8 +673,8 @@ class Zend_Pdf
         }
 
         return null;
-    } 
-    
+    }
+
     /**
      * Render the completed PDF to a string.
      * If $newSegmentOnly is true, then only appended part of PDF is returned.
@@ -708,6 +707,7 @@ class Zend_Pdf
                                 break;
 
                             default:
+                                #require_once 'Zend/Pdf/Exception.php';
                                 throw new Zend_Pdf_Exception('Wrong Trapped document property vale: \'' . $value . '\'. Only true, false and null values are allowed.');
                                 break;
                         }
@@ -729,9 +729,18 @@ class Zend_Pdf
                     case 'Creator':
                         // break intentionally omitted
                     case 'Producer':
-                        // break intentionally omitted
-                    default:
+                        if (extension_loaded('mbstring') === true) {
+                            $detected = mb_detect_encoding($value);
+                            if ($detected !== 'ASCII') {
+                                $value = chr(254) . chr(255) . mb_convert_encoding($value, 'UTF-16', $detected);
+                            }
+                        }
                         $docInfo->$key = new Zend_Pdf_Element_String((string)$value);
+                        break;
+
+                    default:
+                        // Set property using PDF type based on PHP type
+                        $docInfo->$key = Zend_Pdf_Element::phpToPdf($value);
                         break;
                 }
             }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -17,9 +16,8 @@
  * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Hostname.php 8985 2008-03-21 21:37:24Z matthew $
+ * @version    $Id: Hostname.php 13221 2008-12-14 11:20:25Z thomas $
  */
-
 
 /**
  * @see Zend_Validate_Abstract
@@ -53,7 +51,6 @@
  */
 class Zend_Validate_Hostname extends Zend_Validate_Abstract
 {
-
     const IP_ADDRESS_NOT_ALLOWED  = 'hostnameIpAddressNotAllowed';
     const UNKNOWN_TLD             = 'hostnameUnknownTld';
     const INVALID_DASH            = 'hostnameDashCharacter';
@@ -415,7 +412,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
         }
 
         // If local network names are not allowed, add a message
-        if (!$allowLocal) {
+        if ($status && !$allowLocal) {
             $this->_error(self::LOCAL_NAME_NOT_ALLOWED);
         }
 

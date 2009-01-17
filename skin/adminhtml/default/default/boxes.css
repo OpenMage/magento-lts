@@ -336,6 +336,7 @@ input.price                     { width:50px !important; text-align:right; }
 select optgroup                 { font-style:normal; }
 select optgroup option          { padding-left:10px; }
 select optgroup option.even     { background:#f6f6f6; } /* Zebra even-row */
+select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd; }
 .field-100 { background-color:#fff; border-width:1px; border-style:solid; border-color:#aaa #c8c8c8 #c8c8c8 #aaa; padding:2px; }
 .field-100 textarea,
 .field-100 input.input-text { float:left; width:100% !important; border:0 !important; padding:0 !important; }
@@ -384,22 +385,27 @@ span.delete-image               { display:block; white-space:nowrap; padding-lef
 .content-header td.form-buttons   { float:none; }
 .content-header .form-buttons button { margin-bottom:3px; }
 .sub-btn-set { border:1px solid #ddd; border-width:0 1px; background:url(images/sub_button_bg.gif) repeat; padding:3px 10px; text-align:right; }
-button, .form-button { border-width:1px; border-style:solid; border-color:#ed6502 #a04300 #a04300 #ed6502; padding:0 7px 1px 7px; background:#ffac47 url(images/btn_bg.gif) repeat-x 0 100%; color:#fff; font:bold 12px arial, helvetica, sans-serif; cursor:pointer; text-align:center !important; white-space:nowrap; }
-button:hover                    { background:url(images/btn_over_bg.gif) repeat-x 0 0 #f77c16; }
-button:active                   { background:url(images/btn_on_bg.gif) repeat-x 0 0 #f77c16; }
+button,
+.form-button { border-width:1px; border-style:solid; border-color:#ed6502 #a04300 #a04300 #ed6502; padding:0 7px 1px 7px; background:#ffac47 url(images/btn_bg.gif) repeat-x 0 100%; color:#fff; font:bold 12px arial, helvetica, sans-serif; cursor:pointer; text-align:center !important; white-space:nowrap; }
+button:hover                    { background:#f77c16 url(images/btn_over_bg.gif) repeat-x 0 0; }
+button:active                   { background:#f77c16 url(images/btn_on_bg.gif) repeat-x 0 0; }
 button span                     { line-height:1.35em; background-repeat:no-repeat; background-position:0 50%; }
 button.delete,
 button.save,
 button.add                      { padding-left:6px; }
-button.cancel span, button.delete span, button.save span, button.add span, button.back span { padding-left:20px; }
+button.cancel span,
+button.delete span,
+button.save span,
+button.add span,
+button.back span { padding-left:20px; }
 button.back { border-color:#ccc #aaa #aaa #ccc; background-color:#fff; background-image:url(images/btn_back_bg.gif); color:#555; }
-button.back span                { background-image:url(images/icon_btn_back.gif); }
-button.cancel:active            { background-image:url(images/cancel_btn_active_bg.gif); }
+button.back span { background-image:url(images/icon_btn_back.gif); }
 button.cancel,
-button.delete    { border-color:#d24403 #a92000 #a92000 #d24403; background-image:url(images/cancel_btn_bg.gif); background-color:#fcaf81; color:#fff; }
-button.cancel:hover, button.delete:hover { background-image:url(images/cancel_btn_over_bg.gif); }
+button.delete { border-color:#d24403 #a92000 #a92000 #d24403; background-image:url(images/cancel_btn_bg.gif); background-color:#fcaf81; color:#fff; }
+button.cancel:hover,
+button.delete:hover { background-image:url(images/cancel_btn_over_bg.gif); }
 button.cancel:active,
-button.delete:active            { background-image:url(images/cancel_btn_active_bg.gif); background-color:#e0612f; }
+button.delete:active { background-image:url(images/cancel_btn_active_bg.gif); background-color:#e0612f; }
 button.cancel span,
 button.delete span { background-image:url(images/cancel_btn_icon.gif); }
 button.add span     { background-image:url(images/add_btn_icon.gif); }
@@ -410,8 +416,8 @@ button.disabled:hover,
 button.disabled:active { border-color:#777 #505050 #505050 #777; background:#919191 url(images/btn_bg-disabled.gif) 0 0 repeat-x; color:#fff; cursor:default; opacity:.8; }
 button.add.disabled span { background-image:url(images/add_btn_icon-disabled.gif);}
 
-button.icon-btn {width:32px!important; }
-button.icon-btn span {text-indent:-999em; display:block; width:16px; padding:0; overflow:hidden; }
+button.icon-btn { width:32px!important; }
+button.icon-btn span { text-indent:-999em; display:block; width:16px; padding:0; overflow:hidden; }
 
 
 /* SWITCHER
@@ -672,6 +678,11 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 .dashboard-container                    { border:1px solid #ccc; }
 .dashboard-container .switcher          { margin-bottom:0;  border:0; }
 
+/* STORE MANAGEMENT
+*******************************************************************************/
+.adminhtml-system-store-deletestore .content-footer .content-buttons,
+.adminhtml-system-store-deletegroup .content-footer .content-buttons,
+.adminhtml-system-store-deletewebsite .content-footer .content-buttons { float:left; }
 
 
 /* SALES
@@ -867,7 +878,8 @@ ul.item-options li { padding-left:.7em; }
 .rule-param .label:hover        { font-weight:bold; color:blue; }
 .rule-param .element            { display:none; }
 .rule-param input,
-.rule-param select              { width:auto !important; }
+.rule-param select              { width:auto !important; min-width:170px; }
+.rule-param select.multiselect  { vertical-align:top; }
 .rule-param-edit .label         { display:none; }
 .rule-param-edit .element       { display:inline; }
 .rule-param-add                 { font-weight:normal; color:green; text-decoration:none; }
@@ -923,6 +935,34 @@ ul.item-options li { padding-left:.7em; }
 .bundle .option-header {clear:both; margin-top:5px; }
 
 .bundle .border .last {width:33px; }
+
+/* Downloadable Product */
+.files { width:195px; }
+.files input.input-text { float:left; width:134px !important; }
+.files-wide { width:355px;}
+.files-wide input.input-text { float:left; width:294px !important; }
+.files label,
+.files-wide label { float:left; width:55px; }
+.files .row,
+.files-wide .row { margin-bottom:5px; }
+/* Files Uploader */
+.files .flex,
+.files-wide .flex { float:right !important; position:static !important; }
+.files .uploader,
+.files-wide .uploader { float:left; overflow:hidden; }
+.files .uploader { width:100px; }
+.files-wide .uploader { width:260px; }
+.files .uploader .file-row-info,
+.files-wide .uploader .file-row-info,
+.files .uploader .file-row-narrow,
+.files-wide .uploader .file-row-narrow { margin:0 !important; }
+
+td.input-price { white-space:nowrap; }
+td.input-price .validation-advice { white-space:normal; }
+td.input-price input.input-text { width:4em !important; }
+
+input.sort { width:4em !important; }
+input.downloads { width:6.5em !important; }
 
 /* CUSTOMER
 *******************************************************************************/
@@ -1003,55 +1043,21 @@ ul.config-tabs a.last span  { background-image:none; }
 ul.super-product-attributes { padding-left:15px; }
 
 /** Media Library **/
-.uploader .file-row {
-    width:600px;
-    padding:0.5em 0.6em;
-    margin:0.5em 0.6em;
-    border:1px solid #ccc;
-    background-color:#f9f9f9;
-    vertical-align:middle;
-}
-
-.uploader .file-row .file-info {
-    float:left;
-}
-
-
-.uploader .file-row .progress-text {
-    float:right;
-    font-weight:bold;
-}
-
-.uploader .file-row .delete-button {
-    float:right;
-}
-
-.uploader .buttons {
-    float:left;
-}
-
-.uploader .flex {
-    float:right;
-}
-
-.uploader .progress {
-    border:1px solid #f0e6b7;
-    background-color:#feffcc;
-}
-
-.uploader .error {
-    border:1px solid #aa1717;
-    background-color:#ffe6de;
-}
-
-.uploader .error .progress-text {
-    padding-right:10px;
-}
-
-.uploader .complete {
-    border:1px solid #90c898;
-    background-color:#e5ffed;
-}
+.uploader .file-row { width:600px; padding:0.5em 0.6em; margin:0.5em 0.6em; border:1px solid #ccc; background-color:#f9f9f9; /*vertical-align:middle;*/ }
+.uploader .file-row-narrow { width: auto; margin: 0 0 2px 40px; }
+.uploader .file-row .file-info { float:left; }
+/*.uploader .file-row .file-info-name { with: 80%; overflow: hidden; }
+.uploader .file-row .file-info-size { width: 20%; }*/
+.uploader .file-row-info { margin: 0 0 0 10px; }
+.uploader .file-row-info .file-info-name  { font-weight:bold; }
+.uploader .file-row .progress-text { float:right; font-weight:bold; }
+.uploader .file-row .delete-button { float:right; }
+.uploader .buttons { float:left; }
+.uploader .flex { float:right; }
+.uploader .progress { border:1px solid #f0e6b7; background-color:#feffcc; }
+.uploader .error { border:1px solid #aa1717; background-color:#ffe6de; }
+.uploader .error .progress-text { padding-right:10px; }
+.uploader .complete { border:1px solid #90c898; background-color:#e5ffed; }
 
 .grid tr.read { background:#fff !important; }
 .grid tr.unread { background:#fcf6f5 !important; }
@@ -1190,4 +1196,6 @@ dl.accordion dt:after,
 div.actions:after,
 .tier-container:after,
 .clear:after,
-.notification-global:after { display:block; clear:both; content:"."; font-size:0; line-height:0; height:0; overflow:hidden; }
+.notification-global:after,
+.files .row:after,
+.files-wide .row:after { display:block; clear:both; content:"."; font-size:0; line-height:0; height:0; overflow:hidden; }

@@ -188,7 +188,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
      */
     public function getFieldIdPrefix()
     {
-        return 'giftmessage_' . $this->getEntity()->getId() . '_';
+        return 'giftmessage_order_' . $this->getEntity()->getId() . '_';
     }
 
     /**

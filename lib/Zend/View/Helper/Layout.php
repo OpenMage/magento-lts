@@ -16,9 +16,12 @@
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Layout.php 8419 2008-02-26 16:49:38Z darby $
+ * @version    $Id: Layout.php 10664 2008-08-05 10:56:06Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
+
+/** Zend_View_Helper_Abstract.php */
+#require_once 'Zend/View/Helper/Abstract.php';
 
 /**
  * View helper for retrieving layout object
@@ -28,24 +31,10 @@
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_View_Helper_Layout
+class Zend_View_Helper_Layout extends Zend_View_Helper_Abstract
 {
     /** @var Zend_Layout */
     protected $_layout;
-
-    /** Zend_View_Interface */
-    public $view;
-
-    /**
-     * Set view
-     *
-     * @param  Zend_View_Interface $view
-     * @return void
-     */
-    public function setView(Zend_View_Interface $view)
-    {
-        $this->view = $view;
-    }
 
     /**
      * Get layout object

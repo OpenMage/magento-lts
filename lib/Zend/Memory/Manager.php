@@ -405,6 +405,7 @@ class Zend_Memory_Manager
             }
         }
 
+        #require_once 'Zend/Memory/Exception.php';
         throw new Zend_Memory_Exception('Memory manager can\'t get enough space.');
     }
 

@@ -31,10 +31,11 @@ $installer = $this;
 $installer->startSetup();
 
 $installer->getConnection()->changeColumn(
-    $this->getTable('core_store'), 'name', 'name', 'varchar(255) not null'
+    $installer->getTable('core_store'), 'name', 'name', 'varchar(255) not null', true
 );
+
 $installer->getConnection()->changeColumn(
-    $this->getTable('core_store_group'), 'name', 'name', 'varchar(255) not null'
+    $installer->getTable('core_store_group'), 'name', 'name', 'varchar(255) not null', true
 );
 
 $installer->endSetup();

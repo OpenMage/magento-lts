@@ -70,9 +70,26 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 $postObject = new Varien_Object();
                 $postObject->setData($post);
 
+                $error = false;
+
+                if (!Zend_Validate::is(trim($post['name']) , 'NotEmpty')) {
+                    $error = true;
+                }
+
+                if (!Zend_Validate::is(trim($post['comment']) , 'NotEmpty')) {
+                    $error = true;
+                }
+
+                if (!Zend_Validate::is(trim($post['email']), 'EmailAddress')) {
+                    $error = true;
+                }
+                if ($error) {
+                    throw new Exception();
+                }
                 $mailTemplate = Mage::getModel('core/email_template');
                 /* @var $mailTemplate Mage_Core_Model_Email_Template */
                 $mailTemplate->setDesignConfig(array('area' => 'frontend'))
+                    ->setReplyTo($post['email'])
                     ->sendTransactional(
                         Mage::getStoreConfig(self::XML_PATH_EMAIL_TEMPLATE),
                         Mage::getStoreConfig(self::XML_PATH_EMAIL_SENDER),

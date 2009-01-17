@@ -42,6 +42,7 @@
 </div>
 <?php if (!$this->getEditMode()): ?>
 <form action="<?php echo $this->getLoadUrl() ?>" method="post" id="email_template_load_form">
+    <?php echo $this->getBlockHtml('formkey')?>
     <div class="entry-edit">
         <div class="entry-edit-head">
             <h4 class="icon-head head-edit-form fieldset-legend">
@@ -100,16 +101,18 @@
 </form>
 <?php endif ?>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="email_template_edit_form">
-<fieldset>
-    <input type="hidden" id="change_flag_element" name="_change_type_flag" value="" />
-    <?php echo $this->getFormHtml() ?>
-</fieldset>
+    <?php echo $this->getBlockHtml('formkey')?>
+    <fieldset>
+        <input type="hidden" id="change_flag_element" name="_change_type_flag" value="" />
+        <?php echo $this->getFormHtml() ?>
+    </fieldset>
 </form>
 <form action="<?php echo $this->getPreviewUrl() ?>" method="post" id="email_template_preview_form" target="_blank">
-<div class="no-display">
-    <input type="hidden" id="preview_type" name="type" value="<?php echo $this->isTextType()?1:2 ?>" />
-    <input type="hidden" id="preview_text" name="text" value="" />
-</div>
+    <?php echo $this->getBlockHtml('formkey')?>
+    <div class="no-display">
+        <input type="hidden" id="preview_type" name="type" value="<?php echo $this->isTextType()?1:2 ?>" />
+        <input type="hidden" id="preview_text" name="text" value="" />
+    </div>
 </form>
 <script type="text/javascript">
 //<![CDATA[

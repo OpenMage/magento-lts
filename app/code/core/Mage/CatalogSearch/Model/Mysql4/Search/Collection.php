@@ -88,10 +88,8 @@ class Mage_CatalogSearch_Model_Mysql4_Search_Collection
         /**
          * Collect tables and attribute ids of attributes with string values
          */
-        //echo "<pre>";
         foreach ($this->_getAttributesCollection() as $attribute) {
             if ($this->_isAttributeTextAndSearchable($attribute)) {
-                //echo $attribute->getAttributeCode()."\n";
                 $table = $attribute->getBackend()->getTable();
                 if (!isset($tables[$table]) && $attribute->getBackendType() != 'static') {
                     $tables[$table] = array();
@@ -127,7 +125,6 @@ class Mage_CatalogSearch_Model_Mysql4_Search_Collection
         if ($sql = $this->_getSearchInOptionSql($query)) {
             $selects[] = "SELECT * FROM ({$sql}) AS inoptionsql"; // inheritant unions may be inside
         }
-        //die(print_r($selects));
         $sql = implode(' UNION ', $selects);
         return $sql;
     }

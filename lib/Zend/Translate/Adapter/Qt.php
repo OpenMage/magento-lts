@@ -71,10 +71,10 @@ class Zend_Translate_Adapter_Qt extends Zend_Translate_Adapter {
      */
     protected function _loadTranslationData($filename, $locale, array $options = array())
     {
-        $options = array_merge($this->_options, $options);
+        $options = $options + $this->_options;
 
-        if ($options['clear']) {
-            $this->_translate = array();
+        if ($options['clear'] || !isset($this->_translate[$locale])) {
+            $this->_translate[$locale] = array();
         }
 
         if (!is_readable($filename)) {
@@ -84,7 +84,8 @@ class Zend_Translate_Adapter_Qt extends Zend_Translate_Adapter {
 
         $this->_target = $locale;
 
-        $this->_file = xml_parser_create();
+        $encoding = $this->_findEncoding($filename);
+        $this->_file = xml_parser_create($encoding);
         xml_set_object($this->_file, $this);
         xml_parser_set_option($this->_file, XML_OPTION_CASE_FOLDING, 0);
         xml_set_element_handler($this->_file, "_startElement", "_endElement");
@@ -103,9 +104,6 @@ class Zend_Translate_Adapter_Qt extends Zend_Translate_Adapter {
     private function _startElement($file, $name, $attrib)
     {
         switch(strtolower($name)) {
-            case 'ts':
-                $this->_translate[$this->_target] = array();
-                break;
             case 'message':
                 $this->_source = null;
                 $this->_stag = false;
@@ -130,14 +128,15 @@ class Zend_Translate_Adapter_Qt extends Zend_Translate_Adapter {
             case 'source':
                 $this->_stag = false;
                 break;
+
             case 'translation':
                 if (!empty($this->_scontent) and !empty($this->_tcontent) or
-                    !array_key_exists($this->_scontent, $this->_translate[$this->_target])) {
+                    (isset($this->_translate[$this->_target][$this->_scontent]) === false)) {
                     $this->_translate[$this->_target][$this->_scontent] = $this->_tcontent;
                 }
                 $this->_ttag = false;
                 break;
-            case 'message':
+
             default:
                 break;
         }
@@ -152,6 +151,17 @@ class Zend_Translate_Adapter_Qt extends Zend_Translate_Adapter {
         if ($this->_ttag === true) {
             $this->_tcontent .= $data;
         }
+    }
+
+    private function _findEncoding($filename)
+    {
+        $file = file_get_contents($filename, null, null, 0, 100);
+        if (strpos($file, "encoding") !== false) {
+            $encoding = substr($file, strpos($file, "encoding") + 9);
+            $encoding = substr($encoding, 1, strpos($encoding, $encoding[0], 1) - 1);
+            return $encoding;
+        }
+        return 'UTF-8';
     }
 
     /**

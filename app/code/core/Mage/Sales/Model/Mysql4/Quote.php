@@ -124,4 +124,21 @@ class Mage_Sales_Model_Mysql4_Quote extends Mage_Sales_Model_Mysql4_Abstract
             )"
         );
     }
+
+    /**
+     * Substract product from all quotes quantities
+     *
+     * @param Mage_Catalog_Model_Product $product
+     */
+    public function substractProductFromQuotes($product)
+    {
+        if ($product->getId()) {
+            $this->_getWriteAdapter()->query(
+                'update ' . $this->getTable('sales/quote_item') .
+                ' as qi, ' . $this->getTable('sales/quote') .
+                ' as q set q.items_qty = q.items_qty - qi.qty, q.items_count = q.items_count - 1 ' .
+                ' where qi.product_id = "' . $product->getId() . '" and q.entity_id = qi.quote_id and qi.parent_item_id is null'
+            );
+        }
+    }
 }

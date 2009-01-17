@@ -43,6 +43,9 @@ class Mage_Reports_Model_Mysql4_Invoiced_Collection extends Mage_Sales_Model_Ent
             ->addExpressionAttributeToSelect('orders',
                 'COUNT({{base_total_invoiced}})',
                  array('base_total_invoiced'))
+            ->addExpressionAttributeToSelect('orders_invoiced',
+                'SUM(IF({{base_total_invoiced}} > 0, 1, 0))',
+                 array('base_total_invoiced'))
             ->getSelect()->group('("*")')->having('orders > 0');
 
         return $this;
@@ -68,16 +71,16 @@ class Mage_Reports_Model_Mysql4_Invoiced_Collection extends Mage_Sales_Model_Ent
         } else {
             $this->addExpressionAttributeToSelect(
                     'invoiced',
-                    'SUM({{base_total_invoiced}}/{{store_to_base_rate}})',
-                    array('base_total_invoiced', 'store_to_base_rate'))
+                    'SUM({{base_total_invoiced}}*{{base_to_global_rate}})',
+                    array('base_total_invoiced', 'base_to_global_rate'))
                 ->addExpressionAttributeToSelect(
                     'invoiced_captured',
-                    'SUM({{base_total_paid}}/{{store_to_base_rate}})',
-                    array('base_total_paid', 'store_to_base_rate'))
+                    'SUM({{base_total_paid}}*{{base_to_global_rate}})',
+                    array('base_total_paid', 'base_to_global_rate'))
                 ->addExpressionAttributeToSelect(
                     'invoiced_not_captured',
-                    'SUM(({{base_total_invoiced}}-{{base_total_paid}})/{{store_to_base_rate}})',
-                    array('base_total_invoiced', 'store_to_base_rate', 'base_total_paid'));
+                    'SUM(({{base_total_invoiced}}-{{base_total_paid}})*{{base_to_global_rate}})',
+                    array('base_total_invoiced', 'base_to_global_rate', 'base_total_paid'));
         }
 
         return $this;

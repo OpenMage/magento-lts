@@ -142,9 +142,26 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     protected function _beforeSave()
     {
-//        $baseCurrencyCode  = Mage::app()->getBaseCurrencyCode();
-        $baseCurrencyCode  = $this->getStore()->getBaseCurrencyCode();
-        $storeCurrency = $this->getStore()->getBaseCurrency();
+        /**
+         * Currency logic
+         *
+         * global - currency which is set for default in backend
+         * base - currency which is set for current website. all attributes that
+         *      have 'base_' prefix saved in this currency
+         * store - all the time it was currency of website and all attributes
+         *      with 'base_' were saved in this currency. From now on it is
+         *      deprecated and will be duplication of base currency code.
+         * quote/order - currency which was selected by customer or configured by
+         *      admin for current store. currency in which customer sees
+         *      price thought all checkout.
+         *
+         * Rates:
+         *      store_to_base & store_to_quote/store_to_order - are deprecated
+         *      base_to_global & base_to_quote/base_to_order - must be used instead
+         */
+
+        $globalCurrencyCode  = Mage::app()->getBaseCurrencyCode();
+        $baseCurrency = $this->getStore()->getBaseCurrency();
 
         if ($this->hasForcedCurrency()){
             $quoteCurrency = $this->getForcedCurrency();
@@ -152,11 +169,17 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $quoteCurrency = $this->getStore()->getCurrentCurrency();
         }
 
-        $this->setBaseCurrencyCode($baseCurrencyCode);
-        $this->setStoreCurrencyCode($storeCurrency->getCode());
+        $this->setGlobalCurrencyCode($globalCurrencyCode);
+        $this->setBaseCurrencyCode($baseCurrency->getCode());
+        $this->setStoreCurrencyCode($baseCurrency->getCode());
         $this->setQuoteCurrencyCode($quoteCurrency->getCode());
-        $this->setStoreToBaseRate($storeCurrency->getRate($baseCurrencyCode));
-        $this->setStoreToQuoteRate($storeCurrency->getRate($quoteCurrency));
+
+        //deprecated, read above
+        $this->setStoreToBaseRate($baseCurrency->getRate($globalCurrencyCode));
+        $this->setStoreToQuoteRate($baseCurrency->getRate($quoteCurrency));
+
+        $this->setBaseToGlobalRate($baseCurrency->getRate($globalCurrencyCode));
+        $this->setBaseToQuoteRate($baseCurrency->getRate($quoteCurrency));
 
         if (!$this->hasChangedFlag() || $this->getChangedFlag() == true) {
             $this->setIsChanged(1);
@@ -901,7 +924,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         }
 
         $this->setData('trigger_recollect', 0);
-
+        $this->_validateCouponCode();
         return $this;
     }
 
@@ -1051,9 +1074,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         return $hasVirtual;
     }
 
+    /**
+     * Check is allow Guest Checkout
+     *
+     * @return bool
+     */
     public function isAllowedGuestCheckout()
     {
-        return Mage::getStoreConfig('checkout/options/guest_checkout');
+        return Mage::helper('checkout')->isAllowedGuestCheckout($this, $this->getStoreId());
     }
 
     /**
@@ -1089,6 +1117,23 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
         if ($quote->getCouponCode()) {
             $this->setCouponCode($quote->getCouponCode());
+        }
+        return $this;
+    }
+
+    protected function _validateCouponCode()
+    {
+        $code = $this->_getData('coupon_code');
+        if ($code) {
+            $addressHasCoupon = false;
+            foreach ($this->getAllAddresses() as $address) {
+            	if ($address->hasCouponCode()) {
+            	    $addressHasCoupon = true;
+            	}
+            }
+            if (!$addressHasCoupon) {
+                $this->setCouponCode('');
+            }
         }
         return $this;
     }

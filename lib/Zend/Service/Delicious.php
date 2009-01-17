@@ -18,7 +18,7 @@
  * @subpackage Delicious
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Delicious.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Delicious.php 9638 2008-06-08 15:58:11Z ghacek $
  */
 
 
@@ -441,16 +441,17 @@ class Zend_Service_Delicious
      * @param  string $url URL for which to get details
      * @return array 
      */
-    public function getUrlDetails($url) {
-	    $parms = array('hash' => md5($url));
-	    
-	    $res = $this->makeRequest(self::JSON_URL, $parms, 'json');
-	    
-	    if(isset($res[0])) {
-		    return $res[0];
-	    } else {
-		    return null;
-    	}
+    public function getUrlDetails($url) 
+    {
+        $parms = array('hash' => md5($url));
+        
+        $res = $this->makeRequest(self::JSON_URL, $parms, 'json');
+        
+        if(isset($res[0])) {
+            return $res[0];
+        } else {
+            return null;
+        }
     }
 
     /**

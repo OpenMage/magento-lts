@@ -18,21 +18,22 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer admin controller
  *
- * @category   Mage
- * @package    Mage_Adminhtml
+ * @category    Mage
+ * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 {
+
     protected function _initCustomer($idFieldName = 'id')
     {
         $customerId = (int) $this->getRequest()->getParam($idFieldName);
@@ -250,7 +251,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $content    = $this->getLayout()->createBlock('adminhtml/customer_grid')
             ->getCsv();
 
-        $this->_sendUploadResponse($fileName, $content);
+        $this->_prepareDownloadResponse($fileName, $content);
     }
 
     /**
@@ -262,25 +263,22 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $content    = $this->getLayout()->createBlock('adminhtml/customer_grid')
             ->getXml();
 
-        $this->_sendUploadResponse($fileName, $content);
+        $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * Prepare file download response
+     *
+     * @todo remove in 1.3
+     * @deprecated please use $this->_prepareDownloadResponse()
+     * @see Mage_Adminhtml_Controller_Action::_prepareDownloadResponse()
+     * @param string $fileName
+     * @param string $content
+     * @param string $contentType
+     */
     protected function _sendUploadResponse($fileName, $content, $contentType='application/octet-stream')
     {
-        $response = $this->getResponse();
-        $response->setHeader('HTTP/1.1 200 OK','');
-
-        $response->setHeader('Pragma', 'public', true);
-        $response->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true);
-
-        $response->setHeader('Content-Disposition', 'attachment; filename='.$fileName);
-        $response->setHeader('Last-Modified', date('r'));
-        $response->setHeader('Accept-Ranges', 'bytes');
-        $response->setHeader('Content-Length', strlen($content));
-        $response->setHeader('Content-type', $contentType);
-        $response->setBody($content);
-        $response->sendResponse();
-        die;
+        $this->_prepareDownloadResponse($fileName, $content, $contentType);
     }
 
     /**

@@ -64,6 +64,7 @@
 #nav li.over ul li.over ul { left:100px; }
 
 #nav ul li { background:url(images/nav2_li_bg.png) repeat-y; padding:0 2px; }
+#nav ul li a { background:#e3ecee; }
 #nav ul li a:hover { background:#d0dfe2; }
 #nav li.over ul a,
 #nav ul li.active a,

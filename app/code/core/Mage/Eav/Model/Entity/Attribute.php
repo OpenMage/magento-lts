@@ -25,8 +25,31 @@
  */
 
 
+/**
+ * EAV Entity attribute model
+ *
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Abstract
 {
+    /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'eav_entity_attribute';
+
+    /**
+     * Parameter name in event
+     *
+     * In observe method you can use $observer->getEvent()->getAttribute() in this case
+     *
+     * @var string
+     */
+    protected $_eventObject = 'attribute';
+
     const CACHE_TAG         = 'EAV_ATTRIBUTE';
     protected $_cacheTag    = 'EAV_ATTRIBUTE';
 
@@ -164,9 +187,14 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
 
             case 'price':
                 return 'decimal';
-
+/*
             default:
+                Mage::dispatchEvent('eav_attribute_get_backend_type_by_input', array('model'=>$this, 'type'=>$type));
+                if ($this->hasBackendTypeByInput()) {
+                    return $this->getData('backend_type_by_input');
+                }
                 Mage::throwException('Unknown frontend input type');
+*/
         }
     }
 
@@ -178,6 +206,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      */
     public function getDefaultValueByInput($type)
     {
+        $field = '';
         switch ($type) {
             case 'select':
             case 'gallery':
@@ -202,12 +231,20 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             case 'boolean':
                 $field = 'default_value_yesno';
                 break;
-
+/*
             default:
+                Mage::dispatchEvent('eav_attribute_get_default_value_by_input', array('model'=>$this, 'type'=>$type));
+                if ($this->hasBackendTypeByInput()) {
+                    return $this->getData('backend_type_by_input');
+                }
                 Mage::throwException('Unknown frontend input type');
+*/
         }
 
         return $field;
     }
-
+    public function getAttributeCodesByFrontendType($type)
+    {
+        return $this->getResource()->getAttributeCodesByFrontendType($type);
+    }
 }

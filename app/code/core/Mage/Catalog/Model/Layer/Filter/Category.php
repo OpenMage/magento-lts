@@ -27,8 +27,8 @@
 /**
  * Layer category filter
  *
- * @category   Mage
- * @package    Mage_Catalog
+ * @category    Mage
+ * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_Filter_Abstract
@@ -36,6 +36,9 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
     protected $_categoryId;
     protected $_appliedCategory = null;
 
+    /**
+     * Class constructor
+     */
     public function __construct()
     {
         parent::__construct();
@@ -53,15 +56,22 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
             /**
              * Revert path ids
              */
-        	$pathIds = array_reverse($this->_appliedCategory->getPathIds());
-        	$curCategoryId = $this->getLayer()->getCurrentCategory()->getId();
+            $pathIds = array_reverse($this->_appliedCategory->getPathIds());
+            $curCategoryId = $this->getLayer()->getCurrentCategory()->getId();
             if (isset($pathIds[1]) && $pathIds[1] != $curCategoryId) {
-            	return $pathIds[1];
+                return $pathIds[1];
             }
         }
         return null;
     }
 
+    /**
+     * Apply category filter to layer
+     *
+     * @param   Zend_Controller_Request_Abstract $request
+     * @param   Mage_Core_Block_Abstract $filterBlock
+     * @return  Mage_Catalog_Model_Layer_Filter_Category
+     */
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {
         $filter = (int) $request->getParam($this->getRequestVar());
@@ -80,16 +90,32 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
         return $this;
     }
 
+    /**
+     * Validate category for be using as filter
+     *
+     * @param   Mage_Catalog_Model_Category $category
+     * @return unknown
+     */
     protected function _isValidCategory($category)
     {
         return $category->getId();
     }
 
+    /**
+     * Get filter name
+     *
+     * @return string
+     */
     public function getName()
     {
         return Mage::helper('catalog')->__('Category');
     }
 
+    /**
+     * Get selected category object
+     *
+     * @return Mage_Catalog_Model_Category
+     */
     public function getCategory()
     {
         if ($this->_categoryId) {
@@ -98,36 +124,47 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
                 return $category;
             }
         }
-        return Mage::getSingleton('catalog/layer')->getCurrentCategory();
+        return $this->getLayer()->getCurrentCategory();
     }
 
-    protected function _initItems()
+    /**
+     * Get data array for building category filter items
+     *
+     * @return array
+     */
+    protected function _getItemsData()
     {
-        $categoty   = $this->getCategory();
-        $collection = Mage::getResourceModel('catalog/category_collection')
-            ->addAttributeToSelect('name')
-            ->addAttributeToSelect('all_children')
-            ->addAttributeToSelect('is_anchor')
-            ->addAttributeToFilter('is_active', 1)
-            ->addAttributeToSort('position', 'asc')
-            ->joinUrlRewrite()
-            ->addIdFilter($categoty->getChildren())
-            ->load();
+        $key = $this->getLayer()->getStateKey().'_SUBCATEGORIES';
+        $data = $this->getLayer()->getAggregator()->getCacheData($key);
 
-        Mage::getSingleton('catalog/layer')->getProductCollection()
-            ->addCountToCategories($collection);
+        if ($data === null) {
+            $categoty   = $this->getCategory();
+            $collection = Mage::getResourceModel('catalog/category_collection')
+                ->addAttributeToSelect('name')
+                ->addAttributeToSelect('all_children')
+                ->addAttributeToSelect('is_anchor')
+                ->addAttributeToFilter('is_active', 1)
+                ->addAttributeToSort('position', 'asc')
+                ->joinUrlRewrite()
+                ->addIdFilter($categoty->getChildren())
+                ->load();
 
-        $items=array();
-        foreach ($collection as $category) {
-            if ($category->getIsActive() && $category->getProductCount()) {
-                $items[] = Mage::getModel('catalog/layer_filter_item')
-                    ->setFilter($this)
-                    ->setLabel($category->getName())
-                    ->setValue($category->getId())
-                    ->setCount($category->getProductCount());
+            $this->getLayer()->getProductCollection()
+                ->addCountToCategories($collection);
+
+            $data=array();
+            foreach ($collection as $category) {
+                if ($category->getIsActive() && $category->getProductCount()) {
+                    $data[] = array(
+                        'label' => $category->getName(),
+                        'value' => $category->getId(),
+                        'count' => $category->getProductCount(),
+                    );
+                }
             }
+            $tags = $this->getLayer()->getStateTags();
+            $this->getLayer()->getAggregator()->saveCacheData($data, $key, $tags);
         }
-        $this->_items = $items;
-        return $this;
+        return $data;
     }
 }

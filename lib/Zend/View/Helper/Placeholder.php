@@ -4,23 +4,26 @@
  *
  * LICENSE
  *
- * This source file is subject to version 1.0 of the Zend Framework
- * license, that is bundled with this package in the file LICENSE.txt, and
- * is available through the world-wide-web at the following URL:
- * http://framework.zend.com/license/new-bsd. If you did not receive
- * a copy of the Zend Framework license and are unable to obtain it
- * through the world-wide-web, please send a note to license@zend.com
- * so we can mail you a copy immediately.
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://framework.zend.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@zend.com so we can send you a copy immediately.
  *
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Placeholder.php 8838 2008-03-15 19:55:17Z thomas $
+ * @version    $Id: Placeholder.php 10664 2008-08-05 10:56:06Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/** Zend_Registry */
-#require_once 'Zend/Registry.php';
+/** Zend_View_Helper_Placeholder_Registry */
+#require_once 'Zend/View/Helper/Placeholder/Registry.php';
+
+/** Zend_View_Helper_Abstract.php */
+#require_once 'Zend/View/Helper/Abstract.php';
 
 /**
  * Helper for passing data between otherwise segregated Views. It's called
@@ -33,13 +36,8 @@
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */ 
-class Zend_View_Helper_Placeholder  
+class Zend_View_Helper_Placeholder extends Zend_View_Helper_Abstract
 {  
-    /**
-     * @var Zend_View_Interface
-     */  
-    public $view;  
-  
     /**
      * Placeholder items
      * @var array
@@ -63,17 +61,7 @@ class Zend_View_Helper_Placeholder
         $this->_registry = Zend_View_Helper_Placeholder_Registry::getRegistry();
     }
   
-    /**
-     * Set view
-     * 
-     * @param  Zend_View_Interface $view 
-     * @return void
-     */  
-    public function setView(Zend_View_Interface $view)  
-    {  
-        $this->view = $view;  
-    }  
-  
+ 
     /**
      * Placeholder helper
      * 

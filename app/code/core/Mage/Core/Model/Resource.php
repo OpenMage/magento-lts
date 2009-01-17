@@ -123,8 +123,7 @@ class Mage_Core_Model_Resource
     /**
      * Get resource table name
      *
-     * @param   string $model
-     * @param   string $entity
+     * @param   string $modelEntity
      * @return  string
      */
     public function getTableName($modelEntity)
@@ -190,3 +189,4 @@ class Mage_Core_Model_Resource
     }
 
 }
+

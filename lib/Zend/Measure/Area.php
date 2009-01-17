@@ -12,23 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Area.php 8064 2008-02-16 10:58:39Z thomas $
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @category  Zend
+ * @package   Zend_Measure
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @version   $Id: Area.php 13209 2008-12-13 22:34:06Z thomas $
  */
-
 
 /**
  * Implement needed classes
  */
-#require_once 'Zend/Measure/Exception.php';
 #require_once 'Zend/Measure/Abstract.php';
 #require_once 'Zend/Locale.php';
 
-
 /**
+ * Class for handling area conversions
+ *
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Area
@@ -37,141 +36,145 @@
  */
 class Zend_Measure_Area extends Zend_Measure_Abstract
 {
-    // Area definitions
     const STANDARD = 'SQUARE_METER';
 
-    const ACRE               = 'ACRE';
-    const ACRE_COMMERCIAL    = 'ACRE_COMMERCIAL';
-    const ACRE_SURVEY        = 'ACRE_SURVEY';
-    const ACRE_IRELAND       = 'ACRE_IRELAND';
-    const ARE                = 'ARE';
-    const ARPENT             = 'ARPENT';
-    const BARN               = 'BARN';
-    const BOVATE             = 'BOVATE';
-    const BUNDER             = 'BUNDER';
-    const CABALLERIA         = 'CABALLERIA';
-    const CABALLERIA_AMERICA = 'CABALLERIA_AMERICA';
-    const CABALLERIA_CUBA    = 'CABALLERIA_CUBA';
-    const CARREAU            = 'CARREAU';
-    const CARUCATE           = 'CARUCATE';
-    const CAWNEY             = 'CAWNEY';
-    const CENTIARE           = 'CENTIARE';
-    const CONG               = 'CONG';
-    const COVER              = 'COVER';
-    const CUERDA             = 'CUERDA';
-    const DEKARE             = 'DEKARE';
-    const DESSIATINA         = 'DESSIATINA';
-    const DHUR               = 'DHUR';
-    const DUNUM              = 'DUNUM';
-    const DUNHAM             = 'DUNHAM';
-    const FALL_SCOTS         = 'FALL_SCOTS';
-    const FALL               = 'FALL';
-    const FANEGA             = 'FANEGA';
-    const FARTHINGDALE       = 'FARTHINGDALE';
-    const HACIENDA           = 'HACIENDA';
-    const HECTARE            = 'HECTARE';
-    const HIDE               = 'HIDE';
-    const HOMESTEAD          = 'HOMESTEAD';
-    const HUNDRED            = 'HUNDRED';
-    const JERIB              = 'JERIB';
-    const JITRO              = 'JITRO';
-    const JOCH               = 'JOCH';
-    const JUTRO              = 'JUTRO';
-    const JO                 = 'JO';
-    const KAPPLAND           = 'KAPPLAND';
-    const KATTHA             = 'KATTHA';
-    const LABOR              = 'LABOR';
-    const LEGUA              = 'LEGUA';
-    const MANZANA_COSTA_RICA = 'MANZANA_COSTA_RICA';
-    const MANZANA            = 'MANZANA';
-    const MORGEN             = 'MORGEN';
-    const MORGEN_AFRICA      = 'MORGEN_AFRICA';
-    const MU                 = 'MU';
-    const NGARN              = 'NGARN';
-    const NOOK               = 'NOOK';
-    const OXGANG             = 'OXGANG';
-    const PERCH              = 'PERCH';
-    const PERCHE             = 'PERCHE';
-    const PING               = 'PING';
-    const PYONG              = 'PYONG';
-    const RAI                = 'RAI';
-    const ROOD               = 'ROOD';
-    const SECTION            = 'SECTION';
-    const SHED               = 'SHED';
-    const SITIO              = 'SITIO';
-    const SQUARE             = 'SQUARE';
-    const SQUARE_ANGSTROM    = 'SQUARE_ANGSTROM';
-    const SQUARE_ASTRONOMICAL_UNIT = 'SQUARE_ASTRONOMICAL_UNIT';
-    const SQUARE_ATTOMETER   = 'SQUARE_ATTOMETER';
-    const SQUARE_BICRON      = 'SQUARE_BICRON';
-    const SQUARE_CENTIMETER  = 'SQUARE_CENTIMETER';
-    const SQUARE_CHAIN       = 'SQUARE_CHAIN';
+    const ACRE                       = 'ACRE';
+    const ACRE_COMMERCIAL            = 'ACRE_COMMERCIAL';
+    const ACRE_SURVEY                = 'ACRE_SURVEY';
+    const ACRE_IRELAND               = 'ACRE_IRELAND';
+    const ARE                        = 'ARE';
+    const ARPENT                     = 'ARPENT';
+    const BARN                       = 'BARN';
+    const BOVATE                     = 'BOVATE';
+    const BUNDER                     = 'BUNDER';
+    const CABALLERIA                 = 'CABALLERIA';
+    const CABALLERIA_AMERICA         = 'CABALLERIA_AMERICA';
+    const CABALLERIA_CUBA            = 'CABALLERIA_CUBA';
+    const CARREAU                    = 'CARREAU';
+    const CARUCATE                   = 'CARUCATE';
+    const CAWNEY                     = 'CAWNEY';
+    const CENTIARE                   = 'CENTIARE';
+    const CONG                       = 'CONG';
+    const COVER                      = 'COVER';
+    const CUERDA                     = 'CUERDA';
+    const DEKARE                     = 'DEKARE';
+    const DESSIATINA                 = 'DESSIATINA';
+    const DHUR                       = 'DHUR';
+    const DUNUM                      = 'DUNUM';
+    const DUNHAM                     = 'DUNHAM';
+    const FALL_SCOTS                 = 'FALL_SCOTS';
+    const FALL                       = 'FALL';
+    const FANEGA                     = 'FANEGA';
+    const FARTHINGDALE               = 'FARTHINGDALE';
+    const HACIENDA                   = 'HACIENDA';
+    const HECTARE                    = 'HECTARE';
+    const HIDE                       = 'HIDE';
+    const HOMESTEAD                  = 'HOMESTEAD';
+    const HUNDRED                    = 'HUNDRED';
+    const JERIB                      = 'JERIB';
+    const JITRO                      = 'JITRO';
+    const JOCH                       = 'JOCH';
+    const JUTRO                      = 'JUTRO';
+    const JO                         = 'JO';
+    const KAPPLAND                   = 'KAPPLAND';
+    const KATTHA                     = 'KATTHA';
+    const LABOR                      = 'LABOR';
+    const LEGUA                      = 'LEGUA';
+    const MANZANA_COSTA_RICA         = 'MANZANA_COSTA_RICA';
+    const MANZANA                    = 'MANZANA';
+    const MORGEN                     = 'MORGEN';
+    const MORGEN_AFRICA              = 'MORGEN_AFRICA';
+    const MU                         = 'MU';
+    const NGARN                      = 'NGARN';
+    const NOOK                       = 'NOOK';
+    const OXGANG                     = 'OXGANG';
+    const PERCH                      = 'PERCH';
+    const PERCHE                     = 'PERCHE';
+    const PING                       = 'PING';
+    const PYONG                      = 'PYONG';
+    const RAI                        = 'RAI';
+    const ROOD                       = 'ROOD';
+    const SECTION                    = 'SECTION';
+    const SHED                       = 'SHED';
+    const SITIO                      = 'SITIO';
+    const SQUARE                     = 'SQUARE';
+    const SQUARE_ANGSTROM            = 'SQUARE_ANGSTROM';
+    const SQUARE_ASTRONOMICAL_UNIT   = 'SQUARE_ASTRONOMICAL_UNIT';
+    const SQUARE_ATTOMETER           = 'SQUARE_ATTOMETER';
+    const SQUARE_BICRON              = 'SQUARE_BICRON';
+    const SQUARE_CENTIMETER          = 'SQUARE_CENTIMETER';
+    const SQUARE_CHAIN               = 'SQUARE_CHAIN';
     const SQUARE_CHAIN_ENGINEER      = 'SQUARE_CHAIN_ENGINEER';
     const SQUARE_CITY_BLOCK_US_EAST  = 'SQUARE_CITY_BLOCK_US_EAST';
     const SQUARE_CITY_BLOCK_US_WEST  = 'SQUARE_CITY_BLOCK_US_WEST';
     const SQUARE_CITY_BLOCK_US_SOUTH = 'SQUARE_CITY_BLOCK_US_SOUTH';
-    const SQUARE_CUBIT       = 'SQUARE_CUBIT';
-    const SQUARE_DECIMETER   = 'SQUARE_DECIMETER';
-    const SQUARE_DEKAMETER   = 'SQUARE_DEKAMETER';
-    const SQUARE_EXAMETER    = 'SQUARE_EXAMETER';
-    const SQUARE_FATHOM      = 'SQUARE_FATHOM';
-    const SQUARE_FEMTOMETER  = 'SQUARE_FEMTOMETER';
-    const SQUARE_FERMI       = 'SQUARE_FERMI';
-    const SQUARE_FOOT        = 'SQUARE_FOOT';
-    const SQUARE_FOOT_SURVEY = 'SQUARE_FOOT_SURVEY';
-    const SQUARE_FURLONG     = 'SQUARE_FURLONG';
-    const SQUARE_GIGAMETER   = 'SQUARE_GIGAMETER';
-    const SQUARE_HECTOMETER  = 'SQUARE_HECTOMETER';
-    const SQUARE_INCH        = 'SQUARE_INCH';
-    const SQUARE_INCH_SURVEY = 'SQUARE_INCH_SURVEY';
-    const SQUARE_KILOMETER   = 'SQUARE_KILOMETER';
-    const SQUARE_LEAGUE_NAUTIC = 'SQUARE_LEAGUE_NAUTIC';
-    const SQUARE_LEAGUE      = 'SQUARE_LEAGUE';
-    const SQUARE_LIGHT_YEAR  = 'SQUARE_LIGHT_YEAR';
-    const SQUARE_LINK        = 'SQUARE_LINK';
-    const SQUARE_LINK_ENGINEER = 'SQUARE_LINK_ENGINEER';
-    const SQUARE_MEGAMETER   = 'SQUARE_MEGAMETER';
-    const SQUARE_METER       = 'SQUARE_METER';
-    const SQUARE_MICROINCH   = 'SQUARE_MICROINCH';
-    const SQUARE_MICROMETER  = 'SQUARE_MICROMETER';
-    const SQUARE_MICROMICRON = 'SQUARE_MICROMICRON';
-    const SQUARE_MICRON      = 'SQUARE_MICRON';
-    const SQUARE_MIL         = 'SQUARE_MIL';
-    const SQUARE_MILE        = 'SQUARE_MILE';
-    const SQUARE_MILE_NAUTIC = 'SQUARE_MILE_NAUTIC';
-    const SQUARE_MILE_SURVEY = 'SQUARE_MILE_SURVEY';
-    const SQUARE_MILLIMETER  = 'SQUARE_MILLIMETER';
-    const SQUARE_MILLIMICRON = 'SQUARE_MILLIMICRON';
-    const SQUARE_MYRIAMETER  = 'SQUARE_MYRIAMETER';
-    const SQUARE_NANOMETER   = 'SQUARE_NANOMETER';
-    const SQUARE_PARIS_FOOT  = 'SQUARE_PARIS_FOOT';
-    const SQUARE_PARSEC      = 'SQUARE_PARSEC';
-    const SQUARE_PERCH       = 'SQUARE_PERCH';
-    const SQUARE_PERCHE      = 'SQUARE_PERCHE';
-    const SQUARE_PETAMETER   = 'SQUARE_PETAMETER';
-    const SQUARE_PICOMETER   = 'SQUARE_PICOMETER';
-    const SQUARE_ROD         = 'SQUARE_ROD';
-    const SQUARE_TENTHMETER  = 'SQUARE_TENTHMETER';
-    const SQUARE_TERAMETER   = 'SQUARE_TERAMETER';
-    const SQUARE_THOU        = 'SQUARE_THOU';
-    const SQUARE_VARA        = 'SQUARE_VARA';
-    const SQUARE_VARA_TEXAS  = 'SQUARE_VARA_TEXAS';
-    const SQUARE_YARD        = 'SQUARE_YARD';
-    const SQUARE_YARD_SURVEY = 'SQUARE_YARD_SURVEY';
-    const SQUARE_YOCTOMETER  = 'SQUARE_YOCTOMETER';
-    const SQUARE_YOTTAMETER  = 'SQUARE_YOTTAMETER';
-    const STANG              = 'STANG';
-    const STREMMA            = 'STREMMA';
-    const TAREA              = 'TAREA';
-    const TATAMI             = 'TATAMI';
-    const TONDE_LAND         = 'TONDE_LAND';
-    const TOWNSHIP           = 'TOWNSHIP';
-    const TSUBO              = 'TSUBO';
-    const TUNNLAND           = 'TUNNLAND';
-    const YARD               = 'YARD';
-    const VIRGATE            = 'VIRGATE';
+    const SQUARE_CUBIT               = 'SQUARE_CUBIT';
+    const SQUARE_DECIMETER           = 'SQUARE_DECIMETER';
+    const SQUARE_DEKAMETER           = 'SQUARE_DEKAMETER';
+    const SQUARE_EXAMETER            = 'SQUARE_EXAMETER';
+    const SQUARE_FATHOM              = 'SQUARE_FATHOM';
+    const SQUARE_FEMTOMETER          = 'SQUARE_FEMTOMETER';
+    const SQUARE_FERMI               = 'SQUARE_FERMI';
+    const SQUARE_FOOT                = 'SQUARE_FOOT';
+    const SQUARE_FOOT_SURVEY         = 'SQUARE_FOOT_SURVEY';
+    const SQUARE_FURLONG             = 'SQUARE_FURLONG';
+    const SQUARE_GIGAMETER           = 'SQUARE_GIGAMETER';
+    const SQUARE_HECTOMETER          = 'SQUARE_HECTOMETER';
+    const SQUARE_INCH                = 'SQUARE_INCH';
+    const SQUARE_INCH_SURVEY         = 'SQUARE_INCH_SURVEY';
+    const SQUARE_KILOMETER           = 'SQUARE_KILOMETER';
+    const SQUARE_LEAGUE_NAUTIC       = 'SQUARE_LEAGUE_NAUTIC';
+    const SQUARE_LEAGUE              = 'SQUARE_LEAGUE';
+    const SQUARE_LIGHT_YEAR          = 'SQUARE_LIGHT_YEAR';
+    const SQUARE_LINK                = 'SQUARE_LINK';
+    const SQUARE_LINK_ENGINEER       = 'SQUARE_LINK_ENGINEER';
+    const SQUARE_MEGAMETER           = 'SQUARE_MEGAMETER';
+    const SQUARE_METER               = 'SQUARE_METER';
+    const SQUARE_MICROINCH           = 'SQUARE_MICROINCH';
+    const SQUARE_MICROMETER          = 'SQUARE_MICROMETER';
+    const SQUARE_MICROMICRON         = 'SQUARE_MICROMICRON';
+    const SQUARE_MICRON              = 'SQUARE_MICRON';
+    const SQUARE_MIL                 = 'SQUARE_MIL';
+    const SQUARE_MILE                = 'SQUARE_MILE';
+    const SQUARE_MILE_NAUTIC         = 'SQUARE_MILE_NAUTIC';
+    const SQUARE_MILE_SURVEY         = 'SQUARE_MILE_SURVEY';
+    const SQUARE_MILLIMETER          = 'SQUARE_MILLIMETER';
+    const SQUARE_MILLIMICRON         = 'SQUARE_MILLIMICRON';
+    const SQUARE_MYRIAMETER          = 'SQUARE_MYRIAMETER';
+    const SQUARE_NANOMETER           = 'SQUARE_NANOMETER';
+    const SQUARE_PARIS_FOOT          = 'SQUARE_PARIS_FOOT';
+    const SQUARE_PARSEC              = 'SQUARE_PARSEC';
+    const SQUARE_PERCH               = 'SQUARE_PERCH';
+    const SQUARE_PERCHE              = 'SQUARE_PERCHE';
+    const SQUARE_PETAMETER           = 'SQUARE_PETAMETER';
+    const SQUARE_PICOMETER           = 'SQUARE_PICOMETER';
+    const SQUARE_ROD                 = 'SQUARE_ROD';
+    const SQUARE_TENTHMETER          = 'SQUARE_TENTHMETER';
+    const SQUARE_TERAMETER           = 'SQUARE_TERAMETER';
+    const SQUARE_THOU                = 'SQUARE_THOU';
+    const SQUARE_VARA                = 'SQUARE_VARA';
+    const SQUARE_VARA_TEXAS          = 'SQUARE_VARA_TEXAS';
+    const SQUARE_YARD                = 'SQUARE_YARD';
+    const SQUARE_YARD_SURVEY         = 'SQUARE_YARD_SURVEY';
+    const SQUARE_YOCTOMETER          = 'SQUARE_YOCTOMETER';
+    const SQUARE_YOTTAMETER          = 'SQUARE_YOTTAMETER';
+    const STANG                      = 'STANG';
+    const STREMMA                    = 'STREMMA';
+    const TAREA                      = 'TAREA';
+    const TATAMI                     = 'TATAMI';
+    const TONDE_LAND                 = 'TONDE_LAND';
+    const TOWNSHIP                   = 'TOWNSHIP';
+    const TSUBO                      = 'TSUBO';
+    const TUNNLAND                   = 'TUNNLAND';
+    const YARD                       = 'YARD';
+    const VIRGATE                    = 'VIRGATE';
 
-    protected $_UNITS = array(
+    /**
+     * Calculations for all area units
+     *
+     * @var array
+     */
+    protected $_units = array(
         'ACRE'               => array('4046.856422',      'A'),
         'ACRE_COMMERCIAL'    => array('3344.50944',       'A'),
         'ACRE_SURVEY'        => array('4046.872627',      'A'),

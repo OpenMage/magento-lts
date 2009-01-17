@@ -38,12 +38,14 @@
                     </currentStore>
                     <tree translate="title" module="catalog">
                         <title>Retrieve hierarchical tree</title>
+                        <acl>catalog/category/tree</acl>
                     </tree>
                     <level translate="title" module="catalog">
                         <title>Retrieve one level of categories by website/store view/parent category</title>
                     </level>
                     <info translate="title" module="catalog">
                         <title>Retrieve category data</title>
+                        <acl>catalog/category/info</acl>
                     </info>
                     <create translate="title" module="catalog">
                         <title>Create new category</title>
@@ -147,9 +149,11 @@
                     <list translate="title" module="catalog">
                         <title>Retrieve products list by filters</title>
                         <method>items</method>
+                        <acl>catalog/product/info</acl>
                     </list>
                     <info translate="title" module="catalog">
                         <title>Retrieve product</title>
+                        <acl>catalog/product/info</acl>
                     </info>
                     <create translate="title" module="catalog">
                         <title>Create new product</title>
@@ -168,6 +172,7 @@
                     </getSpecialPrice>
                     <setSpecialPrice translate="title" module="catalog">
                         <title>Set special price</title>
+                        <acl>catalog/product/update</acl>
                     </setSpecialPrice>
                 </methods>
                 <faults module="catalog">
@@ -196,13 +201,16 @@
                 <methods>
                     <currentStore translate="title" module="catalog">
                         <title>Set/Get current store view</title>
+                        <acl>catalog/product/attribute/write</acl>
                     </currentStore>
                     <list translate="title" module="catalog">
                         <title>Retrieve attribute list</title>
                         <method>items</method>
+                        <acl>catalog/product/attribute/read</acl>
                     </list>
                     <options translate="title" module="catalog">
                         <title>Retrieve attribute options</title>
+                        <acl>catalog/product/attribute/read</acl>
                     </options>
                 </methods>
                 <faults module="catalog">
@@ -318,7 +326,7 @@
                     </info>
                     <update translate="title" module="catalog">
                         <title>Update product tier prices</title>
-                        <acl>catalog/product/update</acl>
+                        <acl>catalog/product/update_tier_price</acl>
                     </update>
                 </methods>
                 <faults module="catalog">
@@ -399,74 +407,98 @@
         </resources_alias>
         <acl>
             <resources>
-                <all>
-                    <catalog translate="title" module="catalog">
-                        <title>Catalog</title>
-                        <category translate="title" module="catalog">
-                            <title>Category</title>
-                            <create translate="title" module="catalog">
-                                <title>Create</title>
-                            </create>
-                            <update translate="title" module="catalog">
-                                <title>Update</title>
-                            </update>
-                            <move translate="title" module="catalog">
-                                <title>Move</title>
-                            </move>
-                            <delete translate="title" module="catalog">
-                                <title>Delete</title>
-                            </delete>
-                            <product translate="title" module="catalog">
-                                <title>Assigned Products</title>
-                                <assign translate="title" module="catalog">
-                                    <title>Assign</title>
-                                </assign>
-                                <update translate="title" module="catalog">
-                                    <title>Update</title>
-                                </update>
-                                <remove translate="title" module="catalog">
-                                    <title>Remove</title>
-                                </remove>
-                            </product>
-                        </category>
+                <catalog translate="title" module="catalog">
+                    <title>Catalog</title>
+                    <sort_order>1</sort_order>
+                    <category translate="title" module="catalog">
+                        <title>Category</title>
+                        <create translate="title" module="catalog">
+                            <title>Create</title>
+                        </create>
+                        <update translate="title" module="catalog">
+                            <title>Update</title>
+                        </update>
+                        <move translate="title" module="catalog">
+                            <title>Move</title>
+                        </move>
+                        <delete translate="title" module="catalog">
+                            <title>Delete</title>
+                        </delete>
+                        <tree translate="title" module="catalog">
+                            <title>Retrieve categories tree</title>
+                        </tree>
+                        <info translate="title" module="catalog">
+                            <title>Retrieve category data</title>
+                        </info>
                         <product translate="title" module="catalog">
-                            <title>Product</title>
+                            <title>Assigned Products</title>
+                            <sort_order>100</sort_order>
+                            <assign translate="title" module="catalog">
+                                <title>Assign</title>
+                            </assign>
+                            <update translate="title" module="catalog">
+                                <title>Update</title>
+                            </update>
+                            <remove translate="title" module="catalog">
+                                <title>Remove</title>
+                            </remove>
+                        </product>
+                    </category>
+                    <product translate="title" module="catalog">
+                        <title>Product</title>
+                        <create translate="title" module="catalog">
+                            <title>Create</title>
+                        </create>
+                        <update translate="title" module="catalog">
+                            <title>Update</title>
+                        </update>
+                        <delete translate="title" module="catalog">
+                            <title>Delete</title>
+                        </delete>
+                        <update_tier_price translate="title" module="catalog">
+                            <title>Update Tier Price</title>
+                        </update_tier_price>
+                        <info translate="title" module="catalog">
+                            <title>Retrieve products data</title>
+                        </info>
+                        <attribute translate="title" module="catalog">
+                            <title>Product Attributes</title>
+                            <sort_order>100</sort_order>
+                            <read translate="title" module="catalog">
+                                <title>Retrieve attribute data</title>
+                            </read>
+                            <write translate="title" module="catalog">
+                                <title>Change or Retrieve attribute store view</title>
+                            </write>
+                        </attribute>
+                        <link translate="title" module="catalog">
+                            <title>Link (Related, Up sell, Cross sell)</title>
+                            <sort_order>101</sort_order>
+                            <assign translate="title" module="catalog">
+                                <title>Assign</title>
+                            </assign>
+                            <update translate="title" module="catalog">
+                                <title>Update</title>
+                            </update>
+                            <remove translate="title" module="catalog">
+                                <title>Remove</title>
+                            </remove>
+                        </link>
+                        <media translate="title" module="catalog">
+                            <title>Product Images</title>
+                            <sort_order>102</sort_order>
                             <create translate="title" module="catalog">
-                                <title>Create</title>
+                                <title>Create (Upload)</title>
                             </create>
                             <update translate="title" module="catalog">
                                 <title>Update</title>
                             </update>
-                            <delete translate="title" module="catalog">
-                                <title>Delete</title>
-                            </delete>
-                            <link translate="title" module="catalog">
-                                <title>Link (Related, Up sell, Cross sell)</title>
-                                <assign translate="title" module="catalog">
-                                    <title>Assign</title>
-                                </assign>
-                                <update translate="title" module="catalog">
-                                    <title>Update</title>
-                                </update>
-                                <remove translate="title" module="catalog">
-                                    <title>Remove</title>
-                                </remove>
-                            </link>
-                            <media translate="title" module="catalog">
-                                <title>Product Images</title>
-                                <create translate="title" module="catalog">
-                                    <title>Create (Upload)</title>
-                                </create>
-                                <update translate="title" module="catalog">
-                                    <title>Update</title>
-                                </update>
-                                <remove translate="title" module="catalog">
-                                    <title>Remove</title>
-                                </remove>
-                            </media>
-                        </product>
-                    </catalog>
-                </all>
+                            <remove translate="title" module="catalog">
+                                <title>Remove</title>
+                            </remove>
+                        </media>
+                    </product>
+                </catalog>
             </resources>
         </acl>
     </api>

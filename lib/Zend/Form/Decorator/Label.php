@@ -41,7 +41,7 @@
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Label.php 8647 2008-03-07 19:19:14Z matthew $
+ * @version    $Id: Label.php 12383 2008-11-07 19:38:55Z matthew $
  */
 class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
 {
@@ -82,13 +82,8 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
         $id = $this->getOption('id');
         if (null === $id) {
             if (null !== ($element = $this->getElement())) {
-                if (isset($element->id)) {
-                    $id = $element->id;
-                    $this->setId($id);
-                } else {
-                    $id = $element->getName();
-                    $this->setId($id);
-                }
+                $id = $element->getId();
+                $this->setId($id);
             }
         }
 
@@ -103,7 +98,11 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
      */
     public function setTag($tag)
     {
-        $this->_tag = (string) $tag;
+        if (empty($tag)) {
+            $this->_tag = null;
+        } else {
+            $this->_tag = (string) $tag;
+        }
         return $this;
     }
 
@@ -136,14 +135,8 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
      */
     public function getClass()
     {
-        $class = null;
-        if (null !== ($element = $this->getElement())) {
-            $class = $element->getAttrib('class');
-        }
-
-        if (null === $class) {
-            $class = '';
-        }
+        $class   = '';
+        $element = $this->getElement();
 
         $decoratorClass = $this->getOption('class');
         if (!empty($decoratorClass)) {
@@ -182,10 +175,14 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
      *
      * Currently overloads:
      *
-     * - getOptPrefix()
-     * - getOptSuffix()
-     * - reqOptPrefix()
-     * - reqOptSuffix()
+     * - getOpt(ional)Prefix()
+     * - getOpt(ional)Suffix()
+     * - getReq(uired)Prefix()
+     * - getReq(uired)Suffix()
+     * - setOpt(ional)Prefix()
+     * - setOpt(ional)Suffix()
+     * - setReq(uired)Prefix()
+     * - setReq(uired)Suffix()
      * 
      * @param  string $method 
      * @param  array $args 
@@ -194,11 +191,11 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
      */
     public function __call($method, $args)
     {
-        if ((12 == strlen($method))
-            && ('get' == substr($method, 0, 3))
-            && (('Prefix' == substr($method, -6))
-                || ('Suffix' == substr($method, -6))))
-        {
+        $tail = substr($method, -6);
+        $head = substr($method, 0, 3);
+        if (in_array($head, array('get', 'set'))
+            && (('Prefix' == $tail) || ('Suffix' == $tail))
+        ) {
             $position = substr($method, -6);
             $type     = strtolower(substr($method, 3, 3));
             switch ($type) {
@@ -210,18 +207,29 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
                     break;
                 default:
                     #require_once 'Zend/Form/Exception.php';
-                    throw new Zend_Form_Exception(sprintf('Invalid method "%s" called in Label decorator', $method));
+                    throw new Zend_Form_Exception(sprintf('Invalid method "%s" called in Label decorator, and detected as type %s', $method, $type));
             }
 
-            if (null === ($element = $this->getElement())) {
-                $this->_loadOptReqKey($key);
-            } elseif (isset($element->$key)) {
-                $this->$key = (string) $element->$key;
-            } else {
-                $this->_loadOptReqKey($key);
+            switch ($head) {
+                case 'set':
+                    if (0 === count($args)) {
+                        #require_once 'Zend/Form/Exception.php';
+                        throw new Zend_Form_Exception(sprintf('Method "%s" requires at least one argument; none provided', $method));
+                    }
+                    $value = array_shift($args);
+                    $this->$key = $value;
+                    return $this;
+                case 'get':
+                default:
+                    if (null === ($element = $this->getElement())) {
+                        $this->_loadOptReqKey($key);
+                    } elseif (isset($element->$key)) {
+                        $this->$key = (string) $element->$key;
+                    } else {
+                        $this->_loadOptReqKey($key);
+                    }
+                    return $this->$key;
             }
-
-            return $this->$key;
         }
 
         #require_once 'Zend/Form/Exception.php';
@@ -297,7 +305,9 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
 
         if (!empty($label)) {
             $options['class'] = $class;
-            $label = $view->formLabel($element->getName(), trim($label), $options); 
+            $label = $view->formLabel($element->getFullyQualifiedName(), trim($label), $options); 
+        } else {
+            $label = '&nbsp;';
         }
 
         if (null !== $tag) {

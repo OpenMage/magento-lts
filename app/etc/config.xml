@@ -55,6 +55,7 @@
                     <en_US/><!-- English (United States) -->
                     <es_AR/><!-- Spanish (Argentina) -->
                     <es_CO/><!-- Spanish (Colombia) -->
+                    <es_CR/><!-- Spanish (Costa Rica) -->
                     <es_ES/><!-- Spanish (Spain) -->
                     <es_MX/><!-- Spanish (Mexico) -->
                     <es_EU/><!-- Basque (Basque) -->
@@ -216,7 +217,7 @@
                     <PAB/><!-- Panamanian Balboa -->
                     <PGK/><!-- Papua New Guinea Kina -->
                     <PYG/><!-- Paraguay Guarani -->
-                    <PES/><!-- Peruvian Sol -->
+                    <PEN/><!-- Peruvian Nuevo Sol -->
                     <PHP/><!-- Philippine Peso -->
                     <PLN/><!-- Polish Zloty -->
                     <QAR/><!-- Qatari Rial -->

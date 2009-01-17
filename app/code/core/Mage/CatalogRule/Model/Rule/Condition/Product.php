@@ -81,10 +81,17 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
                     ->getEntityType('catalog_product')->getId();
                 $options = Mage::getResourceModel('eav/entity_attribute_set_collection')
                     ->setEntityTypeFilter($entityTypeId)
-                    ->load()->toOptionHash();
+                    ->load()
+                    ->toOptionHash();
                 $this->setData('value_option', $options);
             } elseif (is_object($this->getAttributeObject()) && $this->getAttributeObject()->usesSource()) {
-                $optionsArr = $this->getAttributeObject()->getSource()->getAllOptions();
+                if ($this->getAttributeObject()->getFrontendInput() == 'multiselect') {
+                    $addEmptyOption = false;
+                } else {
+                    $addEmptyOption = true;
+                }
+
+                $optionsArr = $this->getAttributeObject()->getSource()->getAllOptions($addEmptyOption);
                 $options = array();
                 foreach ($optionsArr as $o) {
                     if (is_array($o['value'])) {
@@ -110,7 +117,12 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
                     ->load()->toOptionArray();
                 $this->setData('value_select_options', $options);
             } elseif (is_object($this->getAttributeObject()) && $this->getAttributeObject()->usesSource()) {
-                $optionsArr = $this->getAttributeObject()->getSource()->getAllOptions();
+                if ($this->getAttributeObject()->getFrontendInput() == 'multiselect') {
+                    $addEmptyOption = false;
+                } else {
+                    $addEmptyOption = true;
+                }
+                $optionsArr = $this->getAttributeObject()->getSource()->getAllOptions($addEmptyOption);
                 $this->setData('value_select_options', $optionsArr);
             }
         }
@@ -161,6 +173,9 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
             case 'select':
                 return 'select';
 
+            case 'multiselect':
+                return 'multiselect';
+
             case 'date':
                 return 'date';
 
@@ -180,6 +195,9 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         switch ($this->getAttributeObject()->getFrontendInput()) {
             case 'select':
                 return 'select';
+
+            case 'multiselect':
+                return 'multiselect';
 
             case 'date':
                 return 'date';
@@ -257,6 +275,16 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
 
         if ($this->getAttribute() == 'category_ids') {
             return $this->validateAttribute($object->getAvailableInCategories());
+        }
+
+        if ($attr && $attr->getFrontendInput() == 'multiselect') {
+            $value = $object->getData($this->getAttribute());
+            if (!strlen($value)) {
+                $value = array();
+            } else {
+                $value = split(',', $value);
+            }
+            return $this->validateAttribute($value);
         }
 
         return parent::validate($object);

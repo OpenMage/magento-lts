@@ -25,7 +25,7 @@
  */
 ?>
 <?php if($_shippingRateGroups = $this->getShippingRates()): ?>
-    <div id="order:shipping-method-choose" style="display:none">
+    <div id="order-shipping-method-choose" style="display:none">
     <dl class="shipment-methods">
     <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
         <dt><strong><?php echo $this->getCarrierName($code) ?></strong></dt>
@@ -63,7 +63,7 @@
     </dl>
     </div>
     <?php if ($_rate = $this->getActiveMethodRate()): ?>
-        <div id="order:shipping-method-info">
+        <div id="order-shipping-method-info">
             <strong><?php echo $this->getCarrierName($_rate->getCarrier()) ?></strong><br/>
             <?php echo $_rate->getMethodTitle() ? $_rate->getMethodTitle() : $_rate->getMethodDescription() ?> -
             <strong>
@@ -77,17 +77,17 @@
             </strong>
             <!--input type="text" class="input-text" style="width:70px"/-->
             <br/>
-            <a href="#" onclick="$('order:shipping-method-info').hide();$('order:shipping-method-choose').show();return false">
+            <a href="#" onclick="$('order-shipping-method-info').hide();$('order-shipping-method-choose').show();return false">
                 <?php echo Mage::helper('sales')->__('Click to change shipping method') ?>
             </a>
         </div>
     <?php else: ?>
-        <script type="text/javascript">$('order:shipping-method-choose').show();</script>
+        <script type="text/javascript">$('order-shipping-method-choose').show();</script>
     <?php endif; ?>
 <?php elseif($this->getIsRateRequest()): ?>
     <strong><?php echo Mage::helper('sales')->__('Sorry, no quotes are available for this order at this time.') ?></strong>
 <?php else: ?>
-    <div id="order:shipping-method-summary">
+    <div id="order-shipping-method-summary">
         <a href="#" onclick="order.loadShippingRates();return false">
             <?php echo Mage::helper('sales')->__('Get shipping methods and rates') ?>
         </a>

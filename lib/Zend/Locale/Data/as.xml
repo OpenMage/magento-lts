@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.45 $"/>
-		<generation date="$Date: 2007/07/19 22:31:38 $"/>
+		<version number="$Revision: 1.49 $"/>
+		<generation date="$Date: 2008/06/15 09:11:18 $"/>
 		<language type="as"/>
 	</identity>
 	<localeDisplayNames>
@@ -12,9 +12,51 @@
 			<language type="ie">উপস্থাপন ভাষা</language>
 			<language type="km">কম্বোডিয়ান</language>
 		</languages>
+		<scripts>
+			<script type="Beng">বঙালী</script>
+		</scripts>
 		<territories>
+			<territory type="AQ">এন্টাৰ্টিকা</territory>
+			<territory type="BR">ব্ৰাজিল</territory>
+			<territory type="BV">বভেট দ্বীপ</territory>
+			<territory type="CN">চীন</territory>
+			<territory type="DE">জাৰ্মানি</territory>
+			<territory type="FR">ফ্ৰান্স</territory>
+			<territory type="GB">সংযুক্ত ৰাজ্য</territory>
+			<territory type="GS">দক্ষিণ জৰ্জিয়া আৰু দক্ষিণ চেণ্ডৱিচ্‌ দ্বীপ</territory>
+			<territory type="HM">হাৰ্ড দ্বীপ আৰু মেক্‌ডোনাল্ড দ্বীপ</territory>
 			<territory type="IN">ভাৰত</territory>
+			<territory type="IO">ব্ৰিটিশ্ব ইণ্ডিয়ান মহাসাগৰৰ অঞ্চল</territory>
+			<territory type="IT">ইটালি</territory>
+			<territory type="JP">জাপান</territory>
+			<territory type="RU">ৰুচ</territory>
+			<territory type="TF">দক্ষিণ ফ্ৰান্সৰ অঞ্চল</territory>
+			<territory type="US">যুক্তৰাষ্ট্ৰ</territory>
+			<territory type="ZZ">অজ্ঞাত বা অবৈধ অঞ্চল</territory>
 		</territories>
+		<keys>
+			<key type="calendar">পঞ্জিকা</key>
+			<key type="collation">শৰীকৰণ</key>
+			<key type="currency">মুদ্ৰা</key>
+		</keys>
+		<types>
+			<type type="big5han" key="collation">পৰম্পৰাগত চীনা শৃঙ্খলাবদ্ধ কৰাৰ ক্ৰম - Big5</type>
+			<type type="buddhist" key="calendar">বৌদ্ধ পঞ্জিকা</type>
+			<type type="chinese" key="calendar">চীনা পঞ্জিকা</type>
+			<type type="direct" key="collation">পোনপটীয়াকৈ শৃঙ্খলাবদ্ধ কৰাৰ ক্ৰম</type>
+			<type type="gb2312han" key="collation">সৰল চীনা শৃঙ্খলাবদ্ধ কৰাৰ ক্ৰম - GB2312</type>
+			<type type="gregorian" key="calendar">গ্ৰিগোৰীয় পঞ্জিকা</type>
+			<type type="hebrew" key="calendar">হীব্ৰু পঞ্জিকা</type>
+			<type type="indian" key="calendar">ভাৰতীয় ৰাষ্ট্ৰীয় পঞ্জিকা</type>
+			<type type="islamic" key="calendar">ইচলামী পঞ্জিকা</type>
+			<type type="islamic-civil" key="calendar">ইচলামী-নাগৰিকৰ পঞ্জিকা</type>
+			<type type="japanese" key="calendar">জাপানী পঞ্জিকা</type>
+			<type type="phonebook" key="collation">টেলিফোন বহিৰ মতেশৃঙ্খলাবদ্ধ কৰাৰ ক্ৰম</type>
+			<type type="pinyin" key="collation">পিন্‌য়িন শৃঙ্খলাবদ্ধ কৰাৰ ক্ৰম</type>
+			<type type="roc" key="calendar">চীনা গণৰাজ্যৰ পঞ্জিকা</type>
+			<type type="stroke" key="collation">স্ট্ৰোক শৃঙ্খলাবদ্ধ কৰাৰ ক্ৰম</type>
+			<type type="traditional" key="collation">পৰম্পৰাগতভাবে শৃঙ্খলাবদ্ধ কৰাৰ ক্ৰম</type>
+		</types>
 	</localeDisplayNames>
 	<characters>
 		<exemplarCharacters>[় অ-ঋ ৠ ঌ ৡ এ ঐ ও ঔ ং ঁ ঃ ক-ড {ড়} ঢ {ঢ়} ণ ত ৎ থ-ন প-য {য়} ৰ ল ৱ শ-হ ঽ-ৄ ৢ ৣ ে ৈ ো-্ ৗ]</exemplarCharacters>
@@ -224,7 +266,7 @@
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>¤ #,##,##0.00</pattern>
+					<pattern>¤ #,##,##0.00</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 		</currencyFormats>
@@ -235,3 +277,4 @@
 		</currencies>
 	</numbers>
 </ldml>
+

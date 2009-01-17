@@ -40,11 +40,32 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     protected $_connectionFlagsSet  = false;
 
     /**
+     * SQL bind params
+     *
+     * @var array
+     */
+    protected $_bindParams          = array();
+
+    /**
+     * Autoincrement for bind value
+     *
+     * @var int
+     */
+    protected $_bindIncrement       = 0;
+
+    /**
      * Write SQL debug data to file
      *
      * @var bool
      */
     protected $_debug               = false;
+
+    /**
+     * Minimum query duration time to be logged
+     *
+     * @var unknown_type
+     */
+    protected $_logQueryTime        = 0.05;
 
     /**
      * Path to SQL debug data log
@@ -172,7 +193,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
 
         if (!$this->_connectionFlagsSet) {
             $this->_connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
-            #$this->_connection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+            $this->_connection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
             $this->_connectionFlagsSet = true;
         }
     }
@@ -183,9 +204,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
             $retry = false;
             $tries = 0;
             try {
-                $this->_debugTimer();
                 $result = $this->getConnection()->query($sql);
-                $this->_debugStat(self::DEBUG_QUERY, $sql, array(), $result);
             } catch (PDOException $e) {
                 if ($e->getMessage()=='SQLSTATE[HY000]: General error: 2013 Lost connection to MySQL server during query') {
                     $retry = true;
@@ -227,6 +246,15 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     {
         $this->_debugTimer();
         try {
+            $sql = (string)$sql;
+            if (strpos($sql, ':') !== false || strpos($sql, '?') !== false) {
+                $this->_bindParams = $bind;
+                $sql = preg_replace_callback('#(([\'"])((\\2)|((.*?[^\\\\])\\2)))#', array($this, 'proccessBindCallback'), $sql);
+                $bind = $this->_bindParams;
+            }
+
+
+
             $result = parent::query($sql, $bind);
         }
         catch (Exception $e) {
@@ -235,6 +263,39 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         }
         $this->_debugStat(self::DEBUG_QUERY, $sql, $bind, $result);
         return $result;
+    }
+
+    public function proccessBindCallback($matches)
+    {
+        if (isset($matches[6]) && (
+            strpos($matches[6], "'") !== false ||
+            strpos($matches[6], ":") !== false ||
+            strpos($matches[6], "?") !== false)) {
+            $bindName = ':_mage_bind_var_' . ( ++ $this->_bindIncrement );
+            $this->_bindParams[$bindName] = $this->_unQuote($matches[6]);
+            return ' ' . $bindName;
+        }
+        return $matches[0];
+    }
+
+    /**
+     * Unquote raw string (use for auto-bind)
+     *
+     * @param string $string
+     * @return string
+     */
+    protected function _unQuote($string)
+    {
+        $translate = array(
+            "\\000" => "\000",
+            "\\n"   => "\n",
+            "\\r"   => "\r",
+            "\\\\"  => "\\",
+            "\'"    => "'",
+            "\\\""  => "\"",
+            "\\032" => "\032"
+        );
+        return strtr($string, $translate);
     }
 
     public function multi_query($sql)
@@ -449,17 +510,62 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
      * @param string $oldColumnName
      * @param string $newColumnName
      * @param string $definition
+     * @param bool $showStatus
+     *
+     * @return mixed
      */
-    public function changeColumn($tableName, $oldColumnName, $newColumnName, $definition)
+    public function changeColumn($tableName, $oldColumnName, $newColumnName, $definition,  $showStatus = false)
     {
         if (!$this->tableColumnExists($tableName, $oldColumnName)) {
             Mage::throwException('Column "' . $oldColumnName . '" does not exists on table "' . $tableName . '"');
         }
 
         $sql = 'ALTER TABLE ' . $this->quoteIdentifier($tableName)
-            . 'CHANGE COLUMN ' . $this->quoteIdentifier($oldColumnName)
+            . ' CHANGE COLUMN ' . $this->quoteIdentifier($oldColumnName)
             . ' ' . $this->quoteIdentifier($newColumnName) . ' ' . $definition;
-        return $this->raw_query($sql);
+        $result = $this->raw_query($sql);
+        if ($showStatus) {
+            $this->showTableStatus($tableName);
+        }
+        return $result;
+    }
+
+    /**
+     * Modify column defination or position
+     *
+     * @param string $tableName
+     * @param string $columnName
+     * @param string $definition
+     * @param bool $showStatus
+     *
+     * @return mixed
+     */
+    public function modifyColumn($tableName, $columnName, $definition, $showStatus = false)
+    {
+        if (!$this->tableColumnExists($tableName, $columnName)) {
+            Mage::throwException('Column "' . $columnName . '" does not exists on table "' . $tableName . '"');
+        }
+
+        $sql = 'ALTER TABLE ' . $this->quoteIdentifier($tableName)
+            . ' MODIFY COLUMN ' . $this->quoteIdentifier($columnName)
+            . ' ' . $definition;
+        $result = $this->raw_query($sql);
+        if ($showStatus) {
+            $this->showTableStatus($tableName);
+        }
+        return $result;
+    }
+
+    /**
+     * Show table status
+     *
+     * @param string $tableName
+     * @return array
+     */
+    public function showTableStatus($tableName)
+    {
+        $sql = $this->quoteInto('SHOW TABLE STATUS LIKE ?', $tableName);
+        return $this->raw_fetchRow($sql);
     }
 
     public function getKeyList($tableName)
@@ -482,9 +588,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
      * @param string $tableName
      * @param string $indexName
      * @param string|array $fields
+     * @param string $indexType
      * @return
      */
-    public function addKey($tableName, $indexName, $fields)
+    public function addKey($tableName, $indexName, $fields, $indexType = 'index')
     {
         $keyList = $this->getKeyList($tableName);
 
@@ -504,7 +611,22 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
             $fieldSql = $this->quoteIdentifier($fields);
         }
 
-        $sql .= ' ADD INDEX ' . $this->quoteIdentifier($indexName) . ' (' . $fieldSql . ')';
+        switch (strtolower($indexType)) {
+            case 'primary':
+                $condition = 'PRIMARY KEY';
+                break;
+            case 'unique':
+                $condition = 'UNIQUE ' . $this->quoteIdentifier($indexName);
+                break;
+            case 'fulltext':
+                $condition = 'FULLTEXT ' . $this->quoteIdentifier($indexName);
+                break;
+            default:
+                $condition = 'INDEX ' . $this->quoteIdentifier($indexName);
+                break;
+        }
+
+        $sql .= ' ADD ' . $condition . ' (' . $fieldSql . ')';
 
         return $this->raw_query($sql);
     }
@@ -546,6 +668,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         $code = '## ' . getmypid() . ' ## ';
         $nl   = "\n";
         $time = sprintf('%.4f', microtime(true) - $this->_debugTimer);
+
+        if ($time < $this->_logQueryTime) {
+            return $this;
+        }
         switch ($type) {
             case self::DEBUG_CONNECT:
                 $code .= 'CONNECT' . $nl;

@@ -62,10 +62,19 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Tierprice
         return $this->_getReadAdapter()->fetchAll($select);
     }
 
-    public function deleteProductPrices($product)
+    public function deleteProductPrices($product, $attribute)
     {
-        $condition = $this->_getWriteAdapter()->quoteInto('entity_id=?', $product->getId());
-        $this->_getWriteAdapter()->delete($this->getMainTable(), $condition);
+        $condition = array();
+
+        if (!$attribute->isScopeGlobal()) {
+            if ($storeId = $product->getStoreId()) {
+                $condition[] = $this->_getWriteAdapter()->quoteInto('website_id IN (?)', array(0, Mage::app()->getStore($storeId)->getWebsiteId()));
+            }
+        }
+
+        $condition[] = $this->_getWriteAdapter()->quoteInto('entity_id=?', $product->getId());
+        
+        $this->_getWriteAdapter()->delete($this->getMainTable(), implode(' AND ', $condition));
         return $this;
     }
 

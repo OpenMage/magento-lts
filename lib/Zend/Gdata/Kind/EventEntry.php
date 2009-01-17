@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -15,6 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -70,11 +70,6 @@
 #require_once 'Zend/Gdata/Extension/Visibility.php';
 
 /**
- * @see Zend_Gdata_Extension_RecurrenceException
- */
-#require_once 'Zend/Gdata/Extension/RecurrenceException.php';
-
-/**
  * @see Zend_Gdata_Extension_ExtendedProperty
  */
 #require_once 'Zend/Gdata/Extension/ExtendedProperty.php';
@@ -90,11 +85,12 @@
 #require_once 'Zend/Gdata/Extension/EntryLink.php';
 
 /**
- * Data model for the GData Event "Kind".  Google Calendar has a separate
+ * Data model for the Gdata Event "Kind".  Google Calendar has a separate
  * EventEntry class which extends this.
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -113,9 +109,9 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
     protected $_originalEvent = null;
     protected $_entryLink = null;
 
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
         if ($this->_who != null) {
             foreach ($this->_who as $who) {
                 $element->appendChild($who->getDOM($element->ownerDocument));
@@ -213,6 +209,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
             $this->_visibility = $visiblity;
             break;
         case $this->lookupNamespace('gd') . ':' . 'recurrenceException';
+            #require_once 'Zend/Gdata/Extension/RecurrenceException.php';
             $recurrenceException = new Zend_Gdata_Extension_RecurrenceException();
             $recurrenceException ->transferFromDOM($child);
             $this->_recurrenceException[] = $recurrenceException;
@@ -246,7 +243,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
+     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
      */
     public function setWhen($value)
     {
@@ -261,7 +258,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
+     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
      */
     public function setWhere($value)
     {
@@ -276,7 +273,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
+     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
      */
     public function setWho($value)
     {
@@ -291,7 +288,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
+     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
      */
     public function setRecurrence($value)
     {
@@ -306,7 +303,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
+     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
      */
     public function setEventStatus($value)
     {
@@ -321,7 +318,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
+     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
      */
     public function setComments($value)
     {
@@ -336,7 +333,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param Zend_Gdata_Transparency $value
-     * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
+     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
      */
     public function setTransparency($value)
     {
@@ -351,15 +348,11 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param Zend_Gdata_Visibility $value
-     * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
+     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
      */
     public function setVisibility($value)
     {
         $this->_visibility = $value;
-    /**
-     * @param array $value
-     * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
-     */
         return $this;
     }
 
@@ -370,7 +363,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
+     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
      */
     public function setRecurrenceException($value)
     {
@@ -385,7 +378,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param array $value
-     * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
+     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
      */
     public function setExtendedProperty($value)
     {
@@ -400,7 +393,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 
     /**
      * @param Zend_Gdata_Extension_OriginalEvent $value
-     * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
+     * @return Zend_Gdata_Kind_EventEntry Provides a fluent interface
      */
     public function setOriginalEvent($value)
     {

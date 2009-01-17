@@ -188,25 +188,21 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     {
         if (is_null($resource)) {
             $resource = $this->getNode('acl/resources');
-            $resourceName = null;
         } else {
             $resourceName = (is_null($parentName) ? '' : $parentName.'/').$resource->getName();
             $acl->add(Mage::getModel('api/acl_resource', $resourceName), $parentName);
         }
 
-        if (is_null($resourceName)) {
-            $children = $resource->children();
-        } elseif (isset($resource->children)){
-            $children = $resource->children->children();
-        }
-
+        $children = $resource->children();
 
         if (empty($children)) {
             return $this;
         }
 
         foreach ($children as $res) {
-            $this->loadAclResources($acl, $res, $resourceName);
+            if ($res->getName() != 'title' && $res->getName() != 'sort_order') {
+                $this->loadAclResources($acl, $res, $resourceName);
+            }
         }
         return $this;
     }

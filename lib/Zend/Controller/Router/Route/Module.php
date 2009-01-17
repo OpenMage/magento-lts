@@ -15,18 +15,12 @@
  * @package    Zend_Controller
  * @subpackage Router
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Module.php 8892 2008-03-18 19:47:46Z thomas $
+ * @version    $Id: Module.php 12310 2008-11-05 20:49:16Z dasprid $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/** Zend_Controller_Router_Route_Interface */
-#require_once 'Zend/Controller/Router/Route/Interface.php';
-
-/** Zend_Controller_Dispatcher_Interface */
-#require_once 'Zend/Controller/Dispatcher/Interface.php';
-
-/** Zend_Controller_Request_Abstract */
-#require_once 'Zend/Controller/Request/Abstract.php';
+/** Zend_Controller_Router_Route_Abstract */
+#require_once 'Zend/Controller/Router/Route/Abstract.php';
 
 /**
  * Module Route
@@ -39,7 +33,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see        http://manuals.rubyonrails.com/read/chapter/65
  */
-class Zend_Controller_Router_Route_Module implements Zend_Controller_Router_Route_Interface
+class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_Abstract
 {
     /**
      * URI delimiter
@@ -74,6 +68,10 @@ class Zend_Controller_Router_Route_Module implements Zend_Controller_Router_Rout
      * @var Zend_Controller_Request_Abstract
      */
     protected $_request;
+
+    public function getVersion() {
+        return 1;
+    }
 
     /**
      * Instantiates route based on passed Zend_Config structure
@@ -170,7 +168,7 @@ class Zend_Controller_Router_Route_Module implements Zend_Controller_Router_Rout
                 for ($i = 0; $i < $numSegs; $i = $i + 2) {
                     $key = urldecode($path[$i]);
                     $val = isset($path[$i + 1]) ? urldecode($path[$i + 1]) : null;
-                    $params[$key] = $val;
+                    $params[$key] = (isset($params[$key]) ? (array_merge((array) $params[$key], array($val))): $val);
                 }
             }
         }
@@ -187,7 +185,7 @@ class Zend_Controller_Router_Route_Module implements Zend_Controller_Router_Rout
      * @param bool $reset Weither to reset the current params
      * @return string Route path with user submitted parameters
      */
-    public function assemble($data = array(), $reset = false)
+    public function assemble($data = array(), $reset = false, $encode = true)
     {
         if (!$this->_keysSet) {
             $this->_setRequestKeys();
@@ -221,19 +219,31 @@ class Zend_Controller_Router_Route_Module implements Zend_Controller_Router_Rout
         unset($params[$this->_actionKey]);
 
         foreach ($params as $key => $value) {
-            $url .= '/' . $key;
-            $url .= '/' . $value;
+            if (is_array($value)) {
+                foreach ($value as $arrayValue) {
+                    if ($encode) $arrayValue = urlencode($arrayValue);
+                    $url .= '/' . $key;
+                    $url .= '/' . $arrayValue;
+                }
+            } else {
+                if ($encode) $value = urlencode($value);
+                $url .= '/' . $key;
+                $url .= '/' . $value;
+            }
         }
 
         if (!empty($url) || $action !== $this->_defaults[$this->_actionKey]) {
+            if ($encode) $action = urlencode($action);
             $url = '/' . $action . $url;
         }
 
         if (!empty($url) || $controller !== $this->_defaults[$this->_controllerKey]) {
+            if ($encode) $controller = urlencode($controller);
             $url = '/' . $controller . $url;
         }
 
         if (isset($module)) {
+            if ($encode) $module = urlencode($module);
             $url = '/' . $module . $url;
         }
 

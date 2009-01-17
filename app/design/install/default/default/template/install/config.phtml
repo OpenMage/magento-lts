@@ -165,6 +165,6 @@
 <?php else: ?>
     <div><?php echo $this->__('Please set all required settings before clicking Continue') ?></div>
     <div class="button-set">
-        <button class="form-button" type="button" onclick="setLocation('<?php echo $this->getUrl('*/*/*') ?>')"><span><?php echo $this->__('Continue') ?></span></button>
+        <button class="form-button" type="button" onclick="setLocation('<?php echo $this->getUrl('*/*/*', array('_current'=>true)) ?>')"><span><?php echo $this->__('Continue') ?></span></button>
     </div>
 <?php endif; ?>

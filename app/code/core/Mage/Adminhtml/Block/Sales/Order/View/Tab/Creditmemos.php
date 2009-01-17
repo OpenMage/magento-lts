@@ -50,6 +50,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos
             ->addAttributeToSelect('created_at')
             ->addAttributeToSelect('order_currency_code')
             ->addAttributeToSelect('store_currency_code')
+            ->addAttributeToSelect('base_currency_code')
             ->addAttributeToSelect('state')
             ->addAttributeToSelect('grand_total')
             ->addAttributeToSelect('base_grand_total')
@@ -103,7 +104,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos
             'header'    => Mage::helper('customer')->__('Refunded'),
             'index'     => 'base_grand_total',
             'type'      => 'currency',
-            'currency'  => 'store_currency_code',
+            'currency'  => 'base_currency_code',
         ));
 
         return parent::_prepareColumns();

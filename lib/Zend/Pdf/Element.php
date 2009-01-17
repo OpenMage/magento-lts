@@ -112,5 +112,48 @@ abstract class Zend_Pdf_Element
     {
         // Do nothing
     }
+
+    /**
+     * Convert PDF element to PHP type.
+     *
+     * @return mixed
+     */
+    public function toPhp()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Convert PHP value into PDF element.
+     *
+     * @param mixed $input
+     * @return Zend_Pdf_Element
+     */
+    public static function phpToPdf($input)
+    {
+        if (is_numeric($input)) {
+            return new Zend_Pdf_Element_Numeric($input);
+        } else if (is_bool($input)) {
+            return new Zend_Pdf_Element_Boolean($input);
+        } else if (is_array($input)) {
+            $pdfElementsArray = array();
+            $isDictionary = false;
+
+            foreach ($input as $key => $value) {
+                if (is_string($key)) {
+                    $isDictionary = true;
+                }
+                $pdfElementsArray[$key] = Zend_Pdf_Element::phpToPdf($value);
+            }
+
+            if ($isDictionary) {
+                return new Zend_Pdf_Element_Dictionary($pdfElementsArray);
+            } else {
+                return new Zend_Pdf_Element_Array($pdfElementsArray);
+            }
+        } else {
+            return new Zend_Pdf_Element_String((string)$input);
+        }
+    }
 }
 

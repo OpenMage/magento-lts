@@ -4,13 +4,13 @@
  *
  * LICENSE
  *
- * This source file is subject to version 1.0 of the Zend Framework
- * license, that is bundled with this package in the file LICENSE.txt, and
- * is available through the world-wide-web at the following URL:
- * http://framework.zend.com/license/new-bsd. If you did not receive
- * a copy of the Zend Framework license and are unable to obtain it
- * through the world-wide-web, please send a note to license@zend.com
- * so we can mail you a copy immediately.
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://framework.zend.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@zend.com so we can send you a copy immediately.
  *
  * @package    Zend_View
  * @subpackage Helper
@@ -30,7 +30,7 @@
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_Standalone
 {
     /**
@@ -38,6 +38,19 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
      * @var string
      */
     protected $_regKey = 'Zend_View_Helper_HeadTitle';
+
+    /**
+     * Whether or not auto-translation is enabled
+     * @var boolean
+     */
+    protected $_translate = false;
+
+    /**
+     * Translation object
+     *
+     * @var Zend_Translate_Adapter
+     */
+    protected $_translator;
 
     /**
      * Retrieve placeholder for title element and optionally set state
@@ -58,39 +71,107 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
                 $this->append($title);
             }
         }
-        
+
+        return $this;
+    }
+
+    /**
+     * Sets a translation Adapter for translation
+     *
+     * @param  Zend_Translate|Zend_Translate_Adapter $translate
+     * @return Zend_View_Helper_HeadTitle
+     */
+    public function setTranslator($translate)
+    {
+        if ($translate instanceof Zend_Translate_Adapter) {
+            $this->_translator = $translate;
+        } elseif ($translate instanceof Zend_Translate) {
+            $this->_translator = $translate->getAdapter();
+        } else {
+            #require_once 'Zend/View/Exception.php';
+            throw new Zend_View_Exception("You must set an instance of Zend_Translate or Zend_Translate_Adapter");
+        }
+        return $this;
+    }
+
+    /*
+     * Retrieve translation object
+     *
+     * If none is currently registered, attempts to pull it from the registry
+     * using the key 'Zend_Translate'.
+     *
+     * @return Zend_Translate_Adapter|null
+     */
+    public function getTranslator()
+    {
+        if (null === $this->_translator) {
+            #require_once 'Zend/Registry.php';
+            if (Zend_Registry::isRegistered('Zend_Translate')) {
+                $this->setTranslator(Zend_Registry::get('Zend_Translate'));
+            }
+        }
+        return $this->_translator;
+    }
+
+    /**
+     * Enables translation
+     *
+     * @return Zend_View_Helper_HeadTitle
+     */
+    public function enableTranslation()
+    {
+        $this->_translate = true;
+        return $this;
+    }
+
+    /**
+     * Disables translation
+     *
+     * @return Zend_View_Helper_HeadTitle
+     */
+    public function disableTranslation()
+    {
+        $this->_translate = false;
         return $this;
     }
 
     /**
      * Turn helper into string
-     * 
-     * @param  string|null $indent 
+     *
+     * @param  string|null $indent
+     * @param  string|null $locale
      * @return string
      */
-    public function toString($indent = null)
+    public function toString($indent = null, $locale = null)
     {
         $indent = (null !== $indent)
                 ? $this->getWhitespace($indent)
                 : $this->getIndent();
 
         $items = array();
-        foreach ($this as $item) {
-            $items[] = $this->_escape($item);
+
+        if($this->_translate && $translator = $this->getTranslator()) {
+            foreach ($this as $item) {
+                $items[] = $translator->translate($item, $locale);
+            }
+        } else {
+            foreach ($this as $item) {
+                $items[] = $item;
+            }
         }
 
-        $separator = $this->_escape($this->getSeparator());
+        $separator = $this->getSeparator();
+        $output = '';
+        if(($prefix = $this->getPrefix())) {
+            $output  .= $prefix;
+        }
+        $output .= implode($separator, $items);
+        if(($postfix = $this->getPostfix())) {
+            $output .= $postfix;
+        }
 
-        return $indent . '<title>' . implode($separator, $items) . '</title>';
-    }
+        $output = ($this->_autoEscape) ? $this->_escape($output) : $output;
 
-    /**
-     * Cast to string
-     * 
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->toString();
+        return $indent . '<title>' . $output . '</title>';
     }
 }

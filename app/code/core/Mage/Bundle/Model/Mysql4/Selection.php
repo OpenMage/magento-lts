@@ -75,9 +75,11 @@ class Mage_Bundle_Model_Mysql4_Selection extends Mage_Core_Model_Mysql4_Abstract
         $attrPriceId = Mage::getSingleton('eav/entity_attribute')->getIdByCode('catalog_product', 'price');
         $attrTierPriceId = Mage::getSingleton('eav/entity_attribute')->getIdByCode('catalog_product', 'tier_price');
 
+        $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
+
         $select->from(array("price_index" => $this->getTable('catalogindex/price')), array('price' => 'SUM(value)'))
             ->where('entity_id in (?)', $productId)
-            ->where('store_id = ?', $storeId)
+            ->where('website_id = ?', $websiteId)
             ->where('customer_group_id = ?', $groupId)
             ->where('attribute_id in (?)', array($attrPriceId, $attrTierPriceId))
             ->where('qty <= ?', $qty)

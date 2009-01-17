@@ -66,9 +66,9 @@ class Zend_View_Helper_FormSelect extends Zend_View_Helper_FormElement
         $info = $this->_getInfo($name, $value, $attribs, $options, $listsep);
         extract($info); // name, id, value, attribs, options, listsep, disable
 
-        // force $value to array so we can compare multiple values
-        // to multiple options.
-        $value = (array) $value;
+        // force $value to array so we can compare multiple values to multiple 
+        // options; also ensure it's a string for comparison purposes.
+        $value = array_map('strval', (array) $value);
 
         // check if element may have multiple values
         $multiple = '';
@@ -156,7 +156,7 @@ class Zend_View_Helper_FormSelect extends Zend_View_Helper_FormElement
              . ' label="' . $this->view->escape($label) . '"';
 
         // selected?
-        if (in_array($value, $selected, 0 === $value)) {
+        if (in_array((string) $value, $selected)) {
             $opt .= ' selected="selected"';
         }
 

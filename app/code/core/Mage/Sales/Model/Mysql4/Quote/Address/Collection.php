@@ -40,9 +40,16 @@ class Mage_Sales_Model_Mysql4_Quote_Address_Collection extends Mage_Core_Model_M
         $this->_init('sales/quote_address');
     }
 
+    /**
+     * Setting filter on quote_id field but if quote_id is 0
+     * we should exclude loading junk data from DB
+     *
+     * @param int $quoteId
+     * @return Mage_Sales_Model_Mysql4_Quote_Address_Collection
+     */
     public function setQuoteFilter($quoteId)
     {
-        $this->addFieldToFilter('quote_id', $quoteId);
+        $this->addFieldToFilter('quote_id', $quoteId ? $quoteId : array('null' => 1));
         return $this;
     }
 }

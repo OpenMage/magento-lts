@@ -102,6 +102,7 @@ Default layout, loads most of the pages
             <block type="adminhtml/notification_toolbar" name="notification_toolbar" as="notification_toolbar" acl="system/adminnotification/show_toolbar" template="notification/toolbar.phtml"></block>
             <block type="adminhtml/widget_breadcrumbs" name="breadcrumbs" as="breadcrumbs"></block>
 
+            <block type="core/template" name="formkey" as="formkey" template="formkey.phtml" />
             <block type="page/js_translate" name="js_translate" as="js_translate" template="page/js/translate.phtml"/>
             <block type="core/text_list" name="left" as="left"/>
             <block type="core/text_list" name="content" as="content"/>

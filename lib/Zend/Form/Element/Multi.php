@@ -24,13 +24,13 @@
 
 /**
  * Base class for multi-option form elements
- * 
+ *
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Multi.php 8970 2008-03-21 18:29:29Z matthew $
+ * @version    $Id: Multi.php 12527 2008-11-10 21:00:57Z thomas $
  */
 abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
 {
@@ -39,6 +39,12 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
      * @var array
      */
     public $options = array();
+
+    /**
+     * Flag: autoregister inArray validator?
+     * @var bool
+     */
+    protected $_registerInArrayValidator = true;
 
     /**
      * Separator to use between options; defaults to '<br />'.
@@ -76,7 +82,7 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
 
     /**
      * Retrieve options array
-     * 
+     *
      * @return array
      */
     protected function _getMultiOptions()
@@ -90,8 +96,8 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
 
     /**
      * Add an option
-     * 
-     * @param  string $option 
+     *
+     * @param  string $option
      * @param  string $value
      * @return Zend_Form_Element_Multi
      */
@@ -108,14 +114,14 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
 
     /**
      * Add many options at once
-     * 
-     * @param  array $options 
+     *
+     * @param  array $options
      * @return Zend_Form_Element_Multi
      */
     public function addMultiOptions(array $options)
     {
         foreach ($options as $option => $value) {
-            if (is_array($value) 
+            if (is_array($value)
                 && array_key_exists('key', $value)
                 && array_key_exists('value', $value)
             ) {
@@ -141,8 +147,8 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
 
     /**
      * Retrieve single multi option
-     * 
-     * @param  string $option 
+     *
+     * @param  string $option
      * @return mixed
      */
     public function getMultiOption($option)
@@ -173,8 +179,8 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
 
     /**
      * Remove a single multi option
-     * 
-     * @param  string $option 
+     *
+     * @param  string $option
      * @return bool
      */
     public function removeMultiOption($option)
@@ -194,7 +200,7 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
 
     /**
      * Clear all options
-     * 
+     *
      * @return Zend_Form_Element_Multi
      */
     public function clearMultiOptions()
@@ -205,23 +211,108 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
     }
 
     /**
+     * Set flag indicating whether or not to auto-register inArray validator
+     *
+     * @param  bool $flag
+     * @return Zend_Form_Element_Multi
+     */
+    public function setRegisterInArrayValidator($flag)
+    {
+        $this->_registerInArrayValidator = (bool) $flag;
+        return $this;
+    }
+
+    /**
+     * Get status of auto-register inArray validator flag
+     *
+     * @return bool
+     */
+    public function registerInArrayValidator()
+    {
+        return $this->_registerInArrayValidator;
+    }
+
+    /**
+     * Is the value provided valid?
+     *
+     * Autoregisters InArray validator if necessary.
+     *
+     * @param  string $value
+     * @param  mixed $context
+     * @return bool
+     */
+    public function isValid($value, $context = null)
+    {
+        if ($this->registerInArrayValidator()) {
+            if (!$this->getValidator('InArray')) {
+                $multiOptions = $this->getMultiOptions();
+                $options      = array();
+
+                foreach ($multiOptions as $opt_value => $opt_label) {
+                    // optgroup instead of option label
+                    if (is_array($opt_label)) {
+                        $options = array_merge($options, array_keys($opt_label));
+                    }
+                    else {
+                        $options[] = $opt_value;
+                    }
+                }
+
+                $this->addValidator(
+                    'InArray',
+                    true,
+                    array($options)
+                );
+            }
+        }
+        return parent::isValid($value, $context);
+    }
+
+    /**
      * Translate an option
-     * 
-     * @param  string $option 
+     *
+     * @param  string $option
      * @param  string $value
      * @return bool
      */
     protected function _translateOption($option, $value)
     {
-        if (!isset($this->_translated[$option]) 
-            && (null !== ($translator = $this->getTranslator()))
-            && $translator->isTranslated($value)) 
-        {
-            $this->options[$option] = $translator->translate($value);
+        if ($this->translatorIsDisabled()) {
+            return true;
+        }
+
+        if (!isset($this->_translated[$option]) && !empty($value)) {
+            $this->options[$option] = $this->_translateValue($value);
+            if ($this->options[$option] === $value) {
+                return false;
+            }
             $this->_translated[$option] = true;
             return true;
-        } 
+        }
 
         return false;
+    }
+
+    /**
+     * Translate a multi option value
+     *
+     * @param  string $value
+     * @return string
+     */
+    protected function _translateValue($value)
+    {
+        if (is_array($value)) {
+            foreach ($value as $key => $val) {
+                $value[$key] = $this->_translateValue($val);
+            }
+            return $value;
+        } else {
+            if (null !== ($translator = $this->getTranslator())) {
+                if ($translator->isTranslated($value)) {
+                    return $translator->translate($value);
+                }
+            }
+            return $value;
+        }
     }
 }

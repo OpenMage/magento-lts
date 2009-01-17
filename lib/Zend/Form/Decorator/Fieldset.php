@@ -32,10 +32,22 @@
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Fieldset.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Fieldset.php 10689 2008-08-05 17:00:54Z matthew $
  */
 class Zend_Form_Decorator_Fieldset extends Zend_Form_Decorator_Abstract
 {
+    /**
+     * Attribs that should be removed prior to rendering
+     * @var array
+     */
+    public $stripAttribs = array(
+        'action',
+        'enctype',
+        'helper',
+        'method',
+        'name',
+    );
+
     /**
      * Fieldset legend
      * @var string
@@ -114,8 +126,14 @@ class Zend_Form_Decorator_Fieldset extends Zend_Form_Decorator_Abstract
             return $content;
         }
 
-        $legend  = $this->getLegend();
-        $attribs = $this->getOptions();
+        $legend        = $this->getLegend();
+        $attribs       = $this->getOptions();
+        $name          = $element->getFullyQualifiedName();
+
+        $id = $element->getId();
+        if (!empty($id)) {
+            $attribs['id'] = 'fieldset-' . $id;
+        }
 
         if (null !== $legend) {
             if (null !== ($translator = $element->getTranslator())) {
@@ -125,6 +143,13 @@ class Zend_Form_Decorator_Fieldset extends Zend_Form_Decorator_Abstract
             $attribs['legend'] = $legend;
         }
 
-        return $view->fieldset($element->getName(), $content, $attribs);
+        foreach (array_keys($attribs) as $attrib) {
+            $testAttrib = strtolower($attrib);
+            if (in_array($testAttrib, $this->stripAttribs)) {
+                unset($attribs[$attrib]);
+            }
+        }
+
+        return $view->fieldset($name, $content, $attribs);
     }
 }

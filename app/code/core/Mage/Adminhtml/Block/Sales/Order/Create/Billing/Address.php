@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address extends Mage_Admin
         	parent::_prepareForm();
             $this->_form->addFieldNameSuffix('order[billing_address]');
             $this->_form->setHtmlNamePrefix('order[billing_address]');
-            $this->_form->setHtmlIdPrefix('order:billing_address_');
+            $this->_form->setHtmlIdPrefix('order-billing_address_');
         }
         return $this;
     }

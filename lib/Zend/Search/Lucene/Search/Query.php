@@ -22,6 +22,9 @@
 /** Zend_Search_Lucene_Document_Html */
 #require_once 'Zend/Search/Lucene/Document/Html.php';
 
+/** Zend_Search_Lucene_Index_DocsFilter */
+#require_once 'Zend/Search/Lucene/Index/DocsFilter.php';
+
 
 /**
  * @category   Zend
@@ -112,8 +115,9 @@ abstract class Zend_Search_Lucene_Search_Query
      * Query specific implementation
      *
      * @param Zend_Search_Lucene_Interface $reader
+     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      */
-    abstract public function execute(Zend_Search_Lucene_Interface $reader);
+    abstract public function execute(Zend_Search_Lucene_Interface $reader, $docsFilter = null);
 
     /**
      * Constructs an appropriate Weight implementation for this query.

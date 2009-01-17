@@ -457,4 +457,33 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         Mage::getConfig()->removeCache();
         return $this;
     }
+
+    /**
+     * Retrieve website base currency code
+     *
+     * @return string
+     */
+    public function getBaseCurrencyCode()
+    {
+        if ($this->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE) == Mage_Core_Model_Store::PRICE_SCOPE_GLOBAL) {
+            return Mage::app()->getBaseCurrencyCode();
+        } else {
+            return $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
+        }
+    }
+
+    /**
+     * Retrieve website base currency
+     *
+     * @return Mage_Directory_Model_Currency
+     */
+    public function getBaseCurrency()
+    {
+        $currency = $this->getData('base_currency');
+        if (is_null($currency)) {
+            $currency = Mage::getModel('directory/currency')->load($this->getBaseCurrencyCode());
+            $this->setData('base_currency', $currency);
+        }
+        return $currency;
+    }
 }

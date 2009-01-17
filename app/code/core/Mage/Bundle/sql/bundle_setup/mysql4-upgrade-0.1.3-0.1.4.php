@@ -29,9 +29,9 @@ $installer = $this;
 $installer->startSetup();
 
 $installer->run("
-    UPDATE `{$installer->getTable('catalog/product_entity')}` SET `has_options` = '1'
+    UPDATE `{$installer->getTable('catalog/product')}` SET `has_options` = '1'
     WHERE (entity_id IN (
-        SELECT parent_product_id FROM `{$installer->getTable('catalog/product_bundle_selection')}` GROUP BY parent_product_id
+        SELECT parent_product_id FROM `{$installer->getTable('bundle/selection')}` GROUP BY parent_product_id
     ));
 ");
 

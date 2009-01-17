@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Customer>
-            <version>0.8.8</version>
+            <version>0.8.9</version>
         </Mage_Customer>
     </modules>
 
@@ -268,24 +268,36 @@ T: {{var telephone}}
             <resources>
                 <admin>
                     <children>
-                        <customer>
+                        <customer translate="title" module="customer">
                             <title>Customers</title>
                             <sort_order>40</sort_order>
                             <children>
-                                <group>
+                                <group translate="title">
                                     <title>Customer Groups</title>
                                     <sort_order>0</sort_order>
                                 </group>
-                                <manage>
+                                <manage translate="title">
                                     <title>Manage Customers</title>
                                     <sort_order>10</sort_order>
                                 </manage>
-                                <online>
+                                <online translate="title">
                                     <title>Online Customers</title>
                                     <sort_order>20</sort_order>
                                 </online>
                             </children>
                         </customer>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <customer translate="title" module="customer">
+                                            <title>Customers Section</title>
+                                            <sort_order>50</sort_order>
+                                        </customer>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
                     </children>
                 </admin>
             </resources>

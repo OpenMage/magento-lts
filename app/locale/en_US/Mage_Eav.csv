@@ -1,5 +1,6 @@
 "Attempt to add an invalid object","Attempt to add an invalid object"
 "Attribute '%s' used in configurable products.","Attribute '%s' used in configurable products."
+"Attribute set with the ""%s"" name already exists","Attribute set with the ""%s"" name already exists"
 "Attribute used in configurable products.","Attribute used in configurable products."
 "Attribute with the same code","Attribute with the same code"
 "Data integrity: No header row found for attribute","Data integrity: No header row found for attribute"

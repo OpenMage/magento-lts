@@ -29,8 +29,8 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->run("
-ALTER TABLE `{$this->getTable('core_session')}` MODIFY `session_data` MEDIUMBLOB NOT NULL;
-");
+$installer->getConnection()->changeColumn(
+    $this->getTable('core_session'), 'session_data', 'session_data', 'MEDIUMBLOB NOT NULL'
+);
 
 $installer->endSetup();

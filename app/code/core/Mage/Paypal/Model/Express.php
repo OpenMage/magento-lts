@@ -92,6 +92,11 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         return $this->getCheckout()->getQuote();
     }
 
+    /**
+     * Retrieve redirect url
+     *
+     * @return string
+     */
     public function getRedirectUrl()
     {
         return $this->getApi()->getRedirectUrl();
@@ -123,6 +128,11 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         return false;
     }
 
+    /**
+     * Processing error from paypal
+     *
+     * @return Mage_Paypal_Model_Express
+     */
     public function catchError()
     {
         if ($this->getApi()->getError()) {
@@ -164,6 +174,12 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         return $this;
     }
 
+    /**
+     * Preparing form block
+     *
+     * @param string $name
+     * @return Mage_Core_Block_Abstract
+     */
     public function createFormBlock($name)
     {
         $block = $this->getLayout()->createBlock('paypal/express_form', $name)
@@ -174,6 +190,12 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         return $block;
     }
 
+    /**
+     * Preparing info block
+     *
+     * @param string $name
+     * @return Mage_Core_Block_Abstract
+     */
     public function createInfoBlock($name)
     {
         $block = $this->getLayout()->createBlock('paypal/express_info', $name)
@@ -187,6 +209,11 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         return $this->getRedirectUrl();
     }
 
+    /**
+     * Getting paypal action url
+     *
+     * @return string
+     */
     public function getPaymentAction()
     {
         $paymentAction = Mage::getStoreConfig('payment/paypal_express/payment_action');
@@ -196,6 +223,11 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         return $paymentAction;
     }
 
+    /**
+     * Making API call to start transaction from shopping cart
+     *
+     * @return Mage_Paypal_Model_Express
+     */
     public function shortcutSetExpressCheckout()
     {
         $this->getQuote()->reserveOrderId()->save();
@@ -213,6 +245,11 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         return $this;
     }
 
+    /**
+     * Making API call to check transaction's status when customer returns from paypal
+     *
+     * @return Mage_Paypal_Model_Express
+     */
     public function returnFromPaypal()
     {
         $error = '';
@@ -240,6 +277,10 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         return $this;
     }
 
+    /**
+     * Requesting details for current transaction and saving data
+     *
+     */
     protected function _getExpressCheckoutDetails()
     {
         $api = $this->getApi();
@@ -344,6 +385,12 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         return $this;
     }
 
+    /**
+     * Making right API call for current trasaction
+     *
+     * @param Varien_Object $payment
+     * @return Mage_Paypal_Model_Express
+     */
     public function placeOrder(Varien_Object $payment)
     {
         $api = $this->getApi();

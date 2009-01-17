@@ -22,7 +22,6 @@
 /** Zend_Search_Lucene_FSM */
 #require_once 'Zend/Search/Lucene/FSM.php';
 
-
 /** Zend_Search_Lucene_Index_Term */
 #require_once 'Zend/Search/Lucene/Index/Term.php';
 
@@ -41,18 +40,11 @@
 /** Zend_Search_Lucene_Search_Query_Phrase */
 #require_once 'Zend/Search/Lucene/Search/Query/Phrase.php';
 
-/** Zend_Search_Lucene_Exception */
-#require_once 'Zend/Search/Lucene/Exception.php';
-
-/** Zend_Search_Lucene_Search_QueryParserException */
-#require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
-
 /** Zend_Search_Lucene_Search_BooleanExpressionRecognizer */
 #require_once 'Zend/Search/Lucene/Search/BooleanExpressionRecognizer.php';
 
 /** Zend_Search_Lucene_Search_QueryEntry */
 #require_once 'Zend/Search/Lucene/Search/QueryEntry.php';
-
 
 /**
  * @category   Zend
@@ -171,6 +163,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
     public function setNextEntrySign($sign)
     {
         if ($this->_mode === self::GM_BOOLEAN) {
+            #require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
             throw new Zend_Search_Lucene_Search_QueryParserException('It\'s not allowed to mix boolean and signs styles in the same subquery.');
         }
 
@@ -181,6 +174,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
         } else if ($sign == Zend_Search_Lucene_Search_QueryToken::TT_PROHIBITED) {
             $this->_nextEntrySign = false;
         } else {
+            #require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Unrecognized sign type.');
         }
     }
@@ -213,6 +207,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
     {
         // Check, that modifier has came just after word or phrase
         if ($this->_nextEntryField !== null  ||  $this->_nextEntrySign !== null) {
+            #require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
             throw new Zend_Search_Lucene_Search_QueryParserException('\'~\' modifier must follow word or phrase.');
         }
 
@@ -220,6 +215,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
 
         if (!$lastEntry instanceof Zend_Search_Lucene_Search_QueryEntry) {
             // there are no entries or last entry is boolean operator
+            #require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
             throw new Zend_Search_Lucene_Search_QueryParserException('\'~\' modifier must follow word or phrase.');
         }
 
@@ -237,6 +233,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
     {
         // Check, that modifier has came just after word or phrase
         if ($this->_nextEntryField !== null  ||  $this->_nextEntrySign !== null) {
+            #require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
             throw new Zend_Search_Lucene_Search_QueryParserException('\'^\' modifier must follow word, phrase or subquery.');
         }
 
@@ -244,6 +241,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
 
         if (!$lastEntry instanceof Zend_Search_Lucene_Search_QueryEntry) {
             // there are no entries or last entry is boolean operator
+            #require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
             throw new Zend_Search_Lucene_Search_QueryParserException('\'^\' modifier must follow word, phrase or subquery.');
         }
 
@@ -260,6 +258,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
     public function addLogicalOperator($operator)
     {
         if ($this->_mode === self::GM_SIGNS) {
+            #require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
             throw new Zend_Search_Lucene_Search_QueryParserException('It\'s not allowed to mix boolean and signs styles in the same subquery.');
         }
 
@@ -316,6 +315,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
 
         $expressionRecognizer = new Zend_Search_Lucene_Search_BooleanExpressionRecognizer();
 
+        #require_once 'Zend/Search/Lucene/Exception.php';
         try {
             foreach ($this->_entries as $entry) {
                 if ($entry instanceof Zend_Search_Lucene_Search_QueryEntry) {
@@ -345,6 +345,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
             // throw new Zend_Search_Lucene_Search_QueryParserException('Boolean expression error. Error message: \'' .
             //                                                          $e->getMessage() . '\'.' );
             // It's query syntax error message and it should be user friendly. So FSM message is omitted
+            #require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
             throw new Zend_Search_Lucene_Search_QueryParserException('Boolean expression error.');
         }
 

@@ -62,7 +62,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
         return $this->getResource()->getRoleUsers($this);
     }
 
-    protected function _buildResourcesArray(Varien_Simplexml_Element $resource=null, $parentName=null, $level=0, $represent2Darray=null, $rawNodes = false)
+    protected function _buildResourcesArray(Varien_Simplexml_Element $resource=null, $parentName=null, $level=0, $represent2Darray=null, $rawNodes = false, $module = 'adminhtml')
     {
         static $result;
 
@@ -74,9 +74,17 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
             $resourceName = $parentName;
             if ($resource->getName()!='title' && $resource->getName()!='sort_order' && $resource->getName() != 'children') {
                 $resourceName = (is_null($parentName) ? '' : $parentName.'/').$resource->getName();
+
+                //assigning module for its' children nodes
+                if ($resource->getAttribute('module')) {
+                    $module = (string)$resource->getAttribute('module');
+                }
+
                 if ($rawNodes) {
                     $resource->addAttribute("aclpath", $resourceName);
                 }
+
+                $resource->title = Mage::helper($module)->__((string)$resource->title);
 
                 if ( is_null($represent2Darray) ) {
                     $result[$resourceName]['name']  = (string)$resource->title;
@@ -96,7 +104,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
             }
         }
         foreach ($children as $child) {
-            $this->_buildResourcesArray($child, $resourceName, $level+1, $represent2Darray, $rawNodes);
+            $this->_buildResourcesArray($child, $resourceName, $level+1, $represent2Darray, $rawNodes, $module);
         }
         if ($rawNodes) {
             return $resource;

@@ -39,6 +39,7 @@
     </table>
 </div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="design_edit_form">
+    <?php echo $this->getBlockHtml('formkey')?>
 </form>
 <script type="text/javascript">
     var designForm = new varienForm('design_edit_form');

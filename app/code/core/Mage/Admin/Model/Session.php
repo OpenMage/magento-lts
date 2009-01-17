@@ -18,27 +18,47 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Admin
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Admin
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * Auth session model
  *
- * @category   Mage
- * @package    Mage_Admin
+ * @category    Mage
+ * @package     Mage_Admin
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 {
+
+    /**
+     * Whether it is the first page after successfull login
+     *
+     * @var boolean
+     */
+    protected $_isFirstPageAfterLogin;
+
+    /**
+     * Class constructor
+     *
+     */
     public function __construct()
     {
         $this->init('admin');
     }
 
+    /**
+     * Try to login user in admin
+     *
+     * @param  string $username
+     * @param  string $password
+     * @param  Mage_Core_Controller_Request_Http $request
+     * @return Mage_Admin_Model_User|null
+     */
     public function login($username, $password, $request=null)
     {
         if (empty($username) || empty($password)) {
@@ -63,20 +83,10 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 $session->setUser($user);
                 $session->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
                 if ($request) {
-                    /**
-                     * Added hack as $_GET['ft'] param for redirecting to dashboard
-                     * if _prepareDownloadResponse used when user is not logged in
-                     */
-                    $requestUriInfo = parse_url($request->getRequestUri());
-                    if (isset($requestUriInfo['query']) && $requestUriInfo['query'] != '') {
-                        $requestUriPostfix = '&ft';
-                    } else {
-                        $requestUriPostfix = '?ft';
-                    }
-
-                    header('Location: '.$request->getRequestUri() . $requestUriPostfix);
+                    header('Location: ' . $request->getRequestUri());
                     exit;
                 }
+
             } else {
                 if ($request && !$request->getParam('messageSent')) {
                     Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Invalid Username or Password.'));
@@ -87,6 +97,12 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         return $user;
     }
 
+    /**
+     * Refresh ACL resources stored in session
+     *
+     * @param  Mage_Admin_Model_User $user
+     * @return Mage_Admin_Model_Session
+     */
     public function refreshAcl($user=null)
     {
         if (is_null($user)) {
@@ -113,7 +129,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      *
      * @param   string $resource
      * @param   string $privilege
-     * @return  bool
+     * @return  boolean
      */
     public function isAllowed($resource, $privilege=null)
     {
@@ -122,26 +138,45 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 
         if ($user && $acl) {
             if (!preg_match('/^admin/', $resource)) {
-            	$resource = 'admin/'.$resource;
+                $resource = 'admin/'.$resource;
             }
 
-    	    try {
-        	    if ($acl->isAllowed($user->getAclRole(), 'all', null)){
-        	        return true;
-        	    }
-    	    } catch (Exception $e) {}
+            try {
+                if ($acl->isAllowed($user->getAclRole(), 'all', null)){
+                    return true;
+                }
+            } catch (Exception $e) {}
 
-        	try {
+            try {
                 return $acl->isAllowed($user->getAclRole(), $resource, $privilege);
-        	} catch (Exception $e) {
-        	    return false;
-        	}
+            } catch (Exception $e) {
+                return false;
+            }
         }
         return false;
     }
 
+    /**
+     * Check if user is logged in
+     *
+     * @return boolean
+     */
     public function isLoggedIn()
     {
         return $this->getUser() && $this->getUser()->getId();
     }
+
+    /**
+     * Check if it is the first page after successfull login
+     *
+     * @return boolean
+     */
+    public function isFirstPageAfterLogin()
+    {
+        if (is_null($this->_isFirstPageAfterLogin)) {
+            $this->_isFirstPageAfterLogin = $this->getData('is_first_visit', true);
+        }
+        return $this->_isFirstPageAfterLogin;
+    }
+
 }

@@ -180,8 +180,8 @@ class Mage_Core_Model_Locale
     {
         $options    = array();
         $locales    = $this->getLocale()->getLocaleList();
-        $languages  = $this->getLocale()->getLanguageTranslationList();
-        $countries  = $this->getLocale()->getCountryTranslationList();
+        $languages  = $this->getLocale()->getLanguageTranslationList($this->getLocale());
+        $countries  = $this->getCountryTranslationList();
 
         $allowed    = $this->getAllowLocales();
         foreach ($locales as $code=>$active) {
@@ -210,7 +210,7 @@ class Mage_Core_Model_Locale
     public function getOptionTimezones()
     {
         $options= array();
-        $zones  = $this->getLocale()->getTranslationList('windowstotimezone');
+        $zones  = $this->getTranslationList('windowstotimezone');
         ksort($zones);
         foreach ($zones as $code=>$name) {
             $name = trim($name);
@@ -230,7 +230,7 @@ class Mage_Core_Model_Locale
     public function getOptionWeekdays()
     {
         $options= array();
-        $days = $this->getLocale()->getTranslationList('days');
+        $days = $this->getTranslationList('days');
         foreach (array_values($days['format']['wide']) as $code => $name) {
             $options[] = array(
                'label' => $name,
@@ -248,7 +248,7 @@ class Mage_Core_Model_Locale
     public function getOptionCountries()
     {
         $options    = array();
-        $countries  = $this->getLocale()->getCountryTranslationList();
+        $countries  = $this->getCountryTranslationList();
 
         foreach ($countries as $code=>$name) {
             $options[] = array(
@@ -266,7 +266,7 @@ class Mage_Core_Model_Locale
      */
     public function getOptionCurrencies()
     {
-        $currencies = $this->getLocale()->getTranslationList('currencytoname');
+        $currencies = $this->getTranslationList('currencytoname');
         $options = array();
         $allowed = $this->getAllowCurrencies();
 
@@ -290,7 +290,7 @@ class Mage_Core_Model_Locale
      */
     public function getOptionAllCurrencies()
     {
-        $currencies = $this->getLocale()->getTranslationList('currencytoname');
+        $currencies = $this->getTranslationList('currencytoname');
         $options = array();
         foreach ($currencies as $name=>$code) {
             $options[] = array(
@@ -340,7 +340,7 @@ class Mage_Core_Model_Locale
     public function getAllowCurrencies()
     {
         $data = array();
-        if (Mage::app()->isInstalled()) {
+        if (Mage::isInstalled()) {
             $data = Mage::app()->getStore()->getConfig(self::XML_PATH_ALLOW_CURRENCIES_INSTALLED);
             return explode(',', $data);
         }
@@ -361,7 +361,7 @@ class Mage_Core_Model_Locale
      */
     public function getDateFormat($type=null)
     {
-        return $this->getLocale()->getTranslation($type, 'date');
+        return $this->getTranslation($type, 'date');
     }
 
     /**
@@ -372,7 +372,7 @@ class Mage_Core_Model_Locale
      */
     public function getTimeFormat($type=null)
     {
-        return $this->getLocale()->getTranslation($type, 'time');
+        return $this->getTranslation($type, 'time');
     }
 
     /**
@@ -457,10 +457,10 @@ class Mage_Core_Model_Locale
     }
 
     /**
-     * Create Zend_Currency object for current locale
+     * Create Mage_Core_Model_Locale_Currency object for current locale
      *
      * @param   string $currency
-     * @return  Zend_Currency
+     * @return  Mage_Core_Model_Locale_Currency
      */
     public function currency($currency)
     {
@@ -596,6 +596,7 @@ class Mage_Core_Model_Locale
         if ($storeId) {
             $this->_emulatedLocales[] = clone $this->getLocale();
             $this->_locale = new Zend_Locale(Mage::getStoreConfig(self::XML_PATH_DEFAULT_LOCALE, $storeId));
+            Mage::getSingleton('core/translate')->setLocale($this->_locale)->init('frontend', true);
         }
         else {
             $this->_emulatedLocales[] = false;
@@ -610,6 +611,55 @@ class Mage_Core_Model_Locale
     {
         if ($locale = array_pop($this->_emulatedLocales)) {
             $this->_locale = $locale;
+            Mage::getSingleton('core/translate')->setLocale($this->_locale)->init('adminhtml', true);
         }
+    }
+
+    /**
+     * Returns localized informations as array, supported are several
+     * types of informations.
+     * For detailed information about the types look into the documentation
+     *
+     * @param  string             $path   (Optional) Type of information to return
+     * @param  string             $value  (Optional) Value for detail list
+     * @return array Array with the wished information in the given language
+     */
+    public function getTranslationList($path = null, $value = null)
+    {
+        return $this->getLocale()->getTranslationList($path, $this->getLocale(), $value);
+    }
+
+    /**
+     * Returns a localized information string, supported are several types of informations.
+     * For detailed information about the types look into the documentation
+     *
+     * @param  string             $value  Name to get detailed information about
+     * @param  string             $path   (Optional) Type of information to return
+     * @return string|false The wished information in the given language
+     */
+    public function getTranslation($value = null, $path = null)
+    {
+        return $this->getLocale()->getTranslation($value, $path, $this->getLocale());
+    }
+
+/**
+     * Returns the localized country name
+     *
+     * @param  string             $value  Name to get detailed information about
+     * @return array
+     */
+    public function getCountryTranslation($value)
+    {
+        return $this->getLocale()->getCountryTranslation($value, $this->getLocale());
+    }
+
+    /**
+     * Returns an array with the name of all countries translated to the given language
+     *
+     * @return array
+     */
+    public function getCountryTranslationList()
+    {
+        return $this->getLocale()->getCountryTranslationList($this->getLocale());
     }
 }

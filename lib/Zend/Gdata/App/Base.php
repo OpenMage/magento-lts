@@ -15,16 +15,22 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage App
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
+/**
+ * @see Zend_Gdata_App_Util
+ */
+#require_once 'Zend/Gdata/App/Util.php';
 
 /**
  * Abstract class for all XML elements
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage App
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -63,12 +69,35 @@ abstract class Zend_Gdata_App_Base
     protected $_text = null;
 
     /**
+     * List of namespaces, as a three-dimensional array. The first dimension
+     * represents the namespace prefix, the second dimension represents the
+     * minimum major protocol version, and the third dimension is the minimum
+     * minor protocol version. Null keys are NOT allowed.
+     *
+     * When looking up a namespace for a given prefix, the greatest version
+     * number (both major and minor) which is less than the effective version
+     * should be used.
+     *
+     * @see lookupNamespace()
+     * @see registerNamespace()
+     * @see registerAllNamespaces()
      * @var array
      */
-    protected $_namespaces = array(
-        'atom'       => 'http://www.w3.org/2005/Atom',
-        'app'       => 'http://purl.org/atom/app#'
-    );
+   protected $_namespaces = array(
+        'atom'      => array(
+            1 => array(
+                0 => 'http://www.w3.org/2005/Atom'
+                )
+            ),
+        'app'       => array(
+            1 => array(
+                0 => 'http://purl.org/atom/app#'
+                ),
+            2 => array(
+                0 => 'http://www.w3.org/2007/app'
+                )
+            )
+        );
 
     public function __construct()
     {
@@ -129,8 +158,8 @@ abstract class Zend_Gdata_App_Base
 
     /**
      * Returns an array of all extension attributes not transformed into data
-     * model properties during parsing of the XML.  Each element of the array 
-     * is a hashed array of the format: 
+     * model properties during parsing of the XML.  Each element of the array
+     * is a hashed array of the format:
      *     array('namespaceUri' => string, 'name' => string, 'value' => string);
      *
      * @return array All extension attributes
@@ -142,8 +171,8 @@ abstract class Zend_Gdata_App_Base
 
     /**
      * Sets an array of all extension attributes not transformed into data
-     * model properties during parsing of the XML.  Each element of the array 
-     * is a hashed array of the format: 
+     * model properties during parsing of the XML.  Each element of the array
+     * is a hashed array of the format:
      *     array('namespaceUri' => string, 'name' => string, 'value' => string);
      * This can be used to add arbitrary attributes to any data model element
      *
@@ -166,7 +195,7 @@ abstract class Zend_Gdata_App_Base
      * @return DOMElement The DOMElement representing this element and all
      * child properties.
      */
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
         if (is_null($doc)) {
             $doc = new DOMDocument('1.0', 'utf-8');
@@ -302,7 +331,7 @@ abstract class Zend_Gdata_App_Base
     {
         return $this->saveXML();
     }
-    
+
     /**
      * Alias for saveXML()
      *
@@ -324,15 +353,36 @@ abstract class Zend_Gdata_App_Base
      * available. Returns the prefix, unmodified, if it's not
      * registered.
      *
+     * @param string $prefix The namespace prefix to lookup.
+     * @param integer $majorVersion The major protocol version in effect.
+     *        Defaults to '1'.
+     * @param integer $minorVersion The minor protocol version in effect.
+     *        Defaults to null (use latest).
      * @return string
      */
-    public function lookupNamespace($prefix)
+    public function lookupNamespace($prefix,
+                                    $majorVersion = 1,
+                                    $minorVersion = null)
     {
-        return isset($this->_namespaces[$prefix]) ?
-            $this->_namespaces[$prefix] :
-            $prefix;
-    }
+        // If no match, return the prefix by default
+        $result = $prefix;
 
+        // Find tuple of keys that correspond to the namespace we should use
+        if (isset($this->_namespaces[$prefix])) {
+            // Major version search
+            $nsData = $this->_namespaces[$prefix];
+            $foundMajorV = Zend_Gdata_App_Util::findGreatestBoundedValue(
+                    $majorVersion, $nsData);
+            // Minor version search
+            $nsData = $nsData[$foundMajorV];
+            $foundMinorV = Zend_Gdata_App_Util::findGreatestBoundedValue(
+                    $minorVersion, $nsData);
+            // Extract NS
+            $result = $nsData[$foundMinorV];
+        }
+
+        return $result;
+    }
 
     /**
      * Add a namespace and prefix to the registered list
@@ -343,15 +393,42 @@ abstract class Zend_Gdata_App_Base
      *
      * @param  string $prefix The namespace prefix
      * @param  string $namespaceUri The full namespace URI
+     * @param integer $majorVersion The major protocol version in effect.
+     *        Defaults to '1'.
+     * @param integer $minorVersion The minor protocol version in effect.
+     *        Defaults to null (use latest).
      * @return void
      */
-    public function registerNamespace($prefix, $namespaceUri)
+    public function registerNamespace($prefix,
+                                      $namespaceUri,
+                                      $majorVersion = 1,
+                                      $minorVersion = 0)
     {
-        $this->_namespaces[$prefix] = $namespaceUri;
+        $this->_namespaces[$prefix][$majorVersion][$minorVersion] =
+            $namespaceUri;
     }
 
     /**
-     * Magic getter to allow acces like $entry->foo to call $entry->getFoo()
+     * Add an array of namespaces to the registered list.
+     *
+     * Takes an array in the format of:
+     * namespace prefix, namespace URI, major protocol version,
+     * minor protocol version and adds them with calls to ->registerNamespace()
+     *
+     * @param array $namespaceArray An array of namespaces.
+     * @return void
+     */
+    public function registerAllNamespaces($namespaceArray)
+    {
+        foreach($namespaceArray as $namespace) {
+                $this->registerNamespace(
+                    $namespace[0], $namespace[1], $namespace[2], $namespace[3]);
+        }
+    }
+
+
+    /**
+     * Magic getter to allow access like $entry->foo to call $entry->getFoo()
      * Alternatively, if no getFoo() is defined, but a $_foo protected variable
      * is defined, this is returned.
      *

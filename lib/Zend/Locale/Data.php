@@ -16,18 +16,18 @@
  * @package    Zend_Locale
  * @subpackage Data
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Data.php 8064 2008-02-16 10:58:39Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Data.php 12057 2008-10-21 17:19:43Z thomas $
  */
-
 
 /**
  * include needed classes
  */
 #require_once 'Zend/Locale.php';
 
-
 /**
+ * Locale data reader, handles the CLDR
+ *
  * @category   Zend
  * @package    Zend_Locale
  * @subpackage Data
@@ -37,31 +37,28 @@
 class Zend_Locale_Data
 {
     /**
-     * locale files
+     * Locale files
      *
      * @var ressource
      * @access private
      */
     private static $_ldml = array();
 
-
     /**
-     * list of values which are collected
+     * List of values which are collected
      *
      * @var array
      * @access private
      */
     private static $_list = array();
 
-
     /**
-     * internal cache for ldml values
+     * Internal cache for ldml values
      *
      * @var Zend_Cache_Core
      * @access private
      */
     private static $_cache = null;
-
 
     /**
      * Read the content from locale
@@ -274,15 +271,12 @@ class Zend_Locale_Data
             $locale = new Zend_Locale();
         }
 
-        if ($locale instanceof Zend_Locale) {
-            $locale = $locale->toString();
+        if (!(Zend_Locale::isLocale((string) $locale, null, false))) {
+            #require_once 'Zend/Locale/Exception.php';
+            throw new Zend_Locale_Exception("Locale (" . (string) $locale . ") is a unknown locale");
         }
 
-        if (!($locale = Zend_Locale::isLocale($locale))) {
-            #require_once 'Zend/Locale/Exception.php';
-            throw new Zend_Locale_Exception("Locale ($locale) is a unknown locale");
-        }
-        return $locale;
+        return (string) $locale;
     }
 
     /**
@@ -297,12 +291,12 @@ class Zend_Locale_Data
     public static function getList($locale, $path, $value = false)
     {
         $locale = self::_checkLocale($locale);
-
         if (isset(self::$_cache)) {
             $val = $value;
             if (is_array($value)) {
                 $val = implode('_' , $value);
             }
+
             $val = urlencode($val);
             $id = strtr('Zend_LocaleL_' . $locale . '_' . $path . '_' . $val, array('-' => '_', '%' => '_', '+' => '_'));
             if ($result = self::$_cache->load($id)) {
@@ -324,13 +318,13 @@ class Zend_Locale_Data
                 $temp = self::_getFile($locale, '/ldml/localeDisplayNames/territories/territory', 'type');
                 if ($value === 1) {
                     foreach($temp as $key => $value) {
-                        if (!is_numeric($key)) {
+                        if ((is_numeric($key) === false) and ($key != 'QO') and ($key != 'QU')) {
                             unset($temp[$key]);
                         }
                     }
                 } else if ($value === 2) {
                     foreach($temp as $key => $value) {
-                        if (is_numeric($key)) {
+                        if (is_numeric($key) or ($key == 'QO') or ($key == 'QU')) {
                             unset($temp[$key]);
                         }
                     }
@@ -558,8 +552,9 @@ class Zend_Locale_Data
                 foreach ($_temp as $key => $keyvalue) {
                     $val = self::_getFile($locale, '/ldml/numbers/currencies/currency[@type=\'' . $key . '\']/displayName', '', $key);
                     if (!isset($val[$key])) {
-                        $temp[$key] = " " . $key;
-                    } elseif (!array_key_exists($val[$key], $temp)) {
+                        continue;
+                    }
+                    if (!isset($temp[$val[$key]])) {
                         $temp[$val[$key]] = $key;
                     } else {
                         $temp[$val[$key]] .= " " . $key;
@@ -605,8 +600,9 @@ class Zend_Locale_Data
                 foreach ($_temp as $key => $keyvalue) {
                     $val = self::_getFile('supplementalData', '/supplementalData/currencyData/region[@iso3166=\'' . $key . '\']/currency', 'iso4217', $key);
                     if (!isset($val[$key])) {
-                        $temp[$key] = " " . $key;
-                    } elseif (!array_key_exists($val[$key], $temp)) {
+                        continue;
+                    }
+                    if (!isset($temp[$val[$key]])) {
                         $temp[$val[$key]] = $key;
                     } else {
                         $temp[$val[$key]] .= " " . $key;
@@ -630,7 +626,7 @@ class Zend_Locale_Data
                 foreach($_temp as $key => $found) {
                     $_temp3 = explode(" ", $found);
                     foreach($_temp3 as $found3) {
-                        if (!array_key_exists($found3, $temp)) {
+                        if (!isset($temp[$found3])) {
                             $temp[$found3] = (string) $key;
                         } else {
                             $temp[$found3] .= " " . $key;
@@ -661,7 +657,7 @@ class Zend_Locale_Data
                         if (empty($found3)) {
                             continue;
                         }
-                        if (!array_key_exists($found3, $temp)) {
+                        if (!isset($temp[$found3])) {
                             $temp[$found3] = (string) $key;
                         } else {
                             $temp[$found3] .= " " . $key;
@@ -692,7 +688,7 @@ class Zend_Locale_Data
                         if (empty($found3)) {
                             continue;
                         }
-                        if (!array_key_exists($found3, $temp)) {
+                        if (!isset($temp[$found3])) {
                             $temp[$found3] = (string) $key;
                         } else {
                             $temp[$found3] .= " " . $key;
@@ -975,10 +971,10 @@ class Zend_Locale_Data
                 $temp = array();
                 foreach ($_temp as $key => $keyvalue) {
                     $val = self::_getFile($locale, '/ldml/numbers/currencies/currency[@type=\'' . $key . '\']/displayName', '', $key);
-                    if (!isset($val[$key]) || ($val[$key] != $value)) {
+                    if (!isset($val[$key]) or ($val[$key] != $value)) {
                         continue;
                     }
-                    if (!array_key_exists($val[$key], $temp)) {
+                    if (!isset($temp[$val[$key]])) {
                         $temp[$val[$key]] = $key;
                     } else {
                         $temp[$val[$key]] .= " " . $key;
@@ -1021,10 +1017,10 @@ class Zend_Locale_Data
                 $temp = array();
                 foreach ($_temp as $key => $keyvalue) {
                     $val = self::_getFile('supplementalData', '/supplementalData/currencyData/region[@iso3166=\'' . $key . '\']/currency', 'iso4217', $key);
-                    if (!isset($val[$key]) || ($val[$key] != $value)) {
+                    if (!isset($val[$key]) or ($val[$key] != $value)) {
                         continue;
                     }
-                    if (!array_key_exists($val[$key], $temp)) {
+                    if (!isset($temp[$val[$key]])) {
                         $temp[$val[$key]] = $key;
                     } else {
                         $temp[$val[$key]] .= " " . $key;
@@ -1049,7 +1045,7 @@ class Zend_Locale_Data
                         if ($found3 !== $value) {
                             continue;
                         }
-                        if (!array_key_exists($found3, $temp)) {
+                        if (!isset($temp[$found3])) {
                             $temp[$found3] = (string) $key;
                         } else {
                             $temp[$found3] .= " " . $key;
@@ -1075,7 +1071,7 @@ class Zend_Locale_Data
                         if ($found3 !== $value) {
                             continue;
                         }
-                        if (!array_key_exists($found3, $temp)) {
+                        if (!isset($temp[$found3])) {
                             $temp[$found3] = (string) $key;
                         } else {
                             $temp[$found3] .= " " . $key;
@@ -1101,7 +1097,7 @@ class Zend_Locale_Data
                         if ($found3 !== $value) {
                             continue;
                         }
-                        if (!array_key_exists($found3, $temp)) {
+                        if (!isset($temp[$found3])) {
                             $temp[$found3] = (string) $key;
                         } else {
                             $temp[$found3] .= " " . $key;
@@ -1160,14 +1156,57 @@ class Zend_Locale_Data
         return $temp;
     }
 
+    /**
+     * Returns the set cache
+     *
+     * @return Zend_Cache_Core The set cache
+     */
+    public static function getCache()
+    {
+        return self::$_cache;
+    }
 
     /**
      * Set a cache for Zend_Locale_Data
      *
-     * @param Zend_Cache_Core $cache a cache frontend
+     * @param Zend_Cache_Core $cache A cache frontend
      */
     public static function setCache(Zend_Cache_Core $cache)
     {
         self::$_cache = $cache;
+    }
+
+    /**
+     * Returns true when a cache is set
+     *
+     * @return boolean
+     */
+    public static function hasCache()
+    {
+        if (self::$_cache !== null) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Removes any set cache
+     *
+     * @return void
+     */
+    public static function removeCache()
+    {
+        self::$_cache = null;
+    }
+
+    /**
+     * Clears all set cache data
+     *
+     * @return void
+     */
+    public static function clearCache()
+    {
+        self::$_cache->clean();
     }
 }

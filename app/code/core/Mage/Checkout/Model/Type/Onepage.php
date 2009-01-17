@@ -214,7 +214,6 @@ class Mage_Checkout_Model_Type_Onepage
         // set customer date of birth for further usage
         $dob = '';
         if ($address->getDob()) {
-            // possible bug here (read date inappropriate and/or save in UTC)
             $dob = Mage::app()->getLocale()->date($address->getDob(), null, null, false)->toString('yyyy-MM-dd');
             $this->getQuote()->setCustomerDob($dob);
         }
@@ -584,6 +583,10 @@ class Mage_Checkout_Model_Type_Onepage
                 Mage::getSingleton('customer/session')->loginById($customer->getId());
             }
         }
+
+        //Setting this one more time like control flag that we haves saved order
+        //Must be checkout on success page to show it or not.
+        $this->getCheckout()->setLastSuccessQuoteId($this->getQuote()->getId());
 
         $this->getQuote()->setIsActive(false);
         $this->getQuote()->save();

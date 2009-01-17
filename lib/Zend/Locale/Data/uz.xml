@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.42 $"/>
-		<generation date="$Date: 2007/07/19 22:31:40 $"/>
+		<version number="$Revision: 1.45 $"/>
+		<generation date="$Date: 2008/06/09 02:17:48 $"/>
 		<language type="uz"/>
 	</identity>
 	<localeDisplayNames>
@@ -222,9 +222,6 @@
 				<long>
 					<standard>افغانستان وقتی</standard>
 				</long>
-				<short>
-					<standard>AFT</standard>
-				</short>
 			</metazone>
 		</timeZoneNames>
 	</dates>
@@ -265,4 +262,3 @@
 		</currencies>
 	</numbers>
 </ldml>
-

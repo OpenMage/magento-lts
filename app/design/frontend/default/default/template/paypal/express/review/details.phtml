@@ -37,6 +37,14 @@
             <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
         </tr>
     </thead>
+    <tfoot>
+    <?php foreach ($this->getTotals() as $_total): ?>
+        <tr>
+            <td colspan="3" class="a-right"><?php echo $_total->getTitle() ?></td>
+            <td class="a-right"><?php echo $this->helper('checkout')->formatPrice($_total->getValue()) ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tfoot>
     <tbody>
     <?php foreach ($this->getItems() as $_item): ?>
         <?php if ($_item->getParentItem()) continue ?>
@@ -51,12 +59,4 @@
         </tr>
     <?php endforeach; ?>
     </tbody>
-    <tfoot>
-    <?php foreach ($this->getTotals() as $_total): ?>
-        <tr>
-            <td colspan="3" class="a-right"><?php echo $_total->getTitle() ?></td>
-            <td class="a-right"><?php echo $this->helper('checkout')->formatPrice($_total->getValue()) ?></td>
-        </tr>
-    <?php endforeach; ?>
-    </tfoot>
 </table>

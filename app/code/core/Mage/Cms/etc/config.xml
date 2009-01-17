@@ -103,19 +103,19 @@
             <resources>
                 <admin>
                     <children>
-                        <cms>
+                        <cms translate="title" module="cms">
                             <title>CMS</title>
                             <sort_order>70</sort_order>
                             <children>
-                                <block>
+                                <block translate="title">
                                     <title>Static Blocks</title>
                                     <sort_order>0</sort_order>
                                 </block>
-                                <page>
+                                <page translate="title">
                                     <title>Manage Pages</title>
                                     <sort_order>10</sort_order>
                                 </page>
-                                <poll>
+                                <poll translate="title">
                                     <title>Poll Manager</title>
                                     <sort_order>20</sort_order>
                                 </poll>

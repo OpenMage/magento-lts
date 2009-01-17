@@ -12,23 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Kinematic.php 8064 2008-02-16 10:58:39Z thomas $
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @category  Zend
+ * @package   Zend_Measure
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @version   $Id: Kinematic.php 13209 2008-12-13 22:34:06Z thomas $
  */
-
 
 /**
  * Implement needed classes
  */
-#require_once 'Zend/Measure/Exception.php';
 #require_once 'Zend/Measure/Abstract.php';
 #require_once 'Zend/Locale.php';
 
-
 /**
+ * Class for handling acceleration conversions
+ *
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Viscosity_Kinematic
@@ -37,39 +36,43 @@
  */
 class Zend_Measure_Viscosity_Kinematic extends Zend_Measure_Abstract
 {
-    // Viscosity_Kinematic definitions
     const STANDARD = 'SQUARE_METER_PER_SECOND';
 
-    const CENTISTOKES                  = 'CENTISTOKES';
-    const LENTOR                       = 'LENTOR';
-    const LITER_PER_CENTIMETER_DAY     = 'LITER_PER_CENTIMETER_DAY';
-    const LITER_PER_CENTIMETER_HOUR    = 'LITER_PER_CENTIMETER_HOUR';
-    const LITER_PER_CENTIMETER_MINUTE  = 'LITER_PER_CENTIMETER_MINUTE';
-    const LITER_PER_CENTIMETER_SECOND  = 'LITER_PER_CENTIMETER_SECOND';
+    const CENTISTOKES                     = 'CENTISTOKES';
+    const LENTOR                          = 'LENTOR';
+    const LITER_PER_CENTIMETER_DAY        = 'LITER_PER_CENTIMETER_DAY';
+    const LITER_PER_CENTIMETER_HOUR       = 'LITER_PER_CENTIMETER_HOUR';
+    const LITER_PER_CENTIMETER_MINUTE     = 'LITER_PER_CENTIMETER_MINUTE';
+    const LITER_PER_CENTIMETER_SECOND     = 'LITER_PER_CENTIMETER_SECOND';
     const POISE_CUBIC_CENTIMETER_PER_GRAM = 'POISE_CUBIC_CENTIMETER_PER_GRAM';
-    const SQUARE_CENTIMETER_PER_DAY    = 'SQUARE_CENTIMETER_PER_DAY';
-    const SQUARE_CENTIMETER_PER_HOUR   = 'SQUARE_CENTIMETER_PER_HOUR';
-    const SQUARE_CENTIMETER_PER_MINUTE = 'SQUARE_CENTIMETER_PER_MINUTE';
-    const SQUARE_CENTIMETER_PER_SECOND = 'SQUARE_CENTIMETER_PER_SECOND';
-    const SQUARE_FOOT_PER_DAY          = 'SQUARE_FOOT_PER_DAY';
-    const SQUARE_FOOT_PER_HOUR         = 'SQUARE_FOOT_PER_HOUR';
-    const SQUARE_FOOT_PER_MINUTE       = 'SQUARE_FOOT_PER_MINUTE';
-    const SQUARE_FOOT_PER_SECOND       = 'SQUARE_FOOT_PER_SECOND';
-    const SQUARE_INCH_PER_DAY          = 'SQUARE_INCH_PER_DAY';
-    const SQUARE_INCH_PER_HOUR         = 'SQUARE_INCH_PER_HOUR';
-    const SQUARE_INCH_PER_MINUTE       = 'SQUARE_INCH_PER_MINUTE';
-    const SQUARE_INCH_PER_SECOND       = 'SQUARE_INCH_PER_SECOND';
-    const SQUARE_METER_PER_DAY         = 'SQUARE_METER_PER_DAY';
-    const SQUARE_METER_PER_HOUR        = 'SQUARE_METER_PER_HOUR';
-    const SQUARE_METER_PER_MINUTE      = 'SQUARE_METER_PER_MINUTE';
-    const SQUARE_METER_PER_SECOND      = 'SQUARE_METER_PER_SECOND';
-    const SQUARE_MILLIMETER_PER_DAY    = 'SQUARE_MILLIMETER_PER_DAY';
-    const SQUARE_MILLIMETER_PER_HOUR   = 'SQUARE_MILLIMETER_PER_HOUR';
-    const SQUARE_MILLIMETER_PER_MINUTE = 'SQUARE_MILLIMETER_PER_MINUTE';
-    const SQUARE_MILLIMETER_PER_SECOND = 'SQUARE_MILLIMETER_PER_SECOND';
-    const STOKES                       = 'STOKES';
+    const SQUARE_CENTIMETER_PER_DAY       = 'SQUARE_CENTIMETER_PER_DAY';
+    const SQUARE_CENTIMETER_PER_HOUR      = 'SQUARE_CENTIMETER_PER_HOUR';
+    const SQUARE_CENTIMETER_PER_MINUTE    = 'SQUARE_CENTIMETER_PER_MINUTE';
+    const SQUARE_CENTIMETER_PER_SECOND    = 'SQUARE_CENTIMETER_PER_SECOND';
+    const SQUARE_FOOT_PER_DAY             = 'SQUARE_FOOT_PER_DAY';
+    const SQUARE_FOOT_PER_HOUR            = 'SQUARE_FOOT_PER_HOUR';
+    const SQUARE_FOOT_PER_MINUTE          = 'SQUARE_FOOT_PER_MINUTE';
+    const SQUARE_FOOT_PER_SECOND          = 'SQUARE_FOOT_PER_SECOND';
+    const SQUARE_INCH_PER_DAY             = 'SQUARE_INCH_PER_DAY';
+    const SQUARE_INCH_PER_HOUR            = 'SQUARE_INCH_PER_HOUR';
+    const SQUARE_INCH_PER_MINUTE          = 'SQUARE_INCH_PER_MINUTE';
+    const SQUARE_INCH_PER_SECOND          = 'SQUARE_INCH_PER_SECOND';
+    const SQUARE_METER_PER_DAY            = 'SQUARE_METER_PER_DAY';
+    const SQUARE_METER_PER_HOUR           = 'SQUARE_METER_PER_HOUR';
+    const SQUARE_METER_PER_MINUTE         = 'SQUARE_METER_PER_MINUTE';
+    const SQUARE_METER_PER_SECOND         = 'SQUARE_METER_PER_SECOND';
+    const SQUARE_MILLIMETER_PER_DAY       = 'SQUARE_MILLIMETER_PER_DAY';
+    const SQUARE_MILLIMETER_PER_HOUR      = 'SQUARE_MILLIMETER_PER_HOUR';
+    const SQUARE_MILLIMETER_PER_MINUTE    = 'SQUARE_MILLIMETER_PER_MINUTE';
+    const SQUARE_MILLIMETER_PER_SECOND    = 'SQUARE_MILLIMETER_PER_SECOND';
+    const STOKES                          = 'STOKES';
 
-    protected $_UNITS = array(
+    /**
+     * Calculations for all kinematic viscosity units
+     *
+     * @var array
+     */
+    protected $_units = array(
         'CENTISTOKES'                  => array('0.000001',        'cSt'),
         'LENTOR'                       => array('0.0001',          'lentor'),
         'LITER_PER_CENTIMETER_DAY'     => array(array('' => '1', '/' => '864000'), 'l/cm day'),

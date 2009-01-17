@@ -79,16 +79,16 @@ class Mage_Reports_Model_Mysql4_Coupons_Collection extends Mage_Sales_Model_Enti
         } else {
             $this->addExpressionAttributeToSelect(
                     'subtotal',
-                    'SUM({{base_subtotal}}/{{store_to_base_rate}})',
-                    array('base_subtotal', 'store_to_base_rate'))
+                    'SUM({{base_subtotal}}*{{base_to_global_rate}})',
+                    array('base_subtotal', 'base_to_global_rate'))
                 ->addExpressionAttributeToSelect(
                     'discount',
-                    'SUM({{base_discount_amount}}/{{store_to_base_rate}})',
-                    array('base_discount_amount', 'store_to_base_rate'))
+                    'SUM({{base_discount_amount}}*{{base_to_global_rate}})',
+                    array('base_discount_amount', 'base_to_global_rate'))
                 ->addExpressionAttributeToSelect(
                     'total',
-                    'SUM(({{base_subtotal}}-{{base_discount_amount}})/{{store_to_base_rate}})',
-                    array('base_subtotal', 'base_discount_amount', 'store_to_base_rate'));
+                    'SUM(({{base_subtotal}}-{{base_discount_amount}})*{{base_to_global_rate}})',
+                    array('base_subtotal', 'base_discount_amount', 'base_to_global_rate'));
         }
     }
 

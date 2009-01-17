@@ -25,7 +25,7 @@
  */
 
 /**
- * Adminhtml urlrewrite product grid block
+ * Products grid for urlrewrites
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -33,25 +33,27 @@
  */
 class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_Catalog_Product_Grid
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setRowClickCallback('urlrewrite.gridRowClick');
-        $this->setUseAjax(true);
-    }
-
+    /**
+     * Disable massaction
+     *
+     * @return Mage_Adminhtml_Block_Urlrewrite_Product_Grid
+     */
     protected function _prepareMassaction()
     {
         return $this;
     }
 
+    /**
+     * Prepare columns layout
+     *
+     * @return Mage_Adminhtml_Block_Urlrewrite_Product_Grid
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id',
             array(
                 'header'=> Mage::helper('adminhtml')->__('ID'),
-                'width' => '50px',
+                'width' => 50,
                 'index' => 'entity_id',
         ));
 
@@ -64,39 +66,37 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
         $this->addColumn('sku',
             array(
                 'header'=> Mage::helper('adminhtml')->__('SKU'),
-                'width' => '80px',
+                'width' => 80,
                 'index' => 'sku',
         ));
         $this->addColumn('status',
             array(
                 'header'=> Mage::helper('adminhtml')->__('Status'),
-                'width' => '50px',
+                'width' => 50,
                 'index' => 'status',
                 'type'  => 'options',
                 'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
         ));
-
-        /*
-        if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('stores', array(
-                'header'    => Mage::helper('adminhtml')->__('Store Views'),
-                'type'      => 'store',
-                'width'     => '100px',
-                'sortable'  => false,
-                'index'     => 'stores',
-           ));
-        }
-        */
+        return $this;
     }
 
+    /**
+     * Get url for dispatching grid ajax requests
+     *
+     * @return string
+     */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/productGrid', array('_current'=>true));
+        return $this->getUrl('*/*/productGrid', array('_current' => true));
     }
 
+    /**
+     * Get row url
+     *
+     * @return string
+     */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/jsonProductInfo', array('id' => $row->getId()));
+        return $this->getUrl('*/*/edit', array('product' => $row->getId())) . 'category';
     }
-
 }

@@ -12,23 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Volume.php 8064 2008-02-16 10:58:39Z thomas $
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @category  Zend
+ * @package   Zend_Measure
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @version   $Id: Volume.php 13209 2008-12-13 22:34:06Z thomas $
  */
-
 
 /**
  * Implement needed classes
  */
-#require_once 'Zend/Measure/Exception.php';
 #require_once 'Zend/Measure/Abstract.php';
 #require_once 'Zend/Locale.php';
 
-
 /**
+ * Class for handling acceleration conversions
+ *
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Volume
@@ -37,7 +36,6 @@
  */
 class Zend_Measure_Volume extends Zend_Measure_Abstract
 {
-    // Volume definitions
     const STANDARD = 'CUBIC_METER';
 
     const ACRE_FOOT           = 'ACRE_FOOT';
@@ -122,7 +120,12 @@ class Zend_Measure_Volume extends Zend_Measure_Abstract
     const TEASPOON_US         = 'TEASPOON_US';
     const YARD                = 'YARD';
 
-    protected $_UNITS = array(
+    /**
+     * Calculations for all volume units
+     *
+     * @var array
+     */
+    protected $_units = array(
         'ACRE_FOOT'           => array('1233.48185532', 'ac ft'),
         'ACRE_FOOT_SURVEY'    => array('1233.489',      'ac ft'),
         'ACRE_INCH'           => array('102.79015461',  'ac in'),
@@ -148,7 +151,8 @@ class Zend_Measure_Volume extends Zend_Measure_Abstract
         'CUBIC_INCH'          => array(array('' => '0.0037854118', '/' => '231'), 'in³'),
         'CUBIC_KILOMETER'     => array('1.0e+9',        'km³'),
         'CUBIC_METER'         => array('1',             'm³'),
-        'CUBIC_MILE'          => array(array('' => '0.0037854118', '/' => '231', '*' => '75271680', '*' => '3379200'), 'mi³'),
+        'CUBIC_MILE'          => array(array('' => '0.0037854118', '/' => '231', '*' => '75271680', '*' => '3379200'),
+                                       'mi³'),
         'CUBIC_MICROMETER'    => array('1.0e-18',       'µm³'),
         'CUBIC_MILLIMETER'    => array('1.0e-9',        'mm³'),
         'CUBIC_YARD'          => array(array('' => '0.0037854118', '/' => '231', '*' => '46656'), 'yd³'),

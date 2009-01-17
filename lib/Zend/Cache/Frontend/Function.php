@@ -60,7 +60,7 @@ class Zend_Cache_Frontend_Function extends Zend_Cache_Core
      * @param  array $options Associative array of options
      * @return void
      */
-    public function __construct($options = array())
+    public function __construct(array $options = array())
     {
         while (list($name, $value) = each($options)) {
             $this->setOption($name, $value);
@@ -75,9 +75,10 @@ class Zend_Cache_Frontend_Function extends Zend_Cache_Core
      * @param  array  $parameters       Function parameters
      * @param  array  $tags             Cache tags
      * @param  int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @param  int   $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends             
      * @return mixed Result
      */
-    public function call($name, $parameters = array(), $tags = array(), $specificLifetime = false)
+    public function call($name, $parameters = array(), $tags = array(), $specificLifetime = false, $priority = 8)
     {
         $cacheBool1 = $this->_specificOptions['cache_by_default'];
         $cacheBool2 = in_array($name, $this->_specificOptions['cached_functions']);
@@ -101,7 +102,7 @@ class Zend_Cache_Frontend_Function extends Zend_Cache_Core
             $output = ob_get_contents();
             ob_end_clean();
             $data = array($output, $return);
-            $this->save($data, $id, $tags, $specificLifetime);
+            $this->save($data, $id, $tags, $specificLifetime, $priority);
         }
         echo $output;
         return $return;

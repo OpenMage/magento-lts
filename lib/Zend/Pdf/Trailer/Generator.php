@@ -19,9 +19,6 @@
 
 
 /** Zend_Pdf_Trailer */
-#require_once 'Zend/Pdf/Const.php';
-
-/** Zend_Pdf_Trailer */
 #require_once 'Zend/Pdf/Trailer.php';
 
 

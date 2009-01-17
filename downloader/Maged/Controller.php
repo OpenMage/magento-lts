@@ -135,7 +135,7 @@ final class Maged_Controller
         $this->view()->set('state', $pear->getPreferredState());
         echo $this->view()->template('pear/dist.phtml');
     }
-    
+
     public function distUpgradePostAction()
     {
         if (!$_POST) {
@@ -381,7 +381,7 @@ final class Maged_Controller
             include_once $this->getMageFilename();
             Mage::setIsDownloader();
         }
-        return Mage::app()->isInstalled();
+        return Mage::isInstalled();
     }
 
     public function startInstall()

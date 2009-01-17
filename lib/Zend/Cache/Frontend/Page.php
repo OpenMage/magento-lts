@@ -43,11 +43,16 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
      *
      * ====> (boolean) debug_header :
      * - if true, a debug text is added before each cached pages
-     * 
+     *
      * ====> (boolean) content_type_memorization :
+     * - deprecated => use memorize_headers instead
      * - if the Content-Type header is sent after the cache was started, the
      *   corresponding value can be memorized and replayed when the cache is hit
      *   (if false (default), the frontend doesn't take care of Content-Type header)
+     *
+     * ====> (array) memorize_headers :
+     * - an array of strings corresponding to some HTTP headers name. Listed headers
+     *   will be stored with cache datas and "replayed" when the cache is hit
      *
      * ====> (array) default_options :
      * - an associative array of default options :
@@ -58,6 +63,13 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
      *     - (boolean) makeIdWithXXXVariables (XXXX = 'Get', 'Post', 'Session', 'Files' or 'Cookie') :
      *       if true, we have to use the content of this superglobal array to make a cache id
      *       if false, the cache id won't be dependent of the content of this superglobal array
+     *     - (int) specific_lifetime : cache specific lifetime 
+     *                                (false => global lifetime is used, null => infinite lifetime, 
+     *                                 integer => this lifetime is used), this "lifetime" is probably only 
+     *                                usefull when used with "regexps" array
+     *     - (array) tags : array of tags (strings) 
+     *     - (int) priority : integer between 0 (very low priority) and 10 (maximum priority) used by 
+     *                        some particular backends
      *
      * ====> (array) regexps :
      * - an associative array to set options only for some REQUEST_URI
@@ -72,6 +84,7 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
         'http_conditional' => false,
         'debug_header' => false,
         'content_type_memorization' => false,
+        'memorize_headers' => array(),
         'default_options' => array(
             'cache_with_get_variables' => false,
             'cache_with_post_variables' => false,
@@ -83,7 +96,10 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
             'make_id_with_session_variables' => true,
             'make_id_with_files_variables' => true,
             'make_id_with_cookie_variables' => true,
-            'cache' => true
+            'cache' => true,
+            'specific_lifetime' => false,
+            'tags' => array(),
+            'priority' => null
         ),
         'regexps' => array()
     );
@@ -96,6 +112,13 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
     protected $_activeOptions = array();
 
     /**
+     * If true, the page won't be cached
+     *
+     * @var boolean
+     */
+    protected $_cancel = false;
+
+    /**
      * Constructor
      *
      * @param  array   $options                Associative array of options
@@ -103,19 +126,22 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
      * @throws Zend_Cache_Exception
      * @return void
      */
-    public function __construct($options = array())
+    public function __construct(array $options = array())
     {
         while (list($name, $value) = each($options)) {
             $name = strtolower($name);
             switch ($name) {
-            case 'regexps':
-                $this->_setRegexps($value);
-                break;
-            case 'default_options':
-                $this->_setDefaultOptions($value);
-                break;
-            default:
-                $this->setOption($name, $value);
+                case 'regexps':
+                    $this->_setRegexps($value);
+                    break;
+                case 'default_options':
+                    $this->_setDefaultOptions($value);
+                    break;
+                case 'content_type_memorization':
+                    $this->_setContentTypeMemorization($value);
+                    break;
+                default:
+                    $this->setOption($name, $value);
             }
         }
         if (isset($this->_specificOptions['http_conditional'])) {
@@ -139,11 +165,38 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
             Zend_Cache::throwException('default_options must be an array !');
         }
         foreach ($options as $key=>$value) {
+            if (!is_string($key)) {
+                Zend_Cache::throwException("invalid option [$key] !");
+            }
             $key = strtolower($key);
-            if (!isset($this->_specificOptions['default_options'][$key])) {
-                Zend_Cache::throwException("unknown option [$key] !");
-            } else {
+            if (isset($this->_specificOptions['default_options'][$key])) {
                 $this->_specificOptions['default_options'][$key] = $value;
+            }
+        }
+    }
+
+    /**
+     * Set the deprecated contentTypeMemorization option
+     *
+     * @param boolean $value value
+     * @return void
+     * @deprecated
+     */
+    protected function _setContentTypeMemorization($value)
+    {
+        $found = null;
+        foreach ($this->_specificOptions['memorize_headers'] as $key => $value) {
+            if (strtolower($value) == 'content-type') {
+                $found = $key;
+            }
+        }
+        if ($value) {
+            if (!$found) {
+                $this->_specificOptions['memorize_headers'][] = 'Content-Type';
+            }
+        } else {
+            if ($found) {
+                unset($this->_specificOptions['memorize_headers'][$found]);
             }
         }
     }
@@ -166,9 +219,12 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
             }
             $validKeys = array_keys($this->_specificOptions['default_options']);
             foreach ($conf as $key=>$value) {
+                if (!is_string($key)) {
+                    Zend_Cache::throwException("unknown option [$key] !");
+                }
                 $key = strtolower($key);
                 if (!in_array($key, $validKeys)) {
-                    Zend_Cache::throwException("unknown option [$key] !");
+                    unset($regexps[$regexp][$key]);
                 }
             }
         }
@@ -184,6 +240,7 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
      */
     public function start($id = false, $doNotDie = false)
     {
+        $this->_cancel = false;
         $lastMatchingRegexp = null;
         foreach ($this->_specificOptions['regexps'] as $regexp => $conf) {
             if (preg_match("`$regexp`", $_SERVER['REQUEST_URI'])) {
@@ -209,15 +266,15 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
         $array = $this->load($id);
         if ($array !== false) {
             $data = $array['data'];
-            $contentType = $array['contentType'];
+            $headers = $array['headers'];
             if ($this->_specificOptions['debug_header']) {
                 echo 'DEBUG HEADER : This is a cached page !';
             }
-            if ($this->_specificOptions['content_type_memorization']) {
-                if (!is_null($contentType)) {
-                    if (!headers_sent()) {
-                        header("Content-Type: $contentType");
-                    }
+            if (!headers_sent()) {
+                foreach ($headers as $key=>$headerCouple) {
+                    $name = $headerCouple[0];
+                    $value = $headerCouple[1];
+                    header("$name: $value");
                 }
             }
             echo $data;
@@ -232,6 +289,14 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
     }
 
     /**
+     * Cancel the current caching process
+     */
+    public function cancel()
+    {
+        $this->_cancel = true;
+    }
+
+    /**
      * callback for output buffering
      * (shouldn't really be called manually)
      *
@@ -240,23 +305,27 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
      */
     public function _flush($data)
     {
+        if ($this->_cancel) {
+            return $data;
+        }
         $contentType = null;
-        if ($this->_specificOptions['content_type_memorization']) {
-            if (headers_sent()) {
-                $headersList = headers_list();
-                foreach ($headersList as $header) {
-                    $tmp = split(':', $header);
-                    if (strtolower(trim($tmp[0])) == 'content-type') {
-                        $contentType = trim($tmp[1]);
-                    }
+        $storedHeaders = array();
+        $headersList = headers_list();
+        foreach($this->_specificOptions['memorize_headers'] as $key=>$headerName) {
+            foreach ($headersList as $headerSent) {
+                $tmp = split(':', $headerSent);
+                $headerSentName = trim(array_shift($tmp));
+                if (strtolower($headerName) == strtolower($headerSentName)) {
+                    $headerSentValue = trim(implode(':', $tmp));
+                    $storedHeaders[] = array($headerSentName, $headerSentValue);
                 }
             }
-        }
+        }       
         $array = array(
             'data' => $data,
-            'contentType' => $contentType
+            'headers' => $storedHeaders
         );
-        $this->save($array);
+        $this->save($array, null, $this->_activeOptions['tags'], $this->_activeOptions['specific_lifetime'], $this->_activeOptions['priority']);
         return $data;
     }
 
@@ -265,7 +334,7 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
      *
      * @return mixed|false a cache id (string), false if the cache should have not to be used
      */
-    private function _makeId()
+    protected function _makeId()
     {
         $tmp = $_SERVER['REQUEST_URI'];
         foreach (array('Get', 'Post', 'Session', 'Files', 'Cookie') as $arrayName) {
@@ -286,7 +355,7 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
      * @param  bool   $bool2     If true, we have to use the content of the superglobal array to make a partial id
      * @return mixed|false Partial id (string) or false if the cache should have not to be used
      */
-    private function _makePartialId($arrayName, $bool1, $bool2)
+    protected function _makePartialId($arrayName, $bool1, $bool2)
     {
         switch ($arrayName) {
         case 'Get':

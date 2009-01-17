@@ -110,11 +110,11 @@
                             <children>
                                 <config>
                                     <children>
-                                        <shipping>
+                                        <shipping translate="title" modul="shipping">
                                             <title>Shipping Settings Section</title>
                                             <sort_order>0</sort_order>
                                         </shipping>
-                                        <carriers>
+                                        <carriers translate="title" modul="shipping">
                                             <title>Shipping Methods Section</title>
                                             <sort_order>0</sort_order>
                                         </carriers>

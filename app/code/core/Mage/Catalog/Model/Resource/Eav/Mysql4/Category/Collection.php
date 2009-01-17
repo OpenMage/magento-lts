@@ -210,11 +210,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection extends Mage_Ca
                 if ($allChildren = $item->getAllChildren()) {
                     $select = $this->_conn->select();
                     $select->from(
-                            array('main_table'=>$this->_productTable),
+                            array('main_table' => $this->_productTable),
                             new Zend_Db_Expr('COUNT( DISTINCT main_table.product_id)')
                         )
-                        ->where($this->_conn->quoteInto('main_table.category_id IN(?)', explode(',', $allChildren)));
-
+                        ->joinInner(array('e' => $this->getTable('catalog/category')), 'main_table.category_id=e.entity_id', array())
+                        ->where('e.entity_id=? OR ' . $this->_conn->quoteInto('e.path LIKE CONCAT(?)', array($item->getPath(), '/%')), $item->getId());
                     $item->setProductCount((int) $this->_conn->fetchOne($select));
                 } else {
                     $item->setProductCount(0);

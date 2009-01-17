@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_CatalogSearch>
-            <version>0.7.4</version>
+            <version>0.7.6</version>
         </Mage_CatalogSearch>
     </modules>
     <global>
@@ -42,8 +42,14 @@
                 <class>Mage_CatalogSearch_Model_Mysql4</class>
                 <entities>
                     <search_query>
-                      <table>catalogsearch_query</table>
+                        <table>catalogsearch_query</table>
                     </search_query>
+                    <result>
+                        <table>catalogsearch_result</table>
+                    </result>
+                    <fulltext>
+                        <table>catalogsearch_fulltext</table>
+                    </fulltext>
                 </entities>
             </catalogsearch_mysql4>
         </models>
@@ -72,6 +78,62 @@
                 </connection>
             </catalogsearch_read>
         </resources>
+        <events>
+            <catalog_product_save_after>
+                <observers>
+                    <catalogsearch>
+                        <type>singleton</type>
+                        <class>catalogsearch/fulltext_observer</class>
+                        <method>refreshProductIndex</method>
+                    </catalogsearch>
+                </observers>
+            </catalog_product_save_after>
+            <catalog_product_delete_after>
+                <observers>
+                    <catalogsearch>
+                        <type>singleton</type>
+                        <class>catalogsearch/fulltext_observer</class>
+                        <method>cleanProductIndex</method>
+                    </catalogsearch>
+                </observers>
+            </catalog_product_delete_after>
+            <catalog_entity_attribute_save_after>
+                <observers>
+                    <catalogsearch>
+                        <type>singleton</type>
+                        <class>catalogsearch/fulltext_observer</class>
+                        <method>eavAttributeChange</method>
+                    </catalogsearch>
+                </observers>
+            </catalog_entity_attribute_save_after>
+            <catalog_entity_attribute_delete_after>
+                <observers>
+                    <catalogsearch>
+                        <type>singleton</type>
+                        <class>catalogsearch/fulltext_observer</class>
+                        <method>eavAttributeChange</method>
+                    </catalogsearch>
+                </observers>
+            </catalog_entity_attribute_delete_after>
+            <catalog_product_import_after>
+                <observers>
+                    <catalogsearch>
+                        <type>singleton</type>
+                        <class>catalogsearch/fulltext_observer</class>
+                        <method>refreshIndexAfterImport</method>
+                    </catalogsearch>
+                </observers>
+            </catalog_product_import_after>
+            <store_add>
+                <observers>
+                    <catalogsearch>
+                        <type>singleton</type>
+                        <class>catalogsearch/fulltext_observer</class>
+                        <method>refreshStoreIndex</method>
+                    </catalogsearch>
+                </observers>
+            </store_add>
+        </events>
         <blocks>
             <catalogsearch><class>Mage_CatalogSearch_Block</class></catalogsearch>
         </blocks>
@@ -123,6 +185,21 @@
                 </children>
             </catalog>
         </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <catalog>
+                            <children>
+                                <search translate="title" module="catalogsearch">
+                                    <title>Search</title>
+                                </search>
+                            </children>
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
     </adminhtml>
 
     <default>
@@ -131,6 +208,13 @@
                 <search_terms>1</search_terms>
                 <site_map>1</site_map>
             </seo>
+            <search>
+                <min_query_length>1</min_query_length>
+                <max_query_length>128</max_query_length>
+                <max_query_words>10</max_query_words>
+                <search_type>1</search_type>
+                <use_layered_navigation_count>2000</use_layered_navigation_count>
+            </search>
         </catalog>
     </default>
 </config>

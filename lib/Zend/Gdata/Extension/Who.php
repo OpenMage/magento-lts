@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -35,10 +36,16 @@
 #require_once 'Zend/Gdata/Extension/AttendeeType.php';
 
 /**
+ * @see Zend_Gdata_Extension_EntryLink
+ */
+#require_once 'Zend/Gdata/Extension/EntryLink.php';
+
+/**
  * Data model class to represent a participant
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -84,25 +91,25 @@ class Zend_Gdata_Extension_Who extends Zend_Gdata_Extension
      * @return DOMElement The DOMElement representing this element and all
      * child properties.
      */
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
-        if ($this->_email != null) {
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
+        if ($this->_email !== null) {
             $element->setAttribute('email', $this->_email);
         }
-        if ($this->_rel != null) {
+        if ($this->_rel !== null) {
             $element->setAttribute('rel', $this->_rel);
         }
-        if ($this->_valueString != null) {
+        if ($this->_valueString !== null) {
             $element->setAttribute('valueString', $this->_valueString);
         }
-        if ($this->_attendeeStatus != null) {
+        if ($this->_attendeeStatus !== null) {
             $element->appendChild($this->_attendeeStatus->getDOM($element->ownerDocument));
         }
-        if ($this->_attendeeType != null) {
+        if ($this->_attendeeType !== null) {
             $element->appendChild($this->_attendeeType->getDOM($element->ownerDocument));
         }
-        if ($this->_entryLink != null) {
+        if ($this->_entryLink !== null) {
             $element->appendChild($this->_entryLink->getDOM($element->ownerDocument));
         }
         return $element;

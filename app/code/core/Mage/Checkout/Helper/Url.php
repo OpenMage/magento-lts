@@ -23,7 +23,7 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Checkout url helper
  *
@@ -32,7 +32,7 @@
 class Mage_Checkout_Helper_Url extends Mage_Core_Helper_Url
 {
     /**
-     * Retrieve shpping cart url
+     * Retrieve shopping cart url
      *
      * @return string
      */
@@ -40,7 +40,7 @@ class Mage_Checkout_Helper_Url extends Mage_Core_Helper_Url
     {
         return $this->_getUrl('checkout/cart');
     }
-    
+
     /**
      * Retrieve checkout url
      *
@@ -50,11 +50,11 @@ class Mage_Checkout_Helper_Url extends Mage_Core_Helper_Url
     {
         return $this->_getUrl('checkout/onepage');
     }
-    
+
     /**
      * Multi Shipping (MS) checkout urls
      */
-    
+
     /**
      * Retrieve multishipping checkout url
      *
@@ -64,17 +64,17 @@ class Mage_Checkout_Helper_Url extends Mage_Core_Helper_Url
     {
         return $this->_getUrl('checkout/multishipping');
     }
-    
+
     public function getMSLoginUrl()
     {
         return $this->_getUrl('checkout/multishipping/login', array('_secure'=>true, '_current'=>true));
     }
-    
+
     public function getMSAddressesUrl()
     {
         return $this->_getUrl('checkout/multishipping/addresses');
     }
-    
+
     public function getMSShippingAddressSavedUrl()
     {
         return $this->_getUrl('checkout/multishipping_address/shippingSaved');
@@ -84,7 +84,7 @@ class Mage_Checkout_Helper_Url extends Mage_Core_Helper_Url
     {
         return $this->_getUrl('checkout/multishipping/register');
     }
-    
+
     /**
      * One Page (OP) checkout urls
      */

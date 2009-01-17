@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gapps
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -30,13 +31,14 @@
 #require_once 'Zend/Gdata/Gapps.php';
 
 /**
- * Represents the apps:quota element used by the Apps data API. This is 
- * used to indicate the amount of storage space available to a user. Quotas 
- * may not be able to be set, depending on the domain used. This class 
+ * Represents the apps:quota element used by the Apps data API. This is
+ * used to indicate the amount of storage space available to a user. Quotas
+ * may not be able to be set, depending on the domain used. This class
  * is usually contained within an instance of Zend_Gdata_Gapps_UserEntry.
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gapps
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -45,41 +47,39 @@ class Zend_Gdata_Gapps_Extension_Quota extends Zend_Gdata_Extension
 
     protected $_rootNamespace = 'apps';
     protected $_rootElement = 'quota';
-    
+
     /**
      * The amount of storage space available to the user in megabytes.
-     * 
+     *
      * @var integer
      */
     protected $_limit = null;
 
     /**
      * Constructs a new Zend_Gdata_Gapps_Extension_Quota object.
-     * 
+     *
      * @param string $limit (optional) The limit, in bytes, for this quota.
      */
-    public function __construct($limit = null) 
+    public function __construct($limit = null)
     {
-        foreach (Zend_Gdata_Gapps::$namespaces as $nsPrefix => $nsUri) {
-            $this->registerNamespace($nsPrefix, $nsUri);
-        }
-        parent::__construct();        
-        $this->_limit = $limit; 
+        $this->registerAllNamespaces(Zend_Gdata_Gapps::$namespaces);
+        parent::__construct();
+        $this->_limit = $limit;
     }
 
     /**
-     * Retrieves a DOMElement which corresponds to this element and all 
+     * Retrieves a DOMElement which corresponds to this element and all
      * child properties.  This is used to build an entry back into a DOM
      * and eventually XML text for sending to the server upon updates, or
-     * for application storage/persistence.  
+     * for application storage/persistence.
      *
      * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all 
+     * @return DOMElement The DOMElement representing this element and all
      * child properties.
      */
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
         if ($this->_limit !== null) {
             $element->setAttribute('limit', $this->_limit);
         }
@@ -88,7 +88,7 @@ class Zend_Gdata_Gapps_Extension_Quota extends Zend_Gdata_Extension
 
     /**
      * Given a DOMNode representing an attribute, tries to map the data into
-     * instance members.  If no mapping is defined, the name and value are 
+     * instance members.  If no mapping is defined, the name and value are
      * stored in an array.
      *
      * @param DOMNode $attribute The DOMNode attribute needed to be handled
@@ -116,8 +116,8 @@ class Zend_Gdata_Gapps_Extension_Quota extends Zend_Gdata_Extension
     }
 
     /**
-     * Set the value for this element's limit attribute. This is the amount 
-     * of storage space, in bytes, that should be made available to 
+     * Set the value for this element's limit attribute. This is the amount
+     * of storage space, in bytes, that should be made available to
      * the associated user.
      *
      * @param string $value The desired value for this attribute.

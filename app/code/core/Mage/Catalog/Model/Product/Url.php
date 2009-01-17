@@ -76,19 +76,28 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      * Get product url
      *
      * @param  Mage_Catalog_Model_Product $product
+     * @param  bool $useSid
      * @return string
      */
-    public function getProductUrl($product)
+    public function getProductUrl($product, $useSid = true)
     {
-        $cacheUrlKey = 'url_' . ($product->getCategoryId() && !$product->getDoNotUseCategoryId() ? $product->getCategoryId() : 'NONE');
+        $cacheUrlKey = 'url_'
+            . ($product->getCategoryId() && !$product->getDoNotUseCategoryId() ? $product->getCategoryId() : 'NONE')
+            . '_' . intval($useSid);
         $url = $product->getData($cacheUrlKey);
 
         if (is_null($url)) {
             if ($product->getStoreId()) {
                 $this->getUrlInstance()->setStore($product->getStoreId());
             }
+
+            // auto add SID to URL
+            $originalSid = $this->getUrlInstance()->getUseSession();
+            $this->getUrlInstance()->setUseSession($useSid);
+
             if ($product->hasData('request_path') && $product->getRequestPath() != '') {
                 $this->setData($cacheUrlKey, $this->getUrlInstance()->getDirectUrl($product->getRequestPath()));
+                $this->getUrlInstance()->setUseSession($originalSid);
                 return $this->getData($cacheUrlKey);
             }
 
@@ -97,6 +106,9 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
             $rewrite = $this->getUrlRewrite();
             if ($product->getStoreId()) {
                 $rewrite->setStoreId($product->getStoreId());
+            }
+            else {
+                $rewrite->setStoreId(Mage::app()->getStore()->getId());
             }
 
             $idPath = 'product/'.$product->getId();
@@ -109,6 +121,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
             if ($rewrite->getId()) {
                 $this->setData($cacheUrlKey, $this->getUrlInstance()->getDirectUrl($rewrite->getRequestPath()));
                 Varien_Profiler::stop('REWRITE: '.__METHOD__);
+                $this->getUrlInstance()->setUseSession($originalSid);
                 return $this->getData($cacheUrlKey);
             }
 
@@ -120,6 +133,8 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
                 's'         => $product->getUrlKey(),
                 'category'  => $product->getCategoryId()
             ));
+
+            $this->getUrlInstance()->setUseSession($originalSid);
 
             Varien_Profiler::stop('REGULAR: '.__METHOD__);
         }

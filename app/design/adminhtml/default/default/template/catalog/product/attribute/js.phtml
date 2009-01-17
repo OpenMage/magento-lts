@@ -66,6 +66,9 @@ function bindAttributeInputType()
         if($('is_filterable')){
             $('is_filterable').disabled = false;
         }
+        if($('is_filterable_in_search')){
+            $('is_filterable_in_search').disabled = false;
+        }
         if($('backend_type') && $('backend_type').options){
             for(var i=0;i<$('backend_type').options.length;i++){
                 if($('backend_type').options[i].value=='int') $('backend_type').selectedIndex = i;
@@ -76,6 +79,9 @@ function bindAttributeInputType()
         if($('is_filterable')){
             $('is_filterable').selectedIndex=0;
             $('is_filterable').disabled = true;
+        }
+        if($('is_filterable_in_search')){
+            $('is_filterable_in_search').disabled = true;
         }
     }
     switchIsFilterable();
@@ -88,6 +94,17 @@ function switchIsFilterable()
             $('position').disabled = true;
         } else {
             $('position').disabled = false;
+        }
+    }
+}
+
+function disableApplyToValue(value)
+{
+    var applyToSelect = $('apply_to');
+    for (i=0;i<applyToSelect.options.length;i++) {
+        if (value == applyToSelect.options[i].value) {
+            applyToSelect.options[i].disabled = true;
+            applyToSelect.options[i].selected = false;
         }
     }
 }
@@ -137,26 +154,67 @@ function switchDefaultValueField()
             break;
     }
 
+    var applyToSelect = $('apply_to');
+    switch (currentValue) {
+        <?php foreach (Mage::helper('catalog')->getAttributeDisabledTypes() as $type=>$disabled): ?>
+            case '<?php echo $type; ?>':
+            <?php foreach ($disabled as $one): ?>
+                disableApplyToValue('<?php echo $one; ?>');
+            <?php endforeach; ?>
+            break;
+        <?php endforeach; ?>
+        default:
+        for (i=0;i<applyToSelect.options.length;i++) {
+            applyToSelect.options[i].disabled = false;
+        }
+        break;
+    }
+
+    switch (currentValue) {
+        case 'media_image':
+            $('front_fieldset').previous().hide();
+            $('front_fieldset').hide();
+
+            setRowVisibility('is_required', false);
+            setRowVisibility('is_unique', false);
+            setRowVisibility('frontend_class', false);
+        break;
+
+        <?php foreach (Mage::helper('catalog')->getAttributeHiddenFields() as $type=>$fields): ?>
+            case '<?php echo $type; ?>':
+                <?php foreach ($fields as $one): ?>
+                    <?php if ($one == '_front_fieldset'): ?>
+                        $('front_fieldset').previous().hide();
+                        $('front_fieldset').hide();
+                    <?php elseif ($one == '_default_value'): ?>
+                        defaultValueTextVisibility =
+                        defaultValueTextareaVisibility =
+                        defaultValueDateVisibility =
+                        defaultValueYesnoVisibility = false;
+                    <?php elseif ($one == '_scope'): ?>
+                        scopeVisibility = false;
+                    <?php else: ?>
+                        setRowVisibility('<?php echo $one; ?>', false);
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            break;
+        <?php endforeach; ?>
+
+        default:
+            $('front_fieldset').previous().show();
+            $('front_fieldset').show();
+            setRowVisibility('is_required', true);
+            setRowVisibility('is_unique', true);
+            setRowVisibility('frontend_class', true);
+            setRowVisibility('is_configurable', true);
+        break;
+    }
+
     setRowVisibility('default_value_text', defaultValueTextVisibility);
     setRowVisibility('default_value_textarea', defaultValueTextareaVisibility);
     setRowVisibility('default_value_date', defaultValueDateVisibility);
     setRowVisibility('default_value_yesno', defaultValueYesnoVisibility);
     setRowVisibility('is_global', scopeVisibility);
-
-    if(currentValue == 'media_image') {
-        $('front_fieldset').previous().hide();
-        $('front_fieldset').hide();
-
-        setRowVisibility('is_required', false);
-        setRowVisibility('is_unique', false);
-        setRowVisibility('frontend_class', false);
-    } else {
-        $('front_fieldset').previous().show();
-        $('front_fieldset').show();
-        setRowVisibility('is_required', true);
-        setRowVisibility('is_unique', true);
-        setRowVisibility('frontend_class', true);
-    }
 
     var elems = document.getElementsByName('default[]');
     for (var i = 0; i < elems.length; i++) {

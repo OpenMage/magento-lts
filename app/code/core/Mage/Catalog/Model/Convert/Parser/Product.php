@@ -358,6 +358,9 @@ class Mage_Catalog_Model_Convert_Parser_Product
             }
             else {
                 $row['websites'] = $this->getStore()->getWebsite()->getCode();
+                if ($this->getVar('url_field')) {
+                    $row['url'] = $product->getProductUrl(false);
+                }
             }
 
             foreach ($product->getData() as $field => $value) {

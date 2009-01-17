@@ -31,6 +31,8 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
     protected $_httpsObjectUrl = 'https://widgets.magentocommerce.com/messagePopupWindow';
     protected $_httpObjectUrl = 'http://widgets.magentocommerce.com/messagePopupWindow';
 
+    protected $_aclResourcePath = 'admin/system/adminnotification/show_toolbar';
+
     protected function _construct()
     {
         parent::_construct();
@@ -73,9 +75,13 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
      */
     public function canShow()
     {
+        if (!$this->_isAllowed()) {
+            $this->_available = false;
+            return false;
+        }
+
         if (is_null($this->_available)) {
-            $firstVisit = Mage::getSingleton('admin/session')->getData('is_first_visit', true);
-            if (!$firstVisit) {
+            if (!Mage::getSingleton('admin/session')->isFirstPageAfterLogin()) {
                 $this->_available = false;
                 return false;
             }
@@ -104,4 +110,18 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
         return Mage::helper('adminnotification')->getLatestNotice();
     }
 
+    /**
+     * Check if current block allowed in ACL
+     *
+     * @param string $resourcePath
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        if (!is_null($this->_aclResourcePath)) {
+            return Mage::getSingleton('admin/session')->isAllowed($this->_aclResourcePath);
+        } else {
+            return true;
+        }
+    }
 }

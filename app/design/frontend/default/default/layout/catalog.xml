@@ -187,7 +187,8 @@ Product view
                 -->
                 <block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/media.phtml"/>
                 <block type="core/text_list" name="alert.urls" as="alert_urls" />
-                <block type="catalog/product_view" name="product.tierprices" as="tierprices" template="catalog/product/view/tierprices.phtml"/>
+
+                <action method="setTierPriceTemplate"><template>catalog/product/view/tierprices.phtml</template></action>
 
                 <block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml">
                     <action method="setColumnCount"><columns>4</columns></action>
@@ -253,7 +254,7 @@ Additional block dependant on product type
     </PRODUCT_TYPE_configurable>
     <PRODUCT_TYPE_grouped>
         <reference name="product.info">
-            <block type="catalog/product_view_type_grouped" name="product.info.grouped" as="product_type_data" template="catalog/product/view/type/grouped.phtml"/>
+            <block type="catalog/product_view_type_grouped" name="product.info.grouped" as="product_type_data" template="catalog/product/view/type/grouped.phtml" />
         </reference>
     </PRODUCT_TYPE_grouped>
     <PRODUCT_TYPE_virtual>
@@ -261,8 +262,6 @@ Additional block dependant on product type
             <block type="catalog/product_view_type_virtual" name="product.info.virtual" as="product_type_data" template="catalog/product/view/type/virtual.phtml"/>
         </reference>
     </PRODUCT_TYPE_virtual>
-
-
 
 <!--
 Product send to friend

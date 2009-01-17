@@ -39,7 +39,7 @@
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Description.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Description.php 12328 2008-11-06 16:49:03Z matthew $
  */
 class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
 {
@@ -165,6 +165,10 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
             $description = $translator->translate($description);
         }
 
+        if (empty($description)) {
+            return $content;
+        }
+
         $separator = $this->getSeparator();
         $placement = $this->getPlacement();
         $tag       = $this->getTag();
@@ -172,10 +176,6 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
         $escape    = $this->getEscape();
 
         $options   = $this->getOptions();
-
-        if (empty($description)) {
-            return $content;
-        }
 
         if ($escape) {
             $description = $view->escape($description);

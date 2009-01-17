@@ -35,16 +35,12 @@
 class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_Abstract
 {
     protected $_totals = array();
-    protected $_currency;
+    protected $_currentCurrencyCode = null;
 
     protected function _construct()
     {
         parent::_construct();
         $this->setTemplate('dashboard/bar.phtml');
-
-        $this->_currency = Mage::app()->getStore($this->getParam('store'))
-            ->getBaseCurrency();
-
     }
 
     protected function getTotals()
@@ -75,8 +71,46 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
         return $this;
     }
 
+    /**
+     * Formating value specific for this store
+     *
+     * @param decimal $price
+     * @return string
+     */
     public function format($price)
     {
-        return $this->_currency->format($price);
+        return $this->getCurrency()->format($price);
+    }
+
+    /**
+     * Setting currency model
+     *
+     * @param Mage_Directory_Model_Currency $currency
+     */
+    public function setCurrency($currency)
+    {
+        $this->_currency = $currency;
+    }
+
+    /**
+     * Retrieve currency model if not set then return currency model for current store
+     *
+     * @return Mage_Directory_Model_Currency
+     */
+    public function getCurrency()
+    {
+        if (is_null($this->_currentCurrencyCode)) {
+            if ($this->getRequest()->getParam('store')) {
+                $this->_currentCurrencyCode = Mage::app()->getStore($this->getRequest()->getParam('store'))->getBaseCurrency();
+            } else if ($this->getRequest()->getParam('website')){
+                $this->_currentCurrencyCode = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getBaseCurrency();
+            } else if ($this->getRequest()->getParam('group')){
+                $this->_currentCurrencyCode =  Mage::app()->getGroup($this->getRequest()->getParam('group'))->getWebsite()->getBaseCurrency();
+            } else {
+                $this->_currentCurrencyCode = Mage::app()->getStore()->getBaseCurrency();
+            }
+        }
+
+        return $this->_currentCurrencyCode;
     }
 }

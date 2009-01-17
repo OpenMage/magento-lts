@@ -66,8 +66,8 @@
                 <?php echo $this->helper('sales')->__('Not Notified') ?>
                 <?php endif; ?>
             </strong></small>
-            <?php if($_history->getComment()): ?>
-                <br/><?php echo $_history->getComment() ?>
+            <?php if ($_history->getComment()): ?>
+                <br/><?php echo $this->htmlEscape($_history->getComment(), array('b','br','strong','i','u')) ?>
             <?php endif; ?>
         </li>
     <?php endforeach; ?>

@@ -43,7 +43,7 @@
     <?php echo $this->getChildHtml('head') ?>
 </head>
 
-<body id="html-body">
+<body id="html-body"<?php echo $this->getBodyClass()?'class="'.$this->getBodyClass().'"':'' ?>>
 <?php echo $this->getChildHtml('notification_window'); ?>
 <div class="wrapper">
         <div class="header">

@@ -4,31 +4,26 @@
  *
  * LICENSE
  *
- * This source file is subject to version 1.0 of the Zend Framework
- * license, that is bundled with this package in the file LICENSE.txt, and
- * is available through the world-wide-web at the following URL:
- * http://framework.zend.com/license/new-bsd. If you did not receive
- * a copy of the Zend Framework license and are unable to obtain it
- * through the world-wide-web, please send a note to license@zend.com
- * so we can mail you a copy immediately.
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://framework.zend.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Url.php 8892 2008-03-18 19:47:46Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Url.php 12526 2008-11-10 20:25:20Z ralph $
  */
 
 /**
  * @see Zend_Controller_Action_Helper_Abstract
  */
 #require_once 'Zend/Controller/Action/Helper/Abstract.php';
-
-/**
- * @see Zend_Controller_Front
- */
-#require_once 'Zend/Controller/Front.php';
 
 /**
  * Helper for creating URLs for redirects and other tasks
@@ -64,8 +59,12 @@ class Zend_Controller_Action_Helper_Url extends Zend_Controller_Action_Helper_Ab
         }
 
         $url = $controller . '/' . $action;
-        if ($module != Zend_Controller_Front::getInstance()->getDispatcher()->getDefaultModule()) {
+        if ($module != $this->getFrontController()->getDispatcher()->getDefaultModule()) {
             $url = $module . '/' . $url;
+        }
+        
+        if ('' !== ($baseUrl = $this->getFrontController()->getBaseUrl())) {
+        	$url = $baseUrl . '/' . $url;
         }
 
         if (null !== $params) {
@@ -96,31 +95,10 @@ class Zend_Controller_Action_Helper_Url extends Zend_Controller_Action_Helper_Ab
      */
     public function url($urlOptions = array(), $name = null, $reset = false, $encode = true)
     {
-        $front  = Zend_Controller_Front::getInstance();
-        $router = $front->getRouter();
-
-        if (empty($name)) {
-            try {
-                $name = $router->getCurrentRouteName();
-            } catch (Zend_Controller_Router_Exception $e) {
-                $name = 'default';
-            }
-        }
-
-        if ($encode) {
-            foreach ($urlOptions as $key => $option) {
-	        $urlOptions[$key] = urlencode($option);
-            }
-        }
-
-        $route   = $router->getRoute($name);
-
-        $url  = rtrim($front->getBaseUrl(), '/') . '/';
-        $url .= $route->assemble($urlOptions, $reset);
-
-        return $url;
+        $router = $this->getFrontController()->getRouter();
+        return $router->assemble($urlOptions, $name, $reset, $encode);
     }
-
+    
     /**
      * Perform helper when called as $this->_helper->url() from an action controller
      *

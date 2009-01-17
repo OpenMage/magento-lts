@@ -41,14 +41,38 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
 
     protected $_calculationModel = null;
 
+    /**
+     * Varien model constructor
+     */
     protected function _construct()
     {
         $this->_init('tax/calculation_rule');
     }
 
+    /**
+     * After save rule
+     * Redeclared for populate rate calculations
+     *
+     * @return Mage_Tax_Model_Calculation_Rule
+     */
     protected function _afterSave()
     {
+        parent::_afterSave();
         $this->saveCalculationData();
+        Mage::dispatchEvent('tax_settings_change_after');
+        return $this;
+    }
+
+    /**
+     * After rule delete
+     * redeclared for dispatch tax_settings_change_after event
+     *
+     * @return Mage_Tax_Model_Calculation_Rule
+     */
+    protected function _afterDelete()
+    {
+        Mage::dispatchEvent('tax_settings_change_after');
+        return parent::_afterDelete();
     }
 
     public function saveCalculationData()
@@ -62,11 +86,11 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
             foreach ($ptc as $p) {
                 foreach ($rates as $r) {
                     $dataArray = array(
-                                    'tax_calculation_rule_id'=>$this->getId(),
-                                    'tax_calculation_rate_id'=>$r,
-                                    'customer_tax_class_id'=>$c,
-                                    'product_tax_class_id'=>$p,
-                                    );
+                        'tax_calculation_rule_id'   =>$this->getId(),
+                        'tax_calculation_rate_id'   =>$r,
+                        'customer_tax_class_id'     =>$c,
+                        'product_tax_class_id'      =>$p,
+                    );
                     Mage::getSingleton('tax/calculation')->setData($dataArray)->save();
                 }
             }

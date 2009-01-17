@@ -32,6 +32,13 @@
     <?php endif; ?>
     <h3><?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__("Search results for '%s'", $this->helper('catalogSearch')->getEscapedQueryText()) ?></h3>
 </div>
+    <?php if ($messages = $this->getNoteMessages()):?>
+    <div class="note-msg">
+        <?php foreach ($messages as $message):?>
+        <?php echo $message?><br />
+        <?php endforeach;?>
+    </div>
+    <?php endif; ?>
     <?php echo $this->getProductListHtml() ?>
 <?php else: ?>
     <div class="page-head">
@@ -39,5 +46,10 @@
     </div>
     <div class="note-msg">
         <?php echo ($this->getNoResultText()) ? $this->getNoResultText() : $this->__('Your search returns no results.') ?>
+        <?php if ($messages = $this->getNoteMessages()):?>
+            <?php foreach ($messages as $message):?>
+            <br /><?php echo $message?>
+            <?php endforeach;?>
+        <?php endif; ?>
     </div>
 <?php endif; ?>

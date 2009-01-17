@@ -34,49 +34,50 @@
  */
 ?>
 <div class="content-header">
-	<table cellspacing="0">
-		<tr>
-			<td><h3><?php echo Mage::helper('adminhtml')->__($this->getTitle()) ?></h3></td><td class="form-buttons"><?php echo $this->getSaveButtonHtml() ?></td>
-		 </tr>
-	</table>
+    <table cellspacing="0">
+        <tr>
+            <td><h3><?php echo Mage::helper('adminhtml')->__($this->getTitle()) ?></h3></td><td class="form-buttons"><?php echo $this->getSaveButtonHtml() ?></td>
+         </tr>
+    </table>
 </div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="config_edit_form" enctype="multipart/form-data">
-<script type="text/javascript">
-function cacheCatalogAction(button)
-{
-    $('catalog_action').value = button.id;
-    configForm.submit();
-}
-</script>
-<input type="hidden" id="catalog_action" name="catalog_action" value="" />
-<?php echo $this->getChildHtml('form') ?>
-<div class="entry-edit">
-<div class="entry-edit-head">
-    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Catalog') ?></h4>
-</div>
-<fieldset id="catalog">
-    <table cellspacing="0" class="form-list">
-        <tbody>
-            <?php foreach ($this->getCatalogData() as $_item): ?>
-            <tr>
-                <td class="label"><label><?php echo $_item['label'] ?></label></td>
-                <td class="value">
-                    <?php foreach ($_item['buttons'] as $_button): ?>
-                        <?php $clickAction = 'cacheCatalogAction(this)'; ?>
-                        <?php if (isset($_button['warning']) && $_button['warning']): ?>
-                            <?php $clickAction = "if (confirm('".addslashes($_button['warning'])."')) {{$clickAction}}"; ?>
-                        <?php endif; ?>
-                        <button <?php if (!isset($_button['disabled']) || !$_button['disabled']):?>onclick="<?php echo $clickAction; ?>"<?php endif; ?> id="<?php echo $_button['name'] ?>" type="button" class="scalable <?php if (isset($_button['disabled']) && $_button['disabled']):?>disabled<?php endif; ?>" style=""><span><?php echo $_button['action'] ?></span></button>
-                        <?php if (isset($_button['comment'])): ?> <br /> <small><?php echo $_button['comment']; ?></small> <?php endif; ?>
+    <?php echo $this->getBlockHtml('formkey')?>
+    <script type="text/javascript">
+    function cacheCatalogAction(button)
+    {
+        $('catalog_action').value = button.id;
+        configForm.submit();
+    }
+    </script>
+    <input type="hidden" id="catalog_action" name="catalog_action" value="" />
+    <?php echo $this->getChildHtml('form') ?>
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Catalog') ?></h4>
+        </div>
+        <fieldset id="catalog">
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                    <?php foreach ($this->getCatalogData() as $_item): ?>
+                    <tr>
+                        <td class="label"><label><?php echo $_item['label'] ?></label></td>
+                        <td class="value">
+                            <?php foreach ($_item['buttons'] as $_button): ?>
+                                <?php $clickAction = 'cacheCatalogAction(this)'; ?>
+                                <?php if (isset($_button['warning']) && $_button['warning']): ?>
+                                    <?php $clickAction = "if (confirm('".addslashes($_button['warning'])."')) {{$clickAction}}"; ?>
+                                <?php endif; ?>
+                                <button <?php if (!isset($_button['disabled']) || !$_button['disabled']):?>onclick="<?php echo $clickAction; ?>"<?php endif; ?> id="<?php echo $_button['name'] ?>" type="button" class="scalable <?php if (isset($_button['disabled']) && $_button['disabled']):?>disabled<?php endif; ?>" style=""><span><?php echo $_button['action'] ?></span></button>
+                                <?php if (isset($_button['comment'])): ?> <br /> <small><?php echo $_button['comment']; ?></small> <?php endif; ?>
+                            <?php endforeach; ?>
+                        </td>
+                        <td><small>&nbsp;</small></td>
+                    </tr>
                     <?php endforeach; ?>
-                </td>
-                <td><small>&nbsp;</small></td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-</fieldset>
-</div>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
 </form>
 <script type="text/javascript">
     var configForm = new varienForm('config_edit_form');

@@ -41,6 +41,7 @@
             <a href="<?php echo $this->getViewOrderUrl($orderId) ?>"><?php echo $incrementId ?></a>
         <?php endforeach; ?>
     <?php endif; ?>
+    <?php echo $this->getChildHtml() ?>
 </div>
 <div class="button-set">
     <button class="form-button" onclick="setLocation('<?php echo $this->getContinueUrl() ?>')"><span><?php echo $this->__('Continue Shopping') ?></span></button>

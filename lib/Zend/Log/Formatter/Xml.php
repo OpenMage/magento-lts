@@ -17,7 +17,7 @@
  * @subpackage Formatter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Xml.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Xml.php 12363 2008-11-07 10:45:22Z beberlei $
  */
 
 /** Zend_Log_Formatter_Interface */
@@ -29,7 +29,7 @@
  * @subpackage Formatter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Xml.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Xml.php 12363 2008-11-07 10:45:22Z beberlei $
  */
 class Zend_Log_Formatter_Xml implements Zend_Log_Formatter_Interface
 {
@@ -75,6 +75,9 @@ class Zend_Log_Formatter_Xml implements Zend_Log_Formatter_Interface
         $elt = $dom->appendChild(new DOMElement($this->_rootElement));
 
         foreach ($dataToInsert as $key => $value) {
+            if($key == "message") {
+                $value = htmlspecialchars($value);
+            }
             $elt->appendChild(new DOMElement($key, $value));
         }
 

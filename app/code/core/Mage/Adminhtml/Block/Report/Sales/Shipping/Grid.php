@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Report_Sales_Shipping_Grid extends Mage_Adminhtml_Blo
         $this->addColumn('total', array(
             'header'    =>Mage::helper('reports')->__('Total Shipping'),
             'type'      =>'currency',
-            'currency_code' => (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode(),
+            'currency_code' => $this->getCurrentCurrencyCode(),
             'index'     =>'total',
             'total'     =>'sum',
             'renderer'  =>'adminhtml/report_grid_column_renderer_currency'

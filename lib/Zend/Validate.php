@@ -17,7 +17,7 @@
  * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Validate.php 8729 2008-03-10 11:44:10Z thomas $
+ * @version    $Id: Validate.php 12770 2008-11-22 16:12:23Z matthew $
  */
 
 
@@ -145,7 +145,7 @@ class Zend_Validate implements Zend_Validate_Interface
             $className = $namespace . '_' . ucfirst($classBaseName);
             try {
                 #require_once 'Zend/Loader.php';
-                @Zend_Loader::loadClass($className);
+                Zend_Loader::loadClass($className);
                 if (class_exists($className, false)) {
                     $class = new ReflectionClass($className);
                     if ($class->implementsInterface('Zend_Validate_Interface')) {

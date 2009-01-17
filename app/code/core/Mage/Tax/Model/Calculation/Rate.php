@@ -33,11 +33,20 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
 {
     protected $_titles = null;
     protected $_titleModel = null;
+
+    /**
+     * Varien model constructor
+     */
     protected function _construct()
     {
         $this->_init('tax/calculation_rate');
     }
 
+    /**
+     * Prepare location settings before save rate
+     *
+     * @return Mage_Tax_Model_Calculation_Rate
+     */
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -48,12 +57,31 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
         if ($regionModel->getCountryId() != $country) {
             $this->setTaxRegionId('*');
         }
+        return $this;
     }
 
+    /**
+     * Save rate titles
+     *
+     * @return Mage_Tax_Model_Calculation_Rate
+     */
     protected function _afterSave()
     {
         $this->saveTitles();
-        parent::_afterSave();
+        Mage::dispatchEvent('tax_settings_change_after');
+        return parent::_afterSave();
+    }
+
+    /**
+     * After rate delete
+     * redeclared for dispatch tax_settings_change_after event
+     *
+     * @return Mage_Tax_Model_Calculation_Rate
+     */
+    protected function _afterDelete()
+    {
+        Mage::dispatchEvent('tax_settings_change_after');
+        return parent::_afterDelete();
     }
 
     public function saveTitles($titles = null)
@@ -96,6 +124,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     public function deleteAllRates()
     {
     	$this->_getResource()->deleteAllRates();
+    	Mage::dispatchEvent('tax_settings_change_after');
     	return $this;
     }
 }

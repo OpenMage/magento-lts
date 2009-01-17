@@ -166,6 +166,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract extends Mage_Ea
             $method = 'joinLeft';
             $fieldAlias = new Zend_Db_Expr("IFNULL($fieldAlias, $defFieldAlias)");
             $this->_joinAttributes[$fieldCode]['condition_alias'] = $fieldAlias;
+            $this->_joinAttributes[$fieldCode]['attribute']       = $attribute;
         }
         else {
             $store_id = $this->getDefaultStoreId();

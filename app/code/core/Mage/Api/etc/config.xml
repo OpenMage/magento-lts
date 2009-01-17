@@ -115,9 +115,23 @@
                     <children>
                         <system>
                             <children>
+                                <api translate="title" module="api">
+                                    <title>Web Services</title>
+                                    <sort_order>0</sort_order>
+                                    <children>
+                                        <users translate="title">
+                                            <title>Users</title>
+                                            <sort_order>10</sort_order>
+                                        </users>
+                                        <roles translate="title">
+                                            <title>Roles</title>
+                                            <sort_order>20</sort_order>
+                                        </roles>
+                                    </children>
+                                </api>
                                 <config>
                                     <children>
-                                        <api>
+                                        <api translate="title" module="api">
                                             <title>Magento Core Api Section</title>
                                         </api>
                                     </children>
@@ -137,6 +151,26 @@
                 </Mage_Api>
             </modules>
         </translate>
+        <menu>
+            <system>
+                <children>
+                    <api translate="title" module="api">
+                        <title>Web Services</title>
+                        <sort_order>25</sort_order>
+                        <children>
+                            <users translate="title">
+                                <title>Users</title>
+                                <action>adminhtml/api_user</action>
+                            </users>
+                            <roles translate="title">
+                                <title>Roles</title>
+                                <action>adminhtml/api_role</action>
+                            </roles>
+                        </children>
+                    </api>
+                </children>
+            </system>
+        </menu>
     </adminhtml>
     <default>
         <api>

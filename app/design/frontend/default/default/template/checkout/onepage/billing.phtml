@@ -103,18 +103,19 @@
             <?php if ($this->isCustomerLoggedIn() && $this->customerHasAddresses()):?>
                 <li><input type="checkbox" name="billing[save_in_address_book]" value="1" title="<?php echo $this->__('Save in address book') ?>" id="billing:save_in_address_book" onchange="shipping.setSameAsBilling(false);"<?php if ($this->getAddress()->getSaveInAddressBook()):?> checked="checked"<?php endif;?> /> <label for="billing:save_in_address_book"><?php echo $this->__('Save in address book') ?></label></li>
             <?php else:?>
-                <li><input type="hidden" name="billing[save_in_address_book]" value="1" /></li>
+                <li class="no-display"><input type="hidden" name="billing[save_in_address_book]" value="1" /></li>
             <?php endif;?>
         </ul>
     </fieldset>
-    <?php if ($this->canShip()): ?>
-    <p>
-        <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_yes" value="1" <?php if ($this->isUseBillingAddressForShipping()) {?>checked="checked" <?php }?>onclick="$('shipping:same_as_billing').checked = true;" />&nbsp;<label for="billing:use_for_shipping_yes"><?php echo  $this->__('Ship to this address') ?></label>&nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_no" value="0" <?php if (!$this->isUseBillingAddressForShipping()) {?>checked="checked" <?php }?>onclick="$('shipping:same_as_billing').checked = false;" />&nbsp;<label for="billing:use_for_shipping_no"><?php echo $this->__('Ship to different address') ?></label>&nbsp;&nbsp;&nbsp;&nbsp;
-    </p>
-    <?php else: ?>
-        <input type="hidden" name="billing[use_for_shipping]" value="1" />
-    <?php endif; ?>
+    <fieldset>
+        <?php if ($this->canShip()): ?>
+            <p>
+                <input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_yes" value="1" <?php if ($this->isUseBillingAddressForShipping()) {?>checked="checked" <?php }?>onclick="$('shipping:same_as_billing').checked = true;" />&nbsp;<label for="billing:use_for_shipping_yes"><?php echo  $this->__('Ship to this address') ?></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="billing[use_for_shipping]" id="billing:use_for_shipping_no" value="0" <?php if (!$this->isUseBillingAddressForShipping()) {?>checked="checked" <?php }?>onclick="$('shipping:same_as_billing').checked = false;" />&nbsp;<label for="billing:use_for_shipping_no"><?php echo $this->__('Ship to different address') ?></label>
+            </p>
+        <?php else: ?>
+            <p class="no-display"><input type="hidden" name="billing[use_for_shipping]" value="1" /></p>
+        <?php endif; ?>
+    </fieldset>
 </form>
 <div class="button-set">
     <p class="required"><?php echo $this->__('* Required Fields') ?></p>

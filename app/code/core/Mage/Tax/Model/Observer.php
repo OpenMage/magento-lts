@@ -66,14 +66,20 @@ class Mage_Tax_Model_Observer
         $taxes = $order->getAppliedTaxes();
         foreach ($taxes as $row) {
             foreach ($row['rates'] as $tax) {
-                if ($row['percent'] == 0 || $tax['percent'] == 0) {
-                    continue;
+                if (is_null($row['percent'])) {
+                    $baseRealAmount = $row['base_amount'];
+                } else {
+                    if ($row['percent'] == 0 || $tax['percent'] == 0) {
+                        continue;
+                    }
+                    $baseRealAmount = $row['base_amount']/$row['percent']*$tax['percent'];
                 }
-                $baseRealAmount = $row['base_amount']/$row['percent']*$tax['percent'];
+                $hidden = (isset($row['hidden']) ? $row['hidden'] : 0);
                 $data = array(
                             'order_id'=>$order->getId(),
                             'code'=>$tax['code'],
                             'title'=>$tax['title'],
+                            'hidden'=>$hidden,
                             'percent'=>$tax['percent'],
                             'priority'=>$tax['priority'],
                             'position'=>$tax['position'],
@@ -86,5 +92,32 @@ class Mage_Tax_Model_Observer
                 Mage::getModel('sales/order_tax')->setData($data)->save();
             }
         }
+    }
+
+    /**
+     * Prepare select which is using to select index data for layered navigation
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_Tax_Model_Observer
+     */
+    public function prepareCatalogIndexPriceSelect(Varien_Event_Observer $observer)
+    {
+        $table = $observer->getEvent()->getTable();
+        $response = $observer->getEvent()->getResponseObject();
+        $select = $observer->getEvent()->getSelect();
+        $storeId = $observer->getEvent()->getStoreId();
+
+        $additionalCalculations = $response->getAdditionalCalculations();
+        $calculation = Mage::helper('tax')->getPriceTaxSql(
+            $table . '.value', 'IFNULL(tax_class_c.value, tax_class_d.value)'
+        );
+
+        if (!empty($calculation)) {
+            $additionalCalculations[] = $calculation;
+            $response->setAdditionalCalculations($additionalCalculations);
+            Mage::helper('tax')->joinTaxClass($select, $storeId, $table);
+        }
+
+        return $this;
     }
 }

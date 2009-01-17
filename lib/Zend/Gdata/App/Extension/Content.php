@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage App
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -29,6 +30,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage App
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -44,10 +46,10 @@ class Zend_Gdata_App_Extension_Content extends Zend_Gdata_App_Extension_Text
         $this->_src = $src;
     }
 
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
-        if ($this->_src != null) {
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
+        if ($this->_src !== null) {
             $element->setAttribute('src', $this->_src);
         }
         return $element;
@@ -65,7 +67,7 @@ class Zend_Gdata_App_Extension_Content extends Zend_Gdata_App_Extension_Text
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Src
+     * @return string
      */
     public function getSrc()
     {
@@ -73,7 +75,7 @@ class Zend_Gdata_App_Extension_Content extends Zend_Gdata_App_Extension_Text
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Src $value
+     * @param string $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setSrc($value)

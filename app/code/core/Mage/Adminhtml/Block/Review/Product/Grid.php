@@ -92,12 +92,14 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
          * Check is single store mode
          */
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('stores', array(
-                'header'    => Mage::helper('review')->__('Store Views'),
-                'width'     => '100px',
-                'type'      => 'store',
-                'sortable'  => false,
-                'index'     => 'stores',
+            $this->addColumn('websites',
+                array(
+                    'header'=> Mage::helper('review')->__('Websites'),
+                    'width' => '100px',
+                    'sortable'  => false,
+                    'index'     => 'websites',
+                    'type'      => 'options',
+                    'options'   => Mage::getModel('core/website')->getCollection()->toOptionHash(),
             ));
         }
     }

@@ -19,13 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
-/** Zend_Search_Lucene_Exception */
-#require_once 'Zend/Search/Lucene/Exception.php';
-
 /** Zend_Search_Lucene */
 #require_once 'Zend/Search/Lucene/PriorityQueue.php';
-
 
 /**
  * @category   Zend

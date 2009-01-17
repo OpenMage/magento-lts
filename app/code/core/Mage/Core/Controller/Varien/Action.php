@@ -36,7 +36,6 @@
  */
 abstract class Mage_Core_Controller_Varien_Action
 {
-
     const FLAG_NO_CHECK_INSTALLATION    = 'no-install-check';
     const FLAG_NO_DISPATCH              = 'no-dispatch';
     const FLAG_NO_PRE_DISPATCH          = 'no-preDispatch';
@@ -110,7 +109,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Retrieve request object
      *
-     * @return Zend_Controller_Request_Abstract
+     * @return Mage_Core_Controller_Request_Http
      */
     public function getRequest()
     {
@@ -120,7 +119,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Retrieve response object
      *
-     * @return Zend_Controller_Response_Abstract
+     * @return Mage_Core_Controller_Response_Http
      */
     public function getResponse()
     {
@@ -365,7 +364,7 @@ abstract class Mage_Core_Controller_Varien_Action
     public function preDispatch()
     {
         if (!$this->getFlag('', self::FLAG_NO_CHECK_INSTALLATION)) {
-            if (!Mage::app()->isInstalled()) {
+            if (!Mage::isInstalled()) {
                 $this->setFlag('', self::FLAG_NO_DISPATCH, true);
                 $this->_redirect('install');
                 return;
@@ -659,6 +658,20 @@ abstract class Mage_Core_Controller_Varien_Action
             $t[1]==='*' ? $controller : $t[1],
             $t[0]==='*' ? $route : $t[0]);
 
+        return true;
+    }
+
+    /**
+     * Validate Form Key
+     *
+     * @return bool
+     */
+    protected function _validateFormKey()
+    {
+        if (!($formKey = $this->getRequest()->getParam('form_key', null))
+            || $formKey != Mage::getSingleton('core/session')->getFormKey()) {
+            return false;
+        }
         return true;
     }
 }

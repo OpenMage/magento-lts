@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage App
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -54,6 +55,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage App
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -84,18 +86,37 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
      *
      * Sets the HTTP client object to use for retrieving the feed.
      *
+     * @deprecated Deprecated as of Zend Framework 1.7. Use
+     *             setService() instead.
      * @param  Zend_Http_Client $httpClient
      * @return Zend_Gdata_App_FeedSourceParent Provides a fluent interface
      */
     public function setHttpClient(Zend_Http_Client $httpClient)
     {
-        $this->_httpClient = $httpClient;
+        parent::setHttpClient($httpClient);
         foreach ($this->_entry as $entry) {
             $entry->setHttpClient($httpClient);
         }
         return $this;
     }
-
+    
+    /**
+     * Set the active service instance for this feed and all enclosed entries.
+     * This will be used to perform network requests, such as when calling
+     * save() and delete().
+     *
+     * @param Zend_Gdata_App $instance The new service instance.
+     * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface.
+     */
+    public function setService($instance)
+    {
+        parent::setService($instance);
+        foreach ($this->_entry as $entry) {
+            $entry->setService($instance);
+        }
+        return $this;
+    }
+    
     /**
      * Make accessing some individual elements of the feed easier.
      *
@@ -116,9 +137,9 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
     }
 
 
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
         if ($this->_generator != null) {
             $element->appendChild($this->_generator->getDOM($element->ownerDocument));
         }

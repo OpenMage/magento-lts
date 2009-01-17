@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.23 $"/>
-		<generation date="$Date: 2007/07/19 22:31:39 $"/>
+		<version number="$Revision: 1.27 $"/>
+		<generation date="$Date: 2008/06/15 08:09:45 $"/>
 		<language type="ha"/>
 	</identity>
 	<localeDisplayNames>
@@ -41,6 +41,7 @@
 			<language type="gl">Bagalike</language>
 			<language type="gn">Guwaraniyanci</language>
 			<language type="gu">Gujarati</language>
+			<language type="ha">Haoussa</language>
 			<language type="he">Yahudanci</language>
 			<language type="hi">Bahinde</language>
 			<language type="hr">Kuroshiyan</language>
@@ -113,10 +114,14 @@
 			<language type="xh">Bazosa</language>
 			<language type="zu">Bazule</language>
 		</languages>
+		<territories>
+			<territory type="NG">Nijeriya</territory>
+		</territories>
 	</localeDisplayNames>
 	<characters>
 		<exemplarCharacters>[a b ɓ c d ɗ e-k ƙ l-o r s {sh} t {ts} u w y z ʼ {ʼy}]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[á à â é è ê í ì î ó ò ô p q {r̃} ú ù û v x ƴ]</exemplarCharacters>
+		<exemplarCharacters type="currencySymbol">[a-z]</exemplarCharacters>
 	</characters>
 	<dates>
 		<calendars>
@@ -131,7 +136,7 @@
 							<month type="5">May</month>
 							<month type="6">Yun</month>
 							<month type="7">Yul</month>
-							<month type="8">Agu</month>
+							<month type="8">Aug</month>
 							<month type="9">Sat</month>
 							<month type="10">Okt</month>
 							<month type="11">Nuw</month>
@@ -145,7 +150,7 @@
 							<month type="5">Mayu</month>
 							<month type="6">Yuni</month>
 							<month type="7">Yuli</month>
-							<month type="8">Agusta</month>
+							<month type="8">Augusta</month>
 							<month type="9">Satumba</month>
 							<month type="10">Oktoba</month>
 							<month type="11">Nuwamba</month>
@@ -154,18 +159,18 @@
 					</monthContext>
 					<monthContext type="stand-alone">
 						<monthWidth type="narrow">
-							<month type="1">1</month>
-							<month type="2">2</month>
-							<month type="3">3</month>
-							<month type="4">4</month>
-							<month type="5">5</month>
-							<month type="6">6</month>
-							<month type="7">7</month>
-							<month type="8">8</month>
-							<month type="9">9</month>
-							<month type="10">10</month>
-							<month type="11">11</month>
-							<month type="12">12</month>
+							<month type="1">J</month>
+							<month type="2">F</month>
+							<month type="3">M</month>
+							<month type="4">A</month>
+							<month type="5">M</month>
+							<month type="6">Y</month>
+							<month type="7">Y</month>
+							<month type="8">A</month>
+							<month type="9">S</month>
+							<month type="10">O</month>
+							<month type="11">N</month>
+							<month type="12">D</month>
 						</monthWidth>
 					</monthContext>
 				</months>
@@ -182,7 +187,7 @@
 						</dayWidth>
 						<dayWidth type="wide">
 							<day type="sun">Lahadi</day>
-							<day type="mon">Littinin</day>
+							<day type="mon">Litini</day>
 							<day type="tue">Talata</day>
 							<day type="wed">Laraba</day>
 							<day type="thu">Alhamis</day>
@@ -192,13 +197,13 @@
 					</dayContext>
 					<dayContext type="stand-alone">
 						<dayWidth type="narrow">
-							<day type="sun">1</day>
-							<day type="mon">2</day>
-							<day type="tue">3</day>
-							<day type="wed">4</day>
-							<day type="thu">5</day>
-							<day type="fri">6</day>
-							<day type="sat">7</day>
+							<day type="sun">L</day>
+							<day type="mon">L</day>
+							<day type="tue">T</day>
+							<day type="wed">L</day>
+							<day type="thu">A</day>
+							<day type="fri">J</day>
+							<day type="sat">A</day>
 						</dayWidth>
 					</dayContext>
 				</days>
@@ -217,6 +222,14 @@
 							<quarter type="4">Q4</quarter>
 						</quarterWidth>
 					</quarterContext>
+					<quarterContext type="stand-alone">
+						<quarterWidth type="narrow">
+							<quarter type="1">1</quarter>
+							<quarter type="2">2</quarter>
+							<quarter type="3">3</quarter>
+							<quarter type="4">4</quarter>
+						</quarterWidth>
+					</quarterContext>
 				</quarters>
 				<am>AM</am>
 				<pm>PM</pm>
@@ -233,22 +246,22 @@
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
-							<pattern>EEEE, yyyy MMMM dd</pattern>
+							<pattern>EEEE, d MMMM, yyyy</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
 						<dateFormat>
-							<pattern>yyyy MMMM d</pattern>
+							<pattern>d MMMM, yyyy</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="medium">
 						<dateFormat>
-							<pattern>yyyy MMM d</pattern>
+							<pattern>d MMM, yyyy</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="short">
 						<dateFormat>
-							<pattern>yy/MM/dd</pattern>
+							<pattern>d/M/yy</pattern>
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
@@ -281,6 +294,20 @@
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="Hm">H:mm</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
+						<dateFormatItem id="MEd">E, d-M</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
+						<dateFormatItem id="MMMEd">E d MMM</dateFormatItem>
+						<dateFormatItem id="MMMMEd">E d MMMM</dateFormatItem>
+						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
+						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
+						<dateFormatItem id="Md">M-d</dateFormatItem>
+						<dateFormatItem id="d">d</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
+						<dateFormatItem id="y">yyyy</dateFormatItem>
+						<dateFormatItem id="yMEd">EEE, d/M/yyyy</dateFormatItem>
+						<dateFormatItem id="yMMMEd">EEE, d MMM yyyy</dateFormatItem>
 						<dateFormatItem id="yyQ">Q yy</dateFormatItem>
 					</availableFormats>
 				</dateTimeFormats>
@@ -293,6 +320,38 @@
 		</timeZoneNames>
 	</dates>
 	<numbers>
+		<symbols>
+			<decimal>.</decimal>
+			<group>,</group>
+		</symbols>
+		<decimalFormats>
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
+		</decimalFormats>
+		<scientificFormats>
+			<scientificFormatLength>
+				<scientificFormat>
+					<pattern>#E0</pattern>
+				</scientificFormat>
+			</scientificFormatLength>
+		</scientificFormats>
+		<percentFormats>
+			<percentFormatLength>
+				<percentFormat>
+					<pattern>#,##0%</pattern>
+				</percentFormat>
+			</percentFormatLength>
+		</percentFormats>
+		<currencyFormats>
+			<currencyFormatLength>
+				<currencyFormat>
+					<pattern>¤ #,##0.00</pattern>
+				</currencyFormat>
+			</currencyFormatLength>
+		</currencyFormats>
 		<currencies>
 			<currency type="GHC">
 				<displayName>Sidi</displayName>
@@ -307,4 +366,11 @@
 			</currency>
 		</currencies>
 	</numbers>
+	<posix>
+		<messages>
+			<yesstr>i</yesstr>
+			<nostr>a'a:a</nostr>
+		</messages>
+	</posix>
 </ldml>
+

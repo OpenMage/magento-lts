@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -34,6 +35,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -56,19 +58,19 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
         $this->_reminders = $reminders;
     }
 
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
-        if ($this->_startTime != null) {
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
+        if ($this->_startTime !== null) {
             $element->setAttribute('startTime', $this->_startTime);
         }
-        if ($this->_endTime != null) {
+        if ($this->_endTime !== null) {
             $element->setAttribute('endTime', $this->_endTime);
         }
-        if ($this->_valueString != null) {
+        if ($this->_valueString !== null) {
             $element->setAttribute('valueString', $this->_valueString);
         }
-        if ($this->_reminders != null) {
+        if ($this->_reminders !== null) {
             foreach ($this->_reminders as $reminder) {
                 $element->appendChild(
                         $reminder->getDOM($element->ownerDocument));

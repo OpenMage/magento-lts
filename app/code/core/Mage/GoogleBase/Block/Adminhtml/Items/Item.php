@@ -132,6 +132,7 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Item extends Mage_Adminhtml_Block_Wi
     {
         $this->setMassactionIdField('item_id');
         $this->getMassactionBlock()->setFormFieldName('item');
+        $this->setNoFilterMassactionColumn(true);
 
         $this->getMassactionBlock()->addItem('delete', array(
              'label'    => $this->__('Delete'),

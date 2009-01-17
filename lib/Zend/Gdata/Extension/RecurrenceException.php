@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -25,10 +26,21 @@
 #require_once 'Zend/Gdata/Extension.php';
 
 /**
+ * @see Zend_Gdata_Extension_EntryLink
+ */
+#require_once 'Zend/Gdata/Extension/EntryLink.php';
+
+/**
+ * @see Zend_Gdata_Extension_OriginalEvent
+ */
+#require_once 'Zend/Gdata/Extension/OriginalEvent.php';
+
+/**
  * Data model class to represent an entry's recurrenceException
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -65,16 +77,16 @@ class Zend_Gdata_Extension_RecurrenceException extends Zend_Gdata_Extension
      * @return DOMElement The DOMElement representing this element and all
      * child properties.
      */
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
-        if ($this->_specialized != null) {
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
+        if ($this->_specialized !== null) {
             $element->setAttribute('specialized', ($this->_specialized ? "true" : "false"));
         }
-        if ($this->_entryLink != null) {
+        if ($this->_entryLink !== null) {
             $element->appendChild($this->_entryLink->getDOM($element->ownerDocument));
         }
-        if ($this->_originalEvent != null) {
+        if ($this->_originalEvent !== null) {
             $element->appendChild($this->_originalEvent->getDOM($element->ownerDocument));
         }
         return $element;
@@ -137,9 +149,9 @@ class Zend_Gdata_Extension_RecurrenceException extends Zend_Gdata_Extension
      *
      * @return bool The requested attribute.
      */
-    public function getSpecialzied()
+    public function getSpecialized()
     {
-        return $this->_specizlied;
+        return $this->_specialized;
     }
 
     /**
@@ -148,7 +160,7 @@ class Zend_Gdata_Extension_RecurrenceException extends Zend_Gdata_Extension
      * @param bool $value The desired value for this attribute.
      * @return Zend_Gdata_Extension_RecurrenceException The element being modified.
      */
-    public function setSpecizlied($value)
+    public function setSpecialized($value)
     {
         $this->_specialized = $value;
         return $this;

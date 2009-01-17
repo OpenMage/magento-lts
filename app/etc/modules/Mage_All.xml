@@ -62,6 +62,9 @@
         <Mage_Rule>
             <active>true</active>
             <codePool>core</codePool>
+            <depends>
+                <Mage_Core />
+            </depends>
         </Mage_Rule>
         <Mage_Adminhtml>
             <active>true</active>
@@ -80,6 +83,9 @@
         <Mage_Cron>
             <active>true</active>
             <codePool>core</codePool>
+            <depends>
+                <Mage_Core />
+            </depends>
         </Mage_Cron>
         <Mage_Directory>
             <active>true</active>
@@ -93,13 +99,15 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Eav />
+                <Mage_Dataflow />
             </depends>
         </Mage_Customer>
         <Mage_Catalog>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Customer />
+                <Mage_Eav />
+                <Mage_Dataflow />
             </depends>
         </Mage_Catalog>
         <Mage_CatalogSearch>
@@ -112,11 +120,17 @@
         <Mage_CatalogRule>
             <active>true</active>
             <codePool>core</codePool>
+            <depends>
+                <Mage_Rule />
+                <Mage_Catalog />
+                <Mage_Customer />
+            </depends>
         </Mage_CatalogRule>
         <Mage_Sales>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
+                <Mage_Rule />
                 <Mage_Catalog />
                 <Mage_Customer />
             </depends>
@@ -124,6 +138,10 @@
         <Mage_SalesRule>
             <active>true</active>
             <codePool>core</codePool>
+            <depends>
+                <Mage_Rule />
+                <Mage_Catalog />
+            </depends>
         </Mage_SalesRule>
         <Mage_Checkout>
             <active>true</active>
@@ -135,10 +153,18 @@
         <Mage_Shipping>
             <active>true</active>
             <codePool>core</codePool>
+            <depends>
+                <Mage_Core />
+                <Mage_Catalog />
+            </depends>
         </Mage_Shipping>
         <Mage_Payment>
             <active>true</active>
             <codePool>core</codePool>
+            <depends>
+                <Mage_Core />
+                <Mage_Catalog />
+            </depends>
         </Mage_Payment>
         <Mage_Usa>
             <active>true</active>
@@ -151,6 +177,9 @@
         <Mage_Paygate>
             <active>true</active>
             <codePool>core</codePool>
+            <depends>
+                <Mage_Payment />
+            </depends>
         </Mage_Paygate>
         <Mage_Paypal>
             <active>true</active>
@@ -171,6 +200,7 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Sales />
+                <Mage_Payment />
             </depends>
         </Mage_GoogleCheckout>
         <Mage_Log>
@@ -191,6 +221,9 @@
         <Mage_Poll>
             <active>true</active>
             <codePool>core</codePool>
+            <depends>
+                <Mage_Core />
+            </depends>
         </Mage_Poll>
         <Mage_Rating>
             <active>true</active>
@@ -203,6 +236,7 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
+                <Mage_Catalog />
                 <Mage_Core />
             </depends>
         </Mage_Review>
@@ -210,16 +244,15 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
+                <Mage_Catalog />
             </depends>
         </Mage_Tag>
-        <Mage_Permissions>
-            <active>true</active>
-            <codePool>core</codePool>
-        </Mage_Permissions>
         <Mage_Cms>
             <active>true</active>
             <codePool>core</codePool>
+            <depends>
+                <Mage_Core/>
+            </depends>
         </Mage_Cms>
         <Mage_Reports>
             <active>true</active>
@@ -268,12 +301,15 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Catalog />
-                <Mage_Sales />
             </depends>
         </Mage_CatalogInventory>
         <Mage_GiftMessage>
             <active>true</active>
             <codePool>core</codePool>
+            <depends>
+                <Mage_Catalog />
+                <Mage_Sales />
+             </depends>
         </Mage_GiftMessage>
         <Mage_Sendfriend>
             <active>true</active>
@@ -285,14 +321,23 @@
         <Mage_Media>
             <active>true</active>
             <codePool>core</codePool>
+            <depends>
+                <Mage_Core />
+             </depends>
         </Mage_Media>
         <Mage_Sitemap>
             <active>true</active>
             <codePool>core</codePool>
+            <depends>
+                <Mage_Catalog />
+             </depends>
         </Mage_Sitemap>
         <Mage_Contacts>
             <active>true</active>
             <codePool>core</codePool>
+            <depends>
+                <Mage_Core />
+            </depends>
         </Mage_Contacts>
         <Mage_Dataflow>
             <active>true</active>

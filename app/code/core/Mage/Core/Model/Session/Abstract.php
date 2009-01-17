@@ -31,6 +31,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     const XML_PATH_COOKIE_PATH      = 'web/cookie/cookie_path';
     const XML_PATH_COOKIE_LIFETIME  = 'web/cookie/cookie_lifetime';
     const XML_NODE_SESSION_SAVE     = 'global/session_save';
+    const XML_NODE_SESSION_SAVE_PATH    = 'global/session_save_path';
 
     const XML_PATH_USE_REMOTE_ADDR  = 'web/session/use_remote_addr';
     const XML_PATH_USE_HTTP_VIA     = 'web/session/use_http_via';
@@ -250,28 +251,46 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         return $this;
     }
 
+    /**
+     * Specify session identifier
+     *
+     * @param   string|null $id
+     * @return  Mage_Core_Model_Session_Abstract
+     */
     public function setSessionId($id=null)
     {
         if (is_null($id)) {
             if (isset($_GET[self::SESSION_ID_QUERY_PARAM])) {
-                if ($tryId = Mage::helper('core')->decrypt($_GET[self::SESSION_ID_QUERY_PARAM])) {
-                    $id = $tryId;
-                }
+                $id = $_GET[self::SESSION_ID_QUERY_PARAM];
+                /**
+                 * No reason use crypt key for session
+                 */
+//                if ($tryId = Mage::helper('core')->decrypt($_GET[self::SESSION_ID_QUERY_PARAM])) {
+//                    $id = $tryId;
+//                }
             }
         }
 
         $this->addHost(true);
-        parent::setSessionId($id);
+        return parent::setSessionId($id);
     }
 
+    /**
+     * Get ecrypted session identifuer
+     * No reason use crypt key for session id encryption
+     * we can use session identifier as is
+     *
+     * @return string
+     */
     public function getEncryptedSessionId()
     {
         if (!self::$_encryptedSessionId) {
-            $helper = Mage::helper('core');
-            if (!$helper) {
-                return $this;
-            }
-            self::$_encryptedSessionId = $helper->encrypt($this->getSessionId());
+//            $helper = Mage::helper('core');
+//            if (!$helper) {
+//                return $this;
+//            }
+//            self::$_encryptedSessionId = $helper->encrypt($this->getSessionId());
+            self::$_encryptedSessionId = $this->getSessionId();
         }
         return self::$_encryptedSessionId;
     }
@@ -375,9 +394,23 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      */
     public function getSessionSaveMethod()
     {
-        if (Mage::app()->isInstalled() && $sessionSave = Mage::getConfig()->getNode(self::XML_NODE_SESSION_SAVE)) {
+        if (Mage::isInstalled() && $sessionSave = Mage::getConfig()->getNode(self::XML_NODE_SESSION_SAVE)) {
             return $sessionSave;
         }
         return parent::getSessionSaveMethod();
     }
+
+    /**
+     * Get sesssion save path
+     *
+     * @return string
+     */
+    public function getSessionSavePath()
+    {
+        if (Mage::isInstalled() && $sessionSavePath = Mage::getConfig()->getNode(self::XML_NODE_SESSION_SAVE_PATH)) {
+            return $sessionSavePath;
+        }
+        return parent::getSessionSavePath();
+    }
+
 }

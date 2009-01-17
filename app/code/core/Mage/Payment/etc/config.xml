@@ -120,7 +120,7 @@
                             <children>
                                 <config>
                                     <children>
-                                        <payment>
+                                        <payment translate="title" module="payment">
                                             <title>Payment Methods Section</title>
                                         </payment>
                                     </children>

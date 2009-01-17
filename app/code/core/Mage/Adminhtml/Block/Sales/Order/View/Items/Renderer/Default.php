@@ -120,7 +120,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      */
     public function getFieldIdPrefix()
     {
-        return 'giftmessage_' . $this->getItem()->getId() . '_';
+        return 'giftmessage_item_' . $this->getItem()->getId() . '_';
     }
 
     /**

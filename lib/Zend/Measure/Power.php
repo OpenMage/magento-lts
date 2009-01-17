@@ -12,23 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Power.php 8064 2008-02-16 10:58:39Z thomas $
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @category  Zend
+ * @package   Zend_Measure
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @version   $Id: Power.php 13209 2008-12-13 22:34:06Z thomas $
  */
-
 
 /**
  * Implement needed classes
  */
-#require_once 'Zend/Measure/Exception.php';
 #require_once 'Zend/Measure/Abstract.php';
 #require_once 'Zend/Locale.php';
 
-
 /**
+ * Class for handling power conversions
+ *
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Power
@@ -37,80 +36,84 @@
  */
 class Zend_Measure_Power extends Zend_Measure_Abstract
 {
-    // Power definitions
     const STANDARD = 'WATT';
 
-    const ATTOWATT                    = 'ATTOWATT';
-    const BTU_PER_HOUR                = 'BTU_PER_HOUR';
-    const BTU_PER_MINUTE              = 'BTU_PER_MINUTE';
-    const BTU_PER_SECOND              = 'BTU_PER_SECOND';
-    const CALORIE_PER_HOUR            = 'CALORIE_PER_HOUR';
-    const CALORIE_PER_MINUTE          = 'CALORIE_PER_MINUTE';
-    const CALORIE_PER_SECOND          = 'CALORIE_PER_SECOND';
-    const CENTIWATT                   = 'CENTIWATT';
-    const CHEVAL_VAPEUR               = 'CHEVAL_VAPEUR';
-    const CLUSEC                      = 'CLUSEC';
-    const DECIWATT                    = 'DECIWATT';
-    const DEKAWATT                    = 'DEKAWATT';
-    const DYNE_CENTIMETER_PER_HOUR    = 'DYNE_CENTIMETER_PER_HOUR';
-    const DYNE_CENTIMETER_PER_MINUTE  = 'DYNE_CENTIMETER_PER_MINUTE';
-    const DYNE_CENTIMETER_PER_SECOND  = 'DYNE_CENTIMETER_PER_SECOND';
-    const ERG_PER_HOUR                = 'ERG_PER_HOUR';
-    const ERG_PER_MINUTE              = 'ERG_PER_MINUTE';
-    const ERG_PER_SECOND              = 'ERG_PER_SECOND';
-    const EXAWATT                     = 'EXAWATT';
-    const FEMTOWATT                   = 'FEMTOWATT';
-    const FOOT_POUND_FORCE_PER_HOUR   = 'FOOT_POUND_FORCE_PER_HOUR';
-    const FOOT_POUND_FORCE_PER_MINUTE = 'FOOT_POUND_FORCE_PER_MINUTE';
-    const FOOT_POUND_FORCE_PER_SECOND = 'FOOT_POUND_FORCE_PER_SECOND';
-    const FOOT_POUNDAL_PER_HOUR       = 'FOOT_POUNDAL_PER_HOUR';
-    const FOOT_POUNDAL_PER_MINUTE     = 'FOOT_POUNDAL_PER_MINUTE';
-    const FOOT_POUNDAL_PER_SECOND     = 'FOOT_POUNDAL_PER_SECOND';
-    const GIGAWATT                    = 'GIGAWATT';
-    const GRAM_FORCE_CENTIMETER_PER_HOUR   = 'GRAM_FORCE_CENTIMETER_PER_HOUR';
-    const GRAM_FORCE_CENTIMETER_PER_MINUTE = 'GRAM_FORCE_CENTIMETER_PER_MINUTE';
-    const GRAM_FORCE_CENTIMETER_PER_SECOND = 'GRAM_FORCE_CENTIMETER_PER_SECOND';
-    const HECTOWATT                   = 'HECTOWATT';
-    const HORSEPOWER_INTERNATIONAL    = 'HORSEPOWER_INTERNATIONAL';
-    const HORSEPOWER_ELECTRIC         = 'HORSEPOWER_ELECTRIC';
-    const HORSEPOWER                  = 'HORSEPOWER';
-    const HORSEPOWER_WATER            = 'HORSEPOWER_WATER';
+    const ATTOWATT                               = 'ATTOWATT';
+    const BTU_PER_HOUR                           = 'BTU_PER_HOUR';
+    const BTU_PER_MINUTE                         = 'BTU_PER_MINUTE';
+    const BTU_PER_SECOND                         = 'BTU_PER_SECOND';
+    const CALORIE_PER_HOUR                       = 'CALORIE_PER_HOUR';
+    const CALORIE_PER_MINUTE                     = 'CALORIE_PER_MINUTE';
+    const CALORIE_PER_SECOND                     = 'CALORIE_PER_SECOND';
+    const CENTIWATT                              = 'CENTIWATT';
+    const CHEVAL_VAPEUR                          = 'CHEVAL_VAPEUR';
+    const CLUSEC                                 = 'CLUSEC';
+    const DECIWATT                               = 'DECIWATT';
+    const DEKAWATT                               = 'DEKAWATT';
+    const DYNE_CENTIMETER_PER_HOUR               = 'DYNE_CENTIMETER_PER_HOUR';
+    const DYNE_CENTIMETER_PER_MINUTE             = 'DYNE_CENTIMETER_PER_MINUTE';
+    const DYNE_CENTIMETER_PER_SECOND             = 'DYNE_CENTIMETER_PER_SECOND';
+    const ERG_PER_HOUR                           = 'ERG_PER_HOUR';
+    const ERG_PER_MINUTE                         = 'ERG_PER_MINUTE';
+    const ERG_PER_SECOND                         = 'ERG_PER_SECOND';
+    const EXAWATT                                = 'EXAWATT';
+    const FEMTOWATT                              = 'FEMTOWATT';
+    const FOOT_POUND_FORCE_PER_HOUR              = 'FOOT_POUND_FORCE_PER_HOUR';
+    const FOOT_POUND_FORCE_PER_MINUTE            = 'FOOT_POUND_FORCE_PER_MINUTE';
+    const FOOT_POUND_FORCE_PER_SECOND            = 'FOOT_POUND_FORCE_PER_SECOND';
+    const FOOT_POUNDAL_PER_HOUR                  = 'FOOT_POUNDAL_PER_HOUR';
+    const FOOT_POUNDAL_PER_MINUTE                = 'FOOT_POUNDAL_PER_MINUTE';
+    const FOOT_POUNDAL_PER_SECOND                = 'FOOT_POUNDAL_PER_SECOND';
+    const GIGAWATT                               = 'GIGAWATT';
+    const GRAM_FORCE_CENTIMETER_PER_HOUR         = 'GRAM_FORCE_CENTIMETER_PER_HOUR';
+    const GRAM_FORCE_CENTIMETER_PER_MINUTE       = 'GRAM_FORCE_CENTIMETER_PER_MINUTE';
+    const GRAM_FORCE_CENTIMETER_PER_SECOND       = 'GRAM_FORCE_CENTIMETER_PER_SECOND';
+    const HECTOWATT                              = 'HECTOWATT';
+    const HORSEPOWER_INTERNATIONAL               = 'HORSEPOWER_INTERNATIONAL';
+    const HORSEPOWER_ELECTRIC                    = 'HORSEPOWER_ELECTRIC';
+    const HORSEPOWER                             = 'HORSEPOWER';
+    const HORSEPOWER_WATER                       = 'HORSEPOWER_WATER';
     const INCH_OUNCE_FORCE_REVOLUTION_PER_MINUTE = 'INCH_OUNCH_FORCE_REVOLUTION_PER_MINUTE';
-    const JOULE_PER_HOUR              = 'JOULE_PER_HOUR';
-    const JOULE_PER_MINUTE            = 'JOULE_PER_MINUTE';
-    const JOULE_PER_SECOND            = 'JOULE_PER_SECOND';
-    const KILOCALORIE_PER_HOUR        = 'KILOCALORIE_PER_HOUR';
-    const KILOCALORIE_PER_MINUTE      = 'KILOCALORIE_PER_MINUTE';
-    const KILOCALORIE_PER_SECOND      = 'KILOCALORIE_PER_SECOND';
-    const KILOGRAM_FORCE_METER_PER_HOUR   = 'KILOGRAM_FORCE_METER_PER_HOUR';
-    const KILOGRAM_FORCE_METER_PER_MINUTE = 'KILOGRAM_FORCE_METER_PER_MINUTE';
-    const KILOGRAM_FORCE_METER_PER_SECOND = 'KILOGRAM_FORCE_METER_PER_SECOND';
-    const KILOPOND_METER_PER_HOUR     = 'KILOPOND_METER_PER_HOUR';
-    const KILOPOND_METER_PER_MINUTE   = 'KILOPOND_METER_PER_MINUTE';
-    const KILOPOND_METER_PER_SECOND   = 'KILOPOND_METER_PER_SECOND';
-    const KILOWATT                    = 'KILOWATT';
-    const MEGAWATT                    = 'MEGAWATT';
-    const MICROWATT                   = 'MICROWATT';
-    const MILLION_BTU_PER_HOUR        = 'MILLION_BTU_PER_HOUR';
-    const MILLIWATT                   = 'MILLIWATT';
-    const NANOWATT                    = 'NANOWATT';
-    const NEWTON_METER_PER_HOUR       = 'NEWTON_METER_PER_HOUR';
-    const NEWTON_METER_PER_MINUTE     = 'NEWTON_METER_PER_MINUTE';
-    const NEWTON_METER_PER_SECOND     = 'NEWTON_METER_PER_SECOND';
-    const PETAWATT                    = 'PETAWATT';
-    const PFERDESTAERKE               = 'PFERDESTAERKE';
-    const PICOWATT                    = 'PICOWATT';
-    const PONCELET                    = 'PONCELET';
-    const POUND_SQUARE_FOOR_PER_CUBIC_SECOND = 'POUND_SQUARE_FOOT_PER_CUBIC_SECOND';
-    const TERAWATT                    = 'TERAWATT';
-    const TON_OF_REFRIGERATION        = 'TON_OF_REFRIGERATION';
-    const WATT                        = 'WATT';
-    const YOCTOWATT                   = 'YOCTOWATT';
-    const YOTTAWATT                   = 'YOTTAWATT';
-    const ZEPTOWATT                   = 'ZEPTOWATT';
-    const ZETTAWATT                   = 'ZETTAWATT';
+    const JOULE_PER_HOUR                         = 'JOULE_PER_HOUR';
+    const JOULE_PER_MINUTE                       = 'JOULE_PER_MINUTE';
+    const JOULE_PER_SECOND                       = 'JOULE_PER_SECOND';
+    const KILOCALORIE_PER_HOUR                   = 'KILOCALORIE_PER_HOUR';
+    const KILOCALORIE_PER_MINUTE                 = 'KILOCALORIE_PER_MINUTE';
+    const KILOCALORIE_PER_SECOND                 = 'KILOCALORIE_PER_SECOND';
+    const KILOGRAM_FORCE_METER_PER_HOUR          = 'KILOGRAM_FORCE_METER_PER_HOUR';
+    const KILOGRAM_FORCE_METER_PER_MINUTE        = 'KILOGRAM_FORCE_METER_PER_MINUTE';
+    const KILOGRAM_FORCE_METER_PER_SECOND        = 'KILOGRAM_FORCE_METER_PER_SECOND';
+    const KILOPOND_METER_PER_HOUR                = 'KILOPOND_METER_PER_HOUR';
+    const KILOPOND_METER_PER_MINUTE              = 'KILOPOND_METER_PER_MINUTE';
+    const KILOPOND_METER_PER_SECOND              = 'KILOPOND_METER_PER_SECOND';
+    const KILOWATT                               = 'KILOWATT';
+    const MEGAWATT                               = 'MEGAWATT';
+    const MICROWATT                              = 'MICROWATT';
+    const MILLION_BTU_PER_HOUR                   = 'MILLION_BTU_PER_HOUR';
+    const MILLIWATT                              = 'MILLIWATT';
+    const NANOWATT                               = 'NANOWATT';
+    const NEWTON_METER_PER_HOUR                  = 'NEWTON_METER_PER_HOUR';
+    const NEWTON_METER_PER_MINUTE                = 'NEWTON_METER_PER_MINUTE';
+    const NEWTON_METER_PER_SECOND                = 'NEWTON_METER_PER_SECOND';
+    const PETAWATT                               = 'PETAWATT';
+    const PFERDESTAERKE                          = 'PFERDESTAERKE';
+    const PICOWATT                               = 'PICOWATT';
+    const PONCELET                               = 'PONCELET';
+    const POUND_SQUARE_FOOR_PER_CUBIC_SECOND     = 'POUND_SQUARE_FOOT_PER_CUBIC_SECOND';
+    const TERAWATT                               = 'TERAWATT';
+    const TON_OF_REFRIGERATION                   = 'TON_OF_REFRIGERATION';
+    const WATT                                   = 'WATT';
+    const YOCTOWATT                              = 'YOCTOWATT';
+    const YOTTAWATT                              = 'YOTTAWATT';
+    const ZEPTOWATT                              = 'ZEPTOWATT';
+    const ZETTAWATT                              = 'ZETTAWATT';
 
-    protected $_UNITS = array(
+    /**
+     * Calculations for all power units
+     *
+     * @var array
+     */
+    protected $_units = array(
         'ATTOWATT'                    => array('1.0e-18',           'aW'),
         'BTU_PER_HOUR'                => array('0.29307197',        'BTU/h'),
         'BTU_PER_MINUTE'              => array('17.5843182',        'BTU/m'),

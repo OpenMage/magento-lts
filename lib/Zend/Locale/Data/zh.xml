@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.105 $"/>
-		<generation date="$Date: 2007/11/14 16:26:58 $"/>
+		<version number="$Revision: 1.134 $"/>
+		<generation date="$Date: 2008/06/26 03:47:58 $"/>
 		<language type="zh"/>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0}（{1}）</localePattern>
+			<localeSeparator>、</localeSeparator>
+		</localeDisplayPattern>
 		<languages>
 			<language type="aa">阿法文</language>
 			<language type="ab">阿布哈西亚文</language>
@@ -111,6 +115,7 @@
 			<language type="dar">达尔格瓦文</language>
 			<language type="day">达雅克文</language>
 			<language type="de">德文</language>
+			<language type="de_AT">德语（奥地利）</language>
 			<language type="de_CH">高地德文 (瑞士)</language>
 			<language type="del">特拉华文</language>
 			<language type="den">司雷夫文</language>
@@ -131,11 +136,15 @@
 			<language type="el">希腊文</language>
 			<language type="elx">艾拉米特文</language>
 			<language type="en">英文</language>
+			<language type="en_AU">英语（澳大利亚）</language>
+			<language type="en_CA">英语（加拿大）</language>
+			<language type="en_GB">英语（英国）</language>
+			<language type="en_US">英语（美国）</language>
 			<language type="enm">中古英文</language>
 			<language type="eo">世界文</language>
 			<language type="es">西班牙文</language>
-			<language type="es_419">拉丁美洲西班牙文</language>
-			<language type="es_ES">依伯利亚西班牙文</language>
+			<language type="es_419">西班牙语（拉丁美洲）</language>
+			<language type="es_ES">西班牙语（伊比利亚）</language>
 			<language type="et">爱沙尼亚文</language>
 			<language type="eu">巴斯克文</language>
 			<language type="ewo">旺杜文</language>
@@ -150,9 +159,11 @@
 			<language type="fo">法罗文</language>
 			<language type="fon">丰文</language>
 			<language type="fr">法文</language>
+			<language type="fr_CA">法语（加拿大）</language>
+			<language type="fr_CH">法语 (瑞士)</language>
 			<language type="frm">中古法文</language>
 			<language type="fro">古法文</language>
-			<language type="frr">北弗里西亚文</language>
+			<language type="frr">北弗里西亚语</language>
 			<language type="frs">东弗里西亚文</language>
 			<language type="fur">弗留利文</language>
 			<language type="fy">弗里斯兰文</language>
@@ -245,7 +256,7 @@
 			<language type="kpe">克佩列文</language>
 			<language type="kr">卡努里文</language>
 			<language type="krc">卡拉恰伊巴尔卡尔文</language>
-			<language type="krl">卡累利亚文</language>
+			<language type="krl">卡累利阿文</language>
 			<language type="kro">克鲁文</language>
 			<language type="kru">库鲁克文</language>
 			<language type="ks">克什米尔文</language>
@@ -332,7 +343,7 @@
 			<language type="no">挪威文</language>
 			<language type="nog">诺盖文</language>
 			<language type="non">古诺尔斯文</language>
-			<language type="nqo">西非书面文</language>
+			<language type="nqo">西非书面语言</language>
 			<language type="nr">南部恩德贝勒文</language>
 			<language type="nso">北索托文</language>
 			<language type="nub">努比亚语系</language>
@@ -343,7 +354,7 @@
 			<language type="nyn">尼昂科勒文</language>
 			<language type="nyo">尼约罗文</language>
 			<language type="nzi">恩济马文</language>
-			<language type="oc">奥克西唐文(1500以后)</language>
+			<language type="oc">奥克西唐语</language>
 			<language type="oj">奥吉布瓦文</language>
 			<language type="om">奥洛莫文</language>
 			<language type="or">欧里亚文</language>
@@ -353,7 +364,7 @@
 			<language type="oto">奥托米语系</language>
 			<language type="pa">旁遮普文</language>
 			<language type="paa">其他巴布亚文</language>
-			<language type="pag">邦阿西楠文</language>
+			<language type="pag">邦阿西楠语</language>
 			<language type="pal">帕拉维文</language>
 			<language type="pam">邦板牙文</language>
 			<language type="pap">帕皮亚门托文</language>
@@ -368,6 +379,7 @@
 			<language type="pro">普罗文斯文</language>
 			<language type="ps">普什图文</language>
 			<language type="pt">葡萄牙文</language>
+			<language type="pt_BR">葡萄牙语（巴西）</language>
 			<language type="pt_PT">依伯利亚葡萄牙文</language>
 			<language type="qu">盖丘亚文</language>
 			<language type="raj">拉贾斯坦文</language>
@@ -412,13 +424,13 @@
 			<language type="sm">萨摩亚文</language>
 			<language type="sma">南萨米文</language>
 			<language type="smi">其他萨米文</language>
-			<language type="smj">Lule 萨米语</language>
+			<language type="smj">律勒欧萨莫斯语</language>
 			<language type="smn">伊纳里萨米语</language>
 			<language type="sms">斯科特萨米文</language>
 			<language type="sn">绍纳文</language>
 			<language type="snk">索尼基文</language>
 			<language type="so">索马里文</language>
-			<language type="sog">古粟特文</language>
+			<language type="sog">古粟特语</language>
 			<language type="son">桑海文</language>
 			<language type="sq">阿尔巴尼亚文</language>
 			<language type="sr">塞尔维亚文</language>
@@ -558,6 +570,7 @@
 			<script type="Khar">卡罗须提文</script>
 			<script type="Khmr">高棉语</script>
 			<script type="Knda">卡纳塔克语</script>
+			<script type="Kore">朝鲜语</script>
 			<script type="Lana">兰拿语</script>
 			<script type="Laoo">老挝语</script>
 			<script type="Latf">拉丁文（哥特式字体变体）</script>
@@ -574,12 +587,12 @@
 			<script type="Mero">麦若提克文</script>
 			<script type="Mlym">马拉亚拉姆语</script>
 			<script type="Mong">蒙古语</script>
-			<script type="Moon">Moon</script>
+			<script type="Moon">韩文语系</script>
 			<script type="Mtei">曼尼普尔语</script>
 			<script type="Mymr">缅甸</script>
 			<script type="Nkoo">N’Ko（西非书面语言）</script>
 			<script type="Ogam">欧甘语</script>
-			<script type="Olck">Ol Chiki 桑塔利语</script>
+			<script type="Olck">桑塔利语</script>
 			<script type="Orkh">鄂尔浑文</script>
 			<script type="Orya">奥里亚语</script>
 			<script type="Osma">奥斯曼亚语</script>
@@ -587,7 +600,7 @@
 			<script type="Phag">八思巴文</script>
 			<script type="Phnx">腓尼基语</script>
 			<script type="Plrd">波拉德音标文字</script>
-			<script type="Qaai">传学术语</script>
+			<script type="Qaai">遗传学术语</script>
 			<script type="Rjng">拉让语</script>
 			<script type="Roro">朗格朗格文</script>
 			<script type="Runr">古代北欧文</script>
@@ -619,9 +632,9 @@
 			<script type="Xpeo">古波斯语</script>
 			<script type="Xsux">苏美尔-阿卡德楔形文字</script>
 			<script type="Yiii">彝语</script>
-			<script type="Zxxx">Zxxx</script>
+			<script type="Zxxx">撤销写入</script>
 			<script type="Zyyy">通用</script>
-			<script type="Zzzz">Zzzz</script>
+			<script type="Zzzz">脚本未知或者无效</script>
 		</scripts>
 		<territories>
 			<territory type="001">世界</territory>
@@ -683,6 +696,7 @@
 			<territory type="BH">巴林</territory>
 			<territory type="BI">布隆迪</territory>
 			<territory type="BJ">贝宁</territory>
+			<territory type="BL">圣巴泰勒米</territory>
 			<territory type="BM">百慕大</territory>
 			<territory type="BN">文莱</territory>
 			<territory type="BO">玻利维亚</territory>
@@ -750,7 +764,7 @@
 			<territory type="GU">关岛</territory>
 			<territory type="GW">几内亚比绍</territory>
 			<territory type="GY">圭亚那</territory>
-			<territory type="HK">中国香港特别行政区</territory>
+			<territory type="HK">香港</territory>
 			<territory type="HM">赫德与麦克唐纳群岛</territory>
 			<territory type="HN">洪都拉斯</territory>
 			<territory type="HR">克罗地亚</territory>
@@ -796,13 +810,14 @@
 			<territory type="MC">摩纳哥</territory>
 			<territory type="MD">摩尔多瓦</territory>
 			<territory type="ME">黑山共和国</territory>
+			<territory type="MF">圣马丁</territory>
 			<territory type="MG">马达加斯加</territory>
 			<territory type="MH">马绍尔群岛</territory>
 			<territory type="MK">马其顿</territory>
 			<territory type="ML">马里</territory>
 			<territory type="MM">缅甸</territory>
 			<territory type="MN">蒙古</territory>
-			<territory type="MO">中国澳门特别行政区</territory>
+			<territory type="MO">澳门</territory>
 			<territory type="MP">北马里亚纳群岛</territory>
 			<territory type="MQ">马提尼克群岛</territory>
 			<territory type="MR">毛里塔尼亚</territory>
@@ -929,11 +944,13 @@
 			<type type="gb2312han" key="collation">简体中文(GB2312)</type>
 			<type type="gregorian" key="calendar">公历</type>
 			<type type="hebrew" key="calendar">希伯来日历</type>
+			<type type="indian" key="calendar">印度国家日历</type>
 			<type type="islamic" key="calendar">伊斯兰日历</type>
 			<type type="islamic-civil" key="calendar">伊斯兰希吉来历</type>
 			<type type="japanese" key="calendar">日本日历</type>
 			<type type="phonebook" key="collation">电话簿顺序</type>
 			<type type="pinyin" key="collation">拼音顺序</type>
+			<type type="roc" key="calendar">中华民国日历</type>
 			<type type="stroke" key="collation">笔划顺序</type>
 			<type type="traditional" key="collation">传统历法</type>
 		</types>
@@ -941,10 +958,15 @@
 			<measurementSystemName type="US">美制</measurementSystemName>
 			<measurementSystemName type="metric">公制</measurementSystemName>
 		</measurementSystemNames>
+		<codePatterns>
+			<codePattern type="language">语言：{0}</codePattern>
+			<codePattern type="script">脚本：{0}</codePattern>
+			<codePattern type="territory">区域：{0}</codePattern>
+		</codePatterns>
 	</localeDisplayNames>
 	<characters>
 		<exemplarCharacters>[一 丁 七 丈-与 专 且 世 丘-业 东 丝 丢 两 严 丧 个 中 丰 串 临 丸-主 丽 举 乃 久 么 义 之-乐 乔 乖 乘 乙 九 也-乡 书 买 乱 乾 了 予 争 事 二 于 亏 云 互 五 井 亚 些 亡 交 亦 亨 享 京 亮 亲 人 亿-仁 仅 仇 今 介 仍 从 仔 他 付 仙 代-以 仪 们 仰 仲 件 任 份 仿 企 伊 伍 伏-休 众 伙 会 伟 传 伤 伦 伯 估 伴 伸 似 伽 但 位-佑 体 何 余 佛 作 你 佤 佩 佳 使 例 供 依 侠 侦-侨 侬 侯 侵 便 促 俄 俊 俗 保 信 俩 修 俱 俾 倍 倒 候 倚 借 倦 值 倾 假 偌 偏 做 停 健 偶 偷 储 催 傲 傻 像 僧 儒 允 元-充 先 光 克 免 兑 兔 入 全 八-兮 兰 共 关-兹 养-兽 内 冈 再 冒 写 军 农 冠 冬 冰 冲 冷 准 凌 凝 几 凡 凤 凭 凯 凰 出 击 函 刀 分 切 刊 刑 划 列-创 初 判 利 别 到 制-券 刺 刻 剂 前 剑 剧 剩 剪 副 割 力 劝-务 劣 动-劫 励-劳 势 勇 勉 勋 勒 勤 勾 勿 包 匆 匈 化 北 匙 匹-医 十 千 升 午 半 华 协 卒 卓 单-南 博 占-卢 卫 印 危 即 卷 厄-历 厉 压-厍 厚 原 去 县 参 又-反 发 叔 取-叙 口-另 叫-叭 可 台 史 右 叶-叹 吃 各 合-吊 同-后 吐 向 吓 吗 君 吝 吟 否 吧 含 吵 吸 吹 吻 吾 呀 呆 呈 告 呐 员 呜 呢 呦 周 味 呵 呼 命 和 咖 咦 咧 咪 咬 咯 咱 哀 品 哇-哉 响 哎 哟 哥 哦 哩 哪 哭 哲 唉 唐 唤 唬 售 唯 唱 唷 商 啊 啡 啥 啦 啪 喀 喂 善 喇 喊 喏 喔 喜 喝 喵 喷 喻 嗒 嗨 嗯 嘉 嘛 嘴 嘻 嘿 器 四 回 因 团 园 困 围 固 国 图 圆 圈 土 圣 在 圭 地 场 圾 址 均 坎 坐 坑 块 坚-坜 坡 坤 坦 坪 垂 垃 型 垒 埃 埋 城 埔 域 培 基 堂 堆 堕 堡 堪 塑 塔 塞 填 境 增 墨 壁 士 壮 声 处 备 复 夏 夕 外 多 夜 夥 大 天-夫 央 失 头 夷-夺 奇-奉 奋 奏 契 奔 套 奥 女 奴 奶 她 好 如 妇 妈 妖 妙 妥 妨 妮 妹 妻 姆 姊 始 姐 姑 姓 委 姿 威 娃 娄 娘 娜 娟 婆 婚 媒 嫁 嫌 嫩 子 孔 孕 字-孙 孜 孝 孟 季 孤 学 孩 宁 它 宇-安 宋 完 宏 宗-实 审-室 宪 害 家 容 宽-宿 寂 寄 密 寇 富 寒 寝-察 寡 寨 寸 对 寻 导 寿 封 射 将 尊 小 少 尔 尖 尘 尚 尝 尤 就 尺 尼-尾 局-层 居 屋 屏 展 属 屠 山 岁 岂 岗 岘 岚 岛 岳 岸 峡 峰 崇 崩 川 州 巡 工-巨 巫 差 己 已 巴 巷 币-布 帅 师 希 帐 帕 帝 带 席 帮 常 帽 幅 幕 干-年 幸 幻-幽 广 庆 床 序 库-底 店 庙 府 庞 废 度 座 庭 康 庸 廉 廖 延 廷 建 开 弃 弄 弊 式 引 弗 弘 弟 张 弥 弦 弯 弱 弹 归 当 彝 形 彩 彬 彭 彰 影 彷 役 彻 彼 往 征 径 待 很 律 後 徐 徒 得 循 微 徵 德 心 必 忆 忌 忍 志-忙 忠 忧 快 念 忽 怀 态 怎 怒 怕 怖 思 怡 急 性 怨 怪 总 恋 恐 恢 恨 恩 恭 息 恰 恶 恼 悄 悉 悔 悟 悠 患 您 悲 情 惑 惜 惠 惧 惨 惯 想 惹 愁 愈 愉 意 愚 感 愧 慈 慎 慕 慢 慧 慰 憾 懂 懒 戈 戏-戒 或 战 截 戴 房-扁 扇 手 才 扎 扑 打 托 扣 执 扩 扫-扯 批 找-技 抄 把 抑 抓 投 抗 折 抢 护 报 披 抬 抱 抵 抹 抽 担 拆 拉 拍 拒 拔 拖 拘 招 拜 拟 拥 拦 拨 择 括 拳 拷 拼 拾 拿 持 指 按 挑 挖 挝 挡 挤 挥 挪 振 挺 捉 捐 捕 损 捡 换 捷 授 掉 掌 排 探 接 控-措 掸 描 提 插 握 援 搜 搞 搬 搭 摄 摆 摊 摔 摘 摩 摸 撒 撞 播 操 擎 擦 支 收 改 攻 放 政 故 效 敌 敏 救 教 敝 敢 散 敦 敬 数 敲 整 文 斋 斐 斗 料 斜 斥 断 斯 新 方 於 施 旁 旅 旋 族 旗 无 既 日-早 旭 时 旺 昂 昆 昌 明 昏 易 星 映 春 昨 昭 是 显 晃 晋 晒 晓 晚 晨 普 景 晴 晶 智 暂 暑 暖 暗 暮 暴 曰 曲 更 曹 曼 曾-最 月 有 朋 服 朗 望 朝 期 木 未-札 术 朱 朵 杀 杂 权 杉 李 材 村 杜 束 条 来 杨 杯 杰 松 板 极 析 林 果 枝 枢 枪 枫 架 柏 某 染 柔 查 柬 柯 柳 柴 标 栋 栏 树 校 样-根 格 桃 框 案 桌 桑 档 桥 梁 梅 梦 梯 械 梵 检 棉 棋 棒 棚 森 椅 植 椰 楚 楼 概 榜 模 樱 檀 欠-欣 欧 欲 欺 款 歉 歌 止-武 歪 死 殊 残 段 毅 母 每 毒 比 毕 毛 毫 氏 民 氛 水 永 求 汉 汗 汝 江-污 汤 汪 汶 汽 沃 沈 沉 沙 沟 沧 河 油 治 沿 泉 泊 法 泛 泡-泣 泥 注 泰 泳 泽 洋 洗 洛 洞 津 洪 洲 活 洽 派 流 浅 测 济 浑 浓 浦 浩 浪 浮 浴 海 涅 消 涉 涛 涨 涯 液 涵 淋 淑 淘 淡 深 混 添 清 渐 渡 渣 温 港 渴 游 湖 湾 源 溜 溪 滋 滑 满 滥 滨 滴 漂 漏 演 漠 漫 潘 潜 潮 澎 澳 激 灌 火 灭 灯 灰 灵 灿 炉 炎 炮 炸 点 烂 烈 烤 烦 烧 热 焦 然 煌 煞 照 煮 熊 熟 燃 燕 爆 爪 爬 爱 爵-爸 爽 片 版 牌 牙 牛 牡 牢 牧 物 牲 牵 特 牺 犯 状 犹 狂 狐 狗 狠 独 狮 狱 狼 猛 猜 献 玄 率 玉 王 玛 玩 玫 环 现 玲 玻 珊 珍 珠 班 球 理 琊 琪 琳 琴 瑙 瑜 瑞 瑟 瑰 瑶 璃 瓜 瓦 瓶 甘 甚 甜 生 用 田-申 电 男 甸 画 畅 界 留 略 番 疆 疏 疑 疗 疯 疲 疼 疾 病 痕 痛 痴 登 白 百 的 皆 皇 皮 盈 益 监 盒 盖 盘 盛 盟 目 直 相 盼 盾 省 眉 看 真 眠 眼 睛 睡 督 瞧 矛 矣 知 短 石 矶 码 砂 砍 研 破 础 硕 硬 碍 碎 碗 碟 碧 碰 磁 磅 磨 示 礼 社 祖 祝 神 祥 票 祸 禁 禅 福 秀 私 秋 种 科 秒 秘 租 秤 秦 秩 积 称 移 稀 程 稍 稣 稳 稿 穆 究 穷 穹 空 穿 突 窗 窝 立 站 竞-章 童 端 竹 笑 笔 笛 符 笨 第 等 筋 答 策 筹 签 简 算 管 箭 箱 篇 篮 簿 籍 米 类 粉 粒 粗 粹 精 糊 糕 糖 糟 系 素 索 紧 紫 累 繁 红 约 级 纪 纯 纲 纳 纵 纷 纸 纽 练 组 细-终 绍 经 结 绕 绘 给 络 统 继 绩 绪 续 维 绵 综 缅 缓 编 缘 缠 缩 缴 缶 缸 缺 罐 罕 罗 罚 罢 罪 置 署 羊 美 羞 群 羯 羽 翁 翅 翔 翘 翠 翰 翻 翼 耀 老 考 者 而 耍 耐 耗 耳 耶 聊 职 联 聚 聪 肉 肚 股 肤 肥 肩 肯 育 胁 胆 背 胎 胖 胞 胡 胶 胸 能 脆 脑 脱 脸 腊 腐 腓 腰 腹 腾 腿 臂 臣 自 臭 至 致 舌 舍 舒 舞 舟 航 般 舰 船 良 色 艺 艾 节 芒 芝 芦 芬 芭 花 芳 苍 苏 苗 若 苦 英 茂 茨 茫 茶 草 荒 荣 药 荷 莉 莎 莪 莫 莱 莲 获 菜 菩 菲 萄 萍 萤 营 萧 萨 落 著 葛 葡 蒂 蒋 蒙 蓉 蓝 蓬 蔑 蔡 薄 薪 藉 藏 藤 虎 虑 虫 虹 虽 虾 蚁 蛇 蛋 蛙 蛮 蜂 蜜 蝶 融 蟹 蠢 血 行 街 衡 衣 补 表 袋 被 袭 裁 裂 装 裕 裤 西 要 覆 见 观 规 视 览 觉 角 解 言 誉 誓 警 计 订 认 讨 让 训-记 讲 许 论 设 访 证 评 识 诉 词 译 试 诗 诚 话 诞 询 该 详 语 误 说 请 诸 诺 读 课 谁 调 谅 谈 谊 谋 谓 谜 谢 谨 谱 谷 豆 象 豪 貌 贝-负 贡-败 货-贪 购 贯 贱 贴 贵 费 贺 贼 贾 资 赋 赌 赏 赐 赔 赖 赚 赛 赞 赠 赢 赤 赫 走 赵 起 趁 超 越 趋 趣 足 跃 跌 跑 距 跟 路 跳 踏 踢 踩 身 躲 车 轨 轩 转 轮-轰 轻 载 较 辅 辆 辈 辉 辑 输 辛 辞 辨 辩 辱 边 达 迁 迅 过 迈 迎 运 近 返 还 这 进-迟 迦 迪 迫 述 迷 追 退 送 逃 逆 选 逊 透 逐 递 途 通 逛 逝 速 造 逢 逸 逻 逼 遇 遍 道 遗 遭 遮 遵 避 邀 邓 那 邦 邪 邮 邱 邻 郎 郑 部 郭 都 鄂 酋 配 酒 酷 酸 醉 醒 采 释 里-量 金 针 钓 钟 钢 钦 钱 钻 铁 铃 铢 铭 银 销 锁 锅 锋 错 锡 锦 键 锺 镇 镜 镭 长 门 闪 闭 问 间 闷 闹 闻 阁 阐 阔 队 阮 防-阶 阻 阿 陀 附-陆 陈 降 限 院 除 险 陪 陵-陷 隆 随 隐 隔 障 难 雄-集 雨 雪 雯 雳 零 雷 雾 需 震 霍 霖 露 霸 霹 青 靖 静 非 靠 面 革 靼 鞋 鞑 韦 韩 音 页 顶 项-须 顽-顿 预 领 颇 频 颗 题 额 风 飘 飙 飞 食 餐 饭 饮 饰 饱 饼 馆 首 香 馨 马 驱 驶 驻 驾 验 骑 骗 骚 骤 骨 高 鬼 魂 魅 魔 鱼 鲁 鲜 鸟 鸣 鸭 鸿 鹅 鹤 鹰 鹿 麦 麻 黄 黎 黑 默 鼓 鼠 鼻 齐 齿 龄 龙 龟]</exemplarCharacters>
-		<exemplarCharacters type="auxiliary">[]</exemplarCharacters>
+		<exemplarCharacters type="auxiliary">[侣 傣 卑 厘 吕 堤 奎 巽 录 户 撤 楔 楠 滕 瑚 甫 盲 禄 粟 线 脚 钯 铂 锑 镑 魁]</exemplarCharacters>
 		<exemplarCharacters type="currencySymbol">[a-z]</exemplarCharacters>
 	</characters>
 	<delimiters>
@@ -956,31 +978,43 @@
 	<dates>
 		<localizedPatternChars>GanjkHmsSEDFwWxhKzAeugXZvcL</localizedPatternChars>
 		<calendars>
-			<calendar type="buddhist">
-				<months>
-					<monthContext type="format">
-						<monthWidth type="wide">
-							<month type="10">十月</month>
-						</monthWidth>
-					</monthContext>
-				</months>
+			<calendar type="chinese">
+				<dateTimeFormats>
+					<availableFormats>
+						<dateFormatItem id="MEd">M-dE</dateFormatItem>
+					</availableFormats>
+				</dateTimeFormats>
 			</calendar>
 			<calendar type="gregorian">
 				<months>
 					<monthContext type="format">
+						<monthWidth type="abbreviated">
+							<month type="1">1月</month>
+							<month type="2">2月</month>
+							<month type="3">3月</month>
+							<month type="4">4月</month>
+							<month type="5">5月</month>
+							<month type="6">6月</month>
+							<month type="7">7月</month>
+							<month type="8">8月</month>
+							<month type="9">9月</month>
+							<month type="10">10月</month>
+							<month type="11">11月</month>
+							<month type="12">12月</month>
+						</monthWidth>
 						<monthWidth type="wide">
-							<month type="1">1</month>
-							<month type="2">2</month>
-							<month type="3">3</month>
-							<month type="4">4</month>
-							<month type="5">5</month>
-							<month type="6">6</month>
-							<month type="7">7</month>
-							<month type="8">8</month>
-							<month type="9">9</month>
-							<month type="10">10</month>
-							<month type="11">11</month>
-							<month type="12">12</month>
+							<month type="1">1月</month>
+							<month type="2">2月</month>
+							<month type="3">3月</month>
+							<month type="4">4月</month>
+							<month type="5">5月</month>
+							<month type="6">6月</month>
+							<month type="7">7月</month>
+							<month type="8">8月</month>
+							<month type="9">9月</month>
+							<month type="10">10月</month>
+							<month type="11">11月</month>
+							<month type="12">12月</month>
 						</monthWidth>
 					</monthContext>
 					<monthContext type="stand-alone">
@@ -1064,10 +1098,10 @@
 				<quarters>
 					<quarterContext type="format">
 						<quarterWidth type="abbreviated">
-							<quarter type="1">第一季度</quarter>
-							<quarter type="2">第二季度</quarter>
-							<quarter type="3">第三季度</quarter>
-							<quarter type="4">第四季度</quarter>
+							<quarter type="1">1季</quarter>
+							<quarter type="2">2季</quarter>
+							<quarter type="3">3季</quarter>
+							<quarter type="4">4季</quarter>
 						</quarterWidth>
 						<quarterWidth type="wide">
 							<quarter type="1">第1季度</quarter>
@@ -1122,12 +1156,12 @@
 				<timeFormats>
 					<timeFormatLength type="full">
 						<timeFormat>
-							<pattern>ahh时mm分ss秒 v</pattern>
+							<pattern>ahh时mm分ss秒v</pattern>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="long">
 						<timeFormat>
-							<pattern>ahh时mm分ss秒 z</pattern>
+							<pattern>ahh时mm分ss秒z</pattern>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="medium">
@@ -1148,23 +1182,116 @@
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
-						<dateFormatItem id="Ed">E d</dateFormatItem>
-						<dateFormatItem id="H">H</dateFormatItem>
+						<dateFormatItem id="Ed">d日E</dateFormatItem>
+						<dateFormatItem id="H">H时</dateFormatItem>
 						<dateFormatItem id="HHmm">HH:mm</dateFormatItem>
 						<dateFormatItem id="HHmmss">HH:mm:ss</dateFormatItem>
-						<dateFormatItem id="MMMEd">E MMM d</dateFormatItem>
-						<dateFormatItem id="MMMMd">MMMM月d日</dateFormatItem>
-						<dateFormatItem id="MMMMdd">dd MMMM</dateFormatItem>
-						<dateFormatItem id="MMdd">dd/MM</dateFormatItem>
+						<dateFormatItem id="Hm">H:mm</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
+						<dateFormatItem id="MEd">M-dE</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
+						<dateFormatItem id="MMMEd">MMMd日E</dateFormatItem>
+						<dateFormatItem id="MMMMEd">MMMMd日E</dateFormatItem>
+						<dateFormatItem id="MMMMd">MMMMd日</dateFormatItem>
+						<dateFormatItem id="MMMMdd">MMMMdd日</dateFormatItem>
+						<dateFormatItem id="MMMd">MMMd日</dateFormatItem>
+						<dateFormatItem id="MMdd">MM-dd</dateFormatItem>
 						<dateFormatItem id="Md">M-d</dateFormatItem>
+						<dateFormatItem id="d">d日</dateFormatItem>
 						<dateFormatItem id="mmss">mm:ss</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
+						<dateFormatItem id="y">yyyy年</dateFormatItem>
+						<dateFormatItem id="yM">yyyy-M</dateFormatItem>
+						<dateFormatItem id="yMEd">yyyy年M月d日，E</dateFormatItem>
+						<dateFormatItem id="yMMM">yyyy年MMM</dateFormatItem>
+						<dateFormatItem id="yMMMEd">yyyy年MMMd日EEE</dateFormatItem>
+						<dateFormatItem id="yMMMM">yyyy年MMMM</dateFormatItem>
+						<dateFormatItem id="yQ">yyyy年QQQ</dateFormatItem>
+						<dateFormatItem id="yQQQ">y年QQQ</dateFormatItem>
 						<dateFormatItem id="yyMM">yy-MM</dateFormatItem>
-						<dateFormatItem id="yyMMM">yy年MMM月</dateFormatItem>
+						<dateFormatItem id="yyMMM">yy年MMM</dateFormatItem>
 						<dateFormatItem id="yyQ">yy年第Q季度</dateFormatItem>
-						<dateFormatItem id="yyyy">yyyy</dateFormatItem>
+						<dateFormatItem id="yyyy">yyyy年</dateFormatItem>
 						<dateFormatItem id="yyyyM">yyyy年M月</dateFormatItem>
-						<dateFormatItem id="yyyyMMMM">MMMM yyyy</dateFormatItem>
+						<dateFormatItem id="yyyyMMMM">yyyy年MMMM</dateFormatItem>
 					</availableFormats>
+					<intervalFormats>
+						<intervalFormatFallback>{0}–{1}</intervalFormatFallback>
+						<intervalFormatItem id="M">
+							<greatestDifference id="M">L至L</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MEd">
+							<greatestDifference id="M">M-dE至M-dE</greatestDifference>
+							<greatestDifference id="d">M-dE至M-dE</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMM">
+							<greatestDifference id="M">LLLL至LLLL</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMEd">
+							<greatestDifference id="M">M月d日E至M月d日E</greatestDifference>
+							<greatestDifference id="d">M月d日E至d日E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMd">
+							<greatestDifference id="M">M月d日至M月d日</greatestDifference>
+							<greatestDifference id="d">M月d日至d日</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Md">
+							<greatestDifference id="M">M-d至M-d</greatestDifference>
+							<greatestDifference id="d">M-d至M-d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d日至d日</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="h">
+							<greatestDifference id="a">ah至ah时</greatestDifference>
+							<greatestDifference id="h">ah至h时</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="a">ah:mm至ah:mm</greatestDifference>
+							<greatestDifference id="h">ah:mm至h:mm</greatestDifference>
+							<greatestDifference id="m">ah:mm至h:mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="a">ah:mm至ah:mmv</greatestDifference>
+							<greatestDifference id="h">ah:mm至h:mmv</greatestDifference>
+							<greatestDifference id="m">ah:mm至h:mmv</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hv">
+							<greatestDifference id="a">ah至ah时v</greatestDifference>
+							<greatestDifference id="h">ah至h时v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="y">
+							<greatestDifference id="y">y至y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yM">
+							<greatestDifference id="M">yy-M至yy-M</greatestDifference>
+							<greatestDifference id="y">yy-M至yy-M</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="M">yy-M-dE至yy-M-dE</greatestDifference>
+							<greatestDifference id="d">yy-M-dE至yy-M-dE</greatestDifference>
+							<greatestDifference id="y">yy-M-dE至yy-M-dE</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMM">
+							<greatestDifference id="M">yyyy年M月至M月</greatestDifference>
+							<greatestDifference id="y">yyyy年M月至yyyy年M月</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEd">
+							<greatestDifference id="M">yyyy年M月d日E至M月d日E</greatestDifference>
+							<greatestDifference id="d">yyyy年M月d日E至d日E</greatestDifference>
+							<greatestDifference id="y">yyyy年M月d日E至yyyy年M月d日E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="M">yyyy年M月d日至M月d日</greatestDifference>
+							<greatestDifference id="d">yyyy年M月d日至d日</greatestDifference>
+							<greatestDifference id="y">yyyy年M月d日至yyyy年M月d日</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="M">yy-M-d至yy-M-d</greatestDifference>
+							<greatestDifference id="d">yy-M-d至yy-M-d</greatestDifference>
+							<greatestDifference id="y">yy-M-d至yy-M-d</greatestDifference>
+						</intervalFormatItem>
+					</intervalFormats>
 				</dateTimeFormats>
 				<fields>
 					<field type="era">
@@ -1207,32 +1334,50 @@
 					</field>
 				</fields>
 			</calendar>
-			<calendar type="islamic-civil">
+			<calendar type="japanese">
 				<dateTimeFormats>
 					<availableFormats>
-						<dateFormatItem id="yyyyM">yyyy年M月</dateFormatItem>
+						<dateFormatItem id="yyyyM">yyyy-M</dateFormatItem>
 					</availableFormats>
 				</dateTimeFormats>
+			</calendar>
+			<calendar type="roc">
+				<eras>
+					<eraAbbr>
+						<era type="0">民国前</era>
+						<era type="1">民国</era>
+					</eraAbbr>
+				</eras>
+				<dateFormats>
+					<dateFormatLength type="full">
+						<dateFormat>
+							<pattern>Gy年M月d日EEEE</pattern>
+						</dateFormat>
+					</dateFormatLength>
+					<dateFormatLength type="long">
+						<dateFormat>
+							<pattern>Gy年M月d日</pattern>
+						</dateFormat>
+					</dateFormatLength>
+					<dateFormatLength type="medium">
+						<dateFormat>
+							<pattern>Gy-M-d</pattern>
+						</dateFormat>
+					</dateFormatLength>
+					<dateFormatLength type="short">
+						<dateFormat>
+							<pattern>Gy-M-d</pattern>
+						</dateFormat>
+					</dateFormatLength>
+				</dateFormats>
 			</calendar>
 		</calendars>
 		<timeZoneNames>
 			<hourFormat>+HHmm;-HHmm</hourFormat>
-			<gmtFormat>GMT{0}</gmtFormat>
+			<gmtFormat>格林尼治标准时间{0}</gmtFormat>
 			<regionFormat>{0}</regionFormat>
-			<zone type="Africa/Timbuktu">
-				<exemplarCity>延巴克图</exemplarCity>
-			</zone>
-			<zone type="America/Argentina/ComodRivadavia">
-				<exemplarCity>科摩罗（群岛）</exemplarCity>
-			</zone>
-			<zone type="Europe/Belfast">
-				<exemplarCity>贝尔法斯特</exemplarCity>
-			</zone>
-			<zone type="Pacific/Yap">
-				<exemplarCity>雅浦</exemplarCity>
-			</zone>
 			<zone type="Etc/Unknown">
-				<exemplarCity>Unknown</exemplarCity>
+				<exemplarCity>未知</exemplarCity>
 			</zone>
 			<zone type="Europe/Andorra">
 				<exemplarCity>安道尔</exemplarCity>
@@ -1265,7 +1410,7 @@
 				<exemplarCity>罗瑟拉</exemplarCity>
 			</zone>
 			<zone type="Antarctica/Palmer">
-				<exemplarCity>帕默</exemplarCity>
+				<exemplarCity>帕默尔</exemplarCity>
 			</zone>
 			<zone type="Antarctica/South_Pole">
 				<exemplarCity>南极</exemplarCity>
@@ -1526,6 +1671,7 @@
 				<exemplarCity>伊魁鲁伊特</exemplarCity>
 			</zone>
 			<zone type="America/Pangnirtung">
+				<exemplarCity>旁涅唐</exemplarCity>
 			</zone>
 			<zone type="America/Moncton">
 				<exemplarCity>蒙克顿</exemplarCity>
@@ -1831,6 +1977,7 @@
 				<exemplarCity>恩德贝里</exemplarCity>
 			</zone>
 			<zone type="Pacific/Kiritimati">
+				<exemplarCity>基里地马地岛</exemplarCity>
 			</zone>
 			<zone type="Pacific/Tarawa">
 				<exemplarCity>塔拉瓦</exemplarCity>
@@ -2180,9 +2327,6 @@
 			<zone type="Europe/Ljubljana">
 				<exemplarCity>卢布尔维</exemplarCity>
 			</zone>
-			<zone type="Atlantic/Jan_Mayen">
-				<exemplarCity>扬马延岛</exemplarCity>
-			</zone>
 			<zone type="Arctic/Longyearbyen">
 				<exemplarCity>朗伊尔城</exemplarCity>
 			</zone>
@@ -2417,11 +2561,12 @@
 					<standard>Acre 标准时间</standard>
 					<daylight>Acre 夏令时间</daylight>
 				</long>
-				<short>
-					<standard>ACT (Acre)</standard>
-					<daylight>ACST (Acre)</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Afghanistan">
+				<long>
+					<standard>阿富汗時間</standard>
+				</long>
 			</metazone>
 			<metazone type="Africa_Central">
 				<long>
@@ -2429,7 +2574,7 @@
 					<standard>中部非洲标准时间</standard>
 				</long>
 				<short>
-					<standard>CAT</standard>
+					<standard>中部非洲时间</standard>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -2439,7 +2584,7 @@
 					<standard>东部非洲标准时间</standard>
 				</long>
 				<short>
-					<standard>EAT</standard>
+					<standard>东部非洲时间</standard>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -2449,8 +2594,8 @@
 					<standard>南部非洲标准时间</standard>
 				</long>
 				<short>
-					<generic>SAT</generic>
-					<standard>SAST</standard>
+					<generic>南部非洲时间</generic>
+					<standard>南部非洲标准时间</standard>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -2461,8 +2606,8 @@
 					<daylight>西部非洲夏令时间</daylight>
 				</long>
 				<short>
-					<standard>WAT</standard>
-					<daylight>WAST</daylight>
+					<standard>南部非洲时间</standard>
+					<daylight>西部非洲标准时间</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -2472,10 +2617,6 @@
 					<standard>阿尔卑斯标准时间</standard>
 					<daylight>阿尔卑斯夏令时间</daylight>
 				</long>
-				<short>
-					<standard>AKTT</standard>
-					<daylight>AKTST</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Alaska">
@@ -2485,7 +2626,6 @@
 					<daylight>阿拉斯加夏令时间</daylight>
 				</long>
 				<short>
-					<generic>AKT</generic>
 					<standard>阿拉斯加标准时间</standard>
 					<daylight>阿拉斯加夏令时间</daylight>
 				</short>
@@ -2497,11 +2637,6 @@
 					<standard>阿拉斯加－夏威夷标准时间</standard>
 					<daylight>阿拉斯加－夏威夷夏令时间</daylight>
 				</long>
-				<short>
-					<generic>AHT</generic>
-					<standard>AHST</standard>
-					<daylight>AHDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Almaty">
@@ -2518,10 +2653,6 @@
 					<standard>亚马逊标准时间</standard>
 					<daylight>亚马逊夏令时间</daylight>
 				</long>
-				<short>
-					<standard>AMT</standard>
-					<daylight>AMST</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="America_Central">
@@ -2530,11 +2661,6 @@
 					<standard>中部标准时间</standard>
 					<daylight>中部夏令时间</daylight>
 				</long>
-				<short>
-					<generic>CT</generic>
-					<standard>CST</standard>
-					<daylight>CDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="America_Eastern">
@@ -2543,11 +2669,6 @@
 					<standard>东部标准时间</standard>
 					<daylight>东部夏令时间</daylight>
 				</long>
-				<short>
-					<generic>ET</generic>
-					<standard>EST</standard>
-					<daylight>EDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="America_Mountain">
@@ -2556,11 +2677,6 @@
 					<standard>山区标准时间</standard>
 					<daylight>山区夏令时间</daylight>
 				</long>
-				<short>
-					<generic>MT</generic>
-					<standard>MST</standard>
-					<daylight>MDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="America_Pacific">
@@ -2569,12 +2685,13 @@
 					<standard>太平洋标准时间</standard>
 					<daylight>太平洋夏令时间</daylight>
 				</long>
-				<short>
-					<generic>PT</generic>
-					<standard>PST</standard>
-					<daylight>PDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Anadyr">
+				<long>
+					<standard>阿納德爾時間</standard>
+					<daylight>阿納德爾夏令時間</daylight>
+				</long>
 			</metazone>
 			<metazone type="Aqtau">
 				<long>
@@ -2582,11 +2699,6 @@
 					<standard>阿克图标准时间</standard>
 					<daylight>阿克图夏令时间</daylight>
 				</long>
-				<short>
-					<generic>AQTT</generic>
-					<standard>AQTST</standard>
-					<daylight>AQTDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Aqtobe">
@@ -2595,11 +2707,6 @@
 					<standard>阿克托别标准时间</standard>
 					<daylight>阿克托别夏令时间</daylight>
 				</long>
-				<short>
-					<generic>AQTT</generic>
-					<standard>AQTST</standard>
-					<daylight>AQTDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Arabian">
@@ -2608,11 +2715,6 @@
 					<standard>阿拉伯标准时间</standard>
 					<daylight>阿拉伯夏令时间</daylight>
 				</long>
-				<short>
-					<generic>AT (Arbian)</generic>
-					<standard>AST (Arbian)</standard>
-					<daylight>ADT (Arabian)</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Argentina">
@@ -2621,11 +2723,6 @@
 					<standard>阿根廷标准时间</standard>
 					<daylight>阿根廷夏令时间</daylight>
 				</long>
-				<short>
-					<generic>ART</generic>
-					<standard>ARST</standard>
-					<daylight>ARDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Argentina_Western">
@@ -2634,11 +2731,6 @@
 					<standard>阿根廷西部标准时间</standard>
 					<daylight>阿根廷西部夏令时间</daylight>
 				</long>
-				<short>
-					<generic>ARWT</generic>
-					<standard>ARWST</standard>
-					<daylight>ARWDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Armenia">
@@ -2660,11 +2752,6 @@
 					<standard>阿什哈巴德标准时间</standard>
 					<daylight>阿什哈巴德夏令时间</daylight>
 				</long>
-				<short>
-					<generic>ASHT</generic>
-					<standard>ASHST</standard>
-					<daylight>ASHDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Atlantic">
@@ -2673,11 +2760,6 @@
 					<standard>大西洋标准时间</standard>
 					<daylight>大西洋夏令时间</daylight>
 				</long>
-				<short>
-					<generic>AT</generic>
-					<standard>AST</standard>
-					<daylight>ADT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Australia_Central">
@@ -2687,22 +2769,32 @@
 					<daylight>澳大利亚中部夏令时间</daylight>
 				</long>
 				<short>
-					<generic>ACT</generic>
-					<standard>ACST</standard>
-					<daylight>ACDT</daylight>
+					<generic>澳大利亚中部时间</generic>
+					<standard>澳大利亚中部标准时间</standard>
+					<daylight>澳大利亚中部夏令时间</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Australia_CentralWestern">
+				<long>
+					<standard>澳大利亚中西部标准时间</standard>
+					<daylight>澳大利亚中西部夏令时间</daylight>
+				</long>
+				<short>
+					<standard>澳大利亚中西部标准时间</standard>
+					<daylight>澳大利亚中西部夏令时间</daylight>
+				</short>
 			</metazone>
 			<metazone type="Australia_Eastern">
 				<long>
 					<generic>澳大利亚东部时间</generic>
-					<standard>澳大利亚中部标准时间</standard>
+					<standard>澳大利亚东部标准时间</standard>
 					<daylight>澳大利亚东部夏令时间</daylight>
 				</long>
 				<short>
-					<generic>AET</generic>
-					<standard>AEST</standard>
-					<daylight>AEDT</daylight>
+					<generic>澳大利亚东部时间</generic>
+					<standard>澳大利亚东部标准时间</standard>
+					<daylight>澳大利亚东部夏令时间</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -2713,9 +2805,9 @@
 					<daylight>澳大利亚西部夏令时间</daylight>
 				</long>
 				<short>
-					<generic>AWT</generic>
-					<standard>AWST</standard>
-					<daylight>AWDT</daylight>
+					<generic>澳大利亚西部时间</generic>
+					<standard>澳大利亚西部标准时间</standard>
+					<daylight>澳大利亚西部夏令时间</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -2725,23 +2817,18 @@
 					<standard>阿塞拜疆标准时间</standard>
 					<daylight>阿塞拜疆夏令时间</daylight>
 				</long>
-				<short>
-					<generic>AZT</generic>
-					<standard>AZST</standard>
-					<daylight>AZDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Azores">
 				<long>
 					<generic>亚述尔群岛时间</generic>
-					<standard>亚述尔群岛标准时间</standard>
+					<standard>亚述尔群岛时间</standard>
 					<daylight>亚述尔群岛夏令时间</daylight>
 				</long>
 				<short>
-					<generic>AZOT</generic>
-					<standard>AZOST</standard>
-					<daylight>AZODT</daylight>
+					<generic>亚述尔时间</generic>
+					<standard>亚述尔群岛时间</standard>
+					<daylight>亚述尔群岛夏令时间</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -2752,9 +2839,8 @@
 					<daylight>巴库夏令时间</daylight>
 				</long>
 				<short>
-					<generic>BAKT</generic>
-					<standard>BAKST</standard>
-					<daylight>BAKDT</daylight>
+					<standard>巴库时间</standard>
+					<daylight>巴库标准时间</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -2765,8 +2851,7 @@
 					<daylight>孟加拉夏令时间</daylight>
 				</long>
 				<short>
-					<generic>BT</generic>
-					<standard>BST</standard>
+					<standard>孟加拉夏令时间</standard>
 					<daylight>BDT</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
@@ -2777,11 +2862,6 @@
 					<standard>白令标准时间</standard>
 					<daylight>白令夏令时间</daylight>
 				</long>
-				<short>
-					<generic>BT (Bering)</generic>
-					<standard>BST (Bering)</standard>
-					<daylight>BDT (Bering)</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Bhutan">
@@ -2791,11 +2871,14 @@
 					<daylight>不丹夏令时间</daylight>
 				</long>
 				<short>
-					<generic>BTT</generic>
-					<standard>BTST</standard>
-					<daylight>BTDT</daylight>
+					<standard>孟加拉标准时间</standard>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Bolivia">
+				<long>
+					<standard>玻利維亞時間</standard>
+				</long>
 			</metazone>
 			<metazone type="Borneo">
 				<long>
@@ -2803,11 +2886,6 @@
 					<standard>婆罗洲标准时间</standard>
 					<daylight>婆罗洲夏令时间</daylight>
 				</long>
-				<short>
-					<generic>BORT</generic>
-					<standard>BORT</standard>
-					<daylight>BORDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Brasilia">
@@ -2816,29 +2894,26 @@
 					<standard>巴西利亚标准时间</standard>
 					<daylight>巴西利亚夏令时间</daylight>
 				</long>
-				<short>
-					<generic>BRST</generic>
-					<standard>BRT</standard>
-					<daylight>BRST</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Brunei">
+				<long>
+					<standard>汶萊時間</standard>
+				</long>
 			</metazone>
 			<metazone type="Chamorro">
 				<long>
-					<standard>查莫洛標準時間</standard>
+					<standard>查莫罗标准时区</standard>
 				</long>
 				<short>
-					<standard>ChST</standard>
+					<standard>查莫罗标准时区</standard>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Changbai">
 				<long>
-					<standard>長白山時間</standard>
+					<standard>长白山时间</standard>
 				</long>
-				<short>
-					<standard>CHAT</standard>
-				</short>
 			</metazone>
 			<metazone type="Chile">
 				<long>
@@ -2846,11 +2921,6 @@
 					<standard>智利标准时间</standard>
 					<daylight>智利夏令时间</daylight>
 				</long>
-				<short>
-					<generic>CLT</generic>
-					<standard>CLST</standard>
-					<daylight>CLDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="China">
@@ -2872,12 +2942,20 @@
 					<standard>乔巴山标准时间</standard>
 					<daylight>乔巴山夏令时间</daylight>
 				</long>
-				<short>
-					<generic>CHOT</generic>
-					<standard>CHOST</standard>
-					<daylight>CHODT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Colombia">
+				<long>
+					<standard>哥倫比亞時間</standard>
+					<daylight>哥倫比亞夏令時間</daylight>
+				</long>
+			</metazone>
+			<metazone type="Cuba">
+				<long>
+					<generic>古巴時間</generic>
+					<standard>古巴標準時間</standard>
+					<daylight>古巴夏令時間</daylight>
+				</long>
 			</metazone>
 			<metazone type="Dacca">
 				<long>
@@ -2885,11 +2963,6 @@
 					<standard>达卡标准时间</standard>
 					<daylight>达卡夏令时间</daylight>
 				</long>
-				<short>
-					<generic>DACT</generic>
-					<standard>DACST</standard>
-					<daylight>DACDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Dushanbe">
@@ -2898,11 +2971,6 @@
 					<standard>杜尚别标准时间</standard>
 					<daylight>杜尚别夏令时间</daylight>
 				</long>
-				<short>
-					<generic>DUST</generic>
-					<standard>DUSST</standard>
-					<daylight>DUSDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Dutch_Guiana">
@@ -2911,11 +2979,6 @@
 					<standard>荷属圭亚那标准时间</standard>
 					<daylight>荷属圭亚那夏令时间</daylight>
 				</long>
-				<short>
-					<generic>NEGT</generic>
-					<standard>NEGST</standard>
-					<daylight>NEGDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="East_Timor">
@@ -2924,22 +2987,12 @@
 					<standard>东帝汶标准时间</standard>
 					<daylight>东帝汶夏令时间</daylight>
 				</long>
-				<short>
-					<generic>TLT</generic>
-					<standard>TLST</standard>
-					<daylight>TLDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Ecuador">
 				<long>
-					<standard>厄瓜多爾時間</standard>
+					<standard>厄瓜多尔标准时间</standard>
 				</long>
-				<short>
-					<generic>ECT</generic>
-					<standard>ECST</standard>
-					<daylight>ECDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Europe_Central">
@@ -2948,10 +3001,6 @@
 					<standard>中欧标准时间</standard>
 					<daylight>中欧夏令时间</daylight>
 				</long>
-				<short>
-					<standard>CET</standard>
-					<daylight>CEST</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Europe_Eastern">
@@ -2960,24 +3009,25 @@
 					<standard>东欧标准时间</standard>
 					<daylight>东欧夏令时间</daylight>
 				</long>
-				<short>
-					<standard>EET</standard>
-					<daylight>EEST</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Europe_Western">
 				<long>
 					<generic>西欧时间</generic>
-					<standard>西欧标准时间</standard>
-					<daylight>西欧夏令时间</daylight>
+					<standard>欧洲西部时间</standard>
+					<daylight>欧洲西部夏令时间</daylight>
 				</long>
 				<short>
-					<generic>WET</generic>
-					<standard>WEST</standard>
-					<daylight>WEDT</daylight>
+					<generic>西欧时间</generic>
+					<standard>欧洲西部时间</standard>
+					<daylight>欧洲西部夏令时间</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="French_Guiana">
+				<long>
+					<standard>法屬圭亞那時間</standard>
+				</long>
 			</metazone>
 			<metazone type="Frunze">
 				<long>
@@ -2985,32 +3035,24 @@
 					<standard>伏龙芝标准时间</standard>
 					<daylight>伏龙芝夏令时间</daylight>
 				</long>
-				<short>
-					<generic>FRUT</generic>
-					<standard>FRUST</standard>
-					<daylight>FRUDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="GMT">
 				<long>
 					<standard>格林尼治标准时间</standard>
 				</long>
-				<short>
-					<standard>GMT</standard>
-				</short>
 				<commonlyUsed>true</commonlyUsed>
 			</metazone>
 			<metazone type="Galapagos">
 				<long>
 					<generic>加拉帕戈斯时间</generic>
-					<standard>加拉帕戈斯标准时间</standard>
+					<standard>加拉帕戈斯时间</standard>
 					<daylight>加拉帕戈斯夏令时间</daylight>
 				</long>
 				<short>
-					<generic>GALT</generic>
-					<standard>GALST</standard>
-					<daylight>GALDT</daylight>
+					<generic>加拉帕哥斯时间</generic>
+					<standard>加拉帕戈斯时间</standard>
+					<daylight>加拉帕哥斯夏令时间</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -3020,11 +3062,6 @@
 					<standard>格鲁吉亚标准时间</standard>
 					<daylight>格鲁吉亚夏令时间</daylight>
 				</long>
-				<short>
-					<generic>GET</generic>
-					<standard>GEST</standard>
-					<daylight>GEDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Greenland_Central">
@@ -3033,11 +3070,6 @@
 					<standard>格林兰中部标准时间</standard>
 					<daylight>格林兰中部夏令时间</daylight>
 				</long>
-				<short>
-					<generic>CGT</generic>
-					<standard>CGST</standard>
-					<daylight>CGDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Greenland_Eastern">
@@ -3046,11 +3078,6 @@
 					<standard>格林兰东部标准时间</standard>
 					<daylight>格林兰东部夏令时间</daylight>
 				</long>
-				<short>
-					<generic>EGT</generic>
-					<standard>EGST</standard>
-					<daylight>EGDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Greenland_Western">
@@ -3059,11 +3086,6 @@
 					<standard>格林兰西部标准时间</standard>
 					<daylight>格林兰西部夏令时间</daylight>
 				</long>
-				<short>
-					<generic>WGT</generic>
-					<standard>WGST</standard>
-					<daylight>WGDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Guam">
@@ -3073,64 +3095,78 @@
 					<daylight>关岛夏令时间</daylight>
 				</long>
 				<short>
-					<generic>GT (Guan)</generic>
-					<standard>GST (Guan)</standard>
-					<daylight>GDT (Guan)</daylight>
+					<generic>关岛时间</generic>
+					<standard>关岛标准时间</standard>
+					<daylight>关岛夏令时间</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Gulf">
 				<long>
-					<standard>海灣標準時間</standard>
+					<standard>海湾标准时间</standard>
 				</long>
-				<short>
-					<standard>GST</standard>
-				</short>
+			</metazone>
+			<metazone type="Guyana">
+				<long>
+					<standard>蓋亞那時間</standard>
+				</long>
 			</metazone>
 			<metazone type="Hawaii_Aleutian">
 				<long>
 					<standard>夏威夷—阿留申标准时间</standard>
 				</long>
 				<short>
-					<standard>HST</standard>
+					<standard>夏威夷—阿留申标准时间</standard>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Hong_Kong">
+				<long>
+					<standard>香港時間</standard>
+					<daylight>香港夏令時間</daylight>
+				</long>
+			</metazone>
+			<metazone type="Hovd">
+				<long>
+					<standard>科布多時間</standard>
+					<daylight>科布多夏令時間</daylight>
+				</long>
 			</metazone>
 			<metazone type="India">
 				<long>
 					<standard>印度标准时间</standard>
 				</long>
-				<short>
-					<standard>IST</standard>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Indonesia_Central">
 				<long>
 					<standard>印度尼西亚中部标准时间</standard>
 				</long>
-				<short>
-					<standard>CIT</standard>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Indonesia_Eastern">
 				<long>
 					<standard>印度尼西亚东部标准时间</standard>
 				</long>
-				<short>
-					<standard>EIT</standard>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Indonesia_Western">
 				<long>
 					<standard>印度尼西亚西部标准时间</standard>
 				</long>
-				<short>
-					<standard>WIT</standard>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Iran">
+				<long>
+					<standard>伊朗標準時間</standard>
+					<daylight>伊朗夏令時間</daylight>
+				</long>
+			</metazone>
+			<metazone type="Irkutsk">
+				<long>
+					<standard>伊爾庫茨克時間</standard>
+					<daylight>伊爾庫茨克夏令時間</daylight>
+				</long>
 			</metazone>
 			<metazone type="Israel">
 				<long>
@@ -3140,19 +3176,15 @@
 				</long>
 				<short>
 					<standard>IST (Israel)</standard>
-					<daylight>IDT</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Japan">
 				<long>
+					<generic>日本時間</generic>
 					<standard>日本标准时间</standard>
 					<daylight>日本夏令时间</daylight>
 				</long>
-				<short>
-					<standard>JST</standard>
-					<daylight>JDT</daylight>
-				</short>
 			</metazone>
 			<metazone type="Karachi">
 				<long>
@@ -3160,20 +3192,12 @@
 					<standard>卡拉奇标准时间</standard>
 					<daylight>卡拉奇夏令时间</daylight>
 				</long>
-				<short>
-					<generic>KART</generic>
-					<standard>KARST</standard>
-					<daylight>KARDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Kashgar">
 				<long>
 					<standard>喀什标准时间</standard>
 				</long>
-				<short>
-					<standard>KAST</standard>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Kazakhstan_Eastern">
@@ -3181,10 +3205,6 @@
 					<generic>哈萨克斯坦东部时间</generic>
 					<standard>哈萨克斯坦东部标准时间</standard>
 				</long>
-				<short>
-					<generic>EKT</generic>
-					<standard>EKST</standard>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Kazakhstan_Western">
@@ -3192,10 +3212,6 @@
 					<generic>哈萨克斯坦西部时间</generic>
 					<standard>哈萨克斯坦西部标准时间</standard>
 				</long>
-				<short>
-					<generic>WKT</generic>
-					<standard>WKST</standard>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Kizilorda">
@@ -3204,11 +3220,6 @@
 					<standard>Kizilorda 标准时间</standard>
 					<daylight>Kizilorda 夏令时间</daylight>
 				</long>
-				<short>
-					<generic>KIZT</generic>
-					<standard>KIZST</standard>
-					<daylight>KIZDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Korea">
@@ -3217,36 +3228,28 @@
 					<standard>韩国标准时间</standard>
 					<daylight>韩国夏令时间</daylight>
 				</long>
-				<short>
-					<generic>KT</generic>
-					<standard>KST</standard>
-					<daylight>KDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Kuybyshev">
 				<long>
 					<generic>古比雪夫时间</generic>
-					<standard>古比雪夫标准时间</standard>
+					<standard>古比雪夫时间</standard>
 					<daylight>古比雪夫夏令时间</daylight>
 				</long>
 				<short>
-					<generic>KUYT</generic>
-					<standard>KUYST</standard>
-					<daylight>KUYDT</daylight>
+					<standard>古比雪夫时间</standard>
+					<daylight>古比雪夫夏令时间</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Kwajalein">
 				<long>
 					<generic>夸贾林时间</generic>
-					<standard>夸贾林标准时间</standard>
+					<standard>夸贾林时间</standard>
 					<daylight>夸贾林夏令时间</daylight>
 				</long>
 				<short>
-					<generic>KWAT</generic>
-					<standard>KWAST</standard>
-					<daylight>KWADT</daylight>
+					<standard>夸贾林时间</standard>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -3256,11 +3259,6 @@
 					<standard>Kyrgystan 标准时间</standard>
 					<daylight>Kyrgystan 夏令时间</daylight>
 				</long>
-				<short>
-					<generic>KGT</generic>
-					<standard>KGST</standard>
-					<daylight>KGDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Lanka">
@@ -3269,11 +3267,6 @@
 					<standard>Lanka 标准时间</standard>
 					<daylight>Lanka 夏令时间</daylight>
 				</long>
-				<short>
-					<generic>LKT</generic>
-					<standard>LKST</standard>
-					<daylight>LKDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Long_Shu">
@@ -3282,11 +3275,6 @@
 					<standard>Long-Shu 标准时间</standard>
 					<daylight>Long-Shu 夏令时间</daylight>
 				</long>
-				<short>
-					<generic>LONT</generic>
-					<standard>LONST</standard>
-					<daylight>LONDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Lord_Howe">
@@ -3296,7 +3284,7 @@
 					<daylight>罗德毫岛夏令时间</daylight>
 				</long>
 				<short>
-					<standard>LHDT</standard>
+					<standard>罗德毫岛标准时间</standard>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -3306,12 +3294,13 @@
 					<standard>澳门标准时间</standard>
 					<daylight>澳门夏令时间</daylight>
 				</long>
-				<short>
-					<generic>MOT</generic>
-					<standard>MOST</standard>
-					<daylight>MODT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Magadan">
+				<long>
+					<standard>馬加丹時間</standard>
+					<daylight>馬加丹夏令時間</daylight>
+				</long>
 			</metazone>
 			<metazone type="Malaya">
 				<long>
@@ -3319,11 +3308,6 @@
 					<standard>马来亚标准时间</standard>
 					<daylight>马来亚夏令时间</daylight>
 				</long>
-				<short>
-					<generic>MALT</generic>
-					<standard>MALST</standard>
-					<daylight>MALDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Malaysia">
@@ -3332,23 +3316,16 @@
 					<standard>马来西亚标准时间</standard>
 					<daylight>马来西亚夏令时间</daylight>
 				</long>
-				<short>
-					<generic>MYT</generic>
-					<standard>MYST</standard>
-					<daylight>MYDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Marshall_Islands">
 				<long>
 					<generic>马绍尔群岛时间</generic>
-					<standard>马绍尔群岛标准时间</standard>
+					<standard>马绍尔群岛时间</standard>
 					<daylight>马绍尔群岛夏令时间</daylight>
 				</long>
 				<short>
-					<generic>MHT</generic>
-					<standard>MHST</standard>
-					<daylight>MHDT</daylight>
+					<standard>马绍尔群岛时间</standard>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -3358,11 +3335,6 @@
 					<standard>乌兰巴托标准时间</standard>
 					<daylight>乌兰巴托夏令时间</daylight>
 				</long>
-				<short>
-					<generic>ULAT</generic>
-					<standard>ULAST</standard>
-					<daylight>ULADT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Moscow">
@@ -3373,6 +3345,16 @@
 				</long>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
+			<metazone type="Myanmar">
+				<long>
+					<standard>緬甸時間</standard>
+				</long>
+			</metazone>
+			<metazone type="Nepal">
+				<long>
+					<standard>尼泊爾時間</standard>
+				</long>
+			</metazone>
 			<metazone type="New_Zealand">
 				<long>
 					<generic>新西兰时间</generic>
@@ -3380,9 +3362,9 @@
 					<daylight>新西兰夏令时间</daylight>
 				</long>
 				<short>
-					<generic>NZT</generic>
-					<standard>NZST</standard>
-					<daylight>NZDT</daylight>
+					<generic>新西兰时间</generic>
+					<standard>新西兰标准时间</standard>
+					<daylight>新西兰夏令时间</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -3393,24 +3375,36 @@
 					<daylight>纽芬兰夏令时间</daylight>
 				</long>
 				<short>
-					<generic>NT</generic>
 					<standard>纽芬兰标准时间</standard>
 					<daylight>纽芬兰夏令时间</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
+			<metazone type="Noronha">
+				<long>
+					<standard>爾南多-迪諾羅尼亞島時間</standard>
+					<daylight>爾南多-迪諾羅尼亞島夏令時間</daylight>
+				</long>
+			</metazone>
 			<metazone type="North_Mariana">
 				<long>
 					<generic>北马里亚纳群岛时间</generic>
-					<standard>北马里亚纳群岛标准时间</standard>
+					<standard>北马里亚纳群岛时间</standard>
 					<daylight>北马里亚纳群岛夏令时间</daylight>
 				</long>
-				<short>
-					<generic>MPT</generic>
-					<standard>MPST</standard>
-					<daylight>MPDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Novosibirsk">
+				<long>
+					<standard>新西伯利亞時間</standard>
+					<daylight>新西伯利亞夏令時間</daylight>
+				</long>
+			</metazone>
+			<metazone type="Omsk">
+				<long>
+					<standard>鄂木斯克時間</standard>
+					<daylight>鄂木斯克夏令時間</daylight>
+				</long>
 			</metazone>
 			<metazone type="Pakistan">
 				<long>
@@ -3418,12 +3412,25 @@
 					<standard>巴基斯坦标准时间</standard>
 					<daylight>巴基斯坦夏令时间</daylight>
 				</long>
-				<short>
-					<generic>PKT</generic>
-					<standard>PKST</standard>
-					<daylight>PKDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Paraguay">
+				<long>
+					<standard>巴拉圭時間</standard>
+					<daylight>巴拉圭夏令時間</daylight>
+				</long>
+			</metazone>
+			<metazone type="Peru">
+				<long>
+					<standard>秘魯時間</standard>
+					<daylight>秘魯夏令時間</daylight>
+				</long>
+			</metazone>
+			<metazone type="Philippines">
+				<long>
+					<standard>菲律賓時間</standard>
+					<daylight>菲律賓夏令時間</daylight>
+				</long>
 			</metazone>
 			<metazone type="Pierre_Miquelon">
 				<long>
@@ -3431,11 +3438,6 @@
 					<standard>彼得岛和米克隆岛标准时间</standard>
 					<daylight>彼得岛和米克隆岛夏令时间</daylight>
 				</long>
-				<short>
-					<generic>PMT</generic>
-					<standard>PMST</standard>
-					<daylight>PMDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Qyzylorda">
@@ -3444,23 +3446,23 @@
 					<standard>克孜勒奥尔达标准时间</standard>
 					<daylight>克孜勒奥尔达夏令时间</daylight>
 				</long>
-				<short>
-					<generic>QYZT</generic>
-					<standard>QYZST</standard>
-					<daylight>QYZDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Sakhalin">
+				<long>
+					<standard>庫頁島時間</standard>
+					<daylight>庫頁島夏令時間</daylight>
+				</long>
 			</metazone>
 			<metazone type="Samara">
 				<long>
 					<generic>萨马拉时间</generic>
-					<standard>萨马拉标准时间</standard>
+					<standard>萨马拉时间</standard>
 					<daylight>萨马拉夏令时间</daylight>
 				</long>
 				<short>
-					<generic>SAMT</generic>
-					<standard>SAMST</standard>
-					<daylight>SAMDT</daylight>
+					<standard>萨马拉时间</standard>
+					<daylight>萨马拉夏令时间</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -3470,11 +3472,6 @@
 					<standard>撒马尔罕标准时间</standard>
 					<daylight>撒马尔罕夏令时间</daylight>
 				</long>
-				<short>
-					<generic>SAMT (Samarkand)</generic>
-					<standard>SAMST (Samarkand)</standard>
-					<daylight>SAMDT (Samarkand)</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Samoa">
@@ -3484,33 +3481,29 @@
 					<daylight>萨摩亚夏令时间</daylight>
 				</long>
 				<short>
-					<generic>SST</generic>
-					<standard>SSST</standard>
-					<daylight>SSDT</daylight>
+					<standard>瑞典夏令时间</standard>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Shevchenko">
 				<long>
-					<standard>舍甫琴科時間</standard>
-					<daylight>舍甫琴科夏令時間</daylight>
+					<standard>舍甫琴科时间</standard>
+					<daylight>舍甫琴科夏令时间</daylight>
 				</long>
-				<short>
-					<generic>SHET</generic>
-					<standard>SHEDT</standard>
-					<daylight>SHEDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Singapore">
+				<long>
+					<standard>新加坡標準時間</standard>
+				</long>
 			</metazone>
 			<metazone type="Suriname">
 				<long>
 					<generic>苏里南夏令时间</generic>
-					<standard>苏里南时间</standard>
+					<standard>苏里南标准时间</standard>
 				</long>
 				<short>
-					<generic>SRT</generic>
-					<standard>SRST</standard>
-					<daylight>苏里南标准时间</daylight>
+					<daylight>蘇利南夏令時間</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -3520,11 +3513,6 @@
 					<standard>斯维尔德洛夫斯克标准时间</standard>
 					<daylight>斯维尔德洛夫斯克夏令时间</daylight>
 				</long>
-				<short>
-					<generic>SVET</generic>
-					<standard>SVEST</standard>
-					<daylight>SVEDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Tajikistan">
@@ -3533,11 +3521,6 @@
 					<standard>塔吉克斯坦标准时间</standard>
 					<daylight>塔吉克斯坦夏令时间</daylight>
 				</long>
-				<short>
-					<generic>TJT</generic>
-					<standard>TJST</standard>
-					<daylight>TJDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Tashkent">
@@ -3546,11 +3529,6 @@
 					<standard>塔什干标准时间</standard>
 					<daylight>塔什干夏令时间</daylight>
 				</long>
-				<short>
-					<generic>TAST</generic>
-					<standard>TASST</standard>
-					<daylight>TASDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Tbilisi">
@@ -3559,22 +3537,17 @@
 					<standard>第比利斯标准时间</standard>
 					<daylight>第比利斯夏令时间</daylight>
 				</long>
-				<short>
-					<generic>TBIT</generic>
-					<standard>TBIST</standard>
-					<daylight>TBIDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Turkey">
 				<long>
 					<generic>土耳其时间</generic>
-					<standard>土耳其标准时间</standard>
+					<standard>土耳其时间</standard>
 					<daylight>土耳其夏令时间</daylight>
 				</long>
 				<short>
-					<standard>TRT</standard>
-					<daylight>TRST</daylight>
+					<standard>土耳其时间</standard>
+					<daylight>土耳其夏令时间</daylight>
 				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
@@ -3584,11 +3557,6 @@
 					<standard>土库曼斯坦标准时间</standard>
 					<daylight>土库曼斯坦夏令时间</daylight>
 				</long>
-				<short>
-					<generic>TMT</generic>
-					<standard>TMST</standard>
-					<daylight>TMDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Uralsk">
@@ -3597,12 +3565,13 @@
 					<standard>乌拉尔斯克标准时间</standard>
 					<daylight>乌拉尔斯克夏令时间</daylight>
 				</long>
-				<short>
-					<generic>URAT</generic>
-					<standard>URAST</standard>
-					<daylight>URADT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Uruguay">
+				<long>
+					<standard>烏拉圭時間</standard>
+					<daylight>烏拉圭夏令時間</daylight>
+				</long>
 			</metazone>
 			<metazone type="Urumqi">
 				<long>
@@ -3610,11 +3579,6 @@
 					<standard>乌鲁木齐标准时间</standard>
 					<daylight>乌鲁木齐夏令时间</daylight>
 				</long>
-				<short>
-					<generic>URUT</generic>
-					<standard>URUST</standard>
-					<daylight>URUDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Uzbekistan">
@@ -3623,12 +3587,24 @@
 					<standard>乌兹别克斯坦标准时间</standard>
 					<daylight>乌兹别克斯坦夏令时间</daylight>
 				</long>
-				<short>
-					<generic>UZT</generic>
-					<standard>UZST</standard>
-					<daylight>UZDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
+			</metazone>
+			<metazone type="Venezuela">
+				<long>
+					<standard>委內瑞拉時間</standard>
+				</long>
+			</metazone>
+			<metazone type="Vladivostok">
+				<long>
+					<standard>海參崴時間</standard>
+					<daylight>海參崴夏令時間</daylight>
+				</long>
+			</metazone>
+			<metazone type="Yakutsk">
+				<long>
+					<standard>雅庫茨克時間</standard>
+					<daylight>雅庫茨克夏令時間</daylight>
+				</long>
 			</metazone>
 			<metazone type="Yekaterinburg">
 				<long>
@@ -3636,11 +3612,6 @@
 					<standard>叶卡捷琳堡标准时间</standard>
 					<daylight>叶卡捷琳堡夏令时间</daylight>
 				</long>
-				<short>
-					<generic>YEKT</generic>
-					<standard>YEKST</standard>
-					<daylight>YEKDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Yerevan">
@@ -3649,24 +3620,14 @@
 					<standard>埃里温标准时间</standard>
 					<daylight>埃里温夏令时间</daylight>
 				</long>
-				<short>
-					<generic>YERT</generic>
-					<standard>YERST</standard>
-					<daylight>YERDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 			<metazone type="Yukon">
 				<long>
-					<generic>Yukon 时间</generic>
-					<standard>Yukon 标准时间</standard>
-					<daylight>Yukon 夏令时间</daylight>
+					<generic>育空时间</generic>
+					<standard>育空标准时间</standard>
+					<daylight>育空夏令时间</daylight>
 				</long>
-				<short>
-					<generic>YT</generic>
-					<standard>YST</standard>
-					<daylight>YDT</daylight>
-				</short>
 				<commonlyUsed>false</commonlyUsed>
 			</metazone>
 		</timeZoneNames>
@@ -3966,6 +3927,9 @@
 			</currency>
 			<currency type="GHC">
 				<displayName>加纳塞第</displayName>
+			</currency>
+			<currency type="GHS">
+				<displayName>加纳塞迪</displayName>
 			</currency>
 			<currency type="GIP">
 				<displayName>直布罗陀镑</displayName>
@@ -4290,8 +4254,11 @@
 			<currency type="SDD">
 				<displayName>苏丹第纳尔</displayName>
 			</currency>
-			<currency type="SDP">
+			<currency type="SDG">
 				<displayName>苏丹镑</displayName>
+			</currency>
+			<currency type="SDP">
+				<displayName>旧苏丹镑</displayName>
 			</currency>
 			<currency type="SEK">
 				<displayName>瑞典克朗</displayName>
@@ -4406,6 +4373,9 @@
 			<currency type="VEB">
 				<displayName>委内瑞拉博利瓦</displayName>
 			</currency>
+			<currency type="VEF">
+				<displayName>Venezuelan Bolivar Fuerte</displayName>
+			</currency>
 			<currency type="VND">
 				<displayName>越南盾</displayName>
 			</currency>
@@ -4470,7 +4440,7 @@
 				<displayName>为测试保留的代码</displayName>
 			</currency>
 			<currency type="XXX">
-				<displayName>没有货币的交易</displayName>
+				<displayName>货币未知或无效</displayName>
 			</currency>
 			<currency type="YDD">
 				<displayName>也门第纳尔</displayName>
@@ -4507,6 +4477,29 @@
 			</currency>
 		</currencies>
 	</numbers>
+	<units>
+		<unit type="day">
+			<unitPattern count="other">{0}日</unitPattern>
+		</unit>
+		<unit type="hour">
+			<unitPattern count="other">{0}时</unitPattern>
+		</unit>
+		<unit type="minute">
+			<unitPattern count="other">{0}分</unitPattern>
+		</unit>
+		<unit type="month">
+			<unitPattern count="other">{0}月</unitPattern>
+		</unit>
+		<unit type="second">
+			<unitPattern count="other">{0}秒</unitPattern>
+		</unit>
+		<unit type="week">
+			<unitPattern count="other">{0}周</unitPattern>
+		</unit>
+		<unit type="year">
+			<unitPattern count="other">{0}年</unitPattern>
+		</unit>
+	</units>
 	<posix>
 		<messages>
 			<yesstr>是:确定</yesstr>

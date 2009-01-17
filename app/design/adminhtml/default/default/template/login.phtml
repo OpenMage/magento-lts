@@ -44,7 +44,7 @@
     <div class="login-container">
         <div class="login-box">
             <form method="post" action="" id="loginForm">
-
+                <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
                 <fieldset class="login-form">
                     <h2><?php echo Mage::helper('adminhtml')->__('Log in to Admin Panel') ?></h2>
                     <div id="messages">

@@ -88,9 +88,13 @@ class Zend_Debug
                     . PHP_EOL . $output
                     . PHP_EOL;
         } else {
+            if(!extension_loaded('xdebug')) {
+                $output = htmlspecialchars($output, ENT_QUOTES);
+            }
+
             $output = '<pre>'
                     . $label
-                    . htmlspecialchars($output, ENT_QUOTES)
+                    . $output
                     . '</pre>';
         }
 

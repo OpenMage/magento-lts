@@ -62,4 +62,21 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Set extends Mage_Core_Model_Mysql4_
         }
         return parent::_afterSave($object);
     }
+
+    public function validate($object,$name)
+    {
+        $read = $this->_getReadAdapter();
+        $select = $read->select()->from($this->getMainTable())
+            ->where("attribute_set_name=?",$name)
+            ->where("entity_type_id=?",$object->getEntityTypeId());
+
+        if ($object->getId()) {
+            $select->where("attribute_set_id!=?",$object->getId());
+        }
+
+        if (!$read->fetchOne($select))
+           return true;
+
+        return false;
+    }
 }

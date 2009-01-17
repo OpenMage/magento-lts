@@ -83,12 +83,19 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
 
      /**
       * The class name of the cached object or cached abstract class
-      * 
+      *
       * Used to differentiate between different classes with the same method calls.
       *
       * @var string
       */
-     private $_cachedEntityLabel = ''; 
+    private $_cachedEntityLabel = '';
+    
+    /**
+     * Priority (used by some particular backends)
+     *
+     * @var int
+     */
+    private $_priority = 8;
 
     /**
      * Constructor
@@ -97,25 +104,15 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
      * @throws Zend_Cache_Exception
      * @return void
      */
-    public function __construct($options = array())
+    public function __construct(array $options = array())
     {
         while (list($name, $value) = each($options)) {
             $this->setOption($name, $value);
         }
         if (is_null($this->_specificOptions['cached_entity'])) {
             Zend_Cache::throwException('cached_entity must be set !');
-        } else {
-            if (!is_string($this->_specificOptions['cached_entity']) && !is_object($this->_specificOptions['cached_entity'])) {
-                Zend_Cache::throwException('cached_entity must be an object or a class name');
-            }
         }
-        $this->_cachedEntity = $this->_specificOptions['cached_entity'];
-        if(is_string($this->_cachedEntity)){
-            $this->_cachedEntityLabel = $this->_cachedEntity;         
-        } else {
-            $ro = new ReflectionObject($this->_cachedEntity);
-            $this->_cachedEntityLabel = $ro->getName();
-        }
+        $this->setCachedEntity($this->_specificOptions['cached_entity']);
         $this->setOption('automatic_serialization', true);
     }
 
@@ -128,6 +125,58 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
     public function setSpecificLifetime($specificLifetime = false)
     {
         $this->_specificLifetime = $specificLifetime;
+    }  
+
+    /**
+     * Set the priority (used by some particular backends)
+     * 
+     * @param int $priority integer between 0 (very low priority) and 10 (maximum priority)
+     */
+    public function setPriority($priority)
+    {
+        $this->_priority = $priority;
+    }
+        
+    /**
+     * Public frontend to set an option
+     *
+     * Just a wrapper to get a specific behaviour for cached_entity
+     *
+     * @param  string $name  Name of the option
+     * @param  mixed  $value Value of the option
+     * @throws Zend_Cache_Exception
+     * @return void
+     */
+    public function setOption($name, $value)
+    {
+        if ($name == 'cached_entity') {
+            $this->setCachedEntity($value);
+        } else {
+            parent::setOption($name, $value);
+        }
+    }
+    
+    /**
+     * Specific method to set the cachedEntity
+     * 
+     * if set to a class name, we will cache an abstract class and will use only static calls
+     * if set to an object, we will cache this object methods
+     * 
+     * @param mixed $cachedEntity 
+     */
+    public function setCachedEntity($cachedEntity)
+    {
+        if (!is_string($cachedEntity) && !is_object($cachedEntity)) {
+            Zend_Cache::throwException('cached_entity must be an object or a class name');
+        }
+        $this->_cachedEntity = $cachedEntity;
+        $this->_specificOptions['cached_entity'] = $cachedEntity;
+        if (is_string($this->_cachedEntity)){
+            $this->_cachedEntityLabel = $this->_cachedEntity;
+        } else {
+            $ro = new ReflectionObject($this->_cachedEntity);
+            $this->_cachedEntityLabel = $ro->getName();
+        }
     }
 
     /**
@@ -172,7 +221,7 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
             $output = ob_get_contents();
             ob_end_clean();
             $data = array($output, $return);
-            $this->save($data, $id, $this->_tags, $this->_specificLifetime);
+            $this->save($data, $id, $this->_tags, $this->_specificLifetime, $this->_priority);
         }
         echo $output;
         return $return;

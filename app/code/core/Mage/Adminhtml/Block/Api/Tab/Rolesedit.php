@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
         $rid = Mage::app()->getRequest()->getParam('rid', false);
         $resources = Mage::getModel('api/roles')->getResourcesTree();
 
-        $rootArray = $this->_getNodeJson($resources);
+        $rootArray = $this->_getNodeJson($resources,1);
 
         $json = Zend_Json::encode(isset($rootArray['children']) ? $rootArray['children'] : array());
 
@@ -80,7 +80,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
         $selres = $this->getSelectedResources();
 
         if ($level != 0) {
-            $item['text']= Mage::helper('adminhtml')->__((string)$node->title);
+            $item['text']= (string)$node->title;
             $item['sort_order']= isset($node->sort_order) ? (string)$node->sort_order : 0;
             $item['id']  = (string)$node->attributes()->aclpath;
 
@@ -100,7 +100,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
             $item['children'] = array();
             //$item['cls'] = 'fiche-node';
             foreach ($children as $child) {
-                if ($child->getName()!='title' && $child->getName()!='sort_order') {
+                if ($child->getName()!='title' && $child->getName()!='sort_order' && $child->attributes()->module) {
                     if ($level != 0) {
                         $item['children'][] = $this->_getNodeJson($child, $level+1);
                     } else {

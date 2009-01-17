@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.52 $"/>
-		<generation date="$Date: 2007/07/19 22:31:38 $"/>
+		<version number="$Revision: 1.56 $"/>
+		<generation date="$Date: 2008/06/17 14:12:14 $"/>
 		<language type="bn"/>
 		<territory type="IN"/>
 	</identity>
@@ -28,6 +28,7 @@
 			<language type="am">am</language>
 			<language type="an">an</language>
 			<language type="ang">ang</language>
+			<language type="anp">আঙ্গিকা</language>
 			<language type="apa">apa</language>
 			<language type="ar">ar</language>
 			<language type="arc">arc</language>
@@ -79,14 +80,29 @@
 			<language type="ce">ce</language>
 			<language type="ceb">ceb</language>
 			<language type="cel">cel</language>
+			<language type="ch">চামোরো</language>
+			<language type="chn">চিনুক জার্গন</language>
+			<language type="cho">চকটোও</language>
+			<language type="chp">চিপেওয়াইয়ান</language>
+			<language type="chy">চেয়েনি</language>
+			<language type="cu">চার্চ স্লাভিক</language>
 			<language type="de">de</language>
+			<language type="de_AT">অস্ট্রিয়ান জারমান</language>
 			<language type="en">en</language>
+			<language type="en_AU">অস্ট্রেলিয়ান ইংরাজী</language>
+			<language type="en_CA">ক্যানাডিয়ান ইংরেজি</language>
+			<language type="en_GB">ব্রিটিশ ইংরেজী</language>
 			<language type="es">es</language>
 			<language type="fr">fr</language>
+			<language type="fr_CA">ক্যানাডিয়ান ফরাসী</language>
 			<language type="it">it</language>
 			<language type="ja">ja</language>
+			<language type="map">অস্ট্রোনেসিয়ান</language>
 			<language type="pt">pt</language>
 			<language type="ru">ru</language>
+			<language type="rup">আরমেনিয়ান</language>
+			<language type="tut">আলটাইক</language>
+			<language type="zbl">ব্লিসসিম্বলস</language>
 			<language type="zh">zh</language>
 		</languages>
 		<scripts>

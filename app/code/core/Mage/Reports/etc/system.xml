@@ -20,7 +20,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Mage
- * @package    Mage_ProductAlert
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -34,7 +34,7 @@
                     <frontend_type>text</frontend_type>
                     <sort_order>350</sort_order>
                     <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website> 
+                    <show_in_website>1</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
                         <scope translate="label">

@@ -105,9 +105,23 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Varien_Data_Col
         return $this;
     }
 
+    /**
+     * Retrive all ids for collection
+     * @todo : In future we need to extend all newslatter classes from abstract classes
+     *
+     * @return array
+     */
     public function getAllIds()
     {
-        return $this->getColumnValues('subscriber_id');
+        $idsSelect = clone $this->getSelect();
+        $idsSelect->reset(Zend_Db_Select::ORDER);
+        $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
+        $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
+        $idsSelect->reset(Zend_Db_Select::COLUMNS);
+        $idsSelect->from(null,
+            'main_table.subscriber_id'
+        );
+        return $this->getConnection()->fetchCol($idsSelect);
     }
 
     /**

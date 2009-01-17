@@ -118,4 +118,9 @@ abstract class Mage_Core_Model_Resource_Abstract
             return date('Y-m-d', $date);
         }
     }
+
+    public function mktime($str)
+    {
+        return  strtotime($str);
+    }
 }

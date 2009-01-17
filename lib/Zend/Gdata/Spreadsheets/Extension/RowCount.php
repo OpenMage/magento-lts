@@ -14,6 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Spreadsheets
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Entry.php 3941 2007-03-14 21:36:13Z darby $
@@ -35,6 +36,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Spreadsheets
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -50,9 +52,7 @@ class Zend_Gdata_Spreadsheets_Extension_RowCount extends Zend_Gdata_Extension
      */
     public function __construct($text = null)
     {
-        foreach (Zend_Gdata_Spreadsheets::$namespaces as $nsPrefix => $nsUri) {
-            $this->registerNamespace($nsPrefix, $nsUri);
-        }
+        $this->registerAllNamespaces(Zend_Gdata_Spreadsheets::$namespaces);
         parent::__construct();
         $this->_text = $text;
     }

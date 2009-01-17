@@ -67,15 +67,16 @@
 			elements.push($('queueList'));
 			var serializedElements = Form.serializeElements(elements, true);
 			serializedElements.add = 'subscribers';
+			serializedElements.form_key = FORM_KEY;
 			var url = subscriberGridJsObject.url;
-			
+
 			new Ajax.Updater('subscriberGrid', url + '?ajax=1',
 							 {parameters:  serializedElements,
 							  evalScripts: true,
 							  onComplete:subscriberGridJsObject.initGrid.bind(subscriberGridJsObject)});
 		}
 	}
-	
+
 	varienGlobalEvents.attachEventHandler('gridRowClick', subscriberController.rowClick.bind(subscriberController));
 //-->
 </script>

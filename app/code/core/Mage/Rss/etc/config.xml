@@ -56,9 +56,9 @@
             </args>
          </rss>
       </routers>
-   </admin>-->
+    </admin>-->
 
-   <adminhtml>
+    <adminhtml>
         <translate>
             <modules>
                 <Mage_Rss>
@@ -75,9 +75,28 @@
               </rss>
           </updates>
       </layout>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <rss translate="title">
+                                            <title>Rss Feeds Section</title>
+                                            <sort_order>135</sort_order>
+                                        </rss>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
     </adminhtml>
-
-   <frontend>
+    <frontend>
         <translate>
             <modules>
                 <Mage_Rss>

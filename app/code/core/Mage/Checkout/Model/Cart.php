@@ -186,8 +186,8 @@ class Mage_Checkout_Model_Cart extends Varien_Object
             $request = $requestInfo;
         }
         elseif (is_numeric($requestInfo)) {
-        	$request = new Varien_Object();
-        	$request->setQty($requestInfo);
+            $request = new Varien_Object();
+            $request->setQty($requestInfo);
         }
         else {
             $request = new Varien_Object($requestInfo);
@@ -478,6 +478,15 @@ class Mage_Checkout_Model_Cart extends Varien_Object
     public function getSummaryQty()
     {
         $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
+
+        //If there is no quote id in session trying to load quote
+        //and get new quote id. This is done for cases when quote was created
+        //not by customer (from backend for example).
+        if (!$quoteId && Mage::getSingleton('customer/session')->isLoggedIn()) {
+            $quote = Mage::getSingleton('checkout/session')->getQuote();
+            $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
+        }
+
         if ($quoteId && $this->_summaryQty === null) {
             if (Mage::getStoreConfig('checkout/cart_link/use_qty')) {
                 $this->_summaryQty = $this->getItemsQty();

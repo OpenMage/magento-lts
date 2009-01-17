@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Media
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -30,14 +31,21 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Media
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Media extends Zend_Gdata
 {
 
+    /**
+     * Namespaces used for Zend_Gdata_Photos
+     *
+     * @var array
+     */
     public static $namespaces = array(
-            'media' => 'http://search.yahoo.com/mrss/');
+        array('media', 'http://search.yahoo.com/mrss/', 1, 0)
+    );
 
     /**
      * Create Gdata_Media object

@@ -32,6 +32,10 @@
 
 class Mage_PaypalUk_ExpressController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * Setting right header of response if session died
+     *
+     */
     protected function _expireAjax()
     {
         if (!Mage::getSingleton('checkout/session')->getQuote()->hasItems()) {
@@ -137,6 +141,10 @@ class Mage_PaypalUk_ExpressController extends Mage_Core_Controller_Front_Action
         }
     }
 
+    /**
+     * Action executed when 'Place Order' button pressed on review page
+     *
+     */
     public function saveOrderAction()
     {
         /*
@@ -234,6 +242,7 @@ class Mage_PaypalUk_ExpressController extends Mage_Core_Controller_Front_Action
 
         $orderId = $order->getIncrementId();
         $this->getReview()->getCheckout()->setLastQuoteId($this->getReview()->getQuote()->getId());
+        $this->getReview()->getCheckout()->setLastSuccessQuoteId($this->getReview()->getQuote()->getId());
         $this->getReview()->getCheckout()->setLastOrderId($order->getId());
         $this->getReview()->getCheckout()->setLastRealOrderId($order->getIncrementId());
 

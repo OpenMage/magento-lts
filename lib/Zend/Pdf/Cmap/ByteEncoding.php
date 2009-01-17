@@ -127,7 +127,7 @@ class Zend_Pdf_Cmap_ByteEncoding extends Zend_Pdf_Cmap
      */
     public function getCoveredCharactersGlyphs()
     {
-    	return $this->_glyphIndexArray;
+        return $this->_glyphIndexArray;
     }
 
 

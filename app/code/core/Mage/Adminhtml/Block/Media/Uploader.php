@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Media_Uploader extends Mage_Adminhtml_Block_Widget
         $this->setId($this->getId() . '_Uploader');
         $this->setTemplate('media/uploader.phtml');
         $this->getConfig()->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/*/upload'));
-        $this->getConfig()->setParams();
+        $this->getConfig()->setParams(array('form_key' => $this->getFormKey()));
         $this->getConfig()->setFileField('file');
         $this->getConfig()->setFilters(array(
             'images' => array(
@@ -151,6 +151,47 @@ class Mage_Adminhtml_Block_Media_Uploader extends Mage_Adminhtml_Block_Widget
         }
 
         return $this->_config;
+    }
+
+    public function getPostMaxSize()
+    {
+        return ini_get('post_max_size');
+    }
+
+    public function getUploadMaxSize()
+    {
+        return ini_get('upload_max_filesize');
+    }
+
+    public function getDataMaxSize()
+    {
+        return min($this->getPostMaxSize(), $this->getUploadMaxSize());
+    }
+
+    public function getDataMaxSizeInBytes()
+    {
+        $iniSize = $this->getDataMaxSize();
+        $size = substr($iniSize, 0, strlen($iniSize)-1);
+        $parsedSize = 0;
+        switch (strtolower(substr($iniSize, strlen($iniSize)-1))) {
+            case 't':
+                $parsedSize = $size*(1024*1024*1024*1024);
+                break;
+            case 'g':
+                $parsedSize = $size*(1024*1024*1024);
+                break;
+            case 'm':
+                $parsedSize = $size*(1024*1024);
+                break;
+            case 'k':
+                $parsedSize = $size*1024;
+                break;
+            case 'b':
+            default:
+                $parsedSize = $size;
+                break;
+        }
+        return $parsedSize;
     }
 
 }

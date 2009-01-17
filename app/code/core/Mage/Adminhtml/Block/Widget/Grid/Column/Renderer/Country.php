@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Country extends Mage_Admi
     public function render(Varien_Object $row)
     {
         if ($data = $row->getData($this->getColumn()->getIndex())) {
-            $name = Mage::app()->getLocale()->getLocale()->getCountryTranslation($data);
+            $name = Mage::app()->getLocale()->getCountryTranslation($data);
             if (empty($name)) {
                 $name = $data;
             }

@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage App
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -29,6 +30,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage App
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -47,13 +49,13 @@ class Zend_Gdata_App_Extension_Generator extends Zend_Gdata_App_Extension
         $this->_version = $version;
     }
 
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
-        if ($this->_uri != null) {
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
+        if ($this->_uri !== null) {
             $element->setAttribute('uri', $this->_uri);
         }
-        if ($this->_version != null) {
+        if ($this->_version !== null) {
             $element->setAttribute('version', $this->_version);
         }
         return $element;

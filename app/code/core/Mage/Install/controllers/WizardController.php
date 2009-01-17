@@ -283,6 +283,10 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $this->setFlag('', self::FLAG_NO_DISPATCH_BLOCK_EVENT, true);
         $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
 
+        if ($data = $this->getRequest()->getQuery('config')) {
+            Mage::getSingleton('install/session')->setLocaleData($data);
+        }
+
         $this->_prepareLayout();
         $this->_initLayoutMessages('install/session');
         $this->getLayout()->getBlock('content')->append(

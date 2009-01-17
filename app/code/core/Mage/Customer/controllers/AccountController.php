@@ -492,6 +492,10 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     public function editPostAction()
     {
+        if (!$this->_validateFormKey()) {
+            return $this->_redirect('*/*/edit');
+        }
+
         if ($this->getRequest()->isPost()) {
             $customer = Mage::getModel('customer/customer')
                 ->setId($this->_getSession()->getCustomerId())
@@ -570,6 +574,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     ->addException($e, $this->__('Can\'t save customer'));
             }
         }
+
         $this->_redirect('*/*/edit');
     }
 }

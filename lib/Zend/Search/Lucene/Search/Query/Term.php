@@ -128,11 +128,12 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
      * It also initializes necessary internal structures
      *
      * @param Zend_Search_Lucene_Interface $reader
+     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      */
-    public function execute(Zend_Search_Lucene_Interface $reader)
+    public function execute(Zend_Search_Lucene_Interface $reader, $docsFilter = null)
     {
-        $this->_docVector = array_flip($reader->termDocs($this->_term));
-        $this->_termFreqs = $reader->termFreqs($this->_term);
+        $this->_docVector = array_flip($reader->termDocs($this->_term, $docsFilter));
+        $this->_termFreqs = $reader->termFreqs($this->_term, $docsFilter);
 
         // Initialize weight if it's not done yet
         $this->_initWeight($reader);

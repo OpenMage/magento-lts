@@ -36,6 +36,9 @@ class Mage_CatalogIndex_Model_Mysql4_Data_Grouped extends Mage_CatalogIndex_Mode
      */
     public function getMinimalPrice($products, $priceAttributes, $store)
     {
+        $stores = Mage::getModel('core/store')->getCollection()->setLoadDefault(false)->load();
+        $storeObject = $stores->getItemById($store);
+        $website = $storeObject->getWebsiteId();
         $result = array();
         $fields = array('customer_group_id', 'minimal_value'=>'MIN(value)');
         $select = $this->_getReadAdapter()->select()
@@ -44,7 +47,7 @@ class Mage_CatalogIndex_Model_Mysql4_Data_Grouped extends Mage_CatalogIndex_Mode
             ))
             ->where('base.entity_id in (?)', $products)
             ->where('base.attribute_id in (?)', $priceAttributes)
-            ->where('base.store_id = ?', $store)
+            ->where('base.website_id = ?', $website)
             ->order(array('customer_group_id', 'value'));
         $select = $this->_getReadAdapter()->select()
             ->from(array('blah' => new Zend_Db_Expr("({$select})")))
@@ -52,13 +55,11 @@ class Mage_CatalogIndex_Model_Mysql4_Data_Grouped extends Mage_CatalogIndex_Mode
         $visible = $this->_getReadAdapter()->fetchAll($select);
 
         $groups = Mage::getSingleton('catalogindex/retreiver')->getCustomerGroups();
-        $stores = Mage::getModel('core/store')->getCollection()->setLoadDefault(false)->load();
         foreach ($groups as $group) {
             $resultMinimal    = null;
             $resultTaxClassId = 0;
             $taxClassId       = 0;
             $customerGroup = $group->getId();
-            $storeObject = $stores->getItemById($store);
 
             $typedProducts = Mage::getSingleton('catalogindex/retreiver')->assignProductTypes($products);
             foreach ($typedProducts as $type=>$typeIds) {

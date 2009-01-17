@@ -18,45 +18,69 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml container block
  *
- * @category   Mage
- * @package    Mage_Adminhtml
+ * @category    Mage
+ * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Template
 {
+
+    /**
+     * So called "container controller" to specify group of blocks participating in some action
+     *
+     * @var string
+     */
     protected $_controller = 'empty';
-    protected $_buttons = array(0 => array());
+
+    /**
+     * Array of buttons
+     *
+     *
+     * @var array
+     */
+    protected $_buttons = array(
+        -1  => array(),
+        0   => array(),
+        1   => array(),
+    );
+
+    /**
+     * Header text
+     *
+     * @var string
+     */
     protected $_headerText = 'Container Widget Header';
 
     /**
-     * Enter description here...
+     * Add a button
      *
      * @param string $id
      * @param array $data
      * @param integer $level
+     * @param string|null $placement area, that button should be displayed in ('header', 'footer', null)
      * @return Mage_Adminhtml_Block_Widget_Container
      */
-    protected function _addButton($id, $data, $level = 0, $sortOrder = 100)
+    protected function _addButton($id, $data, $level = 0, $sortOrder = 100, $area = 'header')
     {
         if (!isset($this->_buttons[$level])) {
             $this->_buttons[$level] = array();
         }
         $this->_buttons[$level][$id] = $data;
+        $this->_buttons[$level][$id]['area'] = $area;
         return $this;
     }
 
     /**
-     * Enter description here...
+     * Remove existing button
      *
      * @param string $id
      * @return Mage_Adminhtml_Block_Widget_Container
@@ -72,7 +96,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     }
 
     /**
-     * Enter description here...
+     * Update specified button property
      *
      * @param string $id
      * @param string|null $key
@@ -85,9 +109,14 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
             if (isset($buttons[$id])) {
                 if (!empty($key)) {
                     if ($child = $this->getChild($id . '_button')) {
-                    	$child->setData($key, $data);
+                        $child->setData($key, $data);
                     }
-                    $this->_buttons[$level][$id][$key] = $data;
+                    if ('level' == $key) {
+                        $this->_buttons[$data][$id] = $this->_buttons[$level][$id];
+                        unset($this->_buttons[$level][$id]);
+                    } else {
+                        $this->_buttons[$level][$id][$key] = $data;
+                    }
                 } else {
                     $this->_buttons[$level][$id] = $data;
                 }
@@ -107,30 +136,71 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         return parent::_prepareLayout();
     }
 
-    public function getButtonsHtml()
+    /**
+     * Produce buttons HTML
+     *
+     * @param string $area
+     * @return string
+     */
+    public function getButtonsHtml($area = null)
     {
         $out = '';
         foreach ($this->_buttons as $level => $buttons) {
             foreach ($buttons as $id => $data) {
+                if ($area && isset($data['area']) && ($area != $data['area'])) {
+                    continue;
+                }
                 $out .= $this->getChildHtml($id . '_button');
             }
         }
         return $out;
     }
 
+    /**
+     * Get header text
+     *
+     * @return string
+     */
     public function getHeaderText()
     {
         return $this->_headerText;
     }
 
+    /**
+     * Get header CSS class
+     *
+     * @return string
+     */
     public function getHeaderCssClass()
     {
         return 'head-' . strtr($this->_controller, '_', '-');
     }
 
+    /**
+     * Get header HTML
+     *
+     * @return string
+     */
     public function getHeaderHtml()
     {
         return '<h3 class="' . $this->getHeaderCssClass() . '">' . $this->getHeaderText() . '</h3>';
+    }
+
+    /**
+     * Check if there's anything to display in footer
+     *
+     * @return boolean
+     */
+    public function hasFooterButtons()
+    {
+        foreach ($this->_buttons as $level => $buttons) {
+            foreach ($buttons as $id => $data) {
+                if (isset($data['area']) && ('footer' == $data['area'])) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

@@ -19,11 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
-/** Zend_Search_Lucene_Exception */
-#require_once 'Zend/Search/Lucene/Exception.php';
-
-
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
@@ -213,6 +208,7 @@ class Zend_Search_Lucene_Search_QueryToken
                         break;
 
                     default:
+                        #require_once 'Zend/Search/Lucene/Exception.php';
                         throw new Zend_Search_Lucene_Exception('Unrecognized query syntax lexeme: \'' . $tokenText . '\'');
                 }
                 break;
@@ -221,8 +217,8 @@ class Zend_Search_Lucene_Search_QueryToken
                 $this->type = self::TT_NUMBER;
 
             default:
+                #require_once 'Zend/Search/Lucene/Exception.php';
                 throw new Zend_Search_Lucene_Exception('Unrecognized lexeme type: \'' . $tokenCategory . '\'');
         }
     }
 }
-

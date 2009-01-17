@@ -12,24 +12,27 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Locale
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Locale.php 5357 2007-06-16 19:56:21Z thomas $
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @category  Zend
+ * @package   Zend_Locale
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @version   $Id: Locale.php 5357 2007-06-16 19:56:21Z thomas $
  */
-
 
 /**
- * @category   Zend
- * @package    Zend_Locale
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * Definition class for all Windows locales
+ *
+ * @category  Zend
+ * @package   Zend_Locale
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Locale_Data_Translation {
-
+class Zend_Locale_Data_Translation
+{
     /**
      * Locale Translation for Full Named Locales
+     *
+     * @var array $localeTranslation
      */
     public static $localeTranslation = array(
         'Australia'       => 'AU',

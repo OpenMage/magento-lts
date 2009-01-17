@@ -40,9 +40,14 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      */
     public function _prepareLayout()
     {
-        $this->setChild('layer_state', $this->getLayout()->createBlock('catalog/layer_state'));
-        $this->setChild('category_filter', $this->getLayout()->createBlock('catalog/layer_filter_category')->init());
+        $stateBlock = $this->getLayout()->createBlock('catalog/layer_state')
+            ->setLayer($this->getLayer());
+        $categryBlock = $this->getLayout()->createBlock('catalog/layer_filter_category')
+            ->setLayer($this->getLayer())
+            ->init();
 
+        $this->setChild('layer_state', $stateBlock);
+        $this->setChild('category_filter', $categryBlock);
 
         $filterableAttributes = $this->_getFilterableAttributes();
         foreach ($filterableAttributes as $attribute) {
@@ -53,11 +58,22 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
 
             $this->setChild($attribute->getAttributeCode().'_filter',
                 $this->getLayout()->createBlock($filterBlockName)
+                    ->setLayer($this->getLayer())
                     ->setAttributeModel($attribute)
                     ->init());
         }
-        Mage::getSingleton('catalog/layer')->apply();
+        $this->getLayer()->apply();
         return parent::_prepareLayout();
+    }
+
+    /**
+     * Get layer object
+     *
+     * @return Mage_Catalog_Model_Layer
+     */
+    public function getLayer()
+    {
+        return Mage::getSingleton('catalog/layer');
     }
 
     /**
@@ -69,7 +85,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
     {
         $attributes = $this->getData('_filterable_attributes');
         if (is_null($attributes)) {
-            $attributes = Mage::getSingleton('catalog/layer')->getFilterableAttributes();
+            $attributes = $this->getLayer()->getFilterableAttributes();
             $this->setData('_filterable_attributes', $attributes);
         }
         return $attributes;
@@ -86,7 +102,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
     }
 
     /**
-     * Retrieve filters
+     * Get all layer filters
      *
      * @return array
      */
@@ -105,16 +121,21 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
         return $filters;
     }
 
+    /**
+     * Get category filter block
+     *
+     * @return Mage_Catalog_Block_Layer_Filter_Category
+     */
     protected function _getCategoryFilter()
     {
         return $this->getChild('category_filter');
     }
 
-    protected function _getPriceFilter()
-    {
-        return $this->getChild('_price_filter');
-    }
-
+    /**
+     * Check availability display layer options
+     *
+     * @return bool
+     */
     public function canShowOptions()
     {
         foreach ($this->getFilters() as $filter) {
@@ -125,8 +146,18 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
         return false;
     }
 
+    /**
+     * Check availability display layer block
+     *
+     * @return bool
+     */
     public function canShowBlock()
     {
-        return $this->canShowOptions() || count(Mage::getSingleton('catalog/layer')->getState()->getFilters());
+        return $this->canShowOptions() || count($this->getLayer()->getState()->getFilters());
+    }
+
+    protected function _getPriceFilter()
+    {
+        return $this->getChild('_price_filter');
     }
 }

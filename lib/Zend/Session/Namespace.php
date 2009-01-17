@@ -16,7 +16,7 @@
  * @package    Zend_Session
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Namespace.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Namespace.php 13337 2008-12-17 11:11:25Z sidhighwind $
  * @since      Preview Release 0.2
  */
 
@@ -96,6 +96,14 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
              */
             #require_once 'Zend/Session/Exception.php';
             throw new Zend_Session_Exception('Session namespace must not start with an underscore.');
+        }
+
+        if (preg_match('#(^[0-9])#i', $namespace[0])) {
+            /**
+             * @see Zend_Session_Exception
+             */
+            #require_once 'Zend/Session/Exception.php';
+            throw new Zend_Session_Exception('Session namespace must not start with a number.');
         }
 
         if (isset(self::$_singleInstances[$namespace])) {
@@ -244,7 +252,7 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
      * @param string $name - programmatic name of a key, in a <key,value> pair in the current namespace
      * @return mixed
      */
-    protected function & __get($name)
+    public function & __get($name)
     {
         if ($name === '') {
             /**
@@ -266,7 +274,7 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
      * @throws Zend_Session_Exception
      * @return true
      */
-    protected function __set($name, $value)
+    public function __set($name, $value)
     {
         if (isset(self::$_namespaceLocks[$this->_namespace])) {
             /**
@@ -351,7 +359,7 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
      * @param string $name - programmatic name of a key, in a <key,value> pair in the current namespace
      * @return bool
      */
-    protected function __isset($name)
+    public function __isset($name)
     {
         if ($name === '') {
             /**
@@ -371,7 +379,7 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
      * @param string $name - programmatic name of a key, in a <key,value> pair in the current namespace
      * @return true
      */
-    protected function __unset($name)
+    public function __unset($name)
     {
         if ($name === '') {
             /**

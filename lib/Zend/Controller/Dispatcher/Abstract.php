@@ -22,15 +22,6 @@
 /** Zend_Controller_Dispatcher_Interface */
 #require_once 'Zend/Controller/Dispatcher/Interface.php';
 
-/** Zend_Controller_Request_Abstract */
-#require_once 'Zend/Controller/Request/Abstract.php';
-
-/** Zend_Controller_Response_Abstract */
-#require_once 'Zend/Controller/Response/Abstract.php';
-
-/** Zend_Controller_Front */
-#require_once 'Zend/Controller/Front.php';
-
 /**
  * @category   Zend
  * @package    Zend_Controller

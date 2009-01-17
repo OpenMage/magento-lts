@@ -280,6 +280,9 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         } else {
             $parseDataXml = '<action type="'.$parsers[$this->getEntityType()].'" method="unparse">'.$nl;
             $parseDataXml .= '    <var name="store"><![CDATA['.$this->getStoreId().']]></var>'.$nl;
+            if (isset($p['export']['add_url_field'])) {
+                $parseDataXml .= '    <var name="url_field"><![CDATA['.$p['export']['add_url_field'].']]></var>'.$nl;
+            }
             $parseDataXml .= '</action>'.$nl.$nl;
         }
 

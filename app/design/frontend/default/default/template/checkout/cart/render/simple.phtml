@@ -50,7 +50,7 @@
     <?php endif; ?>
     <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
     <td class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getPriceInclTax($_item)); ?>
+        <?php echo $this->helper('checkout')->formatPrice($_item->getCalculationPrice()+$_item->getTaxAmount()/$_item->getQty()) ?>
     </td>
     <?php endif; ?>
     <td class="a-center">
@@ -63,7 +63,7 @@
     <?php endif; ?>
     <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
     <td class="a-right">
-        <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getSubtotalInclTax($_item)); ?>
+        <?php echo $this->helper('checkout')->formatPrice($_item->getRowTotal()+$_item->getTaxAmount()) ?>
     </td>
     <?php endif; ?>
 </tr>

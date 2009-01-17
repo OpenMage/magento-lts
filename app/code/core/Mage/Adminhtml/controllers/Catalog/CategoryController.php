@@ -34,16 +34,16 @@
 class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Initialization category object in registry
+     * Initialize requested category and put it into registry.
+     * Root category can be returned, if inappropriate store/category is specified
      *
+     * @param bool $getRootInstead
      * @return Mage_Catalog_Model_Category
      */
-    protected function _initCategory()
+    protected function _initCategory($getRootInstead = false)
     {
         $categoryId = (int) $this->getRequest()->getParam('id',false);
-
         $storeId    = (int) $this->getRequest()->getParam('store');
-
         $category = Mage::getModel('catalog/category');
         $category->setStoreId($storeId);
 
@@ -52,8 +52,14 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
             if ($storeId) {
                 $rootId = Mage::app()->getStore($storeId)->getRootCategoryId();
                 if (!in_array($rootId, $category->getPathIds())) {
-                    $this->_redirect('*/*/', array('_current'=>true, 'id'=>null));
-                    return false;
+                    // load root category instead wrong one
+                    if ($getRootInstead) {
+                        $category->load($rootId);
+                    }
+                    else {
+                        $this->_redirect('*/*/', array('_current'=>true, 'id'=>null));
+                        return false;
+                    }
                 }
             }
         }
@@ -122,7 +128,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
             $this->getRequest()->setParam('id', $_prevCategoryId);
         }
 
-        if (!$category = $this->_initCategory()) {
+        if (!$category = $this->_initCategory(true)) {
             return;
         }
 
@@ -355,27 +361,23 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 $this->getRequest()->setParam('id', $rootId);
             }
         }
-        if (!$category = $this->_initCategory()) {
-            return;
-        }
-        $block = $this->getLayout()->createBlock('adminhtml/catalog_category_tree');
-        $root = $block->getRoot();
-        $response = array();
-        $response['data'] = $block->getTree();
-        $response['parameters'] = array(
-            'text'        => htmlentities($root->getName()),
-            'draggable'   => false,
-            'allowDrop'   => ($root->getIsVisible())?'true':'false',
-            'id'          => (int) $root->getId(),
-            'expanded'    => (int) $block->getIsWasExpanded(),
-            'store_id'    => (int) $block->getStore()->getId(),
-            'category_id' => (int) $category->getId(),
-            'root_visible'=> (int) $root->getIsVisible()
-        );
 
-        $this->getResponse()->setBody(
-            Zend_Json::encode($response)
-        );
+        $category = $this->_initCategory(true);
+
+        $block = $this->getLayout()->createBlock('adminhtml/catalog_category_tree');
+        $root  = $block->getRoot();
+        $this->getResponse()->setBody(Zend_Json::encode(array(
+            'data' => $block->getTree(),
+            'parameters' => array(
+                'text'        => $block->buildNodeName($root),
+                'draggable'   => false,
+                'allowDrop'   => ($root->getIsVisible()) ? true : false,
+                'id'          => (int) $root->getId(),
+                'expanded'    => (int) $block->getIsWasExpanded(),
+                'store_id'    => (int) $block->getStore()->getId(),
+                'category_id' => (int) $category->getId(),
+                'root_visible'=> (int) $root->getIsVisible()
+        ))));
     }
 
     protected function _isAllowed()

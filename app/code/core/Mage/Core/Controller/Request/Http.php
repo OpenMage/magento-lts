@@ -63,7 +63,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         if (!$this->_storeCode) {
             // get store view code
-            if (Mage::app()->isInstalled() && Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL)) {
+            if (Mage::isInstalled() && Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL)) {
                 $p = explode('/', trim($this->getPathInfo(), '/'));
                 $storeCode = $p[0];
 
@@ -115,7 +115,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                 $pathInfo = $requestUri;
             }
 
-            if (Mage::app()->isInstalled() && Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL)) {
+            if (Mage::isInstalled() && Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL)) {
                 $p = explode('/', ltrim($pathInfo, '/'), 2);
                 $storeCode = $p[0];
                 $stores = Mage::app()->getStores(true, true);

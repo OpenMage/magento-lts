@@ -31,6 +31,7 @@ $_newRates = $this->getNewRates();
 $_rates = ( $_newRates ) ? $_newRates : $_oldRates;
 ?>
 <form name="rateForm" id="rateForm" method="post" action="<?php echo $this->getRatesFormAction(); ?>">
+    <?php echo $this->getBlockHtml('formkey')?>
     <div class="grid">
         <table cellspacing="0">
         <thead>

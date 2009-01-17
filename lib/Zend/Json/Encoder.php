@@ -18,13 +18,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
-/**
- * Zend_Json_Exception
- */
-#require_once 'Zend/Json/Exception.php';
-
-
 /**
  * Encode PHP constructs to JSON
  *
@@ -43,6 +36,13 @@ class Zend_Json_Encoder
     protected $_cycleCheck;
 
     /**
+     * Additional options used during encoding
+     *
+     * @var array
+     */
+    protected $_options = array();
+
+    /**
      * Array of visited objects; used to prevent cycling.
      *
      * @var array
@@ -53,11 +53,13 @@ class Zend_Json_Encoder
      * Constructor
      *
      * @param boolean $cycleCheck Whether or not to check for recursion when encoding
+     * @param array $options Additional options used during encoding
      * @return void
      */
-    protected function __construct($cycleCheck = false)
+    protected function __construct($cycleCheck = false, $options = array())
     {
         $this->_cycleCheck = $cycleCheck;
+        $this->_options = $options;
     }
 
     /**
@@ -65,11 +67,12 @@ class Zend_Json_Encoder
      *
      * @param mixed $value The value to be encoded
      * @param boolean $cycleCheck Whether or not to check for possible object recursion when encoding
+     * @param array $options Additional options used during encoding
      * @return string  The encoded value
      */
-    public static function encode($value, $cycleCheck = false)
+    public static function encode($value, $cycleCheck = false, $options = array())
     {
-        $encoder = new self(($cycleCheck) ? true : false);
+        $encoder = new self(($cycleCheck) ? true : false, $options);
 
         return $encoder->_encodeValue($value);
     }
@@ -112,17 +115,33 @@ class Zend_Json_Encoder
     {
         if ($this->_cycleCheck) {
             if ($this->_wasVisited($value)) {
-                throw new Zend_Json_Exception(
-                    'Cycles not supported in JSON encoding, cycle introduced by '
-                    . 'class "' . get_class($value) . '"'
-                );
+
+                if (isset($this->_options['silenceCyclicalExceptions'])
+                    && $this->_options['silenceCyclicalExceptions']===true) {
+
+                    return '"* RECURSION (' . get_class($value) . ') *"';
+
+                } else {
+                    #require_once 'Zend/Json/Exception.php';
+                    throw new Zend_Json_Exception(
+                        'Cycles not supported in JSON encoding, cycle introduced by '
+                        . 'class "' . get_class($value) . '"'
+                    );
+                }
             }
 
             $this->_visited[] = $value;
         }
 
         $props = '';
-        foreach (get_object_vars($value) as $name => $propValue) {
+
+        if ($value instanceof Iterator) {
+            $propCollection = $value;
+        } else {
+            $propCollection = get_object_vars($value);
+        }
+
+        foreach ($propCollection as $name => $propValue) {
             if (isset($propValue)) {
                 $props .= ','
                         . $this->_encodeValue($name)
@@ -210,7 +229,7 @@ class Zend_Json_Encoder
         $result = 'null';
 
         if (is_int($value) || is_float($value)) {
-            $result = (string)$value;
+            $result = (string) $value;
         } elseif (is_string($value)) {
             $result = $this->_encodeString($value);
         } elseif (is_bool($value)) {
@@ -380,6 +399,7 @@ class Zend_Json_Encoder
     {
         $cls = new ReflectionClass($className);
         if (! $cls->isInstantiable()) {
+            #require_once 'Zend/Json/Exception.php';
             throw new Zend_Json_Exception("$className must be instantiable");
         }
 

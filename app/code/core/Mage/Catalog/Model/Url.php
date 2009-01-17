@@ -165,10 +165,6 @@ class Mage_Catalog_Model_Url
      */
     protected function _refreshCategoryRewrites(Varien_Object $category, $parentPath = null, $refreshProducts = true)
     {
-        if ($category->getUrlKey() == '') {
-            $urlKey = $this->getCategoryModel()->formatUrlKey($category->getName());
-        }
-
         if ($category->getId() != $this->getStores($category->getStoreId())->getRootCategoryId()) {
             if ($category->getUrlKey() == '') {
                 $urlKey = $this->getCategoryModel()->formatUrlKey($category->getName());
@@ -177,18 +173,9 @@ class Mage_Catalog_Model_Url
                 $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
             }
 
-            $categoryUrlSuffix = $this->getCategoryUrlSuffix($category->getStoreId());
-            if (is_null($parentPath)) {
-                $parentPath = $this->getResource()->getCategoryParentPath($category);
-            } elseif ($parentPath == '/') {
-                $parentPath = '';
-            }
-
-            $parentPath = Mage::helper('catalog/category')->getCategoryUrlPath($parentPath, true, $category->getStoreId());
-
-            $idPath      = 'category/' . $category->getId();
-            $targetPath  = 'catalog/category/view/id/'.$category->getId();
-            $requestPath = $this->getUnusedPath($category->getStoreId(), $parentPath . $urlKey . $categoryUrlSuffix, $idPath);
+            $idPath      = $this->generatePath('id', null, $category);
+            $targetPath  = $this->generatePath('target', null, $category);
+            $requestPath = $this->generatePath('request', null, $category, $parentPath);
 
             $rewriteData = array(
                 'store_id'      => $category->getStoreId(),
@@ -248,26 +235,14 @@ class Mage_Catalog_Model_Url
             $urlKey = $this->getProductModel()->formatUrlKey($product->getUrlKey());
         }
 
-        $productUrlSuffix  = $this->getProductUrlSuffix($category->getStoreId());
-        $categoryUrlSuffix = $this->getCategoryUrlSuffix($category->getStoreId());
+        $idPath      = $this->generatePath('id', $product, $category);
+        $targetPath  = $this->generatePath('target', $product, $category);
+        $requestPath = $this->generatePath('request', $product, $category);
+        $categoryId = null;
+        $updateKeys = true;
         if ($category->getUrlPath()) {
-
-            $categoryUrl = Mage::helper('catalog/category')->getCategoryUrlPath($category->getUrlPath(), false, $category->getStoreId());
-
-            $idPath = 'product/'.$product->getId().'/'.$category->getId();
-            $targetPath = 'catalog/product/view/id/'.$product->getId().'/category/'.$category->getId();
-            $requestPath = $categoryUrl . '/' . $urlKey . $productUrlSuffix;
-
-            $requestPath = $this->getUnusedPath($category->getStoreId(), $requestPath, $idPath);
             $categoryId = $category->getId();
             $updateKeys = false;
-        }
-        else {
-            $idPath = 'product/'.$product->getId();
-            $targetPath = 'catalog/product/view/id/'.$product->getId();
-            $requestPath = $this->getUnusedPath($category->getStoreId(), $urlKey . $productUrlSuffix, $idPath);
-            $categoryId = null;
-            $updateKeys = true;
         }
 
         $rewriteData = array(
@@ -521,5 +496,96 @@ class Mage_Catalog_Model_Url
     public function getCategoryUrlSuffix($storeId)
     {
         return Mage::helper('catalog/category')->getCategoryUrlSuffix($storeId);
+    }
+
+    /**
+     * Generate either id path, request path or target path for product and/or category
+     *
+     * For generating id or system path, either product or category is required
+     * For generating request path - category is required
+     * $parentPath used only for generating category path
+     *
+     * @param string $type
+     * @param Varien_Object $product
+     * @param Varien_Object $category
+     * @param string $parentPath
+     * @return string
+     * @throws Mage_Core_Exception
+     */
+    public function generatePath($type = 'target', $product = null, $category = null, $parentPath = null)
+    {
+        if (!$product && !$category) {
+            Mage::throwException(Mage::helper('core')->__('Specify either category or product, or both.'));
+        }
+
+        // generate id_path
+        if ('id' === $type) {
+            if (!$product) {
+                return 'category/' . $category->getId();
+            }
+            if ($category && $category->getUrlPath()) {
+                return 'product/' . $product->getId() . '/' . $category->getId();
+            }
+            return 'product/' . $product->getId();
+        }
+
+        // generate request_path
+        if ('request' === $type) {
+            // for category
+            if (!$product) {
+                if ($category->getUrlKey() == '') {
+                    $urlKey = $this->getCategoryModel()->formatUrlKey($category->getName());
+                }
+                else {
+                    $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
+                }
+
+                $categoryUrlSuffix = $this->getCategoryUrlSuffix($category->getStoreId());
+                if (null === $parentPath) {
+                    $parentPath = $this->getResource()->getCategoryParentPath($category);
+                }
+                elseif ($parentPath == '/') {
+                    $parentPath = '';
+                }
+                $parentPath = Mage::helper('catalog/category')->getCategoryUrlPath($parentPath, true, $category->getStoreId());
+
+                return $this->getUnusedPath($category->getStoreId(), $parentPath . $urlKey . $categoryUrlSuffix,
+                    $this->generatePath('id', null, $category)
+                );
+            }
+
+            // for product & category
+            if (!$category) {
+                Mage::throwException(Mage::helper('core')->__('Category object is required for determining product request path')); // why?
+            }
+
+            if ($product->getUrlKey() == '') {
+                $urlKey = $this->getProductModel()->formatUrlKey($product->getName());
+            }
+            else {
+                $urlKey = $this->getProductModel()->formatUrlKey($product->getUrlKey());
+            }
+            $productUrlSuffix  = $this->getProductUrlSuffix($category->getStoreId());
+            if ($category->getUrlPath()) {
+                $categoryUrl = Mage::helper('catalog/category')->getCategoryUrlPath($category->getUrlPath(), false, $category->getStoreId());
+                return $this->getUnusedPath($category->getStoreId(), $categoryUrl . '/' . $urlKey . $productUrlSuffix,
+                    $this->generatePath('id', $product, $category)
+                );
+            }
+
+            // for product only
+            return $this->getUnusedPath($category->getStoreId(), $urlKey . $productUrlSuffix,
+                $this->generatePath('id', $product)
+            );
+        }
+
+        // generate target_path
+        if (!$product) {
+            return 'catalog/category/view/id/' . $category->getId();
+        }
+        if ($category && $category->getUrlPath()) {
+            return 'catalog/product/view/id/' . $product->getId() . '/category/' . $category->getId();
+        }
+        return 'catalog/product/view/id/' . $product->getId();
     }
 }

@@ -60,7 +60,7 @@ class Mage_CatalogIndex_Model_Mysql4_Attribute extends Mage_CatalogIndex_Model_M
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
-        $fields = array('count'=>'COUNT(DISTINCT index.entity_id)', 'index.value');
+        $fields = array('count'=>'COUNT(index.entity_id)', 'index.value');
 
         $select->from('', $fields)
             ->join(array('index'=>$this->getMainTable()), 'index.entity_id=e.entity_id', array())

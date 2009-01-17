@@ -202,6 +202,11 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
             $this->getQuote()
         );
 
+        Mage::dispatchEvent('sales_convert_order_to_quote', array(
+            'order' => $order,
+            'quote' => $this->getQuote()
+        ));
+
         if (!$order->getCustomerId()) {
             $this->getQuote()->setCustomerIsGuest(true);
         }
@@ -272,6 +277,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                     )
                 ));
             }
+            Mage::dispatchEvent('sales_convert_order_item_to_quote_item', array(
+                'order_item' => $orderItem,
+                'quote_item' => $item
+            ));
         }
 
         return $item;

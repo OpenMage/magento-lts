@@ -353,13 +353,13 @@ FABridge.userTypes = {};
 
 FABridge.addToUserTypes = function()
 {
-	for (var i = 0; i < arguments.length; i++)
-	{
-		FABridge.userTypes[arguments[i]] = {
-			'typeName': arguments[i],
-			'enriched': false
-		};
-	}
+    for (var i = 0; i < arguments.length; i++)
+    {
+        FABridge.userTypes[arguments[i]] = {
+            'typeName': arguments[i], 
+            'enriched': false
+        };
+    }
 }
 
 FABridge.argsToArray = function(args)
@@ -379,11 +379,11 @@ function instanceFactory(objID)
 }
 
 function FABridge__invokeJSFunction(args)
-{
+{  
     var funcID = args[0];
     var throughArgs = args.concat();//FABridge.argsToArray(arguments);
     throughArgs.shift();
-
+   
     var bridge = FABridge.extractBridgeFromID(funcID);
     return bridge.invokeLocalFunction(funcID, throughArgs);
 }
@@ -406,57 +406,63 @@ FABridge.addInitializationCallback = function(bridgeName, callback)
     callbackList.push(callback);
 }
 
-/**
- * attach the bridge to an instance of a flash movie on the page
- * by looking at the flashvars to see if the bridgeName is present
- * called from AS when the bridge is initialized to attach the JS
- */
-function FABridge__bridgeInitialized(bridgeName)
-{
-    var searchStr = "bridgeName="+ bridgeName;
-
-    if (Prototype.Browser.IE)
-    {
-        var flashInstances = $$('object');
-        if (flashInstances.size() == 1)
-        {
-            FABridge.attachBridge(flashInstances[0], bridgeName);
-        }
-        else
-        {
-            flashInstances.each(function(inst){
-                var params = inst.select('param');
-                var flash_found = false;
-
-                params.each(function(param) {
-                    if (param["name"].toLowerCase() == "flashvars" && param["value"].indexOf(searchStr) >= 0) {
-                        FABridge.attachBridge(inst, bridgeName);
-                        flash_found = true;
-                        throw $break;
-                    }
-                });
-
-                if (flash_found) {
-                    throw $break;
-                }
-            });
+// updated for changes to SWFObject2
+function FABridge__bridgeInitialized(bridgeName) {
+    var objects = document.getElementsByTagName("object");
+    var ol = objects.length;
+    var activeObjects = [];
+    if (ol > 0) {
+        for (var i = 0; i < ol; i++) {
+            if (typeof objects[i].SetVariable != "undefined") {
+                activeObjects[activeObjects.length] = objects[i];
+            }
         }
     }
-    else
-    {
-        var flashInstances = $$('embed');
-        if (flashInstances.size() == 1)
-        {
-            FABridge.attachBridge(flashInstances[0], bridgeName);
+    var embeds = document.getElementsByTagName("embed");
+    var el = embeds.length;
+    var activeEmbeds = [];
+    if (el > 0) {
+        for (var j = 0; j < el; j++) {
+            if (typeof embeds[j].SetVariable != "undefined") {
+                activeEmbeds[activeEmbeds.length] = embeds[j];
+            }
         }
-        else
-        {
-            flashInstances.each(function(inst){
-                var flashVars = inst.readAttribute('flashVars') || inst.readAttribute('flashvars');
-                if (flashVars.indexOf(searchStr) >= 0) {
-                    FABridge.attachBridge(inst, bridgeName);
+    }
+    var aol = activeObjects.length;
+    var ael = activeEmbeds.length;
+    var searchStr = "bridgeName="+ bridgeName;
+    if ((aol == 1 && !ael) || (aol == 1 && ael == 1)) {
+        FABridge.attachBridge(activeObjects[0], bridgeName);     
+    }
+    else if (ael == 1 && !aol) {
+        FABridge.attachBridge(activeEmbeds[0], bridgeName);
+        }
+    else {
+                var flash_found = false;
+        if (aol > 1) {
+            for (var k = 0; k < aol; k++) {
+                 var params = activeObjects[k].childNodes;
+                 for (var l = 0; l < params.length; l++) {
+                    var param = params[l];
+                    if (param.nodeType == 1 && param.tagName.toLowerCase() == "param" && param["name"].toLowerCase() == "flashvars" && param["value"].indexOf(searchStr) >= 0) {
+                        FABridge.attachBridge(activeObjects[k], bridgeName);
+                            flash_found = true;
+                            break;
+                        }
+                    }
+                if (flash_found) {
+                    break;
                 }
-            });
+            }
+        }
+        if (!flash_found && ael > 1) {
+            for (var m = 0; m < ael; m++) {
+                var flashVars = activeEmbeds[m].attributes.getNamedItem("flashVars").nodeValue;
+                if (flashVars.indexOf(searchStr) >= 0) {
+                    FABridge.attachBridge(activeEmbeds[m], bridgeName);
+                    break;
+    }
+            }
         }
     }
     return true;
@@ -477,9 +483,16 @@ FABridge.extractBridgeFromID = function(id)
 
 FABridge.attachBridge = function(instance, bridgeName)
 {
-    var newBridgeInstance = new FABridge(instance, bridgeName);
 
-    FABridge[bridgeName] = newBridgeInstance;
+    // reuse bridge if it exists
+//    var newBridgeInstance = new FABridge(instance, bridgeName);
+
+    // reuse bridge if it exists
+//    FABridge[bridgeName] = newBridgeInstance;
+
+    if (typeof FABridge[bridgeName] == 'undefined') {
+        FABridge[bridgeName] = new FABridge(instance, bridgeName);
+    }
 
 /*  FABridge[bridgeName] = function() {
         return newBridgeInstance.root();
@@ -492,9 +505,12 @@ FABridge.attachBridge = function(instance, bridgeName)
     }
     for (var i = 0; i < callbacks.length; i++)
     {
-        callbacks[i].call(newBridgeInstance);
+//        callbacks[i].call(newBridgeInstance);
+        callbacks[i].call(FABridge[bridgeName]);
     }
-    delete FABridge.initCallbacks[bridgeName]
+    
+    // reuse bridge if it exists
+//    delete FABridge.initCallbacks[bridgeName]
 }
 
 // some methods can't be proxied.  You can use the explicit get,set, and call methods if necessary.
@@ -637,67 +653,18 @@ FABridge.prototype =
     },
 
     // Object Types and Proxies
-	getUserTypeDescriptor: function(objTypeName)
-	{
-		var simpleType = objTypeName.replace(/^([^:]*)\:\:([^:]*)$/, "$2");
-    	var isUserProto = ((typeof window[simpleType] == "function") && (typeof FABridge.userTypes[simpleType] != "undefined"));
-
-    	var protoEnriched = false;
-
-    	if (isUserProto) {
-	    	protoEnriched = FABridge.userTypes[simpleType].enriched;
-    	}
-    	var toret = {
-    		'simpleType': simpleType,
-    		'isUserProto': isUserProto,
-    		'protoEnriched': protoEnriched
-    	};
-    	return toret;
-	},
-
+    
     // accepts an object reference, returns a type object matching the obj reference.
     getTypeFromName: function(objTypeName)
     {
-    	var ut = this.getUserTypeDescriptor(objTypeName);
-    	var toret = this.remoteTypeCache[objTypeName];
-    	if (ut.isUserProto)
-		{
-    		//enrich both of the prototypes: the FABridge one, as well as the class in the page.
-	    	if (!ut.protoEnriched)
-			{
-
-		    	for (i in window[ut.simpleType].prototype)
-				{
-		    		toret[i] = window[ut.simpleType].prototype[i];
-		    	}
-
-				window[ut.simpleType].prototype = toret;
-				this.remoteTypeCache[objTypeName] = toret;
-				FABridge.userTypes[ut.simpleType].enriched = true;
-	    	}
-    	}
-        return toret;
+        return this.remoteTypeCache[objTypeName];
     },
     //create an AS proxy for the given object ID and type
     createProxy: function(objID, typeName)
     {
-    	//get user created type, if it exists
-    	var ut = this.getUserTypeDescriptor(typeName);
-
         var objType = this.getTypeFromName(typeName);
-
-		if (ut.isUserProto)
-		{
-			var instFactory = window[ut.simpleType];
-			var instance = new instFactory(this.name, objID);
-			instance.fb_instance_id = objID;
-		}
-		else
-		{
-	        instanceFactory.prototype = objType;
-	        var instance = new instanceFactory(objID);
-		}
-
+            instanceFactory.prototype = objType;
+            var instance = new instanceFactory(objID);
         this.remoteInstanceCache[objID] = instance;
         return instance;
     },
@@ -781,7 +748,7 @@ FABridge.prototype =
         }
         return this.remoteFunctionCache[funcID];
     },
-
+    
     //reutrns the ID of the given function; if it doesnt exist it is created and added to the local cache
     getFunctionID: function(func)
     {
@@ -816,7 +783,7 @@ FABridge.prototype =
         }
         else if (t == "function")
         {
-            //js functions are assigned an ID and stored in the local cache
+            //js functions are assigned an ID and stored in the local cache 
             result.type = FABridge.TYPE_JSFUNCTION;
             result.value = this.getFunctionID(value);
         }
@@ -835,7 +802,7 @@ FABridge.prototype =
     },
 
     //on deserialization we always check the return for the specific error code that is used to marshall NPE's into JS errors
-    // the unpacking is done by returning the value on each pachet for objects/arrays
+    // the unpacking is done by returning the value on each pachet for objects/arrays 
     deserialize: function(packedValue)
     {
 
@@ -896,7 +863,7 @@ FABridge.prototype =
 
     // check the given value for the components of the hard-coded error code : __FLASHERROR
     // used to marshall NPE's into flash
-
+    
     handleError: function(value)
     {
         if (typeof(value)=="string" && value.indexOf("__FLASHERROR")==0)
@@ -912,7 +879,7 @@ FABridge.prototype =
         else
         {
             return value;
-        }
+        }   
     }
 };
 
@@ -940,12 +907,12 @@ ASProxy.prototype =
     call: function(funcName, args)
     {
         this.bridge.callASMethod(this.fb_instance_id, funcName, args);
-    },
-
+    }, 
+    
     addRef: function() {
         this.bridge.addRef(this);
-    },
-
+    }, 
+    
     release: function() {
         this.bridge.release(this);
     }

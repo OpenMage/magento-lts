@@ -92,7 +92,6 @@ class Mage_CatalogIndex_Model_Mysql4_Data_Abstract extends Mage_Core_Model_Mysql
                 ->joinRight(array('d'=>$tableName), $defaultCondition, array())
                 ->joinLeft(array('c'=>$tableName), $condition, array())
                 ->where('c.attribute_id IN (?) OR d.attribute_id IN (?)', $attributes);
-
             $part = $this->_getReadAdapter()->fetchAll($select);
 
             if (is_array($part)) {
@@ -156,12 +155,14 @@ class Mage_CatalogIndex_Model_Mysql4_Data_Abstract extends Mage_Core_Model_Mysql
      */
     public function getMinimalPrice($products, $priceAttributes, $store)
     {
+        $website = Mage::app()->getStore($store)->getWebsiteId();
+
         $fields = array('customer_group_id', 'minimal_value'=>'MIN(value)');
         $select = $this->_getReadAdapter()->select()
             ->from(array('base'=>$this->getTable('catalogindex/price')), $fields)
             ->where('base.entity_id in (?)', $products)
             ->where('base.attribute_id in (?)', $priceAttributes)
-            ->where('base.store_id = ?', $store)
+            ->where('base.website_id = ?', $website)
             ->group('base.customer_group_id');
         return $this->_getReadAdapter()->fetchAll($select);
     }

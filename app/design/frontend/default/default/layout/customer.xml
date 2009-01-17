@@ -192,7 +192,6 @@ Customer account pages, rendered for all tabs in dashboard
 	        <block type="core/template" name="catalog.compare.sidebar" template="catalog/product/compare/sidebar.phtml"/>
 	        <block type="sales/reorder_sidebar" name="sale.reorder.sidebar" as="reorder" template="sales/reorder/sidebar.phtml"/>
 	        <remove name="tags_popular"/>
-            
         </reference>
     </customer_account>
 

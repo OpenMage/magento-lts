@@ -25,11 +25,6 @@
 #require_once 'Zend/Controller/Action/Helper/Abstract.php';
 
 /**
- * @see Zend_View_Interface
- */
-#require_once 'Zend/View/Interface.php';
-
-/**
  * @see Zend_View
  */
 #require_once 'Zend/View.php';
@@ -226,20 +221,6 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
     }
 
     /**
-     * Retrieve front controller instance
-     *
-     * @return Zend_Controller_Front
-     */
-    public function getFrontController()
-    {
-        if (null === $this->_frontController) {
-            $this->_frontController = Zend_Controller_Front::getInstance();
-        }
-
-        return $this->_frontController;
-    }
-
-    /**
      * Get current module name
      * 
      * @return string
@@ -269,6 +250,7 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
             /**
              * @see Zend_Controller_Action_Exception
              */
+            #require_once 'Zend/Controller/Action/Exception.php';
             throw new Zend_Controller_Action_Exception('ViewRenderer cannot locate module directory');
         }
         $this->_moduleDir = dirname($moduleDir);
@@ -299,7 +281,7 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
             $this->_inflector->setStaticRuleReference('moduleDir', $this->_moduleDir) // moduleDir must be specified before the less specific 'module'
                  ->addRules(array(
                      ':module'     => array('Word_CamelCaseToDash', 'StringToLower'),
-                     ':controller' => array('Word_CamelCaseToDash', new Zend_Filter_Word_UnderscoreToSeparator('/'), 'StringToLower'),
+                     ':controller' => array('Word_CamelCaseToDash', new Zend_Filter_Word_UnderscoreToSeparator('/'), 'StringToLower', new Zend_Filter_PregReplace('/\./', '-')),
                      ':action'     => array('Word_CamelCaseToDash', new Zend_Filter_PregReplace('#[^a-z0-9' . preg_quote('/', '#') . ']+#i', '-'), 'StringToLower'),
                  ))
                  ->setStaticRuleReference('suffix', $this->_viewSuffix)
@@ -369,12 +351,23 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
      */
     protected function _generateDefaultPrefix()
     {
-        if ((null === $this->_actionController) || !strstr(get_class($this->_actionController), '_')) {
-            $prefix = 'Zend_View';
-        } else {
-            $class = get_class($this->_actionController);
-            $prefix = substr($class, 0, strpos($class, '_')) . '_View';
+        $default = 'Zend_View';
+        if (null === $this->_actionController) {
+            return $default;
         }
+
+        $class = get_class($this->_actionController);
+
+        if (!strstr($class, '_')) {
+            return $default;
+        }
+
+        $module = $this->getModule();
+        if ('default' == $module) {
+            return $default;
+        }
+
+        $prefix = substr($class, 0, strpos($class, '_')) . '_View';
 
         return $prefix;
     }
@@ -398,7 +391,7 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
 
         $parts = array(
             'module'     => (($moduleName = $request->getModuleName()) != '') ? $dispatcher->formatModuleName($moduleName) : $moduleName,
-            'controller' => substr($dispatcher->formatControllerName($request->getControllerName()), 0, -10),
+            'controller' => $request->getControllerName(),
             'action'     => $dispatcher->formatActionName($request->getActionName())
             );
 
@@ -483,6 +476,7 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
                 /**
                  * @see Zend_Controller_Action_Exception
                  */
+                #require_once 'Zend/Controller/Action/Exception.php';
                 throw new Zend_Controller_Action_Exception('ViewRenderer initialization failed: retrieved view base path is empty');
             }
         }
@@ -850,7 +844,7 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
         $request    = $this->getRequest();
         $dispatcher = $this->_frontController->getDispatcher();
         $module     = $dispatcher->formatModuleName($request->getModuleName());
-        $controller = substr($dispatcher->formatControllerName($request->getControllerName()), 0, -10);
+        $controller = $request->getControllerName();
         $action     = $dispatcher->formatActionName($request->getActionName());
 
         $params     = compact('module', 'controller', 'action');
@@ -872,7 +866,7 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
             $origSuffix = $this->getViewSuffix();
             $this->setViewSuffix($params['suffix']);
         }
-        if (isset($moduleDir)) {
+        if (isset($params['moduleDir'])) {
             $origModuleDir = $this->_getModuleDir();
             $this->_setModuleDir($params['moduleDir']);
         }
@@ -882,7 +876,7 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
         if (isset($params['suffix'])) {
             $this->setViewSuffix($origSuffix);
         }
-        if (isset($moduleDir)) {
+        if (isset($params['moduleDir'])) {
             $this->_setModuleDir($origModuleDir);
         }
 

@@ -25,19 +25,20 @@
  */
 
 /**
- * State of layered navigation
+ * Layered navigation state model
  *
- * @category   Mage
- * @package    Mage_Catalog
+ * @category    Mage
+ * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Layer_State extends Varien_Object
 {
-    public function __construct() 
-    {
-        parent::__construct();
-    }
-    
+    /**
+     * Add filter item to layer state
+     *
+     * @param   Mage_Catalog_Model_Layer_Filter_Item $filter
+     * @return  Mage_Catalog_Model_Layer_State
+     */
     public function addFilter($filter)
     {
         $filters = $this->getFilters();
@@ -45,7 +46,13 @@ class Mage_Catalog_Model_Layer_State extends Varien_Object
         $this->setFilters($filters);
         return $this;
     }
-    
+
+    /**
+     * Set layer state filter items
+     *
+     * @param   array $filters
+     * @return  Mage_Catalog_Model_Layer_State
+     */
     public function setFilters($filters)
     {
         if (!is_array($filters)) {
@@ -54,7 +61,12 @@ class Mage_Catalog_Model_Layer_State extends Varien_Object
         $this->setData('filters', $filters);
         return $this;
     }
-    
+
+    /**
+     * Get applied to layer filter items
+     *
+     * @return array
+     */
     public function getFilters()
     {
         $filters = $this->getData('filters');

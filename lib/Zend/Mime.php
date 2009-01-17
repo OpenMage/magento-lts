@@ -38,7 +38,7 @@ class Zend_Mime
     const ENCODING_BASE64 = 'base64';
     const DISPOSITION_ATTACHMENT = 'attachment';
     const DISPOSITION_INLINE = 'inline';
-    const LINELENGTH = 74;
+    const LINELENGTH = 72;
     const LINEEND = "\n";
     const MULTIPART_ALTERNATIVE = 'multipart/alternative';
     const MULTIPART_MIXED = 'multipart/mixed';

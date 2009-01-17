@@ -132,4 +132,20 @@ class Zend_Pdf_Element_Array extends Zend_Pdf_Element
 
         return $outStr;
     }
+
+    /**
+     * Convert PDF element to PHP type.
+     *
+     * Dictionary is returned as an associative array
+     *
+     * @return mixed
+     */
+    public function toPhp()
+    {
+        foreach ($this->_items as $item) {
+            $phpArray[] = $item->toPhp();
+        }
+
+        return $phpArray;
+    }
 }

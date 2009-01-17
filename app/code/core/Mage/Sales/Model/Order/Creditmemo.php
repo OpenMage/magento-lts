@@ -302,6 +302,13 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Core_Model_Abstract
             $this->getOrder()->getBaseAdjustmentNegative()+$this->getBaseAdjustmentNegative()
         );
 
+        $this->getOrder()->setDiscountRefunded(
+            $this->getOrder()->getDiscountRefunded()+$this->getDiscountAmount()
+        );
+        $this->getOrder()->setBaseDiscountRefunded(
+            $this->getOrder()->getBaseDiscountRefunded()+$this->getBaseDiscountAmount()
+        );
+
         if ($this->getInvoice()) {
             $this->getInvoice()->setIsUsedForRefund(true);
             $this->setInvoiceId($this->getInvoice()->getId());

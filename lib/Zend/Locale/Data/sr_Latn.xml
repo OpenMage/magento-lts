@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.65 $"/>
-		<generation date="$Date: 2007/07/21 21:12:28 $"/>
+		<version number="$Revision: 1.75 $"/>
+		<generation date="$Date: 2008/06/26 03:47:58 $"/>
 		<language type="sr"/>
 		<script type="Latn"/>
 	</identity>
@@ -31,7 +31,6 @@
 			<language type="de">Nemački</language>
 			<language type="el">Grčki</language>
 			<language type="en">Engleski</language>
-			<language type="en_AU">Engleski (Australija)</language>
 			<language type="en_US">Engleski (SAD)</language>
 			<language type="eo">Esperanto</language>
 			<language type="es">Španski</language>
@@ -42,7 +41,6 @@
 			<language type="fil">Tagalog</language>
 			<language type="fo">Farski</language>
 			<language type="fr">Francuski</language>
-			<language type="fr_CH">Francuski (Švajcarska)</language>
 			<language type="fy">Frizijski</language>
 			<language type="ga">Irski</language>
 			<language type="gd">Škotski Galski</language>
@@ -90,7 +88,6 @@
 			<language type="pl">Poljski</language>
 			<language type="ps">Paštunski</language>
 			<language type="pt">Portugalski</language>
-			<language type="pt_BR">Portugalski (Brazil)</language>
 			<language type="pt_PT">Portugalski (Portugalija)</language>
 			<language type="rm">Reto-Romanski</language>
 			<language type="ro">Rumunski</language>
@@ -286,7 +283,7 @@
 			<territory type="GU">Guam</territory>
 			<territory type="GW">Gvineja-Bisao</territory>
 			<territory type="GY">Gvajana</territory>
-			<territory type="HK">Hong Kong (S. A. R. Kina)</territory>
+			<territory type="HK">Hong Kong</territory>
 			<territory type="HM">Herd i Mekdonald Ostrva</territory>
 			<territory type="HN">Honduras</territory>
 			<territory type="HR">Hrvatska</territory>
@@ -338,7 +335,7 @@
 			<territory type="ML">Mali</territory>
 			<territory type="MM">Mijanmar</territory>
 			<territory type="MN">Mongolija</territory>
-			<territory type="MO">Makao (S. A. R. Kina)</territory>
+			<territory type="MO">Makao</territory>
 			<territory type="MP">Severna Marijanska Ostrva</territory>
 			<territory type="MQ">Martinik</territory>
 			<territory type="MR">Mauritanija</territory>
@@ -469,7 +466,7 @@
 		</measurementSystemNames>
 	</localeDisplayNames>
 	<characters>
-		<exemplarCharacters>[a-c ć č d đ {dž} e-l {lj} m n {nj} o p r s š t-v z ž]</exemplarCharacters>
+		<exemplarCharacters>[a-c č ć d đ {dž} e-l {lj} m n {nj} o p r s š t-v z ž]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[q w-y]</exemplarCharacters>
 	</characters>
 	<dates>
@@ -571,15 +568,9 @@
 							<quarter type="4">Četvrto tromesečje</quarter>
 						</quarterWidth>
 					</quarterContext>
-					<quarterContext type="stand-alone">
-						<quarterWidth type="wide">
-							<quarter type="1">Prvo tromesečje</quarter>
-							<quarter type="2">Drugo tromesečje</quarter>
-							<quarter type="3">Treće tromesečje</quarter>
-							<quarter type="4">Četvrto tromesečje</quarter>
-						</quarterWidth>
-					</quarterContext>
 				</quarters>
+				<am>AM</am>
+				<pm>PM</pm>
 				<eras>
 					<eraNames>
 						<era type="0">Pre nove ere</era>
@@ -594,13 +585,25 @@
 						<era type="1">n. e.</era>
 					</eraNarrow>
 				</eras>
-				<timeFormats>
-					<timeFormatLength type="full">
-						<timeFormat>
-							<pattern>HH 'časova', mm 'minuta', ss 'sekundi' vvvv</pattern>
-						</timeFormat>
-					</timeFormatLength>
-				</timeFormats>
+				<dateTimeFormats>
+					<intervalFormats>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="h">HH.mm-HH.mm</greatestDifference>
+							<greatestDifference id="m">HH.mm-HH.mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="h">HH.mm-HH.mmv</greatestDifference>
+							<greatestDifference id="m">HH.mm-HH.mmv</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hv">
+							<greatestDifference id="h">HH-HHv</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yM">
+							<greatestDifference id="M">M.yy - M.yy</greatestDifference>
+							<greatestDifference id="y">M.yy - M.yy</greatestDifference>
+						</intervalFormatItem>
+					</intervalFormats>
+				</dateTimeFormats>
 				<fields>
 					<field type="era">
 						<displayName>era</displayName>
@@ -720,11 +723,6 @@
 			</zone>
 			<zone type="Asia/Baku">
 				<exemplarCity>Baku</exemplarCity>
-			</zone>
-			<zone type="Europe/Sarajevo">
-				<long>
-					<standard>Srednje Evropsko Vreme</standard>
-				</long>
 			</zone>
 			<zone type="America/Barbados">
 				<exemplarCity>Barbados</exemplarCity>

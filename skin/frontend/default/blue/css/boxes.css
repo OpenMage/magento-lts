@@ -958,7 +958,9 @@ select.address-select { width:630px; }
 .shipment-methods dd { margin-bottom:13px; }
 .payment-methods dt { margin-bottom:5px; }
 .payment-methods dd { padding:5px 20px; }
-
+.payment-methods select.month { width:146px !important; margin-right:10px; }
+.payment-methods select.year { width:100px !important; }
+.payment-methods input.cvv { width:3em !important; }
 
 /* Shopping Cart */
 .shopping-cart  { margin-bottom:0; }

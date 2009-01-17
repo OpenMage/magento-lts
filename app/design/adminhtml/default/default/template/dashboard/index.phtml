@@ -33,7 +33,10 @@ function changeDiagramsPeriod(periodObj) {
     ajaxBlockParam = 'block/tab_<?php echo $tabId ?>/';
     ajaxBlockUrl = '<?php echo $this->getUrl('*/*/ajaxBlock', array('_current' => true, 'block' => '', 'period' => '')) ?>' + ajaxBlockParam + periodParam;
     tabContentElementId = '<?php echo $this->getChild('diagrams')->getId() ?>_<?php echo $tabId ?>_content';
-    new Ajax.Updater(tabContentElementId, ajaxBlockUrl);
+    new Ajax.Updater(tabContentElementId, ajaxBlockUrl, {
+        method: 'post',
+        parameters: {isAjax: 'true', form_key: FORM_KEY}
+    });
 <?php endforeach; ?>
 }
 

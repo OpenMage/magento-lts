@@ -94,24 +94,16 @@
                     <children>
                         <catalog>
                             <children>
-                                <sitemap>
+                                <sitemap translate="title" modul="sitemap">
                                     <title>Google Sitemap</title>
                                 </sitemap>
                             </children>
                         </catalog>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
                         <system>
                             <children>
                                 <config>
                                     <children>
-                                        <sitemap>
+                                        <sitemap translate="title" modul="shipping">
                                             <title>Google Sitemap Section</title>
                                         </sitemap>
                                     </children>

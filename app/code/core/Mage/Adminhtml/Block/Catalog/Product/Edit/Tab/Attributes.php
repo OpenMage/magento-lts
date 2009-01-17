@@ -95,6 +95,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
                 }
             }
 
+            Mage::dispatchEvent('adminhtml_catalog_product_edit_prepare_form', array('form'=>$form));
+
             $form->addValues($values);
             $form->setFieldNameSuffix('product');
             $this->setForm($form);
@@ -103,11 +105,21 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
 
     protected function _getAdditionalElementTypes()
     {
-        return array(
+        $result = array(
             'price'   => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_price'),
             'gallery' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_gallery'),
             'image'   => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_image'),
             'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean')
         );
+ 
+        $response = new Varien_Object();
+        $response->setTypes(array());
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', array('response'=>$response));
+
+        foreach ($response->getTypes() as $typeName=>$typeClass) {
+            $result[$typeName] = $typeClass;
+        }
+        
+        return $result;
     }
 }

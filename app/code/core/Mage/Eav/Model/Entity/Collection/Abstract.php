@@ -950,6 +950,9 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
 
     protected function _getAttributeFieldName($attributeCode)
     {
+        if (isset($this->_joinAttributes[$attributeCode]['condition_alias'])) {
+            return $this->_joinAttributes[$attributeCode]['condition_alias'];
+        }
         if (isset($this->_joinFields[$attributeCode])) {
             $attr = $this->_joinFields[$attributeCode];
             return $attr['table'] ? $attr['table'] .'.'.$attr['field'] : $attr['field'];

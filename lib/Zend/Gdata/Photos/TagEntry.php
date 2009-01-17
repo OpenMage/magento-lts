@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Photos
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -36,8 +37,8 @@
 
 /**
  * Data model class for a Tag Entry.
- * 
- * To transfer user entries to and from the servers, including 
+ *
+ * To transfer user entries to and from the servers, including
  * creating new entries, refer to the service class,
  * Zend_Gdata_Photos.
  *
@@ -45,6 +46,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Photos
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -52,22 +54,20 @@ class Zend_Gdata_Photos_TagEntry extends Zend_Gdata_Entry
 {
 
     protected $_entryClassName = 'Zend_Gdata_Photos_TagEntry';
-        
+
     protected $_gphotoWeight = null;
 
     /**
      * Create a new instance.
-     * 
+     *
      * @param DOMElement $element (optional) DOMElement from which this
      *          object should be constructed.
      */
     public function __construct($element = null)
     {
-        foreach (Zend_Gdata_Photos::$namespaces as $nsPrefix => $nsUri) {
-            $this->registerNamespace($nsPrefix, $nsUri);
-        }
+        $this->registerAllNamespaces(Zend_Gdata_Photos::$namespaces);
         parent::__construct($element);
-        
+
         $category = new Zend_Gdata_App_Extension_Category(
             'http://schemas.google.com/photos/2007#tag',
             'http://schemas.google.com/g/2005#kind');
@@ -83,9 +83,9 @@ class Zend_Gdata_Photos_TagEntry extends Zend_Gdata_Entry
      * @return DOMElement The DOMElement representing this element and all
      *          child properties.
      */
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
         if ($this->_gphotoWeight !== null) {
             $element->appendChild($this->_gphotoWeight->getDOM($element->ownerDocument));
         }
@@ -101,9 +101,9 @@ class Zend_Gdata_Photos_TagEntry extends Zend_Gdata_Entry
     protected function takeChildFromDOM($child)
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
-        
+
         switch ($absoluteNodeName) {
-            case $this->lookupNamespace('gphoto') . ':' . 'weight'; 
+            case $this->lookupNamespace('gphoto') . ':' . 'weight';
                 $weight = new Zend_Gdata_Photos_Extension_Weight();
                 $weight->transferFromDOM($child);
                 $this->_gphotoWeight = $weight;

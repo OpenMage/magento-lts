@@ -73,7 +73,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
                     $bundleSelections = $bundleOption->getSelections();
 
                     foreach ($bundleSelections as $bundleSelection) {
-                        $option['value'][] = sprintf('%d', $this->_getSelectionQty($bundleSelection->getSelectionId())).' x '. $this->htmlEscape($bundleSelection->getName()). ' ' .Mage::helper('core')->currency($this->_getSelectionFinalPrice($bundleSelection));
+                        $option['value'][] = $this->_getSelectionQty($bundleSelection->getSelectionId()).' x '. $this->htmlEscape($bundleSelection->getName()). ' ' .Mage::helper('core')->currency($this->_getSelectionFinalPrice($bundleSelection));
                     }
 
                     $options[] = $option;

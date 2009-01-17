@@ -194,6 +194,17 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
+     * Add filterable in search filter
+     *
+     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     */
+    public function addIsFilterableInSearchFilter()
+    {
+        $this->getSelect()->where('main_table.is_filterable_in_search>0');
+        return $this;
+    }
+
+    /**
      * Enter description here...
      *
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection

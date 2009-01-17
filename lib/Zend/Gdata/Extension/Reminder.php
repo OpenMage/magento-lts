@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -29,6 +30,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -53,22 +55,22 @@ class Zend_Gdata_Extension_Reminder extends Zend_Gdata_Extension
         $this->_minutes = $minutes;
     }
 
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
-        if ($this->_absoluteTime != null) {
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
+        if ($this->_absoluteTime !== null) {
             $element->setAttribute('absoluteTime', $this->_absoluteTime);
         }
-        if ($this->_method != null) {
+        if ($this->_method !== null) {
             $element->setAttribute('method', $this->_method);
         }
-        if ($this->_days != null) {
+        if ($this->_days !== null) {
             $element->setAttribute('days', $this->_days);
         }
-        if ($this->_hours != null) {
+        if ($this->_hours !== null) {
             $element->setAttribute('hours', $this->_hours);
         }
-        if ($this->_minutes != null) {
+        if ($this->_minutes !== null) {
             $element->setAttribute('minutes', $this->_minutes);
         }
         return $element;

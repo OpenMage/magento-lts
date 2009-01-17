@@ -370,7 +370,7 @@ Varien.Tabs.prototype = {
 
 Varien.DOB = Class.create();
 Varien.DOB.prototype = {
-    initialize: function(selector, required) {
+    initialize: function(selector, required, format) {
         var el        = $$(selector)[0];
         this.day      = Element.select($(el), '.dob-day input')[0];
         this.month    = Element.select($(el), '.dob-month input')[0];
@@ -378,6 +378,7 @@ Varien.DOB.prototype = {
         this.dob      = Element.select($(el), '.dob-full input')[0];
         this.advice   = Element.select($(el), '.validation-advice')[0];
         this.required = required;
+        this.format   = format;
 
         this.day.validate = this.validate.bind(this);
         this.month.validate = this.validate.bind(this);
@@ -406,8 +407,9 @@ Varien.DOB.prototype = {
             } else if (this.year.value<1900 || this.year.value>date.getFullYear()) {
                 error = 'Please enter a valid year (1900-'+date.getFullYear()+').';
             } else {
-                this.dob.value = this.month.value+'/'+this.day.value+'/'+this.year.value;
-                var test = new Date(this.dob.value);
+                this.dob.value = this.format.replace(/(%m|%b)/i, this.month.value).replace(/(%d|%e)/i, this.day.value).replace(/%y/i, this.year.value);
+                var testDOB = this.month.value + '/' + this.day.value + '/'+ this.year.value;
+                var test = new Date(testDOB);
                 if (isNaN(test)) {
                     error = 'Please enter a valid date.';
                 }

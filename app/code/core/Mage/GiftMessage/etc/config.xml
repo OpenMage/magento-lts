@@ -140,6 +140,15 @@
                     </giftmessage>
                  </observers>
             </sales_convert_order_to_quote>
+            <sales_convert_order_item_to_quote_item>
+                <observers>
+                    <giftmessage>
+                        <type>model</type>
+                        <class>giftmessage/observer</class>
+                        <method>salesEventOrderItemToQuoteItem</method>
+                    </giftmessage>
+                 </observers>
+            </sales_convert_order_item_to_quote_item>
         </events>
     </adminhtml>
     <frontend>

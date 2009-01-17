@@ -237,4 +237,14 @@ class Zend_Pdf_Element_Object extends Zend_Pdf_Element
     {
         $this->_value = null;
     }
+
+    /**
+     * Convert PDF element to PHP type.
+     *
+     * @return mixed
+     */
+    public function toPhp()
+    {
+        return $this->_value->toPhp();
+    }
 }

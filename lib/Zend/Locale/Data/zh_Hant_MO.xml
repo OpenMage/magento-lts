@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.53 $"/>
-		<generation date="$Date: 2007/07/21 21:12:28 $"/>
+		<version number="$Revision: 1.59 $"/>
+		<generation date="$Date: 2008/06/17 14:12:14 $"/>
 		<language type="zh"/>
 		<script type="Hant"/>
 		<territory type="MO"/>
@@ -28,7 +28,7 @@
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
-							<pattern>yyyy年MM月dd日 EEEE</pattern>
+							<pattern>yyyy年MM月dd日EEEE</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
@@ -53,16 +53,69 @@
 							<pattern>ahh:mm:ss</pattern>
 						</timeFormat>
 					</timeFormatLength>
-					<timeFormatLength type="short">
-						<timeFormat>
-							<pattern>ah:mm</pattern>
-						</timeFormat>
-					</timeFormatLength>
 				</timeFormats>
 				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="yyyyM">yyyy/M</dateFormatItem>
 					</availableFormats>
+					<intervalFormats>
+						<intervalFormatItem id="MEd">
+							<greatestDifference id="M">M月d日E至M月d日E</greatestDifference>
+							<greatestDifference id="d">M月d日E至d日E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMEd">
+							<greatestDifference id="M">MM月d日E至MM月d日E</greatestDifference>
+							<greatestDifference id="d">MM月d日E至d日E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMd">
+							<greatestDifference id="M">MM月d日至MM月d日</greatestDifference>
+							<greatestDifference id="d">MM月d日至d日</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Md">
+							<greatestDifference id="M">M月d日至M月d日</greatestDifference>
+							<greatestDifference id="d">M月d日至d日</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="h">
+							<greatestDifference id="h">ah至h時</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="a">ah:mm至ah:mmv</greatestDifference>
+							<greatestDifference id="h">ah:mm至h:mmv</greatestDifference>
+							<greatestDifference id="m">ah:mm至h:mmv</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hv">
+							<greatestDifference id="a">ah時至ah時v</greatestDifference>
+							<greatestDifference id="h">ah至h時v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yM">
+							<greatestDifference id="M">yy年M月至M月</greatestDifference>
+							<greatestDifference id="y">yy年M月至yy年M月</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="M">yy年M月d日E至M月d日E</greatestDifference>
+							<greatestDifference id="d">yy年M月d日E至d日E</greatestDifference>
+							<greatestDifference id="y">yy年M月d日E至yy年M月d日E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMM">
+							<greatestDifference id="M">yyyy年MM月至MM月</greatestDifference>
+							<greatestDifference id="y">yyyy年MM月至yyyy年MM月</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEd">
+							<greatestDifference id="M">yyyy年MM月d日E至MM月d日E</greatestDifference>
+							<greatestDifference id="d">yyyy年MM月d日E至d日E</greatestDifference>
+							<greatestDifference id="y">yyyy年MM月d日E至yyyy年MM月d日E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="M">yyyy年MM月d日至MM月d日</greatestDifference>
+							<greatestDifference id="d">yyyy年MM月d日至d日</greatestDifference>
+							<greatestDifference id="y">yyyy年MM月d日至yyyy年MM月d日</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="M">yy年M月d日至M月d日</greatestDifference>
+							<greatestDifference id="d">yy年M月d日至d日</greatestDifference>
+							<greatestDifference id="y">yy年M月d日至yy年M月d日</greatestDifference>
+						</intervalFormatItem>
+					</intervalFormats>
 				</dateTimeFormats>
 			</calendar>
 		</calendars>

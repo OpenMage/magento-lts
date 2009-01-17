@@ -1,5 +1,5 @@
 <?php if($this->getIsShipping()):
-    $_fieldsContainerId = 'order:shipping_address_fields';
+    $_fieldsContainerId = 'order-shipping_address_fields';
     ?>
     <script type="text/javascript">
     order.shippingAddressContainer = '<?php echo $_fieldsContainerId ?>';
@@ -7,7 +7,7 @@
     </script>
     <?php
 else:
-    $_fieldsContainerId = 'order:billing_address_fields';
+    $_fieldsContainerId = 'order-billing_address_fields';
     ?>
     <script type="text/javascript">
     order.billingAddressContainer = '<?php echo $_fieldsContainerId ?>';
@@ -37,8 +37,8 @@ endif; ?>
         </select>
         <br/>
         <?php if($this->getIsShipping()): ?>
-            <input type="checkbox" id="order:shipping_same_as_billing" name="shipping_same_as_billing" onchange="order.setShippingAsBilling(this.checked)" <?php if($this->getIsAsBilling()): ?>checked<?php endif; ?>/>
-            <label for="order:shipping_same_as_billing" class="no-float"><?php echo Mage::helper('sales')->__('Same As Billing Address') ?></label>
+            <input type="checkbox" id="order-shipping_same_as_billing" name="shipping_same_as_billing" onchange="order.setShippingAsBilling(this.checked)" <?php if($this->getIsAsBilling()): ?>checked<?php endif; ?>/>
+            <label for="order-shipping_same_as_billing" class="no-float"><?php echo Mage::helper('sales')->__('Same As Billing Address') ?></label>
         <?php else: ?>
             &nbsp;
         <?php endif; ?>

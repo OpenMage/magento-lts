@@ -37,11 +37,11 @@
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Db_Statement_Pdo extends Zend_Db_Statement
+class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggregate
 {
 
     /**
-     * The mysqli_stmt object.
+     * The statement object.
      *
      * @var PDOStatement
      */
@@ -259,6 +259,16 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement
             #require_once 'Zend/Db/Statement/Exception.php';
             throw new Zend_Db_Statement_Exception($e->getMessage());
         }
+    }
+
+    /**
+     * Required by IteratorAggregate interface
+     *
+     * @return IteratorIterator
+     */
+    public function getIterator()
+    {
+        return new IteratorIterator($this->_stmt);
     }
 
     /**

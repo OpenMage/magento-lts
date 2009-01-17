@@ -39,7 +39,7 @@
     <table cellspacing="0" class="data-table" id="product-attribute-specs-table">
     <?php foreach ($_additional as $_data): ?>
     <tr>
-        <td class="label"><?php echo $this->__($_data['label']) ?></td>
+        <td class="label"><?php echo $this->htmlEscape($this->__($_data['label'])) ?></td>
         <td class="data"><?php echo $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
     </tr>
     <?php endforeach; ?>

@@ -16,7 +16,7 @@
  * @package    Zend_Filter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Inflector.php 9045 2008-03-25 15:57:29Z ralph $
+ * @version    $Id: Inflector.php 12501 2008-11-10 16:28:31Z matthew $
  */
 
 /**
@@ -225,8 +225,8 @@ class Zend_Filter_Inflector implements Zend_Filter_Interface
      */
     public function setTarget($target)
     {
-    	$this->_target = (string) $target;
-    	return $this;
+        $this->_target = (string) $target;
+        return $this;
     }
 
     /**
@@ -434,29 +434,29 @@ class Zend_Filter_Inflector implements Zend_Filter_Interface
         foreach ($this->_rules as $ruleName => $ruleValue) {
             if (isset($source[$ruleName])) {
                 if (is_string($ruleValue)) {
-    	            // overriding the set rule
+                    // overriding the set rule
                     $processedParts['#'.$pregQuotedTargetReplacementIdentifier.$ruleName.'#'] = str_replace('\\', '\\\\', $source[$ruleName]);
-    	        } elseif (is_array($ruleValue)) {
-    	            $processedPart = $source[$ruleName];
-    	            foreach ($ruleValue as $ruleFilter) {
-    	                $processedPart = $ruleFilter->filter($processedPart);
-    	            }
-    	            $processedParts['#'.$pregQuotedTargetReplacementIdentifier.$ruleName.'#'] = str_replace('\\', '\\\\', $processedPart);
-    	        }
-    	    } elseif (is_string($ruleValue)) {
+                } elseif (is_array($ruleValue)) {
+                    $processedPart = $source[$ruleName];
+                    foreach ($ruleValue as $ruleFilter) {
+                        $processedPart = $ruleFilter->filter($processedPart);
+                    }
+                    $processedParts['#'.$pregQuotedTargetReplacementIdentifier.$ruleName.'#'] = str_replace('\\', '\\\\', $processedPart);
+                }
+            } elseif (is_string($ruleValue)) {
                 $processedParts['#'.$pregQuotedTargetReplacementIdentifier.$ruleName.'#'] = str_replace('\\', '\\\\', $ruleValue);
             }
-    	}
-    	
-    	// all of the values of processedParts would have been str_replace('\\', '\\\\', ..)'d to disable preg_replace backreferences 
+        }
+        
+        // all of the values of processedParts would have been str_replace('\\', '\\\\', ..)'d to disable preg_replace backreferences 
         $inflectedTarget = preg_replace(array_keys($processedParts), array_values($processedParts), $this->_target);
 
-    	if ($this->_throwTargetExceptionsOn && (preg_match('#(?='.$pregQuotedTargetReplacementIdentifier.'[A-Za-z]{1})#', $inflectedTarget) == true)) {
-    	    #require_once 'Zend/Filter/Exception.php';
-    	    throw new Zend_Filter_Exception('A replacement identifier ' . $this->_targetReplacementIdentifier . ' was found inside the inflected target, perhaps a rule was not satisfied with a target source?  Unsatisfied inflected target: ' . $inflectedTarget);
-    	}
-    	
-    	return $inflectedTarget;
+        if ($this->_throwTargetExceptionsOn && (preg_match('#(?='.$pregQuotedTargetReplacementIdentifier.'[A-Za-z]{1})#', $inflectedTarget) == true)) {
+            #require_once 'Zend/Filter/Exception.php';
+            throw new Zend_Filter_Exception('A replacement identifier ' . $this->_targetReplacementIdentifier . ' was found inside the inflected target, perhaps a rule was not satisfied with a target source?  Unsatisfied inflected target: ' . $inflectedTarget);
+        }
+        
+        return $inflectedTarget;
     }
     
     /**

@@ -17,7 +17,7 @@
  * @package    Zend_Ldap
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ldap.php 8402 2008-02-25 19:35:08Z darby $
+ * @version    $Id: Ldap.php 11765 2008-10-09 01:53:43Z miallen $
  */
 
 
@@ -148,6 +148,9 @@ class Zend_Ldap
      *  accountDomainName
      *  accountDomainNameShort
      *  accountFilterFormat
+     *  allowEmptyPassword
+     *  useStartTls
+     *  optRefferals
      *
      * @param  array $options Options used in connecting, binding, etc.
      * @return Zend_Ldap Provides a fluent interface
@@ -167,6 +170,9 @@ class Zend_Ldap
             'accountDomainName'         => null,
             'accountDomainNameShort'    => null,
             'accountFilterFormat'       => null,
+            'allowEmptyPassword'        => null,
+            'useStartTls'               => null,
+            'optReferrals'              => null,
         );
 
         $diff = array_diff_key($options, $permittedOptions);
@@ -179,6 +185,26 @@ class Zend_Ldap
         foreach ($permittedOptions as $key => $val) {
             if (!array_key_exists($key, $options)) {
                 $options[$key] = null;
+            } else {
+                /* Enforce typing. This eliminates issues like Zend_Config_Ini
+                 * returning '1' as a string (ZF-3163).
+                 */
+                switch ($key) {
+                    case 'port':
+                    case 'accountCanonicalForm':
+                        $options[$key] = (int)$options[$key];
+                        break;
+                    case 'useSsl':
+                    case 'bindRequiresDn':
+                    case 'allowEmptyPassword':
+                    case 'useStartTls':
+                    case 'optReferrals':
+                        $val = $options[$key];
+                        $options[$key] = $val === true ||
+                                $val === '1' ||
+                                strcasecmp($val, 'true') == 0;
+                        break;
+                }
             }
         }
 
@@ -595,18 +621,34 @@ class Zend_Ldap
             throw new Zend_Ldap_Exception(null, 'LDAP extension not loaded');
         }
 
-        $resource = @ldap_connect($url);
+        /* Only OpenLDAP 2.2 + supports URLs so if SSL is not requested, just
+         * use the old form.
+         */
+        $resource = $useSsl ? @ldap_connect($url) : @ldap_connect($host, $port);
+
         if (is_resource($resource) === true) {
+
+            $this->_resource = $resource;
+
+            $optReferrals = $this->_options['optReferrals'] ? 1 : 0;
+
             if (@ldap_set_option($resource, LDAP_OPT_PROTOCOL_VERSION, 3) &&
-                        @ldap_set_option($resource, LDAP_OPT_REFERRALS, 0)) {
-                $this->_resource = $resource;
-                return $this;
+                        @ldap_set_option($resource, LDAP_OPT_REFERRALS, $optReferrals)) {
+                if ($useSsl ||
+                            $this->_options['useStartTls'] !== true ||
+                            @ldap_start_tls($resource)) {
+                    return $this;
+                }
             }
+
             /**
              * @see Zend_Ldap_Exception
              */
             #require_once 'Zend/Ldap/Exception.php';
-            throw new Zend_Ldap_Exception($resource, "$host:$port");
+
+            $zle = new Zend_Ldap_Exception($resource, "$host:$port");
+            $this->disconnect();
+            throw $zle;
         }
         /**
          * @see Zend_Ldap_Exception
@@ -631,76 +673,86 @@ class Zend_Ldap
             $moreCreds = false;
         }
 
-        if (!$username) {
-            /**
-             * @see Zend_Ldap_Exception
+        if ($username === NULL) {
+            /* Perform anonymous bind
              */
-            #require_once 'Zend/Ldap/Exception.php';
-            throw new Zend_Ldap_Exception(null, 'Cannot determine username for binding');
-        }
-
-        /* Check to make sure the username is in DN form.
-         */
-        if (!Zend_Ldap::explodeDn($username)) {
-            if ($this->_options['bindRequiresDn']) {
-                /* moreCreds stops an infinite loop if _getUsername does not
-                 * return a DN and the bind requires it
-                 */
-                if ($moreCreds) {
-                    try {
-                        $username = $this->_getAccountDn($username);
-                    } catch (Zend_Ldap_Exception $zle) {
-                        /**
-                         * @todo Temporary measure to deal with exception thrown for ldap extension not loaded
-                         */
-                        if (strpos($zle->getMessage(), 'LDAP extension not loaded') !== false) {
-                            throw $zle;
-                        }
-                        // end temporary measure
-                        switch ($zle->getCode()) {
-                            case Zend_Ldap_Exception::LDAP_NO_SUCH_OBJECT:
-                            case Zend_Ldap_Exception::LDAP_X_DOMAIN_MISMATCH:
+            $password = NULL;
+        } else {
+            /* Check to make sure the username is in DN form.
+             */
+            if (!Zend_Ldap::explodeDn($username)) {
+                if ($this->_options['bindRequiresDn']) {
+                    /* moreCreds stops an infinite loop if _getUsername does not
+                     * return a DN and the bind requires it
+                     */
+                    if ($moreCreds) {
+                        try {
+                            $username = $this->_getAccountDn($username);
+                        } catch (Zend_Ldap_Exception $zle) {
+                            /**
+                             * @todo Temporary measure to deal with exception thrown for ldap extension not loaded
+                             */
+                            if (strpos($zle->getMessage(), 'LDAP extension not loaded') !== false) {
                                 throw $zle;
+                            }
+                            // end temporary measure
+                            switch ($zle->getCode()) {
+                                case Zend_Ldap_Exception::LDAP_NO_SUCH_OBJECT:
+                                case Zend_Ldap_Exception::LDAP_X_DOMAIN_MISMATCH:
+                                    throw $zle;
+                            }
+                            throw new Zend_Ldap_Exception(null,
+                                        'Failed to retrieve DN for account: ' . $zle->getMessage(),
+                                        Zend_Ldap_Exception::LDAP_OPERATIONS_ERROR);
                         }
-                        throw new Zend_Ldap_Exception(null,
-                                    'Failed to retrieve DN for account: ' . $zle->getMessage(),
-                                    Zend_Ldap_Exception::LDAP_OPERATIONS_ERROR);
+                    } else {
+                        /**
+                         * @see Zend_Ldap_Exception
+                         */
+                        #require_once 'Zend/Ldap/Exception.php';
+                        throw new Zend_Ldap_Exception(null, 'Binding requires username in DN form');
                     }
                 } else {
-                    /**
-                     * @see Zend_Ldap_Exception
-                     */
-                    #require_once 'Zend/Ldap/Exception.php';
-                    throw new Zend_Ldap_Exception(null, 'Binding requires username in DN form');
+                    $username = $this->getCanonicalAccountName($username,
+                                Zend_Ldap::ACCTNAME_FORM_PRINCIPAL);
                 }
-            } else {
-                $username = $this->getCanonicalAccountName($username,
-                            Zend_Ldap::ACCTNAME_FORM_PRINCIPAL);
             }
         }
 
         if (!is_resource($this->_resource))
             $this->connect();
 
-        if (@ldap_bind($this->_resource, $username, $password))
-            return $this;
+        if ($username !== null &&
+                    $password === '' &&
+                    $this->_options['allowEmptyPassword'] !== true) {
+            /**
+             * @see Zend_Ldap_Exception
+             */
+            #require_once 'Zend/Ldap/Exception.php';
 
-        $message = $username;
+            $zle = new Zend_Ldap_Exception(null,
+                    'Empty password not allowed - see allowEmptyPassword option.');
+        } else {
+            if (@ldap_bind($this->_resource, $username, $password))
+                return $this;
 
-        /**
-         * @see Zend_Ldap_Exception
-         */
-        #require_once 'Zend/Ldap/Exception.php';
+            $message = $username === null ? $this->_connectString : $username;
 
-        switch (Zend_Ldap_Exception::getLdapCode($this)) {
-            case Zend_Ldap_Exception::LDAP_SERVER_DOWN:
-                /* If the error is related to establishing a connection rather than binding,
-                 * the connect string is more informative than the username.
-                 */
-                $message = $this->_connectString;
+            /**
+             * @see Zend_Ldap_Exception
+             */
+            #require_once 'Zend/Ldap/Exception.php';
+    
+            switch (Zend_Ldap_Exception::getLdapCode($this)) {
+                case Zend_Ldap_Exception::LDAP_SERVER_DOWN:
+                    /* If the error is related to establishing a connection rather than binding,
+                     * the connect string is more informative than the username.
+                     */
+                    $message = $this->_connectString;
+            }
+    
+            $zle = new Zend_Ldap_Exception($this->_resource, $message);
         }
-
-        $zle = new Zend_Ldap_Exception($this->_resource, $message);
         $this->disconnect();
         throw $zle;
     }

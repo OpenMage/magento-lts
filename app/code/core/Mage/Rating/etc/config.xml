@@ -106,6 +106,25 @@
     </frontend>
 
     <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <catalog>
+                            <children>
+                                <reviews_ratings>
+                                    <children>
+                                        <ratings translate="title" module="rating">
+                                            <title>Manage Ratings</title>
+                                        </ratings>
+                                     </children>
+                                </reviews_ratings>
+                            </children>
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
         <translate>
             <modules>
                 <Mage_Rating>

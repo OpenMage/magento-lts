@@ -25,83 +25,108 @@
  */
 
 /**
- * Product categories tab
+ * Categories tree block for urlrewrites
  *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block_Catalog_Category_Tree
+class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block_Catalog_Category_Abstract
 {
-    protected $_categoryIds;
-
+    /**
+     * Set custom template for the block
+     *
+     */
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('urlrewrite/product/categories.phtml');
+        $this->setTemplate('urlrewrite/categories.phtml');
     }
 
-    protected function getCategoryIds()
+    /**
+     * Get categories tree as recursive array
+     *
+     * @param int $parentId
+     * @param bool $asJson
+     * @param int $recursionLevel
+     * @return array
+     */
+    public function getTreeArray($parentId = null, $asJson = false, $recursionLevel = 3)
     {
-        if (is_null($this->_categoryIds)) {
-            $this->_categoryIds = array();
-            $product = Mage::registry('product');
-/*            
-            if ($product) {
-
-//	            $collection = $product->getCategoryCollection()
-//	                ->load();
-//	            foreach ($collection as $category) {
-//	            	$this->_categoryIds[] = $category->getId();
-//	            }
-
-
-                $url = Mage::getResourceModel('core/url_rewrite_collection');
-                if ($rewrites = $url->filterAllByProductId($product->getId())) {
-                    foreach ($rewrites as $rewrite) {
-                        $category = explode('/', $rewrite->getIdPath());
-                        if (sizeof($category) == 3) {
-                            $this->_categoryIds[] = $category[2];
-                        }
-                    }
-                }
-
-            } else {
-
-                $url = Mage::getResourceModel('core/url_rewrite_collection');
-                if ($rewrites = $url->filterAllByCategory()) {
-                    foreach ($rewrites as $rewrite) {
-                        $category = explode('/', $rewrite->getIdPath());
-                        if (sizeof($category) == 2) {
-                            $this->_categoryIds[] = $category[1];
-                        }
-                    }
+        $result = array();
+        if ($parentId) {
+            $category = Mage::getModel('catalog/category')->load($parentId);
+            if (!empty($category)) {
+                $tree = $this->_getNodesArray($this->getNode($category, $recursionLevel));
+                if (!empty($tree) && !empty($tree['children'])) {
+                    $result = $tree['children'];
                 }
             }
-*/            
         }
-        return $this->_categoryIds;
+        else {
+            $result = $this->_getNodesArray($this->getRoot(null, $recursionLevel));
+        }
+        if ($asJson) {
+            return Zend_Json::encode($result);
+        }
+        return $result;
     }
 
-    public function getRootNode()
+    /**
+     * Get categories collection
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
+     */
+    public function getCategoryCollection()
     {
-        $root = parent::getRoot();
-        if ($root && in_array($root->getId(), $this->getCategoryIds())) {
-            $root->setChecked(true);
+        $collection = $this->_getData('category_collection');
+        if (is_null($collection)) {
+            $collection = Mage::getModel('catalog/category')->getCollection()
+                ->addAttributeToSelect(array('name', 'is_active'))
+                ->setLoadProductCount(true)
+            ;
+            $this->setData('category_collection', $collection);
         }
-        return $root;
+        return $collection;
     }
 
-    protected function _getNodeJson($node, $level=1)
+    /**
+     * Convert categories tree to array recursively
+     *
+     * @return array
+     */
+    protected function _getNodesArray($node)
     {
-        $item = parent::_getNodeJson($node, $level);
-        //echo $node->getId()."<br>";
-        //echo '<pre>';
-        //print_r($this->getCategoryIds());
-        if (in_array($node->getId(), $this->getCategoryIds()) || preg_match("/default/i",$item['text']) || preg_match("/root/i",$item['text'])) {
-       //if (in_array($node->getId(), $this->getCategoryIds())) {
-            $item['checked'] = true;
+        $result = array(
+            'id'             => (int)$node->getId(),
+            'parent_id'      => (int)$node->getParentId(),
+            'children_count' => (int)$node->getChildrenCount(),
+            'is_active'      => (bool)$node->getIsActive(),
+            'name'           => $node->getName(),
+            'level'          => (int)$node->getLevel(),
+            'product_count'  => (int)$node->getProductCount(),
+        );
+        if ($node->hasChildren()) {
+            $result['children'] = array();
+            foreach ($node->getChildren() as $childNode) {
+                $result['children'][] = $this->_getNodesArray($childNode);
+            }
         }
-        return $item;
+        $result['cls'] = ($result['is_active'] ? '' : 'no-') . 'active-category';
+        $result['expanded'] = false;
+        if (!empty($result['children'])) {
+            $result['expanded'] = true;
+        }
+        return $result;
+    }
+
+    /**
+     * Get URL for categories tree ajax loader
+     *
+     * @return string
+     */
+    public function getLoadTreeUrl()
+    {
+        return Mage::getUrl('*/*/categoriesJson');
     }
 }

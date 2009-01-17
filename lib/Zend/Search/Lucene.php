@@ -18,15 +18,20 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
-/** Zend_Search_Lucene_Exception */
-#require_once 'Zend/Search/Lucene/Exception.php';
-
 /** Zend_Search_Lucene_Document */
 #require_once 'Zend/Search/Lucene/Document.php';
 
 /** Zend_Search_Lucene_Document_Html */
 #require_once 'Zend/Search/Lucene/Document/Html.php';
+
+/** Zend_Search_Lucene_Document_Docx */
+#require_once 'Zend/Search/Lucene/Document/Docx.php';
+
+/** Zend_Search_Lucene_Document_Pptx */
+#require_once 'Zend/Search/Lucene/Document/Pptx.php';
+
+/** Zend_Search_Lucene_Document_Xlsx */
+#require_once 'Zend/Search/Lucene/Document/Xlsx.php';
 
 /** Zend_Search_Lucene_Storage_Directory_Filesystem */
 #require_once 'Zend/Search/Lucene/Storage/Directory/Filesystem.php';
@@ -61,17 +66,17 @@
 /** Zend_Search_Lucene_Index_SegmentInfoPriorityQueue */
 #require_once 'Zend/Search/Lucene/Index/SegmentInfoPriorityQueue.php';
 
+/** Zend_Search_Lucene_Index_DocsFilter */
+#require_once 'Zend/Search/Lucene/Index/DocsFilter.php';
+
 /** Zend_Search_Lucene_LockManager */
 #require_once 'Zend/Search/Lucene/LockManager.php';
-
-
 
 /** Zend_Search_Lucene_Interface */
 #require_once 'Zend/Search/Lucene/Interface.php';
 
 /** Zend_Search_Lucene_Proxy */
 #require_once 'Zend/Search/Lucene/Proxy.php';
-
 
 /**
  * @category   Zend
@@ -163,7 +168,17 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      */
     private $_generation;
 
-    
+    const FORMAT_PRE_2_1 = 0;
+    const FORMAT_2_1     = 1;
+    const FORMAT_2_3     = 2;
+
+    /**
+     * Index format version
+     *
+     * @var integer
+     */
+    private $_formatVersion;
+
     /**
      * Create index
      *
@@ -216,6 +231,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
          *       without performance problems
          */
 
+        #require_once 'Zend/Search/Lucene/Exception.php';
         try {
             for ($count = 0; $count < self::GENERATION_RETRIEVE_COUNT; $count++) {
                 // Try to get generation file
@@ -277,7 +293,38 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
     }
 
     /**
+     * Get index format version
+     *
+     * @return integer
+     */
+    public function getFormatVersion()
+    {
+        return $this->_formatVersion;
+    }
+
+    /**
+     * Set index format version.
+     * Index is converted to this format at the nearest upfdate time
+     *
+     * @param int $formatVersion
+     * @throws Zend_Search_Lucene_Exception
+     */
+    public function setFormatVersion($formatVersion)
+    {
+        if ($formatVersion != self::FORMAT_PRE_2_1  &&
+            $formatVersion != self::FORMAT_2_1  &&
+            $formatVersion != self::FORMAT_2_3) {
+            #require_once 'Zend/Search/Lucene/Exception.php';
+            throw new Zend_Search_Lucene_Exception('Unsupported index format');
+        }
+
+        $this->_formatVersion = $formatVersion;
+    }
+
+    /**
      * Read segments file for pre-2.1 Lucene index format
+     *
+     * @throws Zend_Search_Lucene_Exception
      */
     private function _readPre21SegmentsFile()
     {
@@ -286,6 +333,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
         $format = $segmentsFile->readInt();
 
         if ($format != (int)0xFFFFFFFF) {
+            #require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Wrong segments file format');
         }
 
@@ -311,6 +359,9 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
                                                                          $segName,
                                                                          $segSize);
         }
+
+        // Use 2.1 as a target version. Index will be reorganized at update time.
+        $this->_formatVersion = self::FORMAT_2_1;
     }
 
     /**
@@ -324,8 +375,13 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
 
         $format = $segmentsFile->readInt();
 
-        if ($format != (int)0xFFFFFFFD) {
-            throw new Zend_Search_Lucene_Exception('Wrong segments file format');
+        if ($format == (int)0xFFFFFFFC) {
+            $this->_formatVersion = self::FORMAT_2_3;
+        } else if ($format == (int)0xFFFFFFFD) {
+            $this->_formatVersion = self::FORMAT_2_1;
+        } else {
+            #require_once 'Zend/Search/Lucene/Exception.php';
+            throw new Zend_Search_Lucene_Exception('Unsupported segments file format');
         }
 
         // read version
@@ -354,6 +410,23 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
                 $delGen = ($delGenHigh << 32) | $delGenLow;
             }
 
+            if ($this->_formatVersion == self::FORMAT_2_3) {
+                $docStoreOffset = $segmentsFile->readInt();
+
+                if ($docStoreOffset != -1) {
+                    $docStoreSegment        = $segmentsFile->readString();
+                    $docStoreIsCompoundFile = $segmentsFile->readByte();
+
+                    $docStoreOptions = array('offset'     => $docStoreOffset,
+                                             'segment'    => $docStoreSegment,
+                                             'isCompound' => ($docStoreIsCompoundFile == 1));
+                } else {
+                    $docStoreOptions = null;
+                }
+            } else {
+                $docStoreOptions = null;
+            }
+
             $hasSingleNormFile = $segmentsFile->readByte();
             $numField          = $segmentsFile->readInt();
 
@@ -363,11 +436,22 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
                     $normGens[] = $segmentsFile->readLong();
                 }
 
+                #require_once 'Zend/Search/Lucene/Exception.php';
                 throw new Zend_Search_Lucene_Exception('Separate norm files are not supported. Optimize index to use it with Zend_Search_Lucene.');
             }
 
-            $isCompound        = $segmentsFile->readByte();
+            $isCompoundByte     = $segmentsFile->readByte();
 
+            if ($isCompoundByte == 0xFF) {
+                // The segment is not a compound file
+                $isCompound = false;
+            } else if ($isCompoundByte == 0x00) {
+                // The status is unknown
+                $isCompound = null;
+            } else if ($isCompoundByte == 0x01) {
+                // The segment is a compound file
+                $isCompound = true;
+            }
 
             $this->_docCount += $segSize;
 
@@ -376,6 +460,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
                                                                          $segName,
                                                                          $segSize,
                                                                          $delGen,
+                                                                         $docStoreOptions,
                                                                          $hasSingleNormFile,
                                                                          $isCompound);
         }
@@ -393,6 +478,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
     public function __construct($directory = null, $create = false)
     {
         if ($directory === null) {
+            #require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Exception('No index directory specified');
         }
 
@@ -408,23 +494,22 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
 
         // Mark index as "under processing" to prevent other processes from premature index cleaning
         Zend_Search_Lucene_LockManager::obtainReadLock($this->_directory);
-        
-        // Escalate read lock to prevent current generation index files to be deleted while opening process is not done 
-//        Zend_Search_Lucene_LockManager::escalateReadLock($this->_directory);
-        
-        
+
         $this->_generation = self::getActualGeneration($this->_directory);
-        
+
         if ($create) {
-        	try {
-        		Zend_Search_Lucene_LockManager::obtainWriteLock($this->_directory);
-        	} catch (Zend_Search_Lucene_Exception $e) {
-        		if (strpos($e->getMessage(), 'Can\'t obtain exclusive index lock') === false) {
-        			throw $e;
-        		} else {
-        			throw new Zend_Search_Lucene_Exception('Can\'t create index. It\'s under processing now');
-        		}
-        	}
+            #require_once 'Zend/Search/Lucene/Exception.php';
+            try {
+                Zend_Search_Lucene_LockManager::obtainWriteLock($this->_directory);
+            } catch (Zend_Search_Lucene_Exception $e) {
+                Zend_Search_Lucene_LockManager::releaseReadLock($this->_directory);
+
+                if (strpos($e->getMessage(), 'Can\'t obtain exclusive index lock') === false) {
+                    throw $e;
+                } else {
+                    throw new Zend_Search_Lucene_Exception('Can\'t create index. It\'s under processing now');
+                }
+            }
 
             if ($this->_generation == -1) {
                 // Directory doesn't contain existing index, start from 1
@@ -445,15 +530,13 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
         }
 
         if ($this->_generation == -1) {
+            #require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Index doesn\'t exists in the specified directory.');
         } else if ($this->_generation == 0) {
             $this->_readPre21SegmentsFile();
         } else {
             $this->_readSegmentsFile();
         }
-        
-        // De-escalate read lock to prevent current generation index files to be deleted while opening process is not done 
-//        Zend_Search_Lucene_LockManager::escalateReadLock($this->_directory);
     }
 
     /**
@@ -470,7 +553,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
 
         // Release "under processing" flag
         Zend_Search_Lucene_LockManager::releaseReadLock($this->_directory);
-                
+
         if ($this->_closeDirOnExit) {
             $this->_directory->close();
         }
@@ -519,13 +602,12 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
     /**
      * Returns an instance of Zend_Search_Lucene_Index_Writer for the index
      *
-     * @internal
      * @return Zend_Search_Lucene_Index_Writer
      */
-    public function getIndexWriter()
+    private function _getIndexWriter()
     {
         if (!$this->_writer instanceof Zend_Search_Lucene_Index_Writer) {
-            $this->_writer = new Zend_Search_Lucene_Index_Writer($this->_directory, $this->_segmentInfos);
+            $this->_writer = new Zend_Search_Lucene_Index_Writer($this->_directory, $this->_segmentInfos, $this->_formatVersion);
         }
 
         return $this->_writer;
@@ -591,6 +673,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
     public function isDeleted($id)
     {
         if ($id >= $this->_docCount) {
+            #require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Document id is out of the range.');
         }
 
@@ -668,7 +751,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      */
     public function getMaxBufferedDocs()
     {
-        return $this->getIndexWriter()->maxBufferedDocs;
+        return $this->_getIndexWriter()->maxBufferedDocs;
     }
 
     /**
@@ -683,7 +766,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      */
     public function setMaxBufferedDocs($maxBufferedDocs)
     {
-        $this->getIndexWriter()->maxBufferedDocs = $maxBufferedDocs;
+        $this->_getIndexWriter()->maxBufferedDocs = $maxBufferedDocs;
     }
 
     /**
@@ -700,7 +783,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      */
     public function getMaxMergeDocs()
     {
-        return $this->getIndexWriter()->maxMergeDocs;
+        return $this->_getIndexWriter()->maxMergeDocs;
     }
 
     /**
@@ -717,7 +800,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      */
     public function setMaxMergeDocs($maxMergeDocs)
     {
-        $this->getIndexWriter()->maxMergeDocs = $maxMergeDocs;
+        $this->_getIndexWriter()->maxMergeDocs = $maxMergeDocs;
     }
 
     /**
@@ -739,7 +822,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      */
     public function getMergeFactor()
     {
-        return $this->getIndexWriter()->mergeFactor;
+        return $this->_getIndexWriter()->mergeFactor;
     }
 
     /**
@@ -761,7 +844,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      */
     public function setMergeFactor($mergeFactor)
     {
-        $this->getIndexWriter()->mergeFactor = $mergeFactor;
+        $this->_getIndexWriter()->mergeFactor = $mergeFactor;
     }
 
     /**
@@ -780,6 +863,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
         }
 
         if (!$query instanceof Zend_Search_Lucene_Search_Query) {
+            #require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Query must be a string or Zend_Search_Lucene_Search_Query object');
         }
 
@@ -839,6 +923,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
             $fieldNames = $this->getFieldNames();
             $sortArgs   = array();
 
+            #require_once 'Zend/Search/Lucene/Exception.php';
             for ($count = 1; $count < count($argList); $count++) {
                 $fieldName = $argList[$count];
 
@@ -934,6 +1019,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
         }
 
         if ($id >= $this->_docCount) {
+            #require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Document id is out of the range.');
         }
 
@@ -947,7 +1033,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
         }
 
         $fdxFile = $segmentInfo->openCompoundFile('.fdx');
-        $fdxFile->seek( ($id-$segmentStartId)*8, SEEK_CUR );
+        $fdxFile->seek(($id-$segmentStartId)*8, SEEK_CUR);
         $fieldValuesPosition = $fdxFile->readLong();
 
         $fdtFile = $segmentInfo->openCompoundFile('.fdt');
@@ -1005,41 +1091,65 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
     }
 
     /**
-     * Returns IDs of all the documents containing term.
+     * Returns IDs of all documents containing term.
      *
      * @param Zend_Search_Lucene_Index_Term $term
+     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return array
      */
-    public function termDocs(Zend_Search_Lucene_Index_Term $term)
+    public function termDocs(Zend_Search_Lucene_Index_Term $term, $docsFilter = null)
     {
-        $result = array();
+        $subResults = array();
         $segmentStartDocId = 0;
 
-        foreach ($this->_segmentInfos as $segInfo) {
-            $termInfo = $segInfo->getTermInfo($term);
+        foreach ($this->_segmentInfos as $segmentInfo) {
+            $subResults[] = $segmentInfo->termDocs($term, $segmentStartDocId, $docsFilter);
 
-            if (!$termInfo instanceof Zend_Search_Lucene_Index_TermInfo) {
-                $segmentStartDocId += $segInfo->count();
-                continue;
-            }
+            $segmentStartDocId += $segmentInfo->count();
+        }
 
-            $frqFile = $segInfo->openCompoundFile('.frq');
-            $frqFile->seek($termInfo->freqPointer,SEEK_CUR);
-            $docId = 0;
-            for( $count=0; $count < $termInfo->docFreq; $count++ ) {
-                $docDelta = $frqFile->readVInt();
-                if( $docDelta % 2 == 1 ) {
-                    $docId += ($docDelta-1)/2;
-                } else {
-                    $docId += $docDelta/2;
-                    // read freq
-                    $frqFile->readVInt();
-                }
+        if (count($subResults) == 0) {
+            return array();
+        } else if (count($subResults) == 0) {
+            // Index is optimized (only one segment)
+            // Do not perform array reindexing
+            return reset($subResults);
+        } else {
+            $result = call_user_func_array('array_merge', $subResults);
+        }
 
-                $result[] = $segmentStartDocId + $docId;
-            }
+        return $result;
+    }
 
-            $segmentStartDocId += $segInfo->count();
+    /**
+     * Returns documents filter for all documents containing term.
+     *
+     * It performs the same operation as termDocs, but return result as
+     * Zend_Search_Lucene_Index_DocsFilter object
+     *
+     * @param Zend_Search_Lucene_Index_Term $term
+     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
+     * @return Zend_Search_Lucene_Index_DocsFilter
+     */
+    public function termDocsFilter(Zend_Search_Lucene_Index_Term $term, $docsFilter = null)
+    {
+        $segmentStartDocId = 0;
+        $result = new Zend_Search_Lucene_Index_DocsFilter();
+
+        foreach ($this->_segmentInfos as $segmentInfo) {
+            $subResults[] = $segmentInfo->termDocs($term, $segmentStartDocId, $docsFilter);
+
+            $segmentStartDocId += $segmentInfo->count();
+        }
+
+        if (count($subResults) == 0) {
+            return array();
+        } else if (count($subResults) == 0) {
+            // Index is optimized (only one segment)
+            // Do not perform array reindexing
+            return reset($subResults);
+        } else {
+            $result = call_user_func_array('array_merge', $subResults);
         }
 
         return $result;
@@ -1051,14 +1161,15 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      * Result array structure: array(docId => freq, ...)
      *
      * @param Zend_Search_Lucene_Index_Term $term
+     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return integer
      */
-    public function termFreqs(Zend_Search_Lucene_Index_Term $term)
+    public function termFreqs(Zend_Search_Lucene_Index_Term $term, $docsFilter = null)
     {
         $result = array();
         $segmentStartDocId = 0;
         foreach ($this->_segmentInfos as $segmentInfo) {
-            $result += $segmentInfo->termFreqs($term, $segmentStartDocId);
+            $result += $segmentInfo->termFreqs($term, $segmentStartDocId, $docsFilter);
 
             $segmentStartDocId += $segmentInfo->count();
         }
@@ -1071,14 +1182,15 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      * Result array structure: array(docId => array(pos1, pos2, ...), ...)
      *
      * @param Zend_Search_Lucene_Index_Term $term
+     * @param Zend_Search_Lucene_Index_DocsFilter|null $docsFilter
      * @return array
      */
-    public function termPositions(Zend_Search_Lucene_Index_Term $term)
+    public function termPositions(Zend_Search_Lucene_Index_Term $term, $docsFilter = null)
     {
         $result = array();
         $segmentStartDocId = 0;
         foreach ($this->_segmentInfos as $segmentInfo) {
-            $result += $segmentInfo->termPositions($term, $segmentStartDocId);
+            $result += $segmentInfo->termPositions($term, $segmentStartDocId, $docsFilter);
 
             $segmentStartDocId += $segmentInfo->count();
         }
@@ -1179,6 +1291,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
         }
 
         if ($id >= $this->_docCount) {
+            #require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Document id is out of the range.');
         }
 
@@ -1204,9 +1317,9 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      */
     public function addDocument(Zend_Search_Lucene_Document $document)
     {
-        $this->getIndexWriter()->addDocument($document);
+        $this->_getIndexWriter()->addDocument($document);
         $this->_docCount++;
-        
+
         $this->_hasChanges = true;
     }
 
@@ -1230,14 +1343,10 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
     public function commit()
     {
         if ($this->_hasChanges) {
-            foreach ($this->_segmentInfos as $segInfo) {
-                $segInfo->writeChanges();
-            }
-            
-            $this->getIndexWriter()->commit();
-            
+            $this->_getIndexWriter()->commit();
+
             $this->_updateDocCount();
-            
+
             $this->_hasChanges = false;
         }
     }
@@ -1254,7 +1363,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
         $this->commit();
 
         if (count($this->_segmentInfos) > 1 || $this->hasDeletions()) {
-            $this->getIndexWriter()->optimize();
+            $this->_getIndexWriter()->optimize();
             $this->_updateDocCount();
         }
     }

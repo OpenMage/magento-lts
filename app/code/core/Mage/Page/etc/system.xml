@@ -104,6 +104,15 @@
                             <show_in_store>1</show_in_store>
                         </default_charset>
 -->
+                        <includes translate="label comment">
+                            <label>Miscellaneous scripts</label>
+                            <comment>This will be included before head closing tag in page HTML</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </includes>
                     </fields>
                 </head>
                 <header translate="label">

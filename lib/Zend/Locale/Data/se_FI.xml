@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.19 $"/>
-		<generation date="$Date: 2007/07/19 22:31:40 $"/>
+		<version number="$Revision: 1.22 $"/>
+		<generation date="$Date: 2008/06/17 14:12:15 $"/>
 		<language type="se"/>
 		<territory type="FI"/>
 	</identity>
@@ -215,15 +215,11 @@
 				</fields>
 			</calendar>
 		</calendars>
+		<timeZoneNames>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
+		</timeZoneNames>
 	</dates>
 	<numbers>
-		<percentFormats>
-			<percentFormatLength>
-				<percentFormat>
-					<pattern>#,##0 %</pattern>
-				</percentFormat>
-			</percentFormatLength>
-		</percentFormats>
 		<currencies>
 			<currency type="FIM">
 				<displayName>FIM</displayName>

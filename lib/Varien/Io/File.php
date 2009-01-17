@@ -119,7 +119,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     public function streamOpen($fileName, $mode = 'w+', $chmod = 0666)
     {
-        if (!is_writeable($this->_cwd)) {
+        $writeableMode = preg_match('#^[wax]#i', $mode);
+        if ($writeableMode && !is_writeable($this->_cwd)) {
             throw new Exception('Permission denied for write to ' . $this->_cwd);
         }
         @chdir($this->_cwd);
@@ -228,6 +229,25 @@ class Varien_Io_File extends Varien_Io_Abstract
         @fclose($this->_streamHandler);
         @chmod($this->_streamFileName, $this->_streamChmod);
         return true;
+    }
+
+    /**
+     * Retrieve open file statistic
+     *
+     * @param string $part the part of statistic
+     * @param mixed $default default value for part
+     * @return array|bool
+     */
+    public function streamStat($part = null, $default = null)
+    {
+        if (!$this->_streamHandler) {
+            return false;
+        }
+        $stat = @fstat($this->_streamHandler);
+        if (!is_null($part)) {
+            return isset($stat[$part]) ? $stat[$part] : $default;
+        }
+        return $stat;
     }
 
     /**
@@ -451,7 +471,10 @@ class Varien_Io_File extends Varien_Io_Abstract
 
     public function isWriteable($path)
     {
-        return is_writeable($path);
+        @chdir($this->_cwd);
+        $result = is_writeable($path);
+        @chdir($this->_iwd);
+        return $result;
     }
 
     public function getDestinationFolder($filepath)

@@ -21,10 +21,6 @@
 /** Zend_Pdf_Resource */
 #require_once 'Zend/Pdf/Resource.php';
 
-/** Zend_Pdf_Exception */
-#require_once 'Zend/Pdf/Exception.php';
-
-
 /**
  * Abstract class which manages PDF fonts.
  *
@@ -241,7 +237,7 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
         }
         /* Convert the character set if requested.
          */
-        if ((! is_null($characterSet)) && ($characterSet != 'UTF-16BE')) {
+        if ((! is_null($characterSet)) && ($characterSet != 'UTF-16BE') && PHP_OS != 'AIX') { // AIX knows not this charset
             $name = iconv('UTF-16BE', $characterSet, $name);
         }
         return $name;
@@ -249,14 +245,14 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
 
     /**
      * Returns whole set of font names.
-     * 
+     *
      * @return array
      */
     public function getFontNames()
     {
         return $this->_fontNames;
     }
-    
+
     /**
      * Returns true if font is bold.
      *
@@ -276,7 +272,7 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
     {
         return $this->_isItalic;
     }
-    
+
     /**
      * Returns true if font is monospace.
      *
@@ -481,8 +477,8 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
 
     /**
      * Convert string to the font encoding.
-     * 
-     * The method is used to prepare string for text drawing operators 
+     *
+     * The method is used to prepare string for text drawing operators
      *
      * @param string $string
      * @param string $charEncoding Character encoding of source text.

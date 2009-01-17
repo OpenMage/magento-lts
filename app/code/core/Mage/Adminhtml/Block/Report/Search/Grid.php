@@ -69,6 +69,16 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
             'index'     =>'query_text'
         ));
 
+        if (!Mage::app()->isSingleStoreMode()) {
+            $this->addColumn('store_id', array(
+                'header'        => Mage::helper('catalog')->__('Store'),
+                'index'         => 'store_id',
+                'type'          => 'store',
+                'store_view'    => true,
+                'sortable'      => false
+            ));
+        }
+
         $this->addColumn('num_results', array(
             'header'    =>Mage::helper('reports')->__('Results'),
             'width'     =>'50px',

@@ -15,12 +15,12 @@
  * @package    Zend_Controller
  * @subpackage Router
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Regex.php 8933 2008-03-20 20:54:58Z darby $
+ * @version    $Id: Regex.php 12525 2008-11-10 20:18:32Z ralph $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/** Zend_Controller_Router_Route_Interface */
-#require_once 'Zend/Controller/Router/Route/Interface.php';
+/** Zend_Controller_Router_Route_Abstract */
+#require_once 'Zend/Controller/Router/Route/Abstract.php';
 
 /**
  * Regex Route
@@ -30,7 +30,7 @@
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Controller_Router_Route_Regex implements Zend_Controller_Router_Route_Interface
+class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Abstract
 {
     protected $_regex = null;
     protected $_defaults = array();
@@ -59,6 +59,10 @@ class Zend_Controller_Router_Route_Regex implements Zend_Controller_Router_Route
         $this->_reverse = $reverse;
     }
 
+    public function getVersion() {
+        return 1;
+    }
+    
     /**
      * Matches a user submitted path with a previously defined route.
      * Assigns and returns an array of defaults on a successful match.
@@ -139,7 +143,7 @@ class Zend_Controller_Router_Route_Regex implements Zend_Controller_Router_Route
      * @param array $data An array of name (or index) and value pairs used as parameters
      * @return string Route path with user submitted parameters
      */
-    public function assemble($data = array())
+    public function assemble($data = array(), $reset = false, $encode = false)
     {
         if ($this->_reverse === null) {
             #require_once 'Zend/Controller/Router/Exception.php';
@@ -164,6 +168,12 @@ class Zend_Controller_Router_Route_Regex implements Zend_Controller_Router_Route
         $mergedData = $defaultValuesMapped;
         $mergedData = $this->_arrayMergeNumericKeys($mergedData, $matchedValuesMapped);
         $mergedData = $this->_arrayMergeNumericKeys($mergedData, $dataValuesMapped);
+
+        if ($encode) {
+            foreach ($mergedData as $key => &$value) {
+                $value = urlencode($value);
+            }
+        }	
 
         ksort($mergedData);
 

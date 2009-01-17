@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Report_Customer_Totals_Grid extends Mage_Adminhtml_Bl
             'type'      => 'number'
         ));
 
-        $baseCurrencyCode = (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode();
+        $baseCurrencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('orders_avg_amount', array(
             'header'    => $this->__('Average Order Amount'),

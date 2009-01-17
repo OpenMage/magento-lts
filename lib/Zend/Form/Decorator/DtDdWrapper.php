@@ -33,7 +33,7 @@
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DtDdWrapper.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: DtDdWrapper.php 9309 2008-04-25 16:06:59Z matthew $
  */
 class Zend_Form_Decorator_DtDdWrapper extends Zend_Form_Decorator_Abstract
 {
@@ -55,6 +55,6 @@ class Zend_Form_Decorator_DtDdWrapper extends Zend_Form_Decorator_Abstract
      */
     public function render($content)
     {
-        return '<dt></dt><dd>' . $content . '</dd>';
+        return '<dt>&nbsp;</dt><dd>' . $content . '</dd>';
     }
 }

@@ -230,11 +230,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         }
 
         $item = array();
-        $item['text']= $this->htmlEscape($node->getName());
-
-        if ($this->_withProductCount) {
-             $item['text'].= ' ('.$node->getProductCount().')';
-        }
+        $item['text'] = $this->buildNodeName($node);
 
         //$rootForStores = Mage::getModel('core/store')->getCollection()->loadByCategoryIds(array($node->getEntityId()));
         $rootForStores = in_array($node->getEntityId(), $this->getRootIds());
@@ -269,6 +265,21 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         }
 
         return $item;
+    }
+
+    /**
+     * Get category name
+     *
+     * @param Varien_Object $node
+     * @return string
+     */
+    public function buildNodeName($node)
+    {
+        $result = $this->htmlEscape($node->getName());
+        if ($this->_withProductCount) {
+             $result .= ' (' . $node->getProductCount() . ')';
+        }
+        return $result;
     }
 
     protected function _isParentSelectedCategory($node)

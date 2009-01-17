@@ -140,7 +140,7 @@
                             <children>
                                 <config>
                                     <children>
-                                        <wishlist>
+                                        <wishlist translate="title" module="wishlist">
                                             <title>Wishlist Section</title>
                                         </wishlist>
                                     </children>

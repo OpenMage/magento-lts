@@ -162,6 +162,23 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     }
 
     /**
+     * Add allowed quote item for gift messages
+     *
+     * @param int $item
+     * @return Mage_Adminhtml_Model_Giftmessage_Save
+     */
+    public function addAllowQuoteItem($item)
+    {
+        $items = $this->getAllowQuoteItems();
+        if (!in_array($item, $items)) {
+            $items[] = $item;
+        }
+        $this->setAllowQuoteItems($items);
+
+        return $this;
+    }
+
+    /**
      * Retrive allowed quote items for gift messages
      *
      * @return array
@@ -202,12 +219,28 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     public function getIsAllowedQuoteItem($item)
     {
         if(!in_array($item->getId(), $this->getAllowQuoteItems())) {
+            if ($item->getGiftMessageId() && $this->isGiftMessagesAvailable($item)) {
+                $this->addAllowQuoteItem($item->getId());
+                return true;
+            }
             return false;
         }
 
         return true;
     }
 
+    /**
+     * Retrieve is gift message available for item (product)
+     *
+     * @param Varien_Object $item
+     * @return bool
+     */
+    public function isGiftMessagesAvailable($item)
+    {
+        return Mage::helper('giftmessage/message')->getIsMessagesAvailable(
+            'item', $item, $item->getStore()
+        );
+    }
 
     /**
      * Imports quote items for gift messages from products data

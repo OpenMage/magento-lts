@@ -12,23 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Mass.php 8064 2008-02-16 10:58:39Z thomas $
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @category  Zend
+ * @package   Zend_Measure
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @version   $Id: Mass.php 13209 2008-12-13 22:34:06Z thomas $
  */
-
 
 /**
  * Implement needed classes
  */
-#require_once 'Zend/Measure/Exception.php';
 #require_once 'Zend/Measure/Abstract.php';
 #require_once 'Zend/Locale.php';
 
-
 /**
+ * Class for handling flow mass conversions
+ *
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Flow_Mass
@@ -37,7 +36,6 @@
  */
 class Zend_Measure_Flow_Mass extends Zend_Measure_Abstract
 {
-    // Flow_Mass definitions
     const STANDARD = 'KILOGRAM_PER_SECOND';
 
     const CENTIGRAM_PER_DAY    = 'CENTIGRAM_PER_DAY';
@@ -77,7 +75,12 @@ class Zend_Measure_Flow_Mass extends Zend_Measure_Abstract
     const TON_SHORT_PER_MINUTE = 'TON_SHORT_PER_MINUTE';
     const TON_SHORT_PER_SECOND = 'TON_SHORT_PER_SECOND';
 
-    protected $_UNITS = array(
+    /**
+     * Calculations for all flow mass units
+     *
+     * @var array
+     */
+    protected $_units = array(
         'CENTIGRAM_PER_DAY'    => array(array('' => '0.00001', '/' => '86400'),    'cg/day'),
         'CENTIGRAM_PER_HOUR'   => array(array('' => '0.00001', '/' => '3600'),     'cg/h'),
         'CENTIGRAM_PER_MINUTE' => array(array('' => '0.00001', '/' => '60'),       'cg/m'),

@@ -232,6 +232,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      */
     public function gridAction()
     {
+        $this->loadLayout();
         $this->getResponse()->setBody(
             $this->getLayout()->createBlock('adminhtml/catalog_product_grid')->toHtml()
         );
@@ -243,7 +244,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     public function gridOnlyAction()
     {
         $this->_initProduct();
-
+        $this->loadLayout();
         $this->getResponse()->setBody(
             $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_' . $this->getRequest()->getParam('gridOnlyBlock'))
                 ->toHtml()
@@ -379,7 +380,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     }
 
     /**
-     * Load bundle items fieldset
+     * Deprecated since 1.2
      *
      */
     public function bundlesAction()

@@ -63,11 +63,6 @@ class Mage_CatalogIndex_Model_Mysql4_Price extends Mage_CatalogIndex_Model_Mysql
         return $this->_customerGroupId;
     }
 
-    protected function _getTaxRateConditions($tableName = 'main_table')
-    {
-        return Mage::helper('tax')->getPriceTaxSql($tableName . '.value', 'IFNULL(tax_class_c.value, tax_class_d.value)');
-    }
-
     public function getMaxValue($attribute = null, $entitySelect)
     {
         $select = clone $entitySelect;
@@ -76,44 +71,29 @@ class Mage_CatalogIndex_Model_Mysql4_Price extends Mage_CatalogIndex_Model_Mysql
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
-        $select->from('', "MAX(price_table.value{$this->_getTaxRateConditions('price_table')})")
-            ->join(array('price_table'=>$this->getMainTable()), 'price_table.entity_id=e.entity_id', array())
-            ->where('price_table.store_id = ?', $this->getStoreId())
-            ->where('price_table.attribute_id = ?', $attribute->getId());
-        Mage::helper('tax')->joinTaxClass($select, $this->getStoreId(), 'price_table');
-
         if ($attribute->getAttributeCode() == 'price') {
             $select->where('price_table.customer_group_id = ?', $this->getCustomerGroupId());
         }
 
+        $select->join(array('price_table'=>$this->getMainTable()), 'price_table.entity_id=e.entity_id', array());
+
+        $response = new Varien_Object();
+        $response->setAdditionalCalculations(array());
+        $args = array(
+            'select'=>$select,
+            'table'=>'price_table',
+            'store_id'=>$this->getStoreId(),
+            'response_object'=>$response,
+        );
+        Mage::dispatchEvent('catalogindex_prepare_price_select', $args);
+
+        $select
+            ->from('', "MAX(price_table.value".implode('', $response->getAdditionalCalculations()).")")
+            ->where('price_table.website_id = ?', $this->getWebsiteId())
+            ->where('price_table.attribute_id = ?', $attribute->getId());
+
         return $this->_getReadAdapter()->fetchOne($select)*$this->getRate();
     }
-
-//    public function getCount($range, $attribute, $entityIdsFilter)
-//    {
-//        $select = $this->_getReadAdapter()->select();
-//
-//        $fields = array('count'=>'COUNT(DISTINCT main_table.entity_id)', 'range'=>"FLOOR(((main_table.value{$this->_getTaxRateConditions()})*{$this->getRate()})/{$range})+1");
-//
-//        $select->from(array('main_table'=>$this->getMainTable()), $fields)
-//            ->group('range')
-//            ->where('main_table.entity_id in (?)', $entityIdsFilter)
-//            ->where('main_table.store_id = ?', $this->getStoreId())
-//            ->where('main_table.attribute_id = ?', $attribute->getId());
-//        $this->_joinTaxClass($select);
-//
-//        if ($attribute->getAttributeCode() == 'price')
-//            $select->where('main_table.customer_group_id = ?', $this->getCustomerGroupId());
-//
-//        $result = $this->_getReadAdapter()->fetchAll($select);
-//
-//        $counts = array();
-//        foreach ($result as $row) {
-//            $counts[$row['range']] = $row['count'];
-//        }
-//
-//        return $counts;
-//    }
 
     public function getCount($range, $attribute, $entitySelect)
     {
@@ -123,17 +103,28 @@ class Mage_CatalogIndex_Model_Mysql4_Price extends Mage_CatalogIndex_Model_Mysql
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
-        $fields = array('count'=>'COUNT(DISTINCT price_table.entity_id)', 'range'=>"FLOOR(((price_table.value{$this->_getTaxRateConditions('price_table')})*{$this->getRate()})/{$range})+1");
+        $select->join(array('price_table'=>$this->getMainTable()), 'price_table.entity_id=e.entity_id', array());
+
+        if ($attribute->getAttributeCode() == 'price') {
+            $select->where('price_table.customer_group_id = ?', $this->getCustomerGroupId());
+        }
+
+        $response = new Varien_Object();
+        $response->setAdditionalCalculations(array());
+        $args = array(
+            'select'=>$select,
+            'table'=>'price_table',
+            'store_id'=>$this->getStoreId(),
+            'response_object'=>$response,
+        );
+        Mage::dispatchEvent('catalogindex_prepare_price_select', $args);
+
+        $fields = array('count'=>'COUNT(DISTINCT price_table.entity_id)', 'range'=>"FLOOR(((price_table.value".implode('', $response->getAdditionalCalculations()).")*{$this->getRate()})/{$range})+1");
 
         $select->from('', $fields)
-            ->join(array('price_table'=>$this->getMainTable()), 'price_table.entity_id=e.entity_id', array())
             ->group('range')
-            ->where('price_table.store_id = ?', $this->getStoreId())
+            ->where('price_table.website_id = ?', $this->getWebsiteId())
             ->where('price_table.attribute_id = ?', $attribute->getId());
-        Mage::helper('tax')->joinTaxClass($select, $this->getStoreId(), 'price_table');
-
-        if ($attribute->getAttributeCode() == 'price')
-            $select->where('price_table.customer_group_id = ?', $this->getCustomerGroupId());
 
         $result = $this->_getReadAdapter()->fetchAll($select);
 
@@ -148,19 +139,30 @@ class Mage_CatalogIndex_Model_Mysql4_Price extends Mage_CatalogIndex_Model_Mysql
     public function getFilteredEntities($range, $index, $attribute, $entityIdsFilter, $tableName = 'price_table')
     {
         $select = $this->_getReadAdapter()->select();
+        $select->from(array($tableName=>$this->getMainTable()), $tableName . '.entity_id');
 
-        $select->from(array($tableName=>$this->getMainTable()), $tableName . '.entity_id')
+        $response = new Varien_Object();
+        $response->setAdditionalCalculations(array());
+        $args = array(
+            'select'=>$select,
+            'table'=>$tableName,
+            'store_id'=>$this->getStoreId(),
+            'response_object'=>$response,
+        );
+        Mage::dispatchEvent('catalogindex_prepare_price_select', $args);
+
+        $select
             ->distinct(true)
             ->where($tableName . '.entity_id in (?)', $entityIdsFilter)
-            ->where($tableName . '.store_id = ?', $this->getStoreId())
+            ->where($tableName . '.website_id = ?', $this->getWebsiteId())
             ->where($tableName . '.attribute_id = ?', $attribute->getId());
 
-        Mage::helper('tax')->joinTaxClass($select, $this->getStoreId(), $tableName);
-        if ($attribute->getAttributeCode() == 'price')
+        if ($attribute->getAttributeCode() == 'price') {
             $select->where($tableName . '.customer_group_id = ?', $this->getCustomerGroupId());
+        }
 
-        $select->where("(({$tableName}.value{$this->_getTaxRateConditions($tableName)})*{$this->getRate()}) >= ?", ($index-1)*$range);
-        $select->where("(({$tableName}.value{$this->_getTaxRateConditions($tableName)})*{$this->getRate()}) < ?", $index*$range);
+        $select->where("(({$tableName}.value".implode('', $response->getAdditionalCalculations()).")*{$this->getRate()}) >= ?", ($index-1)*$range);
+        $select->where("(({$tableName}.value".implode('', $response->getAdditionalCalculations()).")*{$this->getRate()}) < ?", $index*$range);
 
         return $this->_getReadAdapter()->fetchCol($select);
     }
@@ -173,7 +175,7 @@ class Mage_CatalogIndex_Model_Mysql4_Price extends Mage_CatalogIndex_Model_Mysql
         $select = $this->_getReadAdapter()->select();
         $select->from(array('price_table'=>$this->getTable('catalogindex/minimal_price')), array('price_table.entity_id', 'value'=>"(price_table.value)", 'tax_class_id'=>'(price_table.tax_class_id)'))
             ->where('price_table.entity_id in (?)', $ids)
-            ->where('price_table.store_id = ?', $this->getStoreId())
+            ->where('price_table.website_id = ?', $this->getWebsiteId())
             ->where('price_table.customer_group_id = ?', $this->getCustomerGroupId());
         return $this->_getReadAdapter()->fetchAll($select);
     }

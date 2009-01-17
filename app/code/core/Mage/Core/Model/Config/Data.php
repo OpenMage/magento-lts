@@ -35,8 +35,7 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
 {
 
     /**
-     * Enter description here...
-     *
+     * Varien model constructor
      */
     protected function _construct()
     {
@@ -44,12 +43,32 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Enter description here...
-     *
+     * Add availability call after load as public
      */
     public function afterLoad()
     {
         $this->_afterLoad();
     }
 
+    /**
+     * Check if config data value was changed
+     *
+     * @return bool
+     */
+    public function isValueChanged()
+    {
+        $storeCode      = $this->getStoreCode();
+        $websiteCode    = $this->getWebsiteCode();
+        $path           = $this->getPath();
+
+        $newValue       = $this->getValue();
+        if ($websiteCode) {
+            $oldValue = Mage::app()->getWebsite($websiteCode)->getConfig($path);
+        } elseif ($storeCode) {
+            $oldValue = Mage::app()->getStore($storeCode)->getConfig($path);
+        } else {
+            $oldValue = (string) Mage::getConfig()->getNode('default/'.$path);
+        }
+        return $newValue != $oldValue;
+    }
 }

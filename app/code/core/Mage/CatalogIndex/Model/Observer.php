@@ -37,21 +37,67 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
 
     protected function _construct() {}
 
+    /**
+     * Get indexer object
+     *
+     * @return Mage_CatalogIndex_Model_Indexer
+     */
+    protected function _getIndexer()
+    {
+        return Mage::getSingleton('catalogindex/indexer');
+    }
+
+    /**
+     * Get aggregation object
+     *
+     * @return Mage_CatalogIndex_Model_Aggregation
+     */
+    protected function _getAggregator()
+    {
+        return Mage::getSingleton('catalogindex/aggregation');
+    }
+
+    /**
+     * Reindex all catalog data
+     *
+     * @return Mage_CatalogIndex_Model_Observer
+     */
     public function reindexAll()
     {
-        Mage::getSingleton('catalogindex/indexer')->plainReindex();
+        $this->_getIndexer()->plainReindex();
+        $this->_getAggregator()->clearCacheData();
+        return $this;
     }
 
+    /**
+     * Reindex daily related data (prices)
+     *
+     * @return Mage_CatalogIndex_Model_Observer
+     */
     public function reindexDaily()
     {
-        Mage::getSingleton('catalogindex/indexer')->plainReindex(null, Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE);
+        $this->_getIndexer()->plainReindex(
+            null,
+            Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE
+        );
+        $this->clearPriceAggregation();
+        return $this;
     }
 
+    /**
+     * Process product after save
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogIndex_Model_Observer
+     */
     public function processAfterSaveEvent(Varien_Event_Observer $observer)
     {
+        $productIds = array();
         $eventProduct = $observer->getEvent()->getProduct();
+        $productIds[] = $eventProduct->getId();
+
         if (!$eventProduct->getIsMassupdate()) {
-            Mage::getSingleton('catalogindex/indexer')->plainReindex($eventProduct);
+            $this->_getIndexer()->plainReindex($eventProduct);
         } else {
             $this->_productIdsMassupdate[] = $eventProduct->getId();
         }
@@ -59,15 +105,32 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         $eventProduct->loadParentProductIds();
         $parentProductIds = $eventProduct->getParentProductIds();
         if ($parentProductIds && !$eventProduct->getIsMassupdate()) {
-            Mage::getSingleton('catalogindex/indexer')->plainReindex($parentProductIds);
+            $this->_getIndexer()->plainReindex($parentProductIds);
         } elseif ($parentProductIds) {
             $this->_productIdsMassupdate = array_merge($this->_productIdsMassupdate, $parentProductIds);
+            $productIds = array_merge($productIds, $parentProductIds);
         }
+        $this->_getAggregator()->clearProductData($productIds);
+        return $this;
     }
 
+    /**
+     * Reindex price data after attribute scope change
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogIndex_Model_Observer
+     */
     public function processPriceScopeChange(Varien_Event_Observer $observer)
     {
-        Mage::getSingleton('catalogindex/indexer')->plainReindex(null, Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE);
+        $configOption   = $observer->getEvent()->getOption();
+        if ($configOption->isValueChanged()) {
+            $this->_getIndexer()->plainReindex(
+                null,
+                Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE
+            );
+            $this->clearPriceAggregation();
+        }
+        return $this;
     }
 
     /**
@@ -83,56 +146,189 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         if ($productCondition) {
             $eventProduct = $productCondition;
         }
-        Mage::getSingleton('catalogindex/indexer')->plainReindex(
+        $this->_getIndexer()->plainReindex(
             $eventProduct,
             Mage_CatalogIndex_Model_Indexer::REINDEX_TYPE_PRICE
         );
+
+        $this->clearPriceAggregation();
         return $this;
     }
 
-    public function registerParentIds(Varien_Event_Observer $observer)
-    {
-        $observer->getEvent()->getProduct()->loadParentProductIds();
-    }
-
+    /**
+     * Cleanup product index after product delete
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogIndex_Model_Observer
+     */
     public function processAfterDeleteEvent(Varien_Event_Observer $observer)
     {
         $eventProduct = $observer->getEvent()->getProduct();
-        Mage::getSingleton('catalogindex/indexer')->cleanup($eventProduct);
+        $this->_getIndexer()->cleanup($eventProduct);
         $parentProductIds = $eventProduct->getParentProductIds();
 
         if ($parentProductIds) {
-            Mage::getSingleton('catalogindex/indexer')->plainReindex($parentProductIds);
+            $this->_getIndexer()->plainReindex($parentProductIds);
         }
+        return $this;
     }
 
+    /**
+     * Process index data after attribute information was changed
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogIndex_Model_Observer
+     */
     public function processAttributeChangeEvent(Varien_Event_Observer $observer)
     {
-        if ($observer->getAttribute()->getOrigData('is_filterable') == $observer->getAttribute()->getIsFilterable()) {
-            return;
+        /**
+         * @todo add flag to attribute model which will notify what options was changed
+         */
+        $attribute = $observer->getAttribute();
+        $tags = array(
+            Mage_Eav_Model_Entity_Attribute::CACHE_TAG.':'.$attribute->getId()
+        );
+
+        if ($attribute->getOrigData('is_filterable') != $attribute->getIsFilterable()) {
+            if ($attribute->getIsFilterable() != 0) {
+                $this->_getIndexer()->plainReindex(null, $attribute);
+            } else {
+                $this->_getAggregator()->clearCacheData($tags);
+            }
+        } elseif ($attribute->getIsFilterable()) {
+        	$this->_getAggregator()->clearCacheData($tags);
         }
 
-        if ($observer->getAttribute()->getIsFilterable() != 0) {
-            Mage::getSingleton('catalogindex/indexer')->plainReindex(null, $observer->getAttribute());
-        }
+        return $this;
     }
 
+    /**
+     * Create index for new store
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogIndex_Model_Observer
+     */
     public function processStoreAdd(Varien_Event_Observer $observer)
     {
         $store = $observer->getEvent()->getStore();
-        Mage::getSingleton('catalogindex/indexer')->plainReindex(null, null, $store);
+        $this->_getIndexer()->plainReindex(null, null, $store);
+        return $this;
     }
 
+    /**
+     * Rebuild index after catalog import
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogIndex_Model_Observer
+     */
     public function catalogProductImportAfter(Varien_Event_Observer $observer)
     {
-        Mage::getSingleton('catalogindex/indexer')->plainReindex();
+        $this->_getIndexer()->plainReindex();
+        $this->_getAggregator()->clearCacheData();
+        return $this;
     }
 
+    /**
+     * Run planed reindex
+     *
+     * @return Mage_CatalogIndex_Model_Observer
+     */
     public function runQueuedIndexing()
     {
         $flag = Mage::getModel('catalogindex/catalog_index_flag')->loadSelf();
         if ($flag->getState() == Mage_CatalogIndex_Model_Catalog_Index_Flag::STATE_QUEUED) {
-            Mage::getSingleton('catalogindex/indexer')->plainReindex();
+            $this->_getIndexer()->plainReindex();
+            $this->_getAggregator()->clearCacheData();
         }
+        return $this;
+    }
+
+    /**
+     * Clear aggregated layered navigation data
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogIndex_Model_Observer
+     */
+    public function cleanCache(Varien_Event_Observer $observer)
+    {
+        $tagsArray = $observer->getEvent()->getTags();
+        $tagName = Mage_CatalogIndex_Model_Aggregation::CACHE_FLAG_NAME;
+
+        if (empty($tagsArray) || in_array($tagName, $tagsArray)) {
+            $this->_getAggregator()->clearCacheData();
+        }
+        return $this;
+    }
+
+    /**
+     * Process index data after category save
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogIndex_Model_Observer
+     */
+    public function catalogCategorySaveAfter(Varien_Event_Observer $observer)
+    {
+        $category = $observer->getEvent()->getCategory();
+        $tags = array(
+            Mage_Catalog_Model_Category::CACHE_TAG.':'.$category->getPath()
+        );
+        $this->_getAggregator()->clearCacheData($tags);
+        return $this;
+    }
+
+    /**
+     * Delete price aggreagation data
+     *
+     * @return Mage_CatalogIndex_Model_Observer
+     */
+    public function clearPriceAggregation()
+    {
+        $this->_getAggregator()->clearCacheData(array(
+            Mage_Catalog_Model_Product_Type_Price::CACHE_TAG
+        ));
+        return $this;
+    }
+
+    /**
+     * Clear layer navigation cache for search results
+     *
+     * @return Mage_CatalogIndex_Model_Observer
+     */
+    public function clearSearchLayerCache()
+    {
+        $this->_getAggregator()->clearCacheData(array(
+            Mage_CatalogSearch_Model_Query::CACHE_TAG
+        ));
+        return $this;
+    }
+
+    /**
+     * Load parent ids for products before deleting
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogIndex_Model_Observer
+     */
+    public function registerParentIds(Varien_Event_Observer $observer)
+    {
+        $product = $observer->getEvent()->getProduct();
+        $product->loadParentProductIds();
+        $productIds = array($product->getId());
+        $productIds = array_merge($productIds, $product->getParentProductIds());
+        $this->_getAggregator()->clearProductData($productIds);
+        return $this;
+    }
+
+    /**
+     * Reindex producs after change websites associations
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogIndex_Model_Observer
+     */
+    public function processProductsWebsitesChange(Varien_Event_Observer $observer)
+    {
+        $productIds = $observer->getEvent()->getProducts();
+        $this->_getIndexer()->plainReindex($productIds);
+        $this->_getAggregator()->clearProductData($productIds);
+        return $this;
     }
 }

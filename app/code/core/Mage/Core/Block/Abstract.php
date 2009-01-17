@@ -141,7 +141,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve request object
      *
-     * @return Zend_Controller_Request_Http
+     * @return Mage_Core_Controller_Request_Http
      */
     public function getRequest()
     {
@@ -923,11 +923,12 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Escape html entities
      *
      * @param   mixed $data
+     * @param   array $allowedTags
      * @return  mixed
      */
-    public function htmlEscape($data)
+    public function htmlEscape($data, $allowedTags = null)
     {
-        return $this->helper('core')->htmlEscape($data);
+        return $this->helper('core')->htmlEscape($data, $allowedTags);
     }
 
     /**

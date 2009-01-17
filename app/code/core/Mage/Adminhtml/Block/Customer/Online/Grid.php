@@ -43,9 +43,20 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
         $this->setDefaultDir('DESC');
     }
 
+    /**
+     * Prepare collection for grid
+     *
+     * @return Mage_Adminhtml_Block_Customer_Online_Grid
+     */
     protected function _prepareCollection()
     {
+        $collection = Mage::getResourceSingleton('log/visitor_collection')
+            ->useOnlineFilter();
+
+        $this->setCollection($collection);
+
         parent::_prepareCollection();
+
         foreach ($this->getCollection()->getItems() as $item) {
             $item->addIpData($item)
                  //->addCustomerData($item)
@@ -54,15 +65,12 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
         return $this;
     }
 
-    protected function _initCollection()
-    {
-        $collection = Mage::getResourceSingleton('log/visitor_collection')
-            ->useOnlineFilter();
-
-        $this->setCollection($collection);
-    }
-
-    protected function _beforeToHtml()
+    /**
+     * Prepare columns
+     *
+     * @return Mage_Adminhtml_Block_Customer_Online_Grid
+     */
+    protected function _prepareColumns()
     {
         $this->addColumn('customer_id', array(
             'header'=>Mage::helper('customer')->__('ID'),
@@ -138,8 +146,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'index'=>'url')
         );
 
-        $this->_initCollection();
-        return parent::_beforeToHtml();
+        return parent::_prepareColumns();
     }
 
     public function getRowUrl($row)

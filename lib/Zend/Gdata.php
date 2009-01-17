@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -29,12 +30,13 @@
  * Subclasses exist to implement service-specific features
  *
  * As the Google data API protocol is based upon the Atom Publishing Protocol
- * (APP), GData functionality extends the appropriate Zend_Gdata_App classes
+ * (APP), Gdata functionality extends the appropriate Zend_Gdata_App classes
  *
  * @link http://code.google.com/apis/gdata/overview.html
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -68,20 +70,37 @@ class Zend_Gdata extends Zend_Gdata_App
             'Zend_Gdata_App');
 
     /**
-     * Namespaces used for GData data
+     * Namespaces used for Gdata data
      *
      * @var array
      */
     public static $namespaces = array(
-        'openSearch' => 'http://a9.com/-/spec/opensearchrss/1.0/',
-        'rss' => 'http://blogs.law.harvard.edu/tech/rss',
-        'gd' => 'http://schemas.google.com/g/2005');
+        array('gd', 'http://schemas.google.com/g/2005', 1, 0),
+        array('openSearch', 'http://a9.com/-/spec/opensearchrss/1.0/', 1, 0),
+        array('openSearch', 'http://a9.com/-/spec/opensearch/1.1/', 2, 0),
+        array('rss', 'http://blogs.law.harvard.edu/tech/rss', 1, 0)
+    );
+
+    /**
+     * Client object used to communicate
+     *
+     * @var Zend_Gdata_HttpClient
+     */
+    protected $_httpClient;
+
+    /**
+     * Client object used to communicate in static context
+     *
+     * @var Zend_Gdata_HttpClient
+     */
+    protected static $_staticHttpClient = null;
 
     /**
      * Create Gdata object
      *
      * @param Zend_Http_Client $client
-     * @param string $applicationId The identity of the app in the form of Company-AppName-Version
+     * @param string $applicationId The identity of the app in the form of
+     *          Company-AppName-Version
      */
     public function __construct($client = null, $applicationId = 'MyCompany-MyApp-1.0')
     {
@@ -89,10 +108,34 @@ class Zend_Gdata extends Zend_Gdata_App
     }
 
     /**
-     * Retreive feed object
+     * Imports a feed located at $uri.
+     *
+     * @param  string $uri
+     * @param  Zend_Http_Client $client The client used for communication
+     * @param  string $className The class which is used as the return type
+     * @throws Zend_Gdata_App_Exception
+     * @return Zend_Gdata_App_Feed
+     */
+    public static function import($uri, $client = null, $className='Zend_Gdata_Feed')
+    {
+        $app = new Zend_Gdata($client);
+        $requestData = $app->decodeRequest('GET', $uri);
+        $response = $app->performHttpRequest($requestData['method'], $requestData['url']);
+
+        $feedContent = $response->getBody();
+        $feed = self::importString($feedContent, $className);
+        if ($client != null) {
+            $feed->setHttpClient($client);
+        }
+        return $feed;
+    }
+
+    /**
+     * Retrieve feed object
      *
      * @param mixed $location The location as string or Zend_Gdata_Query
      * @param string $className The class type to use for returning the feed
+     * @throws Zend_Gdata_App_InvalidArgumentException
      * @return Zend_Gdata_Feed
      */
     public function getFeed($location, $className='Zend_Gdata_Feed')
@@ -111,7 +154,7 @@ class Zend_Gdata extends Zend_Gdata_App
     }
 
     /**
-     * Retreive entry object
+     * Retrieve entry object
      *
      * @param mixed $location The location as string or Zend_Gdata_Query
      * @return Zend_Gdata_Feed
@@ -131,4 +174,54 @@ class Zend_Gdata extends Zend_Gdata_App
         return parent::getEntry($uri, $className);
     }
 
+    /**
+     * Performs a HTTP request using the specified method.
+     *
+     * Overrides the definition in the parent (Zend_Gdata_App)
+     * and uses the Zend_Gdata_HttpClient functionality
+     * to filter the HTTP requests and responses.
+     *
+     * @param string $method The HTTP method for the request -
+     *                       'GET', 'POST', 'PUT', 'DELETE'
+     * @param string $url The URL to which this request is being performed,
+     *                    or null if found in $data
+     * @param array $headers An associative array of HTTP headers
+     *                       for this request
+     * @param string $body The body of the HTTP request
+     * @param string $contentType The value for the content type of the
+     *                            request body
+     * @param int $remainingRedirects Number of redirects to follow
+     *                                if requests results in one
+     * @return Zend_Http_Response The response object
+     */
+    public function performHttpRequest($method, $url, $headers = array(), $body = null, $contentType = null, $remainingRedirects = null)
+    {
+        if ($this->_httpClient instanceof Zend_Gdata_HttpClient) {
+            $filterResult = $this->_httpClient->filterHttpRequest($method, $url, $headers, $body, $contentType);
+            $method = $filterResult['method'];
+            $url = $filterResult['url'];
+            $body = $filterResult['body'];
+            $headers = $filterResult['headers'];
+            $contentType = $filterResult['contentType'];
+            return $this->_httpClient->filterHttpResponse(parent::performHttpRequest($method, $url, $headers, $body, $contentType, $remainingRedirects));
+        } else {
+            return parent::performHttpRequest($method, $url, $headers, $body, $contentType, $remainingRedirects);
+        }
+    }
+
+    /**
+     * Determines whether service object is authenticated.
+     *
+     * @return boolean True if service object is authenticated, false otherwise.
+     */
+    public function isAuthenticated()
+    {
+        $client = parent::getHttpClient();
+        if ($client->getClientLoginToken() ||
+            $client->getAuthSubToken()) {
+                return true;
+        }
+
+        return false;
+    }
 }

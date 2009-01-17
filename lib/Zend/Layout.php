@@ -16,7 +16,7 @@
  * @package    Zend_Layout
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Layout.php 8638 2008-03-07 18:31:33Z ralph $
+ * @version    $Id: Layout.php 13016 2008-12-04 15:25:43Z doctorrock83 $
  */
 
 /**
@@ -174,6 +174,8 @@ class Zend_Layout
     {
         if (null === self::$_mvcInstance) {
             self::$_mvcInstance = new self($options, true);
+        } elseif (is_string($options)) {
+            self::$_mvcInstance->setLayoutPath($options);
         } else {
             self::$_mvcInstance->setOptions($options);
         }
@@ -189,6 +191,32 @@ class Zend_Layout
     public static function getMvcInstance()
     {
         return self::$_mvcInstance;
+    }
+
+    /**
+     * Reset MVC instance
+     *
+     * Unregisters plugins and helpers, and destroys MVC layout instance.
+     * 
+     * @return void
+     */
+    public static function resetMvcInstance()
+    {
+        if (null !== self::$_mvcInstance) {
+            $layout = self::$_mvcInstance;
+            $pluginClass = $layout->getPluginClass();
+            $front = Zend_Controller_Front::getInstance();
+            if ($front->hasPlugin($pluginClass)) {
+                $front->unregisterPlugin($pluginClass);
+            }
+
+            if (Zend_Controller_Action_HelperBroker::hasHelper('layout')) {
+                Zend_Controller_Action_HelperBroker::removeHelper('layout');
+            }
+
+            unset($layout);
+            self::$_mvcInstance = null;
+        }
     }
 
     /**
@@ -258,9 +286,7 @@ class Zend_Layout
         if (!Zend_Controller_Action_HelperBroker::hasHelper('layout')) {
             #require_once 'Zend/Loader.php';
             Zend_Loader::loadClass($helperClass);
-            Zend_Controller_Action_HelperBroker::addHelper(
-                new $helperClass($this)
-            );
+            Zend_Controller_Action_HelperBroker::getStack()->offsetSet(-90, new $helperClass($this));
         }
     }
 
@@ -528,6 +554,7 @@ class Zend_Layout
     public function getView() 
     {
         if (null === $this->_view) {
+            #require_once 'Zend/Controller/Action/HelperBroker.php';
             $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
             if (null === $viewRenderer->view) {
                 $viewRenderer->initView();
@@ -748,7 +775,11 @@ class Zend_Layout
         $view = $this->getView();
 
         if (null !== ($path = $this->getViewScriptPath())) {
-            $view->addScriptPath($path);
+            if (method_exists($view, 'addScriptPath')) {
+                $view->addScriptPath($path);
+            } else {
+                $view->setScriptPath($path);
+            }
         } elseif (null !== ($path = $this->getViewBasePath())) {
             $view->addBasePath($path, $this->_viewBasePrefix);
         }

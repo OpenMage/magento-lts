@@ -26,7 +26,7 @@
 
 /* @var $this Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
 $this->startSetup();
-$table = $this->getTable('catalog/category_entity');
+$table = $this->getTable('catalog/category');
 $tableTmp = $table . "_tmp";
 $this->run("DROP TABLE IF EXISTS `{$tableTmp}`");
 

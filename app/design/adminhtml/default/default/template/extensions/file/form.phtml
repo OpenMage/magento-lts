@@ -40,10 +40,10 @@ function install(type)
 </div>
 <div class="entry-edit">
     <form action="<?php echo $this->getUploadInstallUrl() ?>" method="post" id="local_form" enctype="multipart/form-data" target="run_iframe">
-        
-    <div class="entry-edit-head">
-        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Upload Local File") ?></h4>
-    </div>
+        <?php echo $this->getBlockHtml('formkey')?>
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Upload Local File") ?></h4>
+        </div>
         <fieldset>
             <legend><?php echo $this->__("Upload Local File") ?></legend>
 
@@ -58,9 +58,10 @@ function install(type)
     </form>
 
     <form action="<?php echo $this->getRemoteInstallUrl() ?>" method="post" id="remote_form" enctype="multipart/form-data" target="run_iframe">
-    <div class="entry-edit-head">
-        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Download Remote File") ?></h4>
-    </div>
+        <?php echo $this->getBlockHtml('formkey')?>
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__("Download Remote File") ?></h4>
+        </div>
         <fieldset>
             <legend><?php echo $this->__("Download Remote File") ?></legend>
 

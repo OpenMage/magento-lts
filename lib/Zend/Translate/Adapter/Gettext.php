@@ -19,13 +19,11 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
 /** Zend_Locale */
 #require_once 'Zend/Locale.php';
 
 /** Zend_Translate_Adapter */
 #require_once 'Zend/Translate/Adapter.php';
-
 
 /**
  * @category   Zend
@@ -37,6 +35,7 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
     // Internal variables
     private $_bigEndian   = false;
     private $_file        = false;
+    private $_adapterInfo = array();
 
     /**
      * Generates the  adapter
@@ -50,7 +49,6 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
     {
         parent::__construct($data, $locale, $options);
     }
-
 
     /**
      * Read values from the MO file
@@ -66,7 +64,6 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
         }
     }
 
-
     /**
      * Load translation data (MO file reader)
      *
@@ -79,7 +76,7 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
     protected function _loadTranslationData($filename, $locale, array $options = array())
     {
         $this->_bigEndian = false;
-        $options = array_merge($this->_options, $options);
+        $options = $options + $this->_options;
 
         if ($options['clear']  ||  !isset($this->_translate[$locale])) {
             $this->_translate[$locale] = array();
@@ -139,8 +136,26 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
                 $this->_translate[$locale][$original] = fread($this->_file, $transtemp[$count * 2 + 1]);
             }
         }
+
+        $this->_translate[$locale][''] = trim($this->_translate[$locale]['']);
+        if (empty($this->_translate[$locale][''])) {
+            $this->_adapterInfo[$filename] = 'No adapter information available';
+        } else {
+            $this->_adapterInfo[$filename] = $this->_translate[$locale][''];
+        }
+
+        unset($this->_translate[$locale]['']);
     }
 
+    /**
+     * Returns the adapter informations
+     *
+     * @return array Each loaded adapter information as array value
+     */
+    public function getAdapterInfo()
+    {
+        return $this->_adapterInfo;
+    }
 
     /**
      * Returns the adapter name

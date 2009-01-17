@@ -152,12 +152,13 @@ class Mage_Sales_Model_Mysql4_Quote_Item_Collection extends Mage_Core_Model_Mysq
                 $product->setCustomOptions(array());
 
                 foreach ($item->getOptions() as $option) {
-                    if ($optionProduct = $productCollection->getItemById($option->getProductId())) {
-                        $option->setProduct($optionProduct);
-                    }
-                    else {
-                        $option->setProduct($product);
-                    }
+                    /**
+                     * Call type specified logic for product associated with quote item
+                     */
+                    $product->getTypeInstance()->assignProductToOption(
+                            $productCollection->getItemById($option->getProductId()),
+                            $option
+                        );
                 }
                 $item->setProduct($product);
             }

@@ -20,7 +20,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    Mage
- * @package    Mage_GoogleCheckout
+ * @package    Mage_GoogleOptimizer
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -75,35 +75,6 @@
         <blocks>
             <googleoptimizer><class>Mage_GoogleOptimizer_Block</class></googleoptimizer>
         </blocks>
-        <events>
-            <cms_page_load_after>
-                <observers>
-                    <googleoptimizer_observer>
-                        <type>singleton</type>
-                        <class>googleoptimizer/observer</class>
-                        <method>appendToPageGoogleOptimizerScripts</method>
-                    </googleoptimizer_observer>
-                </observers>
-            </cms_page_load_after>
-            <catalog_product_load_after>
-                <observers>
-                    <googleoptimizer_observer>
-                        <type>singleton</type>
-                        <class>googleoptimizer/observer</class>
-                        <method>appendToProductGoogleOptimizerScripts</method>
-                    </googleoptimizer_observer>
-                </observers>
-            </catalog_product_load_after>
-            <catalog_category_load_after>
-                <observers>
-                    <googleoptimizer_observer>
-                        <type>singleton</type>
-                        <class>googleoptimizer/observer</class>
-                        <method>appendToCategoryGoogleOptimizerScripts</method>
-                    </googleoptimizer_observer>
-                </observers>
-            </catalog_category_load_after>
-        </events>
     </global>
     <admin>
         <attributes>
@@ -140,6 +111,33 @@
             </updates>
         </layout>
         <events>
+            <cms_page_load_after>
+                <observers>
+                    <googleoptimizer_observer>
+                        <type>singleton</type>
+                        <class>googleoptimizer/observer</class>
+                        <method>appendToPageGoogleOptimizerScripts</method>
+                    </googleoptimizer_observer>
+                </observers>
+            </cms_page_load_after>
+            <catalog_product_load_after>
+                <observers>
+                    <googleoptimizer_observer>
+                        <type>singleton</type>
+                        <class>googleoptimizer/observer</class>
+                        <method>appendToProductGoogleOptimizerScripts</method>
+                    </googleoptimizer_observer>
+                </observers>
+            </catalog_product_load_after>
+            <catalog_category_load_after>
+                <observers>
+                    <googleoptimizer_observer>
+                        <type>singleton</type>
+                        <class>googleoptimizer/observer</class>
+                        <method>appendToCategoryGoogleOptimizerScripts</method>
+                    </googleoptimizer_observer>
+                </observers>
+            </catalog_category_load_after>
             <catalog_helper_output_construct>
                 <observers>
                     <googleoptimizer>
@@ -177,7 +175,7 @@
                     <googleoptimizer_observer>
                         <type>singleton</type>
                         <class>googleoptimizer/observer</class>
-                        <method>prepareGoogleOptimizerScripts</method>
+                        <method>prepareProductGoogleOptimizerScripts</method>
                     </googleoptimizer_observer>
                 </observers>
             </catalog_product_prepare_save>
@@ -199,6 +197,15 @@
                     </googleoptimizer_observer>
                 </observers>
             </catalog_product_delete_after>
+            <catalog_category_load_after>
+                <observers>
+                    <googleoptimizer_observer>
+                        <type>singleton</type>
+                        <class>googleoptimizer/observer</class>
+                        <method>appendToCategoryGoogleOptimizerScripts</method>
+                    </googleoptimizer_observer>
+                </observers>
+            </catalog_category_load_after>
             <catalog_category_prepare_save>
                 <observers>
                     <googleoptimizer_observer>
@@ -226,6 +233,15 @@
                     </googleoptimizer_observer>
                 </observers>
             </catalog_category_delete_after>
+            <cms_page_load_after>
+                <observers>
+                    <googleoptimizer_observer>
+                        <type>singleton</type>
+                        <class>googleoptimizer/observer</class>
+                        <method>appendToPageGoogleOptimizerScripts</method>
+                    </googleoptimizer_observer>
+                </observers>
+            </cms_page_load_after>
             <cms_page_prepare_save>
                 <observers>
                     <googleoptimizer_observer>

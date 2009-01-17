@@ -250,11 +250,12 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * Checking quote item quantity
      *
-     * @param   mixed $qty - quantity of this item
-     * @param   mixed $summaryQty - a compounded summary quantity of items
-     * @return  Varien_Object
+     * @param mixed $qty quantity of this item (item qty x parent item qty)
+     * @param mixed $summaryQty quantity of this product in whole shopping cart which should be checked for stock availability
+     * @param mixed $origQty original qty of item (not multiplied on parent item qty)
+     * @return Varien_Object
      */
-    public function checkQuoteItemQty($qty, $summaryQty)
+    public function checkQuoteItemQty($qty, $summaryQty, $origQty = 0)
     {
         $result = new Varien_Object();
         $result->setHasError(false);
@@ -263,21 +264,28 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $qty = Mage::app()->getLocale()->getNumber($qty);
         }
 
-        if (!$this->getManageStock()) {
-            /**
-             * Check quantity type
-             */
-            $result->setItemIsQtyDecimal($this->getIsQtyDecimal());
+        /**
+         * Check quantity type
+         */
+        $result->setItemIsQtyDecimal($this->getIsQtyDecimal());
 
-            if (!$this->getIsQtyDecimal()) {
-                $qty = intval($qty);
-            }
+        if (!$this->getIsQtyDecimal()) {
+            $result->setHasQtyOptionUpdate(true);
+            $qty = intval($qty);
 
             /**
-             * Adding stock data to quote item
-             */
+              * Adding stock data to quote item
+              */
             $result->setItemQty($qty);
 
+            if (!is_numeric($qty)) {
+                $qty = Mage::app()->getLocale()->getNumber($qty);
+            }
+            $origQty = intval($origQty);
+            $result->setOrigQty($origQty);
+        }
+
+        if (!$this->getManageStock()) {
             return $result;
         }
 
@@ -333,21 +341,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             }
             // no return intentionally
         }
-
-        /**
-         * Check quantity type
-         */
-
-        $result->setItemIsQtyDecimal($this->getIsQtyDecimal());
-
-        if (!$this->getIsQtyDecimal()) {
-            $qty = intval($qty);
-        }
-
-        /**
-         * Adding stock data to quote item
-         */
-        $result->setItemQty($qty);
 
         return $result;
     }

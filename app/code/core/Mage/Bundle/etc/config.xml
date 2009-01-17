@@ -89,6 +89,7 @@
                         </allowed_selection_types>
                         <price_model>bundle/product_price</price_model>
                         <index_data_retreiver>bundle/catalogIndex_data_bundle</index_data_retreiver>
+                        <index_priority>40</index_priority>
                     </bundle>
                 </type>
                 <options>

@@ -19,11 +19,6 @@
  */
 
 /**
- * Zend_XmlRpc_Exception
- */
-#require_once 'Zend/XmlRpc/Exception.php';
-
-/**
  * Zend_XmlRpc_Value
  */
 #require_once 'Zend/XmlRpc/Value.php';
@@ -48,7 +43,7 @@
  * @package  Zend_XmlRpc
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Request.php 8997 2008-03-22 17:17:05Z matthew $
+ * @version $Id: Request.php 13223 2008-12-14 11:21:31Z thomas $
  */
 class Zend_XmlRpc_Request
 {
@@ -285,7 +280,7 @@ class Zend_XmlRpc_Request
 
     /**
      * Return parameter types
-     * 
+     *
      * @return array
      */
     public function getTypes()

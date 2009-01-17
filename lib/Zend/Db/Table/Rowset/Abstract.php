@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -33,7 +32,7 @@
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Countable
+abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Countable, ArrayAccess
 {
     /**
      * The original data for each row.
@@ -117,7 +116,7 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
         if (isset($config['rowClass'])) {
             $this->_rowClass   = $config['rowClass'];
         }
-        @Zend_Loader::loadClass($this->_rowClass);
+        Zend_Loader::loadClass($this->_rowClass);
         if (isset($config['data'])) {
             $this->_data       = $config['data'];
         }
@@ -329,6 +328,53 @@ abstract class Zend_Db_Table_Rowset_Abstract implements SeekableIterator, Counta
         }
         $this->_pointer = $position;
         return $this;        
+    }
+    
+    /**
+     * Check if an offset exists
+     * Required by the ArrayAccess implementation
+     *
+     * @param string $offset
+     * @return boolean
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->_data[(int) $offset]);
+    }
+    
+    /**
+     * Get the row for the given offset
+     * Required by the ArrayAccess implementation
+     *
+     * @param string $offset
+     * @return Zend_Db_Table_Row_Abstract
+     */
+    public function offsetGet($offset)
+    {
+        $this->_pointer = (int) $offset;
+
+        return $this->current();
+    }
+    
+    /**
+     * Does nothing
+     * Required by the ArrayAccess implementation
+     *
+     * @param string $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value)
+    {
+    }
+    
+    /**
+     * Does nothing
+     * Required by the ArrayAccess implementation
+     *
+     * @param string $offset
+     */
+    public function offsetUnset($offset)
+    {
     }
 
     /**

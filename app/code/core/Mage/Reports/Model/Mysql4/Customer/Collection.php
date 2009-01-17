@@ -119,21 +119,21 @@ class Mage_Reports_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_
             /**
              * Join store_to_base_rate attribute
              */
-            $attr = $order->getAttribute('store_to_base_rate');
+            $attr = $order->getAttribute('base_to_global_rate');
             /* @var $attr Mage_Eav_Model_Entity_Attribute_Abstract */
             $attrId = $attr->getAttributeId();
-            $storeToBaseRateTableName = $attr->getBackend()->getTable();
-            $storeToBaseRateFieldName = $attr->getBackend()->isStatic() ? 'store_to_base_rate' : 'value';
+            $baseToGlobalRateTableName = $attr->getBackend()->getTable();
+            $baseToGlobalRateFieldName = $attr->getBackend()->isStatic() ? 'base_to_global_rate' : 'value';
 
             $this->getSelect()
-                ->joinLeft(array('_s2br_'.$storeToBaseRateTableName => $storeToBaseRateTableName),
-                    "_s2br_{$storeToBaseRateTableName}.entity_id={$this->_customerIdTableName}.entity_id AND ".
-                    "_s2br_{$storeToBaseRateTableName}.attribute_id={$attrId}", array());
+                ->joinLeft(array('_b2gr_'.$baseToGlobalRateTableName => $baseToGlobalRateTableName),
+                    "_b2gr_{$baseToGlobalRateTableName}.entity_id={$this->_customerIdTableName}.entity_id AND ".
+                    "_b2gr_{$baseToGlobalRateTableName}.attribute_id={$attrId}", array());
 
             /**
              * calculate average and total amount
              */
-            $expr = "({$this->_customerIdTableName}.base_subtotal-IFNULL({$this->_customerIdTableName}.base_subtotal_canceled,0)-IFNULL({$this->_customerIdTableName}.base_subtotal_refunded,0))/_s2br_{$storeToBaseRateTableName}.{$storeToBaseRateFieldName}";
+            $expr = "({$this->_customerIdTableName}.base_subtotal-IFNULL({$this->_customerIdTableName}.base_subtotal_canceled,0)-IFNULL({$this->_customerIdTableName}.base_subtotal_refunded,0))*_b2gr_{$baseToGlobalRateTableName}.{$baseToGlobalRateFieldName}";
 
         } else {
 

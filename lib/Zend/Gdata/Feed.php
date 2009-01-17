@@ -15,9 +15,15 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
+
+/**
+ * @see Zend_Gdata
+ */
+#require_once 'Zend/Gdata.php';
 
 /**
  * @see Zend_Gdata_App_Feed
@@ -45,10 +51,11 @@
 #require_once 'Zend/Gdata/Extension/OpenSearchItemsPerPage.php';
 
 /**
- * The GData flavor of an Atom Feed
+ * The Gdata flavor of an Atom Feed
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Gdata
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -85,15 +92,13 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
 
     public function __construct($element = null)
     {
-        foreach (Zend_Gdata::$namespaces as $nsPrefix => $nsUri) {
-            $this->registerNamespace($nsPrefix, $nsUri);
-        }
+        $this->registerAllNamespaces(Zend_Gdata::$namespaces);
         parent::__construct($element);
     }
 
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
         if ($this->_totalResults != null) {
             $element->appendChild($this->_totalResults->getDOM($element->ownerDocument));
         }
@@ -103,6 +108,17 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
         if ($this->_itemsPerPage != null) {
             $element->appendChild($this->_itemsPerPage->getDOM($element->ownerDocument));
         }
+
+        // ETags are special. We only support them in protocol >= 2.X.
+        // This will be duplicated by the HTTP ETag header.
+        if ($majorVersion >= 2) {
+            if ($this->_etag != null) {
+                $element->setAttributeNS($this->lookupNamespace('gd'),
+                                         'gd:etag',
+                                         $this->_etag);
+            }
+        }
+
         return $element;
     }
 
@@ -137,29 +153,90 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
         }
     }
 
+    /**
+     * Given a DOMNode representing an attribute, tries to map the data into
+     * instance members.  If no mapping is defined, the name and value are
+     * stored in an array.
+     *
+     * @param DOMNode $attribute The DOMNode attribute needed to be handled
+     */
+    protected function takeAttributeFromDOM($attribute)
+    {
+        switch ($attribute->localName) {
+        case 'etag':
+            // ETags are special, since they can be conveyed by either the
+            // HTTP ETag header or as an XML attribute.
+            $etag = $attribute->nodeValue;
+            if (is_null($this->_etag)) {
+                $this->_etag = $etag;
+            }
+            elseif ($this->_etag != $etag) {
+                #require_once('Zend/Gdata/App/IOException.php');
+                throw new Zend_Gdata_App_IOException("ETag mismatch");
+            }
+            break;
+        default:
+            parent::takeAttributeFromDOM($attribute);
+            break;
+        }
+    }
+
+    /**
+     *  Set the value of the totalResults property.
+     *
+     * @param integer $value The value of the totalResults property.
+     * @return Zend_Gdata_Feed Provides a fluent interface.
+     */
     function setTotalResults($value) {
         $this->_totalResults = $value;
         return $this;
     }
 
+    /**
+     * Get the value of the totalResults property.
+     *
+     * @return integer|null The value of the totalResults property, or null.
+     */
     function getTotalResults() {
         return $this->_totalResults;
     }
 
+    /**
+     * Set the start index property for feed paging.
+     *
+     * @param integer $value The value for the startIndex property.
+     * @return Zend_Gdata_Feed Provides a fluent interface.
+     */
     function setStartIndex($value) {
         $this->_startIndex = $value;
         return $this;
     }
 
+    /**
+     * Get the value of the startIndex property.
+     *
+     * @return integer|null The value of the startIndex property, or null.
+     */
     function getStartIndex() {
         return $this->_startIndex;
     }
 
+    /**
+     * Set the itemsPerPage property.
+     *
+     * @param integer $value The value for the itemsPerPage property.
+     * @return Zend_Gdata_Feed Provides a fluent interface.
+     */
     function setItemsPerPage($value) {
         $this->_itemsPerPage = $value;
         return $this;
     }
 
+    /**
+     * Get the value of the itemsPerPage property.
+     *
+     * @return integer|null The value of the itemsPerPage property, or null.
+     */
     function getItemsPerPage() {
         return $this->_itemsPerPage;
     }

@@ -25,6 +25,7 @@
  */
 ?>
 <form id="edit_form" method="post" action="<?php echo $this->getSaveUrl() ?>">
+    <?php echo $this->getBlockHtml('formkey')?>
     <?php  $_order = $this->getCreditmemo()->getOrder() ?>
     <?php echo $this->getChildHtml('order_info') ?>
 

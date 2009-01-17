@@ -64,6 +64,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $this->_ajaxRedirectResponse();
             exit;
         }
+        Mage::getSingleton('core/translate_inline')->setIsAjaxRequest(true);
     }
 
     protected function _getShippingMethodsHtml()
@@ -135,6 +136,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->getOnepage()->initCheckout();
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
+        $this->getLayout()->getBlock('head')->setTitle($this->__('Checkout'));
         $this->renderLayout();
     }
 
@@ -164,7 +166,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     public function successAction()
     {
-        if (!$this->getOnepage()->getQuote()->hasItems()) {
+        if (!$this->getOnepage()->getCheckout()->getLastSuccessQuoteId()) {
             $this->_redirect('checkout/cart');
             return;
         }

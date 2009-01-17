@@ -129,7 +129,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
             $this->getSelect()->order($attribute.' '.$dir);
         }
         else {
-        	parent::addAttributeToSort($attribute, $dir);
+            parent::addAttributeToSort($attribute, $dir);
         }
         return $this;
     }
@@ -141,7 +141,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
             $this->getSelect()->where('links.product_id IN (?)', $products);
         }
         elseif (is_string($products) || is_numeric($products)) {
-        	$this->getSelect()->where('links.product_id=?', $products);
+            $this->getSelect()->where('links.product_id=?', $products);
         }
         return $this;
     }
@@ -153,13 +153,14 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
     }
 
     /**
-     * Deprecated since 1.1.7
+     * Setting group by to exclude duplications in collection
      *
-     * @param mixed $groupBy
+     * @param string $groupBy
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
      */
-    public function setGroupBy($groupBy)
+    public function setGroupBy($groupBy = 'e.entity_id')
     {
+        $this->getSelect()->group($groupBy);
         return $this;
     }
 
@@ -216,12 +217,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
                 );
             }
         }
-
-        /**
-         * same products must not repeat in collection (see #4835)
-         */
-        $this->getSelect()->group('e.entity_id');
-
         return $this;
     }
 

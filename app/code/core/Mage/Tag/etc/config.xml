@@ -160,6 +160,29 @@
                  </children>
             </catalog>
         </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <catalog>
+                            <children>
+                                <tag translate="title" module="tag">
+                                    <title>Tags</title>
+                                    <children>
+                                        <all translate="title">
+                                            <title>All Tags</title>
+                                        </all>
+                                        <pending translate="title">
+                                            <title>Pending Tags</title>
+                                        </pending>
+                                    </children>
+                                </tag>
+                            </children>
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
         <translate>
             <modules>
                 <Mage_Tag>

@@ -40,7 +40,7 @@ class Mage_Core_Model_Mysql4_Translate extends Mage_Core_Model_Mysql4_Abstract
 
     public function getTranslationArray($storeId=null)
     {
-        if(!Mage::app()->isInstalled()) {
+        if(!Mage::isInstalled()) {
             return array();
         }
 
@@ -80,7 +80,7 @@ class Mage_Core_Model_Mysql4_Translate extends Mage_Core_Model_Mysql4_Abstract
 
     public function getTranslationArrayByStrings(array $strings, $storeId=null)
     {
-        if(!Mage::app()->isInstalled()) {
+        if(!Mage::isInstalled()) {
             return array();
         }
 

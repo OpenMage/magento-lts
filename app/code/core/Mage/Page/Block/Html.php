@@ -47,7 +47,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
 
         $action = Mage::app()->getFrontController()->getAction();
         if ($action) {
-            $this->addBodyClass($action->getFullActionName());
+            $this->addBodyClass($action->getFullActionName('-'));
         }
 
         $this->_beforeCacheUrl();
@@ -123,10 +123,16 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         return $this->_title;
     }
 
+    /**
+     * Add CSS class to page body tag
+     *
+     * @param string $className
+     * @return Mage_Page_Block_Html
+     */
     public function addBodyClass($className)
     {
         $className = preg_replace('#[^a-z0-9]+#', '-', strtolower($className));
-        $this->setBodyClass($this->getBodyClass().' '.$className);
+        $this->setBodyClass($this->getBodyClass() . ' ' . $className);
         return $this;
     }
 

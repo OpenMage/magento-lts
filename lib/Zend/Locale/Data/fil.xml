@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.8 $"/>
-		<generation date="$Date: 2007/11/20 02:39:11 $"/>
+		<version number="$Revision: 1.18 $"/>
+		<generation date="$Date: 2008/06/26 03:47:57 $"/>
 		<language type="fil"/>
 	</identity>
 	<localeDisplayNames>
 		<languages>
 			<language type="af">Afrikaans</language>
 			<language type="am">Amharic</language>
-			<language type="ar">Arabo</language>
-			<language type="as">Asamis</language>
+			<language type="ar">Arabic</language>
+			<language type="as">Assamese</language>
 			<language type="az">Azerbaijani</language>
-			<language type="be">Belarusyan</language>
+			<language type="be">Belarusian</language>
 			<language type="bg">Bulgarian</language>
 			<language type="bh">Bihari</language>
 			<language type="bn">Bengali; Bangla</language>
@@ -26,14 +26,13 @@
 			<language type="de">Aleman</language>
 			<language type="el">Griyego</language>
 			<language type="en">Ingles</language>
-			<language type="en_AU">Ingles (Australia)</language>
 			<language type="en_GB">Ingles (UK)</language>
 			<language type="en_US">Ingles (US)</language>
 			<language type="eo">Esperanto</language>
 			<language type="es">Espanyol</language>
 			<language type="et">Estonian</language>
 			<language type="eu">Basque</language>
-			<language type="fa">Persiyano</language>
+			<language type="fa">Persian</language>
 			<language type="fi">Finnish</language>
 			<language type="fil">Filipino</language>
 			<language type="fo">Faroeso</language>
@@ -43,28 +42,28 @@
 			<language type="gd">Scots Gaelic</language>
 			<language type="gl">Galician</language>
 			<language type="gn">Guarani</language>
-			<language type="gu">Mga Gujarat</language>
+			<language type="gu">Gujarati</language>
 			<language type="he">Hebreo</language>
 			<language type="hi">Hindu</language>
 			<language type="hr">Croatian</language>
 			<language type="hu">Hungarian</language>
-			<language type="hy">Taga-Armenya</language>
+			<language type="hy">Armenian</language>
 			<language type="ia">Interlingua</language>
-			<language type="id">Indones</language>
-			<language type="ie">Kawikaan</language>
+			<language type="id">Indonesian</language>
+			<language type="ie">Interlingue</language>
 			<language type="is">Icelandic</language>
 			<language type="it">Italyano</language>
-			<language type="ja">Hapon</language>
+			<language type="ja">Japanese</language>
 			<language type="jv">Javanese</language>
 			<language type="ka">Georgian</language>
-			<language type="km">Kambodyan</language>
+			<language type="km">Khmer</language>
 			<language type="kn">Kannada</language>
-			<language type="ko">Koreano</language>
+			<language type="ko">Korean</language>
 			<language type="ku">Kurdish</language>
-			<language type="ky">Kergis</language>
-			<language type="la">Latino</language>
+			<language type="ky">Kirghiz</language>
+			<language type="la">Latin</language>
 			<language type="ln">Lingala</language>
-			<language type="lo">Laothian</language>
+			<language type="lo">Lao</language>
 			<language type="lt">Lithuanian</language>
 			<language type="lv">Latvian</language>
 			<language type="mk">Macedonian</language>
@@ -74,7 +73,8 @@
 			<language type="ms">Malay</language>
 			<language type="mt">Maltese</language>
 			<language type="ne">Nepali</language>
-			<language type="nl">Dutch</language>
+			<language type="nl">Olandes</language>
+			<language type="nn">Norwegian Nynorsk</language>
 			<language type="no">Norwegian</language>
 			<language type="oc">Occitan</language>
 			<language type="or">Oriya</language>
@@ -88,12 +88,12 @@
 			<language type="ru">Ruso</language>
 			<language type="sa">Sanskrit</language>
 			<language type="sd">Sindhi</language>
-			<language type="sh">Serbo-Kroasyan</language>
+			<language type="sh">Serbo-Croatian</language>
 			<language type="si">Sinhalese</language>
 			<language type="sk">Eslobak</language>
 			<language type="sl">Eslobenyan</language>
 			<language type="so">Somali</language>
-			<language type="sq">Albano</language>
+			<language type="sq">Albanian</language>
 			<language type="sr">Serbiran</language>
 			<language type="st">Sesoto</language>
 			<language type="su">Taga Sundan</language>
@@ -110,31 +110,146 @@
 			<language type="tw">Twi</language>
 			<language type="ug">Uighur</language>
 			<language type="uk">Ukranian</language>
+			<language type="und">und</language>
 			<language type="ur">Urdu</language>
 			<language type="uz">Uzbeko</language>
 			<language type="vi">Vietnamese</language>
 			<language type="wo">Wolof</language>
 			<language type="xh">Xhosa</language>
 			<language type="yi">Yiddish</language>
+			<language type="zh">zh</language>
 			<language type="zh_Hans">Intsik (Pinadali)</language>
 			<language type="zh_Hant">Intsik (Tradisyunal)</language>
 			<language type="zu">Zulu</language>
 		</languages>
+		<scripts>
+			<script type="Arab">Arab</script>
+			<script type="Armi">Armi</script>
+			<script type="Armn">Armn</script>
+			<script type="Avst">Avst</script>
+			<script type="Bali">Bali</script>
+			<script type="Batk">Batk</script>
+			<script type="Beng">Beng</script>
+			<script type="Blis">Blis</script>
+			<script type="Bopo">Bopo</script>
+			<script type="Brah">Brah</script>
+			<script type="Brai">Brai</script>
+			<script type="Bugi">Bugi</script>
+			<script type="Buhd">Buhd</script>
+			<script type="Cakm">Cakm</script>
+			<script type="Cari">Cari</script>
+			<script type="Cham">Cham</script>
+			<script type="Cher">Cher</script>
+			<script type="Cirt">Cirt</script>
+			<script type="Copt">Copt</script>
+			<script type="Cprt">Cprt</script>
+			<script type="Cyrl">Cyrl</script>
+			<script type="Deva">Deva</script>
+			<script type="Dsrt">Dsrt</script>
+			<script type="Egyd">Egyd</script>
+			<script type="Egyh">Egyh</script>
+			<script type="Egyp">Egyp</script>
+			<script type="Ethi">Ethi</script>
+			<script type="Geok">Geok</script>
+			<script type="Geor">Geor</script>
+			<script type="Glag">Glag</script>
+			<script type="Goth">Goth</script>
+			<script type="Grek">Grek</script>
+			<script type="Gujr">Gujr</script>
+			<script type="Guru">Guru</script>
+			<script type="Hang">Hang</script>
+			<script type="Hani">Hani</script>
+			<script type="Hano">Hano</script>
+			<script type="Hans">Hans</script>
+			<script type="Hant">Hant</script>
+			<script type="Hebr">Hebr</script>
+			<script type="Hira">Hira</script>
+			<script type="Hrkt">Hrkt</script>
+			<script type="Inds">Inds</script>
+			<script type="Java">Java</script>
+			<script type="Jpan">Jpan</script>
+			<script type="Kali">Kali</script>
+			<script type="Kana">Kana</script>
+			<script type="Khar">Khar</script>
+			<script type="Khmr">Khmr</script>
+			<script type="Knda">Knda</script>
+			<script type="Kore">Kore</script>
+			<script type="Kthi">Kthi</script>
+			<script type="Lana">Lana</script>
+			<script type="Laoo">Laoo</script>
+			<script type="Latf">Latf</script>
+			<script type="Latg">Latg</script>
+			<script type="Latn">Latn</script>
+			<script type="Lepc">Lepc</script>
+			<script type="Limb">Limb</script>
+			<script type="Lina">Lina</script>
+			<script type="Linb">Linb</script>
+			<script type="Lyci">Lyci</script>
+			<script type="Lydi">Lydi</script>
+			<script type="Mand">Mand</script>
+			<script type="Mani">Mani</script>
+			<script type="Maya">Maya</script>
+			<script type="Mero">Mero</script>
+			<script type="Mlym">Mlym</script>
+			<script type="Mong">Mong</script>
+			<script type="Moon">Moon</script>
+			<script type="Mtei">Mtei</script>
+			<script type="Mymr">Mymr</script>
+			<script type="Nkoo">Nkoo</script>
+			<script type="Phlv">Phlv</script>
+			<script type="Qaai">Qaai</script>
+			<script type="Syre">Syre</script>
+			<script type="Syrn">Syrn</script>
+			<script type="Zxxx">Zxxx</script>
+			<script type="Zyyy">Zyyy</script>
+			<script type="Zzzz">Zzzz</script>
+		</scripts>
 		<territories>
+			<territory type="001">Mundo</territory>
+			<territory type="002">Africa</territory>
+			<territory type="003">North America</territory>
+			<territory type="005">South America</territory>
+			<territory type="009">Oceania</territory>
+			<territory type="011">Kanlurang Africa</territory>
+			<territory type="013">Gitnang Amerika</territory>
+			<territory type="014">Silangang Africa</territory>
+			<territory type="015">Hilagang Africa</territory>
+			<territory type="017">Gitnang Africa</territory>
+			<territory type="018">Katimugang Africa</territory>
+			<territory type="019">Americas</territory>
+			<territory type="021">Hilagang Amerika</territory>
+			<territory type="029">Carribbean</territory>
+			<territory type="030">Silangang Asya</territory>
+			<territory type="034">Katimugang Asya</territory>
+			<territory type="035">Timog-Silangang Asya</territory>
+			<territory type="039">Katimugang Europa</territory>
+			<territory type="053">Australia at New Zealand</territory>
+			<territory type="054">Melanesia</territory>
+			<territory type="057">Rehiyong Micronesia</territory>
+			<territory type="061">Polynesia</territory>
+			<territory type="062">Timog-Gitnang Asya</territory>
+			<territory type="142">Asya</territory>
+			<territory type="143">Gitnang Asya</territory>
+			<territory type="145">Kanlurang Asya</territory>
+			<territory type="150">Europa</territory>
+			<territory type="151">Silangang Europa</territory>
+			<territory type="154">Hilagang Europa</territory>
+			<territory type="155">Kanlurang Europa</territory>
+			<territory type="419">Latin America at ang Caribbean</territory>
 			<territory type="AD">Andorra</territory>
 			<territory type="AE">United Arab Emirates</territory>
 			<territory type="AF">Afghanistan</territory>
 			<territory type="AG">Antigua at Barbuda</territory>
 			<territory type="AI">Anguilla</territory>
-			<territory type="AL">Albanya</territory>
-			<territory type="AM">Armenya</territory>
+			<territory type="AL">Albania</territory>
+			<territory type="AM">Armenia</territory>
 			<territory type="AN">Netherlands Antilles</territory>
 			<territory type="AO">Angola</territory>
-			<territory type="AQ">Antartika</territory>
-			<territory type="AR">Arhentina</territory>
+			<territory type="AQ">Antartica</territory>
+			<territory type="AR">Argentina</territory>
 			<territory type="AS">American Samoa</territory>
-			<territory type="AT">Austriya</territory>
-			<territory type="AU">Australiya</territory>
+			<territory type="AT">Austria</territory>
+			<territory type="AU">Australia</territory>
 			<territory type="AW">Aruba</territory>
 			<territory type="AX">Aland Islands</territory>
 			<territory type="AZ">Azerbaijan</territory>
@@ -159,7 +274,7 @@
 			<territory type="BZ">Belize</territory>
 			<territory type="CA">Canada</territory>
 			<territory type="CC">Cocos Islands</territory>
-			<territory type="CD">Congo, Democratic Republic of the</territory>
+			<territory type="CD">Congo - Kinshasa</territory>
 			<territory type="CF">Central African Republic</territory>
 			<territory type="CG">Congo</territory>
 			<territory type="CH">Switzerland</territory>
@@ -181,7 +296,7 @@
 			<territory type="DK">Denmark</territory>
 			<territory type="DM">Dominica</territory>
 			<territory type="DO">Dominican Republic</territory>
-			<territory type="DZ">Algerya</territory>
+			<territory type="DZ">Algeria</territory>
 			<territory type="EC">Ecuador</territory>
 			<territory type="EE">Estonia</territory>
 			<territory type="EG">Ehipto</territory>
@@ -208,6 +323,7 @@
 			<territory type="GR">Griyego</territory>
 			<territory type="GS">South Georgia and the South Sandwich Islands</territory>
 			<territory type="GW">Guinea-Bissau</territory>
+			<territory type="HK">Hong KOng</territory>
 			<territory type="HM">Heard Island and McDonald Islands</territory>
 			<territory type="HN">Honduras</territory>
 			<territory type="HR">Croatia</territory>
@@ -283,6 +399,8 @@
 			<territory type="PS">Palestine</territory>
 			<territory type="PT">Portugal</territory>
 			<territory type="PY">Paraguay</territory>
+			<territory type="QO">Malayong bahagi ng Oceania</territory>
+			<territory type="QU">European Union</territory>
 			<territory type="RO">Romania</territory>
 			<territory type="RS">Serbia</territory>
 			<territory type="RU">Russia</territory>
@@ -301,7 +419,7 @@
 			<territory type="SN">Senegal</territory>
 			<territory type="SO">Somalia</territory>
 			<territory type="SR">Suriname</territory>
-			<territory type="ST">São Tomé and Príncipe</territory>
+			<territory type="ST">Sao Tome and Principe</territory>
 			<territory type="SV">El Salvador</territory>
 			<territory type="SY">Syria</territory>
 			<territory type="SZ">Swaziland</territory>
@@ -331,7 +449,7 @@
 			<territory type="VC">Saint Vincent and the Grenadines</territory>
 			<territory type="VE">Venezuela</territory>
 			<territory type="VG">British Virgin Islands</territory>
-			<territory type="VI">Virgin Islands, U.S.</territory>
+			<territory type="VI">U.S. Virgin Islands</territory>
 			<territory type="VN">Vietnam</territory>
 			<territory type="VU">Vanuatu</territory>
 			<territory type="WF">Wallis and Futuna</territory>
@@ -340,12 +458,29 @@
 			<territory type="ZA">Timog Afrika</territory>
 			<territory type="ZM">Zambia</territory>
 			<territory type="ZW">Zimbabwe</territory>
+			<territory type="ZZ">Hindi kilala o Hindi wastong Rehiyon</territory>
 		</territories>
+		<measurementSystemNames>
+			<measurementSystemName type="US">US</measurementSystemName>
+			<measurementSystemName type="metric">Metric</measurementSystemName>
+		</measurementSystemNames>
+		<codePatterns>
+			<codePattern type="language">{0}</codePattern>
+			<codePattern type="script">{0}</codePattern>
+			<codePattern type="territory">{0}</codePattern>
+		</codePatterns>
 	</localeDisplayNames>
 	<characters>
-		<exemplarCharacters>[a-z {ng} ñ]</exemplarCharacters>
-		<exemplarCharacters type="auxiliary">[áéíóúàèìòùâêîôû]</exemplarCharacters>
+		<exemplarCharacters>[a-n ñ {ng} o-z]</exemplarCharacters>
+		<exemplarCharacters type="auxiliary">[á à â é è ê í ì î ó ò ô ú ù û]</exemplarCharacters>
+		<exemplarCharacters type="currencySymbol">[a-z]</exemplarCharacters>
 	</characters>
+	<delimiters>
+		<quotationStart>“</quotationStart>
+		<quotationEnd>”</quotationEnd>
+		<alternateQuotationStart>‘</alternateQuotationStart>
+		<alternateQuotationEnd>’</alternateQuotationEnd>
+	</delimiters>
 	<dates>
 		<calendars>
 			<calendar type="gregorian">
@@ -434,6 +569,8 @@
 					</dayContext>
 					<dayContext type="stand-alone">
 						<dayWidth type="abbreviated">
+							<day type="wed">Miy</day>
+							<day type="fri">Biy</day>
 						</dayWidth>
 						<dayWidth type="narrow">
 							<day type="sun">L</day>
@@ -444,16 +581,40 @@
 							<day type="fri">B</day>
 							<day type="sat">S</day>
 						</dayWidth>
-						<dayWidth type="wide">
-							<day type="sun">Linggo</day>
-							<day type="tue">Martes</day>
-							<day type="wed">Miyerkules</day>
-							<day type="thu">Huwebes</day>
-							<day type="fri">Biyernes</day>
-							<day type="sat">Sabado</day>
-						</dayWidth>
 					</dayContext>
 				</days>
+				<quarters>
+					<quarterContext type="format">
+						<quarterWidth type="abbreviated">
+							<quarter type="1">Q1</quarter>
+							<quarter type="2">Q2</quarter>
+							<quarter type="3">Q3</quarter>
+							<quarter type="4">Q4</quarter>
+						</quarterWidth>
+						<quarterWidth type="wide">
+							<quarter type="1">Q1</quarter>
+							<quarter type="2">Q2</quarter>
+							<quarter type="3">Q3</quarter>
+							<quarter type="4">Q4</quarter>
+						</quarterWidth>
+					</quarterContext>
+					<quarterContext type="stand-alone">
+						<quarterWidth type="narrow">
+							<quarter type="1">1</quarter>
+							<quarter type="2">2</quarter>
+							<quarter type="3">3</quarter>
+							<quarter type="4">4</quarter>
+						</quarterWidth>
+					</quarterContext>
+				</quarters>
+				<am>AM</am>
+				<pm>PM</pm>
+				<eras>
+					<eraAbbr>
+						<era type="0">BCE</era>
+						<era type="1">CE</era>
+					</eraAbbr>
+				</eras>
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
@@ -476,32 +637,107 @@
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
+				<timeFormats>
+					<timeFormatLength type="full">
+						<timeFormat>
+							<pattern>HH:mm:ss v</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="long">
+						<timeFormat>
+							<pattern>HH:mm:ss z</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="medium">
+						<timeFormat>
+							<pattern>HH:mm:ss</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="short">
+						<timeFormat>
+							<pattern>HH:mm</pattern>
+						</timeFormat>
+					</timeFormatLength>
+				</timeFormats>
 				<dateTimeFormats>
+					<dateTimeFormatLength>
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="MEd">E, M-d</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
+						<dateFormatItem id="MMMEd">E MMM d</dateFormatItem>
+						<dateFormatItem id="MMMMEd">E MMMM d</dateFormatItem>
+						<dateFormatItem id="MMMMd">MMMM d</dateFormatItem>
+						<dateFormatItem id="MMMd">MMM d</dateFormatItem>
+						<dateFormatItem id="Md">M-d</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
+						<dateFormatItem id="y">yyyy</dateFormatItem>
+						<dateFormatItem id="yM">yyyy-M</dateFormatItem>
+						<dateFormatItem id="yMEd">EEE, yyyy-M-d</dateFormatItem>
+						<dateFormatItem id="yMMM">yyyy MMM</dateFormatItem>
+						<dateFormatItem id="yMMMEd">EEE, yyyy MMM d</dateFormatItem>
+						<dateFormatItem id="yMMMM">yyyy MMMM</dateFormatItem>
+						<dateFormatItem id="yQQQ">yyyy QQQ</dateFormatItem>
 						<dateFormatItem id="yyMM">yy-MM</dateFormatItem>
 						<dateFormatItem id="yyMMM">MMM yy</dateFormatItem>
 					</availableFormats>
 				</dateTimeFormats>
+				<fields>
+					<field type="era">
+						<displayName>Era</displayName>
+					</field>
+					<field type="year">
+						<displayName>Taon</displayName>
+					</field>
+					<field type="month">
+						<displayName>Buwan</displayName>
+					</field>
+					<field type="week">
+						<displayName>Linggo</displayName>
+					</field>
+					<field type="day">
+						<displayName>Araw</displayName>
+						<relative type="0">Today</relative>
+						<relative type="1">Tomorrow</relative>
+						<relative type="-1">Yesterday</relative>
+					</field>
+					<field type="weekday">
+						<displayName>Araw ng Linggo</displayName>
+					</field>
+					<field type="dayperiod">
+						<displayName>Dayperiod</displayName>
+					</field>
+					<field type="hour">
+						<displayName>Oras</displayName>
+					</field>
+					<field type="minute">
+						<displayName>Minuto</displayName>
+					</field>
+					<field type="second">
+						<displayName>Segundo</displayName>
+					</field>
+					<field type="zone">
+						<displayName>Zone</displayName>
+					</field>
+				</fields>
 			</calendar>
 		</calendars>
 		<timeZoneNames>
-			<zone type="Antarctica/DumontDUrville">
-				<exemplarCity>Dumont D'Urville</exemplarCity>
+			<hourFormat>+HH:mm;-HH:mm</hourFormat>
+			<gmtFormat>GMT{0}</gmtFormat>
+			<regionFormat>{0}</regionFormat>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
+			<zone type="Etc/Unknown">
+				<exemplarCity>Unknown</exemplarCity>
 			</zone>
 			<zone type="Africa/Porto-Novo">
 				<exemplarCity>Porto - Novo</exemplarCity>
 			</zone>
-			<zone type="Africa/Kinshasa">
-				<exemplarCity>Kinsashasa</exemplarCity>
-			</zone>
-			<zone type="Pacific/Easter">
-				<exemplarCity>Easter Island</exemplarCity>
-			</zone>
 			<zone type="Indian/Christmas">
 				<exemplarCity>Pasko.</exemplarCity>
-			</zone>
-			<zone type="Atlantic/Canary">
-				<exemplarCity>Canary Islands</exemplarCity>
 			</zone>
 			<zone type="Asia/Tbilisi">
 				<exemplarCity>Tbilisi.</exemplarCity>
@@ -518,17 +754,11 @@
 			<zone type="Africa/Maseru">
 				<exemplarCity>Maseru.</exemplarCity>
 			</zone>
-			<zone type="Asia/Hovd">
-				<exemplarCity>Hovd.</exemplarCity>
-			</zone>
 			<zone type="Asia/Dushanbe">
 				<exemplarCity>Dushanbe.</exemplarCity>
 			</zone>
 			<zone type="America/Port_of_Spain">
 				<exemplarCity>Port nang Espanya</exemplarCity>
-			</zone>
-			<zone type="America/Anchorage">
-				<exemplarCity>Alaska Time</exemplarCity>
 			</zone>
 			<zone type="America/St_Vincent">
 				<exemplarCity>St. Vincent</exemplarCity>
@@ -542,6 +772,50 @@
 		</timeZoneNames>
 	</dates>
 	<numbers>
+		<symbols>
+			<decimal>.</decimal>
+			<group>,</group>
+			<list>;</list>
+			<percentSign>%</percentSign>
+			<nativeZeroDigit>0</nativeZeroDigit>
+			<patternDigit>#</patternDigit>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+			<exponential>E</exponential>
+			<perMille>‰</perMille>
+			<infinity>∞</infinity>
+			<nan>NaN</nan>
+		</symbols>
+		<decimalFormats>
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
+		</decimalFormats>
+		<scientificFormats>
+			<scientificFormatLength>
+				<scientificFormat>
+					<pattern>#E0</pattern>
+				</scientificFormat>
+			</scientificFormatLength>
+		</scientificFormats>
+		<percentFormats>
+			<percentFormatLength>
+				<percentFormat>
+					<pattern>#,##0%</pattern>
+				</percentFormat>
+			</percentFormatLength>
+		</percentFormats>
+		<currencyFormats>
+			<currencyFormatLength>
+				<currencyFormat>
+					<pattern>¤ #,##0.00</pattern>
+				</currencyFormat>
+			</currencyFormatLength>
+			<unitPattern count="one">{0} {1}</unitPattern>
+			<unitPattern count="other">{0} {1}</unitPattern>
+		</currencyFormats>
 		<currencies>
 			<currency type="AED">
 				<displayName>United Arab Emirates Dirham</displayName>
@@ -550,7 +824,7 @@
 				<displayName>Argentine Peso</displayName>
 			</currency>
 			<currency type="AUD">
-				<displayName>Dolyares ng Australia</displayName>
+				<displayName>Australian Dollar</displayName>
 			</currency>
 			<currency type="BGN">
 				<displayName>Bulgarian Lev</displayName>
@@ -562,7 +836,7 @@
 				<displayName>Brazilian Real</displayName>
 			</currency>
 			<currency type="CAD">
-				<displayName>Dolyares ng Canada</displayName>
+				<displayName>Canadian Dollar</displayName>
 			</currency>
 			<currency type="CHF">
 				<displayName>Swiss Francs</displayName>
@@ -595,7 +869,7 @@
 				<displayName>Euros</displayName>
 			</currency>
 			<currency type="FRF">
-				<displayName>French Franks</displayName>
+				<displayName>French Franc</displayName>
 			</currency>
 			<currency type="GBP">
 				<displayName>British Pounds Sterling</displayName>
@@ -617,9 +891,10 @@
 			</currency>
 			<currency type="INR">
 				<displayName>Indian Rupee</displayName>
+				<symbol>0≤Rs.|1≤Re.|1&lt;Rs.</symbol>
 			</currency>
 			<currency type="JPY">
-				<displayName>Yen ng Hapon</displayName>
+				<displayName>Japanese Yen</displayName>
 			</currency>
 			<currency type="KRW">
 				<displayName>South Korean Won</displayName>
@@ -634,7 +909,7 @@
 				<displayName>Mexico Peso</displayName>
 			</currency>
 			<currency type="MYR">
-				<displayName>Ringgit ng Malaysia</displayName>
+				<displayName>Malaysian Ringgit</displayName>
 			</currency>
 			<currency type="NOK">
 				<displayName>Norwegian Kroner</displayName>
@@ -662,7 +937,7 @@
 				<displayName>Serbian Dinar</displayName>
 			</currency>
 			<currency type="RUB">
-				<displayName>Russian Rouble</displayName>
+				<displayName>Russian Ruble</displayName>
 			</currency>
 			<currency type="SAR">
 				<displayName>Saudi Riyal</displayName>
@@ -682,24 +957,49 @@
 			<currency type="THB">
 				<displayName>Thai Baht</displayName>
 			</currency>
-			<currency type="TRL">
-				<displayName>Turkish Lira</displayName>
-			</currency>
 			<currency type="TRY">
-				<displayName>Bagong Turkish Lira</displayName>
+				<displayName>Turkish Lira</displayName>
 			</currency>
 			<currency type="TWD">
 				<displayName>New Taiwan Dollar</displayName>
 			</currency>
 			<currency type="USD">
-				<displayName>Dolyares ng US</displayName>
+				<displayName>US Dollar</displayName>
 			</currency>
 			<currency type="VEB">
 				<displayName>Venezuela Bolivar</displayName>
+			</currency>
+			<currency type="XXX">
+				<displayName>XXX</displayName>
 			</currency>
 			<currency type="ZAR">
 				<displayName>South African Rand</displayName>
 			</currency>
 		</currencies>
 	</numbers>
+	<units>
+		<unit type="day">
+			<unitPattern count="one">{0} a</unitPattern>
+			<unitPattern count="other">{0} a</unitPattern>
+		</unit>
+		<unit type="hour">
+			<unitPattern count="one">{0} o</unitPattern>
+			<unitPattern count="other">{0} o</unitPattern>
+		</unit>
+		<unit type="week">
+			<unitPattern count="one">{0} l</unitPattern>
+			<unitPattern count="other">{0} l</unitPattern>
+		</unit>
+		<unit type="year">
+			<unitPattern count="one">{0} t</unitPattern>
+			<unitPattern count="other">{0} t</unitPattern>
+		</unit>
+	</units>
+	<posix>
+		<messages>
+			<yesstr>yes:y</yesstr>
+			<nostr>no:n</nostr>
+		</messages>
+	</posix>
 </ldml>
+

@@ -342,6 +342,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         Mage::getSingleton('checkout/session')
             ->setLastQuoteId($quote->getId())
             ->setLastOrderId($order->getId())
+            ->setLastSuccessQuoteId($quote->getId())
             ->setLastRealOrderId($order->getIncrementId());
 
         if ($emailAllowed) {
@@ -483,6 +484,9 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $order->save();
     }
 
+    /**
+     * Process authorization notification
+     */
     protected function _responseAuthorizationAmountNotification()
     {
         $this->getGResponse()->SendAck();
@@ -495,8 +499,8 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $expDate = $this->getData('root/authorization-expiration-date/VALUE');
         $expDate = new Zend_Date($expDate);
         $msg = $this->__('Google Authorization:');
-        $msg .= '<br />'.$this->__('Amount: %s', '<strong>'.Mage::helper('core')->currency($payment->getAmountAuthorized()).'</strong>');
-        $msg .= '<br />'.$this->__('Expiration: %s', '<strong>'.$expDate->toString().'</strong>');
+        $msg .= '<br />'.$this->__('Amount: %s', '<strong>' . $this->_formatAmount($payment->getAmountAuthorized()) . '</strong>');
+        $msg .= '<br />'.$this->__('Expiration: %s', '<strong>' . $expDate->toString() . '</strong>');
 
         $order->addStatusToHistory($order->getStatus(), $msg);
 
@@ -506,6 +510,10 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $order->save();
     }
 
+    /**
+     * Process charge notification
+     *
+     */
     protected function _responseChargeAmountNotification()
     {
         $this->getGResponse()->SendAck();
@@ -519,8 +527,8 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $order->setIsInProcess(true);
 
         $msg = $this->__('Google Charge:');
-        $msg .= '<br />'.$this->__('Latest Charge: %s', '<strong>'.Mage::helper('core')->currency($latestCharged).'</strong>');
-        $msg .= '<br />'.$this->__('Total Charged: %s', '<strong>'.Mage::helper('core')->currency($totalCharged).'</strong>');
+        $msg .= '<br />'.$this->__('Latest Charge: %s', '<strong>' . $this->_formatAmount($latestCharged) . '</strong>');
+        $msg .= '<br />'.$this->__('Total Charged: %s', '<strong>' . $this->_formatAmount($totalCharged) . '</strong>');
 
         if (!$order->hasInvoices() && abs($order->getGrandTotal()-$latestCharged)<.0001) {
             $invoice = $this->_createInvoice();
@@ -588,6 +596,10 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
 
     }
 
+    /**
+     * Process refund notification
+     *
+     */
     protected function _responseRefundAmountNotification()
     {
         $this->getGResponse()->SendAck();
@@ -599,8 +611,8 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         $payment->setAmountCharged($totalRefunded);
 
         $msg = $this->__('Google Refund:');
-        $msg .= '<br />'.$this->__('Latest Refund: %s', '<strong>'.Mage::helper('core')->currency($this->getData('root/latest-refund-amount/VALUE')).'</strong>');
-        $msg .= '<br />'.$this->__('Total Refunded: %s', '<strong>'.Mage::helper('core')->currency($totalRefunded).'</strong>');
+        $msg .= '<br />'.$this->__('Latest Refund: %s', '<strong>' . $this->_formatAmount($this->getData('root/latest-refund-amount/VALUE')) . '</strong>');
+        $msg .= '<br />'.$this->__('Total Refunded: %s', '<strong>' . $this->_formatAmount($totalRefunded) . '</strong>');
 
         $order->addStatusToHistory($order->getStatus(), $msg);
         $order->save();
@@ -694,6 +706,18 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
     protected function _orderStateChangeFulfillmentWillNotDeliver()
     {
 
+    }
+
+    /**
+     * Format amount to be displayed
+     *
+     * @param mixed $amount
+     * @return string
+     */
+    protected function _formatAmount($amount)
+    {
+        // format currency in currency format, but don't enclose it into <span>
+        return Mage::helper('core')->currency($amount, true, false);
     }
 
 }

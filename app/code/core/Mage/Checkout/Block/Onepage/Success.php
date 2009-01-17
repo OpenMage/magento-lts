@@ -94,4 +94,5 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
         }
         return !in_array($this->_order->getState(), Mage::getSingleton('sales/order_config')->getInvisibleOnFrontStates());
     }
+
 }

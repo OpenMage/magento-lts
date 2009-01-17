@@ -53,6 +53,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices
             ->addAttributeToSelect('grand_total')
             ->addAttributeToSelect('base_grand_total')
             ->addAttributeToSelect('store_currency_code')
+            ->addAttributeToSelect('base_currency_code')
             ->addAttributeToSelect('order_currency_code')
             ->joinAttribute('billing_firstname', 'order_address/firstname', 'billing_address_id', null, 'left')
             ->joinAttribute('billing_lastname', 'order_address/lastname', 'billing_address_id', null, 'left')
@@ -95,7 +96,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices
             'header'    => Mage::helper('customer')->__('Amount'),
             'index'     => 'base_grand_total',
             'type'      => 'currency',
-            'currency'  => 'store_currency_code',
+            'currency'  => 'base_currency_code',
         ));
 
         return parent::_prepareColumns();

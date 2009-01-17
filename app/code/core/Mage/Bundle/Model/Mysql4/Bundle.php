@@ -34,6 +34,14 @@
  */
 class Mage_Bundle_Model_Mysql4_Bundle extends Mage_CatalogIndex_Model_Mysql4_Data_Abstract
 {
+    /**
+     * Preparing select for getting selection's raw data by product id
+     * also can be specified extra parameter for limit which columns should be selected
+     *
+     * @param int $productId
+     * @param array $columns
+     * @return Zend_DB_Select
+     */
     protected function _getSelect($productId, $columns = array())
     {
         return $this->_getReadAdapter()->select()
@@ -45,6 +53,12 @@ class Mage_Bundle_Model_Mysql4_Bundle extends Mage_CatalogIndex_Model_Mysql4_Dat
                 "bundle_selection.option_id = bundle_option.option_id", $columns);
     }
 
+    /**
+     * Retrieve selection data for specified product id
+     *
+     * @param int $productId
+     * @return array
+     */
     public function getSelectionsData($productId)
     {
         return $this->_getReadAdapter()->fetchAll($this->_getSelect(
@@ -53,6 +67,11 @@ class Mage_Bundle_Model_Mysql4_Bundle extends Mage_CatalogIndex_Model_Mysql4_Dat
         ));
     }
 
+    /**
+     * Removing all quote items for specified product
+     *
+     * @param int $productId
+     */
     public function dropAllQuoteChildItems($productId)
     {
         $result = $this->_getReadAdapter()->fetchRow(
@@ -67,6 +86,12 @@ class Mage_Bundle_Model_Mysql4_Bundle extends Mage_CatalogIndex_Model_Mysql4_Dat
         }
     }
 
+    /**
+     * Removes specified selections by ids for specified product id
+     *
+     * @param int $productId
+     * @param array $ids
+     */
     public function dropAllUnneededSelections($productId, $ids)
     {
         $this->_getWriteAdapter()

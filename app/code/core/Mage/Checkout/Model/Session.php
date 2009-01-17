@@ -60,13 +60,19 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
                 }
             }
 
+            $customerSession = Mage::getSingleton('customer/session');
+
             if (!$this->getQuoteId()) {
-                $quote->setIsCheckoutCart(true);
-                Mage::dispatchEvent('checkout_quote_init', array('quote'=>$quote));
+                if ($customerSession->isLoggedIn()) {
+                    $quote->loadByCustomer($customerSession->getCustomer());
+                    $this->setQuoteId($quote->getId());
+                } else {
+                    $quote->setIsCheckoutCart(true);
+                    Mage::dispatchEvent('checkout_quote_init', array('quote'=>$quote));
+                }
             }
 
             if ($this->getQuoteId()) {
-                $customerSession = Mage::getSingleton('customer/session');
                 if ($customerSession->isLoggedIn()) {
                     $quote->setCustomer($customerSession->getCustomer());
                 }
@@ -168,6 +174,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         Mage::dispatchEvent('checkout_quote_destroy', array('quote'=>$this->getQuote()));
         $this->_quote = null;
         $this->setQuoteId(null);
+        $this->setLastSuccessQuoteId(null);
     }
 
     public function resetCheckout()

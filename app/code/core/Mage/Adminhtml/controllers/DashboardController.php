@@ -72,21 +72,20 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
     {
         $httpClient = new Varien_Http_Client();
 
-        foreach ($this->getRequest()->getParams() as $name => $value) {
-            // fixing slashes
-            $params[$name] = str_replace('\\', '/', urldecode($value));
+        if ($ga = $this->getRequest()->getParam('ga')) {
+            if ($params = unserialize(base64_decode(urldecode($ga)))) {
+                $response = $httpClient->setUri(Mage_Adminhtml_Block_Dashboard_Graph::API_URL)
+                        ->setParameterGet($params)
+                        ->setConfig(array('timeout' => 15))
+                        ->request('GET');
+
+                $headers = $response->getHeaders();
+
+                $this->getResponse()
+                    ->setHeader('Content-type', $headers['Content-type'])
+                    ->setBody($response->getBody());
+            }
         }
-
-        $response = $httpClient->setUri(Mage_Adminhtml_Block_Dashboard_Graph::API_URL)
-                ->setParameterGet($params)
-                ->setConfig(array('timeout' => 15))
-                ->request('GET');
-
-        $headers = $response->getHeaders();
-
-        $this->getResponse()
-            ->setHeader('Content-type', $headers['Content-type'])
-            ->setBody($response->getBody());
     }
 
     protected function _isAllowed()

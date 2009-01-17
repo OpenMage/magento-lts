@@ -26,11 +26,12 @@
 
 require 'app/Mage.php';
 
-Mage::app('admin');
-
-if (!Mage::app()->isInstalled()) {
+if (!Mage::isInstalled()) {
     echo "Application is not installed yet, please complete install wizard first.";
+    exit;
 }
+
+Mage::app('admin');
 
 // Only for urls
 // Don't remove this

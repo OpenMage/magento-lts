@@ -16,8 +16,7 @@
  * @package    Zend_InfoCard
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: InfoCard.php 8600 2008-03-06 20:48:18Z darby $
- * @author     John Coggeshall <john@zend.com>
+ * @version    $Id: InfoCard.php 13213 2008-12-14 11:05:07Z thomas $
  */
 
 /**
@@ -29,11 +28,6 @@
  * Zend_InfoCard_Xml_Assertion
  */
 #require_once 'Zend/InfoCard/Xml/Assertion.php';
-
-/**
- * Zend_InfoCard_Exception
- */
-#require_once 'Zend/InfoCard/Exception.php';
 
 /**
  * Zend_InfoCard_Cipher
@@ -55,13 +49,11 @@
  */
 #require_once 'Zend/InfoCard/Claims.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_InfoCard
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @author     John Coggeshall <john@zend.com>
  */
 class Zend_InfoCard
 {
@@ -111,10 +103,12 @@ class Zend_InfoCard
         $this->_keyPairs = array();
 
         if(!extension_loaded('mcrypt')) {
+            #require_once 'Zend/InfoCard/Exception.php';
             throw new Zend_InfoCard_Exception("Use of the Zend_InfoCard component requires the mcrypt extension to be enabled in PHP");
         }
 
         if(!extension_loaded('openssl')) {
+            #require_once 'Zend/InfoCard/Exception.php';
             throw new Zend_InfoCard_Exception("Use of the Zend_InfoCard component requires the openssl extension to be enabled in PHP");
         }
     }
@@ -141,7 +135,7 @@ class Zend_InfoCard
     public function getAdapter()
     {
         if(is_null($this->_adapter)) {
-            Zend_Loader::loadClass('Zend_InfoCard_Adapter_Default');
+            #require_once 'Zend/InfoCard/Adapter/Default.php';
             $this->setAdapter(new Zend_InfoCard_Adapter_Default());
         }
 
@@ -203,6 +197,7 @@ class Zend_InfoCard
     {
 
         if(!key_exists($key_id, $this->_keyPairs)) {
+            #require_once 'Zend/InfoCard/Exception.php';
             throw new Zend_InfoCard_Exception("Attempted to remove unknown key id: $key_id");
         }
 
@@ -224,26 +219,29 @@ class Zend_InfoCard
     {
         if(!file_exists($private_key_file) ||
            !file_exists($public_key_file)) {
-               throw new Zend_InfoCard_Exception("Could not locate the public and private certificate pair files: $private_key_file, $public_key_file");
+            #require_once 'Zend/InfoCard/Exception.php';
+            throw new Zend_InfoCard_Exception("Could not locate the public and private certificate pair files: $private_key_file, $public_key_file");
         }
 
         if(!is_readable($private_key_file) ||
            !is_readable($public_key_file)) {
-               throw new Zend_InfoCard_Exception("Could not read the public and private certificate pair files (check permissions): $private_key_file, $public_key_file");
-          }
+            #require_once 'Zend/InfoCard/Exception.php';
+            throw new Zend_InfoCard_Exception("Could not read the public and private certificate pair files (check permissions): $private_key_file, $public_key_file");
+        }
 
-          $key_id = md5($private_key_file.$public_key_file);
+        $key_id = md5($private_key_file.$public_key_file);
 
-          if(key_exists($key_id, $this->_keyPairs)) {
-              throw new Zend_InfoCard_Exception("Attempted to add previously existing certificate pair: $private_key_file, $public_key_file");
-          }
+        if(key_exists($key_id, $this->_keyPairs)) {
+            #require_once 'Zend/InfoCard/Exception.php';
+            throw new Zend_InfoCard_Exception("Attempted to add previously existing certificate pair: $private_key_file, $public_key_file");
+        }
 
-          switch($type) {
-              case Zend_InfoCard_Cipher::ENC_RSA:
-              case Zend_InfoCard_Cipher::ENC_RSA_OAEP_MGF1P:
-                  $this->_keyPairs[$key_id] = array('private' => $private_key_file,
-                                  'public'      => $public_key_file,
-                                  'type_uri'    => $type);
+        switch($type) {
+            case Zend_InfoCard_Cipher::ENC_RSA:
+            case Zend_InfoCard_Cipher::ENC_RSA_OAEP_MGF1P:
+                $this->_keyPairs[$key_id] = array('private' => $private_key_file,
+                                'public'      => $public_key_file,
+                                'type_uri'    => $type);
 
                 if(!is_null($password)) {
                     $this->_keyPairs[$key_id]['password'] = $password;
@@ -252,10 +250,11 @@ class Zend_InfoCard
                 }
 
                 return $key_id;
-                  break;
-              default:
-                  throw new Zend_InfoCard_Exception("Invalid Certificate Pair Type specified: $type");
-          }
+                break;
+            default:
+                #require_once 'Zend/InfoCard/Exception.php';
+                throw new Zend_InfoCard_Exception("Invalid Certificate Pair Type specified: $type");
+        }
     }
 
     /**
@@ -272,6 +271,7 @@ class Zend_InfoCard
             return $this->_keyPairs[$key_id];
         }
 
+        #require_once 'Zend/InfoCard/Exception.php';
         throw new Zend_InfoCard_Exception("Invalid Certificate Pair ID provided: $key_id");
     }
 
@@ -298,6 +298,7 @@ class Zend_InfoCard
                 $digest_retval = sha1($certificateData, true);
                 break;
             default:
+                #require_once 'Zend/InfoCard/Exception.php';
                 throw new Zend_InfoCard_Exception("Invalid Digest Type Provided: $digestMethod");
         }
 
@@ -344,6 +345,7 @@ class Zend_InfoCard
             case Zend_InfoCard_Cipher::ENC_AES256CBC:
                 break;
             default:
+                #require_once 'Zend/InfoCard/Exception.php';
                 throw new Zend_InfoCard_Exception("Unknown Encryption Method used in the secure token");
         }
 
@@ -352,6 +354,7 @@ class Zend_InfoCard
         $keyinfo = $encryptedData->getKeyInfo();
 
         if(!($keyinfo instanceof Zend_InfoCard_Xml_KeyInfo_XmlDSig)) {
+            #require_once 'Zend/InfoCard/Exception.php';
             throw new Zend_InfoCard_Exception("Expected a XML digital signature KeyInfo, but was not found");
         }
 
@@ -363,6 +366,7 @@ class Zend_InfoCard
             case Zend_InfoCard_Cipher::ENC_RSA_OAEP_MGF1P:
                 break;
             default:
+                #require_once 'Zend/InfoCard/Exception.php';
                 throw new Zend_InfoCard_Exception("Unknown Key Encryption Method used in secure token");
         }
 
@@ -371,6 +375,7 @@ class Zend_InfoCard
         $key_id = $this->_findCertifiatePairByDigest($securityTokenRef->getKeyReference());
 
         if(!$key_id) {
+            #require_once 'Zend/InfoCard/Exception.php';
             throw new Zend_InfoCard_Exception("Unable to find key pair used to encrypt symmetric InfoCard Key");
         }
 
@@ -379,6 +384,7 @@ class Zend_InfoCard
         // Santity Check
 
         if($certificate_pair['type_uri'] != $encryptedKey->getEncryptionMethod()) {
+            #require_once 'Zend/InfoCard/Exception.php';
             throw new Zend_InfoCard_Exception("Certificate Pair which matches digest is not of same algorithm type as document, check addCertificate()");
         }
 
@@ -423,6 +429,7 @@ class Zend_InfoCard
 
         $retval = new Zend_InfoCard_Claims();
 
+        #require_once 'Zend/InfoCard/Exception.php';
         try {
             $signedAssertionsXml = $this->_extractSignedToken($strXmlToken);
         } catch(Zend_InfoCard_Exception $e) {

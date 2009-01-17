@@ -34,6 +34,7 @@
 <div class="entry-edit">
     <div class="box-left">
         <form id="import_form" action="<?php echo $this->getUrl('*/*/importPost') ?>" method="post" enctype="multipart/form-data">
+            <?php echo $this->getBlockHtml('formkey')?>
             <div class="entry-edit-head">
                 <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('tax')->__('Import Tax Rates') ?></h4>
             </div>
@@ -49,6 +50,7 @@
     </div>
     <div class="box-right">
         <form id="export_form" action="<?php echo $this->getUrl('*/*/exportPost') ?>" method="post" enctype="multipart/form-data">
+            <?php echo $this->getBlockHtml('formkey')?>
             <div class="entry-edit-head">
                 <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('tax')->__('Export Tax Rates') ?></h4>
             </div>

@@ -240,10 +240,10 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             $out .= $pad.'</'.$this->getName().'>'.$nl;
         } else {
             $value = (string)$this;
-            if (empty($value)) {
-                $out .= '/>'.$nl;
-            } else {
+            if (strlen($value)) {
                 $out .= '>'.$this->xmlentities($value).'</'.$this->getName().'>'.$nl;
+            } else {
+                $out .= '/>'.$nl;
             }
         }
 

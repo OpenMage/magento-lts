@@ -17,19 +17,13 @@
  * @subpackage Zend_InfoCard_Xml_Security
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: XmlExcC14N.php 8064 2008-02-16 10:58:39Z thomas $
- * @author     John Coggeshall <john@zend.com>
+ * @version    $Id: XmlExcC14N.php 13213 2008-12-14 11:05:07Z thomas $
  */
 
 /**
  * Zend_InfoCard_Xml_Security_Transform_Interface
  */
 #require_once 'Zend/InfoCard/Xml/Security/Transform/Interface.php';
-
-/**
- * Zend_InfoCard_Xml_Security_Transform_Exception
- */
-#require_once 'Zend/InfoCard/Xml/Security/Transform/Exception.php';
 
 /**
  * A Transform to perform C14n XML Exclusive Canonicalization
@@ -39,7 +33,6 @@
  * @subpackage Zend_InfoCard_Xml_Security
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @author     John Coggeshall <john@zend.com>
  */
 class Zend_InfoCard_Xml_Security_Transform_XmlExcC14N
     implements Zend_InfoCard_Xml_Security_Transform_Interface
@@ -60,6 +53,7 @@ class Zend_InfoCard_Xml_Security_Transform_XmlExcC14N
             return $dom->C14N(true, false);
         }
 
+        #require_once 'Zend/InfoCard/Xml/Security/Transform/Exception.php';
         throw new Zend_InfoCard_Xml_Security_Transform_Exception("This transform requires the C14N() method to exist in the DOM extension");
     }
 }

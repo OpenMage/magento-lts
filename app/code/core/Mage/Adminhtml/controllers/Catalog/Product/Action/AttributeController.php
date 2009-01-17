@@ -144,6 +144,11 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                     $productWebsite->addProducts($websiteAddData, $this->_getHelper()->getProductIds());
                 }
 
+                Mage::dispatchEvent(
+                    'catalog_product_to_website_change',
+                    array('products'=>$this->_getHelper()->getProductIds())
+                );
+
                 $this->_getSession()->addNotice(
                     $this->__('Please refresh "Catalog Rewrites" and "Layered Navigation Indices" in System -> <a href="%s">Cache Management</a>', $this->getUrl('adminhtml/system_cache'))
                 );
@@ -192,6 +197,6 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
 
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('catalog/attributes/attributes');
+        return Mage::getSingleton('admin/session')->isAllowed('catalog/update_attributes');
     }
 }

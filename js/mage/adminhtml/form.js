@@ -165,7 +165,7 @@ Event.observe(window, 'load', varienWindowOnload);
 
 RegionUpdater = Class.create();
 RegionUpdater.prototype = {
-    initialize: function (countryEl, regionTextEl, regionSelectEl, regions, disableAction)
+    initialize: function (countryEl, regionTextEl, regionSelectEl, regions, disableAction, clearRegionValueOnDisable)
     {
         this.countryEl = $(countryEl);
         this.regionTextEl = $(regionTextEl);
@@ -175,6 +175,7 @@ RegionUpdater.prototype = {
 //        this.tpl = new Template('<select class="#{className}" name="#{name}" id="#{id}">#{innerHTML}</select>');
         this.regions = regions;
         this.disableAction = (typeof disableAction=='undefined') ? 'hide' : disableAction;
+        this.clearRegionValueOnDisable = (typeof clearRegionValueOnDisable == 'undefined') ? false : clearRegionValueOnDisable;
 
         if (this.regionSelectEl.options.length<=1) {
             this.update();
@@ -255,6 +256,9 @@ RegionUpdater.prototype = {
                     this.regionTextEl.disabled = false;
                 }
                 this.regionSelectEl.disabled = true;
+                if (this.clearRegionValueOnDisable) {
+                    this.regionSelectEl.value = '';
+                }
             } else if (this.disableAction=='nullify') {
                 this.regionSelectEl.options.length = 1;
                 this.regionSelectEl.value = '';

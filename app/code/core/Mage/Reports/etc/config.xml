@@ -233,6 +233,10 @@
                                 <title>Low stock</title>
                                 <action>adminhtml/report_product/lowstock</action>
                             </lowstock>
+                            <downloads translate="title" module="reports">
+                                <title>Downloads</title>
+                                <action>adminhtml/report_product/downloads</action>
+                            </downloads>
                         </children>
                     </products>
                     <customers translate="title" module="reports">
@@ -313,98 +317,101 @@
             <resources>
                 <admin>
                     <children>
-                        <report>
+                        <report translate="title" module="reports">
                             <title>Reports</title>
                             <sort_order>80</sort_order>
                             <children>
-                                <salesroot>
+                                <salesroot translate="title">
                                     <title>Sales</title>
                                     <children>
-                                        <sales>
+                                        <sales translate="title">
                                             <title>Sales Report</title>
                                         </sales>
-                                        <tax>
+                                        <tax translate="title">
                                             <title>Tax</title>
                                         </tax>
-                                        <shipping>
+                                        <shipping translate="title">
                                             <title>Shipping</title>
                                         </shipping>
-                                        <invoiced>
+                                        <invoiced translate="title">
                                             <title>Total invoiced</title>
                                         </invoiced>
-                                        <refunded>
+                                        <refunded translate="title">
                                             <title>Total refunded</title>
                                         </refunded>
-                                         <coupons>
+                                         <coupons translate="title">
                                             <title>Coupons</title>
                                         </coupons>
                                     </children>
                                 </salesroot>
-                                <shopcart>
+                                <shopcart translate="title">
                                     <title>Shopping Cart</title>
                                     <children>
-                                        <product>
+                                        <product translate="title">
                                             <title>Products in carts</title>
                                         </product>
-                                        <abandoned>
+                                        <abandoned translate="title">
                                             <title>Abandoned carts</title>
                                         </abandoned>
                                     </children>
                                 </shopcart>
-                                <products>
+                                <products translate="title">
                                     <title>Products</title>
                                     <children>
-                                        <ordered>
+                                        <ordered translate="title">
                                             <title>Bestsellers</title>
                                         </ordered>
-                                        <viewed>
+                                        <viewed translate="title">
                                             <title>Most Viewed</title>
                                         </viewed>
-                                        <lowstock>
+                                        <lowstock translate="title">
                                             <title>Low stock</title>
                                         </lowstock>
+                                        <downloads translate="title">
+                                            <title>Downloads</title>
+                                        </downloads>
                                     </children>
                                 </products>
-                                <customers>
+                                <customers translate="title">
                                     <title>Customers</title>
                                     <children>
-                                        <accounts>
+                                        <accounts translate="title">
                                             <title>New Accounts</title>
                                         </accounts>
-                                        <totals>
+                                        <totals translate="title">
                                             <title>Customers by orders total</title>
                                         </totals>
-                                        <orders>
+                                        <orders translate="title">
                                             <title>Customers by number of orders</title>
                                         </orders>
                                     </children>
                                 </customers>
-                                <review>
+                                <review translate="title" module="catalog">
                                     <title>Reviews</title>
                                     <children>
-                                        <customer>
+                                        <customer translate="title">
                                             <title>Customers Reviews</title>
                                         </customer>
-                                        <product>
+                                        <product translate="title">
                                             <title>Products Reviews</title>
                                         </product>
                                     </children>
                                 </review>
-                                <tags>
+                                <tags translate="title" module="tag">
                                     <title>Tags</title>
                                     <children>
-                                        <customer>
+                                        <customer translate="title" module="tag">
                                             <title>Customers</title>
                                         </customer>
-                                        <popular>
+                                        <popular translate="title" module="tag">
                                             <title>Popular</title>
                                         </popular>
-                                        <product>
+                                        <product translate="title" module="tag">
                                             <title>Products</title>
                                         </product>
                                     </children>
                                 </tags>
-                                <search>
+                                <search translate="title">
                                     <title>Search Terms</title>
                                 </search>
                             </children>

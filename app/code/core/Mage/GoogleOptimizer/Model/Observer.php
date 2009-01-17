@@ -42,6 +42,11 @@ class Mage_GoogleOptimizer_Model_Observer
     public function appendToProductGoogleOptimizerScripts($observer)
     {
         $product = $observer->getEvent()->getProduct();
+
+        if (!Mage::helper('googleoptimizer')->isOptimizerActive()) {
+            return $this;
+        }
+
         $googleOptimizerModel = Mage::getModel('googleoptimizer/code_product')
             ->setEntity($product)
             ->loadScripts($product->getStoreId());
@@ -52,12 +57,22 @@ class Mage_GoogleOptimizer_Model_Observer
     }
 
     /**
+     *  @deprecated please use prepareProductGoogleOptimizerScripts method instead
+     *
+     * @param Varien_Object $observer
+     */
+    public function prepareGoogleOptimizerScripts($observer)
+    {
+        $this->prepareProductGoogleOptimizerScripts($observer);
+    }
+
+    /**
      * Prepare product scripts for saving
      *
      * @param Varien_Object $observer
      * @return Mage_Googleoptimizer_Model_Observer
      */
-    public function prepareGoogleOptimizerScripts($observer)
+    public function prepareProductGoogleOptimizerScripts($observer)
     {
         $product = $observer->getEvent()->getProduct();
         $request = $observer->getEvent()->getRequest();
@@ -190,6 +205,11 @@ class Mage_GoogleOptimizer_Model_Observer
     public function appendToCategoryGoogleOptimizerScripts($observer)
     {
         $category = $observer->getEvent()->getCategory();
+
+        if (!Mage::helper('googleoptimizer')->isOptimizerActive()) {
+            return $this;
+        }
+
         $googleOptimizerModel = Mage::getModel('googleoptimizer/code_category')
             ->setEntity($category)
             ->loadScripts($category->getStoreId());
@@ -225,6 +245,10 @@ class Mage_GoogleOptimizer_Model_Observer
     public function saveCategoryGoogleOptimizerScripts($observer)
     {
         $category = $observer->getEvent()->getCategory();
+
+        if (!Mage::helper('googleoptimizer')->isOptimizerActive()) {
+            return $this;
+        }
 
         if ($category->getGoogleOptimizerScripts()) {
             $googleOptimizer = Mage::getModel('googleoptimizer/code_category')

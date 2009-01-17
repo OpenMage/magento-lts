@@ -62,6 +62,9 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
 
     public function saveAction()
     {
+        if (!$this->_validateFormKey()) {
+            return $this->_redirect('customer/account/');
+        }
         try {
             Mage::getSingleton('customer/session')->getCustomer()
                 ->setStoreId(Mage::app()->getStore()->getId())

@@ -263,4 +263,18 @@ class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
     {
         $this->_ref = null;
     }
+
+    /**
+     * Convert PDF element to PHP type.
+     *
+     * @return mixed
+     */
+    public function toPhp()
+    {
+        if ($this->_ref === null) {
+            $this->_dereference();
+        }
+
+        return $this->_ref->toPhp();
+    }
 }

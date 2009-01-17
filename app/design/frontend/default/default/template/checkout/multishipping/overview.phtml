@@ -37,7 +37,7 @@
                 <div class="col-1">
                     <?php $_address=$this->getBillingAddress() ?>
                     <div class="head">
-                        <h4><?php echo $this->__('Billing Address') ?> <span class="separator">|</span> <a href="<?php echo $this->getEditBillingAddressUrl($_address) ?>"><?php echo $this->__('Change Billing Address') ?></a></h4>
+                        <h4><?php echo $this->__('Billing Address') ?> <span class="separator">|</span> <a href="<?php echo $this->getEditBillingAddressUrl($_address) ?>"><?php echo $this->__('Change') ?></a></h4>
                     </div>
                     <address>
                         <?php echo $_address->format('html') ?>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="col-2">
                     <div class="head">
-                        <h4><?php echo $this->__('Payment Method') ?> <span class="separator">|</span> <a href="<?php echo $this->getEditBillingUrl() ?>"><?php echo $this->__('Change Payment Method') ?></a></h4>
+                        <h4><?php echo $this->__('Payment Method') ?> <span class="separator">|</span> <a href="<?php echo $this->getEditBillingUrl() ?>"><?php echo $this->__('Change') ?></a></h4>
                     </div>
                     <input type="hidden" name="payment[cc_number]" value="<?php echo $this->htmlEscape($this->getPayment()->getCcNumber())?>" />
                     <input type="hidden" name="payment[cc_cid]" value="<?php echo $this->htmlEscape($this->getPayment()->getCcCid())?>" />
@@ -62,14 +62,14 @@
                 <div class="content col2-alt-set"><h4><?php echo $this->__('Address %s of %s', ($_index+1), $this->getShippingAddressCount()) ?></h4>
                     <div class="col-1">
                         <div class="head">
-                            <h4><?php echo $this->__('Shipping to') ?> <span class="separator">|</span> <a href="<?php echo $this->getEditShippingAddressUrl($_address) ?>"><?php echo $this->__('Change Shipping Address') ?></a></h4>
+                            <h4><?php echo $this->__('Shipping to') ?> <span class="separator">|</span> <a href="<?php echo $this->getEditShippingAddressUrl($_address) ?>"><?php echo $this->__('Change') ?></a></h4>
                         </div>
                         <address>
                             <?php echo $_address->format('html') ?>
                         </address>
                         <br />
                         <div class="head">
-                            <h4><?php echo $this->__('Shipping Method') ?> <span class="separator">|</span> <a href="<?php echo $this->getEditShippingUrl() ?>"><?php echo $this->__('Change Shipping Method') ?></a></h4>
+                            <h4><?php echo $this->__('Shipping Method') ?> <span class="separator">|</span> <a href="<?php echo $this->getEditShippingUrl() ?>"><?php echo $this->__('Change') ?></a></h4>
                         </div>
                         <?php if($_rate=$this->getShippingAddressRate($_address)): ?>
                         <p>

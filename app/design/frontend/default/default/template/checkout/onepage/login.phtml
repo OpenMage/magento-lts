@@ -70,13 +70,13 @@
             <ul class="form-list">
                 <li>
                     <div class="input-box">
-                        <label for="email"><?php echo $this->__('Email Address') ?> <span class="required">*</span></label><br />
+                        <label for="login-email"><?php echo $this->__('Email Address') ?> <span class="required">*</span></label><br />
                         <input type="text" class="input-text required-entry validate-email" id="login-email" name="login[username]" value="<?php echo $this->htmlEscape($this->getUsername()) ?>" />
                     </div>
                 </li>
                 <li>
                     <div class="input-box">
-                        <label for="password"><?php echo $this->__('Password') ?> <span class="required">*</span></label><br />
+                        <label for="login-password"><?php echo $this->__('Password') ?> <span class="required">*</span></label><br />
                         <input type="password" class="input-text required-entry" id="login-password" name="login[password]" />
                     </div>
                 </li>

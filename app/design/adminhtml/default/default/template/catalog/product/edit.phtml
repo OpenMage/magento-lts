@@ -49,7 +49,8 @@
     </p>
 </div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="product_edit_form" enctype="multipart/form-data">
-<div style="display:none"></div>
+    <?php echo $this->getBlockHtml('formkey')?>
+    <div style="display:none"></div>
 </form>
 <script type="text/javascript">
 //<![CDATA[
@@ -64,7 +65,7 @@
                 $(response.attribute).focus();
             }
             else if ($('messages')) {
-                $('messages').innerHTML = response.message;
+                $('messages').innerHTML = '<ul class="messages"><li class="error-msg"><ul><li>' + response.message + '</li></ul></li></ul>';
             }
         }
         else{

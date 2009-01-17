@@ -42,7 +42,7 @@ $installer->run("
       `sort_order` int(10) unsigned NOT NULL default '0',
       PRIMARY KEY (`option_id`),
       KEY `CATALOG_PRODUCT_OPTION_PRODUCT` (`product_id`),
-      CONSTRAINT `FK_CATALOG_PRODUCT_OPTION_PRODUCT` FOREIGN KEY (`product_id`) REFERENCES `{$this->getTable('catalog/product_entity')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
+      CONSTRAINT `FK_CATALOG_PRODUCT_OPTION_PRODUCT` FOREIGN KEY (`product_id`) REFERENCES `{$this->getTable('catalog/product')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
     )ENGINE=InnoDB default CHARSET=utf8;
 
     DROP TABLE IF EXISTS `{$this->getTable('catalog/product_option_price')}`;

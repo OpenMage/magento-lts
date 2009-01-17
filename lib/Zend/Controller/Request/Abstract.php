@@ -149,6 +149,12 @@ abstract class Zend_Controller_Request_Abstract
     public function setActionName($value)
     {
         $this->_action = $value;
+        /**
+         * @see ZF-3465
+         */
+        if (null === $value) {
+            $this->setParam($this->getActionKey(), $value);
+        }
         return $this;
     }
 

@@ -76,6 +76,13 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected $_defaultFilter   = array();
 
     /**
+     * Export flag
+     *
+     * @var bool
+     */
+    protected $_isExport = false;
+
+    /**
      * Empty grid text
      *
      * @var sting|null
@@ -366,8 +373,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                 $this->getCollection()->setOrder($column , $dir);
             }
 
-            $this->getCollection()->load();
-            $this->_afterLoadCollection();
+            if ( !$this->_isExport )    {
+                $this->getCollection()->load();
+                $this->_afterLoadCollection();
+            }
         }
 
         return $this;
@@ -425,10 +434,15 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                     'name'      => $this->getMassactionBlock()->getFormFieldName(),
                     'align'     => 'center',
                     'is_system' => true
-                ))
-                ->setSelected($this->getMassactionBlock()->getSelected())
-                ->setGrid($this)
-                ->setId($columnId);
+                ));
+
+        if ($this->getNoFilterMassactionColumn()) {
+            $massactionColumn->setData('filter', false);
+        }
+
+        $massactionColumn->setSelected($this->getMassactionBlock()->getSelected())
+            ->setGrid($this)
+            ->setId($columnId);
 
         $oldColumns = $this->_columns;
         $this->_columns = array();
@@ -690,7 +704,12 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function getCsv()
     {
         $csv = '';
+        $this->_isExport = true;
         $this->_prepareGrid();
+        $this->getCollection()->getSelect()->limit();
+        $this->getCollection()->setPageSize(0);
+        $this->getCollection()->load();
+        $this->_afterLoadCollection();
 
         $data = array();
         foreach ($this->_columns as $column) {
@@ -726,7 +745,12 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     public function getXml()
     {
+        $this->_isExport = true;
         $this->_prepareGrid();
+        $this->getCollection()->getSelect()->limit();
+        $this->getCollection()->setPageSize(0);
+        $this->getCollection()->load();
+        $this->_afterLoadCollection();
         $indexes = array();
         foreach ($this->_columns as $column) {
             if (!$column->getIsSystem()) {
@@ -748,7 +772,12 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     public function getExcel($filename = '')
     {
+        $this->_isExport = true;
         $this->_prepareGrid();
+        $this->getCollection()->getSelect()->limit();
+        $this->getCollection()->setPageSize(0);
+        $this->getCollection()->load();
+        $this->_afterLoadCollection();
         $headers = array();
         $data = array();
         foreach ($this->_columns as $column) {

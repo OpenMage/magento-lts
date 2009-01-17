@@ -134,14 +134,14 @@ class Zend_Pdf_Element_String extends Zend_Pdf_Element
                     break;
 
                 default:
-                	// Don't use non-ASCII characters escaping
+                    // Don't use non-ASCII characters escaping
                     // if ($nextCode >= 32 && $nextCode <= 126 ) {
                     //     // Visible ASCII symbol
                     //     $outStr .= $inStr[$count];
                     // } else {
                     //     $outStr .= sprintf('\\%03o', $nextCode);
                     // }
-                	$outStr .= $inStr[$count];
+                    $outStr .= $inStr[$count];
 
                     break;
             }

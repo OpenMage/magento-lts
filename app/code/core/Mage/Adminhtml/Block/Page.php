@@ -18,28 +18,41 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml page
  *
- * @category   Mage
- * @package    Mage_Adminhtml
+ * @category    Mage
+ * @package     Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Page extends Mage_Adminhtml_Block_Template
 {
 
+    /**
+     * Class constructor
+     *
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('page.phtml');
+        $action = Mage::app()->getFrontController()->getAction();
+        if ($action) {
+            $this->addBodyClass($action->getFullActionName('-'));
+        }
     }
 
+    /**
+     * Get current language
+     *
+     * @return unknown
+     */
     public function getLang()
     {
         if (!$this->hasData('lang')) {
@@ -48,5 +61,17 @@ class Mage_Adminhtml_Block_Page extends Mage_Adminhtml_Block_Template
         return $this->getData('lang');
     }
 
-}
+    /**
+     * Add CSS class to page body tag
+     *
+     * @param string $className
+     * @return Mage_Adminhtml_Block_Page
+     */
+    public function addBodyClass($className)
+    {
+        $className = preg_replace('#[^a-z0-9]+#', '-', strtolower($className));
+        $this->setBodyClass($this->getBodyClass() . ' ' . $className);
+        return $this;
+    }
 
+}

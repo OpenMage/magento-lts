@@ -267,7 +267,7 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
             $fileName = $this->getName();
         }
 
-        if (!preg_match('/^[a-z0-9]+[a-z0-9\-\_\.]*(\/[a-z0-9]+[a-z0-9\-\_\.]*)*$/i', $fileName)) {
+        if (!preg_match('/^[a-z0-9]+[a-z0-9\-\_\.]*([\/\\\\]{1}[a-z0-9]+[a-z0-9\-\_\.]*)*$/i', $fileName)) {
             return false;
         }
 
@@ -280,7 +280,7 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
 
         $pear = Varien_Pear::getInstance();
         $dir = Mage::getBaseDir('var').DS.'pear';
-        if (!@file_put_contents($dir.'/package.xml', $this->getPackageXml())) {
+        if (!@file_put_contents($dir.DS.'package.xml', $this->getPackageXml())) {
             return false;
         }
 
@@ -290,7 +290,7 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
         $xml = Mage::helper('core')->assocToXml($this->getData());
 
         // prepare dir to save
-        $parts = explode('/', $fileName);
+        $parts = explode(DS, $fileName);
         array_pop($parts);
         $newDir = implode(DS, $parts);
         if ((!empty($newDir)) && (!is_dir($dir . DS . $newDir))) {

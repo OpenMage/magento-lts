@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.85 $"/>
-		<generation date="$Date: 2007/11/28 21:17:49 $"/>
+		<version number="$Revision: 1.94 $"/>
+		<generation date="$Date: 2008/06/26 03:47:58 $"/>
 		<language type="sl"/>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0} ({1})</localePattern>
+			<localeSeparator>, </localeSeparator>
+		</localeDisplayPattern>
 		<languages>
 			<language type="aa">afar</language>
 			<language type="ab">abhaščina</language>
@@ -455,6 +459,10 @@
 			<measurementSystemName type="US">Imperialni</measurementSystemName>
 			<measurementSystemName type="metric">Metrični</measurementSystemName>
 		</measurementSystemNames>
+		<codePatterns>
+			<codePattern type="language">Jezik: {0}</codePattern>
+			<codePattern type="territory">Regija: {0}</codePattern>
+		</codePatterns>
 	</localeDisplayNames>
 	<layout>
 		<inText type="languages">lowercase-words</inText>
@@ -472,41 +480,6 @@
 	<dates>
 		<localizedPatternChars>GanjkHmsSEDFwWxhKzAeugXZvcL</localizedPatternChars>
 		<calendars>
-			<calendar type="buddhist">
-				<quarters>
-					<quarterContext type="stand-alone">
-						<quarterWidth type="abbreviated">
-							<quarter type="1">K1</quarter>
-							<quarter type="2">K2</quarter>
-							<quarter type="3">K3</quarter>
-							<quarter type="4">K4</quarter>
-						</quarterWidth>
-					</quarterContext>
-				</quarters>
-			</calendar>
-			<calendar type="chinese">
-				<quarters>
-					<quarterContext type="stand-alone">
-						<quarterWidth type="abbreviated">
-							<quarter type="1">K1</quarter>
-							<quarter type="2">K2</quarter>
-							<quarter type="3">K3</quarter>
-							<quarter type="4">K4</quarter>
-						</quarterWidth>
-					</quarterContext>
-				</quarters>
-			</calendar>
-			<calendar type="coptic">
-				<quarters>
-					<quarterContext type="stand-alone">
-						<quarterWidth type="abbreviated">
-							<quarter type="1">K1</quarter>
-							<quarter type="2">K2</quarter>
-							<quarter type="3">K3</quarter>
-						</quarterWidth>
-					</quarterContext>
-				</quarters>
-			</calendar>
 			<calendar type="gregorian">
 				<months>
 					<monthContext type="format">
@@ -678,6 +651,79 @@
 						<dateFormatItem id="yyyyM">M.yyyy</dateFormatItem>
 						<dateFormatItem id="yyyyMMMM">MMMM yyyy</dateFormatItem>
 					</availableFormats>
+					<intervalFormats>
+						<intervalFormatFallback>{0} - {1}</intervalFormatFallback>
+						<intervalFormatItem id="M">
+							<greatestDifference id="M">M.-M.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MEd">
+							<greatestDifference id="M">E, d.M. - E, d.M.</greatestDifference>
+							<greatestDifference id="d">E, d.M. - E, d.M.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMM">
+							<greatestDifference id="M">MMM-MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMEd">
+							<greatestDifference id="M">E, dd. MMM - E, dd. MMM</greatestDifference>
+							<greatestDifference id="d">E, dd. - E, dd. MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMd">
+							<greatestDifference id="M">dd. MMM - dd. MMM</greatestDifference>
+							<greatestDifference id="d">dd.-dd. MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Md">
+							<greatestDifference id="M">d.M. - d.M.</greatestDifference>
+							<greatestDifference id="d">d.M. - d.M.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d.-d.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="h">
+							<greatestDifference id="h">H-H</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="h">H:mm-H:mm</greatestDifference>
+							<greatestDifference id="m">H:mm-H:mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="h">H:mm-H:mm v</greatestDifference>
+							<greatestDifference id="m">H:mm-H:mm v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hv">
+							<greatestDifference id="h">H-H v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="y">
+							<greatestDifference id="y">y-y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yM">
+							<greatestDifference id="M">M.yy - M.yy</greatestDifference>
+							<greatestDifference id="y">M.yy - M.yy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="M">E, d.M.yy - E, d.M.yy</greatestDifference>
+							<greatestDifference id="d">E, d.M.yy - E, d.M.yy</greatestDifference>
+							<greatestDifference id="y">E, d.M.yy - E, d.M.yy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMM">
+							<greatestDifference id="M">MMM-MMM yyyy</greatestDifference>
+							<greatestDifference id="y">MMM yyyy - MMM yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEd">
+							<greatestDifference id="M">E, dd. MMM - E, dd. MMM yyyy</greatestDifference>
+							<greatestDifference id="d">E, dd. - E, dd. MMM yyyy</greatestDifference>
+							<greatestDifference id="y">E, dd. MMM yyyy - E, dd. MMM yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="M">dd. MMM - dd. MMM yyyy</greatestDifference>
+							<greatestDifference id="d">dd.-dd. MMM yyyy</greatestDifference>
+							<greatestDifference id="y">dd. MMM yyyy - dd. MMM yyyy</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="M">d.M.yy - d.M.yy</greatestDifference>
+							<greatestDifference id="d">d.M.yy - d.M.yy</greatestDifference>
+							<greatestDifference id="y">d.M.yy - d.M.yy</greatestDifference>
+						</intervalFormatItem>
+					</intervalFormats>
 				</dateTimeFormats>
 				<fields>
 					<field type="era">
@@ -727,6 +773,7 @@
 			<hourFormat>+HHmm;-HHmm</hourFormat>
 			<gmtFormat>GMT{0}</gmtFormat>
 			<regionFormat>{0}</regionFormat>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Etc/Unknown">
 				<exemplarCity>Neznano</exemplarCity>
 			</zone>
@@ -768,6 +815,9 @@
 			</zone>
 			<zone type="Asia/Brunei">
 				<exemplarCity>Brunej</exemplarCity>
+			</zone>
+			<zone type="America/St_Johns">
+				<exemplarCity>St Johns</exemplarCity>
 			</zone>
 			<zone type="Indian/Cocos">
 				<exemplarCity>Kokosovi</exemplarCity>
@@ -913,6 +963,9 @@
 			<zone type="Europe/Monaco">
 				<exemplarCity>Monako</exemplarCity>
 			</zone>
+			<zone type="Asia/Ulaanbaatar">
+				<exemplarCity>Ulan Bator</exemplarCity>
+			</zone>
 			<zone type="Asia/Macau">
 				<exemplarCity>Macao</exemplarCity>
 			</zone>
@@ -945,6 +998,9 @@
 			</zone>
 			<zone type="Europe/Moscow">
 				<exemplarCity>Moskva</exemplarCity>
+			</zone>
+			<zone type="Asia/Yekaterinburg">
+				<exemplarCity>Jekaterinburg</exemplarCity>
 			</zone>
 			<zone type="Asia/Krasnoyarsk">
 				<exemplarCity>Krasnojarsk</exemplarCity>
@@ -991,8 +1047,35 @@
 			<zone type="Europe/Zaporozhye">
 				<exemplarCity>Zaporožje</exemplarCity>
 			</zone>
-			<zone type="America/Anchorage">
-				<exemplarCity>Čas Na Aljaski</exemplarCity>
+			<zone type="America/North_Dakota/New_Salem">
+				<exemplarCity>New Salem</exemplarCity>
+			</zone>
+			<zone type="America/North_Dakota/Center">
+				<exemplarCity>Center</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Vincennes">
+				<exemplarCity>Vincennes</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Petersburg">
+				<exemplarCity>Petersburg</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Tell_City">
+				<exemplarCity>Tell City</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Knox">
+				<exemplarCity>Knox</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Winamac">
+				<exemplarCity>Winamac</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Marengo">
+				<exemplarCity>Marengo</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Vevay">
+				<exemplarCity>Vevay</exemplarCity>
+			</zone>
+			<zone type="America/Kentucky/Monticello">
+				<exemplarCity>Monticello</exemplarCity>
 			</zone>
 			<zone type="Asia/Tashkent">
 				<exemplarCity>Taškent</exemplarCity>
@@ -1006,12 +1089,34 @@
 			<zone type="Asia/Saigon">
 				<exemplarCity>Sajgon</exemplarCity>
 			</zone>
+			<metazone type="Europe_Central">
+				<long>
+					<standard>Srednjeevropski čas</standard>
+					<daylight>Srednjeevropski poletni čas</daylight>
+				</long>
+			</metazone>
+			<metazone type="Europe_Eastern">
+				<long>
+					<standard>Vzhodnoevropski čas</standard>
+					<daylight>Vzhodnoevropski poletni čas</daylight>
+				</long>
+			</metazone>
 		</timeZoneNames>
 	</dates>
 	<numbers>
 		<symbols>
 			<decimal>,</decimal>
 			<group>.</group>
+			<list>;</list>
+			<percentSign>%</percentSign>
+			<nativeZeroDigit>0</nativeZeroDigit>
+			<patternDigit>#</patternDigit>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+			<exponential>E</exponential>
+			<perMille>‰</perMille>
+			<infinity>∞</infinity>
+			<nan>NaN</nan>
 		</symbols>
 		<decimalFormats>
 			<decimalFormatLength>
@@ -1037,7 +1142,7 @@
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>#,##0.00 ¤</pattern>
+					<pattern>#,##0.00 ¤</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 		</currencyFormats>
@@ -1222,6 +1327,50 @@
 			</currency>
 		</currencies>
 	</numbers>
+	<units>
+		<unit type="day">
+			<unitPattern count="few">{0} dnevi</unitPattern>
+			<unitPattern count="one">{0} dan</unitPattern>
+			<unitPattern count="other">{0} dni</unitPattern>
+			<unitPattern count="two">{0} dni</unitPattern>
+		</unit>
+		<unit type="hour">
+			<unitPattern count="few">{0} ure</unitPattern>
+			<unitPattern count="one">{0} ura</unitPattern>
+			<unitPattern count="other">{0} ur</unitPattern>
+			<unitPattern count="two">{0} uri</unitPattern>
+		</unit>
+		<unit type="minute">
+			<unitPattern count="few">{0} minute</unitPattern>
+			<unitPattern count="one">{0} minuta</unitPattern>
+			<unitPattern count="other">{0} minut</unitPattern>
+			<unitPattern count="two">{0} minuti</unitPattern>
+		</unit>
+		<unit type="month">
+			<unitPattern count="few">{0} meseci</unitPattern>
+			<unitPattern count="one">{0} mesec</unitPattern>
+			<unitPattern count="other">{0} meseci</unitPattern>
+			<unitPattern count="two">{0} meseca</unitPattern>
+		</unit>
+		<unit type="second">
+			<unitPattern count="few">{0} sekunde</unitPattern>
+			<unitPattern count="one">{0} sekunda</unitPattern>
+			<unitPattern count="other">{0} sekund</unitPattern>
+			<unitPattern count="two">{0} sekundi</unitPattern>
+		</unit>
+		<unit type="week">
+			<unitPattern count="few">{0} tedni</unitPattern>
+			<unitPattern count="one">{0} teden</unitPattern>
+			<unitPattern count="other">{0} tednov</unitPattern>
+			<unitPattern count="two">{0} tedna</unitPattern>
+		</unit>
+		<unit type="year">
+			<unitPattern count="few">{0} leta</unitPattern>
+			<unitPattern count="one">{0} leto</unitPattern>
+			<unitPattern count="other">{0} let</unitPattern>
+			<unitPattern count="two">{0} leti</unitPattern>
+		</unit>
+	</units>
 	<posix>
 		<messages>
 			<yesstr>da:d:ja:j</yesstr>

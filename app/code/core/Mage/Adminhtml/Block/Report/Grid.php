@@ -55,6 +55,11 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     protected $_errors = array();
 
+    /**
+     * stores current currency code
+     */
+    protected $_currentCurrencyCode = null;
+
     public function __construct()
     {
         parent::__construct();
@@ -560,5 +565,26 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     public function getErrors()
     {
         return $this->_errors;
+    }
+
+    /**
+     * Retrieve correct currency code for select website, store, group
+     *
+     * @return string
+     */
+    public function getCurrentCurrencyCode()
+    {
+        if (is_null($this->_currentCurrencyCode)) {
+            if ($this->getRequest()->getParam('store')) {
+                $this->_currentCurrencyCode = Mage::app()->getStore($this->getRequest()->getParam('store'))->getBaseCurrencyCode();
+            } else if ($this->getRequest()->getParam('website')){
+                $this->_currentCurrencyCode = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getBaseCurrencyCode();
+            } else if ($this->getRequest()->getParam('group')){
+                $this->_currentCurrencyCode =  Mage::app()->getGroup($this->getRequest()->getParam('group'))->getWebsite()->getBaseCurrencyCode();
+            } else {
+                $this->_currentCurrencyCode = Mage::app()->getStore()->getBaseCurrencyCode();
+            }
+        }
+        return $this->_currentCurrencyCode;
     }
 }

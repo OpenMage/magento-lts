@@ -60,6 +60,13 @@ class Zend_Db_Table_Select extends Zend_Db_Select
     protected $_integrityCheck = true;
 
     /**
+     * Table instance that created this select object
+     *
+     * @var Zend_Db_Table_Abstract
+     */
+    protected $_table;
+    
+    /**
      * Class constructor
      *
      * @param Zend_Db_Table_Abstract $adapter
@@ -71,6 +78,16 @@ class Zend_Db_Table_Select extends Zend_Db_Select
     }
 
     /**
+     * Return the table that created this select object
+     *
+     * @return Zend_Db_Table_Abstract
+     */
+    public function getTable()
+    {
+        return $this->_table;
+    }
+    
+    /**
      * Sets the primary table name and retrieves the table schema.
      *
      * @param Zend_Db_Table_Abstract $adapter
@@ -80,6 +97,8 @@ class Zend_Db_Table_Select extends Zend_Db_Select
     {
         $this->_adapter = $table->getAdapter();
         $this->_info    = $table->info();
+        $this->_table   = $table;
+        
         return $this;
     }
 
@@ -167,7 +186,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
      *
      * @return string This object as a SELECT string.
      */
-    public function __toString()
+    public function assemble()
     {
         $fields  = $this->getPart(Zend_Db_Table_Select::COLUMNS);
         $primary = $this->_info[Zend_Db_Table_Abstract::NAME];
@@ -188,13 +207,13 @@ class Zend_Db_Table_Select extends Zend_Db_Select
                 // Check each column to ensure it only references the primary table
                 if ($column) {
                     if (!isset($from[$table]) || $from[$table]['tableName'] != $primary) {
-                        trigger_error("Select query cannot join with another table", E_USER_WARNING);
-                        return '';
+                        #require_once 'Zend/Db/Table/Select/Exception.php';
+                        throw new Zend_Db_Table_Select_Exception('Select query cannot join with another table');
                     }
                 }
             }
         }
 
-        return parent::__toString();
+        return parent::assemble();
     }
 }

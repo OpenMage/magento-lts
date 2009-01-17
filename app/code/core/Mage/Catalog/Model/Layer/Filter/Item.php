@@ -27,31 +27,44 @@
 /**
  * Filter item model
  *
- * @category   Mage
- * @package    Mage_Catalog
+ * @category    Mage
+ * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
 {
     /**
      * Get filter instance
+     *
      * @return Mage_Catalog_Model_Layer_Filter_Abstract
      */
     public function getFilter()
     {
         $filter = $this->getData('filter');
         if (!is_object($filter)) {
-            Mage::throwException(Mage::helper('catalog')->__('Filter must be as object. Set correct filter please'));
+            Mage::throwException(
+                Mage::helper('catalog')->__('Filter must be as object. Set correct filter please')
+            );
         }
         return $filter;
     }
 
+    /**
+     * Get filter item url
+     *
+     * @return string
+     */
     public function getUrl()
     {
         $query = array($this->getFilter()->getRequestVar()=>$this->getValue());
         return Mage::getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true, '_query'=>$query));
     }
 
+    /**
+     * Get url for remove item from filter
+     *
+     * @return string
+     */
     public function getRemoveUrl()
     {
         $query = array($this->getFilter()->getRequestVar()=>$this->getFilter()->getResetValue());
@@ -62,8 +75,27 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
         return Mage::getUrl('*/*/*', $params);
     }
 
+    /**
+     * Get item filter name
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->getFilter()->getName();
+    }
+
+    /**
+     * Get item value as string
+     *
+     * @return string
+     */
+    public function getValueString()
+    {
+        $value = $this->getValue();
+        if (is_array($value)) {
+            return implode(',', $value);
+        }
+        return $value;
     }
 }

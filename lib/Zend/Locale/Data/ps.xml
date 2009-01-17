@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.50 $"/>
-		<generation date="$Date: 2007/07/21 15:33:36 $"/>
+		<version number="$Revision: 1.53 $"/>
+		<generation date="$Date: 2008/06/15 08:09:47 $"/>
 		<language type="ps"/>
 	</identity>
+	<fallback>fa_AF</fallback>
 	<localeDisplayNames>
 		<languages>
 			<language type="af">افريکاني</language>
@@ -419,7 +420,7 @@
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>#,##0.00 ¤</pattern>
+					<pattern>#,##0.00 ¤</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 		</currencyFormats>

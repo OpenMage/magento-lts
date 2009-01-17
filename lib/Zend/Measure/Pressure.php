@@ -12,23 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Pressure.php 8064 2008-02-16 10:58:39Z thomas $
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @category  Zend
+ * @package   Zend_Measure
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @version   $Id: Pressure.php 13209 2008-12-13 22:34:06Z thomas $
  */
-
 
 /**
  * Implement needed classes
  */
-#require_once 'Zend/Measure/Exception.php';
 #require_once 'Zend/Measure/Abstract.php';
 #require_once 'Zend/Locale.php';
 
-
 /**
+ * Class for handling pressure conversions
+ *
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Pressure
@@ -37,111 +36,115 @@
  */
 class Zend_Measure_Pressure extends Zend_Measure_Abstract
 {
-    // Pressure definitions
     const STANDARD = 'NEWTON_PER_SQUARE_METER';
 
-    const ATMOSPHERE            = 'ATMOSPHERE';
-    const ATMOSPHERE_TECHNICAL  = 'ATMOSPHERE_TECHNICAL';
-    const ATTOBAR               = 'ATTOBAR';
-    const ATTOPASCAL            = 'ATTOPASCAL';
-    const BAR                   = 'BAR';
-    const BARAD                 = 'BARAD';
-    const BARYE                 = 'BARYE';
-    const CENTIBAR              = 'CENTIBAR';
-    const CENTIHG               = 'CENTIHG';
-    const CENTIMETER_MERCURY_0C = 'CENTIMETER_MERCURY_0C';
-    const CENTIMETER_WATER_4C   = 'CENTIMETER_WATER_4C';
-    const CENTIPASCAL           = 'CENTIPASCAL';
-    const CENTITORR             = 'CENTITORR';
-    const DECIBAR               = 'DECIBAR';
-    const DECIPASCAL            = 'DECIPASCAL';
-    const DECITORR              = 'DECITORR';
-    const DEKABAR               = 'DEKABAR';
-    const DEKAPASCAL            = 'DEKAPASCAL';
-    const DYNE_PER_SQUARE_CENTIMETER = 'DYNE_PER_SQUARE_CENTIMETER';
-    const EXABAR                = 'EXABAR';
-    const EXAPASCAL             = 'EXAPASCAL';
-    const FEMTOBAR              = 'FEMTOBAR';
-    const FEMTOPASCAL           = 'FEMTOPASCAL';
-    const FOOT_AIR_0C           = 'FOOT_AIR_0C';
-    const FOOT_AIR_15C          = 'FOOT_AIR_15C';
-    const FOOT_HEAD             = 'FOOT_HEAD';
-    const FOOT_MERCURY_0C       = 'FOOT_MERCURY_0C';
-    const FOOT_WATER_4C         = 'FOOT_WATER_4C';
-    const GIGABAR               = 'GIGABAR';
-    const GIGAPASCAL            = 'GIGAPASCAL';
-    const GRAM_FORCE_SQUARE_CENTIMETER = 'GRAM_FORCE_SQUARE_CENTIMETER';
-    const HECTOBAR              = 'HECTOBAR';
-    const HECTOPASCAL           = 'HECTOPASCAL';
-    const INCH_AIR_0C           = 'INCH_AIR_0C';
-    const INCH_AIR_15C          = 'INCH_AIR_15C';
-    const INCH_MERCURY_0C       = 'INCH_MERCURY_0C';
-    const INCH_WATER_4C         = 'INCH_WATER_4C';
-    const KILOBAR               = 'KILOBAR';
+    const ATMOSPHERE                           = 'ATMOSPHERE';
+    const ATMOSPHERE_TECHNICAL                 = 'ATMOSPHERE_TECHNICAL';
+    const ATTOBAR                              = 'ATTOBAR';
+    const ATTOPASCAL                           = 'ATTOPASCAL';
+    const BAR                                  = 'BAR';
+    const BARAD                                = 'BARAD';
+    const BARYE                                = 'BARYE';
+    const CENTIBAR                             = 'CENTIBAR';
+    const CENTIHG                              = 'CENTIHG';
+    const CENTIMETER_MERCURY_0C                = 'CENTIMETER_MERCURY_0C';
+    const CENTIMETER_WATER_4C                  = 'CENTIMETER_WATER_4C';
+    const CENTIPASCAL                          = 'CENTIPASCAL';
+    const CENTITORR                            = 'CENTITORR';
+    const DECIBAR                              = 'DECIBAR';
+    const DECIPASCAL                           = 'DECIPASCAL';
+    const DECITORR                             = 'DECITORR';
+    const DEKABAR                              = 'DEKABAR';
+    const DEKAPASCAL                           = 'DEKAPASCAL';
+    const DYNE_PER_SQUARE_CENTIMETER           = 'DYNE_PER_SQUARE_CENTIMETER';
+    const EXABAR                               = 'EXABAR';
+    const EXAPASCAL                            = 'EXAPASCAL';
+    const FEMTOBAR                             = 'FEMTOBAR';
+    const FEMTOPASCAL                          = 'FEMTOPASCAL';
+    const FOOT_AIR_0C                          = 'FOOT_AIR_0C';
+    const FOOT_AIR_15C                         = 'FOOT_AIR_15C';
+    const FOOT_HEAD                            = 'FOOT_HEAD';
+    const FOOT_MERCURY_0C                      = 'FOOT_MERCURY_0C';
+    const FOOT_WATER_4C                        = 'FOOT_WATER_4C';
+    const GIGABAR                              = 'GIGABAR';
+    const GIGAPASCAL                           = 'GIGAPASCAL';
+    const GRAM_FORCE_SQUARE_CENTIMETER         = 'GRAM_FORCE_SQUARE_CENTIMETER';
+    const HECTOBAR                             = 'HECTOBAR';
+    const HECTOPASCAL                          = 'HECTOPASCAL';
+    const INCH_AIR_0C                          = 'INCH_AIR_0C';
+    const INCH_AIR_15C                         = 'INCH_AIR_15C';
+    const INCH_MERCURY_0C                      = 'INCH_MERCURY_0C';
+    const INCH_WATER_4C                        = 'INCH_WATER_4C';
+    const KILOBAR                              = 'KILOBAR';
     const KILOGRAM_FORCE_PER_SQUARE_CENTIMETER = 'KILOGRAM_FORCE_PER_SQUARE_CENTIMETER';
     const KILOGRAM_FORCE_PER_SQUARE_METER      = 'KILOGRAM_FORCE_PER_SQUARE_METER';
     const KILOGRAM_FORCE_PER_SQUARE_MILLIMETER = 'KILOGRAM_FORCE_PER_SQUARE_MILLIMETER';
     const KILONEWTON_PER_SQUARE_METER          = 'KILONEWTON_PER_SQUARE_METER';
-    const KILOPASCAL            = 'KILOPASCAL';
+    const KILOPASCAL                           = 'KILOPASCAL';
     const KILOPOND_PER_SQUARE_CENTIMETER       = 'KILOPOND_PER_SQUARE_CENTIMETER';
     const KILOPOND_PER_SQUARE_METER            = 'KILOPOND_PER_SQUARE_METER';
     const KILOPOND_PER_SQUARE_MILLIMETER       = 'KILOPOND_PER_SQUARE_MILLIMETER';
-    const KIP_PER_SQUARE_FOOT   = 'KIP_PER_SQUARE_FOOT';
-    const KIP_PER_SQUARE_INCH   = 'KIP_PER_SQUARE_INCH';
-    const MEGABAR               = 'MEGABAR';
-    const MEGANEWTON_PER_SQUARE_METER = 'MEGANEWTON_PER_SQUARE_METER';
-    const MEGAPASCAL            = 'MEGAPASCAL';
-    const METER_AIR_0C          = 'METER_AIR_0C';
-    const METER_AIR_15C         = 'METER_AIR_15C';
-    const METER_HEAD            = 'METER_HEAD';
-    const MICROBAR              = 'MICROBAR';
-    const MICROMETER_MERCURY_0C = 'MICROMETER_MERCURY_0C';
-    const MICROMETER_WATER_4C   = 'MICROMETER_WATER_4C';
-    const MICRON_MERCURY_0C     = 'MICRON_MERCURY_0C';
-    const MICROPASCAL           = 'MICROPASCAL';
-    const MILLIBAR              = 'MILLIBAR';
-    const MILLIHG               = 'MILLIHG';
-    const MILLIMETER_MERCURY_0C = 'MILLIMETER_MERCURY_0C';
-    const MILLIMETER_WATER_4C   = 'MILLIMETER_WATER_4C';
-    const MILLIPASCAL           = 'MILLIPASCAL';
-    const MILLITORR             = 'MILLITORR';
-    const NANOBAR               = 'NANOBAR';
-    const NANOPASCAL            = 'NANOPASCAL';
-    const NEWTON_PER_SQUARE_METER   = 'NEWTON_PER_SQUARE_METER';
-    const NEWTON_PER_SQUARE_MILLIMETER = 'NEWTON_PER_SQUARE_MILLIMETER';
-    const OUNCE_PER_SQUARE_INCH = 'OUNCE_PER_SQUARE_INCH';
-    const PASCAL                = 'PASCAL';
-    const PETABAR               = 'PETABAR';
-    const PETAPASCAL            = 'PETAPASCAL';
-    const PICOBAR               = 'PICOBAR';
-    const PICOPASCAL            = 'PICOPASCAL';
-    const PIEZE                 = 'PIEZE';
-    const POUND_PER_SQUARE_FOOT = 'POUND_PER_SQUARE_FOOT';
-    const POUND_PER_SQUARE_INCH = 'POUND_PER_SQUARE_INCH';
-    const POUNDAL_PER_SQUARE_FOOT   = 'POUNDAL_PER_SQUARE_FOOT';
-    const STHENE_PER_SQUARE_METER   = 'STHENE_PER_SQUARE_METER';
-    const TECHNICAL_ATMOSPHERE  = 'TECHNICAL_ATMOSPHERE';
-    const TERABAR               = 'TERABAR';
-    const TERAPASCAL            = 'TERAPASCAL';
-    const TON_PER_SQUARE_FOOT   = 'TON_PER_SQUARE_FOOT';
-    const TON_PER_SQUARE_FOOT_SHORT = 'TON_PER_SQUARE_FOOT_SHORT';
-    const TON_PER_SQUARE_INCH   = 'TON_PER_SQUARE_INCH';
-    const TON_PER_SQUARE_INCH_SHORT = 'TON_PER_SQUARE_INCH_SHORT';
-    const TON_PER_SQUARE_METER  = 'TON_PER_SQUARE_METER';
-    const TORR                  = 'TORR';
-    const WATER_COLUMN_CENTIMETER = 'WATER_COLUMN_CENTIMETER';
-    const WATER_COLUMN_INCH       = 'WATER_COLUMN_INCH';
-    const WATER_COLUMN_MILLIMETER = 'WATER_COLUMN_MILLIMETER';
-    const YOCTOBAR              = 'YOCTOBAR';
-    const YOCTOPASCAL           = 'YOCTOPASCAL';
-    const YOTTABAR              = 'YOTTABAR';
-    const YOTTAPASCAL           = 'YOTTAPASCAL';
-    const ZEPTOBAR              = 'ZEPTOBAR';
-    const ZEPTOPASCAL           = 'ZEPTOPASCAL';
-    const ZETTABAR              = 'ZETTABAR';
-    const ZETTAPASCAL           = 'ZETTAPASCAL';
+    const KIP_PER_SQUARE_FOOT                  = 'KIP_PER_SQUARE_FOOT';
+    const KIP_PER_SQUARE_INCH                  = 'KIP_PER_SQUARE_INCH';
+    const MEGABAR                              = 'MEGABAR';
+    const MEGANEWTON_PER_SQUARE_METER          = 'MEGANEWTON_PER_SQUARE_METER';
+    const MEGAPASCAL                           = 'MEGAPASCAL';
+    const METER_AIR_0C                         = 'METER_AIR_0C';
+    const METER_AIR_15C                        = 'METER_AIR_15C';
+    const METER_HEAD                           = 'METER_HEAD';
+    const MICROBAR                             = 'MICROBAR';
+    const MICROMETER_MERCURY_0C                = 'MICROMETER_MERCURY_0C';
+    const MICROMETER_WATER_4C                  = 'MICROMETER_WATER_4C';
+    const MICRON_MERCURY_0C                    = 'MICRON_MERCURY_0C';
+    const MICROPASCAL                          = 'MICROPASCAL';
+    const MILLIBAR                             = 'MILLIBAR';
+    const MILLIHG                              = 'MILLIHG';
+    const MILLIMETER_MERCURY_0C                = 'MILLIMETER_MERCURY_0C';
+    const MILLIMETER_WATER_4C                  = 'MILLIMETER_WATER_4C';
+    const MILLIPASCAL                          = 'MILLIPASCAL';
+    const MILLITORR                            = 'MILLITORR';
+    const NANOBAR                              = 'NANOBAR';
+    const NANOPASCAL                           = 'NANOPASCAL';
+    const NEWTON_PER_SQUARE_METER              = 'NEWTON_PER_SQUARE_METER';
+    const NEWTON_PER_SQUARE_MILLIMETER         = 'NEWTON_PER_SQUARE_MILLIMETER';
+    const OUNCE_PER_SQUARE_INCH                = 'OUNCE_PER_SQUARE_INCH';
+    const PASCAL                               = 'PASCAL';
+    const PETABAR                              = 'PETABAR';
+    const PETAPASCAL                           = 'PETAPASCAL';
+    const PICOBAR                              = 'PICOBAR';
+    const PICOPASCAL                           = 'PICOPASCAL';
+    const PIEZE                                = 'PIEZE';
+    const POUND_PER_SQUARE_FOOT                = 'POUND_PER_SQUARE_FOOT';
+    const POUND_PER_SQUARE_INCH                = 'POUND_PER_SQUARE_INCH';
+    const POUNDAL_PER_SQUARE_FOOT              = 'POUNDAL_PER_SQUARE_FOOT';
+    const STHENE_PER_SQUARE_METER              = 'STHENE_PER_SQUARE_METER';
+    const TECHNICAL_ATMOSPHERE                 = 'TECHNICAL_ATMOSPHERE';
+    const TERABAR                              = 'TERABAR';
+    const TERAPASCAL                           = 'TERAPASCAL';
+    const TON_PER_SQUARE_FOOT                  = 'TON_PER_SQUARE_FOOT';
+    const TON_PER_SQUARE_FOOT_SHORT            = 'TON_PER_SQUARE_FOOT_SHORT';
+    const TON_PER_SQUARE_INCH                  = 'TON_PER_SQUARE_INCH';
+    const TON_PER_SQUARE_INCH_SHORT            = 'TON_PER_SQUARE_INCH_SHORT';
+    const TON_PER_SQUARE_METER                 = 'TON_PER_SQUARE_METER';
+    const TORR                                 = 'TORR';
+    const WATER_COLUMN_CENTIMETER              = 'WATER_COLUMN_CENTIMETER';
+    const WATER_COLUMN_INCH                    = 'WATER_COLUMN_INCH';
+    const WATER_COLUMN_MILLIMETER              = 'WATER_COLUMN_MILLIMETER';
+    const YOCTOBAR                             = 'YOCTOBAR';
+    const YOCTOPASCAL                          = 'YOCTOPASCAL';
+    const YOTTABAR                             = 'YOTTABAR';
+    const YOTTAPASCAL                          = 'YOTTAPASCAL';
+    const ZEPTOBAR                             = 'ZEPTOBAR';
+    const ZEPTOPASCAL                          = 'ZEPTOPASCAL';
+    const ZETTABAR                             = 'ZETTABAR';
+    const ZETTAPASCAL                          = 'ZETTAPASCAL';
 
-    protected $_UNITS = array(
+    /**
+     * Calculations for all pressure units
+     *
+     * @var array
+     */
+    protected $_units = array(
         'ATMOSPHERE'            => array('101325.01', 'atm'),
         'ATMOSPHERE_TECHNICAL'  => array('98066.5',   'atm'),
         'ATTOBAR'               => array('1.0e-13',   'ab'),

@@ -59,7 +59,7 @@ TranslateInline.prototype = {
     trigShow: function (el) {
         this.trigHideClear();
 
-        var p = Position.cumulativeOffset(el);
+        var p = Element.cumulativeOffset(el);
 
         this.trigEl.style.left = p[0]+'px';
         this.trigEl.style.top = p[1]+'px';

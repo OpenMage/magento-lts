@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Photos
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -55,34 +56,35 @@
 #require_once 'Zend/Gdata/Photos/CommentEntry.php';
 
 /**
- * Data model for a collection of entries for a specific user, usually 
+ * Data model for a collection of entries for a specific user, usually
  * provided by the servers.
- * 
+ *
  * For information on requesting this feed from a server, see the
  * service class, Zend_Gdata_Photos.
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage Photos
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Photos_UserFeed extends Zend_Gdata_Feed
 {
-    
+
     /**
      * gphoto:user element
      *
      * @var Zend_Gdata_Photos_Extension_User
      */
     protected $_gphotoUser = null;
-    
+
     /**
      * gphoto:thumbnail element
      *
      * @var Zend_Gdata_Photos_Extension_Thumbnail
      */
     protected $_gphotoThumbnail = null;
-    
+
     /**
      * gphoto:nickname element
      *
@@ -102,12 +104,10 @@ class Zend_Gdata_Photos_UserFeed extends Zend_Gdata_Feed
 
     public function __construct($element = null)
     {
-        foreach (Zend_Gdata_Photos::$namespaces as $nsPrefix => $nsUri) {
-            $this->registerNamespace($nsPrefix, $nsUri);
-        }
+        $this->registerAllNamespaces(Zend_Gdata_Photos::$namespaces);
         parent::__construct($element);
     }
-    
+
     /**
      * Creates individual Entry objects of the appropriate type and
      * stores them in the $_entry array based upon DOM data.
@@ -147,7 +147,7 @@ class Zend_Gdata_Photos_UserFeed extends Zend_Gdata_Feed
                         throw new Zend_Gdata_App_Exception('Entry is missing kind declaration.');
                     }
                 }
-                
+
                 $newEntry = new $entryClassName($child);
                 $newEntry->setHttpClient($this->getHttpClient());
                 $this->_entry[] = $newEntry;
@@ -158,9 +158,9 @@ class Zend_Gdata_Photos_UserFeed extends Zend_Gdata_Feed
         }
     }
 
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
         if ($this->_gphotoUser != null) {
             $element->appendChild($this->_gphotoUser->getDOM($element->ownerDocument));
         }
@@ -173,7 +173,7 @@ class Zend_Gdata_Photos_UserFeed extends Zend_Gdata_Feed
 
         return $element;
     }
-    
+
     /**
      * Get the value for this element's gphoto:user attribute.
      *
@@ -184,7 +184,7 @@ class Zend_Gdata_Photos_UserFeed extends Zend_Gdata_Feed
     {
         return $this->_gphotoUser;
     }
-    
+
     /**
      * Set the value for this element's gphoto:user attribute.
      *
@@ -207,7 +207,7 @@ class Zend_Gdata_Photos_UserFeed extends Zend_Gdata_Feed
     {
         return $this->_gphotoNickname;
     }
-    
+
     /**
      * Set the value for this element's gphoto:nickname attribute.
      *
@@ -230,7 +230,7 @@ class Zend_Gdata_Photos_UserFeed extends Zend_Gdata_Feed
     {
         return $this->_gphotoThumbnail;
     }
-    
+
     /**
      * Set the value for this element's gphoto:thumbnail attribute.
      *
@@ -242,5 +242,5 @@ class Zend_Gdata_Photos_UserFeed extends Zend_Gdata_Feed
         $this->_gphotoThumbnail = $value;
         return $this;
     }
-    
+
 }

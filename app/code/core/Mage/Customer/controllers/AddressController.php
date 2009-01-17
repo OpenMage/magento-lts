@@ -62,7 +62,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
             $this->loadLayout();
             $this->_initLayoutMessages('customer/session');
             $this->_initLayoutMessages('catalog/session');
-            
+
             if ($block = $this->getLayout()->getBlock('address_book')) {
                 $block->setRefererUrl($this->_getRefererUrl());
             }
@@ -98,6 +98,9 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
 
     public function formPostAction()
     {
+        if (!$this->_validateFormKey()) {
+            return $this->_redirect('*/*/');
+        }
         // Save data
         if ($this->getRequest()->isPost()) {
             $address = Mage::getModel('customer/address')

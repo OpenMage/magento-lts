@@ -29,6 +29,7 @@
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <form action="<?php echo $this->getSendUrl() ?>" id="form-validate" method="post">
+<?php echo $this->getBlockHtml('formkey')?>
 <fieldset class="group-select">
     <h4 class="legend"><?php echo $this->__('Sharing Information') ?></h4>
     <ul class="form-list">

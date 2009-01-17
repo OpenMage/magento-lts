@@ -39,7 +39,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         $this->getLayout()->createBlock('catalog/breadcrumbs');
         if ($headBlock = $this->getLayout()->getBlock('head')) {
             if ($title = $this->getProduct()->getMetaTitle()) {
-                $headBlock->setTitle($title.' '.Mage::getStoreConfig('catalog/seo/title_separator').' '.Mage::getStoreConfig('system/store/name'));
+                $headBlock->setTitle($title);
             }
 
             if ($keyword = $this->getProduct()->getMetaKeyword()) {
@@ -111,18 +111,30 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         }
 
         $config = array(
-            'productId'      => $this->getProduct()->getId(),
-            'priceFormat'    => Mage::app()->getLocale()->getJsPriceFormat(),
-            'includeTax'     => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false',
-            'showIncludeTax' => Mage::helper('tax')->displayPriceIncludingTax(),
-            'showBothPrices' => Mage::helper('tax')->displayBothPrices(),
-            'productPrice'   => Mage::helper('core')->currency($_finalPrice, false, false),
-            'productOldPrice'=> Mage::helper('core')->currency($_regularPrice, false, false),
-            'skipCalculate'  => ($_priceExclTax != $_priceInclTax ? 0 : 1),
-            'defaultTax'     => $defaultTax,
-            'currentTax'     => $currentTax,
-            'idSuffix'       => $idSuffix
+            'productId'           => $this->getProduct()->getId(),
+            'priceFormat'         => Mage::app()->getLocale()->getJsPriceFormat(),
+            'includeTax'          => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false',
+            'showIncludeTax'      => Mage::helper('tax')->displayPriceIncludingTax(),
+            'showBothPrices'      => Mage::helper('tax')->displayBothPrices(),
+            'productPrice'        => Mage::helper('core')->currency($_finalPrice, false, false),
+            'productOldPrice'     => Mage::helper('core')->currency($_regularPrice, false, false),
+            'skipCalculate'       => ($_priceExclTax != $_priceInclTax ? 0 : 1),
+            'defaultTax'          => $defaultTax,
+            'currentTax'          => $currentTax,
+            'idSuffix'            => $idSuffix,
+            'oldPlusDisposition'  => 0,
+            'plusDisposition'     => 0,
+            'oldMinusDisposition' => 0,
+            'minusDisposition'    => 0,
         );
+
+		$responseObject = new Varien_Object();
+		Mage::dispatchEvent('catalog_product_view_config', array('response_object'=>$responseObject));
+		if (is_array($responseObject->getAdditionalOptions())) {
+			foreach ($responseObject->getAdditionalOptions() as $option=>$value) {
+				$config[$option] = $value;
+			}
+		}
 
         return Zend_Json::encode($config);
     }

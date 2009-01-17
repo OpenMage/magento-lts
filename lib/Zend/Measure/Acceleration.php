@@ -12,23 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Acceleration.php 8064 2008-02-16 10:58:39Z thomas $
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @category  Zend
+ * @package   Zend_Measure
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @version   $Id: Acceleration.php 13209 2008-12-13 22:34:06Z thomas $
  */
 
 
 /**
  * Implement needed classes
  */
-#require_once 'Zend/Measure/Exception.php';
 #require_once 'Zend/Measure/Abstract.php';
 #require_once 'Zend/Locale.php';
 
-
 /**
+ * Class for handling acceleration conversions
+ *
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Acceleration
@@ -37,31 +37,35 @@
  */
 class Zend_Measure_Acceleration extends Zend_Measure_Abstract
 {
-    // Acceleration definitions
     const STANDARD = 'METER_PER_SQUARE_SECOND';
 
-    const CENTIGAL                     = 'CENTIGAL';                 // Metric
-    const CENTIMETER_PER_SQUARE_SECOND = 'CENTIMETER_PER_SQUARE_SECOND'; // Metric
-    const DECIGAL                      = 'DECIGAL';                  // Metric
-    const DECIMETER_PER_SQUARE_SECOND  = 'DECIMETER_PER_SQUARE_SECOND';  // Metric
-    const DEKAMETER_PER_SQUARE_SECOND  = 'DEKAMETER_PER_SQUARE_SECOND';  // Metric
-    const FOOT_PER_SQUARE_SECOND       = 'FOOT_PER_SQUARE_SECOND';       // US
-    const G                            = 'G';                        // Gravity
-    const GAL                          = 'GAL';                      // Metric = 1cm/s²
-    const GALILEO                      = 'GALILEO';                  // Metric = 1cm/s²
-    const GRAV                         = 'GRAV';                     // Gravity
-    const HECTOMETER_PER_SQUARE_SECOND = 'HECTOMETER_PER_SQUARE_SECOND'; // Metric
-    const INCH_PER_SQUARE_SECOND       = 'INCH_PER_SQUARE_SECOND';       // US
-    const KILOMETER_PER_HOUR_SECOND    = 'KILOMETER_PER_HOUR_SECOND';    // Metric
-    const KILOMETER_PER_SQUARE_SECOND  = 'KILOMETER_PER_SQUARE_SECOND';  // Metric
-    const METER_PER_SQUARE_SECOND      = 'METER_PER_SQUARE_SECOND';      // Metric
-    const MILE_PER_HOUR_MINUTE         = 'MILE_PER_HOUR_MINUTE';         // US
-    const MILE_PER_HOUR_SECOND         = 'MILE_PER_HOUR_SECOND';         // US
-    const MILE_PER_SQUARE_SECOND       = 'MILE_PER_SQUARE_SECOND';       // US
-    const MILLIGAL                     = 'MILLIGAL';                 // Metric
-    const MILLIMETER_PER_SQUARE_SECOND = 'MILLIMETER_PER_SQUARE_SECOND'; // Metric
+    const CENTIGAL                     = 'CENTIGAL';
+    const CENTIMETER_PER_SQUARE_SECOND = 'CENTIMETER_PER_SQUARE_SECOND';
+    const DECIGAL                      = 'DECIGAL';
+    const DECIMETER_PER_SQUARE_SECOND  = 'DECIMETER_PER_SQUARE_SECOND';
+    const DEKAMETER_PER_SQUARE_SECOND  = 'DEKAMETER_PER_SQUARE_SECOND';
+    const FOOT_PER_SQUARE_SECOND       = 'FOOT_PER_SQUARE_SECOND';
+    const G                            = 'G';
+    const GAL                          = 'GAL';
+    const GALILEO                      = 'GALILEO';
+    const GRAV                         = 'GRAV';
+    const HECTOMETER_PER_SQUARE_SECOND = 'HECTOMETER_PER_SQUARE_SECOND';
+    const INCH_PER_SQUARE_SECOND       = 'INCH_PER_SQUARE_SECOND';
+    const KILOMETER_PER_HOUR_SECOND    = 'KILOMETER_PER_HOUR_SECOND';
+    const KILOMETER_PER_SQUARE_SECOND  = 'KILOMETER_PER_SQUARE_SECOND';
+    const METER_PER_SQUARE_SECOND      = 'METER_PER_SQUARE_SECOND';
+    const MILE_PER_HOUR_MINUTE         = 'MILE_PER_HOUR_MINUTE';
+    const MILE_PER_HOUR_SECOND         = 'MILE_PER_HOUR_SECOND';
+    const MILE_PER_SQUARE_SECOND       = 'MILE_PER_SQUARE_SECOND';
+    const MILLIGAL                     = 'MILLIGAL';
+    const MILLIMETER_PER_SQUARE_SECOND = 'MILLIMETER_PER_SQUARE_SECOND';
 
-    protected $_UNITS = array(
+    /**
+     * Calculations for all acceleration units
+     *
+     * @var array
+     */
+    protected $_units = array(
         'CENTIGAL'                     => array('0.0001',   'cgal'),
         'CENTIMETER_PER_SQUARE_SECOND' => array('0.01',     'cm/s²'),
         'DECIGAL'                      => array('0.001',    'dgal'),

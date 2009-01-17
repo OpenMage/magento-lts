@@ -15,6 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage App
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -54,6 +55,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
+ * @subpackage App
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -109,9 +111,9 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      */
     protected $_control = null;
 
-    public function getDOM($doc = null)
+    public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        $element = parent::getDOM($doc);
+        $element = parent::getDOM($doc, $majorVersion, $minorVersion);
         if ($this->_content != null) {
             $element->appendChild($this->_content->getDOM($element->ownerDocument));
         }
@@ -168,13 +170,22 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     /**
      * Uploads changes in this entry to the server using Zend_Gdata_App
      *
-     * @return Zend_Gdata_App_Entry The updated entry
+     * @param string|null $uri The URI to send requests to, or null if $data
+     *        contains the URI.
+     * @param string|null $className The name of the class that should we
+     *        deserializing the server response. If null, then
+     *        'Zend_Gdata_App_Entry' will be used.
+     * @param array $extraHeaders Extra headers to add to the request, as an
+     *        array of string-based key/value pairs.
+     * @return Zend_Gdata_App_Entry The updated entry.
      * @throws Zend_Gdata_App_Exception
      */
-    public function save()
+    public function save($uri = null, $className = null, $extraHeaders = array())
     {
-        $service = new Zend_Gdata_App($this->getHttpClient());
-        return $service->updateEntry($this);
+        return $this->getService()->updateEntry($this,
+                                                $uri,
+                                                $className,
+                                                $extraHeaders);
     }
 
     /**
@@ -187,8 +198,57 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      */
     public function delete()
     {
-        $service = new Zend_Gdata_App($this->getHttpClient());
-        $service->delete($this);
+        $this->getService()->delete($this);
+    }
+
+    /**
+     * Reload the current entry. Returns a new copy of the entry as returned
+     * by the server, or null if no changes exist. This does not
+     * modify the current entry instance.
+     *
+     * @param string|null The URI to send requests to, or null if $data
+     *        contains the URI.
+     * @param string|null The name of the class that should we deserializing
+     *        the server response. If null, then 'Zend_Gdata_App_Entry' will
+     *        be used.
+     * @param array $extraHeaders Extra headers to add to the request, as an
+     *        array of string-based key/value pairs.
+     * @return mixed A new instance of the current entry with updated data, or
+     *         null if the server reports that no changes have been made.
+     * @throws Zend_Gdata_App_Exception
+     */
+    public function reload($uri = null, $className = null, $extraHeaders = array())
+    {
+        // Get URI
+        $editLink = $this->getEditLink();
+        if (is_null($uri) && $editLink != null) {
+            $uri = $editLink->getHref();
+        }
+        
+        // Set classname to current class, if not otherwise set
+        if (is_null($className)) {
+            $className = get_class($this);
+        }
+        
+        // Append ETag, if present (Gdata v2 and above, only) and doesn't
+        // conflict with existing headers
+        if ($this->_etag != null
+                && !array_key_exists('If-Match', $extraHeaders)
+                && !array_key_exists('If-None-Match', $extraHeaders)) {
+            $extraHeaders['If-None-Match'] = $this->_etag;
+        }
+        
+        // If an HTTP 304 status (Not Modified)is returned, then we return
+        // null.
+        $result = null;
+        try {
+            $result = $this->service->importUrl($uri, $className, $extraHeaders);
+        } catch (Zend_Gdata_App_HttpException $e) {
+            if ($e->getResponse()->getStatus() != '304')
+                throw $e;
+        }
+        
+        return $result;
     }
 
     /**
@@ -304,4 +364,5 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
         $this->_control = $value;
         return $this;
     }
+
 }

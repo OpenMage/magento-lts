@@ -140,7 +140,7 @@ AdminOrder.prototype = {
             }
         }
 
-        data['order['+type+'_address][customer_address_id]'] = $('order:'+type+'_address_customer_address_id').value;
+        data['order['+type+'_address][customer_address_id]'] = $('order-'+type+'_address_customer_address_id').value;
 
         if (data['reset_shipping']) {
             this.resetShippingMethod(data);
@@ -184,8 +184,8 @@ AdminOrder.prototype = {
 
     disableShippingAddress : function(flag){
         this.shippingAsBilling = flag;
-        if($('order:shipping_address_customer_address_id')) {
-            $('order:shipping_address_customer_address_id').disabled=flag;
+        if($('order-shipping_address_customer_address_id')) {
+            $('order-shipping_address_customer_address_id').disabled=flag;
         }
         if($(this.shippingAddressContainer)){
             var dataFields = $(this.shippingAddressContainer).select('input', 'select');
@@ -215,7 +215,7 @@ AdminOrder.prototype = {
 
     loadShippingRates : function(){
         this.isShippingMethodReseted = false;
-        this.loadArea(['shipping_method'], true, {collect_shipping_rates: 1});
+        this.loadArea(['shipping_method', 'totals'], true, {collect_shipping_rates: 1});
     },
 
     setShippingMethod : function(method){
@@ -240,7 +240,7 @@ AdminOrder.prototype = {
         }
 
         if(!this.paymentMethod || method){
-            $('order:billing_method').select('input', 'select').each(function(elem){
+            $('order-billing_method').select('input', 'select').each(function(elem){
                 if(elem.type != 'radio') elem.disabled = true;
             })
         }
@@ -450,7 +450,7 @@ AdminOrder.prototype = {
     },
 
     itemsUpdate : function(){
-        var info = $('order:items_grid').select('input', 'select', 'textarea');
+        var info = $('order-items_grid').select('input', 'select', 'textarea');
         var data = {};
         for(var i=0; i<info.length; i++){
             if(!info[i].disabled && (info[i].type != 'checkbox' || info[i].checked)) {
@@ -464,7 +464,7 @@ AdminOrder.prototype = {
     },
 
     itemsOnchangeBind : function(){
-        var elems = $('order:items_grid').select('input', 'select', 'textarea');
+        var elems = $('order-items_grid').select('input', 'select', 'textarea');
         for(var i=0; i<elems.length; i++){
             if(!elems[i].bindOnchange){
                 elems[i].bindOnchange = true;
@@ -492,11 +492,11 @@ AdminOrder.prototype = {
     },
 
     accountGroupChange : function(){
-        this.loadArea(['data'], true, this.serializeData('order:form_account').toObject());
+        this.loadArea(['data'], true, this.serializeData('order-form_account').toObject());
     },
 
     accountFieldChange : function(){
-        this.saveData(this.serializeData('order:form_account'));
+        this.saveData(this.serializeData('order-form_account'));
     },
 
     commentFieldsBind : function(container){
@@ -508,7 +508,7 @@ AdminOrder.prototype = {
     },
 
     commentFieldChange : function(){
-        this.saveData(this.serializeData('order:comment'));
+        this.saveData(this.serializeData('order-comment'));
     },
 
     giftmessageFieldsBind : function(container){
@@ -520,7 +520,7 @@ AdminOrder.prototype = {
     },
 
     giftmessageFieldChange : function(){
-        this.saveData(this.serializeData('order:giftmessage'));
+        this.saveData(this.serializeData('order-giftmessage'));
     },
 
     loadArea : function(area, indicator, params){
@@ -589,7 +589,7 @@ AdminOrder.prototype = {
     },
 
     getAreaId : function(area){
-        return 'order:'+area;
+        return 'order-'+area;
     },
 
     prepareParams : function(params){
@@ -605,7 +605,10 @@ AdminOrder.prototype = {
         if (!params.currency_id) {
             params.currency_id = this.currencyId;
         }
-        var data = this.serializeData('order:billing_method');
+        if (!params.form_key) {
+            params.form_key = FORM_KEY;
+        }
+        var data = this.serializeData('order-billing_method');
         if (data) {
             data.each(function(value) {
                 params[value[0]] = value[1];

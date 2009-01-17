@@ -26,6 +26,12 @@
 
 class Mage_Catalog_Model_Observer
 {
+    /**
+     * Process catalog ata related with store data changes
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_Catalog_Model_Observer
+     */
     public function storeEdit($observer)
     {
         $store = $observer->getEvent()->getStore();
@@ -33,11 +39,22 @@ class Mage_Catalog_Model_Observer
         if ($store->dataHasChangedFor('group_id')) {
             Mage::app()->reinitStores();
             Mage::getModel('catalog/url')->refreshRewrites($store->getId());
+            Mage::getResourceModel('catalog/category')->refreshProductIndex(
+                array(),
+                array(),
+                array($store->getId())
+            );
+            Mage::getResourceSingleton('catalog/product')->refreshEnabledIndex($store);
         }
-        Mage::getResourceModel('catalog/product')->refreshEnabledIndex($store);
         return $this;
     }
 
+    /**
+     * Process catalog data related with new store
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_Catalog_Model_Observer
+     */
     public function storeAdd($observer)
     {
         $store = $observer->getEvent()->getStore();
@@ -45,38 +62,70 @@ class Mage_Catalog_Model_Observer
         Mage::app()->reinitStores();
         Mage::getConfig()->reinit();
         Mage::getModel('catalog/url')->refreshRewrites($store->getId());
+        Mage::getResourceSingleton('catalog/category')->refreshProductIndex(
+            array(),
+            array(),
+            array($store->getId())
+        );
         Mage::getResourceModel('catalog/product')->refreshEnabledIndex($store);
         return $this;
     }
 
+    /**
+     * Process catalog data related with store group root category
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_Catalog_Model_Observer
+     */
     public function storeGroupSave($observer)
     {
         $group = $observer->getEvent()->getGroup();
         /* @var $group Mage_Core_Model_Store_Group */
-        if ($group->dataHasChangedFor('root_category_id')) {
+        if ($group->dataHasChangedFor('root_category_id') || $group->dataHasChangedFor('website_id')) {
             Mage::app()->reinitStores();
             foreach ($group->getStores() as $store) {
                 Mage::getModel('catalog/url')->refreshRewrites($store->getId());
+                Mage::getResourceSingleton('catalog/category')->refreshProductIndex(
+                    array(),
+                    array(),
+                    array($store->getId())
+                );
             }
         }
         return $this;
     }
 
+    /**
+     * Process catalog data after category move
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_Catalog_Model_Observer
+     */
     public function categoryMove($observer)
     {
         $categoryId = $observer->getEvent()->getCategoryId();
         $prevParentId = $observer->getEvent()->getPrevParentId();
         $parentId = $observer->getEvent()->getParentId();
         Mage::getModel('catalog/url')->refreshCategoryRewrite($categoryId);
+        Mage::getResourceSingleton('catalog/category')->refreshProductIndex(array(
+            $categoryId, $prevParentId, $parentId
+        ));
         $model = Mage::getModel('catalog/category')->load($prevParentId)->save();
         $model = Mage::getModel('catalog/category')->load($parentId)->save();
         $model = null;
         return $this;
     }
 
+    /**
+     * Process catalog data after products import
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_Catalog_Model_Observer
+     */
     public function catalogProductImportAfter($observer)
     {
         Mage::getModel('catalog/url')->refreshRewrites();
+        Mage::getResourceSingleton('catalog/category')->refreshProductIndex();
         return $this;
     }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.22 $"/>
-		<generation date="$Date: 2007/07/15 23:39:12 $"/>
+		<version number="$Revision: 1.26 $"/>
+		<generation date="$Date: 2008/06/15 18:49:21 $"/>
 		<language type="yo"/>
 	</identity>
 	<localeDisplayNames>
@@ -22,10 +22,10 @@
 			<language type="ca">Ede Catala</language>
 			<language type="cs">Orile-ede Tseki</language>
 			<language type="cy">Ede Welshi</language>
-			<language type="da">ede ile Denmark</language>
-			<language type="de">ede ilu Germany</language>
+			<language type="da">Èdè Ilẹ̀ Denmark</language>
+			<language type="de">Èdè Ilẹ̀ Germany</language>
 			<language type="el">giriki</language>
-			<language type="en">geesi</language>
+			<language type="en">Èdè Gẹ̀ẹ́sì</language>
 			<language type="eo">Ede Esperanto</language>
 			<language type="es">Panyan</language>
 			<language type="et">Ede Estonia</language>
@@ -34,7 +34,7 @@
 			<language type="fi">Finisi</language>
 			<language type="fil">Ede Tagalogi</language>
 			<language type="fo">Ede Faroesi</language>
-			<language type="fr">Faranse</language>
+			<language type="fr">Èdè Faransé</language>
 			<language type="fy">Ede Frisia</language>
 			<language type="ga">Ede Ireland</language>
 			<language type="gd">Ede Gaelik ti Ilu Scotland</language>
@@ -76,7 +76,7 @@
 			<language type="oc">Ede Occitani</language>
 			<language type="or">Oriya</language>
 			<language type="pa">Ede Punjabi</language>
-			<language type="pl">ede awon ara polandi</language>
+			<language type="pl">Èdè Ilẹ̀ Polandi</language>
 			<language type="ps">Pashto</language>
 			<language type="pt">Ede Portugi</language>
 			<language type="pt_PT">Ede Portugal</language>
@@ -110,11 +110,18 @@
 			<language type="vi">Ede Vietnamu</language>
 			<language type="xh">Ede Xhosa</language>
 			<language type="yi">Yiddishi</language>
+			<language type="yo">Yorùbá</language>
 			<language type="zu">Ede Zulu</language>
 		</languages>
 		<territories>
+			<territory type="BW">BW</territory>
+			<territory type="NG">NG</territory>
 			<territory type="TO">Tonga</territory>
 		</territories>
+		<measurementSystemNames>
+			<measurementSystemName type="US">US</measurementSystemName>
+			<measurementSystemName type="metric">Metric</measurementSystemName>
+		</measurementSystemNames>
 	</localeDisplayNames>
 	<characters>
 		<exemplarCharacters>[a á à b d e é è ẹ {ẹ́} {ẹ̀} f g {gb} h i í ì j-o ó ò ọ {ọ́} {ọ̀} p r s ṣ t u ú ù w y]</exemplarCharacters>
@@ -126,32 +133,32 @@
 				<months>
 					<monthContext type="format">
 						<monthWidth type="abbreviated">
-							<month type="1">Sere</month>
-							<month type="2">Erele</month>
-							<month type="3">Erena</month>
-							<month type="4">Igbe</month>
-							<month type="5">Ebibi</month>
-							<month type="6">Okudu</month>
-							<month type="7">Agemo</month>
-							<month type="8">Ogun</month>
+							<month type="1">Ṣẹ́rẹ́</month>
+							<month type="2">Èrèlè</month>
+							<month type="3">Ẹrẹ̀nà</month>
+							<month type="4">Ìgbé</month>
+							<month type="5">Ẹ̀bibi</month>
+							<month type="6">Òkúdu</month>
+							<month type="7">Agẹmọ</month>
+							<month type="8">Ògún</month>
 							<month type="9">Owewe</month>
-							<month type="10">Owara</month>
-							<month type="11">Belu</month>
-							<month type="12">Ope</month>
+							<month type="10">Ọ̀wàrà</month>
+							<month type="11">Bélú</month>
+							<month type="12">Ọ̀pẹ̀</month>
 						</monthWidth>
 						<monthWidth type="wide">
-							<month type="1">Osukini</month>
-							<month type="2">Osukeji</month>
-							<month type="3">Osuketa</month>
-							<month type="4">Osukerin</month>
-							<month type="5">Osukarun</month>
-							<month type="6">Osukefa</month>
-							<month type="7">Osukeje</month>
-							<month type="8">Osukejo</month>
-							<month type="9">Osukesan</month>
-							<month type="10">Osukewa</month>
-							<month type="11">Osukokanla</month>
-							<month type="12">Osukejila</month>
+							<month type="1">Oṣù Ṣẹ́rẹ́</month>
+							<month type="2">Oṣù Èrèlè</month>
+							<month type="3">Oṣù Ẹrẹ̀nà</month>
+							<month type="4">Oṣù Ìgbé</month>
+							<month type="5">Oṣù Ẹ̀bibi</month>
+							<month type="6">Oṣù Òkúdu</month>
+							<month type="7">Oṣù Agẹmọ</month>
+							<month type="8">Oṣù Ògún</month>
+							<month type="9">Oṣù Owewe</month>
+							<month type="10">Oṣù Ọ̀wàrà</month>
+							<month type="11">Oṣù Bélú</month>
+							<month type="12">Oṣù Ọ̀pẹ̀</month>
 						</monthWidth>
 					</monthContext>
 					<monthContext type="stand-alone">
@@ -174,22 +181,22 @@
 				<days>
 					<dayContext type="format">
 						<dayWidth type="abbreviated">
-							<day type="sun">Aiku</day>
-							<day type="mon">Aje</day>
-							<day type="tue">Isegun</day>
-							<day type="wed">Ojoru</day>
-							<day type="thu">Ojobo</day>
-							<day type="fri">Eti</day>
-							<day type="sat">Abameta</day>
+							<day type="sun">Àìkú</day>
+							<day type="mon">Ajé</day>
+							<day type="tue">Ìsẹ́gun</day>
+							<day type="wed">Ọjọ́rú</day>
+							<day type="thu">Àṣẹ̀ṣẹ̀dáiyé</day>
+							<day type="fri">Ẹtì</day>
+							<day type="sat">Àbámẹ́ta</day>
 						</dayWidth>
 						<dayWidth type="wide">
-							<day type="sun">Ojoaiku</day>
-							<day type="mon">Ojoaje</day>
-							<day type="tue">Ojoisegun</day>
-							<day type="wed">Ojoru</day>
-							<day type="thu">Ojobo</day>
-							<day type="fri">Ojoeti</day>
-							<day type="sat">Ojoabameta</day>
+							<day type="sun">Ọjọ́ Àìkú</day>
+							<day type="mon">Ọjọ́ Ajé</day>
+							<day type="tue">Ọjọ́ Ìsẹ́gun</day>
+							<day type="wed">Ọjọ́rú</day>
+							<day type="thu">Ọjọ́ Àṣẹ̀ṣẹ̀dáiyé</day>
+							<day type="fri">Ọjọ́ Ẹtì</day>
+							<day type="sat">Ọjọ́ Àbámẹ́ta</day>
 						</dayWidth>
 					</dayContext>
 					<dayContext type="stand-alone">
@@ -220,8 +227,8 @@
 						</quarterWidth>
 					</quarterContext>
 				</quarters>
-				<am>ARO</am>
-				<pm>ALE</pm>
+				<am>àárọ̀</am>
+				<pm>ọ̀sán</pm>
 				<eras>
 					<eraNames>
 						<era type="0">Saju Kristi</era>
@@ -286,12 +293,27 @@
 						<dateFormatItem id="yyQ">Q yy</dateFormatItem>
 					</availableFormats>
 				</dateTimeFormats>
+				<fields>
+					<field type="day">
+						<displayName>Ọjọ́</displayName>
+						<relative type="0">ọ̀ní</relative>
+						<relative type="1">ọ̣̀la</relative>
+						<relative type="2">òtúùnla</relative>
+						<relative type="3">ọjọ́mẹ́rin-òní</relative>
+						<relative type="-1">ànón</relative>
+						<relative type="-2">íjẹta</relative>
+						<relative type="-3">íjẹrin</relative>
+					</field>
+				</fields>
 			</calendar>
 		</calendars>
 		<timeZoneNames>
 			<hourFormat>+HH:mm;-HH:mm</hourFormat>
 			<gmtFormat>GMT{0}</gmtFormat>
 			<regionFormat>{0}</regionFormat>
+			<zone type="Etc/Unknown">
+				<exemplarCity>Africa/​Lagos/​exemplarCity</exemplarCity>
+			</zone>
 		</timeZoneNames>
 	</dates>
 	<numbers>
@@ -303,3 +325,4 @@
 		</currencies>
 	</numbers>
 </ldml>
+

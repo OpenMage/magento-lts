@@ -5,11 +5,14 @@
         is_virtual
         is_multi_payment
 
+        global_currency_code
         base_currency_code
         store_currency_code
         order_currency_code
         store_to_base_rate
         store_to_order_rate
+        base_to_global_rate
+        base_to_order_rate
 
         remote_ip
         quote_id
@@ -32,7 +35,7 @@
         total_due
         total_qty_ordered
         applied_rule_ids
-        
+
         customer_id
         customer_group_id
         customer_email
@@ -45,8 +48,8 @@
         sales_order_delete_before
         sales_order_delete_after
     API:
-    
-    
+
+
 2. Order Item
     Attributes:
         parent_id
@@ -107,7 +110,7 @@
         cc_owner
         cc_exp_month
         cc_exp_year
-        
+
         cc_status
         cc_status_description
         cc_trans_id

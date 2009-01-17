@@ -29,6 +29,7 @@
     <h3><?php echo $this->__('Newsletter Subscription') ?></h3>
 </div>
 <form action="<?php echo $this->getAction() ?>" method="post" id="form-validate">
+    <?php echo $this->getBlockHtml('formkey')?>
     <p><input type="checkbox" name="is_subscribed" id="subscription" value="1" title="<?php echo $this->__('General Subscription') ?>"  <?php if($this->getIsSubscribed()): ?> checked="checked"<?php endif ?> /> <label for="subscription"><?php echo $this->__('General Subscription') ?></label></p>
 <div class="button-set">
     <a href="<?php echo $this->getBackUrl() ?>" class="left">&laquo; <?php echo $this->__('Back') ?></a>

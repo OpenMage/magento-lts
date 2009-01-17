@@ -33,7 +33,6 @@
  */
 class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Action
 {
-
     /**
      * Predispatch: shoud set layout area
      *
@@ -71,5 +70,4 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
         array_unshift($args, $expr);
         return Mage::app()->getTranslator()->translate($args);
     }
-
 }

@@ -31,7 +31,7 @@
  * @package  Zend_XmlRpc
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Http.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version $Id: Http.php 9343 2008-04-28 19:51:02Z matthew $
  */
 class Zend_XmlRpc_Response_Http extends Zend_XmlRpc_Response
 {
@@ -43,7 +43,7 @@ class Zend_XmlRpc_Response_Http extends Zend_XmlRpc_Response
     public function __toString()
     {
         if (!headers_sent()) {
-            header('Content-Type: application/xml; charset=' . strtolower($this->getEncoding()));
+            header('Content-Type: text/xml; charset=' . strtolower($this->getEncoding()));
         }
 
         return parent::__toString();

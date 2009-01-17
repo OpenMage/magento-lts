@@ -38,6 +38,7 @@ class Mage_Core_Model_Translate_Inline
     protected $_content;
     protected $_isAllowed;
     protected $_isScriptInserted = false;
+    protected $_isAjaxRequest = null;
 
     public function isAllowed($storeId=null)
     {
@@ -157,6 +158,15 @@ class Mage_Core_Model_Translate_Inline
     protected function _tagAttributes()
     {
 #echo __METHOD__;
+
+        if ($this->getIsAjaxRequest()) {
+            $quoteHtml = '\"';
+            $quotePatern = '\\\\"';
+        } else {
+            $quoteHtml = '"';
+            $quotePatern = '"';
+        }
+
         $nextTag = 0; $i=0;
         while (preg_match('#<([a-z]+)\s*?[^>]+?(('.$this->_tokenRegex.')[^/>]*?)+(/?(>))#i',
             $this->_content, $tagMatch, PREG_OFFSET_CAPTURE, $nextTag)) {
@@ -178,7 +188,7 @@ class Mage_Core_Model_Translate_Inline
                 $next = $m[0][1];
             }
 
-            if (preg_match('# translate="\[(.+?)\]"#i', $tagMatch[0][0], $m, PREG_OFFSET_CAPTURE)) {
+            if (preg_match('# translate='.$quotePatern.'\[(.+?)\]'.$quotePatern.'#i', $tagMatch[0][0], $m, PREG_OFFSET_CAPTURE)) {
                 foreach ($trArr as $i=>$tr) {
                     if (strpos($m[1][0], $tr)!==false) {
                         unset($trArr[$i]);
@@ -205,6 +215,14 @@ class Mage_Core_Model_Translate_Inline
     protected function _specialTags()
     {
 #echo __METHOD__;
+
+        if ($this->getIsAjaxRequest()) {
+            $quoteHtml = '\"';
+            $quotePatern = '\\\\"';
+        } else {
+            $quoteHtml = '"';
+            $quotePatern = '"';
+        }
 
         $nextTag = 0;
 
@@ -248,14 +266,14 @@ class Mage_Core_Model_Translate_Inline
                 switch ($tag) {
                     case 'script': case 'title':
                         $tagHtml .= '<span class="translate-inline-'.$tag
-                            .'" translate="['.join(',',$trArr).']">'.strtoupper($tag).'</span>';
+                            .'" translate='.$quoteHtml.'['.join(',',$trArr).']'.$quoteHtml.'>'.strtoupper($tag).'</span>';
                         break;
                 }
                 $this->_content = substr_replace($this->_content, $tagHtml, $tagMatch[0][1], $tagLength);
 
                 switch ($tag) {
                     case 'select': case 'button': case 'a':
-                        if (preg_match('# translate="\[(.+?)\]"#i', $tagMatch[0][0], $m, PREG_OFFSET_CAPTURE)) {
+                        if (preg_match('# translate='.$quotePatern.'\[(.+?)\]'.$quotePatern.'#i', $tagMatch[0][0], $m, PREG_OFFSET_CAPTURE)) {
                             foreach ($trArr as $i=>$tr) {
                                 if (strpos($m[1][0], $tr)!==false) {
                                     unset($trArr[$i]);
@@ -268,8 +286,9 @@ class Mage_Core_Model_Translate_Inline
                             $start = $tagMatch[3][1];
                             $len = 0;
                         }
+
                         $this->_content = substr_replace($this->_content,
-                            ' translate="['.join(',',$trArr).']"', $start, $len);
+                            ' translate='.$quoteHtml.'['.join(',',$trArr).']'.$quoteHtml, $start, $len);
                         break;
                 }
             }
@@ -285,6 +304,13 @@ class Mage_Core_Model_Translate_Inline
 #echo __METHOD__;
 #echo "<xmp>".$this->_content."</xmp><hr/>";
 #exit;
+
+        if ($this->getIsAjaxRequest()) {
+            $quoteHtml = '\"';
+        } else {
+            $quoteHtml = '"';
+        }
+
         $next = 0;
         while (preg_match('#('.$this->_tokenRegex.')#',
             $this->_content, $m, PREG_OFFSET_CAPTURE, $next)) {
@@ -295,11 +321,26 @@ class Mage_Core_Model_Translate_Inline
                 .'original:\''.$this->_escape($m[4][0]).'\','
                 .'location:\'Text\','
                 .'scope:\''.$this->_escape($m[5][0]).'\'}';
-            $spanHtml = '<span translate="['.$tr.']">'.$m[2][0].'</span>';
+
+            $spanHtml = '<span translate='.$quoteHtml.'['.$tr.']'.$quoteHtml.'>'.$m[2][0].'</span>';
 
             $this->_content = substr_replace($this->_content, $spanHtml, $m[0][1], strlen($m[0][0]));
             $next = $m[0][1];
         }
 
+    }
+
+    public function getIsAjaxRequest()
+    {
+        if (!is_null($this->_isAjaxRequest)) {
+            return $this->_isAjaxRequest;
+        } else {
+            return Mage::app()->getRequest()->getQuery('isAjax');
+        }
+    }
+
+    public function setIsAjaxRequest($status)
+    {
+        $this->_isAjaxRequest = $status;
     }
 }

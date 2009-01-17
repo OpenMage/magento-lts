@@ -19,17 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
-/**
- * @see Zend_Controller_Exception
- */
-#require_once 'Zend/Controller/Action/Exception.php';
-
 /**
  * @see Zend_Controller_Action
  */
 #require_once 'Zend/Controller/Action.php';
-
 
 /**
  * @category   Zend
@@ -76,7 +69,7 @@ abstract class Zend_Controller_Action_Helper_Abstract
 
     /**
      * Retrieve front controller instance
-     * 
+     *
      * @return Zend_Controller_Front
      */
     public function getFrontController()

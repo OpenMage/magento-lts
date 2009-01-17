@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Dashboard_Sales extends Mage_Adminhtml_Block_Dashboar
 
     protected function _prepareLayout()
     {
-        $isFilter = $this->getRequest()->getParam('store') || $this->getRequest()->getParam('website');
+        $isFilter = $this->getRequest()->getParam('store') || $this->getRequest()->getParam('website') || $this->getRequest()->getParam('group');
 
         $collection = Mage::getResourceModel('reports/order_collection')
             ->calculateSales($isFilter);

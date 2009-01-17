@@ -36,9 +36,11 @@
                     <list translate="title" module="sales">
                         <title>Retrieve list of orders by filters</title>
                         <method>items</method>
+                        <acl>sales/order/info</acl>
                     </list>
                     <info translate="title" module="sales">
                         <title>Retrieve order information</title>
+                        <acl>sales/order/info</acl>
                     </info>
                     <addComment translate="title" module="sales">
                         <title>Add comment to order</title>
@@ -84,9 +86,11 @@
                     <list translate="title" module="sales">
                         <title>Retrieve list of shipments by filters</title>
                         <method>items</method>
+                        <acl>sales/order/shipment/info</acl>
                     </list>
                     <info translate="title" module="sales">
                         <title>Retrieve shipment information</title>
+                        <acl>sales/order/shipment/info</acl>
                     </info>
                     <create translate="title" module="sales">
                         <title>Create new shipment for order</title>
@@ -143,9 +147,11 @@
                     <list translate="title" module="sales">
                         <title>Retrieve list of invoices by filters</title>
                         <method>items</method>
+                        <acl>sales/order/invoice/info</acl>
                     </list>
                     <info translate="title" module="sales">
                         <title>Retrieve invoice information</title>
+                        <acl>sales/order/invoice/info</acl>
                     </info>
                     <create translate="title" module="sales">
                         <title>Create new invoice for order</title>
@@ -198,14 +204,18 @@
             <order_invoice>sales_order_invoice</order_invoice>
         </resources_alias>
         <acl>
-            <all>
+            <resources>
                 <sales translate="title" module="sales">
                     <title>Sales</title>
+                    <sort_order>2</sort_order>
                     <order translate="title" module="sales">
                         <title>Order</title>
                         <change translate="title" module="sales">
                             <title>Change status, add comments</title>
                         </change>
+                        <info translate="title" module="sales">
+                            <title>Retrieve orders info</title>
+                        </info>
                         <shipment translate="title" module="sales">
                             <title>Order shipments</title>
                             <create translate="title" module="sales">
@@ -217,6 +227,9 @@
                             <track translate="title" module="sales">
                                 <title>Tracking</title>
                             </track>
+                            <info translate="title" module="sales">
+                                <title>Retrieve shipment info</title>
+                            </info>
                         </shipment>
                         <invoice translate="title" module="sales">
                             <title>Order invoice</title>
@@ -235,10 +248,13 @@
                             <cancel translate="title" module="sales">
                                 <title>Cancel</title>
                             </cancel>
+                            <info translate="title" module="sales">
+                                <title>Retrieve invoice info</title>
+                            </info>
                         </invoice>
                     </order>
                 </sales>
-            </all>
+            </resources>
         </acl>
     </api>
 </config>

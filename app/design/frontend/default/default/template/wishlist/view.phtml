@@ -34,6 +34,7 @@
 
 <?php if($this->getWishlist()->getSize()): ?>
 <form action="<?php echo $this->getUrl('*/*/update') ?>" method="post">
+    <?php echo $this->getBlockHtml('formkey')?>
     <table cellspacing="0" width="100%" class="data-table box-table" id="wishlist-table">
     <col width="130" />
     <col width="300" />

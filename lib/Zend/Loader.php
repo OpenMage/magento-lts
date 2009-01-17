@@ -16,7 +16,7 @@
  * @package    Zend_Loader
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Loader.php 8905 2008-03-19 18:37:30Z darby $
+ * @version    $Id: Loader.php 12772 2008-11-22 17:05:16Z matthew $
  */
 
 /**
@@ -80,7 +80,7 @@ class Zend_Loader
             self::loadFile($file, $dirs, true);
         } else {
             self::_securityCheck($file);
-            include_once $file;
+            include $file;
         }
 
         if (!class_exists($class, false) && !interface_exists($class, false)) {
@@ -152,6 +152,11 @@ class Zend_Loader
      * This function uses the PHP include_path, where PHP's is_readable()
      * does not.
      *
+     * Note from ZF-2900:
+     * If you use custom error handler, please check whether return value
+     *  from error_reporting() is zero or not.
+     * At mark of fopen() can not suppress warning if the handler is used.
+     *
      * @param string   $filename
      * @return boolean
      */
@@ -160,7 +165,7 @@ class Zend_Loader
         if (!$fh = @fopen($filename, 'r', true)) {
             return false;
         }
-
+        @fclose($fh);
         return true;
     }
 
@@ -178,7 +183,7 @@ class Zend_Loader
     public static function autoload($class)
     {
         try {
-            self::loadClass($class);
+            @self::loadClass($class);
             return $class;
         } catch (Exception $e) {
             return false;
@@ -227,7 +232,7 @@ class Zend_Loader
         /**
          * Security check
          */
-        if (preg_match('/[^a-z0-9\\/\\\\_.-]/i', $filename)) {
+        if (preg_match('/[^a-z0-9\\/\\\\_.:-]/i', $filename)) {
             #require_once 'Zend/Exception.php';
             throw new Zend_Exception('Security check: Illegal character in filename');
         }

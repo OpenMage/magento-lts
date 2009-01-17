@@ -134,93 +134,78 @@
                 <sort_order>10</sort_order>
                 <action>adminhtml/dashboard</action>
             </dashboard>
-
             <system translate="title" module="adminhtml">
                 <title>System</title>
                 <sort_order>90</sort_order>
                 <!-- action>adminhtml/system</action -->
                 <children>
-                    <myaccount translate="title" module="adminhtml">
+                    <myaccount translate="title">
                         <title>My Account</title>
                         <action>adminhtml/system_account</action>
                         <sort_order>10</sort_order>
                     </myaccount>
-                    <tools translate="title" module="adminhtml">
+                    <tools translate="title">
                         <title>Tools</title>
                         <sort_order>20</sort_order>
                     </tools>
-                    <api translate="title" module="adminhtml">
-                        <title>Web Services</title>
-                        <sort_order>25</sort_order>
-                        <children>
-                            <users translate="title" module="adminhtml">
-                                <title>Users</title>
-                                <action>adminhtml/api_user</action>
-                            </users>
-                            <roles translate="title" module="adminhtml">
-                                <title>Roles</title>
-                                <action>adminhtml/api_role</action>
-                            </roles>
-                        </children>
-                    </api>
-                    <design translate="title" module="adminhtml">
+                    <design translate="title">
                         <title>Design</title>
                         <action>adminhtml/system_design</action>
                         <sort_order>30</sort_order>
                     </design>
-                    <convert translate="title" module="adminhtml">
+                    <convert translate="title">
                         <title>Import/Export</title>
                         <sort_order>40</sort_order>
                         <children>
-                            <gui translate="title" module="adminhtml">
+                            <gui translate="title">
                                 <title>Profiles</title>
                                 <action>adminhtml/system_convert_gui</action>
                             </gui>
-                            <profiles translate="title" module="adminhtml">
+                            <profiles translate="title">
                                 <title>Advanced Profiles</title>
                                 <action>adminhtml/system_convert_profile</action>
                             </profiles>
                         </children>
                     </convert>
-                    <currency translate="title" module="adminhtml">
+                    <currency translate="title">
                         <title>Manage Currency Rates</title>
                         <action>adminhtml/system_currency</action>
                         <sort_order>50</sort_order>
                     </currency>
-                    <email_template translate="title" module="adminhtml">
+                    <email_template translate="title">
                         <title>Transactional Emails</title>
                         <action>adminhtml/system_email_template</action>
                         <sort_order>60</sort_order>
                     </email_template>
-                    <acl translate="title" module="adminhtml">
+                    <acl translate="title">
                         <title>Permissions</title>
                         <sort_order>70</sort_order>
                         <children>
-                            <users translate="title" module="adminhtml">
+                            <users translate="title">
                                 <title>Users</title>
                                 <action>adminhtml/permissions_user</action>
                             </users>
-                            <roles translate="title" module="adminhtml">
+                            <roles translate="title">
                                 <title>Roles</title>
                                 <action>adminhtml/permissions_role</action>
                             </roles>
                         </children>
                     </acl>
-                    <extensions translate="title" module="adminhtml">
+                    <extensions translate="title">
                         <title>Magento Connect</title>
                         <sort_order>80</sort_order>
                         <children>
-                            <local translate="title" module="adminhtml">
+                            <local translate="title">
                                 <title>Magento Connect Manager</title>
                                 <action>adminhtml/extensions_local</action>
                             </local>
-                            <custom translate="title" module="adminhtml">
+                            <custom translate="title">
                                 <title>Package Extensions</title>
                                 <action>adminhtml/extensions_custom</action>
                             </custom>
                         </children>
                     </extensions>
-                    <cache translate="title" module="adminhtml">
+                    <cache translate="title">
                         <title>Cache Management</title>
                         <action>adminhtml/system_cache</action>
                         <sort_order>90</sort_order>
@@ -230,7 +215,7 @@
                         <action>adminhtml/system_store/</action>
                         <sort_order>100</sort_order>
                     </store>
-                    <config translate="title" module="adminhtml">
+                    <config translate="title">
                         <title>Configuration</title>
                         <action>adminhtml/system_config</action>
                         <sort_order>110</sort_order>
@@ -243,26 +228,26 @@
                 <all>
                     <title>Allow everything</title>
                 </all>
-                <admin>
+                <admin translate="title" module="adminhtml">
                     <title>Magento Admin</title>
                     <children>
-                        <dashboard>
+                        <dashboard translate="title">
                             <title>Dashboard</title>
                             <sort_order>0</sort_order>
                         </dashboard>
-                        <system>
+                        <system translate="title">
                             <title>System</title>
                             <sort_order>90</sort_order>
                             <children>
-                                <acl>
+                                <acl translate="title">
                                     <title>Permissions</title>
                                     <sort_order>0</sort_order>
                                     <children>
-                                        <roles>
+                                        <roles translate="title">
                                             <title>Roles</title>
                                             <sort_order>10</sort_order>
                                         </roles>
-                                        <users>
+                                        <users translate="title">
                                             <title>Users</title>
                                             <sort_order>20</sort_order>
                                         </users>
@@ -271,131 +256,94 @@
                                 <store translate="title">
                                     <title>Manage Stores</title>
                                 </store>
-                                <design>
+                                <design translate="title">
                                     <title>Design</title>
                                     <sort_order>25</sort_order>
                                 </design>
-                                <config>
+                                <config translate="title">
                                     <title>Configuration</title>
                                     <sort_order>20</sort_order>
                                     <children>
-                                        <general>
+                                        <general translate="title">
                                             <title>General Section</title>
                                             <sort_order>20</sort_order>
                                         </general>
-                                        <web>
+                                        <web translate="title">
                                             <title>Web Section</title>
                                             <sort_order>30</sort_order>
                                         </web>
-                                        <design>
+                                        <design translate="title">
                                             <title>Design Section</title>
                                             <sort_order>40</sort_order>
                                         </design>
-                                        <customer>
-                                            <title>Customers Section</title>
-                                            <sort_order>50</sort_order>
-                                        </customer>
-                                        <tax>
-                                            <title>Tax Section</title>
-                                            <sort_order>55</sort_order>
-                                        </tax>
-                                        <sales>
-                                            <title>Sales Section</title>
-                                            <sort_order>60</sort_order>
-                                        </sales>
-                                        <sales_email>
-                                            <title>Sales Emails Section</title>
-                                            <sort_order>65</sort_order>
-                                        </sales_email>
-                                        <sales_pdf>
-                                            <title>PDF Print-outs</title>
-                                            <sort_order>66</sort_order>
-                                        </sales_pdf>
-                                        <checkout>
-                                            <title>Checkout Section</title>
-                                            <sort_order>70</sort_order>
-                                        </checkout>
-                                        <strikeiron>
-                                            <title>Strikeiron Section</title>
-                                            <sort_order>75</sort_order>
-                                        </strikeiron>
-                                        <system>
+                                        <system translate="title">
                                             <title>System Section</title>
                                             <sort_order>80</sort_order>
                                         </system>
-                                        <advanced>
+                                        <advanced translate="title">
                                             <title>Advanced Section</title>
                                             <sort_order>90</sort_order>
                                         </advanced>
-                                        <trans_email>
+                                        <trans_email translate="title">
                                             <title>Store Email Addresses Section</title>
                                             <sort_order>100</sort_order>
                                         </trans_email>
-                                        <dev>
+                                        <dev translate="title">
                                             <title>Developer Section</title>
                                             <sort_order>110</sort_order>
                                         </dev>
-                                        <currency>
+                                        <currency translate="title">
                                             <title>Currency Setup Section</title>
                                             <sort_order>120</sort_order>
                                         </currency>
-                                        <rss>
-                                            <title>Rss Feeds Section</title>
-                                            <sort_order>135</sort_order>
-                                        </rss>
-                                        <sendfriend>
+                                        <sendfriend translate="title">
                                             <title>Email to a Friend</title>
                                             <sort_order>140</sort_order>
                                         </sendfriend>
-                                        <admin>
+                                        <admin translate="title">
                                             <title>Advanced Admin Section</title>
                                             <sort_order>100</sort_order>
                                         </admin>
                                     </children>
                                 </config>
-                                <currency>
+                                <currency translate="title">
                                     <title>Manage Currency Rates</title>
                                     <sort_order>30</sort_order>
                                 </currency>
-                                <email_template>
+                                <email_template translate="title">
                                     <title>Transactional Emails</title>
                                     <sort_order>40</sort_order>
                                 </email_template>
-                                <myaccount>
+                                <myaccount translate="title">
                                     <title>My Account</title>
                                     <sort_order>50</sort_order>
                                 </myaccount>
-                                <tools>
+                                <tools translate="title">
                                     <title>Tools</title>
                                     <sort_order>60</sort_order>
-                                    <children>
-                                        <backup>
-                                            <title>Backups</title>
-                                        </backup>
-                                    </children>
                                 </tools>
-                                <convert>
+                                <convert translate="title">
                                     <title>Import/Export</title>
                                     <children>
-                                        <gui>
+                                        <gui translate="title">
                                             <title>Profiles</title>
                                         </gui>
-                                        <profiles>
+                                        <profiles translate="title">
                                             <title>Advanced Profiles</title>
                                         </profiles>
                                     </children>
                                 </convert>
-                                <cache>
+                                <cache translate="title">
                                     <title>Cache Management</title>
                                 </cache>
-                                <extensions>
+                                <extensions translate="title">
                                     <title>Magento Connect</title>
                                     <children>
-                                        <local>
+                                        <local translate="title">
                                             <title>Magento Connect Manager</title>
                                             <sort_order>0</sort_order>
                                         </local>
-                                        <custom>
+                                        <custom translate="title">
                                             <title>Package Extensions</title>
                                             <sort_order>5</sort_order>
                                         </custom>
@@ -403,7 +351,7 @@
                                 </extensions>
                             </children>
                         </system>
-                        <global_search>
+                        <global_search translate="title">
                             <title>Global Search</title>
                             <sort_order>100</sort_order>
                         </global_search>

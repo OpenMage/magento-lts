@@ -17,14 +17,8 @@
  * @subpackage Zend_InfoCard_Cipher
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Cipher.php 8064 2008-02-16 10:58:39Z thomas $
- * @author     John Coggeshall <john@zend.com>
+ * @version    $Id: Cipher.php 13213 2008-12-14 11:05:07Z thomas $
  */
-
-/**
- * Zend_InfoCard_Cipher_Exception
- */
-#require_once 'Zend/InfoCard/Cipher/Exception.php';
 
 /**
  * Provides an abstraction for encryption ciphers used in an Information Card
@@ -35,7 +29,6 @@
  * @subpackage Zend_InfoCard_Cipher
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @author     John Coggeshall <john@zend.com>
  */
 class Zend_InfoCard_Cipher
 {
@@ -65,7 +58,7 @@ class Zend_InfoCard_Cipher
      * @return void
      * @codeCoverageIgnoreStart
      */
-    private function __construct()
+    protected function __construct()
     {
     }
     // @codeCoverageIgnoreEnd
@@ -99,6 +92,7 @@ class Zend_InfoCard_Cipher
                 break;
 
             default:
+                #require_once 'Zend/InfoCard/Cipher/Exception.php';
                 throw new Zend_InfoCard_Cipher_Exception("Unknown Cipher URI");
         }
     }

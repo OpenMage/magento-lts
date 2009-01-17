@@ -97,8 +97,22 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
         return isset($options[$optionId]) ? $options[$optionId] : null;
     }
 
+    /**
+     * Update status value for product
+     *
+     * @param   int $productId
+     * @param   int $storeId
+     * @param   int $value
+     * @return  Mage_Catalog_Model_Product_Status
+     */
     public function updateProductStatus($productId, $storeId, $value)
     {
         $this->_getResource()->updateProductStatus($productId, $storeId, $value);
+        Mage::getResourceModel('catalog/category')->refreshProductIndex(
+            array(),
+            array($productId),
+            $storeId ? array($storeId) : array()
+        );
+        return $this;
     }
 }

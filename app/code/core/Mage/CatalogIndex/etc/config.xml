@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_CatalogIndex>
-            <version>0.7.7</version>
+            <version>0.7.10</version>
         </Mage_CatalogIndex>
     </modules>
 
@@ -63,6 +63,9 @@
                     <eav><table>catalogindex_eav</table></eav>
                     <price><table>catalogindex_price</table></price>
                     <minimal_price><table>catalogindex_minimal_price</table></minimal_price>
+                    <aggregation><table>catalogindex_aggregation</table></aggregation>
+                    <aggregation_tag><table>catalogindex_aggregation_tag</table></aggregation_tag>
+                    <aggregation_to_tag><table>catalogindex_aggregation_to_tag</table></aggregation_to_tag>
                 </entities>
             </catalogindex_mysql4>
         </models>
@@ -71,37 +74,24 @@
             <catalogindex_setup>
                 <setup>
                     <module>Mage_CatalogIndex</module>
+                    <class>Mage_CatalogIndex_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
+                <connection><use>core_setup</use></connection>
             </catalogindex_setup>
             <catalogindex_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
+                <connection><use>core_write</use></connection>
             </catalogindex_write>
             <catalogindex_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
+                <connection><use>core_read</use></connection>
             </catalogindex_read>
         </resources>
 
         <catalogindex>
             <indexer>
-                <eav>
-                    <class>catalogindex/indexer_eav</class>
-                </eav>
-                <price>
-                    <class>catalogindex/indexer_price</class>
-                </price>
-                <tier_price>
-                    <class>catalogindex/indexer_tierprice</class>
-                </tier_price>
-                <minimal_price>
-                    <class>catalogindex/indexer_minimalprice</class>
-                </minimal_price>
+                <eav><class>catalogindex/indexer_eav</class></eav>
+                <price><class>catalogindex/indexer_price</class></price>
+                <tier_price><class>catalogindex/indexer_tierprice</class></tier_price>
+                <minimal_price><class>catalogindex/indexer_minimalprice</class></minimal_price>
             </indexer>
         </catalogindex>
 
@@ -178,8 +168,76 @@
                     </catalogindex>
                 </observers>
             </catalog_product_import_after>
+            <application_clean_cache>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>cleanCache</method>
+                    </catalogindex>
+                </observers>
+            </application_clean_cache>
+            <catalog_category_save_after>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>catalogCategorySaveAfter</method>
+                    </catalogindex>
+                </observers>
+            </catalog_category_save_after>
+            <!-- Change tax configuration in admin-->
+            <admin_system_config_changed_section_tax>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>clearPriceAggregation</method>
+                    </catalogindex>
+                </observers>
+            </admin_system_config_changed_section_tax>
+            <!-- Change tax settings like tax rates, tax rules -->
+            <tax_settings_change_after>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>clearPriceAggregation</method>
+                    </catalogindex>
+                </observers>
+            </tax_settings_change_after>
+            <!-- Reset search results for query (rtom table catalogsearch_result) -->
+            <catalogsearch_reset_search_result>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>clearSearchLayerCache</method>
+                    </catalogindex>
+                </observers>
+            </catalogsearch_reset_search_result>
         </events>
+        <cache>
+            <betatypes>
+                <layered_navigation translate="label" module="catalogindex">
+                    <label>Layered Navigation</label>
+                </layered_navigation>
+            </betatypes>
+        </cache>
     </global>
+    <adminhtml>
+        <events>
+            <catalog_product_to_website_change>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>processProductsWebsitesChange</method>
+                    </catalogindex>
+                </observers>
+            </catalog_product_to_website_change>
+        </events>
+    </adminhtml>
 
     <crontab>
         <jobs>

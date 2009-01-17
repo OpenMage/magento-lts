@@ -19,23 +19,14 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
 /** Zend_Search_Lucene_Index_Term */
 #require_once 'Zend/Search/Lucene/Index/Term.php';
-
-/** Zend_Search_Lucene_Exception */
-#require_once 'Zend/Search/Lucene/Exception.php';
 
 /** Zend_Search_Lucene_Search_QueryEntry */
 #require_once 'Zend/Search/Lucene/Search/QueryEntry.php';
 
-/** Zend_Search_Lucene_Search_QueryParserException */
-#require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
-
 /** Zend_Search_Lucene_Analysis_Analyzer */
 #require_once 'Zend/Search/Lucene/Analysis/Analyzer.php';
-
-
 
 /**
  * @category   Zend
@@ -112,6 +103,7 @@ class Zend_Search_Lucene_Search_QueryEntry_Phrase extends Zend_Search_Lucene_Sea
     public function getQuery($encoding)
     {
         if (strpos($this->_phrase, '?') !== false || strpos($this->_phrase, '*') !== false) {
+            #require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
             throw new Zend_Search_Lucene_Search_QueryParserException('Wildcards are only allowed in a single terms.');
         }
 

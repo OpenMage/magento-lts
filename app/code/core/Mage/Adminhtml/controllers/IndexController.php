@@ -39,7 +39,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     public function indexAction()
     {
-        $url = Mage::getSingleton('admin/session')->getUser()->getStatrupPageUrl();
+        $url = Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl();
 
         $this->_redirect($url);
         return;

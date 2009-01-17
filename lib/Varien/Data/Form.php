@@ -66,7 +66,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     {
         self::$_defaultFieldsetRenderer = $renderer;
     }
-    
+
     public static function setFieldsetElementRenderer(Varien_Data_Form_Element_Renderer_Interface $renderer)
     {
         self::$_defaultFieldsetElementRenderer = $renderer;
@@ -81,7 +81,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     {
         return self::$_defaultFieldsetRenderer;
     }
-    
+
     public static function getFieldsetElementRenderer()
     {
         return self::$_defaultFieldsetElementRenderer;
@@ -202,7 +202,12 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         Varien_Profiler::start('form/toHtml');
         $html = '';
         if ($useContainer = $this->getUseContainer()) {
-            $html.= '<form '.$this->serialize(array('id', 'name', 'method', 'action', 'enctype', 'class', 'onsubmit')).'>';
+            $html .= '<form '.$this->serialize(array('id', 'name', 'method', 'action', 'enctype', 'class', 'onsubmit')).'>';
+            $html .= '<div>';
+            if ($this->getData('method') == 'post') {
+                $html .= '<input name="form_key" type="hidden" value="'.Mage::getSingleton('core/session')->getFormKey().'" />';
+            }
+            $html .= '</div>';
         }
 
         foreach ($this->getElements() as $element) {

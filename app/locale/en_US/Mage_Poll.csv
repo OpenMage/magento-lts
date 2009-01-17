@@ -15,6 +15,7 @@
 "Delete","Delete"
 "Delete Answer","Delete Answer"
 "Delete Poll","Delete Poll"
+"Disallow voting in a poll multiple times from same IP-address","Disallow voting in a poll multiple times from same IP-address"
 "Edit Answer '%s'","Edit Answer '%s'"
 "Edit Poll '%s'","Edit Poll '%s'"
 "Edit Poll Answer","Edit Poll Answer"

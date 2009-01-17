@@ -38,6 +38,7 @@
     </table>
 </div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="tag_edit_form">
+    <?php echo $this->getBlockHtml('formkey')?>
     <?php echo $this->getChildHtml('tagForm'); ?>
 </form>
 <script type="text/javascript">

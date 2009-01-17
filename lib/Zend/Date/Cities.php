@@ -12,15 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Date
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: DateObject.php 2511 2006-12-26 22:54:37Z bkarwin $
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @category  Zend
+ * @package   Zend_Date
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @version   $Id: DateObject.php 2511 2006-12-26 22:54:37Z bkarwin $
  */
 
 /**
  * Additional data for sunset/sunrise calculations
+ *
  * Holds the geographical data for all capital cities and many others worldwide
  * Original data from http://www.fallingrain.com/world/
  *
@@ -30,11 +31,18 @@
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Date_Cities {
-
-    public static $Cities = array(
-        'Abidjan'     => array('latitude' =>    5.3411111, 'longitude' =>   -4.0280556),
-        'Abu Dhabi'   => array('latitude' =>   24.4666667, 'longitude' =>   54.3666667),
+class Zend_Date_Cities
+{
+    /**
+     * Array Collection of known cities
+     *
+     * The array contains 'latitude' and 'longitude' for every known city
+     *
+     * @var Array
+     */
+    public static $cities = array(
+        'Abidjan'       => array('latitude' =>    5.3411111, 'longitude' =>   -4.0280556),
+        'Abu Dhabi'     => array('latitude' =>   24.4666667, 'longitude' =>   54.3666667),
         'Abuja'       => array('latitude' =>    9.1758333, 'longitude' =>    7.1808333),
         'Accra'       => array('latitude' =>    5.55,      'longitude' =>   -0.2166667),
         'Adamstown'   => array('latitude' =>  -25.0666667, 'longitude' => -130.0833333),
@@ -43,7 +51,7 @@ class Zend_Date_Cities {
         'Algiers'     => array('latitude' =>   36.7630556, 'longitude' =>    3.0505556),
         'Alofi'       => array('latitude' =>  -19.0166667, 'longitude' => -169.9166667),
         'Amman'       => array('latitude' =>   31.95,      'longitude' =>   35.9333333),
-        'Amsterdam'   => array('latitude' =>   52.35,      'longitude' =>    4.9166667),
+        'Amsterdam'        => array('latitude' =>   52.35,      'longitude' =>    4.9166667),
         'Andorra la Vella' => array('latitude' => 42.5,    'longitude' =>    1.5166667),
         'Ankara'      => array('latitude' =>   39.9272222, 'longitude' =>   32.8644444),
         'Antananarivo' => array('latitude' => -18.9166667, 'longitude' =>   47.5166667),
@@ -58,7 +66,7 @@ class Zend_Date_Cities {
         'Baghdad'     => array('latitude' =>   33.3386111, 'longitude' =>   44.3938889),
         'Baku'        => array('latitude' =>   40.3952778, 'longitude' =>   49.8822222),
         'Bamako'      => array('latitude' =>   12.65,      'longitude' =>   -8),
-        'Bandar Seri Begawan'      => array('latitude' => 4.8833333, 'longitude' => 114.9333333),
+        'Bandar Seri Begawan' => array('latitude' => 4.8833333, 'longitude' => 114.9333333),
         'Bankok'      => array('latitude' =>   13.5833333, 'longitude' =>  100.2166667),
         'Bangui'      => array('latitude' =>    4.3666667, 'longitude' =>   18.5833333),
         'Banjul'      => array('latitude' =>   13.4530556, 'longitude' =>  -16.5775),
@@ -282,24 +290,22 @@ class Zend_Date_Cities {
     /**
      * Returns the location from the selected city
      *
-     * @param string $city    - city to get location for
-     * @param string $horizon - horizon to use :
-     *                          default: effective
-     *                          others are civil, nautic, astronomic
+     * @param  string $city    City to get location for
+     * @param  string $horizon Horizon to use :
+     *                         default: effective
+     *                         others are civil, nautic, astronomic
      * @return array
-     * @throws Zend_Date_Exception
+     * @throws Zend_Date_Exception When city is unknown
      */
-    public static function City($city, $horizon = false) {
-        foreach (self::$Cities as $key => $value) {
-            if (strtolower($key) == strtolower($city)) {
-                $return = $value;
+    public static function City($city, $horizon = false)
+    {
+        foreach (self::$cities as $key => $value) {
+            if (strtolower($key) === strtolower($city)) {
+                $return            = $value;
                 $return['horizon'] = $horizon;
                 return $return;
             }
         }
-        /**
-         * @see Zend_Date_Exception
-         */
         #require_once 'Zend/Date/Exception.php';
         throw new Zend_Date_Exception('unknown city');
     }
@@ -309,7 +315,8 @@ class Zend_Date_Cities {
      *
      * @return array
      */
-    public static function getCityList() {
-        return array_keys(self::$Cities);
+    public static function getCityList()
+    {
+        return array_keys(self::$cities);
     }
 }

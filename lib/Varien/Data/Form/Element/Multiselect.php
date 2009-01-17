@@ -52,7 +52,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
 
     public function getElementHtml()
     {
-        $this->addClass('select');
+        $this->addClass('select multiselect');
         $html = '';
         if ($this->getCanBeEmpty()) {
             $html .= '<input type="hidden" name="' . parent::getName() . '" value="" />';

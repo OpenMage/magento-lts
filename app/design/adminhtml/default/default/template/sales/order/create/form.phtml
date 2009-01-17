@@ -31,16 +31,17 @@
     payment.switchMethod = order.switchPaymentMethod.bind(order);
 </script>
 <form id="edit_form" action="<?php echo $this->getSaveUrl() ?>" method="post">
-    <div id="order:messages">
+    <?php echo $this->getBlockHtml('formkey')?>
+    <div id="order-messages">
         <?php echo $this->getChildHtml('messages') ?>
     </div>
-    <div id="order:customer-selector" style="display:<?php echo $this->getCustomerSelectorDisplay() ?>">
+    <div id="order-customer-selector" style="display:<?php echo $this->getCustomerSelectorDisplay() ?>">
         <?php echo $this->getChildHtml('customer') ?>
     </div>
-    <div id="order:store-selector" style="display:<?php echo $this->getStoreSelectorDisplay() ?>">
+    <div id="order-store-selector" style="display:<?php echo $this->getStoreSelectorDisplay() ?>">
         <?php echo $this->getChildHtml('store') ?>
     </div>
-    <div id="order:data" style="display:<?php echo $this->getDataSelectorDisplay() ?>">
+    <div id="order-data" style="display:<?php echo $this->getDataSelectorDisplay() ?>">
         <?php echo $this->getChildHtml('data') ?>
     </div>
 </form>

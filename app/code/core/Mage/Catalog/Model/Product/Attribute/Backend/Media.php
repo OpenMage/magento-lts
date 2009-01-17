@@ -89,15 +89,19 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         $clearImages = array();
         $newImages   = array();
+        $existImages = array();
         if ($object->getIsDuplicate()!=true) {
             foreach ($value['images'] as &$image) {
                 if(!empty($image['removed'])) {
                     $clearImages[] = $image['file'];
                 } else if (!isset($image['value_id'])) {
                     $newFile                   = $this->_moveImageFromTmp($image['file']);
-                    $newImages[$image['file']] = $newFile;
+                    $image['new_file'] = $newFile;
+                    $newImages[$image['file']] = $image;
                     $this->_renamedImages[$image['file']] = $newFile;
                     $image['file']             = $newFile;
+                } else {
+                    $existImages[$image['file']] = $image;
                 }
             }
         } else {
@@ -115,16 +119,20 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         foreach ($object->getMediaAttributes() as $mediaAttribute) {
-            if (in_array($object->getData($mediaAttribute->getAttributeCode()), $clearImages)) {
-                $object->setData($mediaAttribute->getAttributeCode(), null);
+            $mediaAttrCode = $mediaAttribute->getAttributeCode();
+            $attrData = $object->getData($mediaAttrCode);
+
+            if (in_array($attrData, $clearImages)) {
+                $object->setData($mediaAttrCode, null);
             }
 
-            if (in_array($object->getData($mediaAttribute->getAttributeCode()), array_keys($newImages))) {
-                $object->setData(
-                    $mediaAttribute->getAttributeCode(),
-                    $newImages[$object->getData($mediaAttribute->getAttributeCode())]
-                );
+            if (in_array($attrData, array_keys($newImages))) {
+                $object->setData($mediaAttrCode, $newImages[$attrData]['new_file']);
+                $object->setData($mediaAttrCode.'_label', $newImages[$attrData]['label']);
+            }
 
+            if (in_array($attrData, array_keys($existImages))) {
+                $object->setData($mediaAttrCode.'_label', $existImages[$attrData]['label']);
             }
         }
 

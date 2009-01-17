@@ -17,7 +17,7 @@
  * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 8113 2008-02-18 13:15:27Z matthew $
+ * @version    $Id: Abstract.php 13350 2008-12-18 15:24:27Z alexander $
  */
 
 
@@ -64,7 +64,7 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
     protected $_messages = array();
 
     /**
-     * Flag indidcating whether or not value should be obfuscated in error 
+     * Flag indidcating whether or not value should be obfuscated in error
      * messages
      * @var bool
      */
@@ -175,7 +175,7 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
      *
      * Returns null if and only if $messageKey does not correspond to an existing template.
      *
-     * If a translator is available and a translation exists for $messageKey, 
+     * If a translator is available and a translation exists for $messageKey,
      * the translation will be used.
      *
      * @param  string $messageKey
@@ -191,9 +191,21 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
         $message = $this->_messageTemplates[$messageKey];
 
         if (null !== ($translator = $this->getTranslator())) {
-            if ($translator->isTranslated($messageKey)) {
+            if ($translator->isTranslated($message)) {
+                $message = $translator->translate($message);
+            } elseif ($translator->isTranslated($messageKey)) {
                 $message = $translator->translate($messageKey);
             }
+        }
+
+        if (is_object($value)) {
+        	if (!in_array('__toString', get_class_methods($value))) {
+        		$value = get_class($value) . ' object';
+        	} else {
+        		$value = $value->__toString();
+        	}
+        } else {
+        	$value = (string)$value;
         }
 
         if ($this->getObscureValue()) {
@@ -202,7 +214,7 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
 
         $message = str_replace('%value%', (string) $value, $message);
         foreach ($this->_messageVariables as $ident => $property) {
-            $message = str_replace("%$ident%", $this->$property, $message);
+            $message = str_replace("%$ident%", (string) $this->$property, $message);
         }
         return $message;
     }
@@ -251,8 +263,8 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
 
     /**
      * Set flag indicating whether or not value should be obfuscated in messages
-     * 
-     * @param  bool $flag 
+     *
+     * @param  bool $flag
      * @return Zend_Validate_Abstract
      */
     public function setObscureValue($flag)
@@ -262,9 +274,9 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
     }
 
     /**
-     * Retrieve flag indicating whether or not value should be obfuscated in 
+     * Retrieve flag indicating whether or not value should be obfuscated in
      * messages
-     * 
+     *
      * @return bool
      */
     public function getObscureValue()
@@ -274,8 +286,8 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
 
     /**
      * Set translation object
-     * 
-     * @param  Zend_Translate|Zend_Translate_Adapter|null $translator 
+     *
+     * @param  Zend_Translate|Zend_Translate_Adapter|null $translator
      * @return Zend_Validate_Abstract
      */
     public function setTranslator($translator = null)
@@ -293,7 +305,7 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
 
     /**
      * Return translation object
-     * 
+     *
      * @return Zend_Translate_Adapter|null
      */
     public function getTranslator()
@@ -307,8 +319,8 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
 
     /**
      * Set default translation object for all validate objects
-     * 
-     * @param  Zend_Translate|Zend_Translate_Adapter|null $translator 
+     *
+     * @param  Zend_Translate|Zend_Translate_Adapter|null $translator
      * @return void
      */
     public static function setDefaultTranslator($translator = null)
@@ -325,7 +337,7 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
 
     /**
      * Get default translation object for all validate objects
-     * 
+     *
      * @return Zend_Translate_Adapter|null
      */
     public static function getDefaultTranslator()

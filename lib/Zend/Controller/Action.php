@@ -18,22 +18,11 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
-/** Zend_Controller_Exception */
-#require_once 'Zend/Controller/Action/Exception.php';
-
 /** Zend_Controller_Action_HelperBroker */
 #require_once 'Zend/Controller/Action/HelperBroker.php';
 
 /** Zend_Controller_Front */
 #require_once 'Zend/Controller/Front.php';
-
-/** Zend_Controller_Request_Abstract */
-#require_once 'Zend/Controller/Request/Abstract.php';
-
-/** Zend_Controller_Response_Abstract */
-#require_once 'Zend/Controller/Response/Abstract.php';
-
 
 /**
  * @category   Zend
@@ -43,6 +32,11 @@
  */
 abstract class Zend_Controller_Action
 {
+    /**
+     * @var array of existing class methods
+     */
+    protected $_classMethods;
+
     /**
      * Word delimiters (used for normalizing view script paths)
      * @var array
@@ -175,6 +169,7 @@ abstract class Zend_Controller_Action
         }
         $baseDir = dirname($dirs[$module]) . DIRECTORY_SEPARATOR . 'views';
         if (!file_exists($baseDir) || !is_dir($baseDir)) {
+            #require_once 'Zend/Controller/Exception.php';
             throw new Zend_Controller_Exception('Missing base view directory ("' . $baseDir . '")');
         }
 
@@ -269,6 +264,7 @@ abstract class Zend_Controller_Action
         if (null === $action) {
             $action = $request->getActionName();
         } elseif (!is_string($action)) {
+            #require_once 'Zend/Controller/Exception.php';
             throw new Zend_Controller_Exception('Invalid action specifier for view render');
         }
 
@@ -474,6 +470,7 @@ abstract class Zend_Controller_Action
         if ('Action' == substr($methodName, -6)) {
             #require_once 'Zend/Controller/Action/Exception.php';
             $action = substr($methodName, 0, strlen($methodName) - 6);
+            #require_once 'Zend/Controller/Action/Exception.php';
             throw new Zend_Controller_Action_Exception(sprintf('Action "%s" does not exist and was not trapped in __call()', $action), 404);
         }
 
@@ -494,8 +491,12 @@ abstract class Zend_Controller_Action
 
         $this->preDispatch();
         if ($this->getRequest()->isDispatched()) {
+            if (null === $this->_classMethods) {
+                $this->_classMethods = get_class_methods($this);
+            }
+
             // preDispatch() didn't change the action, so we can continue
-            if ($this->getInvokeArg('useCaseSensitiveActions') || in_array($action, get_class_methods($this))) {
+            if ($this->getInvokeArg('useCaseSensitiveActions') || in_array($action, $this->_classMethods)) {
                 if ($this->getInvokeArg('useCaseSensitiveActions')) {
                     trigger_error('Using case sensitive actions without word separators is deprecated; please do not rely on this "feature"');
                 }
@@ -566,7 +567,7 @@ abstract class Zend_Controller_Action
      * @param mixed $default
      * @return mixed
      */
-    final protected function _getParam($paramName, $default = null)
+    protected function _getParam($paramName, $default = null)
     {
         $value = $this->getRequest()->getParam($paramName);
         if ((null == $value) && (null !== $default)) {
@@ -583,7 +584,7 @@ abstract class Zend_Controller_Action
      * @param mixed $value
      * @return Zend_Controller_Action
      */
-    final protected function _setParam($paramName, $value)
+    protected function _setParam($paramName, $value)
     {
         $this->getRequest()->setParam($paramName, $value);
 
@@ -597,7 +598,7 @@ abstract class Zend_Controller_Action
      * @param string $paramName
      * @return boolean
      */
-    final protected function _hasParam($paramName)
+    protected function _hasParam($paramName)
     {
         return null !== $this->getRequest()->getParam($paramName);
     }
@@ -608,7 +609,7 @@ abstract class Zend_Controller_Action
      *
      * @return array
      */
-    final protected function _getAllParams()
+    protected function _getAllParams()
     {
         return $this->getRequest()->getParams();
     }

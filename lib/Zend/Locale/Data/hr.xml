@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.79 $"/>
-		<generation date="$Date: 2007/07/19 23:30:28 $"/>
+		<version number="$Revision: 1.90 $"/>
+		<generation date="$Date: 2008/06/26 03:47:57 $"/>
 		<language type="hr"/>
 	</identity>
 	<localeDisplayNames>
@@ -15,7 +15,7 @@
 			<language type="apa">apaški</language>
 			<language type="ar">arapski</language>
 			<language type="art">umjetni (ostali)</language>
-			<language type="as">asamskom (Britanska Indija)</language>
+			<language type="as">asamski (Britanska Indija)</language>
 			<language type="av">avarski</language>
 			<language type="az">azerbajdžanski</language>
 			<language type="bat">baltički (ostali)</language>
@@ -30,7 +30,7 @@
 			<language type="bs">bosanski</language>
 			<language type="ca">katalonski</language>
 			<language type="cel">keltski (ostali)</language>
-			<language type="chr">chr</language>
+			<language type="chr">čeroki</language>
 			<language type="co">korzički</language>
 			<language type="cs">češki</language>
 			<language type="cu">crkvenoslavenski</language>
@@ -38,12 +38,14 @@
 			<language type="da">danski</language>
 			<language type="de">njemački</language>
 			<language type="de_CH">gornjonjemački (Švicarska)</language>
-			<language type="dsb">donjolužičkosrpski</language>
+			<language type="dsb">lužičkosrpski</language>
 			<language type="dum">nizozemski, srednji (ca. 1050-1350)</language>
 			<language type="egy">egipatski (antički)</language>
 			<language type="el">grčki</language>
 			<language type="en">engleski</language>
-			<language type="en_GB">engleski (Velika Britanija)</language>
+			<language type="en_AU">engleski (australski)</language>
+			<language type="en_GB">engleski (britanski)</language>
+			<language type="en_US">engleski (američki)</language>
 			<language type="enm">engleski, srednji (1100-1500)</language>
 			<language type="eo">esperanto</language>
 			<language type="es">španjolski</language>
@@ -53,7 +55,7 @@
 			<language type="fa">perzijski</language>
 			<language type="fi">finski</language>
 			<language type="fil">filipino</language>
-			<language type="fiu">ostali ugarsko-finski</language>
+			<language type="fiu">ugro-finski jezici</language>
 			<language type="fj">fidžijski</language>
 			<language type="fo">faroanski</language>
 			<language type="fr">francuski</language>
@@ -63,7 +65,7 @@
 			<language type="frs">istočnofrizijski</language>
 			<language type="fy">frizijski</language>
 			<language type="ga">irski</language>
-			<language type="gd">škotskom galskom</language>
+			<language type="gd">škotski-galski</language>
 			<language type="gem">germanski (ostali)</language>
 			<language type="gl">galicijski</language>
 			<language type="gmh">njemački, srednji visoki (ca.1050-1500)</language>
@@ -107,6 +109,7 @@
 			<language type="mga">irski, srednji (900-1200)</language>
 			<language type="mis">ostali jezici</language>
 			<language type="mk">makedonski</language>
+			<language type="mkh">mkh</language>
 			<language type="ml">malayalam</language>
 			<language type="mn">mongolski</language>
 			<language type="mo">moldavski</language>
@@ -122,7 +125,7 @@
 			<language type="nn">novonorveški</language>
 			<language type="no">norveški</language>
 			<language type="oc">okcitanski</language>
-			<language type="or">orijskom</language>
+			<language type="or">orijski</language>
 			<language type="ota">turski - otomanski</language>
 			<language type="pa">punjabi</language>
 			<language type="peo">staroperzijski</language>
@@ -130,6 +133,7 @@
 			<language type="pro">staroprovansalski</language>
 			<language type="ps">paštu</language>
 			<language type="pt">portugalski</language>
+			<language type="pt_PT">portugalski (iberijski)</language>
 			<language type="rm">retoromanski</language>
 			<language type="ro">rumunjski</language>
 			<language type="roa">romanski (ostali)</language>
@@ -152,18 +156,18 @@
 			<language type="sv">švedski</language>
 			<language type="sw">svahili</language>
 			<language type="ta">tamilski</language>
-			<language type="tai">ostali tajlandski</language>
+			<language type="tai">tajski</language>
 			<language type="te">telugu</language>
 			<language type="th">tajlandski</language>
 			<language type="ti">tigrinya</language>
-			<language type="tig">tigrinski</language>
+			<language type="tig">tigriški</language>
 			<language type="tk">turkmenski</language>
 			<language type="tl">tagalog</language>
 			<language type="tlh">klingonski</language>
 			<language type="tr">turski</language>
 			<language type="tw">twi</language>
 			<language type="ty">tahićanski</language>
-			<language type="ug">turkmenskom (uighur)</language>
+			<language type="ug">turkmenski (uighur)</language>
 			<language type="uk">ukrajinski</language>
 			<language type="und">nepoznati ili nevažeći jezik</language>
 			<language type="ur">urdu</language>
@@ -187,7 +191,7 @@
 			<script type="Hebr">hebrejsko pismo</script>
 			<script type="Jpan">japansko pismo</script>
 			<script type="Latn">Latinski</script>
-			<script type="Runr">rune</script>
+			<script type="Runr">runsko pismo</script>
 			<script type="Sinh">singaleško pismo</script>
 			<script type="Taml">tamilsko pismo</script>
 			<script type="Tfng">tifinar</script>
@@ -266,8 +270,8 @@
 			<territory type="BY">Bjelorusija</territory>
 			<territory type="BZ">Belize</territory>
 			<territory type="CA">Kanada</territory>
-			<territory type="CC">Kokos (Keeling) Otoci</territory>
-			<territory type="CD">Kongo, Demokratska Republika</territory>
+			<territory type="CC">Kokosovi Otoci</territory>
+			<territory type="CD">Demokratska Republika Kongo</territory>
 			<territory type="CF">Srednjoafrička Republika</territory>
 			<territory type="CG">Kongo</territory>
 			<territory type="CH">Švicarska</territory>
@@ -300,11 +304,11 @@
 			<territory type="FI">Finska</territory>
 			<territory type="FJ">Fidži</territory>
 			<territory type="FK">Falklandski Otoci</territory>
-			<territory type="FM">Mikronezija, Federalne Države</territory>
+			<territory type="FM">Mikronezija</territory>
 			<territory type="FO">Farski Otoci</territory>
 			<territory type="FR">Francuska</territory>
 			<territory type="GA">Gabon</territory>
-			<territory type="GB">Ujedinjena Kraljevina</territory>
+			<territory type="GB">Velika Britanija</territory>
 			<territory type="GD">Grenada</territory>
 			<territory type="GE">Gruzija</territory>
 			<territory type="GF">Francuska Gvajana</territory>
@@ -322,8 +326,8 @@
 			<territory type="GU">Guam</territory>
 			<territory type="GW">Gvineja Bisau</territory>
 			<territory type="GY">Gvajana</territory>
-			<territory type="HK">Hong Kong S.A.R. Kine</territory>
-			<territory type="HM">Heard Otok i McDonald Otoci</territory>
+			<territory type="HK">Hong Kong</territory>
+			<territory type="HM">Otok Heard i Otoci McDonald</territory>
 			<territory type="HN">Honduras</territory>
 			<territory type="HR">Hrvatska</territory>
 			<territory type="HT">Haiti</territory>
@@ -335,7 +339,7 @@
 			<territory type="IN">Indija</territory>
 			<territory type="IO">Britanski Teritorij Indijskog Oceana</territory>
 			<territory type="IQ">Irak</territory>
-			<territory type="IR">Iran, Islamska Republika</territory>
+			<territory type="IR">Iran</territory>
 			<territory type="IS">Island</territory>
 			<territory type="IT">Italija</territory>
 			<territory type="JE">Jersey</territory>
@@ -349,7 +353,7 @@
 			<territory type="KM">Komori</territory>
 			<territory type="KN">Sveti Kristofor i Nevis</territory>
 			<territory type="KP">Koreja, Sjeverna</territory>
-			<territory type="KR">Koreja, Južna</territory>
+			<territory type="KR">Južna Koreja</territory>
 			<territory type="KW">Kuvajt</territory>
 			<territory type="KY">Kajmanski Otoci</territory>
 			<territory type="KZ">Kazakstan</territory>
@@ -366,15 +370,15 @@
 			<territory type="LY">Libijska Arapska Džamahirija</territory>
 			<territory type="MA">Maroko</territory>
 			<territory type="MC">Monako</territory>
-			<territory type="MD">Moldavija, Republika</territory>
+			<territory type="MD">Moldavija</territory>
 			<territory type="ME">Crna Gora</territory>
 			<territory type="MG">Madagaskar</territory>
 			<territory type="MH">Maršalovi Otoci</territory>
-			<territory type="MK">Makedonija, Republika</territory>
+			<territory type="MK">Bivša Jugoslavenska Republika Makedonija</territory>
 			<territory type="ML">Mali</territory>
 			<territory type="MM">Mijanma</territory>
 			<territory type="MN">Mongolija</territory>
-			<territory type="MO">Makao S.A.R. Kine</territory>
+			<territory type="MO">Makao</territory>
 			<territory type="MP">Sjeverni Marianski Otoci</territory>
 			<territory type="MQ">Martinik</territory>
 			<territory type="MR">Mauritanija</territory>
@@ -419,7 +423,7 @@
 			<territory type="RE">Reunion</territory>
 			<territory type="RO">Rumunjska</territory>
 			<territory type="RS">Srbija</territory>
-			<territory type="RU">Ruska Federacija</territory>
+			<territory type="RU">Rusija</territory>
 			<territory type="RW">Ruanda</territory>
 			<territory type="SA">Saudijska Arabija</territory>
 			<territory type="SB">Salamunovi Otoci</territory>
@@ -442,7 +446,7 @@
 			<territory type="SZ">Svazi</territory>
 			<territory type="TC">Turkski i Kaikos Otoci</territory>
 			<territory type="TD">Čad</territory>
-			<territory type="TF">Francuske Južne Teritorije</territory>
+			<territory type="TF">Francuski Južni Teritoriji</territory>
 			<territory type="TG">Togo</territory>
 			<territory type="TH">Tajland</territory>
 			<territory type="TJ">Tadžikistan</territory>
@@ -458,15 +462,15 @@
 			<territory type="TZ">Tanzanija</territory>
 			<territory type="UA">Ukrajina</territory>
 			<territory type="UG">Uganda</territory>
-			<territory type="UM">Sjedinjene Države Manji Vanjski Otoci</territory>
+			<territory type="UM">Ujedinjene Države Manjih Pacifičkih Otoka</territory>
 			<territory type="US">Sjedinjene Države</territory>
 			<territory type="UY">Urugvaj</territory>
 			<territory type="UZ">Uzbekistan</territory>
-			<territory type="VA">Sveta Stolica (Država Vatikanskog Grada)</territory>
+			<territory type="VA">Grad Vatikan</territory>
 			<territory type="VC">Sveti Vincent i Grenadini</territory>
 			<territory type="VE">Venezuela</territory>
 			<territory type="VG">Britanski Djevičanski Otoci</territory>
-			<territory type="VI">U.S. Djevičanski Otoci</territory>
+			<territory type="VI">Američki Djevičanski Otoci</territory>
 			<territory type="VN">Vijetnam</territory>
 			<territory type="VU">Vanuatu</territory>
 			<territory type="WF">Wallis i Futuna</territory>
@@ -503,11 +507,12 @@
 	</localeDisplayNames>
 	<layout>
 		<inText type="languages">lowercase-words</inText>
-		<inText type="scripts">titlecase-words</inText>
+		<inText type="scripts">lowercase-words</inText>
 		<inText type="territories">titlecase-words</inText>
 	</layout>
 	<characters>
 		<exemplarCharacters>[a-c č ć d đ {dž} e-l {lj} m n {nj} o p r s š t-v z ž]</exemplarCharacters>
+		<exemplarCharacters type="auxiliary">[q w-y]</exemplarCharacters>
 	</characters>
 	<delimiters>
 		<quotationStart>‘</quotationStart>
@@ -535,20 +540,6 @@
 							<month type="11">stu</month>
 							<month type="12">pro</month>
 						</monthWidth>
-						<monthWidth type="narrow">
-							<month type="1">s</month>
-							<month type="2">v</month>
-							<month type="3">o</month>
-							<month type="4">t</month>
-							<month type="5">s</month>
-							<month type="6">l</month>
-							<month type="7">s</month>
-							<month type="8">k</month>
-							<month type="9">r</month>
-							<month type="10">l</month>
-							<month type="11">s</month>
-							<month type="12">p</month>
-						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1">siječnja</month>
 							<month type="2">veljače</month>
@@ -565,20 +556,6 @@
 						</monthWidth>
 					</monthContext>
 					<monthContext type="stand-alone">
-						<monthWidth type="abbreviated">
-							<month type="1">sij</month>
-							<month type="2">vel</month>
-							<month type="3">ožu</month>
-							<month type="4">tra</month>
-							<month type="5">svi</month>
-							<month type="6">lip</month>
-							<month type="7">srp</month>
-							<month type="8">kol</month>
-							<month type="9">ruj</month>
-							<month type="10">lis</month>
-							<month type="11">stu</month>
-							<month type="12">pro</month>
-						</monthWidth>
 						<monthWidth type="narrow">
 							<month type="1">s</month>
 							<month type="2">v</month>
@@ -673,22 +650,22 @@
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
-							<pattern>EEEE, dd MMMM yyyy.</pattern>
+							<pattern>EEEE, d. MMMM yyyy.</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
 						<dateFormat>
-							<pattern>dd. MMMM yyyy.</pattern>
+							<pattern>d. MMMM yyyy.</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="medium">
 						<dateFormat>
-							<pattern>yyyy.MM.dd</pattern>
+							<pattern>d. MMM. yyyy.</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="short">
 						<dateFormat>
-							<pattern>yyyy.MM.dd</pattern>
+							<pattern>dd.MM.yyyy.</pattern>
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
@@ -733,6 +710,81 @@
 						<dateFormatItem id="yyyyMM">yyyy.MM</dateFormatItem>
 						<dateFormatItem id="yyyyMMMM">yyyy. MMMM</dateFormatItem>
 					</availableFormats>
+					<intervalFormats>
+						<intervalFormatFallback>{0} - {1}</intervalFormatFallback>
+						<intervalFormatItem id="M">
+							<greatestDifference id="M">MM. - MM.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MEd">
+							<greatestDifference id="M">E, dd.MM. - E, dd.MM.</greatestDifference>
+							<greatestDifference id="d">E, dd.MM. - E, dd.MM.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMM">
+							<greatestDifference id="M">LLL-LLL</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMEd">
+							<greatestDifference id="M">E, dd. MMM - E, dd. MMM</greatestDifference>
+							<greatestDifference id="d">E, dd. - E, dd. MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMd">
+							<greatestDifference id="M">dd. MMM - dd. MMM</greatestDifference>
+							<greatestDifference id="d">dd. - dd. MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Md">
+							<greatestDifference id="M">dd.MM. - dd.MM.</greatestDifference>
+							<greatestDifference id="d">dd.MM. - dd.MM.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">dd. - dd.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="h">
+							<greatestDifference id="a">HH - HH'h'</greatestDifference>
+							<greatestDifference id="h">HH - HH'h'</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="h">HH:mm-HH:mm</greatestDifference>
+							<greatestDifference id="m">HH:mm-HH:mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="h">HH:mm-HH:mm v</greatestDifference>
+							<greatestDifference id="m">HH:mm-HH:mm v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hv">
+							<greatestDifference id="a">HH - HH 'h' v</greatestDifference>
+							<greatestDifference id="h">HH - HH 'h' v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="y">
+							<greatestDifference id="y">y. - y.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yM">
+							<greatestDifference id="M">MM.yyyy. - MM.yyyy.</greatestDifference>
+							<greatestDifference id="y">MM.yyyy. - MM.yyyy.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="M">E, dd.MM.yyyy. - E, dd.MM.yyyy.</greatestDifference>
+							<greatestDifference id="d">E, dd.MM.yyyy. - E, dd.MM.yyyy.</greatestDifference>
+							<greatestDifference id="y">E, dd.MM.yyyy. - E, dd.MM.yyyy.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMM">
+							<greatestDifference id="M">LLL-LLL yyyy.</greatestDifference>
+							<greatestDifference id="y">LLL yyyy. - LLL yyyy.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEd">
+							<greatestDifference id="M">E, dd. MMM - E, dd. MMM yyyy.</greatestDifference>
+							<greatestDifference id="d">E, dd. - E, dd. MMM yyyy.</greatestDifference>
+							<greatestDifference id="y">E, dd. MMM yyyy. - E, dd. MMM yyyy.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="M">dd. MMM - dd. MMM yyyy.</greatestDifference>
+							<greatestDifference id="d">dd. - dd. MMM yyyy.</greatestDifference>
+							<greatestDifference id="y">dd. MMM yyyy. - dd. MMM yyyy.</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="M">dd.MM.yyyy. - dd.MM.yyyy.</greatestDifference>
+							<greatestDifference id="d">dd.MM.yyyy. - dd.MM.yyyy.</greatestDifference>
+							<greatestDifference id="y">dd.MM.yyyy. - dd.MM.yyyy.</greatestDifference>
+						</intervalFormatItem>
+					</intervalFormats>
 				</dateTimeFormats>
 				<fields>
 					<field type="era">
@@ -958,7 +1010,7 @@
 		<currencyFormats>
 			<currencyFormatLength>
 				<currencyFormat>
-					<pattern>#,##0.00 ¤; -#,##0.00 ¤</pattern>
+					<pattern>#,##0.00 ¤;-#,##0.00 ¤</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 		</currencyFormats>
@@ -1296,7 +1348,7 @@
 				<symbol>CF</symbol>
 			</currency>
 			<currency type="KRW">
-				<displayName>Južnokorejski won</displayName>
+				<displayName>južnokorejski won</displayName>
 			</currency>
 			<currency type="KWD">
 				<displayName>Kuvajtski dinar</displayName>
@@ -1467,10 +1519,10 @@
 				<symbol>leu</symbol>
 			</currency>
 			<currency type="RON">
-				<displayName>Novi Rumunjski Lev</displayName>
+				<displayName>novi rumunjski lev</displayName>
 			</currency>
 			<currency type="RSD">
-				<displayName>Srpski Dinar</displayName>
+				<displayName>srpski dinar</displayName>
 			</currency>
 			<currency type="RUB">
 				<displayName>Ruska rublja</displayName>
@@ -1479,7 +1531,7 @@
 				<displayName>Ruska rublja (1991-1998)</displayName>
 			</currency>
 			<currency type="SAR">
-				<displayName>Saudijski Rijal</displayName>
+				<displayName>saudijski rial</displayName>
 			</currency>
 			<currency type="SBD">
 				<displayName>Solomonskootočni dolar</displayName>
@@ -1512,7 +1564,7 @@
 			</currency>
 			<currency type="SOS">
 				<displayName>Somalijski šiling</displayName>
-				<symbol>So. Sh.</symbol>
+				<symbol>Sh.</symbol>
 			</currency>
 			<currency type="SRG">
 				<displayName>Surinamski gulden</displayName>
@@ -1527,7 +1579,7 @@
 				<symbol>E</symbol>
 			</currency>
 			<currency type="THB">
-				<displayName>Tajlandski Bat</displayName>
+				<displayName>tajlandski bat</displayName>
 			</currency>
 			<currency type="TJS">
 				<displayName>Tadžikistanski somoni</displayName>
@@ -1547,6 +1599,7 @@
 			</currency>
 			<currency type="TRY">
 				<displayName>Nova Turska Lira</displayName>
+				<symbol>YTL</symbol>
 			</currency>
 			<currency type="TTD">
 				<displayName>Trinidadtobaški dolar</displayName>

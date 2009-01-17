@@ -41,6 +41,7 @@
         <div class="right">
             <div class="entry-edit">
                 <form action="" id="<?php echo $this->getHtmlId() ?>-form" method="post">
+                    <?php echo $this->getBlockHtml('formkey')?>
                     <fieldset>
                         <span class="field-row">
                             <label><?php echo $this->__('Actions') ?></label>

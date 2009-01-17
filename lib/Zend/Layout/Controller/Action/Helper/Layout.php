@@ -4,19 +4,19 @@
  *
  * LICENSE
  *
- * This source file is subject to version 1.0 of the Zend Framework
- * license, that is bundled with this package in the file LICENSE.txt, and
- * is available through the world-wide-web at the following URL:
- * http://framework.zend.com/license/new-bsd. If you did not receive
- * a copy of the Zend Framework license and are unable to obtain it
- * through the world-wide-web, please send a note to license@zend.com
- * so we can mail you a copy immediately.
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://framework.zend.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Layout.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Layout.php 11508 2008-09-24 14:21:30Z doctorrock83 $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -61,6 +61,10 @@ class Zend_Layout_Controller_Action_Helper_Layout extends Zend_Controller_Action
         if (null !== $layout) {
             $this->setLayoutInstance($layout);
         } else {
+            /**
+             * @see Zend_Layout
+             */
+            #require_once 'Zend/Layout.php';
             $layout = Zend_Layout::getMvcInstance();
         }
         
@@ -87,6 +91,9 @@ class Zend_Layout_Controller_Action_Helper_Layout extends Zend_Controller_Action
     public function getFrontController()
     {
         if (null === $this->_frontController) {
+            /**
+             * @see Zend_Controller_Front
+             */
             #require_once 'Zend/Controller/Front.php';
             $this->_frontController = Zend_Controller_Front::getInstance();
         }
@@ -102,6 +109,9 @@ class Zend_Layout_Controller_Action_Helper_Layout extends Zend_Controller_Action
     public function getLayoutInstance()
     {
         if (null === $this->_layout) {
+            /**
+             * @see Zend_Layout
+             */
             #require_once 'Zend/Layout.php';
             if (null === ($this->_layout = Zend_Layout::getMvcInstance())) {
                 $this->_layout = new Zend_Layout();

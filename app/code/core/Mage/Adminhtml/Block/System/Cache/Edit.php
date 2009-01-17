@@ -72,10 +72,14 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
         return $this;
     }
 
+    /**
+     * Retrieve Catalog Tools Data
+     *
+     * @return array
+     */
     public function getCatalogData()
     {
         $layeredIsDisabled = false;
-        $nowIsDisabled = false;
         $warning = '';
 
         $flag = Mage::getModel('catalogindex/catalog_index_flag')->loadSelf();
@@ -130,7 +134,16 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
                         'warning'   => $warning,
                         )
                 ),
-            )
+            ),
+            'rebuild_search_index'      => array(
+                'label'     => Mage::helper('adminhtml')->__('Search Index'),
+                'buttons'   => array(
+                    array(
+                        'name'      => 'rebuild_search_index',
+                        'action'    => Mage::helper('adminhtml')->__('Rebuild'),
+                    )
+                ),
+            ),
         );
     }
 }

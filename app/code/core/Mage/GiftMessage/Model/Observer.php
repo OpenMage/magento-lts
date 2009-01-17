@@ -176,9 +176,9 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     }
 
     /**
-     * Duplicates giftmessage from order to quote on import
+     * Duplicates giftmessage from order to quote on import or reorder
      *
-     * @param Varien_Object $observer
+     * @param Varien_Event_Observer $observer
      * @return Mage_GiftMessage_Model_Observer
      */
     public function salesEventOrderToQuote($observer)
@@ -193,4 +193,25 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
         return $this;
     }
 
+    /**
+     * Duplicates giftmessage from order item to quote item on import or reorder
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_GiftMessage_Model_Observer
+     */
+    public function salesEventOrderItemToQuoteItem($observer)
+    {
+        $orderItem = $observer->getEvent()->getOrderItem();
+        $quoteItem = $observer->getEvent()->getQuoteItem();
+        /* @var $orderItem Mage_Sales_Model_Order_Item */
+        /* @var $quoteItem Mage_Sales_Model_Quote_Item */
+        if ($giftMessageId = $orderItem->getGiftMessageId()) {
+            $giftMessage = Mage::getModel('giftmessage/message')->load($giftMessageId)
+                ->setId(null)
+                ->save();
+            $quoteItem->setGiftMessageId($giftMessage->getId());
+        }
+
+        return $this;
+    }
 }

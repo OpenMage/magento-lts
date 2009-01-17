@@ -36,7 +36,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
                 $packageOption = array('label'=>$package);
                 $themeOptions = array();
                 foreach ($themes as $theme) {
-                	$themeOptions[] = array('label'=>$theme, 'value'=>$package . '/' . $theme);
+                    $themeOptions[] = array('label'=>$theme, 'value'=>$package . '/' . $theme);
                 }
 
                 $packageOption['value'] = $themeOptions;

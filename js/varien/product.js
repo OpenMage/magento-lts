@@ -496,6 +496,12 @@ Product.OptionsPrice.prototype = {
         this.skipCalculate      = config.skipCalculate;
         this.duplicateIdSuffix  = config.idSuffix;
 
+        this.oldPlusDisposition = config.oldPlusDisposition;
+        this.plusDisposition    = config.plusDisposition;
+
+        this.oldMinusDisposition = config.oldMinusDisposition;
+        this.minusDisposition    = config.minusDisposition;
+
         this.optionPrices = {};
         this.containers = {};
 
@@ -520,23 +526,37 @@ Product.OptionsPrice.prototype = {
 
     getOptionPrices: function() {
         var result = 0;
+        var nonTaxable = 0;
         $H(this.optionPrices).each(function(pair) {
-            result += pair.value;
+            if (pair.key == 'nontaxable') {
+                nonTaxable = pair.value;
+            } else {
+                result += pair.value;
+            }
         });
-        return result;
+        var r = new Array(result, nonTaxable);
+        return r;
     },
 
     reload: function() {
         var price;
         var formattedPrice;
         var optionPrices = this.getOptionPrices();
+        var nonTaxable = optionPrices[1];
+        optionPrices = optionPrices[0];
         $H(this.containers).each(function(pair) {
             var _productPrice;
+            var _plusDisposition;
+            var _minusDisposition;
             if ($(pair.value)) {
                 if (pair.value == 'old-price-'+this.productId && this.productOldPrice != this.productPrice) {
                     _productPrice = this.productOldPrice;
+                    _plusDisposition = this.oldPlusDisposition;
+                    _minusDisposition = this.oldMinusDisposition;
                 } else {
                     _productPrice = this.productPrice;
+                    _plusDisposition = this.plusDisposition;
+                    _minusDisposition = this.minusDisposition;
                 }
 
                 var price = optionPrices+parseFloat(_productPrice)
@@ -550,6 +570,15 @@ Product.OptionsPrice.prototype = {
                     var excl = price;
                     var incl = excl + tax;
                 }
+
+                excl += parseFloat(_plusDisposition);
+                incl += parseFloat(_plusDisposition);
+                excl -= parseFloat(_minusDisposition);
+                incl -= parseFloat(_minusDisposition);
+
+                //adding nontaxlable part of options
+                excl += parseFloat(nonTaxable);
+                incl += parseFloat(nonTaxable);
 
                 if (pair.value == 'price-including-tax-'+this.productId) {
                     price = incl;

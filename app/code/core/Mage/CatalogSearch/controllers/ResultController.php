@@ -30,32 +30,57 @@
 class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Action
 {
     /**
+     * Retrieve catalog session
+     *
+     * @return Mage_Catalog_Model_Session
+     */
+    protected function _getSession()
+    {
+        return Mage::getSingleton('catalog/session');
+    }
+    /**
      * Display search result
      */
     public function indexAction()
     {
         $query = Mage::helper('catalogSearch')->getQuery();
+        /* @var $query Mage_CatalogSearch_Model_Query */
 
         $query->setStoreId(Mage::app()->getStore()->getId());
 
-        if ($text = $query->getQueryText()) {
-            if ($query->getId()) {
-                $query->setPopularity($query->getPopularity()+1);
+        if ($query->getQueryText()) {
+            if (Mage::helper('catalogSearch')->isMinQueryLength()) {
+                $query->setId(0)
+                    ->setIsActive(1)
+                    ->setIsProcessed(1);
             }
             else {
-                $query->setPopularity(1);
+                if ($query->getId()) {
+                    $query->setPopularity($query->getPopularity()+1);
+                }
+                else {
+                    $query->setPopularity(1);
+                }
+
+                if ($query->getRedirect()){
+                    $query->save();
+                    $this->getResponse()->setRedirect($query->getRedirect());
+                    return;
+                }
+                else {
+                    $query->prepare();
+                }
             }
 
-            if ($query->getRedirect()){
-                $query->save();
-                $this->getResponse()->setRedirect($query->getRedirect());
-                return;
-            }
+            Mage::helper('catalogSearch')->checkNotes();
+
             $this->loadLayout();
             $this->_initLayoutMessages('catalog/session');
-            $this->_initLayoutMessages('checkout/session');
             $this->renderLayout();
-            $query->save();
+
+            if (!Mage::helper('catalogSearch')->isMinQueryLength()) {
+                $query->save();
+            }
         }
         else {
             $this->_redirectReferer();

@@ -60,17 +60,41 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
         return $attributes;
     }
 
-    public function addFilters($values){
+    /**
+     * Add advanced search filters to product collection
+     *
+     * @param   array $values
+     * @return  Mage_CatalogSearch_Model_Advanced
+     */
+    public function addFilters($values)
+    {
         $attributes = $this->getAttributes();
         $allConditions = array();
         $filteredAttributes = array();
-        $indexFilters = Mage::getModel('catalogindex/indexer')->buildEntityFilter($attributes, $values, $filteredAttributes, $this->getProductCollection());
+        $indexFilters = Mage::getModel('catalogindex/indexer')->buildEntityFilter(
+            $attributes,
+            $values,
+            $filteredAttributes,
+            $this->getProductCollection()
+        );
+
         foreach ($indexFilters as $filter) {
             $this->getProductCollection()->addFieldToFilter('entity_id', array('in'=>new Zend_Db_Expr($filter)));
         }
-        $priceFilters = Mage::getModel('catalogindex/indexer')->buildEntityPriceFilter($attributes, $values, $filteredAttributes, $this->getProductCollection());
+
+        $priceFilters = Mage::getModel('catalogindex/indexer')->buildEntityPriceFilter(
+            $attributes,
+            $values,
+            $filteredAttributes,
+            $this->getProductCollection()
+        );
+
         foreach ($priceFilters as $code=>$filter) {
-            $this->getProductCollection()->getSelect()->joinInner(array("_price_filter_{$code}"=>$filter), "`_price_filter_{$code}`.`entity_id` = `e`.`entity_id`", array());
+            $this->getProductCollection()->getSelect()->joinInner(
+                array("_price_filter_{$code}"=>$filter),
+                "`_price_filter_{$code}`.`entity_id` = `e`.`entity_id`",
+                array()
+            );
         }
 
         foreach ($attributes as $attribute) {
@@ -81,7 +105,8 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
                 $value = $values[$code];
 
                 if (is_array($value)) {
-                    if ((isset($value['from']) && strlen($value['from']) > 0) || (isset($value['to']) && strlen($value['to']) > 0)) {
+                    if ((isset($value['from']) && strlen($value['from']) > 0)
+                        || (isset($value['to']) && strlen($value['to']) > 0)) {
                         $condition = $value;
                     }
                     elseif ($attribute->getBackend()->getType() == 'varchar') {
@@ -141,13 +166,13 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
                 $currencyModel = null;
             }
 
-            if ($value['from'] > 0 && $value['to'] > 0) {
+            if (strlen($value['from']) > 0 && strlen($value['to']) > 0) {
                 // -
                 $value = sprintf('%s - %s', ($currencyModel ? $from : $value['from']), ($currencyModel ? $to : $value['to']));
-            } elseif ($value['from'] > 0) {
+            } elseif (strlen($value['from']) > 0) {
                 // and more
                 $value = Mage::helper('catalogsearch')->__('%s and greater', ($currencyModel ? $from : $value['from']));
-            } elseif ($value['to'] > 0) {
+            } elseif (strlen($value['to']) > 0) {
                 // to
                 $value = Mage::helper('catalogsearch')->__('up to %s', ($currencyModel ? $to : $value['to']));
             }

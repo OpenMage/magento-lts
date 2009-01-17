@@ -40,7 +40,30 @@ class Zend_Rest_Client_Result implements IteratorAggregate {
      */
     public function __construct($data)
     {
+        set_error_handler(array($this, 'handleXmlErrors'));
         $this->_sxml = simplexml_load_string($data);
+        if($this->_sxml === false) {
+            $this->handleXmlErrors(0, "An error occured while parsing the REST response with simplexml.");
+        } else {
+            restore_error_handler();
+        }
+    }
+
+    /**
+     * Temporary error handler for parsing REST responses.
+     *
+     * @param int    $errno
+     * @param string $errstr
+     * @param string $errfile
+     * @param string $errline
+     * @param array  $errcontext
+     * @throws Zend_Result_Client_Result_Exception
+     */
+    public function handleXmlErrors($errno, $errstr, $errfile = null, $errline = null, array $errcontext = null)
+    {
+        restore_error_handler();
+        #require_once "Zend/Rest/Client/Result/Exception.php";
+        throw new Zend_Rest_Client_Result_Exception("REST Response Error: ".$errstr);
     }
 
     /**

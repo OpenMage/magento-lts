@@ -61,42 +61,42 @@
  */
 class Zend_Pdf_Resource_Font_Type0 extends Zend_Pdf_Resource_Font
 {
-	/**
-	 * Descendant CIDFont
-	 * 
-	 * @var Zend_Pdf_Resource_Font_CidFont
-	 */
-	private $_descendantFont;
+    /**
+     * Descendant CIDFont
+     * 
+     * @var Zend_Pdf_Resource_Font_CidFont
+     */
+    private $_descendantFont;
 
 
-	/**
-	 * Generate ToUnicode character map data
-	 * 
-	 * @return string
-	 */
-	static private function getToUnicodeCMapData()
-	{
-		return '/CIDInit /ProcSet findresource begin '              . "\n"
-		     . '12 dict begin '                                     . "\n"
-		     . 'begincmap '                                         . "\n"
-		     . '/CIDSystemInfo '                                    . "\n"
-		     . '<</Registry (Adobe) '                               . "\n"
-		     . '/Ordering (UCS) '                                   . "\n"
-		     . '/Supplement 0'                                      . "\n"
-		     . '>> def'                                             . "\n"
-		     . '/CMapName /Adobe-Identity-UCS def '                 . "\n"
-		     . '/CMapType 2 def '                                   . "\n"
-		     . '1 begincodespacerange'                              . "\n"
-		     . '<0000> <FFFF> '                                     . "\n"
-		     . 'endcodespacerange '                                 . "\n"
-		     . '1 beginbfrange '                                    . "\n"
-		     . '<0000> <FFFF> <0000> '                              . "\n"
-		     . 'endbfrange '                                        . "\n"
-		     . 'endcmap '                                           . "\n"
-		     . 'CMapName currentdict /CMap defineresource pop '     . "\n"
-		     . 'end '
-		     . 'end ';
-			}
+    /**
+     * Generate ToUnicode character map data
+     * 
+     * @return string
+     */
+    static private function getToUnicodeCMapData()
+    {
+        return '/CIDInit /ProcSet findresource begin '              . "\n"
+             . '12 dict begin '                                     . "\n"
+             . 'begincmap '                                         . "\n"
+             . '/CIDSystemInfo '                                    . "\n"
+             . '<</Registry (Adobe) '                               . "\n"
+             . '/Ordering (UCS) '                                   . "\n"
+             . '/Supplement 0'                                      . "\n"
+             . '>> def'                                             . "\n"
+             . '/CMapName /Adobe-Identity-UCS def '                 . "\n"
+             . '/CMapType 2 def '                                   . "\n"
+             . '1 begincodespacerange'                              . "\n"
+             . '<0000> <FFFF> '                                     . "\n"
+             . 'endcodespacerange '                                 . "\n"
+             . '1 beginbfrange '                                    . "\n"
+             . '<0000> <FFFF> <0000> '                              . "\n"
+             . 'endbfrange '                                        . "\n"
+             . 'endcmap '                                           . "\n"
+             . 'CMapName currentdict /CMap defineresource pop '     . "\n"
+             . 'end '
+             . 'end ';
+            }
 
     /**
      * Object constructor

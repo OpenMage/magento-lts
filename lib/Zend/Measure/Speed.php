@@ -12,23 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Speed.php 8064 2008-02-16 10:58:39Z thomas $
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @category  Zend
+ * @package   Zend_Measure
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @version   $Id: Speed.php 13209 2008-12-13 22:34:06Z thomas $
  */
-
 
 /**
  * Implement needed classes
  */
-#require_once 'Zend/Measure/Exception.php';
 #require_once 'Zend/Measure/Abstract.php';
 #require_once 'Zend/Locale.php';
 
-
 /**
+ * Class for handling speed conversions
+ *
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Speed
@@ -37,81 +36,85 @@
  */
 class Zend_Measure_Speed extends Zend_Measure_Abstract
 {
-    // Speed definitions
     const STANDARD = 'METER_PER_SECOND';
 
-    const BENZ                       = 'BENZ';
-    const CENTIMETER_PER_DAY         = 'CENTIMETER_PER_DAY';
-    const CENTIMETER_PER_HOUR        = 'CENTIMETER_PER_HOUR';
-    const CENTIMETER_PER_MINUTE      = 'CENTIMETER_PER_MINUTE';
-    const CENTIMETER_PER_SECOND      = 'CENTIMETER_PER_SECOND';
-    const DEKAMETER_PER_DAY          = 'DEKAMETER_PER_DAY';
-    const DEKAMETER_PER_HOUR         = 'DEKAMETER_PER_HOUR';
-    const DEKAMETER_PER_MINUTE       = 'DEKAMETER_PER_MINUTE';
-    const DEKAMETER_PER_SECOND       = 'DEKAMETER_PER_SECOND';
-    const FOOT_PER_DAY               = 'FOOT_PER_DAY';
-    const FOOT_PER_HOUR              = 'FOOT_PER_HOUR';
-    const FOOT_PER_MINUTE            = 'FOOT_PER_MINUTE';
-    const FOOT_PER_SECOND            = 'FOOT_PER_SECOND';
-    const FURLONG_PER_DAY            = 'FURLONG_PER_DAY';
-    const FURLONG_PER_FORTNIGHT      = 'FURLONG_PER_FORTNIGHT';
-    const FURLONG_PER_HOUR           = 'FURLONG_PER_HOUR';
-    const FURLONG_PER_MINUTE         = 'FURLONG_PER_MINUTE';
-    const FURLONG_PER_SECOND         = 'FURLONG_PER_SECOND';
-    const HECTOMETER_PER_DAY         = 'HECTOMETER_PER_DAY';
-    const HECTOMETER_PER_HOUR        = 'HECTOMETER_PER_HOUR';
-    const HECTOMETER_PER_MINUTE      = 'HECTOMETER_PER_MINUTE';
-    const HECTOMETER_PER_SECOND      = 'HECTOMETER_PER_SECOND';
-    const INCH_PER_DAY               = 'INCH_PER_DAY';
-    const INCH_PER_HOUR              = 'INCH_PER_HOUR';
-    const INCH_PER_MINUTE            = 'INCH_PER_MINUTE';
-    const INCH_PER_SECOND            = 'INCH_PER_SECOND';
-    const KILOMETER_PER_DAY          = 'KILOMETER_PER_DAY';
-    const KILOMETER_PER_HOUR         = 'KILOMETER_PER_HOUR';
-    const KILOMETER_PER_MINUTE       = 'KILOMETER_PER_MINUTE';
-    const KILOMETER_PER_SECOND       = 'KILOMETER_PER_SECOND';
-    const KNOT                       = 'KNOT';
-    const LEAGUE_PER_DAY             = 'LEAGUE_PER_DAY';
-    const LEAGUE_PER_HOUR            = 'LEAGUE_PER_HOUR';
-    const LEAGUE_PER_MINUTE          = 'LEAGUE_PER_MINUTE';
-    const LEAGUE_PER_SECOND          = 'LEAGUE_PER_SECOND';
-    const MACH                       = 'MACH';
-    const MEGAMETER_PER_DAY          = 'MEGAMETER_PER_DAY';
-    const MEGAMETER_PER_HOUR         = 'MEGAMETER_PER_HOUR';
-    const MEGAMETER_PER_MINUTE       = 'MEGAMETER_PER_MINUTE';
-    const MEGAMETER_PER_SECOND       = 'MEGAMETER_PER_SECOND';
-    const METER_PER_DAY              = 'METER_PER_DAY';
-    const METER_PER_HOUR             = 'METER_PER_HOUR';
-    const METER_PER_MINUTE           = 'METER_PER_MINUTE';
-    const METER_PER_SECOND           = 'METER_PER_SECOND';
-    const MILE_PER_DAY               = 'MILE_PER_DAY';
-    const MILE_PER_HOUR              = 'MILE_PER_HOUR';
-    const MILE_PER_MINUTE            = 'MILE_PER_MINUTE';
-    const MILE_PER_SECOND            = 'MILE_PER_SECOND';
-    const MILLIMETER_PER_DAY         = 'MILLIMETER_PER_DAY';
-    const MILLIMETER_PER_HOUR        = 'MILLIMETER_PER_HOUR';
-    const MILLIMETER_PER_MINUTE      = 'MILLIMETER_PER_MINUTE';
-    const MILLIMETER_PER_SECOND      = 'MILLIMETER_PER_SECOND';
-    const MILLIMETER_PER_MICROSECOND = 'MILLIMETER_PER_MICROSECOND';
+    const BENZ                           = 'BENZ';
+    const CENTIMETER_PER_DAY             = 'CENTIMETER_PER_DAY';
+    const CENTIMETER_PER_HOUR            = 'CENTIMETER_PER_HOUR';
+    const CENTIMETER_PER_MINUTE          = 'CENTIMETER_PER_MINUTE';
+    const CENTIMETER_PER_SECOND          = 'CENTIMETER_PER_SECOND';
+    const DEKAMETER_PER_DAY              = 'DEKAMETER_PER_DAY';
+    const DEKAMETER_PER_HOUR             = 'DEKAMETER_PER_HOUR';
+    const DEKAMETER_PER_MINUTE           = 'DEKAMETER_PER_MINUTE';
+    const DEKAMETER_PER_SECOND           = 'DEKAMETER_PER_SECOND';
+    const FOOT_PER_DAY                   = 'FOOT_PER_DAY';
+    const FOOT_PER_HOUR                  = 'FOOT_PER_HOUR';
+    const FOOT_PER_MINUTE                = 'FOOT_PER_MINUTE';
+    const FOOT_PER_SECOND                = 'FOOT_PER_SECOND';
+    const FURLONG_PER_DAY                = 'FURLONG_PER_DAY';
+    const FURLONG_PER_FORTNIGHT          = 'FURLONG_PER_FORTNIGHT';
+    const FURLONG_PER_HOUR               = 'FURLONG_PER_HOUR';
+    const FURLONG_PER_MINUTE             = 'FURLONG_PER_MINUTE';
+    const FURLONG_PER_SECOND             = 'FURLONG_PER_SECOND';
+    const HECTOMETER_PER_DAY             = 'HECTOMETER_PER_DAY';
+    const HECTOMETER_PER_HOUR            = 'HECTOMETER_PER_HOUR';
+    const HECTOMETER_PER_MINUTE          = 'HECTOMETER_PER_MINUTE';
+    const HECTOMETER_PER_SECOND          = 'HECTOMETER_PER_SECOND';
+    const INCH_PER_DAY                   = 'INCH_PER_DAY';
+    const INCH_PER_HOUR                  = 'INCH_PER_HOUR';
+    const INCH_PER_MINUTE                = 'INCH_PER_MINUTE';
+    const INCH_PER_SECOND                = 'INCH_PER_SECOND';
+    const KILOMETER_PER_DAY              = 'KILOMETER_PER_DAY';
+    const KILOMETER_PER_HOUR             = 'KILOMETER_PER_HOUR';
+    const KILOMETER_PER_MINUTE           = 'KILOMETER_PER_MINUTE';
+    const KILOMETER_PER_SECOND           = 'KILOMETER_PER_SECOND';
+    const KNOT                           = 'KNOT';
+    const LEAGUE_PER_DAY                 = 'LEAGUE_PER_DAY';
+    const LEAGUE_PER_HOUR                = 'LEAGUE_PER_HOUR';
+    const LEAGUE_PER_MINUTE              = 'LEAGUE_PER_MINUTE';
+    const LEAGUE_PER_SECOND              = 'LEAGUE_PER_SECOND';
+    const MACH                           = 'MACH';
+    const MEGAMETER_PER_DAY              = 'MEGAMETER_PER_DAY';
+    const MEGAMETER_PER_HOUR             = 'MEGAMETER_PER_HOUR';
+    const MEGAMETER_PER_MINUTE           = 'MEGAMETER_PER_MINUTE';
+    const MEGAMETER_PER_SECOND           = 'MEGAMETER_PER_SECOND';
+    const METER_PER_DAY                  = 'METER_PER_DAY';
+    const METER_PER_HOUR                 = 'METER_PER_HOUR';
+    const METER_PER_MINUTE               = 'METER_PER_MINUTE';
+    const METER_PER_SECOND               = 'METER_PER_SECOND';
+    const MILE_PER_DAY                   = 'MILE_PER_DAY';
+    const MILE_PER_HOUR                  = 'MILE_PER_HOUR';
+    const MILE_PER_MINUTE                = 'MILE_PER_MINUTE';
+    const MILE_PER_SECOND                = 'MILE_PER_SECOND';
+    const MILLIMETER_PER_DAY             = 'MILLIMETER_PER_DAY';
+    const MILLIMETER_PER_HOUR            = 'MILLIMETER_PER_HOUR';
+    const MILLIMETER_PER_MINUTE          = 'MILLIMETER_PER_MINUTE';
+    const MILLIMETER_PER_SECOND          = 'MILLIMETER_PER_SECOND';
+    const MILLIMETER_PER_MICROSECOND     = 'MILLIMETER_PER_MICROSECOND';
     const MILLIMETER_PER_100_MICROSECOND = 'MILLIMETER_PER_100_MICROSECOND';
-    const NAUTIC_MILE_PER_DAY        = 'NAUTIC_MILE_PER_DAY';
-    const NAUTIC_MILE_PER_HOUR       = 'NAUTIC_MILE_PER_HOUR';
-    const NAUTIC_MILE_PER_MINUTE     = 'NAUTIC_MILE_PER_MINUTE';
-    const NAUTIC_MILE_PER_SECOND     = 'NAUTIC_MILE_PER_SECOND';
-    const LIGHTSPEED_AIR             = 'LIGHTSPEED_AIR';
-    const LIGHTSPEED_GLASS           = 'LIGHTSPEED_GLASS';
-    const LIGHTSPEED_ICE             = 'LIGHTSPEED_ICE';
-    const LIGHTSPEED_VACUUM          = 'LIGHTSPEED_VACUUM';
-    const LIGHTSPEED_WATER           = 'LIGHTSPEED_WATER';
-    const SOUNDSPEED_AIR             = 'SOUNDSPEED_AIT';
-    const SOUNDSPEED_METAL           = 'SOUNDSPEED_METAL';
-    const SOUNDSPEED_WATER           = 'SOUNDSPEED_WATER';
-    const YARD_PER_DAY               = 'YARD_PER_DAY';
-    const YARD_PER_HOUR              = 'YARD_PER_HOUR';
-    const YARD_PER_MINUTE            = 'YARD_PER_MINUTE';
-    const YARD_PER_SECOND            = 'YARD_PER_SECOND';
+    const NAUTIC_MILE_PER_DAY            = 'NAUTIC_MILE_PER_DAY';
+    const NAUTIC_MILE_PER_HOUR           = 'NAUTIC_MILE_PER_HOUR';
+    const NAUTIC_MILE_PER_MINUTE         = 'NAUTIC_MILE_PER_MINUTE';
+    const NAUTIC_MILE_PER_SECOND         = 'NAUTIC_MILE_PER_SECOND';
+    const LIGHTSPEED_AIR                 = 'LIGHTSPEED_AIR';
+    const LIGHTSPEED_GLASS               = 'LIGHTSPEED_GLASS';
+    const LIGHTSPEED_ICE                 = 'LIGHTSPEED_ICE';
+    const LIGHTSPEED_VACUUM              = 'LIGHTSPEED_VACUUM';
+    const LIGHTSPEED_WATER               = 'LIGHTSPEED_WATER';
+    const SOUNDSPEED_AIR                 = 'SOUNDSPEED_AIT';
+    const SOUNDSPEED_METAL               = 'SOUNDSPEED_METAL';
+    const SOUNDSPEED_WATER               = 'SOUNDSPEED_WATER';
+    const YARD_PER_DAY                   = 'YARD_PER_DAY';
+    const YARD_PER_HOUR                  = 'YARD_PER_HOUR';
+    const YARD_PER_MINUTE                = 'YARD_PER_MINUTE';
+    const YARD_PER_SECOND                = 'YARD_PER_SECOND';
 
-    protected $_UNITS = array(
+    /**
+     * Calculations for all speed units
+     *
+     * @var array
+     */
+    protected $_units = array(
         'BENZ'                           => array('1',                                     'Bz'),
         'CENTIMETER_PER_DAY'             => array(array('' => '0.01', '/' => '86400'),       'cm/day'),
         'CENTIMETER_PER_HOUR'            => array(array('' => '0.01', '/' => '3600'),        'cm/h'),

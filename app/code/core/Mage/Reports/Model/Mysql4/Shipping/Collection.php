@@ -59,8 +59,8 @@ class Mage_Reports_Model_Mysql4_Shipping_Collection extends Mage_Sales_Model_Ent
                 array('base_shipping_amount'));
         } else {
             $this->addExpressionAttributeToSelect('total',
-                'SUM({{base_shipping_amount}}/{{store_to_base_rate}})',
-                array('base_shipping_amount', 'store_to_base_rate'));
+                'SUM({{base_shipping_amount}}*{{base_to_global_rate}})',
+                array('base_shipping_amount', 'base_to_global_rate'));
         }
 
         return $this;

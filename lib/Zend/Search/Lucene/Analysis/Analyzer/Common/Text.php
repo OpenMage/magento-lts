@@ -53,7 +53,9 @@ class Zend_Search_Lucene_Analysis_Analyzer_Common_Text extends Zend_Search_Lucen
         }
 
         // convert input into ascii
-        $this->_input = iconv($this->_encoding, 'ASCII//TRANSLIT', $this->_input);
+        if (PHP_OS != 'AIX') {
+            $this->_input = iconv($this->_encoding, 'ASCII//TRANSLIT', $this->_input);
+        }
         $this->_encoding = 'ASCII';
     }
 

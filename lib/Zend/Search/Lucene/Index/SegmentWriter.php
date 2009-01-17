@@ -19,13 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
-/** Zend_Search_Lucene_Exception */
-#require_once 'Zend/Search/Lucene/Exception.php';
-
 /** Zend_Search_Lucene_Index_SegmentInfo */
 #require_once 'Zend/Search/Lucene/Index/SegmentInfo.php';
-
 
 /**
  * @category   Zend
@@ -268,7 +263,7 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
     {
         return $this->_name;
     }
-    
+
     /**
      * Dump Field Info (.fnm) segment file
      */
@@ -493,7 +488,8 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
         $this->_tisFile->writeLong($this->_termCount);
 
         $this->_tiiFile->seek(4);
-        $this->_tiiFile->writeLong(ceil(($this->_termCount + 2)/self::$indexInterval));
+        // + 1 is used to count an additional special index entry (empty term at the start of the list)
+        $this->_tiiFile->writeLong(($this->_termCount - $this->_termCount % self::$indexInterval)/self::$indexInterval + 1);
     }
 
 

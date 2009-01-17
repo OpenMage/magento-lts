@@ -78,11 +78,11 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         $item->setDiscountPercent(0);
 
         $quote = $item->getQuote();
-
-        if ($quote->isVirtual()) {
+        if ($item instanceof Mage_Sales_Model_Quote_Address_Item) {
+            $address = $item->getAddress();
+        } elseif ($quote->isVirtual()) {
             $address = $quote->getBillingAddress();
-        }
-        else {
+        } else {
             $address = $quote->getShippingAddress();
         }
 

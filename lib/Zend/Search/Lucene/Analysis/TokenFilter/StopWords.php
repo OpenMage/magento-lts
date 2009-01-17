@@ -19,11 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
 /** Zend_Search_Lucene_Analysis_TokenFilter */
 #require_once 'Zend/Search/Lucene/Analysis/TokenFilter.php';
-#require_once 'Zend/Search/Exception.php';
-
 
 /**
  * Token filter that removes stop words. These words must be provided as array (set), example:
@@ -80,10 +77,12 @@ class Zend_Search_Lucene_Analysis_TokenFilter_StopWords extends Zend_Search_Luce
      */
     public function loadFromFile($filepath = null) {
         if (! $filepath || ! file_exists($filepath)) {
+            #require_once 'Zend/Search/Exception.php';
             throw new Zend_Search_Exception('You have to provide valid file path');
         }
         $fd = fopen($filepath, "r");
         if (! $fd) {
+            #require_once 'Zend/Search/Exception.php';
             throw new Zend_Search_Exception('Cannot open file ' . $filepath);
         }
         while (!feof ($fd)) {
@@ -93,6 +92,7 @@ class Zend_Search_Lucene_Analysis_TokenFilter_StopWords extends Zend_Search_Luce
             }
         }
         if (!fclose($fd)) {
+            #require_once 'Zend/Search/Exception.php';
             throw new Zend_Search_Exception('Cannot close file ' . $filepath);
         }
     }

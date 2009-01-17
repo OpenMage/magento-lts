@@ -62,11 +62,21 @@ class Mage_PaypalUk_Model_Express extends Mage_Payment_Model_Method_Abstract
         return Mage::getSingleton('paypalUk/api_pro');
     }
 
+    /**
+     * Retrieve redirect url
+     *
+     * @return string
+     */
     public function getRedirectUrl()
     {
         return $this->getApi()->getRedirectUrl();
     }
 
+    /**
+     * Get paypal session namespace
+     *
+     * @return Mage_Paypal_Model_Session
+     */
     public function getSession()
     {
         return Mage::getSingleton('paypaluk/session');
@@ -92,6 +102,11 @@ class Mage_PaypalUk_Model_Express extends Mage_Payment_Model_Method_Abstract
         return $this->getCheckout()->getQuote();
     }
 
+    /**
+     * Getting paypal action url
+     *
+     * @return string
+     */
     public function getPaymentAction($paymentAction=null)
     {
         if (is_null($paymentAction)) {
@@ -181,6 +196,11 @@ class Mage_PaypalUk_Model_Express extends Mage_Payment_Model_Method_Abstract
     }
 
 /*********************** GET EXPRESS CHECKOUT DETAILS ***************************/
+    /**
+     * Making API call to check transaction's status when customer returns from paypal
+     *
+     * @return Mage_Paypal_Model_Express
+     */
     public function returnFromPaypal()
     {
         $error='';
@@ -200,7 +220,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Payment_Model_Method_Abstract
                 if ($this->getSession()->getExpressCheckoutMethod() == 'shortcut') {
                     $this->getApi()->setRedirectUrl(Mage::getUrl('paypaluk/express/saveOrder'));
                 } else {
-                    $this->getApi()->setRedirectUrl(Mage::getUrl('paypal/express/updateOrder'));
+                    $this->getApi()->setRedirectUrl(Mage::getUrl('paypaluk/express/updateOrder'));
                 }
 
                 break;

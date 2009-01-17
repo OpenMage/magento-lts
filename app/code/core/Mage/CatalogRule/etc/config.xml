@@ -161,16 +161,13 @@
             <resources>
                 <admin>
                     <children>
-                        <promo>
+                        <promo translate="title" module="catalogrule">
                             <title>Promotions</title>
                             <sort_order>50</sort_order>
                             <children>
-                                <catalog>
+                                <catalog translate="title">
                                     <title>Catalog Price Rules</title>
                                 </catalog>
-                                <quote>
-                                    <title>Shopping Cart Price Rules</title>
-                                </quote>
                             </children>
                         </promo>
                     </children>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -17,21 +16,18 @@
  * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: EmailAddress.php 8985 2008-03-21 21:37:24Z matthew $
+ * @version    $Id: EmailAddress.php 13252 2008-12-14 20:27:04Z thomas $
  */
-
 
 /**
  * @see Zend_Validate_Abstract
  */
 #require_once 'Zend/Validate/Abstract.php';
 
-
 /**
  * @see Zend_Validate_Hostname
  */
 #require_once 'Zend/Validate/Hostname.php';
-
 
 /**
  * @category   Zend
@@ -41,13 +37,13 @@
  */
 class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
 {
-
     const INVALID            = 'emailAddressInvalid';
     const INVALID_HOSTNAME   = 'emailAddressInvalidHostname';
     const INVALID_MX_RECORD  = 'emailAddressInvalidMxRecord';
     const DOT_ATOM           = 'emailAddressDotAtom';
     const QUOTED_STRING      = 'emailAddressQuotedString';
     const INVALID_LOCAL_PART = 'emailAddressInvalidLocalPart';
+    const LENGTH_EXCEEDED    = 'emailAddressLengthExceeded';
 
     /**
      * @var array
@@ -58,7 +54,8 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
         self::INVALID_MX_RECORD  => "'%hostname%' does not appear to have a valid MX record for the email address '%value%'",
         self::DOT_ATOM           => "'%localPart%' not matched against dot-atom format",
         self::QUOTED_STRING      => "'%localPart%' not matched against quoted-string format",
-        self::INVALID_LOCAL_PART => "'%localPart%' is not a valid local part for email address '%value%'"
+        self::INVALID_LOCAL_PART => "'%localPart%' is not a valid local part for email address '%value%'",
+        self::LENGTH_EXCEEDED    => "'%value%' exceeds the allowed length"
     );
 
     /**
@@ -162,17 +159,25 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
     public function isValid($value)
     {
         $valueString = (string) $value;
+        $matches     = array();
+        $length      = true;
 
         $this->_setValue($valueString);
 
-        // Split email address up
-        if (!preg_match('/^(.+)@([^@]+)$/', $valueString, $matches)) {
+        // Split email address up and disallow '..'
+        if ((strpos($valueString, '..') !== false) or
+            (!preg_match('/^(.+)@([^@]+)$/', $valueString, $matches))) {
             $this->_error(self::INVALID);
             return false;
         }
 
         $this->_localPart = $matches[1];
         $this->_hostname  = $matches[2];
+
+        if ((strlen($this->_localPart) > 64) || (strlen($this->_hostname) > 255)) {
+            $length = false;
+            $this->_error(self::LENGTH_EXCEEDED);
+        }
 
         // Match hostname part
         $hostnameResult = $this->hostnameValidator->setTranslator($this->getTranslator())
@@ -181,16 +186,14 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
             $this->_error(self::INVALID_HOSTNAME);
 
             // Get messages and errors from hostnameValidator
-            foreach ($this->hostnameValidator->getMessages() as $message) {
-                $this->_messages[] = $message;
+            foreach ($this->hostnameValidator->getMessages() as $code => $message) {
+                $this->_messages[$code] = $message;
             }
             foreach ($this->hostnameValidator->getErrors() as $error) {
                 $this->_errors[] = $error;
             }
-        }
-
-        // MX check on hostname via dns_get_record()
-        if ($this->_validateMx) {
+        } else if ($this->_validateMx) {
+            // MX check on hostname via dns_get_record()
             if ($this->validateMxSupported()) {
                 $result = dns_get_mx($this->_hostname, $mxHosts);
                 if (count($mxHosts) < 1) {
@@ -235,11 +238,10 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
         }
 
         // If both parts valid, return true
-        if ($localResult && $hostnameResult) {
+        if ($localResult && $hostnameResult && $length) {
             return true;
         } else {
             return false;
         }
     }
-
 }

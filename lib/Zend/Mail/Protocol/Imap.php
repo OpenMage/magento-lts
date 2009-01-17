@@ -4,20 +4,20 @@
  *
  * LICENSE
  *
- * This source file is subject to version 1.0 of the Zend Framework
- * license, that is bundled with this package in the file LICENSE.txt, and
- * is available through the world-wide-web at the following URL:
- * http://framework.zend.com/license/new-bsd. If you did not receive
- * a copy of the Zend Framework license and are unable to obtain it
- * through the world-wide-web, please send a note to license@zend.com
- * so we can mail you a copy immediately.
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://framework.zend.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@zend.com so we can send you a copy immediately.
  * 
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Imap.php 8856 2008-03-16 11:28:48Z thomas $
+ * @version    $Id: Imap.php 12539 2008-11-11 02:47:17Z yoshida@zend.co.jp $
  */
 
 
@@ -31,6 +31,11 @@
 class Zend_Mail_Protocol_Imap
 {
     /**
+     * Default timeout in seconds for initiating session
+     */
+    const TIMEOUT_CONNECTION = 30;
+    
+    /**
      * socket to imap server
      * @var resource|null
      */
@@ -41,7 +46,6 @@ class Zend_Mail_Protocol_Imap
      * @var int
      */
     protected $_tagCount = 0;
-
 
     /**
      * Public constructor
@@ -85,13 +89,15 @@ class Zend_Mail_Protocol_Imap
             $port = $ssl === 'SSL' ? 993 : 143;
         }
 
-        $this->_socket = @fsockopen($host, $port);
+        $errno  =  0;
+        $errstr = '';
+        $this->_socket = @fsockopen($host, $port, $errno, $errstr, self::TIMEOUT_CONNECTION);
         if (!$this->_socket) {
             /**
              * @see Zend_Mail_Protocol_Exception
              */
             #require_once 'Zend/Mail/Protocol/Exception.php';
-            throw new Zend_Mail_Protocol_Exception('cannot connect to host');
+            throw new Zend_Mail_Protocol_Exception('cannot connect to host : ' . $errno . ' : ' . $errstr);
         }
 
         if (!$this->_assumedNextLine('* OK')) {
@@ -344,7 +350,7 @@ class Zend_Mail_Protocol_Imap
                     #require_once 'Zend/Mail/Protocol/Exception.php';
                     throw new Zend_Mail_Protocol_Exception('cannot write - connection closed?');
                 }
-                if (!$this->_assumedNextLine('+ OK')) {
+                if (!$this->_assumedNextLine('+ ')) {
                     /**
                      * @see Zend_Mail_Protocol_Exception
                      */
@@ -643,7 +649,7 @@ class Zend_Mail_Protocol_Imap
     {
         $result = array();
         $list = $this->requestAndResponse('LIST', $this->escapeString($reference, $mailbox));
-        if (!$list) {
+        if (!$list || $list === true) {
             return $result;
         }
 
@@ -816,14 +822,14 @@ class Zend_Mail_Protocol_Imap
     {
         $response = $this->requestAndResponse('SEARCH', $params);
         if (!$response) {
-        	return $response;
+            return $response;
         }
         
         foreach ($response as $ids) {
-        	if ($ids[0] == 'SEARCH') {
-        		array_shift($ids);
-        		return $ids;
-        	}
+            if ($ids[0] == 'SEARCH') {
+                array_shift($ids);
+                return $ids;
+            }
         }
         return array();
     }

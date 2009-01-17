@@ -86,4 +86,17 @@ class Mage_GoogleCheckout_Block_Link extends Mage_Core_Block_Template
 
         return '';
     }
+
+    public function getIsDisabled()
+    {
+        $quote = Mage::getSingleton('checkout/session')->getQuote();
+        /* @var $quote Mage_Sales_Model_Quote */
+        foreach ($quote->getAllVisibleItems() as $item) {
+            /* @var $item Mage_Sales_Model_Quote_Item */
+            if ($item->getProduct()->getDisableGooglecheckout()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

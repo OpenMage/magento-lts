@@ -30,6 +30,9 @@
         <Mage_Api>
             <active>true</active>
             <codePool>core</codePool>
+            <depends>
+                <Mage_Core />
+            </depends>
         </Mage_Api>
     </modules>
 </config>

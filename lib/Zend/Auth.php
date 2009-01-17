@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -17,7 +16,7 @@
  * @package    Zend_Auth
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Auth.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Auth.php 11747 2008-10-08 18:33:58Z norm2782 $
  */
 
 
@@ -48,7 +47,7 @@ class Zend_Auth
      *
      * @return void
      */
-    private function __construct()
+    protected function __construct()
     {}
 
     /**
@@ -56,7 +55,7 @@ class Zend_Auth
      *
      * @return void
      */
-    private function __clone()
+    protected function __clone()
     {}
 
     /**

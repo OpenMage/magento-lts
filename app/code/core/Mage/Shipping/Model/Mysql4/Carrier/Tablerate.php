@@ -205,7 +205,8 @@ class Mage_Shipping_Model_Mysql4_Carrier_Tablerate extends Mage_Core_Model_Mysql
                             $countryId = $countryCodesToIds[$csvLine[0]];
                         }
 
-                        if (empty($regionCodesToIds[$countryCodesToIds[$csvLine[0]]])
+                        if (!isset($countryCodesToIds[$csvLine[0]])
+                            || !isset($regionCodesToIds[$countryCodesToIds[$csvLine[0]]])
                             || !array_key_exists($csvLine[1], $regionCodesToIds[$countryCodesToIds[$csvLine[0]]])) {
                             $regionId = '0';
                             if ($csvLine[1] != '*' && $csvLine[1] != '') {

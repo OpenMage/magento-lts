@@ -54,7 +54,7 @@ CREATE TABLE {$this->getTable('googlebase/items')} (
   `views` smallint(5) unsigned not null default '0',
   `is_hidden` tinyint not null default '0',
   PRIMARY KEY (`item_id`),
-  CONSTRAINT `GOOGLEBASE_ITEMS_PRODUCT_ID` FOREIGN KEY (`product_id`) REFERENCES `{$this->getTable('catalog/product_entity')}` (`entity_id`) ON DELETE CASCADE,
+  CONSTRAINT `GOOGLEBASE_ITEMS_PRODUCT_ID` FOREIGN KEY (`product_id`) REFERENCES `{$this->getTable('catalog/product')}` (`entity_id`) ON DELETE CASCADE,
   CONSTRAINT `GOOGLEBASE_ITEMS_STORE_ID` FOREIGN KEY (`store_id`) REFERENCES `{$this->getTable('core/store')}` (`store_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Google Base Items Products';
 

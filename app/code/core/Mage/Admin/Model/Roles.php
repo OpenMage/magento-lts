@@ -19,7 +19,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Mage
- * @package    Mage_Permissions
+ * @package    Mage_Admin
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -62,7 +62,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
         return $this->getResource()->getRoleUsers($this);
     }
 
-    protected function _buildResourcesArray(Varien_Simplexml_Element $resource=null, $parentName=null, $level=0, $represent2Darray=null, $rawNodes = false)
+    protected function _buildResourcesArray(Varien_Simplexml_Element $resource=null, $parentName=null, $level=0, $represent2Darray=null, $rawNodes = false, $module = 'adminhtml')
     {
         static $result;
         if (is_null($resource)) {
@@ -73,15 +73,25 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
             $resourceName = $parentName;
             if ($resource->getName()!='title' && $resource->getName()!='sort_order' && $resource->getName() != 'children') {
                 $resourceName = (is_null($parentName) ? '' : $parentName.'/').$resource->getName();
-                if ($rawNodes) {
-                    $resource->addAttribute("aclpath", $resourceName);
-                }
-                if (!(string)$resource->title) {
-                    return array();
+
+                //assigning module for its' children nodes
+                if ($resource->getAttribute('module')) {
+                    $module = (string)$resource->getAttribute('module');
                 }
 
+                if ($rawNodes) {
+                    $resource->addAttribute("aclpath", $resourceName);
+                    $resource->addAttribute("module_c", $module);
+                }
+
+                //if (!(string)$resource->title) {
+                //   return array();
+                //}
+
+                $resource->title = Mage::helper($module)->__((string)$resource->title);
+
                 if ( is_null($represent2Darray) ) {
-                    $result[$resourceName]['name']  = Mage::helper('adminhtml')->__((string)$resource->title);
+                    $result[$resourceName]['name']  = (string)$resource->title;
                     $result[$resourceName]['level'] = $level;
                 } else {
                     $result[] = $resourceName;
@@ -98,7 +108,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
             }
         }
         foreach ($children as $child) {
-            $this->_buildResourcesArray($child, $resourceName, $level+1, $represent2Darray, $rawNodes);
+            $this->_buildResourcesArray($child, $resourceName, $level+1, $represent2Darray, $rawNodes, $module);
         }
         if ($rawNodes) {
             return $resource;
