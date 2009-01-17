@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -97,6 +103,43 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
         return $value;
     }
 
+    public function getAvailableCurrencies()
+    {
+        $currencies = $this->getData('_currencies');
+        if (is_null($currencies)) {
+            $currencies = array();
+            $codes = Mage::app()->getStore()->getAvailableCurrencyCodes(true);
+            if (is_array($codes) && count($codes)) {
+                $rates = Mage::getModel('directory/currency')->getCurrencyRates(
+                    Mage::app()->getStore()->getBaseCurrency(),
+                    $codes
+                );
+
+                foreach ($codes as $code) {
+                    if (isset($rates[$code])) {
+                        $currencies[$code] = $code;
+                    }
+                }
+            }
+
+            $this->setData('currencies', $currencies);
+        }
+        return $currencies;
+    }
+
+    public function getCurrencyCount()
+    {
+        return count($this->getAvailableCurrencies());
+    }
+
+    public function getCurrency($attribute)
+    {
+        return Mage::app()->getStore()->getCurrentCurrencyCode();
+
+        $baseCurrency = Mage::app()->getStore()->getBaseCurrency()->getCurrencyCode();
+        return $this->getAttributeValue($attribute, 'currency') ? $this->getAttributeValue($attribute, 'currency') : $baseCurrency;
+    }
+
     /**
      * Retrieve attribute input type
      *
@@ -113,6 +156,10 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
 
         if ($imputType == 'boolean') {
             return 'yesno';
+        }
+
+        if ($imputType == 'price') {
+            return 'price';
         }
 
         if ($dataType == 'int' || $dataType == 'decimal') {

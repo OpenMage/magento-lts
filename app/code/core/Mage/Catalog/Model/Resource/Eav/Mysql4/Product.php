@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -221,6 +227,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
             $categoriesSelect = $this->_getWriteAdapter()->select()->from($this->getTable('catalog/category'))
                 ->where('entity_id IN (?)', $categoryIds);
             $categoriesInfo = $this->_getWriteAdapter()->fetchAll($categoriesSelect);
+
+            // get categories positions (bug #6940)
+            $select = $this->_getWriteAdapter()->select()
+                ->from($this->getTable('catalog/category_product'), array('category_id', 'position'))
+                ->where('product_id=' . $product->getId());
+            $categoriesPositions = $this->_getWriteAdapter()->fetchPairs($select);
+
             $indexCategoryIds = array();
             foreach ($categoriesInfo as $categoryInfo) {
                 $ids = explode('/', $categoryInfo['path']);
@@ -232,7 +245,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
                 $data = array(
                     'category_id'   => $categoryId,
                     'product_id'    => $product->getId(),
-                    'position'      => 0,
+                    'position'      => (isset($categoriesPositions[(int)$categoryId]) ? $categoriesPositions[(int)$categoryId] : 0),
                     'is_parent'     => in_array($categoryId, $categoryIds)
                 );
                 $this->_getWriteAdapter()->insert($this->getTable('catalog/category_product_index'), $data);
@@ -268,10 +281,17 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
         if (is_null($store) && is_null($product)) {
             Mage::throwException(Mage::helper('catalog')->__('For reindex enabled product(s) you need specify store or product'));
         }
-        elseif (is_null($product)) {
+        elseif (is_null($product) || is_array($product)) {
             $storeId    = $store->getId();
             $websiteId  = $store->getWebsiteId();
-        	$this->_getWriteAdapter()->delete($indexTable, 'store_id='.$storeId);
+
+            $productsCondition = '';
+            $deleteCondition = '';
+            if (is_array($product) && !empty($product)) {
+                $productsCondition  = $this->_getWriteAdapter()->quoteInto(' AND t_v_default.entity_id IN (?)', $product);
+                $deleteCondition    = $this->_getWriteAdapter()->quoteInto(' AND product_id IN (?)', $product);
+            }
+        	$this->_getWriteAdapter()->delete($indexTable, 'store_id='.$storeId.$deleteCondition);
         	$query = "INSERT INTO $indexTable
             SELECT
                 t_v_default.entity_id, {$storeId}, IFNULL(t_v.value, t_v_default.value)
@@ -286,7 +306,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
             LEFT JOIN {$statusTable} AS `t_s`
                 ON (t_s.entity_id = t_v_default.entity_id) AND (t_s.attribute_id='{$statusAttributeId}') AND (t_s.store_id='{$storeId}')
             WHERE
-                t_v_default.attribute_id='{$visibilityAttributeId}' AND t_v_default.store_id=0
+                t_v_default.attribute_id='{$visibilityAttributeId}' AND t_v_default.store_id=0{$productsCondition}
                 AND (IFNULL(t_s.value, t_s_default.value)=".Mage_Catalog_Model_Product_Status::STATUS_ENABLED.")";
         	$this->_getWriteAdapter()->query($query);
         }

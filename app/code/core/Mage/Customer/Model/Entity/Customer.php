@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -137,9 +143,11 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
             ->from($this->getEntityTable(), array($this->getEntityIdField()))
             //->where('email=?', $email);
             ->where('email=:customer_email');
-        // possible bug here!
         if ($customer->getSharingConfig()->isWebsiteScope()) {
-            $select->where('website_id=?', (int) $customer->getWebsiteId());
+            if (!$customer->hasData('website_id')) {
+                Mage::throwException(Mage::helper('customer')->__('Customer website id must be specified, when using website scope.'));
+            }
+            $select->where('website_id=?', (int)$customer->getWebsiteId());
         }
 
         if ($id = $this->_getReadAdapter()->fetchOne($select, array('customer_email' => $email))) {
@@ -149,23 +157,6 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
             $customer->setData(array());
         }
         return $this;
-    }
-
-    /**
-     * Authenticate customer
-     *
-     * @param   string $email
-     * @param   string $password
-     * @return  false|object
-     */
-    public function authenticate(Mage_Customer_Model_Customer $customer, $email, $password)
-    {
-        $this->loadByEmail($customer, $email);
-        $success = $customer->getPasswordHash()===$customer->hashPassword($password);
-        if (!$success) {
-            $customer->setData(array());
-        }
-        return $success;
     }
 
     /**

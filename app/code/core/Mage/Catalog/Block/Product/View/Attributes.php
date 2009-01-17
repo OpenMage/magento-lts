@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -38,13 +44,20 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
         return $this->_product;
     }
 
-    public function getAdditionalData()
+    /**
+     * $excludeAttr is optional array of attribute codes to
+     * exclude them from additional data array
+     *
+     * @param array $excludeAttr
+     * @return array
+     */
+    public function getAdditionalData(array $excludeAttr = array())
     {
         $data = array();
         $product = $this->getProduct();
         $attributes = $product->getAttributes();
         foreach ($attributes as $attribute) {
-            if ($attribute->getIsVisibleOnFront() && $attribute->getIsUserDefined()) {
+            if ($attribute->getIsVisibleOnFront() && $attribute->getIsUserDefined() && !in_array($attribute->getAttributeCode(), $excludeAttr)) {
 
                 $value = $attribute->getFrontend()->getValue($product);
                 if (strlen($value) && $product->hasData($attribute->getAttributeCode())) {

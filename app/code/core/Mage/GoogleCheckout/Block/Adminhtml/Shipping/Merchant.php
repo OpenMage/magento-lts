@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -32,7 +38,7 @@ class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Merchant
         $html .= $this->_getRowTemplateHtml();
         $html .= '</div>';
 
-        $html .= '<div id="merchant_allowed_methods_container">';
+        $html .= '<ul id="merchant_allowed_methods_container">';
         if ($this->_getValue('method')) {
             foreach ($this->_getValue('method') as $i=>$f) {
                 if ($i) {
@@ -40,16 +46,16 @@ class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Merchant
                 }
             }
         }
-        $html .= '</div>';
+        $html .= '</ul>';
         $html .= $this->_getAddRowButtonHtml('merchant_allowed_methods_container',
-            'merchant_allowed_methods_template', 'Add Shipping Method');
+            'merchant_allowed_methods_template', $this->__('Add Shipping Method'));
 
         return $html;
     }
 
     protected function _getRowTemplateHtml($i=0)
     {
-        $html = '<span style="display:block">';
+        $html = '<li>';
         $html .= '<select name="'.$this->getElement()->getName().'[method][]" '.$this->_getDisabled().'>';
         $html .= '<option value="">'.$this->__('* Select shipping method').'</option>';
         foreach ($this->getShippingMethods() as $carrierCode=>$carrier) {
@@ -62,11 +68,13 @@ class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Merchant
         }
         $html .= '</select>';
 
-        $html .= '&nbsp;&nbsp;&nbsp;'.$this->__('Default price:').' ';
-        $html .= '<input class="input-text" style="width:70px;" name="'.$this->getElement()->getName().'[price][]" value="'.$this->_getValue('price/'.$i).'" '.$this->_getDisabled().'/>';
+        $html .= '<div style="margin:5px 0 10px;">';
+		$html .= '<label>'.$this->__('Default price:').'</label> ';
+        $html .= '<input class="input-text" style="width:70px;" name="'.$this->getElement()->getName().'[price][]" value="'.$this->_getValue('price/'.$i).'" '.$this->_getDisabled().'/> ';
 
         $html .= $this->_getRemoveRowButtonHtml();
-        $html .= '</span>';
+        $html .= '</div>';
+		$html .= '</li>';
 
         return $html;
     }
@@ -122,20 +130,22 @@ class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Merchant
                     ->setType('button')
                     ->setClass('add '.$this->_getDisabled())
                     ->setLabel($this->__($title))
-                    ->setOnClick("new Insertion.Bottom($('".$container."'), $('".$template."').innerHTML)")
+                    //$this->__('Add')
+                    ->setOnClick("Element.insert($('".$container."'), {bottom: $('".$template."').innerHTML})")
                     ->setDisabled($this->_getDisabled())
                     ->toHtml();
         }
         return $this->_addRowButtonHtml[$container];
     }
 
-    protected function _getRemoveRowButtonHtml($selector='span', $title='Remove')
+    protected function _getRemoveRowButtonHtml($selector='li', $title='Remove')
     {
         if (!$this->_removeRowButtonHtml) {
             $this->_removeRowButtonHtml = $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setType('button')
-                    ->setClass('delete '.$this->_getDisabled())
+                    ->setClass('delete v-middle '.$this->_getDisabled())
                     ->setLabel($this->__($title))
+                    //$this->__('Remove')
                     ->setOnClick("Element.remove($(this).up('".$selector."'))")
                     ->setDisabled($this->_getDisabled())
                     ->toHtml();

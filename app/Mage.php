@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -72,9 +78,26 @@ final class Mage {
 
     static private $_isDeveloperMode = false;
 
+    public static $headersSentThrowsException = true;
+
     public static function getVersion()
     {
-        return '1.1.4';
+        return '1.1.5';
+    }
+
+    /**
+     * Set all my static data to defaults
+     *
+     */
+    public static function reset()
+    {
+        self::$_registry = array();
+        self::$_app      = null;
+        self::$_useCache = array();
+        self::$_objects  = null;
+        self::$_isDownloader    = false;
+        self::$_isDeveloperMode = false;
+        // do not reset $headersSentThrowsException
     }
 
     /**
@@ -82,10 +105,14 @@ final class Mage {
      *
      * @param string $key
      * @param mixed $value
+     * @param bool $graceful
      */
-    public static function register($key, $value)
+    public static function register($key, $value, $graceful = false)
     {
-        if(isset(self::$_registry[$key])){
+        if(isset(self::$_registry[$key])) {
+            if ($graceful) {
+                return;
+            }
             Mage::throwException('Mage registry key "'.$key.'" already exists');
         }
         self::$_registry[$key] = $value;

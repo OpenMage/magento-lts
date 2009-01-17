@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -165,8 +171,11 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      */
     public function calcRowTotal()
     {
-        $this->setRowTotal($this->getPrice()*$this->getQty());
-        $this->setBaseRowTotal($this->getBasePrice()*$this->getQty());
+        $rowTotal       = $this->getOrderItem()->getRowTotal()/$this->getOrderItem()->getQtyOrdered()*$this->getQty();
+        $baseRowTotal   = $this->getOrderItem()->getBaseRowTotal()/$this->getOrderItem()->getQtyOrdered()*$this->getQty();
+        
+        $this->setRowTotal($this->getInvoice()->getStore()->roundPrice($rowTotal));
+        $this->setBaseRowTotal($this->getInvoice()->getStore()->roundPrice($baseRowTotal));
         return $this;
     }
 

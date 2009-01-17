@@ -1,15 +1,5 @@
 {* This is a comment block
 
-Available vars in this template:
-  - name            Recipient name
-  - email           Recipient Email address
-  - product_name    Product name
-  - product_url     Url for product
-  - product_image   Url for product small image (75 px)
-  - message         Sender custom message
-  - sender_name     Sender name
-  - sender_email    Sender email
-
 Use vars: {{var var_name}}
 *}<!--@subject Payment Transaction Failed Reminder @-->
 
@@ -25,6 +15,10 @@ Use vars: {{var var_name}}
                 <p>
                     <b>Reason</b><br />
                     {{var reason}}
+                </p>
+                <p>
+                    <b>Checkout Type</b><br />
+                    {{var checkoutType}}
                 </p>
                 <p>
                     <b>Customer:</b><br />

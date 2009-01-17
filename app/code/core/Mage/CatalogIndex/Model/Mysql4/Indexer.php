@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -160,7 +166,7 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
     public function reindexFinalPrices($products, $store, $forcedId = null)
     {
         $priceAttribute = Mage::getSingleton('eav/entity_attribute')->getIdByCode('catalog_product', 'price');
-        $this->_beginInsert('catalogindex/price', array('entity_id', 'store_id', 'customer_group_id', 'value', 'attribute_id'));
+        $this->_beginInsert('catalogindex/price', array('entity_id', 'store_id', 'customer_group_id', 'value', 'attribute_id', 'tax_class_id'));
 
         $productTypes = Mage::getSingleton('catalogindex/retreiver')->assignProductTypes($products);
         foreach ($productTypes as $type=>$products) {
@@ -176,13 +182,13 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
                 }
                 foreach (Mage::getModel('catalogindex/retreiver')->getCustomerGroups() as $group) {
                     $finalPrice = $retreiver->getFinalPrice($product, $store, $group);
-
+                    $taxClassId = $retreiver->getTaxClassId($product, $store);
                     $id = $product;
                     if (!is_null($forcedId))
                         $id = $forcedId;
 
                     if (false !== $finalPrice && false !== $id && false !== $store->getId() && false !== $group->getId() && false !== $priceAttribute) {
-                        $this->_insert('catalogindex/price', array($id, $store->getId(), $group->getId(), $finalPrice, $priceAttribute));
+                        $this->_insert('catalogindex/price', array($id, $store->getId(), $group->getId(), $finalPrice, $priceAttribute, $taxClassId));
                     }
                 }
             }
@@ -192,7 +198,7 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
 
     public function reindexMinimalPrices($products, $store)
     {
-        $this->_beginInsert('catalogindex/minimal_price', array('store_id', 'entity_id', 'customer_group_id', 'value'));
+        $this->_beginInsert('catalogindex/minimal_price', array('store_id', 'entity_id', 'customer_group_id', 'value', 'tax_class_id'));
         $this->clear(false, false, true, false, false, $products, $store);
         $products = Mage::getSingleton('catalogindex/retreiver')->assignProductTypes($products);
 
@@ -212,7 +218,10 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
 
                 if (is_array($minimal)) {
                     foreach ($minimal as $price) {
-                        $this->_insert('catalogindex/minimal_price', array($store->getId(), $id, $price['customer_group_id'], $price['minimal_value']));
+                        if (!isset($price['tax_class_id'])) {
+                            $price['tax_class_id'] = 0;
+                        }
+                        $this->_insert('catalogindex/minimal_price', array($store->getId(), $id, $price['customer_group_id'], $price['minimal_value'], $price['tax_class_id']));
                     }
                 }
             }

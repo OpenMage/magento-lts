@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -45,8 +51,8 @@
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="product_edit_form" enctype="multipart/form-data">
 <div style="display:none"></div>
 </form>
-<script type="text/javascript" language="javascript">
-
+<script type="text/javascript">
+//<![CDATA[
     var productForm = new varienForm('product_edit_form', '<?php echo $this->getValidationUrl() ?>');
     productForm._processValidationResult = function(transport) {
         var response = transport.responseText.evalJSON();
@@ -122,10 +128,10 @@
         registerProduct : function(grid, element, checked) {
             if(checked){
                 if(element.inputElements) {
-                    this.products[element.value]={};
+                    this.products.set(element.value, {});
                     for(var i = 0; i < element.inputElements.length; i++) {
                         element.inputElements[i].disabled = false;
-                        this.products[element.value][element.inputElements[i].name] = element.inputElements[i].value;
+                        this.products.get(element.value)[element.inputElements[i].name] = element.inputElements[i].value;
                     }
                 }
             }
@@ -136,25 +142,23 @@
                     }
                 }
 
-                this.products.remove(element.value);
+                this.products.unset(element.value);
             }
-
             this.saveField.value = this.serializeObject(this.products);
             this.grid.reloadParams = {'products[]':this.products.keys()};
         },
-        serializeObject : function(object) {
-            var myObject = Object.clone(object);
-            myObject.each(function(pair) {
-                myObject[pair.key] = encode_base64(Hash.toQueryString(pair.value));
+        serializeObject : function(hash) {
+            var clone = hash.clone();
+            clone.each(function(pair) {
+                clone.set(pair.key, encode_base64(Object.toQueryString(pair.value)));
             });
-
-            return myObject.toQueryString();
+            return clone.toQueryString();
         },
         rowClick : function(grid, event) {
             var trElement = Event.findElement(event, 'tr');
             var isInput   = Event.element(event).tagName == 'INPUT';
             if(trElement){
-                var checkbox = Element.getElementsBySelector(trElement, 'input');
+                var checkbox = Element.select(trElement, 'input');
                 if(checkbox[0]){
                     var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                     this.grid.setCheckboxChecked(checkbox[0], checked);
@@ -164,19 +168,19 @@
         inputChange : function(event) {
             var element = Event.element(event);
             if(element && element.checkboxElement && element.checkboxElement.checked){
-                this.products[element.checkboxElement.value][element.name] = element.value;
+                this.products.get(element.checkboxElement.value)[element.name] = element.value;
                 this.saveField.value = this.serializeObject(this.products);
             }
         },
         rowInit : function(grid, row) {
-            var checkbox = $(row).getElementsByClassName('checkbox')[0];
-            var inputs = $(row).getElementsByClassName('input-text');
+            var checkbox = $(row).select('.checkbox')[0];
+            var inputs = $(row).select('.input-text');
             if(checkbox && inputs.length > 0) {
                 checkbox.inputElements = inputs;
                 for(var i = 0; i < inputs.length; i++) {
                     inputs[i].checkboxElement = checkbox;
-                    if(this.products[checkbox.value] && this.products[checkbox.value][inputs[i].name]) {
-                        inputs[i].value = this.products[checkbox.value][inputs[i].name];
+                    if(this.products.get(checkbox.value) && this.products.get(checkbox.value)[inputs[i].name]) {
+                        inputs[i].value = this.products.get(checkbox.value)[inputs[i].name];
                     }
                     inputs[i].disabled = !checkbox.checked;
                     inputs[i].tabIndex = this.tabIndex++;
@@ -201,4 +205,5 @@ Validation.addAllThese([
     ['validate-super-product-attributes', '<?php echo Mage::helper('catalog')->__('Please select one or more attributes.') ?>', function(v) {
                 return (v != "no-attributes");
             }]]);
+//]]>
 </script>

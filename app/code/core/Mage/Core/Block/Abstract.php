@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -296,11 +302,13 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     {
         if (is_string($block)) {
             $block = $this->getLayout()->getBlock($block);
-            if (!$block) {
-                Mage::throwException(Mage::helper('core')->__('Invalid block name to set child %s: %s', $alias, $block));
-            }
         }
-
+        /**
+         * @see self::insert()
+         */
+        if (!$block) {
+            return $this;
+        }
         if ($block->getIsAnonymous()) {
 
             $suffix = $block->getAnonSuffix();
@@ -539,15 +547,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     {
         if (is_string($block)) {
             $block = $this->getLayout()->getBlock($block);
-
-            if (!$block) {
-                /*
-                 * if we don't have block - don't throw exception because
-                 * block can simply removed using layout method remove
-                 */
-                //Mage::throwException(Mage::helper('core')->__('Invalid block name to set child %s: %s', $alias, $block));
-                return $this;
-            }
+        }
+        if (!$block) {
+            /*
+             * if we don't have block - don't throw exception because
+             * block can simply removed using layout method remove
+             */
+            //Mage::throwException(Mage::helper('core')->__('Invalid block name to set child %s: %s', $alias, $block));
+            return $this;
         }
         if ($block->getIsAnonymous()) {
             $this->setChild('', $block);
@@ -640,9 +647,21 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 $translate->setTranslateInline(true);
             }
         }
-
+        
+        $html = $this->_afterToHtml($html);
         Mage::dispatchEvent('core_block_abstract_to_html_after', array('block' => $this));
 
+        return $html;
+    }
+    
+    /**
+     * Processing block html after rendering
+     *
+     * @param   string $html
+     * @return  string
+     */
+    protected function _afterToHtml($html)
+    {
         return $html;
     }
 

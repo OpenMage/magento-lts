@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -39,66 +45,35 @@ NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
       Alternatively we could calculate widths automatically using block input parameters.
 */
 ?>
-
-<style type="text/css">
-.customer-dob .input-box { width:60px !important; }
-.customer-dob input { width:50px !important; }
-.customer-dob small { color:#888; font-size:10px; }
-</style>
-
 <div class="customer-dob">
-
     <label for="<?php echo $this->getFieldId('day')?>">
         <?php echo $this->__('Date of Birth') ?>
         <?php if ($this->isRequired()):?><span class="required">*</span><?php endif ?>
     </label>
-    <div class="clear"></div>
 
     <div class="input-box dob-day">
-        <input type="text"
-            id="<?php echo $this->getFieldId('day')?>"
-            name="<?php echo $this->getFieldName('day')?>"
-            value="<?php echo $this->getDay() ?>"
-            title="<?php echo $this->__('Day') ?>"
-            class="input-text validate-custom"
-            <?php echo $this->getFieldParams() ?> />
-        <br />
-        <small><?php echo $this->__('DD') ?></small>
+        <input type="text" id="<?php echo $this->getFieldId('day')?>" name="<?php echo $this->getFieldName('day')?>" value="<?php echo $this->getDay() ?>" title="<?php echo $this->__('Day') ?>" class="input-text validate-custom" <?php echo $this->getFieldParams() ?> />
+        <label for="<?php echo $this->getFieldId('day')?>" class="label-dob"><?php echo $this->__('DD') ?></label>
     </div>
 
     <div class="input-box dob-month">
-        <input type="text"
-            id="<?php echo $this->getFieldId('month')?>"
-            name="<?php echo $this->getFieldName('month')?>"
-            value="<?php echo $this->getMonth() ?>"
-            title="<?php echo $this->__('Month') ?>"
-            class="input-text validate-custom"
-            <?php echo $this->getFieldParams() ?> />
-        <br />
-        <small><?php echo $this->__('MM') ?></small>
+        <input type="text" id="<?php echo $this->getFieldId('month')?>" name="<?php echo $this->getFieldName('month')?>" value="<?php echo $this->getMonth() ?>" title="<?php echo $this->__('Month') ?>" class="input-text validate-custom" <?php echo $this->getFieldParams() ?> />
+        <label for="<?php echo $this->getFieldId('month')?>" class="label-dob"><?php echo $this->__('MM') ?></label>
     </div>
 
     <div class="input-box dob-year">
-        <input type="text"
-            id="<?php echo $this->getFieldId('year')?>"
-            name="<?php echo $this->getFieldName('year')?>"
-            value="<?php echo $this->getYear() ?>"
-            title="<?php echo $this->__('Year') ?>"
-            class="input-text validate-custom"
-            <?php echo $this->getFieldParams() ?> />
-        <br />
-        <small><?php echo $this->__('YYYY') ?></small>
+        <input type="text" id="<?php echo $this->getFieldId('year')?>" name="<?php echo $this->getFieldName('year')?>" value="<?php echo $this->getYear() ?>" title="<?php echo $this->__('Year') ?>" class="input-text validate-custom" <?php echo $this->getFieldParams() ?> />
+        <label for="<?php echo $this->getFieldId('year')?>" class="label-dob"><?php echo $this->__('YYYY') ?></label>
     </div>
 
     <div class="dob-full" style="display:none;">
-        <input type="hidden"
-            id="<?php echo $this->getFieldId('dob')?>"
-            name="<?php echo $this->getFieldName('dob')?>" />
+        <input type="hidden" id="<?php echo $this->getFieldId('dob')?>" name="<?php echo $this->getFieldName('dob')?>" />
     </div>
 
     <div style="opacity: 0.999999; display:none;" class="validation-advice"></div>
 </div>
-
 <script type="text/javascript">
-var customer_dob = new Varien.DOB('.customer-dob', <?php echo $this->isRequired() ? 'true' : 'false' ?>);
+//<![CDATA[
+    var customer_dob = new Varien.DOB('.customer-dob', <?php echo $this->isRequired() ? 'true' : 'false' ?>);
+//]]>
 </script>

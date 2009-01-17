@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -43,10 +49,10 @@ class Mage_Adminhtml_Block_Extensions_Custom_Edit extends Mage_Adminhtml_Block_W
             'class'=>'save',
             'onclick'=>"createPackage()",
         ));
-        $this->_addButton('load', array(
-            'label'=>Mage::helper('adminhtml')->__('Load'),
-            'title'=>Mage::helper('adminhtml')->__('Load previously created custom local package information'),
-            'onclick'=>"loadPackage()",
+        $this->_addButton('save_as', array(
+            'label'=>Mage::helper('adminhtml')->__('Save As...'),
+            'title'=>Mage::helper('adminhtml')->__('Save package with custom package file name'),
+            'onclick'=>'saveAsPackage()'
         ));
     }
 

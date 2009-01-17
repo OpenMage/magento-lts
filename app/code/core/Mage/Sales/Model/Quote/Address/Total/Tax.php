@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -124,6 +130,9 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
                     $shippingTax    = $address->getShippingAmount() * $rate/100;
                     $shippingBaseTax= $address->getBaseShippingAmount() * $rate/100;
 
+                    $shippingTax    = $store->roundPrice($shippingTax);
+                    $shippingBaseTax= $store->roundPrice($shippingBaseTax);
+
                     $address->setShippingTaxAmount($shippingTax);
                     $address->setBaseShippingTaxAmount($shippingBaseTax);
                 } else {
@@ -187,7 +196,8 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
         $applied = $address->getAppliedTaxes();
         $store = $address->getQuote()->getStore();
         $amount = $address->getTaxAmount();
-        if ($amount!=0) {
+
+        if (($amount!=0) || (Mage::helper('tax')->displayZeroTax($store))) {
             $address->addTotal(array(
                 'code'=>$this->getCode(),
                 'title'=>Mage::helper('sales')->__('Tax'),

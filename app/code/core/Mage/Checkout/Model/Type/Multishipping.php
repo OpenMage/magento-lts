@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -311,6 +317,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      */
     protected function _prepareOrder(Mage_Sales_Model_Quote_Address $address)
     {
+        $this->getQuote()->unsReservedOrderId();
         $this->getQuote()->reserveOrderId();
         $convertQuote = Mage::getSingleton('sales/convert_quote');
         $order = $convertQuote->addressToOrder($address);
@@ -327,9 +334,11 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
         $order->setPayment($convertQuote->paymentToOrderPayment($this->getQuote()->getPayment()));
 
         foreach ($address->getAllItems() as $item) {
-            $orderItem = $convertQuote->itemToOrderItem($item->getQuoteItem());
-            if ($item->getQuoteItem()->getParentItem()) {
-                $orderItem->setParentItem($order->getItemByQuoteItemId($item->getQuoteItem()->getParentItem()->getId()));
+            $item->setProductType($item->getQuoteItem()->getProductType())
+                ->setProductOptions($item->getQuoteItem()->getProduct()->getTypeInstance()->getOrderOptions());
+            $orderItem = $convertQuote->itemToOrderItem($item);
+            if ($item->getParentItem()) {
+                $orderItem->setParentItem($order->getItemByQuoteItemId($item->getParentItem()->getId()));
             }
             $order->addItem($orderItem);
         }
@@ -437,5 +446,18 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             $error = Mage::getStoreConfig('sales/minimum_order/error_message');
         }
         return $error;
+    }
+
+    /**
+     * Function is deprecated. Moved into helper.
+     *
+     * Check if multishipping checkout is available.
+     * There should be a valid quote in checkout session. If not, only the config value will be returned.
+     *
+     * @return bool
+     */
+    public function isCheckoutAvailable()
+    {
+        return Mage::helper('checkout')->isMultishippingCheckoutAvailable();
     }
 }

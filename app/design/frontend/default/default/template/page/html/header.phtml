@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -23,17 +29,14 @@
     <div class="header-top">
         <h1 id="logo"><a href="<?php echo $this->getUrl('') ?>"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
         <p class="no-display"><a href="#main"><strong><?php echo $this->__('Skip to Main Content') ?> &raquo;</strong></a></p>
-
         <?php echo $this->getChildHtml('topSearch') ?>
-
         <div class="quick-access">
-            <strong><?php echo $this->htmlEscape($this->getWelcome()) ?></strong><br />
+           <?php echo $this->getWelcome() ?><br />
             <div class="shop-access">
                 <?php echo $this->getChildHtml('topLinks') ?>
             </div>
             <?php echo $this->getChildHtml('store_language') ?>
         </div>
-
     </div>
 </div>
 <?php echo $this->getChildHtml('topMenu') ?>

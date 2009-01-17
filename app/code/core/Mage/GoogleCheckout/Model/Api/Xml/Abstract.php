@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_GoogleCheckout
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -192,6 +198,6 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
 
     protected function _getCallbackUrl()
     {
-        return Mage::getUrl('googlecheckout/api', array('_secure'=>true));
+        return Mage::getUrl('googlecheckout/api', array('_forced_secure'=>Mage::getStoreConfig('google/checkout/use_secure_callback_url')));
     }
 }

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -103,7 +109,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Options extends Ma
             $values = array();
             $optionCollection = Mage::getResourceModel('eav/entity_attribute_option_collection')
                 ->setAttributeFilter($this->getAttributeObject()->getId())
-                ->setPositionOrder('desc')
+                ->setPositionOrder('desc', true)
                 ->load();
 
             foreach ($optionCollection as $option) {
@@ -144,7 +150,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Options extends Ma
             $frontendLabel = array_shift($frontendLabel);
         }
         $translations = Mage::getModel('core/translate_string')
-           ->load($frontendLabel)
+           ->load(Mage_Catalog_Model_Entity_Attribute::MODULE_NAME.Mage_Core_Model_Translate::SCOPE_SEPARATOR.$frontendLabel)
            ->getStoreTranslations();
         foreach ($this->getStores() as $store) {
             if ($store->getId() != 0) {

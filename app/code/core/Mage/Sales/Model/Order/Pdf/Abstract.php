@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -69,6 +75,39 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
     }
 
+    /**
+     * Calculate coordinates to draw something in a column aligned to the right
+     *
+     * @param string $string
+     * @param int $x
+     * @param int $columnWidth
+     * @param Zend_Pdf_Resource_Font $font
+     * @param int $fontSize
+     * @param int $padding
+     * @return int
+     */
+    public function getAlignRight($string, $x, $columnWidth, Zend_Pdf_Resource_Font $font, $fontSize, $padding = 5)
+    {
+        $width = $this->widthForStringUsingFontSize($string, $font, $fontSize);
+        return $x + $columnWidth - $width - $padding;
+    }
+
+    /**
+     * Calculate coordinates to draw something in a column aligned to the center
+     *
+     * @param string $string
+     * @param int $x
+     * @param int $columnWidth
+     * @param Zend_Pdf_Resource_Font $font
+     * @param int $fontSize
+     * @return int
+     */
+    public function getAlignCenter($string, $x, $columnWidth, Zend_Pdf_Resource_Font $font, $fontSize)
+    {
+        $width = $this->widthForStringUsingFontSize($string, $font, $fontSize);
+        return $x + round(($columnWidth - $width) / 2);
+    }
+
     protected function insertLogo(&$page)
     {
         $image = Mage::getStoreConfig('sales/identity/logo');
@@ -86,7 +125,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     protected function insertAddress(&$page)
     {
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
-        $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 5);
+        $this->_setFontRegular($page, 5);
 
         $page->setLineWidth(0.5);
         $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
@@ -111,7 +150,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         $page->drawRectangle(25, 790, 570, 755);
 
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(1));
-        $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 7);
+        $this->_setFontRegular($page);
 
 
         $page->drawText(Mage::helper('sales')->__('Order # ').$order->getRealOrderId(), 35, 770, 'UTF-8');
@@ -148,7 +187,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         }
 
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
-        $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA_BOLD), 7);
+        $this->_setFontRegular($page);
         $page->drawText(Mage::helper('sales')->__('SOLD TO:'), 35, 740 , 'UTF-8');
 
         if (!$order->getIsVirtual()) {
@@ -168,13 +207,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(1));
         $page->drawRectangle(25, 730, 570, $y);
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
-        
-        $font = Zend_Pdf_Font::fontWithPath(Mage::getBaseDir()."/lib/LinLibertineFont/LinLibertineC_Re-2.8.0.ttf");
-        
-		//$page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 7);
-		$page->setFont($font, 7);
-        
-
+		$this->_setFontRegular($page);
         $this->y = 720;
 
         foreach ($billingAddress as $value){
@@ -200,7 +233,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $page->drawRectangle(275, $this->y, 570, $this->y-25);
 
             $this->y -=15;
-            $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA_BOLD), 7);
+            $this->_setFontBold($page);
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
             $page->drawText(Mage::helper('sales')->__('Payment Method'), 35, $this->y, 'UTF-8');
             $page->drawText(Mage::helper('sales')->__('Shipping Method:'), 285, $this->y , 'UTF-8');
@@ -208,7 +241,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $this->y -=10;
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(1));
 
-            $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 7);
+            $this->_setFontRegular($page);
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
 
             $paymentLeft = 35;
@@ -243,27 +276,27 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 $page->drawLine(380, $yShipments, 380, $yShipments - 10);
                 //$page->drawLine(510, $yShipments, 510, $yShipments - 10);
 
-                $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 7);
+                $this->_setFontRegular($page);
                 $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
                 //$page->drawText(Mage::helper('sales')->__('Carrier'), 290, $yShipments - 7 , 'UTF-8');
                 $page->drawText(Mage::helper('sales')->__('Title'), 290, $yShipments - 7, 'UTF-8');
                 $page->drawText(Mage::helper('sales')->__('Number'), 385, $yShipments - 7, 'UTF-8');
 
                 $yShipments -=17;
-                $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 6);
+                $this->_setFontRegular($page, 6);
                 foreach ($order->getTracksCollection() as $track) {
-                	
+
                 	$CarrierCode = $track->getCarrierCode();
                 	if ($CarrierCode!='custom')
                 	{
-                		$carrier = Mage::getSingleton('shipping/config')->getCarrierInstance($CarrierCode);			
+                		$carrier = Mage::getSingleton('shipping/config')->getCarrierInstance($CarrierCode);
                 		$carrierTitle = $carrier->getConfigData('title');
                 	}
-                	else 
+                	else
                 	{
                 		$carrierTitle = Mage::helper('sales')->__('Custom Value');
                 	}
-                    
+
                     $truncatedCarrierTitle = substr($carrierTitle, 0, 35) . (strlen($carrierTitle) > 35 ? '...' : '');
                     $truncatedTitle = substr($track->getTitle(), 0, 45) . (strlen($track->getTitle()) > 45 ? '...' : '');
                     //$page->drawText($truncatedCarrierTitle, 285, $yShipments , 'UTF-8');
@@ -289,9 +322,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
     protected function insertTotals(&$page, $source){
         $order = $source->getOrder();
-        $font  = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA_BOLD);
-
-        $page->setFont($font, 7);
+        $font = $this->_setFontBold($page);
 
         $order_subtotal = Mage::helper('sales')->__('Order Subtotal:');
         $page->drawText($order_subtotal, 475-$this->widthForStringUsingFontSize($order_subtotal, $font, 7), $this->y, 'UTF-8');
@@ -440,5 +471,26 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         $renderer->setPage($page);
 
         $renderer->draw();
+    }
+
+    protected function _setFontRegular($object, $size = 7)
+    {
+        $font = Zend_Pdf_Font::fontWithPath(Mage::getBaseDir() . '/lib/LinLibertineFont/LinLibertineC_Re-2.8.0.ttf');
+        $object->setFont($font, $size);
+        return $font;
+    }
+
+    protected function _setFontBold($object, $size = 7)
+    {
+        $font = Zend_Pdf_Font::fontWithPath(Mage::getBaseDir() . '/lib/LinLibertineFont/LinLibertine_Bd-2.8.1.ttf');
+        $object->setFont($font, $size);
+        return $font;
+    }
+
+    protected function _setFontItalic($object, $size = 7)
+    {
+        $font = Zend_Pdf_Font::fontWithPath(Mage::getBaseDir() . '/lib/LinLibertineFont/LinLibertine_It-2.8.2.ttf');
+        $object->setFont($font, $size);
+        return $font;
     }
 }

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -61,24 +67,13 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
                 'width' => '80px',
                 'index' => 'sku',
         ));
-        $this->addColumn('price',
-            array(
-                'header'=> Mage::helper('adminhtml')->__('Price'),
-                'type'  => 'currency',
-                'index' => 'price',
-        ));
-        $this->addColumn('qty',
-            array(
-                'header'=> Mage::helper('adminhtml')->__('Qty'),
-                'width' => '130px',
-                'type'  => 'number',
-                'index' => 'qty',
-        ));
         $this->addColumn('status',
             array(
                 'header'=> Mage::helper('adminhtml')->__('Status'),
                 'width' => '50px',
                 'index' => 'status',
+                'type'  => 'options',
+                'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
         ));
 
         /*

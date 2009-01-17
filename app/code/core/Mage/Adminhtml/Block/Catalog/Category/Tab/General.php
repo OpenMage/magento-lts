@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -46,28 +52,50 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
 
     public function _prepareLayout()
     {
-    parent::_prepareLayout();
+        parent::_prepareLayout();
         $form = new Varien_Data_Form();
         $form->setHtmlIdPrefix('_general');
         $form->setDataObject($this->getCategory());
 
         $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('catalog')->__('General Information')));
 
+        if (!$this->getCategory()->getId()) {
+//            $fieldset->addField('path', 'select', array(
+//                'name'  => 'path',
+//                'label' => Mage::helper('catalog')->__('Parent Category'),
+//                'value' => base64_decode($this->getRequest()->getParam('parent')),
+//                'values'=> $this->_getParentCategoryOptions(),
+//                //'required' => true,
+//                //'class' => 'required-entry'
+//                ),
+//                'name'
+//            );
+            if ($this->getRequest()->getParam('parent')) {
+                $fieldset->addField('path', 'hidden', array(
+                    'name'  => 'path',
+                    'value' => $this->getRequest()->getParam('parent')
+                ));
+            } else {
+                $storeId = (int) $this->getRequest()->getParam('store');
+                $fieldset->addField('path', 'hidden', array(
+                    'name'  => 'path',
+                    'value' => 1
+                ));
+            }
+        } else {
+            $fieldset->addField('id', 'hidden', array(
+                'name'  => 'id',
+                'value' => $this->getCategory()->getId()
+            ));
+            $fieldset->addField('path', 'hidden', array(
+                'name'  => 'path',
+                'value' => $this->getCategory()->getPath()
+            ));
+        }
+
         $this->_setFieldset($this->getCategory()->getAttributes(true), $fieldset);
 
-        if (!$this->getCategory()->getId()) {
-            $fieldset->addField('path', 'select', array(
-                'name'  => 'path',
-                'label' => Mage::helper('catalog')->__('Parent Category'),
-                'value' => base64_decode($this->getRequest()->getParam('parent')),
-                'values'=> $this->_getParentCategoryOptions(),
-                //'required' => true,
-                //'class' => 'required-entry'
-                ),
-                'name'
-            );
-        }
-        else {
+        if ($this->getCategory()->getId()) {
             if ($this->getCategory()->getLevel() == 1) {
                 $fieldset->removeField('url_key');
                 $fieldset->addField('url_key', 'hidden', array(
@@ -93,7 +121,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
     protected function _getParentCategoryOptions($node=null, &$options=array())
     {
         if (is_null($node)) {
-            $node = $this->getLayout()->getBlock('category.tree')->getRoot();
+            $node = $this->getRoot();
         }
 
         if ($node) {

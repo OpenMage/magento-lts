@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -47,7 +53,10 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
             return;
         }
 
-        $user = Mage::getModel('api/user')->login($username, $apiKey);
+        $user = Mage::getModel('api/user')
+            ->setSessid($this->getSessionId())
+            ->login($username, $apiKey);
+
         if ( $user->getId() && $user->getIsActive() != '1' ) {
             Mage::throwException(Mage::helper('api')->__('Your Account has been deactivated.'));
         } elseif (!Mage::getModel('api/user')->hasAssigned2Role($user->getId())) {
@@ -111,8 +120,55 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         return false;
     }
 
-    public function isLoggedIn()
+    /**
+     *  Check session expiration
+     *
+     *  @param    none
+     *  @return	  boolean
+     */
+    public function isSessionExpired ($user)
     {
-        return $this->getUser() && $this->getUser()->getId();
+        if (!$user->getId()) {
+            return true;
+        }
+        $timeout = strtotime( now() ) - strtotime( $user->getLogdate() );
+        return $timeout > Mage::getStoreConfig('api/config/session_timeout');
     }
+
+
+    public function isLoggedIn($sessId = false)
+    {
+        $userExists = $this->getUser() && $this->getUser()->getId();
+
+        if (!$userExists && $sessId !== false) {
+            return $this->_renewBySessId($sessId);
+        }
+
+        if ($userExists) {
+            Mage::register('isSecureArea', true, true);
+        }
+        return $userExists;
+    }
+
+    /**
+     *  Renew user by session ID if session not expired
+     *
+     *  @param    string $sessId
+     *  @return	  boolean
+     */
+    protected function _renewBySessId ($sessId)
+    {
+        $user = Mage::getModel('api/user')->loadBySessId($sessId);
+        if (!$user->getId() || !$user->getSessid()) {
+            return false;
+        }
+        if ($user->getSessid() == $sessId && !$this->isSessionExpired($user)) {
+            $this->setUser($user);
+            $this->setAcl(Mage::getResourceModel('api/acl')->loadAcl());
+            $user->getResource()->recordLogin($user);
+            return true;
+        }
+        return false;
+    }
+
 } // Class Mage_Api_Model_Session End

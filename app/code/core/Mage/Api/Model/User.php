@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -155,7 +161,9 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     public function login($username, $apiKey)
     {
+        $sessId = $this->getSessid();
         if ($this->authenticate($username, $apiKey)) {
+            $this->setSessid($sessId);
             $this->getResource()->recordLogin($this);
         }
 
@@ -171,6 +179,12 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     public function loadByUsername($username)
     {
         $this->setData($this->getResource()->loadByUsername($username));
+        return $this;
+    }
+
+    public function loadBySessId ($sessId)
+    {
+        $this->setData($this->getResource()->loadBySessId($sessId));
         return $this;
     }
 

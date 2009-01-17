@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_GoogleCheckout
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -36,7 +42,7 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
     protected $_canRefund               = true;
     protected $_canVoid                 = true;
     protected $_canUseInternal          = false;
-    protected $_canUseCheckout          = true;
+    protected $_canUseCheckout          = false;
     protected $_canUseForMultishipping  = false;
 
     /**
@@ -144,12 +150,14 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
      */
     public function cancel(Varien_Object $payment)
     {
-        $hlp = Mage::helper('googlecheckout');
-        $reason = $this->getReason() ? $this->getReason() : $hlp->__('Unknown Reason');
-        $comment = $this->getComment() ? $this->getComment() : $hlp->__('No Comment');
+        if (!$payment->getOrder()->getBeingCanceledFromGoogleApi()) {
+            $hlp = Mage::helper('googlecheckout');
+            $reason = $this->getReason() ? $this->getReason() : $hlp->__('Unknown Reason');
+            $comment = $this->getComment() ? $this->getComment() : $hlp->__('No Comment');
 
-        $api = Mage::getModel('googlecheckout/api');
-        #$api->cancel($payment->getOrder()->getExtOrderId(), $reason, $comment);
+            $api = Mage::getModel('googlecheckout/api');
+            $api->cancel($payment->getOrder()->getExtOrderId(), $reason, $comment);
+        }
 
         return $this;
     }

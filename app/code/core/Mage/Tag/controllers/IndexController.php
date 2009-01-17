@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Tag
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -55,16 +61,18 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                             unset($tagNamesArr[$key]);
                         }
                     }
-
+                    $newCount = 0;
                     foreach( $tagNamesArr as $tagName ) {
                         if( $tagName ) {
                             $tagModel = Mage::getModel('tag/tag');
                             $tagModel->loadByName($tagName);
                             if ($tagModel->getId()) {
                                 $status = $tagModel->getStatus();
+                                $session->addNotice($this->__('Tag "%s" has already been added to the product' ,$tagName));
                             }
                             else {
                                 $status = $tagModel->getPendingStatus();
+                                $newCount++;
                             }
 
                             $tagModel->setName($tagName)
@@ -94,7 +102,9 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                             continue;
                         }
                     }
-                    $session->addSuccess($this->__('Your tag(s) have been accepted for moderation'));
+                    if ($newCount > 0) {
+                        $session->addSuccess($this->__('%s tag(s) have been accepted for moderation', $newCount));
+                    }
                 } catch (Exception $e) {
                     $session->addError($this->__('Unable to save tag(s)'));
                 }

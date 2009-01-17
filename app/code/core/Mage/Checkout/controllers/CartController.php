@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -165,7 +171,9 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             if ($this->_getSession()->getUseNotice(true)) {
                 $this->_getSession()->addNotice($e->getMessage());
             } else {
-                $this->_getSession()->addError($e->getMessage());
+                foreach (explode("\n", $e->getMessage()) as $message) {
+                    $this->_getSession()->addError($message);
+                }
             }
 
             $url = $this->_getSession()->getRedirectUrl(true);
@@ -305,8 +313,10 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 ->collectTotals()
                 ->save();
             if ($couponCode) {
-                if ($couponCode == $this->_getQuote()->getShippingAddress()->getCouponCode()) {
-                    $this->_getSession()->addSuccess($this->__('Coupon code was applied successfully.'));
+                if ($couponCode == $this->_getQuote()->getCouponCode()) {
+                    $this->_getSession()->addSuccess(
+                        $this->__('Coupon code "%s" was applied successfully.', Mage::helper('core')->htmlEscape($couponCode))
+                    );
                 }
                 else {
                     $this->_getSession()->addError(

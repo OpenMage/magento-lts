@@ -39,7 +39,7 @@ class Zend_Mime
     const DISPOSITION_ATTACHMENT = 'attachment';
     const DISPOSITION_INLINE = 'inline';
     const LINELENGTH = 200;
-    const LINEEND = "";
+    const LINEEND = "\n";
     const MULTIPART_ALTERNATIVE = 'multipart/alternative';
     const MULTIPART_MIXED = 'multipart/mixed';
     const MULTIPART_RELATED = 'multipart/related';

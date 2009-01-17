@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -43,7 +49,9 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     {
         $ids = array();
         $storeId = Mage_Catalog_Model_Category::DEFAULT_STORE_ID;
-        if (!is_null($website)) {
+
+        // load root categories of website
+        if (null !== $website) {
             try {
                 $website = Mage::app()->getWebsite($website);
                 foreach ($website->getStores() as $store) {
@@ -53,25 +61,27 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             } catch (Mage_Core_Exception $e) {
                 $this->_fault('website_not_exists', $e->getMessage());
             }
-        } elseif (!is_null($store) && is_null($categoryId)) {
-            try {
-                $store = Mage::app()->getStore($store);
-                $storeId = $store->getId();
-                $ids = $store->getRootCategoryId();
-            } catch (Mage_Core_Model_Store_Exception $e) {
-                $this->_fault('store_not_exists');
+        }
+        elseif (null !== $store) {
+            // load children of root category of store
+            if (null === $categoryId) {
+                try {
+                    $store = Mage::app()->getStore($store);
+                    $storeId = $store->getId();
+                    $ids = $store->getRootCategoryId();
+                } catch (Mage_Core_Model_Store_Exception $e) {
+                    $this->_fault('store_not_exists');
+                }
             }
-        } elseif (!is_null($store)) {
-            $storeId = $this->_getStoreId($store);
-            $ids = (int) $categoryId;
-        } else {
-            foreach (Mage::app()->getStores() as $store) {
-                $ids[] = $store->getRootCategoryId();
+            // load children of specified category id
+            else {
+                $storeId = $this->_getStoreId($store);
+                $ids = (int)$categoryId;
             }
-
-            if (count($ids)==0) {
-                $ids[] = 1;
-            }
+        }
+        // load all root categories
+        else {
+            $ids = Mage_Catalog_Model_Category::TREE_ROOT_ID;
         }
 
         $collection = Mage::getModel('catalog/category')->getCollection()
@@ -80,7 +90,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             ->addAttributeToSelect('is_active');
 
         if (is_array($ids)) {
-            $collection->addFieldToFilter('entity_id', array('in'=>$ids));
+            $collection->addFieldToFilter('entity_id', array('in' => $ids));
         } else {
             $collection->addFieldToFilter('parent_id', $ids);
         }
@@ -200,7 +210,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         // Basic category data
         $result = array();
         $result['category_id'] = $category->getId();
-        $result['parent_id']   = $category->getParentId();
+
         $result['is_active']   = $category->getIsActive();
         $result['position']    = $category->getPosition();
         $result['level']       = $category->getLevel();
@@ -210,6 +220,9 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 $result[$attribute->getAttributeCode()] = $category->getData($attribute->getAttributeCode());
             }
         }
+        $result['parent_id']   = $category->getParentId();
+        $result['children']           = $category->getChildren();
+        $result['all_children']       = $category->getAllChildren();
 
         return $result;
     }
@@ -223,9 +236,16 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function create($parentId, $categoryData, $store = null)
     {
+         $parent_category = $this->_initCategory($parentId);
+
         $category = Mage::getModel('catalog/category')
-            ->setStoreId($this->_getStoreId($store))
-            ->setParentId($parentId);
+            ->setStoreId($this->_getStoreId($store));
+
+
+
+        $category->addData(array('path'=>implode('/',$parent_category->getPathIds())));
+
+        $category ->setAttributeSetId($category->getDefaultAttributeSetId());
         /* @var $category Mage_Catalog_Model_Category */
 
         foreach ($category->getAttributes() as $attribute) {
@@ -237,7 +257,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 );
             }
         }
-
+        $category->setParentId($parent_category->getId());
         try {
             $category->save();
         } catch (Mage_Core_Exception $e) {
@@ -288,16 +308,26 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function move($categoryId, $parentId, $afterId = null)
     {
+        $category = $this->_initCategory($categoryId);
+        $parent_category = $this->_initCategory($parentId);
+
         $tree = Mage::getResourceModel('catalog/category_tree')
                 ->load();
 
-        $node           = $tree->getNodeById($categoryId);
-        $newParentNode  = $tree->getNodeById($parentId);
-        $prevNode       = $tree->getNodeById($afterId);
+        $node           = $tree->getNodeById($category->getId());
+        $newParentNode  = $tree->getNodeById($parent_category->getId());
 
         if (!$node || !$node->getId()) {
             $this->_fault('not_exists');
         }
+
+        // if $afterId is null - move category to the down
+        if ($afterId === null && $parent_category->hasChildren()) {
+            $parentChildren = $parent_category->getChildren();
+            $afterId = array_pop(explode(',', $parentChildren));
+        }
+
+        $prevNode = $tree->getNodeById($afterId);
 
         if (!$prevNode || !$prevNode->getId()) {
             $prevNode = null;

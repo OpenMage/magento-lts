@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -50,6 +56,8 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
      * @var string
      */
     protected $_table;
+
+    protected $_loaded = false;
 
     /**
      * SQL select object
@@ -128,48 +136,52 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
      */
     public function load($parentNode=null, $recursionLevel = 0)
     {
-        $startLevel = 1;
-        $parentPath = '';
+        if (!$this->_loaded) {
+            $startLevel = 1;
+            $parentPath = '';
 
-        if ($parentNode instanceof Varien_Data_Tree_Node) {
-            $parentPath = $parentNode->getData($this->_pathField);
-            $startLevel = $parentNode->getData($this->_levelField);
-        } elseif (is_numeric($parentNode)) {
-            $parentNode = null;
-            $select = $this->_conn->select();
-            $select->from($this->_table, array($this->_pathField, $this->_levelField))->where("{$this->_idField} = ?", $parentNode);
-            $parent = $this->_conn->fetchRow($select);
-            $startLevel = $parent[$this->_levelField];
-            $parentPath = $parent[$this->_pathField];
-        } elseif (is_string($parentNode)) {
-            $parentNode = null;
-            $parentPath = $parentNode;
-            $startLevel = count(explode($parentPath))-1;
+            if ($parentNode instanceof Varien_Data_Tree_Node) {
+                $parentPath = $parentNode->getData($this->_pathField);
+                $startLevel = $parentNode->getData($this->_levelField);
+            } elseif (is_numeric($parentNode)) {
+                $parentNode = null;
+                $select = $this->_conn->select();
+                $select->from($this->_table, array($this->_pathField, $this->_levelField))->where("{$this->_idField} = ?", $parentNode);
+                $parent = $this->_conn->fetchRow($select);
+                $startLevel = $parent[$this->_levelField];
+                $parentPath = $parent[$this->_pathField];
+            } elseif (is_string($parentNode)) {
+                $parentNode = null;
+                $parentPath = $parentNode;
+                $startLevel = count(explode($parentPath))-1;
+            }
+
+            $select = clone $this->_select;
+            $select->order($this->_table.'.'.$this->_orderField . ' ASC');
+
+            if ($parentPath) {
+                $condition = $this->_conn->quoteInto("$this->_table.$this->_pathField like ?", "$parentPath/%");
+                $select->where($condition);
+            }
+            if ($recursionLevel != 0) {
+                $select->where("$this->_levelField <= ?", $startLevel + $recursionLevel);
+            }
+
+            $arrNodes = $this->_conn->fetchAll($select);
+
+            $childrenItems = array();
+
+            foreach ($arrNodes as $nodeInfo) {
+                $pathToParent = explode('/', $nodeInfo[$this->_pathField]);
+                array_pop($pathToParent);
+                $pathToParent = implode('/', $pathToParent);
+                $childrenItems[$pathToParent][] = $nodeInfo;
+            }
+
+            $this->addChildNodes($childrenItems, $parentPath, $parentNode);
+
+            $this->_loaded = true;
         }
-
-        $select = clone $this->_select;
-        $select->order($this->_table.'.'.$this->_orderField . ' ASC');
-
-        if ($parentPath) {
-            $condition = $this->_conn->quoteInto("$this->_table.$this->_pathField like ?", "$parentPath/%");
-            $select->where($condition);
-        }
-        if ($recursionLevel != 0) {
-            $select->where("$this->_levelField <= ?", $startLevel + $recursionLevel);
-        }
-
-        $arrNodes = $this->_conn->fetchAll($select);
-
-        $childrenItems = array();
-
-        foreach ($arrNodes as $nodeInfo) {
-            $pathToParent = explode('/', $nodeInfo[$this->_pathField]);
-            array_pop($pathToParent);
-            $pathToParent = implode('/', $pathToParent);
-            $childrenItems[$pathToParent][] = $nodeInfo;
-        }
-
-        $this->addChildNodes($childrenItems, $parentPath, $parentNode);
 
         return $this;
     }
@@ -178,7 +190,13 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     {
         if (isset($children[$path])) {
             foreach ($children[$path] as $child) {
-                $node = new Varien_Data_Tree_Node($child, $this->_idField, $this, $parentNode);
+                $nodeId = isset($child[$this->_idField])?$child[$this->_idField]:false;
+                if ($parentNode && $nodeId && $node = $parentNode->getChildren()->searchById($nodeId)) {
+                    $node->addData($child);
+                } else {
+                    $node = new Varien_Data_Tree_Node($child, $this->_idField, $this, $parentNode);
+                }
+
                 //$node->setLevel(count(explode('/', $node->getData($this->_pathField)))-1);
                 $node->setLevel($node->getData($this->_levelField));
                 $node->setPathId($node->getData($this->_pathField));
@@ -285,6 +303,73 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         } catch (Exception $e){
             $this->_conn->rollBack();
             throw new Exception("Can't move tree node due to error: " . $e->getMessage());
+        }
+    }
+
+    public function loadEnsuredNodes($category, $rootNode)
+    {
+        $pathIds = $category->getPathIds();
+        $rootNodeId = $rootNode->getId();
+        $rootNodePath = $rootNode->getData($this->_pathField);
+
+        $select = clone $this->_select;
+        $select->order($this->_table.'.'.$this->_orderField . ' ASC');
+
+        if ($pathIds) {
+            $condition = $this->_conn->quoteInto("$this->_table.$this->_idField in (?)", $pathIds);
+            $select->where($condition);
+        }
+
+        $arrNodes = $this->_conn->fetchAll($select);
+
+        if ($arrNodes) {
+            $childrenItems = array();
+            foreach ($arrNodes as $nodeInfo) {
+                $nodeId = $nodeInfo[$this->_idField];
+                if ($nodeId<=$rootNodeId) {
+                    continue;
+                }
+
+                $pathToParent = explode('/', $nodeInfo[$this->_pathField]);
+                array_pop($pathToParent);
+                $pathToParent = implode('/', $pathToParent);
+                $childrenItems[$pathToParent][] = $nodeInfo;
+            }
+
+            $this->_addChildNodes($childrenItems, $rootNodePath, $rootNode, true);
+        }
+    }
+
+    protected function _addChildNodes($children, $path, $parentNode, $withChildren=false, $level = 0)
+    {
+        if (isset($children[$path])) {
+            foreach ($children[$path] as $child) {
+                $nodeId = isset($child[$this->_idField])?$child[$this->_idField]:false;
+                if ($parentNode && $nodeId && $node = $parentNode->getChildren()->searchById($nodeId)) {
+                    $node->addData($child);
+                } else {
+                    $node = new Varien_Data_Tree_Node($child, $this->_idField, $this, $parentNode);
+                    $node->setLevel($node->getData($this->_levelField));
+                    $node->setPathId($node->getData($this->_pathField));
+                    $this->addNode($node, $parentNode);
+                }
+
+                if ($withChildren) {
+                    $this->_loaded = false;
+                    $node->loadChildren(1);
+                    $this->_loaded = false;
+                }
+
+                if ($path) {
+                    $childrenPath = explode('/', $path);
+                } else {
+                    $childrenPath = array();
+                }
+                $childrenPath[] = $node->getId();
+                $childrenPath = implode('/', $childrenPath);
+
+                $this->_addChildNodes($children, $childrenPath, $node, $withChildren, $level+1);
+            }
         }
     }
 

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Contacts
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -49,6 +55,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
             ->setFormAction( Mage::getUrl('*/*/post') );
 
         $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages('catalog/session');
         $this->renderLayout();
     }
 
@@ -73,6 +80,11 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                         null,
                         array('data' => $postObject)
                     );
+
+                if (!$mailTemplate->getSentSuccess()) {
+                    throw new Exception();
+                }
+
                 $translate->setTranslateInline(true);
 
                 Mage::getSingleton('customer/session')->addSuccess(Mage::helper('contacts')->__('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.'));

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -34,7 +40,7 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
         $html  = '<input type="text" name="' . $this->getName() . '" id="' . $this->getId() . '" ';
         $html .= 'value="'.$this->getValue().'" class="'.$this->getClass().'" style="width:100px" /> ';
 
-        $html .= '<img src="' . $this->getImage() . '" alt="" align="absmiddle" ';
+        $html .= '<img src="' . $this->getImage() . '" alt="" class="v-middle" ';
         $html .= 'title="' . $this->helper('core')->__('Select Date') . '" id="' . $this->getId() . '_trig" />';
 
         $html .=

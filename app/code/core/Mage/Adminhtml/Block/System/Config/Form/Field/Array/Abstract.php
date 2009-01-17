@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -79,6 +85,8 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
         $this->_columns[$name] = array(
             'label'     => empty($params['label']) ? 'Column' : $params['label'],
             'size'      => empty($params['size'])  ? false    : $params['size'],
+            'style'     => empty($params['style'])  ? null    : $params['style'],
+            'class'     => empty($params['class'])  ? null    : $params['class'],
             'renderer'  => false,
         );
         if ((!empty($params['renderer'])) && ($params['renderer'] instanceof Mage_Core_Block_Abstract)) {
@@ -147,6 +155,9 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
                 ->toHtml();
         }
 
-        return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" ' . ($column['size'] ? 'size="' . $column['size'] . '"' : '') . '/>';
+        return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" ' .
+            ($column['size'] ? 'size="' . $column['size'] . '"' : '') . ' class="' .
+            (isset($column['class']) ? $column['class'] : 'input-text') . '"'.
+            (isset($column['style']) ? ' style="'.$column['style'] . '"' : '') . '/>';
     }
 }

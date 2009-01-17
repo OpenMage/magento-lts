@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -61,4 +67,28 @@ class Mage_Bundle_Model_Mysql4_Selection extends Mage_Core_Model_Mysql4_Abstract
         return $this;
     }
 */
+
+    public function getPriceFromIndex($productId, $qty, $storeId, $groupId) {
+        $select = clone $this->_getReadAdapter()->select();
+        $select->reset();
+
+        $attrPriceId = Mage::getSingleton('eav/entity_attribute')->getIdByCode('catalog_product', 'price');
+        $attrTierPriceId = Mage::getSingleton('eav/entity_attribute')->getIdByCode('catalog_product', 'tier_price');
+
+        $select->from(array("price_index" => $this->getTable('catalogindex/price')), array('price' => 'SUM(value)'))
+            ->where('entity_id in (?)', $productId)
+            ->where('store_id = ?', $storeId)
+            ->where('customer_group_id = ?', $groupId)
+            ->where('attribute_id in (?)', array($attrPriceId, $attrTierPriceId))
+            ->where('qty <= ?', $qty)
+            ->group('entity_id');
+
+        $price = $this->_getReadAdapter()->fetchCol($select);
+        if (!empty($price)) {
+            return array_shift($price);
+        } else {
+            return 0;
+        }
+    }
+
 }

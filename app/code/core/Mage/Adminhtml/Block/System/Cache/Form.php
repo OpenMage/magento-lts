@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -31,30 +37,28 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
 
     public function initForm()
     {
-        $hlp = Mage::helper('adminhtml');
-
         $form = new Varien_Data_Form();
 
         $fieldset = $form->addFieldset('cache_enable', array(
-            'legend'=>$hlp->__('Cache control')
+            'legend' => Mage::helper('adminhtml')->__('Cache control')
         ));
 
         $fieldset->addField('all_cache', 'select', array(
             'name'=>'all_cache',
-            'label'=>'<strong>'.$hlp->__('All Cache').'</strong>',
+            'label'=>'<strong>'.Mage::helper('adminhtml')->__('All Cache').'</strong>',
             'value'=>1,
             'options'=>array(
-                '' => $hlp->__('No change'),
-                'refresh' => $hlp->__('Refresh'),
-                'disable' => $hlp->__('Disable'),
-                'enable' => $hlp->__('Enable'),
+                '' => Mage::helper('adminhtml')->__('No change'),
+                'refresh' => Mage::helper('adminhtml')->__('Refresh'),
+                'disable' => Mage::helper('adminhtml')->__('Disable'),
+                'enable' => Mage::helper('adminhtml')->__('Enable'),
             ),
         ));
 
         foreach (Mage::helper('core')->getCacheTypes() as $type=>$label) {
             $fieldset->addField('enable_'.$type, 'checkbox', array(
                 'name'=>'enable['.$type.']',
-                'label'=>$hlp->__($label),
+                'label'=>$label,
                 'value'=>1,
                 'checked'=>(int)Mage::app()->useCache($type),
                 //'options'=>$options,

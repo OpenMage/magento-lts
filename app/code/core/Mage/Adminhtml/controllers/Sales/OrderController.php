@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -178,6 +184,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     {
         if ($order = $this->_initOrder()) {
             try {
+                $response = false;
                 $data = $this->getRequest()->getPost('history');
                 $notify = isset($data['is_customer_notified']) ? $data['is_customer_notified'] : false;
                 $order->addStatusToHistory($data['status'], $data['comment'], $notify);
@@ -185,7 +192,9 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
                 $order->sendOrderUpdateEmail($notify, $comment);
                 $order->save();
-                $response = $this->getLayout()->createBlock('adminhtml/sales_order_view_history')->toHtml();
+
+                $this->loadLayout('empty');
+                $this->renderLayout();
             }
             catch (Mage_Core_Exception $e) {
                 $response = array(
@@ -201,8 +210,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             }
             if (is_array($response)) {
                 $response = Zend_Json::encode($response);
+                $this->getResponse()->setBody($response);
             }
-            $this->getResponse()->setBody($response);
         }
     }
 
@@ -236,6 +245,17 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
         $this->_initOrder();
         $this->getResponse()->setBody(
             $this->getLayout()->createBlock('adminhtml/sales_order_view_tab_creditmemos')->toHtml()
+        );
+    }
+
+    /**
+     * Generate order history for ajax request
+     */
+    public function commentsHistoryAction()
+    {
+        $this->_initOrder();
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('adminhtml/sales_order_view_tab_history')->toHtml()
         );
     }
 

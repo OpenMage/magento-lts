@@ -11,6 +11,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Js
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -27,17 +33,17 @@ Translate.prototype = {
         var args = arguments;
         var text = arguments[0];
 
-        if(this.data[text]){
-            return this.data[text];
+        if(this.data.get(text)){
+            return this.data.get(text);
         }
         return text;
     },
     add : function() {
         if (arguments.length > 1) {
-            this.data[arguments[0]] = arguments[1];
+            this.data.set(arguments[0], arguments[1]);
         } else if (typeof arguments[0] =='object') {
             $H(arguments[0]).each(function (pair){
-                this.data[pair.key] = pair.value;
+                this.data.set(pair.key, pair.value);
             }.bind(this));
         }
     }

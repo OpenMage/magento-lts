@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -84,7 +90,11 @@
     <div class="entry-edit-head"><h4><?php echo Mage::helper('sales')->__('Credit Memo Comments') ?></h4></div>
     <fieldset id="history_form">
     <label class="normal" for="creditmemo_comment_text"><?php echo Mage::helper('sales')->__('Credit Memo Comments') ?></label><br/>
-    <textarea id="creditmemo_comment_text" name="creditmemo[comment_text]" rows="3" cols="5" style="width:98%;"></textarea>
+    <textarea id="creditmemo_comment_text" name="creditmemo[comment_text]" rows="3" cols="5" style="width:98%;">
+    <?php
+        echo $this->getCreditmemo()->getData('commentText');
+    ?>
+    </textarea>
     </fieldset>
 </div>
 <div class="box-right entry-edit">
@@ -110,9 +120,9 @@
 
 <script type="text/javascript">
 //<![CDATA[
-var submitButtons = document.getElementsByClassName('submit-button');
-var updateButtons = document.getElementsByClassName('update-button');
-var fields = document.getElementsByClassName('qty-input');
+var submitButtons = $$('.submit-button');
+var updateButtons = $$('.update-button');
+var fields = $$('.qty-input');
 
 updateButtons.each(function (elem) {elem.disabled=true;elem.addClassName('disabled');});
 

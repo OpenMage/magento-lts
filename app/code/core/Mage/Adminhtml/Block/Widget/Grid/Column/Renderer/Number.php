@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -28,6 +34,7 @@
 
 class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Number extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+    protected $_defaultWidth = 100;
 
     protected function _getValue(Varien_Object $row)
     {
@@ -37,15 +44,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Number extends Mage_Admin
         	return $value ? $value: '0'; // fixed for showing zero in grid
         }
         return $this->getColumn()->getDefault();
-    }
-
-    public function renderProperty()
-    {
-        $out = parent::renderProperty();
-        if ($this->getColumn()->getGrid()->getFilterVisibility()) {
-            $out.= ' width="100px" ';
-        }
-        return $out;
     }
 
     public function renderCss()

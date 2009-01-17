@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -37,6 +43,16 @@ abstract class Mage_Dataflow_Model_Batch_Abstract extends Mage_Core_Model_Abstra
      */
     public function setBatchData($data)
     {
+        /**
+        * need prepare valid utf-8 data
+        * related with php bug #42588
+        */
+        foreach ($data as $key=>$value) {
+            $str = @iconv("utf-8", "utf-8//IGNORE", $value);
+            if ($str) {
+                $data[$key] = $str;
+            }    
+        }
         $this->setData('batch_data', serialize($data));
         return $this;
     }

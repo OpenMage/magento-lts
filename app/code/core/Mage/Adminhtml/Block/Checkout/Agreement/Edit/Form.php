@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -54,22 +60,23 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
         ));
 
         $fieldset   = $form->addFieldset('base_fieldset', array(
-            'legend'    => Mage::helper('checkout')->__('Terms and Conditions Information')
+            'legend'    => Mage::helper('checkout')->__('Terms and Conditions Information'),
+			'class'     => 'fieldset-wide',
         ));
 
         if ($model->getId()) {
-        	$fieldset->addField('agreement_id', 'hidden', array(
+            $fieldset->addField('agreement_id', 'hidden', array(
                 'name' => 'agreement_id',
             ));
         }
-    	$fieldset->addField('name', 'text', array(
+        $fieldset->addField('name', 'text', array(
             'name'      => 'name',
             'label'     => Mage::helper('checkout')->__('Condition Name'),
             'title'     => Mage::helper('checkout')->__('Condition Name'),
             'required'  => true,
         ));
 
-    	$fieldset->addField('is_active', 'select', array(
+        $fieldset->addField('is_active', 'select', array(
             'label'     => Mage::helper('checkout')->__('Status'),
             'title'     => Mage::helper('checkout')->__('Status'),
             'name'      => 'is_active',
@@ -81,7 +88,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
-        	$fieldset->addField('store_id', 'multiselect', array(
+            $fieldset->addField('store_id', 'multiselect', array(
                 'name'      => 'stores[]',
                 'label'     => Mage::helper('checkout')->__('Store View'),
                 'title'     => Mage::helper('checkout')->__('Store View'),
@@ -101,15 +108,17 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
             'name'      => 'checkbox_text',
             'label'     => Mage::helper('checkout')->__('Checkbox text'),
             'title'     => Mage::helper('checkout')->__('Checkbox text'),
+            'rows'      => '5',
+            'cols'      => '30',
             'wysiwyg'   => false,
             'required'  => true,
         ));
 
-    	$fieldset->addField('content', 'editor', array(
+        $fieldset->addField('content', 'editor', array(
             'name'      => 'content',
             'label'     => Mage::helper('checkout')->__('Content'),
             'title'     => Mage::helper('checkout')->__('Content'),
-            'style'     => 'width: 98%; height: 600px;',
+            'style'     => 'height:24em;',			
             'wysiwyg'   => false,
             'required'  => true,
         ));

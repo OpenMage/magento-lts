@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -534,6 +540,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
         if (!$found) {
             $this->setShippingAmount(0)
+                ->setBaseShippingAmount(0)
                 ->setShippingMethod('')
                 ->setShippingDescription('');
         }
@@ -625,21 +632,25 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         return $this->setData('applied_taxes', serialize($data));
     }
 
-    public function setShippingAmount($value)
+    public function setShippingAmount($value, $alreadyExclTax = false)
     {
         if (Mage::helper('tax')->shippingPriceIncludesTax()) {
             $includingTax = Mage::helper('tax')->getShippingPrice($value, true, $this, $this->getQuote()->getCustomerTaxClassId());
-            $value = Mage::helper('tax')->getShippingPrice($value, false, $this, $this->getQuote()->getCustomerTaxClassId());
+            if (!$alreadyExclTax) {
+                $value = Mage::helper('tax')->getShippingPrice($value, false, $this, $this->getQuote()->getCustomerTaxClassId());
+            }
             $this->setShippingTaxAmount($includingTax - $value);
         }
         return $this->setData('shipping_amount', $value);
     }
 
-    public function setBaseShippingAmount($value)
+    public function setBaseShippingAmount($value, $alreadyExclTax = false)
     {
         if (Mage::helper('tax')->shippingPriceIncludesTax()) {
             $includingTax = Mage::helper('tax')->getShippingPrice($value, true, $this, $this->getQuote()->getCustomerTaxClassId());
-            $value = Mage::helper('tax')->getShippingPrice($value, false, $this, $this->getQuote()->getCustomerTaxClassId());
+            if (!$alreadyExclTax) {
+                $value = Mage::helper('tax')->getShippingPrice($value, false, $this, $this->getQuote()->getCustomerTaxClassId());
+            }
             $this->setBaseShippingTaxAmount($includingTax - $value);
         }
         return $this->setData('base_shipping_amount', $value);

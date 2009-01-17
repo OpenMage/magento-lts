@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -535,5 +541,24 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         $this->_debugIoAdapter->streamWrite($str);
         $this->_debugIoAdapter->streamUnlock();
         $this->_debugIoAdapter->streamClose();
+    }
+
+    /**
+     * Quotes a value and places into a piece of text at a placeholder.
+     *
+     * Method revrited for handle empty arrays in value param
+     *
+     * @param string  $text  The text with a placeholder.
+     * @param mixed   $value The value to quote.
+     * @param string  $type  OPTIONAL SQL datatype
+     * @param integer $count OPTIONAL count of placeholders to replace
+     * @return string An SQL-safe quoted value placed into the orignal text.
+     */
+    public function quoteInto($text, $value, $type = null, $count = null)
+    {
+        if (is_array($value) && empty($value)) {
+            $value = new Zend_Db_Expr('NULL');
+        }
+        return parent::quoteInto($text, $value, $type, $count);
     }
 }

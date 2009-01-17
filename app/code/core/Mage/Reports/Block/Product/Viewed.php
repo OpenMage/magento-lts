@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -71,9 +77,7 @@ class Mage_Reports_Block_Product_Viewed extends Mage_Catalog_Block_Product_Abstr
         if ($productIds) {
             $productCollection = Mage::getModel('catalog/product')
                 ->getCollection()
-                ->addAttributeToSelect('name')
-                ->addAttributeToSelect('price')
-                ->addAttributeToSelect('small_image')
+                ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
                 ->addIdFilter($productIds)
                 ->addUrlRewrite();
             Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($productCollection);

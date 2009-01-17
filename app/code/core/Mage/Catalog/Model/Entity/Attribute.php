@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -27,6 +33,18 @@ class Mage_Catalog_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribut
 {
     protected $_eventPrefix = 'catalog_entity_attribute';
     protected $_eventObject = 'attribute';
+    const MODULE_NAME = 'Mage_Catalog';
+
+    /**
+     * Processing object before save data
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _beforeSave()
+    {
+        $this->setData('modulePrefix', self::MODULE_NAME);
+        return parent::_beforeSave();
+    }
 
     /**
      * Processing object after save data

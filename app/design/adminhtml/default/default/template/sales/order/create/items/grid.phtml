@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -20,9 +26,9 @@
 ?>
 <?php $_items = $this->getItems() ?>
 <?php if (empty($_items)): ?>
-    <fieldset>
-    <div class="a-center"><?php echo $this->helper('sales')->__('No ordered items') ?></div>
-    </fieldset>
+    <div class="fieldset">
+        <p class="a-center"><?php echo $this->helper('sales')->__('No ordered items') ?></p>
+    </div>
 <?php else: ?>
 <div>
     <?php if(count($_items)>10): ?>
@@ -39,7 +45,7 @@
             <col width="80" />
             <col width="100" />
             <?php if($this->isGiftMessagesAvailable()): ?>
-            <col width="30" />
+            <col width="1" />
             <?php endif; ?>
             <col width="80" />
             <thead>
@@ -57,12 +63,22 @@
                     <th class="no-link last"><?php echo $this->helper('sales')->__('Action') ?></th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr>
+                    <td class="a-left"><?php echo $this->helper('sales')->__('Total %d product(s)', count($_items)) ?></td>
+                    <td colspan="2" class="a-right"><?php echo $this->helper('sales')->__('Subtotal:') ?></td>
+                    <td class="price"><strong><?php echo $this->formatPrice($this->getSubtotal()) ?></strong></td>
+                    <td class="price"><strong><?php echo $this->formatPrice(-$this->getDiscountAmount()) ?></strong></td>
+                    <td class="price"><strong><?php echo $this->formatPrice($this->getSubtotalWithDiscount()) ?></strong></td>
+                    <td <?php if($this->isGiftMessagesAvailable()): ?>colspan="2"<?php endif; ?>>&nbsp;</td>
+                </tr>
+            </tfoot>
             <tbody>
                 <?php $i=0 ?>
                 <?php foreach ($_items as $_item):$i++ ?>
                     <tr class="<?php echo ($i%2)?'even':'odd' ?>">
                         <td><h5 class="title"><?php echo $_item->getName() ?></h5>
-                            <div  class="nobr">
+                            <div class="nobr">
                                 <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> <?php echo $_item->getSku() ?>
                             </div>
                             <div class="nobr">
@@ -156,7 +172,7 @@
                             <?php endif; ?>
                         </td>
                         <?php if($this->isGiftMessagesAvailable()): ?>
-                        <td>
+                        <td class="a-center">
                             <input type="checkbox" name="item[<?php echo $_item->getId() ?>][giftmessage]"<?php if($this->isAllowedForGiftMessage($_item)): ?> checked="checked"<?php endif; ?><?php if(!$this->isGiftMessagesAvailable($_item)): ?> disabled="disabled"<?php endif; ?>/>
                         </td>
                         <?php endif ?>
@@ -173,25 +189,17 @@
                     </tr>
                 <?php endforeach; ?>
             </tbody>
-            <tfoot>
-                <tr>
-                    <td class="a-left"><?php echo $this->helper('sales')->__('Total %d product(s)', count($_items)) ?></td>
-                    <td colspan="2" class="a-right"><?php echo $this->helper('sales')->__('Subtotal:') ?></td>
-                    <td class="price"><strong><?php echo $this->formatPrice($this->getSubtotal()) ?></strong></td>
-                    <td class="price"><strong><?php echo $this->formatPrice(-$this->getDiscountAmount()) ?></strong></td>
-                    <td class="price"><strong><?php echo $this->formatPrice($this->getSubtotalWithDiscount()) ?></strong></td>
-                    <td <?php if($this->isGiftMessagesAvailable()): ?>colspan="2"<?php endif; ?>>&nbsp;</td>
-                </tr>
-            </tfoot>
         </table>
     </div>
-    <table cellspacing="0" cellpadding="0" width="100%">
+    <table cellspacing="0" width="100%">
+    <col width="50%" />
+    <col width="50%" />
         <tr>
-            <td width="50%"><?php echo $this->getInclExclTaxMessage(); ?></td>
+            <td><small><?php echo $this->getInclExclTaxMessage(); ?></small></td>
+            <td rowspan="2" class="a-right"><?php echo $this->getButtonHtml($this->helper('sales')->__('Update Items and Qty\'s'),'order.itemsUpdate()'); ?></td>
         </tr>
         <tr>
-            <td width="50%"><div id="order:coupons"><?php echo $this->getChildHtml('coupons') ?></div></td>
-            <td class="a-right" rowspan="2"><?php echo $this->getButtonHtml($this->helper('sales')->__('Update Items and Qty\'s'),'order.itemsUpdate()'); ?></td>
+            <td><div id="order:coupons"><?php echo $this->getChildHtml('coupons') ?></div></td>
         </tr>
     </table>
     <br/>

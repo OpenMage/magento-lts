@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -30,6 +36,16 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Website extends Mage_Core_M
     protected function _construct()
     {
         $this->_init('catalog/product_website', 'product_id');
+    }
+
+    /**
+     * Get catalog product resource model
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product
+     */
+    protected function _getProductResource()
+    {
+        return Mage::getResourceSingleton('catalog/product');
     }
 
     /**
@@ -85,16 +101,23 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Website extends Mage_Core_M
 
         // Before adding of products we should remove it old rows with same ids
         $this->removeProducts($websiteIds, $productIds);
-
-        foreach ($productIds as $productId) {
-            if ((int) $productId == 0) {
-                continue;
-            }
-            foreach ($websiteIds as $websiteId) {
+        foreach ($websiteIds as $websiteId) {
+            foreach ($productIds as $productId) {
+                if ((int) $productId == 0) {
+                    continue;
+                }
                 $this->_getWriteAdapter()->insert($this->getMainTable(), array(
                     'product_id' => $productId,
                     'website_id' => $websiteId
                 ));
+            }
+            /**
+             * Refresh product enabled index
+             */
+            $storeIds = Mage::app()->getWebsite($websiteId)->getStoreIds();
+            foreach ($storeIds as $storeId) {
+                $store = Mage::app()->getStore($storeId);
+            	$this->_getProductResource()->refreshEnabledIndex($store, $productIds);
             }
         }
 

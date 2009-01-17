@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -25,7 +31,10 @@ trackingControl = {
     add : function () {
         this.index++;
         var data = {index:this.index};
-        new Insertion.Bottom($('track_row_container'), this.template.evaluate(data));
+        Element.insert($('track_row_container'), {bottom: this.template.evaluate(data)});
+        $('trackingC' + this.index).disabled = false;
+        $('trackingT' + this.index).disabled = false;
+        $('trackingN' + this.index).disabled = false;
         this.bindCurrierOnchange();
     },
     deleteRow : function(event) {
@@ -35,11 +44,11 @@ trackingControl = {
         }
     },
     bindCurrierOnchange : function() {
-        var elems = $('tracking_numbers_table').getElementsByClassName('select');
+        var elems = $('tracking_numbers_table').select('.select');
         elems.each(function (elem) {
             if (!elem.onchangeBound) {
                 elem.onchangeBound = true;
-                elem.valueInput = $(elem.parentNode.parentNode).getElementsByClassName('number-title')[0];
+                elem.valueInput = $(elem.parentNode.parentNode).select('.number-title')[0];
                 elem.observe('change', this.currierOnchange);
             }
         }.bind(this));
@@ -78,14 +87,14 @@ trackingControl = {
     <tbody id="track_row_container">
         <tr id="track_row_template" class="template no-display">
             <td>
-                <select name="tracking[__index__][carrier_code]" class="select carrier" style="width:110px;" disabled="disabled">
+                <select name="tracking[__index__][carrier_code]" id="trackingC__index__" class="select carrier" style="width:110px;" disabled="disabled">
                     <?php foreach ($this->getCarriers() as $_code=>$_name): ?>
                     <option value="<?php echo $_code ?>"><?php echo $_name ?></option>
                     <?php endforeach; ?>
                 </select>
             </td>
-            <td><input class="input-text number-title" type="text" name="tracking[__index__][title]" value="" disabled="disabled" /></td>
-            <td><input class="input-text" type="text" name="tracking[__index__][number]" value="" disabled="disabled" /></td>
+            <td><input class="input-text number-title" type="text" name="tracking[__index__][title]" id="trackingT__index__" value="" disabled="disabled" /></td>
+            <td><input class="input-text" type="text" name="tracking[__index__][number]" id="trackingN__index__" value="" disabled="disabled" /></td>
             <td class="last"><a href="#" onclick="trackingControl.deleteRow(event);return false"><?php echo $this->__('Delete') ?></a></td>
         </tr>
     </tbody>
@@ -93,6 +102,6 @@ trackingControl = {
 </div>
 <script type="text/javascript">
 //<![CDATA[
-trackingControl.template = new Template('<tr>' + $('track_row_template').innerHTML.replace(/__index__/g, '#{index}').replace(/disabled/g, '') + '<\/tr>');
+trackingControl.template = new Template('<tr>' + $('track_row_template').innerHTML.replace(/__index__/g, '#{index}') + '<\/tr>');
 //]]>
 </script>

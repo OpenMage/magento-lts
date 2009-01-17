@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -40,20 +46,18 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Meta extends Mage_Adminhtml_Block_W
 
         $model = Mage::registry('cms_page');
 
-        $fieldset = $form->addFieldset('meta_fieldset', array('legend' => Mage::helper('cms')->__('Meta Data')));
+        $fieldset = $form->addFieldset('meta_fieldset', array('legend' => Mage::helper('cms')->__('Meta Data'), 'class' => 'fieldset-wide'));
 
     	$fieldset->addField('meta_keywords', 'editor', array(
             'name' => 'meta_keywords',
             'label' => Mage::helper('cms')->__('Keywords'),
             'title' => Mage::helper('cms')->__('Meta Keywords'),
-            'style' => 'width: 520px;',
         ));
 
     	$fieldset->addField('meta_description', 'editor', array(
             'name' => 'meta_description',
             'label' => Mage::helper('cms')->__('Description'),
             'title' => Mage::helper('cms')->__('Meta Description'),
-            'style' => 'width: 520px;',
         ));
 
         $form->setValues($model->getData());

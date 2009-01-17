@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Varien
  * @package    Varien_Crypt
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -59,7 +65,7 @@ class Varien_Crypt_Mcrypt extends Varien_Crypt_Abstract
 
         $maxKeySize = mcrypt_enc_get_key_size($this->getHandler());
 
-        if (iconv_strlen($key)>$maxKeySize) {
+        if (iconv_strlen($key, 'UTF-8')>$maxKeySize) {
             $this->setHandler(null);
             throw new Varien_Exception('Maximum key size must should be smaller '.$maxKeySize);
         }

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_GoogleCheckout
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -40,5 +46,27 @@ class Mage_GoogleCheckout_Model_Observer
         $api = Mage::getModel('googlecheckout/api');
 
         $api->deliver($order->getExtOrderId(), $track->getCarrierCode(), $track->getNumber());
+    }
+
+    public function salesOrderShipmentSaveAfter(Varien_Event_Observer $observer)
+    {
+        $googleShipmentNames = array('googlecheckout_carrier', 'googlecheckout_merchant', 'googlecheckout_flatrate', 'googlecheckout_pickup');
+
+        $shipment = $observer->getEvent()->getShipment();
+        $order = $shipment->getOrder();
+
+        if (!in_array($order->getShippingMethod(), $googleShipmentNames)) {
+            return;
+        }
+
+        $items = array();
+
+        foreach ($shipment->getAllItems() as $item) {
+            $items[] = $item->getSku();
+        }
+
+        if ($items) {
+            Mage::getModel('googlecheckout/api')->shipItems($order->getExtOrderId(), $items);
+        }
     }
 }

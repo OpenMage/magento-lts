@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -75,6 +81,10 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     protected function _getAttributes($object, $type, array $attributes = null)
     {
         $result = array();
+
+        if (!is_object($object)) {
+            return $result;
+        }
 
         foreach ($object->getData() as $attribute=>$value) {
             if ($this->_isAllowedAttribute($attribute, $type, $attributes)) {

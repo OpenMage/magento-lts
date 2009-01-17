@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -24,9 +30,23 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
     protected function _beforeSave()
     {
         $value = $this->getValue();
-        if (substr($value, -2)!=='}}') {
-            $value = rtrim($value, '/').'/';
+
+        if (!preg_match('#^{{((un)?secure_)?base_url}}#', $value)) {
+            $parsedUrl = parse_url($value);
+            if (!isset($parsedUrl['scheme']) || !isset($parsedUrl['host'])) {
+                Mage::throwException(Mage::helper('core')->__('The %s you entered is invalid. Please make sure that it follows "http://domain.com/" format.', $this->getFieldConfig()->label));
+            }
         }
+
+        $value = rtrim($value,  '/');
+        /**
+         * If value is special ({{}}) we don't need add slash
+         */
+        if (!preg_match('#}}$#', $value)) {
+        	$value.= '/';
+        }
+         
+
         $this->setValue($value);
         return $this;
     }

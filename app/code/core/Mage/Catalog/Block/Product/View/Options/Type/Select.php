@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -41,7 +47,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select
             $select = $this->getLayout()->createBlock('core/html_select')
                 ->setData(array(
                     'id' => 'select_'.$_option->getId(),
-                    'class' => 'select'.$require.' product-custom-option'
+                    'class' => $require.' product-custom-option'
                 ));
             if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN) {
                 $select->setName('options['.$_option->getid().']')
@@ -77,14 +83,14 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select
             switch ($_option->getType()) {
                 case Mage_Catalog_Model_Product_Option::OPTION_TYPE_RADIO:
                     $type = 'radio';
-                    $class = 'form-radio';
+                    $class = 'radio';
                     if (!$_option->getIsRequire()) {
-                        $selectHtml .= '<li><input type="radio" id="options_'.$_option->getId().'" class="form-radio product-custom-option" name="options['.$_option->getId().']" onclick="opConfig.reloadPrice()" value="" checked="checked" /><div class="label"><label for="options_'.$_option->getId().'">' . $this->__('None') . '</label></div></li>';
+                        $selectHtml .= '<li><input type="radio" id="options_'.$_option->getId().'" class="'.$class.' product-custom-option" name="options['.$_option->getId().']" onclick="opConfig.reloadPrice()" value="" checked="checked" /><span class="label"><label for="options_'.$_option->getId().'">' . $this->__('None') . '</label></span></li>';
                     }
                     break;
                 case Mage_Catalog_Model_Product_Option::OPTION_TYPE_CHECKBOX:
                     $type = 'checkbox';
-                    $class = 'form-checkbox';
+                    $class = 'checkbox';
                     $arraySign = '[]';
                     break;
             }
@@ -96,13 +102,13 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select
                     'pricing_value' => $_value->getPrice(true)
                 ));
                 $selectHtml .= '<li>' .
-                               '<input type="'.$type.'" class="'.$require.' '.$class.' product-custom-option" onclick="opConfig.reloadPrice()" name="options['.$_option->getId().']'.$arraySign.'" id="options_'.$_option->getId().'_'.$count.'" value="'.$_value->getOptionTypeId().'" />' .
-                               '<div class="label"><label for="options_'.$_option->getId().'_'.$count.'">'.$_value->getTitle().' '.$priceStr.'</label></div>';
+                               '<input type="'.$type.'" class="'.$class.' '.$require.' product-custom-option" onclick="opConfig.reloadPrice()" name="options['.$_option->getId().']'.$arraySign.'" id="options_'.$_option->getId().'_'.$count.'" value="'.$_value->getOptionTypeId().'" />' .
+                               '<span class="label"><label for="options_'.$_option->getId().'_'.$count.'">'.$_value->getTitle().' '.$priceStr.'</label></span>';
                 if ($_option->getIsRequire()) {
                     $selectHtml .= '<script type="text/javascript">' .
                                     '$(\'options_'.$_option->getId().'_'.$count.'\').advaiceContainer = \'options-'.$_option->getId().'-container\';' .
                                     '$(\'options_'.$_option->getId().'_'.$count.'\').callbackFunction = \'validateOptionsCallback\';' .
-                                '</script>';
+                                   '</script>';
                 }
                 $selectHtml .= '</li>';
             }

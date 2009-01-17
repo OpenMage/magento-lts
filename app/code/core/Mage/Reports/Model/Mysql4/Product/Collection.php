@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -154,6 +160,10 @@ class Mage_Reports_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Re
         $productIdTableName = $this->getTable('sales/order_item');
         $productIdFieldName = 'product_id';
 
+        $productTypes = " AND (e.type_id = '" .
+            Mage_Catalog_Model_Product_Type::TYPE_SIMPLE .
+            "' OR e.type_id = '" . Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL  . "')";
+
         if ($from != '' && $to != '') {
             $dateFilter = " AND `order`.created_at BETWEEN '{$from}' AND '{$to}'";
         } else {
@@ -162,16 +172,14 @@ class Mage_Reports_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Re
 
         $this->getSelect()->reset()
             ->from(
-                array('order_items2' => $qtyOrderedTableName),
-                array('ordered_qty' => "sum(order_items2.{$qtyOrderedFieldName})"))
+                array('order_items' => $qtyOrderedTableName),
+                array('ordered_qty' => "SUM(order_items.{$qtyOrderedFieldName})"))
             ->joinInner(
-                array('order_items' => $productIdTableName),
-                "order_items.item_id = order_items2.item_id",
+                array('order' => $this->getTable('sales/order')),
+                'order.entity_id = order_items.order_id'.$dateFilter,
                 array())
             ->joinInner(array('e' => $this->getProductEntityTableName()),
-                "e.entity_id = order_items.{$productIdFieldName} AND e.entity_type_id = {$this->getProductEntityTypeId()}")
-            ->joinInner(array('order' => $this->getTable('sales/order_entity')),
-                "order.entity_id = order_items.order_id".$dateFilter, array())
+                "e.entity_id = order_items.{$productIdFieldName} AND e.entity_type_id = {$this->getProductEntityTypeId()}{$productTypes}")
             ->group('e.entity_id')
             ->having('ordered_qty > 0');
 

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -25,33 +31,33 @@
     <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('poll')->__('Assigned Answers') ?></h4>
     </div>
     <?php foreach($answers->getItems() as $_item): ?>
-        <fieldset id="poll_answer_fieldset_<?php echo $_item->getId() ?>">
-        <table cellspacing="0" class="form-list" style="width:100%;">
+        <div class="fieldset fieldset-wide" id="poll_answer_fieldset_<?php echo $_item->getId() ?>">
+        <table cellspacing="0" class="form-list">
             <tr>
-                <td class="label"><?php echo Mage::helper('poll')->__('Answer Title:') ?> <span class="required">*</span></td>
-                <td class="value"><input id="answer_<?php echo $_item->getId() ?>" name="answer[<?php echo $_item->getId() ?>][title]" value="<?php echo $_item->getAnswerTitle() ?>" class="required-entry input-text" type="text" /></td>
+                <td class="label"><label for="answer_<?php echo $_item->getId() ?>"><?php echo Mage::helper('poll')->__('Answer Title:') ?> <span class="required">*</span></label></td>
+                <td class="value"><?php echo $this->getDeleteButtonHtml() ?><input type="text" id="answer_<?php echo $_item->getId() ?>" name="answer[<?php echo $_item->getId() ?>][title]" value="<?php echo $_item->getAnswerTitle() ?>" class="input-text required-entry" /></td>
             </tr>
             <tr>
-                <td class="label"><?php echo Mage::helper('poll')->__('Votes Count:') ?> <span class="required">*</span></td>
-                <td class="value"><?php echo $this->getDeleteButtonHtml() ?>
-                    <input id="answer_votes_<?php echo $_item->getId() ?>" name="answer[<?php echo $_item->getId() ?>][votes]" value="<?php echo $_item->getVotesCount() ?>" class="required-entry validate-not-negative-number input-text" type="text" />
+                <td class="label"><label for="answer_votes_<?php echo $_item->getId() ?>"><?php echo Mage::helper('poll')->__('Votes Count:') ?> <span class="required">*</span></label></td>
+                <td class="value"><input type="text" id="answer_votes_<?php echo $_item->getId() ?>" name="answer[<?php echo $_item->getId() ?>][votes]" value="<?php echo $_item->getVotesCount() ?>" class="input-text required-entry validate-not-negative-number" />
                 </td>
              </tr>
         </table>
         <input type="hidden" id="id_poll_answer_fieldset_<?php echo $_item->getId() ?>" value="<?php echo $_item->getId() ?>" />
-        </fieldset>
+        </div>
     <?php endforeach; ?>
 <?php endif; ?>
 </div>
 <?php echo $this->getAddButtonHtml(); ?>
 
 <script type="text/javascript">
+//<![CDATA[
     var lastId = 0;
     var answer = function() {
         return {
             del : function(obj) {
                 if( confirm('<?php echo Mage::helper('poll')->__('Are you sure you want to delete it?') ?>') ) {
-                    fieldSet = obj.up('fieldset');
+                    fieldSet = obj.up('div.fieldset');
                     if( $('id_' + fieldSet.id) ) {
                         var itemId = $('id_' + fieldSet.id).value;
                         var newElement = document.createElement('input');
@@ -72,19 +78,19 @@
 
             getTemplate : function() {
                 var id = this.createId();
-                return  '<fieldset id="poll_answer_fieldset_' + id + '">'
-                       +'<table cellspacing="0" class="form-list" style="width:100%;">'
+                return  '<div class="fieldset fieldset-wide" id="poll_answer_fieldset_' + id + '">'
+                       +'<table cellspacing="0" class="form-list">'
                        +'<tr>'
-                       +    '<td class="label"><?php echo Mage::helper('poll')->__('Answer Title:') ?> <span class="required">*</span></td>'
-                       +    '<td><input id="answer_' + id + '" name="answer[' + id + '][title]" value="" class="required-entry input-text" type="text" /></td>'
-                       +'</tr>'
+                       +    '<td class="label"><label for="answer_' + id + '"><?php echo Mage::helper('poll')->__('Answer Title:') ?> <span class="required">*</span></label><\/td>'
+                       +    '<td class="value"><?php echo $this->getDeleteButtonHtml() ?><input type="text" id="answer_' + id + '" name="answer[' + id + '][title]" value="" class="input-text required-entry" /><\/td>'
+                       +'<\/tr>'
                        +'<tr>'
-                       +    '<td class="label"><?php echo Mage::helper('poll')->__('Votes Count:') ?> <span class="required">*</span></td>'
-                       +    '<td><?php echo $this->getDeleteButtonHtml() ?><input id="answer_votes_' + id + '" name="answer[' + id + '][votes]" value="0" class="required-entry validate-not-negative-number input-text" type="text" /></td>'
-                       +'</tr>'
-                       +'</table>'
+                       +    '<td class="label"><label for="answer_votes_' + id + '"><?php echo Mage::helper('poll')->__('Votes Count:') ?> <span class="required">*</span></label><\/td>'
+                       +    '<td class="value"><input type="text" id="answer_votes_' + id + '" name="answer[' + id + '][votes]" value="0" class="input-text required-entry validate-not-negative-number" /><\/td>'
+                       +'<\/tr>'
+                       +'<\/table>'
                        +'<input type="hidden" id="id_poll_answer_fieldset_' + id + '" value="' + id + '" />'
-                       +'</fieldset>';
+                       +'<\/div>';
             },
 
             createId : function () {
@@ -92,4 +98,5 @@
             }
         }
     }();
+//]]>
 </script>

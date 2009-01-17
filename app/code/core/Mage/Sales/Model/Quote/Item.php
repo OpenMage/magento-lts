@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -94,6 +100,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     {
         $oldQty = $this->getQty();
         $qty = $this->_prepareQty($qty);
+        $this->setQtyToAdd($qty);
         $this->setQty($oldQty+$qty);
         return $this;
     }
@@ -137,9 +144,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         $productIds = array();
         $return     = array();
         foreach ($this->getOptions() as $option) {
-//            mageDebugBacktrace();
             /* @var $option Mage_Sales_Model_Quote_Item_Option */
-            if ($option->getProduct()->getId() != $this->getProduct()->getId()
+            if (is_object($option->getProduct()) && $option->getProduct()->getId() != $this->getProduct()->getId()
                 && !isset($productIds[$option->getProduct()->getId()])) {
                 $productIds[$option->getProduct()->getId()] = $option->getProduct()->getId();
             }
@@ -163,7 +169,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     public function setProduct($product)
     {
         if ($this->getQuote()) {
-        	$product->setStoreId($this->getQuote()->getStoreId());
+            $product->setStoreId($this->getQuote()->getStoreId());
         }
         $this->setData('product', $product)
             ->setProductId($product->getId())
@@ -223,7 +229,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         foreach ($itemOptions as $option) {
             $code = $option->getCode();
             if (in_array($code, $this->_norRepresentOptions )) {
-            	continue;
+                continue;
             }
             if ( !isset($productOptions[$code])
                 || ($productOptions[$code]->getValue() === null)
@@ -247,7 +253,22 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         }
         foreach ($this->getOptions() as $option) {
             if ($itemOption = $item->getOptionByCode($option->getCode())) {
-                if ($itemOption->getValue() != $option->getValue()) {
+                $itemOptionValue = $itemOption->getValue();
+                $optionValue     = $option->getValue();
+
+                // dispose of some options params, that can cramp comparing of arrays
+                if (is_string($itemOptionValue) && is_string($optionValue)) {
+                    $_itemOptionValue = @unserialize($itemOptionValue);
+                    $_optionValue     = @unserialize($optionValue);
+                    if (is_array($_itemOptionValue) && is_array($_optionValue)) {
+                        $itemOptionValue = $_itemOptionValue;
+                        $optionValue     = $_optionValue;
+                        // looks like it does not break bundle selection qty
+                        unset($itemOptionValue['qty'], $itemOptionValue['uenc'], $optionValue['qty'], $optionValue['uenc']);
+                    }
+                }
+
+                if ($itemOptionValue != $optionValue) {
                     return false;
                 }
             }

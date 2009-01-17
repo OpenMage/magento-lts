@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    default_default
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -26,36 +32,32 @@
         <div class="entry-edit-head">
             <h4 class="fieldset-legend head-gift-message"><?php echo Mage::helper('sales')->__('Gift Message') ?></h4>
         </div>
-        <fieldset>
-        <table cellpadding="0" cellpadding="0" border="0" width="100%">
-            <tr>
-                <td width="50%">
+        <div class="fieldset">
+            <div class="box-left">
                 <div class="entire-order">
-                    <div class="section-head"><?php echo Mage::helper('sales')->__('Add a gift message for the <strong>entire order</strong>') ?></div>
+                    <h5><?php echo Mage::helper('sales')->__('Add a gift message for the <strong>entire order</strong>') ?></h5>
                     <?php echo $this->getFormHtml($this->getQuote(), 'main') ?>
                 </div>
-                </td>
-                <td>
+            </div>
+            <div class="box-right">
                 <?php if ($_items=$this->getItems()): ?>
                     <div class="each-order-item">
-                        <div class="section-head"><?php echo Mage::helper('sales')->__('Add a gift message for <strong>each gift item</strong>') ?></div>
+                        <h5 class="section-head"><?php echo Mage::helper('sales')->__('Add a gift message for <strong>each gift item</strong>') ?></h5>
                         <div class="scroll">
                             <?php foreach ($_items as $_item): ?>
-                                <div class="item-head"><?php echo $_item->getName() ?></div>
+                                <h6><?php echo $_item->getName() ?></h6>
                                 <?php echo $this->getFormHtml($_item, 'item'); ?>
                             <?php endforeach; ?>
                         </div>
                     </div>
                 <?php endif ?>
-                </td>
-            </tr>
-        </table>
-
-        </fieldset>
+            </div>
+            <div class="clear"></div>
+        </div>
     </div>
 </div>
-<div class="clear"></div>
 <script type="text/javascript">
+//<![CDATA[
 if(!window.toogleRequired) {
     var toogleRequired = function (source, objects)
     {
@@ -74,5 +76,6 @@ if(!window.toogleRequired) {
     }
 }
 order.giftmessageFieldsBind('order:giftmessage');
+//]]>
 </script>
 <?php endif; ?>

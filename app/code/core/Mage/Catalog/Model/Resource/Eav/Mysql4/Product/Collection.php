@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -559,9 +565,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 
     protected function _addTaxPercents(){
         $classToRate = array();
-
         $request = Mage::getSingleton('tax/calculation')->getRateRequest();
         foreach ($this as &$item) {
+            if (null === $item->getTaxClassId()) {
+                $item->setTaxClassId($item->getMinimalTaxClassId());
+            }
             if (!isset($classToRate[$item->getTaxClassId()])) {
                 $request->setProductClassId($item->getTaxClassId());
                 $classToRate[$item->getTaxClassId()] = Mage::getSingleton('tax/calculation')->getRate($request);
@@ -630,9 +638,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 
     public function setOrder($attribute, $dir='desc')
     {
-        if ($attribute == 'price') {
+        $storeId = Mage::app()->getStore()->getId();
+        if ($attribute == 'price' && $storeId != 0) {
             $customerGroup = Mage::getSingleton('customer/session')->getCustomer()->getCustomerGroupId();
-            $storeId = Mage::app()->getStore()->getId();
 
             $priceAttributeId = $this->getAttribute('price')->getId();
 

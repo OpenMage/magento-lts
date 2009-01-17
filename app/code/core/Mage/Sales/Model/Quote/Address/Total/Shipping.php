@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -26,6 +32,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
         $oldWeight = $address->getWeight();
         $address->setWeight(0);
         $address->setShippingAmount(0);
+        $address->setBaseShippingAmount(0);
         $address->setFreeMethodWeight(0);
 
         $items = $address->getAllItems();
@@ -81,6 +88,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                         }
                         $freeMethodWeight += $rowWeight;
                     }
+                    $item->setRowWeight($rowWeight);
                 }
                 if ($item->getProduct()->getWeightType()) {
                     $itemWeight = $item->getWeight();
@@ -98,6 +106,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                         }
                     }
                     $freeMethodWeight+= $rowWeight;
+                    $item->setRowWeight($rowWeight);
                 }
             }
             else {
@@ -119,6 +128,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                     }
                 }
                 $freeMethodWeight+= $rowWeight;
+                $item->setRowWeight($rowWeight);
             }
         }
 
@@ -142,7 +152,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                     $amountPrice = $address->getQuote()->getStore()->convertPrice($rate->getPrice(), false);
                     $address->setShippingAmount($amountPrice);
                     $address->setBaseShippingAmount($rate->getPrice());
-                    $address->setShippingDescription($rate->getCarrierTitle().' - '.$rate->getMethodDescription());
+                    $address->setShippingDescription($rate->getCarrierTitle().' - '.$rate->getMethodTitle());
                     break;
                 }
             }

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -57,22 +63,22 @@
                 </select>
                 </td>
                 <td class="nobr">
-                    <input disabled="no-template" class="<?php echo $_htmlClass ?> qty required-entry validate-greater-than-zero" type="text" name="<?php echo $_htmlName ?>[__index__][price_qty]" value="'#{qty}'"/> <small class="nobr"><?php echo Mage::helper('catalog')->__('and above')?></small>
+                    <input disabled="no-template" class="<?php echo $_htmlClass ?> qty required-entry validate-greater-than-zero" type="text" name="<?php echo $_htmlName ?>[__index__][price_qty]" value="'#{qty}'" /> <small class="nobr"><?php echo Mage::helper('catalog')->__('and above')?></small>
                 </td>
                 <td>
-                    <input disabled="no-template" class="<?php echo $_htmlClass ?> required-entry validate-greater-than-zero" type="text" name="<?php echo $_htmlName ?>[__index__][price]" value="'#{price}'"/>
+                    <input disabled="no-template" class="<?php echo $_htmlClass ?> required-entry validate-greater-than-zero" type="text" name="<?php echo $_htmlName ?>[__index__][price]" value="'#{price}'" />
                 </td>
-                <td class="last"><input type="hidden" name="<?php echo $_htmlName ?>[__index__][delete]" class="delete" disabled="no-template" value=""><button title="Delete Tier" class="scalable delete icon-btn delete-product-option" onclick="tierPriceControl.deleteItem(event);return false"><span>Delete</span></button></td>
+                <td class="last"><input type="hidden" name="<?php echo $_htmlName ?>[__index__][delete]" class="delete" disabled="no-template" value="" /><button title="Delete Tier" class="scalable delete icon-btn delete-product-option" onclick="tierPriceControl.deleteItem(event);return false"><span>Delete</span></button></td>
             </tr>
         </thead>
-        <tbody id="<?php echo $_htmlId ?>_container">
-        </tbody>
         <tfoot>
             <tr>
                 <td <?php if (!$_multiWebsite): ?>style="display:none"<?php endif; ?>></td>
                 <td colspan="4" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
             </tr>
         </tfoot>
+        <tbody id="<?php echo $_htmlId ?>_container">
+        </tbody>
     </table>
 
 <script type="text/javascript">
@@ -94,15 +100,15 @@
                 data.qty        = arguments[2];
                 data.price      = arguments[3];
             }
-            new Insertion.Bottom($('<?php echo $_htmlId ?>_container'), this.template.evaluate(data));
+            Element.insert($('<?php echo $_htmlId ?>_container'), {'bottom':this.template.evaluate(data)});
             $('tier_price_row_'+data.index+'_cust_group').value = data.group;
             $('tier_price_row_'+data.index+'_website').value = data.website_id;
         },
         deleteItem : function(event) {
             var tr = Event.findElement(event, 'tr');
             if (tr) {
-                Element.getElementsBySelector(tr, '.delete').each(function(elem){elem.value='1'});
-                Element.getElementsBySelector(tr, ['input', 'select']).each(function(elem){elem.hide()});
+                Element.select(tr, '.delete').each(function(elem){elem.value='1'});
+                Element.select(tr, ['input', 'select']).each(function(elem){elem.hide()});
                 Element.hide(tr);
                 Element.addClassName(tr, 'no-display template');
             }

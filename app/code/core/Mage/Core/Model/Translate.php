@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -217,31 +223,31 @@ class Mage_Core_Model_Translate
         foreach ($data as $key => $value) {
             $key    = $this->_prepareDataString($key);
             $value  = $this->_prepareDataString($value);
-        	if ($scope && isset($this->_dataScope[$key])) {
-        	    /**
-        	     * Checking previos value
-        	     */
-        	    $scopeKey = $this->_dataScope[$key] . self::SCOPE_SEPARATOR . $key;
-        	    if (!isset($this->_data[$scopeKey])) {
-        	        if (isset($this->_data[$key])) {
-        	            $this->_data[$scopeKey] = $this->_data[$key];
-        	            unset($this->_data[$key]);
-        	        }
-        	    }
-    	        $scopeKey = $scope . self::SCOPE_SEPARATOR . $key;
-    	        $this->_data[$scopeKey] = $value;
-        	}
-        	else {
-        	    $this->_data[$key]     = $value;
-        	    $this->_dataScope[$key]= $scope;
-        	}
+            if ($scope && isset($this->_dataScope[$key])) {
+                /**
+                 * Checking previos value
+                 */
+                $scopeKey = $this->_dataScope[$key] . self::SCOPE_SEPARATOR . $key;
+                if (!isset($this->_data[$scopeKey])) {
+                    if (isset($this->_data[$key])) {
+                        $this->_data[$scopeKey] = $this->_data[$key];
+                        unset($this->_data[$key]);
+                    }
+                }
+                $scopeKey = $scope . self::SCOPE_SEPARATOR . $key;
+                $this->_data[$scopeKey] = $value;
+            }
+            else {
+                $this->_data[$key]     = $value;
+                $this->_dataScope[$key]= $scope;
+            }
         }
         return $this;
     }
 
     protected function _prepareDataString($string)
     {
-        return str_replace('""', '"', trim($string, '"'));
+        return str_replace('""', '"', $string);
     }
 
     /**
@@ -538,7 +544,7 @@ class Mage_Core_Model_Translate
             $translated = $this->_data[$code];
         }
         elseif (array_key_exists($text, $this->getData())) {
-        	$translated = $this->_data[$text];
+            $translated = $this->_data[$text];
         }
         else {
             $translated = $text;

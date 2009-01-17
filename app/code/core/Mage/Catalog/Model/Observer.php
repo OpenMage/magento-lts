@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -59,7 +65,12 @@ class Mage_Catalog_Model_Observer
     public function categoryMove($observer)
     {
         $categoryId = $observer->getEvent()->getCategoryId();
+        $prevParentId = $observer->getEvent()->getPrevParentId();
+        $parentId = $observer->getEvent()->getParentId();
         Mage::getModel('catalog/url')->refreshCategoryRewrite($categoryId);
+        $model = Mage::getModel('catalog/category')->load($prevParentId)->save();
+        $model = Mage::getModel('catalog/category')->load($parentId)->save();
+        $model = null;
         return $this;
     }
 

@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Magento
@@ -11,6 +12,12 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Varien
  * @package    Varien_Data
@@ -31,7 +38,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
-        $this->setType('input');
+        $this->setType('text');
         $this->setExtType('textfield');
     }
 
@@ -51,7 +58,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
 
         $this->addClass('input-text');
 
-        $html = '<input type="text" name="'.$this->getName().'" id="'.$this->getHtmlId().'" value="'.$this->getEscapedValue().'" ' . $this->serialize($this->getHtmlAttributes()) . ' style="width:100px"/> <img src="' . $this->getImage() . '" alt="" align="absmiddle" id="'.$this->getHtmlId().'_trig" title="' . __('Select Date') . '"' . ($this->getDisabled() ? ' style="display:none;"' : '') . ' />';
+        $html = '<input name="'.$this->getName().'" id="'.$this->getHtmlId().'" value="'.$this->getEscapedValue().'" ' . $this->serialize($this->getHtmlAttributes()) . ' style="width:100px; "/> <img src="' . $this->getImage() . '" alt="" class="v-middle" id="'.$this->getHtmlId().'_trig" title="' . __('Select Date') . '"' . ($this->getDisabled() ? ' style="display:none;"' : '') . ' />';
         $html.= '<script type="text/javascript">
             Calendar.setup({
                 inputField : "'.$this->getHtmlId().'",

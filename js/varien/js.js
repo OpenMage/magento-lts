@@ -11,6 +11,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -136,19 +142,19 @@ function decorateTable(table, options) {
         }
         // decorate
         if (_options['tbody']) {
-            decorateGeneric(table.getElementsBySelector('tbody'), _options['tbody']);
+            decorateGeneric(table.select('tbody'), _options['tbody']);
         }
         if (_options['tbody tr']) {
-            decorateGeneric(table.getElementsBySelector('tbody tr'), _options['tbody tr']);
+            decorateGeneric(table.select('tbody tr'), _options['tbody tr']);
         }
         if (_options['thead tr']) {
-            decorateGeneric(table.getElementsBySelector('thead tr'), _options['thead tr']);
+            decorateGeneric(table.select('thead tr'), _options['thead tr']);
         }
         if (_options['tfoot tr']) {
-            decorateGeneric(table.getElementsBySelector('tfoot tr'), _options['tfoot tr']);
+            decorateGeneric(table.select('tfoot tr'), _options['tfoot tr']);
         }
         if (_options['tr td']) {
-            var allRows = table.getElementsBySelector('tr');
+            var allRows = table.select('tr');
             if (allRows.length) {
                 for (var i = 0; i < allRows.length; i++) {
                     decorateGeneric(allRows[i].getElementsByTagName('TD'), _options['tr td']);
@@ -165,7 +171,7 @@ function decorateTable(table, options) {
 function decorateList(list, nonRecursive) {
     if ($(list)) {
         if (typeof(nonRecursive) == 'undefined') {
-            var items = $(list).getElementsBySelector('li')
+            var items = $(list).select('li')
         }
         else {
             var items = $(list).childElements();
@@ -181,8 +187,8 @@ function decorateList(list, nonRecursive) {
 function decorateDataList(list) {
     list = $(list);
     if (list) {
-        decorateGeneric(list.getElementsBySelector('dt'), ['odd', 'even', 'last']);
-        decorateGeneric(list.getElementsBySelector('dd'), ['odd', 'even', 'last']);
+        decorateGeneric(list.select('dt'), ['odd', 'even', 'last']);
+        decorateGeneric(list.select('dd'), ['odd', 'even', 'last']);
     }
 }
 

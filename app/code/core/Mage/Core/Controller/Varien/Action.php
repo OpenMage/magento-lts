@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -499,7 +505,7 @@ abstract class Mage_Core_Controller_Varien_Action
             $successUrl = $defaultUrl;
         }
         if (!$this->_isUrlInternal($successUrl)) {
-        	$successUrl = Mage::app()->getStore()->getBaseUrl();
+            $successUrl = Mage::app()->getStore()->getBaseUrl();
         }
         $this->getResponse()->setRedirect($successUrl);
         return $this;
@@ -517,7 +523,7 @@ abstract class Mage_Core_Controller_Varien_Action
             $errorUrl = $defaultUrl;
         }
         if (!$this->_isUrlInternal($errorUrl)) {
-        	$errorUrl = Mage::app()->getStore()->getBaseUrl();
+            $errorUrl = Mage::app()->getStore()->getBaseUrl();
         }
         $this->getResponse()->setRedirect($errorUrl);
         return $this;
@@ -548,7 +554,7 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     protected function _getRefererUrl()
     {
-    	$refererUrl = $this->getRequest()->getServer('HTTP_REFERER');
+        $refererUrl = $this->getRequest()->getServer('HTTP_REFERER');
         if ($url = $this->getRequest()->getParam(self::PARAM_NAME_REFERER_URL)) {
             $refererUrl = $url;
         }
@@ -560,7 +566,7 @@ abstract class Mage_Core_Controller_Varien_Action
         }
 
         if (!$this->_isUrlInternal($refererUrl)) {
-        	$refererUrl = Mage::app()->getStore()->getBaseUrl();
+            $refererUrl = Mage::app()->getStore()->getBaseUrl();
         }
         return $refererUrl;
     }

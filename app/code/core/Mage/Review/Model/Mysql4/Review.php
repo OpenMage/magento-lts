@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Review
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -32,6 +38,7 @@ class Mage_Review_Model_Mysql4_Review extends Mage_Core_Model_Mysql4_Abstract
     protected $_reviewStatusTable;
     protected $_reviewEntityTable;
     protected $_reviewStoreTable;
+    private $_deleteCache = array();
 
     protected function _construct()
     {
@@ -134,6 +141,13 @@ class Mage_Review_Model_Mysql4_Review extends Mage_Core_Model_Mysql4_Abstract
                 $this->_getWriteAdapter()->insert($this->_reviewStoreTable, $storeInsert);
             }
         }
+
+        // reaggregate ratings, that depend on this review
+        $this->_aggregateRatings(
+            $this->_loadVotedRatingIds($object->getId()),
+            $object->getEntityPkValue()
+        );
+
         return $this;
     }
 
@@ -156,6 +170,16 @@ class Mage_Review_Model_Mysql4_Review extends Mage_Core_Model_Mysql4_Abstract
         return $this;
     }
 
+    protected function _beforeDelete(Mage_Core_Model_Abstract $object)
+    {
+        // prepare rating ids, that depend on review
+        $this->_deleteCache = array(
+            'ratingIds'     => $this->_loadVotedRatingIds($object->getId()),
+            'entityPkValue' => $object->getEntityPkValue()
+        );
+        return $this;
+    }
+
     /**
      * Perform actions after object delete
      *
@@ -164,6 +188,14 @@ class Mage_Review_Model_Mysql4_Review extends Mage_Core_Model_Mysql4_Abstract
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
         $this->aggregate($object);
+
+        // reaggregate ratings, that depended on this review
+        $this->_aggregateRatings(
+            $this->_deleteCache['ratingIds'],
+            $this->_deleteCache['entityPkValue']
+        );
+        $this->_deleteCache = array();
+
         return $this;
     }
 
@@ -230,5 +262,54 @@ class Mage_Review_Model_Mysql4_Review extends Mage_Core_Model_Mysql4_Abstract
                 $this->_getWriteAdapter()->rollBack();
             }
         }
+    }
+
+    /**
+     * Get rating IDs from review votes
+     *
+     * @param int $reviewId
+     * @return array
+     */
+    protected function _loadVotedRatingIds($reviewId)
+    {
+        if (empty($reviewId)) {
+            return array();
+        }
+        $select = $this->_getReadAdapter()->select()
+            ->from(array('v' => $this->getTable('rating/rating_option_vote')), 'r.rating_id')
+            ->joinInner(array('r' => $this->getTable('rating/rating')), 'v.rating_id=r.rating_id')
+            ->where('v.review_id=?', $reviewId
+        );
+        return $this->_getReadAdapter()->fetchCol($select);
+    }
+
+    /**
+     * Aggregate this review's ratings.
+     * Useful, when changing the review.
+     *
+     * @param array $ratingIds
+     * @param int $entityPkValue
+     * @return Mage_Review_Model_Mysql4_Review
+     */
+    protected function _aggregateRatings($ratingIds, $entityPkValue)
+    {
+        if ($ratingIds && !is_array($ratingIds)) {
+            $ratingIds = array((int)$ratingIds);
+        }
+        if ($ratingIds && $entityPkValue
+            && ($resource = Mage::getResourceSingleton('rating/rating_option'))
+            ) {
+            foreach ($ratingIds as $ratingId) {
+                $resource->aggregateEntityByRatingId(
+                    $ratingId, $entityPkValue
+                );
+            }
+        }
+        return $this;
+    }
+
+    public function reAggregateReview($reviewId, $entityPkValue)
+    {
+        $this->_aggregateRatings($this->_loadVotedRatingIds($reviewId), $entityPkValue);
     }
 }

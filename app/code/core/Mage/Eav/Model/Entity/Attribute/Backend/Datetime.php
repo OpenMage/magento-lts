@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -26,6 +32,15 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
         $object->setData($this->getAttribute()->getName(), $value);
     }
 
+    /**
+     * Prepare date for save in DB
+     *
+     * string format used from input fields (all date input fields need apply locale settings)
+     * int value can be declared in code (this meen whot we use valid date)
+     *
+     * @param   string | int $date
+     * @return  string
+     */
     public function formatDate($date)
     {
     	if (empty($date)) {

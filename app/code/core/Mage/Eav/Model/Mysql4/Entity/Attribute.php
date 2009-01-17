@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -152,8 +158,14 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
             }
             $object->setFrontendLabel($frontendLabel[0]);
 
+            if ($object->getData('modulePrefix')) {
+                $str = $object->getData('modulePrefix') . Mage_Core_Model_Translate::SCOPE_SEPARATOR . $frontendLabel[0];
+            }
+            else {
+                $str = $frontendLabel[0];
+            }
             Mage::getModel('core/translate_string')
-                ->setString($frontendLabel[0])
+                ->setString($str)
                 ->setTranslate($frontendLabel[0])
                 ->setStoreTranslations($frontendLabel)
                 ->save();
@@ -289,7 +301,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
 
                     $write->delete($optionValueTable, $write->quoteInto('option_id=?', $intOptionId));
                     foreach ($stores as $store) {
-                        if (!empty($values[$store->getId()]) || $values[$store->getId()] == "0") {
+                        if (isset($values[$store->getId()]) && (!empty($values[$store->getId()]) || $values[$store->getId()] == "0")) {
                             $data = array(
                                 'option_id' => $intOptionId,
                                 'store_id'  => $store->getId(),

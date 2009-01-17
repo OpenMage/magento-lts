@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -371,41 +377,18 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 
     protected function _beforeDelete()
     {
-        $this->_substractQtyFromQuotes();
         $this->cleanCache();
         $this->_protectFromNonAdmin();
         return parent::_beforeDelete();
     }
 
     /**
-     * Substract this product from all quotes quantities
-     *
-     * @throws Exception
+     * deprecated
+     * @see Mage_Sales_Model_Observer::substractQtyFromQuotes()
      */
     protected function _substractQtyFromQuotes()
     {
-        // get all quotes and store ids, in which the product may be
-        /*
-        SELECT qi.item_id, qi.qty, qi.quote_id, q.store_id, q.items_qty, q.items_count
-        FROM sales_flat_quote_item qi
-            INNER JOIN sales_flat_quote q ON qi.quote_id=q.entity_id
-        WHERE qi.product_id=?d
-        */
-        $quotesCollection = Mage::getModel('sales/quote')->getCollection();
-        $quoteItemsCollection = Mage::getModel('sales/quote_item')->getCollection()
-            ->resetJoinQuotes($quotesCollection->getResource()->getMainTable(), $this->getId());
-        $quotesStores = $quoteItemsCollection->getConnection()->fetchAll($quoteItemsCollection->getSelect());
-
-        foreach ($quotesStores as $quoteStore) {
-            // substract quantity from the quote
-            $quoteItem = Mage::getModel('sales/quote')
-                ->setId($quoteStore['quote_id'])
-                ->setItemsCount((int)$quoteStore['items_count'] - 1)
-                ->setItemsQty((int)$quoteStore['items_qty'] - (int)$quoteStore['qty'])
-                ->setStoreId($quoteStore['store_id']) // it is used in _beforeSave()
-            ;
-            $quoteItem->save();
-        }
+        // kept for legacy purposes
     }
 
     protected function _afterLoad()
@@ -559,6 +542,20 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
+     * Retrieve collection related link
+     */
+    public function getRelatedLinkCollection()
+    {
+        $collection = $this->getLinkInstance()->useRelatedLinks()
+            ->getLinkCollection();
+        $collection->setProduct($this);
+        $collection->addLinkTypeIdFilter();
+        $collection->addProductIdFilter();
+        $collection->joinAttributes();
+        return $collection;
+    }
+
+    /**
      * Retrieve array of up sell products
      *
      * @return array
@@ -605,7 +602,21 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrieve array of cross sell roducts
+     * Retrieve collection up sell link
+     */
+    public function getUpSellLinkCollection()
+    {
+        $collection = $this->getLinkInstance()->useUpSellLinks()
+            ->getLinkCollection();
+        $collection->setProduct($this);
+        $collection->addLinkTypeIdFilter();
+        $collection->addProductIdFilter();
+        $collection->joinAttributes();
+        return $collection;
+    }
+
+    /**
+     * Retrieve array of cross sell products
      *
      * @return array
      */
@@ -647,6 +658,34 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             ->getProductCollection()
             ->setIsStrongMode();
         $collection->setProduct($this);
+        return $collection;
+    }
+
+    /**
+     * Retrieve collection cross sell link
+     */
+    public function getCrossSellLinkCollection()
+    {
+        $collection = $this->getLinkInstance()->useCrossSellLinks()
+            ->getLinkCollection();
+        $collection->setProduct($this);
+        $collection->addLinkTypeIdFilter();
+        $collection->addProductIdFilter();
+        $collection->joinAttributes();
+        return $collection;
+    }
+
+    /**
+     * Retrieve collection grouped link
+     */
+    public function getGroupedLinkCollection()
+    {
+        $collection = $this->getLinkInstance()->useGroupedLinks()
+            ->getLinkCollection();
+        $collection->setProduct($this);
+        $collection->addLinkTypeIdFilter();
+        $collection->addProductIdFilter();
+        $collection->joinAttributes();
         return $collection;
     }
 
@@ -754,6 +793,62 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $newOptionsArray[] = $_option->prepareOptionForDuplicate();
         }
         $newProduct->setProductOptions($newOptionsArray);
+
+        /* Prepare Related*/
+        $data = array();
+        $this->getLinkInstance()->useRelatedLinks();
+        $attributes = array();
+        foreach ($this->getLinkInstance()->getAttributes() as $_attribute) {
+            if (isset($_attribute['code'])) {
+                $attributes[]=$_attribute['code'];
+            }
+        }
+        foreach ($this->getRelatedLinkCollection() as $_link) {
+            $data[$_link->getLinkedProductId()] = $_link->toArray($attributes);
+        }
+        $newProduct->setRelatedLinkData($data);
+
+        /* Prepare UpSell*/
+        $data = array();
+        $this->getLinkInstance()->useUpSellLinks();
+        $attributes = array();
+        foreach ($this->getLinkInstance()->getAttributes() as $_attribute) {
+            if (isset($_attribute['code'])) {
+                $attributes[]=$_attribute['code'];
+            }
+        }
+        foreach ($this->getUpSellLinkCollection() as $_link) {
+            $data[$_link->getLinkedProductId()] = $_link->toArray($attributes);
+        }
+        $newProduct->setUpSellLinkData($data);
+
+        /* Prepare Cross Sell */
+        $data = array();
+        $this->getLinkInstance()->useCrossSellLinks();
+        $attributes = array();
+        foreach ($this->getLinkInstance()->getAttributes() as $_attribute) {
+            if (isset($_attribute['code'])) {
+                $attributes[]=$_attribute['code'];
+            }
+        }
+        foreach ($this->getCrossSellLinkCollection() as $_link) {
+            $data[$_link->getLinkedProductId()] = $_link->toArray($attributes);
+        }
+        $newProduct->setCrossSellLinkData($data);
+
+        /* Prepare Grouped */
+        $data = array();
+        $this->getLinkInstance()->useGroupedLinks();
+        $attributes = array();
+        foreach ($this->getLinkInstance()->getAttributes() as $_attribute) {
+            if (isset($_attribute['code'])) {
+                $attributes[]=$_attribute['code'];
+            }
+        }
+        foreach ($this->getGroupedLinkCollection() as $_link) {
+            $data[$_link->getLinkedProductId()] = $_link->toArray($attributes);
+        }
+        $newProduct->setGroupedLinkData($data);
 
         $newId = $newProduct->getId();
 
@@ -883,280 +978,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getUrlPath($category=null)
     {
         return $this->_urlModel->getUrlPath($this, $category);
-    }
-
-    public function getImageUrl()
-    {
-        return $this->_urlModel->getImageUrl($this);
-    }
-
-    public function getCustomImageUrl($size, $extension=null, $watermark=null)
-    {
-        return $this->_urlModel->getCustomImageUrl($this, $size, $extension, $watermark);
-    }
-
-    public function getSmallImageUrl()
-    {
-        return $this->_urlModel->getSmallImageUrl($this);
-    }
-
-    public function getCustomSmallImageUrl($size, $extension=null, $watermark=null)
-    {
-        return $this->_urlModel->getCustomSmallImageUrl($this, $size, $extension, $watermark);
-    }
-
-    public function getThumbnailUrl()
-    {
-        return $this->_urlModel->getThumbnailUrl($this);
-    }
-
-    public function importFromTextArray(array $row)
-    {
-        $hlp = Mage::helper('catalog');
-        $line = $row['i'];
-        $row = $row['row'];
-        $isError = false;
-        $this->unsetData();
-        $catalogConfig = Mage::getSingleton('catalog/config');
-        unset($row['entity_id']);
-        $productId = null;
-        // validate SKU
-        if (empty($row['sku'])) {
-            //$this->printError($hlp->__('SKU is required'), $line);
-            //return ;
-            $this->addError($hlp->__('SKU is required line: %s', $line));
-        } else {
-            $productId = $this->getIdBySku($row['sku']);
-        }
-
-        if ($productId) {
-            $this->unsetData();
-            $this->load($productId);
-            if (isset($row['store'])) {
-                $storeId = Mage::app()->getStore($row['store'])->getId();
-                if ($storeId) $this->setStoreId($storeId);
-            }
-        } else {
-            if ($row['store'] && $storeId = Mage::app()->getStore($row['store'])->getId()) {
-                $this->setStoreId($storeId);
-            } else {
-                $this->setStoreId(0);
-            }
-
-            // if attribute_set not set use default
-            if (empty($row['attribute_set'])) {
-                $row['attribute_set'] = !empty($row['attribute_set_id']) ? $row['attribute_set_id'] : 'Default';
-            }
-
-            if ($row['attribute_set']) {
-                // get attribute_set_id, if not throw error
-                $attributeSetId = $catalogConfig->getAttributeSetId('catalog_product', $row['attribute_set']);
-            }
-            if (!isset($attributeSetId)) {
-//                $this->printError($hlp->__("Invalid attribute set specified"), $line);
-//                return;
-                  $this->addError($hlp->__("Invalid attribute set specified line: %s", $line));
-            }
-
-            $this->setAttributeSetId($attributeSetId);
-
-            if (empty($row['type'])) {
-                $row['type'] = !empty($row['type_id']) ? $row['type_id'] : 'Simple Product';
-            }
-            // get product type_id, if not throw error
-            $typeId = $catalogConfig->getProductTypeId($row['type']);
-            if (!$typeId) {
-                  $this->addError($hlp->__("Invalid product type specified line: %s", $line));
-//                $this->printError($hlp->__("Invalid product type specified"), $line);
-//                return;
-            }
-            $this->setTypeId($typeId);
-        }
-
-        if ($errors = $this->getErrors()) {
-            $this->unsetData();
-            $this->printError(join("<br />",$errors));
-            $this->resetErrors();
-            return;
-        }
-
-        $entity = $this->getResource();
-
-        //print_r($entity);
-        foreach ($row as $field=>$value) {
-            $attribute = $entity->getAttribute($field);
-            if (!$attribute) {
-                continue;
-            }
-
-            if ($attribute->usesSource()) {
-                $source = $attribute->getSource();
-                $optionId = $catalogConfig->getSourceOptionId($source, $value);
-                if (is_null($optionId)) {
-                    $this->printError($hlp->__("Invalid attribute option specified for attribute attribute %s (%s)", $field, $value), $line);
-                }
-                $value = $optionId;
-            }
-
-            $this->setData($field, $value);
-        }
-
-        $postedStores = array(0=>0);
-        if (isset($row['store'])) {
-            foreach (explode(',', $row['store']) as $store) {
-                $storeId = Mage::app()->getStore($store)->getId();
-                if (!$this->hasStoreId()) {
-                    $this->setStoreId($storeId);
-                }
-                $postedStores[$storeId] = $this->getStoreId();
-            }
-        }
-
-        $this->setPostedStores($postedStores);
-
-        if (isset($row['categories'])) {
-            $this->setCategoryIds($row['categories']);
-        }
-        return $this;
-    }
-
-    public function importFromTextArraySilently(array $row)
-    {
-        $hlp = Mage::helper('catalog');
-        $line = $row['i'];
-        $row = $row['row'];
-        $isError = false;
-        $this->unsetData();
-        $catalogConfig = Mage::getSingleton('catalog/config');
-        unset($row['entity_id']);
-        $productId = null;
-        // validate SKU
-        if (empty($row['sku'])) {
-            //$this->printError($hlp->__('SKU is required'), $line);
-            //return ;
-            $this->addError($hlp->__('SKU is required line: %s', $line));
-        } else {
-            $productId = $this->getIdBySku($row['sku']);
-        }
-
-        if ($productId) {
-            $this->unsetData();
-            $this->load($productId);
-            if (isset($row['store'])) {
-                $storeId = Mage::app()->getStore($row['store'])->getId();
-                if ($storeId) $this->setStoreId($storeId);
-            }
-        } else {
-            if ($row['store'] && $storeId = Mage::app()->getStore($row['store'])->getId()) {
-                $this->setStoreId($storeId);
-            } else {
-                $this->setStoreId(0);
-            }
-
-            // if attribute_set not set use default
-            if (empty($row['attribute_set'])) {
-                $row['attribute_set'] = !empty($row['attribute_set_id']) ? $row['attribute_set_id'] : 'Default';
-            }
-
-            if ($row['attribute_set']) {
-                // get attribute_set_id, if not throw error
-                $attributeSetId = $catalogConfig->getAttributeSetId('catalog_product', $row['attribute_set']);
-            }
-            if (!isset($attributeSetId)) {
-//                $this->printError($hlp->__("Invalid attribute set specified"), $line);
-//                return;
-                  $this->addError($hlp->__("Invalid attribute set specified line: %s", $line));
-            }
-
-            $this->setAttributeSetId($attributeSetId);
-
-            if (empty($row['type'])) {
-                $row['type'] = !empty($row['type_id']) ? $row['type_id'] : 'Simple Product';
-            }
-            // get product type_id, if not throw error
-            $typeId = $catalogConfig->getProductTypeId($row['type']);
-            if (!$typeId) {
-                  $this->addError($hlp->__("Invalid product type specified line: %s", $line));
-//                $this->printError($hlp->__("Invalid product type specified"), $line);
-//                return;
-            }
-            $this->setTypeId($typeId);
-        }
-
-        if ($errors = $this->getErrors()) {
-            $this->unsetData();
-//            $this->printError(join("<br />",$errors));
-            $this->resetErrors();
-            return false;
-        }
-
-        $entity = $this->getResource();
-
-        //print_r($entity);
-        foreach ($row as $field=>$value) {
-            $attribute = $entity->getAttribute($field);
-            if (!$attribute) {
-                continue;
-            }
-
-            if ($attribute->usesSource()) {
-                $source = $attribute->getSource();
-                $optionId = $catalogConfig->getSourceOptionId($source, $value);
-                if (is_null($optionId)) {
-                    //$this->printError($hlp->__("Invalid attribute option specified for attribute attribute %s (%s)", $field, $value), $line);
-                }
-                $value = $optionId;
-            }
-
-            $this->setData($field, $value);
-        }
-
-        $postedStores = array(0=>0);
-        if (isset($row['store'])) {
-            foreach (explode(',', $row['store']) as $store) {
-                $storeId = Mage::app()->getStore($store)->getId();
-                if (!$this->hasStoreId()) {
-                    $this->setStoreId($storeId);
-                }
-                $postedStores[$storeId] = $this->getStoreId();
-            }
-        }
-
-        $this->setPostedStores($postedStores);
-
-        if (isset($row['categories'])) {
-            $this->setCategoryIds($row['categories']);
-        }
-        return $this;
-    }
-
-    function addError($error)
-    {
-        $this->_errors[] = $error;
-    }
-
-    function getErrors()
-    {
-        return $this->_errors;
-    }
-
-    function resetErrors()
-    {
-        $this->_errors = array();
-    }
-
-    function printError($error, $line = null)
-    {
-        if ($error == null) return false;
-        $img = 'error_msg_icon.gif';
-        $liStyle = 'background-color:#FDD; ';
-        echo '<li style="'.$liStyle.'">';
-        echo '<img src="'.Mage::getDesign()->getSkinUrl('images/'.$img).'" class="v-middle"/>';
-        echo $error;
-        if ($line) {
-            echo '<small>, Line: <b>'.$line.'</b></small>';
-        }
-        echo "</li>";
     }
 
     public function addAttributeUpdate($code, $value, $store)
@@ -1401,5 +1222,48 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function canBeShowInCategory($categoryId)
     {
         return $this->_getResource()->canBeShowInCategory($this, $categoryId);
+    }
+
+
+    public function getAvailableInCategories()
+    {
+        $allCategories = array();
+        if (is_null($this->getData('_available_in_categories'))) {
+            $assigned = $this->getCategoryIds();
+            foreach ($assigned as $one) {
+                $allCategories[] = $one;
+                $anchors = Mage::getModel('catalog/category')->load($one)->getAnchorsAbove();
+                foreach ($anchors as $anchor) {
+                	$allCategories[] = $anchor;
+                }
+            }
+
+            $this->setData('_available_in_categories', $allCategories);
+        }
+        return $this->getData('_available_in_categories');
+    }
+
+    /**
+     * Deprecated since 1.1.5
+     */
+    public function getImageUrl()
+    {
+        return (string)Mage::helper('catalog/image')->init($this, 'image')->resize(265);
+    }
+
+    /**
+     * Deprecated since 1.1.5
+     */
+    public function getSmallImageUrl($width = 88, $height = 77)
+    {
+        return (string)Mage::helper('catalog/image')->init($this, 'small_image')->resize($width, $height);
+    }
+
+    /**
+     * Deprecated since 1.1.5
+     */
+    public function getThumbnailUrl($width = 75, $height = 75)
+    {
+        return (string)Mage::helper('catalog/image')->init($this, 'thumbnail')->resize($width, $height);
     }
 }

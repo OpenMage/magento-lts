@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -58,7 +64,7 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
             foreach ($collection as $customer) {
                 if ($customer->getEmailCount()>1) {
                     Mage::throwException(
-                        Mage::helper('customer')->__('Can\'t share customer accounts global.')
+                        Mage::helper('customer')->__('Can\'t share customer accounts global. Because some customer accounts with same emails exist on multiple websites and cannot be merged.')
                     );
                 }
             }

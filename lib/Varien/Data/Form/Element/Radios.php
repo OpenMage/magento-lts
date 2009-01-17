@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -61,17 +67,17 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
         if (is_array($option)) {
             $html.= 'value="'.$this->_escape($option['value']).'"  id="'.$this->getHtmlId().$option['value'].'"';
             if ($option['value'] == $selected) {
-                $html.= ' checked="true"';
+                $html.= ' checked="checked"';
             }
-            $html.= '/>';
+            $html.= ' />';
             $html.= '<label class="inline" for="'.$this->getHtmlId().$option['value'].'">'.$option['label'].'</label>';
         }
         elseif ($option instanceof Varien_Object) {
         	$html.= 'id="'.$this->getHtmlId().$option->getValue().'"'.$option->serialize(array('label', 'title', 'value', 'class', 'style'));
         	if (in_array($option->getValue(), $selected)) {
-        	    $html.= ' checked="true"';
+        	    $html.= ' checked="checked"';
         	}
-        	$html.= '>';
+        	$html.= ' />';
         	$html.= '<label class="inline" for="'.$this->getHtmlId().$option->getValue().'">'.$option->getLabel().'</label>';
         }
         $html.= $this->getSeparator() . "\n";

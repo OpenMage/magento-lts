@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -39,7 +45,7 @@ class Mage_Sales_OrderController extends Mage_Core_Controller_Front_Action
         parent::preDispatch();
         $action = $this->getRequest()->getActionName();
         $loginUrl = Mage::helper('customer')->getLoginUrl();
- 
+
         if (!Mage::getSingleton('customer/session')->authenticate($this, $loginUrl)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
@@ -52,7 +58,9 @@ class Mage_Sales_OrderController extends Mage_Core_Controller_Front_Action
     {
         $this->loadLayout();
         $this->_initLayoutMessages('catalog/session');
-       
+
+        $this->getLayout()->getBlock('head')->setTitle($this->__('My Orders'));
+
         if ($block = $this->getLayout()->getBlock('customer.account.link.back')) {
             $block->setRefererUrl($this->_getRefererUrl());
         }
@@ -68,8 +76,54 @@ class Mage_Sales_OrderController extends Mage_Core_Controller_Front_Action
     protected function _canViewOrder($order)
     {
         $customerId = Mage::getSingleton('customer/session')->getCustomerId();
-        if ($order->getId() && $order->getCustomerId() && $order->getCustomerId() == $customerId) {
+        $availableStates = Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates();
+        if ($order->getId() && $order->getCustomerId() && ($order->getCustomerId() == $customerId)
+            && in_array($order->getState(), $availableStates, $strict = true)
+            ) {
             return true;
+        }
+        return false;
+    }
+
+    protected function _viewAction()
+    {
+        if (!$this->_loadValidOrder()) {
+            return;
+        }
+
+        $this->loadLayout();
+        $this->_initLayoutMessages('catalog/session');
+
+        if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
+            $navigationBlock->setActive('sales/order/history');
+        }
+        $this->renderLayout();
+    }
+
+    /**
+     * Try to load valid order by order_id and register it
+     *
+     * @param int $orderId
+     * @return bool
+     */
+    protected function _loadValidOrder($orderId = null)
+    {
+        if (null === $orderId) {
+            $orderId = (int) $this->getRequest()->getParam('order_id');
+        }
+        if (!$orderId) {
+            $this->_forward('noRoute');
+            return false;
+        }
+
+        $order = Mage::getModel('sales/order')->load($orderId);
+
+        if ($this->_canViewOrder($order)) {
+            Mage::register('current_order', $order);
+            return true;
+        }
+        else {
+            $this->_redirect('*/*/history');
         }
         return false;
     }
@@ -79,29 +133,7 @@ class Mage_Sales_OrderController extends Mage_Core_Controller_Front_Action
      */
     public function viewAction()
     {
-        $orderId = (int) $this->getRequest()->getParam('order_id');
-        if (!$orderId) {
-            $this->_forward('noRoute');
-            return;
-        }
-
-        $order = Mage::getModel('sales/order')->load($orderId);
-
-        if ($this->_canViewOrder($order)) {
-            Mage::register('current_order', $order);
-
-            $this->loadLayout();
-            
-            $this->_initLayoutMessages('catalog/session');
-             
-            if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
-                $navigationBlock->setActive('sales/order/history');
-            }
-            $this->renderLayout();
-        }
-        else {
-            $this->_redirect('*/*/history');
-        }
+        $this->_viewAction();
     }
 
     /**
@@ -149,137 +181,61 @@ class Mage_Sales_OrderController extends Mage_Core_Controller_Front_Action
 
     public function invoiceAction()
     {
-        $orderId = (int) $this->getRequest()->getParam('order_id');
-        if (!$orderId) {
-            $this->_forward('noRoute');
-            return;
-        }
-
-        $order = Mage::getModel('sales/order')->load($orderId);
-		
-        if ($this->_canViewOrder($order)) {
-            Mage::register('current_order', $order);
-            $this->loadLayout();
-            
-            $this->_initLayoutMessages('catalog/session');
-             
-            if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
-                $navigationBlock->setActive('sales/order/history');
-            }
-            $this->renderLayout();
-        }
-        else {
-            $this->_redirect('*/*/history');
-        }
+        $this->_viewAction();
     }
 
     public function shipmentAction()
     {
-        $orderId = (int) $this->getRequest()->getParam('order_id');
-        if (!$orderId) {
-            $this->_forward('noRoute');
-            return;
-        }
-
-        $order = Mage::getModel('sales/order')->load($orderId);
-
-        if ($this->_canViewOrder($order)) {
-            Mage::register('current_order', $order);
-
-            $this->loadLayout();
-            $this->_initLayoutMessages('catalog/session');
-             
-            if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
-                $navigationBlock->setActive('sales/order/history');
-            }
-            $this->renderLayout();
-        }
-        else {
-            $this->_redirect('*/*/history');
-        }
+        $this->_viewAction();
     }
 
     public function creditmemoAction()
     {
-        $orderId = (int) $this->getRequest()->getParam('order_id');
-        if (!$orderId) {
-            $this->_forward('noRoute');
-            return;
-        }
-
-        $order = Mage::getModel('sales/order')->load($orderId);
-
-        if ($this->_canViewOrder($order)) {
-            Mage::register('current_order', $order);
-
-            $this->loadLayout();
-            if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
-                $navigationBlock->setActive('sales/order/history');
-            }
-            $this->renderLayout();
-        }
-        else {
-            $this->_redirect('*/*/history');
-        }
+        $this->_viewAction();
     }
 
     public function reorderAction()
     {
-        $orderId = (int) $this->getRequest()->getParam('order_id');
-        if (!$orderId) {
-            $this->_forward('noRoute');
+        if (!$this->_loadValidOrder()) {
             return;
         }
+        $order = Mage::registry('current_order');
 
-        $order = Mage::getModel('sales/order')->load($orderId);
+        $cart = Mage::getSingleton('checkout/cart');
+        $cartTruncated = false;
+        /* @var $cart Mage_Checkout_Model_Cart */
 
-        if ($this->_canViewOrder($order)) {
-            Mage::register('current_order', $order);
-
-            $cart = Mage::getSingleton('checkout/cart');
-            $cartTruncated = false;
-            /* @var $cart Mage_Checkout_Model_Cart */
-
-            $items = $order->getItemsCollection();
-            foreach ($items as $item){
-                try {
-                    $cart->addOrderItem($item);
-                } catch (Mage_Core_Exception $e){
-                    if (Mage::getSingleton('checkout/session')->getUseNotice(true)) {
-                        Mage::getSingleton('checkout/session')->addNotice($e->getMessage());
-                    }
-                    else {
-                        Mage::getSingleton('checkout/session')->addError($e->getMessage());
-                    }
-                    $this->_redirect('*/*/history');
-                } catch (Exception $e) {
-                    Mage::getSingleton('checkout/session')->addException($e,
-                        Mage::helper('checkout')->__('Can not add item to shopping cart')
-                    );
-                    $this->_redirect('checkout/cart');
+        $items = $order->getItemsCollection();
+        foreach ($items as $item) {
+            try {
+                $cart->addOrderItem($item);
+            } catch (Mage_Core_Exception $e){
+                if (Mage::getSingleton('checkout/session')->getUseNotice(true)) {
+                    Mage::getSingleton('checkout/session')->addNotice($e->getMessage());
                 }
+                else {
+                    Mage::getSingleton('checkout/session')->addError($e->getMessage());
+                }
+                $this->_redirect('*/*/history');
+            } catch (Exception $e) {
+                Mage::getSingleton('checkout/session')->addException($e,
+                    Mage::helper('checkout')->__('Can not add item to shopping cart')
+                );
+                $this->_redirect('checkout/cart');
             }
+        }
 
-            $cart->save();
-            $this->_redirect('checkout/cart');
-        }
-        else {
-            $this->_redirect('*/*/history');
-        }
+        $cart->save();
+        $this->_redirect('checkout/cart');
     }
 
     public function printAction()
     {
-        $orderId = (int) $this->getRequest()->getParam('order_id');
-        $order = Mage::getModel('sales/order')->load($orderId);
-
-        if ($this->_canViewOrder($order)) {
-            Mage::register('current_order', $order);
-            $this->loadLayout('print');
-            $this->renderLayout();
-        } else {
-            $this->_redirect('*/*/history');
+        if (!$this->_loadValidOrder()) {
+            return;
         }
+        $this->loadLayout('print');
+        $this->renderLayout();
     }
 
     public function printInvoiceAction()

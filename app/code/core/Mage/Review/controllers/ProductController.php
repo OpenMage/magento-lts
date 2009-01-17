@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Review
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -27,6 +33,11 @@
  */
 class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * Initialize and check product
+     *
+     * @return Mage_Catalog_Model_Product
+     */
 	protected function _initProduct()
     {
         $categoryId = (int) $this->getRequest()->getParam('category', false);
@@ -39,7 +50,8 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $product = Mage::getModel('catalog/product')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load($productId);
-        if (!$product->getId() || !$product->isVisibleInCatalog()) {
+        /* @var $product Mage_Catalog_Model_Product */
+        if (!$product->getId() || !$product->isVisibleInCatalog() || !$product->isVisibleInSiteVisibility()) {
             return false;
         }
         if ($categoryId) {
@@ -53,45 +65,46 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
     public function postAction()
     {
-        $productId  = $this->getRequest()->getParam('id', false);
-        $data       = $this->getRequest()->getPost();
-        $arrRatingId= $this->getRequest()->getParam('ratings', array());
+        $data   = $this->getRequest()->getPost();
+        $rating = $this->getRequest()->getParam('ratings', array());
 
-        if ($productId && !empty($data)) {
+        if (($product = $this->_initProduct()) && !empty($data)) {
             $session    = Mage::getSingleton('core/session');
+            /* @var $session Mage_Core_Model_Session */
             $review     = Mage::getModel('review/review')->setData($data);
-            $validateRes= $review->validate();
+            /* @var $review Mage_Review_Model_Review */
 
-            if (true === $validateRes) {
+            $validate = $review->validate();
+            if ($validate === true) {
                 try {
                     $review->setEntityId(Mage_Review_Model_Review::ENTITY_PRODUCT)
-                        ->setEntityPkValue($productId)
+                        ->setEntityPkValue($product->getId())
                         ->setStatusId(Mage_Review_Model_Review::STATUS_PENDING)
                         ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
                         ->setStoreId(Mage::app()->getStore()->getId())
                         ->setStores(array(Mage::app()->getStore()->getId()))
                         ->save();
 
-                    foreach ($arrRatingId as $ratingId=>$optionId) {
-                    	Mage::getModel('rating/rating')
+                    foreach ($rating as $ratingId => $optionId) {
+                        Mage::getModel('rating/rating')
                     	   ->setRatingId($ratingId)
                     	   ->setReviewId($review->getId())
                     	   ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())
-                    	   ->addOptionVote($optionId, $productId);
+                    	   ->addOptionVote($optionId, $product->getId());
                     }
 
                     $review->aggregate();
                     $session->addSuccess($this->__('Your review has been accepted for moderation'));
                 }
-                catch (Exception $e){
+                catch (Exception $e) {
                     $session->setFormData($data);
                     $session->addError($this->__('Unable to post review. Please, try again later.'));
                 }
             }
             else {
                 $session->setFormData($data);
-                if (is_array($validateRes)) {
-                    foreach ($validateRes as $errorMessage) {
+                if (is_array($validate)) {
+                    foreach ($validate as $errorMessage) {
                         $session->addError($errorMessage);
                     }
                 }
@@ -108,7 +121,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
     {
         if ($product = $this->_initProduct()) {
             Mage::register('productId', $product->getId());
-
+            Mage::getModel('catalog/design')->applyDesign($product, Mage_Catalog_Model_Design::APPLY_FOR_PRODUCT);
             $this->_initProductLayout($product);
 
             // update breadcrumbs

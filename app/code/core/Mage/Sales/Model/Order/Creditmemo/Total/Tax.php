@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -58,6 +64,14 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
         } else {
             $totalTax += $creditmemo->getShippingTaxAmount();
             $baseTotalTax += $creditmemo->getBaseShippingTaxAmount();
+        }
+
+        $totalTax       = $totalTax - $creditmemo->getOrder()->getTaxRefunded();
+        $baseTotalTax   = $baseTotalTax - $creditmemo->getOrder()->getBaseTaxRefunded();
+
+        if ($baseTotalTax<0) {
+            $baseTotalTax = 0;
+            $totalTax = 0;
         }
 
         $creditmemo->setTaxAmount($totalTax);

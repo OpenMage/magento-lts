@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category    Mage
  * @package     Mage_Checkout
  * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -55,17 +61,46 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
     }
 
     /**
-     * Get shopping cart subtotal
+     * Get shopping cart subtotal.
+     * It will include tax, if required by config settings.
      *
      * @return decimal
      */
-    public function getSubtotal()
+    public function getSubtotal($skipTax = false)
     {
+        $subtotal = 0;
         $totals = $this->getTotals();
         if (isset($totals['subtotal'])) {
-            return $totals['subtotal']->getValue();
+            $subtotal = $totals['subtotal']->getValue();
+            if (!$skipTax) {
+                if ((!$this->helper('tax')->displayCartBothPrices()) && $this->helper('tax')->displayCartPriceInclTax()) {
+                    $subtotal = $this->_addTax($subtotal);
+                }
+            }
         }
-        return 0;
+        return $subtotal;
+    }
+
+    /**
+     * Get subtotal, including tax.
+     * Will return > 0 only if appropriate config settings are enabled.
+     *
+     * @return decimal
+     */
+    public function getSubtotalInclTax()
+    {
+        if (!$this->helper('tax')->displayCartBothPrices()) {
+            return 0;
+        }
+        return $this->_addTax($this->getSubtotal(true));
+    }
+
+    private function _addTax($price) {
+        $totals = $this->getTotals();
+        if (isset($totals['tax'])) {
+            $price += $totals['tax']->getValue();
+        }
+        return $price;
     }
 
     public function getSummaryCount()

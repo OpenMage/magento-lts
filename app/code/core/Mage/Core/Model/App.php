@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -808,7 +814,7 @@ class Mage_Core_Model_App
         if (!$this->_frontController) {
             $this->_initFrontController();
         }
-        
+
         return $this->_frontController;
     }
 
@@ -1042,6 +1048,7 @@ class Mage_Core_Model_App
     {
         if (empty($this->_response)) {
             $this->_response = new Mage_Core_Controller_Response_Http();
+            $this->_response->headersSentThrowsException = Mage::$headersSentThrowsException;
             $this->_response->setHeader("Content-Type", "text/html; charset=UTF-8");
         }
         return $this->_response;
@@ -1085,7 +1092,7 @@ class Mage_Core_Model_App
                 continue;
             }
             foreach ($events[$eventName]['observers'] as $obsName=>$obs) {
-            
+
                 $observer->setData(array('event'=>$event));
                 Varien_Profiler::start('OBSERVER: '.$obsName);
                 switch ($obs['type']) {

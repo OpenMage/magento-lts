@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -124,7 +130,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 
             $this->_originalPathInfo = (string) $pathInfo;
 
-            $this->_requestString = $this->_escapeParam($pathInfo . ($pos!==false ? substr($requestUri, $pos) : ''));
+            $this->_requestString = $pathInfo . ($pos!==false ? substr($requestUri, $pos) : '');
         }
 
         $this->_pathInfo = (string) $pathInfo;
@@ -176,29 +182,5 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     public function getRouteName()
     {
         return $this->_route;
-    }
-
-    /**
-     * Set a userland parameter
-     *
-     * Uses $key to set a userland parameter. If $key is an alias, the actual
-     * key will be retrieved and used to set the parameter.
-     *
-     * @param mixed $key
-     * @param mixed $value
-     * @return Zend_Controller_Request_Http
-     */
-    public function setParam($key, $value)
-    {
-        return parent::setParam($this->_escapeParam($key), $this->_escapeParam($value));
-    }
-
-    protected function _escapeParam($value)
-    {
-        $value = str_replace('"', '%22', $value);
-        $value = str_replace("'", '%27', $value);
-        $value = str_replace('>', '%3E', $value);
-        $value = str_replace('<', '%3C', $value);
-        return $value;
     }
 }

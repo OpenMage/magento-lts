@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -31,11 +37,11 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Regexceptions extends Mage_A
     {
         $this->addColumn('regexp', array(
             'label' => Mage::helper('adminhtml')->__('Matched expression'),
-            'size'  => 30,
+            'style' => 'width:120px',
         ));
         $this->addColumn('value', array(
             'label' => Mage::helper('adminhtml')->__('Value'),
-            'size'  => 20
+            'style' => 'width:120px',
         ));
         $this->_addAfter = false;
         $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add Exception');

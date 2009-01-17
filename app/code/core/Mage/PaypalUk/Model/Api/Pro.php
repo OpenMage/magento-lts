@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Paygate
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -292,9 +298,9 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
          if ($result && $result->getResultCode()==self::RESPONSE_CODE_APPROVED) {
              $this->setTransactionId($result->getPnref());
           } else {
-            $errorArr['code'] = $result->getResultCode();
-            $errorArr['message'] = $result->getRespmsg();
-            $this->setError($errorArr);
+            //$errorArr['code'] = $result->getResultCode();
+            //$errorArr['message'] = $result->getRespmsg();
+            //$this->setError($errorArr);
             return false;
          }
 

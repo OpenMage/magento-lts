@@ -12,14 +12,20 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 ?>
-<script type="text/javascript" language="javascript">
-
+<script type="text/javascript">
+//<![CDATA[
 var CountryModel = Class.create();
 CountryModel.prototype = {
     initialize : function()
@@ -35,7 +41,7 @@ CountryModel.prototype = {
         } else {
             var applyCountryElements = $$('.shipping-applicable-country');
         }
-        for(var i in applyCountryElements) {
+        for(var i=0;i<applyCountryElements.length; i++) {
             Event.observe(applyCountryElements[i], 'change', this.checkSpecificCountry.bind(this));
             this.initSpecificCountry(applyCountryElements[i]);
         }
@@ -96,4 +102,5 @@ CountryModel.prototype = {
 
 }
 countryApply = new CountryModel();
+//]]>
 </script>

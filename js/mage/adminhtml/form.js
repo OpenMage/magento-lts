@@ -11,6 +11,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -25,7 +31,7 @@ varienForm.prototype = {
         if($(this.formId)){
             this.validator  = new Validation(this.formId, {onElementValidate : this.checkErrors.bind(this)});
         }
-        this.errorSections = new Hash();
+        this.errorSections = $H({});
     },
 
     checkErrors : function(result, elm){
@@ -36,7 +42,7 @@ varienForm.prototype = {
     },
 
     submit : function(url){
-        this.errorSections = new Hash();
+        this.errorSections = $H({});
         this.canShowError = true;
         this.submitUrl = url;
         if(this.validator && this.validator.validate()){
@@ -119,16 +125,16 @@ var varienElementMethods = {
         while(elm && elm.tagName != 'BODY') {
             if(elm.statusBar){
                 if(form.errorSections.keys().indexOf(elm.statusBar.id)<0)
-                    form.errorSections[elm.statusBar.id] = flag;
+                    form.errorSections.set(elm.statusBar.id, flag);
                 if(flag){
                     Element.addClassName($(elm.statusBar), 'error');
                     if(form.canShowError && $(elm.statusBar).show){
                         form.canShowError = false;
                         $(elm.statusBar).show();
                     }
-                    form.errorSections[elm.statusBar.id] = flag;
+                    form.errorSections.set(elm.statusBar.id, flag);
                 }
-                else if(!form.errorSections[elm.statusBar.id]){
+                else if(!form.errorSections.get(elm.statusBar.id)){
                     Element.removeClassName($(elm.statusBar), 'error')
                 }
             }
@@ -164,6 +170,9 @@ RegionUpdater.prototype = {
         this.countryEl = $(countryEl);
         this.regionTextEl = $(regionTextEl);
         this.regionSelectEl = $(regionSelectEl);
+//        // clone for select element (#6924)
+//        this._regionSelectEl = {};
+//        this.tpl = new Template('<select class="#{className}" name="#{name}" id="#{id}">#{innerHTML}</select>');
         this.regions = regions;
         this.disableAction = (typeof disableAction=='undefined') ? 'hide' : disableAction;
 
@@ -182,7 +191,10 @@ RegionUpdater.prototype = {
     update: function()
     {
         if (this.regions[this.countryEl.value]) {
-
+//            if (!this.regionSelectEl) {
+//                Element.insert(this.regionTextEl, {after : this.tpl.evaluate(this._regionSelectEl)});
+//                this.regionSelectEl = $(this._regionSelectEl.id);
+//            }
             if (this.lastCountryId!=this.countryEl.value) {
                 var i, option, region, def;
 
@@ -250,12 +262,20 @@ RegionUpdater.prototype = {
                 this.lastCountryId = '';
             }
             this.setMarkDisplay(this.regionSelectEl, false);
+
+//            // clone required stuff from select element and then remove it
+//            this._regionSelectEl.className = this.regionSelectEl.className;
+//            this._regionSelectEl.name      = this.regionSelectEl.name;
+//            this._regionSelectEl.id        = this.regionSelectEl.id;
+//            this._regionSelectEl.innerHTML = this.regionSelectEl.innerHTML;
+//            Element.remove(this.regionSelectEl);
+//            this.regionSelectEl = null;
         }
     },
 
     setMarkDisplay: function(elem, display){
         if(elem.parentNode.parentNode){
-            var marks = Element.getElementsByClassName(elem.parentNode.parentNode, 'required');
+            var marks = Element.select(elem.parentNode.parentNode, '.required');
             if(marks[0]){
                 display ? marks[0].show() : marks[0].hide();
             }

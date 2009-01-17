@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_PaypalUk
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -42,16 +48,6 @@ class Mage_PaypalUk_ExpressController extends Mage_Core_Controller_Front_Action
     public function getExpress()
     {
         return Mage::getSingleton('paypaluk/express');
-    }
-
-   /**
-     * When a customer chooses Paypal on Checkout/Payment page
-     *
-   */
-    public function markAction()
-    {
-        $this->getExpress()->markSetExpressCheckout();
-        $this->getResponse()->setRedirect($this->getExpress()->getRedirectUrl());
     }
 
     /**
@@ -165,79 +161,6 @@ class Mage_PaypalUk_ExpressController extends Mage_Core_Controller_Front_Action
             $billing = $this->getReview()->getQuote()->getBillingAddress();
             $shipping = $this->getReview()->getQuote()->getShippingAddress();
 
-            /*logic for saving customer for checking out from onge page*/
-            if ($payPalSession->getExpressCheckoutMethod()=='mark') {
-                switch ($this->getReview()->getQuote()->getCheckoutMethod()) {
-                    case 'guest':
-                        $this->getReview()->getQuote()->setCustomerEmail($billing->getEmail())
-                            ->setCustomerIsGuest(true)
-                            ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
-                        break;
-
-                    case 'register':
-                        $customer = Mage::getModel('customer/customer');
-                        /* @var $customer Mage_Customer_Model_Customer */
-
-                        $customerBilling = $billing->exportCustomerAddress();
-                        $customer->addAddress($customerBilling);
-
-                        if (!$shipping->getSameAsBilling()) {
-                            $customerShipping = $shipping->exportCustomerAddress();
-                            $customer->addAddress($customerShipping);
-                        }
-
-                        $customer->setPrefix($billing->getPrefix());
-                        $customer->setFirstname($billing->getFirstname());
-                        $customer->setMiddlename($billing->getMiddlename());
-                        $customer->setLastname($billing->getLastname());
-                        $customer->setSuffix($billing->getSuffix());
-                        $customer->setEmail($billing->getEmail());
-                        $customer->setPassword($customer->decryptPassword($this->getReview()->getQuote()->getPasswordHash()));
-                        $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
-
-                        break;
-
-                    default:
-                        $customer = Mage::getSingleton('customer/session')->getCustomer();
-
-                        /*
-                        for express checkout, we only have a way to get address from shipping
-                        which is set up by checkout details
-                        */
-                        if (!$billing->getCustomerAddressId()) {
-                            $customerBilling = $billing->exportCustomerAddress();
-                            $customer->addAddress($customerBilling);
-                        }
-
-                        if (!$shipping->getCustomerAddressId() && !$shipping->getSameAsBilling()) {
-                            $customerShipping = $shipping->exportCustomerAddress();
-                            $customer->addAddress($customerShipping);
-                        }
-
-                        $customer->setSavedFromQuote(true);
-                        $customer->save();
-
-                        $changed = false;
-                        if (isset($customerBilling) && !$customer->getDefaultBilling()) {
-                            $customer->setDefaultBilling($customerBilling->getId());
-                            $changed = true;
-                        }
-                        if (isset($customerBilling) && !$customer->getDefaultShipping() && $shipping->getSameAsBilling()) {
-                            $customer->setDefaultShipping($customerBilling->getId());
-                            $changed = true;
-                        }
-                        elseif (isset($customerShipping) && !$customer->getDefaultShipping()){
-                            $customer->setDefaultShipping($customerShipping->getId());
-                            $changed = true;
-                        }
-
-                        if ($changed) {
-                            $customer->save();
-                        }
-                }
-            }
-            /*end logic for saving customer*/
-
             $convertQuote = Mage::getModel('sales/convert_quote');
             /* @var $convertQuote Mage_Sales_Model_Convert_Quote */
             $order = Mage::getModel('sales/order');
@@ -304,14 +227,6 @@ class Mage_PaypalUk_ExpressController extends Mage_Core_Controller_Front_Action
             return;
         }
 
-        try {
-            $this->getExpress()->placeOrder($order->getPayment());
-        } catch (Exception $e) {
-            $payPalSession->addError($e->getMessage());
-            $this->_redirect('paypaluk/express/review');
-            return;
-        }
-
         $order->save();
 
         $this->getReview()->getQuote()->setIsActive(false);
@@ -323,11 +238,6 @@ class Mage_PaypalUk_ExpressController extends Mage_Core_Controller_Front_Action
         $this->getReview()->getCheckout()->setLastRealOrderId($order->getIncrementId());
 
         $order->sendNewOrderEmail();
-
-        if (isset($customer) && $customer && $this->getReview()->getQuote()->getCheckoutMethod()=='register') {
-            $customer->sendNewAccountEmail();
-            Mage::getSingleton('customer/session')->loginById($customer->getId());
-        }
 
         $payPalSession->unsExpressCheckoutMethod();
 
@@ -341,6 +251,58 @@ class Mage_PaypalUk_ExpressController extends Mage_Core_Controller_Front_Action
     public function errorAction()
     {
         $this->_redirect('checkout/cart');
+    }
+
+    /**
+     * Method to update order if customer used PayPal Express
+     * as payment method not a separate checkout from shopping cart
+     *
+     */
+    public function updateOrderAction() {
+        $error_message = '';
+        $payPalSession = Mage::getSingleton('paypal/session');
+
+        $order = Mage::getModel('sales/order')->load(Mage::getSingleton('checkout/session')->getLastOrderId());
+
+        if ($order->getId()) {
+            $comment = null;
+            if ($order->canInvoice() && $this->getExpress()->getPaymentAction() == Mage_Paypal_Model_Api_Abstract::PAYMENT_TYPE_SALE) {
+                $invoice = $order->prepareInvoice();
+                $invoice->register()->capture();
+                Mage::getModel('core/resource_transaction')
+                    ->addObject($invoice)
+                    ->addObject($invoice->getOrder())
+                    ->save();
+
+                $orderState = Mage_Sales_Model_Order::STATE_PROCESSING;
+                $orderStatus = $this->getExpress()->getConfigData('order_status');
+                $comment = Mage::helper('paypal')->__('Invoice #%s created', $invoice->getIncrementId());
+            } else {
+                $this->getExpress()->placeOrder($order->getPayment());
+
+                $orderState = Mage_Sales_Model_Order::STATE_PROCESSING;
+                $orderStatus = $this->getExpress()->getConfigData('order_status');
+            }
+
+            if (!$orderStatus) {
+                $orderStatus = $order->getConfig()->getStateDefaultStatus($orderState);
+            }
+            if (!$comment) {
+                $comment = Mage::helper('paypal')->__('Customer returned from PayPal site.');
+            }
+
+            $order->setState($orderState, $orderStatus, $comment, $notified = true);
+            $order->save();
+
+            Mage::getSingleton('checkout/session')->getQuote()->setIsActive(false);
+            Mage::getSingleton('checkout/session')->getQuote()->save();
+
+            $order->sendNewOrderEmail();
+        }
+
+        $payPalSession->unsExpressCheckoutMethod();
+
+        $this->_redirect('checkout/onepage/success');
     }
 
 }

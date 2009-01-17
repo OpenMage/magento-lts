@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -96,7 +102,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
         $this->addColumn('id', array(
             'header'    => Mage::helper('catalog')->__('ID'),
             'sortable'  => true,
-            'width'     => '60px',
+            'width'     => '60',
             'index'     => 'entity_id'
         ));
         $this->addColumn('name', array(
@@ -105,7 +111,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
         ));
         $this->addColumn('sku', array(
             'header'    => Mage::helper('catalog')->__('SKU'),
-            'width'     => '80px',
+            'width'     => '80',
             'index'     => 'sku'
         ));
         $this->addColumn('price', array(
@@ -116,7 +122,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
         ));
         $this->addColumn('position', array(
             'header'    => Mage::helper('catalog')->__('Position'),
-            'width'     => '70px',
+            'width'     => '70',
             'type'      => 'number',
             'index'     => 'position',
             'editable'  => true

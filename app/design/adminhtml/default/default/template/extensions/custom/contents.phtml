@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -56,8 +62,8 @@
                         <input class="input-text" style="width:150px" name="contents[path][]" value="<?php echo $self->getValue('contents/path/'.$_i) ?>"/>
                      </td><td style="margin-bottom:5px;">
                         <select name="contents[type][]" style="width:100px">
-                            <option value="file" <?php echo $self->getSelected('contents/type/'.$_i, 'file') ?>><?php echo $self->__("File") ?></option>
-                            <option value="dir" <?php echo $self->getSelected('contents/type/'.$_i, 'dir') ?>><?php echo $self->__("Recursive Dir") ?></option>
+                            <option value="file" <?php echo $self->getSelected('contents/type/'.$_i, 'file') ?>><?php echo Mage::helper('adminhtml')->__("File") ?></option>
+                            <option value="dir" <?php echo $self->getSelected('contents/type/'.$_i, 'dir') ?>><?php echo Mage::helper('adminhtml')->__("Recursive Dir") ?></option>
                         </select>
                      </td><td style="margin-bottom:5px;">
                         <input class="input-text" style="width:100px" name="contents[include][]" value="<?php echo $self->getValue('contents/include/'.$_i) ?>"/>
@@ -81,9 +87,9 @@
             <?php endif ?>
             </tbody>
             <tfoot>
-            	<tr>
-            		<td class="a-right" colspan="6"><?php echo $this->getAddRowButtonHtml('contents_container', 'contents_template', 'Add Contents Path') ?></td>
-            	</tr>
+                <tr>
+                    <td class="a-right" colspan="6"><?php echo $this->getAddRowButtonHtml('contents_container', 'contents_template', $this->__('Add Contents Path')) ?></td>
+                </tr>
             </tfoot>
         </table>
     </fieldset>

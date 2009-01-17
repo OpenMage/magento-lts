@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category    Mage
  * @package     Mage_Core
  * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -91,9 +97,9 @@ if (!(isset($_GET['s']) && !$_GET['s'])) {
 }
 
 // use gzip or deflate, use this if not enabled in .htaccess, default on
-if (!(isset($_GET['z']) && !$_GET['z'])) {
-    ini_set('zlib.output_compression', 1);
-}
+//if (!(isset($_GET['z']) && !$_GET['z'])) {
+//    ini_set('zlib.output_compression', 1);
+//}
 
 // add Expires header if not disabled, default 1 year
 if (!(isset($_GET['e']) && $_GET['e']==='no')) {

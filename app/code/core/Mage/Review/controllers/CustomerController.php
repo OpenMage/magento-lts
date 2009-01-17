@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Review
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -32,13 +38,16 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
     {
         $this->loadLayout();
         $this->_initLayoutMessages('catalog/session');
-        
+
         if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
             $navigationBlock->setActive('review/customer');
         }
         if ($block = $this->getLayout()->getBlock('review_customer_list')) {
             $block->setRefererUrl($this->_getRefererUrl());
         }
+
+        $this->getLayout()->getBlock('head')->setTitle($this->__('My Product Reviews'));
+
         $this->renderLayout();
     }
 
@@ -48,6 +57,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
             $navigationBlock->setActive('review/customer');
         }
+        $this->getLayout()->getBlock('head')->setTitle($this->__('Review Details'));
         $this->renderLayout();
     }
 }

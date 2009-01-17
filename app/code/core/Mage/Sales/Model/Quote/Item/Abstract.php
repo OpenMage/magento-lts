@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -194,9 +200,15 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         if ($this->getParentItem()) {
             $qty = $qty*$this->getParentItem()->getQty();
         }
-
-        $total      = $this->getCalculationPrice()*$qty;
-        $baseTotal  = $this->getBaseCalculationPrice()*$qty;
+        
+        if ($rowTotal = $this->getRowTotalExcTax()) {
+        	$baseTotal = $rowTotal;
+        	$total = $this->getStore()->convertPrice($baseTotal);
+        }
+        else {
+            $total      = $this->getCalculationPrice()*$qty;
+            $baseTotal  = $this->getBaseCalculationPrice()*$qty;
+        }
 
         $this->setRowTotal($this->getStore()->roundPrice($total));
         $this->setBaseRowTotal($this->getStore()->roundPrice($baseTotal));
@@ -325,7 +337,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      */
     public function getTaxAmount()
     {
-        if ($this->getHasChildren() && $this->getProduct()->getPriceType() === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
+        $priceType = $this->getProduct()->getPriceType();
+        if ($this->getHasChildren() && (null !== $priceType) && (int)$priceType === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
             $amount = 0;
             foreach ($this->getChildren() as $child) {
                 $amount+= $child->getTaxAmount();
@@ -344,7 +357,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      */
     public function getPrice()
     {
-        if ($this->getHasChildren() && $this->getProduct()->getPriceType() === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
+        $priceType = $this->getProduct()->getPriceType();
+        if ($this->getHasChildren() && (null !== $priceType) && (int)$priceType === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
             $price = $this->_getData('price');
             /*
             foreach ($this->getChildren() as $child) {
@@ -407,14 +421,24 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             $priceIncludingTax = Mage::helper('tax')->getPrice($this->getProduct()->setTaxPercent(null), $value, true, $sAddress, $bAddress, $this->getQuote()->getCustomerTaxClassId(), $store);
 
             if ($saveTaxes) {
-                $taxAmount = $priceIncludingTax - $priceExcludingTax;
-                $this->setTaxPercent($this->getProduct()->getTaxPercent());
-
                 $qty = $this->getQty();
                 if ($this->getParentItem()) {
                     $qty = $qty*$this->getParentItem()->getQty();
                 }
-                $totalBaseTax = $taxAmount*$qty;
+                
+                if (Mage::helper('tax')->displayCartPriceInclTax($store)) {
+                    $rowTotal = $value*$qty;
+                	$rowTotalExcTax = Mage::helper('tax')->getPrice($this->getProduct()->setTaxPercent(null), $rowTotal, false, $sAddress, $bAddress, $this->getQuote()->getCustomerTaxClassId(), $store);
+                	$rowTotalIncTax = Mage::helper('tax')->getPrice($this->getProduct()->setTaxPercent(null), $rowTotal, true, $sAddress, $bAddress, $this->getQuote()->getCustomerTaxClassId(), $store);
+                	$totalBaseTax = $rowTotalIncTax-$rowTotalExcTax;
+                	$this->setRowTotalExcTax($rowTotalExcTax);
+                }
+                else {
+                    $taxAmount = $priceIncludingTax - $priceExcludingTax;
+                    $this->setTaxPercent($this->getProduct()->getTaxPercent());
+                    $totalBaseTax = $taxAmount*$qty;
+                }
+                
                 $totalTax = $this->getStore()->convertPrice($totalBaseTax);
                 $this->setTaxBeforeDiscount($totalTax);
                 $this->setBaseTaxBeforeDiscount($totalBaseTax);
@@ -455,7 +479,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             $calculate = $this->getProduct()->getPriceType();
         }
 
-        if ($calculate === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
+        if ((null !== $calculate) && (int)$calculate === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
             return true;
         }
         return false;
@@ -475,7 +499,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             $shipmentType = $this->getProduct()->getShipmentType();
         }
 
-        if ($shipmentType === Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
+        if ((null !== $shipmentType) && (int)$shipmentType === Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
             return true;
         }
         return false;

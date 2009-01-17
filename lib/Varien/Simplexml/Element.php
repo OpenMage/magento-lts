@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Varien
  * @package    Varien_Simplexml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -84,6 +90,16 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             return true;
         }
         return false;
+    }
+
+    /**
+     * Returns attribute value by attribute name
+     *
+     * @return string
+     */
+    public function getAttribute($name){
+        $attrs = $this->attributes();
+        return isset($attrs[$name]) ? (string)$attrs[$name] : null;
     }
 
 /*
@@ -414,7 +430,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
                 if (!isset($node->$nodeName) || $overwrite) {
                     // http://bugs.php.net/bug.php?id=36795
                     // comment on [8 Feb 8:09pm UTC]
-                    if (isset($node->$nodeName)) {
+                    if (isset($node->$nodeName) && (version_compare(phpversion(), '5.2.6', '<')===true)) {
                         $node->$nodeName = $node->xmlentities($value);
                     } else {
                         $node->$nodeName = $value;
@@ -565,5 +581,6 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         return $this;
     }
 */
+
 
 }

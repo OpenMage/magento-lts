@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -118,7 +124,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         }
 
         if (!empty($image)) {
-            $html = '<a href="javascript:void(0)" class="rule-chooser-trigger"><img src="' . $image . '" alt="" align="absmiddle" class="rule-chooser-trigger" title="' . Mage::helper('rule')->__('Open Chooser') . '" /></a>';
+            $html = '<a href="javascript:void(0)" class="rule-chooser-trigger"><img src="' . $image . '" alt="" class="v-middle rule-chooser-trigger" title="' . Mage::helper('rule')->__('Open Chooser') . '" /></a>';
         }
         return $html;
     }
@@ -243,6 +249,10 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
             $this->setValue(strtotime($this->getValue()));
             $value = strtotime($object->getData($this->getAttribute()));
             return $this->validateAttribute($value);
+        }
+
+        if ($this->getAttribute() == 'category_ids') {
+            return $this->validateAttribute($object->getAvailableInCategories());
         }
 
         return parent::validate($object);

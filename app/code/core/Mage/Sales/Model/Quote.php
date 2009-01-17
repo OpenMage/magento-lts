@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -136,15 +142,27 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     protected function _beforeSave()
     {
-        $baseCurrencyCode  = Mage::app()->getBaseCurrencyCode();
+//        $baseCurrencyCode  = Mage::app()->getBaseCurrencyCode();
+        $baseCurrencyCode  = $this->getStore()->getBaseCurrencyCode();
         $storeCurrency = $this->getStore()->getBaseCurrency();
-        $quoteCurrency = $this->getStore()->getCurrentCurrency();
+
+        if ($this->hasForcedCurrency()){
+            $quoteCurrency = $this->getForcedCurrency();
+        } else {
+            $quoteCurrency = $this->getStore()->getCurrentCurrency();
+        }
 
         $this->setBaseCurrencyCode($baseCurrencyCode);
         $this->setStoreCurrencyCode($storeCurrency->getCode());
         $this->setQuoteCurrencyCode($quoteCurrency->getCode());
         $this->setStoreToBaseRate($storeCurrency->getRate($baseCurrencyCode));
         $this->setStoreToQuoteRate($storeCurrency->getRate($quoteCurrency));
+
+        if (!$this->hasChangedFlag() || $this->getChangedFlag() == true) {
+            $this->setIsChanged(1);
+        } else {
+            $this->setIsChanged(0);
+        }
 
         parent::_beforeSave();
     }
@@ -554,7 +572,16 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function removeItem($itemId)
     {
         if ($item = $this->getItemById($itemId)) {
+            /**
+             * If we remove item from quote - we can't use multishipping mode
+             */
+            $this->setIsMultiShipping(false);
             $item->isDeleted(true);
+            if ($item->getHasChildren()) {
+                foreach ($item->getChildren() as $child) {
+                    $child->isDeleted(true);
+                }
+            }
         }
         return $this;
     }
@@ -616,8 +643,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
 
         $parentItem = null;
+        $errors = array();
         foreach ($cartCandidates as $candidate) {
-
             $item = $this->_addCatalogProduct($candidate, $candidate->getCartQty());
 
             /**
@@ -635,11 +662,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
              */
             $item->addQty($candidate->getCartQty());
 
+            // collect errors instead of throwing first one
             if ($item->getHasError()) {
-
-                Mage::throwException($item->getMessage());
-
+                $errors[] = $item->getMessage();
             }
+        }
+        if (!empty($errors)) {
+            Mage::throwException(implode("\n", $errors));
         }
         return $item;
     }
@@ -852,7 +881,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $this->setVirtualItemsQty(0);
 
         foreach ($this->getAllVisibleItems() as $item) {
-
             //if ($item->getProduct()->getIsVirtual()) {
             //    $this->setVirtualItemsQty($this->getVirtualItemsQty() + $item->getQty());
             //}
@@ -934,7 +962,15 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     public function reserveOrderId()
     {
-        $this->setReservedOrderId($this->_getResource()->getReservedOrderId($this));
+        if (!$this->getReservedOrderId()) {
+            $this->setReservedOrderId($this->_getResource()->getReservedOrderId($this));
+        } else {
+            //checking if reserved order id was already used for some order
+            //if yes reserving new one if not using old one
+            if ($this->_getResource()->isOrderIncrementIdUsed($this->getReservedOrderId())) {
+                $this->setReservedOrderId($this->_getResource()->getReservedOrderId($this));
+            }
+        }
         return $this;
     }
 

@@ -11,6 +11,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,7 +33,7 @@ varienTabs.prototype = {
         this.tabs = $$('#'+this.containerId+' li a.tab-item-link');
 
         this.hideAllTabsContent();
-        for(var tab in this.tabs){
+        for (var tab=0; tab<this.tabs.length; tab++) {
             Event.observe(this.tabs[tab],'click',this.tabOnClick);
             // move tab contents to destination element
             if($(this.destElementId)){
@@ -130,7 +136,9 @@ varienTabs.prototype = {
                     this.loadShadowTab($(tab.shadowTabs[k]));
                 }
             }
-            Element.removeClassName(tab, 'notloaded');
+            if (!Element.hasClassName(tab, 'ajax only')) {
+                Element.removeClassName(tab, 'notloaded');
+            }
             this.activeTab = tab;
         }
         if (varienGlobalEvents) {
@@ -143,10 +151,12 @@ varienTabs.prototype = {
         var tabContentElement = $(this.getTabContentElementId(tab));
         if (tabContentElement) {
             // wait for ajax request, if defined
-            if ((tabContentElement.innerHTML == '')
-                && (tab.href.indexOf('#') != tab.href.length-1)
-                && (Element.hasClassName(tab, 'ajax'))
-            ) {
+            var isAjax = Element.hasClassName(tab, 'ajax');
+            var isEmpty = tabContentElement.innerHTML=='' && tab.href.indexOf('#')!=tab.href.length-1;
+            var isNotLoaded = Element.hasClassName(tab, 'notloaded');
+
+            if ( isAjax && (isEmpty || isNotLoaded) )
+            {
                 new Ajax.Updater(tabContentElement.id, tab.href, {
                      onComplete : function () {
                          this.showTabContentImmediately(tab)
@@ -165,7 +175,9 @@ varienTabs.prototype = {
         if (tabContentElement && Element.hasClassName(tab, 'ajax') && Element.hasClassName(tab, 'notloaded')) {
             new Ajax.Updater(tabContentElement.id, tab.href, {
                 onComplete : function () {
-                    Element.removeClassName(tab, 'notloaded');
+                    if (!Element.hasClassName(tab, 'ajax only')) {
+                        Element.removeClassName(tab, 'notloaded');
+                    }
                 }.bind(this),
                 evalScripts : true
             });

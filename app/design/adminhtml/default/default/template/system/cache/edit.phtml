@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -27,8 +33,6 @@
  *  getForm() - html
  */
 ?>
-
-
 <div class="content-header">
 	<table cellspacing="0">
 		<tr>
@@ -56,8 +60,17 @@ function cacheCatalogAction(button)
             <?php foreach ($this->getCatalogData() as $_item): ?>
             <tr>
                 <td class="label"><label><?php echo $_item['label'] ?></label></td>
-                <td class="value"><button id="<?php echo $_item['name'] ?>" type="button" class="scalable" onclick="cacheCatalogAction(this)" style=""><span><?php echo $_item['action'] ?></span></button></td>
-                <td><small></small></td>
+                <td class="value">
+                    <?php foreach ($_item['buttons'] as $_button): ?>
+                        <?php $clickAction = 'cacheCatalogAction(this)'; ?>
+                        <?php if (isset($_button['warning']) && $_button['warning']): ?>
+                            <?php $clickAction = "if (confirm('".addslashes($_button['warning'])."')) {{$clickAction}}"; ?>
+                        <?php endif; ?>
+                        <button <?php if (!isset($_button['disabled']) || !$_button['disabled']):?>onclick="<?php echo $clickAction; ?>"<?php endif; ?> id="<?php echo $_button['name'] ?>" type="button" class="scalable <?php if (isset($_button['disabled']) && $_button['disabled']):?>disabled<?php endif; ?>" style=""><span><?php echo $_button['action'] ?></span></button>
+                        <?php if (isset($_button['comment'])): ?> <br /> <small><?php echo $_button['comment']; ?></small> <?php endif; ?>
+                    <?php endforeach; ?>
+                </td>
+                <td><small>&nbsp;</small></td>
             </tr>
             <?php endforeach; ?>
         </tbody>
@@ -65,9 +78,6 @@ function cacheCatalogAction(button)
 </fieldset>
 </div>
 </form>
-
-
-
-<script type="text/javascript" language="javascript">
+<script type="text/javascript">
     var configForm = new varienForm('config_edit_form');
 </script>

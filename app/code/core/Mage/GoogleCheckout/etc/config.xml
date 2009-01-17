@@ -13,6 +13,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category    Mage
  * @package    Mage_GoogleCheckout
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -151,6 +157,15 @@ Something like this is to be added to resolve bug #4890
                     </googlecheckout>
                 </observers>
             </sales_order_shipment_track_save_after>
+            <sales_order_shipment_save_after>
+                <observers>
+                    <googlecheckout>
+                        <type>model</type>
+                        <class>googlecheckout/observer</class>
+                        <method>salesOrderShipmentSaveAfter</method>
+                    </googlecheckout>
+                </observers>
+            </sales_order_shipment_save_after>
         </events>
     </adminhtml>
 
@@ -171,6 +186,7 @@ Something like this is to be added to resolve bug #4890
             <checkout>
                 <merchant_id backend_model="adminhtml/system_config_backend_encrypted"/>
                 <merchant_key backend_model="adminhtml/system_config_backend_encrypted"/>
+                <use_secure_callback_url>0</use_secure_callback_url>
             </checkout>
             <checkout_shipping_carrier>
                 <address_category>COMMERCIAL</address_category>
@@ -179,6 +195,11 @@ Something like this is to be added to resolve bug #4890
                 <default_length>10</default_length>
                 <default_width>10</default_width>
             </checkout_shipping_carrier>
+            <checkout_shipping_flatrate>
+                <sallowspecific_1>0</sallowspecific_1>
+                <sallowspecific_2>0</sallowspecific_2>
+                <sallowspecific_3>0</sallowspecific_3>
+            </checkout_shipping_flatrate>
         </google>
     </default>
 </config>

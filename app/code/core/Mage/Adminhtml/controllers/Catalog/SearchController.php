@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -86,7 +92,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
 
             if ($queryText = $this->getRequest()->getParam('query_text')) {
                 $model->load($queryText);
-                if ($this->getRequest()->getParam('query_id') != $model->getId()) {
+                if ($model->getId() && $this->getRequest()->getParam('query_id') != $model->getId()) {
                     Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('Search Term with such search query already exist.'));
                     Mage::getSingleton('adminhtml/session')->setPageData($data);
                     $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('query_id')));

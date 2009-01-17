@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -220,7 +226,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
                         'item_name_'.$i      => $item->getName(),
                         'item_number_'.$i      => $item->getSku(),
                         'quantity_'.$i      => $item->getQty(),
-                        'amount_'.$i      => ($item->getBaseCalculationPrice() - $item->getBaseDiscountAmount()),
+                        'amount_'.$i      => sprintf('%.2f', ($item->getBaseCalculationPrice() - $item->getBaseDiscountAmount())),
                     ));
                     if($item->getBaseTaxAmount()>0){
                         $sArr = array_merge($sArr, array(
@@ -244,7 +250,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
               $sArr = array_merge($sArr, array(
                     'item_name_'.$i   => $totalArr['shipping']->getTitle(),
                     'quantity_'.$i    => 1,
-                    'amount_'.$i      => $shipping,
+                    'amount_'.$i      => sprintf('%.2f',$shipping),
                     'tax_'.$i         => sprintf('%.2f',$shippingTax),
               ));
               $i++;
@@ -326,13 +332,13 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
             } else {
 
-                if ($this->getIpnFormData('mc_gross')!=$order->getGrandTotal()) {
+                if ($this->getIpnFormData('mc_gross')!=$order->getBaseGrandTotal()) {
                     //when grand total does not equal, need to have some logic to take care
                     $order->addStatusToHistory(
                         $order->getStatus(),//continue setting current order status
                         Mage::helper('paypal')->__('Order total amount does not match paypal gross total amount')
                     );
-
+                    $order->save();
                 } else {
                     /*
                     //quote id
@@ -345,17 +351,25 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
                         $order->sendNewOrderEmail();
                     }
                     */
+
+                    // get from config order status to be set
+                    $newOrderStatus = $this->getConfigData('order_status', $order->getStoreId());
+                    if (empty($newOrderStatus)) {
+                        $newOrderStatus = $order->getStatus();
+                    }
+
                     /*
                     if payer_status=verified ==> transaction in sale mode
                     if transactin in sale mode, we need to create an invoice
                     otherwise transaction in authorization mode
                     */
-                    if ($this->getIpnFormData('payment_status')=='Completed') {
+                    if ($this->getIpnFormData('payment_status') == 'Completed') {
                        if (!$order->canInvoice()) {
                            //when order cannot create invoice, need to have some logic to take care
                            $order->addStatusToHistory(
-                                $order->getStatus(),//continue setting current order status
-                                Mage::helper('paypal')->__('Error in creating an invoice')
+                                $order->getStatus(), // keep order status/state
+                                Mage::helper('paypal')->__('Error in creating an invoice', true),
+                                $notified = true
                            );
 
                        } else {
@@ -368,20 +382,24 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
                                ->addObject($invoice)
                                ->addObject($invoice->getOrder())
                                ->save();
-                           $order->addStatusToHistory(
-                                'processing',//update order status to processing after creating an invoice
-                                Mage::helper('paypal')->__('Invoice '.$invoice->getIncrementId().' was created')
+                           $order->setState(
+                               Mage_Sales_Model_Order::STATE_PROCESSING, $newOrderStatus,
+                               Mage::helper('paypal')->__('Invoice #%s created', $invoice->getIncrementId()),
+                               $notified = true
                            );
                        }
                     } else {
-                        $order->addStatusToHistory(
-                                $order->getStatus(),
-                                Mage::helper('paypal')->__('Received IPN verification'));
+                        $order->setState(
+                            Mage_Sales_Model_Order::STATE_PROCESSING, $newOrderStatus,
+                            Mage::helper('paypal')->__('Received IPN verification'),
+                            $notified = true
+                        );
                     }
+                    $order->save();
+                    $order->sendNewOrderEmail();
 
                 }//else amount the same and there is order obj
                 //there are status added to order
-                $order->save();
             }
         }else{
             /*
@@ -411,11 +429,23 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
             } else {
                 $order->addStatusToHistory(
                     $order->getStatus(),//continue setting current order status
-                    Mage::helper('paypal')->__('Paypal IPN Invalid.'.$comment)
+                    Mage::helper('paypal')->__('Paypal IPN Invalid %s.', $comment)
                 );
                 $order->save();
             }
         }
     }
 
+    public function isInitializeNeeded()
+    {
+        return true;
+    }
+
+    public function initialize($paymentAction, $stateObject)
+    {
+        $state = Mage_Sales_Model_Order::STATE_PENDING_PAYMENT;
+        $stateObject->setState($state);
+        $stateObject->setStatus(Mage::getSingleton('sales/order_config')->getStateDefaultStatus($state));
+        $stateObject->setIsNotified(false);
+    }
 }

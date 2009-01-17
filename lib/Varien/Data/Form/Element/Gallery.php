@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -74,7 +80,7 @@ $buttonHtml = $widgetButton->createBlock('adminhtml/widget_button')
             }
         }
         if ($i==0) {
-            $html .= '<script language="javascript">document.getElementById("gallery_thead").style.visibility="hidden";</script>';
+            $html .= '<script type="text/javascript">document.getElementById("gallery_thead").style.visibility="hidden";</script>';
         }
 
         $html .= '</tbody></table>';
@@ -86,7 +92,7 @@ $buttonHtml = $widgetButton->createBlock('adminhtml/widget_button')
                     -1,
                         \'<a href="file:///%file%" target="_blank" onclick="imagePreview(\\\''.$this->getHtmlId().'_image_new_%id%\\\');return false;"><img src="file:///%file%" width="50" align="absmiddle" class="small-image-preview" style="padding-bottom:3px; width:"></a> <div id="'.$this->getHtmlId().'_image_new_%id%" style="display:none" class="image-preview"><img src="file:///%file%"></div>\',
                         "",
-                        \'<input type="file" name="'.parent::getName().'[new_image][%id%][%j%]" size="1">\'
+                        \'<input type="file" name="'.parent::getName().'[new_image][%id%][%j%]" size="1" />\'
                     );
                     multi_selector.addElement( document.getElementById( "'.$this->getHtmlId().'" ) );
                     </script>';
@@ -105,7 +111,7 @@ $buttonHtml = $widgetButton->createBlock('adminhtml/widget_button')
             document.getElementById("gallery_thead").style.visibility="visible";
 
             id--;
-            new_file_input = '<input type="file" name="{$name}_%j%[%id%]" size="1">';
+            new_file_input = '<input type="file" name="{$name}_%j%[%id%]" size="1" />';
 
 		    // Sort order input
 		    var new_row_input = document.createElement( 'input' );

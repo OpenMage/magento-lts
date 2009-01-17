@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -98,9 +104,6 @@
                     <a href="<?php echo $this->getOrderUrl(null, 'desc') ?>"><img src="<?php echo $this->getSkinUrl('images/sort_asc_arrow.gif') ?>" alt="<?php echo $this->__('Set Descending Direction') ?>" class="v-middle" /></a>
                 <?php endif; ?>
             </td>
-            <?php if ($this->helper('rss/catalog')->getTagFeedUrl()): ?>
-            <td class="a-right"><a href="<?php echo $this->helper('rss/catalog')->getTagFeedUrl() ?>" class="nobr link-feed"><?php echo $this->__('Subscribe to Feed') ?></a></td>
-            <?php endif; ?>
         </tr>
     </table>
     <?php endif; ?>

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -46,11 +52,11 @@
 <?php endif; ?>
 <tr id="order-item-row-<?php echo $_item->getId() ?>">
     <?php if (!$_item->getOrderItem()->getParentItem()): ?>
-    <td align="left" valign="top" style="padding:3px 9px"><?php echo $this->htmlEscape($_item->getName()) ?></td>
+    <td align="left" valign="top" style="padding:3px 9px"><strong><?php echo $this->htmlEscape($_item->getName()) ?></strong></td>
     <?php else: ?>
     <td align="left" valign="top" style="padding:3px 19px"><?php echo $this->getValueHtml($_item)?></td>
     <?php endif; ?>
-    <td align="center" valign="top" style="padding:3px 9px"><?php echo $_item->getSku() ?></td>
+    <td align="left" valign="top" style="padding:3px 9px"><?php echo $_item->getSku() ?></td>
     <td align="center" valign="top" style="padding:3px 9px">
         <?php if ($this->canShowPriceInfo($_item)): ?>
             <?php echo $_item->getQty()*1 ?>
@@ -60,7 +66,14 @@
     </td>
     <td align="right" valign="top" style="padding:3px 9px">
         <?php if ($this->canShowPriceInfo($_item)): ?>
-            <?php echo $this->getOrder()->formatPrice($_item->getRowTotal()) ?>
+            <?php if ($this->helper('tax')->displayCartPriceInclTax($_item->getOrderItem()->getOrder()->getStore())): ?>
+                <?php echo $_item->getOrderItem()->getOrder()->formatPrice($_item->getRowTotal() + $_item->getTaxAmount()) ?>
+            <?php elseif ($this->helper('tax')->displayCartPriceExclTax($_item->getOrderItem()->getOrder()->getStore())): ?>
+                <?php echo $_item->getOrderItem()->getOrder()->formatPrice($_item->getRowTotal()) ?>
+            <?php else: ?>
+                <?php echo Mage::helper('tax')->__('Excl. Tax'); ?>: <?php echo $_item->getOrderItem()->getOrder()->formatPrice($_item->getRowTotal()) ?><br />
+                <?php echo Mage::helper('tax')->__('Incl. Tax'); ?>: <?php echo $_item->getOrderItem()->getOrder()->formatPrice($_item->getRowTotal() + $_item->getTaxAmount()) ?>
+            <?php endif; ?>
         <?php else: ?>
             &nbsp;
         <?php endif; ?>

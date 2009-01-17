@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -92,22 +98,14 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         if (!$attribute->getId()) {
             $this->_fault('not_exists');
         }
-
-        $result = array();
+        $options = array();
         if ($attribute->usesSource()) {
-            foreach ($attribute->getSource()->getAllOptions() as $optionId=>$optionValue) {
-                if (is_array($optionValue)) {
-                    $result[] = $optionValue;
-                } else {
-                    $result[] = array(
-                        'value' => $optionId,
-                        'label' => $optionValue
-                    );
-                }
-            }
+            $options = Mage::getResourceModel('eav/entity_attribute_option_collection')
+                ->setAttributeFilter($attribute->getId())
+                ->setStoreFilter()
+                ->load()
+                ->toOptionArray();
         }
-
-        return $result;
+        return $options;
     }
-
 } // Class Mage_Catalog_Model_Product_Attribute_Api End

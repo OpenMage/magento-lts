@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -34,8 +40,12 @@ class Mage_Reports_Model_Mysql4_Refunded_Collection extends Mage_Sales_Model_Ent
         $this->_reset()
             ->addAttributeToSelect('*')
             ->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to))
-            ->addExpressionAttributeToSelect('orders', 'COUNT({{total_refunded}})', array('total_refunded'))
-            ->getSelect()->group('("*")')->having('orders > 0');
+            ->addExpressionAttributeToSelect('orders', 'COUNT({{total_refunded}})', array('total_refunded'));
+
+        $this->getSelect()
+            ->where('base_total_refunded>0')
+            ->group('("*")')
+            ->having('orders > 0');
 
         return $this;
     }

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -31,23 +37,18 @@ class Mage_Checkout_Block_Multishipping_Link extends Mage_Core_Block_Template
     {
         return $this->getUrl('checkout/multishipping', array('_secure'=>true));
     }
-    
+
     public function getQuote()
     {
         return Mage::getSingleton('checkout/session')->getQuote();
     }
-    
+
     public function _toHtml()
     {
-        $maximunQty = (int)Mage::getStoreConfig('shipping/option/checkout_multiple_maximum_qty');
-        if (Mage::getStoreConfig('shipping/option/checkout_multiple')
-            && !$this->getQuote()->hasItemsWithDecimalQty()
-            && $this->getQuote()->validateMinimumAmount()
-            && ($this->getQuote()->getItemsSummaryQty() - $this->getQuote()->getItemVirtualQty()) > 0
-            && $this->getQuote()->getItemsSummaryQty() <= $maximunQty) {
-            return parent::_toHtml();
+        if (!Mage::helper('checkout')->isMultishippingCheckoutAvailable()){
+            return '';
         }
 
-        return '';
+        return parent::_toHtml();
     }
 }

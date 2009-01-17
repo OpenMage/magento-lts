@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -76,6 +82,9 @@ class Mage_Core_Model_Mysql4_Website_Collection extends Mage_Core_Model_Mysql4_C
         if (!$this->getLoadDefault()) {
             $this->getSelect()->where($this->getConnection()->quoteInto('main_table.website_id>?', 0));
         }
+        $this->unshiftOrder('main_table.name', 'ASC')       // website name SECOND
+            ->unshiftOrder('main_table.sort_order', 'ASC') // website sort order FIRST
+        ;
         parent::load($printQuery, $logQuery);
         return $this;
     }
@@ -92,6 +101,11 @@ class Mage_Core_Model_Mysql4_Website_Collection extends Mage_Core_Model_Mysql4_C
             'group_table.group_id=store_table.group_id',
             array('store_id'=>'store_id', 'store_title'=>'name')
         );
+        $this->addOrder('group_table.name', 'ASC')       // store name
+            ->addOrder('CASE WHEN store_table.store_id = 0 THEN 0 ELSE 1 END', 'ASC') // view is admin
+            ->addOrder('store_table.sort_order', 'ASC') // view sort order
+            ->addOrder('store_table.name', 'ASC')       // view name
+        ;
         return $this;
     }
 }

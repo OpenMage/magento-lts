@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -90,7 +96,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     {
         $class = $this->getData('header_css_class');
         if (($this->getSortable()===false) || ($this->getGrid()->getSortable()===false)) {
-            $class .= ' no-link';
+            $class .= 'no-link';
         }
         if ($this->isLast()) {
             $class .= ' last';
@@ -276,7 +282,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         if ($this->getFilter()) {
             return $this->getFilter()->getHtml();
         } else {
-            return '<div style="width: 100%;">&nbsp;</div>';
+            return '&nbsp;';
         }
         return null;
     }

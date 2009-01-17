@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -401,6 +407,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
     public static function calculatePrice($basePrice, $specialPrice, $specialPriceFrom, $specialPriceTo, $rulePrice = false, $wId = null, $gId = null, $productId = null)
     {
         $resource = Mage::getResourceSingleton('bundle/bundle');
+        $selectionResource = Mage::getResourceSingleton('bundle/selection');
         $productPriceTypeId = Mage::getSingleton('eav/entity_attribute')->getIdByCode('catalog_product', 'price_type');
         if ($wId instanceof Mage_Core_Model_Store) {
             $store = $wId->getId();
@@ -411,24 +418,28 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
 
         if (!$gId) {
             $gId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+        } else if ($gId instanceof Mage_Customer_Model_Group) {
+            $gId = $gId->getId();
         }
 
-        $attributes = $resource->getAttributeData($productId, $productPriceTypeId, $store);
+        if (!isset(self::$attributeCache[$productId]['price_type'])) {
+            $attributes = $resource->getAttributeData($productId, $productPriceTypeId, $store);
+            self::$attributeCache[$productId]['price_type'] = $attributes;
+        } else {
+            $attributes = self::$attributeCache[$productId]['price_type'];
+        }
 
         $options = array(0);
-
         $results = $resource->getSelectionsData($productId);
 
         if (!$attributes[0]['value']) { //dynamic
             $dataRetreiver = Mage::getSingleton('catalogindex/data_simple');
-            $childIds = array();
 
+            $childrenQty = array();
             foreach ($results as $key => $result) {
                 if (!$result['product_id']) {
                     continue;
                 }
-                $results[$key]['final_price'] = $dataRetreiver->getFinalPrice($result['product_id'], $wId, $gId);
-                $tiers = $resource->getTierPrices($result['product_id'], $wId->getWebsiteId());
 
                 if ($result['selection_can_change_qty'] && $result['type'] != 'multi' && $result['type'] != 'checkbox') {
                     $qty = 1;
@@ -436,56 +447,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                     $qty = $result['selection_qty'];
                 }
 
-                $allGroups = Mage_Customer_Model_Group::CUST_GROUP_ALL;
-
-                $prevQty = 1;
-                $prevPrice = $results[$key]['final_price'];
-                $prevGroup = $allGroups;
-
-                foreach ($tiers as $tier) {
-
-                    if (!is_numeric($gId)) {
-                        $_gId = $gId->getId();
-                    } else {
-                        $_gId = $gId;
-                    }
-
-                    if ($tier['customer_group_id'] != $_gId && $tier['all_groups']!=1) {
-                        // tier not for current customer group nor is for all groups
-                        continue;
-                    }
-
-                    if ($qty < $tier['qty']) {
-                        // tier is higher than product qty
-                        continue;
-                    }
-
-                    if ($tier['qty'] < $prevQty) {
-                        // higher tier qty already found
-                        continue;
-                    }
-
-                    if ($tier['qty'] == $prevQty && $prevGroup != $allGroups && $tier['all_groups'] == 1) {
-                        // found tier qty is same as current tier qty but current tier group is ALL_GROUPS
-                        continue;
-                    }
-
-                    $prevPrice  = $tier['value'];
-                    $prevQty    = $tier['qty'];
-                    $prevGroup  = $tier['customer_group_id'];
-                }
-                $results[$key]['final_price'] = $prevPrice;
-            }
-
-            foreach ($results as $result) {
-                if (!$result['product_id']) {
-                    continue;
-                }
-                if ($result['selection_can_change_qty'] && $result['type'] != 'multi' && $result['type'] != 'checkbox') {
-                    $qty = 1;
-                } else {
-                    $qty = $result['selection_qty'];
-                }
+                $result['final_price'] = $selectionResource->getPriceFromIndex($result['product_id'], $qty, $store, $gId);
 
                 $selectionPrice = $result['final_price']*$qty;
 
@@ -495,9 +457,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                     $options[$result['option_id']] = $selectionPrice;
                 }
             }
-
             $basePrice = array_sum($options);
-
         } else { //fixed
             foreach ($results as $result) {
                 if (!$result['product_id']) {

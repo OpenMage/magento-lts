@@ -13,6 +13,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -22,7 +28,7 @@
 <config>
     <modules>
         <Mage_Core>
-             <version>0.8.8</version>
+             <version>0.8.11</version>
         </Mage_Core>
     </modules>
 
@@ -44,6 +50,7 @@
                     <convert_profile><table>core_convert_profile</table></convert_profile>
                     <convert_history><table>core_convert_history</table></convert_history>
                     <design_change><table>design_change</table></design_change>
+                    <flag><table>core_flag</table></flag>
                 </entities>
             </core_mysql4>
         </models>
@@ -58,11 +65,11 @@
         </template>
         <cache>
             <types>
-                <config><label>Configuration</label></config>
-                <layout><label>Layouts</label></layout>
-                <block_html><label>Blocks HTML output</label></block_html>
-                <translate><label>Translations</label></translate>
-                <collections><label>Collections Data</label></collections>
+                <config translate="label" module="core"><label>Configuration</label></config>
+                <layout translate="label" module="core"><label>Layouts</label></layout>
+                <block_html translate="label" module="core"><label>Blocks HTML output</label></block_html>
+                <translate translate="label" module="core"><label>Translations</label></translate>
+                <collections translate="label" module="core"><label>Collections Data</label></collections>
             </types>
         </cache>
     </global>
@@ -132,6 +139,9 @@
                 <file>system.log</file>
                 <exception_file>exception.log</exception_file>
             </log>
+            <js>
+                <deprecation>0</deprecation>
+            </js>
         </dev>
 
 

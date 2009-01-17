@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -34,24 +40,18 @@ class Mage_Core_Model_Mysql4_Translate_String extends Mage_Core_Model_Mysql4_Abs
 
     public function load(Mage_Core_Model_Abstract $object, $value, $field=null)
     {
-        /**
-         * Partially reverted rev 21685
-         * @see issue #5943
-         */
-//        if (is_string($value)) {
-//            $select = $this->_getReadAdapter()->select()
-//                ->from($this->getMainTable())
-//                ->where($this->getMainTable().'.string=:tr_string');
-//            $result = $this->_getReadAdapter()->fetchRow($select, array('tr_string'=>$value));
-//            return $result;
-//        }
-//        else {
-//        	return parent::load($object, $value, $field);
-//        }
         if (is_string($value)) {
-            $field = 'string';
+            $select = $this->_getReadAdapter()->select()
+                ->from($this->getMainTable())
+                ->where($this->getMainTable().'.string=:tr_string');
+            $result = $this->_getReadAdapter()->fetchRow($select, array('tr_string'=>$value));
+            $object->setData($result);
+            $this->_afterLoad($object);
+            return $result;
         }
-        return parent::load($object, $value, $field);
+        else {
+        	return parent::load($object, $value, $field);
+        }
     }
 
     protected function _getLoadSelect($field, $value, $object)
@@ -67,8 +67,8 @@ class Mage_Core_Model_Mysql4_Translate_String extends Mage_Core_Model_Mysql4_Abs
         $connection = $this->_getReadAdapter();
         $select = $connection->select()
             ->from($this->getMainTable(), array('store_id', 'translate'))
-            ->where('string=?', $object->getString());
-        $translations = $connection->fetchPairs($select);
+            ->where('string=:translate_string');
+        $translations = $connection->fetchPairs($select, array('translate_string' => $object->getString()));
         $object->setStoreTranslations($translations);
         return parent::_afterLoad($object);
     }

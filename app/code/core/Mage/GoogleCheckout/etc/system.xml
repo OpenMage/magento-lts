@@ -13,6 +13,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_GoogleAnalytics
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -57,6 +63,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </sandbox>
+                        <use_secure_callback_url translate="label comment">
+                            <label>Secure Callback URL</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Required for live Google Checkout transactions.</comment>
+                        </use_secure_callback_url>
                         <debug translate="label">
                             <label>Debug</label>
                             <frontend_type>select</frontend_type>
@@ -119,7 +135,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </continue_shopping_url>
-                        <hide_cart_contents translate="label">
+                        <hide_cart_contents translate="label comment">
                             <label>Hide Cart Contents During Checkout</label>
                             <comment>If enabled, cart contents will be hidden after clicking on the Google Checkout button in the shopping cart, and restored if "Edit Cart" link was activated.</comment>
                             <frontend_type>select</frontend_type>
@@ -140,7 +156,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
-                        <active>
+                        <active translate="label">
                             <label>Enable Merchant Calculated</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -149,7 +165,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </active>
-                        <allowed_methods>
+                        <allowed_methods translate="label">
                             <label>Allowed Methods</label>
                             <frontend_type>select</frontend_type>
                             <frontend_model>googlecheckout/adminhtml_shipping_merchant</frontend_model>
@@ -170,7 +186,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
-                        <active>
+                        <active translate="label">
                             <label>Enable Carrier Calculated</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -179,7 +195,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </active>
-                        <methods>
+                        <methods translate="label">
                             <label>Carrier Calculated Methods</label>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>googlecheckout/source_shipping_carrier</source_model>
@@ -188,7 +204,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </methods>
-                        <address_category>
+                        <address_category translate="label">
                             <label>Delivery Address Category</label>
                             <frontend_type>select</frontend_type>
                             <source_model>googlecheckout/source_shipping_category</source_model>
@@ -197,7 +213,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </address_category>
-                        <default_price>
+                        <default_price translate="label">
                             <label>Default price for methods</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
@@ -205,7 +221,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </default_price>
-                        <default_width>
+                        <default_width translate="label">
                             <label>Default Package Width (in)</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
@@ -213,7 +229,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </default_width>
-                        <default_height>
+                        <default_height translate="label">
                             <label>Default Package Height (in)</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
@@ -221,7 +237,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </default_height>
-                        <default_length>
+                        <default_length translate="label">
                             <label>Default Package Length (in)</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
@@ -276,7 +292,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
-                        <active>
+                        <active translate="label">
                             <label>Enable Flat Rate</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -285,7 +301,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </active>
-                        <title_1>
+                        <title_1 translate="label">
                             <label>Rate 1 Title</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
@@ -293,7 +309,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </title_1>
-                        <price_1>
+                        <price_1 translate="label">
                             <label>Rate 1 Amount</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>22</sort_order>
@@ -301,7 +317,29 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </price_1>
-                        <title_2>
+
+                        <sallowspecific_1 translate="label">
+                            <label>Rate 1 Ship To Applicable Countries</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>24</sort_order>
+                            <frontend_class>shipping-applicable-country</frontend_class>
+                            <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sallowspecific_1>
+                        <specificcountry_1 translate="label">
+                            <label>Rate 1 Ship to Specific Countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>26</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </specificcountry_1>
+
+
+                        <title_2 translate="label">
                             <label>Rate 2 Title</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
@@ -309,7 +347,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </title_2>
-                        <price_2>
+                        <price_2 translate="label">
                             <label>Rate 2 Amount</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>32</sort_order>
@@ -317,7 +355,29 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </price_2>
-                        <title_3>
+
+                        <sallowspecific_2 translate="label">
+                            <label>Rate 2 Ship To Applicable Countries</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>34</sort_order>
+                            <frontend_class>shipping-applicable-country-2</frontend_class>
+                            <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sallowspecific_2>
+                        <specificcountry_2 translate="label">
+                            <label>Rate 2 Ship to Specific Countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>36</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </specificcountry_2>
+
+
+                        <title_3 translate="label">
                             <label>Rate 3 Title</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
@@ -325,7 +385,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </title_3>
-                        <price_3>
+                        <price_3 translate="label">
                             <label>Rate 3 Amount</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>42</sort_order>
@@ -333,6 +393,25 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </price_3>
+                        <sallowspecific_3 translate="label">
+                            <label>Rate 3 Ship To Applicable Countries</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>44</sort_order>
+                            <frontend_class>shipping-applicable-country-3</frontend_class>
+                            <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sallowspecific_3>
+                        <specificcountry_3 translate="label">
+                            <label>Rate 3 Ship to Specific Countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>46</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </specificcountry_3>
                     </fields>
                 </checkout_shipping_flatrate>
             </groups>

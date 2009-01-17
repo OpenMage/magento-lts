@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -103,12 +109,13 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
             ->addAttributeToSelect('name')
             ->addAttributeToSelect('price')
             ->addAttributeToSelect('special_price')
+            ->addAttributeToSelect('special_from_date')
+            ->addAttributeToSelect('special_to_date')
             ->addAttributeToSelect('image')
             ->addAttributeToSelect('thumbnail')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->addStoreFilter()
-            ->setPageSize($this->_maxItemCount)
-            ->addFilterByRequiredOptions();
+            ->setPageSize($this->_maxItemCount);
 
         Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($collection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);

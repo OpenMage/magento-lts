@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Page
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -68,10 +74,40 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
      */
     public function getPrintLogoUrl ()
     {
-        $logo = Mage::getStoreConfig('sales/identity/logo');
-        return $logo
-            ? Mage::getStoreConfig('web/unsecure/base_media_url') . 'sales/store/logo/' . $logo
-            : '';
+        // load html logo
+        $logo = Mage::getStoreConfig('sales/identity/logo_html');
+        if (!empty($logo)) {
+            $logo = 'sales/store/logo_html/' . $logo;
+        }
+
+        // load default logo
+        if (empty($logo)) {
+            $logo = Mage::getStoreConfig('sales/identity/logo');
+            if (!empty($logo)) {
+                // prevent tiff format displaying in html
+                if (strtolower(substr($logo, -5)) === '.tiff' || strtolower(substr($logo, -4)) === '.tif') {
+                    $logo = '';
+                }
+                else {
+                    $logo = 'sales/store/logo/' . $logo;
+                }
+            }
+        }
+
+        // buld url
+        if (!empty($logo)) {
+            $logo = Mage::getStoreConfig('web/unsecure/base_media_url') . $logo;
+        }
+        else {
+            $logo = '';
+        }
+
+        return $logo;
+    }
+
+    public function getPrintLogoText()
+    {
+        return Mage::getStoreConfig('sales/identity/address');
     }
 
     public function setHeaderTitle($title)
@@ -116,6 +152,8 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         return $this->_getData('body_class');
     }
 
-
-
+    public function getAbsoluteFooter()
+    {
+        return Mage::getStoreConfig('design/footer/absolute_footer');
+    }
 }

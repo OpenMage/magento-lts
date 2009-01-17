@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -25,11 +31,6 @@
  * @see Mage_CatalogSearch_Block_Advanced_Form
  */
 ?>
-<link rel="stylesheet" type="text/css" media="all" href="<?php echo $this->getJsUrl() ?>calendar/calendar-win2k-1.css" title="win2k-1" />
-<script type="text/javascript" src="<?php echo $this->getJsUrl() ?>calendar/calendar.js"></script>
-<script type="text/javascript" src="<?php echo $this->getJsUrl() ?>calendar/lang/calendar-en.js"></script>
-<script type="text/javascript" src="<?php echo $this->getJsUrl() ?>calendar/calendar-setup.js"></script>
-
 <div class="page-head">
     <h3><?php echo $this->__('Catalog Advanced Search') ?></h3>
 </div>
@@ -49,6 +50,14 @@
                     -
                     <input name="<?php echo $_code ?>[to]" value="<?php echo $this->htmlEscape($this->getAttributeValue($_attribute, 'to')) ?>" id="<?php echo $_code ?>_to" title="<?php echo $this->htmlEscape($this->getAttributeLabel($_attribute)) ?>"  class="input-text validate-number" type="text" />
                 </div>
+                <?php break;
+                case 'price': ?>
+                <div class="range field-row">
+                    <input name="<?php echo $_code ?>[from]" value="<?php echo $this->htmlEscape($this->getAttributeValue($_attribute, 'from')) ?>" id="<?php echo $_code ?>" title="<?php echo $this->htmlEscape($this->getAttributeLabel($_attribute)) ?>"  class="input-text validate-number" type="text" />
+                    -
+                    <input name="<?php echo $_code ?>[to]" value="<?php echo $this->htmlEscape($this->getAttributeValue($_attribute, 'to')) ?>" id="<?php echo $_code ?>_to" title="<?php echo $this->htmlEscape($this->getAttributeLabel($_attribute)) ?>"  class="input-text validate-number" type="text" />
+
+                    (<?php echo $this->getCurrency($_attribute); ?>)
                 <?php break;
                 case 'select': ?>
                     <?php echo $this->getAttributeSelectElement($_attribute) ?>

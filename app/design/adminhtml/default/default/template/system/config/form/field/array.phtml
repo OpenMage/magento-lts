@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -60,7 +66,7 @@ $_colspan = $_colspan > 1 ? 'colspan="' . $_colspan . '"' : '';
 </div>
 
 <script type="text/javascript">
-// <!--
+//<![CDATA[
 // create row creator
 var arrayRow<?php echo $_htmlId ?> = {
     // define row prototypeJS template
@@ -69,13 +75,13 @@ var arrayRow<?php echo $_htmlId ?> = {
 <?php foreach ($this->_columns as $columnName => $column):?>
             +'<td>'
                 +'<?php echo $this->_renderCellTemplate($columnName)?>'
-            +'</td>'
+            +'<\/td>'
 <?php endforeach;?>
 <?php if ($this->_addAfter):?>
-            +'<td><button onclick="" class="scalable add" type="button" id="addAfterBtn#{_id}"><span><?php echo Mage::helper('adminhtml')->__('Add after') ?></span></button></td>'
+            +'<td><button onclick="" class="scalable add" type="button" id="addAfterBtn#{_id}"><span><?php echo Mage::helper('adminhtml')->__('Add after') ?><\/span><\/button><\/td>'
 <?php endif;?>
-            +'<td><button onclick="arrayRow<?php echo $_htmlId ?>.del(\'#{_id}\')" class="scalable delete" type="button"><span><?php echo Mage::helper('adminhtml')->__('Delete') ?></span></button></td>'
-        +'</tr>'
+            +'<td><button onclick="arrayRow<?php echo $_htmlId ?>.del(\'#{_id}\')" class="scalable delete" type="button"><span><?php echo Mage::helper('adminhtml')->__('Delete') ?><\/span><\/button><\/td>'
+        +'<\/tr>'
     ),
 
     rowsCount : 0,
@@ -95,17 +101,11 @@ var arrayRow<?php echo $_htmlId ?> = {
 
         // insert before last row
         if ('' == insertAfterId) {
-            new Insertion.Before(
-                $('addRow<?php echo $_htmlId ?>'),
-                this.template.evaluate(templateData)
-            );
+            Element.insert($('addRow<?php echo $_htmlId ?>'), {before: this.template.evaluate(templateData)});
         }
         // insert after specified row
         else {
-            new Insertion.After(
-                $(insertAfterId),
-                this.template.evaluate(templateData)
-            );
+            Element.insert($(insertAfterId), {after: this.template.evaluate(templateData)});
         }
 
 <?php if ($this->_addAfter):?>
@@ -160,5 +160,5 @@ arrayRow<?php echo $_htmlId ?>.showButtonOnly();
 <?php if ($this->getElement()->getDisabled()):?>
 toggleValueElements({checked:true}, $('grid<?php echo $_htmlId ?>').parentNode);
 <?php endif;?>
-// -->
+//]]>
 </script>

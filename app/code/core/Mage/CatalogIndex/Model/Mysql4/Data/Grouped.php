@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -33,17 +39,23 @@ class Mage_CatalogIndex_Model_Mysql4_Data_Grouped extends Mage_CatalogIndex_Mode
         $result = array();
         $fields = array('customer_group_id', 'minimal_value'=>'MIN(value)');
         $select = $this->_getReadAdapter()->select()
-            ->from(array('base'=>$this->getTable('catalogindex/price')), $fields)
+            ->from(array('base'=>$this->getTable('catalogindex/price')), array(
+                'customer_group_id', 'minimal_value' => 'value', 'tax_class_id'
+            ))
             ->where('base.entity_id in (?)', $products)
             ->where('base.attribute_id in (?)', $priceAttributes)
             ->where('base.store_id = ?', $store)
-            ->group('base.customer_group_id');
+            ->order(array('customer_group_id', 'value'));
+        $select = $this->_getReadAdapter()->select()
+            ->from(array('blah' => new Zend_Db_Expr("({$select})")))
+            ->group(new Zend_Db_Expr(1));
         $visible = $this->_getReadAdapter()->fetchAll($select);
 
         $groups = Mage::getSingleton('catalogindex/retreiver')->getCustomerGroups();
         $stores = Mage::getModel('core/store')->getCollection()->setLoadDefault(false)->load();
         foreach ($groups as $group) {
-            $resultMinimal = null;
+            $resultMinimal    = null;
+            $resultTaxClassId = 0;
             $customerGroup = $group->getId();
             $storeObject = $stores->getItemById($store);
 
@@ -52,11 +64,9 @@ class Mage_CatalogIndex_Model_Mysql4_Data_Grouped extends Mage_CatalogIndex_Mode
                 $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
                 foreach ($typeIds as $id) {
                     $finalPrice = $retreiver->getFinalPrice($id, $storeObject, $group);
-
-                    if (!is_null($resultMinimal)) {
-                        $resultMinimal = min($resultMinimal, $finalPrice);
-                    } else {
-                        $resultMinimal = $finalPrice;
+                    if ((null === $resultMinimal) || ($finalPrice < $resultMinimal)) {
+                        $resultMinimal    = $finalPrice;
+                        $resultTaxClassId = $retreiver->getTaxClassId($id, $storeObject);
                     }
 
                     $tiers = $retreiver->getTierPrices($id, $storeObject);
@@ -64,10 +74,9 @@ class Mage_CatalogIndex_Model_Mysql4_Data_Grouped extends Mage_CatalogIndex_Mode
                         if ($tier['customer_group_id'] != $customerGroup && !$tier['all_groups']) {
                             continue;
                         }
-                        if (!is_null($resultMinimal)) {
-                            $resultMinimal = min($resultMinimal, $tier['value']);
-                        } else {
-                            $resultMinimal = $tier['value'];
+                        if ((null === $resultMinimal) || ($tier['value'] < $resultMinimal)) {
+                            $resultMinimal    = $tier['value'];
+                            $resultTaxClassId = $retreiver->getTaxClassId($tier['entity_id'], $storeObject);
                         }
                     }
                 }
@@ -78,15 +87,16 @@ class Mage_CatalogIndex_Model_Mysql4_Data_Grouped extends Mage_CatalogIndex_Mode
                     continue;
                 }
 
-                if (is_null($resultMinimal)) {
+                if ((null === $resultMinimal) || ($one['minimal_value'] < $resultMinimal)) {
                     $resultMinimal = $one['minimal_value'];
+                    $taxClassId    = $one['tax_class_id'];
                 } else {
-                    $resultMinimal = min($one['minimal_value'], $resultMinimal);
+                    $taxClassId = $resultTaxClassId;
                 }
             }
 
             if (!is_null($resultMinimal)){
-                $result[] = array('customer_group_id'=>$customerGroup, 'minimal_value'=>$resultMinimal);
+                $result[] = array('customer_group_id'=>$customerGroup, 'minimal_value'=>$resultMinimal, 'tax_class_id' => $taxClassId);
             }
         }
         return $result;

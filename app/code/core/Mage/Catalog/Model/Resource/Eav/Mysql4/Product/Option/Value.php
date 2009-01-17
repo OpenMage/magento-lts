@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -113,13 +119,18 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value extends Mage_C
                     }
                 }// end of foreach()
             }
+        } elseif ($scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE && $object->getData('scope', 'price')) {
+            $this->_getWriteAdapter()->delete(
+                $priceTable,
+                $this->_getWriteAdapter()->quoteInto('option_type_id = '.$object->getId().' AND store_id = ?', $object->getStoreId())
+            );
         }
 
         //title
         if (!$object->getData('scope', 'title')) {
             $statement = $this->_getReadAdapter()->select()
                 ->from($titleTable)
-                ->where('option_type_id = '.$object->getId().' and store_id = ?', 0);
+                ->where('option_type_id = '.$object->getId().' AND store_id = ?', 0);
 
             if ($this->_getReadAdapter()->fetchOne($statement)) {
                 if ($object->getStoreId() == '0') {
@@ -143,7 +154,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value extends Mage_C
         if ($object->getStoreId() != '0' && !$object->getData('scope', 'title')) {
             $statement = $this->_getReadAdapter()->select()
                 ->from($titleTable)
-                ->where('option_type_id = '.$object->getId().' and store_id = ?', $object->getStoreId());
+                ->where('option_type_id = '.$object->getId().' AND store_id = ?', $object->getStoreId());
 
             if ($this->_getReadAdapter()->fetchOne($statement)) {
                 $this->_getWriteAdapter()->update(
@@ -160,6 +171,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value extends Mage_C
                             'title' => $object->getTitle()
                 ));
             }
+        } elseif ($object->getData('scope', 'title')) {
+            $this->_getWriteAdapter()->delete(
+                $titleTable,
+                $this->_getWriteAdapter()->quoteInto('option_type_id = '.$object->getId().' AND store_id = ?', $object->getStoreId())
+            );
         }
 
         return parent::_afterSave($object);

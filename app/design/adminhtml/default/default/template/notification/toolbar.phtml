@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    design_default
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -20,38 +26,43 @@
 ?>
 <?php if ($this->isShow()): ?>
 <div class="notification-global">
-	<?php
+    <?php
         $sParts = array();
 
-		if ($this->getCriticalCount()):
-			$sParts[] = '<span class="critical"><strong>'.$this->getCriticalCount().'</strong> '.$this->__('critical').'</span>';
-		endif;
+        if ($this->getCriticalCount()):
+            $sParts[] = '<span class="critical"><strong>'.$this->getCriticalCount().'</strong> '.$this->__('critical').'</span>';
+        endif;
 
-		if ($this->getMajorCount()):
+        if ($this->getMajorCount()):
             $sParts[] = '<strong>'.$this->getMajorCount().'</strong> '.$this->__('major');
-		endif;
+        endif;
 
-		if ($this->getMinorCount()):
-		    $sParts[] = '<strong>'.$this->getMinorCount().'</strong> '.$this->__('minor');
-		endif;
+        if ($this->getMinorCount()):
+            $sParts[] = '<strong>'.$this->getMinorCount().'</strong> '.$this->__('minor');
+        endif;
 
-		if ($this->getNoticeCount()):
-		    $sParts[] = '<strong>'.$this->getNoticeCount().'</strong> '.$this->__('notice');
-		endif;
+        if ($this->getNoticeCount()):
+            $sParts[] = '<strong>'.$this->getNoticeCount().'</strong> '.$this->__('notice');
+        endif;
 
-		$msgStats = '';
-		$c = count($sParts);
-		for ($i = 0; $i < $c; $i++) {
-		    $msgStats .= $sParts[$i] . ($i == $c-1 ? '' : ($i == $c-2 ? ' and ' : ', '));
-		}
+        $msgStats = '';
+        $c = count($sParts);
+        for ($i = 0; $i < $c; $i++) {
+            $msgStats .= $sParts[$i] . ($i == $c-1 ? '' : ($i == $c-2 ? $this->__(' and ') : ', '));
+        }
 
-	?>
+    ?>
+    <?php /*
     <span class="f-right"><?php echo $this->__('You have %s unread message(s). <a href="%s">Go to messages inbox</a>.',
         $msgStats,
         $this->getNoticesInboxUrl()
     );?></span>
+    */?>
+    <span class="f-right"><?php echo $this->__('You have') . ' ' . $msgStats. ' ' .$this->__('unread message(s). <a href="%s">Go to messages inbox</a>.',
+        $this->getNoticesInboxUrl()
+    );?></span>
 <?php /* ********** temporary commented
-	<span class="f-right"><?php echo $this->__('You have %s, %s and %s unread messages. <a href="%s">Go to messages inbox</a>.',
+    <span class="f-right"><?php echo $this->__('You have %s, %s and %s unread messages. <a href="%s">Go to messages inbox</a>.',
         '<span class="critical"><strong>'.$this->getCriticalCount().'</strong> '.$this->__('critical').'</span>',
         '<strong>'.$this->getMajorCount().'</strong> '.$this->__('major'),
         '<strong>'.$this->getMinorCount().'</strong> '.$this->__('minor'),

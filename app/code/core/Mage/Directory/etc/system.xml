@@ -36,7 +36,7 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <base translate="label,comment">
+                        <base translate="label comment">
                             <label>Base currency</label>
                             <frontend_type>select</frontend_type>
                             <frontend_model>directory/adminhtml_frontend_currency_base</frontend_model>

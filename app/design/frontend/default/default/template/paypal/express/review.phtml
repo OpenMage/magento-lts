@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -30,7 +36,7 @@
         <div class="content col2-set">
             <div class="col-1">
                 <div class="head">
-                    <h4><?php echo $this->__('Shipping Address') ?><span class="separator">|</span><a href="<?php echo $this->getUrl('paypal/express/edit') ?>"><?php echo $this->__('Change Shipping Address') ?></a></h4>
+                    <h4><?php echo $this->__('Shipping Address') ?> <span class="separator">|</span> <a href="<?php echo $this->getUrl('paypal/express/edit') ?>"><?php echo $this->__('Change Shipping Address') ?></a></h4>
                 </div>
                 <address>
                     <?php echo $this->getShippingAddress()->getFormated(true) ?>
@@ -61,7 +67,7 @@
                                     </option>
                                <?php else: ?>
                                    <option value="<?php echo $_rate->getCode() ?>" <?php if($_rate->getCode()===$this->getAddressShippingMethod()): ?>selected="selected"<?php endif ?>  style="margin-left:16px">
-                                        <?php echo $_rate->getMethodDescription() ?> -
+                                        <?php echo $_rate->getMethodTitle() ?> -
 
                                         <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
                                         <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
@@ -92,7 +98,7 @@
 
         <div class="content">
             <div class="head">
-                <h4><?php echo $this->__('Payment Method') ?><span class="separator">|</span><a href="<?php echo $this->getUrl('paypal/express/edit') ?>"><?php echo $this->__('Change Payment Method') ?></a></h4>
+                <h4><?php echo $this->__('Payment Method') ?> <span class="separator">|</span> <a href="<?php echo $this->getUrl('paypal/express/edit') ?>"><?php echo $this->__('Change Payment Method') ?></a></h4>
             </div>
             <?php echo $this->__('PayPal Account') ?><br />
             <?php echo $this->getBillingAddress()->getEmail() ?>
@@ -101,7 +107,7 @@
     </div>
 
     <div class="head" style="margin-top:-11px">
-        <h4><?php echo $this->__('Items in Your Shopping Cart') ?><span class="separator">|</span><a href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Edit Shopping Cart') ?></a></h4>
+        <h4><?php echo $this->__('Items in Your Shopping Cart') ?> <span class="separator">|</span> <a href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Edit Shopping Cart') ?></a></h4>
     </div>
 
     <div id='details-reload'>
@@ -125,8 +131,8 @@
     <div class="clear"></div>
 
 </div>
-
 <script type="text/javascript">
+//<![CDATA[
     if ($('update_shipping_method')) {
         $('update_shipping_method') && $('update_shipping_method').hide();
     }
@@ -159,4 +165,5 @@
         Element.show('review-please-wait');
         Element.setStyle('review-buttons-container', {opacity:.5});
     }
+//]]>
 </script>

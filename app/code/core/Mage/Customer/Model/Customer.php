@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -663,6 +669,15 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $confirmation = $this->getConfirmation();
         if ($password != $confirmation) {
             $errors[] = $helper->__('Please make sure your passwords match.');
+        }
+
+        if (('req' === Mage::helper('customer/address')->getConfig('dob_show'))
+            && '' == trim($this->getDob())) {
+            $errors[] = $helper->__('Date of Birth is required.');
+        }
+        if (('req' === Mage::helper('customer/address')->getConfig('taxvat_show'))
+            && '' == trim($this->getTaxvat())) {
+            $errors[] = $helper->__('TAX/VAT number is required.');
         }
 
         if (empty($errors)) {

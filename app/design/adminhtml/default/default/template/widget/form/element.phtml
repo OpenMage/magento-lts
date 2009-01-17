@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -72,8 +78,9 @@
 	case 'wysiwyg': ?>
     <span class="form_row">
 	  <label for="<?php echo $element->getHtmlId() ?>"><?php echo $element->getLabel() ?>:</label>
-		<script language="javascript" type="text/javascript" src="<?php echo Mage::getBaseUrl('js') ?>tiny_mce/tiny_mce.js"></script>
-		<script language="javascript" type="text/javascript">
+		<script type="text/javascript" src="<?php echo Mage::getBaseUrl('js') ?>tiny_mce/tiny_mce.js"></script>
+		<script type="text/javascript">
+		//<![CDATA[
 		tinyMCE.init({
 			mode : "exact",
 			theme : "advanced",
@@ -95,6 +102,7 @@
             doctype : '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
 
 		});
+		//]]>
 		</script>
 	  <textarea name="<?php echo $element->getName() ?>" title="<?php echo $element->getTitle() ?>" id="<?php echo $element->getHtmlId() ?>" class="textarea <?php echo $element->getClass() ?>" cols="80" rows="20"><?php echo $element->getValue(); ?></textarea>
     </span>

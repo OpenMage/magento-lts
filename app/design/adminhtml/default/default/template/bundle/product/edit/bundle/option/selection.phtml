@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -64,7 +70,7 @@ Bundle.Selection.prototype = {
     templateRow : '',
     itemsCount : 0,
     row : null,
-    gridSelection : $H({}),
+    gridSelection : new Hash(),
 
     initialize : function() {
         this.templateBox = '<div class="grid tier form-list" id="' + this.idLabel + '_box_{{parentIndex}}">' + bundleTemplateBox + '</div>';
@@ -83,7 +89,7 @@ Bundle.Selection.prototype = {
             products.push(inputs[i].value);
         }
 
-        this.gridSelection[parts[2]] = $H({});
+        this.gridSelection.set(parts[2], $H({}));
 
         new Ajax.Updater(bOption.idLabel + '_search_' + parts[2], '<?php echo $this->getSelectionSearchUrl() ?>', {
             method: 'post',
@@ -128,10 +134,7 @@ Bundle.Selection.prototype = {
         this.template = new Template(this.templateRow, this.templateSyntax);
         var tbody = $$('#' + this.idLabel + '_box_' + parentIndex + ' tbody');
 
-        new Insertion.Bottom(
-            tbody[0],
-            this.template.evaluate(data)
-        );
+        Element.insert(tbody[0], {'bottom':this.template.evaluate(data)});
 
         if (data.selection_price_type) {
             $A($(this.idLabel + '_'+data.index+'_price_type').options).each(function(option){
@@ -174,18 +177,15 @@ Bundle.Selection.prototype = {
         var div = $(bOption.idLabel + '_' + parentIndex)
         this.template = new Template(this.templateBox, this.templateSyntax);
         var data = {'parentIndex' : parentIndex};
-        new Insertion.Bottom(
-            div,
-            this.template.evaluate(data)
-        );
+        Element.insert(div, {'bottom':this.template.evaluate(data)});
     },
 
     remove : function(event) {
         var element = Event.findElement(event, 'tr');
         var container = Event.findElement(event, 'div');
         if (element) {
-            Element.getElementsBySelector(element, '.delete').each(function(elem){elem.value='1'});
-            Element.getElementsBySelector(element, ['input', 'select']).each(function(elem){elem.hide()});
+            Element.select(element, '.delete').each(function(elem){elem.value='1'});
+            Element.select(element, ['input', 'select']).each(function(elem){elem.hide()});
             Element.removeClassName(element, 'selection');
             Element.hide(element);
 
@@ -221,13 +221,14 @@ Bundle.Selection.prototype = {
         $(bOption.idLabel + '_search_' + parts[2]).innerHTML = '';
         $(bOption.idLabel + '_' + parts[2] + '_add_button').show();
 
-        this.gridSelection[parts[2]].each(
+        this.gridSelection.get(parts[2]).each(
             function(pair) {
+                var qty = pair.value.get('qty');
                 var data = {
-                    'name' : pair.value.name,
+                    'name' : pair.value.get('name'),
                     'selection_price_value' : 0,
-                    'selection_qty' : pair.value.qty == '' ? 1 : pair.value.qty,
-                    'sku' : pair.value.sku,
+                    'selection_qty' : (qty == '' ? 1 : qty),
+                    'sku' : pair.value.get('sku'),
                     'position' : 0,
                     'product_id' : pair.key,
                     'option_id' : $(bOption.idLabel + '_id_' + parts[2]).value
@@ -247,17 +248,20 @@ Bundle.Selection.prototype = {
         }
     },
 
-    productGridCheckboxCheck : function(grid, element) {
+    productGridCheckboxCheck : function(grid, element, checked) {
         var id = element.up('table').id.split('_')[4];
         if (element.value > 0) {
             if (element.checked) {
                 var tr = element.parentNode.parentNode;
-                this.gridSelection[id][element.value] = $H({});
-                this.gridSelection[id][element.value]['name'] = tr.getElementsByClassName('name')[0].innerHTML;
-                this.gridSelection[id][element.value]['qty'] = tr.getElementsByClassName('qty')[0].value;
-                this.gridSelection[id][element.value]['sku'] = tr.getElementsByClassName('sku')[0].innerHTML;
+                if (!this.gridSelection.get(id)) {
+                    this.gridSelection.set(id, new Hash());
+                }
+                this.gridSelection.get(id).set(element.value, $H({}));
+                this.gridSelection.get(id).get(element.value).set('name', tr.select('td.name')[0].innerHTML);
+                this.gridSelection.get(id).get(element.value).set('qty', tr.select('input.qty')[0].value);
+                this.gridSelection.get(id).get(element.value).set('sku', tr.select('td.sku')[0].innerHTML);
             } else {
-                this.gridSelection[id].remove(element.value);
+                this.gridSelection.get(id).unset(element.value);
             }
         }
     },
@@ -266,7 +270,7 @@ Bundle.Selection.prototype = {
         var trElement = Event.findElement(event, 'tr');
         var isInput = Event.element(event).tagName == 'INPUT';
         if (trElement) {
-            var checkbox = Element.getElementsBySelector(trElement, 'input');
+            var checkbox = Element.select(trElement, 'input');
             if (checkbox[0]) {
                 var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
                 grid.setCheckboxChecked(checkbox[0], checked);
@@ -280,7 +284,7 @@ Bundle.Selection.prototype = {
             return;
         }
         var id = element.up('table').id.split('_')[4];
-        this.gridSelection[id][element.checkbox.value]['qty'] = element.value;
+        this.gridSelection.get(id).get(element.checkbox.value).set('qty', element.value);
     }
 }
 

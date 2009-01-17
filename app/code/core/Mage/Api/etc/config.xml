@@ -13,6 +13,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category    Mage
  * @package     Mage_Api
  * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -102,4 +108,41 @@
             </modules>
         </translate>
     </frontend>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <api>
+                                            <title>Magento Core Api Section</title>
+                                        </api>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <translate>
+            <modules>
+                <Mage_Api>
+                    <files>
+                        <default>Mage_Api.csv</default>
+                    </files>
+                </Mage_Api>
+            </modules>
+        </translate>
+    </adminhtml>
+    <default>
+        <api>
+            <config>
+                <session_timeout>3600</session_timeout>
+            </config>
+        </api>
+    </default>
 </config>

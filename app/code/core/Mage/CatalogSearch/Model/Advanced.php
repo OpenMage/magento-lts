@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -58,7 +64,7 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
         $attributes = $this->getAttributes();
         $allConditions = array();
         $filteredAttributes = array();
-        $indexFilters = Mage::getModel('catalogindex/indexer')->buildEntityFilter($attributes, $values, $filteredAttributes);
+        $indexFilters = Mage::getModel('catalogindex/indexer')->buildEntityFilter($attributes, $values, $filteredAttributes, $this->getProductCollection());
         foreach ($indexFilters as $filter) {
             $this->getProductCollection()->addFieldToFilter('entity_id', array('in'=>new Zend_Db_Expr($filter)));
         }
@@ -87,6 +93,8 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
                         } else {
                             $condition = $value;
                         }
+                    } elseif ($attribute->getFrontendInput() == 'boolean') {
+                        $condition = array('in' => array(0,1));
                     }
                 }
             }
@@ -121,15 +129,23 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
         $name = $attribute->getFrontend()->getLabel();
 
         if (is_array($value) && (isset($value['from']) || isset($value['to']))){
+            if (isset($value['currency'])) {
+                $currencyModel = Mage::getModel('directory/currency')->load($value['currency']);
+                $from = $currencyModel->format($value['from'], array(), false);
+                $to = $currencyModel->format($value['to'], array(), false);
+            } else {
+                $currencyModel = null;
+            }
+
             if ($value['from'] > 0 && $value['to'] > 0) {
                 // -
-                $value = sprintf('%s - %s', $value['from'], $value['to']);
+                $value = sprintf('%s - %s', ($currencyModel ? $from : $value['from']), ($currencyModel ? $to : $value['to']));
             } elseif ($value['from'] > 0) {
                 // and more
-                $value = Mage::helper('catalogsearch')->__('%s and greater', $value['from']);
+                $value = Mage::helper('catalogsearch')->__('%s and greater', ($currencyModel ? $from : $value['from']));
             } elseif ($value['to'] > 0) {
                 // to
-                $value = Mage::helper('catalogsearch')->__('up to %s', $value['to']);
+                $value = Mage::helper('catalogsearch')->__('up to %s', ($currencyModel ? $to : $value['to']));
             }
         }
 
@@ -164,6 +180,7 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
             $this->_productCollection = Mage::getResourceModel('catalogsearch/advanced_collection')
                 ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
                 ->addMinimalPrice()
+                ->addTaxPercents()
                 ->addStoreFilter();
                 Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($this->_productCollection);
                 Mage::getSingleton('catalog/product_visibility')->addVisibleInSearchFilterToCollection($this->_productCollection);

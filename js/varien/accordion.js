@@ -11,6 +11,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,12 +33,12 @@ Accordion.prototype = {
             Event.observe(header,'click',this.sectionClicked.bindAsEventListener(this));
         }.bind(this));
     },
-    
+
     sectionClicked: function(event) {
         this.openSection($(Event.element(event)).up('.section'));
         Event.stop(event);
     },
-    
+
     openSection: function(section) {
         var section = $(section);
 
@@ -45,10 +51,10 @@ Accordion.prototype = {
             this.closeExistingSection();
             this.currentSection = section.id;
             $(this.currentSection).addClassName('active');
-            var contents = document.getElementsByClassName('a-item',section);
+            var contents = Element.select(section, '.a-item');
             contents[0].show();
             //Effect.SlideDown(contents[0], {duration:.2});
-            
+
             if (this.disallowAccessToNextSections) {
                 var pastCurrentSection = false;
                 for (var i=0; i<this.sections.length; i++) {
@@ -62,14 +68,14 @@ Accordion.prototype = {
             }
         }
     },
-    
+
     closeSection: function(section) {
         $(section).removeClassName('active');
-        var contents = document.getElementsByClassName('a-item',section);
+        var contents = Element.select(section, '.a-item');
         contents[0].hide();
         //Effect.SlideUp(contents[0]);
     },
-    
+
     openNextSection: function(setAllow){
         for (section in this.sections) {
             var nextIndex = parseInt(section)+1;
@@ -82,7 +88,7 @@ Accordion.prototype = {
             }
         }
     },
-    
+
     openPrevSection: function(setAllow){
         for (section in this.sections) {
             var prevIndex = parseInt(section)-1;
@@ -95,7 +101,7 @@ Accordion.prototype = {
             }
         }
     },
-    
+
     closeExistingSection: function() {
         if(this.currentSection) {
             this.closeSection(this.currentSection);

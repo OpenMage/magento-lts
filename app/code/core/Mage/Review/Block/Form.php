@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Review
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -33,6 +39,14 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
 
         $data =  Mage::getSingleton('review/session')->getFormData(true);
         $data = new Varien_Object($data);
+
+        // add logged in customer name as nickname
+        if (!$data->getNickname()) {
+            $customer = Mage::getSingleton('customer/session')->getCustomer();
+            if ($customer && $customer->getId()) {
+                $data->setNickname($customer->getFirstname());
+            }
+        }
 
         $this->setTemplate('review/form.phtml')
             ->assign('data', $data)

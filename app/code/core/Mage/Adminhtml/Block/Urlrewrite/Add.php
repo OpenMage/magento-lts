@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -42,18 +48,19 @@ class Mage_Adminhtml_Block_Urlrewrite_Add extends Mage_Adminhtml_Block_Widget_Fo
 
         $this->_formScripts[] = '
             toggleFieldsetVis("add_urlrewrite_form");
-            toggleFieldsetVis("add_urlrewrite_grid");
-            toggleFieldsetVis("add_urlrewrite_category");
+            toggleVis("products_grid");
+            toggleVis("category_tree");
 
             //toggleParentVis("add_urlrewrite_form");
-            //toggleParentVis("add_urlrewrite_grid");
-            //toggleParentVis("add_urlrewrite_category");
+            //toggleParentVis("products_grid");
+            //toggleParentVis("category_tree");
             toggleVis("save_button");
             toggleVis("reset_button");
             document.getElementById("urlrewrite_container").style.display="block";
         ';
 
         $this->_formInitScripts[] = '
+            //<![CDATA[
             var urlrewrite = function() {
                 return {
                     productInfoUrl : null,
@@ -76,15 +83,15 @@ class Mage_Adminhtml_Block_Urlrewrite_Add extends Mage_Adminhtml_Block_Widget_Fo
                     },
 
                     showForm : function() {
-                        toggleFieldsetVis("add_urlrewrite_grid");
-                        toggleFieldsetVis("add_urlrewrite_category");
+                        toggleVis("products_grid");
+                        toggleVis("category_tree");
                         toggleVis("save_button");
                         toggleVis("reset_button");
                     },
 
                     showForm1 : function() {
                         toggleFieldsetVis("add_urlrewrite_form");
-                        toggleFieldsetVis("add_urlrewrite_category");
+                        toggleVis("category_tree");
                         toggleVis("save_button");
                         toggleVis("reset_button");
                     },
@@ -96,10 +103,10 @@ class Mage_Adminhtml_Block_Urlrewrite_Add extends Mage_Adminhtml_Block_Widget_Fo
 
                             urlrewrite.categoryInfoUrl = "' . $this->getUrl('*/urlrewrite/getCategoryInfo') . '";
                             var con = new Ext.lib.Ajax.request(\'POST\', urlrewrite.categoryInfoUrl, {success:urlrewrite.loadCategory,failure:urlrewrite.reqFailure});
-                        	toggleFieldsetVis("add_urlrewrite_category");
+                        	toggleVis("category_tree");
                         	toggleFieldsetVis("add_urlrewrite_type");
                         } else if (typeDom.options[typeDom.options.selectedIndex].value == 2) {
-                        	toggleFieldsetVis("add_urlrewrite_grid");
+                        	toggleVis("products_grid");
                         	toggleFieldsetVis("add_urlrewrite_type");
                         } else if (typeDom.options[typeDom.options.selectedIndex].value == 3) {
                         	toggleFieldsetVis("add_urlrewrite_form");
@@ -117,7 +124,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Add extends Mage_Adminhtml_Block_Widget_Fo
                         } else if( response.id ){
                             $("product_id").value = response.id;
 
-                            $("product_name").innerHTML = \'<a href="' . $this->getUrl('*/catalog_product/edit') . 'id/\' + response.id + \'" target="_blank">\' + response.name + \'</a>\';
+                            $("product_name").innerHTML = \'<a href="' . $this->getUrl('*/catalog_product/edit') . 'id/\' + response.id + \'" target="_blank">\' + response.name + \'<\/a>\';
                             $("id_path").value = "product/" + response.id;
                             $("request_path").value = response.url_key + ".html";
                             $("target_path").value = "catalog/product/view/id/" + response.id;
@@ -137,7 +144,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Add extends Mage_Adminhtml_Block_Widget_Fo
         					// Create category tree using json data
         					buildCategoryTree(_root, response);
         					// Expand all tree members
-        					_tree.expandAll();
+        					//_tree.expandAll();
         					// Disable associated categories for current product
         					_tree.disableChecked();
         				}
@@ -188,6 +195,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Add extends Mage_Adminhtml_Block_Widget_Fo
 
             // trim function for string
             String.prototype.trim = function () { return this.replace(/^\s+|\s+$/g, ""); };
+            //]]>
         ';
     }
 

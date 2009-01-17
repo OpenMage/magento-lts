@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -39,16 +45,16 @@
 
         <?php if ($this->helper('tax')->displayBothPrices() && $_finalPriceInclTax != $_finalPrice): ?>
             <span class="price-excluding-tax">
-                <span class="label"><?php echo $this->__('Excl. Tax:') ?></span>
+                <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                 <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price,true,false) ?></span>
             </span>
             <span class="price-including-tax">
-                <span class="label"><?php echo $this->__('Incl. Tax:') ?></span>
+                <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
                 <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPriceInclTax,true,false) ?></span>
             </span>
         <?php else: ?>
         <span class="regular-price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price,true,true) ?></span>
-		<?php endif; ?>
+        <?php endif; ?>
 
     <?php else: /* if ($_finalPrice == $_price): */ ?>
         <p class="old-price">
@@ -57,23 +63,23 @@
         </p>
 
         <?php if ($this->helper('tax')->displayBothPrices() && $_finalPriceInclTax != $_finalPrice): ?>
-	        <p class="special-price">
-	            <span class="price-label"><?php echo $this->__('Special Price:') ?></span>
-	            <span class="price-excluding-tax">
-	                <span class="label"><?php echo $this->__('Excl. Tax:') ?></span>
-	                <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?></span>
-	            </span>
+            <p class="special-price">
+                <span class="price-label"><?php echo $this->__('Special Price:') ?></span>
+                <span class="price-excluding-tax">
+                    <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
+                    <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?></span>
+                </span>
             <span class="price-including-tax">
-                <span class="label"><?php echo $this->__('Incl. Tax:') ?></span>
+                <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
                 <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPriceInclTax,true,false) ?></span>
             </span>
-			</p>
+            </p>
         <?php else: ?>
         <p class="special-price">
             <span class="price-label"><?php echo $this->__('Special Price:') ?></span>
             <span class="price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?></span>
         </p>
-		<?php endif; ?>
+        <?php endif; ?>
 
     <?php endif; /* if ($_finalPrice == $_price): */ ?>
 
@@ -86,14 +92,31 @@
     </div>
 
 <?php else: /* if (!$_product->isGrouped()): */ ?>
-
+    <?php
+    $_exclTax = $this->helper('tax')->getPrice($_product, $_minimalPriceValue, $includingTax = null);
+    $_inclTax = $this->helper('tax')->getPrice($_product, $_minimalPriceValue, $includingTax = true);
+    ?>
     <?php if ($this->getDisplayMinimalPrice() && $_minimalPriceValue): ?>
         <div class="price-box">
-            <a href="<?php echo $_product->getProductUrl(); ?>" class="minimal-price-link">
-                <span class="label"><?php echo $this->__('Starting at:') ?></span>
-                <span class="price" id="product-minimal-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_minimalPrice,true,false) ?></span>
-            </a>
+            <span class="label"><?php echo $this->__('Starting at:') ?></span>
+            <?php if ($this->helper('tax')->displayBothPrices() && ($_exclTax !== $_inclTax)): ?>
+                <span class="price-excluding-tax">
+                    <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
+                    <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_exclTax, true, false) ?></span>
+                </span>
+                <span class="price-including-tax">
+                    <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
+                    <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_inclTax, true, false) ?></span>
+                </span>
+            <?php else: ?>
+                <?php
+                $_showPrice = $_inclTax;
+                if (!$this->helper('tax')->displayCartPriceInclTax()) {
+                    $_showPrice = $_exclTax;
+                }
+                ?>
+            <span class="price" id="product-minimal-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_showPrice, true, false) ?></span>
+            <?php endif; ?>
         </div>
     <?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice): */ ?>
-
 <?php endif; /* if (!$_product->isGrouped()): */ ?>

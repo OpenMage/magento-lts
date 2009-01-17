@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -97,7 +103,7 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
         //Mage::getSingleton('checkout/session')->getQuote()->setIsActive(true)->save();
         //and then redirect to checkout one page
         $this->_redirect('checkout/cart');
-     }
+    }
 
     /**
      * when paypal returns
@@ -113,16 +119,6 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
          * set the quote as inactive after back from paypal
          */
         Mage::getSingleton('checkout/session')->getQuote()->setIsActive(false)->save();
-
-        /**
-         * send confirmation email to customer
-         */
-        $order = Mage::getModel('sales/order');
-
-        $order->load(Mage::getSingleton('checkout/session')->getLastOrderId());
-        if($order->getId()){
-            $order->sendNewOrderEmail();
-        }
 
         //Mage::getSingleton('checkout/session')->unsQuoteId();
 

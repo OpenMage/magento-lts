@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -45,7 +51,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
 
         echo '<style type="text/css">
     ul { list-style-type:none; padding:0; margin:0; }
-    li { margin-left:0; border:solid #CCC 1px; margin:2px; padding:2px 2px 2px 2px; font:normal 12px sans-serif; }
+    li { margin-left:0; border:1px solid #ccc; margin:2px; padding:2px 2px 2px 2px; font:normal 12px sans-serif; }
     img { margin-right:5px; }
     </style>
     <title>'.($profile->getId() ? $this->htmlEscape($profile->getName()) : $this->__('No profile')).'</title>
@@ -161,23 +167,23 @@ function execImportData() {
 
         $("updatedRows").down("img").src = config.styles.message.icon;
         $("updatedRows").style.backgroundColor = config.styles.message.bg;
-        new Insertion.Before($("liFinished"), config.tpl.evaluate({
+        Element.insert($("liFinished"), {before: config.tpl.evaluate({
             style: "background-color:"+config.styles.message.bg,
             image: config.styles.message.icon,
             text: config.tplSccTxt.evaluate({updated:(countOfUpdated-countOfError)}),
             id: "updatedFinish"
-        }));
+        })});
         new Ajax.Request("' . $this->getUrl('*/*/batchFinish', array('id' => $batchModel->getId())) .'", {
             onComplete: function(transport) {
                 if (transport.responseText.isJSON()) {
                     var response = transport.responseText.evalJSON();
                     if (response.error) {
-                        new Insertion.Before($("liFinished"), config.tpl.evaluate({
+                        Element.insert($("liFinished"), {before: config.tpl.evaluate({
                             style: "background-color:"+config.styles.error.bg,
                             image: config.styles.error.icon,
                             text: response.error.escapeHTML(),
                             id: "error-finish"
-                        }));
+                        })});
                     }
                 }
 
@@ -196,12 +202,12 @@ function sendImportData(data) {
         config.tplSccTxt = new Template(config.successText);
     }
     if (!$("updatedRows")) {
-        new Insertion.Before($("liFinished"), config.tpl.evaluate({
+        Element.insert($("liFinished"), {before: config.tpl.evaluate({
             style: "background-color: #FFD;",
             image: config.styles.loader,
             text: config.tplTxt.evaluate({updated:countOfUpdated, percent:getPercent()}),
             id: "updatedRows"
-        }));
+        })});
     }
     countOfStartedProfiles++;
 
@@ -214,12 +220,12 @@ function sendImportData(data) {
         if (transport.responseText.isJSON()) {
             addProfileRow(transport.responseText.evalJSON());
         } else {
-            new Insertion.Before($("updatedRows"), config.tpl.evaluate({
+            Element.insert($("updatedRows"), {before: config.tpl.evaluate({
                 style: "background-color:"+config.styles.error.bg,
                 image: config.styles.error.icon,
                 text: transport.responseText.escapeHTML(),
                 id: "error-" + countOfStartedProfiles
-            }));
+            })});
             countOfError += data["rows[]"].length;
         }
         execImportData();
@@ -234,12 +240,12 @@ function getPercent() {
 function addProfileRow(data) {
     if (data.errors.length > 0) {
         for (var i=0, length=data.errors.length; i<length; i++) {
-            new Insertion.Before($("updatedRows"), config.tpl.evaluate({
+            Element.insert($("updatedRows"), {before: config.tpl.evaluate({
                 style: "background-color:"+config.styles.error.bg,
                 image: config.styles.error.icon,
                 text: data.errors[i],
                 id: "id-" + (countOfUpdated + i + 1)
-            }));
+            })});
             countOfError ++;
         }
     }

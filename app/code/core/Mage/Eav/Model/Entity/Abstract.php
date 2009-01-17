@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -498,7 +504,7 @@ abstract class Mage_Eav_Model_Entity_Abstract
      * @param   Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return  boolean
      */
-    protected function _isApplicableAttribute ($object, $attribute)
+    protected function _isApplicableAttribute($object, $attribute)
     {
         return true;
     }
@@ -554,8 +560,12 @@ abstract class Mage_Eav_Model_Entity_Abstract
                     $instance = $attribute->getSource();
                     break;
             }
+
             try {
                 $results[$attrCode] = call_user_func_array(array($instance, $method), $args);
+            }
+            catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
+                throw $e;
             }
             catch (Exception $e) {
                 $exception = new Mage_Eav_Model_Entity_Attribute_Exception($e->getMessage());

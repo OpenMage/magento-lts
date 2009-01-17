@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -103,7 +109,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
                 $element = $fieldset->addField($attribute->getAttributeCode(), $inputType,
                     array(
                         'name'  => $attribute->getAttributeCode(),
-                        'label' => $attribute->getFrontend()->getLabel(),
+                        'label' => __($attribute->getFrontend()->getLabel()),
                         'class' => $attribute->getFrontend()->getClass(),
                         'required' => $attribute->getIsRequired(),
                         'note' => $attribute->getNote(),
@@ -114,7 +120,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
                 $element->setAfterElementHtml($this->_getAdditionalElementHtml($element));
 
                 if ($inputType == 'select' || $inputType == 'multiselect') {
-                    $element->setValues($attribute->getFrontend()->getSelectOptions());
+                    $element->setValues($attribute->getSource()->getAllOptions(true, true));
                 }
 
                 if ($inputType == 'date') {

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -141,16 +147,26 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         unset($params['url']);
 
         if (!self::$_urlInstance) {
-            self::$_urlInstance = Mage::getModel('core/url');
+            self::$_urlInstance = Mage::getModel('core/url')->setStore(
+                Mage::app()->getStore(Mage::getDesign()->getStore())->getId()
+            );
         }
-
+        $_urlInstanceOldStore = null;
         if (!empty($path) && !Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL)
             && !Mage::app()->isSingleStoreMode())
         {
-            $params['_query']['___store'] = Mage::app()->getStore()->getCode();
+            $params['_query']['___store'] = Mage::app()->getStore(Mage::getDesign()->getStore())->getCode();
+        } elseif (!empty($path) && Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL)
+            && !Mage::app()->isSingleStoreMode())
+        {
+            $_urlInstanceOldStore = self::$_urlInstance->getStore();
+            self::$_urlInstance->setStore(Mage::app()->getStore(Mage::getDesign()->getStore())->getCode());
         }
 
         $url = self::$_urlInstance->getUrl($path, $params);
+        if (null ==! $_urlInstanceOldStore) {
+            self::$_urlInstance->setStore($_urlInstanceOldStore);
+        }
 
         return $url;
     }

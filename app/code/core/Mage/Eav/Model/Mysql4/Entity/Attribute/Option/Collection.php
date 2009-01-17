@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -46,6 +52,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Option_Collection extends Mage_Core
         if (is_null($storeId)) {
             $storeId = Mage::app()->getStore()->getId();
         }
+        $sortBy = 'store_default_value';
         if ($useDefaultValue) {
             $this->getSelect()
                 ->join(array('store_default_value'=>$this->_optionValueTable),
@@ -58,12 +65,14 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Option_Collection extends Mage_Core
                 ->where($this->getConnection()->quoteInto('store_default_value.store_id=?', 0));
         }
         else {
+            $sortBy = 'store_value';
             $this->getSelect()
                 ->joinLeft(array('store_value'=>$this->_optionValueTable),
                     'store_value.option_id=main_table.option_id AND '.$this->getConnection()->quoteInto('store_value.store_id=?', $storeId),
                     'value')
                 ->where($this->getConnection()->quoteInto('store_value.store_id=?', $storeId));
         }
+        $this->setOrder("{$sortBy}.value", 'ASC');
 
         return $this;
     }
@@ -79,14 +88,21 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Option_Collection extends Mage_Core
         return $this;
     }
 
-    public function toOptionArray()
+    public function toOptionArray($valueKey = 'value')
     {
-        return $this->_toOptionArray('option_id', 'value');
+        return $this->_toOptionArray('option_id', $valueKey);
     }
 
-    public function setPositionOrder($dir='asc')
+    public function setPositionOrder($dir = 'ASC', $sortAlpha = false)
     {
         $this->setOrder('main_table.sort_order', $dir);
+        // sort alphabetically by values in admin
+        if ($sortAlpha) {
+            $this->getSelect()->joinLeft(array('sort_alpha_value' => $this->_optionValueTable),
+                'sort_alpha_value.option_id=main_table.option_id AND sort_alpha_value.store_id=0', 'value'
+            );
+            $this->setOrder('sort_alpha_value.value', $dir);
+        }
         return $this;
     }
 }

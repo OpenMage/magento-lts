@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -147,18 +153,10 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         if (!$this->getQuote()->getCustomerId() && 'register' == $this->getQuote()->getCheckoutMethod()) {
-            $email = $address->getEmail();
-            /**
-             * Fix for #5076
-             * @see Mage_Customer_Model_Entity_Customer::loadByEmail()
-             */
-            $customer = Mage::getModel('customer/customer')->setWebsiteId(Mage::app()->getWebsite()->getId())->loadByEmail($email);
-            if ($customer->getId()) {
-                $res = array(
-                    'error' => 1,
+            if ($this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())) {
+                return array('error' => 1,
                     'message' => Mage::helper('checkout')->__('There is already a customer registered using this email address')
                 );
-                return $res;
             }
         }
 
@@ -179,8 +177,10 @@ class Mage_Checkout_Model_Type_Onepage
                     $billing = clone $address;
                     $billing->unsAddressId()->unsAddressType();
                     $shipping = $this->getQuote()->getShippingAddress();
+                    $shippingMethod = $shipping->getShippingMethod();
                     $shipping->addData($billing->getData())
                         ->setSameAsBilling(1)
+                        ->setShippingMethod($shippingMethod)
                         ->setCollectShippingRates(true);
                     $this->getCheckout()->setStepData('shipping', 'complete', true);
                     break;
@@ -192,7 +192,7 @@ class Mage_Checkout_Model_Type_Onepage
             $this->getQuote()->setPasswordHash($customer->encryptPassword($address->getCustomerPassword()));
         }
 
-        $this->getQuote()->setCustomerDob($address->getDob());
+        $this->getQuote()->setCustomerDob(Mage::app()->getLocale()->date($address->getDob(), null, null, false)->toString('yyyy-MM-dd'));
         $this->getQuote()->collectTotals();
         $this->getQuote()->save();
 
@@ -319,7 +319,7 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         if (!($this->getQuote()->getPayment()->getMethod())) {
-            Mage::throwException('Please select valid payment method.');
+            Mage::throwException($helper->__('Please select valid payment method.'));
         }
     }
 
@@ -338,6 +338,9 @@ class Mage_Checkout_Model_Type_Onepage
         }
         switch ($this->getQuote()->getCheckoutMethod()) {
         case 'guest':
+            if (!$this->getQuote()->isAllowedGuestCheckout()) {
+                Mage::throwException(Mage::helper('checkout')->__('Sorry, guest checkout is not enabled. Please try again or contact store owner.'));
+            }
             $this->getQuote()->setCustomerEmail($billing->getEmail())
                 ->setCustomerIsGuest(true)
                 ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
@@ -434,6 +437,12 @@ class Mage_Checkout_Model_Type_Onepage
          * We can use configuration data for declare new order status
          */
         Mage::dispatchEvent('checkout_type_onepage_save_order', array('order'=>$order, 'quote'=>$this->getQuote()));
+        // check again, if customer exists
+        if ($this->getQuote()->getCheckoutMethod() == 'register') {
+            if ($this->_customerEmailExists($customer->getEmail(), Mage::app()->getWebsite()->getId())) {
+                Mage::throwException(Mage::helper('checkout')->__('There is already a customer registered using this email address'));
+            }
+        }
         $order->place();
 
         if ($this->getQuote()->getCheckoutMethod()=='register') {
@@ -516,6 +525,26 @@ class Mage_Checkout_Model_Type_Onepage
         $this->getQuote()->save();
 
         return $this;
+    }
+
+    /**
+     * Check if customer email exists
+     *
+     * @param string $email
+     * @param int $websiteId
+     * @return false|Mage_Customer_Model_Customer
+     */
+    protected function _customerEmailExists($email, $websiteId = null)
+    {
+        $customer = Mage::getModel('customer/customer');
+        if ($websiteId) {
+            $customer->setWebsiteId($websiteId);
+        }
+        $customer->loadByEmail($email);
+        if ($customer->getId()) {
+            return $customer;
+        }
+        return false;
     }
 
     /**

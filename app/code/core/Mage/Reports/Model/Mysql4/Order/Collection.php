@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -146,8 +152,9 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
         $this->getSelect()->join(
                 array('items'=>$this->getTable('sales/order_item')),
                 'items.order_id=e.entity_id',
-                array('items_count'=>new Zend_Db_Expr('COUNT(items.item_id)'))
+                array('items_count'=>new Zend_Db_Expr('COUNT(items.item_id)', 'parent_item'))
             )
+            ->where('items.parent_item_id is NULL')
             ->group('e.entity_id');
         return $this;
     }

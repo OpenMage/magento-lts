@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -33,6 +39,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     const DM_PRODUCT        = 'PRODUCTS';
     const DM_PAGE           = 'PAGE';
     const DM_MIXED          = 'PRODUCTS_AND_PAGE';
+    const TREE_ROOT_ID      = 1;
 
     const CACHE_TAG         = 'catalog_category';
     protected $_cacheTag    = 'catalog_category';
@@ -352,7 +359,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 
     public function getAllChildren()
     {
+        $this->getTreeModelInstance()->load();
         $children = $this->getTreeModelInstance()->getChildren($this->getId());
+
         $myId = array($this->getId());
         if (is_array($children)) {
             $children = array_merge($myId, $children);
@@ -364,6 +373,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 
     public function getChildren()
     {
+        $this->getTreeModelInstance()->load();
         return implode(',', $this->getTreeModelInstance()->getChildren($this->getId(), false));
     }
 
@@ -433,5 +443,34 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     {
         $this->_protectFromNonAdmin();
         return parent::_beforeDelete();
+    }
+
+    public function getAnchorsAbove()
+    {
+        $anchors = array();
+        $path = $this->getPathIds();
+
+        if (in_array($this->getId(), $path)) {
+            unset($path[array_search($this->getId(), $path)]);
+        }
+
+        if (!Mage::registry('_category_is_anchor_attribute')) {
+            $model = $this->getResource()->getAttribute('is_anchor');
+            Mage::register('_category_is_anchor_attribute', $model);
+        }
+
+        if ($isAnchorAttribute = Mage::registry('_category_is_anchor_attribute')) {
+            $anchors = $this->getResource()->findWhereAttributeIs($path, $isAnchorAttribute, 1);
+        }
+        return $anchors;
+    }
+
+    public function getProductCount()
+    {
+        if (!$this->hasProductCount()) {
+            $count = $this->_getResource()->getProductCount($this); // load product count
+            $this->setData('product_count', $count);
+        }
+        return $this->getData('product_count');
     }
 }

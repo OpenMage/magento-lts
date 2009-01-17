@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -104,6 +110,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
         $orderState = Mage_Sales_Model_Order::STATE_NEW;
         $orderStatus= false;
+
+        $stateObject = new Varien_Object();
+
         /**
          * validating payment method again
          */
@@ -112,52 +121,64 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             /**
              * Run action declared for payment method in configuration
              */
-            switch ($action) {
-                case Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE:
-                case Mage_Paypal_Model_Api_Abstract::PAYMENT_TYPE_AUTH:
-                    $methodInstance->authorize($this, $this->getOrder()->getBaseTotalDue());
 
-                    $this->setAmountAuthorized($this->getOrder()->getTotalDue());
-                    $this->setBaseAmountAuthorized($this->getOrder()->getBaseTotalDue());
+            if ($methodInstance->isInitializeNeeded()) {
+                $methodInstance->initialize($action, $stateObject);
+            } else {
+                switch ($action) {
+                    case Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE:
+                    case Mage_Paypal_Model_Api_Abstract::PAYMENT_TYPE_AUTH:
+                        $methodInstance->authorize($this, $this->getOrder()->getBaseTotalDue());
 
-                    $orderState = Mage_Sales_Model_Order::STATE_PROCESSING;
-                    break;
-                case Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE_CAPTURE:
-                case Mage_Paypal_Model_Api_Abstract::PAYMENT_TYPE_SALE:
-                    $invoice = $this->_invoice();
+                        $this->setAmountAuthorized($this->getOrder()->getTotalDue());
+                        $this->setBaseAmountAuthorized($this->getOrder()->getBaseTotalDue());
 
-                    $this->setAmountAuthorized($this->getOrder()->getTotalDue());
-                    $this->setBaseAmountAuthorized($this->getOrder()->getBaseTotalDue());
+                        $orderState = Mage_Sales_Model_Order::STATE_PROCESSING;
+                        break;
+                    case Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE_CAPTURE:
+                    case Mage_Paypal_Model_Api_Abstract::PAYMENT_TYPE_SALE:
+                        $invoice = $this->_invoice();
 
-                    $orderState = Mage_Sales_Model_Order::STATE_PROCESSING;
-                    break;
-                default:
-                    break;
+                        $this->setAmountAuthorized($this->getOrder()->getTotalDue());
+                        $this->setBaseAmountAuthorized($this->getOrder()->getBaseTotalDue());
+
+                        $orderState = Mage_Sales_Model_Order::STATE_PROCESSING;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
-        /*
-        * this flag will set if the order went to as authorization under fraud service for payflowpro
-        */
-        if ($this->getFraudFlag()) {
-            $orderStatus = $methodInstance->getConfigData('fraud_order_status');
-            $orderState = Mage_Sales_Model_Order::STATE_HOLDED;
+        $orderIsNotified = null;
+        if ($stateObject->getState() && $stateObject->getStatus()) {
+            $orderState      = $stateObject->getState();
+            $orderStatus     = $stateObject->getStatus();
+            $orderIsNotified = $stateObject->getIsNotified();
         } else {
-            /**
-             * Change order status if it specified
+            /*
+             * this flag will set if the order went to as authorization under fraud service for payflowpro
              */
-            $orderStatus = $methodInstance->getConfigData('order_status');
-        }
+            if ($this->getFraudFlag()) {
+                $orderStatus = $methodInstance->getConfigData('fraud_order_status');
+                $orderState = Mage_Sales_Model_Order::STATE_HOLDED;
+            } else {
+                /**
+                 * Change order status if it specified
+                 */
+                $orderStatus = $methodInstance->getConfigData('order_status');
+            }
 
-        if (!$orderStatus) {
-            $orderStatus = $this->getOrder()->getConfig()->getStateDefaultStatus($orderState);
+            if (!$orderStatus) {
+                $orderStatus = $this->getOrder()->getConfig()->getStateDefaultStatus($orderState);
+            }
         }
 
         $this->getOrder()->setState($orderState);
         $this->getOrder()->addStatusToHistory(
             $orderStatus,
             $this->getOrder()->getCustomerNote(),
-            $this->getOrder()->getCustomerNoteNotify()
+            (null !== $orderIsNotified ? $orderIsNotified : $this->getOrder()->getCustomerNoteNotify())
         );
 
         Mage::dispatchEvent('sales_order_payment_place_end', array('payment' => $this));

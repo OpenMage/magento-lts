@@ -13,6 +13,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -58,18 +64,48 @@ class Mage_Adminhtml_Extensions_CustomController extends Mage_Adminhtml_Controll
     {
         $package = $this->getRequest()->getParam('id');
         if ($package) {
-            $filename = Mage::getBaseDir('var').DS.'pear'.DS.$package.'.ser';
             $session = Mage::getSingleton('adminhtml/session');
-            if (is_readable($filename)) {
-                $p = file_get_contents($filename);
-                $data = unserialize($p);
+            try {
+                $data = $this->_loadPackageFile(Mage::getBaseDir('var') . DS . 'pear' . DS . $package);
+
+                $data = array_merge($data, array('file_name' => $package));
+
                 $session->setCustomExtensionPackageFormData($data);
                 $session->addSuccess(Mage::helper('adminhtml')->__("Package %s data was successfully loaded", $package));
-            } else {
-                $session->addError(Mage::helper('adminhtml')->__("File %s.ser could not be read", $package));
+            }
+            catch (Exception $e) {
+                $session->addError($e->getMessage());
             }
         }
         $this->_redirect('*/*/edit');
+    }
+
+    private function _loadPackageFile($filenameNoExtension)
+    {
+        $data = null;
+
+        // try to load xml-file
+        $filename = $filenameNoExtension . '.xml';
+        if (file_exists($filename)) {
+            $xml = simplexml_load_file($filename);
+            $data = Mage::helper('core')->xmlToAssoc($xml);
+            if (!empty($data)) {
+                return $data;
+            }
+        }
+
+        // try to load ser-file
+        $filename = $filenameNoExtension . '.ser';
+        if (!is_readable($filename)) {
+            throw new Exception(Mage::helper('adminhtml')->__('Failed to load %1$s.xml or %1$s.ser', basename($filenameNoExtension)));
+        }
+        $contents = file_get_contents($filename);
+        $data = unserialize($contents);
+        if (!empty($data)) {
+            return $data;
+        }
+
+        throw new Exception('Failed to load package data.');
     }
 
     public function saveAction()
@@ -82,9 +118,14 @@ class Mage_Adminhtml_Extensions_CustomController extends Mage_Adminhtml_Controll
             unset($p['_create']);
         }
 
+        if ($p['file_name'] == '') {
+            $p['file_name'] = $p['name'];
+        }
+
         $session->setCustomExtensionPackageFormData($p);
         try {
             $ext = Mage::getModel('adminhtml/extension');
+            /* @var $ext Mage_Adminhtml_Model_Extension */
             $ext->setData($p);
             $output = $ext->getPear()->getOutput();
             if ($ext->savePackage()) {
@@ -206,4 +247,27 @@ class Mage_Adminhtml_Extensions_CustomController extends Mage_Adminhtml_Controll
     {
         return Mage::getSingleton('admin/session')->isAllowed('system/extensions/custom');
     }
+
+    /**
+     * Grid for loading packages
+     *
+     */
+    public function loadtabAction()
+    {
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('adminhtml/extensions_custom_edit_tab_load')->toHtml()
+        );
+    }
+
+    /**
+     * Grid for loading packages
+     *
+     */
+    public function gridAction()
+    {
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('adminhtml/extensions_custom_edit_tab_grid')->toHtml()
+        );
+    }
+
 }

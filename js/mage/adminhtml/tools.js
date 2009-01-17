@@ -11,6 +11,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -93,8 +99,8 @@ function imagePreview(element){
 
 function toggleValueElements(checkbox, container){
     if(container && checkbox){
-        //var elems = container.getElementsBySelector('select', 'input');
-        var elems = Element.getElementsBySelector(container, ['select', 'input', 'textarea', 'button', 'img']);
+        //var elems = container.select('select', 'input');
+        var elems = Element.select(container, ['select', 'input', 'textarea', 'button', 'img']);
         elems.each(function (elem) {
             if(elem!=checkbox) {
                 elem.disabled=checkbox.checked;
@@ -116,7 +122,7 @@ function toggleValueElements(checkbox, container){
  */
 function submitAndReloadArea(area, url) {
     if($(area)) {
-        var fields = $(area).getElementsBySelector('input', 'select', 'textarea');
+        var fields = $(area).select('input', 'select', 'textarea');
         var data = Form.serializeElements(fields, true);
         new Ajax.Request(url, {
             parameters: $H(data),
@@ -181,17 +187,17 @@ if (!navigator.appVersion.match('MSIE 6.')) {
         }
 
         if (!header) {
-            return;
+;            return
         }
-        header_offset = Position.cumulativeOffset(header)[1];
+        header_offset = Element.cumulativeOffset(header)[1];
         var buttons = $$('.content-buttons')[0];
         if (buttons) {
-            new Insertion.Before(buttons, '<div class="content-buttons-placeholder"></div>');
+            Element.insert(buttons, {before: '<div class="content-buttons-placeholder"></div>'});
             buttons.placeholder = buttons.previous('.content-buttons-placeholder');
             buttons.remove();
             buttons.placeholder.appendChild(buttons);
 
-            header_offset = Position.cumulativeOffset(buttons)[1];
+            header_offset = Element.cumulativeOffset(buttons)[1];
 
         }
 
@@ -346,7 +352,7 @@ var Fieldset = {
     saveState: function(url, parameters) {
         new Ajax.Request(url, {
             method: 'get',
-            parameters: Hash.toQueryString(parameters),
+            parameters: Object.toQueryString(parameters),
             loaderArea: false
         });
     }

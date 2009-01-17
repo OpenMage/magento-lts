@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Page
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -85,8 +91,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         $html = '';
 
         $script = '<script type="text/javascript" src="%s" %s></script>';
-        $stylesheet = '<link type="text/css" rel="stylesheet" href="%s" %s></link>';
-        $alternate = '<link rel="alternate" type="%s" href="%s" %s></link>';
+        $stylesheet = '<link rel="stylesheet" type="text/css" href="%s" %s />';
+        $alternate = '<link rel="alternate" type="%s" href="%s" %s />';
 
         foreach ($this->_data['items'] as $item) {
             if (!is_null($item['cond']) && !$this->getData($item['cond'])) {
@@ -124,8 +130,14 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 $html .= '<!--[if '.$if.']>'."\n";
             }
             if (!empty($items['script'])) {
-                foreach ($this->getChunkedItems($items['script'], $baseJs.'index.php?c=auto&amp;f=') as $item) {
-                    $html .= sprintf($script, $item, '')."\n";
+                $scriptItems = array();
+                if (!Mage::getStoreConfigFlag('dev/js/deprecation')) {
+                    $scriptItems = $this->getChunkedItems($items['script'], 'index.php?c=auto&amp;f=');
+                } else {
+                    $scriptItems = $items['script'];
+                }
+                foreach ($scriptItems as $item) {
+                    $html .= sprintf($script, $baseJs.$item, '') . "\n";
                 }
 //                foreach (array_chunk($items['script'], 15) as $chunk) {
 //                    $html .= sprintf($script, $baseJs.'index.php/x.js?f='.join(',',$chunk), '')."\n";

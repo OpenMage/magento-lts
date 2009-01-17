@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -37,7 +43,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
 
         $form->setHtmlIdPrefix('page_');
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('cms')->__('General Information'),'class'=>'cms-edit-form'));
+        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('cms')->__('General Information'),'class'=>'fieldset-wide'));
 
         if ($model->getPageId()) {
         	$fieldset->addField('page_id', 'hidden', array(
@@ -58,7 +64,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
             'title'     => Mage::helper('cms')->__('SEF URL Identifier'),
             'required'  => true,
             'class'     => 'validate-identifier',
-            'after_element_html' => '<span class="hint">' . Mage::helper('cms')->__('(eg: domain.com/identifier)') . '</span>',
+            'after_element_html' => '<p class="nm"><small>' . Mage::helper('cms')->__('(eg: domain.com/identifier)') . '</small></p>',
         ));
 
         /**
@@ -96,7 +102,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
             'name'      => 'content',
             'label'     => Mage::helper('cms')->__('Content'),
             'title'     => Mage::helper('cms')->__('Content'),
-            'style'     => 'width:98%; height:600px;',
+            'style'     => 'height:36em;',
             'wysiwyg'   => false,
             'required'  => true,
         ));

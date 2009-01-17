@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -443,7 +449,14 @@ class Mage_Catalog_Model_Convert_Adapter_Product
         return $this;
     }
 
-    public function saveRow($importData)
+    /**
+     * Save product (import)
+     *
+     * @param array $importData
+     * @throws Mage_Core_Exception
+     * @return bool
+     */
+    public function saveRow(array $importData)
     {
         $product = $this->getProductModel();
         $product->setData(array());
@@ -638,155 +651,31 @@ class Mage_Catalog_Model_Convert_Adapter_Product
         $product->save();
 
         return true;
+    }
 
-
-
-//        static $import, $product, $stockItem;
-        $mem = memory_get_usage(); $origMem = $mem; $memory = $mem;
-
-//        if (!$product) {
-//            $import = Mage::getModel('dataflow/import');
-//            $product = Mage::getModel('catalog/product');
-//            $stockItem = Mage::getModel('cataloginventory/stock_item');
-//        }
-
-        $product = $this->getProduct();
-        $stockItem = $this->getStockItem();
-
-        @set_time_limit(240);
-
-//        $row = unserialize($args['row']['value']);
-        $row = $args;
-        $newMem = memory_get_usage(); $memory .= ', '.($newMem-$mem); $mem = $newMem;
-
-
-
-        $product->importFromTextArray($row);
-        //echo '<pre>';
-        //print_r($product->getData());
-        $newMem = memory_get_usage(); $memory .= ', '.($newMem-$mem); $mem = $newMem;
-
-
-        if (!$product->getData()) {
-            return;
-        }
-
+    /**
+     * Silently save product (import)
+     *
+     * @param array $
+     * @return bool
+     */
+    public function saveRowSilently(array $importData)
+    {
         try {
-            $product->save();
-            $productId= $this->_productId = $product->getId();
-            $product->unsetData();
-
-            $newMem = memory_get_usage(); $memory .= ', '.($newMem-$mem); $mem = $newMem;
-            if ($stockItem) {
-                $stockItem->loadByProduct($productId);
-                if (!$stockItem->getId()) {
-                    $stockItem->setProductId($productId)->setStockId(1);
-                }
-                foreach ($row['row'] as $field=>$value) {
-                    if (in_array($field, $this->_inventoryFields)) {
-                        if ($value != '') $stockItem->setData($field, $value);
-                    }
-                }
-                $stockItem->save();
-                $stockItem->unsetData();
-            }
-
-            $newMem = memory_get_usage(); $memory .= ', '.($newMem-$mem); $mem = $newMem;
-
-            $newMem = memory_get_usage(); $memory .= ', '.($newMem-$mem); $mem = $newMem;
-
-            $newMem = memory_get_usage(); $memory .= ', '.($newMem-$mem); $mem = $newMem;
-
-            $newMem = memory_get_usage(); $memory .= ' = '.($newMem-$origMem); $mem = $newMem;
-
-
-        } catch (Exception $e) {
-
+            $result = $this->saveRow($importData);
+            return $result;
         }
-        unset($row);
-        return array('memory'=>$memory);
-    }
-
-   public function saveRowSilently($args)
-    {
-//        static $import, $product, $stockItem;
-        $mem = memory_get_usage(); $origMem = $mem; $memory = $mem;
-
-//        if (!$product) {
-//            $import = Mage::getModel('dataflow/import');
-//            $product = Mage::getModel('catalog/product');
-//            $stockItem = Mage::getModel('cataloginventory/stock_item');
-//        }
-
-        $product = $this->getProduct();
-        $stockItem = $this->getStockItem();
-
-        @set_time_limit(240);
-
-//        $row = unserialize($args['row']['value']);
-        $row = $args;
-        $newMem = memory_get_usage(); $memory .= ', '.($newMem-$mem); $mem = $newMem;
-
-
-
-        $product->importFromTextArraySilently($row);
-        //echo '<pre>';
-        //print_r($product->getData());
-        $newMem = memory_get_usage(); $memory .= ', '.($newMem-$mem); $mem = $newMem;
-
-
-        if (!$product->getData()) {
-            return;
+        catch (Exception $e) {
+            return false;
         }
-
-        try {
-            $product->save();
-            $productId= $this->_productId = $product->getId();
-            $product->unsetData();
-
-            $newMem = memory_get_usage(); $memory .= ', '.($newMem-$mem); $mem = $newMem;
-            if ($stockItem) {
-                $stockItem->loadByProduct($productId);
-                if (!$stockItem->getId()) {
-                    $stockItem->setProductId($productId)->setStockId(1);
-                }
-                foreach ($row['row'] as $field=>$value) {
-                    if (in_array($field, $this->_inventoryFields)) {
-                        if ($value != '') $stockItem->setData($field, $value);
-                    }
-                }
-                $stockItem->save();
-                $stockItem->unsetData();
-            }
-
-            $newMem = memory_get_usage(); $memory .= ', '.($newMem-$mem); $mem = $newMem;
-
-            $newMem = memory_get_usage(); $memory .= ', '.($newMem-$mem); $mem = $newMem;
-
-            $newMem = memory_get_usage(); $memory .= ', '.($newMem-$mem); $mem = $newMem;
-
-            $newMem = memory_get_usage(); $memory .= ' = '.($newMem-$origMem); $mem = $newMem;
-
-
-        } catch (Exception $e) {
-
-        }
-        unset($row);
-        return array('memory'=>$memory);
     }
 
-    function setInventoryItems($items)
+    /**
+     * Process after import data
+     *
+     */
+    public function finish()
     {
-        $this->_inventoryItems = $items;
-    }
-
-    function getInventoryItems()
-    {
-        return $this->_inventoryItems;
-    }
-
-    function getProductId()
-    {
-        return $this->_productId;
+        Mage::dispatchEvent('catalog_product_import_after', array());
     }
 }

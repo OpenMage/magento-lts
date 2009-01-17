@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -44,10 +50,18 @@ class Mage_Adminhtml_Block_Review_Main extends Mage_Adminhtml_Block_Widget_Grid_
         }
 
         if( Mage::registry('usePendingFilter') === true ) {
-            $this->_headerText = Mage::helper('review')->__(($customerName ? 'Pending reviews of customer `%s`' : 'Pending reviews'), $customerName);
+            if ($customerName) {
+                $this->_headerText = Mage::helper('review')->__('Pending reviews of customer `%s`', $customerName);
+            } else {
+                $this->_headerText = Mage::helper('review')->__('Pending reviews');
+            }
             $this->_removeButton('add');
         } else {
-            $this->_headerText = Mage::helper('review')->__(($customerName ? 'All reviews of customer `%s`' : 'All Reviews'), $customerName);
+            if ($customerName) {
+                $this->_headerText = Mage::helper('review')->__('All reviews of customer `%s`', $customerName);
+            } else {
+                $this->_headerText = Mage::helper('review')->__('All Reviews');
+            }
         }
     }
 }

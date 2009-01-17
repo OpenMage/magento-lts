@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -76,6 +82,17 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
 
     protected function _beforeDelete(Varien_Object $object){
         parent::_beforeDelete($object);
+
+        $toUpdateChild = explode('/',substr($object->getPath(),0,strrpos($object->getPath(),'/')));
+         $child = $this->getChildrenCount($object->getId());
+         $child+=1; 
+        // BUG here
+        $this->_getWriteAdapter()->update(
+		        $this->getEntityTable(),
+		        array('children_count'=>new Zend_Db_Expr('`children_count`-'.$child)),
+		        $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $toUpdateChild))
+      		  ;
+
         if ($child = $this->_getTree()->getNodeById($object->getId())) {
             $children = $child->getChildren();
             foreach ($children as $child) {
@@ -92,8 +109,22 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
 
         if (!$object->getId()) {
             $object->setPosition($this->_getMaxPosition($object->getPath()) + 1);
-            $object->setLevel(count(explode('/', $object->getPath())));
+            $path  = explode('/', $object->getPath());
+            $level = count($path);
+            $object->setLevel($level);
+            if ($level) {
+                $object->setParentId($path[$level - 1]);
+            }
             $object->setPath($object->getPath() . '/');
+
+           $toUpdateChild = explode('/',$object->getPath());
+
+            $this->_getWriteAdapter()->update(
+		        $this->getEntityTable(),
+		        array('children_count'=>new Zend_Db_Expr('`children_count`+1')),
+		        $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $toUpdateChild))
+      		  ;
+
         }
         return $this;
     }
@@ -111,8 +142,29 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
             //$this->save($object);
         }
         $categoryIds = explode('/', $object->getPath());
+
+
+
+
         $this->refreshProductIndex($categoryIds);
+        //$this->_saveCountChidren($object);
         return parent::_afterSave($object);
+    }
+
+    protected function _saveCountChidren($object)
+    {
+        $chidren = $object->getChildren();
+        if (strlen($chidren)>0) {
+            $chidrenCount = count(explode(',', $chidren));
+        } else {
+            $chidrenCount = 0;
+        }
+        $this->_getWriteAdapter()->update($this->getEntityTable(),
+            array('children_count'=>$chidrenCount),
+            $this->_getWriteAdapter()->quoteInto('entity_id=?', $object->getId())
+        );
+
+        return $this;
     }
 
     protected function _savePath($object)
@@ -294,7 +346,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
             $stores[$store->getId()] = $store->getId();
         }
 
-        $entityStoreId = $this->getStoreId();
+        $entityStoreId = $category->getStoreId();
         if (!in_array($entityStoreId, $stores)) {
             array_unshift($stores, $entityStoreId);
         }
@@ -318,9 +370,45 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
         $positions = $this->_getWriteAdapter()->fetchPairs($select);
         return $positions;
     }
-
-    public function move(Mage_Catalog_Model_Category $category, $newParentId)
+    
+    public function getChildrenCount($categoryId)
     {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getEntityTable(), 'children_count')
+            ->where('entity_id=?', $categoryId);
+
+        $child = $this->_getReadAdapter()->fetchOne($select);
+        
+        return $child;
+    }
+
+   // public function move(Mage_Catalog_Model_Category $category, $newParentId)
+    public function move($categoryId, $newParentId)
+    {
+        $category   = Mage::getModel('catalog/category')->load($categoryId);
+        $oldParent  = $category->getParentCategory();
+        $newParent  = Mage::getModel('catalog/category')->load($newParentId);
+        
+        $child = $this->getChildrenCount($category->getId());
+        $child+=1;
+
+
+        $toUpdateChild = explode('/',$newParent->getPath());
+        $this->_getWriteAdapter()->update(
+		        $this->getEntityTable(),
+		        array('children_count'=>new Zend_Db_Expr('`children_count`+' . $child)),
+		        $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $toUpdateChild))
+      		  ;
+
+      	$toUpdateChild = explode('/', $oldParent->getPath());
+      	$this->_getWriteAdapter()->update(
+		        $this->getEntityTable(),
+		        array('children_count'=>new Zend_Db_Expr('`children_count`-' . $child)),
+		        $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $toUpdateChild))
+      		  ;
+        return ;
+
+
         $oldStoreId = $category->getStoreId();
         $parent = Mage::getModel('catalog/category')
             ->setStoreId($category->getStoreId())
@@ -329,7 +417,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
         $newParent = Mage::getModel('catalog/category')
             ->setStoreId($category->getStoreId())
             ->load($newParentId);
-
         $oldParentStores = $parent->getStoreIds();
         $newParentStores = $newParent->getStoreIds();
 
@@ -421,10 +508,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
             ->order('level')
             ->order('path');
         if (is_array($categoryIds) && !empty($categoryIds)) {
-        	$select->where('entity_id IN (?)', $categoryIds);
+            $select->where('entity_id IN (?)', $categoryIds);
         }
         elseif (is_numeric($categoryIds)) {
-        	$select->where('entity_id=?', $categoryIds);
+            $select->where('entity_id=?', $categoryIds);
         }
 
         $categories = $this->_getWriteAdapter()->fetchAll($select);
@@ -446,5 +533,35 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
             $this->_getWriteAdapter()->query($query);
         }
         return $this;
+    }
+
+    public function findWhereAttributeIs($entityIdsFilter, $attribute, $expectedValue)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($attribute->getBackend()->getTable(), array('entity_id'))
+            ->where('attribute_id = ?', $attribute->getId())
+            ->where('value = ?', $expectedValue)
+            ->where('entity_id in (?)', $entityIdsFilter);
+
+        return $this->_getReadAdapter()->fetchCol($select);
+    }
+
+    public function getProductCount($category)
+    {
+
+        $productTable =Mage::getSingleton('core/resource')->getTableName('catalog/category_product');
+
+            $select =  $this->getReadConnection()->select();
+            $select->from(
+                    array('main_table'=>$productTable),
+                    array(new Zend_Db_Expr('COUNT(main_table.product_id)'))
+                )
+                ->where('main_table.category_id = ?', $category->getId())
+                ->group('main_table.category_id');
+
+            $counts =$this->getReadConnection()->fetchOne($select);
+
+            return intval($counts);
+
     }
 }

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -42,6 +48,9 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     protected $_canUseInternal          = false;
     protected $_canUseCheckout          = true;
     protected $_canUseForMultishipping  = false;
+
+    //Sometime we need this. Reffer to isInitilizeNeeded() method
+    protected $_isInitializeNeeded      = true;
 
     /**
      * Get Paypal API Model
@@ -131,6 +140,29 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         }
         return $this;
     }
+    /**
+     * Works same as catchError method but instead of saving
+     * error message in session throws exception
+     *
+     * @return Mage_Paypal_Model_Express
+     */
+    public function throwError()
+    {
+        if ($this->getApi()->getError()) {
+            $s = $this->getCheckout();
+            $e = $this->getApi()->getError();
+            switch ($e['type']) {
+                case 'CURL':
+                    Mage::throwException(Mage::helper('paypal')->__('There was an error connecting to the Paypal server: %s', $e['message']));
+                    break;
+
+                case 'API':
+                    Mage::throwException(Mage::helper('paypal')->__('There was an error during communication with Paypal: %s - %s', $e['short_message'], $e['long_message']));
+                    break;
+            }
+        }
+        return $this;
+    }
 
     public function createFormBlock($name)
     {
@@ -152,7 +184,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
 
     public function getOrderPlaceRedirectUrl()
     {
-        return Mage::getUrl('paypal/express/mark');
+        return $this->getRedirectUrl();
     }
 
     public function getPaymentAction()
@@ -166,10 +198,12 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
 
     public function shortcutSetExpressCheckout()
     {
+        $this->getQuote()->reserveOrderId();
         $this->getApi()
             ->setPaymentType($this->getPaymentAction())
             ->setAmount($this->getQuote()->getBaseGrandTotal())
             ->setCurrencyCode($this->getQuote()->getBaseCurrencyCode())
+            ->setInvNum($this->getQuote()->getReservedOrderId())
             ->callSetExpressCheckout();
 
         $this->catchError();
@@ -179,36 +213,16 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         return $this;
     }
 
-    public function markSetExpressCheckout()
-    {
-        if ($this->getQuote()->isVirtual()) {
-            $address = $this->getQuote()->getBillingAddress();
-        } else {
-            $address = $this->getQuote()->getShippingAddress();
-        }
-        $this->getApi()
-            ->setPaymentType($this->getPaymentAction())
-            ->setAmount($address->getBaseGrandTotal())
-            ->setCurrencyCode($this->getQuote()->getBaseCurrencyCode())
-            ->setShippingAddress($address)
-            ->callSetExpressCheckout();
-
-        $this->catchError();
-
-        $this->getSession()->setExpressCheckoutMethod('mark');
-
-        return $this;
-    }
-
     public function returnFromPaypal()
     {
-        $error='';
+        $error = '';
+
         try {
             $this->_getExpressCheckoutDetails();
         } catch (Exception $e) {
             $error=$e->getMessage();
-             $this->getSession()->addError($e->getMessage());
-             $this->getApi()->setRedirectUrl('paypal/express/review');
+            $this->getSession()->addError($e->getMessage());
+            $this->getApi()->setRedirectUrl('paypal/express/review');
         }
         switch ($this->getApi()->getUserAction()) {
             case Mage_Paypal_Model_Api_Nvp::USER_ACTION_CONTINUE:
@@ -216,7 +230,11 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
                 break;
 
             case Mage_Paypal_Model_Api_Nvp::USER_ACTION_COMMIT:
-                $this->getApi()->setRedirectUrl(Mage::getUrl('paypal/express/saveOrder'));
+                if ($this->getSession()->getExpressCheckoutMethod() == 'shortcut') {
+                    $this->getApi()->setRedirectUrl(Mage::getUrl('paypal/express/saveOrder'));
+                } else {
+                    $this->getApi()->setRedirectUrl(Mage::getUrl('paypal/express/updateOrder'));
+                }
                 break;
         }
         return $this;
@@ -245,7 +263,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         */
 
         if ($this->getSession()->getExpressCheckoutMethod()=='shortcut'
-        || ($this->getSession()->getExpressCheckoutMethod()=='mark' && $q->getCheckoutMethod()!='register')){
+        || ($this->getSession()->getExpressCheckoutMethod()!='shortcut' && $q->getCheckoutMethod()!='register')){
             $q->getBillingAddress()
                 ->setPrefix($a->getPrefix())
                 ->setFirstname($a->getFirstname())
@@ -273,16 +291,32 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
 
     }
 
+    /**
+     * Authorize
+     *
+     * @param   Varien_Object $orderPayment
+     * @return  Mage_Payment_Model_Abstract
+     */
+    public function authorize(Varien_Object $payment, $amount)
+    {
+        $this->placeOrder($payment);
+        return $this;
+    }
 
+    /**
+     * Capture payment
+     *
+     * @param   Varien_Object $orderPayment
+     * @return  Mage_Payment_Model_Abstract
+     */
     public function capture(Varien_Object $payment, $amount)
     {
-        if($payment->getCcTransId()){
+        if ($payment->getCcTransId()) {
             $api = $this->getApi()
                 ->setPaymentType(Mage_Paypal_Model_Api_Nvp::PAYMENT_TYPE_SALE)
                 ->setAmount($amount)
                 ->setBillingAddress($payment->getOrder()->getBillingAddress())
                 ->setPayment($payment);
-            ;
 
             $api->setAuthorizationId($payment->getCcTransId())
                 ->setCompleteType('NotComplete');
@@ -304,6 +338,8 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
                 }
                 Mage::throwException($message);
             }
+        } else {
+            $this->placeOrder($payment);
         }
         return $this;
     }
@@ -313,7 +349,8 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         $api = $this->getApi();
 
         $api->setAmount($payment->getOrder()->getBaseGrandTotal())
-            ->setCurrencyCode($payment->getOrder()->getBaseCurrencyCode());
+            ->setCurrencyCode($payment->getOrder()->getBaseCurrencyCode())
+            ->setInvNum($this->getQuote()->getReservedOrderId());
 
         if ($api->callDoExpressCheckoutPayment()!==false) {
             $payment->setStatus('APPROVED')
@@ -325,7 +362,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
             }
         } else {
             $e = $api->getError();
-            Mage::throwException($e['short_message'].': '.$e['long_message']);
+            die($e['short_message'].': '.$e['long_message']);
         }
         return $this;
     }
@@ -392,5 +429,46 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
             Mage::throwException($error);
         }
         return $this;
+    }
+
+    /**
+     * initialize payment transaction in case
+     * we doing checkout through onepage checkout
+     */
+    public function initialize($paymentAction, $stateObject)
+    {
+        if ($this->getQuote()->isVirtual()) {
+            $address = $this->getQuote()->getBillingAddress();
+        } else {
+            $address = $this->getQuote()->getShippingAddress();
+        }
+
+        $this->getApi()
+            ->setPaymentType($paymentAction)
+            ->setAmount($address->getBaseGrandTotal())
+            ->setCurrencyCode($this->getQuote()->getBaseCurrencyCode())
+            ->setShippingAddress($address)
+            ->setInvNum($this->getQuote()->getReservedOrderId())
+            ->callSetExpressCheckout();
+
+        $this->throwError();
+
+        $stateObject->setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT);
+        $stateObject->setStatus('pending_paypal');
+        $stateObject->setIsNotified(false);
+
+        Mage::getSingleton('paypal/session')->unsExpressCheckoutMethod();
+
+        return $this;
+    }
+
+    /**
+     * Rewrite standard logic
+     *
+     * @return bool
+     */
+    public function isInitializeNeeded()
+    {
+        return is_object(Mage::registry('_singleton/checkout/type_onepage'));
     }
 }

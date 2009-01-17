@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -33,4 +39,27 @@ class Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container exten
     {
         $this->_configNodePath = 'global/catalog/product/design/options_container';
     }
+
+    /**
+     * Get a text for option value
+     *
+     * @param string|integer $value
+     * @return string
+     */
+    public function getOptionText($value)
+    {
+        $options = $this->getAllOptions();
+        if (sizeof($options) > 0) {
+            foreach ($options as $option) {
+                if (isset($option['value']) && $option['value'] == $value) {
+                    return $option['label'];
+                }
+            }
+        }
+        if (isset($options[$value])) {
+            return $option[$value];
+        }
+        return false;
+    }
+
 }

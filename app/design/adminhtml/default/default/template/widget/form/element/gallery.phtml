@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -55,12 +61,13 @@
 <?php endif; ?>
 
 <?php if ($i==0): ?>
-    <script language="javascript">document.getElementById("gallery_thead").style.visibility="hidden";</script>
+    <script type="text/javascript">document.getElementById("gallery_thead").style.visibility="hidden";</script>
 <?php endif; ?>
 
 </tbody></table>
         
-<script language="javascript">
+<script type="text/javascript">
+//<![CDATA[
 id = 0;
 num_of_images = <?php echo $i ?>;
 
@@ -129,7 +136,7 @@ function deleteImage(image)
         image.parentNode.parentNode.parentNode.removeChild( image.parentNode.parentNode );
     }
 }
+//]]>
 </script>
-
-</td>
+    </td>
 </tr>

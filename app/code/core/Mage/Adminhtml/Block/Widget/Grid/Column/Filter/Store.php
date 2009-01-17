@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -42,9 +48,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store extends Mage_Adminhtm
         $html  = '<select name="' . ($this->getColumn()->getName() ? $this->getColumn()->getName() : $this->getColumn()->getId()) . '" ' . $this->getColumn()->getValidateClass() . '>';
         $value = $this->getColumn()->getValue();
         if ($allShow) {
-            $html .= '<option value="0"' . ($value == 0 ? ' selected="true"' : '') . '>' . Mage::helper('adminhtml')->__('All Store Views') . '</option>';
+            $html .= '<option value="0"' . ($value == 0 ? ' selected="selected"' : '') . '>' . Mage::helper('adminhtml')->__('All Store Views') . '</option>';
         } else {
-            $html .= '<option value=""' . (!$value ? ' selected="true"' : '') . '></option>';
+            $html .= '<option value=""' . (!$value ? ' selected="selected"' : '') . '></option>';
         }
         foreach ($websiteCollection as $website) {
             $websiteShow = false;
@@ -66,7 +72,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store extends Mage_Adminhtm
                         $html .= '<optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;' . $group->getName() . '">';
                     }
                     $value = $this->getValue();
-                    $html .= '<option value="' . $store->getId() . '"' . ($value == $store->getId() ? ' selected="true"' : '') . '>&nbsp;&nbsp;&nbsp;&nbsp;' . $store->getName() . '</option>';
+                    $html .= '<option value="' . $store->getId() . '"' . ($value == $store->getId() ? ' selected="selected"' : '') . '>&nbsp;&nbsp;&nbsp;&nbsp;' . $store->getName() . '</option>';
                 }
                 if ($groupShow) {
                     $html .= '</optgroup>';

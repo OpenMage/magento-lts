@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -19,7 +25,7 @@
  */
 ?>
 <div class="content-header">
-   <h3 class="icon-head head-newsletter-list"><?php echo $this->getHeaderText() ?></h3></td>
+   <h3 class="icon-head head-newsletter-list"><?php echo $this->getHeaderText() ?></h3>
    <p class="content-buttons form-buttons">
                 <?php echo $this->getBackButtonHtml(); ?>
                 <?php echo $this->getResetButtonHtml(); ?>
@@ -38,15 +44,20 @@
     </p>
 </div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="newsletter_template_edit_form">
-<input type="hidden" id="change_flag_element" name="_change_type_flag" value="" />
-<input type="hidden" id="save_as_flag" name="_save_as_flag" value="<?php echo $this->getSaveAsFlag() ?>" />
+<div class="no-display">
+    <input type="hidden" id="change_flag_element" name="_change_type_flag" value="" />
+    <input type="hidden" id="save_as_flag" name="_save_as_flag" value="<?php echo $this->getSaveAsFlag() ?>" />
+</div>
 <?php echo $this->getForm() ?>
 </form>
 <form action="<?php echo $this->getPreviewUrl() ?>" method="post" id="newsletter_template_preview_form" target="_blank">
-<input type="hidden" id="preview_type" name="type" value="<?php echo $this->isTextType()?1:2 ?>" />
-<input type="hidden" id="preview_text" name="text" value="" />
+<div class="no-display">
+    <input type="hidden" id="preview_type" name="type" value="<?php echo $this->isTextType()?1:2 ?>" />
+    <input type="hidden" id="preview_text" name="text" value="" />
+</div>
 </form>
-<script type="text/javascript" language="javascript">
+<script type="text/javascript">
+//<![CDATA[
     var templateForm = new varienForm('newsletter_template_edit_form');
     var templatePreviewForm = new varienForm('newsletter_template_preview_form');
     var templateControl = {
@@ -139,4 +150,5 @@
 
     templateControl.init();
     templateControl.templateName = "<?php echo $this->getJsTemplateName() ?>";
+//]]>
 </script>

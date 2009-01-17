@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -50,9 +56,10 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
-        $html = '<tr><td class="label">'.$element->getLabel().'</td>';
-
         $id = $element->getHtmlId();
+
+        $html = '<tr><td class="label"><label for="'.$id.'">'.$element->getLabel().'</label></td>';
+
         //$isDefault = !$this->getRequest()->getParam('website') && !$this->getRequest()->getParam('store');
         $isMultiple = $element->getExtType()==='multiple';
 
@@ -81,7 +88,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
         $html.= '<td class="value">';
         $html.= $this->_getElementHtml($element);
         if ($element->getComment()) {
-            $html.= '<div><small>'.$element->getComment().'</small></div>';
+            $html.= '<p class="nm"><small>'.$element->getComment().'</small></p>';
         }
         $html.= '</td>';
         if ($addInheritCheckbox) {
@@ -103,9 +110,9 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
             }
 
             // default value
-            $html.= '<td class="default">';
+            $html.= '<td class="use-default">';
             //$html.= '<input id="'.$id.'_inherit" name="'.$namePrefix.'[inherit]" type="checkbox" value="1" class="input-checkbox config-inherit" '.$inherit.' onclick="$(\''.$id.'\').disabled = this.checked">';
-            $html.= '<input id="'.$id.'_inherit" name="'.$namePrefix.'[inherit]" type="checkbox" value="1" class="input-checkbox config-inherit" '.$inherit.' onclick="toggleValueElements(this, Element.previous(this.parentNode))"/>';
+            $html.= '<input id="'.$id.'_inherit" name="'.$namePrefix.'[inherit]" type="checkbox" value="1" class="checkbox config-inherit" '.$inherit.' onclick="toggleValueElements(this, Element.previous(this.parentNode))" /> ';
             $html.= '<label for="'.$id.'_inherit" class="inherit" title="'.htmlspecialchars($defText).'">'.$checkboxLabel.'</label>';
             $html.= '</td>';
         }

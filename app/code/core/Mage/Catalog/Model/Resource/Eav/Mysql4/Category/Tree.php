@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -114,7 +120,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
             $collection->load();
 
             foreach ($collection as $category) {
-                $this->getNodeById($category->getId())->addData($category->getData());
+                if ($this->getNodeById($category->getId())) {
+                    $this->getNodeById($category->getId())->addData($category->getData());
+                }
             }
         }
 
@@ -243,9 +251,97 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
      *
      */
     public function move($category, $newParent, $prevNode = null) {
+        Mage::getResourceSingleton('catalog/category')->move($category->getId(), $newParent->getId());
         parent::move($category, $newParent, $prevNode);
         Mage::app()->getCache()->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG,
             array(Mage_Catalog_Model_Category::CACHE_TAG));
+    }
+
+    /**
+     * Load whole category tree, that will include specified categories ids.
+     *
+     * @param array $ids
+     * @param bool $addCollectionData
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree
+     */
+    public function loadByIds($ids, $addCollectionData = true)
+    {
+        // load first two levels, if no ids specified
+        if (empty($ids)) {
+            $select = $this->_conn->select()
+                ->from($this->_table, 'entity_id')
+                ->where('`level` <= 2');
+            $ids = $this->_conn->fetchCol($select);
+        }
+        if (!is_array($ids)) {
+            $ids = array($ids);
+        }
+        foreach ($ids as $key => $id) {
+            $ids[$key] = (int)$id;
+        }
+
+        // collect paths of specified IDs and prepare to collect all their parents and neighbours
+        $select = $this->_conn->select()
+            ->from($this->_table, array('path', 'level'))
+            ->where(sprintf('entity_id IN (%s)', implode(', ', $ids)));
+        $where = array('`level`=0' => true);
+        foreach ($this->_conn->fetchAll($select) as $item) {
+            $path  = explode('/', $item['path']);
+            $level = (int)$item['level'];
+            while ($level > 0)
+            {
+                $path[count($path) - 1] = '%';
+                $where[sprintf("`level`=%d AND `path` LIKE '%s'", $level, implode('/', $path))] = true;
+                array_pop($path);
+                $level--;
+            }
+        }
+        $where = array_keys($where);
+
+        // get all required records
+        if ($addCollectionData) {
+            $select = $this->_getDefaultCollection($this->_orderField)
+                ->getSelect();
+            // add attributes to select
+            foreach (array('name', 'url_key', 'is_active') as $attributeCode) {
+                $attribute = Mage::getResourceSingleton('catalog/category')->getAttribute($attributeCode);
+                $tableAs   = "_$attributeCode";
+                $select->joinLeft(
+                    array($tableAs => $attribute->getBackend()->getTable()),
+                    sprintf('`%1$s`.entity_id=e.entity_id AND `%1$s`.attribute_id=%2$d AND `%1$s`.entity_type_id=e.entity_type_id',
+                        $tableAs, $attribute->getData('attribute_id')
+                    ),
+                    array($attributeCode => 'value')
+                );
+            }
+            // count products qty
+            $select->joinLeft(array('_category_product' => Mage::getSingleton('core/resource')->getTableName('catalog/category_product')),
+                'e.entity_id=_category_product.category_id',
+                array('product_count' => 'COUNT(_category_product.product_id)')
+            )
+            ->group('e.entity_id');
+        }
+        else {
+            $select = clone $this->_select;
+            $select->order($this->_orderField . ' ASC');
+        }
+        $select->where(implode(' OR ', $where));
+
+        // get array of records and add them as nodes to the tree
+        $arrNodes = $this->_conn->fetchAll($select);
+        if (!$arrNodes) {
+            return false;
+        }
+        $childrenItems = array();
+        foreach ($arrNodes as $nodeInfo) {
+            $pathToParent = explode('/', $nodeInfo[$this->_pathField]);
+            array_pop($pathToParent);
+            $pathToParent = implode('/', $pathToParent);
+            $childrenItems[$pathToParent][] = $nodeInfo;
+        }
+        $this->addChildNodes($childrenItems, '', null);
+
+        return $this;
     }
 
 }

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -25,6 +31,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
 {
     const PRICE_CONVERSION_PLUS = 1;
     const PRICE_CONVERSION_MINUS = 2;
+
 
 
     protected $_displayTaxColumn;
@@ -136,6 +143,14 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     public function displayFullSummary($store = null)
     {
         return ((int)Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_DISPLAY_FULL_SUMMARY, $store) == 1);
+    }
+
+    public function displayZeroTax($store = null)
+    {
+        if (is_null($store))
+            $store = Mage::app()->getStore();
+
+        return $store->getConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_DISPLAY_ZERO_TAX);
     }
 
     public function displayCartPriceInclTax($store = null)
@@ -379,6 +394,21 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             }
         }
         return $result;
+    }
+
+    public function joinTaxClass($select, $storeId, $priceTable='main_table')
+    {
+        $taxClassAttribute = Mage::getModel('eav/entity_attribute')->loadByCode('catalog_product', 'tax_class_id');
+        $select->joinLeft(
+            array('tax_class_d'=>$taxClassAttribute->getBackend()->getTable()),
+            "tax_class_d.entity_id = {$priceTable}.entity_id AND tax_class_d.attribute_id = '{$taxClassAttribute->getId()}'
+            AND tax_class_d.store_id = 0",
+             array());
+        $select->joinLeft(
+            array('tax_class_c'=>$taxClassAttribute->getBackend()->getTable()),
+            "tax_class_c.entity_id = {$priceTable}.entity_id AND tax_class_c.attribute_id = '{$taxClassAttribute->getId()}'
+            AND tax_class_c.store_id = '{$storeId}'",
+            array());
     }
 
     public function discountTax($store=null)

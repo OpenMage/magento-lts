@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -48,7 +54,8 @@ class Mage_Api_Model_Mysql4_User extends Mage_Core_Model_Mysql4_Abstract
     {
         $data = array(
             'logdate' => now(),
-            'lognum'  => $user->getLognum()+1
+            'lognum'  => $user->getLognum()+1,
+            'sessid'  => $user->getSessid()
         );
         $condition = $this->_getWriteAdapter()->quoteInto('user_id=?', $user->getUserId());
         $this->_getWriteAdapter()->update($this->getTable('api/user'), $data, $condition);
@@ -60,6 +67,13 @@ class Mage_Api_Model_Mysql4_User extends Mage_Core_Model_Mysql4_Abstract
         $select = $this->_getReadAdapter()->select()->from($this->getTable('api/user'))
             ->where('username=:username');
         return $this->_getReadAdapter()->fetchRow($select, array('username'=>$username));
+    }
+
+    public function loadBySessId ($sessId)
+    {
+        $select = $this->_getReadAdapter()->select()->from($this->getTable('api/user'))
+            ->where('sessid=:sessid');
+        return $this->_getReadAdapter()->fetchRow($select, array('sessid'=>$sessId));
     }
 
     public function hasAssigned2Role($user)

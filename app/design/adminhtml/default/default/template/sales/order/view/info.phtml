@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -36,24 +42,24 @@
             <strong>(<?php echo $_email ?>)</strong>
         <?php endif; ?>
         </div>
-        <fieldset>
+        <div class="fieldset">
             <table cellspacing="0" class="form-list">
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Order Date') ?></label></td>
-                <td class="value"><strong><?php echo $this->formatDate($_order->getCreatedAt(), 'medium', true) ?></strong></td>
+                <td><strong><?php echo $this->formatDate($_order->getCreatedAt(), 'medium', true) ?></strong></td>
             </tr>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Order Status') ?></label></td>
-                <td class="value"><strong><span id="order_status"><?php echo $_order->getStatusLabel() ?></span></strong></td>
+                <td><strong><span id="order_status"><?php echo $_order->getStatusLabel() ?></span></strong></td>
             </tr>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Purchased From') ?></label></td>
-                <td class="value"><strong><?php echo $this->getOrderStoreName() ?></strong></td>
+                <td><strong><?php echo $this->getOrderStoreName() ?></strong></td>
             </tr>
             <?php if($_order->getRelationChildId()): ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Link to the new order') ?></label></td>
-                <td class="value"><a href="<?php echo $this->getViewUrl($_order->getRelationChildId()) ?>">
+                <td><a href="<?php echo $this->getViewUrl($_order->getRelationChildId()) ?>">
                     <?php echo $_order->getRelationChildRealId() ?>
                 </a></td>
             </tr>
@@ -61,7 +67,7 @@
             <?php if($_order->getRelationParentId()): ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Link to the previous order') ?></label></td>
-                <td class="value"><a href="<?php echo $this->getViewUrl($_order->getRelationParentId()) ?>">
+                <td><a href="<?php echo $this->getViewUrl($_order->getRelationParentId()) ?>">
                     <?php echo $_order->getRelationParentRealId() ?>
                 </a></td>
             </tr>
@@ -69,11 +75,11 @@
             <?php if($_order->getRemoteIp()): ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Placed from IP') ?></label></td>
-                <td class="value"><strong><?php echo $_order->getRemoteIp() ?></strong></td>
+                <td><strong><?php echo $_order->getRemoteIp() ?></strong></td>
             </tr>
             <?php endif; ?>
             </table>
-        </fieldset>
+        </div>
     </div>
 </div>
 <div class="box-right">
@@ -84,36 +90,34 @@
         </div>
         <div class="fieldset">
             <div class="hor-scroll">
-              <div class="account-info">
                 <table cellspacing="0" class="form-list">
                 <tr>
                     <td class="label"><label><?php echo Mage::helper('sales')->__('Customer Name') ?></label></td>
-                    <td class="value"><strong><?php echo $this->htmlEscape($_order->getCustomerName()) ?></strong></td>
+                    <td><strong><?php echo $this->htmlEscape($_order->getCustomerName()) ?></strong></td>
                 </tr>
                 <tr>
                     <td class="label"><label><?php echo Mage::helper('sales')->__('Email') ?></label></td>
-                    <td class="value"><a href="mailto:<?php echo $_order->getCustomerEmail() ?>"><strong><?php echo $_order->getCustomerEmail() ?></strong></a></td>
+                    <td><a href="mailto:<?php echo $_order->getCustomerEmail() ?>"><strong><?php echo $_order->getCustomerEmail() ?></strong></a></td>
                 </tr>
                 <?php if ($_groupName=$this->getCustomerGroupName()) : ?>
                 <tr>
                     <td class="label"><label><?php echo Mage::helper('sales')->__('Customer Group') ?></label></td>
-                    <td class="value"><strong><?php echo $_groupName ?></strong></td>
+                    <td><strong><?php echo $_groupName ?></strong></td>
                 </tr>
                 <?php endif; ?>
                 <?php if ($_dob=$this->getOrder()->getCustomerDob()) : ?>
                 <tr>
                     <td class="label"><label><?php echo Mage::helper('sales')->__('Date of Birth') ?></label></td>
-                    <td class="value"><strong><?php echo Mage::helper('core')->formatDate($_dob, 'medium') ?></strong></td>
+                    <td><strong><?php echo Mage::helper('core')->formatDate($_dob, 'medium') ?></strong></td>
                 </tr>
                 <?php endif; ?>
                 <?php if ($_taxvat = $_order->getCustomerTaxvat()):?>
                 <tr>
                     <td class="label"><label><?php echo Mage::helper('sales')->__('TAX/VAT Number') ?></label></label></td>
-                    <td class="value"><strong><?php echo $this->htmlEscape($_taxvat)?></strong></td>
+                    <td><strong><?php echo $this->htmlEscape($_taxvat)?></strong></td>
                 </tr>
                 <?php endif;?>
                 </table>
-              </div>
             </div>
         </div>
     </div>

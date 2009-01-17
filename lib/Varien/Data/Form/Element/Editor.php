@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -50,7 +56,8 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
 
             $html = '
                 <textarea name="'.$this->getName().'" title="'.$this->getTitle().'" id="'.$this->getHtmlId().'" class="textarea '.$this->getClass().'" '.$this->serialize($this->getHtmlAttributes()).' >'.$this->getEscapedValue().'</textarea>
-        		<script language="javascript" type="text/javascript">
+        		<script type="text/javascript">
+				//<![CDATA[
                    /* tinyMCE.init({
                         mode : "exact",
                         theme : "'.$this->getTheme().'",
@@ -66,6 +73,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
                         force_br_newlines : "true",
                         doctype : \'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\'
                     });*/
+				//]]>
                 </script>';
 
                 /*plugins : "inlinepopups,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,zoom,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras",

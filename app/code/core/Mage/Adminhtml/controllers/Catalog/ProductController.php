@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -417,7 +423,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
         $product->addData($productData);
         if (Mage::app()->isSingleStoreMode()) {
-            $product->setWebsiteIds(array(Mage::app()->getStore(true)->getId()));
+            $product->setWebsiteIds(array(Mage::app()->getStore(true)->getWebsite()->getId()));
         }
         /**
          * Check "Use Default Value" checkboxes values
@@ -578,8 +584,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
    /**
      * Decode strings for linked products
      *
-     * @param 	string $encoded
-     * @return 	array
+     * @param   string $encoded
+     * @return  array
      */
     protected function _decodeInput($encoded)
     {
@@ -831,13 +837,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             );
 
         } catch (Exception $e) {
-            echo 1;
-                echo $e->getMessage();
-                mageDebugBacktrace(false, true, false, $e->getTrace());
-                exit();
             Mage::logException($e);
             $result['error'] = array(
-                'message'   =>  $this->__('Product saving error.')
+                'message'   =>  $this->__('Product saving error. ') . $e->getMessage()
              );
         }
 

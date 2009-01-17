@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category    Mage
  * @package     Mage_Sales
  * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -101,5 +107,18 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
         }
 
         return $formateOptionValue;
+    }
+
+    /**
+     * Return sku of order item.
+     *
+     * @return string
+     */
+    public function getSku()
+    {
+        if ($this->getOrderItem()->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+            return $this->getOrderItem()->getProductOptionByCode('simple_sku');
+        }
+        return $this->getItem()->getSku();
     }
 }

@@ -11,6 +11,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -100,6 +106,7 @@ varienGrid.prototype = {
 
         if (!Element.hasClassName('pointer')
             && (this.rowClickCallback !== openGridRow || element.id)) {
+            if(element.id)
             Element.addClassName(element, 'pointer');
         }
     },
@@ -125,9 +132,9 @@ varienGrid.prototype = {
     doSort : function(event){
         var element = Event.findElement(event, 'a');
 
-        if(element.name && element.target){
+        if(element.name && element.title){
             this.addVarToUrl(this.sortVar, element.name);
-            this.addVarToUrl(this.dirVar, element.target);
+            this.addVarToUrl(this.dirVar, element.title);
             this.reload(this.url);
         }
         Event.stop(event);
@@ -200,7 +207,7 @@ varienGrid.prototype = {
     },
     bindFilterFields : function(){
         var filters = $$('#'+this.containerId+' .filter input', '#'+this.containerId+' .filter select');
-        for (var i in filters){
+        for (var i=0; i<filters.length; i++) {
             Event.observe(filters[i],'keypress',this.filterKeyPress.bind(this));
         }
     },
@@ -208,7 +215,8 @@ varienGrid.prototype = {
         if (!$(this.containerId)) {
             return;
         }
-        var dataElements = $(this.containerId+this.tableSufix).down('.data tbody').getElementsBySelector('input', 'select');
+//        var dataElements = $(this.containerId+this.tableSufix).down('.data tbody').select('input', 'select');
+        var dataElements = $(this.containerId+this.tableSufix).down('tbody').select('input', 'select');
         for(var i=0; i<dataElements.length;i++){
             Event.observe(dataElements[i], 'change', dataElements[i].setHasChanges.bind(dataElements[i]));
         }
@@ -232,7 +240,7 @@ varienGrid.prototype = {
         this.reload(this.addVarToUrl(this.filterVar, ''));
     },
     checkCheckboxes : function(element){
-        elements = Element.getElementsBySelector($(this.containerId), 'input[name="'+element.name+'"]');
+        elements = Element.select($(this.containerId), 'input[name="'+element.name+'"]');
         for(var i=0; i<elements.length;i++){
             this.setCheckboxChecked(elements[i], element.checked);
         }
@@ -294,7 +302,7 @@ varienGridMassaction.prototype = {
        this.initMassactionElements();
 
        checkedValues.each(function(item){
-           this.checkedValues[item] = item;
+           this.checkedValues.set(item, item);
        }.bind(this));
 
        this.formFieldName = formFieldName;
@@ -405,7 +413,7 @@ varienGridMassaction.prototype = {
             return false;
         }
         checkbox = false;
-        Event.findElement(evt, 'tr').getElementsBySelector('.massaction-checkbox').each(function(element){
+        Event.findElement(evt, 'tr').select('.massaction-checkbox').each(function(element){
             if(element.isMassactionCheckbox) {
                 checkbox = element;
             }
@@ -447,19 +455,23 @@ varienGridMassaction.prototype = {
         return false;
     },
     setCheckedValues: function(values) {
-        this.checkedValues.remove.apply(this.checkedValues, this.checkedValues.keys());
+        this.checkedValues.each(function(item){
+            this.checkedValues.unset(item.key);
+        }.bind(this));
         values.each(function(item){
-            this.checkedValues[item] = item;
+            this.checkedValues.set(item, item);
         }.bind(this));
     },
     addCheckedValues: function(values) {
         values.each(function(item){
-            this.checkedValues[item] = item;
+            this.checkedValues.set(item, item);
         }.bind(this));
     },
     unsetCheckedValues: function(values) {
         if(values.size()) {
-            this.checkedValues.remove.apply(this.checkedValues, values);
+            values.each(function(item){
+                this.checkedValues.unset(item);
+            }.bind(this));
         }
     },
     getCheckedValues: function() {
@@ -468,7 +480,7 @@ varienGridMassaction.prototype = {
     getCheckboxes: function() {
         var result = [];
         this.grid.rows.each(function(row){
-            var checkboxes = row.getElementsBySelector('.massaction-checkbox');
+            var checkboxes = row.select('.massaction-checkbox');
             checkboxes.each(function(checkbox){
                 result.push(checkbox);
             });
@@ -484,9 +496,9 @@ varienGridMassaction.prototype = {
     },
     setCheckbox: function(checkbox) {
         if(checkbox.checked) {
-            this.checkedValues[checkbox.value] = checkbox.value;
+            this.checkedValues.set(checkbox.value, checkbox.value);
         } else {
-            this.checkedValues.remove(checkbox.value);
+            this.checkedValues.unset(checkbox.value);
         }
         this.updateCount();
     },

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Admin
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -205,7 +211,8 @@ class Mage_Admin_Model_Mysql4_User extends Mage_Core_Model_Mysql4_Abstract
         if ($user->getId() > 0) {
             $role = Mage::getModel('admin/role')->load($user->getRoleId());
         } else {
-            $role = array('tree_level' => 0);
+            $role = new Varien_Object();
+            $role->setTreeLevel(0);
         }
         $dbh->insert($this->getTable('admin/role'), array(
             'parent_id' => $user->getRoleId(),

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -37,13 +43,13 @@
                       <td class="input-ele"><input class="input-text" type="text" id="<?php echo $this->getFieldId('recipient') ?>" name="<?php echo $this->getFieldName('recipient') ?>"  value="<?php echo $this->htmlEscape($this->getMessage()->getRecipient()) ?>" /></td>
                   </tr>
                   <tr>
-                      <td class="label" colspan="6"><label><?php echo Mage::helper('sales')->__('Gift Message') ?></label></td>
+                      <td class="label" colspan="6"><label for="<?php echo $this->getFieldId('message') ?>"><?php echo Mage::helper('sales')->__('Gift Message') ?></label></td>
                   </tr>
                   <tr>
-                      <td colspan="5"><textarea style="height:6em;" id="<?php echo $this->getFieldId('message') ?>" onchange="giftMessagesController.toogleRequired('<?php echo $this->getFieldId('message') ?>', ['<?php echo $this->getFieldId('sender') ?>','<?php echo $this->getFieldId('recipient') ?>']);" name="<?php echo $this->getFieldName('message') ?>" rows="3" cols="5"><?php echo $this->htmlEscape($this->getMessage()->getMessage()) ?></textarea></td>
+                      <td colspan="5"><textarea style="height:8em;" id="<?php echo $this->getFieldId('message') ?>" onchange="giftMessagesController.toogleRequired('<?php echo $this->getFieldId('message') ?>', ['<?php echo $this->getFieldId('sender') ?>','<?php echo $this->getFieldId('recipient') ?>']);" name="<?php echo $this->getFieldName('message') ?>" rows="2" cols="15"><?php echo $this->htmlEscape($this->getMessage()->getMessage()) ?></textarea></td>
                   </tr>
                   <tr>
-                      <td colspan="5" class="a-right"><?php echo $this->getSaveButtonHtml(); ?></td>
+                      <td colspan="5" class="a-right" style="padding-top:5px;"><?php echo $this->getSaveButtonHtml(); ?></td>
                   </tr>
                 </tbody>
               </table>

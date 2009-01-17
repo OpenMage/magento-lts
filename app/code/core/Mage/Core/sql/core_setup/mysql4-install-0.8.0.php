@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -209,7 +215,7 @@ ALTER TABLE `{$installer->getTable('core_url_rewrite_tag')}`
   ADD CONSTRAINT `FK_CORE_URL_REWRITE_TAG_URL_REWRITE` FOREIGN KEY (`url_rewrite_id`) REFERENCES `{$installer->getTable('core_url_rewrite')}` (`url_rewrite_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `{$installer->getTable('design_change')}`
-  ADD CONSTRAINT `FK_DESIGN_CHANGE_STORE` FOREIGN KEY (`store_id`) REFERENCES `{$installer->getTable('core_store')}` (`store_id`);
+  ADD CONSTRAINT `FK_DESIGN_CHANGE_STORE` FOREIGN KEY (`store_id`) REFERENCES `{$installer->getTable('core_store')}` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ");
 

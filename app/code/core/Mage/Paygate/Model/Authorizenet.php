@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Paygate
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -162,7 +168,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         if($payment->getVoidTransactionId()){
             $payment->setAnetTransType(self::REQUEST_TYPE_VOID);
             $request = $this->_buildRequest($payment);
-						$request->setXTransId($payment->getVoidTransactionId());
+                        $request->setXTransId($payment->getVoidTransactionId());
             $result = $this->_postRequest($request);
             if($result->getResponseCode()==self::RESPONSE_CODE_APPROVED){
                  $payment->setStatus(self::STATUS_SUCCESS );
@@ -224,6 +230,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     {
         $order = $payment->getOrder();
 
+        $this->setStore($order->getStoreId());
+
         if (!$payment->getAnetTransMethod()) {
             $payment->setAnetTransMethod(self::REQUEST_METHOD_CC);
         }
@@ -232,8 +240,11 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             ->setXVersion(3.1)
             ->setXDelimData('True')
             ->setXDelimChar(self::RESPONSE_DELIM_CHAR)
-            ->setXRelayResponse('False')
-            ->setXInvoiceNum($order->getId());
+            ->setXRelayResponse('False');
+
+        if ($order && $order->getIncrementId()) {
+            $request->setXInvoiceNum($order->getIncrementId());
+        }
 
         $request->setXTestRequest($this->getConfigData('test') ? 'TRUE' : 'FALSE');
 
@@ -259,8 +270,6 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         }
 
         if (!empty($order)) {
-            $request->setXInvoiceNum($order->getIncrementId());
-
             $billing = $order->getBillingAddress();
             if (!empty($billing)) {
                 $request->setXFirstName($billing->getFirstname())

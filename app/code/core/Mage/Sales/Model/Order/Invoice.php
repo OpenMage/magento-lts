@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -527,6 +533,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Core_Model_Abstract
     {
         $currentDesign = Mage::getDesign()->setAllGetOld(array(
             'package' => Mage::getStoreConfig('design/package/name', $this->getStoreId()),
+            'store'   => $this->getStoreId()
         ));
 
         $translate = Mage::getSingleton('core/translate');
@@ -654,10 +661,10 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Core_Model_Abstract
         }
 
         foreach ($sendTo as $recipient) {
-            $mailTemplate->setDesignConfig(array('area'=>'frontend', 'store'=>$this->getStoreId()))
+            $mailTemplate->setDesignConfig(array('area'=>'frontend', 'store'=>$order->getStoreId()))
                 ->sendTransactional(
                     $template,
-                    Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_IDENTITY, $this->getStoreId()),
+                    Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_IDENTITY, $order->getStoreId()),
                     $recipient['email'],
                     $recipient['name'],
                     array(

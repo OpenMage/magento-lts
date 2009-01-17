@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Usa
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -236,6 +242,10 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         $errorTitle = 'Unable to retrieve quotes';
         if (strlen(trim($response))>0) {
             if (strpos(trim($response), '<?xml')===0) {
+                if (preg_match('#<\?xml version="1.0"\?>#', $response)) {
+                    $response = str_replace('<?xml version="1.0"?>', '<?xml version="1.0" encoding="ISO-8859-1"?>', $response);
+                }
+
                 $xml = simplexml_load_string($response);
                     if (is_object($xml)) {
                         if (is_object($xml->Number) && is_object($xml->Description) && (string)$xml->Description!='') {

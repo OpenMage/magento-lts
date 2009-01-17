@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -63,7 +69,8 @@
                 <td class="last a-right"><?php echo $_order->formatPrice(0.00 - $_order->getDiscountAmount()) ?></td>
             </tr>
         <?php endif; ?>
-        <?php if ($_order->getTaxAmount() > 0): ?>
+        <?php //if ($_order->getTaxAmount() > 0): ?>
+        <?php if (($_order->getTaxAmount() > 0)||(Mage::helper('tax')->displayZeroTax())): ?>
             <?php echo $this->getChildHtml('tax'); ?>
         <?php endif; ?>
         <?php if ($_order->getShippingAmount() || $_order->getShippingDescription()): ?>
@@ -85,7 +92,7 @@
     </tfoot>
         <?php $_items = $_order->getItemsCollection(); ?>
         <?php $_index = 0; ?>
-				<?php $_count = $_items->count(); ?>
+            <?php $_count = $_items->count(); ?>
         <?php foreach ($_items as $_item): ?>
         <?php if ($_item->getParentItem()) continue; ?>
         <tbody>
@@ -94,11 +101,11 @@
             <tr class="border<?php echo ($_index++ > $_count ?' last':'') ?>" id="order-item-gift-message-<?php echo $_item->getId() ?>" style="display:none;">
                 <?php $_giftMessage=$this->helper('giftmessage/message')->getGiftMessageForEntity($_item); ?>
                 <td class="giftmessage-row last" colspan="7">
-                  <ul class="giftmessage-content">
-                    <li><label><?php echo $this->__('From') ?></label> <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?></li>
-                    <li><label><?php echo $this->__('To') ?></label> <?php echo $this->htmlEscape($_giftMessage->getSender()) ?></li>
-                    <li><?php echo $this->helper('giftmessage/message')->getEscapedGiftMessage($_item) ?></li>
-                  </ul>
+                    <ul class="giftmessage-content">
+                        <li><label><?php echo $this->__('From') ?></label> <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?></li>
+                        <li><label><?php echo $this->__('To') ?></label> <?php echo $this->htmlEscape($_giftMessage->getSender()) ?></li>
+                      <li><?php echo $this->helper('giftmessage/message')->getEscapedGiftMessage($_item) ?></li>
+                    </ul>
                   <div class="giftmessage-close"><a href="#" onclick="return giftMessageToogle('<?php echo $_item->getId() ?>');"><img src="<?php echo $this->getSkinUrl('images/gift-message-close.gif') ?>" alt="" /></a></div>
                 </td>
             </tr>

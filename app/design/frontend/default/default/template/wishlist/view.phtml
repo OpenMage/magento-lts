@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -20,15 +26,13 @@
 ?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <div class="page-head">
+    <?php if($this->helper('wishlist')->isRssAllow() && $this->getWishlist()->getSize()): ?>
+        <a href="<?php echo $this->helper('wishlist')->getRssUrl(); ?>" class="link-feed"><?php echo $this->__('RSS Feed') ?></a>
+    <?php endif; ?>
     <h3><?php echo $this->__('My Wishlist') ?></h3>
 </div>
 
 <?php if($this->getWishlist()->getSize()): ?>
-    <?php if($this->helper('wishlist')->isRssAllow()): ?>
-        <p class="a-right">
-        <a href="<?php echo $this->helper('wishlist')->getRssUrl(); ?>" class="link-feed"><?php echo $this->__('RSS Feed') ?></a>
-        </p>
-    <?php endif; ?>
 <form action="<?php echo $this->getUrl('*/*/update') ?>" method="post">
     <table cellspacing="0" width="100%" class="data-table box-table" id="wishlist-table">
     <col width="130" />
@@ -83,6 +87,7 @@
     <a href="<?php echo $this->getBackUrl() ?>" class="left">&laquo; <?php echo $this->__('Back') ?></a>
 </div>
 <script type="text/javascript">
+//<![CDATA[
 function confirmRemoveWishlistItem(url){
     if(confirm('<?php echo $this->__('Are you sure you want to remove this product from your wishlist?') ?>')) {
         setLocation(url);
@@ -96,4 +101,5 @@ function focusComment(obj) {
         obj.value = '<?php echo $this->__('Please, enter your comments...') ?>';
     }
 }
+//]]>
 </script>

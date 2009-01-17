@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -207,6 +213,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract
             return false;
         }
 
+
         $request->setAlias(self::REWRITE_REQUEST_PATH_ALIAS, $this->getRequestPath());
         $external = substr($this->getTargetPath(), 0, 6);
         if ($external==='http:/' || $external==='https:') {
@@ -222,6 +229,10 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract
             header("Location: ".$targetUrl);
             exit;
         }
+
+        if (Mage::getStoreConfig('web/url/use_store') && $storeCode = Mage::app()->getStore()->getCode()) {
+                $targetUrl = $request->getBaseUrl(). '/' . $storeCode . '/' .$this->getTargetPath();
+            }
 
         if ($queryString = $this->_getQueryString()) {
         	$targetUrl .= '?'.$queryString;

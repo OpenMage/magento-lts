@@ -11,6 +11,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -51,7 +57,7 @@ Product.Zoom.prototype = {
             && this.imageDim.height < this.containerDim.height) {
             this.trackEl.up().hide();
             this.hintEl.hide();
-            this.containerEl.removeClassName('main-product-img');
+            this.containerEl.removeClassName('product-image-zoom');
             return;
         }
 
@@ -110,7 +116,7 @@ Product.Zoom.prototype = {
 
         this.trackEl.style.visibility = this.showFull ? 'hidden' : 'visible';
         this.containerEl.style.overflow = this.showFull ? 'visible' : 'hidden';
-        this.containerEl.style.zIndex = this.showFull ? '999' : '9';
+        this.containerEl.style.zIndex = this.showFull ? '1000' : '9';
 
         return this;
     },
@@ -393,7 +399,6 @@ Product.Config.prototype = {
     },
 
     reloadPrice: function(){
-//        var price = parseFloat(this.config.basePrice);
         var price = 0;
         for(var i=this.settings.length-1;i>=0;i--){
             var selected = this.settings[i].options[this.settings[i].selectedIndex];
@@ -401,13 +406,9 @@ Product.Config.prototype = {
                 price += parseFloat(selected.config.price);
             }
         }
-        if (price < 0)
-            price = 0;
-//        price = this.formatPrice(price);
 
         optionsPrice.changePrice('config', price);
         optionsPrice.reload();
-
 
         return price;
 
@@ -489,7 +490,9 @@ Product.OptionsPrice.prototype = {
         this.currentTax         = config.currentTax;
         this.productPrice       = config.productPrice;
         this.showIncludeTax     = config.showIncludeTax;
+        this.showBothPrices     = config.showBothPrices;
         this.productPrice       = config.productPrice;
+        this.productOldPrice    = config.productOldPrice;
         this.skipCalculate      = config.skipCalculate;
         this.duplicateIdSuffix  = config.idSuffix;
 
@@ -508,6 +511,7 @@ Product.OptionsPrice.prototype = {
         this.containers[1] = 'bundle-price-' + this.productId;
         this.containers[2] = 'price-including-tax-' + this.productId;
         this.containers[3] = 'price-excluding-tax-' + this.productId;
+        this.containers[4] = 'old-price-' + this.productId;
     },
 
     changePrice: function(key, price) {
@@ -527,9 +531,15 @@ Product.OptionsPrice.prototype = {
         var formattedPrice;
         var optionPrices = this.getOptionPrices();
         $H(this.containers).each(function(pair) {
+            var _productPrice;
             if ($(pair.value)) {
+                if (pair.value == 'old-price-'+this.productId && this.productOldPrice != this.productPrice) {
+                    _productPrice = this.productOldPrice;
+                } else {
+                    _productPrice = this.productPrice;
+                }
 
-                var price = optionPrices+parseFloat(this.productPrice)
+                var price = optionPrices+parseFloat(_productPrice)
                 if (this.includeTax == 'true') {
                     // tax = tax included into product price by admin
                     var tax = price / (100 + this.defaultTax) * this.defaultTax;
@@ -543,24 +553,30 @@ Product.OptionsPrice.prototype = {
 
                 if (pair.value == 'price-including-tax-'+this.productId) {
                     price = incl;
+                } else if (pair.value == 'old-price-'+this.productId) {
+                    if (this.showIncludeTax || this.showBothPrices) {
+                        price = incl;
+                    } else {
+                        price = excl;
+                    }
                 } else {
                     if (this.showIncludeTax) {
                         price = incl;
                     } else {
-                        if (!this.skipCalculate || this.productPrice == 0) {
+                        if (!this.skipCalculate || _productPrice == 0) {
                             price = excl;
                         } else {
-                            price = optionPrices+parseFloat(this.productPrice);
+                            price = optionPrices+parseFloat(_productPrice);
                         }
                     }
                 }
 
                 if (price < 0) price = 0;
                 formattedPrice = this.formatPrice(price);
-                if ($(pair.value).getElementsBySelector('.price')[0]) {
-                    $(pair.value).getElementsBySelector('.price')[0].innerHTML = formattedPrice;
-                    if ($(pair.value+this.duplicateIdSuffix) && $(pair.value+this.duplicateIdSuffix).getElementsBySelector('.price')[0]) {
-                        $(pair.value+this.duplicateIdSuffix).getElementsBySelector('.price')[0].innerHTML = formattedPrice;
+                if ($(pair.value).select('.price')[0]) {
+                    $(pair.value).select('.price')[0].innerHTML = formattedPrice;
+                    if ($(pair.value+this.duplicateIdSuffix) && $(pair.value+this.duplicateIdSuffix).select('.price')[0]) {
+                        $(pair.value+this.duplicateIdSuffix).select('.price')[0].innerHTML = formattedPrice;
                     }
                 } else {
                     $(pair.value).innerHTML = formattedPrice;

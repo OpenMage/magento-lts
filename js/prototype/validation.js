@@ -132,7 +132,8 @@ Object.extend(Validation, {
             onElementValidate : function(result, elm) {}
         }, options || {});
         elm = $(elm);
-        var cn = elm.classNames();
+
+        var cn = $w(elm.className);
         return result = cn.all(function(value) {
             var test = Validation.test(value,elm,options.useTitle);
             options.onElementValidate(test, elm);
@@ -142,7 +143,7 @@ Object.extend(Validation, {
     insertAdvice : function(elm, advice){
         var container = $(elm).up('.field-row');
         if(container){
-            new Insertion.After(container, advice);
+            Element.insert(container, {after: advice});
         }
         else if (elm.advaiceContainer && $(elm.advaiceContainer)) {
             $(elm.advaiceContainer).update(advice);
@@ -153,13 +154,13 @@ Object.extend(Validation, {
                 case 'radio':
                     var p = elm.parentNode;
                     if(p) {
-                        new Insertion.Bottom(p, advice);
+                        Element.insert(p, {'bottom': advice});
                     } else {
-                        new Insertion.After(elm, advice);
+                        Element.insert(elm, {'after': advice});
                     }
                     break;
                 default:
-                    new Insertion.After(elm, advice);
+                    Element.insert(elm, {'after': advice});
             }
         }
     },
@@ -172,7 +173,7 @@ Object.extend(Validation, {
                 this.hideAdvice(elm, pair.value);
             }.bind(this));
         }
-        elm.advices[adviceName] = advice;
+        elm.advices.set(adviceName, advice);
         if(typeof Effect == 'undefined') {
             advice.style.display = 'block';
         } else {
@@ -287,7 +288,7 @@ Object.extend(Validation, {
     },
     reset : function(elm) {
         elm = $(elm);
-        var cn = elm.classNames();
+        var cn = $w(elm.className);
         cn.each(function(value) {
             var prop = '__advice'+value.camelize();
             if(elm[prop]) {
@@ -463,8 +464,8 @@ Validation.addAllThese([
     ['validate-cc-number', 'Please enter a valid credit card number.', function(v, elm) {
                 // remove non-numerics
                 var ccTypeContainer = $(elm.id.substr(0,elm.id.indexOf('_cc_number')) + '_cc_type');
-                if (ccTypeContainer && typeof Validation.creditCartTypes[ccTypeContainer.value] != 'undefined'
-                        && Validation.creditCartTypes[ccTypeContainer.value][2] == false) {
+                if (ccTypeContainer && typeof Validation.creditCartTypes.get(ccTypeContainer.value) != 'undefined'
+                        && Validation.creditCartTypes.get(ccTypeContainer.value)[2] == false) {
                     if (!Validation.get('IsEmpty').test(v) && Validation.get('validate-digits').test(v)) {
                         return true;
                     } else {
@@ -484,12 +485,12 @@ Validation.addAllThese([
                 }
                 var ccType = ccTypeContainer.value;
 
-                if (typeof Validation.creditCartTypes[ccType] == 'undefined') {
+                if (typeof Validation.creditCartTypes.get(ccType) == 'undefined') {
                     return false;
                 }
 
                 // Other card type or switch or solo card
-                if (Validation.creditCartTypes[ccType][0]==false) {
+                if (Validation.creditCartTypes.get(ccType)[0]==false) {
                     return true;
                 }
 
@@ -531,11 +532,11 @@ Validation.addAllThese([
                 }
                 var ccType = ccTypeContainer.value;
 
-                if (typeof Validation.creditCartTypes[ccType] == 'undefined') {
+                if (typeof Validation.creditCartTypes.get(ccType) == 'undefined') {
                     return false;
                 }
 
-                var re = Validation.creditCartTypes[ccType][1];
+                var re = Validation.creditCartTypes.get(ccType)[1];
 
                 if (v.match(re)) {
                     return true;
@@ -555,6 +556,17 @@ Validation.addAllThese([
                     return /^[0-9\.]+(px|pt|em|ex|%)?$/.test(v) && (!(/\..*\./.test(v))) && !(/\.$/.test(v));
                 }
                 return true;
+            }],
+     ['validate-length', 'Maximum length exceeded.', function (v, elm) {
+                var re = new RegExp(/^maximum-length-[0-9]+$/);
+                var result = true;
+                $w(elm.className).each(function(name, index) {
+                        if (name.match(re) && result) {
+                           var length = name.split('-')[2];
+                           result = (v.length <= length);
+                        }
+                    });
+                return result;
             }]
 ]);
 

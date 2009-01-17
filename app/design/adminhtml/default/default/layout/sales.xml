@@ -13,6 +13,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -50,6 +56,10 @@
             </block>
         </reference>
     </adminhtml_sales_order_view>
+
+    <adminhtml_sales_order_addcomment>
+        <block type="adminhtml/sales_order_view_history" name="order_history" template="sales/order/view/history.phtml" output="toHtml"/>
+    </adminhtml_sales_order_addcomment>
 
     <adminhtml_sales_order_invoice_new>
         <reference name="content">
@@ -95,6 +105,7 @@
                 <block type="adminhtml/sales_order_invoice_view_form" name="form" template="sales/order/invoice/view/form.phtml">
                     <block type="adminhtml/sales_order_view_info" name="order_info" template="sales/order/view/info.phtml"></block>
                     <block type="adminhtml/sales_order_payment" name="order_payment"></block>
+
                     <block type="adminhtml/sales_order_invoice_view_items" name="invoice_items" template="sales/order/invoice/view/items.phtml">
                         <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>sales/order/invoice/view/items/renderer/default.phtml</template></action>
                         <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>

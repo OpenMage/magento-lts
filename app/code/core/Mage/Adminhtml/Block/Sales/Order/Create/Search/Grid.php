@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -116,7 +122,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         $this->addColumn('id', array(
             'header'    => Mage::helper('sales')->__('ID'),
             'sortable'  => true,
-            'width'     => '60px',
+            'width'     => '60',
             'index'     => 'entity_id'
         ));
         $this->addColumn('name', array(
@@ -125,7 +131,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         ));
         $this->addColumn('sku', array(
             'header'    => Mage::helper('sales')->__('SKU'),
-            'width'     => '80px',
+            'width'     => '80',
             'index'     => 'sku'
         ));
         $this->addColumn('price', array(
@@ -155,10 +161,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
                 'header'    => Mage::helper('sales')->__('Gift'),
                 'renderer'  => 'adminhtml/sales_order_create_search_grid_renderer_giftmessage',
                 'field_name'=> 'giftmessage',
-                'inline_css'=> 'input-text',
+                'inline_css'=> 'checkbox',
                 'align'     => 'center',
                 'index'     => 'entity_id',
-                'values'    => $this->_getGiftmessageSaveModel()->getAllowQuoteItemsProducts()
+                'values'    => $this->_getGiftmessageSaveModel()->getAllowQuoteItemsProducts(),
+				'width'     => '1',
             ));
         }
 
@@ -172,7 +179,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
             'type'      => 'input',
             'validate_class' => 'validate-number',
             'index'     => 'qty',
-            'width'     => '130px',
+            'width'     => '1',
         ));
 
         return parent::_prepareColumns();

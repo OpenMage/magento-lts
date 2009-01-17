@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -23,7 +29,7 @@
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Checkout_MultishippingController extends Mage_Core_Controller_Front_Action
+class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Action
 {
     /**
      * Retrieve checkout model
@@ -64,11 +70,21 @@ class Mage_Checkout_MultishippingController extends Mage_Core_Controller_Front_A
     {
         parent::preDispatch();
 
+        if (!Mage::helper('checkout')->isMultishippingCheckoutAvailable()){
+            $this->_redirectUrl($this->_getHelper()->getCartUrl());
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+            return $this;
+        }
+
         $action = $this->getRequest()->getActionName();
         if (!preg_match('#^(login|register)#', $action)) {
             if (!Mage::getSingleton('customer/session')->authenticate($this, $this->_getHelper()->getMSLoginUrl())) {
                 $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             }
+        }
+
+        if (!$this->_preDispatchValidateCustomer()) {
+            return $this;
         }
 
         if (Mage::getSingleton('checkout/session')->getCartWasUpdated(true)
@@ -412,10 +428,12 @@ class Mage_Checkout_MultishippingController extends Mage_Core_Controller_Front_A
             $this->_redirect('*/*/success');
         }
         catch (Mage_Core_Exception $e){
+            Mage::helper('checkout')->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $e->getMessage(), 'multi-shipping');
             Mage::getSingleton('checkout/session')->addError($e->getMessage());
             $this->_redirect('*/*/billing');
         }
         catch (Exception $e){
+            Mage::helper('checkout')->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $e->getMessage(), 'multi-shipping');
             Mage::getSingleton('checkout/session')->addError('Order place error.');
             $this->_redirect('*/*/billing');
         }
@@ -430,4 +448,5 @@ class Mage_Checkout_MultishippingController extends Mage_Core_Controller_Front_A
         $this->_initLayoutMessages('checkout/session');
         $this->renderLayout();
     }
+
 }

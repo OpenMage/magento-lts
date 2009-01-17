@@ -11,6 +11,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -113,7 +119,7 @@ Product.Gallery.prototype = {
         var vars = Object.clone(image);
         vars.id = this.prepareId(image.file);
         var html = this.template.evaluate(vars);
-        new Insertion.Bottom(this.getElement('list'), html);
+        Element.insert(this.getElement('list'), {bottom: html});
     },
     prepareId: function(file) {
         if(typeof this.file2id[file] == 'undefined') {
@@ -205,8 +211,8 @@ Product.Gallery.prototype = {
     updateUseDefault: function ()
     {
       if (this.getElement('default')) {
-         this.getElement('default').getElementsBySelector('input').each(function(input){
-             $(this.containerId).getElementsBySelector('.cell-' + input.value + ' input').each(function(radio) {
+         this.getElement('default').select('input').each(function(input){
+             $(this.containerId).select('.cell-' + input.value + ' input').each(function(radio) {
                  radio.disabled = input.checked;
              });
          }.bind(this));
@@ -270,10 +276,10 @@ Product.Attributes.prototype = {
     },
     addRow: function(html) {
         var attributesContainer = $$('#group_fields' + this.getConfig().group_id + ' .form-list tbody')[0];
-        new Insertion.Bottom(attributesContainer, html);
+        Element.insert(attributesContainer, {bottom: html});
 
-        var childs = attributesContainer.immediateDescendants();
-        var element = childs[childs.size()-1].getElementsBySelector('input','select','textarea')[0];
+        var childs = attributesContainer.childElements();
+        var element = childs[childs.size()-1].select('input','select','textarea')[0];
         if (element) {
             window.scrollTo(0, Position.cumulativeOffset(element)[1] + element.offsetHeight);
         }
@@ -351,14 +357,14 @@ Product.Configurable.prototype = {
 		this.updateSaveInput();
 	},
 	updatePositions: function(param) {
-		this.container.immediateDescendants().each(function(row, index) {
+		this.container.childElements().each(function(row, index) {
 			row.attributeObject.position = index;
 		});
 		this.updateSaveInput();
 	},
 	addNewProduct: function(productId, attributes) {
 	    if (this.checkAttributes(attributes)) {
-	        this.links[productId] = this.cloneAttributes(attributes);
+	        this.links.set(productId, this.cloneAttributes(attributes));
 	    } else {
 	        this.newProducts.push(productId);
 	    }
@@ -384,11 +390,11 @@ Product.Configurable.prototype = {
 	registerProduct: function(grid, element, checked) {
 		if(checked){
             if(element.linkAttributes) {
-            	this.links[element.value]=element.linkAttributes;
+            	this.links.set(element.value, element.linkAttributes);
             }
         }
         else{
-            this.links.remove(element.value);
+            this.links.unset(element.value);
         }
         this.updateGrid();
         this.grid.rows.each(function(row) {
@@ -399,13 +405,13 @@ Product.Configurable.prototype = {
 	updateProduct: function(productId, attributes) {
 	    var isAssociated = false;
 
-	    if (typeof this.links[productId] != 'undefined') {
+	    if (typeof this.links.get(productId) != 'undefined') {
 	        isAssociated = true;
-	        this.links.remove(productId);
+	        this.links.unset(productId);
 	    }
 
 	    if (isAssociated && this.checkAttributes(attributes)) {
-	        this.links[productId] = this.cloneAttributes(attributes);
+	        this.links.set(productId, this.cloneAttributes(attributes));
 	    } else if (isAssociated) {
 	        this.newProducts.push(productId);
 	    }
@@ -494,34 +500,34 @@ Product.Configurable.prototype = {
 		this.links.each(function(pair) {
 			for (var i = 0, length=pair.value.length; i < length; i ++) {
 				var attribute = pair.value[i];
-				if(uniqueAttributeValues.keys().indexOf(attribute.attribute_id)==-1) {
-					uniqueAttributeValues[attribute.attribute_id] = $H({});
+				if (uniqueAttributeValues.keys().indexOf(attribute.attribute_id) == -1) {
+					uniqueAttributeValues.set(attribute.attribute_id, $H({}));
 				}
-				uniqueAttributeValues[attribute.attribute_id][attribute.value_index] = attribute;
+				uniqueAttributeValues.get(attribute.attribute_id).set(attribute.value_index, attribute);
 			}
 		});
 		/* Updating attributes value container */
-		this.container.immediateDescendants().each(function(row) {
+		this.container.childElements().each(function(row) {
 			var attribute = row.attributeObject;
-			for(var i = 0, length=attribute.values.length; i < length; i ++) {
-				if(uniqueAttributeValues.keys().indexOf(attribute.attribute_id)==-1
-					|| uniqueAttributeValues[attribute.attribute_id].keys().indexOf(attribute.values[i].value_index)==-1) {
-					row.attributeValues.immediateDescendants().each(function(elem){
-						if(elem.valueObject.value_index==attribute.values[i].value_index) {
+			for (var i = 0, length=attribute.values.length; i < length; i ++) {
+				if (uniqueAttributeValues.keys().indexOf(attribute.attribute_id) == -1
+					|| uniqueAttributeValues.get(attribute.attribute_id).keys().indexOf(attribute.values[i].value_index)==-1) {
+					row.attributeValues.childElements().each(function(elem) {
+						if (elem.valueObject.value_index==attribute.values[i].value_index) {
 							elem.remove();
 						}
 					});
 					attribute.values[i] = undefined;
 
 				} else {
-					uniqueAttributeValues[attribute.attribute_id].remove(attribute.values[i].value_index);
+					uniqueAttributeValues.get(attribute.attribute_id).unset(attribute.values[i].value_index);
 				}
 			}
 			attribute.values = attribute.values.compact();
-			if(uniqueAttributeValues[attribute.attribute_id]) {
-				uniqueAttributeValues[attribute.attribute_id].each(function(pair){
+			if (uniqueAttributeValues.get(attribute.attribute_id)) {
+				uniqueAttributeValues.get(attribute.attribute_id).each(function(pair) {
 					attribute.values.push(pair.value);
-					this.createValueRow(row,pair.value);
+					this.createValueRow(row, pair.value);
 				}.bind(this));
 			}
 		}.bind(this));
@@ -529,24 +535,24 @@ Product.Configurable.prototype = {
 		this.updateSimpleForm();
 	},
 	createValueRow: function(container, value) {
-
 		var templateVariables = $H({});
 		if(!this.valueAutoIndex) {
 			this.valueAutoIndex = 1;
 		}
-		templateVariables.html_id = container.id  + '_' + this.valueAutoIndex;
-		templateVariables.merge(value);
-		if (!isNaN(parseFloat(templateVariables.pricing_value))) {
-		    templateVariables.pricing_value = parseFloat(templateVariables.pricing_value);
+		templateVariables.set('html_id', container.id  + '_' + this.valueAutoIndex);
+		templateVariables = templateVariables.merge(value);
+		var pricingValue = parseFloat(templateVariables.get('pricing_value'));
+		if (!isNaN(pricingValue)) {
+		    templateVariables.set('pricing_value', pricingValue);
 		} else  {
-		    templateVariables.pricing_value = undefined;
+		    templateVariables.unset('pricing_value');
 		}
 		this.valueAutoIndex++;
 
 		//var li = $(Builder.node('li', {className:'attribute-value'}));
 		var li = $(document.createElement('LI'));
 		li.className = 'attribute-value';
-		li.id = templateVariables.html_id;
+		li.id = templateVariables.get('html_id');
 		li.update(this.addValueTemplate.evaluate(templateVariables));
 		li.valueObject = value;
 		if (typeof li.valueObject.is_percent == 'undefined') {
@@ -591,10 +597,10 @@ Product.Configurable.prototype = {
 	        return;
 	    }
 
-	    $(this.idPrefix + 'simple_form').getElementsBySelector('td.value').each(function (td) {
+	    $(this.idPrefix + 'simple_form').select('td.value').each(function (td) {
             var adviceContainer = $(Builder.node('div'));
             td.appendChild(adviceContainer);
-	        td.getElementsBySelector('input', 'select').each(function(element){
+	        td.select('input', 'select').each(function(element){
 	            element.advaiceContainer = adviceContainer;
 	        });
 	    });
@@ -603,7 +609,7 @@ Product.Configurable.prototype = {
 	quickCreateNewProduct: function() {
         this.initializeAdvicesForSimpleForm();
 	    $(this.idPrefix + 'simple_form').removeClassName('ignore-validate');
-	    var validationResult = $(this.idPrefix + 'simple_form').getElementsBySelector('input','select','textarea').collect(
+	    var validationResult = $(this.idPrefix + 'simple_form').select('input','select','textarea').collect(
 	       function(elm) {
 	            return Validation.validate(elm,{useTitle : false, onElementValidate : function(){}});
 	       }
@@ -615,7 +621,7 @@ Product.Configurable.prototype = {
 	    }
 
 	    var params = Form.serializeElements(
-	       $(this.idPrefix + 'simple_form').getElementsBySelector('input','select','textarea'),
+	       $(this.idPrefix + 'simple_form').select('input','select','textarea'),
 	       true
 	    );
         $('messages').update();
@@ -673,7 +679,7 @@ Product.Configurable.prototype = {
 	        }
 	    }.bind(this));
 
-	    this.links[result.product_id] = result.attributes;
+	    this.links.set(result.product_id, result.attributes);
 	    this.updateGrid();
 	    this.updateValues();
 	    this.grid.reload();
@@ -727,7 +733,7 @@ Product.Configurable.prototype = {
 
         select = $(select);
         if (select.value && !$('simple_product_' + attributeCode + '_pricing_container')) {
-            new Insertion.After(select, '<div class="left"></div> <div id="simple_product_' + attributeCode + '_pricing_container" class="left"></div>');
+            Element.insert(select, {after: '<div class="left"></div> <div id="simple_product_' + attributeCode + '_pricing_container" class="left"></div>'});
             var newContainer = select.next('div');
             select.parentNode.removeChild(select);
             newContainer.appendChild(select);

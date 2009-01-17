@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -90,11 +96,11 @@ class Mage_Core_Model_Email_Template extends Varien_Object
 
     public function getTemplateFilter()
     {
-    	if (empty($this->_templateFilter)) {
-    		$this->_templateFilter = Mage::getModel('core/email_template_filter');
-    		$this->_templateFilter->setUseAbsoluteLinks($this->getUseAbsoluteLinks());
-    	}
-    	return $this->_templateFilter;
+        if (empty($this->_templateFilter)) {
+            $this->_templateFilter = Mage::getModel('core/email_template_filter');
+            $this->_templateFilter->setUseAbsoluteLinks($this->getUseAbsoluteLinks());
+        }
+        return $this->_templateFilter;
     }
 
     /**
@@ -247,7 +253,7 @@ class Mage_Core_Model_Email_Template extends Varien_Object
         $processor = $this->getTemplateFilter();
 
         if(!$this->_preprocessFlag) {
-        	$variables['this'] = $this;
+            $variables['this'] = $this;
         }
 
         $processor
@@ -300,11 +306,12 @@ class Mage_Core_Model_Email_Template extends Varien_Object
         $mail = $this->getMail();
         if (is_array($email)) {
             foreach ($email as $emailOne) {
-            	$mail->addTo($emailOne, $name);
+                $mail->addTo($emailOne, $name);
             }
         }
         else {
-            $mail->addTo($email, $name);
+          //  $mail->addTo($email, $name);
+            $mail->addTo($email, '=?utf-8?B?'.base64_encode($name).'?=');
         }
 
         $this->setUseAbsoluteLinks(true);
@@ -316,8 +323,10 @@ class Mage_Core_Model_Email_Template extends Varien_Object
             $mail->setBodyHTML($text);
         }
 
-        $mail->setSubject($this->getProcessedTemplateSubject($variables));
+        $mail->setSubject('=?utf-8?B?'.base64_encode($this->getProcessedTemplateSubject($variables)).'?=');
+        //$mail->setSubject($this->getProcessedTemplateSubject($variables));
         $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
+
         try {
             $mail->send(); // Zend_Mail warning..
             $this->_mail = null;
@@ -331,36 +340,41 @@ class Mage_Core_Model_Email_Template extends Varien_Object
 
     public function sendTransactional($templateId, $sender, $email, $name, $vars=array(), $storeId=null)
     {
-    	if (is_null($storeId)) {
-    	    if ($this->getDesignConfig() && $this->getDesignConfig()->getStore()) {
-                $storeId = $this->getDesignConfig()->getStore();
-    	    }
-    	    else {
-    	        $storeId = Mage::app()->getStore();
-    	    }
-    	}
+        $this->setSentSuccess(false);
 
-    	if (is_numeric($templateId)) {
-    	   $this->load($templateId);
+        if (is_null($storeId)) {
+            if ($this->getDesignConfig() && $this->getDesignConfig()->getStore()) {
+                $storeId = $this->getDesignConfig()->getStore();
+            }
+            else {
+                $storeId = Mage::app()->getStore();
+            }
+        }
+        Mage::app()->getLocale()->emulate($storeId);
+
+        if (is_numeric($templateId)) {
+            $this->load($templateId);
         } else {
-           $this->loadDefault($templateId);
+            $localeCode = Mage::getStoreConfig('general/locale/code', $storeId);
+            $this->loadDefault($templateId, $localeCode);
         }
 
-    	if (!$this->getId()) {
-    		throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid transactional email code: '.$templateId));
-    	}
+        if (!$this->getId()) {
+            throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid transactional email code: '.$templateId));
+        }
 
-    	if (!is_array($sender)) {
-    	    $this->setSenderName(Mage::getStoreConfig('trans_email/ident_'.$sender.'/name', $storeId));
-    	    $this->setSenderEmail(Mage::getStoreConfig('trans_email/ident_'.$sender.'/email', $storeId));
-    	} else {
-    	    $this->setSenderName($sender['name']);
-    	    $this->setSenderEmail($sender['email']);
-    	}
+        if (!is_array($sender)) {
+            $this->setSenderName(Mage::getStoreConfig('trans_email/ident_'.$sender.'/name', $storeId));
+            $this->setSenderEmail(Mage::getStoreConfig('trans_email/ident_'.$sender.'/email', $storeId));
+        } else {
+            $this->setSenderName($sender['name']);
+            $this->setSenderEmail($sender['email']);
+        }
 
-    	$this->send($email, $name, $vars);
-    	return $this;
-	}
+        $this->setSentSuccess( $this->send($email, $name, $vars) );
+        Mage::app()->getLocale()->revert();
+        return $this;
+    }
 
     /**
      * Delete template from DB
@@ -375,10 +389,10 @@ class Mage_Core_Model_Email_Template extends Varien_Object
 
     public function getProcessedTemplateSubject(array $variables)
     {
-    	$processor = $this->getTemplateFilter();
+        $processor = $this->getTemplateFilter();
 
         if(!$this->_preprocessFlag) {
-        	$variables['this'] = $this;
+            $variables['this'] = $this;
         }
 
         $processor->setVariables($variables);
@@ -443,7 +457,7 @@ class Mage_Core_Model_Email_Template extends Varien_Object
     {
         if (is_array($bcc)) {
             foreach ($bcc as $email) {
-            	$this->getMail()->addBcc($email);
+                $this->getMail()->addBcc($email);
             }
         }
         elseif ($bcc) {

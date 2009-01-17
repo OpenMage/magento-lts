@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -198,6 +204,10 @@ class Mage_Core_Model_Url extends Varien_Object
 
     public function getSecure()
     {
+        if ($this->hasSecureIsForced()) {
+            return $this->_getData('secure');
+        }
+
         if (!Mage::getStoreConfigFlag('web/secure/use_in_frontend')) {
             return false;
         }
@@ -323,8 +333,9 @@ class Mage_Core_Model_Url extends Varien_Object
     public function getRoutePath($routeParams=array())
     {
         if (!$this->hasData('route_path')) {
+        	$routePath = $this->getRequest()->getAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS);
             if (!empty($routeParams['_use_rewrite'])
-                && ($routePath = $this->getRequest()->getAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS))) {
+                && ($routePath !== null)) {
                 $this->setData('route_path', $routePath);
                 return $routePath;
             }
@@ -411,9 +422,15 @@ class Mage_Core_Model_Url extends Varien_Object
             unset($data['_type']);
         }
 
-        if (isset($data['_secure'])) {
-            $this->setSecure((bool)$data['_secure']);
-            unset($data['_secure']);
+        if (isset($data['_forced_secure'])) {
+            $this->setSecure((bool)$data['_forced_secure']);
+            $this->setSecureIsForced(true);
+            unset($data['_forced_secure']);
+        } else {
+            if (isset($data['_secure'])) {
+                $this->setSecure((bool)$data['_secure']);
+                unset($data['_secure']);
+            }
         }
 
         if (isset($data['_absolute'])) {
@@ -674,6 +691,15 @@ class Mage_Core_Model_Url extends Varien_Object
         if ($this->getFragment()) {
             $url .= '#'.$this->getFragment();
         }
-        return $url;
+        return $this->escape($url);
+    }
+
+    public function escape($value)
+    {
+        $value = str_replace('"', '%22', $value);
+        $value = str_replace("'", '%27', $value);
+        $value = str_replace('>', '%3E', $value);
+        $value = str_replace('<', '%3C', $value);
+        return $value;
     }
 }

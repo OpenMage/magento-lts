@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -26,7 +32,7 @@
 ?>
 <?php $_product = $this->getProduct() ?>
 <?php if ($_product->getImage() != 'no_selection' && $_product->getImage()): ?>
-<p class="main-product-img"><img id="image" src="<?php echo $this->helper('catalog/image')->init($_product, 'image'); ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" /></p>
+<p class="product-image-zoom"><img id="image" src="<?php echo $this->helper('catalog/image')->init($_product, 'image'); ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" /></p>
 <p class="a-center" id="track_hint"><?php echo $this->__('Double click on above image to view full picture') ?></p>
 
 <div class="image-zoom" id="track_outer">
@@ -42,14 +48,16 @@
     });
 </script>
 <?php else: ?>
-<img id="image" src="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(265); ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" />
+    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(265); ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" />
 <?php endif; ?>
 <?php if (count($this->getGalleryImages()) > 0): ?>
 <div class="more-views">
     <h4><?php echo $this->__('More Views') ?></h4>
     <ul>
     <?php foreach ($this->getGalleryImages() as $_image): ?>
-        <li><a href="#" onclick="popWin('<?php echo $this->getGalleryUrl($_image) ?>', 'gallery', 'width=300,height=300,left=50,top=50,location=no,status=yes,scrollbars=yes,resizable=yes'); return false;"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(68, 68); ?>" width="68" height="68" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a></li>
+        <li>
+            <a href="#" onclick="popWin('<?php echo $this->getGalleryUrl($_image) ?>', 'gallery', 'width=300,height=300,left=50,top=50,location=no,status=yes,scrollbars=yes,resizable=yes'); return false;"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(120); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a>
+        </li>
     <?php endforeach; ?>
     </ul>
 </div>

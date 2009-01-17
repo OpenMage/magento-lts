@@ -139,6 +139,7 @@ BOXES
 .pear-packages tr.installed-latest td   { background:#dbf1d7; }
 .pear-packages tr.upgrade-available td  { background:#fcfbbb; }
 .pear-packages tr.stand-alone td        { background:#cbe8fb; }
+.pear-packages td .select               { width:100%; }
 .step-count             { background:#f77312; color:#fff; font-weight:bold; padding:0 4px; }
 
 

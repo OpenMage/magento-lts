@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -26,7 +32,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Template
+class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Catalog_Category_Abstract
 {
 
     protected $_withProductCount;
@@ -35,35 +41,46 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Te
     {
         parent::__construct();
         $this->setTemplate('catalog/category/tree.phtml');
+        $this->setUseAjax(true);
         $this->_withProductCount = true;
     }
 
     protected function _prepareLayout()
     {
-        $url = $this->getUrl('*/*/add', array(
+        $addUrl = $this->getUrl("*/*/add", array(
             '_current'=>true,
-            'parent'=>base64_encode($this->getCategoryPath()),
             'id'=>null,
         ));
-        $this->setChild('add_button',
+
+        $this->setChild('add_sub_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
-                    'label'     => Mage::helper('catalog')->__('Add New'),
-                    'onclick'   => "setLocation('".$url."')",
-                    'class' => 'add'
+                    'label'     => Mage::helper('catalog')->__('Add Subcategory'),
+                    'onclick'   => "addNew('".$addUrl."', false)",
+                    'class'     => 'add'
+                ))
+        );
+
+        $this->setChild('add_root_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData(array(
+                    'label'     => Mage::helper('catalog')->__('Add Root Category'),
+                    'onclick'   => "addNew('".$addUrl."', true)",
+                    'class'     => 'add'
                 ))
         );
 
         $this->setChild('store_switcher',
             $this->getLayout()->createBlock('adminhtml/store_switcher')
-                ->setSwitchUrl($this->getUrl('*/*/*', array('_current'=>true, '_query'=>false,'store'=>null)))
+                ->setSwitchUrl($this->getUrl('*/*/*', array('_current'=>true, '_query'=>false, 'store'=>null)))
+                ->setTemplate('store/switcher/enhanced.phtml')
         );
         return parent::_prepareLayout();
     }
 
     protected function _getDefaultStoreId()
     {
-        return Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;;
+        return Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
     }
 
     public function getCategoryCollection()
@@ -85,9 +102,24 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Te
         return $collection;
     }
 
-    public function getAddButtonHtml()
+    public function getAddRootButtonHtml()
     {
-        return $this->getChildHtml('add_button');
+        return $this->getChildHtml('add_root_button');
+    }
+
+    public function getAddSubButtonHtml()
+    {
+        return $this->getChildHtml('add_sub_button');
+    }
+
+    public function getExpandButtonHtml()
+    {
+        return $this->getChildHtml('expand_button');
+    }
+
+    public function getCollapseButtonHtml()
+    {
+        return $this->getChildHtml('collapse_button');
     }
 
     public function getStoreSwitcherHtml()
@@ -98,25 +130,15 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Te
         return $this->getChildHtml('store_switcher');
     }
 
-    public function getCategory()
+    public function getLoadTreeUrl($expanded=null)
     {
-        return Mage::registry('category');
-    }
-
-    public function getCategoryId()
-    {
-        if ($this->getCategory()) {
-            return $this->getCategory()->getId();
+        $params = array('_current'=>true, 'id'=>null,'store'=>null);
+        if (
+            (is_null($expanded) && Mage::getSingleton('admin/session')->getIsTreeWasExpanded())
+            || $expanded == true) {
+            $params['expand_all'] = true;
         }
-        return 1;
-    }
-
-    public function getCategoryPath()
-    {
-        if ($this->getCategory()) {
-            return $this->getCategory()->getPath();
-        }
-        return 1;
+        return $this->getUrl('*/*/categoriesJson', $params);
     }
 
     public function getNodesUrl()
@@ -124,9 +146,14 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Te
         return $this->getUrl('*/catalog_category/jsonTree');
     }
 
-    public function getEditUrl()
+    public function getSwitchTreeUrl()
     {
-        return $this->getUrl('*/catalog_category/edit', array('_current'=>true, '_query'=>false, 'id'=>null, 'parent'=>null));
+        return $this->getUrl("*/catalog_category/tree", array('_current'=>true, 'store'=>null, '_query'=>false, 'id'=>null, 'parent'=>null));
+    }
+
+    public function getIsWasExpanded()
+    {
+        return Mage::getSingleton('admin/session')->getIsTreeWasExpanded();
     }
 
     public function getMoveUrl()
@@ -134,41 +161,16 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Te
         return $this->getUrl('*/catalog_category/move', array('store'=>$this->getRequest()->getParam('store')));
     }
 
-    public function getRoot()
+    public function getTree($parenNodeCategory=null)
     {
-        $root = $this->getData('root');
-        if (is_null($root)) {
-            $storeId = (int) $this->getRequest()->getParam('store');
-
-            if ($storeId) {
-                $store = Mage::app()->getStore($storeId);
-                $rootId = $store->getRootCategoryId();
-            }
-            else {
-                $rootId = 1;
-            }
-
-            $tree = Mage::getResourceSingleton('catalog/category_tree')
-                ->load();
-            $root = $tree->getNodeById($rootId);
-
-            if ($root && $rootId != 1) {
-                $root->setIsVisible(true);
-            }
-            elseif($root && $root->getId() == 1) {
-                $root->setName(Mage::helper('catalog')->__('Root'));
-            }
-
-            $tree->addCollectionData($this->getCategoryCollection());
-            $this->setData('root', $root);
-        }
-
-        return $root;
+       	$rootArray = $this->_getNodeJson($this->getRoot($parenNodeCategory));
+        $tree = isset($rootArray['children']) ? $rootArray['children'] : array();
+        return $tree;
     }
 
-    public function getTreeJson()
+    public function getTreeJson($parenNodeCategory=null)
     {
-        $rootArray = $this->_getNodeJson($this->getRoot());
+        $rootArray = $this->_getNodeJson($this->getRoot($parenNodeCategory));
         $json = Zend_Json::encode(isset($rootArray['children']) ? $rootArray['children'] : array());
         return $json;
     }
@@ -190,6 +192,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Te
     {
         $item = array();
         $item['text']= $this->htmlEscape($node->getName());
+
         if ($this->_withProductCount) {
              $item['text'].= ' ('.$node->getProductCount().')';
         }
@@ -198,17 +201,46 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Te
         $rootForStores = in_array($node->getEntityId(), $this->getRootIds());
 
         $item['id']  = $node->getId();
+        $item['store']  = (int) $this->getStore()->getId();
+        $item['path'] = $node->getData('path');
+
         $item['cls'] = 'folder ' . ($node->getIsActive() ? 'active-category' : 'no-active-category');
         //$item['allowDrop'] = ($level<3) ? true : false;
         $item['allowDrop'] = true;
         // disallow drag if it's first level and category is root of a store
         $item['allowDrag'] = ($node->getLevel()==1 && $rootForStores) ? false : true;
+
+        if ((int)$node->getChildrenCount()>0) {
+            $item['children'] = array();
+        }
+
+        $isParent = $this->_isParentSelectedCategory($node);
+
         if ($node->hasChildren()) {
             $item['children'] = array();
-            foreach ($node->getChildren() as $child) {
-                $item['children'][] = $this->_getNodeJson($child, $level+1);
+            if (!($this->getUseAjax() && $node->getLevel() > 1 && !$isParent)) {
+                foreach ($node->getChildren() as $child) {
+                    $item['children'][] = $this->_getNodeJson($child, $level+1);
+                }
             }
         }
+
+        if ($isParent || $node->getLevel() < 2) {
+            $item['expanded'] = true;
+        }
+
         return $item;
+    }
+
+    protected function _isParentSelectedCategory($node)
+    {
+        if ($node && $this->getCategory()) {
+            $pathIds = $this->getCategory()->getPathIds();
+            if (in_array($node->getId(), $pathIds)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

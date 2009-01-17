@@ -12,102 +12,129 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 ?>
+<?php
+/**
+ * Template for Mage_Adminhtml_Block_Catalog_Category_Cointainer
+ */
+?>
 
-<div class="content-header">
-<table cellspacing="0">
-    <tr>
-        <td><h3 class="icon-head head-categories"><?php echo $this->getHeader() ?></h3></td>
-        <td class="form-buttons">
-            <?php echo $this->getResetButtonHtml() ?>
-            <?php if($this->getCategoryId()): ?>
-                    <?php echo $this->getDeleteButtonHtml() ?>
-            <?php endif; ?>
-            <?php echo $this->getSaveButtonHtml() ?>
-        </td>
-    </tr>
-</table>
+<div id="category-edit-container" class="category-content">
+    <?php echo $this->getChildHtml('form') ?>
 </div>
-<?php if($this->hasStoreRootCategory()): ?>
-    <?php echo $this->getTabsHtml() ?>
-    <form id="category_edit_form" action="<?php echo $this->getSaveUrl() ?>" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="category_products" id="in_category_products" value=""/>
-    <div id="category_tab_content"></div>
-    </form>
+<script type="text/javascript">
+//<![CDATA[
 
-<script type="text/javascript" language="javascript">
-    var categoryForm = new varienForm('category_edit_form');
-
-    function categoryDelete(){
+    function categoryReset(url,useAjax){
+        if(useAjax){
+            var params = {active_tab_id:false};
+            updateContent('<?php echo $this->getResetUrl() ?>', params);
+        }else{
+            location.href = '<?php echo $this->getResetUrl() ?>'
+        }
+    }
+    function categoryDelete(url, useAjax){
         if(confirm('<?php echo Mage::helper('catalog')->__('Are you sure you want to delete this category?') ?>')){
-            location.href = '<?php echo $this->getDeleteUrl() ?>'
+            if(useAjax){
+                tree.nodeForDelete = tree.currentNodeId;
+                updateContent(url, {}, true);
+            }else{
+                location.href = url;
+            }
         }
-    }
-<?php if(($block = $this->getLayout()->getBlock('category.product.grid')) && ($_gridJsObject=$block->getJsObjectName())): ?>
-    var categoryProducts = $H(<?php echo $this->getProductsJson() ?>);
-    $('in_category_products').value = categoryProducts.toQueryString();
 
-    function registerCategoryProduct(grid, element, checked){
-        if(checked){
-            if(element.positionElement){
-                element.positionElement.disabled = false;
-                categoryProducts[element.value] = element.positionElement.value;
-            }
-        }
-        else{
-            if(element.positionElement){
-                element.positionElement.disabled = true;
-            }
-            categoryProducts.remove(element.value);
-        }
-        $('in_category_products').value = categoryProducts.toQueryString();
-        grid.reloadParams = {'selected_products[]':categoryProducts.keys()};
-    }
-    function categoryProductRowClick(grid, event){
-        var trElement = Event.findElement(event, 'tr');
-        var isInput   = Event.element(event).tagName == 'INPUT';
-        if(trElement){
-            var checkbox = Element.getElementsBySelector(trElement, 'input');
-            if(checkbox[0]){
-                var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
-                <?php echo $_gridJsObject ?>.setCheckboxChecked(checkbox[0], checked);
-            }
-        }
-    }
-    function positionChange(event){
-        var element = Event.element(event);
-        if(element && element.checkboxElement && element.checkboxElement.checked){
-            categoryProducts[element.checkboxElement.value] = element.value;
-            $('in_category_products').value = categoryProducts.toQueryString();
-        }
     }
 
-    var tabIndex = 1000;
-    function categoryProductRowInit(grid, row){
-        var checkbox = $(row).getElementsByClassName('checkbox')[0];
-        var position = $(row).getElementsByClassName('input-text')[0];
-        if(checkbox && position){
-            checkbox.positionElement = position;
-            position.checkboxElement = checkbox;
-            position.disabled = !checkbox.checked;
-            position.tabIndex = tabIndex++;
-            Event.observe(position,'keyup',positionChange);
+    function updateContent(url, params, refreshTree){
+       /*if(params.node_name)
+       {
+           var currentNode = tree.getNodeById(tree.currentNodeId);
+           currentNode.setText(params.node_name);
+       }*/
+        var categoryContainer = $('category-edit-container');
+        new Ajax.Updater(
+            categoryContainer,
+            url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true' ),
+            {
+               parameters:  params || {},
+               method:      'post',
+               loaderArea:  categoryContainer,
+               onComplete:  refreshTree?refreshTreeArea.bind(this):false,
+               evalScripts: true
+            }
+        );
+    }
+
+    function refreshTreeArea(transport)
+    {
+        if (tree && tree.addNodeTo) {
+            var parent = tree.getNodeById(tree.currentNodeId);
+            var parameters = {
+                text:        $('_generalname').value,
+                draggable:   tree.rootVisible,
+                allowDrop:   tree.rootVisible,
+                id:          $('_generalid').value,
+                path:        $('_generalpath').value,
+                expanded:    false,
+                store_id:    tree.storeId,
+                category_id: $('_generalid').value
+            };
+
+            var node = new Ext.tree.AsyncTreeNode(parameters);
+            node.loaded = true;
+            tree.addNodeTo = false;
+            tree.currentNodeId = node.id;
+            parent.appendChild(node);
+
+            if (parent.expanded) {
+                tree.selectCurrentNode();
+            } else {
+                var timer;
+                parent.expand();
+                var f = function(){
+                    if(parent.expanded){ // done expanding
+                        clearInterval(timer);
+                        tree.selectCurrentNode();
+                    }
+                };
+                timer = setInterval(f, 200);
+                return;
+            }
+//            tree.selectCurrentNode();
+        }
+        else if (tree && tree.nodeForDelete) {
+            var parentNode = tree.getNodeById(tree.nodeForDelete).parentNode;
+            parentNode.removeChild(tree.getNodeById(tree.nodeForDelete));
+            tree.nodeForDelete = false;
+            tree.currentNodeId = false;
         }
     }
-    <?php echo $_gridJsObject ?>.rowClickCallback = categoryProductRowClick;
-    <?php echo $_gridJsObject ?>.initRowCallback = categoryProductRowInit;
-    <?php echo $_gridJsObject ?>.checkboxCheckCallback = registerCategoryProduct;
-    <?php echo $_gridJsObject ?>.rows.each(function(row){categoryProductRowInit(<?php echo $_gridJsObject ?>, row)});
-<?php endif; ?>
+    
+    function updateNodeName(name)
+    {
+        if (tree && !tree.addNodeTo) {
+         var currentNode = tree.getNodeById(tree.currentNodeId);
+          currentNode.setText(name);
+        }
+    }
+
+    function displayLoadingMask()
+    {
+       var loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
+        Position.clone($(loaderArea), $('loading-mask'), {offsetLeft:-2});
+        toggleSelectsUnderBlock($('loading-mask'), false);
+        Element.show('loading-mask');
+    }
+//]]>
 </script>
-
-<?php else: ?>
-<div class="messages warning-msg">
-    <?php echo Mage::helper('catalog')->__('Set root category for this store in the <a href="%s">configuration</a>', $this->getStoreConfigurationUrl()) ?>
-</div>
-<?php endif; ?>

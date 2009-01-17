@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   design_default
  * @package    Mage
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -61,7 +67,7 @@ $_block = $this;
     </thead>
     <tbody id="<?php echo $_block->getHtmlId() ?>_list">
         <tr id="<?php echo $_block->getHtmlId() ?>_template" class="template no-display">
-                <td class="cell-image"><div class="place-holder" onmouseover="<?php echo $_block->getJsObjectName(); ?>.loadImage('__file__')"><span><?php echo Mage::helper('catalog')->__('Roll Over for preview') ?></span></div><img src="" width="100" style="display:none"></td>
+                <td class="cell-image"><div class="place-holder" onmouseover="<?php echo $_block->getJsObjectName(); ?>.loadImage('__file__')"><span><?php echo Mage::helper('catalog')->__('Roll Over for preview') ?></span></div><img src="#" width="100" style="display:none;" alt="" /></td>
                 <td class="cell-label"><input type="text" class="input-text" onkeyup="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" onchange="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" /></td>
                 <td class="cell-position"><input type="text" class="input-text validate-number" onkeyup="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" onchange="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" /></td>
                 <?php foreach ($_block->getImageTypes() as $typeId=>$type): ?>
@@ -79,7 +85,7 @@ $_block = $this;
                 <td class="a-center">
                 <?php if($_block->getElement()->canDisplayUseDefault($_attribute)): ?>
                 <input class="default-checkbox" name="use_default[]" type="checkbox" onclick="<?php echo $_block->getJsObjectName(); ?>.updateUseDefault()"
-<?php if($_block->getElement()->usedDefault($_attribute)): ?>checked<?php endif; ?> value="<?php echo $_attribute->getAttributeCode() ?>"/>
+<?php if($_block->getElement()->usedDefault($_attribute)): ?>checked<?php endif; ?> value="<?php echo $_attribute->getAttributeCode() ?>" />
                 <?php endif ?>
                 </td>
                 <?php endforeach; ?>
@@ -89,20 +95,20 @@ $_block = $this;
     <?php endif ?>
         <tr id="<?php echo $_block->getHtmlId() ?>-image-0">
                 <td class="cell-image"><?php echo Mage::helper('catalog')->__('No image') ?></td>
-                <td class="cell-label"><input type="hidden">&nbsp;</td>
-                <td class="cell-position"><input type="hidden">&nbsp;</td>
+                <td class="cell-label"><input type="hidden" />&nbsp;</td>
+                <td class="cell-position"><input type="hidden" />&nbsp;</td>
                 <?php foreach ($_block->getImageTypes() as $typeId=>$type): ?>
-                <td class="cell-<?php echo $typeId ?> a-center"><input type="radio" name="<?php echo $type['field'] ?>" onclick="<?php echo $_block->getJsObjectName(); ?>.setProductImages('no_selection')" value="no_selection"/></td>
+                <td class="cell-<?php echo $typeId ?> a-center"><input type="radio" name="<?php echo $type['field'] ?>" onclick="<?php echo $_block->getJsObjectName(); ?>.setProductImages('no_selection')" value="no_selection" /></td>
                 <?php endforeach; ?>
-                <td class="cell-disable"><input type="hidden">&nbsp;</td>
-                <td class="cell-remove last"><input type="hidden">&nbsp;</td>
+                <td class="cell-disable"><input type="hidden" />&nbsp;</td>
+                <td class="cell-remove last"><input type="hidden" />&nbsp;</td>
         </tr>
     </tbody>
 
     <tfoot>
         <tr>
             <td colspan="100" class="last" style="padding:8px">
-            <?php echo $_block->getUploaderHtml() ?>
+                <?php echo $_block->getUploaderHtml() ?>
             </td>
         </tr>
     </tfoot>
@@ -112,5 +118,7 @@ $_block = $this;
 <input type="hidden" id="<?php echo $_block->getHtmlId() ?>_save" name="<?php echo $_block->getElement()->getName() ?>[images]" value="<?php echo $_block->htmlEscape($_block->getImagesJson()) ?>" />
 <input type="hidden" id="<?php echo $_block->getHtmlId() ?>_save_image" name="<?php echo $_block->getElement()->getName() ?>[values]" value="<?php echo $_block->htmlEscape($_block->getImagesValuesJson()) ?>" />
 <script type="text/javascript">
+//<![CDATA[
 var <?php echo $_block->getJsObjectName(); ?> = new Product.Gallery('<?php echo $_block->getHtmlId() ?>', <?php echo $_block->getUploader()->getJsObjectName() ?>, <?php echo $_block->getImageTypesJson() ?>);
+//]]>
 </script>

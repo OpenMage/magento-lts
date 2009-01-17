@@ -13,6 +13,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -282,7 +288,18 @@ class Mage_Customer_Model_Convert_Adapter_Customer
             'type'  => 'like',
             'bind'  => $addressType
         );
-        $attrFilterArray ['created_at']                 = 'dateFromTo';
+        $attrFilterArray ['created_at']                 = 'datetimeFromTo';
+
+        /*
+         * Fixing date filter from and to
+         */
+        if ($var = $this->getVar('filter/created_at/from')) {
+            $this->setVar('filter/created_at/from', $var . ' 00:00:00');
+        }
+
+        if ($var = $this->getVar('filter/created_at/to')) {
+            $this->setVar('filter/created_at/to', $var . ' 23:59:59');
+        }
 
         $attrToDb = array(
             'group'                     => 'group_id',

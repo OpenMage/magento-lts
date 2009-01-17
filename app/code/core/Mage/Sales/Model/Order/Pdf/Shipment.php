@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -35,7 +41,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
 
         $pdf = new Zend_Pdf();
         $style = new Zend_Pdf_Style();
-        $style->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA_BOLD), 10);
+        $this->_setFontBold($style, 10);
         foreach ($shipments as $shipment) {
             $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
             $pdf->pages[] = $page;
@@ -52,7 +58,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
             $this->insertOrder($page, $order);
 
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(1));
-            $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 7);
+            $this->_setFontRegular($page);
             $page->drawText(Mage::helper('sales')->__('Packingslip # ') . $shipment->getIncrementId(), 35, 780, 'UTF-8');
 
             /* Add table */
@@ -87,7 +93,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
                     $pdf->pages[] = $page;
                     $this->y = 800;
 
-                    $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 7);
+                    $this->_setFontRegular($page);
                     $page->setFillColor(new Zend_Pdf_Color_RGB(0.93, 0.92, 0.92));
                     $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
                     $page->setLineWidth(0.5);

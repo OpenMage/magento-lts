@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -158,10 +164,10 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         return $this->getData('after_element_html');
     }
 
-    public function getLabelHtml()
+    public function getLabelHtml($idSuffix = '')
     {
         if (!is_null($this->getLabel())) {
-            $html = '<label for="'.$this->getHtmlId().'">'.$this->getLabel()
+            $html = '<label for="'.$this->getHtmlId() . $idSuffix . '">'.$this->getLabel()
                 . ( $this->getRequired() ? ' <span class="required">*</span>' : '' ).'</label>'."\n";
         }
         else {
@@ -196,5 +202,16 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     public function toHtml()
     {
         return $this->getHtml();
+    }
+
+    public function serialize($attributes = array(), $valueSeparator='=', $fieldSeparator=' ', $quote='"')
+    {
+        if (in_array('disabled', $attributes) && !empty($this->_data['disabled'])) {
+            $this->_data['disabled'] = 'disabled';
+        }
+        if (in_array('checked', $attributes) && !empty($this->_data['checked'])) {
+            $this->_data['checked'] = 'checked';
+        }
+        return parent::serialize($attributes, $valueSeparator, $fieldSeparator, $quote);
     }
 }

@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -47,6 +53,7 @@ class Mage_Tax_Model_Config
     const CONFIG_XML_PATH_DISPLAY_TAX_COLUMN = 'tax/display/column_in_summary';
     const CONFIG_XML_PATH_DISPLAY_FULL_SUMMARY = 'tax/display/full_summary';
     const CONFIG_XML_PATH_DISPLAY_SHIPPING = 'tax/display/shipping';
+    const CONFIG_XML_PATH_DISPLAY_ZERO_TAX = 'tax/display/zero_tax';
 
     // deprecated settings
     const CONFIG_XML_PATH_SHOW_IN_CATALOG = 'tax/display/show_in_catalog';
@@ -58,4 +65,6 @@ class Mage_Tax_Model_Config
     const DISPLAY_TYPE_EXCLUDING_TAX = 1;
     const DISPLAY_TYPE_INCLUDING_TAX = 2;
     const DISPLAY_TYPE_BOTH = 3;
+
+
 }

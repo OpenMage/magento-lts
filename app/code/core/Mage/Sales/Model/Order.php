@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -50,12 +56,13 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
     /**
      * Order states
      */
-    const STATE_NEW         = 'new';
-    const STATE_PROCESSING  = 'processing';
-    const STATE_COMPLETE    = 'complete';
-    const STATE_CLOSED      = 'closed';
-    const STATE_CANCELED    = 'canceled';
-    const STATE_HOLDED      = 'holded';
+    const STATE_NEW             = 'new';
+    const STATE_PENDING_PAYMENT = 'pending_payment';
+    const STATE_PROCESSING      = 'processing';
+    const STATE_COMPLETE        = 'complete';
+    const STATE_CLOSED          = 'closed';
+    const STATE_CANCELED        = 'canceled';
+    const STATE_HOLDED          = 'holded';
 
     protected $_eventPrefix = 'sales_order';
     protected $_eventObject = 'order';
@@ -161,7 +168,6 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
         if ($this->canUnhold()) {
             return false;
         }
-
         if ($this->getState() === self::STATE_CANCELED ||
             $this->getState() === self::STATE_COMPLETE ||
             $this->getState() === self::STATE_CLOSED ) {
@@ -193,23 +199,15 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
         }
 
         /**
-         * need use int, becose $a=762.73;$b=762.73; $a-$b!=0;
+         * We can have problem with float in php (on some server $a=762.73;$b=762.73; $a-$b!=0)
+         * for this we have additional diapason for 0
          */
-        $paidCompare = (int) ($this->getTotalPaid() * 1000000);
-        $refundedCompare = (int) ($this->getTotalRefunded() * 1000000);
-        if ($paidCompare>$refundedCompare) {
-            return true;
-        }
-        /**
-         * Moshe: another solution
-         */
-        /*
         if (abs($this->getTotalPaid()-$this->getTotalRefunded())<.0001) {
-            return true;
+            return false;
         }
-        */
 
-        return false;
+
+        return true;
     }
 
     /**
@@ -418,17 +416,20 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
     /**
      * Declare order state
      *
-     * @param   string $state
+     * @param string $state
+     * @param string $status
+     * @param string $comment
+     * @param bool $isCustomerNotified
      * @return  Mage_Sales_Model_Order
      */
-    public function setState($state, $status=false)
+    public function setState($state, $status = false, $comment = '', $isCustomerNotified = false)
     {
         $this->setData('state', $state);
         if ($status) {
             if ($status === true) {
                 $status = $this->getConfig()->getStateDefaultStatus($state);
             }
-            $this->addStatusToHistory($status);
+            $this->addStatusToHistory($status, $comment, $isCustomerNotified);
         }
         return $this;
     }
@@ -451,7 +452,7 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
      * @param   boolean $is_customer_notified
      * @return  Mage_Sales_Model_Order
      */
-    public function addStatusToHistory($status, $comment='', $isCustomerNotified=false)
+    public function addStatusToHistory($status, $comment='', $isCustomerNotified = false)
     {
         $status = Mage::getModel('sales/order_status_history')
             ->setStatus($status)
@@ -630,6 +631,12 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
      */
     public function sendOrderUpdateEmail($notifyCustomer=true, $comment='')
     {
+        $copyTo = $this->_getEmails(self::XML_PATH_UPDATE_EMAIL_COPY_TO);
+        $copyMethod = Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_COPY_METHOD, $this->getStoreId());
+        if (!$notifyCustomer && !$copyTo) {
+            return $this;
+        }
+
         // set design parameters, required for email (remember current)
         $currentDesign = Mage::getDesign()->setAllGetOld(array(
             'store'   => $this->getStoreId(),
@@ -640,12 +647,6 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
         $translate = Mage::getSingleton('core/translate');
         /* @var $translate Mage_Core_Model_Translate */
         $translate->setTranslateInline(false);
-
-        $copyTo = $this->_getEmails(self::XML_PATH_UPDATE_EMAIL_COPY_TO);
-        $copyMethod = Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_COPY_METHOD, $this->getStoreId());
-        if (!$notifyCustomer && !$copyTo) {
-            return $this;
-        }
 
         $sendTo = array();
 
@@ -1379,6 +1380,46 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
         $invoice->collectTotals();
 
         return $invoice;
+    }
+
+    /**
+     * Create new shipment with maximum qty for shipping for each item
+     *
+     * @return Mage_Sales_Model_Order_Shipment
+     */
+    public function prepareShipment($qtys = array())
+    {
+        $totalToShip = 0;
+        $convertor = Mage::getModel('sales/convert_order');
+        $shipment = $convertor->toShipment($this);
+        foreach ($this->getAllItems() as $orderItem) {
+            if (!$orderItem->isDummy() && !$orderItem->getQtyToShip()) {
+                continue;
+            }
+            if ($orderItem->isDummy() && !$this->_needToAddDummy($orderItem, $qtys)) {
+                continue;
+            }
+            $item = $convertor->itemToShipmentItem($orderItem);
+            if ($orderItem->isDummy()) {
+                $qty = 1;
+            } else {
+                if (isset($qtys[$orderItem->getId()])) {
+                    $qty = $qtys[$orderItem->getId()];
+                } else {
+                    $qty = $orderItem->getQtyToShip();
+                }
+            }
+
+            $totalToShip += $qty;
+            $item->setQty($qty);
+            $shipment->addItem($item);
+        }
+
+        if ($totalToShip) {
+            return $shipment;
+        } else {
+            return null;
+        }
     }
 
     /**

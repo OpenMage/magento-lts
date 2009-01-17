@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category    Mage
  * @package     Mage_Sales
  * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -44,7 +50,7 @@ class Mage_Sales_Model_Mysql4_Quote extends Mage_Sales_Model_Mysql4_Abstract
      */
     protected function _getLoadSelect($field, $value, $object)
     {
-	   	$select = parent::_getLoadSelect($field, $value, $object);
+           $select = parent::_getLoadSelect($field, $value, $object);
         if ($storeIds = $object->getSharedStoreIds()) {
             $select->where('store_id IN (?)', $storeIds);
         }
@@ -87,4 +93,20 @@ class Mage_Sales_Model_Mysql4_Quote extends Mage_Sales_Model_Mysql4_Abstract
     {
         return Mage::getSingleton('eav/config')->getEntityType('order')->fetchNewIncrementId($quote->getStoreId());
     }
+
+    public function isOrderIncrementIdUsed($orderIncrementId) {
+        if ($this->_getReadAdapter()) {
+            $select = $this->_getReadAdapter()->select();
+            $select->from($this->getTable('sales/order'), 'entity_id')
+                ->where('increment_id = ?', $orderIncrementId);
+            $entity_id = $this->_getReadAdapter()->fetchOne($select);
+            if ($entity_id > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
 }

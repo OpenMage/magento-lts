@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -28,6 +34,7 @@
 
 class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
+    protected $_defaultWidth = 100;
 	/**
 	 * Currency objects cache
 	 */
@@ -76,15 +83,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price extends Mage_Adminh
             return floatval($rate);
         }
         return 1;
-    }
-
-    public function renderProperty()
-    {
-        $out = parent::renderProperty();
-        if (!$this->getColumn()->getWidth()) {
-            $out.= ' width="100" ';
-        }
-        return $out;
     }
 
     public function renderCss()

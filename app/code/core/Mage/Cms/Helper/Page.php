@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -74,6 +80,15 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         $action->loadLayout(array('default', 'cms_page'), false, false);
         $action->getLayout()->getUpdate()->addUpdate($page->getLayoutUpdateXml());
         $action->generateLayoutXml()->generateLayoutBlocks();
+
+        if ($storage = Mage::getSingleton('catalog/session')) {
+            $action->getLayout()->getMessagesBlock()->addMessages($storage->getMessages(true));
+        }
+
+        if ($storage = Mage::getSingleton('checkout/session')) {
+            $action->getLayout()->getMessagesBlock()->addMessages($storage->getMessages(true));
+        }
+
         $action->renderLayout();
 
         return true;

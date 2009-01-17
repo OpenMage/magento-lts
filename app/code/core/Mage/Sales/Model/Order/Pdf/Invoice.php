@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -35,7 +41,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
 
         $pdf = new Zend_Pdf();
         $style = new Zend_Pdf_Style();
-        $style->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA_BOLD), 10);
+        $this->_setFontBold($style, 10);
 
         foreach ($invoices as $invoice) {
             $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
@@ -54,7 +60,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
 
 
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(1));
-            $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 7);
+            $this->_setFontRegular($page);
             $page->drawText(Mage::helper('sales')->__('Invoice # ') . $invoice->getIncrementId(), 35, 780, 'UTF-8');
 
             /* Add table */
@@ -67,10 +73,12 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
 
             /* Add table head */
             $page->setFillColor(new Zend_Pdf_Color_RGB(0.4, 0.4, 0.4));
-            $page->drawText(Mage::helper('sales')->__('QTY'), 35, $this->y, 'UTF-8');
-            $page->drawText(Mage::helper('sales')->__('Products'), 60, $this->y, 'UTF-8');
-            $page->drawText(Mage::helper('sales')->__('SKU'), 380, $this->y, 'UTF-8');
-            $page->drawText(Mage::helper('sales')->__('Subtotal'), 530, $this->y, 'UTF-8');
+            $page->drawText(Mage::helper('sales')->__('Product'), 35, $this->y, 'UTF-8');
+            $page->drawText(Mage::helper('sales')->__('SKU'), 240, $this->y, 'UTF-8');
+            $page->drawText(Mage::helper('sales')->__('Price'), 380, $this->y, 'UTF-8');
+            $page->drawText(Mage::helper('sales')->__('QTY'), 430, $this->y, 'UTF-8');
+            $page->drawText(Mage::helper('sales')->__('Tax'), 480, $this->y, 'UTF-8');
+            $page->drawText(Mage::helper('sales')->__('Subtotal'), 535, $this->y, 'UTF-8');
 
             $this->y -=15;
 
@@ -89,7 +97,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
                     $pdf->pages[] = $page;
                     $this->y = 800;
 
-                    $page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 7);
+                    $this->_setFontRegular($page);
                     $page->setFillColor(new Zend_Pdf_Color_RGB(0.93, 0.92, 0.92));
                     $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
                     $page->setLineWidth(0.5);
@@ -97,10 +105,12 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
                     $this->y -=10;
 
                     $page->setFillColor(new Zend_Pdf_Color_RGB(0.4, 0.4, 0.4));
-                    $page->drawText(Mage::helper('sales')->__('QTY'), 35, $this->y, 'UTF-8');
-                    $page->drawText(Mage::helper('sales')->__('Products'), 60, $this->y, 'UTF-8');
-                    $page->drawText(Mage::helper('sales')->__('SKU'), 380, $this->y, 'UTF-8');
-                    $page->drawText(Mage::helper('sales')->__('Subtotal'), 530, $this->y, 'UTF-8');
+                    $page->drawText(Mage::helper('sales')->__('Product'), 35, $this->y, 'UTF-8');
+                    $page->drawText(Mage::helper('sales')->__('SKU'), 240, $this->y, 'UTF-8');
+                    $page->drawText(Mage::helper('sales')->__('Price'), 380, $this->y, 'UTF-8');
+                    $page->drawText(Mage::helper('sales')->__('QTY'), 430, $this->y, 'UTF-8');
+                    $page->drawText(Mage::helper('sales')->__('Tax'), 480, $this->y, 'UTF-8');
+                    $page->drawText(Mage::helper('sales')->__('Subtotal'), 535, $this->y, 'UTF-8');
 
                     $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
                     $this->y -=20;

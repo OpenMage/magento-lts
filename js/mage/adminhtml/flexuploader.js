@@ -11,6 +11,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -42,9 +48,9 @@ if(!window.Flex) {
             this.config = config;
 
             this.flexContainerId = this.containerId + '-flash';
-            new Insertion.Top(
+            Element.insert(
                 window.document.body,
-                '<div id="'+this.flexContainerId+'" class="flex" style="position:absolute;"></div>'
+                {'top':'<div id="'+this.flexContainerId+'" class="flex" style="position:absolute;"></div>'}
             );
 
             this.flex = new Flex.Object({
@@ -155,10 +161,7 @@ if(!window.Flex) {
         },
         updateFile:  function (file) {
             if (!$(this.getFileId(file))) {
-                new Insertion.Bottom(
-                    this.container,
-                    this.fileRowTemplate.evaluate(this.getFileVars(file))
-                );
+                Element.insert(this.container, {bottom: this.fileRowTemplate.evaluate(this.getFileVars(file))});
             }
 
             if (file.status == 'full_complete' && file.response.isJSON()) {

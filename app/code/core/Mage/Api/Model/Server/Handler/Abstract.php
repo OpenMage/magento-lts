@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -96,6 +102,17 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     protected function _isAllowed($resource, $privilege=null)
     {
         return $this->_getSession()->isAllowed($resource, $privilege);
+    }
+
+    /**
+     *  Check session expiration
+     *
+     *  @param    none
+     *  @return	  boolean
+     */
+    protected function _isSessionExpired ()
+    {
+        return $this->_getSession()->isSessionExpired();
     }
 
     /**
@@ -200,6 +217,10 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     {
         $this->_startSession($sessionId);
 
+        if (!$this->_getSession()->isLoggedIn($sessionId)) {
+            return $this->_fault('session_expired');
+        }
+
         list($resourceName, $methodName) = explode('.', $apiPath);
 
         if (empty($resourceName) || empty($methodName)) {
@@ -277,6 +298,11 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     public function multiCall($sessionId, array $calls = array(), $options = array())
     {
         $this->_startSession($sessionId);
+
+        if (!$this->_getSession()->isLoggedIn($sessionId)) {
+            return $this->_fault('session_expired');
+        }
+
         $result = array();
 
         $resourcesAlias = $this->_getConfig()->getResourcesAlias();

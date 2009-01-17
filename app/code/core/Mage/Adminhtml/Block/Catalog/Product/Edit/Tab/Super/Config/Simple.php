@@ -12,6 +12,12 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
@@ -81,7 +87,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
                     $element->setAfterElementHtml(
                          '<input type="checkbox" id="simple_product_' . $attributeCode . '_autogenerate" '
                          . 'name="simple_product[' . $attributeCode . '_autogenerate]" value="1" '
-                         . 'onclick="toggleValueElements(this, this.parentNode)" checked/> '
+                         . 'onclick="toggleValueElements(this, this.parentNode)" checked="checked" /> '
                          . '<label for="simple_product_' . $attributeCode . '_autogenerate" >'
                          . Mage::helper('catalog')->__('Autogenerate')
                          . '</label>'
@@ -102,7 +108,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
             $fieldset->addField( 'simple_product_' . $attributeCode, 'select',  array(
                 'label' => $attribute->getFrontend()->getLabel(),
                 'name'  => $attributeCode,
-                'values' => $attribute->getSource()->getAllOptions(),
+                'values' => $attribute->getSource()->getAllOptions(true, true),
                 'required' => true,
                 'class'    => 'validate-configurable',
                 'onchange' => 'superProduct.showPricing(this, \'' . $attributeCode . '\')'
