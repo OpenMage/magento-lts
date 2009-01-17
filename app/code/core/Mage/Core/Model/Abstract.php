@@ -81,6 +81,15 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected $_cacheTag    = false;
 
     /**
+     * Flag which can stop data saving after before save
+     * Can be used for next sequence: we check data in _beforeSave, if data are
+     * not valid - we can set this flag to false value and save process will be stopped
+     *
+     * @var bool
+     */
+    protected $_dataSaveAllowed = true;
+
+    /**
      * Standard model initialization
      *
      * @param string $resourceModel
@@ -238,9 +247,10 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         $this->_getResource()->beginTransaction();
         try {
             $this->_beforeSave();
-            $this->_getResource()->save($this);
-            $this->_afterSave();
-
+            if ($this->_dataSaveAllowed) {
+                $this->_getResource()->save($this);
+                $this->_afterSave();
+            }
             $this->_getResource()->commit();
         }
         catch (Exception $e){

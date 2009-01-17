@@ -148,7 +148,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
         $tagId      = (int) $this->getRequest()->getParam('tagId');
         $customerId = Mage::getSingleton('customer/session')->getCustomerId();
-        $tagName    = (string) $this->getRequest()->getPost('tagName');
+        $tagName    = (string) $this->getRequest()->getPost('productTagName');
 
         if (strlen($tagName) === 0) {
             Mage::getSingleton('tag/session')->addError(Mage::helper('tag')->__('Tag can\'t be empty.'));

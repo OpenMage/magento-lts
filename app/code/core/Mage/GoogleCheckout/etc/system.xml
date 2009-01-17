@@ -332,8 +332,8 @@
                             <label>Rate 1 Ship To Applicable Countries</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>24</sort_order>
-                            <frontend_class>shipping-applicable-country</frontend_class>
                             <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
+							<frontend_model>googlecheckout/adminhtml_shipping_applicable_countries</frontend_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -370,8 +370,8 @@
                             <label>Rate 2 Ship To Applicable Countries</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>34</sort_order>
-                            <frontend_class>shipping-applicable-country-2</frontend_class>
                             <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
+							<frontend_model>googlecheckout/adminhtml_shipping_applicable_countries</frontend_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -407,8 +407,8 @@
                             <label>Rate 3 Ship To Applicable Countries</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>44</sort_order>
-                            <frontend_class>shipping-applicable-country-3</frontend_class>
                             <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
+							<frontend_model>googlecheckout/adminhtml_shipping_applicable_countries</frontend_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>

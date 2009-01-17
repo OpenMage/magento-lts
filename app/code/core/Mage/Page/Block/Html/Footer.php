@@ -46,7 +46,7 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
 
     public function getCacheKey()
     {
-        return 'PAGE_FOOTER_'.Mage::app()->getStore()->getId();
+        return 'PAGE_FOOTER_' . Mage::app()->getStore()->getId() . '_' . (int)Mage::app()->getStore()->isCurrentlySecure();
     }
 
     public function setCopyright($copyright)

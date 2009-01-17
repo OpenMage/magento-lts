@@ -125,25 +125,6 @@
                 </Mage_PaypalUk>
             </modules>
         </translate>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <paypaluk>
-                                            <title>PayPal Uk Section</title>
-                                        </paypaluk>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
     </adminhtml>
 
     <default>

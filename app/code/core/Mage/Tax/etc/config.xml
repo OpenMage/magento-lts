@@ -167,7 +167,7 @@
                                             <sort_order>20</sort_order>
                                         </import_export>
                                         <rates>
-                                            <title>Manage Tax Rates</title>
+                                            <title>Manage Tax Zones &amp; Rates</title>
                                             <sort_order>30</sort_order>
                                         </rates>
                                         <rules>

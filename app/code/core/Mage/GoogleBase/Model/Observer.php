@@ -41,9 +41,8 @@ class Mage_GoogleBase_Model_Observer
      */
     public function saveProductItem($observer)
     {
-        if (Mage::getStoreConfigFlag('google/googlebase/observed')) {
-            $product = $observer->getEvent()->getProduct();
-
+        $product = $observer->getEvent()->getProduct();
+        if (Mage::getStoreConfigFlag('google/googlebase/observed', $product->getStoreId())) {
             $collection = Mage::getResourceModel('googlebase/item_collection')
                 ->addProductFilterId($product->getId())
                 ->load();
@@ -65,9 +64,8 @@ class Mage_GoogleBase_Model_Observer
      */
     public function deleteProductItem($observer)
     {
-        if (Mage::getStoreConfigFlag('google/googlebase/observed')) {
-            $product = $observer->getEvent()->getProduct();
-
+        $product = $observer->getEvent()->getProduct();
+        if (Mage::getStoreConfigFlag('google/googlebase/observed', $product->getStoreId())) {
             $collection = Mage::getResourceModel('googlebase/item_collection')
                 ->addProductFilterId($product->getId())
                 ->load();

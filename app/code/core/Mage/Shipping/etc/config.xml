@@ -111,7 +111,7 @@
                                 <config>
                                     <children>
                                         <shipping>
-                                            <title>Shipping Section</title>
+                                            <title>Shipping Settings Section</title>
                                             <sort_order>0</sort_order>
                                         </shipping>
                                         <carriers>

@@ -178,7 +178,7 @@
     <default>
         <system>
             <log>
-                <clean_after_day>1</clean_after_day>
+                <clean_after_day>180</clean_after_day>
                 <enabled>0</enabled>
                 <time></time>
                 <frequency>D</frequency>

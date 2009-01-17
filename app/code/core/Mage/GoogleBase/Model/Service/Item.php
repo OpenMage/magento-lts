@@ -95,6 +95,19 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
     }
 
     /**
+     * Return Store level Service Instance
+     *
+     * @return Zend_Gdata_Gbase
+     */
+    public function getService($storeId = null)
+    {
+        if ($storeId === null) {
+            $storeId = $this->getStoreId();
+        }
+        return parent::getService($storeId);
+    }
+
+    /**
      * Insert Item into Google Base
      *
      * @return Zend_Gdata_Gbase_ItemEntry
@@ -262,8 +275,13 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
         	$quantity = $object->getQuantity() ? max(1, (int)$object->getQuantity()) : 1;
         	$this->_setAttribute('quantity', $quantity, 'int');
         }
+
         if ($object->getImageUrl()) {
             $this->_setAttribute('image_link', $object->getImageUrl(), 'url');
+        }
+
+        if ($country = Mage::getStoreConfig('google/googlebase/target_country', $this->getStoreId())) {
+            $this->_setAttribute('target_country', $country, 'text');
         }
 
         return $this;

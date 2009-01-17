@@ -225,7 +225,7 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         // invoke customer model, if it is registering
-        if ($address->getCustomerPassword()) {
+        if ('register' == $this->getQuote()->getCheckoutMethod()) {
             // set customer password hash for further usage
             $customer = Mage::getModel('customer/customer');
             $this->getQuote()->setPasswordHash($customer->encryptPassword($address->getCustomerPassword()));
@@ -249,6 +249,14 @@ class Mage_Checkout_Model_Type_Onepage
                 return array(
                     'error'   => -1,
                     'message' => implode(', ', $validationResult)
+                );
+            }
+        } elseif('guest' == $this->getQuote()->getCheckoutMethod()) {
+            $email = $address->getData('email');
+            if (!Zend_Validate::is($email, 'EmailAddress')) {
+                return array(
+                    'error'   => -1,
+                    'message' => Mage::helper('checkout')->__('Invalid email address "%s"', $email)
                 );
             }
         }

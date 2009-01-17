@@ -45,7 +45,10 @@ class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstrac
     public function getProductData()
     {
         if( $this->getReviewId() && !$this->getProductCacheData() ) {
-            $this->setProductCacheData(Mage::getModel('catalog/product')->load($this->getReviewData()->getEntityPkValue()));
+            $product = Mage::getModel('catalog/product')
+                ->setStoreId(Mage::app()->getStore()->getId())
+                ->load($this->getReviewData()->getEntityPkValue());
+            $this->setProductCacheData($product);
         }
         return $this->getProductCacheData();
     }

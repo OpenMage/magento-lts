@@ -269,7 +269,7 @@
                                     </children>
                                 </acl>
                                 <store translate="title">
-                                    <title>Stores</title>
+                                    <title>Manage Stores</title>
                                 </store>
                                 <design>
                                     <title>Design</title>
@@ -339,10 +339,6 @@
                                             <title>Currency Setup Section</title>
                                             <sort_order>120</sort_order>
                                         </currency>
-                                        <allow>
-                                            <title>Allowed Settings</title>
-                                            <sort_order>130</sort_order>
-                                        </allow>
                                         <rss>
                                             <title>Rss Feeds Section</title>
                                             <sort_order>135</sort_order>
@@ -358,7 +354,7 @@
                                     </children>
                                 </config>
                                 <currency>
-                                    <title>Manage Currency</title>
+                                    <title>Manage Currency Rates</title>
                                     <sort_order>30</sort_order>
                                 </currency>
                                 <email_template>
@@ -382,26 +378,10 @@
                                     <title>Import/Export</title>
                                     <children>
                                         <gui>
-                                            <title>GUI Profiles</title>
-                                            <children>
-                                                <edit>
-                                                    <title>Create/Edit/Delete profiles</title>
-                                                </edit>
-                                                <run>
-                                                    <title>Run profiles</title>
-                                                </run>
-                                            </children>
+                                            <title>Profiles</title>
                                         </gui>
                                         <profiles>
                                             <title>Advanced Profiles</title>
-                                            <children>
-                                                <edit>
-                                                    <title>Create/Edit/Delete profiles</title>
-                                                </edit>
-                                                <run>
-                                                    <title>Run profiles</title>
-                                                </run>
-                                            </children>
                                         </profiles>
                                     </children>
                                 </convert>
@@ -413,16 +393,12 @@
                                     <children>
                                         <local>
                                             <title>Magento Connect Manager</title>
+                                            <sort_order>0</sort_order>
                                         </local>
-                                        <remote>
-                                            <title>Available Remote</title>
-                                        </remote>
                                         <custom>
                                             <title>Package Extensions</title>
+                                            <sort_order>5</sort_order>
                                         </custom>
-                                        <config>
-                                            <title>PEAR Configuration</title>
-                                        </config>
                                     </children>
                                 </extensions>
                             </children>

@@ -76,6 +76,7 @@
             <validation>
                 <http_user_agent_skip>
                     <flash>Shockwave Flash</flash>
+                    <flash_9_mac>Adobe Flash Player 9</flash_9_mac>
                     <flash_10_mac>Adobe Flash Player 10</flash_10_mac>
                 </http_user_agent_skip>
             </validation>

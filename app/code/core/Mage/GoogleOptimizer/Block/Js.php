@@ -45,7 +45,7 @@ class Mage_GoogleOptimizer_Block_Js extends Mage_Adminhtml_Block_Template
 
     public function getExportUrl()
     {
-        return Mage::getUrl('googleoptimizer/index/codes');
+        return $this->getUrl('googleoptimizer/index/codes');
     }
 
     public function getControlFieldKey ()

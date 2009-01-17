@@ -87,7 +87,7 @@
                         <system>
                             <children>
                                 <adminnotification>
-                                    <title>Notification</title>
+                                    <title>Notifications</title>
                                     <sort_order>10</sort_order>
                                     <children>
                                         <show_toolbar>

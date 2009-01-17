@@ -188,4 +188,9 @@ class Mage_GoogleBase_TypesController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addError($e->getMessage());
         }
     }
+
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('catalog/googlebase/types');
+    }
 }

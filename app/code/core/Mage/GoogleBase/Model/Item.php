@@ -49,7 +49,7 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
      */
     public function getServiceItem()
     {
-        return Mage::getModel('googlebase/service_item');
+        return Mage::getModel('googlebase/service_item')->setStoreId($this->getStoreId());
     }
 
     /**
@@ -185,7 +185,7 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
     protected function _prepareProductObject()
     {
         $product = clone $this->getProduct();
-
+        /* @var $product Mage_Catalog_Model_Product */
         $url = $product->getProductUrl();
         if (!Mage::getStoreConfigFlag('web/url/use_store')) {
             $urlInfo = parse_url($url);

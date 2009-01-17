@@ -19,38 +19,26 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Mage
- * @package    Mage_Adminhtml
+ * @package    Mage_GoogleBase
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Category container block
+ * Google Base Target country Source
  *
  * @category   Mage
- * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_GoogleBase
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Category_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
+class Mage_GoogleBase_Model_Source_Country
 {
-    public function __construct()
+    public function toOptionArray()
     {
-        $this->_objectId    = 'entity_id';
-        $this->_controller  = 'catalog_category';
-        $this->_mode        = 'edit';
-
-        parent::__construct();
-        $this->setTemplate('catalog/category/edit.phtml');
-    }
-
-    protected function _prepareLayout()
-    {
-        if (Mage::app()->getConfig()->getModuleConfig('Mage_GoogleOptimizer')->is('active', true)
-            && Mage::helper('googleoptimizer')->isOptimizerActive()) {
-            $this->setChild('googleoptimizer_js',
-                $this->getLayout()->createBlock('googleoptimizer/js')->setTemplate('googleoptimizer/js.phtml')
-            );
-        }
-        return parent::_prepareLayout();
+        return array(
+            array('value' => 'US', 'label' => Mage::helper('googlebase')->__('United States')),
+            array('value' => 'GB', 'label' => Mage::helper('googlebase')->__('United Kingdom')),
+            array('value' => 'DE', 'label' => Mage::helper('googlebase')->__('Germany')),
+        );
     }
 }

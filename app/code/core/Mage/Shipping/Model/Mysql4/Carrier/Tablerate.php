@@ -120,6 +120,7 @@ class Mage_Shipping_Model_Mysql4_Carrier_Tablerate extends Mage_Core_Model_Mysql
         return $row;
     }
 
+
     public function uploadAndImport(Varien_Object $object)
     {
         $csvFile = $_FILES["groups"]["tmp_name"]["tablerate"]["fields"]["import"]["value"];
@@ -174,16 +175,22 @@ class Mage_Shipping_Model_Mysql4_Carrier_Tablerate extends Mage_Core_Model_Mysql
                     $data = array();
                     $countryCodesToIds = array();
                     $regionCodesToIds = array();
+                    $countryCodesIso2 = array();
 
                     $countryCollection = Mage::getResourceModel('directory/country_collection')->addCountryCodeFilter($countryCodes)->load();
                     foreach ($countryCollection->getItems() as $country) {
                         $countryCodesToIds[$country->getData('iso3_code')] = $country->getData('country_id');
                         $countryCodesToIds[$country->getData('iso2_code')] = $country->getData('country_id');
+                        $countryCodesIso2[] = $country->getData('iso2_code');
                     }
 
-                    $regionCollection = Mage::getResourceModel('directory/region_collection')->addRegionCodeFilter($regionCodes)->load();
+                    $regionCollection = Mage::getResourceModel('directory/region_collection')
+                        ->addRegionCodeFilter($regionCodes)
+                        ->addCountryFilter($countryCodesIso2)
+                        ->load();
+
                     foreach ($regionCollection->getItems() as $region) {
-                        $regionCodesToIds[$region->getData('code')] = $region->getData('region_id');
+                        $regionCodesToIds[$countryCodesToIds[$region->getData('country_id')]][$region->getData('code')] = $region->getData('region_id');
                     }
 
                     foreach ($csvLines as $k=>$csvLine) {
@@ -198,13 +205,14 @@ class Mage_Shipping_Model_Mysql4_Carrier_Tablerate extends Mage_Core_Model_Mysql
                             $countryId = $countryCodesToIds[$csvLine[0]];
                         }
 
-                        if (empty($regionCodesToIds) || !array_key_exists($csvLine[1], $regionCodesToIds)) {
+                        if (empty($regionCodesToIds[$countryCodesToIds[$csvLine[0]]])
+                            || !array_key_exists($csvLine[1], $regionCodesToIds[$countryCodesToIds[$csvLine[0]]])) {
                             $regionId = '0';
                             if ($csvLine[1] != '*' && $csvLine[1] != '') {
                                 $exceptions[] = Mage::helper('shipping')->__('Invalid Region/State "%s" in the Row #%s', $csvLine[1], ($k+1));
                             }
                         } else {
-                            $regionId = $regionCodesToIds[$csvLine[1]];
+                            $regionId = $regionCodesToIds[$countryCodesToIds[$csvLine[0]]][$csvLine[1]];
                         }
 
                         if ($csvLine[2] == '*' || $csvLine[2] == '') {
@@ -246,6 +254,7 @@ class Mage_Shipping_Model_Mysql4_Carrier_Tablerate extends Mage_Core_Model_Mysql
                         }
                     }
                 }
+
                 if (!empty($exceptions)) {
                     throw new Exception( "\n" . implode("\n", $exceptions) );
                 }
@@ -253,7 +262,7 @@ class Mage_Shipping_Model_Mysql4_Carrier_Tablerate extends Mage_Core_Model_Mysql
         }
     }
 
-    private function _getCsvValues($string, $separator=",")
+    protected function _getCsvValues($string, $separator=",")
     {
         $elements = explode($separator, trim($string));
         for ($i = 0; $i < count($elements); $i++) {
@@ -279,7 +288,7 @@ class Mage_Shipping_Model_Mysql4_Carrier_Tablerate extends Mage_Core_Model_Mysql
         return $elements;
     }
 
-    private function _isPositiveDecimalNumber($n)
+    protected function _isPositiveDecimalNumber($n)
     {
         return preg_match ("/^[0-9]+(\.[0-9]*)?$/", $n);
     }

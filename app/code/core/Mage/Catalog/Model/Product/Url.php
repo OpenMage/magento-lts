@@ -84,6 +84,9 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
         $url = $product->getData($cacheUrlKey);
 
         if (is_null($url)) {
+            if ($product->getStoreId()) {
+                $this->getUrlInstance()->setStore($product->getStoreId());
+            }
             if ($product->hasData('request_path') && $product->getRequestPath() != '') {
                 $this->setData($cacheUrlKey, $this->getUrlInstance()->getDirectUrl($product->getRequestPath()));
                 return $this->getData($cacheUrlKey);
@@ -102,7 +105,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
             }
 
             $rewrite->loadByIdPath($idPath);
-
+//echo $this->getUrlInstance()->getBaseUrl();
             if ($rewrite->getId()) {
                 $this->setData($cacheUrlKey, $this->getUrlInstance()->getDirectUrl($rewrite->getRequestPath()));
                 Varien_Profiler::stop('REWRITE: '.__METHOD__);
