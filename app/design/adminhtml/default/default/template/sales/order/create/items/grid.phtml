@@ -1,0 +1,200 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php $_items = $this->getItems() ?>
+<?php if (empty($_items)): ?>
+    <fieldset>
+    <div class="a-center"><?php echo $this->helper('sales')->__('No ordered items') ?></div>
+    </fieldset>
+<?php else: ?>
+<div>
+    <?php if(count($_items)>10): ?>
+    <p class="a-right">
+        <?php echo $this->getButtonHtml($this->helper('sales')->__('Update Items and Qty\'s'),'order.itemsUpdate()'); ?>
+    </p>
+    <?php endif; ?>
+    <div class="grid" id="order:items_grid">
+        <table cellspacing="0" class="data order-tables">
+            <col />
+            <col width="100" />
+            <col width="40" />
+            <col width="100" />
+            <col width="80" />
+            <col width="100" />
+            <?php if($this->isGiftMessagesAvailable()): ?>
+            <col width="30" />
+            <?php endif; ?>
+            <col width="80" />
+            <thead>
+                <tr class="headings">
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Product') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Price') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Qty') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Subtotal') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Discount') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Row Subtotal') ?></th>
+
+                    <?php if($this->isGiftMessagesAvailable()): ?>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Gift') ?></th>
+                    <?php endif ?>
+                    <th class="no-link last"><?php echo $this->helper('sales')->__('Action') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $i=0 ?>
+                <?php foreach ($_items as $_item):$i++ ?>
+                    <tr class="<?php echo ($i%2)?'even':'odd' ?>">
+                        <td><h5 class="title"><?php echo $_item->getName() ?></h5>
+                            <div  class="nobr">
+                                <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> <?php echo $_item->getSku() ?>
+                            </div>
+                            <div class="nobr">
+                                <?php $_displayFlag = '' ?>
+                                <?php if (!strlen($this->getCustomOptions($_item))): ?>
+                                    <?php $_displayFlag = 'display:none;' ?>
+                                <?php endif; ?>
+                                <strong><a href="#" id="custom_defined_options_link_<?php echo $_item->getId() ?>" onclick="$('custom_defined_options_area_<?php echo $_item->getId() ?>').toggle(); return false;"><?php echo Mage::helper('sales')->__('Custom Options') ?></a></strong><br/>
+                                <textarea id="custom_defined_options_area_<?php echo $_item->getId() ?>" name="item[<?php echo $_item->getId() ?>][options]" rows="3" cols="5" style="width:98%; height:4em;<?php echo $_displayFlag ?>"><?php if ($this->getCustomOptions($_item)): ?><?php echo $this->htmlEscape($this->getCustomOptions($_item)) ?><?php endif; ?></textarea>
+                            </div>
+                            <?php if($_item->getMessage(false)): ?>
+                            <?php foreach ($_item->getMessage(false) as $message): ?>
+                            <div class="<?php if($_item->getHasError()): ?>error<?php else: ?>notice<?php endif; ?>">
+                                <div style="font-size:95%"><?php echo $message; ?></div>
+                            </div>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </td>
+                        <td class="price">
+                            <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                                <span class="price-excl-tax">
+                                    <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                                        <span class="label"><?php echo $this->helper('tax')->__('Excl. Tax'); ?>:</span>
+                                    <?php endif; ?>
+                                    <?php echo $this->getItemOrigPrice($_item) ?> <br/>
+                                </span>
+                            <?php endif; ?>
+                            <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                                <span class="price-incl-tax">
+                        					<?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                                      <span class="label"><?php echo $this->helper('tax')->__('Incl. Tax'); ?>:</span>
+                                  <?php endif; ?>
+                                  <?php echo $this->displayOriginalPriceInclTax($_item); ?>
+                                </span>
+                            <?php endif; ?>
+
+
+                            <?php $_isCustomPrice = $this->usedCustomPriceForItem($_item) ?>
+                            <?php if($_tier = $this->getTierHtml($_item)): ?>
+                            <div id="item_tier_block_<?php echo $_item->getId() ?>"<?php if ($_isCustomPrice): ?> style="display:none"<?php endif; ?>>
+                                <a href="#" onclick="$('item_tier_<?php echo $_item->getId() ?>').toggle();return false;"><?php echo $this->helper('sales')->__('Tier Pricing') ?></a>
+                                <div style="display:none" id="item_tier_<?php echo $_item->getId() ?>"><?php echo $_tier ?></div>
+                            </div>
+                            <?php endif; ?>
+                            <div class="nobr">
+                            <input type="checkbox" id="item_use_custom_price_<?php echo $_item->getId() ?>"<?php if ($_isCustomPrice): ?> checked="checked"<?php endif; ?> onclick="order.toggleCustomPrice(this, 'item_custom_price_<?php echo $_item->getId() ?>', 'item_tier_block_<?php echo $_item->getId() ?>');"/>
+                            <label class="normal" for="item_use_custom_price_<?php echo $_item->getId() ?>"><?php echo $this->helper('sales')->__('Custom Price') ?>*</label>
+                            </div>
+                            <input id="item_custom_price_<?php echo $_item->getId() ?>" name="item[<?php echo $_item->getId() ?>][custom_price]" value="<?php echo sprintf("%.2f", $this->getOriginalEditablePrice($_item))?>"<?php if (!$_isCustomPrice): ?> style="display:none" disabled="disabled"<?php endif; ?> class="input-text item-price"/>
+                        </td>
+                        <td><input name="item[<?php echo $_item->getId() ?>][qty]" class="input-text item-qty" value="<?php echo $_item->getQty()*1 ?>" maxlength="12" /></td>
+                        <td class="price">
+                        <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                            <span class="price-excl-tax">
+                                <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                                    <span class="label"><?php echo $this->helper('tax')->__('Excl. Tax'); ?>:</span>
+                                <?php endif; ?>
+                                <?php echo $this->formatPrice($_item->getRowTotal()) ?>
+                            </span>
+                        <?php endif; ?>
+                        <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                            <span class="price-incl-tax">
+                    					<?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                                  <span class="label"><?php echo $this->helper('tax')->__('Incl. Tax'); ?>:</span>
+                              <?php endif; ?>
+                              <?php echo $this->displaySubtotalInclTax($_item); ?>
+                            </span>
+                        <?php endif; ?>
+                        </td>
+                        <td class="price">
+                            <?php echo $this->formatPrice(-$_item->getDiscountAmount()) ?><br />
+                            <input id="item_use_discount_<?php echo $_item->getId() ?>" name="item[<?php echo $_item->getId() ?>][use_discount]"<?php if (!$_item->getNoDiscount()): ?>checked="checked"<?php endif; ?> value="1" type="checkbox" />
+                            <label for="item_use_discount_<?php echo $_item->getId() ?>" class="normal"><?php echo $this->helper('sales')->__('Apply') ?></label>
+                        </td>
+                        <td class="price">
+                            <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                                <span class="price-excl-tax">
+                                    <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                                        <span class="label"><?php echo $this->helper('tax')->__('Excl. Tax'); ?>:</span>
+                                    <?php endif; ?>
+                                    <?php echo $this->formatPrice($_item->getRowTotalWithDiscount()) ?>
+                                </span>
+                            <?php endif; ?>
+                            <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                                <span class="price-incl-tax">
+                        					<?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                                      <span class="label"><?php echo $this->helper('tax')->__('Incl. Tax'); ?>:</span>
+                                  <?php endif; ?>
+                                  <?php echo $this->displayRowTotalWithDiscountInclTax($_item); ?>
+                                </span>
+                            <?php endif; ?>
+                        </td>
+                        <?php if($this->isGiftMessagesAvailable()): ?>
+                        <td>
+                            <input type="checkbox" name="item[<?php echo $_item->getId() ?>][giftmessage]"<?php if($this->isAllowedForGiftMessage($_item)): ?> checked="checked"<?php endif; ?><?php if(!$this->isGiftMessagesAvailable($_item)): ?> disabled="disabled"<?php endif; ?>/>
+                        </td>
+                        <?php endif ?>
+                        <td class="last">
+                            <select name="item[<?php echo $_item->getId() ?>][action]" style="width:100px;">
+                                <option value=""></option>
+                                <option value="remove"><?php echo $this->helper('sales')->__('Remove') ?></option>
+                                <?php if($this->getCustomerId() && $this->getMoveToCustomerStorage()): ?>
+                                <option value="cart"><?php echo $this->helper('sales')->__('Move to Shopping Cart') ?></option>
+                                <option value="wishlist"><?php echo $this->helper('sales')->__('Move to Wishlist') ?></option>
+                                <?php endif; ?>
+                            </select>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="a-left"><?php echo $this->helper('sales')->__('Total %d product(s)', count($_items)) ?></td>
+                    <td colspan="2" class="a-right"><?php echo $this->helper('sales')->__('Subtotal:') ?></td>
+                    <td class="price"><strong><?php echo $this->formatPrice($this->getSubtotal()) ?></strong></td>
+                    <td class="price"><strong><?php echo $this->formatPrice(-$this->getDiscountAmount()) ?></strong></td>
+                    <td class="price"><strong><?php echo $this->formatPrice($this->getSubtotalWithDiscount()) ?></strong></td>
+                    <td <?php if($this->isGiftMessagesAvailable()): ?>colspan="2"<?php endif; ?>>&nbsp;</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <table cellspacing="0" cellpadding="0" width="100%">
+        <tr>
+            <td width="50%"><?php echo $this->getInclExclTaxMessage(); ?></td>
+        </tr>
+        <tr>
+            <td width="50%"><div id="order:coupons"><?php echo $this->getChildHtml('coupons') ?></div></td>
+            <td class="a-right" rowspan="2"><?php echo $this->getButtonHtml($this->helper('sales')->__('Update Items and Qty\'s'),'order.itemsUpdate()'); ?></td>
+        </tr>
+    </table>
+    <br/>
+    <script type="text/javascript">order.itemsOnchangeBind()</script>
+</div>
+<?php endif; ?>

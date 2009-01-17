@@ -1,0 +1,60 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+
+<?php $_items = $this->getReviewsCollection()->getItems();?>
+<?php if (count($_items)):?>
+<div class="collateral-box dedicated-review-box" id="customer-reviews">
+    <div class="head">
+        <h4><?php echo $this->__('Customer Reviews') ?></h4>
+    </div>
+
+    <?php echo $this->getChildHtml('toolbar') ?>
+
+    <ol style="margin-top:15px;">
+        <?php foreach ($_items as $_review):?>
+            <li>
+                <a href="<?php echo $this->getReviewUrl($_review->getId()) ?>"><strong><?php echo $this->htmlEscape($_review->getTitle()) ?></strong></a> <?php echo $this->__('Review by %s', $this->htmlEscape($_review->getNickname())) ?>
+                <table class="ratings-list" cellspacing="0">
+                    <tbody>
+                        <?php foreach ($_review->getRatingVotes() as $_vote): ?>
+                        <tr>
+                            <td class="label"><strong><?php echo $_vote->getRatingCode() ?></strong></td>
+                            <td>
+                                <div class="rating-box">
+                                    <div class="rating" style="width: <?php echo $_vote->getPercent() ?>%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <p><?php echo nl2br($this->htmlEscape($_review->getDetail())) ?> <?php echo $this->__('(Posted on %s)', $this->formatDate($_review->getCreatedAt()), 'long') ?></p>
+            </li>
+        <?php endforeach; ?>
+    </ol>
+
+    <?php echo $this->getChildHtml('toolbar') ?>
+</div>
+<?php endif;?>
+
+<br/>
+
+<?php echo $this->getChildHtml('review_form') ?>

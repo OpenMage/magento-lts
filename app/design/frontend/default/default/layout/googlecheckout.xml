@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+-->
+<layout version="0.1.0">
+
+    <checkout_cart_index>
+        <reference name="checkout.cart.top_methods">
+            <block type="googlecheckout/link" name="checkout.cart.methods.googlecheckout" template="googlecheckout/link.phtml" before="-"/>
+        </reference>
+
+        <reference name="checkout.cart.methods">
+            <block type="googlecheckout/link" name="checkout.cart.methods.googlecheckout" template="googlecheckout/link.phtml"/>
+        </reference>
+
+        <reference name="google_analytics">
+            <action method="setGoogleCheckout"><flag>true</flag></action>
+        </reference>
+    </checkout_cart_index>
+
+    <googlecheckout_redirect_redirect>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="googlecheckout/redirect" name="googlecheckout_redirect" template="page/redirect.phtml"></block>
+        </reference>
+    </googlecheckout_redirect_redirect>
+</layout>

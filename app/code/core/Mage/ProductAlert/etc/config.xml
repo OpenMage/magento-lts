@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_ProductAlert
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_ProductAlert>
+            <version>0.7.1</version>
+        </Mage_ProductAlert>
+    </modules>
+
+    <global>
+        <models>
+            <productalert>
+                <class>Mage_ProductAlert_Model</class>
+                <resourceModel>productalert_mysql4</resourceModel>
+            </productalert>
+            <productalert_mysql4>
+                <class>Mage_ProductAlert_Model_Mysql4</class>
+                <entities>
+                    <price>
+                        <table>product_alert_price</table>
+                    </price>
+                    <stock>
+                        <table>product_alert_stock</table>
+                    </stock>
+                </entities>
+            </productalert_mysql4>
+        </models>
+        <helpers>
+            <productalert>
+                <class>Mage_ProductAlert_Helper</class>
+            </productalert>
+        </helpers>
+        <resources>
+            <productalert_setup>
+                <setup>
+                    <module>Mage_ProductAlert</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </productalert_setup>
+            <productalert_read>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </productalert_read>
+            <productalert_write>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </productalert_write>
+        </resources>
+        <blocks>
+            <productalert>
+                <class>Mage_ProductAlert_Block</class>
+            </productalert>
+        </blocks>
+        <template>
+            <email>
+                <catalog_productalert_email_stock_template translate="label" module="productalert">
+                    <label>Product stock alert</label>
+                    <file>product_stock_alert.html</file>
+                    <type>html</type>
+                </catalog_productalert_email_stock_template>
+                <catalog_productalert_email_price_template translate="label" module="productalert">
+                    <label>Product price alert</label>
+                    <file>product_price_alert.html</file>
+                    <type>html</type>
+                </catalog_productalert_email_price_template>
+                <catalog_productalert_cron_error_email_template translate="label" module="productalert">
+                    <label>Product alerts Cron error</label>
+                    <file>product_alert_cron_error.html</file>
+                    <type>html</type>
+                </catalog_productalert_cron_error_email_template>
+            </email>
+
+        </template>
+    </global>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_ProductAlert>
+                    <files>
+                        <default>Mage_ProductAlert.csv</default>
+                    </files>
+                </Mage_ProductAlert>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <frontend>
+        <translate>
+            <modules>
+                <Mage_ProductAlert>
+                    <files>
+                        <default>Mage_ProductAlert.csv</default>
+                    </files>
+                </Mage_ProductAlert>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <productalert>
+                    <file>productalert.xml</file>
+                </productalert>
+            </updates>
+        </layout>
+        <routers>
+            <productalert>
+                <use>standard</use>
+                <args>
+                    <module>Mage_ProductAlert</module>
+                    <frontName>productalert</frontName>
+                </args>
+            </productalert>
+        </routers>
+    </frontend>
+
+    <default>
+        <catalog>
+            <productalert>
+                <allow_price>0</allow_price>
+                <allow_stock>0</allow_stock>
+                <email_price_template>catalog_productalert_email_price_template</email_price_template>
+                <email_stock_template>catalog_productalert_email_stock_template</email_stock_template>
+                <email_identity>general</email_identity>
+            </productalert>
+            <productalert_cron>
+                <error_email><![CDATA[]]></error_email>
+                <error_email_template>catalog_productalert_cron_error_email_template</error_email_template>
+                <error_email_identity>general</error_email_identity>
+            </productalert_cron>
+        </catalog>
+    </default>
+
+    <crontab>
+        <jobs>
+            <catalog_product_alert>
+                <run>
+                    <model>productalert/observer::process</model>
+                </run>
+            </catalog_product_alert>
+        </jobs>
+    </crontab>
+</config>

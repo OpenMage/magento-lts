@@ -1,0 +1,36 @@
+<?php if ($this->helper('tax')->displayFullSummary()): ?>
+    <?php $isTop = 1; ?>
+    <?php foreach ($this->getFullTaxInfo() as $info): ?>
+        <?php $percent = $info['percent']; ?>
+        <?php $amount = $info['amount']; ?>
+        <?php $baseAmount = $info['base_amount']; ?>
+        <?php $rates = $info['rates']; ?>
+        <?php $isFirst = 1; ?>
+
+        <?php foreach ($rates as $rate): ?>
+        <tr class="tax-details<?php if ($isTop): echo ' tax-details-first'; endif; ?>" style="display:none;">
+            <td class="label"><?php echo $rate['title']; ?> - <?php echo $rate['percent']; ?>%<br /></td>
+            <?php if ($isFirst): ?>
+                <td rowspan="<?php echo count($rates); ?>"><?php echo $this->displayAmount($amount, $baseAmount); ?></td>
+            <?php endif; ?>
+        </tr>
+        <?php $isFirst = 0; ?>
+		<?php $isTop = 0; ?>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+<?php endif;?>
+
+<tr<?php if ($this->helper('tax')->displayFullSummary()): ?> class="tax-total" onclick="expandDetails(this, '.tax-details')"<?php endif; ?>>
+    <td class="label">
+        <div class="tax-collapse">
+        <?php if ($this->helper('tax')->displayFullSummary()): ?>
+            <?php echo Mage::helper('sales')->__('Total Tax') ?>
+        <?php else: ?>
+            <?php echo Mage::helper('sales')->__('Tax') ?>
+        <?php endif;?>
+        </div>
+    </td>
+    <td>
+        <?php echo $this->displayAmount($this->getOrder()->getTaxAmount(), $this->getOrder()->getBaseTaxAmount()); ?>
+    </td>
+</tr>

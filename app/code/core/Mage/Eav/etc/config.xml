@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Eav>
+            <version>0.7.10</version>
+        </Mage_Eav>
+    </modules>
+    <global>
+        <models>
+            <eav>
+                <class>Mage_Eav_Model</class>
+                <resourceModel>eav_mysql4</resourceModel>
+            </eav>
+
+            <eav_mysql4>
+                <class>Mage_Eav_Model_Mysql4</class>
+                <entities>
+                    <entity><table>eav_entity</table></entity>
+                    <entity_value_prefix><table>eav_entity</table></entity_value_prefix>
+
+                    <entity_type><table>eav_entity_type</table></entity_type>
+                    <entity_store><table>eav_entity_store</table></entity_store>
+
+                    <entity_attribute><table>eav_entity_attribute</table></entity_attribute>
+
+                    <attribute><table>eav_attribute</table></attribute>
+                    <attribute_set><table>eav_attribute_set</table></attribute_set>
+                    <attribute_group><table>eav_attribute_group</table></attribute_group>
+                    <attribute_option><table>eav_attribute_option</table></attribute_option>
+                    <attribute_option_value><table>eav_attribute_option_value</table></attribute_option_value>
+                </entities>
+            </eav_mysql4>
+        </models>
+
+        <resources>
+            <eav_setup>
+                <setup>
+                    <module>Mage_Eav</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </eav_setup>
+            <eav_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </eav_write>
+            <eav_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </eav_read>
+        </resources>
+        <cache>
+            <types>
+                <eav><label>EAV types and attributes</label></eav>
+            </types>
+        </cache>
+    </global>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Eav>
+                    <files>
+                        <default>Mage_Eav.csv</default>
+                    </files>
+                </Mage_Eav>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <frontend>
+        <translate>
+            <modules>
+                <Mage_Eav>
+                    <files>
+                        <default>Mage_Eav.csv</default>
+                    </files>
+                </Mage_Eav>
+            </modules>
+        </translate>
+    </frontend>
+</config>

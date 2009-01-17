@@ -1,0 +1,42 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php foreach ($this->getWebsiteCollection() as $_website): ?>
+    <?php $showWebsite=false; ?>
+    <?php foreach ($this->getGroupCollection($_website) as $_group): ?>
+        <?php $showGroup=false; ?>
+        <?php foreach ($this->getStoreCollection($_group) as $_store): ?>
+            <?php if ($showWebsite == false): ?>
+                <?php $showWebsite = true; ?>
+                <h3><?php echo $_website->getName() ?></h3>
+            <?php endif; ?>
+            <?php if ($showGroup == false): ?>
+                <?php $showGroup = true; ?>
+                <h4 style="margin-left:12px;"><?php echo $_group->getName() ?></h4>
+            <?php endif; ?>
+            <span class="field-row" style="margin-left:28px;">
+                <input type="radio" id="store_<?php echo $_store->getId() ?>" class="new-store" onclick="order.setStoreId('<?php echo $_store->getId() ?>')"/>
+                <label for="store_<?php echo $_store->getId() ?>" class="inline"><?php echo $_store->getName() ?></label>
+            </span>
+        <?php endforeach; ?>
+        <?php if ($showGroup): ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php endforeach; ?>

@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Cron
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Cron>
+            <version>0.7.1</version>
+        </Mage_Cron>
+    </modules>
+    <global>
+        <resources>
+            <cron_setup>
+                <setup>
+                    <module>Mage_Cron</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </cron_setup>
+            <cron_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </cron_write>
+            <cron_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </cron_read>
+        </resources>
+        <models>
+            <cron>
+                <class>Mage_Cron_Model</class>
+                <resourceModel>cron_mysql4</resourceModel>
+            </cron>
+            <cron_mysql4>
+                <class>Mage_Cron_Model_Mysql4</class>
+                <entities>
+                    <schedule>
+                        <table>cron_schedule</table>
+                    </schedule>
+                </entities>
+            </cron_mysql4>
+        </models>
+    </global>
+
+    <crontab>
+        <events>
+            <default>
+                <observers>
+                    <cron_observer>
+                        <type>singleton</type>
+                        <class>cron/observer</class>
+                        <method>dispatch</method>
+                    </cron_observer>
+                </observers>
+            </default>
+        </events>
+<!--
+        <jobs>
+            <every_15_minutes_during_business_hours_at_winter>
+                <schedule>
+                    <cron_expr>*/15 9-12,14-17 * Nov-Dec,Jan-Feb Mon-Fri -8</cron_expr>
+                </schedule>
+                <run>
+                    <model>cron/observer::test</model>
+                </run>
+            </every_15_minutes_during_business_hours_at_winter>
+        </jobs>
+-->
+    </crontab>
+
+    <default>
+        <system>
+            <cron>
+                <schedule_generate_every>15</schedule_generate_every>
+                <schedule_ahead_for>20</schedule_ahead_for>
+                <schedule_lifetime>15</schedule_lifetime>
+                <history_cleanup_every>10</history_cleanup_every>
+                <history_success_lifetime>60</history_success_lifetime>
+                <history_failure_lifetime>600</history_failure_lifetime>
+            </cron>
+        </system>
+    </default>
+    
+    <adminhtml>
+      <translate>
+        <modules>
+            <Mage_Cron>
+                <files>
+                    <default>Mage_Cron.csv</default>
+                </files>
+            </Mage_Cron>
+        </modules>
+      </translate>
+    </adminhtml>
+</config>

@@ -1,0 +1,86 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<script type="text/javascript">
+Event.observe(window, 'load', recalculateTax);
+Event.observe(window, 'load', registerTaxRecalcs);
+
+function registerTaxRecalcs()
+{
+    if (typeof dynamicTaxes == 'undefined') {
+        return;
+    }
+
+    for (var i=0; i<dynamicTaxes.length; i++) {
+        Event.observe($(dynamicTaxes[i]), 'change', recalculateTax);
+    }
+    Event.observe($('tax_class_id'), 'change', recalculateTax);
+}
+
+var priceFormat = <?php echo $this->helper('tax')->getPriceFormat(); ?>;
+var taxRates = <?php echo $this->helper('tax')->getTaxRatesByProductClass(); ?>;
+
+function recalculateTax()
+{
+    if (typeof dynamicTaxes == 'undefined') {
+        return;
+    }
+
+    for (var i=0; i<dynamicTaxes.length; i++) {
+        var code = dynamicTaxes[i];
+        var span = $('dynamic-tax-' + code);
+        var input = $(code);
+
+        if (!input.value) {
+            span.innerHTML = '';
+            continue;
+        }
+
+        var rate = 0;
+        var taxClass = $('tax_class_id').options[$('tax_class_id').selectedIndex].value;
+        eval('var value = taxRates.value_' + taxClass);
+
+        if (value != undefined) {
+            rate = value;
+        }
+
+        var spanValue = '';
+        if (rate != 0) {
+            spanValue = ' ' + formatCurrency(input.value/(100+rate)*rate, priceFormat);
+        }
+        span.innerHTML = spanValue;
+    }
+}
+
+// Bind tab changes
+function bindActiveProductTab(event) {
+    if(event.tab && event.tab.name && $('store_switcher')){
+        $('store_switcher').switchParams = 'active_tab/'+event.tab.name+'/';
+    }
+}
+varienGlobalEvents.attachEventHandler('showTab', bindActiveProductTab);
+
+// bind active tab
+<?php if($tabsBlock = $this->getLayout()->getBlock('product_tabs')): ?>
+if(<?php echo $tabsBlock->getJsObjectName() ?> && <?php echo $tabsBlock->getJsObjectName() ?>.activeTab && $('store_switcher')){
+    $('store_switcher').switchParams = 'active_tab/'+<?php echo $tabsBlock->getJsObjectName() ?>.activeTab.name+'/';
+}
+<?php endif; ?>
+</script>

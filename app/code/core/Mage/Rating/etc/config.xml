@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Rating
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Rating>
+            <version>0.7.2</version>
+        </Mage_Rating>
+    </modules>
+    <global>
+        <models>
+            <rating>
+                <class>Mage_Rating_Model</class>
+                <resourceModel>rating_mysql4</resourceModel>
+            </rating>
+            <rating_mysql4>
+                <class>Mage_Rating_Model_Mysql4</class>
+                <entities>
+                    <rating>
+                        <table>rating</table>
+                    </rating>
+                    <rating_store>
+                        <table>rating_store</table>
+                    </rating_store>
+                    <rating_title>
+                        <table>rating_title</table>
+                    </rating_title>
+                    <rating_entity>
+                        <table>rating_entity</table>
+                    </rating_entity>
+                    <rating_option>
+                        <table>rating_option</table>
+                    </rating_option>
+                    <rating_vote>
+                        <table>rating_option_vote</table>
+                    </rating_vote>
+                    <rating_option_vote>
+                        <table>rating_option_vote</table>
+                    </rating_option_vote>
+                    <rating_vote_aggregated>
+                        <table>rating_option_vote_aggregated</table>
+                    </rating_vote_aggregated>
+                </entities>
+            </rating_mysql4>
+        </models>
+        <resources>
+            <rating_setup>
+                <setup>
+                    <module>Mage_Rating</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </rating_setup>
+            <rating_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </rating_write>
+            <rating_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </rating_read>
+        </resources>
+        <blocks>
+                <rating>
+                    <class>Mage_Rating_Block</class>
+                </rating>
+        </blocks>
+    </global>
+    <frontend>
+        <translate>
+            <modules>
+                <Mage_Rating>
+                    <files>
+                        <default>Mage_Rating.csv</default>
+                    </files>
+                </Mage_Rating>
+            </modules>
+        </translate>
+    </frontend>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Rating>
+                    <files>
+                        <default>Mage_Rating.csv</default>
+                    </files>
+                </Mage_Rating>
+            </modules>
+        </translate>
+    </adminhtml>
+</config>

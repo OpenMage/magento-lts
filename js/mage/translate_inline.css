@@ -1,0 +1,9 @@
+.translate-inline { /* background:black; font-weight:bold; color:red; */ border:dotted 1px red;}
+.translate-inline-script, .translate-inline-title { background:yellow; color:black; font-weight:bold; }
+#translate-inline-trig { position:absolute;left:-1000px; opacity:.8; filter:alpha(opacity=80); cursor:pointer; margin-top:10px; z-index:1000;}
+
+.magento_table_container { background:#cbdee6; margin:10px; padding:8px 10px; }
+.magento_table_container table { width:100%; }
+.magento_table_container td { padding:3px 0; text-align:left; }
+.magento_table_container td.label  { padding-right:9px; width:120px; }
+.magento_table_container td.value input.input-text { width:95%; }

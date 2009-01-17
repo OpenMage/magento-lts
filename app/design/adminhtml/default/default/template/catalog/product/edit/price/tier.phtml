@@ -1,0 +1,117 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php $_htmlId      = $this->getElement()->getHtmlId() ?>
+<?php $_htmlClass   = $this->getElement()->getClass() ?>
+<?php $_htmlName    = $this->getElement()->getName() ?>
+<?php $_multiWebsite= $this->isMultiWebsites(); ?>
+<tr>
+    <td class="label"><?php echo $this->getElement()->getLabel() ?></td>
+    <td colspan="10" class="grid tier">
+    <table cellspacing="0" class="data border" id="tiers_table">
+        <?php if ($_multiWebsite): ?>
+        <col width="135" />
+        <?php endif; ?>
+        <col width="120" />
+        <col width="95" />
+        <col />
+        <col width="75" />
+        <thead>
+            <tr class="headings">
+                <th <?php if (!$_multiWebsite): ?>style="display:none"<?php endif; ?>><?php echo Mage::helper('sales')->__('Website') ?></th>
+                <th><?php echo Mage::helper('catalog')->__('Customer Group') ?></th>
+                <th><?php echo Mage::helper('catalog')->__('Qty') ?></th>
+                <th><?php echo $this->getPriceColumnHeader(Mage::helper('catalog')->__('Price')) ?></th>
+                <th class="last"><?php echo Mage::helper('catalog')->__('Action') ?></th>
+            </tr>
+            <tr id="<?php echo $_htmlId ?>_add_template" class="template no-display">
+                <td <?php if (!$_multiWebsite): ?>style="display:none"<?php endif; ?>>
+                <select disabled="no-template" class="<?php echo $_htmlClass ?> required-entry" name="<?php echo $_htmlName ?>[__index__][website_id]" id="tier_price_row___index___website">
+                    <?php foreach ($this->getWebsites() as $_websiteId => $_info): ?>
+                    <option value="<?php echo $_websiteId ?>"><?php echo $_info['name'] ?><?php if (!empty($_info['currency'])): ?> [<?php echo $_info['currency'] ?>]<?php endif; ?></option>
+                    <?php endforeach ?>
+                </select>
+                </td>
+                <td>
+                <select disabled="no-template" class="<?php echo $_htmlClass ?> custgroup required-entry" name="<?php echo $_htmlName ?>[__index__][cust_group]" id="tier_price_row___index___cust_group">
+                    <?php foreach ($this->getCustomerGroups() as $_groupId=>$_groupName): ?>
+                    <option value="<?php echo $_groupId ?>"><?php echo htmlspecialchars($_groupName) ?></option>
+                    <?php endforeach ?>
+                </select>
+                </td>
+                <td class="nobr">
+                    <input disabled="no-template" class="<?php echo $_htmlClass ?> qty required-entry validate-greater-than-zero" type="text" name="<?php echo $_htmlName ?>[__index__][price_qty]" value="'#{qty}'"/> <small class="nobr"><?php echo Mage::helper('catalog')->__('and above')?></small>
+                </td>
+                <td>
+                    <input disabled="no-template" class="<?php echo $_htmlClass ?> required-entry validate-greater-than-zero" type="text" name="<?php echo $_htmlName ?>[__index__][price]" value="'#{price}'"/>
+                </td>
+                <td class="last"><input type="hidden" name="<?php echo $_htmlName ?>[__index__][delete]" class="delete" disabled="no-template" value=""><button title="Delete Tier" class="scalable delete icon-btn delete-product-option" onclick="tierPriceControl.deleteItem(event);return false"><span>Delete</span></button></td>
+            </tr>
+        </thead>
+        <tbody id="<?php echo $_htmlId ?>_container">
+        </tbody>
+        <tfoot>
+            <tr>
+                <td <?php if (!$_multiWebsite): ?>style="display:none"<?php endif; ?>></td>
+                <td colspan="4" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+            </tr>
+        </tfoot>
+    </table>
+
+<script type="text/javascript">
+//<![CDATA[
+    var tierPriceControl = {
+        template : new Template('<tr>' + $('<?php echo $_htmlId ?>_add_template').innerHTML.replace(/__index__/g, '#{index}').replace(/ disabled="?no-template"?/g, '').replace(/ disabled/g, '').replace(/="'([^']*)'"/g, '="$1"') + '</tr>'),
+        itemsCount : 0,
+        deleteButton: false,
+        addItem  : function () {
+            var data = {};
+            data.website_id = 0;
+            data.group = '<?php echo $this->getDefaultCustomerGroup() ?>';
+            data.qty = '';
+            data.price = '';
+            data.index = this.itemsCount++;
+            if(arguments.length == 4) {
+                data.website_id = arguments[0];
+                data.group      = arguments[1];
+                data.qty        = arguments[2];
+                data.price      = arguments[3];
+            }
+            new Insertion.Bottom($('<?php echo $_htmlId ?>_container'), this.template.evaluate(data));
+            $('tier_price_row_'+data.index+'_cust_group').value = data.group;
+            $('tier_price_row_'+data.index+'_website').value = data.website_id;
+        },
+        deleteItem : function(event) {
+            var tr = Event.findElement(event, 'tr');
+            if (tr) {
+                Element.getElementsBySelector(tr, '.delete').each(function(elem){elem.value='1'});
+                Element.getElementsBySelector(tr, ['input', 'select']).each(function(elem){elem.hide()});
+                Element.hide(tr);
+                Element.addClassName(tr, 'no-display template');
+            }
+        }
+    }
+    <?php foreach ($this->getValues() as $_item): ?>
+    tierPriceControl.addItem('<?php echo $_item['website_id'] ?>', '<?php echo $_item['cust_group'] ?>', '<?php echo $_item['price_qty']*1 ?>','<?php echo sprintf('%.2f', $_item['price']) ?>');
+    <?php endforeach; ?>
+//]]>
+</script>
+</td>
+</tr>

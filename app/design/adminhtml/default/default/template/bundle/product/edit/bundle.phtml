@@ -1,0 +1,63 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<script type="text/javascript">
+if(typeof Bundle=='undefined') {
+    Bundle = {};
+}
+</script>
+
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('bundle')->__('Shipment') ?></h4>
+    </div>
+    <fieldset>
+        <legend><?php echo Mage::helper('bundle')->__('Shipment') ?></legend>
+            <table cellspacing="0" class="form-list">
+            <tr>
+                <td class="label"><label for="shipment_type"><?php echo Mage::helper('bundle')->__('Ship Bundle Items') ?></label></td>
+                <td class="value"><select id="shipment_type" name="<?php echo $this->getFieldSuffix() ?>[shipment_type]" class="select">
+                    <option value="1"><?php echo Mage::helper('bundle')->__('Separately') ?></option>
+                    <option value="0"<?php if ($this->getProduct()->getShipmentType() == 0): ?> selected="selected"<?php endif; ?>><?php echo Mage::helper('bundle')->__('Together') ?></option>
+                </select>
+                </td>
+            </tr>
+            </table>
+    </fieldset>
+</div>
+
+<div class="entry-edit custom-options bundle" id="product_bundle_container">
+    <div class="entry-edit-head">
+        <h4><?php echo $this->__('Bundle Items') ?></h4>
+        <div class="right"><?php echo $this->getAddButtonHtml() ?></div>
+    </div>
+
+    <div id="product_options_container" class="box">
+        <div id="product_bundle_container_top"></div>
+        <?php echo $this->getOptionsBoxHtml() ?>
+    </div>
+</div>
+
+<script type="text/javascript">
+// re-bind form elements onchange
+varienWindowOnload(true);
+</script>
+
+<div><input type="hidden" name="affect_bundle_product_selections" value="1" /></div>

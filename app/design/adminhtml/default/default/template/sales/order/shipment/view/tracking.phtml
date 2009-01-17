@@ -1,0 +1,87 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<div class="field-row grid" id="shipment_tracking_info">
+<table cellspacing="0" class="data">
+    <col width="100" />
+    <col />
+    <col />
+    <col width="80" />
+    <thead>
+        <tr class="headings">
+            <th><?php echo Mage::helper('sales')->__('Carrier') ?></th>
+            <th><?php echo Mage::helper('sales')->__('Title') ?></th>
+            <th><?php echo Mage::helper('sales')->__('Number') ?></th>
+            <th class="last"><?php echo Mage::helper('sales')->__('Action') ?></th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <td>
+                <select name="carrier" class="select" style="width:110px" onchange="selectCarrier(this)">
+                    <option value="&nbsp;"></option>
+                    <?php foreach ($this->getCarriers() as $_code=>$_name): ?>
+                    <option value="<?php echo $_code ?>"><?php echo $_name ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+            <td><input class="input-text" type="text" id="tracking_title" name="title" value="" /></td>
+            <td><input class="input-text" type="text" id="tracking_number" name="number" value="" /></td>
+            <td class="last"><?php echo $this->getSaveButtonHtml() ?></td>
+        </tr>
+    </tfoot>
+<?php if($_tracks = $this->getShipment()->getAllTracks()): ?>
+    <tbody>
+    <?php $i=0;foreach ($_tracks as $_track):$i++ ?>
+        <tr class="<?php echo ($i%2==0)?'even':'odd' ?>">
+            <td><?php echo $this->getCarrierTitle($_track->getCarrierCode()) ?></td>
+            <td><?php echo $_track->getTitle() ?></td>
+            <td>
+                <?php if ($_track->isCustom()): ?>
+                <?php echo $_track->getNumber() ?>
+                <?php else: ?>
+                <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopUpUrlByTrackID($_track->getId()) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')"><?php echo $_track->getNumber() ?></a>
+                <div id="shipment_tracking_info_response_<?php echo $_track->getId() ?>"></div>
+                <?php endif; ?>
+            </td>
+            <td class="last"><a href="#" onclick="deleteTrackingNumber('<?php echo $this->getRemoveUrl($_track) ?>'); return false;"><?php echo Mage::helper('sales')->__('Delete') ?></a></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+<?php endif; ?>
+</table>
+</div>
+<script type="text/javascript">
+function selectCarrier(elem) {
+    option = elem.options[elem.selectedIndex];
+    if (option.value && option.value != 'custom') {
+        $('tracking_title').value = option.text;
+    }
+    else {
+        $('tracking_title').value = '';
+    }
+}
+
+function deleteTrackingNumber(url) {
+    if (confirm('<?php echo Mage::helper('sales')->__('Are you sure?') ?>')) {
+        submitAndReloadArea($('shipment_tracking_info').parentNode, url)
+    }
+}
+</script>

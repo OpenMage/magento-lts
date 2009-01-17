@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category    Mage
+ * @package     Mage_Api
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Api>
+            <version>0.8.0</version>
+        </Mage_Api>
+    </modules>
+    <global>
+        <ignoredModules>
+            <entities>
+                <api />
+            </entities>
+        </ignoredModules>
+        <cache>
+            <types>
+                <config_api translate="label" module="api">
+                    <label>Web Services Configuration</label>
+                </config_api>
+            </types>
+        </cache>
+        <models>
+            <api>
+                <class>Mage_Api_Model</class>
+                <resourceModel>api_mysql4</resourceModel>
+            </api>
+            <api_mysql4>
+                <class>Mage_Api_Model_Mysql4</class>
+                <entities>
+                    <assert>
+                        <table>api_assert</table>
+                    </assert>
+                    <role>
+                        <table>api_role</table>
+                    </role>
+                    <rule>
+                        <table>api_rule</table>
+                    </rule>
+                    <user>
+                        <table>api_user</table>
+                    </user>
+                </entities>
+            </api_mysql4>
+        </models>
+        <resources>
+            <api_setup>
+                <setup>
+                    <module>Mage_Api</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </api_setup>
+            <api_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </api_write>
+            <api_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </api_read>
+        </resources>
+    </global>
+    <frontend>
+        <routers>
+            <api>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Api</module>
+                    <frontName>api</frontName>
+                </args>
+            </api>
+        </routers>
+        <translate>
+            <modules>
+                <Mage_Api>
+                    <files>
+                        <default>Mage_Api.csv</default>
+                    </files>
+                </Mage_Api>
+            </modules>
+        </translate>
+    </frontend>
+</config>

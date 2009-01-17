@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category    Mage
+ * @package    Mage_GoogleCheckout
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_GoogleCheckout>
+            <version>0.7.0</version>
+        </Mage_GoogleCheckout>
+    </modules>
+    <global>
+        <models>
+            <googlecheckout>
+                <class>Mage_GoogleCheckout_Model</class>
+                <resourceModel>googlecheckout_mysql4</resourceModel>
+            </googlecheckout>
+            <googlecheckout_mysql4>
+                <class>Mage_GoogleCheckout_Model_Mysql4</class>
+                <entities>
+                    <api_debug><table>googlecheckout_api_debug</table></api_debug>
+                </entities>
+            </googlecheckout_mysql4>
+        </models>
+        <helpers>
+            <googlecheckout>
+                <class>Mage_GoogleCheckout_Helper</class>
+            </googlecheckout>
+        </helpers>
+        <resources>
+            <googlecheckout_setup>
+                <setup>
+                    <module>Mage_GoogleCheckout</module>
+                    <class>Mage_GoogleCheckout_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </googlecheckout_setup>
+            <googlecheckout_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </googlecheckout_write>
+            <googlecheckout_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </googlecheckout_read>
+        </resources>
+        <blocks>
+            <googlecheckout><class>Mage_GoogleCheckout_Block</class></googlecheckout>
+        </blocks>
+    </global>
+<!--
+Something like this is to be added to resolve bug #4890
+<global>
+        <rewrite>
+            <googlecheckout>
+                <core>
+                <from>/^.*?googlecheckout\/api/</from>
+                <to>googlecheckout/api</to>
+            </googlecheckout>
+        </rewrite>
+</global>
+-->
+    <frontend>
+        <secure_url>
+            <googlecheckout_redirect>/googlecheckout/redirect/</googlecheckout_redirect>
+            <googlecheckout_beacon>/googlecheckout/api/beacon/</googlecheckout_beacon>
+        </secure_url>
+        <translate>
+            <modules>
+                <Mage_GoogleCheckout>
+                    <files>
+                        <default>Mage_GoogleCheckout.csv</default>
+                    </files>
+                </Mage_GoogleCheckout>
+            </modules>
+        </translate>
+        <routers>
+            <googlecheckout>
+                <use>standard</use>
+                <args>
+                    <module>Mage_GoogleCheckout</module>
+                    <frontName>googlecheckout</frontName>
+                </args>
+            </googlecheckout>
+        </routers>
+        <layout>
+            <updates>
+                <googlecheckout>
+                    <file>googlecheckout.xml</file>
+                </googlecheckout>
+            </updates>
+        </layout>
+    </frontend>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_GoogleCheckout>
+                    <files>
+                        <default>Mage_GoogleCheckout.csv</default>
+                    </files>
+                </Mage_GoogleCheckout>
+            </modules>
+        </translate>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <google>
+                                            <title>Google API</title>
+                                        </google>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <events>
+            <sales_order_shipment_track_save_after>
+                <observers>
+                    <googlecheckout>
+                        <type>model</type>
+                        <class>googlecheckout/observer</class>
+                        <method>salesOrderShipmentTrackSaveAfter</method>
+                    </googlecheckout>
+                </observers>
+            </sales_order_shipment_track_save_after>
+        </events>
+    </adminhtml>
+
+    <default>
+        <carriers>
+            <googlecheckout>
+                <active>1</active>
+                <model>googlecheckout/shipping</model>
+            </googlecheckout>
+        </carriers>
+        <payment>
+            <googlecheckout>
+                <active>1</active>
+                <model>googlecheckout/payment</model>
+            </googlecheckout>
+        </payment>
+        <google>
+            <checkout>
+                <merchant_id backend_model="adminhtml/system_config_backend_encrypted"/>
+                <merchant_key backend_model="adminhtml/system_config_backend_encrypted"/>
+            </checkout>
+            <checkout_shipping_carrier>
+                <address_category>COMMERCIAL</address_category>
+                <default_price>0</default_price>
+                <default_height>10</default_height>
+                <default_length>10</default_length>
+                <default_width>10</default_width>
+            </checkout_shipping_carrier>
+        </google>
+    </default>
+</config>

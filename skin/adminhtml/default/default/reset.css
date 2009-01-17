@@ -1,0 +1,75 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+/******************************************/
+/***************** BASE *******************/
+/******************************************/
+
+*                       { margin:0; padding:0; }
+
+body {
+    min-width:800px;
+    background:#E6E6E6;
+    color:#2f2f2f;
+    font:12px/1.5em Arial, Helvetica, sans-serif;
+    }
+body.html-body-popup    { min-width:300px !important; }
+
+a                       { color:#ea7601; text-decoration:underline; }
+a:hover                 { color:#ea7601; text-decoration:underline; }
+a img                   { border:0;}
+
+/* Heading */
+h1, h2, h3, h4          { margin-bottom:.5em; line-height:1.4em; }
+h2                      { font-size:1.7em; }
+h3                      { margin-bottom:.5em; color:#253033; font-size:1.25em; }
+h4                      { margin-bottom:.6em; color:#494848; font-size:1.05em; }
+h5                      { font-size:1.05em; }
+h6                      { font-size:1em; }
+h1 a, h1 a:hover, 
+h2 a, h2 a:hover, 
+h3 a, h3 a:hover,
+h4 a, h4 a:hover        { font-weight:normal; }
+
+/* Table */
+th                      { padding:0; text-align:left; vertical-align:top; }
+td                      { padding:0; vertical-align:top; }
+
+/* Paragraph */
+p, address              { margin-bottom:.5em; }
+address                 { font-style:normal; }
+cite                    { font-style:normal; font-size:10px; }
+q:before, 
+q:after                 { content:'';}
+
+/* Form */
+form                    { display:inline; }
+fieldset                { border:none; }
+legend                  { display:none; }
+label                   { color:#333; }
+input, select           { vertical-align:middle; }
+textarea                { overflow:auto; }
+
+/* Lists */
+dt                      { display:block; }
+
+/* Size */
+small                   { font-size:.9em; }
+big                     { font-size:1.25em; }
+
+/* Divider */
+hr                      { border:0; height:1px; overflow:hidden; background:#d3d3d3; }
+:focus                  { outline: 0; }

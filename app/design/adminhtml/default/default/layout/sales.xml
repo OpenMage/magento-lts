@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+
+<layout>
+    <adminhtml_sales_order_view>
+        <reference name="content">
+            <block type="adminhtml/sales_order_view" name="sales_order_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="adminhtml/sales_order_view_tabs" name="sales_order_tabs">
+                <block type="adminhtml/sales_order_view_tab_info" name="order_tab_info" template="sales/order/view/tab/info.phtml">
+                    <block type="adminhtml/sales_order_view_messages" name="order_messages"></block>
+                    <block type="adminhtml/sales_order_view_info" name="order_info" template="sales/order/view/info.phtml"></block>
+                    <block type="adminhtml/sales_order_view_items" name="order_items" template="sales/order/view/items.phtml">
+                        <action method="addItemRender"><type>default</type><block>adminhtml/sales_order_view_items_renderer_default</block><template>sales/order/view/items/renderer/default.phtml</template></action>
+                        <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>
+                        <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
+                    </block>
+                    <block type="adminhtml/sales_order_payment" name="order_payment"></block>
+                    <block type="adminhtml/sales_order_view_history" name="order_history" template="sales/order/view/history.phtml"></block>
+                    <block type="adminhtml/sales_order_view_giftmessage" name="order_giftmessage" template="sales/order/view/giftmessage.phtml"></block>
+                    <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml">
+                        <block type="adminhtml/sales_order_totals_tax" name="order_totals_tax" template="sales/order/totals/tax.phtml" />
+                    </block>
+                </block>
+                <action method="addTab"><name>order_info</name><block>order_tab_info</block></action>
+                <action method="addTab"><name>order_invoices</name><block>adminhtml/sales_order_view_tab_invoices</block></action>
+                <action method="addTab"><name>order_creditmemos</name><block>adminhtml/sales_order_view_tab_creditmemos</block></action>
+                <action method="addTab"><name>order_shipments</name><block>adminhtml/sales_order_view_tab_shipments</block></action>
+                <action method="addTab"><name>order_history</name><block>adminhtml/sales_order_view_tab_history</block></action>
+            </block>
+        </reference>
+    </adminhtml_sales_order_view>
+
+    <adminhtml_sales_order_invoice_new>
+        <reference name="content">
+            <block type="adminhtml/sales_order_invoice_create" name="sales_invoice_create">
+                <block type="adminhtml/sales_order_invoice_create_form" name="form" template="sales/order/invoice/create/form.phtml">
+                    <block type="adminhtml/sales_order_view_info" name="order_info" template="sales/order/view/info.phtml"></block>
+                    <block type="adminhtml/sales_order_payment" name="order_payment"></block>
+                    <block type="adminhtml/sales_order_invoice_create_items" name="order_items" template="sales/order/invoice/create/items.phtml">
+                        <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>sales/order/invoice/create/items/renderer/default.phtml</template></action>
+                        <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>
+                        <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
+
+                        <block type="adminhtml/sales_order_totalbar" name="order_totalbar" template="sales/order/totalbar.phtml"></block>
+                        <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml"></block>
+                        <block type="adminhtml/sales_order_totals_tax" name="order_totals_tax" template="sales/order/totals/tax.phtml"></block>
+                    </block>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_sales_order_invoice_new>
+
+    <adminhtml_sales_order_invoice_updateqty>
+        <block type="adminhtml/sales_order_invoice_create_items" name="order_items" template="sales/order/invoice/create/items.phtml">
+            <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>sales/order/invoice/create/items/renderer/default.phtml</template></action>
+            <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>
+            <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
+
+            <block type="adminhtml/sales_order_totalbar" name="order_totalbar" template="sales/order/totalbar.phtml"></block>
+            <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml"></block>
+            <block type="adminhtml/sales_order_totals_tax" name="order_totals_tax" template="sales/order/totals/tax.phtml"></block>
+        </block>
+    </adminhtml_sales_order_invoice_updateqty>
+
+    <adminhtml_sales_order_invoice_addcomment>
+        <block type="adminhtml/sales_order_invoice_view_comments" name="invoice_comments">
+            <block type="adminhtml/sales_order_comments_view"  name="order_comments" template="sales/order/comments/view.phtml"></block>
+        </block>
+    </adminhtml_sales_order_invoice_addcomment>
+
+    <adminhtml_sales_order_invoice_view>
+        <reference name="content">
+            <block type="adminhtml/sales_order_invoice_view" name="sales_invoice_view">
+                <block type="adminhtml/sales_order_invoice_view_form" name="form" template="sales/order/invoice/view/form.phtml">
+                    <block type="adminhtml/sales_order_view_info" name="order_info" template="sales/order/view/info.phtml"></block>
+                    <block type="adminhtml/sales_order_payment" name="order_payment"></block>
+                    <block type="adminhtml/sales_order_invoice_view_items" name="invoice_items" template="sales/order/invoice/view/items.phtml">
+                        <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>sales/order/invoice/view/items/renderer/default.phtml</template></action>
+                        <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>
+                        <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
+                    </block>
+                    <block type="adminhtml/sales_order_comments_view" name="order_comments" template="sales/order/comments/view.phtml"></block>
+                    <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml"></block>
+                    <block type="adminhtml/sales_order_totals_tax" name="order_totals_tax" template="sales/order/totals/tax.phtml"></block>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_sales_order_invoice_view>
+
+    <adminhtml_sales_order_shipment_new>
+        <reference name="content">
+            <block type="adminhtml/sales_order_shipment_create" name="sales_shipment_create">
+                <block type="adminhtml/sales_order_shipment_create_form" name="form" template="sales/order/shipment/create/form.phtml">
+                    <block type="adminhtml/sales_order_view_info" name="order_info" template="sales/order/view/info.phtml"></block>
+                    <block type="adminhtml/sales_order_payment" name="order_payment"></block>
+                    <block type="adminhtml/sales_order_shipment_create_tracking" name="shipment_tracking" template="sales/order/shipment/create/tracking.phtml"></block>
+                    <block type="adminhtml/sales_order_shipment_create_items" name="order_items" template="sales/order/shipment/create/items.phtml">
+                        <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>sales/order/shipment/create/items/renderer/default.phtml</template></action>
+                        <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>
+                        <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
+                    </block>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_sales_order_shipment_new>
+
+    <adminhtml_sales_order_shipment_addtrack>
+        <block type="adminhtml/sales_order_shipment_view_tracking" name="shipment_tracking" template="sales/order/shipment/view/tracking.phtml"></block>
+    </adminhtml_sales_order_shipment_addtrack>
+
+    <adminhtml_sales_order_shipment_removetrack>
+        <block type="adminhtml/sales_order_shipment_view_tracking" name="shipment_tracking" template="sales/order/shipment/view/tracking.phtml"></block>
+    </adminhtml_sales_order_shipment_removetrack>
+
+    <adminhtml_sales_order_shipment_addcomment>
+        <block type="adminhtml/sales_order_shipment_view_comments" name="shipment_comments">
+            <block type="adminhtml/sales_order_comments_view"  name="order_comments" template="sales/order/comments/view.phtml"></block>
+        </block>
+    </adminhtml_sales_order_shipment_addcomment>
+
+    <adminhtml_sales_order_shipment_view>
+        <reference name="content">
+            <block type="adminhtml/sales_order_shipment_view" name="sales_shipment_view">
+                <block type="adminhtml/sales_order_shipment_view_form" name="form" template="sales/order/shipment/view/form.phtml">
+                    <block type="adminhtml/sales_order_view_info" name="order_info" template="sales/order/view/info.phtml"></block>
+                    <block type="adminhtml/sales_order_payment" name="order_payment"></block>
+                    <block type="adminhtml/sales_order_shipment_view_tracking" name="shipment_tracking" template="sales/order/shipment/view/tracking.phtml"></block>
+                    <block type="adminhtml/sales_order_shipment_view_items" name="shipment_items" template="sales/order/shipment/view/items.phtml">
+                        <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>sales/order/shipment/view/items/renderer/default.phtml</template></action>
+                        <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>
+                        <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
+                    </block>
+                    <block type="adminhtml/sales_order_invoice_create_tracking" name="invoice_tracking" template="sales/order/shipment/create/tracking.phtml"></block>
+                    <block type="adminhtml/sales_order_comments_view"  name="order_comments" template="sales/order/comments/view.phtml"></block>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_sales_order_shipment_view>
+
+    <adminhtml_sales_order_creditmemo_new>
+        <reference name="content">
+            <block type="adminhtml/sales_order_creditmemo_create" name="sales_creditmemo_create">
+                <block type="adminhtml/sales_order_creditmemo_create_form" name="form" template="sales/order/creditmemo/create/form.phtml">
+                    <block type="adminhtml/sales_order_view_info" name="order_info" template="sales/order/view/info.phtml"></block>
+                    <block type="adminhtml/sales_order_payment" name="order_payment"></block>
+                    <block type="adminhtml/sales_order_creditmemo_create_items" name="order_items" template="sales/order/creditmemo/create/items.phtml">
+                        <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>sales/order/creditmemo/create/items/renderer/default.phtml</template></action>
+                        <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>
+                        <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
+                        <block type="adminhtml/sales_order_totalbar" name="order_totalbar" template="sales/order/totalbar.phtml"></block>
+                        <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/creditmemo/create/totals.phtml"></block>
+                        <block type="adminhtml/sales_order_totals_tax" name="order_totals_tax" template="sales/order/totals/tax.phtml"></block>
+                    </block>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_sales_order_creditmemo_new>
+
+    <adminhtml_sales_order_creditmemo_updateqty>
+        <block type="adminhtml/sales_order_creditmemo_create_items" name="order_items" template="sales/order/creditmemo/create/items.phtml">
+            <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>sales/order/creditmemo/create/items/renderer/default.phtml</template></action>
+            <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>
+            <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
+            <block type="adminhtml/sales_order_totalbar" name="order_totalbar" template="sales/order/totalbar.phtml"></block>
+            <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/creditmemo/create/totals.phtml"></block>
+            <block type="adminhtml/sales_order_totals_tax" name="order_totals_tax" template="sales/order/totals/tax.phtml"></block>
+        </block>
+    </adminhtml_sales_order_creditmemo_updateqty>
+
+    <adminhtml_sales_order_creditmemo_addcomment>
+        <block type="adminhtml/sales_order_creditmemo_view_comments" name="creditmemo_comments">
+            <block type="adminhtml/sales_order_comments_view"  name="order_comments" template="sales/order/comments/view.phtml"></block>
+        </block>
+    </adminhtml_sales_order_creditmemo_addcomment>
+
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="content">
+            <block type="adminhtml/sales_order_creditmemo_view" name="sales_creditmemo_view">
+                <block type="adminhtml/sales_order_creditmemo_view_form" name="form" template="sales/order/creditmemo/view/form.phtml">
+                    <block type="adminhtml/sales_order_view_info" name="order_info" template="sales/order/view/info.phtml"></block>
+                    <block type="adminhtml/sales_order_payment" name="order_payment"></block>
+                    <block type="adminhtml/sales_order_creditmemo_view_items" name="creditmemo_items" template="sales/order/creditmemo/view/items.phtml">
+                        <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>sales/order/creditmemo/view/items/renderer/default.phtml</template></action>
+                        <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>
+                        <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
+                    </block>
+                    <block type="adminhtml/sales_order_comments_view" name="order_comments" template="sales/order/comments/view.phtml"></block>
+                    <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml"></block>
+                    <block type="adminhtml/sales_order_totals_tax" name="order_totals_tax" template="sales/order/totals/tax.phtml"></block>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_sales_order_creditmemo_view>
+</layout>

@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Bundle>
+            <version>0.1.4</version>
+        </Mage_Bundle>
+    </modules>
+    <global>
+        <models>
+            <bundle>
+                <class>Mage_Bundle_Model</class>
+                <resourceModel>bundle_mysql4</resourceModel>
+            </bundle>
+            <bundle_mysql4>
+                <class>Mage_Bundle_Model_Mysql4</class>
+                <entities>
+                    <option>
+                        <table>catalog_product_bundle_option</table>
+                    </option>
+                    <option_value>
+                        <table>catalog_product_bundle_option_value</table>
+                    </option_value>
+                    <selection>
+                        <table>catalog_product_bundle_selection</table>
+                    </selection>
+                </entities>
+            </bundle_mysql4>
+        </models>
+        <resources>
+            <bundle_setup>
+                <setup>
+                    <module>Mage_Bundle</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </bundle_setup>
+            <bundle_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </bundle_write>
+            <bundle_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </bundle_read>
+        </resources>
+        <blocks>
+            <bundle><class>Mage_Bundle_Block</class></bundle>
+        </blocks>
+        <catalog>
+            <product>
+                <type>
+                    <bundle translate="label" module="bundle">
+                        <label>Bundle Product</label>
+                        <model>bundle/product_type</model>
+                        <allowed_selection_types>
+                            <simple />
+                            <virtual />
+                            <downloadable />
+                        </allowed_selection_types>
+                        <price_model>bundle/product_price</price_model>
+                        <index_data_retreiver>bundle/catalogIndex_data_bundle</index_data_retreiver>
+                    </bundle>
+                </type>
+            </product>
+        </catalog>
+        <sales>
+            <quote>
+                <item>
+                    <product_attributes>
+                        <price_view />
+                        <price_type />
+                        <shipment_type />
+                        <weight_type />
+                    </product_attributes>
+                </item>
+            </quote>
+        </sales>
+        <pdf>
+            <invoice>
+                <bundle>bundle/sales_order_pdf_items_invoice</bundle>
+            </invoice>
+            <shipment>
+                <bundle>bundle/sales_order_pdf_items_shipment</bundle>
+            </shipment>
+            <creditmemo>
+                <bundle>bundle/sales_order_pdf_items_creditmemo</bundle>
+            </creditmemo>
+        </pdf>
+    </global>
+    <frontend>
+        <translate>
+            <modules>
+                <Mage_Bundle>
+                    <files>
+                        <default>Mage_Bundle.csv</default>
+                    </files>
+                </Mage_Bundle>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <bundle>
+                    <file>bundle.xml</file>
+                </bundle>
+            </updates>
+        </layout>
+        <product>
+            <collection>
+                <attributes>
+                    <price_view />
+                    <price_type />
+                </attributes>
+            </collection>
+        </product>
+        <events>
+            <catalog_product_upsell>
+                <observers>
+                    <bundle_observer>
+                        <type>singleton</type>
+                        <class>bundle/observer</class>
+                        <method>appendUpsellProducts</method>
+                    </bundle_observer>
+                </observers>
+            </catalog_product_upsell>
+            <sales_convert_quote_item_to_order_item>
+                <observers>
+                    <bundle_observer>
+                        <type>singleton</type>
+                        <class>bundle/observer</class>
+                        <method>appendBundleSelectionData</method>
+                    </bundle_observer>
+                </observers>
+            </sales_convert_quote_item_to_order_item>
+            <catalog_product_collection_load_after>
+                <observers>
+                    <bundle_observer>
+                        <type>singleton</type>
+                        <class>bundle/observer</class>
+                        <method>loadProductOptions</method>
+                    </bundle_observer>
+                </observers>
+            </catalog_product_collection_load_after>
+        </events>
+    </frontend>
+    <admin>
+        <routers>
+            <bundle>
+                <use>admin</use>
+                <args>
+                    <module>Mage_Bundle</module>
+                    <frontName>bundle</frontName>
+                </args>
+            </bundle>
+        </routers>
+    </admin>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Bundle>
+                    <files>
+                        <default>Mage_Bundle.csv</default>
+                    </files>
+                </Mage_Bundle>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <bundle>
+                    <file>bundle.xml</file>
+                </bundle>
+            </updates>
+        </layout>
+        <events>
+            <catalog_product_prepare_save>
+                <observers>
+                    <bundle_observer>
+                        <type>singleton</type>
+                        <class>bundle/observer</class>
+                        <method>prepareProductSave</method>
+                    </bundle_observer>
+                </observers>
+            </catalog_product_prepare_save>
+            <sales_convert_quote_item_to_order_item>
+                <observers>
+                    <bundle_observer>
+                        <type>singleton</type>
+                        <class>bundle/observer</class>
+                        <method>appendBundleSelectionData</method>
+                    </bundle_observer>
+                </observers>
+            </sales_convert_quote_item_to_order_item>
+        </events>
+    </adminhtml>
+</config>

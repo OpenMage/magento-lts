@@ -1,0 +1,216 @@
+This file tracks the status of Magento in the 1.1.x branch.
+
+FIXED BUGS:
+
+    #2222: Product Alerts thru Catalog Price Rules 
+    #4346: make tax_class_id attribute applicable only to simple, configurable, virtual by default
+    #4481: The logo image size displayed on PayPal checkout
+    #4513: Msg that product was removed from compare list is not displyed in My Account view
+    #4637: txt change - admin forgot password
+    #4651: Google Sitemap wil not generate
+    #4703: Imported configurable products don't work
+    #4878: ID column should have range for search
+    #4953: The 'Minimum order amount' should apply after the coupon is applied
+    #5034: multiple store feature not working on the backend
+    #5050: Product Browsing / list.phtml doesnt support transparency 
+    #5117 - removed type hinting from setGroup()
+    #5173: Czech Republic - part of EU - have missing currency
+    #5194: back links chaos in client dashboard
+    #5202: Attribute Label doesn't change on the frontend
+    #5207: Fix template\page\switch\flags.phtml
+    #5216: Wrong interface behavior/comment when traying to delete customer group that customers are assigned to
+    #5222: single address doubles in the dropdown menu in multi-shipping page checkout
+    #5223: 'Read Details' hyperlink is brought to magento community site in the same window
+    #5234: Some strings not working for translation / can not be translated
+    #5235: Company Address and Order Date not showing in Print Order
+    #5250: Magento (or underlying software) is damaging transparent images, replacing transparency with black 
+    #5262: First Class International is not available as an option in USPS shipping configuration
+    #5265: Typo in Functionname
+    #5267: Free shipping - Minimum order amount bug with multiple currency
+    #5271: Mage_Reports config.xml
+    #5273: Hiding button containers does not seem to work on FF2 PC
+    #5278: Error message for 'Email to a friend'
+    #5320: Price alert is not sent to someone who signed up for 'Sign up for price alert' on the frontend
+    #5322: Advanced Search - Yes/No Attribute Issue
+    #5324: Payflow Pro Proxy for Godaddy.com
+    #5356: Import All Products: prices over 1000 are saved as 1 or 10
+    #5364: Transactional Email templates
+    #5368: Global Customer Account and Cart
+    #5370: The exact amount paid can NOT be refunded
+    #5376: Custom options are not working in IE 6
+    #5379: Shopping cart rule defective for payments
+    #5381: Invalid page view during order creation
+    #5387: Incorrect Wishlist Menu
+    #5397: Unable to reorder configurable product on front
+    #5398: Store's and store view's switcher works incorrect
+    #5419: Selecting Custom Option doesn't update product price at all
+    #5422: Keep the same size of popup window for images galery on Product Page while using Prev/Nex actions
+    #5423: Impossible to de-select non-required radio button custom option
+    #5432: Inconsistent SEO URL's
+    #5434: Undefined index error message when trying to add custom option in admin order
+    #5441: Configurable product image is always used in Cart regardless configuration
+    #5442: Adding related products to Cart doesn't work
+    #5452: Invalid data in Comment field
+    #5466: Payment method is disabled in admin checkout
+    #5467: After Error tab is not marking
+    #5478: Shipping address in onepage
+    #5479: catalog product image placeholder failed to load, if skin had no placeholder image.
+    #5483: Shorttag <?endif;?> makes an error in admin. 
+    #5491: Unable to cancel coupon code.
+    #5504: Cart price rules: Total Items Qty condition doesn't work
+    #5506: Cannot add SKU from products list in Condition and Action subselection if pagination options were used
+    #5512: Order number shold be a link
+    #5516: place order button kept disabled after error
+    #5517: "About Us", "Customer Service" error 404 page
+    #5570: Backoffice : create new order , problem with payment method under Windows 
+    #5583: Product prices don't import properly
+    #5587: IE bug in decorateGeneric()
+    #5588: & encoding on Cart page
+    #5595: Checkboxes Form Element
+    #5599: IE 6, one of radio buttons should be marked by default 
+    #5602: Import All Products profile throws error if store column is missing
+    #5608: Trouble after double adding product to s.cart
+    #5614: Short tag endif error
+    #5647: "Please select one of the options" alerts shown only for first item
+    #5652: Advanced Search listing: search form is displayed on 'Add to compare' action, when grid/list was changed
+    #5666: Expiration date of CC is not marked
+    #5685: Create shipment -> 'add tracking' doesn't work when creating Invoice in Admin
+    #5689: Customer Export
+    #5694: Unable to use capital letters in e-mail address 
+    #5695: Fatal error after password recovery in the admin page
+    #5714: magento crash when seting wrong package name
+    #5720: no product description in default theme. Also prevented bug in blank.
+    #5722: Error on Web Services -> Users
+    #5723: Text "View All" not localised in sidebar
+    #5728: Unnecessary rows it the Admin -> Reports -> Products-> Low stock
+    #5738: Unable to specify Special price to product for specific store view
+    #5742: link clickable after guest checkout
+    #5754: 404 on both sides after trying to c
+    #5755: Invalid image place on front 
+    #5779: Broken view of long SKU in FF 2
+    #5784: Broken previewing of large picture at the front end
+    #5812: invalid api path for both getspecialprice and setspecial price
+    #5819: Bundle item are not showing at the front end (hasOptions attribute saving for bundles and configurable products)
+    #5825: Autogenerated URL keys issue
+    #5839: form integrity in gift messages in multicheckout
+    #5856: Exception after in the shopping cart with 0.00 tax rate
+    Fixed dynamic SKU & weight, fixed SKU for products with custom options, multiselect options
+    Fixed admin notifications URL
+    Fixed cache management issues
+    Fixed catalogindex refreshing for all stores
+    Fixed saving out of stock product state, fixed back to stock issue for composit items
+    Fixed loading the whole categories tree for each category item
+    Fixed getting address items for billing/shipping quote addresses
+    Fixed bug in Protx controller
+    Fixed base tax amount in orders, googlecheckout taxes, applying tax after discount, full tax info issues, admin tax info
+    Fixed flat order item attribute creation
+    Fixed shopping cart reports, sales reports collection
+    Fixed quote totals for shopping cart containing virtual products
+    Fixed sales order controllers and layout
+    Fixed PDF generation
+    Fixed dymanic bundle price calculation
+    Fixed incorrect country-region pairs saving
+    Fixed attribute label translation issue (exception on attribute save)
+    Fixed tier prices in grouped products
+    Fixed Core_Block_Abstract sorted children issue
+    Fixed category RSS block cache
+    Fixed getting product ids in catalogindex indexer, fixed grouped product save issue, grouped product price indexing, grouped/bundle product sorting by price
+    Fixed giftmessage module installation and upgrade
+    Fixed problem with admin router name change
+    Fixed configurable products (with a lot of attributes) admin edit form and frontend product view, fixed setting route name for non-default module (oscommerce/adminhtml_orders)
+    Fixed links to shipments, invoices and creditmemos in admin
+    Fixed virtual products taxes
+    Fixed google checkout with virtual items, made google checkout to work with 'shipping price includes tax' settings
+    Fixed configurable product price models
+    Fixed bundle price in wishlist
+    Fixed custom options validation
+    Fixed email templates (added custom options, bundle options)
+    Fixed onepage checkout payment information
+    Fixed email and cms templates store directive
+    Fixed mixed (virtual/not virtual) order creation
+    Fixed price calculation on product view page, displaying custom options price, javascript price updating and formatting, non-required options validation
+    Fixed error in crontab backend model for Currency, Sitemap, ProductAlert
+    Fixed displayin bundle products in related block
+    Fixed catalog breadcrumbs
+    Fixed multiple addresses checkout for bundles containing virtual items
+    Fixed converting quote address item into order item
+    Fixed importing customer addresses
+    Fixed customer email confirmation
+    Fixed tier price showing for dynamic bundles
+    Fixed Magento Connect Manager "Check for Updates" button URL update
+    Fixed abandoned carts report
+    Fixed upsell block items limit
+    Fixed multiselect and select bundle options validation
+    Fixed Webservices API customer_group.list method, moved repeating product load from Api to Resource,
+    Fixed create backup (fields having NULL values)
+    Fixed flat rate and free shipping for virtual products in cart
+    Fixed custom price tax calculation, added tax configuration 'apply tax on custom/original price', fixed tax info in orders in admin
+    Fixed sales report for bundles
+    Fixed base64 urls encoding
+    Fixed shipping tracking numbers displaying
+    Fixed shipping price displaying in admin order create form
+
+
+CHANGES:
+
+    Added bundle product options rendering to shopping cart, updated bundle products pricing model
+    Added Mage_Core_Helper_String, replaced possible unsafe substr() and strlen() usage in the whole project - with Mage_Core_Helper_String calls
+    Added parent/chlid items support in shopping cart and in multishipping checkout
+    Made accordion blocks loaded by Ajax in admin/customer/edit/view page
+    Removed item type limit from items container block
+    Added Tax/VAT number configurable attribute to customer info
+    Changed tax calculation model call to singleton, moved tax logics from template to helper
+    Created catalogindex data retreivers, added tax calculations support in layered navigation
+    Added eav-attribute getIdByCode function
+    Added shipping tax settings into configuration
+    Added tax before discount attribute into order and quote items
+    Added 'Apply Discount On Prices Including Tax' configuration option
+    Added strikeiron tax description and calculation process to display in full tax info
+    Simplified custom options displaying in shopping cart, upgraded Mage_Core_Helper_String
+    Added user-agent detection by regexps and setting custom package or theme according to it
+    Added Admin tab in Advanced system config: select admin start page, set custom admin URL
+    Added 'Add Block Names to Hints' configuration option
+    Added SQL debugging option in code
+    Replaced product reviews summary helper with block/template, removed review helper calls from all templates packs, added possibility to rewrite review summary template in layout
+    Product compare block changed to use products attributes list from configuration
+    Removed superProduct methods
+    Added 'Placed from IP' to order info
+    Added shopping cart sidebar displaying configuration settings
+    Added calculatePrice call in product collection
+    Added scope check before saving attribute, in case it is used in configurable product
+    Added full tax info into customer order view
+    Added event in addressToOrderAddress() method
+    Created containers on product view page, moved custom options, configurable options and bundle options to containers, added product attribute to define the container that should be used, moved all products types options into separate templates in all themes
+    Added filter by products with required options to collection;
+    Moved checking of selected required options to product type instance
+    Added 'non-recursive' param to js/varien/js.js/decorateList()
+    Modified catalog product edit page categories tree (to load only assigned categories by default)
+    Added taxes on options, fixed js script to update price on product view page
+    Additional items can be added to upsell list through events
+    Fixed catalog/product/image helper and model, rewritten Varien image lib, made setBaseFile() independent from heading slash in filename, fixed image __destruct() issue
+    Added configuration option to remove space between currency sign and price value
+    Added optional parameter to control if span container is included or not for price
+    Added hasOptions() to products view blocks of each type, updated product view container template.
+    Moved product descriptions and additional data in separate blocks, moved "Add to cart" and "Add to wishlist / compare" to blocks
+    Simplified decorateTable(), decorateList() and decorateDataList()
+    
+    Added admin path (frontname) installation option
+    Added additional catalog tables to optimize layered navigation performance
+    Improved empty shopping cart performance for sidebar and remove shopping cart cache option
+    Improved compare list and compare list sidebar performance
+    Implemented AJAX loading for more product edit form tabs: categories, custom options, bundle items
+    Added ko_KR - "Korean (South Korea)" locale
+    Added subtotal attributes (with and without discount) to quote
+    Added option to create a shipment for fixed-price bundle with separate shipments
+    Added Content Height field to Terms & Conditions agreements
+    Created function prepareInvoice in order model, cleaned invoice creation code from duplications
+    Simplified product/view layout in all themes
+    Added unsetCallChild to block/abstract
+    Moved tier prices to blocks
+    Added clone price block for modern theme
+    Design updates, themes cleanup
+
+
+NOTES:
+
+    Please check the SVN log if you are looking for the changes that are not listed here.

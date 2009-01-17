@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Tax
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Tax>
+            <version>0.7.7</version>
+        </Mage_Tax>
+    </modules>
+    <global>
+        <models>
+            <tax>
+                <class>Mage_Tax_Model</class>
+                <resourceModel>tax_mysql4</resourceModel>
+            </tax>
+            <tax_mysql4>
+                <class>Mage_Tax_Model_Mysql4</class>
+                <entities>
+                    <tax_class>
+                        <table>tax_class</table>
+                    </tax_class>
+                    <tax_calculation_rate>
+                        <table>tax_calculation_rate</table>
+                    </tax_calculation_rate>
+                    <tax_calculation_rate_title>
+                        <table>tax_calculation_rate_title</table>
+                    </tax_calculation_rate_title>
+                    <tax_calculation_rule>
+                        <table>tax_calculation_rule</table>
+                    </tax_calculation_rule>
+
+                    <tax_calculation_rule_product_tax_class>
+                        <table>tax_calculation_rule_product_tax_class</table>
+                    </tax_calculation_rule_product_tax_class>
+                    <tax_calculation_rule_customer_tax_class>
+                        <table>tax_calculation_rule_customer_tax_class</table>
+                    </tax_calculation_rule_customer_tax_class>
+                    <tax_calculation_rule_rate>
+                        <table>tax_calculation_rule_rate</table>
+                    </tax_calculation_rule_rate>
+
+                    <tax_calculation>
+                        <table>tax_calculation</table>
+                    </tax_calculation>
+                </entities>
+            </tax_mysql4>
+        </models>
+        <resources>
+            <tax_setup>
+                <setup>
+                    <module>Mage_Tax</module>
+                    <class>Mage_Tax_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </tax_setup>
+            <tax_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </tax_write>
+            <tax_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </tax_read>
+        </resources>
+        <events>
+            <sales_convert_quote_address_to_order>
+                <observers>
+                    <tax>
+                        <type>model</type>
+                        <class>tax/observer</class>
+                        <method>salesEventConvertQuoteAddressToOrder</method>
+                    </tax>
+                </observers>
+            </sales_convert_quote_address_to_order>
+            <sales_order_save_after>
+                <observers>
+                    <tax>
+                        <type>model</type>
+                        <class>tax/observer</class>
+                        <method>salesEventOrderAfterSave</method>
+                    </tax>
+                </observers>
+            </sales_order_save_after>
+        </events>
+    </global>
+    <adminhtml>
+        <menu>
+            <sales>
+                <children>
+                    <tax translate="title" module="tax">
+                        <title>Tax</title>
+                        <sort_order>500</sort_order>
+                        <children>
+                            <rules translate="title" module="tax">
+                                <title>Manage Tax Rules</title>
+                                <action>adminhtml/tax_rule</action>
+                            </rules>
+                            <rates translate="title" module="tax">
+                                <title>Manage Tax Zones &amp; Rates</title>
+                                <action>adminhtml/tax_rate</action>
+                            </rates>
+                            <import_export translate="title" module="tax">
+                                <title>Import / Export Tax Rates</title>
+                                <action>adminhtml/tax_rate/importExport</action>
+                            </import_export>
+                            <classes_customer translate="title" module="tax">
+                                <title>Customer Tax Classes</title>
+                                <action>adminhtml/tax_class_customer</action>
+                            </classes_customer>
+                            <classes_product translate="title" module="tax">
+                                <title>Product Tax Classes</title>
+                                <action>adminhtml/tax_class_product</action>
+                            </classes_product>
+                        </children>
+                    </tax>
+                </children>
+            </sales>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <sales>
+                            <children>
+                                <tax>
+                                    <title>Tax</title>
+                                    <sort_order>30</sort_order>
+                                    <children>
+                                        <classes_customer>
+                                            <title>Customer Tax Classes</title>
+                                            <sort_order>0</sort_order>
+                                        </classes_customer>
+                                        <classes_product>
+                                            <title>Product Tax Classes</title>
+                                            <sort_order>10</sort_order>
+                                        </classes_product>
+                                        <import_export>
+                                            <title>Import / Export Tax Rates</title>
+                                            <sort_order>20</sort_order>
+                                        </import_export>
+                                        <rates>
+                                            <title>Manage Tax Rates</title>
+                                            <sort_order>30</sort_order>
+                                        </rates>
+                                        <rules>
+                                            <title>Manage Tax Rules</title>
+                                            <sort_order>40</sort_order>
+                                        </rules>
+                                    </children>
+                                </tax>
+                            </children>
+                        </sales>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <translate>
+            <modules>
+                <Mage_Tax>
+                    <files>
+                        <default>Mage_Tax.csv</default>
+                    </files>
+                </Mage_Tax>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <frontend>
+        <translate>
+            <modules>
+                <Mage_Tax>
+                    <files>
+                        <default>Mage_Tax.csv</default>
+                    </files>
+                </Mage_Tax>
+            </modules>
+        </translate>
+    </frontend>
+    <default>
+        <tax>
+            <classes>
+                <shipping_tax_class></shipping_tax_class>
+            </classes>
+            <calculation>
+                <apply_after_discount>0</apply_after_discount>
+                <discount_tax>0</discount_tax>
+                <based_on>shipping</based_on>
+                <price_includes_tax>0</price_includes_tax>
+                <shipping_includes_tax>0</shipping_includes_tax>
+                <discount_tax>0</discount_tax>
+                <apply_tax_on>0</apply_tax_on>
+            </calculation>
+            <defaults>
+                <country>US</country>
+                <region>0</region>
+                <postcode>*</postcode>
+            </defaults>
+            <display>
+                <column_in_summary>1</column_in_summary>
+                <type>1</type>
+                <full_summary>0</full_summary>
+                <shipping>1</shipping>
+            </display>
+        </tax>
+    </default>
+</config>

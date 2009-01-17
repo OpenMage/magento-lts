@@ -1,0 +1,51 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php echo $this->helper('core/js')->includeScript('mage/adminhtml/giftmessage.js') ?>
+<?php if(!$this->getSaveMode()): ?>
+<form action="<?php echo $this->getSaveUrl() ?>" id="message-form" method="post" class="a-left">
+
+    <?php echo $this->getFormHtml(); ?>
+    <?php echo $this->getSaveButtonHtml() ?>
+    <?php echo $this->getCancelButtonHtml() ?>
+    <?php if($this->getMessage()->getGiftMessageId()): ?>
+    <?php echo $this->getRemoveButtonHtml() ?>
+    <?php endif; ?>
+</form>
+<?php elseif($this->getSaveMode()=='save'): ?>
+<h3><?php echo Mage::helper('giftmessage')->__('Your gift message successfully saved') ?></h3>
+<br /><?php echo $this->getCloseButtonHtml() ?>
+<?php else: ?>
+<h3><?php echo Mage::helper('giftmessage')->__('Your gift message successfully removed') ?></h3>
+<br /><?php echo $this->getCloseButtonHtml() ?>
+<?php endif; ?>
+<script type="text/javascript">
+<!--
+<?php if(!$this->getSaveMode()): ?>
+    var giftMessageWindowObject = new GiftMessageWindow('<?php echo $this->getUniqueId() ?>','message-form', '<?php echo $this->getRemoveUrl() ?>');
+    giftMessageWindowObject.confirmMessage = '<?php echo $this->getEscapedForJs(Mage::helper('giftmessage')->__('Are you sure?')) ?>';
+<?php else: ?>
+    var giftMessageWindowObject = new GiftMessageWindow('<?php echo $this->getUniqueId() ?>', null, '<?php echo $this->getRemoveUrl() ?>');
+    Event.observe(window, 'load', function(evt) {
+        giftMessageWindowObject.updateParent('<?php echo $this->getEditUrl() ?>', '<?php echo $this->getButtonUrl() ?>');
+    });
+<?php endif; ?>
+//-->
+</script>

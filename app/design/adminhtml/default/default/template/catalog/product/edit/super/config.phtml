@@ -1,0 +1,109 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Create Simple Associated Product') ?></h4>
+    </div>
+    <fieldset class="a-right">
+        <?php echo $this->getChildHtml('create_empty') ?> <?php echo $this->getChildHtml('create_from_configurable') ?>
+    </fieldset>
+</div>
+<div id="<?php echo $this->getHtmlId() ?>_simple_form" class="ignore-validate configurable-simple-product">
+<?php echo $this->getChildHtml('simple'); ?>
+</div>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Super product attributes configuration') ?></h4>
+    </div>
+    <fieldset id="<?php echo $this->getHtmlId() ?>">
+        <legend><?php echo Mage::helper('catalog')->__('Super product attributes configuration') ?></legend>
+        <input type="hidden" id="<?php echo $this->getHtmlId() ?>_save_links" name="configurable_products_data" value=""/>
+        <input type="hidden" id="<?php echo $this->getHtmlId() ?>_save_attributes" name="configurable_attributes_data" />
+
+        <ul class="messages">
+            <li class="notice-msg">
+                <ul><li><?php echo Mage::helper('catalog')->__('Price values for options should be specified in system base currency.')?></li></ul>
+                <ul><li><?php echo Mage::helper('catalog')->__('Attrribute names can be specified per store.')?></li></ul>
+            </li>
+        </ul>
+        <ul id="<?php echo $this->getHtmlId() ?>_attributes" class="super-attributes">
+        </ul>
+    </fieldset>
+</div>
+<div class="no-display" id="<?php echo $this->getHtmlId() ?>_attribute_template">
+    <div class="attribute-name-container left">
+        '{{frontend_label}}'
+    </div>
+    <div class="values-container right">
+        <label for="__id___label" class="bold"><?php echo Mage::helper('catalog')->__('Attribute Name:') ?></label>
+        <input id="__id___label" type="text" class="input-text attribute-label required-entry template no-display" value="'{{label}}'" />
+        <ul class="attribute-values">
+        </ul>
+    </div>
+</div>
+<div class="no-display" id="<?php echo $this->getHtmlId() ?>_value_template">
+    <div class="attribute-value-label-container left">
+    <?php echo Mage::helper('catalog')->__('Option:') ?> <strong>'{{label}}'</strong>
+</div>
+<div class="attribute-values-container-main">
+    <div class="attribute-values-container left">
+    <?php echo Mage::helper('catalog')->__('Price:') ?>
+    <input id="__id___pricing" type="text" class="input-text attribute-price validate-number template no-display" value="'{{pricing_value}}'"/>
+</div>
+<div class="attribute-values-container">
+    <select class="attribute-price-type">
+        <option value="0"><?php echo Mage::helper('catalog')->__('Fixed') ?></option>
+        <option value="1"><?php echo Mage::helper('catalog')->__('Percentage') ?></option>
+    </select>
+</div>
+</div>
+</div>
+<div class="template no-display" id="<?php echo $this->getHtmlId() ?>_simple_pricing">
+
+        <div class="attribute-values-container left v-middle">
+            &nbsp;<?php echo Mage::helper('catalog')->__('Price:') ?>
+            <input type="text" class="input-text attribute-price validate-number"/>
+        </div>
+        <div class="attribute-values-container left v-middle">
+            <select class="attribute-price-type">
+                <option value="0"><?php echo Mage::helper('catalog')->__('Fixed') ?></option>
+                <option value="1"><?php echo Mage::helper('catalog')->__('Percentage') ?></option>
+            </select>
+        </div>
+</div>
+<div class="template no-display" id="<?php echo $this->getHtmlId() ?>_simple_pricing_view">
+    &nbsp;<?php echo Mage::helper('catalog')->__('Price') ?> <strong>'{{value}}'</strong>
+</div>
+<?php echo $this->getGridHtml() ?>
+<script type="text/javascript">
+var superProduct = new Product.Configurable(<?php echo $this->getAttributesJson() ?>,<?php echo $this->getLinksJson() ?>,'<?php echo $this->getHtmlId() ?>_',<?php echo $this->getGridJsObject() ?>);
+superProduct.createEmptyUrl = '<?php echo $this->getNewEmptyProductUrl() ?>';
+superProduct.createNormalUrl = '<?php echo $this->getNewProductUrl() ?>';
+superProduct.createQuickUrl = '<?php echo $this->getQuickCreationUrl() ?>';
+
+Validation.add(
+    'validate-configurable',
+    '<?php echo $this->escapeJs(Mage::helper('catalog')->__('Product with this combination of attributes already associated to configurable.')) ?>',
+    superProduct.checkCreationUniqueAttributes.bind(superProduct)
+)
+</script>
+
+<div><input type="hidden" name="affect_configurable_product_attributes" value="1" /></div>

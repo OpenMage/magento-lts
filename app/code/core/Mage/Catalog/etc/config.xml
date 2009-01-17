@@ -1,0 +1,841 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Catalog>
+            <version>0.7.50</version>
+        </Mage_Catalog>
+    </modules>
+
+    <admin>
+        <fieldsets>
+            <catalog_product_dataflow>
+                <qty><inventory>1</inventory><to_number>1</to_number></qty>
+                <min_qty><inventory>1</inventory><to_number>1</to_number><use_config>1</use_config></min_qty>
+                <is_qty_decimal><inventory>1</inventory></is_qty_decimal>
+                <backorders><inventory>1</inventory><use_config>1</use_config></backorders>
+                <min_sale_qty><inventory>1</inventory><to_number>1</to_number><use_config>1</use_config></min_sale_qty>
+                <max_sale_qty><inventory>1</inventory><to_number>1</to_number><use_config>1</use_config></max_sale_qty>
+                <is_in_stock><inventory>1</inventory><inventory_other>1</inventory_other></is_in_stock>
+                <notify_stock_qty><inventory>1</inventory><use_config>1</use_config></notify_stock_qty>
+
+                <image><img>1</img></image>
+                <small_image><img>1</img></small_image>
+                <thumbnail><img>1</img></thumbnail>
+
+                <store><external>1</external></store>
+                <websites><external>1</external></websites>
+                <sku><external>1</external></sku>
+                <attribute_set><external>1</external><ignore>1</ignore></attribute_set>
+                <type><external>1</external><ignore>1</ignore></type>
+                <name><external>1</external><required>1</required></name>
+                <description><external>1</external><required>1</required></description>
+                <short_description><external>1</external><required>1</required></short_description>
+                <weight><external>1</external><required>1</required></weight>
+                <price><external>1</external><required>1</required></price>
+
+                <tax_class_id><required>1</required></tax_class_id>
+                <category_ids><ignore>1</ignore></category_ids>
+
+                <entity_id><system>1</system><internal>1</internal><ignore>1</ignore></entity_id>
+                <old_id><internal>1</internal></old_id>
+                <tier_price><internal>1</internal></tier_price>
+                <media_gallery><internal>1</internal></media_gallery>
+
+                <entity_type_id><system>1</system></entity_type_id>
+                <attribute_set_id><system>1</system><ignore>1</ignore></attribute_set_id>
+                <type_id><system>1</system><ignore>1</ignore></type_id>
+                <created_at><system>1</system></created_at>
+                <updated_at><system>1</system></updated_at>
+                <item_id><system>1</system></item_id>
+                <product_id><system>1</system></product_id>
+                <stock_id><system>1</system></stock_id>
+            </catalog_product_dataflow>
+        </fieldsets>
+    </admin>
+
+    <global>
+        <models>
+            <catalog>
+                <class>Mage_Catalog_Model</class>
+                <resourceModel>catalog_resource_eav_mysql4</resourceModel>
+            </catalog>
+
+            <catalog_resource_eav_mysql4>
+                <class>Mage_Catalog_Model_Resource_Eav_Mysql4</class>
+                <entities>
+                    <product>
+                        <table>catalog_product_entity</table>
+                    </product>
+                    <category>
+                        <table>catalog_category_entity</table>
+                    </category>
+                    <category_product>
+                        <table>catalog_category_product</table>
+                    </category_product>
+                    <category_product_index>
+                        <table>catalog_category_product_index</table>
+                    </category_product_index>
+                    <compare_item>
+                        <table>catalog_compare_item</table>
+                    </compare_item>
+
+                    <product_website>
+                        <table>catalog_product_website</table>
+                    </product_website>
+
+                    <product_enabled_index>
+                        <table>catalog_product_enabled_index</table>
+                    </product_enabled_index>
+
+                    <product_link>
+                        <table>catalog_product_link</table>
+                    </product_link>
+                    <product_link_type>
+                        <table>catalog_product_link_type</table>
+                    </product_link_type>
+                    <product_link_attribute>
+                        <table>catalog_product_link_attribute</table>
+                    </product_link_attribute>
+                    <product_link_attribute_decimal>
+                        <table>catalog_product_link_attribute_decimal</table>
+                    </product_link_attribute_decimal>
+                    <product_link_attribute_int>
+                        <table>catalog_product_link_attribute_int</table>
+                    </product_link_attribute_int>
+                    <product_link_attribute_varchar>
+                        <table>catalog_product_link_attribute_varchar</table>
+                    </product_link_attribute_varchar>
+
+                    <product_super_attribute>
+                        <table>catalog_product_super_attribute</table>
+                    </product_super_attribute>
+                    <product_super_attribute_label>
+                        <table>catalog_product_super_attribute_label</table>
+                    </product_super_attribute_label>
+                    <product_super_attribute_pricing>
+                        <table>catalog_product_super_attribute_pricing</table>
+                    </product_super_attribute_pricing>
+                    <product_super_link>
+                        <table>catalog_product_super_link</table>
+                    </product_super_link>
+
+                    <product_attribute_tier_price>
+                        <table>catalog_product_entity_tier_price</table>
+                    </product_attribute_tier_price>
+
+                    <product_attribute_media_gallery>
+                        <table>catalog_product_entity_media_gallery</table>
+                    </product_attribute_media_gallery>
+
+                    <product_attribute_media_gallery_value>
+                        <table>catalog_product_entity_media_gallery_value</table>
+                    </product_attribute_media_gallery_value>
+
+                    <product_attribute_media_gallery_image>
+                        <table>catalog_product_entity_media_gallery_image</table>
+                    </product_attribute_media_gallery_image>
+
+                    <product_option>
+                        <table>catalog_product_option</table>
+                    </product_option>
+                    <product_option_price>
+                        <table>catalog_product_option_price</table>
+                    </product_option_price>
+                    <product_option_title>
+                        <table>catalog_product_option_title</table>
+                    </product_option_title>
+                    <product_option_type_value>
+                        <table>catalog_product_option_type_value</table>
+                    </product_option_type_value>
+                    <product_option_type_price>
+                        <table>catalog_product_option_type_price</table>
+                    </product_option_type_price>
+                    <product_option_type_title>
+                        <table>catalog_product_option_type_title</table>
+                    </product_option_type_title>
+                </entities>
+            </catalog_resource_eav_mysql4>
+        </models>
+        <resources>
+            <catalog_setup>
+                <setup>
+                    <module>Mage_Catalog</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </catalog_setup>
+            <catalog_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </catalog_write>
+            <catalog_read>
+                <connection>
+                    <use>core_read</use>
+                    </connection>
+            </catalog_read>
+        </resources>
+
+        <blocks>
+            <catalog><class>Mage_Catalog_Block</class></catalog>
+        </blocks>
+
+        <catalog>
+            <product>
+                <type>
+                    <simple translate="label" module="catalog">
+                        <label>Simple Product</label>
+                        <model>catalog/product_type_simple</model>
+                    </simple>
+                    <grouped translate="label" module="catalog">
+                        <label>Grouped Product</label>
+                        <model>catalog/product_type_grouped</model>
+                        <allow_product_types>
+                            <simple/>
+                            <virtual/>
+                        </allow_product_types>
+                    </grouped>
+                    <configurable translate="label" module="catalog">
+                        <label>Configurable Product</label>
+                        <model>catalog/product_type_configurable</model>
+                        <price_model>catalog/product_type_configurable_price</price_model>
+                        <allow_product_types>
+                            <simple/>
+                            <virtual/>
+                        </allow_product_types>
+                    </configurable>
+                    <virtual translate="label" module="catalog">
+                        <label>Virtual Product</label>
+                        <model>catalog/product_type_virtual</model>
+                    </virtual>
+                </type>
+                <design>
+                    <options_container>
+                        <option1 translate="label">
+                            <value>container1</value>
+                            <label>Product Info Column</label></option1>
+                        <option2 translate="label">
+                            <value>container2</value>
+                            <label>Block after Info Column</label>
+                        </option2>
+                    </options_container>
+                </design>
+            </product>
+        </catalog>
+    </global>
+    <adminhtml>
+        <menu>
+            <catalog translate="title" module="catalog">
+                <title>Catalog</title>
+                <sort_order>30</sort_order>
+                <!--action>adminhtml/catalog</action-->
+                <depends>
+                    <module>Mage_Catalog</module>
+                </depends>
+                <children>
+                    <products translate="title" module="catalog">
+                        <title>Manage Products</title>
+                        <action>adminhtml/catalog_product/</action>
+                    </products>
+                    <categories translate="title" module="catalog">
+                        <title>Manage Categories</title>
+                        <action>adminhtml/catalog_category/</action>
+                    </categories>
+                    <attributes translate="title" module="catalog">
+                        <title>Attributes</title>
+                        <children>
+                            <attributes translate="title" module="catalog">
+                                <title>Manage Attributes</title>
+                                <action>adminhtml/catalog_product_attribute/</action>
+                            </attributes>
+                            <sets translate="title" module="catalog">
+                                <title>Manage Attribute Sets</title>
+                                <action>adminhtml/catalog_product_set/</action>
+                            </sets>
+                        </children>
+                    </attributes>
+                    <urlrewrite translate="title" module="catalog">
+                        <title>Url Rewrite Management</title>
+                        <action>adminhtml/urlrewrite/index</action>
+                    </urlrewrite>
+                </children>
+            </catalog>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <catalog>
+                                            <title>Catalog Section</title>
+                                        </catalog>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                        <catalog>
+                            <title>Catalog</title>
+                            <sort_order>30</sort_order>
+                            <children>
+                                <attributes>
+                                    <title>Attributes</title>
+                                    <children>
+                                        <attributes>
+                                            <title>Manage Attributes</title>
+                                        </attributes>
+                                        <sets>
+                                            <title>Manage Attribute Sets</title>
+                                        </sets>
+                                    </children>
+                                </attributes>
+                                <categories>
+                                    <title>Manage Categories</title>
+                                </categories>
+                                <products>
+                                    <title>Manage Products</title>
+                                </products>
+                                <reviews_ratings>
+                                    <title>Reviews and Ratings</title>
+                                    <children>
+                                        <ratings>
+                                            <title>Manage Ratings</title>
+                                        </ratings>
+                                        <reviews>
+                                            <title>Customer Reviews</title>
+                                            <children>
+                                                <all>
+                                                    <title>All Reviews</title>
+                                                </all>
+                                                <pending>
+                                                    <title>Pending Reviews</title>
+                                                </pending>
+                                            </children>
+                                        </reviews>
+                                     </children>
+                                </reviews_ratings>
+                                <search>
+                                    <title>Search</title>
+                                </search>
+                                <tag>
+                                    <title>Tags</title>
+                                    <children>
+                                        <all>
+                                            <title>All Tags</title>
+                                        </all>
+                                        <pending>
+                                            <title>Pending Tags</title>
+                                        </pending>
+                                    </children>
+                                </tag>
+                                <urlrewrite>
+                                    <title>Url Rewrite Management</title>
+                                </urlrewrite>
+                            </children>
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <events>
+            <store_add>
+                <observers>
+                    <catalog>
+                        <type>singleton</type>
+                        <class>catalog/observer</class>
+                        <method>storeAdd</method>
+                    </catalog>
+                </observers>
+            </store_add>
+            <store_edit>
+                <observers>
+                    <catalog>
+                        <type>singleton</type>
+                        <class>catalog/observer</class>
+                        <method>storeEdit</method>
+                    </catalog>
+                </observers>
+            </store_edit>
+            <store_group_save>
+                <observers>
+                    <catalog>
+                        <type>singleton</type>
+                        <class>catalog/observer</class>
+                        <method>storeGroupSave</method>
+                    </catalog>
+                </observers>
+            </store_group_save>
+            <category_move>
+                <observers>
+                    <catalog>
+                        <type>singleton</type>
+                        <class>catalog/observer</class>
+                        <method>categoryMove</method>
+                    </catalog>
+                </observers>
+            </category_move>
+            <catalog_product_import_after>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalog/observer</class>
+                        <method>catalogProductImportAfter</method>
+                    </catalogindex>
+                </observers>
+            </catalog_product_import_after>
+        </events>
+        <translate>
+            <modules>
+                <Mage_Catalog>
+                    <files>
+                        <default>Mage_Catalog.csv</default>
+                    </files>
+                </Mage_Catalog>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <frontend>
+        <routers>
+            <catalog>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Catalog</module>
+                    <frontName>catalog</frontName>
+                </args>
+            </catalog>
+        </routers>
+        <default>
+            <router>catalog</router>
+        </default>
+        <events>
+            <customer_login>
+                <observers>
+                    <catalog>
+                        <type>model</type>
+                        <class>catalog/product_compare_item</class>
+                        <method>bindCustomerLogin</method>
+                    </catalog>
+                </observers>
+            </customer_login>
+        </events>
+        <translate>
+            <modules>
+                <Mage_Catalog>
+                    <files>
+                        <default>Mage_Catalog.csv</default>
+                    </files>
+                </Mage_Catalog>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <catalog>
+                    <file>catalog.xml</file>
+                </catalog>
+            </updates>
+        </layout>
+        <catalog>
+            <per_page_values>
+                <grid>9,15,30</grid>
+                <list>5,10,15,20,25</list>
+            </per_page_values>
+        </catalog>
+        <product>
+            <collection>
+                <attributes>
+                    <name />
+                    <url_key />
+                    <price />
+                    <special_price />
+                    <special_from_date />
+                    <special_to_date />
+                    <description />
+                    <short_description />
+                    <image />
+                    <thumbnail />
+                    <small_image />
+                    <tax_class_id />
+                    <status />
+                </attributes>
+            </collection>
+        </product>
+    </frontend>
+
+    <default>
+        <catalog>
+            <navigation>
+                <max_depth>0</max_depth>
+            </navigation>
+
+            <frontend>
+                <list_mode>grid-list</list_mode>
+                <grid_per_page_values>9,15,30</grid_per_page_values>
+                <list_per_page_values>5,10,15,20,25</list_per_page_values>
+                <grid_per_page>9</grid_per_page>
+                <list_per_page>10</list_per_page>
+            </frontend>
+
+            <product>
+                <default_tax_group>2</default_tax_group>
+            </product>
+
+            <seo>
+                <product_url_suffix>.html</product_url_suffix>
+                <category_url_suffix></category_url_suffix>
+                <product_use_categories>1</product_use_categories>
+                <title_separator>-</title_separator>
+            </seo>
+<!--
+            <layer>
+                <configurable_children>1</configurable_children>
+            </layer>
+-->
+        </catalog>
+        <url>
+            <convert>
+                <char0038><from>&amp;</from><to>and</to></char0038>
+                <char0064><from>@</from><to>at</to></char0064>
+                <char0169><from>©</from><to>c</to></char0169>
+                <char0174><from>®</from><to>r</to></char0174>
+                <char0192><from>À</from><to>a</to></char0192>
+                <char0193><from>Á</from><to>a</to></char0193>
+                <char0194><from>Â</from><to>a</to></char0194>
+                <char0196><from>Ä</from><to>a</to></char0196>
+                <char0197><from>Å</from><to>a</to></char0197>
+                <char0198><from>Æ</from><to>ae</to></char0198>
+                <char0199><from>Ç</from><to>c</to></char0199>
+                <char0200><from>È</from><to>e</to></char0200>
+                <char0201><from>É</from><to>e</to></char0201>
+                <char0203><from>Ë</from><to>e</to></char0203>
+                <char0204><from>Ì</from><to>i</to></char0204>
+                <char0205><from>Í</from><to>i</to></char0205>
+                <char0206><from>Î</from><to>i</to></char0206>
+                <char0207><from>Ï</from><to>i</to></char0207>
+                <char0210><from>Ò</from><to>o</to></char0210>
+                <char0211><from>Ó</from><to>o</to></char0211>
+                <char0212><from>Ô</from><to>o</to></char0212>
+                <char0213><from>Õ</from><to>o</to></char0213>
+                <char0214><from>Ö</from><to>o</to></char0214>
+                <char0216><from>Ø</from><to>o</to></char0216>
+                <char0217><from>Ù</from><to>u</to></char0217>
+                <char0218><from>Ú</from><to>u</to></char0218>
+                <char0219><from>Û</from><to>u</to></char0219>
+                <char0220><from>Ü</from><to>u</to></char0220>
+                <char0221><from>Ý</from><to>y</to></char0221>
+                <char0223><from>ß</from><to>ss</to></char0223>
+                <char0224><from>à</from><to>a</to></char0224>
+                <char0225><from>á</from><to>a</to></char0225>
+                <char0226><from>â</from><to>a</to></char0226>
+                <char0228><from>ä</from><to>a</to></char0228>
+                <char0229><from>å</from><to>a</to></char0229>
+                <char0230><from>æ</from><to>ae</to></char0230>
+                <char0231><from>ç</from><to>c</to></char0231>
+                <char0232><from>è</from><to>e</to></char0232>
+                <char0233><from>é</from><to>e</to></char0233>
+                <char0234><from>ê</from><to>e</to></char0234>
+                <char0235><from>ë</from><to>e</to></char0235>
+                <char0236><from>ì</from><to>i</to></char0236>
+                <char0237><from>í</from><to>i</to></char0237>
+                <char0238><from>î</from><to>i</to></char0238>
+                <char0239><from>ï</from><to>i</to></char0239>
+                <char0242><from>ò</from><to>o</to></char0242>
+                <char0243><from>ó</from><to>o</to></char0243>
+                <char0244><from>ô</from><to>o</to></char0244>
+                <char0245><from>õ</from><to>o</to></char0245>
+                <char0246><from>ö</from><to>o</to></char0246>
+                <char0248><from>ø</from><to>o</to></char0248>
+                <char0249><from>ù</from><to>u</to></char0249>
+                <char0250><from>ú</from><to>u</to></char0250>
+                <char0251><from>û</from><to>u</to></char0251>
+                <char0252><from>ü</from><to>u</to></char0252>
+                <char0253><from>ý</from><to>y</to></char0253>
+                <char0254><from>þ</from><to>p</to></char0254>
+                <char0255><from>ÿ</from><to>y</to></char0255>
+                <char0256><from>Ā</from><to>a</to></char0256>
+                <char0257><from>ā</from><to>a</to></char0257>
+                <char0258><from>Ă</from><to>a</to></char0258>
+                <char0259><from>ă</from><to>a</to></char0259>
+                <char0260><from>Ą</from><to>a</to></char0260>
+                <char0261><from>ą</from><to>a</to></char0261>
+                <char0262><from>Ć</from><to>c</to></char0262>
+                <char0263><from>ć</from><to>c</to></char0263>
+                <char0264><from>Ĉ</from><to>c</to></char0264>
+                <char0265><from>ĉ</from><to>c</to></char0265>
+                <char0266><from>Ċ</from><to>c</to></char0266>
+                <char0267><from>ċ</from><to>c</to></char0267>
+                <char0268><from>Č</from><to>c</to></char0268>
+                <char0269><from>č</from><to>c</to></char0269>
+                <char0270><from>Ď</from><to>d</to></char0270>
+                <char0271><from>ď</from><to>d</to></char0271>
+                <char0272><from>Đ</from><to>d</to></char0272>
+                <char0273><from>đ</from><to>d</to></char0273>
+                <char0274><from>Ē</from><to>e</to></char0274>
+                <char0275><from>ē</from><to>e</to></char0275>
+                <char0276><from>Ĕ</from><to>e</to></char0276>
+                <char0277><from>ĕ</from><to>e</to></char0277>
+                <char0278><from>Ė</from><to>e</to></char0278>
+                <char0279><from>ė</from><to>e</to></char0279>
+                <char0280><from>Ę</from><to>e</to></char0280>
+                <char0281><from>ę</from><to>e</to></char0281>
+                <char0282><from>Ě</from><to>e</to></char0282>
+                <char0283><from>ě</from><to>e</to></char0283>
+                <char0284><from>Ĝ</from><to>g</to></char0284>
+                <char0285><from>ĝ</from><to>g</to></char0285>
+                <char0286><from>Ğ</from><to>g</to></char0286>
+                <char0287><from>ğ</from><to>g</to></char0287>
+                <char0288><from>Ġ</from><to>g</to></char0288>
+                <char0289><from>ġ</from><to>g</to></char0289>
+                <char0290><from>Ģ</from><to>g</to></char0290>
+                <char0291><from>ģ</from><to>g</to></char0291>
+                <char0292><from>Ĥ</from><to>h</to></char0292>
+                <char0293><from>ĥ</from><to>h</to></char0293>
+                <char0294><from>Ħ</from><to>h</to></char0294>
+                <char0295><from>ħ</from><to>h</to></char0295>
+                <char0296><from>Ĩ</from><to>i</to></char0296>
+                <char0297><from>ĩ</from><to>i</to></char0297>
+                <char0298><from>Ī</from><to>i</to></char0298>
+                <char0299><from>ī</from><to>i</to></char0299>
+                <char0300><from>Ĭ</from><to>i</to></char0300>
+                <char0301><from>ĭ</from><to>i</to></char0301>
+                <char0302><from>Į</from><to>i</to></char0302>
+                <char0303><from>į</from><to>i</to></char0303>
+                <char0304><from>İ</from><to>i</to></char0304>
+                <char0305><from>ı</from><to>i</to></char0305>
+                <char0306><from>Ĳ</from><to>ij</to></char0306>
+                <char0307><from>ĳ</from><to>ij</to></char0307>
+                <char0308><from>Ĵ</from><to>j</to></char0308>
+                <char0309><from>ĵ</from><to>j</to></char0309>
+                <char0310><from>Ķ</from><to>k</to></char0310>
+                <char0311><from>ķ</from><to>k</to></char0311>
+                <char0312><from>ĸ</from><to>k</to></char0312>
+                <char0313><from>Ĺ</from><to>l</to></char0313>
+                <char0314><from>ĺ</from><to>l</to></char0314>
+                <char0315><from>Ļ</from><to>l</to></char0315>
+                <char0316><from>ļ</from><to>l</to></char0316>
+                <char0317><from>Ľ</from><to>l</to></char0317>
+                <char0318><from>ľ</from><to>l</to></char0318>
+                <char0319><from>Ŀ</from><to>l</to></char0319>
+                <char0320><from>ŀ</from><to>l</to></char0320>
+                <char0321><from>Ł</from><to>l</to></char0321>
+                <char0322><from>ł</from><to>l</to></char0322>
+                <char0323><from>Ń</from><to>n</to></char0323>
+                <char0324><from>ń</from><to>n</to></char0324>
+                <char0325><from>Ņ</from><to>n</to></char0325>
+                <char0326><from>ņ</from><to>n</to></char0326>
+                <char0327><from>Ň</from><to>n</to></char0327>
+                <char0328><from>ň</from><to>n</to></char0328>
+                <char0329><from>ŉ</from><to>n</to></char0329>
+                <char0330><from>Ŋ</from><to>n</to></char0330>
+                <char0331><from>ŋ</from><to>n</to></char0331>
+                <char0332><from>Ō</from><to>o</to></char0332>
+                <char0333><from>ō</from><to>o</to></char0333>
+                <char0334><from>Ŏ</from><to>o</to></char0334>
+                <char0335><from>ŏ</from><to>o</to></char0335>
+                <char0336><from>Ő</from><to>o</to></char0336>
+                <char0337><from>ő</from><to>o</to></char0337>
+                <char0338><from>Œ</from><to>oe</to></char0338>
+                <char0339><from>œ</from><to>oe</to></char0339>
+                <char0340><from>Ŕ</from><to>r</to></char0340>
+                <char0341><from>ŕ</from><to>r</to></char0341>
+                <char0342><from>Ŗ</from><to>r</to></char0342>
+                <char0343><from>ŗ</from><to>r</to></char0343>
+                <char0344><from>Ř</from><to>r</to></char0344>
+                <char0345><from>ř</from><to>r</to></char0345>
+                <char0346><from>Ś</from><to>s</to></char0346>
+                <char0347><from>ś</from><to>s</to></char0347>
+                <char0348><from>Ŝ</from><to>s</to></char0348>
+                <char0349><from>ŝ</from><to>s</to></char0349>
+                <char0350><from>Ş</from><to>s</to></char0350>
+                <char0351><from>ş</from><to>s</to></char0351>
+                <char0352><from>Š</from><to>s</to></char0352>
+                <char0353><from>š</from><to>s</to></char0353>
+                <char0354><from>Ţ</from><to>t</to></char0354>
+                <char0355><from>ţ</from><to>t</to></char0355>
+                <char0356><from>Ť</from><to>t</to></char0356>
+                <char0357><from>ť</from><to>t</to></char0357>
+                <char0358><from>Ŧ</from><to>t</to></char0358>
+                <char0359><from>ŧ</from><to>t</to></char0359>
+                <char0360><from>Ũ</from><to>u</to></char0360>
+                <char0361><from>ũ</from><to>u</to></char0361>
+                <char0362><from>Ū</from><to>u</to></char0362>
+                <char0363><from>ū</from><to>u</to></char0363>
+                <char0364><from>Ŭ</from><to>u</to></char0364>
+                <char0365><from>ŭ</from><to>u</to></char0365>
+                <char0366><from>Ů</from><to>u</to></char0366>
+                <char0367><from>ů</from><to>u</to></char0367>
+                <char0368><from>Ű</from><to>u</to></char0368>
+                <char0369><from>ű</from><to>u</to></char0369>
+                <char0370><from>Ų</from><to>u</to></char0370>
+                <char0371><from>ų</from><to>u</to></char0371>
+                <char0372><from>Ŵ</from><to>w</to></char0372>
+                <char0373><from>ŵ</from><to>w</to></char0373>
+                <char0374><from>Ŷ</from><to>y</to></char0374>
+                <char0375><from>ŷ</from><to>y</to></char0375>
+                <char0376><from>Ÿ</from><to>y</to></char0376>
+                <char0377><from>Ź</from><to>z</to></char0377>
+                <char0378><from>ź</from><to>z</to></char0378>
+                <char0379><from>Ż</from><to>z</to></char0379>
+                <char0380><from>ż</from><to>z</to></char0380>
+                <char0381><from>Ž</from><to>z</to></char0381>
+                <char0382><from>ž</from><to>z</to></char0382>
+                <char0383><from>ſ</from><to>z</to></char0383>
+                <char0399><from>Ə</from><to>e</to></char0399>
+                <char0402><from>ƒ</from><to>f</to></char0402>
+                <char0416><from>Ơ</from><to>o</to></char0416>
+                <char0417><from>ơ</from><to>o</to></char0417>
+                <char0431><from>Ư</from><to>u</to></char0431>
+                <char0432><from>ư</from><to>u</to></char0432>
+                <char0461><from>Ǎ</from><to>a</to></char0461>
+                <char0462><from>ǎ</from><to>a</to></char0462>
+                <char0463><from>Ǐ</from><to>i</to></char0463>
+                <char0464><from>ǐ</from><to>i</to></char0464>
+                <char0465><from>Ǒ</from><to>o</to></char0465>
+                <char0466><from>ǒ</from><to>o</to></char0466>
+                <char0467><from>Ǔ</from><to>u</to></char0467>
+                <char0468><from>ǔ</from><to>u</to></char0468>
+                <char0469><from>Ǖ</from><to>u</to></char0469>
+                <char0470><from>ǖ</from><to>u</to></char0470>
+                <char0471><from>Ǘ</from><to>u</to></char0471>
+                <char0472><from>ǘ</from><to>u</to></char0472>
+                <char0473><from>Ǚ</from><to>u</to></char0473>
+                <char0474><from>ǚ</from><to>u</to></char0474>
+                <char0475><from>Ǜ</from><to>u</to></char0475>
+                <char0476><from>ǜ</from><to>u</to></char0476>
+                <char0506><from>Ǻ</from><to>a</to></char0506>
+                <char0507><from>ǻ</from><to>a</to></char0507>
+                <char0508><from>Ǽ</from><to>ae</to></char0508>
+                <char0509><from>ǽ</from><to>ae</to></char0509>
+                <char0510><from>Ǿ</from><to>o</to></char0510>
+                <char0511><from>ǿ</from><to>o</to></char0511>
+                <char0601><from>ə</from><to>e</to></char0601>
+                <char1025><from>Ё</from><to>jo</to></char1025>
+                <char1028><from>Є</from><to>e</to></char1028>
+                <char1030><from>І</from><to>i</to></char1030>
+                <char1031><from>Ї</from><to>i</to></char1031>
+                <char1040><from>А</from><to>a</to></char1040>
+                <char1041><from>Б</from><to>b</to></char1041>
+                <char1042><from>В</from><to>v</to></char1042>
+                <char1043><from>Г</from><to>g</to></char1043>
+                <char1044><from>Д</from><to>d</to></char1044>
+                <char1045><from>Е</from><to>e</to></char1045>
+                <char1046><from>Ж</from><to>zh</to></char1046>
+                <char1047><from>З</from><to>z</to></char1047>
+                <char1048><from>И</from><to>i</to></char1048>
+                <char1049><from>Й</from><to>j</to></char1049>
+                <char1050><from>К</from><to>k</to></char1050>
+                <char1051><from>Л</from><to>l</to></char1051>
+                <char1052><from>М</from><to>m</to></char1052>
+                <char1053><from>Н</from><to>n</to></char1053>
+                <char1054><from>О</from><to>o</to></char1054>
+                <char1055><from>П</from><to>p</to></char1055>
+                <char1056><from>Р</from><to>r</to></char1056>
+                <char1057><from>С</from><to>s</to></char1057>
+                <char1058><from>Т</from><to>t</to></char1058>
+                <char1059><from>У</from><to>u</to></char1059>
+                <char1060><from>Ф</from><to>f</to></char1060>
+                <char1061><from>Х</from><to>h</to></char1061>
+                <char1062><from>Ц</from><to>c</to></char1062>
+                <char1063><from>Ч</from><to>ch</to></char1063>
+                <char1064><from>Ш</from><to>sh</to></char1064>
+                <char1065><from>Щ</from><to>sch</to></char1065>
+                <char1066><from>Ъ</from><to>-</to></char1066>
+                <char1067><from>Ы</from><to>y</to></char1067>
+                <char1068><from>Ь</from><to>-</to></char1068>
+                <char1069><from>Э</from><to>je</to></char1069>
+                <char1070><from>Ю</from><to>ju</to></char1070>
+                <char1071><from>Я</from><to>ja</to></char1071>
+                <char1072><from>а</from><to>a</to></char1072>
+                <char1073><from>б</from><to>b</to></char1073>
+                <char1074><from>в</from><to>v</to></char1074>
+                <char1075><from>г</from><to>g</to></char1075>
+                <char1076><from>д</from><to>d</to></char1076>
+                <char1077><from>е</from><to>e</to></char1077>
+                <char1078><from>ж</from><to>zh</to></char1078>
+                <char1079><from>з</from><to>z</to></char1079>
+                <char1080><from>и</from><to>i</to></char1080>
+                <char1081><from>й</from><to>j</to></char1081>
+                <char1082><from>к</from><to>k</to></char1082>
+                <char1083><from>л</from><to>l</to></char1083>
+                <char1084><from>м</from><to>m</to></char1084>
+                <char1085><from>н</from><to>n</to></char1085>
+                <char1086><from>о</from><to>o</to></char1086>
+                <char1087><from>п</from><to>p</to></char1087>
+                <char1088><from>р</from><to>r</to></char1088>
+                <char1089><from>с</from><to>s</to></char1089>
+                <char1090><from>т</from><to>t</to></char1090>
+                <char1091><from>у</from><to>u</to></char1091>
+                <char1092><from>ф</from><to>f</to></char1092>
+                <char1093><from>х</from><to>h</to></char1093>
+                <char1094><from>ц</from><to>c</to></char1094>
+                <char1095><from>ч</from><to>ch</to></char1095>
+                <char1096><from>ш</from><to>sh</to></char1096>
+                <char1097><from>щ</from><to>sch</to></char1097>
+                <char1098><from>ъ</from><to>-</to></char1098>
+                <char1099><from>ы</from><to>y</to></char1099>
+                <char1100><from>ь</from><to>-</to></char1100>
+                <char1101><from>э</from><to>je</to></char1101>
+                <char1102><from>ю</from><to>ju</to></char1102>
+                <char1103><from>я</from><to>ja</to></char1103>
+                <char1105><from>ё</from><to>jo</to></char1105>
+                <char1108><from>є</from><to>e</to></char1108>
+                <char1110><from>і</from><to>i</to></char1110>
+                <char1111><from>ї</from><to>i</to></char1111>
+                <char1168><from>Ґ</from><to>g</to></char1168>
+                <char1169><from>ґ</from><to>g</to></char1169>
+                <char1488><from>א</from><to>a</to></char1488>
+                <char1489><from>ב</from><to>b</to></char1489>
+                <char1490><from>ג</from><to>g</to></char1490>
+                <char1491><from>ד</from><to>d</to></char1491>
+                <char1492><from>ה</from><to>h</to></char1492>
+                <char1493><from>ו</from><to>v</to></char1493>
+                <char1494><from>ז</from><to>z</to></char1494>
+                <char1495><from>ח</from><to>h</to></char1495>
+                <char1496><from>ט</from><to>t</to></char1496>
+                <char1497><from>י</from><to>i</to></char1497>
+                <char1498><from>ך</from><to>k</to></char1498>
+                <char1499><from>כ</from><to>k</to></char1499>
+                <char1500><from>ל</from><to>l</to></char1500>
+                <char1501><from>ם</from><to>m</to></char1501>
+                <char1502><from>מ</from><to>m</to></char1502>
+                <char1503><from>ן</from><to>n</to></char1503>
+                <char1504><from>נ</from><to>n</to></char1504>
+                <char1505><from>ס</from><to>s</to></char1505>
+                <char1506><from>ע</from><to>e</to></char1506>
+                <char1507><from>ף</from><to>p</to></char1507>
+                <char1508><from>פ</from><to>p</to></char1508>
+                <char1509><from>ץ</from><to>C</to></char1509>
+                <char1510><from>צ</from><to>c</to></char1510>
+                <char1511><from>ק</from><to>q</to></char1511>
+                <char1512><from>ר</from><to>r</to></char1512>
+                <char1513><from>ש</from><to>w</to></char1513>
+                <char1514><from>ת</from><to>t</to></char1514>
+                <char8482><from>™</from><to>tm</to></char8482>
+            </convert>
+        </url>
+    </default>
+</config>

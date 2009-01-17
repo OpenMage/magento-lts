@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_GoogleAnalytics
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_GoogleAnalytics>
+            <version>0.7.0</version>
+        </Mage_GoogleAnalytics>
+    </modules>
+
+    <global>
+        <models>
+            <googleanalytics><class>Mage_GoogleAnalytics_Model</class></googleanalytics>
+        </models>
+        <blocks>
+            <googleanalytics><class>Mage_GoogleAnalytics_Block</class></googleanalytics>
+        </blocks>
+        <helpers>
+            <googleanalytics>
+                <class>Mage_GoogleAnalytics_Helper</class>
+            </googleanalytics>
+        </helpers>
+    </global>
+
+    <frontend>
+        <translate>
+            <modules>
+                <Mage_GoogleAnalytics>
+                    <files>
+                        <default>Mage_GoogleAnalytics.csv</default>
+                    </files>
+                </Mage_GoogleAnalytics>
+            </modules>
+        </translate>
+        <events>
+            <checkout_onepage_controller_success_action>
+                <observers>
+                    <googleanalytics_order_success>
+                        <type>singleton</type>
+                        <class>googleanalytics/observer</class>
+                        <method>order_success_page_view</method>
+                    </googleanalytics_order_success>
+                </observers>
+            </checkout_onepage_controller_success_action>
+        </events>
+        <layout>
+            <updates>
+                <googleanalytics>
+                    <file>googleanalytics.xml</file>
+                </googleanalytics>
+            </updates>
+        </layout>
+    </frontend>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_GoogleAnalytics>
+                    <files>
+                        <default>Mage_GoogleAnalytics.csv</default>
+                    </files>
+                </Mage_GoogleAnalytics>
+            </modules>
+        </translate>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <google>
+                                            <title>Google API</title>
+                                        </google>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>

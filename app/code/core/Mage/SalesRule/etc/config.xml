@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_SalesRule>
+            <version>0.7.6</version>
+        </Mage_SalesRule>
+    </modules>
+    <global>
+        <helpers>
+            <salesrule>
+                <class>Mage_SalesRule_Helper</class>
+            </salesrule>
+        </helpers>
+        <models>
+            <salesrule>
+                <class>Mage_SalesRule_Model</class>
+                <resourceModel>salesrule_mysql4</resourceModel>
+            </salesrule>
+            <salesrule_mysql4>
+                <class>Mage_SalesRule_Model_Mysql4</class>
+                <entities>
+                    <rule>
+                        <table>salesrule</table>
+                    </rule>
+                    <rule_customer>
+                        <table>salesrule_customer</table>
+                    </rule_customer>
+                    <rule_product>
+                        <table>salesrule_product</table>
+                    </rule_product>
+                    <rule_product_price>
+                        <table>salesrule_product_price</table>
+                    </rule_product_price>
+                </entities>
+            </salesrule_mysql4>
+        </models>
+        <resources>
+            <salesrule_setup>
+                <setup>
+                    <module>Mage_SalesRule</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </salesrule_setup>
+            <salesrule_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </salesrule_write>
+            <salesrule_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </salesrule_read>
+        </resources>
+
+        <events>
+            <sales_quote_address_discount_item>
+                <observers>
+                    <salesrule>
+                        <type>singleton</type>
+                        <class>salesrule/observer</class>
+                        <method>sales_quote_address_discount_item</method>
+                    </salesrule>
+                </observers>
+            </sales_quote_address_discount_item>
+            <sales_order_place_after>
+                <observers>
+                    <salesrule>
+                        <type>singleton</type>
+                        <class>salesrule/observer</class>
+                        <method>sales_order_afterPlace</method>
+                    </salesrule>
+                </observers>
+            </sales_order_place_after>
+        </events>
+    </global>
+    <adminhtml>
+        <menu>
+             <promo>
+                <children>
+                    <quote translate="title" module="salesrule">
+                        <title>Shopping Cart Price Rules</title>
+                        <action>adminhtml/promo_quote/</action>
+                        <resource>promo/quote</resource>
+                        <depends><module>Mage_Sales</module></depends>
+                    </quote>
+                </children>
+             </promo>
+        </menu>
+        <translate>
+            <modules>
+                <Mage_SalesRule>
+                    <files>
+                        <default>Mage_SalesRule.csv</default>
+                    </files>
+                </Mage_SalesRule>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <frontend>
+        <translate>
+            <modules>
+                <Mage_SalesRule>
+                    <files>
+                        <default>Mage_SalesRule.csv</default>
+                    </files>
+                </Mage_SalesRule>
+            </modules>
+        </translate>
+    </frontend>
+</config>

@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Wishlist>
+            <version>0.7.3</version>
+        </Mage_Wishlist>
+    </modules>
+    <global>
+        <blocks>
+            <wishlist>
+                <class>Mage_Wishlist_Block</class>
+            </wishlist>
+        </blocks>
+        <models>
+            <wishlist>
+                <class>Mage_Wishlist_Model</class>
+                <resourceModel>wishlist_mysql4</resourceModel>
+            </wishlist>
+            <wishlist_mysql4>
+                <class>Mage_Wishlist_Model_Mysql4</class>
+                <entities>
+                    <wishlist>
+                        <table>wishlist</table>
+                    </wishlist>
+                    <item>
+                        <table>wishlist_item</table>
+                    </item>
+                </entities>
+            </wishlist_mysql4>
+        </models>
+        <resources>
+            <wishlist_setup>
+                <setup>
+                    <module>Mage_Wishlist</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </wishlist_setup>
+            <wishlist_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </wishlist_write>
+            <wishlist_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </wishlist_read>
+        </resources>
+        <template>
+            <email>
+                <wishlist_email_email_template translate="label" module="wishlist">
+                    <label>Share Wishlist</label>
+                    <file>wishlist_share.html</file>
+                    <type>html</type>
+                </wishlist_email_email_template>
+            </email>
+        </template>
+        <events>
+            <checkout_cart_update_items_before>
+                <observers>
+                    <wishlist>
+                        <type>singleton</type>
+                        <class>wishlist/observer</class>
+                        <method>processCartUpdateBefore</method>
+                    </wishlist>
+                </observers>
+            </checkout_cart_update_items_before>
+            <checkout_cart_add_product_complete>
+                <observers>
+                    <wishlist>
+                        <type>singleton</type>
+                        <class>wishlist/observer</class>
+                        <method>processAddToCart</method>
+                    </wishlist>
+                </observers>
+            </checkout_cart_add_product_complete>
+        </events>
+    </global>
+    <frontend>
+        <routers>
+            <wishlist>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Wishlist</module>
+                    <frontName>wishlist</frontName>
+                </args>
+            </wishlist>
+        </routers>
+        <translate>
+            <modules>
+                <Mage_Wishlist>
+                    <files>
+                        <default>Mage_Wishlist.csv</default>
+                    </files>
+                </Mage_Wishlist>
+            </modules>
+        </translate>
+          <layout>
+              <updates>
+                  <wishlist>
+                      <file>wishlist.xml</file>
+                  </wishlist>
+              </updates>
+          </layout>
+    </frontend>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <wishlist>
+                                            <title>Wishlist Section</title>
+                                        </wishlist>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <translate>
+            <modules>
+                <Mage_Wishlist>
+                    <files>
+                        <default>Mage_Wishlist.csv</default>
+                    </files>
+                </Mage_Wishlist>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <default>
+        <wishlist>
+            <general>
+                <active>1</active>
+            </general>
+            <email>
+                <email_identity>general</email_identity>
+                <email_template>wishlist_email_email_template</email_template>
+            </email>
+        </wishlist>
+    </default>
+</config>

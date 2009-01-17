@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_CatalogRule
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_CatalogInventory>
+            <version>0.7.2</version>
+        </Mage_CatalogInventory>
+    </modules>
+    <global>
+        <models>
+            <cataloginventory>
+                <class>Mage_CatalogInventory_Model</class>
+                <resourceModel>cataloginventory_mysql4</resourceModel>
+            </cataloginventory>
+            <cataloginventory_mysql4>
+                <class>Mage_CatalogInventory_Model_Mysql4</class>
+                <entities>
+                    <stock>
+                        <table>cataloginventory_stock</table>
+                    </stock>
+                    <stock_item>
+                        <table>cataloginventory_stock_item</table>
+                    </stock_item>
+                </entities>
+            </cataloginventory_mysql4>
+        </models>
+        <helpers>
+            <cataloginventory>
+                <class>Mage_CatalogInventory_Helper</class>
+            </cataloginventory>
+        </helpers>
+        <resources>
+            <cataloginventory_setup>
+                <setup>
+                    <module>Mage_CatalogInventory</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </cataloginventory_setup>
+            <cataloginventory_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </cataloginventory_write>
+            <cataloginventory_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </cataloginventory_read>
+        </resources>
+
+        <events>
+            <catalog_product_load_after>
+                <observers>
+                    <inventory>
+                        <type>singleton</type>
+                        <class>cataloginventory/observer</class>
+                        <method>addInventoryData</method>
+                    </inventory>
+                </observers>
+            </catalog_product_load_after>
+            <catalog_product_collection_load_after>
+                <observers>
+                    <inventory>
+                        <type>singleton</type>
+                        <class>cataloginventory/observer</class>
+                        <method>addInventoryDataToCollection</method>
+                    </inventory>
+                </observers>
+            </catalog_product_collection_load_after>
+            <sales_quote_item_qty_set_after>
+                <observers>
+                    <inventory>
+                        <type>singleton</type>
+                        <class>cataloginventory/observer</class>
+                        <method>checkQuoteItemQty</method>
+                    </inventory>
+                </observers>
+            </sales_quote_item_qty_set_after>
+            <sales_order_save_before>
+                <observers>
+                    <inventory>
+                        <type>singleton</type>
+                        <class>cataloginventory/observer</class>
+                        <method>lockOrderInventoryData</method>
+                    </inventory>
+                </observers>
+            </sales_order_save_before>
+            <sales_order_item_save_before>
+                <observers>
+                    <inventory>
+                        <type>singleton</type>
+                        <class>cataloginventory/observer</class>
+                        <method>createOrderItem</method>
+                    </inventory>
+                </observers>
+            </sales_order_item_save_before>
+            <sales_order_item_cancel>
+                <observers>
+                    <inventory>
+                        <type>singleton</type>
+                        <class>cataloginventory/observer</class>
+                        <method>cancelOrderItem</method>
+                    </inventory>
+                </observers>
+            </sales_order_item_cancel>
+            <sales_creditmemo_item_save_after>
+                <observers>
+                    <inventory>
+                        <type>singleton</type>
+                        <class>cataloginventory/observer</class>
+                        <method>refundOrderItem</method>
+                    </inventory>
+                </observers>
+            </sales_creditmemo_item_save_after>
+            <catalog_product_save_after>
+                <observers>
+                    <inventory>
+                        <type>singleton</type>
+                        <class>cataloginventory/observer</class>
+                        <method>saveInventoryData</method>
+                    </inventory>
+                </observers>
+            </catalog_product_save_after>
+            <catalog_model_product_duplicate>
+                <observers>
+                    <inventory>
+                        <type>singleton</type>
+                        <class>cataloginventory/observer</class>
+                        <method>copyInventoryData</method>
+                    </inventory>
+                </observers>
+            </catalog_model_product_duplicate>
+        </events>
+
+    </global>
+
+    <frontend>
+        <translate>
+            <modules>
+                <Mage_CatalogInventory>
+                    <files>
+                        <default>Mage_CatalogInventory.csv</default>
+                    </files>
+                </Mage_CatalogInventory>
+            </modules>
+        </translate>
+    </frontend>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_CatalogInventory>
+                    <files>
+                        <default>Mage_CatalogInventory.csv</default>
+                    </files>
+                </Mage_CatalogInventory>
+            </modules>
+        </translate>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <cataloginventory>
+                                            <title>Inventory Section</title>
+                                        </cataloginventory>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+
+    <default>
+        <cataloginventory>
+            <options>
+                <manage_stock>1</manage_stock>
+                <backorders>0</backorders>
+                <can_subtract>1</can_subtract>
+                <can_back_in_stock>1</can_back_in_stock>
+                <max_sale_qty>10000</max_sale_qty>
+                <min_sale_qty>1</min_sale_qty>
+                <min_qty>0</min_qty>
+                <notify_stock_qty>1</notify_stock_qty>
+            </options>
+        </cataloginventory>
+    </default>
+</config>

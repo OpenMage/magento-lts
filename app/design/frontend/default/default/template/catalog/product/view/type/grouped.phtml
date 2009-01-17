@@ -1,0 +1,133 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * Grouped product data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+?>
+<?php $_product = $this->getProduct() ?>
+<?php $_associatedProducts = $this->getAssociatedProducts() ?>
+<?php if($_product->isSaleable() && count($_associatedProducts)): ?>
+    <p class="availability"><?php echo $this->__('Availability: In stock.') ?></p>
+<?php else: ?>
+    <p class="availability"><?php echo $this->__('Availability: Out of stock.') ?></p>
+<?php endif; ?>
+<table cellspacing="0" class="data-table" id="super-product-table">
+    <col />
+    <col />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo $this->__('Product Name') ?></th>
+            <th class="a-right"><?php echo $this->__('Price') ?></th>
+            <?php if ($_product->isSaleable()): ?>
+            <th class="a-center"><?php echo $this->__('Qty') ?></th>
+            <?php endif; ?>
+        </tr>
+    </thead>
+    <tbody>
+    <?php if (count($_associatedProducts)): ?>
+    <?php foreach ($_associatedProducts as $_item): ?>
+        <tr>
+            <td><?php echo $this->htmlEscape($_item->getName()) ?></td>
+            <td class="a-right">
+                <?php $simplePricesTax = ($this->helper('tax')->displayPriceIncludingTax() || $this->helper('tax')->displayBothPrices()); ?>
+                <?php $_price = $this->helper('tax')->getPrice($_item, $_item->getPrice(), $simplePricesTax) ?>
+                <?php $_regularPrice = $this->helper('tax')->getPrice($_item, $_item->getPrice(), $simplePricesTax) ?>
+                <?php $_finalPrice = $this->helper('tax')->getPrice($_item, $_item->getFinalPrice()) ?>
+                <?php $_finalPriceInclTax = $this->helper('tax')->getPrice($_item, $_item->getFinalPrice(), true) ?>
+                <?php if ($_finalPrice == $_price): ?>
+                    <?php if ($this->helper('tax')->displayBothPrices() && $_finalPriceInclTax != $_finalPrice): ?>
+                        <span class="price-excluding-tax">
+                            <span class="label"><?php echo $this->__('Excl. Tax:') ?></span>
+                            <span class="price" id="price-excluding-tax-<?php echo $_id ?>">
+                                <?php echo Mage::helper('core')->currency($_price) ?>
+                            </span>
+                        </span>
+                        <span class="price-including-tax">
+                            <span class="label"><?php echo $this->__('Incl. Tax:') ?></span>
+                            <span class="price" id="price-including-tax-<?php echo $_id ?>">
+                                <?php echo Mage::helper('core')->currency($_finalPriceInclTax,true,false) ?>
+                            </span>
+                        </span>
+                    <?php else: ?>
+                    <span class="regular-price"><?php echo Mage::helper('core')->currency($_price) ?></span>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <p class="old-price">
+                        <span class="price-label"><?php echo $this->__('Regular Price:') ?></span>
+                        <?php echo Mage::helper('core')->currency($_regularPrice) ?>
+                    </p>
+
+                    <?php if ($this->helper('tax')->displayBothPrices() && $_finalPriceInclTax != $_finalPrice): ?>
+                        <p class="special-price">
+                            <span class="price-label"><?php echo $this->__('Special Price:') ?></span>
+                            <span class="price-excluding-tax">
+                                <span class="label"><?php echo $this->__('Excl. Tax:') ?></span>
+                                <?php echo Mage::helper('core')->currency($_finalPrice) ?>
+                            </span>
+                            <span class="price-including-tax">
+                                <span class="label"><?php echo $this->__('Incl. Tax:') ?></span>
+                                <?php echo Mage::helper('core')->currency($_finalPriceInclTax) ?>
+                            </span>
+                        </p>
+                    <?php else: ?>
+                    <p class="special-price">
+                        <span class="price-label"><?php echo $this->__('Special Price:') ?></span>
+                        <?php echo Mage::helper('core')->currency($_finalPrice) ?>
+                    </p>
+                    <?php endif; ?>
+                <?php endif; ?>
+                <?php if($_item->getTierPriceCount()): ?>
+                    <ul class="product-pricing-grouped">
+                    <?php foreach ($this->getTierPrices($_item) as $_tierPrice): ?>
+                        <?php if($_tierPrice['price'] <= $_finalPriceInclTax): ?>
+                            <?php if ($this->helper('tax')->displayBothPrices() && $_tierPrice['formated_price'] != $_tierPrice['formated_price_incl_tax']): ?>
+                                <li><?php echo $this->__('Buy %s for %s each', $_tierPrice['price_qty'], $_tierPrice['formated_price']) ?>
+                                (<?php echo $_tierPrice['formated_price_incl_tax'] ?> <?php echo $this->__('Incl. Tax') ?>)</li>
+                            <?php else: ?>
+                                <li><?php echo $this->__('Buy %s for %s', $_tierPrice['price_qty']*1, $_tierPrice['formated_price']) ?></li>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+            </td>
+            <?php if ($_product->isSaleable()): ?>
+            <td class="a-center">
+            <?php if ($_item->isSaleable()) : ?>
+                <input name="super_group[<?php echo $_item->getId() ?>]" value="<?php echo $_item->getQty()*1 ?>" type="text" class="input-text qty" />
+            <?php else: ?>
+                <?php echo $this->__('Out of stock.') ?>
+            <?php endif; ?>
+            </td>
+            <?php endif; ?>
+        </tr>
+    <?php endforeach; ?>
+    <?php else: ?>
+       <tr>
+           <td colspan="<?php if ($_product->isSaleable()): ?>4<?php else : ?>3<?php endif; ?>"><?php echo $this->__('No options of this product are available.') ?></td>
+       </tr>
+    <?php endif; ?>
+    </tbody>
+</table>
+<script type="text/javascript">decorateTable('super-product-table')</script>

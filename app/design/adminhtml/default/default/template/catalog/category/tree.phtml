@@ -1,0 +1,159 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<div class="content-header left-col-block">
+    <table cellspacing="0">
+        <tr>
+            <td><h3 class="icon-head head-categories"><?php echo Mage::helper('catalog')->__('Categories') ?></h3></td>
+            <td class="form-buttons"><?php if($this->getRoot()): ?><?php echo $this->getAddButtonHtml() ?><?php endif; ?></td>
+        </tr>
+    </table>
+</div>
+<?php echo $this->getStoreSwitcherHtml() ?>
+<?php if($this->getRoot()): ?>
+<div style="margin-right:10px;">
+<div id="tree-div" style="width:100%;overflow:auto;"></div>
+</div>
+<script type="text/javascript">
+Ext.onReady(function(){
+    var tree = new Ext.tree.TreePanel('tree-div', {
+        animate:false,
+        loader: false,
+        enableDD:true,
+        containerScroll: true,
+        rootVisible: '<?php echo $this->getRoot()->getIsVisible() ?>'
+    });
+
+    // set the root node
+    var root = new Ext.tree.TreeNode({
+        text: '<?php echo htmlentities($this->getRoot()->getName(), ENT_QUOTES) ?>',
+        draggable:false,
+        allowDrop: <?php if($this->getRoot()->getIsVisible()): ?>true<?php else : ?>false<?php endif; ?>,
+        id:'<?php echo $this->getRoot()->getId() ?>'
+    });
+
+    tree.setRootNode(root);
+    bildCategoryTree(root, <?php echo $this->getTreeJson() ?>);
+    // set handlers
+    tree.addListener('click', categoryClick.createDelegate(this));
+    tree.addListener('beforenodedrop', categoryMove.createDelegate(this));
+
+    // render the tree
+    tree.render();
+    root.expand();
+    tree.expandAll();
+
+    var selectedNode = tree.getNodeById('<?php echo $this->getCategoryId() ?>');
+    if(selectedNode){
+        tree.getSelectionModel().select(selectedNode);
+    }
+});
+
+function bildCategoryTree(parent, config){
+    if (!config) return null;
+
+	if (parent && config && config.length){
+        for (var i = 0; i < config.length; i++){
+            var node = new Ext.tree.TreeNode(config[i]);
+            parent.appendChild(node);
+            if(config[i].children){
+                bildCategoryTree(node, config[i].children);
+            }
+        }
+    }
+}
+
+categoryClick = function(node, e){
+    setLocation('<?php echo $this->getEditUrl() ?>'+'id/'+node.id+'/');
+};
+
+categoryMove = function(obj){
+    var data = {id: obj.dropNode.id}
+
+    data.point = obj.point;
+    switch (obj.point) {
+        case 'above' :
+            data.pid = obj.target.parentNode.id;
+            if (obj.target.previousSibling) {
+                data.aid = obj.target.previousSibling.id;
+            } else {
+                data.aid = 0;
+            }
+            break;
+        case 'below' :
+            data.pid = obj.target.parentNode.id;
+            data.aid = obj.target.id;
+        break;
+        case 'append' :
+            data.pid = obj.target.id;
+            if (obj.target.lastChild) {
+                data.aid = obj.target.lastChild.id;
+            } else {
+                data.aid = 0;
+            }
+        break;
+        default :
+            obj.cancel = true;
+            return obj;
+    }
+
+    var success = function(o) {
+        try {
+            if(o.responseText && o.responseText!=='SUCCESS'){
+                alert(o.responseText);
+                location.reload();
+            }
+        }
+        catch(e) {
+
+        }
+    };
+    var failure = function(o) {
+        if (console) {
+            console.log(o.statusText);
+        } else {
+            alert(o.statusText);
+        }
+        location.reload();
+    };
+
+    var pd = [];
+    for(var key in data) {
+        pd.push(encodeURIComponent(key), "=", encodeURIComponent(data[key]), "&");
+    }
+    pd.splice(pd.length-1,1);
+    new Ajax.Request(
+        '<?php echo $this->getMoveUrl() ?>',
+        {
+            method: 'POST',
+            parameters:  pd.join(""),
+            onSuccess : success,
+            onFailure : failure,
+            loaderArea:'tree-div'
+        }
+    );
+    /*var con = new Ext.lib.Ajax.request(
+        'POST',
+        '<?php echo $this->getMoveUrl() ?>',
+        {success:success,failure:failure, scope:obj, loaderArea:'tree-div'},
+        pd.join(""));*/
+}
+</script>
+<?php endif; ?>

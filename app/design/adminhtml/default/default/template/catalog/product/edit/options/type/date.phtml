@@ -1,0 +1,40 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<script type="text/javascript">
+
+OptionTemplateDate = '<table class="border" cellpadding="0" cellspacing="0">'+
+        '<tr class="headings">'+
+            '<th class="type-price"><?php echo Mage::helper('catalog')->__('Price') ?> <span class="required">*</span></th>'+
+            '<th class="type-type"><?php echo Mage::helper('catalog')->__('Price Type') ?></th>'+
+            '<th class="last"><?php echo Mage::helper('catalog')->__('SKU') ?> <span class="required">*</span></th>'+
+        '</tr>'+
+        '<tr>'+
+            '<td><input type="text" class="required-entry input-text validate-zero-or-greater product-option-price" id="product_option_{{option_id}}_price" name="product[options][{{option_id}}][price]" value="{{price}}"></td>'+
+            '<td><?php echo $this->getPriceTypeSelectHtml() ?>{{checkboxScopePrice}}</td>'+
+            '<td class="last"><input type="text" class="required-entry input-text type-sku" name="product[options][{{option_id}}][sku]" value="{{sku}}"></td>'+
+        '</tr>'+
+    '</table>';
+
+if ($('option_panel_type_date')) {
+    $('option_panel_type_date').remove();
+}
+
+</script>

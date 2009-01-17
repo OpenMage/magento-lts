@@ -1,0 +1,785 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Sales>
+            <version>0.9.14</version>
+        </Mage_Sales>
+    </modules>
+    <global>
+        <fieldsets>
+            <sales_convert_quote>
+                <remote_ip><to_order>*</to_order></remote_ip>
+
+                <customer_id><to_order>*</to_order></customer_id>
+                <customer_email><to_order>*</to_order></customer_email>
+                <customer_prefix><to_order>*</to_order></customer_prefix>
+                <customer_firstname><to_order>*</to_order></customer_firstname>
+                <customer_middlename><to_order>*</to_order></customer_middlename>
+                <customer_lastname><to_order>*</to_order></customer_lastname>
+                <customer_suffix><to_order>*</to_order></customer_suffix>
+                <customer_group_id><to_order>*</to_order></customer_group_id>
+                <customer_tax_class_id><to_order>*</to_order></customer_tax_class_id>
+                <customer_note><to_order>*</to_order></customer_note>
+                <customer_note_notify><to_order>*</to_order></customer_note_notify>
+                <customer_is_guest><to_order>*</to_order></customer_is_guest>
+                <customer_dob><to_order>*</to_order></customer_dob>
+                <customer_taxvat><to_order>*</to_order></customer_taxvat>
+
+                <base_currency_code><to_order>*</to_order></base_currency_code>
+                <store_currency_code><to_order>*</to_order></store_currency_code>
+                <quote_currency_code><to_order>order_currency_code</to_order></quote_currency_code>
+                <store_to_base_rate><to_order>*</to_order></store_to_base_rate>
+                <store_to_quote_rate><to_order>store_to_order_rate</to_order></store_to_quote_rate>
+
+                <coupon_code><to_order>*</to_order></coupon_code>
+                <giftcert_code><to_order>*</to_order></giftcert_code>
+                <is_virtual><to_order>*</to_order></is_virtual>
+                <is_multi_payment><to_order>*</to_order></is_multi_payment>
+                <applied_rule_ids><to_order>*</to_order></applied_rule_ids>
+            </sales_convert_quote>
+
+            <sales_convert_quote_address>
+                <weight><to_order>*</to_order></weight>
+                <shipping_method><to_order>*</to_order></shipping_method>
+                <shipping_description><to_order>*</to_order></shipping_description>
+                <shipping_rate><to_order>*</to_order></shipping_rate>
+
+                <subtotal><to_order>*</to_order></subtotal>
+                <tax_amount><to_order>*</to_order></tax_amount>
+                <tax_string><to_order>*</to_order></tax_string>
+                <discount_amount><to_order>*</to_order></discount_amount>
+                <shipping_amount><to_order>*</to_order></shipping_amount>
+                <shipping_tax_amount><to_order>*</to_order></shipping_tax_amount>
+                <giftcert_amount><to_order>*</to_order></giftcert_amount>
+                <custbalance_amount><to_order>*</to_order></custbalance_amount>
+                <grand_total><to_order>*</to_order></grand_total>
+
+                <base_subtotal><to_order>*</to_order></base_subtotal>
+                <base_tax_amount><to_order>*</to_order></base_tax_amount>
+                <base_discount_amount><to_order>*</to_order></base_discount_amount>
+                <base_shipping_amount><to_order>*</to_order></base_shipping_amount>
+                <base_shipping_tax_amount><to_order>*</to_order></base_shipping_tax_amount>
+                <base_giftcert_amount><to_order>*</to_order></base_giftcert_amount>
+                <base_custbalance_amount><to_order>*</to_order></base_custbalance_amount>
+                <base_grand_total><to_order>*</to_order></base_grand_total>
+
+                <prefix><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></prefix>
+                <firstname><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></firstname>
+                <middlename><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></middlename>
+                <lastname><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></lastname>
+                <suffix><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></suffix>
+                <company><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></company>
+                <street_full><to_order_address>street</to_order_address></street_full>
+                <street><to_customer_address>*</to_customer_address></street><!-- ^^^ ? -->
+                <city><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></city>
+                <region><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></region>
+                <region_id><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></region_id>
+                <postcode><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></postcode>
+                <country_id><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></country_id>
+                <telephone><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></telephone>
+                <fax><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></fax>
+                <email><to_customer_address>*</to_customer_address></email>
+            </sales_convert_quote_address>
+
+            <sales_convert_quote_payment>
+                <method><to_order_payment>*</to_order_payment></method>
+                <additional_data><to_order_payment>*</to_order_payment></additional_data>
+                <po_number><to_order_payment>*</to_order_payment></po_number>
+                <cc_type><to_order_payment>*</to_order_payment></cc_type>
+                <cc_number_enc><to_order_payment>*</to_order_payment></cc_number_enc>
+                <cc_last4><to_order_payment>*</to_order_payment></cc_last4>
+                <cc_owner><to_order_payment>*</to_order_payment></cc_owner>
+                <cc_exp_month><to_order_payment>*</to_order_payment></cc_exp_month>
+                <cc_exp_year><to_order_payment>*</to_order_payment></cc_exp_year>
+
+                <cc_number><to_order_payment>*</to_order_payment></cc_number>
+                <cc_cid><to_order_payment>*</to_order_payment></cc_cid>
+
+                <cc_ss_issue><to_order_payment>*</to_order_payment></cc_ss_issue>
+                <cc_ss_start_month><to_order_payment>*</to_order_payment></cc_ss_start_month>
+                <cc_ss_start_year><to_order_payment>*</to_order_payment></cc_ss_start_year>
+            </sales_convert_quote_payment>
+
+            <sales_convert_quote_item>
+                <sku><to_order_item>*</to_order_item></sku>
+                <name><to_order_item>*</to_order_item></name>
+                <description><to_order_item>*</to_order_item></description>
+                <weight><to_order_item>*</to_order_item></weight>
+                <is_qty_decimal><to_order_item>*</to_order_item></is_qty_decimal>
+                <qty><to_order_item>qty_ordered</to_order_item></qty>
+                <is_virtual><to_order_item>*</to_order_item></is_virtual>
+                <original_price><to_order_item>*</to_order_item></original_price>
+                <applied_rule_ids><to_order_item>*</to_order_item></applied_rule_ids>
+                <additional_data><to_order_item>*</to_order_item></additional_data>
+                <calculation_price><to_order_item>price</to_order_item></calculation_price>
+                <base_calculation_price><to_order_item>base_price</to_order_item></base_calculation_price>
+                <tax_percent><to_order_item>*</to_order_item></tax_percent>
+                <tax_amount><to_order_item>*</to_order_item></tax_amount>
+                <tax_before_discount><to_order_item>*</to_order_item></tax_before_discount>
+                <base_tax_before_discount><to_order_item>*</to_order_item></base_tax_before_discount>
+                <tax_string><to_order_item>*</to_order_item></tax_string>
+                <row_weight><to_order_item>*</to_order_item></row_weight>
+                <row_total><to_order_item>*</to_order_item></row_total>
+                <price><to_order_item>base_original_price</to_order_item></price>
+                <base_tax_amount><to_order_item>*</to_order_item></base_tax_amount>
+                <base_row_total><to_order_item>*</to_order_item></base_row_total>
+                <discount_percent><to_order_item_discount>*</to_order_item_discount></discount_percent>
+                <discount_amount><to_order_item_discount>*</to_order_item_discount></discount_amount>
+                <base_discount_amount><to_order_item_discount>*</to_order_item_discount></base_discount_amount>
+            </sales_convert_quote_item>
+
+            <sales_convert_order>
+                <customer_id><to_quote>*</to_quote></customer_id>
+                <customer_email><to_quote>*</to_quote></customer_email>
+                <customer_group_id><to_quote>*</to_quote></customer_group_id>
+                <customer_tax_class_id><to_quote>*</to_quote></customer_tax_class_id>
+                <customer_taxvat><to_quote>*</to_quote></customer_taxvat>
+
+                <customer_note><to_quote>*</to_quote></customer_note>
+                <customer_note_notify><to_quote>*</to_quote></customer_note_notify>
+                <customer_is_guest><to_quote>*</to_quote></customer_is_guest>
+
+                <base_currency_code><to_quote>*</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></base_currency_code>
+                <store_currency_code><to_quote>*</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></store_currency_code>
+                <order_currency_code><to_quote>quote_currency_code</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></order_currency_code>
+                <store_to_base_rate><to_quote>*</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></store_to_base_rate>
+                <store_to_order_rate><to_quote>store_to_quote_rate</to_quote><to_invoice>*</to_invoice><to_shipment>*</to_shipment><to_cm>*</to_cm></store_to_order_rate>
+
+                <grand_total><to_quote>*</to_quote><to_quote_address_shipping>*</to_quote_address_shipping></grand_total>
+                <base_grand_total><to_quote>*</to_quote><to_quote_address_shipping>*</to_quote_address_shipping></base_grand_total>
+
+                <coupon_code><to_quote>*</to_quote></coupon_code>
+                <giftcert_code><to_quote>*</to_quote></giftcert_code>
+                <applied_rule_ids><to_quote>*</to_quote></applied_rule_ids>
+
+                <weight><to_quote_address_shipping>*</to_quote_address_shipping></weight>
+                <shipping_method><to_quote_address_shipping>*</to_quote_address_shipping></shipping_method>
+                <shipping_description><to_quote_address_shipping>*</to_quote_address_shipping></shipping_description>
+                <shipping_rate><to_quote_address_shipping>*</to_quote_address_shipping></shipping_rate>
+
+                <subtotal><to_quote_address_shipping>*</to_quote_address_shipping></subtotal>
+                <tax_amount><to_quote_address_shipping>*</to_quote_address_shipping></tax_amount>
+                <tax_string><to_quote_address_shipping>*</to_quote_address_shipping></tax_string>
+                <discount_amount><to_quote_address_shipping>*</to_quote_address_shipping></discount_amount>
+                <shipping_amount><to_quote_address_shipping>*</to_quote_address_shipping></shipping_amount>
+                <giftcert_amount><to_quote_address_shipping>*</to_quote_address_shipping></giftcert_amount>
+                <custbalance_amount><to_quote_address_shipping>*</to_quote_address_shipping></custbalance_amount>
+
+                <base_subtotal><to_quote_address_shipping>*</to_quote_address_shipping></base_subtotal>
+                <base_tax_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_tax_amount>
+                <base_discount_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_discount_amount>
+                <base_shipping_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_shipping_amount>
+                <base_giftcert_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_giftcert_amount>
+                <base_custbalance_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_custbalance_amount>
+
+                <shipping_tax_amount><to_cm>*</to_cm></shipping_tax_amount>
+                <base_shipping_tax_amount><to_cm>*</to_cm></base_shipping_tax_amount>
+
+            </sales_convert_order>
+
+            <sales_convert_order_address>
+                <prefix><to_quote_address>*</to_quote_address></prefix>
+                <firstname><to_quote_address>*</to_quote_address></firstname>
+                <middlename><to_quote_address>*</to_quote_address></middlename>
+                <lastname><to_quote_address>*</to_quote_address></lastname>
+                <suffix><to_quote_address>*</to_quote_address></suffix>
+                <company><to_quote_address>*</to_quote_address></company>
+                <street_full><to_quote_address>street</to_quote_address></street_full>
+                <city><to_quote_address>*</to_quote_address></city>
+                <region><to_quote_address>*</to_quote_address></region>
+                <region_id><to_quote_address>*</to_quote_address></region_id>
+                <postcode><to_quote_address>*</to_quote_address></postcode>
+                <country_id><to_quote_address>*</to_quote_address></country_id>
+                <telephone><to_quote_address>*</to_quote_address></telephone>
+                <fax><to_quote_address>*</to_quote_address></fax>
+            </sales_convert_order_address>
+
+            <sales_convert_order_payment>
+                <method><to_quote_payment>*</to_quote_payment></method>
+                <additional_data><to_quote_payment>*</to_quote_payment></additional_data>
+                <po_number><to_quote_payment>*</to_quote_payment></po_number>
+                <cc_type><to_quote_payment>*</to_quote_payment></cc_type>
+                <cc_number_enc><to_quote_payment>*</to_quote_payment></cc_number_enc>
+                <cc_last4><to_quote_payment>*</to_quote_payment></cc_last4>
+                <cc_owner><to_quote_payment>*</to_quote_payment></cc_owner>
+                <cc_exp_month><to_quote_payment>*</to_quote_payment></cc_exp_month>
+                <cc_exp_year><to_quote_payment>*</to_quote_payment></cc_exp_year>
+
+                <cc_ss_issue><to_quote_payment>*</to_quote_payment></cc_ss_issue>
+                <cc_ss_start_month><to_quote_payment>*</to_quote_payment></cc_ss_start_month>
+                <cc_ss_start_year><to_quote_payment>*</to_quote_payment></cc_ss_start_year>
+            </sales_convert_order_payment>
+
+            <sales_convert_order_item>
+                <sku><to_quote_item>*</to_quote_item><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></sku>
+                <name><to_quote_item>*</to_quote_item><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></name>
+                <description><to_quote_item>*</to_quote_item><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></description>
+                <weight><to_quote_item>*</to_quote_item><to_shipment_item>*</to_shipment_item></weight>
+                <price><to_quote_item>custom_price</to_quote_item><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></price>
+                <discount_percent><to_quote_item_discount>*</to_quote_item_discount></discount_percent>
+                <discount_amount><to_quote_item_discount>*</to_quote_item_discount></discount_amount>
+                <tax_percent><to_quote_item>*</to_quote_item></tax_percent>
+                <tax_string><to_quote_item>*</to_quote_item></tax_string>
+                <tax_amount><to_quote_item>*</to_quote_item></tax_amount>
+                <row_weight><to_quote_item>*</to_quote_item></row_weight>
+                <row_total><to_quote_item>*</to_quote_item></row_total>
+                <applied_rule_ids><to_quote_item>*</to_quote_item></applied_rule_ids>
+
+                <base_discount_amount><to_quote_item_discount>*</to_quote_item_discount></base_discount_amount>
+                <base_tax_amount><to_quote_item>*</to_quote_item></base_tax_amount>
+                <base_row_total><to_quote_item>*</to_quote_item></base_row_total>
+
+                <base_price><to_invoice_item>base_price</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></base_price>
+                <cost><to_invoice_item>cost</to_invoice_item><to_cm_item>*</to_cm_item></cost>
+            </sales_convert_order_item>
+
+            <customer_account>
+                <id><to_quote>customer_id</to_quote></id>
+                <email><to_quote>customer_email</to_quote></email>
+                <prefix><to_quote>customer_prefix</to_quote></prefix>
+                <firstname><to_quote>customer_firstname</to_quote></firstname>
+                <middlename><to_quote>customer_middlename</to_quote></middlename>
+                <lastname><to_quote>customer_lastname</to_quote></lastname>
+                <suffix><to_quote>customer_suffix</to_quote></suffix>
+                <group_id><to_quote>customer_group_id</to_quote></group_id>
+                <tax_class_id><to_quote>customer_tax_class_id</to_quote></tax_class_id>
+                <taxvat><to_quote>customer_taxvat</to_quote></taxvat>
+            </customer_account>
+
+            <customer_address>
+                <id><to_quote_address>customer_address_id</to_quote_address></id>
+                <parent_id><to_quote_address>customer_id</to_quote_address></parent_id>
+                <prefix><to_quote_address>*</to_quote_address></prefix>
+                <firstname><to_quote_address>*</to_quote_address></firstname>
+                <middlename><to_quote_address>*</to_quote_address></middlename>
+                <lastname><to_quote_address>*</to_quote_address></lastname>
+                <suffix><to_quote_address>*</to_quote_address></suffix>
+                <!--<email><to_quote_address>*</to_quote_address></email>-->
+                <company><to_quote_address>*</to_quote_address></company>
+                <street_full><to_quote_address>street</to_quote_address></street_full>
+                <city><to_quote_address>*</to_quote_address></city>
+                <region><to_quote_address>*</to_quote_address></region>
+                <region_id><to_quote_address>*</to_quote_address></region_id>
+                <postcode><to_quote_address>*</to_quote_address></postcode>
+                <country_id><to_quote_address>*</to_quote_address></country_id>
+                <telephone><to_quote_address>*</to_quote_address></telephone>
+                <fax><to_quote_address>*</to_quote_address></fax>
+            </customer_address>
+        </fieldsets>
+
+        <models>
+            <sales>
+                <class>Mage_Sales_Model</class>
+                <resourceModel>sales_mysql4</resourceModel>
+            </sales>
+            <sales_mysql4>
+                <class>Mage_Sales_Model_Mysql4</class>
+                <entities>
+                    <quote><table>sales_flat_quote</table></quote>
+                    <quote_address><table>sales_flat_quote_address</table></quote_address>
+                    <quote_address_item><table>sales_flat_quote_address_item</table></quote_address_item>
+                    <quote_item><table>sales_flat_quote_item</table></quote_item>
+                    <quote_item_option><table>sales_flat_quote_item_option</table></quote_item_option>
+                    <quote_payment><table>sales_flat_quote_payment</table></quote_payment>
+                    <quote_address_shipping_rate><table>sales_flat_quote_shipping_rate</table></quote_address_shipping_rate>
+
+                    <order><table>sales_order</table></order>
+                    <order_tax><table>sales_order_tax</table></order_tax>
+                    <order_item><table>sales_flat_order_item</table></order_item>
+                    <order_item_option><table>sales_flat_order_item_option</table></order_item_option>
+                    <order_entity><table>sales_order_entity</table></order_entity>
+                    <!--order></order>
+
+                    <invoice></invoice>
+
+                    <shipment></shipment>
+
+                    <creditmemo></creditmemo-->
+                </entities>
+            </sales_mysql4>
+            <sales_entity>
+                <class>Mage_Sales_Model_Entity</class>
+                <entities>
+                    <quote><table>sales_quote</table></quote>
+                    <quote_address><table>sales_quote_address</table></quote_address>
+                    <quote_item><table>sales_quote_item</table></quote_item>
+                    <quote_entity><table>sales_quote_entity</table></quote_entity>
+                    <quote_temp><table>sales_quote_temp</table></quote_temp>
+                    <order><table>sales_order</table></order>
+                    <order_entity><table>sales_order_entity</table></order_entity>
+                </entities>
+            </sales_entity>
+        </models>
+        <template>
+            <email>
+               <sales_email_order_template translate="label" module="sales">
+                   <label>New Order</label>
+                   <file>sales/order_new.html</file>
+                   <type>html</type>
+               </sales_email_order_template>
+               <sales_email_order_guest_template translate="label" module="sales">
+                   <label>New Order for Guest</label>
+                   <file>sales/order_new_guest.html</file>
+                   <type>html</type>
+               </sales_email_order_guest_template>
+               <sales_email_order_comment_template translate="label" module="sales">
+                   <label>Order Update</label>
+                   <file>sales/order_update.html</file>
+                   <type>html</type>
+               </sales_email_order_comment_template>
+               <sales_email_order_comment_guest_template translate="label" module="sales">
+                   <label>Order Update for Guest</label>
+                   <file>sales/order_update_guest.html</file>
+                   <type>html</type>
+               </sales_email_order_comment_guest_template>
+               <sales_email_invoice_template translate="label" module="sales">
+                   <label>New Invoice</label>
+                   <file>sales/invoice_new.html</file>
+                   <type>html</type>
+               </sales_email_invoice_template>
+               <sales_email_invoice_guest_template translate="label" module="sales">
+                   <label>New Invoice for Guest</label>
+                   <file>sales/invoice_new_guest.html</file>
+                   <type>html</type>
+               </sales_email_invoice_guest_template>
+               <sales_email_invoice_comment_template translate="label" module="sales">
+                   <label>Invoice Update</label>
+                   <file>sales/invoice_update.html</file>
+                   <type>html</type>
+               </sales_email_invoice_comment_template>
+               <sales_email_invoice_comment_guest_template translate="label" module="sales">
+                   <label>Invoice Update for Guest</label>
+                   <file>sales/invoice_update_guest.html</file>
+                   <type>html</type>
+               </sales_email_invoice_comment_guest_template>
+               <sales_email_creditmemo_template translate="label" module="sales">
+                   <label>New Credit Memo</label>
+                   <file>sales/creditmemo_new.html</file>
+                   <type>html</type>
+               </sales_email_creditmemo_template>
+               <sales_email_creditmemo_guest_template translate="label" module="sales">
+                   <label>New Credit Memo for Guest</label>
+                   <file>sales/creditmemo_new_guest.html</file>
+                   <type>html</type>
+               </sales_email_creditmemo_guest_template>
+               <sales_email_creditmemo_comment_template translate="label" module="sales">
+                   <label>Credit Memo Update</label>
+                   <file>sales/creditmemo_update.html</file>
+                   <type>html</type>
+               </sales_email_creditmemo_comment_template>
+               <sales_email_creditmemo_comment_guest_template translate="label" module="sales">
+                   <label>Credit Memo Update for Guest</label>
+                   <file>sales/creditmemo_update.html</file>
+                   <type>html</type>
+               </sales_email_creditmemo_comment_guest_template>
+               <sales_email_shipment_template translate="label" module="sales">
+                   <label>New Shipment</label>
+                   <file>sales/shipment_new.html</file>
+                   <type>html</type>
+               </sales_email_shipment_template>
+               <sales_email_shipment_guest_template translate="label" module="sales">
+                   <label>New Shipment for Guest</label>
+                   <file>sales/shipment_new_guest.html</file>
+                   <type>html</type>
+               </sales_email_shipment_guest_template>
+               <sales_email_shipment_comment_template translate="label" module="sales">
+                   <label>Shipment Update</label>
+                   <file>sales/shipment_update.html</file>
+                   <type>html</type>
+               </sales_email_shipment_comment_template>
+               <sales_email_shipment_comment_guest_template translate="label" module="sales">
+                   <label>Shipment Update for Guest</label>
+                   <file>sales/shipment_update_guest.html</file>
+                   <type>html</type>
+               </sales_email_shipment_comment_guest_template>
+            </email>
+        </template>
+        <resources>
+            <sales_setup>
+                <setup>
+                    <module>Mage_Sales</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+                <connection><use>core_setup</use></connection>
+            </sales_setup>
+            <sales_write>
+                <connection><use>core_write</use></connection>
+            </sales_write>
+            <sales_read>
+                <connection><use>core_read</use></connection>
+            </sales_read>
+        </resources>
+        <blocks>
+            <sales><class>Mage_Sales_Block</class></sales>
+        </blocks>
+        <sales>
+            <quote>
+                <totals>
+                    <subtotal>
+                        <class>sales/quote_address_total_subtotal</class>
+                        <before>grand_total</before>
+                    </subtotal>
+                    <discount>
+                        <class>sales/quote_address_total_discount</class>
+                        <after>subtotal</after>
+                        <before>grand_total,shipping</before>
+                    </discount>
+                    <shipping>
+                        <class>sales/quote_address_total_shipping</class>
+                        <after>subtotal,discount</after>
+                        <before>grand_total</before>
+                    </shipping>
+                    <tax>
+                        <class>sales/quote_address_total_tax</class>
+                        <after>subtotal,shipping</after>
+                        <before>grand_total</before>
+                        <renderer>checkout/total_tax</renderer>
+                        <admin_renderer>adminhtml/sales_order_create_totals_tax</admin_renderer>
+                    </tax>
+                    <grand_total>
+                        <class>sales/quote_address_total_grand</class>
+                        <after>subtotal</after>
+                    </grand_total>
+                </totals>
+                <item>
+                    <product_attributes>
+                        <sku/>
+                        <type_id/>
+                        <name/>
+                        <status/>
+                        <visibility/>
+                        <price/>
+                        <weight/>
+                        <url_path/>
+                        <url_key/>
+                        <thumbnail/>
+                        <small_image/>
+                        <tax_class_id/>
+                        <special_from_date/>
+                        <special_to_date/>
+                        <special_price/>
+                    </product_attributes>
+                </item>
+            </quote>
+            <order>
+                <statuses>
+                    <pending translate="label"><label>Pending</label></pending>
+                    <processing translate="label"><label>Processing</label></processing>
+                    <holded translate="label"><label>On Hold</label></holded>
+                    <complete translate="label"><label>Complete</label></complete>
+                    <closed translate="label"><label>Closed</label></closed>
+                    <canceled translate="label"><label>Canceled</label></canceled>
+                </statuses>
+                <states>
+                    <new translate="label">
+                        <label>New</label>
+                        <statuses>
+                            <pending/>
+                        </statuses>
+                    </new>
+                    <processing translate="label">
+                        <label>Processing</label>
+                        <statuses>
+                            <processing/>
+                        </statuses>
+                    </processing>
+                    <complete translate="label">
+                        <label>Complete</label>
+                        <statuses>
+                            <complete/>
+                        </statuses>
+                    </complete>
+                    <closed translate="label">
+                        <label>Closed</label>
+                        <statuses>
+                            <closed/>
+                        </statuses>
+                    </closed>
+                    <canceled translate="label">
+                        <label>Canceled</label>
+                        <statuses>
+                            <canceled/>
+                        </statuses>
+                    </canceled>
+                    <holded translate="label">
+                        <label>On Hold</label>
+                        <statuses>
+                            <holded/>
+                        </statuses>
+                    </holded>
+                </states>
+            </order>
+            <order_invoice>
+                <totals>
+                    <subtotal>
+                        <class>sales/order_invoice_total_subtotal</class>
+                    </subtotal>
+                    <discount>
+                        <class>sales/order_invoice_total_discount</class>
+                    </discount>
+                    <shipping>
+                        <class>sales/order_invoice_total_shipping</class>
+                    </shipping>
+                    <tax>
+                        <class>sales/order_invoice_total_tax</class>
+                    </tax>
+                    <grand_total>
+                        <class>sales/order_invoice_total_grand</class>
+                    </grand_total>
+                </totals>
+            </order_invoice>
+            <order_creditmemo>
+                <totals>
+                    <subtotal>
+                        <class>sales/order_creditmemo_total_subtotal</class>
+                    </subtotal>
+                    <tax>
+                        <class>sales/order_creditmemo_total_tax</class>
+                    </tax>
+                    <discount>
+                        <class>sales/order_creditmemo_total_discount</class>
+                    </discount>
+                    <grand_total>
+                        <class>sales/order_creditmemo_total_grand</class>
+                    </grand_total>
+                </totals>
+            </order_creditmemo>
+        </sales>
+        <pdf>
+            <invoice>
+                <default>sales/order_pdf_items_invoice_default</default>
+            </invoice>
+            <shipment>
+                <default>sales/order_pdf_items_shipment_default</default>
+            </shipment>
+            <creditmemo>
+                <default>sales/order_pdf_items_creditmemo_default</default>
+            </creditmemo>
+        </pdf>
+    </global>
+
+    <frontend>
+        <secure_url>
+            <sales>/sales/</sales>
+        </secure_url>
+        <routers>
+            <sales>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Sales</module>
+                    <frontName>sales</frontName>
+                </args>
+            </sales>
+        </routers>
+        <translate>
+            <modules>
+                <Mage_Sales>
+                    <files>
+                        <default>Mage_Sales.csv</default>
+                    </files>
+                </Mage_Sales>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <sales>
+                    <file>sales.xml</file>
+                </sales>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <menu>
+             <sales translate="title" module="sales">
+                <title>Sales</title>
+                <sort_order>20</sort_order>
+                <depends><module>Mage_Sales</module></depends>
+                <children>
+                    <order translate="title" module="sales">
+                        <title>Orders</title>
+                        <action>adminhtml/sales_order</action>
+                        <sort_order>10</sort_order>
+                    </order>
+                    <invoice translate="title" module="sales">
+                        <title>Invoices</title>
+                        <action>adminhtml/sales_invoice</action>
+                        <sort_order>20</sort_order>
+                    </invoice>
+                    <shipment translate="title" module="sales">
+                        <title>Shipments</title>
+                        <action>adminhtml/sales_shipment</action>
+                        <sort_order>30</sort_order>
+                    </shipment>
+                    <creditmemo translate="title" module="sales">
+                        <title>Credit Memos</title>
+                        <action>adminhtml/sales_creditmemo</action>
+                        <sort_order>40</sort_order>
+                    </creditmemo>
+                </children>
+             </sales>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <sales translate="title">
+                            <title>Sales</title>
+                            <children>
+                                <order translate="title">
+                                    <title>Orders</title>
+                                    <children>
+                                        <actions translate="title">
+                                            <title>Actions</title>
+                                            <children>
+                                                <create translate="title"><title>Create</title></create>
+                                                <view translate="title"><title>View</title></view>
+                                                <reorder translate="title"><title>Reorder</title></reorder>
+                                                <edit translate="title"><title>Edit</title></edit>
+                                                <cancel translate="title"><title>Cancel</title></cancel>
+                                                <capture translate="title"><title>Capture</title></capture>
+                                                <invoice translate="title"><title>Invoice</title></invoice>
+                                                <creditmemo translate="title"><title>Creditmemo</title></creditmemo>
+                                                <hold translate="title"><title>Hold</title></hold>
+                                                <unhold translate="title"><title>Unhold</title></unhold>
+                                                <ship translate="title"><title>Ship</title></ship>
+                                                <comment translate="title"><title>Comment</title></comment>
+                                                <reorder translate="title"><title>Reorder</title></reorder>
+                                            </children>
+                                        </actions>
+                                    </children>
+                                </order>
+                                <invoice translate="title">
+                                    <title>Invoices</title>
+                                </invoice>
+                                <shipment translate="title">
+                                    <title>Shipments</title>
+                                </shipment>
+                                <creditmemo translate="title">
+                                    <title>Credit Memos</title>
+                                </creditmemo>
+                            </children>
+                        </sales>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <translate>
+            <modules>
+                <Mage_Sales>
+                    <files>
+                        <default>Mage_Sales.csv</default>
+                    </files>
+                </Mage_Sales>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <sales>
+                    <file>sales.xml</file>
+                </sales>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <default>
+        <payment>
+            <googlecheckout>
+                <active>1</active>
+                <model>googlecheckout/payment</model>
+                <title>Google Checkout</title>
+            </googlecheckout>
+        </payment>
+
+        <sales>
+            <totals_sort>
+                <discount>20</discount>
+                <grand_total>100</grand_total>
+                <shipping>30</shipping>
+                <subtotal>10</subtotal>
+                <tax>40</tax>
+            </totals_sort>
+            <reorder>
+                <allow>1</allow>
+            </reorder>
+        </sales>
+        <sales_email>
+            <order>
+                <template>sales_email_order_template</template>
+                <guest_template>sales_email_order_guest_template</guest_template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </order>
+            <order_comment>
+                <template>sales_email_order_comment_template</template>
+                <guest_template>sales_email_order_comment_guest_template</guest_template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </order_comment>
+            <invoice>
+                <template>sales_email_invoice_template</template>
+                <guest_template>sales_email_invoice_guest_template</guest_template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </invoice>
+            <invoice_comment>
+                <template>sales_email_invoice_comment_template</template>
+                <guest_template>sales_email_invoice_comment_guest_template</guest_template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </invoice_comment>
+            <shipment>
+                <template>sales_email_shipment_template</template>
+                <guest_template>sales_email_shipment_guest_template</guest_template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </shipment>
+            <shipment_comment>
+                <template>sales_email_shipment_comment_template</template>
+                <guest_template>sales_email_shipment_comment_guest_template</guest_template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </shipment_comment>
+            <creditmemo>
+                <template>sales_email_creditmemo_template</template>
+                <guest_template>sales_email_creditmemo_guest_template</guest_template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </creditmemo>
+            <creditmemo_comment>
+                <template>sales_email_creditmemo_comment_template</template>
+                <guest_template>sales_email_creditmemo_comment_guest_template</guest_template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </creditmemo_comment>
+        </sales_email>
+    </default>
+
+    <crontab>
+        <jobs>
+            <sales_clean_quotes>
+                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
+                <run><model>sales/observer::cleanExpiredQuotes</model></run>
+            </sales_clean_quotes>
+        </jobs>
+    </crontab>
+</config>

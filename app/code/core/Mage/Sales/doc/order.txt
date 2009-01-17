@@ -1,0 +1,131 @@
+1. Order
+    Attributes:
+        id(entity_id)
+        order_status_id
+        is_virtual
+        is_multi_payment
+
+        base_currency_code
+        store_currency_code
+        order_currency_code
+        store_to_base_rate
+        store_to_order_rate
+
+        remote_ip
+        quote_id
+        quote_address_id
+        billing_address_id
+        shipping_address_id
+        coupon_code
+        giftcert_code
+        weight
+        shipping_method
+        shipping_description
+        subtotal
+        tax_amount
+        shipping_amount
+        discount_amount
+        giftcert_amount
+        custbalance_amount
+        grand_total
+        total_paid
+        total_due
+        total_qty_ordered
+        applied_rule_ids
+        
+        customer_id
+        customer_group_id
+        customer_email
+        customer_note
+        customer_note_notify
+    Events:
+        sales_order_load_after
+        sales_order_save_before
+        sales_order_save_after
+        sales_order_delete_before
+        sales_order_delete_after
+    API:
+    
+    
+2. Order Item
+    Attributes:
+        parent_id
+        quote_item_id
+        product_id
+        sku
+        image
+        name
+        description
+        qty_ordered
+        qty_backordered
+        qty_canceled
+        qty_shipped
+        qty_returned
+        price
+        cost
+        discount_percent
+        discount_amount
+        tax_percent
+        tax_amount
+        row_total
+        row_weight
+        applied_rule_ids
+    Events:
+    API:
+3. Order Address
+    Attributes:
+        parent_id
+        quote_address_id
+        address_type
+        customer_id
+        customer_address_id
+        email
+        firstname
+        lastname
+        company
+        street
+        city
+        region
+        region_id
+        postcode
+        country_id
+        telephone
+        fax
+    Events:
+    API:
+4. Order Payment
+    Attributes:
+        parent_id
+        quote_payment_id
+        customer_payment_id
+        amount
+        method
+        po_number
+        cc_type
+        cc_number_enc
+        cc_last4
+        cc_owner
+        cc_exp_month
+        cc_exp_year
+        
+        cc_status
+        cc_status_description
+        cc_trans_id
+        cc_approval
+        cc_avs_status
+        cc_cid_status
+
+        cc_debug_request_body
+        cc_debug_response_body
+        cc_debug_response_serialized
+
+        anet_trans_method
+
+        echeck_routing_number
+        echeck_bank_name
+        echeck_account_type
+        echeck_account_name
+        echeck_type
+    Events:
+    API:
+5. Order Status History

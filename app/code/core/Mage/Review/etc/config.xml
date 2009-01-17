@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Review
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Review>
+            <version>0.7.1</version>
+        </Mage_Review>
+    </modules>
+    <global>
+        <models>
+            <review>
+                <class>Mage_Review_Model</class>
+                <resourceModel>review_mysql4</resourceModel>
+            </review>
+            <review_mysql4>
+                <class>Mage_Review_Model_Mysql4</class>
+                <entities>
+                    <review>
+                        <table>review</table>
+                    </review>
+                    <review_detail>
+                        <table>review_detail</table>
+                    </review_detail>
+                    <review_status>
+                        <table>review_status</table>
+                    </review_status>
+                    <review_entity>
+                        <table>review_entity</table>
+                    </review_entity>
+                    <review_aggregate>
+                        <table>review_entity_summary</table>
+                    </review_aggregate>
+                    <review_store>
+                        <table>review_store</table>
+                    </review_store>
+                </entities>
+            </review_mysql4>
+        </models>
+        <resources>
+            <review_setup>
+                <setup>
+                    <module>Mage_Review</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </review_setup>
+            <review_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </review_write>
+            <review_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </review_read>
+        </resources>
+        <blocks>
+                <review>
+                    <class>Mage_Review_Block</class>
+                </review>
+        </blocks>
+    </global>
+    <adminhtml>
+        <menu>
+            <catalog>
+                <children>
+                    <reviews_ratings translate="title" module="review">
+                        <title>Reviews and Ratings</title>
+                        <children>
+                            <reviews translate="title" module="review">
+                                <title>Customer Reviews</title>
+                                <children>
+                                    <pending translate="title" module="review">
+                                        <title>Pending Reviews</title>
+                                        <action>adminhtml/catalog_product_review/pending/</action>
+                                    </pending>
+                                    <all translate="title" module="review">
+                                        <title>All Reviews</title>
+                                        <action>adminhtml/catalog_product_review/</action>
+                                    </all>
+                                </children>
+                            </reviews>
+                            <ratings translate="title" module="review">
+                                <title>Manage Ratings</title>
+                                <action>adminhtml/rating/</action>
+                            </ratings>
+                        </children>
+                    </reviews_ratings>
+                </children>
+             </catalog>
+        </menu>
+        <translate>
+            <modules>
+                <Mage_Review>
+                    <files>
+                        <default>Mage_Review.csv</default>
+                    </files>
+                </Mage_Review>
+            </modules>
+        </translate>
+    </adminhtml>
+    <frontend>
+        <routers>
+            <review>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Review</module>
+                    <frontName>review</frontName>
+                </args>
+            </review>
+        </routers>
+        <translate>
+            <modules>
+                <Mage_Review>
+                    <files>
+                        <default>Mage_Review.csv</default>
+                    </files>
+                </Mage_Review>
+            </modules>
+        </translate>
+          <layout>
+              <updates>
+                  <review>
+                      <file>review.xml</file>
+                  </review>
+              </updates>
+          </layout>
+    </frontend>
+</config>

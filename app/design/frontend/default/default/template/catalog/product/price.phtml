@@ -1,0 +1,99 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+
+<?php $_product = $this->getProduct() ?>
+<?php $_id = $_product->getId() ?>
+
+<?php $simplePricesTax = ($this->helper('tax')->displayPriceIncludingTax() || $this->helper('tax')->displayBothPrices()); ?>
+
+<?php $_minimalPriceValue = $_product->getMinimalPrice() ?>
+<?php $_minimalPrice = $this->helper('tax')->getPrice($_product, $_minimalPriceValue, $simplePricesTax) ?>
+
+<?php if (!$_product->isGrouped()): ?>
+
+    <div class="price-box">
+    <?php $_price = $this->helper('tax')->getPrice($_product, $_product->getPrice()) ?>
+    <?php $_regularPrice = $this->helper('tax')->getPrice($_product, $_product->getPrice(), $simplePricesTax) ?>
+    <?php $_finalPrice = $this->helper('tax')->getPrice($_product, $_product->getFinalPrice()) ?>
+    <?php $_finalPriceInclTax = $this->helper('tax')->getPrice($_product, $_product->getFinalPrice(), true) ?>
+
+    <?php if ($_finalPrice == $_price): ?>
+
+        <?php if ($this->helper('tax')->displayBothPrices() && $_finalPriceInclTax != $_finalPrice): ?>
+            <span class="price-excluding-tax">
+                <span class="label"><?php echo $this->__('Excl. Tax:') ?></span>
+                <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price,true,false) ?></span>
+            </span>
+            <span class="price-including-tax">
+                <span class="label"><?php echo $this->__('Incl. Tax:') ?></span>
+                <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPriceInclTax,true,false) ?></span>
+            </span>
+        <?php else: ?>
+        <span class="regular-price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price,true,true) ?></span>
+		<?php endif; ?>
+
+    <?php else: /* if ($_finalPrice == $_price): */ ?>
+        <p class="old-price">
+            <span class="price-label"><?php echo $this->__('Regular Price:') ?></span>
+            <span class="price" id="old-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_regularPrice,true,false) ?></span>
+        </p>
+
+        <?php if ($this->helper('tax')->displayBothPrices() && $_finalPriceInclTax != $_finalPrice): ?>
+	        <p class="special-price">
+	            <span class="price-label"><?php echo $this->__('Special Price:') ?></span>
+	            <span class="price-excluding-tax">
+	                <span class="label"><?php echo $this->__('Excl. Tax:') ?></span>
+	                <span class="price" id="price-excluding-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?></span>
+	            </span>
+            <span class="price-including-tax">
+                <span class="label"><?php echo $this->__('Incl. Tax:') ?></span>
+                <span class="price" id="price-including-tax-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPriceInclTax,true,false) ?></span>
+            </span>
+			</p>
+        <?php else: ?>
+        <p class="special-price">
+            <span class="price-label"><?php echo $this->__('Special Price:') ?></span>
+            <span class="price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?></span>
+        </p>
+		<?php endif; ?>
+
+    <?php endif; /* if ($_finalPrice == $_price): */ ?>
+
+    <?php if ($this->getDisplayMinimalPrice() && $_minimalPriceValue && $_minimalPriceValue < $_product->getFinalPrice()): ?>
+        <a href="<?php echo $_product->getProductUrl(); ?>" class="minimal-price-link">
+            <span class="label"><?php echo $this->__('As low as:') ?></span>
+            <span class="price" id="product-minimal-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_minimalPrice,true,false) ?></span>
+        </a>
+    <?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice && $_minimalPrice < $_finalPrice): */ ?>
+    </div>
+
+<?php else: /* if (!$_product->isGrouped()): */ ?>
+
+    <?php if ($this->getDisplayMinimalPrice() && $_minimalPriceValue): ?>
+        <div class="price-box">
+            <a href="<?php echo $_product->getProductUrl(); ?>" class="minimal-price-link">
+                <span class="label"><?php echo $this->__('Starting at:') ?></span>
+                <span class="price" id="product-minimal-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_minimalPrice,true,false) ?></span>
+            </a>
+        </div>
+    <?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice): */ ?>
+
+<?php endif; /* if (!$_product->isGrouped()): */ ?>

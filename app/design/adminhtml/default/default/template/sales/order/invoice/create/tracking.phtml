@@ -1,0 +1,98 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<script type="text/javascript">
+var trackingControl = {};
+trackingControl = {
+    index : 0,
+    add : function () {
+        this.index++;
+        var data = {index:this.index};
+        new Insertion.Bottom($('track_row_container'), this.template.evaluate(data));
+        this.bindCurrierOnchange();
+    },
+    deleteRow : function(event) {
+        var row = Event.findElement(event, 'tr');
+        if (row) {
+            row.parentNode.removeChild(row)
+        }
+    },
+    bindCurrierOnchange : function() {
+        var elems = $('tracking_numbers_table').getElementsByClassName('select');
+        elems.each(function (elem) {
+            if (!elem.onchangeBound) {
+                elem.onchangeBound = true;
+                elem.valueInput = $(elem.parentNode.parentNode).getElementsByClassName('number-title')[0];
+                elem.observe('change', this.currierOnchange);
+            }
+        }.bind(this));
+    },
+    currierOnchange : function(event) {
+        var elem = Event.element(event);
+        var option = elem.options[elem.selectedIndex];
+        if (option.value && option.value != 'custom') {
+            elem.valueInput.value = option.text;
+        }
+        else {
+            elem.valueInput.value = '';
+        }
+    }
+}
+</script>
+<div class="grid">
+<table cellspacing="0" class="data" id="tracking_numbers_table">
+    <col width="100" />
+    <col />
+    <col />
+    <col width="80" />
+    <thead>
+        <tr class="headings">
+            <th><?php echo Mage::helper('sales')->__('Carrier') ?></th>
+            <th><?php echo Mage::helper('sales')->__('Title') ?></th>
+            <th><?php echo Mage::helper('sales')->__('Number') ?></th>
+            <th class="last"><?php echo Mage::helper('sales')->__('Action') ?></th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <td colspan="4" class="a-center last" style="padding:8px;"><?php echo $this->getChildHtml('add_button') ?></td>
+        </tr>
+    </tfoot>
+    <tbody id="track_row_container">
+        <tr id="track_row_template" class="template no-display">
+            <td>
+                <select name="tracking[__index__][carrier_code]" class="select carrier" style="width:110px;"  disabled="disabled">
+                    <?php foreach ($this->getCarriers() as $_code=>$_name): ?>
+                    <option value="<?php echo $_code ?>"><?php echo $_name ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+            <td><input class="input-text number-title" type="text" name="tracking[__index__][title]" value="" disabled="disabled" /></td>
+            <td><input class="input-text" type="text" name="tracking[__index__][number]" value=""  disabled="disabled"/></td>
+            <td class="last"><a href="#" onclick="trackingControl.deleteRow(event);return false"><?php echo $this->__('Delete') ?></a></td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+trackingControl.template = new Template('<tr>' + $('track_row_template').innerHTML.replace(/__index__/g, '#{index}').replace(/disabled/g, '') + '<\/tr>');
+//]]>
+</script>

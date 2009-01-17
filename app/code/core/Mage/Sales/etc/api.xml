@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category    Mage
+ * @package     Mage_Sales
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <api>
+        <resources>
+            <sales_order translate="title" module="sales">
+                <model>sales/order_api</model>
+                <title>Order API</title>
+                <acl>sales/order</acl>
+                <methods>
+                    <list translate="title" module="sales">
+                        <title>Retrieve list of orders by filters</title>
+                        <method>items</method>
+                    </list>
+                    <info translate="title" module="sales">
+                        <title>Retrieve order information</title>
+                    </info>
+                    <addComment translate="title" module="sales">
+                        <title>Add comment to order</title>
+                        <acl>sales/order/change</acl>
+                    </addComment>
+                    <hold translate="title" module="sales">
+                        <title>Hold order</title>
+                        <acl>sales/order/change</acl>
+                    </hold>
+                    <unhold translate="title" module="sales">
+                        <title>Unhold order</title>
+                        <acl>sales/order/change</acl>
+                    </unhold>
+                    <cancel translate="title" module="sales">
+                        <title>Cancel order</title>
+                        <acl>sales/order/change</acl>
+                    </cancel>
+                </methods>
+                <faults module="sales">
+                    <not_exists>
+                        <code>100</code>
+                        <message>Requested order not exists.</message>
+                    </not_exists>
+                    <filters_invalid>
+                        <code>101</code>
+                        <message>Invalid filters given. Details in error message.</message>
+                    </filters_invalid>
+                    <data_invalid>
+                        <code>102</code>
+                        <message>Invalid data given. Details in error message.</message>
+                    </data_invalid>
+                    <status_not_changed>
+                        <code>103</code>
+                        <message>Order status not changed. Details in error message.</message>
+                    </status_not_changed>
+                </faults>
+            </sales_order>
+            <sales_order_shipment>
+                <title>Shipment API</title>
+                <model>sales/order_shipment_api</model>
+                <acl>sales/order/shipment</acl>
+                <methods>
+                    <list translate="title" module="sales">
+                        <title>Retrieve list of shipments by filters</title>
+                        <method>items</method>
+                    </list>
+                    <info translate="title" module="sales">
+                        <title>Retrieve shipment information</title>
+                    </info>
+                    <create translate="title" module="sales">
+                        <title>Create new shipment for order</title>
+                        <acl>sales/order/shipment/create</acl>
+                    </create>
+                    <addComment translate="title" module="sales">
+                        <title>Add new comment to shipment</title>
+                        <acl>sales/order/shipment/comment</acl>
+                    </addComment>
+                    <addTrack translate="title" module="sales">
+                        <title>Add new tracking number</title>
+                        <acl>sales/order/shipment/track</acl>
+                    </addTrack>
+                    <removeTrack translate="title" module="sales">
+                        <title>Remove tracking number</title>
+                        <acl>sales/order/shipment/track</acl>
+                    </removeTrack>
+                    <getCarriers>
+                        <title>Retrieve list of allowed carriers for order</title>
+                    </getCarriers>
+                </methods>
+                <faults module="sales">
+                    <not_exists>
+                        <code>100</code>
+                        <message>Requested shipment not exists.</message>
+                    </not_exists>
+                    <filters_invalid>
+                        <code>101</code>
+                        <message>Invalid filters given. Details in error message.</message>
+                    </filters_invalid>
+                    <data_invalid>
+                        <code>102</code>
+                        <message>Invalid data given. Details in error message.</message>
+                    </data_invalid>
+                    <order_not_exists>
+                        <code>103</code>
+                        <message>Requested order not exists.</message>
+                    </order_not_exists>
+                    <track_not_exists>
+                        <code>104</code>
+                        <message>Requested tracking not exists.</message>
+                    </track_not_exists>
+                    <track_not_deleted>
+                        <code>105</code>
+                        <message>Tracking not deleted. Details in error message.</message>
+                    </track_not_deleted>
+                </faults>
+            </sales_order_shipment>
+            <sales_order_invoice>
+                <title>Invoice API</title>
+                <model>sales/order_invoice_api</model>
+                <acl>sales/order/invoice</acl>
+                <methods>
+                    <list translate="title" module="sales">
+                        <title>Retrieve list of invoices by filters</title>
+                        <method>items</method>
+                    </list>
+                    <info translate="title" module="sales">
+                        <title>Retrieve invoice information</title>
+                    </info>
+                    <create translate="title" module="sales">
+                        <title>Create new invoice for order</title>
+                        <acl>sales/order/invoice/create</acl>
+                    </create>
+                    <addComment translate="title" module="sales">
+                        <title>Add new comment to shipment</title>
+                        <acl>sales/order/invoice/comment</acl>
+                    </addComment>
+                    <capture translate="title" module="sales">
+                        <title>Capture invoice</title>
+                        <acl>sales/order/invoice/capture</acl>
+                    </capture>
+                    <void translate="title" module="sales">
+                        <title>Void invoice</title>
+                        <acl>sales/order/invoice/void</acl>
+                    </void>
+                    <cancel translate="title" module="sales">
+                        <title>Cancel invoice</title>
+                        <acl>sales/order/invoice/cancel</acl>
+                    </cancel>
+                </methods>
+                <faults module="sales">
+                    <not_exists>
+                        <code>100</code>
+                        <message>Requested shipment not exists.</message>
+                    </not_exists>
+                    <filters_invalid>
+                        <code>101</code>
+                        <message>Invalid filters given. Details in error message.</message>
+                    </filters_invalid>
+                    <data_invalid>
+                        <code>102</code>
+                        <message>Invalid data given. Details in error message.</message>
+                    </data_invalid>
+                    <order_not_exists>
+                        <code>103</code>
+                        <message>Requested order not exists.</message>
+                    </order_not_exists>
+                    <status_not_changed>
+                        <code>104</code>
+                        <message>Invoice status not changed</message>
+                    </status_not_changed>
+                </faults>
+            </sales_order_invoice>
+        </resources>
+        <resources_alias>
+            <order>sales_order</order>
+            <order_shipment>sales_order_shipment</order_shipment>
+            <order_invoice>sales_order_invoice</order_invoice>
+        </resources_alias>
+        <acl>
+            <all>
+                <sales translate="title" module="sales">
+                    <title>Sales</title>
+                    <order translate="title" module="sales">
+                        <title>Order</title>
+                        <change translate="title" module="sales">
+                            <title>Change status, add comments</title>
+                        </change>
+                        <shipment translate="title" module="sales">
+                            <title>Order shipments</title>
+                            <create translate="title" module="sales">
+                                <title>Create</title>
+                            </create>
+                            <comment translate="title" module="sales">
+                                <title>Comments</title>
+                            </comment>
+                            <track translate="title" module="sales">
+                                <title>Tracking</title>
+                            </track>
+                        </shipment>
+                        <invoice translate="title" module="sales">
+                            <title>Order invoice</title>
+                            <create translate="title" module="sales">
+                                <title>Create</title>
+                            </create>
+                            <comment translate="title" module="sales">
+                                <title>Comments</title>
+                            </comment>
+                            <capture translate="title" module="sales">
+                                <title>Capture</title>
+                            </capture>
+                            <void translate="title" module="sales">
+                                <title>Void</title>
+                            </void>
+                            <cancel translate="title" module="sales">
+                                <title>Cancel</title>
+                            </cancel>
+                        </invoice>
+                    </order>
+                </sales>
+            </all>
+        </acl>
+    </api>
+</config>

@@ -1,0 +1,73 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php /*{
+    "label":"Root page layout",
+    "type":"core/template",
+    "children":{
+        "header":{ "label":"Header", "type":"adminhtml/page_header" },
+        "menu":{ "label":"Top navigation", "type":"adminhtml/page_menu" },
+        "breadcrumbs":{ "label":"Breadcrumbs", "type":"adminhtml/widget_breadcrumbs" },
+        "content":{ "label":"Content block", "type":"core/template" },
+        "left":{ "label":"Left navigation", "type":"core/template" },
+        "footer":{ "label":"Footer", "type":"adminhtml/page_footer" }
+    },
+    "vars":{}
+}*/ ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->getLang() ?>" lang="<?php echo $this->getLang() ?>">
+<head>
+    <?php echo $this->getChildHtml('head') ?>
+</head>
+<body id="html-body" class="html-body-popup">
+<div class="wrapper">
+  <div class="middle" id="anchor-content">
+      <div id="page:main-container">
+      <?php if($this->getChildHtml('left')): ?>
+          <div class="columns <?php echo $this->getContainerCssClass() ?>" id="page:container">
+              <div id="page:left" class="side-col">
+                <?php echo $this->getChildHtml('left') ?>
+              </div>
+              <div class="main-col" id="content">
+                <div class="main-col-inner">
+                  <div id="messages"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+                    <?php echo $this->getChildHtml('content') ?>
+                </div>
+              </div>
+          </div>
+      <?php else: ?>
+          <div id="messages"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+          <?php echo $this->getChildHtml('content') ?>
+      <?php endif; ?>
+     </div>
+  </div>
+  <div class="footer">
+	  <?php echo $this->getChildHtml('footer') ?>
+  </div>
+	  <?php echo $this->getChildHtml('js') ?>
+
+<?php echo $this->getChildHtml('profiler') ?>
+<div id="loading-mask" style="display:none;">
+    <p class="loader" id="loading_mask_loader"><img src="<?php echo $this->getSkinUrl('images/ajax-loader-tr.gif') ?>" alt="<?php echo Mage::helper('adminhtml')->__('Loading...') ?>" /><br/><?php echo Mage::helper('adminhtml')->__('Please wait...') ?></p>
+</div>
+</div>
+<?php echo $this->getChildHtml('before_body_end') ?>
+</body>
+</html>

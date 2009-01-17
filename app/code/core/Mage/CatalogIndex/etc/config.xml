@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_CatalogIndex>
+            <version>0.7.6</version>
+        </Mage_CatalogIndex>
+    </modules>
+
+    <global>
+        <catalog>
+            <product>
+                <type>
+                    <simple>
+                        <index_data_retreiver>catalogindex/data_simple</index_data_retreiver>
+                    </simple>
+                    <grouped>
+                        <index_data_retreiver>catalogindex/data_grouped</index_data_retreiver>
+                    </grouped>
+                    <configurable>
+                        <index_data_retreiver>catalogindex/data_configurable</index_data_retreiver>
+                    </configurable>
+                    <virtual>
+                        <index_data_retreiver>catalogindex/data_virtual</index_data_retreiver>
+                    </virtual>
+                </type>
+            </product>
+        </catalog>
+
+        <models>
+            <catalogindex>
+                <class>Mage_CatalogIndex_Model</class>
+                <resourceModel>catalogindex_mysql4</resourceModel>
+            </catalogindex>
+            <catalogindex_mysql4>
+                <class>Mage_CatalogIndex_Model_Mysql4</class>
+                <entities>
+                    <eav><table>catalogindex_eav</table></eav>
+                    <price><table>catalogindex_price</table></price>
+                    <minimal_price><table>catalogindex_minimal_price</table></minimal_price>
+                </entities>
+            </catalogindex_mysql4>
+        </models>
+
+        <resources>
+            <catalogindex_setup>
+                <setup>
+                    <module>Mage_CatalogIndex</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </catalogindex_setup>
+            <catalogindex_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </catalogindex_write>
+            <catalogindex_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </catalogindex_read>
+        </resources>
+
+        <catalogindex>
+            <indexer>
+                <eav>
+                    <class>catalogindex/indexer_eav</class>
+                </eav>
+                <price>
+                    <class>catalogindex/indexer_price</class>
+                </price>
+                <tier_price>
+                    <class>catalogindex/indexer_tierprice</class>
+                </tier_price>
+                <minimal_price>
+                    <class>catalogindex/indexer_minimalprice</class>
+                </minimal_price>
+            </indexer>
+        </catalogindex>
+
+        <events>
+            <store_add>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>processStoreAdd</method>
+                    </catalogindex>
+                </observers>
+            </store_add>
+            <catalog_product_save_after>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>processAfterSaveEvent</method>
+                    </catalogindex>
+                </observers>
+            </catalog_product_save_after>
+            <catalog_entity_attribute_save_after>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>processAttributeChangeEvent</method>
+                    </catalogindex>
+                </observers>
+            </catalog_entity_attribute_save_after>
+            <catalog_product_delete_after_done>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>processAfterDeleteEvent</method>
+                    </catalogindex>
+                </observers>
+            </catalog_product_delete_after_done>
+            <catalog_product_delete_before>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>registerParentIds</method>
+                    </catalogindex>
+                </observers>
+            </catalog_product_delete_before>
+            <system_config_price_scope_save_after>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>processPriceScopeChange</method>
+                    </catalogindex>
+                </observers>
+            </system_config_price_scope_save_after>
+            <catalogrule_after_apply>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>processPriceRuleApplication</method>
+                    </catalogindex>
+                </observers>
+            </catalogrule_after_apply>
+            <catalog_product_import_after>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>catalogProductImportAfter</method>
+                    </catalogindex>
+                </observers>
+            </catalog_product_import_after>
+        </events>
+    </global>
+
+    <crontab>
+        <jobs>
+            <catalogindex_reindex_all>
+                <schedule><cron_expr>0 2 * * *</cron_expr></schedule>
+                <run><model>catalogindex/observer::reindexAll</model></run>
+            </catalogindex_reindex_all>
+        </jobs>
+    </crontab>
+</config>

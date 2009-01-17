@@ -1,0 +1,63 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+
+<script type="text/javascript">
+function addRow(container, template)
+{
+    new Insertion.Bottom($(container), '<tr>' + $(template).innerHTML + '</tr>');
+}
+
+function removeRow(button, selector)
+{
+    Element.remove($(button).up(selector));
+}
+
+function loadPackage()
+{
+    var package = prompt('Please enter package name');
+    if (!package) return false;
+    var url = '<?php echo $this->getUrl('*/*/load') ?>';
+    location.href = url+(url.indexOf('?')==-1 ? '?':'&')+'id='+package;
+}
+
+function createPackage()
+{
+    $('_create').value = 1;
+    editForm.submit();
+}
+
+function resetPackage()
+{
+    location.href = '<?php echo $this->getUrl('*/*/reset') ?>';
+}
+</script>
+
+<style type="text/css">
+.table-editable { border:solid 1px #CCC; background:#FAFAFA; padding:5px; margin-bottom:5px; }
+.table-editable th { border-bottom:solid 1px #CCC; text-align:center; }
+.table-editable th, .table-editable td { padding:1px 3px; vertical-align:middle; }
+.table-editable select { height:19px; }
+</style>
+
+<div class="entry-edit">
+    <input type="hidden" id="_create" name="_create" />
+    <?php echo $this->getFormHtml() ?>
+</div>

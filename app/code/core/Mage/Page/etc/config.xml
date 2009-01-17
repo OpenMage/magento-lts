@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Page
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Page>
+            <version>0.7.0</version>
+        </Mage_Page>
+    </modules>
+    <global>
+        <models>
+            <page>
+                <class>Mage_Page_Model</class>
+            </page>
+        </models>
+        <blocks>
+            <page>
+                <class>Mage_Page_Block</class>
+            </page>
+        </blocks>
+    </global>
+    <frontend>
+        <translate>
+            <modules>
+                <Mage_Page>
+                    <files>
+                        <default>Mage_Page.csv</default>
+                    </files>
+                </Mage_Page>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <page>
+                    <file>page.xml</file>
+                </page>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Page>
+                    <files>
+                        <default>Mage_Page.csv</default>
+                    </files>
+                </Mage_Page>
+            </modules>
+        </translate>
+    </adminhtml>
+    <install>
+        <translate>
+            <modules>
+                <Mage_Page>
+                    <files>
+                        <default>Mage_Page.csv</default>
+                    </files>
+                </Mage_Page>
+            </modules>
+        </translate>
+    </install>
+    <default>
+        <design>
+            <head translate="default_description" module="page">
+                <default_title>Magento Commerce</default_title>
+                <default_description>Default Description</default_description>
+                <default_keywords>Magento, Varien, E-commerce</default_keywords>
+                <default_robots>*</default_robots>
+                <default_media_type>text/html</default_media_type>
+                <default_charset>utf-8</default_charset>
+            </head>
+            <header translate="welcome" module="page">
+                <logo_src>images/logo.gif</logo_src>
+                <logo_alt>Magento Commerce</logo_alt>
+                <welcome>Default welcome msg!</welcome>
+            </header>
+            <footer translate="copyright" module="page">
+                <copyright>&amp;copy; 2008 Magento Demo Store. All Rights Reserved.</copyright>
+            </footer>
+        </design>
+    </default>
+</config>

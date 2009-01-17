@@ -1,0 +1,433 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Error Submission Form</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="robots" content="*"/>
+    <link rel="icon" href="skin/<?php echo $store ?>/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="skin/<?php echo $store ?>/images/favicon.ico" type="image/x-icon"/>
+<!--[if IE]>
+<style type="text/css">
+    .head,
+    .page-head,
+    .page-head-alt,
+    .header-top-container,
+    .header-top,
+    .header-nav-container,
+    .header-nav,
+    #nav,
+    #nav li,
+    #nav a,
+    .middle,
+    .button-set,
+    .form-list li,
+    .button-container,
+    .group-select li,
+    .listing-type-list .listing-item,
+    .listing-type-list .product-info .product-reviews { zoom:1; }
+
+    .clear {
+        display:block;
+        clear:both;
+        height:0;
+        font-size:0;
+        line-height:0;
+        }
+    .quick-access li { padding-right:4px; padding-left:6px;}
+    .home-spot { display:inline; }
+    .header-top-container { position:relative; }
+    #nav ul li.parent { margin-bottom:-3px;}
+</style>
+<![endif]-->
+<!--[if lt IE 7]>
+<style text="text/css">
+    h1#logo { display:inline; }
+    #nav li.parent { margin-bottom:-3px; }
+    .group-select .legend { position:relative; zoom:1; }
+
+    /* Min-height for IE */
+    .login-box .content { height:180px; }
+    .content-box { height:250px; }
+    #main { height:400px; }
+    .validation-advice { height:15px; }
+    .error-msg, .success-msg, .note-msg { height:23px; }
+    .base-mini .head h4, .shopping-cart-collaterals h4 { height:16px; }
+</style>
+<![endif]-->
+    <style type="text/css">
+    body {
+        -x-system-font:none;
+        background:#496778 url(skin/<?php echo $store ?>/images/body_bg.gif) repeat-y scroll 50% 0pt;
+        color:#2F2F2F;
+        font-family:arial,helvetica,sans-serif;
+        font-size:12px;
+        font-size-adjust:none;
+        font-stretch:normal;
+        font-style:normal;
+        font-variant:normal;
+        font-weight:normal;
+        line-height:1.55em;
+        text-align:center;
+    }
+    * {
+        margin:0pt;
+        padding:0pt;
+    }
+    .header {
+        border-top:5px solid #0D2131;
+        text-align:left;
+        z-index:999;
+    }
+    .header-top-container {
+        background:transparent url(skin/<?php echo $store ?>/images/header_top_container_bg.jpg) repeat-x scroll 50% 0pt;
+        border-bottom:1px solid #415966;
+    }
+    .header-top {
+        padding:10px;
+        margin:0pt auto;
+        position:relative;
+        width:930px;
+    }
+    h1#logo {
+        float:left;
+        margin:3px 0pt 10px 12px;
+        width:202px;
+    }
+    h1, h2, h3, h4, h5, h6, .head {
+        color:#0A263C;
+        line-height:1.3em;
+        margin-bottom:0.4em;
+    }
+    a {
+        color:#1E7EC8;
+        text-decoration:underline;
+    }
+    a img {
+        border:0pt none;
+    }
+    .middle-container {
+        background:#FBFAF6 url(skin/<?php echo $store ?>/images/main_container_bg.gif) no-repeat scroll 50% 0pt;
+    }
+    .middle {
+        background:#FFFFFE url(skin/<?php echo $store ?>/images/main_bg.gif) no-repeat scroll 0% 0%;
+        padding:25px 25px 80px;
+        margin:0pt auto;
+        min-height:400px;
+        position:relative;
+        text-align:left;
+        width:900px;
+    }
+    .col-1-layout .col-main {
+        float:none;
+        margin:0pt;
+    }
+    .col-main {
+        float:left;
+    }
+    .page-head, .page-head-alt {
+        text-align:right;
+    }
+    .page-head {
+        border-bottom:1px solid #CCCCCC;
+        margin:0pt 0pt 25px;
+    }
+    .page-head h3, .page-head-alt h3 {
+        font-size:1.7em !important;
+        font-weight:normal !important;
+        margin:0pt;
+        text-align:left;
+        text-transform:none !important;
+    }
+    form {
+        display:inline;
+    }
+    .group-select {
+        background:#FBFAF6 none repeat scroll 0% 0%;
+        border:1px solid #BBAFA0;
+        margin:28px 0pt;
+        padding:22px 25px 12px;
+    }
+    fieldset {
+        border:medium none;
+    }
+    input, select, button {
+        vertical-align:middle;
+    }
+    .group-select .legend {
+        background:#F9F3E3 none repeat scroll 0% 0%;
+        border:1px solid #F19900;
+        color:#E76200;
+        float:left;
+        font-size:1.1em;
+        font-weight:bold;
+        margin-top:-33px;
+        padding:0pt 8px;
+    }
+    .group-select li {
+        padding:4px 8px !important;
+    }
+    li {
+        list-style-image:none;
+        list-style-position:outside;
+        list-style-type:none;
+    }
+    .group-select li .input-box {
+        float:left;
+        width:275px;
+    }
+    .group-select label, .form-list label, .payment-methods label {
+        font-weight:bold;
+    }
+    label {
+        color:#666666;
+        font-weight:bold;
+    }
+    .required {
+        color:#EB340A;
+    }
+    .group-select li .input-box .input-text, .group-select li .input-box textarea {
+        width:250px;
+    }
+    input.input-text, textarea {
+        padding:2px;
+    }
+    input.input-text, select, textarea {
+        -x-system-font:none;
+        border:1px solid #B6B6B6;
+        font-family:arial,helvetica,sans-serif;
+        font-size:12px;
+        font-size-adjust:none;
+        font-stretch:normal;
+        font-style:normal;
+        font-variant:normal;
+        font-weight:normal;
+        line-height:normal;
+    }
+    .button-set {
+        border-top:1px solid #E4E4E4;
+        clear:both;
+        margin-top:4em;
+        padding-top:8px;
+        text-align:right;
+    }
+    p.required {
+        font-size:0.95em;
+        text-align:right;
+    }
+    p {
+        margin-bottom:0.8em;
+    }
+    .form-button, .form-button-alt {
+        -x-system-font:none !important;
+        background:#F18200 none repeat scroll 0% 0%;
+        border:1px solid #DE5400;
+        color:#FFFFFF;
+        cursor:pointer;
+        font-family:arial,sans-serif !important;
+        font-size:12px !important;
+        font-size-adjust:none !important;
+        font-stretch:normal !important;
+        font-style:normal !important;
+        font-variant:normal !important;
+        font-weight:bold !important;
+        line-height:normal !important;
+        overflow:visible;
+        padding:1px 8px;
+        text-align:center;
+        vertical-align:middle;
+        width:auto;
+    }
+    .form-button span, .form-button-alt span {
+        white-space:nowrap;
+    }
+    .footer-container {
+        border-top:15px solid #B6D1E2;
+    }
+    .footer {
+        margin:0pt auto;
+        padding:1em 1em 4em;
+        position:relative;
+        width:930px;
+    }
+    .footer .legality {
+        color:#ECF3F6;
+        padding:13px 0pt;
+        text-align:center;
+    }
+    .clear:after,
+    .head:after,
+    .header-top:after,
+    #nav:after,
+    .middle:after,
+    .button-set:after,
+    .legend:after,
+    .button-container:after,
+    .group-select li:after,
+    .side-col li:after,
+    .listing-type-list .listing-item:after,
+    .listing-type-list .product-info .product-reviews:after {
+        content:".";
+        display:block;
+        clear:both;
+        height:0;
+        font-size:0;
+        line-height:0em;
+        visibility:hidden;
+        overflow:hidden;
+    }
+    .messages {
+        overflow:hidden;
+        width:100%;
+    }
+    .error-msg {
+        background-color:#FAEBE7;
+        background-image:url(skin/<?php echo $store ?>/images/error_msg_icon.gif);
+        border-color:#F16048;
+        color:#DF280A;
+    } .success-msg {
+        border-color:#446423;
+        color:#3d6611;
+        background-color:#eff5ea;
+        background-image:url(skin/<?php echo $store ?>/images/success_msg_icon.gif);
+    } .note-msg {
+        border-color:#fcd344;
+        color:#3d6611;
+        background-color:#fafaec;
+        background-image:url(skin/<?php echo $store ?>/images/note_msg_icon.gif);
+    }
+
+    .error-msg, .success-msg, .note-msg, .note-msg {
+        background-position:10px 10px !important;
+        background-repeat:no-repeat !important;
+        border-style:solid !important;
+        border-width:1px !important;
+        font-size:0.95em !important;
+        font-weight:bold !important;
+        margin-bottom:1em !important;
+        min-height:23px !important;
+        padding:8px 8px 8px 32px !important;
+    }
+    .error-msg li, .success-msg li, .notice-msg li {
+        margin-bottom:0.2em;
+    }
+    </style>
+</head>
+
+<body class=" customer-account-create">
+<!-- [start] header -->
+    <div class="header">
+        <div class="header-top-container">
+            <div class="header-top">
+                <h1 id="logo"><a href="<?php echo $baseUrl?>"><img src="skin/<?php echo $store ?>/images/logo.gif" alt="Magento Commerce"/></a></h1>
+            </div>
+        </div>
+    </div>
+<!-- [end] header -->
+<!-- [start] middle -->
+    <div class="middle-container">
+        <div class="middle col-1-layout">
+        <!-- [start] center -->
+            <div id="main" class="col-main">
+            <!-- [start] content -->
+                <div class="page-head">
+                    <h3>There has been an error processing your request.</h3>
+                </div>
+                <?php if ($showSentMsg): ?>
+                <ul class="messages">
+                    <li class="success-msg">
+                        <ul>
+                            <li>Your message was submitted and will be responded as soon as possible. Thank you for reporting.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <?php endif; ?>
+                <?php if ($showSendForm): ?>
+                <ul class="messages">
+                    <li class="note-msg">
+                        <ul>
+                            <li>We are currently experiencing some technical issues. We apologize for the inconvenience and will contact you shortly to resolve the issue. To help us serve you please fill in the form below.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <?php if ($showErrorMsg): ?>
+                <ul class="messages">
+                    <li class="error-msg">
+                        <ul>
+                            <li>Please fill all required fields with valid information</li>
+                        </ul>
+                    </li>
+                </ul>
+                <?php endif; ?>
+                <form action="<?php echo "?id={$reportId}&amp;s={$store}" ?>" method="post" id="form-validate">
+                    <fieldset class="group-select wide">
+                        <input type="hidden" name="error_hash" value="<?php echo $errorHash ?>"/>
+                        <h4 class="legend">Personal Information</h4>
+                        <ul>
+                            <li>
+                                <div class="input-box">
+                                    <label for="firstname">First Name <span class="required">*</span></label><br/>
+                                    <input type="text" name="firstname" id="firstname" value="<?php echo $firstName ?>" title="First Name" class="required-entry input-text"/>
+                                </div>
+                                <div class="input-box">
+                                    <label for="lastname">Last Name <span class="required">*</span></label><br/>
+                                    <input type="text" name="lastname" id="lastname" value="<?php echo $lastName ?>" title="Last Name" class="required-entry input-text"/>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="input-box">
+                                    <label for="firstname">Email Address <span class="required">*</span></label><br/>
+                                    <input type="text" name="email" id="email_address" value="<?php echo $email ?>" title="Email Address" class="validate-email required-entry input-text"/>
+                                </div>
+                                <div class="input-box">
+                                    <label for="firstname">Telephone </label><br/>
+                                    <input type="text" name="telephone" id="telephone" value="<?php echo $telephone ?>" title="Telephone" class="input-text"/>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="input-box">
+                                    <label for="firstname">Comment </label><br/>
+                                    <textarea style="width: 525px; height: 120px;" name="comment"><?php echo $comment ?></textarea>
+                                </div>
+                            </li>
+                        </ul>
+                    </fieldset>
+                    <div class="button-set">
+                        <p class="required">* Required Fields</p>
+                        <button name="submit" class="form-button" type="submit"><span>Submit</span></button>
+                    </div>
+                </form>
+                <?php endif; ?>
+                <?php if ($action == 'print'): ?>
+                <div style="padding:10px; border:1px solid #666; background:#EFEFEF;">
+                <div style="width:100%; overflow:auto;">
+                <pre>
+<?php echo $reportData[0] ?>
+
+<b>Trace:</b>
+<?php echo $reportData[1] ?>
+                </pre>
+                </div>
+                </div>
+                <?php endif; ?>
+            <!-- [end] content -->
+            </div>
+        <!-- [end] center -->
+        </div>
+    </div>
+<!-- [end] middle -->
+
+<!-- [start] footer -->
+    <div class="footer-container">
+        <div class="footer">
+            <p class="legality">
+            Magento is a trademark of Irubin Consulting Inc. DBA Varien. Copyright &copy; 2008 Irubin Consulting Inc.</p>
+        </div>
+    </div>
+<!-- [end] footer -->
+</body>
+</html>
+
+

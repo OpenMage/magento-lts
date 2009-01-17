@@ -1,0 +1,84 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php  $_order = $this->getOrder() ?>
+<?php  if ($_order->getTracksCollection()->count()) : ?>
+<div class="right">
+<a href="#" id="linkId" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopUpUrlByOrderId($_order->getId()) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?php echo $this->__('Track all shipment(s)') ?>"><?php echo $this->__('Track all shipments') ?></a>
+</div>
+<?php endif; ?>
+<a href="<?php echo $this->getPrintAllShipmentsUrl($_order) ?>" onclick="this.target='_blank'"><?php echo $this->__('Print All Shipments') ?></a>
+<br />
+<?php foreach ($_order->getShipmentsCollection() as $_shipment): ?>
+<br />
+<div class="head">
+    <h3><?php echo $this->__('Shipment #') ?><?php echo $_shipment->getIncrementId(); ?></h3>
+    <a href="<?php echo $this->getPrintShipmentUrl($_shipment) ?>" onclick="this.target='_blank'"><?php echo $this->__('Print Shipment') ?></a>
+</div>
+<?php $tracks = $_shipment->getTracksCollection(); ?>
+<?php  if ($tracks->count()): ?>
+<table cellspacing="0" class="data">
+    <tr>
+        <td colspan="2">
+            <a href="#" id="linkId" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopUpUrlByShipId($_shipment->getId()) ?>','trackshipment','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?php echo $this->__('Track this shipment') ?>"><?php echo $this->__('Track this shipment') ?></a>
+        </td>
+    </tr>
+    <tr>
+        <td class="label"><?php echo $this->__('Tracking Number(s)') ?>:</td>
+        <td>&nbsp;
+    <?php
+    $i = 1;
+    $_size = $tracks->count();
+    foreach($tracks as $track): ?>
+    <?php if($track->isCustom()): ?>
+        <?php echo $track->getNumber() ?>
+    <?php else: ?>
+    <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopUpUrlByTrackID($track->getEntityId()) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')" ><?php echo $track->getNumber() ?></a>
+    <?php endif; ?>
+    <?php if($i!=$_size): ?>, <?php endif; ?>
+    <?php $i++;
+    endforeach; ?>
+        </td>
+    </tr>
+</table>
+<?php  endif; ?>
+<h4><?php echo $this->__('Items Shipped') ?></h4>
+<table cellspacing="0" class="data-table" id="my-shipment-table-<?php echo $_shipment->getId(); ?>">
+    <col />
+    <col width="35%" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo $this->__('Product Name') ?></th>
+            <th><?php echo $this->__('SKU') ?></th>
+            <th class="a-center"><span class="nobr"><?php echo $this->__('Qty Shipped') ?></span></th>
+        </tr>
+    </thead>
+    <?php $_items = $_shipment->getAllItems(); ?>
+    <?php $_count = count($_items) ?>
+    <?php foreach ($_items as $_item): ?>
+    <?php if ($_item->getOrderItem()->getParentItem()) continue; ?>
+    <tbody>
+        <?php echo $this->getItemHtml($_item) ?>
+    </tbody>
+    <?php endforeach; ?>
+</table>
+<script type="text/javascript">decorateTable('my-shipment-table-<?php echo $_shipment->getId(); ?>', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
+<?php endforeach; ?>

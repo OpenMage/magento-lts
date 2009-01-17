@@ -1,0 +1,46 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php if($this->getItemCollection()->getSize()): ?>
+<div class="collateral-box up-sell">
+    <div class="head"><h4><?php echo $this->__('This product is also part of bundle(s)') ?></h4></div>
+    <table cellspacing="0" class="generic-product-grid catalog-listing" id="bundle-product-table">
+    <?php // $this->setColumnCount(4); // uncomment this line if you want to have another number of columns ?>
+    <?php $this->resetItemsIterator() ?>
+    <?php for($_i=0;$_i<$this->getRowCount();$_i++): ?>
+        <tr>
+        <?php for($_j=0;$_j<$this->getColumnCount();$_j++): ?>
+            <?php if($_bundle=$this->getIterableItem()): ?>
+            <td>
+                <p class="product-image"><a href="<?php echo $_bundle->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_bundle, 'small_image')->resize(125) ?>" width="125" height="125" alt="<?php echo $this->htmlEscape($_bundle->getName()) ?>" /></a></p>
+                <h5><a href="<?php echo $_bundle->getProductUrl() ?>"><?php echo $this->htmlEscape($_bundle->getName()) ?></a></h5>
+                <?php echo $this->getPriceHtml($_bundle, true) ?>
+                <?php echo $this->getReviewsSummaryHtml($_bundle) ?>
+            </td>
+            <?php else: ?>
+            <td class="empty-product">&nbsp;</td>
+            <?php endif; ?>
+        <?php endfor; ?>
+        </tr>
+    <?php endfor; ?>
+    </table>
+    <script type="text/javascript">decorateTable('bundle-product-table')</script>
+</div>
+<?php endif ?>

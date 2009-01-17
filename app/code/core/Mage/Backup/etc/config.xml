@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Backup
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Backup>
+            <version>0.7.0</version>
+        </Mage_Backup>
+    </modules>
+    <global>
+        <models>
+            <backup>
+                <class>Mage_Backup_Model</class>
+                <resourceModel>backup_mysql4</resourceModel>
+            </backup>
+            <backup_mysql4>
+                <class>Mage_Backup_Model_Mysql4</class>
+            </backup_mysql4>
+        </models>
+        <resources>
+            <backup_setup>
+                <setup>
+                    <module>Mage_Backup</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </backup_setup>
+            <backup_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </backup_write>
+            <backup_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </backup_read>
+        </resources>
+    </global>
+    <adminhtml>
+        <menu>
+            <system translate="title" module="backup">
+                <children>
+                    <tools translate="title" module="backup">
+                        <children>
+                            <backup translate="title" module="backup">
+                                <title>Backups</title>
+                                <action>adminhtml/system_backup</action>
+                            </backup>
+                        </children>
+                    </tools>
+                </children>
+            </system>
+        </menu>
+        <translate>
+            <modules>
+                <Mage_Backup>
+                    <files>
+                        <default>Mage_Backup.csv</default>
+                    </files>
+                </Mage_Backup>
+            </modules>
+        </translate>
+    </adminhtml>
+</config>

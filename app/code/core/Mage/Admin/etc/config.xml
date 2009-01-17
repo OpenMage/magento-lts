@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Admin
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+   <modules>
+      <Mage_Admin>
+         <version>0.7.1</version>
+      </Mage_Admin>
+   </modules>
+
+   <global>
+      <models>
+         <admin>
+            <class>Mage_Admin_Model</class>
+            <resourceModel>admin_mysql4</resourceModel>
+         </admin>
+         <admin_mysql4>
+            <class>Mage_Admin_Model_Mysql4</class>
+            <entities>
+               <user><table>admin_user</table></user>
+               <role><table>admin_role</table></role>
+               <rule><table>admin_rule</table></rule>
+               <assert><table>admin_assert</table></assert>
+            </entities>
+         </admin_mysql4>
+      </models>
+
+      <resources>
+         <admin_setup>
+            <setup>
+               <module>Mage_Admin</module>
+            </setup>
+            <connection>
+               <use>core_setup</use>
+            </connection>
+         </admin_setup>
+         <admin_write>
+            <connection><use>core_write</use></connection>
+         </admin_write>
+         <admin_read>
+            <connection><use>core_read</use></connection>
+         </admin_read>
+      </resources>
+        <blocks>
+            <admin><class>Mage_Admin_Block</class></admin>
+        </blocks>
+   </global>
+
+    <default>
+        <admin>
+            <emails>
+                <forgot_email_template>admin_emails_forgot_email_template</forgot_email_template>
+                <forgot_email_identity>general</forgot_email_identity>
+            </emails>
+        </admin>
+    </default>
+</config>

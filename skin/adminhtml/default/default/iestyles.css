@@ -1,0 +1,71 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+/* Clearing */
+.bundle .option-title,
+.columns,
+.main-col,
+.field-row,
+.nav-bar,
+ul.tabs-horiz,
+dl.accordion dt,
+.entry-edit fieldset li,
+#nav,
+.main,
+.middle,
+.clear,
+.container,
+dl.accordion dt,
+.grid thead th a,
+.content,
+.box-head,
+.header-top,
+ul.tabs,
+ul.tabs li,
+ul.tabs li span,
+ul.tabs li a,
+.address-list li,
+.entry-edit .entry-edit-head,
+.notification-global { zoom:1; } /* IE version of clearing */
+
+.clear                          { clear:both; height:0; font-size:0; line-height:0; overflow:hidden; }
+
+/* Scalable Button Override */
+button, .form-button            { width:auto; margin-left:5px; overflow:visible; }
+.massaction button              { width:auto; height: 20px; margin-left:0px; overflow:hidden; }
+
+/* Grid Filter Override */
+.grid tr.filter th              { padding-top:3px; padding-bottom:3px; }
+.grid tr.filter th input        { margin-right: -10px; }
+.grid tr.filter th .range input { margin-right: 2px; }
+button.icon-btn {width:31px;}
+
+.nested-content .content-header { position:relative; zoom:1; }
+dl.accordion dt a, 
+div.collapseable a               { width:100%; }
+.product-image-gallery .grid tbody td { padding: 4px !important; }
+.massaction .entry-edit fieldset{ float: right;}
+.massaction .entry-edit fieldset  button.scalable {text-align:center !important; padding-left:0;padding-right:0; margin-top:1px;}
+.content-header {zoom:1;}
+
+#tree-div {overflow-x:auto !important; height:auto !important; overflow-y:hidden !important; padding-bottom:30px; }
+#category_info_tabs_general_content .checkbox { display:inline; margin:0px 0px 0 21px; }
+
+#nav ul li, #nav ul li.active { float:left; clear:left; width:185px; }
+
+.hor-scroll { overflow-x:auto; overflow-y:hidden; padding-bottom:20px; margin-bottom:-16px; }
+
+.grid-severity-critical, .grid-severity-major, .grid-severity-minor { margin:3px 0; }

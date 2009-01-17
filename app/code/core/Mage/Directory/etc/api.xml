@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category    Mage
+ * @package     Mage_Directory
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <api>
+        <resources>
+            <directory_country translate="title" module="directory">
+                <model>directory/country_api</model>
+                <title>Country Api</title>
+                <acl>directory/country</acl>
+                <methods>
+                    <list translate="title" module="directory">
+                        <title>List of countries</title>
+                        <method>items</method>
+                    </list>
+                </methods>
+            </directory_country>
+            <directory_region translate="title" module="directory">
+                <model>directory/region_api</model>
+                <title>Region Api</title>
+                <acl>directory/region</acl>
+                <methods>
+                    <list translate="title" module="directory">
+                        <title>List of regions in specified country</title>
+                        <method>items</method>
+                    </list>
+                </methods>
+                <faults module="directory">
+                    <country_not_exists>
+                        <code>101</code>
+                        <message>Country not exists.</message>
+                    </country_not_exists>
+                </faults>
+            </directory_region>
+        </resources>
+        <resources_alias>
+            <country>directory_country</country>
+            <region>directory_region</region>
+        </resources_alias>
+        <acl>
+            <resources>
+                <all>
+                    <directory translate="title" module="directory">
+                        <title>Directory</title>
+                        <country translate="title" module="directory">
+                            <title>Country</title>
+                        </country>
+                        <region translate="title" module="directory">
+                            <title>Region</title>
+                        </region>
+                    </directory>
+                </all>
+            </resources>
+        </acl>
+    </api>
+</config>

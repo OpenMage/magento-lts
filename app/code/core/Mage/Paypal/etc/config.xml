@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Paypal>
+            <version>0.7.0</version>
+        </Mage_Paypal>
+    </modules>
+    <global>
+        <models>
+            <paypal>
+                <class>Mage_Paypal_Model</class>
+                <resourceModel>paypal_mysql4</resourceModel>
+            </paypal>
+            <paypal_mysql4>
+                <class>Mage_Paypal_Model_Mysql4</class>
+                <entities>
+                    <api_debug><table>paypal_api_debug</table></api_debug>
+                </entities>
+            </paypal_mysql4>
+        </models>
+        <resources>
+            <paypal_setup>
+                <setup>
+                    <module>Mage_Paypal</module>
+                    <class>Mage_Paypal_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </paypal_setup>
+            <paypal_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </paypal_write>
+            <paypal_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </paypal_read>
+        </resources>
+        <blocks>
+            <paypal><class>Mage_Paypal_Block</class></paypal>
+        </blocks>
+    </global>
+    <frontend>
+        <secure_url>
+            <paypal_express>/paypal/express</paypal_express>
+            <paypal_standard>/paypal/standard</paypal_standard>
+        </secure_url>
+        <routers>
+            <paypal>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Paypal</module>
+                    <frontName>paypal</frontName>
+                </args>
+            </paypal>
+        </routers>
+        <translate>
+            <modules>
+                <Mage_Paypal>
+                    <files>
+                        <default>Mage_Paypal.csv</default>
+                    </files>
+                </Mage_Paypal>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <paypal>
+                    <file>paypal.xml</file>
+                </paypal>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Paypal>
+                    <files>
+                        <default>Mage_Paypal.csv</default>
+                    </files>
+                </Mage_Paypal>
+            </modules>
+        </translate>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <paypal>
+                                            <title>PayPal Section</title>
+                                        </paypal>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+
+    <default>
+        <paypal>
+            <wpp>
+                <api_password backend_model="adminhtml/system_config_backend_encrypted"/>
+                <api_signature backend_model="adminhtml/system_config_backend_encrypted"/>
+                <api_username backend_model="adminhtml/system_config_backend_encrypted"/>
+            </wpp>
+            <wps>
+                <business_account backend_model="adminhtml/system_config_backend_encrypted"/>
+            </wps>
+        </paypal>
+        <payment>
+            <paypal_express>
+                <payment_action>Authorization</payment_action>
+                <model>paypal/express</model>
+                <title>Paypal Express</title>
+                <allowspecific>0</allowspecific>
+            </paypal_express>
+            <paypal_direct>
+                <payment_action>Authorization</payment_action>
+                <model>paypal/direct</model>
+                <title>Paypal Direct</title>
+                <cctypes>AE,VI,MC,DI</cctypes>
+                <allowspecific>0</allowspecific>
+            </paypal_direct>
+            <paypal_standard>
+                  <model>paypal/standard</model>
+                  <title>Paypal Standard</title>
+                  <types>IPN</types>
+                  <allowspecific>0</allowspecific>
+                  <transaction_type>O</transaction_type>
+            </paypal_standard>
+        </payment>
+    </default>
+</config>

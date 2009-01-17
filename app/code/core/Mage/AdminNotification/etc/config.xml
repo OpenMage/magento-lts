@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_ProductAlert
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_AdminNotification>
+            <version>1.0.0</version>
+        </Mage_AdminNotification>
+    </modules>
+
+    <global>
+        <models>
+            <adminnotification>
+                <class>Mage_AdminNotification_Model</class>
+                <resourceModel>adminnotification_mysql4</resourceModel>
+            </adminnotification>
+            <adminnotification_mysql4>
+                <class>Mage_AdminNotification_Model_Mysql4</class>
+                <entities>
+                    <inbox>
+                        <table>adminnotification_inbox</table>
+                    </inbox>
+                </entities>
+            </adminnotification_mysql4>
+        </models>
+        <helpers>
+            <adminnotification>
+                <class>Mage_AdminNotification_Helper</class>
+            </adminnotification>
+        </helpers>
+        <resources>
+            <adminnotification_setup>
+                <setup>
+                    <module>Mage_AdminNotification</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </adminnotification_setup>
+            <adminnotification_read>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </adminnotification_read>
+            <adminnotification_write>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </adminnotification_write>
+        </resources>
+        <blocks>
+            <productalert>
+                <class>Mage_AdminNotification_Block</class>
+            </productalert>
+        </blocks>
+    </global>
+
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <adminnotification>
+                                    <title>Notification</title>
+                                    <sort_order>10</sort_order>
+                                    <children>
+                                        <show_toolbar>
+                                            <title>Show Toolbar</title>
+                                            <sort_order>10</sort_order>
+                                        </show_toolbar>
+                                        <show_list>
+                                            <title>Show List</title>
+                                            <sort_order>20</sort_order>
+                                        </show_list>
+                                        <mark_as_read>
+                                            <title>Mark as read</title>
+                                            <sort_order>30</sort_order>
+                                        </mark_as_read>
+                                        <remove>
+                                            <title>Remove</title>
+                                            <sort_order>40</sort_order>
+                                        </remove>
+                                    </children>
+                                </adminnotification>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <menu>
+            <system>
+                <children>
+                    <adminnotification translate="title" module="backup">
+                        <title>Notifications</title>
+                        <action>adminhtml/notification</action>
+                        <sort_order>15</sort_order>
+                    </adminnotification>
+                </children>
+            </system>
+        </menu>
+        <translate>
+            <modules>
+                <Mage_AdminNotification>
+                    <files>
+                        <default>Mage_AdminNotification.csv</default>
+                    </files>
+                </Mage_AdminNotification>
+            </modules>
+        </translate>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <adminnotification>
+                        <type>singleton</type>
+                        <class>adminnotification/observer</class>
+                        <method>preDispatch</method>
+                    </adminnotification>
+                </observers>
+            </controller_action_predispatch>
+        </events>
+    </adminhtml>
+
+    <default>
+        <system>
+            <adminnotification>
+                <feed_url>www.magentocommerce.com/notifications_feed</feed_url>
+                <use_https>0</use_https>
+                <frequency>1</frequency>
+                <last_update>0</last_update>
+            </adminnotification>
+        </system>
+    </default>
+</config>

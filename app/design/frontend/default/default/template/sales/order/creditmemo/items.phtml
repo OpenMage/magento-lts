@@ -1,0 +1,129 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php  $_order = $this->getOrder() ?>
+<a href="<?php echo $this->getPrintAllCreditmemosUrl($_order) ?>" onclick="this.target='_blank'"><?php echo $this->__('Print All Refunds') ?></a>
+<?php foreach ($_order->getCreditmemosCollection() as $_creditmemo): ?>
+<br />
+<div class="head">
+    <h3><?php echo $this->__('Refund #') ?><?php echo $_creditmemo->getIncrementId(); ?></h3>
+    <a href="<?php echo $this->getPrintCreditmemoUrl($_creditmemo) ?>" onclick="this.target='_blank'"><?php echo $this->__('Print Refund') ?></a>
+</div>
+<h4><?php echo $this->__('Items Refunded') ?></h4>
+<table cellspacing="0" class="data-table" id="my-refund-table-<?php echo $_creditmemo->getId(); ?>">
+    <col />
+    <col width="20%" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo $this->__('Product Name') ?></th>
+            <th><?php echo $this->__('SKU') ?></th>
+            <th class="a-right"><?php echo $this->__('Price') ?></th>
+            <th class="a-center"><?php echo $this->__('Qty') ?></th>
+            <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
+            <th class="wrap a-center"><?php echo $this->__('Discount Amount') ?></th>
+            <th class="wrap a-center"><?php echo $this->__('Row Total') ?></th>
+        </tr>
+    </thead>
+    <tfoot>
+        <?php if ((float) $_creditmemo->getSubtotal()): ?>
+        <tr>
+            <td colspan="6" class="a-right"><?php echo $this->__('Subtotal') ?></td>
+            <td class="last a-right"><?php echo $_order->formatPrice($_creditmemo->getSubtotal()) ?></td>
+        </tr>
+        <?php endif; ?>
+        <?php if ((float) $_creditmemo->getTaxAmount()): ?>
+        <tr>
+            <td colspan="6" class="a-right"><?php echo $this->__('Tax') ?></td>
+            <td class="last a-right"><?php echo $_order->formatPrice($_creditmemo->getTaxAmount()) ?></td>
+        </tr>
+        <?php endif; ?>
+
+        <?php if ((float) $_creditmemo->getShippingAmount() || $_creditmemo->getShippingDescription()): ?>
+        <tr>
+            <td colspan="6" class="a-right"><?php echo $this->__('Shipping') ?></td>
+            <td class="last a-right"><?php echo $_order->formatPrice($_creditmemo->getShippingAmount()) ?></td>
+        </tr>
+        <?php endif; ?>
+        <?php if ((float) $_creditmemo->getDiscountAmount()): ?>
+        <tr>
+            <td colspan="6" class="a-right"><?php echo $this->__('Discount') ?></td>
+            <td class="last a-right"><?php echo $_order->formatPrice(-$_creditmemo->getDiscountAmount()) ?></td>
+        </tr>
+        <?php endif; ?>
+
+        <?php if ((float) $_creditmemo->getGiftcertAmount()): ?>
+        <tr>
+            <td colspan="6" class="a-right"><?php echo $this->__('Gift Certificate') ?></td>
+            <td class="last a-right"><?php echo $_order->formatPrice($_creditmemo->getGiftcertAmount()) ?></td>
+        </tr>
+        <?php endif; ?>
+
+        <?php if ((float) $_creditmemo->getAdjustmentPositive()): ?>
+        <tr>
+            <td colspan="6" class="a-right"><?php echo $this->__('Adjustment Refund') ?></td>
+            <td class="last a-right"><?php echo $_order->formatPrice($_creditmemo->getAdjustmentPositive()) ?></td>
+        </tr>
+        <?php endif; ?>
+
+        <?php if ((float) $_creditmemo->getAdjustmentNegative()): ?>
+        <tr>
+            <td colspan="6" class="a-right"><?php echo $this->__('Adjustment Fee') ?></td>
+            <td class="last a-right"><?php echo $_order->formatPrice($_creditmemo->getAdjustmentNegative()) ?></td>
+        </tr>
+        <?php endif; ?>
+         <tr>
+            <td colspan="6" class="a-right"><strong><?php echo $this->__('Grand Total') ?></strong></td>
+            <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getGrandTotal()) ?></strong></td>
+        </tr>
+        <?php if ($this->getCanDisplayTotalPaid()): ?>
+        <tr>
+            <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Paid') ?></strong></td>
+            <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalPaid()) ?></strong></td>
+        </tr>
+        <?php endif; ?>
+        <?php if ($this->getCanDisplayTotalRefunded()): ?>
+        <tr>
+            <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Refunded') ?></strong></td>
+            <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalRefunded()) ?></strong></td>
+        </tr>
+        <?php endif; ?>
+        <?php if ($this->getCanDisplayTotalDue()): ?>
+        <tr>
+            <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Due') ?></strong></td>
+            <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalDue()) ?></strong></td>
+        </tr>
+        <?php endif; ?>
+    </tfoot>
+    <?php $_items = $_creditmemo->getAllItems(); ?>
+    <?php $_count = count($_items) ?>
+    <?php foreach ($_items as $_item): ?>
+    <?php if ($_item->getOrderItem()->getParentItem()) continue; ?>
+    <tbody>
+        <?php echo $this->getItemHtml($_item) ?>
+    </tbody>
+    <?php endforeach; ?>
+</table>
+<script type="text/javascript">decorateTable('my-refund-table-<?php echo $_creditmemo->getId(); ?>', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
+<?php endforeach; ?>

@@ -1,0 +1,62 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php $_item = $this->getItem() ?>
+<li>
+    <div class="product-images">
+        <a href="<?php echo $this->getProductUrl()?>"><img src="<?php echo $this->getProductThumbnail()->resize(50, 50)->setWatermarkSize('30x10'); ?>" alt="<?php echo $this->htmlEscape($this->getProductName()) ?>" width="50" height="50" /></a>
+    </div>
+    <div class="product-details">
+        <a href="<?php echo $this->getDeleteUrl() ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>');" class="widget-btn"><img src="<?php echo $this->getSkinUrl('images/list_remove_btn.gif') ?>" alt="<?php echo $this->__('Remove Product') ?>" /></a>
+        <a href="<?php echo $this->getProductUrl() ?>"><?php echo $this->getProductName() ?></a><br />
+        <strong><?php echo $this->getQty() ?></strong> x
+
+        <?php $_excl = $_item->getPrice(); ?>
+        <?php $_incl = $this->helper('checkout')->getPriceInclTax($_item); ?>
+        <?php if ($this->helper('tax')->displayCartPriceInclTax()): $_excl = $_incl; endif; ?>
+
+        <?php echo $this->helper('checkout')->formatPrice($_excl); ?>
+        <?php if ($this->helper('tax')->displayCartBothPrices() && $_incl != $_excl): ?>
+            <br />(<span><?php echo $this->helper('checkout')->formatPrice($_incl); ?></span> <?php echo Mage::helper('tax')->__('Incl. Tax') ?>)
+        <?php endif; ?>
+
+        <!-- item custom options -->
+        <?php if ($_options = $this->getOptionList()):?>
+        <div class="truncated">
+          <div class="truncated_full_value">
+            <dl class="item-options">
+                <?php foreach ($_options as $_option) : ?>
+                <dt><?php echo $this->htmlEscape($_option['label']) ?></dt>
+                <dd>
+                    <?php if (is_array($_option['value'])): ?>
+                    <?php echo nl2br(implode("\n", $_option['value'])) ?>
+                    <?php else: ?>
+                    <?php echo $_option['value'] ?>
+                    <?php endif; ?>
+                </dd>
+                <?php endforeach; ?>
+            </dl>
+          </div>
+        <a href="#" onclick="return false;" class="details"><?php echo $this->__('Details') ?></a>
+        </div>
+        <?php endif;?>
+        <!-- / -->
+    </div>
+</li>

@@ -1,0 +1,158 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * Session abstaract class
+ *
+ * @category   Mage
+ * @package    Mage_Core
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
+{
+    /**
+     * Session namespace object
+     *
+     * @var Zend_Session_Namespace
+     */
+    protected $_namespace;
+
+    public function getNamespace()
+    {
+    	return $this->_namespace;
+    }
+
+    public function start()
+    {
+        Varien_Profiler::start(__METHOD__.'/setOptions');
+        $options = array(
+        	'save_path'=>Mage::getBaseDir('session'),
+        	'use_only_cookies'=>'off',
+        );
+        if ($this->getCookieDomain()) {
+        	$options['cookie_domain'] = $this->getCookieDomain();
+        }
+        if ($this->getCookiePath()) {
+        	$options['cookie_path'] = $this->getCookiePath();
+        }
+        if ($this->getCookieLifetime()) {
+        	$options['cookie_lifetime'] = $this->getCookieLifetime();
+        }
+        Zend_Session::setOptions($options);
+        Varien_Profiler::stop(__METHOD__.'/setOptions');
+/*
+        Varien_Profiler::start(__METHOD__.'/setHandler');
+        $sessionResource = Mage::getResourceSingleton('core/session');
+        if ($sessionResource->hasConnection()) {
+        	Zend_Session::setSaveHandler($sessionResource);
+        }
+        Varien_Profiler::stop(__METHOD__.'/setHandler');
+*/
+        Varien_Profiler::start(__METHOD__.'/start');
+        Zend_Session::start();
+        Varien_Profiler::stop(__METHOD__.'/start');
+
+        return $this;
+    }
+
+    /**
+     * Initialization session namespace
+     *
+     * @param string $namespace
+     */
+    public function init($namespace)
+    {
+    	if (!Zend_Session::sessionExists()) {
+    		$this->start();
+    	}
+
+        Varien_Profiler::start(__METHOD__.'/init');
+        $this->_namespace = new Zend_Session_Namespace($namespace, Zend_Session_Namespace::SINGLE_INSTANCE);
+        Varien_Profiler::stop(__METHOD__.'/init');
+        return $this;
+    }
+
+    /**
+     * Redeclaration object setter
+     *
+     * @param   string $key
+     * @param   mixed $value
+     * @return  Mage_Core_Model_Session_Abstract
+     */
+    public function setData($key, $value='', $isChanged = false)
+    {
+        if (!$this->_namespace->data) {
+            $this->_namespace->data = new Varien_Object();
+        }
+        $this->_namespace->data->setData($key, $value, $isChanged);
+        return $this;
+    }
+
+    /**
+     * Redeclaration object getter
+     *
+     * @param   string $var
+     * @param   bool $clear
+     * @return  mixed
+     */
+    public function getData($var=null, $clear=false)
+    {
+        if (!$this->_namespace->data) {
+            $this->_namespace->data = new Varien_Object();
+        }
+
+        $data = $this->_namespace->data->getData($var);
+
+        if ($clear) {
+            $this->_namespace->data->unsetData($var);
+        }
+
+        return $data;
+    }
+
+    /**
+     * Cleare session data
+     *
+     * @return Mage_Core_Model_Session_Abstract
+     */
+    public function unsetAll()
+    {
+        $this->_namespace->unsetAll();
+        return $this;
+    }
+
+    /**
+     * Retrieve current session identifier
+     *
+     * @return string
+     */
+    public function getSessionId()
+    {
+        return Zend_Session::getId();
+    }
+
+    public function setSessionId($id=null)
+    {
+        if (!is_null($id)) {
+            Zend_Session::setId($id);
+        }
+        return $this;
+    }
+}

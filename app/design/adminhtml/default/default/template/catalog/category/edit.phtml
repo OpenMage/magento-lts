@@ -1,0 +1,113 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+
+<div class="content-header">
+<table cellspacing="0">
+    <tr>
+        <td><h3 class="icon-head head-categories"><?php echo $this->getHeader() ?></h3></td>
+        <td class="form-buttons">
+            <?php echo $this->getResetButtonHtml() ?>
+            <?php if($this->getCategoryId()): ?>
+                    <?php echo $this->getDeleteButtonHtml() ?>
+            <?php endif; ?>
+            <?php echo $this->getSaveButtonHtml() ?>
+        </td>
+    </tr>
+</table>
+</div>
+<?php if($this->hasStoreRootCategory()): ?>
+    <?php echo $this->getTabsHtml() ?>
+    <form id="category_edit_form" action="<?php echo $this->getSaveUrl() ?>" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="category_products" id="in_category_products" value=""/>
+    <div id="category_tab_content"></div>
+    </form>
+
+<script type="text/javascript" language="javascript">
+    var categoryForm = new varienForm('category_edit_form');
+
+    function categoryDelete(){
+        if(confirm('<?php echo Mage::helper('catalog')->__('Are you sure you want to delete this category?') ?>')){
+            location.href = '<?php echo $this->getDeleteUrl() ?>'
+        }
+    }
+<?php if(($block = $this->getLayout()->getBlock('category.product.grid')) && ($_gridJsObject=$block->getJsObjectName())): ?>
+    var categoryProducts = $H(<?php echo $this->getProductsJson() ?>);
+    $('in_category_products').value = categoryProducts.toQueryString();
+
+    function registerCategoryProduct(grid, element, checked){
+        if(checked){
+            if(element.positionElement){
+                element.positionElement.disabled = false;
+                categoryProducts[element.value] = element.positionElement.value;
+            }
+        }
+        else{
+            if(element.positionElement){
+                element.positionElement.disabled = true;
+            }
+            categoryProducts.remove(element.value);
+        }
+        $('in_category_products').value = categoryProducts.toQueryString();
+        grid.reloadParams = {'selected_products[]':categoryProducts.keys()};
+    }
+    function categoryProductRowClick(grid, event){
+        var trElement = Event.findElement(event, 'tr');
+        var isInput   = Event.element(event).tagName == 'INPUT';
+        if(trElement){
+            var checkbox = Element.getElementsBySelector(trElement, 'input');
+            if(checkbox[0]){
+                var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
+                <?php echo $_gridJsObject ?>.setCheckboxChecked(checkbox[0], checked);
+            }
+        }
+    }
+    function positionChange(event){
+        var element = Event.element(event);
+        if(element && element.checkboxElement && element.checkboxElement.checked){
+            categoryProducts[element.checkboxElement.value] = element.value;
+            $('in_category_products').value = categoryProducts.toQueryString();
+        }
+    }
+
+    var tabIndex = 1000;
+    function categoryProductRowInit(grid, row){
+        var checkbox = $(row).getElementsByClassName('checkbox')[0];
+        var position = $(row).getElementsByClassName('input-text')[0];
+        if(checkbox && position){
+            checkbox.positionElement = position;
+            position.checkboxElement = checkbox;
+            position.disabled = !checkbox.checked;
+            position.tabIndex = tabIndex++;
+            Event.observe(position,'keyup',positionChange);
+        }
+    }
+    <?php echo $_gridJsObject ?>.rowClickCallback = categoryProductRowClick;
+    <?php echo $_gridJsObject ?>.initRowCallback = categoryProductRowInit;
+    <?php echo $_gridJsObject ?>.checkboxCheckCallback = registerCategoryProduct;
+    <?php echo $_gridJsObject ?>.rows.each(function(row){categoryProductRowInit(<?php echo $_gridJsObject ?>, row)});
+<?php endif; ?>
+</script>
+
+<?php else: ?>
+<div class="messages warning-msg">
+    <?php echo Mage::helper('catalog')->__('Set root category for this store in the <a href="%s">configuration</a>', $this->getStoreConfigurationUrl()) ?>
+</div>
+<?php endif; ?>

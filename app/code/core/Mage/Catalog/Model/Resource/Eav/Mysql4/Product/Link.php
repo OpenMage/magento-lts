@@ -1,0 +1,86 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+
+/**
+ * Catalog product link resource model
+ *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link extends Mage_Core_Model_Mysql4_Abstract
+{
+    protected $_attributesTable;
+    protected function  _construct()
+    {
+        $this->_init('catalog/product_link', 'link_id');
+        $this->_attributesTable = $this->getTable('catalog/product_link_attribute');
+    }
+
+    public function saveProductLinks($product, $data, $typeId)
+    {
+        if (!is_array($data)) {
+            $data = array();
+        }
+        $attributes = $this->getAttributesByType($typeId);
+        $deleteCondition = $this->_getWriteAdapter()->quoteInto('product_id=?', $product->getId())
+            . $this->_getWriteAdapter()->quoteInto(' AND link_type_id=?', $typeId);
+
+        $this->_getWriteAdapter()->delete($this->getMainTable(), $deleteCondition);
+
+        foreach ($data as $linkedProductId => $linkInfo) {
+            $this->_getWriteAdapter()->insert($this->getMainTable(), array(
+                'product_id'        => $product->getId(),
+                'linked_product_id' => $linkedProductId,
+                'link_type_id'      => $typeId
+            ));
+            $linkId = $this->_getWriteAdapter()->lastInsertId();
+            foreach ($attributes as $attributeInfo) {
+                $attributeTable = $this->getAttributeTypeTable($attributeInfo['type']);
+            	if ($attributeTable && isset($linkInfo[$attributeInfo['code']])) {
+                    $this->_getWriteAdapter()->insert($attributeTable, array(
+                        'product_link_attribute_id' => $attributeInfo['id'],
+                        'link_id'                   => $linkId,
+                        'value'                     => $linkInfo[$attributeInfo['code']]
+                    ));
+            	}
+            }
+        }
+        return $this;
+    }
+
+    public function getAttributesByType($typeId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->_attributesTable, array(
+                'id'    => 'product_link_attribute_id',
+                'code'  => 'product_link_attribute_code',
+                'type'  => 'data_type'
+            ))
+            ->where('link_type_id=?', $typeId);
+        return $this->_getReadAdapter()->fetchAll($select);
+    }
+
+    public function getAttributeTypeTable($type)
+    {
+        return $this->getTable('catalog/product_link_attribute_'.$type);
+    }
+}

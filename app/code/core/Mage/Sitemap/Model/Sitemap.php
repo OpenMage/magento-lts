@@ -1,0 +1,169 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Sitemap
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+
+/**
+ * Sitemap model
+ *
+ * @category   Mage
+ * @package    Mage_Sitemap
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
+{
+    /**
+     * Real file path
+     *
+     * @var string
+     */
+    protected $_filePath;
+
+    /**
+     * Init model
+     */
+    protected function _construct()
+    {
+        $this->_init('sitemap/sitemap');
+    }
+
+    protected function _beforeSave()
+    {
+        $io = new Varien_Io_File();
+        $realPath = $io->getCleanPath(Mage::getBaseDir() . '/' . $this->getSitemapPath());
+
+        /**
+         * Check path is allow
+         */
+        if (!$io->allowedPath($realPath, Mage::getBaseDir())) {
+            Mage::throwException(Mage::helper('sitemap')->__('Please define correct path'));
+        }
+        /**
+         * Check exists and writeable path
+         */
+        if (!$io->fileExists($realPath, false)) {
+            Mage::throwException(Mage::helper('sitemap')->__('Please create the specified folder "%s" before saving the sitemap.', file_exists($realPath)));
+        }
+
+        if (!$io->isWriteable($realPath)) {
+            Mage::throwException(Mage::helper('sitemap')->__('Please make sure that "%s" is writable by web-sebver.', $this->getSitemapPath()));
+        }
+        /**
+         * Check allow filename
+         */
+        if (!preg_match('#^[a-zA-Z0-9_\.]+$#', $this->getSitemapFilename())) {
+            Mage::throwException(Mage::helper('sitemap')->__('Please use only letters (a-z or A-Z), numbers (0-9) or underscore (_) only in the filename. No spaces or other characters are allowed.'));
+        }
+        if (!preg_match('#\.xml$#', $this->getSitemapFilename())) {
+            $this->setSitemapFilename($this->getSitemapFilename() . '.xml');
+        }
+
+        $this->setSitemapPath(rtrim(str_replace(Mage::getBaseDir(), '', $realPath), '/') . '/');
+
+        return parent::_beforeSave();
+    }
+
+    /**
+     * Return real file path
+     *
+     * @return string
+     */
+    protected function getPath()
+    {
+        if (is_null($this->_filePath)) {
+            $this->_filePath = str_replace('//', '/', Mage::getBaseDir() .
+                $this->getSitemapPath());
+        }
+        return $this->_filePath;
+    }
+
+    public function generateXml()
+    {
+        $io = new Varien_Io_File();
+        $io->setAllowCreateFolders(true);
+        $io->open(array('path' => $this->getPath()));
+        $io->streamOpen($this->getSitemapFilename());
+
+        $io->streamWrite('<?xml version="1.0" encoding="UTF-8"?>' . "\n");
+        $io->streamWrite('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+
+        $storeId = $this->getStoreId();
+        $date    = Mage::getSingleton('core/date')->gmtDate('Y-m-d');
+        $baseUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+
+        /**
+         * Generate categories sitemap
+         */
+        $changefreq = (string)Mage::getStoreConfig('sitemap/category/changefreq');
+        $priority   = (string)Mage::getStoreConfig('sitemap/category/priority');
+        $collection = Mage::getResourceModel('sitemap/catalog_category')->getCollection($storeId);
+        foreach ($collection as $item) {
+            $xml = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
+                htmlspecialchars($baseUrl . $item->getUrl()),
+                $date,
+                $changefreq,
+                $priority
+            );
+            $io->streamWrite($xml);
+        }
+        unset($collection);
+
+        /**
+         * Generate products sitemap
+         */
+        $changefreq = (string)Mage::getStoreConfig('sitemap/product/changefreq');
+        $priority   = (string)Mage::getStoreConfig('sitemap/product/priority');
+        $collection = Mage::getResourceModel('sitemap/catalog_product')->getCollection($storeId);
+        foreach ($collection as $item) {
+            $xml = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
+                htmlspecialchars($baseUrl . $item->getUrl()),
+                $date,
+                $changefreq,
+                $priority
+            );
+            $io->streamWrite($xml);
+        }
+        unset($collection);
+
+        /**
+         * Generate cms pages sitemap
+         */
+        $changefreq = (string)Mage::getStoreConfig('sitemap/page/changefreq');
+        $priority   = (string)Mage::getStoreConfig('sitemap/page/priority');
+        $collection = Mage::getResourceModel('sitemap/cms_page')->getCollection($storeId);
+        foreach ($collection as $item) {
+            $xml = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
+                htmlspecialchars($baseUrl . $item->getUrl()),
+                $date,
+                $changefreq,
+                $priority
+            );
+            $io->streamWrite($xml);
+        }
+        unset($collection);
+
+        $io->streamWrite('</urlset>');
+        $io->streamClose();
+
+        $this->setSitemapTime(Mage::getSingleton('core/date')->gmtDate('Y-m-d H:i:s'));
+        $this->save();
+
+        return $this;
+    }
+}

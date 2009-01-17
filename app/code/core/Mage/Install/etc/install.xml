@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Install
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <wizard>
+        <steps>
+            <begin>
+                <code>License Agreement</code>
+                <controller>wizard</controller>
+                <action>begin</action>
+            </begin>
+            <locale>
+                <code>Localization</code>
+                <controller>wizard</controller>
+                <action>locale</action>
+            </locale>
+            <config>
+                <code>Configuration</code>
+                <controller>wizard</controller>
+                <action>config</action>
+            </config>
+            <administrator>
+                <code>Create Admin Account</code>
+                <controller>wizard</controller>
+                <action>administrator</action>
+            </administrator>
+            <end>
+                <code>You're All Set!</code>
+                <controller>wizard</controller>
+                <action>end</action>
+            </end>
+        </steps>
+    </wizard>
+    <check>
+        <filesystem>
+            <writeable>
+                <items>
+                    <path>/app/etc</path>
+                    <existence>1</existence>
+                    <recursive>0</recursive>
+                </items>
+                <items>
+                    <path>/var</path>
+                    <existence>1</existence>
+                    <recursive>1</recursive>
+                </items>
+                <items>
+                    <path>/media</path>
+                    <existence>1</existence>
+                    <recursive>1</recursive>
+                </items>
+            </writeable>
+        </filesystem>
+        <php>
+            <extensions>
+                <spl/>
+                <dom/>
+                <simplexml/>
+                <pdo_mysql/>
+                <mcrypt/>
+                <hash/>
+                <curl/>
+                <iconv/>
+                <ctype/>
+                <gd/>
+            </extensions>
+        </php>
+        <mysql>
+            <version>4.1.20</version>
+        </mysql>
+    </check>
+</config>

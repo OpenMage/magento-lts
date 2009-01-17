@@ -1,0 +1,46 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<div class="entry-edit">
+    <fieldset>
+        <ul class="note-list">
+        <?php foreach ($this->getFullHistory() as $_history): ?>
+            <li>
+                <strong><?php echo $this->helper('core')->formatDate($_history['created_at'], 'medium') ?></strong>
+                <?php echo $this->helper('core')->formatTime($_history['created_at'], 'medium') ?><span class="separator">|</span>
+                <strong><?php echo $_history['title']?></strong>
+                <?php if ($_history['notified'] !== false): ?>
+                <span class="separator">|</span><small><?php echo $this->helper('sales')->__('Customer') ?>
+                <strong class="subdue"><?php if ($_history['notified']): ?>
+                <?php echo $this->helper('sales')->__('Notified') ?>
+                <img src="<?php echo $this->getSkinUrl('images/ico_success.gif') ?>" width="16" height="16" alt="" />
+                <?php else: ?>
+                <?php echo $this->helper('sales')->__('Not Notified') ?>
+                <?php endif; ?>
+                <?php endif; ?>
+                </strong></small>
+                    <?php if($_history['comment']): ?>
+                        <br/><?php echo $_history['comment'] ?>
+                    <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+        </ul>
+    </fieldset>
+</div>

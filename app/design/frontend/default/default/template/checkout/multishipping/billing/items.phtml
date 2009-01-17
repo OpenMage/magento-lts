@@ -1,0 +1,54 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php if ($this->getQuote()->hasVirtualItems()): ?>
+    <div class="box">
+        <div class="count-head">
+            <h4><?php echo $this->__('Other items in your order') ?></h4>
+        </div>
+        <div class="content col2-alt-set">
+            <div class="col-1"></div>
+            <div class="col-2">
+                <div class="head">
+                    <h5><?php echo $this->__('Items') ?><span class="pipe">|</span><a href="<?php echo $this->getVirtualProductEditUrl() ?>"><?php echo $this->__('Edit Items') ?></a></h5>
+                </div>
+                <table cellspacing="0" id="unavailable-shipping-table" class="data-table nested-table">
+                    <col />
+                    <col width="30" />
+                    <thead>
+                        <tr>
+                            <th><?php echo $this->__('Product Name') ?></th>
+                            <th class="a-center"><?php echo $this->__('Qty') ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($this->getVirtualQuoteItems() as $_item): ?>
+                        <tr>
+                            <td><?php echo $this->getItemHtml($_item) ?></td>
+                            <td class="a-center"><?php echo $_item->getQty() ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <script type="text/javascript">decorateTable('unavailable-shipping-table')</script>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

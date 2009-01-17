@@ -1,0 +1,82 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+.col2-set,
+.col3-set,
+.col4-set,
+.col2-alt-set,
+.head,
+.page-head,
+.page-head-alt,
+.header-top-container,
+.header-top,
+.header-nav-container,
+.header-nav,
+.quick-access,
+#nav,
+#nav li,
+#nav a,
+.middle,
+.product-essential,
+.button-set,
+.actions,
+.form-list li,
+.button-container,
+.ratings,
+.page-head,
+.page-head-alt,
+.advanced-search li,
+.group-select li,
+.group-select li,
+.search-autocomplete li,
+.side-col li,
+.account-box li,
+.address-list li,
+.listing-type-list .listing-item,
+.listing-type-list .product-info .product-reviews,
+.account-nav a,
+.account-box,
+.my-review-detail,
+.generic-product-list li,
+.product-options dt,
+.product-options dd ul.options-list li,
+.product-options dd ul.options-list .label,
+.product-options-bottom,
+.truncated_full_value,
+.add-to-holder { zoom:1; }
+
+.form-button,
+.form-button-alt { padding:1px 10px 0; }
+input.form-radio,
+input.form-checkbox { width:13px; height:13px; }
+.product-options dd ul.options-list input.form-radio { margin-top:4px; }
+.multi-address-checkout-box .box { zoom:1; }
+.multi-address-checkout-box .legend { zoom:1; position:relative; margin-left:8px; }
+.quick-access li { padding-right:4px; padding-left:6px;}
+.mini-search  { padding-top:-1px; line-height:1em;}
+.home-spot { display:inline; }
+.mini-related-items .product-details { margin-left:80px; }
+.mini-related-items .product-images input { zoom:1; position:relative; margin:-4px 2px 0 -4px; }
+.mini-related-items .product-images img { float:left; }
+.header-top-container { position:relative; }
+#nav ul li.parent { margin-bottom:-3px; }
+
+/* Clearer */
+.clear { display:block; clear:both; font-size:0; line-height:0; height:0; visibility:hidden; overflow:hidden;	}
+
+/* Fix for IE menu bug */
+#nav iframe,
+.truncated iframe { position:absolute; left:-1px; top:0; z-index:-1; background:transparent; filter:progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0); }

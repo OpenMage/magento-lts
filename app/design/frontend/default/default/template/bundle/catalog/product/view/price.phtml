@@ -1,0 +1,48 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php $_product = $this->getProduct() ?>
+<?php $_finalPrice = Mage::helper('tax')->getPrice($_product, $_product->getFinalPrice()); ?>
+<?php $_finalPriceInclTax = Mage::helper('tax')->getPrice($_product, $_product->getFinalPrice(), true); ?>
+
+<div class="price-box">
+    <p class="price-as-configured">
+        <span class="price-label"><?php echo $this->helper('bundle')->__('Price as configured') ?>:</span>
+        <?php if ($this->helper('tax')->displayBothPrices() && $this->isRatesGraterThenZero()): ?>
+        <span class="price-tax">
+            <span class="price-excluding-tax">
+                <span class="label"><?php echo $this->helper('tax')->__('Excl. Tax') ?>:</span>
+                <span class="price" id="price-excluding-tax-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?></span>
+            </span>
+            <span class="price-including-tax">
+                <span class="label"><?php echo $this->helper('tax')->__('Incl. Tax') ?>:</span>
+                <span class="price" id="price-including-tax-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPriceInclTax,true,false) ?></span>
+            </span>
+        </span>
+        <?php else: ?>
+        <span class="price" id="product-price-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?></span>
+    <?php endif; ?>
+    </p>
+</div>
+<?php if($_product->isSaleable()): ?>
+<script type="text/javascript">
+bundle.reloadPrice();
+</script>
+<?php endif; ?>

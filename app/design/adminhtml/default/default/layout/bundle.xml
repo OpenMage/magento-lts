@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+
+<layout>
+
+<!--
+Layout handle for budle products
+-->
+
+    <adminhtml_catalog_product_bundle>
+        <remove name="product_tabs"/>
+        <reference name="left">
+            <block type="bundle/adminhtml_catalog_product_edit_tabs" name="bundle_product_tabs"></block>
+        </reference>
+    </adminhtml_catalog_product_bundle>
+
+    <adminhtml_sales_order_view>
+        <reference name="order_items">
+            <action method="addItemRender"><type>bundle</type><block>bundle/adminhtml_sales_order_view_items_renderer</block><template>bundle/sales/order/view/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_view>
+
+    <adminhtml_sales_order_invoice_new>
+        <reference name="order_items">
+            <action method="addItemRender"><type>bundle</type><block>bundle/adminhtml_sales_order_items_renderer</block><template>bundle/sales/invoice/create/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_invoice_new>
+
+    <adminhtml_sales_order_invoice_updateqty>
+        <reference name="order_items">
+            <action method="addItemRender"><type>bundle</type><block>bundle/adminhtml_sales_order_items_renderer</block><template>bundle/sales/invoice/create/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_invoice_updateqty>
+
+    <adminhtml_sales_order_invoice_view>
+        <reference name="invoice_items">
+            <action method="addItemRender"><type>bundle</type><block>bundle/adminhtml_sales_order_items_renderer</block><template>bundle/sales/invoice/view/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_invoice_view>
+
+    <adminhtml_sales_order_shipment_new>
+        <reference name="order_items">
+            <action method="addItemRender"><type>bundle</type><block>bundle/adminhtml_sales_order_items_renderer</block><template>bundle/sales/shipment/create/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_shipment_new>
+
+    <adminhtml_sales_order_shipment_view>
+        <reference name="shipment_items">
+            <action method="addItemRender"><type>bundle</type><block>bundle/adminhtml_sales_order_items_renderer</block><template>bundle/sales/shipment/view/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_shipment_view>
+
+    <adminhtml_sales_order_creditmemo_new>
+        <reference name="order_items">
+            <action method="addItemRender"><type>bundle</type><block>bundle/adminhtml_sales_order_items_renderer</block><template>bundle/sales/creditmemo/create/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_new>
+
+    <adminhtml_sales_order_creditmemo_updateqty>
+        <reference name="order_items">
+            <action method="addItemRender"><type>bundle</type><block>bundle/adminhtml_sales_order_items_renderer</block><template>bundle/sales/creditmemo/create/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_updateqty>
+
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="creditmemo_items">
+            <action method="addItemRender"><type>bundle</type><block>bundle/adminhtml_sales_order_items_renderer</block><template>bundle/sales/creditmemo/view/items/renderer.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_view>
+
+</layout>

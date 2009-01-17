@@ -1,0 +1,34 @@
+<?php $_order = $this->getOrder(); ?>
+<?php $_fullInfo = $_order->getFullTaxInfo(); ?>
+
+<?php global $taxIter; $taxIter++; ?>
+<?php if ($this->helper('tax')->displayFullSummary()): ?>
+<?php $isTop = 1; ?>
+    <?php if ($_fullInfo) foreach ($_fullInfo as $info): ?>
+        <?php $percent = $info['percent']; ?>
+        <?php $amount = $info['amount']; ?>
+        <?php $rates = $info['rates']; ?>
+        <?php $isFirst = 1; ?>
+
+        <?php foreach ($rates as $rate): ?>
+        <tr class="tax-details-<?php echo $taxIter; ?> tax-details<?php if ($isTop): echo ' tax-details-first'; endif; ?>">
+            <td class="a-right" colspan="4"><?php echo $rate['title']; ?> - <?php echo $rate['percent']; ?>%<br /></td>
+            <?php if ($isFirst): ?>
+                <td class="a-right"  rowspan="<?php echo count($rates); ?>"><?php echo $_order->formatPrice($amount); ?></td>
+            <?php endif; ?>
+        </tr>
+        <?php $isFirst = 0; ?>
+    	<?php $isTop = 0; ?>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+<?php endif;?>
+<tr class="show-details">
+    <td class="a-right" colspan="4">
+        <?php if ($this->helper('tax')->displayFullSummary()): ?>
+            <?php echo $this->__('Tax'); ?>
+        <?php else: ?>
+            <?php echo $this->__('Tax'); ?>
+        <?php endif;?>
+    </td>
+    <td class="a-right"><?php echo $_order->formatPrice($_order->getTaxAmount()) ?></td>
+</tr>

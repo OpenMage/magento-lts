@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Log
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+    <Mage_Log>
+        <version>0.7.2</version>
+    </Mage_Log>
+    </modules>
+    <global>
+        <ignoredModules>
+            <entities>
+                <install />
+                <adminhtml />
+                <admin />
+            </entities>
+        </ignoredModules>
+        <models>
+            <log>
+                <class>Mage_Log_Model</class>
+                <resourceModel>log_mysql4</resourceModel>
+            </log>
+            <log_mysql4>
+                <class>Mage_Log_Model_Mysql4</class>
+                <entities>
+                    <customer>
+                        <table>log_customer</table>
+                    </customer>
+                    <visitor>
+                        <table>log_visitor</table>
+                    </visitor>
+                    <visitor_info>
+                        <table>log_visitor_info</table>
+                    </visitor_info>
+                    <url_table>
+                        <table>log_url</table>
+                    </url_table>
+                    <url_info_table>
+                        <table>log_url_info</table>
+                    </url_info_table>
+                    <summary_table>
+                        <table>log_summary</table>
+                    </summary_table>
+                    <summary_type_table>
+                        <table>log_summary_type</table>
+                    </summary_type_table>
+                    <quote_table>
+                        <table>log_quote</table>
+                    </quote_table>
+                </entities>
+            </log_mysql4>
+        </models>
+        <resources>
+            <log_setup>
+                <setup>
+                    <module>Mage_Log</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </log_setup>
+            <log_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </log_write>
+            <log_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </log_read>
+        </resources>
+    </global>
+    <frontend>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <log>
+                        <type>singleton</type>
+                        <class>log/visitor</class>
+                        <method>initByRequest</method>
+                    </log>
+                </observers>
+            </controller_action_predispatch>
+            <controller_action_postdispatch>
+                <observers>
+                    <log>
+                        <type>singleton</type>
+                        <class>log/visitor</class>
+                        <method>saveByRequest</method>
+                    </log>
+                </observers>
+            </controller_action_postdispatch>
+            <customer_login>
+                <observers>
+                    <log>
+                        <type>singleton</type>
+                        <class>log/visitor</class>
+                        <method>bindCustomerLogin</method>
+                    </log>
+                </observers>
+            </customer_login>
+            <customer_logout>
+                <observers>
+                    <log>
+                        <type>singleton</type>
+                        <class>log/visitor</class>
+                        <method>bindCustomerLogout</method>
+                    </log>
+                </observers>
+            </customer_logout>
+            <sales_quote_save_after>
+                <observers>
+                    <log>
+                        <type>singleton</type>
+                        <class>log/visitor</class>
+                        <method>bindQuoteCreate</method>
+                    </log>
+                </observers>
+            </sales_quote_save_after>
+            <checkout_quote_destroy>
+                <observers>
+                    <log>
+                        <type>singleton</type>
+                        <class>log/visitor</class>
+                        <method>bindQuoteDestroy</method>
+                    </log>
+                </observers>
+            </checkout_quote_destroy>
+        </events>
+    </frontend>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Log>
+                    <files>
+                        <default>Mage_Log.csv</default>
+                    </files>
+                </Mage_Log>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <crontab>
+        <jobs>
+            <every_10_minutes>
+                <schedule>
+                    <cron_expr>*/10 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>log/aggregation::run</model>
+                </run>
+            </every_10_minutes>
+        </jobs>
+    </crontab>
+</config>

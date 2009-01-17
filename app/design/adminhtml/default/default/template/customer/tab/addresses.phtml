@@ -1,0 +1,487 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<!-- Addresses list -->
+<table cellspacing="0" class="form-edit">
+<tr>
+<td class="address-list">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-customer-address-list"><?php echo Mage::helper('customer')->__('Customer Addresses') ?></h4>
+    </div>
+    <div class="sub-btn-set"><?php echo $this->getAddNewButtonHtml() ?></div>
+    <ul id="address_list">
+    <?php $_iterator = 0; ?>
+    <?php if(count($addressCollection)): ?>
+        <?php foreach ($addressCollection as $_address): ?>
+        <li id="address_item_<?php echo $_address->getId() ?>">
+            <a href="#" class="btn-remove-address">
+                <img src="<?php echo $this->getSkinUrl('images/cancel_icon.gif') ?>" alt="Remove address" id="delete_button<?php echo ++$_iterator ?>" />
+            </a>
+            <a href="#" id="select_button" class="select_button btn-edit-address">
+                <img src="<?php echo $this->getSkinUrl('images/edit_icon.gif') ?>" alt="Edit address"/>
+            </a>
+            <address>
+                <?php echo $_address->format('html') ?>
+            </address>
+            <div class="address-type">
+                <span class="address-type-line">
+                    <input type="radio" value="<?php echo $_address->getId() ?>" id="address_item_billing<?php echo $_address->getId() ?>" name="account[default_billing]" title="<?php echo Mage::helper('customer')->__('Set as Default Billing Address') ?>"<?php if($_address->getId()==$customer->getDefaultBilling()): ?> checked="true"<?php endif; ?>/>
+                    &nbsp;<label for="address_item_billing<?php echo $_address->getId() ?>"><?php echo Mage::helper('customer')->__('Default Billing Address') ?></label>
+                </span>
+                <span class="address-type-line">
+                    <input type="radio" value="<?php echo $_address->getId() ?>" id="address_item_shipping<?php echo $_address->getId() ?>" name="account[default_shipping]" title="<?php echo Mage::helper('customer')->__('Set as Default Shipping Address') ?>"<?php if($_address->getId()==$customer->getDefaultShipping()): ?> checked="true"<?php endif; ?>/>
+                    &nbsp;<label for="address_item_shipping<?php echo $_address->getId() ?>"><?php echo Mage::helper('customer')->__('Default Shipping Address') ?></label>
+                </span>
+            </div>
+        </li>
+        <?php endforeach; ?>
+    <?php endif; ?>
+    </ul>
+</td>
+<td>
+<!-- Addresses forms -->
+    <div class="entry-edit" id="address_form_container">
+        <?php if(count($addressCollection)): ?>
+            <?php foreach ($addressCollection as $_address): ?>
+            <div id="form_address_item_<?php echo $_address->getId() ?>" style="display:none">
+            <?php
+                    $this->getFormObject()->setValues($_address->getData())
+                            ->setHtmlIdPrefix($_address->getId())
+                            ->setFieldNameSuffix('address['.$_address->getId().']')
+            ?>
+            <?php echo $this->getFormObject()->getHtml() ?>
+            <input type="hidden" name="address[<?php echo $_address->getId() ?>][_deleted]" id="deleted_address_item_<?php echo $_address->getId() ?>">
+            </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div id="no_address_message"><?php echo Mage::helper('customer')->__('This customer has no saved addresses.') ?></div>
+        <?php endif; ?>
+    </div>
+
+
+    <!-- Template for adding address item to list -->
+    <?php $_templatePrefix = $this->getTemplatePrefix() ?>
+    <div id="address_item_template" class="no-display template">
+        <a href="#" class="btn-remove-address">
+            <img src="<?php echo $this->getSkinUrl('images/cancel_icon.gif') ?>" alt="Remove address" id="delete_button<?php echo ++$_iterator ?>" />
+        </a>
+        <a href="#" id="select_button" class="select_button btn-edit-address">
+            <img src="<?php echo $this->getSkinUrl('images/edit_icon.gif') ?>" alt="Edit address"/>
+        </a>
+        <address><?php echo Mage::helper('customer')->__('New Customer Address') ?></address>
+        <div class="address-type">
+            <span class="address-type-line">
+                <input type="radio" value="<?php echo $_templatePrefix ?>" id="address_item_billing<?php echo $_templatePrefix ?>" name="account[default_billing]" title="<?php echo Mage::helper('customer')->__('Set as Default Billing Address') ?>"/>
+                &nbsp;<label for="address_item_billing<?php echo $_templatePrefix ?>"><?php echo Mage::helper('customer')->__('Default Billing Address') ?></label>
+            </span>
+            <span class="address-type-line">
+                <input type="radio" value="<?php echo $_templatePrefix ?>" id="address_item_shipping<?php echo $_templatePrefix ?>" name="account[default_shipping]" title="<?php echo Mage::helper('customer')->__('Set as Default Shipping Address') ?>"/>
+                &nbsp;<label for="address_item_shipping<?php echo $_templatePrefix ?>"><?php echo Mage::helper('customer')->__('Default Shipping Address') ?></label>
+            </span>
+        </div>
+    </div>
+
+    <!-- Address form template -->
+    <div id="address_form_template" class="no-display template">
+    <?php
+        // Set form template elements prefix
+        $this->getFormObject()->setHtmlIdPrefix($_templatePrefix)
+                ->setValues(array())
+                ->setFieldNameSuffix('address['.$_templatePrefix.']');
+    ?>
+    <?php echo $this->getFormObject()->getHtml() ?>
+    <?php echo $this->getCancelButtonHtml() ?>
+    </div>
+
+
+<!-- -->
+<script type="text/javascript">
+var deleteButtonId = <?php echo $_iterator ?>;
+
+var addressesModel = Class.create();
+addressesModel.prototype = {
+    initialize : function() {
+        this.activeItem   = null;
+        this.itemTemplate = $('address_item_template');
+        this.formTemplate = $('address_form_template');
+        this.itemContainer= $('address_list');
+        this.formContainer= $('address_form_container');
+        this.baseItemId   = 'new_item';
+
+        this.itemContentTemplate = new Template('<?php echo $this->helper('customer/address')->getFormat('js_template')?>');
+
+        this.onNewAddressClick  = this.addNewAddress.bindAsEventListener(this);
+        this.onItemMouseOver    = this.itemMouseOver.bindAsEventListener(this);
+        this.onItemMouseOut     = this.itemMouseOut.bindAsEventListener(this);
+        this.onItemMouseClick   = this.itemMouseClick.bindAsEventListener(this);
+        this.onItemFormFieldChange = this.syncFormData.bindAsEventListener(this);
+
+        this.loader = new varienLoader(true);
+        this.regionsUrl = '<?php echo $this->getRegionsUrl() ?>';
+
+        this.reloadItemList(1);
+
+        for(var i=0,n=this.itemList.length; i<n; i++){
+            if(this.itemList[i].id){
+                this.addItemObservers(this.itemList[i]);
+                this.initItem(this.itemList[i]);
+            }
+        }
+        if($('add_new_address_button')){
+            Event.observe('add_new_address_button', 'click', this.onNewAddressClick)
+        }
+
+        this.setActiveItem(this.itemList[0]);
+        this.setAddressAsDefault();
+        this.bindCountryRegionRelation();
+    },
+
+    reloadItemList : function(initial){
+        this.itemList = $$('#address_list li');
+        if( initial ) {
+            this.itemCount = this.itemList.length;
+        }
+        if(!this.itemList.length){
+            if($('no_address_message')){
+                $('no_address_message').show();
+            }
+            else {
+                this.formContainer.innerHTML+= '<div id="no_address_message"><?php echo addslashes(Mage::helper('customer')->__('This customer has no saved addresses.')) ?></div>'
+            }
+        }
+    },
+
+    initItem : function(item){
+        if(item && $('form_'+item.id)){
+            item.formBlock = $('form_'+item.id);
+            Element.hide($('form_'+item.id));
+            $('form_'+item.id).statusBar = item;
+            $('form_'+item.id).addressItem = item;
+        }
+    },
+
+    addItemObservers : function(item){
+        if(item.id){
+            Event.observe(item, 'mouseover', this.onItemMouseOver);
+            Event.observe(item, 'mouseout', this.onItemMouseOut);
+            Event.observe(item, 'click', this.onItemMouseClick);
+        }
+    },
+
+    addNewAddress : function(event){
+        if(this.canCreateNewAddress){
+            this.itemCount++;
+            if($('no_address_message')){
+                $('no_address_message').hide();
+            }
+
+            // create new form elements
+            new Insertion.Bottom(
+                this.formContainer,
+                '<div id="' + 'form_' + this.baseItemId + this.itemCount + '">'
+                + this.prepareTemplate(this.formTemplate.innerHTML)
+                + '</div>') ;
+
+            var newForm = $('form_' + this.baseItemId + this.itemCount);
+
+            $('_item'+this.itemCount+'firstname').value = $('_accountfirstname').value;
+            $('_item'+this.itemCount+'lastname').value = $('_accountlastname').value;
+
+            Element.hide(newForm);
+            var template = '<li id="' + this.baseItemId+this.itemCount + '">';
+            deleteButtonId ++;
+            template    += this.prepareTemplate(this.itemTemplate.innerHTML).replace('delete_button', 'delete_button'+ deleteButtonId);
+            template    += '</li>';
+            new Insertion.Bottom(this.itemContainer, template);
+            var newItem = $(this.baseItemId+this.itemCount);
+            newItem.isNewAddress = true;
+            newItem.formBlock = newForm;
+
+
+            newForm.statusBar = newItem;
+            newForm.addressItem = newItem;
+
+            this.addItemObservers(newItem);
+            this.setActiveItem(newItem);
+            this.bindCountryRegionRelation(newForm.id);
+
+            if( $('_item'+this.itemCount+'firstname').value ) this.syncFormData($('_item'+this.itemCount+'firstname'));
+            if( $('_item'+this.itemCount+'lastname').value ) this.syncFormData($('_item'+this.itemCount+'lastname'));
+        }
+        this.reloadItemList();
+        //Event.stop(event);
+    },
+
+    prepareTemplate : function(template){
+        return template.replace(/<?php echo $_templatePrefix ?>/g, '_item'+this.itemCount).replace(/_counted="undefined"/g, '');
+    },
+
+    canCreateNewAddress : function(){
+        return true;
+    },
+
+    itemMouseOver : function(event){
+        var element = Event.findElement(event, 'li');
+        Element.addClassName(element, 'over');
+    },
+
+    itemMouseOut : function(event){
+        var element = Event.findElement(event, 'li');
+        Element.removeClassName(element, 'over');
+    },
+
+    itemMouseClick : function(event){
+        if (!Event) {
+            return;
+        }
+        var element = Event.findElement(event, 'li'); // find top item
+        var elem = Event.element(event); // exact element clicked
+
+        if ( ((elem.tagName.toUpperCase() == 'A') && elem.id.match(/^delete_button([0-9]*?)$/)) || ((elem.tagName.toUpperCase() == 'IMG') && elem.id.match(/^delete_button([0-9]*?)$/)) ) {
+            this.deleteAddress(element);
+            Event.stop(event);
+        }
+        else if(elem.tagName.toUpperCase() == 'INPUT') {
+            this.setAddressAsDefault(element);
+        }
+        else {
+            this.setActiveItem(element);
+        }
+    },
+
+    setAddressAsDefault : function(){
+        for(var i=0; i<this.itemList.length;i++){
+            if(this.itemList[i].id){
+                var inputs = $(this.itemList[i].id).getElementsBySelector('input');
+                var isActive = false;
+                for(var j in inputs){
+                    if(inputs[j].type=='radio' && inputs[j].checked && this.itemList.length > 1){
+                        isActive = true;
+                    }
+                }
+                this.toggleDeleteButton(this.itemList[i], !isActive);
+            }
+        }
+    },
+
+    toggleDeleteButton : function(item, flag){
+        if(flag){
+            $(item).getElementsByClassName('btn-remove-address').each(Element.show);
+            $(item.formBlock).getElementsBySelector('.delete-address').each(Element.show);
+        } else {
+            $(item).getElementsByClassName('btn-remove-address').each(Element.hide);
+            $(item.formBlock).getElementsBySelector('.delete-address').each(Element.hide);
+        }
+    },
+
+    setActiveItem : function(item){
+        if(this.activeItem){
+            Element.removeClassName(this.activeItem, 'on');
+            if($('form_'+this.activeItem.id)){
+                Element.hide($('form_'+this.activeItem.id));
+            }
+        }
+        Element.addClassName(item, 'on');
+
+        if(item && $('form_'+item.id)){
+            $('form_'+item.id).changeRelation = item;
+            $('form_'+item.id).addressItem = item;
+            Element.show($('form_'+item.id));
+            //new Effect.Appear($('form_'+item.id), {duration : 0.3 });
+            //$('form_'+item.id).focus();
+            this.addFieldChangeObserver($('form_'+item.id));
+        }
+
+        this.activeItem = item;
+    },
+
+    getFormContainerFields : function(container){
+        var fields = $$( '#' + container.id + ' input','#' + container.id + ' select','#' + container.id + ' textarea');
+        return fields;
+    },
+
+    addFieldChangeObserver : function(container){
+        var fields = this.getFormContainerFields(container);
+        for(var i in fields){
+            Event.observe(fields[i], 'change', this.onItemFormFieldChange);
+        }
+
+    },
+
+    syncFormData : function(evt){
+        var container = false;
+
+        if(!evt.addClassName) {
+            var elm = Event.element(evt);
+        } else {
+            var elm = evt;
+        }
+
+        elm = $(elm);
+        while(elm.tagName.toUpperCase() != 'BODY') {
+            if(elm.addressItem){
+                container = elm;
+            }
+            elm = $(elm.parentNode);
+        }
+
+        if(container){
+            var data = {};
+            var fields = this.getFormContainerFields(container);
+            for(var i=0; i < fields.size(); i++){
+                if(fields[i].id){
+                    var id = fields[i].id.replace(/^(_item)?[0-9]+/, '');
+                    var value = fields[i].getValue();
+                    if(fields[i].tagName.toLowerCase()=='select'){
+                        data[id] = fields[i].options[fields[i].selectedIndex].text.escapeHTML();
+                    }
+                    else{
+                        data[id] = value.escapeHTML();
+                    }
+                }
+            }
+            var itemContainer = container.addressItem.getElementsBySelector('address');
+            if(itemContainer[0]){
+
+                var html = this.itemContentTemplate.evaluate(data);
+                html = html.replace(new RegExp('(<br\\s*/?>\\s*){2,}','img'),'<br/>');
+                html = html.replace(new RegExp('<br\\s*/?>(\\s*,){1,}\\s*<br\\s*/?>','ig'),'<br/>');
+                html = html.replace(new RegExp('t:\\s*<br\\s*/?>','ig'),'');
+                html = html.replace(new RegExp('f:\\s*$','ig'),'');
+                itemContainer[0].innerHTML = html;
+            }
+        }
+    },
+
+    deleteAddress : function(item){
+        if(confirm('<?php echo Mage::helper('customer')->__('Are you sure you want to delete this address?') ?>')){
+            if( item.isNewAddress){
+                if ( this.activeItem == item ) this.formContainer.removeChild(item.formBlock);
+            } else {
+                if($('deleted_'+item.id)){
+                    $('deleted_'+item.id).value = 1;
+                    if(item.formBlock){
+                        item.formBlock.addClassName('ignore-validation');
+                    }
+                }
+            }
+
+            if ( this.activeItem == item && item != this.itemList[0] ) this.setActiveItem(this.itemList[0]);
+            if ( item == this.itemList[0] && (this.itemList[1]) ) this.setActiveItem(this.itemList[1]);
+
+            this.itemContainer.removeChild(item);
+            this.reloadItemList();
+            this.setAddressAsDefault();
+        }
+    },
+
+    cancelAdd : function(button){
+        if(confirm('<?php echo addslashes(Mage::helper('customer')->__('Are you sure you want to cancel adding of this address?')) ?>')){
+            var item = $(this.baseItemId + button.id.replace(new RegExp('[a-z_]*',''), ''));
+
+            if( item.isNewAddress){
+                if ( this.activeItem == item ) this.formContainer.removeChild(item.formBlock);
+            }
+            if ( this.activeItem == item && item != this.itemList[0] ) this.setActiveItem(this.itemList[0]);
+            if ( item == this.itemList[0] && (this.itemList[1]) ) this.setActiveItem(this.itemList[1]);
+
+            this.itemContainer.removeChild(item);
+
+            this.reloadItemList();
+            this.setAddressAsDefault();
+        }
+    },
+
+    bindCountryRegionRelation : function(parentId){
+        //alert('OK');
+        var countryElements = document.getElementsByClassName('countries');
+        for(var i=0;i<=countryElements.length;i++){
+            if(countryElements[i]){
+                if(!countryElements[i].bindRegions || !countryElements[i].parentBindId || countryElements[i].parentBindId!=parentId){
+                //if(!countryElements[i].bindRegions || !countryElements[i].parentBindId){
+                    Event.observe(countryElements[i], 'change', this.reloadRegionField.bind(this));
+
+                    countryElements[i].bindRegions = true;
+                    countryElements[i].parentBindId = parentId;
+                }
+            }
+        }
+    },
+
+    reloadRegionField : function(event){
+        var countryElement = Event.element(event);
+        if(countryElement.id){
+            var regionElement  = $(countryElement.id.replace(/country_id/, 'region'));
+            if(regionElement){
+                this.regionElement = regionElement;
+                var url = this.regionsUrl+'parent/'+countryElement.value;
+                this.loader.load(url, {}, this.refreshRegionField.bind(this));
+            }
+        }
+    },
+
+    refreshRegionField : function(serverResponse){
+        if(serverResponse){
+            var data = eval('(' + serverResponse + ')');
+            var value = this.regionElement.value;
+
+            var row = Element.previous(this.regionElement.parentNode,0);
+            var reqLabel = Element.getElementsByClassName(row, 'required');
+            if (data.length) {
+                var html = '<select name="'+this.regionElement.name+'" id="'+this.regionElement.id+'" class="required-entry select" title="'+this.regionElement.title+'">';
+                html+= '<option value=""></option>';
+                for (var i in data){
+                    if(data[i].label) {
+                        html+= '<option value="'+data[i].value+'"';
+                        if(this.regionElement.value && (this.regionElement.value == data[i].value || this.regionElement.value == data[i].label)){
+                            html+= ' selected="selected"';
+                        }
+                        html+='>'+data[i].label+'</option>';
+                    }
+                }
+                html+= '</select>';
+                if(reqLabel){
+                    reqLabel.each(function(item){Element.show(item)});
+                }
+
+                var parentNode = this.regionElement.parentNode;
+                var regionElementId = this.regionElement.id;
+                parentNode.innerHTML = html;
+                this.regionElement = $(regionElementId);
+
+                //new Insertion.Before(this.regionElement, html);
+                //Element.remove(this.regionElement);
+            }
+            else{
+                var html = '<input type="text" name="'+this.regionElement.name+'" id="'+this.regionElement.id+'" class="input-text" title="'+this.regionElement.title+'">';
+                if(reqLabel){
+                    reqLabel.each(function(item){Element.hide(item)});
+                }
+                new Insertion.Before(this.regionElement, html);
+                Element.remove(this.regionElement);
+            }
+        }
+    }
+}
+
+customerAddresses = new addressesModel();
+</script>
+</td>
+</tr></table>

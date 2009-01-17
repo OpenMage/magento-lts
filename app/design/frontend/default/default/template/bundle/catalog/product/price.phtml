@@ -1,0 +1,96 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+
+<?php $_product = $this->getProduct() ?>
+<?php list($_minimalPrice, $_maximalPrice) = $_product->getPriceModel()->getPrices($_product) ?>
+<?php $_id = $_product->getId() ?>
+
+<?php $_minimalPriceTax = Mage::helper('tax')->getPrice($_product, $_minimalPrice); ?>
+<?php $_minimalPriceInclTax = Mage::helper('tax')->getPrice($_product, $_minimalPrice, true); ?>
+
+<div class="price-box">
+        <?php if ($_product->getPriceView()): ?>
+            <p class="minimal-price">
+                <span class="price-label"><?php echo $this->__('As low as') ?>:</span>
+                <?php if ($this->helper('tax')->displayBothPrices() && $this->isRatesGraterThenZero()): ?>
+                    <span class="price-excluding-tax">
+                        <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax') ?>:</span>
+                        <?php echo Mage::helper('core')->currency($_minimalPriceTax) ?>
+                    </span>
+                    <span class="price-including-tax">
+                        <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax') ?>:</span>
+                        <?php echo Mage::helper('core')->currency($_minimalPriceInclTax) ?>
+                    </span>
+            </p>
+            <?php else: ?>
+            <?php echo Mage::helper('core')->currency($_minimalPriceTax) ?>
+            </p>
+            <?php endif; ?>
+        <?php else: ?>
+            <?php if ($_minimalPrice <> $_maximalPrice): ?>
+            <p class="price-from">
+                <span class="price-label"><?php echo $this->__('From') ?>:</span>
+                <?php if ($this->helper('tax')->displayBothPrices() && $this->isRatesGraterThenZero()): ?>
+                    <span class="price-excluding-tax">
+                        <span class="label"><?php echo $this->__('Excl. Tax') ?>:</span>
+                        <?php echo Mage::helper('core')->currency($_minimalPriceTax) ?>
+                    </span>
+                    <span class="price-including-tax">
+                        <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax') ?>:</span>
+                        <?php echo Mage::helper('core')->currency($_minimalPriceInclTax) ?>
+                    </span>
+                <?php else: ?>
+                    <?php echo Mage::helper('core')->currency($_minimalPriceTax) ?>
+                <?php endif; ?>
+            </p>
+                <?php $_maximalPriceTax = Mage::helper('tax')->getPrice($_product, $_maximalPrice); ?>
+                <?php $_maximalPriceInclTax = Mage::helper('tax')->getPrice($_product, $_maximalPrice, true); ?>
+                <p class="price-to">
+                    <span class="price-label"><?php echo $this->__('To') ?>:</span>
+                    <?php if ($this->helper('tax')->displayBothPrices() && $this->isRatesGraterThenZero()): ?>
+                        <span class="price-excluding-tax">
+                            <span class="label"><?php echo $this->__('Excl. Tax') ?>:</span>
+                            <?php echo Mage::helper('core')->currency($_maximalPriceTax) ?>
+                        </span>
+                        <span class="price-including-tax">
+                            <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax') ?></span>
+                            <?php echo Mage::helper('core')->currency($_maximalPriceInclTax) ?>
+                        </span>
+                    <?php else: ?>
+                        <?php echo Mage::helper('core')->currency($_maximalPriceTax) ?>
+                    <?php endif; ?>
+                </p>
+            <?php else: ?>
+                <?php if ($this->helper('tax')->displayBothPrices() && $this->isRatesGraterThenZero()): ?>
+                    <span class="price-excluding-tax">
+                        <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax') ?>:</span>
+                        <?php echo Mage::helper('core')->currency($_minimalPriceTax) ?>
+                    </span>
+                    <span class="price-including-tax">
+                        <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax') ?>:</span>
+                        <?php echo Mage::helper('core')->currency($_minimalPriceInclTax) ?>
+                    </span>
+                <?php else: ?>
+                    <?php echo Mage::helper('core')->currency($_minimalPriceTax) ?>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php endif; ?>
+</div>

@@ -1,0 +1,93 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<div class="entry-edit">
+	<div class="entry-edit-head"><h4 class="icon-head head-customer-sales-statistics"><?php echo Mage::helper('customer')->__('Sales Statistics') ?></h4></div>
+    <div class="grid">
+        <table cellspacing="0" class="data">
+            <thead>
+                <tr class="headings">
+                    <th><?php echo Mage::helper('customer')->__('Website') ?></th>
+                    <th><?php echo Mage::helper('customer')->__('Store') ?></th>
+                    <th><?php echo Mage::helper('customer')->__('Store View') ?></th>
+                    <th><?php echo Mage::helper('customer')->__('Lifetime Sales') ?></th>
+                    <th><?php echo Mage::helper('customer')->__('Average Sale') ?></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="label"><strong><big><?php echo Mage::helper('customer')->__('All Store Views') ?></big></strong></td>
+                    <td class="emph"><strong><big><?php echo $this->getPriceFormatted($this->getTotals()->getLifetime()) ?></big></strong></td>
+                    <td class="emph"><strong><big><?php echo $this->getPriceFormatted($this->getTotals()->getAvgsale()) ?></big></strong></td>
+                </tr>
+            </tfoot>
+            <?php if ($this->getRows()): ?>
+            <tbody>
+                <?php $_i = 0; ?>
+                <?php foreach ($this->getRows() as $_websiteId => $_groups): ?>
+                    <?php $_websiteRow = false; ?>
+                    <?php foreach ($_groups as $_groupId => $_stores): ?>
+                        <?php $_groupRow = false; ?>
+                        <?php foreach ($_stores as $_row): ?>
+                        <?php if ($_row->getStoreId() == 0): ?>
+                        <td colspan="3" class="label"><?php echo $_row->getStoreName() ?></td>
+                        <?php else: ?>
+                <tr <?php echo ($_i++ % 2 ? 'class="even"' : '') ?>>
+                        <?php if (!$_websiteRow): ?>
+                    <td rowspan="<?php echo $this->getWebsiteCount($_websiteId) ?>"><?php echo $_row->getWebsiteName() ?></td>
+                            <?php $_websiteRow = true; ?>
+                        <?php endif; ?>
+                        <?php if (!$_groupRow): ?>
+                    <td rowspan="<?php echo count($_stores) ?>"><?php echo $_row->getGroupName() ?></td>
+                            <?php $_groupRow = true; ?>
+                        <?php endif; ?>
+                    <td class="label"><?php echo $_row->getStoreName() ?></td>
+                        <?php endif; ?>
+                    <td><?php echo $this->getPriceFormatted($_row->getLifetime()) ?></td>
+                    <td><?php echo $this->getPriceFormatted($_row->getAvgsale()) ?></td>
+                </tr>
+                        <?php endforeach; ?>
+                    <?php endforeach; ?>
+                <?php endforeach; ?>
+            </tbody>
+            <?php endif; ?>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

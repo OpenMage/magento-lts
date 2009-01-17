@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category    Mage
+ * @package     Mage_Customer
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <api>
+        <resources>
+            <customer translate="title" module="customer">
+                <model>customer/customer_api</model>
+                <title>Customer Api</title>
+                <acl>customer</acl>
+                <methods>
+                    <list translate="title" module="customer">
+                        <title>Retrieve customers</title>
+                        <method>items</method>
+                    </list>
+                    <create translate="title" module="customer">
+                        <title>Create customer</title>
+                        <acl>customer/create</acl>
+                    </create>
+                    <info translate="title" module="customer">
+                        <title>Retrieve customer data</title>
+                    </info>
+                    <update translate="title" module="customer">
+                        <title>Update customer data</title>
+                        <acl>customer/update</acl>
+                    </update>
+                    <delete translate="title" module="customer">
+                        <title>Delete customer</title>
+                        <acl>customer/delete</acl>
+                    </delete>
+                </methods>
+                <faults module="customer">
+                    <data_invalid>
+                        <code>100</code>
+                        <message>Invalid customer data. Details in error message.</message>
+                    </data_invalid>
+                    <filters_invalid>
+                        <code>101</code>
+                        <message>Invalid filters specified. Details in error message.</message>
+                    </filters_invalid>
+                    <not_exists>
+                        <code>102</code>
+                        <message>Customer not exists.</message>
+                    </not_exists>
+                    <not_deleted>
+                        <code>103</code>
+                        <message>Customer not deleted. Details in error message.</message>
+                    </not_deleted>
+                </faults>
+            </customer>
+            <customer_group>
+                <model>customer/group_api</model>
+                <title>Customer's Groups Api</title>
+                <acl>customer</acl>
+                <methods>
+                    <list translate="title" module="customer">
+                        <title>Retrieve customer's groups</title>
+                        <method>items</method>
+                    </list>
+                </methods>
+            </customer_group>
+            <customer_address>
+                <model>customer/address_api</model>
+                <title>Customer Address Api</title>
+                <acl>customer/address</acl>
+                <methods>
+                    <list translate="title" module="customer">
+                        <title>Retrieve customer addresses</title>
+                        <method>items</method>
+                    </list>
+                    <create translate="title" module="customer">
+                        <title>Create customer address</title>
+                        <acl>customer/address/create</acl>
+                    </create>
+                    <info translate="title" module="customer">
+                        <title>Retrieve customer data</title>
+                    </info>
+                    <update translate="title" module="customer">
+                        <title>Update customer address data</title>
+                        <acl>customer/address/update</acl>
+                    </update>
+                    <delete translate="title" module="customer">
+                        <title>Delete customer address</title>
+                        <acl>customer/address/delete</acl>
+                    </delete>
+                </methods>
+                <faults module="customer">
+                    <data_invalid>
+                        <code>100</code>
+                        <message>Invalid address data. Details in error message.</message>
+                    </data_invalid>
+                    <customer_not_exists>
+                        <code>101</code>
+                        <message>Customer not exists.</message>
+                    </customer_not_exists>
+                    <not_exists>
+                        <code>102</code>
+                        <message>Address not exists.</message>
+                    </not_exists>
+                    <not_deleted>
+                        <code>103</code>
+                        <message>Address not deleted. Details in error message.</message>
+                    </not_deleted>
+                </faults>
+            </customer_address>
+        </resources>
+        <acl>
+            <resources>
+                <all>
+                    <customer translate="title" module="customer">
+                         <title>Customers</title>
+                         <create translate="title" module="customer">
+                            <title>Create</title>
+                         </create>
+                         <update translate="title" module="customer">
+                            <title>Update</title>
+                         </update>
+                         <delete translate="title" module="customer">
+                            <title>Delete</title>
+                         </delete>
+                         <address translate="title" module="customer">
+                             <title>Addresses</title>
+                             <create translate="title" module="customer">
+                                <title>Create</title>
+                             </create>
+                             <update translate="title" module="customer">
+                                <title>Update</title>
+                             </update>
+                             <delete translate="title" module="customer">
+                                <title>Delete</title>
+                             </delete>
+                         </address>
+                    </customer>
+                </all>
+            </resources>
+        </acl>
+    </api>
+</config>

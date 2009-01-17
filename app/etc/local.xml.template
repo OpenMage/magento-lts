@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <global>
+        <install>
+            <date>{{date}}</date>
+        </install>
+        <crypt>
+            <key>{{key}}</key>
+        </crypt>
+        <disable_local_modules>false</disable_local_modules>
+        <resources>
+            <db>
+                <table_prefix>{{db_prefix}}</table_prefix>
+            </db>
+            <default_setup>
+                <connection>
+                    <host>{{db_host}}</host>
+                    <username>{{db_user}}</username>
+                    <password>{{db_pass}}</password>
+                    <dbname>{{db_name}}</dbname>
+                    <active>1</active>
+                </connection>
+            </default_setup>
+         </resources>
+         <session_save>{{session_save}}</session_save>
+     </global>
+     <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <frontName>{{admin_frontname}}</frontName>
+                </args>
+            </adminhtml>
+        </routers>
+     </admin>
+</config>

@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Cms
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Cms>
+            <version>0.7.6</version>
+        </Mage_Cms>
+    </modules>
+    <frontend>
+        <routers>
+         <cms>
+            <use>standard</use>
+            <args>
+               <module>Mage_Cms</module>
+               <frontName>cms</frontName>
+            </args>
+         </cms>
+        </routers>
+        <events>
+            <controller_action_noroute>
+                <observers>
+                    <cms>
+                        <type>singleton</type>
+                        <class>cms/observer</class>
+                        <method>noRoute</method>
+                    </cms>
+                </observers>
+            </controller_action_noroute>
+        </events>
+        <translate>
+            <modules>
+                <Mage_Cms>
+                    <files>
+                        <default>Mage_Cms.csv</default>
+                    </files>
+                </Mage_Cms>
+            </modules>
+        </translate>
+      <layout>
+          <updates>
+              <cms>
+                  <file>cms.xml</file>
+              </cms>
+          </updates>
+      </layout>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Cms>
+                    <files>
+                        <default>Mage_Cms.csv</default>
+                    </files>
+                </Mage_Cms>
+            </modules>
+        </translate>
+        <menu>
+             <cms translate="title" module="cms">
+                <title>CMS</title>
+                <sort_order>70</sort_order>
+                <children>
+                    <page translate="title" module="cms">
+                        <title>Manage Pages</title>
+                        <action>adminhtml/cms_page</action>
+                    </page>
+                    <block translate="title" module="cms">
+                        <title>Static Blocks</title>
+                        <action>adminhtml/cms_block</action>
+                    </block>
+                    <poll translate="title" module="cms">
+                        <title>Poll Manager</title>
+                        <action>adminhtml/poll</action>
+                    </poll>
+                </children>
+             </cms>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <cms>
+                            <title>CMS</title>
+                            <sort_order>70</sort_order>
+                            <children>
+                                <block>
+                                    <title>Static Blocks</title>
+                                    <sort_order>0</sort_order>
+                                </block>
+                                <page>
+                                    <title>Manage Pages</title>
+                                    <sort_order>10</sort_order>
+                                </page>
+                                <poll>
+                                    <title>Poll Manager</title>
+                                    <sort_order>20</sort_order>
+                                </poll>
+                            </children>
+                        </cms>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+    <global>
+        <models>
+            <cms>
+                <class>Mage_Cms_Model</class>
+                <resourceModel>cms_mysql4</resourceModel>
+            </cms>
+            <cms_mysql4>
+                <class>Mage_Cms_Model_Mysql4</class>
+                <entities>
+                    <page>
+                        <table>cms_page</table>
+                    </page>
+                    <page_store>
+                        <table>cms_page_store</table>
+                    </page_store>
+                    <block>
+                        <table>cms_block</table>
+                    </block>
+                    <block_store>
+                        <table>cms_block_store</table>
+                    </block_store>
+                </entities>
+            </cms_mysql4>
+        </models>
+        <resources>
+            <cms_setup>
+                <setup>
+                    <module>Mage_Cms</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </cms_setup>
+            <cms_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </cms_write>
+            <cms_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </cms_read>
+        </resources>
+        <blocks>
+            <cms><class>Mage_Cms_Block</class></cms>
+        </blocks>
+        <cms>
+            <layouts>
+                <empty>
+                    <label>Empty</label>
+                    <template>page/one-column.phtml</template>
+                </empty>
+                <one_column>
+                    <label>1 column</label>
+                    <template>page/1column.phtml</template>
+                </one_column>
+                <two_columns_left>
+                    <label>2 columns with left bar</label>
+                    <template>page/2columns-left.phtml</template>
+                </two_columns_left>
+                <two_columns_right>
+                    <label>2 columns with right bar</label>
+                    <template>page/2columns-right.phtml</template>
+                </two_columns_right>
+                <three_columns>
+                    <label>3 columns</label>
+                    <template>page/3columns.phtml</template>
+                </three_columns>
+            </layouts>
+        </cms>
+        <events>
+            <controller_front_init_routers>
+                <observers>
+                    <cms>
+                        <type>singleton</type>
+                        <class>Mage_Cms_Controller_Router</class>
+                        <method>initControllerRouters</method>
+                    </cms>
+                </observers>
+            </controller_front_init_routers>
+        </events>
+    </global>
+
+    <default>
+        <web>
+            <default>
+                <cms_home_page>home</cms_home_page>
+                <cms_no_route>no-route</cms_no_route>
+                <front>cms</front>
+                <no_route>cms/index/noRoute</no_route>
+                <show_cms_breadcrumbs>1</show_cms_breadcrumbs>
+            </default>
+        </web>
+    </default>
+</config>

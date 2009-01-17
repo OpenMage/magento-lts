@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+
+<layout>
+    <adminhtml_catalog_product_new>
+        <reference name="content">
+            <block type="adminhtml/catalog_product_edit" name="product_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="adminhtml/catalog_product_edit_tabs" name="product_tabs"></block>
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/template" template="catalog/product/js.phtml"></block>
+        </reference>
+    </adminhtml_catalog_product_new>
+
+    <adminhtml_catalog_product_edit>
+        <reference name="content">
+            <block type="adminhtml/catalog_product_edit" name="product_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="adminhtml/store_switcher" name="store_switcher" before="-"></block>
+            <block type="adminhtml/catalog_product_edit_tabs" name="product_tabs"></block>
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/template" template="catalog/product/js.phtml"></block>
+        </reference>
+    </adminhtml_catalog_product_edit>
+
+<!--
+Layout handle for simple products
+-->
+
+    <adminhtml_catalog_product_simple />
+
+<!--
+Layout handle for grouped products
+-->
+
+    <adminhtml_catalog_product_grouped>
+        <remove name="product_tabs"/>
+        <reference name="left">
+            <block type="adminhtml/catalog_product_edit_tabs_grouped" name="grouped_product_tabs"></block>
+        </reference>
+    </adminhtml_catalog_product_grouped>
+
+<!--
+Layout handle for configurable products
+-->
+
+    <adminhtml_catalog_product_configurable>
+        <remove name="product_tabs"/>
+        <reference name="left">
+            <block type="adminhtml/catalog_product_edit_tabs_configurable" name="configurable_product_tabs"></block>
+        </reference>
+    </adminhtml_catalog_product_configurable>
+
+    <adminhtml_catalog_product_action_attribute_edit>
+        <reference name="left">
+            <block type="adminhtml/store_switcher" name="store_switcher" template="store/switcher.phtml" />
+            <block type="adminhtml/catalog_product_edit_action_attribute_tabs" name="attributes_tabs">
+                <block type="adminhtml/catalog_product_edit_action_attribute_tab_attributes" name="tab_attributes"/>
+                <block type="adminhtml/catalog_product_edit_action_attribute_tab_inventory" name="tab_inventory" template="catalog/product/edit/action/inventory.phtml" />
+                <block type="adminhtml/catalog_product_edit_action_attribute_tab_websites" name="tab_websites" template="catalog/product/edit/action/websites.phtml" />
+                <action method="addTab"><name>attributes</name><block>tab_attributes</block></action>
+                <action method="addTab"><name>inventory</name><block>tab_inventory</block></action>
+                <action method="addTab"><name>websites</name><block>tab_websites</block></action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/catalog_product_edit_action_attribute" name="attribute" template="catalog/product/edit/action/attribute.phtml" />
+        </reference>
+    </adminhtml_catalog_product_action_attribute_edit>
+</layout>

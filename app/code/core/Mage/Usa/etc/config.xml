@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Usa
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Usa>
+            <version>0.7.0</version>
+        </Mage_Usa>
+    </modules>
+    <global>
+        <resources>
+            <usa_setup>
+                <setup>
+                    <module>Mage_Usa</module>
+                </setup>
+                <connection>
+                    <use>directory_setup</use>
+                </connection>
+            </usa_setup>
+            <usa_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </usa_read>
+        </resources>
+        <models>
+            <usa>
+                <class>Mage_Usa_Model</class>
+            </usa>
+        </models>
+        <sales>
+            <shipping>
+                <carriers>
+                    <ups>
+                        <class>Mage_Usa_Model_Shipping_Carrier_Ups</class>
+                    </ups>
+                    <usps>
+                        <class>Mage_Usa_Model_Shipping_Carrier_Usps</class>
+                    </usps>
+                    <fedex>
+                        <class>Mage_Usa_Model_Shipping_Carrier_Fedex</class>
+                    </fedex>
+                    <dhl>
+                        <class>Mage_Usa_Model_Shipping_Carrier_Dhl</class>
+                    </dhl>
+                </carriers>
+            </shipping>
+            <tax>
+                <methods>
+                    <uszipcode>
+                        <class>Mage_Usa_Model_Tax_Uszipcode</class>
+                    </uszipcode>
+                </methods>
+            </tax>
+        </sales>
+    </global>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Usa>
+                    <files>
+                        <default>Mage_Usa.csv</default>
+                    </files>
+                </Mage_Usa>
+            </modules>
+        </translate>
+    </adminhtml>
+    <frontend>
+        <translate>
+            <modules>
+                <Mage_Usa>
+                    <files>
+                        <default>Mage_Usa.csv</default>
+                    </files>
+                </Mage_Usa>
+            </modules>
+        </translate>
+    </frontend>
+
+    <default>
+        <carriers>
+            <dhl>
+                <account></account>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <allowed_methods>E,N,S,G,IE</allowed_methods>
+                <contentdesc>Big Box</contentdesc>
+                <cutoff_cost></cutoff_cost>
+                <dutypaymenttype>R</dutypaymenttype>
+                <free_method>G</free_method>
+                <gateway_url>https://eCommerce.airborne.com/ApiLandingTest.asp</gateway_url>
+                <id backend_model="adminhtml/system_config_backend_encrypted"></id>
+                <model>usa/shipping_carrier_dhl</model>
+                <password backend_model="adminhtml/system_config_backend_encrypted"></password>
+                <shipment_type>P</shipment_type>
+                <shipping_key backend_model="adminhtml/system_config_backend_encrypted"></shipping_key>
+                <shipping_intlkey backend_model="adminhtml/system_config_backend_encrypted"></shipping_intlkey>
+                <title>DHL</title>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+                <max_package_weight>150</max_package_weight>
+                <handling_type>F</handling_type>
+                <handling_action>O</handling_action>
+            </dhl>
+
+            <fedex>
+                <account backend_model="adminhtml/system_config_backend_encrypted"></account>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <allowed_methods>PRIORITYOVERNIGHT,STANDARDOVERNIGHT,FIRSTOVERNIGHT,FEDEX2DAY,FEDEXEXPRESSSAVER,INTERNATIONALPRIORITY,INTERNATIONALECONOMY,INTERNATIONALFIRST,FEDEX1DAYFREIGHT,FEDEX2DAYFREIGHT,FEDEX3DAYFREIGHT,FEDEXGROUND,GROUNDHOMEDELIVERY,INTERNATIONALPRIORITY FREIGHT,INTERNATIONALECONOMY FREIGHT,EUROPEFIRSTINTERNATIONALPRIORITY</allowed_methods>
+                <cutoff_cost></cutoff_cost>
+                <dropoff>REGULARPICKUP</dropoff>
+                <free_method>FEDEXGROUND</free_method>
+                <gateway_url>https://gateway.fedex.com/GatewayDC</gateway_url>
+                <handling>0</handling>
+                <model>usa/shipping_carrier_fedex</model>
+                <packaging>YOURPACKAGING</packaging>
+                <title>Federal Express</title>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+                <max_package_weight>150</max_package_weight>
+                <handling_type>F</handling_type>
+                <handling_action>O</handling_action>
+            </fedex>
+
+            <ups>
+                <access_license_number backend_model="adminhtml/system_config_backend_encrypted"/>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <allowed_methods>1DM,1DML,1DA,1DAL,1DAPI,1DP,1DPL,2DM,2DML,2DA,2DAL,3DS,GND,GNDCOM,GNDRES,STD,XPR,WXS,XPRL,XDM,XDML,XPD</allowed_methods>
+                <container>CP</container>
+                <cutoff_cost></cutoff_cost>
+                <dest_type>RES</dest_type>
+                <free_method>GND</free_method>
+                <gateway_url>http://www.ups.com/using/services/rave/qcostcgi.cgi</gateway_url>
+                <gateway_xml_url>https://www.ups.com/ups.app/xml/Rate</gateway_xml_url>
+                <handling>0</handling>
+                <model>usa/shipping_carrier_ups</model>
+                <pickup>CC</pickup>
+                <title>United Parcel Service</title>
+                <tracking_xml_url>https://www.ups.com/ups.app/xml/Track</tracking_xml_url>
+                <unit_of_measure>LBS</unit_of_measure>
+                <username backend_model="adminhtml/system_config_backend_encrypted"/>
+                <password backend_model="adminhtml/system_config_backend_encrypted"/>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+                <max_package_weight>150</max_package_weight>
+                <handling_type>F</handling_type>
+                <handling_action>O</handling_action>
+            </ups>
+
+            <usps>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <allowed_methods>First-Class,First-Class Mail Letter,First-Class Mail Flat,First-Class Mail Parcel,First-Class Mail International,Express Mail,Express Mail PO to PO,Priority Mail,Parcel Post,Express Mail Flat-Rate Envelope,Priority Mail Flat-Rate Box,Bound Printed Matter,Media Mail,Library Mail,Priority Mail Flat-Rate Envelope,Global Express Guaranteed,Global Express Guaranteed Non-Document Rectangular,Global Express Guaranteed Non-Document Non-Rectangular,Express Mail International (EMS),Express Mail International (EMS) Flat Rate Envelope,Priority Mail International,Priority Mail International Flat Rate Box</allowed_methods>
+                <container>VARIABLE</container>
+                <cutoff_cost></cutoff_cost>
+                <free_method></free_method>
+                <gateway_url>http://production.shippingapis.com/ShippingAPI.dll</gateway_url>
+                <handling></handling>
+                <machinable>true</machinable>
+                <methods>First-Class,First-Class Mail Letter,First-Class Mail Flat,First-Class Mail Parcel,First-Class Mail International,Express Mail,Express Mail PO to PO,Priority Mail,Parcel Post,Express Mail Flat-Rate Envelope,Priority Mail Flat-Rate Box,Bound Printed Matter,Media Mail,Library Mail,Priority Mail Flat-Rate Envelope,Global Express Guaranteed,Global Express Guaranteed Non-Document Rectangular,Global Express Guaranteed Non-Document Non-Rectangular,Express Mail International (EMS),Express Mail International (EMS) Flat Rate Envelope,Priority Mail International,Priority Mail International Flat Rate Box</methods>
+                <model>usa/shipping_carrier_usps</model>
+                <size>REGULAR</size>
+                <title>United States Postal Service</title>
+                <userid backend_model="adminhtml/system_config_backend_encrypted"/>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+                <max_package_weight>70</max_package_weight>
+                <handling_type>F</handling_type>
+                <handling_action>O</handling_action>
+            </usps>
+        </carriers>
+    </default>
+</config>

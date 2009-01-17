@@ -1,0 +1,91 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php  $_order = $this->getCreditmemo()->getOrder() ?>
+<?php echo $this->getChildHtml('order_info') ?>
+<?php if (!$_order->getIsVirtual()): ?>
+<div class="box-left">
+<?php else: ?>
+<div class="box-right">
+<?php endif; ?>
+    <!--Billing Address-->
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-payment-method"><?php echo $this->helper('sales')->__('Payment Information') ?></h4>
+        </div>
+        <fieldset>
+            <div><?php echo $this->getChildHtml('order_payment') ?></div>
+            <div><?php echo Mage::helper('sales')->__('Order was placed using %s', $_order->getOrderCurrencyCode()) ?></div>
+        </fieldset>
+    </div>
+</div>
+<?php if (!$_order->getIsVirtual()): ?>
+<div class="box-right">
+    <!--Shipping Address-->
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-shipping-method"><?php echo $this->helper('sales')->__('Shipping Information') ?></h4>
+        </div>
+        <fieldset>
+            <strong><?php echo $_order->getShippingDescription() ?></strong>
+            <?php echo $this->helper('sales')->__('Total Shipping Charges'); ?>:
+
+            <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
+                <?php $_excl = $this->displayShippingPriceInclTax($_order); ?>
+            <?php else: ?>
+                <?php $_excl = $this->displayPriceAttribute('shipping_amount', false, ' '); ?>
+            <?php endif; ?>
+            <?php $_incl = $this->displayShippingPriceInclTax($_order); ?>
+
+            <?php echo $_excl; ?>
+            <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+            <?php endif; ?>
+        </fieldset>
+    </div>
+</div>
+<?php endif; ?>
+<div class="clear"></div>
+<?php $_items = $this->getCreditmemo()->getAllItems() ?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-products"><?php echo $this->helper('sales')->__('Items Refunded') ?></h4>
+    </div>
+</div>
+<?php if (count($_items)): ?>
+<div id="creditmemo_items_container">
+    <?php echo $this->getChildHtml('creditmemo_items') ?>
+</div>
+<?php else: ?>
+<div class="entry-edit">
+    <fieldset><center><?php echo $this->helper('sales')->__('No Items') ?></center></fieldset>
+</div>
+<?php endif; ?>
+<br />
+<div class="box-left entry-edit">
+    <div class="entry-edit-head"><h4><?php echo $this->__('Credit Memo History') ?></h4></div>
+    <fieldset><?php echo $this->getChildHtml('order_comments') ?></fieldset>
+</div>
+
+<div class="box-right entry-edit" id="history_form">
+    <div class="entry-edit-head"><h4><?php echo $this->__('Credit Memo Totals') ?></h4></div>
+    <div class="order-totals"><?php echo $this->getChildHtml('order_totals') ?></div>
+</div>
+<div class="clear"></div>

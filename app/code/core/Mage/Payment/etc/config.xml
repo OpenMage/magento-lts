@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Payment
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Payment>
+            <version>0.7.0</version>
+        </Mage_Payment>
+    </modules>
+
+    <global>
+        <models>
+            <payment>
+                <class>Mage_Payment_Model</class>
+            </payment>
+        </models>
+
+        <resources>
+            <payment_setup>
+                <setup>
+                    <module>Mage_Payment</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </payment_setup>
+        </resources>
+
+        <blocks>
+            <payment>
+                <class>Mage_Payment_Block</class>
+            </payment>
+        </blocks>
+
+        <payment>
+
+            <cc>
+                <types>
+                    <AE>
+                        <code>AE</code>
+                        <name>American Express</name>
+                        <order>0</order>
+                    </AE>
+                    <VI>
+                        <code>VI</code>
+                        <name>Visa</name>
+                        <order>10</order>
+                    </VI>
+                    <MC>
+                        <code>MC</code>
+                        <name>Master Card</name>
+                        <order>20</order>
+                    </MC>
+                    <DI>
+                        <code>DI</code>
+                        <name>Discover</name>
+                        <order>30</order>
+                    </DI>
+                    <OT>
+                        <code>OT</code>
+                        <name>Other</name>
+                        <order>1000</order>
+                    </OT>
+                </types>
+            </cc>
+        </payment>
+
+    </global>
+
+    <frontend>
+        <translate>
+            <modules>
+                <Mage_Payment>
+                    <files>
+                        <default>Mage_Payment.csv</default>
+                    </files>
+                </Mage_Payment>
+            </modules>
+        </translate>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Payment>
+                    <files>
+                        <default>Mage_Payment.csv</default>
+                    </files>
+                </Mage_Payment>
+            </modules>
+        </translate>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <payment>
+                                            <title>Payment Methods Section</title>
+                                        </payment>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+   </adminhtml>
+
+    <default>
+        <payment>
+            <ccsave>
+                <active>1</active>
+                <cctypes>AE,VI,MC,DI</cctypes>
+                <model>payment/method_ccsave</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (saved)</title>
+                <allowspecific>0</allowspecific>
+            </ccsave>
+
+            <checkmo>
+                <active>1</active>
+                <model>payment/method_checkmo</model>
+                <order_status>pending</order_status>
+                <title>Check / Money order</title>
+                <allowspecific>0</allowspecific>
+            </checkmo>
+
+            <free>
+                <active>1</active>
+                <model>payment/method_free</model>
+                <order_status>pending</order_status>
+                <title>No Payment Information Required</title>
+                <allowspecific>0</allowspecific>
+<!--
+                <min_order_total>0</min_order_total>
+                <max_order_total>0</max_order_total>
+-->
+                <sort_order>1</sort_order>
+            </free>
+
+            <purchaseorder>
+                <active>0</active>
+                <model>payment/method_purchaseorder</model>
+                <order_status>pending</order_status>
+                <title>Purchase Order</title>
+                <allowspecific>0</allowspecific>
+            </purchaseorder>
+
+         </payment>
+    </default>
+</config>

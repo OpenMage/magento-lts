@@ -1,0 +1,38 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<div style="border:1px solid #ccc; background:#f6f6f6;">
+    <h2 style="margin-bottom:0; border-bottom:1px solid #ccc; padding:4px 10px; color:#3c5974; font-size:1.4em;"><?php echo $this->__('Installation') ?></h2>
+<ol style="padding:10px; border-top:1px solid #fff;">
+    <li><?php echo $this->__('Download')?></li>
+<?php foreach($steps as $_step): ?>
+    <li <?php if($_step->getActive()): ?>style="color:green; font-weight:bold; "<?php endif ?>><?php echo $this->__($_step->getCode()) ?></li>
+<?php endforeach ?>
+</ol>
+</div>
+
+<br/>
+<p>
+    <?php echo $this->__('Having trouble installing Magento?') ?>
+    <?php echo $this->__('Check out our') ?> <a href="http://www.magentocommerce.com/install" id="installation_guide_link"><?php echo $this->__('Installation Guide') ?></a>
+    <script type="text/javascript">
+        $('installation_guide_link').target = "installation_guide";
+    </script>
+</p>

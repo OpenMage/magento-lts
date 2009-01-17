@@ -1,0 +1,870 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+
+class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
+{
+    protected $_flatEntityTables = array(
+        'quote'             => 'sales_flat_quote',
+        'quote_item'        => 'sales_flat_quote_item',
+        'quote_address'     => 'sales_flat_quote_address',
+        'quote_address_item'=> 'sales_flat_quote_address_item',
+        'quote_address_rate'=> 'sales_flat_quote_shipping_rate',
+        'quote_payment'     => 'sales_flat_quote_payment',
+        'order_item'        => 'sales_flat_order_item',
+    );
+
+    protected function _flatTableExist($table)
+    {
+        return $this->getConnection()->fetchOne("show tables like '{$this->getTable($table)}'");
+    }
+
+    public function addAttribute($entityTypeId, $code, array $attr)
+    {
+        if (isset($this->_flatEntityTables[$entityTypeId]) && $this->_flatTableExist($this->_flatEntityTables[$entityTypeId])) {
+            $this->_addFlatAttribute($this->_flatEntityTables[$entityTypeId], $code, $attr);
+        }
+        else {
+            parent::addAttribute($entityTypeId, $code, $attr);
+        }
+        return $this;
+    }
+
+    protected function _addFlatAttribute($table, $attribute, $data)
+    {
+        $tableInfo = $this->getConnection()->describeTable($this->getTable($table));
+        if (isset($tableInfo[$attribute])) {
+            return $this;
+        }
+        $columnDefinition = '';
+        $type   = isset($attr['type']) ? $attr['type'] : 'varchar';
+        $req    = isset($attr['required']) ? $attr['required'] : false;
+
+        switch ($type) {
+            case 'int':
+                $columnDefinition = 'int(10) unsigned';
+                break;
+            case 'decimal':
+                $columnDefinition = 'decimal(12,4)';
+                break;
+            case 'text':
+                $columnDefinition = 'text';
+                break;
+            case 'date':
+                $columnDefinition = 'datetime';
+                break;
+            default:
+                $columnDefinition = 'varchar(255)';
+                break;
+        }
+
+        if ($req) {
+            $columnDefinition.= ' NOT NULL';
+        }
+
+        $this->getConnection()->addColumn($this->getTable($table), $attribute, $columnDefinition);
+        return $this;
+    }
+
+
+
+    public function getDefaultEntities()
+    {
+        return array(
+            'quote'=>array(
+                'entity_model'  => 'sales/quote',
+                'table'         => 'sales/quote',
+                'attributes' => array(
+                    'entity_id'         => array('type'=>'static'),
+                    'is_active'         => array('type'=>'static'),
+                    'store_id'          => array('type'=>'static'),
+                    'remote_ip'         => array('type'=>'static'),
+                    'checkout_method'   => array('type'=>'static'),
+                    'password_hash'     => array('type'=>'static'),
+                    'quote_status_id'   => array('type'=>'static'),
+                    'billing_address_id'=> array('type'=>'static'),
+                    'orig_order_id'     => array('type'=>'static'),
+                    'converted_at'      => array('type'=>'static'),
+                    'reserved_order_id' => array('type'=>'static'),
+
+                    'coupon_code'           => array('type'=>'static'),
+                    'base_currency_code'    => array('type'=>'static'),
+                    'store_currency_code'   => array('type'=>'static'),
+                    'quote_currency_code'   => array('type'=>'static'),
+                    'store_to_base_rate'    => array('type'=>'static'),
+                    'store_to_quote_rate'   => array('type'=>'static'),
+
+                    'items_count'=> array('type'=>'static'),
+                    'items_qty'=> array('type'=>'static'),
+
+                    'custbalance_amount'=> array('type'=>'static'),
+                    'grand_total'       => array('type'=>'static'),
+                    'base_grand_total'  => array('type'=>'static'),
+
+                    'applied_rule_ids'  => array('type'=>'static'),
+
+                    'is_virtual'        => array('type'=>'static'),
+                    'is_multi_shipping' => array('type'=>'static'),
+                    'is_multi_payment'  => array('type'=>'static'),
+
+                    'customer_id'       => array('type'=>'static'),
+                    'customer_tax_class_id' => array('type'=>'static'),
+                    'customer_group_id' => array('type'=>'static'),
+                    'customer_email'    => array('type'=>'static'),
+                    'customer_prefix'   => array('type'=>'static'),
+                    'customer_firstname'=> array('type'=>'static'),
+                    'customer_middlename'=>array('type'=>'static'),
+                    'customer_lastname' => array('type'=>'static'),
+                    'customer_suffix'   => array('type'=>'static'),
+                    'customer_note'     => array('type'=>'static'),
+                    'customer_note_notify' => array('type'=>'static'),
+                    'customer_is_guest' => array('type'=>'static'),
+                    'customer_taxvat'   => array('type'=>'static'),
+                ),
+            ),
+
+            'quote_item' => array(
+                'entity_model'  => 'sales/quote_item',
+                'table'         => 'sales/quote_item',
+                'attributes' => array(
+                    'parent_id'         => array('type'=>'static'),
+                    'product_id'        => array('type'=>'static'),
+                    'super_product_id'  => array('type'=>'static'),
+                    'parent_product_id' => array('type'=>'static'),
+                    'sku'               => array('type'=>'static'),
+                    'name'              => array('type'=>'static'),
+                    'description'       => array('type'=>'static'),
+
+                    'weight'        => array('type'=>'static'),
+                    'free_shipping' => array('type'=>'static'),
+                    'qty'           => array('type'=>'static'),
+                    'is_qty_decimal'=> array('type'=>'static'),
+
+                    'price'             => array('type'=>'static'),
+                    'custom_price'      => array('type'=>'static'),
+                    'discount_percent'  => array('type'=>'static'),
+                    'discount_amount'   => array('type'=>'static'),
+                    'no_discount'       => array('type'=>'static'),
+                    'tax_percent'       => array('type'=>'static'),
+                    'tax_amount'        => array('type'=>'static'),
+                    'row_total'         => array('type'=>'static'),
+                    'row_total_with_discount' => array('type'=>'static'),
+
+                    'base_price'             => array('type'=>'static'),
+                    'base_discount_amount'   => array('type'=>'static'),
+                    'base_tax_amount'        => array('type'=>'static'),
+                    'base_row_total'         => array('type'=>'static'),
+
+                    'row_weight'        => array('type'=>'static'),
+                    'applied_rule_ids'  => array('type'=>'static'),
+                    'additional_data'   => array('type'=>'static'),
+                ),
+            ),
+
+            'quote_address' => array(
+                'entity_model'  => 'sales/quote_address',
+                'table'         => 'sales/quote_address',
+                'attributes' => array(
+                    'entity_id'     => array('type'=>'static'),
+                    'parent_id'     => array('type'=>'static'),
+                    'address_type'  => array('type'=>'static'),
+
+                    'customer_id'   => array('type'=>'static'),
+                    'customer_address_id' => array('type'=>'static'),
+                    'save_in_address_book' => array('type'=>'static'),
+                    'email'     => array('type'=>'static'),
+                    'prefix'    => array('type'=>'static'),
+                    'firstname' => array('type'=>'static'),
+                    'middlename'=> array('type'=>'static'),
+                    'lastname'  => array('type'=>'static'),
+                    'suffix'    => array('type'=>'static'),
+                    'company'   => array('type'=>'static'),
+                    'street'    => array('type'=>'static'),
+                    'city'      => array('type'=>'static'),
+                    'region'    => array('type'=>'static'),
+                    'region_id' => array('type'=>'static'),
+                    'postcode'  => array('type'=>'static'),
+                    'country_id'=> array('type'=>'static'),
+                    'telephone' => array('type'=>'static'),
+                    'fax'       => array('type'=>'static'),
+
+                    'same_as_billing'   => array('type'=>'static'),
+                    'free_shipping'     => array('type'=>'static'),
+                    'weight'            => array('type'=>'static'),
+                    'collect_shipping_rates' => array('type'=>'static'),
+
+                    'shipping_method'       => array('type'=>'static'),
+                    'shipping_description'  => array('type'=>'static'),
+
+                    'subtotal'          => array('type'=>'static'),
+                    'subtotal_with_discount' => array('type'=>'static'),
+                    'tax_amount'        => array('type'=>'static'),
+                    'shipping_amount'   => array('type'=>'static'),
+                    'shipping_tax_amount'   => array('type'=>'static'),
+                    'discount_amount'   => array('type'=>'static'),
+                    'custbalance_amount'=> array('type'=>'static'),
+                    'grand_total'       => array('type'=>'static'),
+
+                    'base_subtotal'             => array('type'=>'static'),
+                    'base_subtotal_with_discount' => array('type'=>'static'),
+                    'base_tax_amount'           => array('type'=>'static'),
+                    'base_shipping_amount'      => array('type'=>'static'),
+                    'base_shipping_tax_amount'      => array('type'=>'static'),
+                    'base_discount_amount'      => array('type'=>'static'),
+                    'base_custbalance_amount'   => array('type'=>'static'),
+                    'base_grand_total'          => array('type'=>'static'),
+
+                    'customer_notes' => array('type'=>'static'),
+                    'applied_taxes' => array('type'=>'text'),
+                ),
+            ),
+            'quote_address_item' => array(
+                'entity_model'  => 'sales/quote_address_item',
+                'table'         =>'sales/quote_entity',
+                'attributes' => array(
+                    'parent_id'     => array('type'=>'static'),
+                    'quote_item_id' => array('type'=>'int'),
+                    'product_id'    => array('type'=>'int'),
+                    'super_product_id'  => array('type'=>'int'),
+                    'parent_product_id' => array('type'=>'int'),
+                    'sku'   => array(),
+                    'image' => array(),
+                    'name'  => array(),
+                    'description' => array('type'=>'text'),
+
+                    'weight'        => array('type'=>'decimal'),
+                    'free_shipping' => array('type'=>'int'),
+                    'qty'           => array('type'=>'decimal'),
+                    'is_qty_decimal'=> array('type'=>'int'),
+
+                    'price'             => array('type'=>'decimal'),
+                    'discount_percent'  => array('type'=>'decimal'),
+                    'discount_amount'   => array('type'=>'decimal'),
+                    'no_discount'       => array('type'=>'int'),
+                    'tax_percent'       => array('type'=>'decimal'),
+                    'tax_amount'        => array('type'=>'decimal'),
+                    'row_total'         => array('type'=>'decimal'),
+                    'row_total_with_discount' => array('type'=>'decimal'),
+
+                    'base_price'             => array('type'=>'decimal'),
+                    'base_discount_amount'   => array('type'=>'decimal'),
+                    'base_tax_amount'        => array('type'=>'decimal'),
+                    'base_row_total'         => array('type'=>'decimal'),
+
+                    'row_weight'        => array('type'=>'decimal'),
+                    'applied_rule_ids'  => array(),
+                    'additional_data'   => array('type'=>'text'),
+                ),
+            ),
+            'quote_address_rate' => array(
+                'entity_model'  => 'sales/quote_address_rate',
+                'table'         => 'sales/quote_entity',
+                'attributes' => array(
+                    'parent_id'     => array('type'=>'static'),
+                    'code'          => array(),
+                    'carrier'       => array(),
+                    'carrier_title' => array(),
+                    'method'        => array(),
+                    'method_description' => array('type'=>'text'),
+                    'price'         => array('type'=>'decimal'),
+                    'error_message' => array('type'=>'text'),
+                ),
+            ),
+            'quote_payment' => array(
+                'entity_model'  => 'sales/quote_payment',
+                'table'         =>'sales/quote_entity',
+                'attributes' => array(
+                    'parent_id' => array('type'=>'static'),
+                    'method'    => array(),
+                    'additional_data' => array('type'=>'text'),
+                    'po_number' => array(),
+                    'cc_type'   => array(),
+                    'cc_number_enc' => array(),
+                    'cc_last4'  => array(),
+                    'cc_owner'  => array(),
+                    'cc_exp_month' => array('type'=>'int'),
+                    'cc_exp_year' => array('type'=>'int'),
+                    'cc_cid_enc' => array(),
+                    'cc_ss_issue' => array(),
+                    'cc_ss_start_month' => array('type'=>'int'),
+                    'cc_ss_start_year' => array('type'=>'int'),
+                ),
+            ),
+
+            'order' => array(
+                'entity_model'      => 'sales/order',
+                'table'=>'sales/order',
+                'increment_model'=>'eav/entity_increment_numeric',
+                'increment_per_store'=>true,
+                'backend_prefix'=>'sales_entity/order_attribute_backend',
+                'attributes' => array(
+                    'entity_id' => array(
+                        'type'=>'static',
+                        'backend'=>'sales_entity/order_attribute_backend_parent'
+                    ),
+                    'store_id'  => array('type'=>'static'),
+                    'store_name' => array('type'=>'varchar'),
+                    'remote_ip' => array(),
+
+                    'status'    => array('type'=>'varchar'),
+                    'state'     => array('type'=>'varchar'),
+                    'hold_before_status' => array('type'=>'varchar'),
+                    'hold_before_state'  => array('type'=>'varchar'),
+
+                    'relation_parent_id'        => array('type'=>'varchar'),
+                    'relation_parent_real_id'   => array('type'=>'varchar'),
+                    'relation_child_id'         => array('type'=>'varchar'),
+                    'relation_child_real_id'    => array('type'=>'varchar'),
+                    'original_increment_id'     => array('type'=>'varchar'),
+                    'edit_increment'            => array('type'=>'int'),
+
+                    'ext_order_id'         => array('type'=>'varchar'),
+                    'ext_customer_id'      => array('type'=>'varchar'),
+
+                    'quote_id' => array('type'=>'int'),
+                    'quote_address_id' => array('type'=>'int'),
+                    'billing_address_id' => array('type'=>'int', 'backend'=>'_billing'),
+                    'shipping_address_id' => array('type'=>'int', 'backend'=>'_shipping'),
+
+                    'coupon_code'       => array(),
+                    'applied_rule_ids'  => array(),
+                    'giftcert_code'     => array(),
+
+                    'base_currency_code'    => array(),
+                    'store_currency_code'   => array(),
+                    'order_currency_code'   => array(),
+                    'store_to_base_rate'    => array('type'=>'decimal'),
+                    'store_to_order_rate'   => array('type'=>'decimal'),
+
+                    'is_virtual'        => array('type'=>'int'),
+                    'is_multi_payment'  => array('type'=>'int'),
+
+                    'shipping_method' => array(),
+                    'shipping_description' => array(),
+                    'weight' => array('type'=>'decimal'),
+
+                    'tax_amount'        => array('type'=>'static'),
+                    'shipping_amount'   => array('type'=>'static'),
+                    'shipping_tax_amount'   => array('type'=>'static'),
+                    'discount_amount'   => array('type'=>'static'),
+                    'giftcert_amount'   => array('type'=>'decimal'),
+                    'custbalance_amount'=> array('type'=>'decimal'),
+
+                    'subtotal'          => array('type'=>'static'),
+                    'grand_total'       => array('type'=>'static'),
+                    'total_paid'        => array('type'=>'static'),
+                    'total_due'         => array('type'=>'decimal'),
+                    'total_refunded'    => array('type'=>'static'),
+                    'total_qty_ordered' => array('type'=>'static'),
+                    'total_canceled'    => array('type'=>'static'),
+                    'total_invoiced'    => array('type'=>'static'),
+                    'total_online_refunded' => array('type'=>'static'),
+                    'total_offline_refunded'=> array('type'=>'static'),
+                    'adjustment_positive' => array('type'=>'decimal'),
+                    'adjustment_negative' => array('type'=>'decimal'),
+
+                    'base_tax_amount'        => array('type'=>'static'),
+                    'base_shipping_amount'   => array('type'=>'static'),
+                    'base_shipping_tax_amount'   => array('type'=>'static'),
+                    'base_discount_amount'   => array('type'=>'static'),
+                    'base_giftcert_amount'   => array('type'=>'decimal'),
+                    'base_custbalance_amount'=> array('type'=>'decimal'),
+
+                    'base_subtotal'          => array('type'=>'static'),
+                    'base_grand_total'       => array('type'=>'static'),
+                    'base_total_paid'        => array('type'=>'static'),
+                    'base_total_due'         => array('type'=>'decimal'),
+                    'base_total_refunded'    => array('type'=>'static'),
+                    'base_total_qty_ordered' => array('type'=>'static'),
+                    'base_total_canceled'    => array('type'=>'static'),
+                    'base_total_invoiced'    => array('type'=>'static'),
+                    'base_total_online_refunded' => array('type'=>'static'),
+                    'base_total_offline_refunded'=> array('type'=>'static'),
+                    'base_adjustment_positive' => array('type'=>'decimal'),
+                    'base_adjustment_negative' => array('type'=>'decimal'),
+
+                    'subtotal_refunded'     => array('type'=>'static'),
+                    'subtotal_canceled'     => array('type'=>'static'),
+                    'subtotal_invoiced'     => array('type'=>'static'),
+                    'tax_refunded'     => array('type'=>'static'),
+                    'tax_canceled'     => array('type'=>'static'),
+                    'tax_invoiced'     => array('type'=>'static'),
+                    'shipping_refunded'     => array('type'=>'static'),
+                    'shipping_canceled'     => array('type'=>'static'),
+                    'shipping_invoiced'     => array('type'=>'static'),
+                    'base_subtotal_refunded'     => array('type'=>'static'),
+                    'base_subtotal_canceled'     => array('type'=>'static'),
+                    'base_subtotal_invoiced'     => array('type'=>'static'),
+                    'base_tax_refunded'     => array('type'=>'static'),
+                    'base_tax_canceled'     => array('type'=>'static'),
+                    'base_tax_invoiced'     => array('type'=>'static'),
+                    'base_shipping_refunded'     => array('type'=>'static'),
+                    'base_shipping_canceled'     => array('type'=>'static'),
+                    'base_shipping_invoiced'     => array('type'=>'static'),
+
+                    'customer_id'       => array('type'=>'static', 'visible'=>false),
+                    'customer_group_id' => array('type'=>'int', 'visible'=>false),
+                    'customer_email'    => array('type'=>'varchar', 'visible'=>false),
+                    'customer_prefix'   => array('type'=>'varchar', 'visible'=>false),
+                    'customer_firstname'=> array('type'=>'varchar', 'visible'=>false),
+                    'customer_middlename'   => array('type'=>'varchar', 'visible'=>false),
+                    'customer_lastname' => array('type'=>'varchar', 'visible'=>false),
+                    'customer_suffix'   => array('type'=>'varchar', 'visible'=>false),
+                    'customer_note'     => array('type'=>'text', 'visible'=>false),
+                    'customer_note_notify' => array('type'=>'int', 'visible'=>false),
+                    'customer_is_guest' => array('type'=>'int', 'visible'=>false),
+                    'email_sent' => array('type'=>'int', 'visible'=>false),
+                    'customer_taxvat'   => array('type'=>'varchar', 'visible'=>false),
+                ),
+            ),
+            'order_address' => array(
+                'entity_model'      => 'sales/order_address',
+                'table'=>'sales/order_entity',
+                'attributes' => array(
+                    'parent_id' => array('type'=>'static', 'backend'=>'sales_entity/order_attribute_backend_child'),
+                    'quote_address_id' => array('type'=>'int'),
+                    'address_type' => array(),
+                    'customer_id' => array('type'=>'int'),
+                    'customer_address_id' => array('type'=>'int'),
+                    'email' => array(),
+                    'prefix'    => array(),
+                    'firstname' => array(),
+                    'middlename'=> array(),
+                    'lastname'  => array(),
+                    'suffix'    => array(),
+                    'company'   => array(),
+                    'street'    => array(),
+                    'city'      => array(),
+                    'region'    => array(),
+                    'region_id' => array('type'=>'int'),
+                    'postcode'  => array(),
+                    'country_id'=> array('type'=>'varchar'),
+                    'telephone' => array(),
+                    'fax'       => array(),
+
+                ),
+            ),
+            'order_item' => array(
+                'entity_model'      => 'sales/order_item',
+                'table'=>'sales/order_entity',
+                'attributes' => array(
+                    'parent_id' => array(
+                        'type'=>'static',
+                        'backend'=>'sales_entity/order_attribute_backend_child'
+                    ),
+
+                    'quote_item_id'     => array('type'=>'int'),
+                    'product_id'        => array('type'=>'int'),
+                    'super_product_id'  => array('type'=>'int'),
+                    'parent_product_id' => array('type'=>'int'),
+                    'is_virtual'        => array('type'=>'int'),
+                    'sku'               => array(),
+                    'name'              => array(),
+                    'description'       => array('type'=>'text'),
+                    'weight'            => array('type'=>'decimal'),
+
+                    'is_qty_decimal'    => array('type'=>'int'),
+                    'qty_ordered'       => array('type'=>'decimal'),
+                    'qty_backordered'   => array('type'=>'decimal'),
+                    'qty_invoiced'      => array('type'=>'decimal'),
+                    'qty_canceled'      => array('type'=>'decimal'),
+                    'qty_shipped'       => array('type'=>'decimal'),
+                    'qty_refunded'      => array('type'=>'decimal'),
+
+                    'original_price'    => array('type'=>'decimal'),
+                    'price'             => array('type'=>'decimal'),
+                    'cost'              => array('type'=>'decimal'),
+
+                    'discount_percent'  => array('type'=>'decimal'),
+                    'discount_amount'   => array('type'=>'decimal'),
+                    'discount_invoiced' => array('type'=>'decimal'),
+
+                    'tax_percent'       => array('type'=>'decimal'),
+                    'tax_amount'        => array('type'=>'decimal'),
+                    'tax_invoiced'      => array('type'=>'decimal'),
+
+                    'row_total'         => array('type'=>'decimal'),
+                    'row_weight'        => array('type'=>'decimal'),
+                    'row_invoiced'      => array('type'=>'decimal'),
+                    'invoiced_total'    => array('type'=>'decimal'),
+                    'amount_refunded'   => array('type'=>'decimal'),
+
+                    'base_price'             => array('type'=>'decimal'),
+                    'base_original_price'    => array('type'=>'decimal'),
+                    'base_discount_amount'   => array('type'=>'decimal'),
+                    'base_discount_invoiced' => array('type'=>'decimal'),
+                    'base_tax_amount'        => array('type'=>'decimal'),
+                    'base_tax_invoiced'      => array('type'=>'decimal'),
+                    'base_row_total'         => array('type'=>'decimal'),
+                    'base_row_invoiced'      => array('type'=>'decimal'),
+                    'base_invoiced_total'    => array('type'=>'decimal'),
+                    'base_amount_refunded'   => array('type'=>'decimal'),
+
+                    'applied_rule_ids'  => array(),
+                    'additional_data'   => array('type'=>'text'),
+                ),
+            ),
+            'order_payment' => array(
+                'entity_model'      => 'sales/order_payment',
+                'table'=>'sales/order_entity',
+                'attributes' => array(
+                    'parent_id' => array(
+                        'type'=>'static',
+                        'backend'=>'sales_entity/order_attribute_backend_child'
+                    ),
+                    'quote_payment_id'      => array('type'=>'int'),
+                    'method'                => array(),
+                    'additional_data'       => array('type'=>'text'),
+                    'last_trans_id'         => array(),
+                    'po_number'     => array(),
+
+                    'cc_type'       => array(),
+                    'cc_number_enc' => array(),
+                    'cc_last4'      => array(),
+                    'cc_owner'      => array(),
+                    'cc_exp_month'  => array(),
+                    'cc_exp_year'   => array(),
+
+                    'cc_ss_issue' => array(),
+                    'cc_ss_start_month' => array(),
+                    'cc_ss_start_year' => array(),
+
+                    'cc_status'             => array(),
+                    'cc_status_description' => array(),
+                    'cc_trans_id'           => array(),
+                    'cc_approval'           => array(),
+                    'cc_avs_status'         => array(),
+                    'cc_cid_status'         => array(),
+
+                    'cc_debug_request_body' => array(),
+                    'cc_debug_response_body'=> array(),
+                    'cc_debug_response_serialized' => array(),
+
+                    'anet_trans_method'     => array(),
+                    'echeck_routing_number' => array(),
+                    'echeck_bank_name'      => array(),
+                    'echeck_account_type'   => array(),
+                    'echeck_account_name'   => array(),
+                    'echeck_type'           => array(),
+
+                    'amount_ordered'    => array('type'=>'decimal'),
+                    'amount_authorized' => array('type'=>'decimal'),
+                    'amount_paid'       => array('type'=>'decimal'),
+                    'amount_canceled'   => array('type'=>'decimal'),
+                    'amount_refunded'   => array('type'=>'decimal'),
+                    'shipping_amount'   => array('type'=>'decimal'),
+                    'shipping_captured' => array('type'=>'decimal'),
+                    'shipping_refunded' => array('type'=>'decimal'),
+
+                    'base_amount_ordered'    => array('type'=>'decimal'),
+                    'base_amount_authorized' => array('type'=>'decimal'),
+                    'base_amount_paid'       => array('type'=>'decimal'),
+                    'base_amount_canceled'   => array('type'=>'decimal'),
+                    'base_amount_refunded'   => array('type'=>'decimal'),
+                    'base_shipping_amount'   => array('type'=>'decimal'),
+                    'base_shipping_captured' => array('type'=>'decimal'),
+                    'base_shipping_refunded' => array('type'=>'decimal'),
+                ),
+            ),
+
+            'order_status_history' => array(
+                'entity_model'      => 'sales/order_status_history',
+                'table'=>'sales/order_entity',
+                'attributes' => array(
+                    'parent_id' => array(
+                        'type'=>'static',
+                        'backend'=>'sales_entity/order_attribute_backend_child'
+                    ),
+                    'status'    => array('type'=>'varchar'),
+                    'comment'   => array('type'=>'text'),
+                    'is_customer_notified' => array('type'=>'int'),
+                ),
+            ),
+
+            'invoice' => array(
+                'entity_model'      => 'sales/order_invoice',
+                'table'             =>'sales/order_entity',
+                'increment_model'   =>'eav/entity_increment_numeric',
+                'increment_per_store'=>true,
+                'backend_prefix'    =>'sales_entity/order_attribute_backend',
+                'attributes' => array(
+                    'entity_id' => array(
+                        'type'=>'static',
+                        'backend'=>'sales_entity/order_invoice_attribute_backend_parent'
+                    ),
+
+                    'state'    => array('type'=>'int'),
+                    'is_used_for_refund' => array('type'=>'int'),
+                    'transaction_id' => array(),
+
+
+                    'order_id'              => array(
+                        'type'=>'int',
+                        'backend'=>'sales_entity/order_invoice_attribute_backend_order'
+                    ),
+
+                    'billing_address_id'    => array('type'=>'int'),
+                    'shipping_address_id'   => array('type'=>'int'),
+
+                    'base_currency_code'    => array(),
+                    'store_currency_code'   => array(),
+                    'order_currency_code'   => array(),
+                    'store_to_base_rate'    => array('type'=>'decimal'),
+                    'store_to_order_rate'   => array('type'=>'decimal'),
+
+                    'subtotal'          => array('type'=>'decimal'),
+                    'discount_amount'   => array('type'=>'decimal'),
+                    'tax_amount'        => array('type'=>'decimal'),
+                    'shipping_amount'   => array('type'=>'decimal'),
+                    'grand_total'       => array('type'=>'decimal'),
+                    'total_qty'         => array('type'=>'decimal'),
+
+                    'can_void_flag'     => array('type'=>'int'),
+
+                    'base_subtotal'          => array('type'=>'decimal'),
+                    'base_discount_amount'   => array('type'=>'decimal'),
+                    'base_tax_amount'        => array('type'=>'decimal'),
+                    'base_shipping_amount'   => array('type'=>'decimal'),
+                    'base_grand_total'       => array('type'=>'decimal'),
+                    'email_sent' => array('type'=>'int'),
+                    'store_id'   => array('type'=>'static'),
+                ),
+            ),
+
+            'invoice_item' => array(
+                'entity_model'      => 'sales/order_invoice_item',
+                //'table'=>'sales/invoice',
+                'table'=>'sales/order_entity',
+                'attributes' => array(
+                    'parent_id'     => array(
+                        'type'=>'static',
+                        'backend'=>'sales_entity/order_invoice_attribute_backend_child'
+                    ),
+                    'order_item_id' => array('type'=>'int'),
+                    'product_id'    => array('type'=>'int'),
+                    'name'          => array(),
+                    'description'   => array('type'=>'text'),
+                    'sku'           => array(),
+                    'qty'           => array('type'=>'decimal'),
+                    'cost'          => array('type'=>'decimal'),
+                    'price'         => array('type'=>'decimal'),
+                    'discount_amount' => array('type'=>'decimal'),
+                    'tax_amount'    => array('type'=>'decimal'),
+                    'row_total'     => array('type'=>'decimal'),
+
+                    'base_price'         => array('type'=>'decimal'),
+                    'base_discount_amount' => array('type'=>'decimal'),
+                    'base_tax_amount'    => array('type'=>'decimal'),
+                    'base_row_total'     => array('type'=>'decimal'),
+
+                    'additional_data'   => array('type'=>'text'),
+                ),
+            ),
+
+            'invoice_comment' => array(
+                'entity_model'      => 'sales/order_invoice_comment',
+                'table'=>'sales/order_entity',
+                'attributes' => array(
+                    'parent_id' => array(
+                        'type'=>'static',
+                        'backend'=>'sales_entity/order_invoice_attribute_backend_child'
+                    ),
+                    'comment' => array('type'=>'text'),
+                    'is_customer_notified' => array('type'=>'int'),
+                ),
+            ),
+
+
+
+            'shipment' => array(
+                'entity_model'      => 'sales/order_shipment',
+                //'table'=>'sales/shipment',
+                'table'=>'sales/order_entity',
+                'increment_model'=>'eav/entity_increment_numeric',
+                'increment_per_store'=>true,
+                'backend_prefix'=>'sales_entity/order_attribute_backend',
+                'attributes' => array(
+                    'entity_id'     => array(
+                        'type'=>'static',
+                        'backend'=>'sales_entity/order_shipment_attribute_backend_parent'
+                    ),
+
+                    'customer_id'   => array('type'=>'int'),
+                    'order_id'      => array('type'=>'int'),
+                    'shipment_status'     => array('type'=>'int'),
+                    'billing_address_id'    => array('type'=>'int'),
+                    'shipping_address_id'   => array('type'=>'int'),
+
+                    'total_qty'         => array('type'=>'decimal'),
+                    'total_weight'      => array('type'=>'decimal'),
+                    'email_sent'        => array('type'=>'int'),
+                    'store_id'          => array('type' => 'static'),
+                ),
+            ),
+
+            'shipment_item' => array(
+                'entity_model'      => 'sales/order_shipment_item',
+                //'table'=>'sales/shipment',
+                'table'=>'sales/order_entity',
+                'attributes' => array(
+                    'parent_id'     => array(
+                        'type'=>'static',
+                        'backend'=>'sales_entity/order_shipment_attribute_backend_child'
+                    ),
+                    'order_item_id' => array('type'=>'int'),
+                    'product_id'    => array('type'=>'int'),
+                    'name'          => array(),
+                    'description'   => array('type'=>'text'),
+                    'sku'           => array(),
+                    'qty'           => array('type'=>'decimal'),
+                    'price'         => array('type'=>'decimal'),
+                    'weight'        => array('type'=>'decimal'),
+                    'row_total'     => array('type'=>'decimal'),
+
+                    'additional_data'   => array('type'=>'text'),
+                ),
+            ),
+
+            'shipment_comment' => array(
+                'entity_model'      => 'sales/order_shipment_comment',
+                'table'=>'sales/order_entity',
+                'attributes' => array(
+                    'parent_id' => array(
+                        'type'=>'static',
+                        'backend'=>'sales_entity/order_shipment_attribute_backend_child'
+                    ),
+                    'comment' => array('type'=>'text'),
+                    'is_customer_notified' => array('type'=>'int'),
+                ),
+            ),
+
+            'shipment_track' => array(
+                'entity_model'      => 'sales/order_shipment_track',
+                'table'=>'sales/order_entity',
+                'attributes' => array(
+                    'parent_id'     => array(
+                        'type'=>'static',
+                        'backend'=>'sales_entity/order_shipment_attribute_backend_child'
+                    ),
+                    'order_id'      => array('type'=>'int'),
+                    'number'        => array('type'=>'text'),
+                    'carrier_code'  => array('type'=>'varchar'),
+                    'title'         => array('type'=>'varchar'),
+                    'description'   => array('type'=>'text'),
+                    'qty'           => array('type'=>'decimal'),
+                    'weight'        => array('type'=>'decimal'),
+                ),
+            ),
+
+            'creditmemo' => array(
+                'entity_model'      => 'sales/order_creditmemo',
+                //'table'=>'sales/creditmemo',
+                'table'=>'sales/order_entity',
+                'increment_model'=>'eav/entity_increment_numeric',
+                'increment_per_store'=>true,
+                'backend_prefix'=>'sales_entity/order_attribute_backend',
+                'attributes' => array(
+                    'entity_id'     => array(
+                        'type'=>'static',
+                        'backend'=>'sales_entity/order_creditmemo_attribute_backend_parent'
+                    ),
+                    'state'         => array('type'=>'int'),
+                    'invoice_id'    => array('type'=>'int'),
+                    'transaction_id'=> array(),
+
+                    'order_id'      => array('type'=>'int'),
+                    'creditmemo_status'     => array('type'=>'int'),
+                    'billing_address_id'    => array('type'=>'int'),
+                    'shipping_address_id'   => array('type'=>'int'),
+
+                    'base_currency_code'    => array(),
+                    'store_currency_code'   => array(),
+                    'order_currency_code'   => array(),
+                    'store_to_base_rate'    => array('type'=>'decimal'),
+                    'store_to_order_rate'   => array('type'=>'decimal'),
+
+                    'subtotal'          => array('type'=>'decimal'),
+                    'discount_amount'   => array('type'=>'decimal'),
+                    'tax_amount'        => array('type'=>'decimal'),
+                    'shipping_amount'   => array('type'=>'decimal'),
+                    'adjustment'        => array('type'=>'decimal'),
+                    'adjustment_positive' => array('type'=>'decimal'),
+                    'adjustment_negative' => array('type'=>'decimal'),
+                    'grand_total'       => array('type'=>'decimal'),
+
+                    'base_subtotal'          => array('type'=>'decimal'),
+                    'base_discount_amount'   => array('type'=>'decimal'),
+                    'base_tax_amount'        => array('type'=>'decimal'),
+                    'base_shipping_amount'   => array('type'=>'decimal'),
+                    'base_adjustment'        => array('type'=>'decimal'),
+                    'base_adjustment_positive' => array('type'=>'decimal'),
+                    'base_adjustment_negative' => array('type'=>'decimal'),
+                    'base_grand_total'         => array('type'=>'decimal'),
+                    'email_sent'               => array('type' => 'int'),
+                    'store_id'                 => array('type' => 'static'),
+                ),
+            ),
+
+            'creditmemo_item' => array(
+                'entity_model'      => 'sales/order_creditmemo_item',
+                //'table'=>'sales/creditmemo',
+                'table'=>'sales/order_entity',
+                'attributes' => array(
+                    'parent_id'     => array(
+                        'type'=>'static',
+                        'backend'=>'sales_entity/order_creditmemo_attribute_backend_child'
+                    ),
+                    'order_item_id' => array('type'=>'int'),
+                    'product_id'    => array('type'=>'int'),
+                    'name'          => array(),
+                    'description'   => array('type'=>'text'),
+                    'sku'           => array(),
+                    'qty'           => array('type'=>'decimal'),
+                    'cost'          => array('type'=>'decimal'),
+                    'price'         => array('type'=>'decimal'),
+                    'discount_amount' => array('type'=>'decimal'),
+                    'tax_amount'    => array('type'=>'decimal'),
+                    'row_total'     => array('type'=>'decimal'),
+
+                    'base_price'         => array('type'=>'decimal'),
+                    'base_discount_amount' => array('type'=>'decimal'),
+                    'base_tax_amount'    => array('type'=>'decimal'),
+                    'base_row_total'     => array('type'=>'decimal'),
+
+                    'additional_data'   => array('type'=>'text'),
+                ),
+            ),
+
+            'creditmemo_comment' => array(
+                'entity_model'      => 'sales/order_creditmemo_comment',
+                'table'=>'sales/order_entity',
+                'attributes' => array(
+                    'parent_id' => array(
+                        'type'=>'static',
+                        'backend'=>'sales_entity/order_creditmemo_attribute_backend_child'
+                    ),
+                    'comment' => array('type'=>'text'),
+                    'is_customer_notified' => array('type'=>'int'),
+                ),
+            ),
+
+        );
+    }
+}

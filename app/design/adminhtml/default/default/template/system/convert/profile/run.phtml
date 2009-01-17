@@ -1,0 +1,60 @@
+<script type="text/javascript">
+function runProfile(popup)
+{
+    var url = '<?php echo $this->getUrl('*/*/run', array('id'=>$this->getProfileId())) ?>';
+    if ($('profile_direction') != undefined
+    	&& $('profile_data_transfer') != undefined
+    	&& getDirection() == 'import' && getTransferType() == 'interactive') {
+        var file = getSelectedFiles();
+        if (file == '') {
+            alert('Please select imported files');
+            $('file_list').show();
+            return false;
+        }
+        url += 'files/' + file + '/';
+    }
+
+    if (!popup) {
+        $('run_iframe').style.display = 'block';
+        $('run_iframe').src = url;
+    } else {
+        window.open(url);
+    }
+}
+
+function getDirection()
+{
+    return $('profile_direction').options[$('profile_direction').options.selectedIndex].value;
+}
+
+function getSelectedFiles()
+{
+    return $('files').options[$('files').options.selectedIndex].value;
+}
+
+function getTransferType()
+{
+    return $('profile_data_transfer').options[$('profile_data_transfer').options.selectedIndex].value;
+}
+</script>
+<ul class="messages">
+<li class="notice-msg">
+<ul>
+<li><?php echo $this->__('Please make sure that your changes were saved before running the profile.') ?></li>
+</ul>
+</li>
+</ul>
+<div id="file_list" style="display: none;">
+<select id="files" name="files">
+    <option value="">Select a file</option>
+<?php if ($files = $this->getImportedFiles()) :
+    foreach ($files as $file) : ?>
+        <option value=<?php echo $file ?>><?php echo $file ?></option>
+<?php   endforeach;
+    endif; ?>
+</select>
+<br />&nbsp;
+</div>
+
+<?php echo $this->getRunButtonHtml() ?><br/>
+<iframe id="run_iframe" src="<?php echo $this->getJsUrl() ?>blank.html" frameborder=0 style="display:none; width:100%; height:400px;"></iframe>

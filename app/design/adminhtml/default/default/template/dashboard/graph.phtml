@@ -1,0 +1,59 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+/*
+?>
+<div style="width:587px;margin:20px;position:relative;margin-left:-294px;left:50%">
+    <div style="position:absolute;right:1px;top:0px;left: expression(parentNode.offsetWidth - offsetWidth - 1 + 'px');">
+        <div style="padding:5px;height:15px;width:15px;background-color:#F4F4F4" id="dashboard_<?php echo $this->getHtmlId() ?>_cal_div"><img src="<?php echo Mage::getDesign()->getSkinUrl('images/grid-cal.gif') ?>" onclick="toggleCal('<?php echo $this->getHtmlId() ?>')" /></div>
+        <div style="padding:5px;display:none;width:200px;" id="dashboard_<?php echo $this->getHtmlId() ?>_range_div" class="switcher">
+            <?php echo $this->__('Select Range') ?>:
+            <select name="period" id="order_<?php echo $this->getHtmlId() ?>_period" onchange="changePeriod(this)">
+                <?php foreach ($this->helper('adminhtml/dashboard_data')->getDatePeriods() as $_value=>$_label): ?>
+                    <?php if(in_array($_value, array('custom'))) continue; ?>
+                    <option value="<?php echo $_value ?>" <?php if($this->getRequest()->getParam('period')==$_value): ?> selected<?php endif; ?>><?php echo $_label ?></option>
+                <?php endforeach; ?>
+            </select>
+            <img src="<?php echo Mage::getDesign()->getSkinUrl('images/dashboard-close.gif') ?>" onclick="toggleCal('<?php echo $this->getHtmlId() ?>')" />
+        </div>
+    </div>
+    <?php if($this->getCount()): ?>
+    <img src="<?php echo $this->getChartUrl() ?>" />
+    <?php else: ?>
+    <div align="center" style="width:587px;height:300px;"><?php echo $this->__('No Data Found') ?></div>
+    <?php endif; ?>
+</div>
+<?php */ ?>
+<div style="margin:20px;">
+    <p class="switcher a-right" style="padding:5px 10px;"><?php echo $this->__('Select Range') ?>:
+    <select name="period" id="order_<?php echo $this->getHtmlId() ?>_period" onchange="changeDiagramsPeriod(this);">
+        <?php foreach ($this->helper('adminhtml/dashboard_data')->getDatePeriods() as $_value=>$_label): ?>
+            <?php if(in_array($_value, array('custom'))) continue; ?>
+            <option value="<?php echo $_value ?>" <?php if($this->getRequest()->getParam('period')==$_value): ?> selected="selected"<?php endif; ?>><?php echo $_label ?></option>
+        <?php endforeach; ?>
+    </select></p><br/>
+    <?php
+    $_containerStyle = "width:{$this->getWidth()}px;height:{$this->getHeight()}px; margin:0 auto;";
+    ?>
+    <?php if($this->getCount()): ?>
+    <p style="<?php echo $_containerStyle?>"><img src="<?php echo $this->getChartUrl(false) ?>" alt="chart" title="chart" /></p>
+    <?php else: ?>
+    <p class="a-center" style="<?php echo $_containerStyle?>"><?php echo $this->__('No Data Found') ?></p>
+    <?php endif; ?>
+</div>
