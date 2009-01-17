@@ -29,10 +29,11 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->run("
-ALTER TABLE `{$installer->getTable('design_change')}` DROP FOREIGN KEY `FK_DESIGN_CHANGE_STORE`;
-ALTER TABLE `{$installer->getTable('design_change')}`
-  ADD CONSTRAINT `FK_DESIGN_CHANGE_STORE` FOREIGN KEY (`store_id`) REFERENCES `{$installer->getTable('core_store')}` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-");
+$installer->getConnection()->dropForeignKey($installer->getTable('design_change'), 'FK_DESIGN_CHANGE_STORE');
+$installer->getConnection()->addConstraint(
+    'FK_DESIGN_CHANGE_STORE',
+    $installer->getTable('design_change'), 'store_id',
+    $installer->getTable('core_store'),    'store_id'
+);
 
 $installer->endSetup();

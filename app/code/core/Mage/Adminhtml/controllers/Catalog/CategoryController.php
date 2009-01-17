@@ -126,15 +126,34 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         }
 
         if ($this->getRequest()->getQuery('isAjax')) {
+            // prepare breadcrumbs of selected category, if any
+            $breadcrumbsPath = $category->getPath();
+            if (empty($breadcrumbsPath)) {
+                // but if no category, and it is deleted - prepare breadcrumbs from path, saved in session
+                $breadcrumbsPath = Mage::getSingleton('admin/session')->getDeletedPath(true);
+                if (!empty($breadcrumbsPath)) {
+                    $breadcrumbsPath = explode('/', $breadcrumbsPath);
+                    // no need to get parent breadcrumbs if deleting category level 1
+                    if (count($breadcrumbsPath) <= 1) {
+                        $breadcrumbsPath = '';
+                    }
+                    else {
+                        array_pop($breadcrumbsPath);
+                        $breadcrumbsPath = implode('/', $breadcrumbsPath);
+                    }
+                }
+            }
+
             Mage::getSingleton('admin/session')
                 ->setLastViewedStore($this->getRequest()->getParam('store'));
             Mage::getSingleton('admin/session')
                 ->setLastEditedCategory($category->getId());
             $this->_initLayoutMessages('adminhtml/session');
             $this->getResponse()->setBody(
-                $this->getLayout()->getMessagesBlock()->getGroupedHtml().
-                $this->getLayout()->createBlock('adminhtml/catalog_category_edit_form')
-                    ->toHtml()
+                $this->getLayout()->getMessagesBlock()->getGroupedHtml()
+                . $this->getLayout()->createBlock('adminhtml/catalog_category_edit_form')->toHtml()
+                . $this->getLayout()->getBlockSingleton('adminhtml/catalog_category_tree')
+                    ->getBreadcrumbsJavascript($breadcrumbsPath, 'editingCategoryBreadcrumbs')
             );
             return;
         }
@@ -242,11 +261,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 return;
             }
         }
-        $name = $category->getName().'('.$category->getProductCount().')';
-        $url = $this->getUrl('*/*/edit', array('_current'=> true, 'id'=>$category->getId()));
-        echo '<script type="text/javascript">parent.updateNodeName("'.$name.'");parent.updateContent("'.$url.'", {}, true);</script>';
-
-      //  $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('_current'=> true, 'id'=>$category->getId())));
+        $url = $this->getUrl('*/*/edit', array('_current' => true, 'id' => $category->getId()));
+        $this->getResponse()->setBody('<script type="text/javascript">parent.updateContent("' . $url . '", {}, true);</script>');
     }
 
     /**
@@ -296,6 +312,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
             try {
                 $category = Mage::getModel('catalog/category')->load($id);
                 Mage::dispatchEvent('catalog_controller_category_delete', array('category'=>$category));
+
+                Mage::getSingleton('admin/session')->setDeletedPath($category->getPath());
 
                 $category->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('Category deleted'));

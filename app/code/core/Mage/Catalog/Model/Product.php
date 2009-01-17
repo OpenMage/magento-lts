@@ -1243,6 +1243,18 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         return $this->getData('_available_in_categories');
     }
 
+
+    /**
+     * Retrieve default attribute set id
+     *
+     * @return int
+     */
+    public function getDefaultAttributeSetId()
+    {
+        return $this->getResource()->getEntityType()->getDefaultAttributeSetId();
+    }
+
+
     /**
      * Deprecated since 1.1.5
      */
@@ -1266,4 +1278,5 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         return (string)Mage::helper('catalog/image')->init($this, 'thumbnail')->resize($width, $height);
     }
+
 }

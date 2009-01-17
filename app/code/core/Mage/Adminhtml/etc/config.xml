@@ -302,6 +302,10 @@
                                             <title>Sales Emails Section</title>
                                             <sort_order>65</sort_order>
                                         </sales_email>
+                                        <sales_pdf>
+                                            <title>PDF Print-outs</title>
+                                            <sort_order>66</sort_order>
+                                        </sales_pdf>
                                         <checkout>
                                             <title>Checkout Section</title>
                                             <sort_order>70</sort_order>

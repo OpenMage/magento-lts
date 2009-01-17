@@ -33,13 +33,20 @@
  */
 class Mage_Bundle_Model_Source_Option_Type
 {
+    const BUNDLE_OPTIONS_TYPES_PATH = 'global/catalog/product/options/bundle/types';
+
     public function toOptionArray()
     {
-        return array(
-            array('value' => 'select', 'label' => Mage::helper('bundle')->__('Drop-down')),
-            array('value' => 'radio', 'label' => Mage::helper('bundle')->__('Radio Buttons')),
-            array('value' => 'checkbox', 'label' => Mage::helper('bundle')->__('Checkbox')),
-            array('value' => 'multi', 'label' => Mage::helper('bundle')->__('Multiple Select'))
-        );
+        $types = array();
+
+        foreach (Mage::getConfig()->getNode(self::BUNDLE_OPTIONS_TYPES_PATH)->children() as $type) {
+            $labelPath = self::BUNDLE_OPTIONS_TYPES_PATH . '/' . $type->getName() . '/label';
+            $types[] = array(
+                'label' => (string) Mage::getConfig()->getNode($labelPath),
+                'value' => $type->getName()
+            );
+        }
+
+        return $types;
     }
 }

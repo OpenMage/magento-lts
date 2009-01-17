@@ -152,6 +152,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
 
             if ($gRequestMethods = $this->getData('root/calculate/shipping/method')) {
                 $carriers = array();
+                $errors = array();
                 foreach (Mage::getStoreConfig('carriers') as $carrierCode=>$carrierConfig) {
                     if (!isset($carrierConfig['title'])) {
                         continue;
@@ -161,6 +162,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                         $methodName = is_array($method) ? $method['name'] : $method;
                         if ($title && $method && strpos($methodName, $title)===0) {
                             $carriers[$carrierCode] = $title;
+                            $errors[$title] = true;
                         }
                     }
                 }
@@ -169,7 +171,6 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                     ->collectRatesByAddress($address, array_keys($carriers))
                     ->getResult();
 
-                $errors = array();
                 $rates = array();
                 $rateCodes = array();
                 foreach ($result->getAllRates() as $rate) {
@@ -184,6 +185,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
 
                         $rates[$k] = $price;
                         $rateCodes[$k] = $rate->getCarrier() . '_' . $rate->getMethod();
+                        unset($errors[$rate->getCarrierTitle()]);
                     }
                 }
 

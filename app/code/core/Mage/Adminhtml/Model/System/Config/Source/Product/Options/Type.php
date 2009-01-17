@@ -33,40 +33,33 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Product_Options_Type
 {
+    const PRODUCT_OPTIONS_GROUPS_PATH = 'global/catalog/product/options/custom/groups';
+
     public function toOptionArray()
     {
-        return array(
-            array('value' => '', 'label' => Mage::helper('adminhtml')->__('-- Please select --')),
-            array(
-                'label' => Mage::helper('adminhtml')->__('Text'),
-                'value' => array(
-                    array('value' => 'field', 'label' => Mage::helper('adminhtml')->__('Field')),
-                    array('value' => 'area', 'label' => Mage::helper('adminhtml')->__('Area')),
-                )
-            ),
-//            array(
-//                'label' => Mage::helper('adminhtml')->__('File'),
-//                'value' => array(
-//                    array('value' => 'file', 'label' => Mage::helper('adminhtml')->__('File')),
-//                )
-//            ),
-            array(
-                'label' => Mage::helper('adminhtml')->__('Select'),
-                'value' => array(
-                    array('value' => 'drop_down', 'label' => Mage::helper('adminhtml')->__('Drop-down')),
-                    array('value' => 'radio', 'label' => Mage::helper('adminhtml')->__('Radio Buttons')),
-                    array('value' => 'checkbox', 'label' => Mage::helper('adminhtml')->__('Checkbox')),
-                    array('value' => 'multiple', 'label' => Mage::helper('adminhtml')->__('Multiple Select')),
-                )
-            ),
-//            array(
-//                'label' => Mage::helper('adminhtml')->__('Date'),
-//                'value' => array(
-//                    array('value' => 'date', 'label' => Mage::helper('adminhtml')->__('Date')),
-//                    array('value' => 'date_time', 'label' => Mage::helper('adminhtml')->__('Date & Time')),
-//                    array('value' => 'time', 'label' => Mage::helper('adminhtml')->__('Time'))
-//                )
-//            )
+        $groups = array(
+            array('value' => '', 'label' => Mage::helper('adminhtml')->__('-- Please select --'))
         );
+
+        foreach (Mage::getConfig()->getNode(self::PRODUCT_OPTIONS_GROUPS_PATH)->children() as $group) {
+            $types = array();
+            $typesPath = self::PRODUCT_OPTIONS_GROUPS_PATH . '/' . $group->getName() . '/types';
+            foreach (Mage::getConfig()->getNode($typesPath)->children() as $type) {
+                $labelPath = self::PRODUCT_OPTIONS_GROUPS_PATH . '/' . $group->getName() . '/types/' . $type->getName() . '/label';
+                $types[] = array(
+                    'label' => (string) Mage::getConfig()->getNode($labelPath),
+                    'value' => $type->getName()
+                );
+            }
+
+            $labelPath = self::PRODUCT_OPTIONS_GROUPS_PATH . '/' . $group->getName() . '/label';
+
+            $groups[] = array(
+                'label' => (string) Mage::getConfig()->getNode($labelPath),
+                'value' => $types
+            );
+        }
+
+        return $groups;
     }
 }

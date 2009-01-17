@@ -578,7 +578,9 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
         $copyTo = $this->_getEmails(self::XML_PATH_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_EMAIL_COPY_METHOD, $this->getStoreId());
         if ($copyTo && $copyMethod == 'bcc') {
-            $mailTemplate->addBcc($copyTo);
+            foreach ($copyTo as $email) {
+                $mailTemplate->addBcc($email);
+            }
         }
 
         if ($this->getCustomerIsGuest()) {
@@ -666,7 +668,9 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
                 'email' => $this->getCustomerEmail()
             );
             if ($copyTo && $copyMethod == 'bcc') {
-                $mailTemplate->addBcc($copyTo);
+                foreach ($copyTo as $email) {
+                    $mailTemplate->addBcc($email);
+                }
             }
 
         }

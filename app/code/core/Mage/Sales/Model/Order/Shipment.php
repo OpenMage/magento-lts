@@ -326,7 +326,9 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Core_Model_Abstract
                 'email' => $order->getCustomerEmail()
             );
             if ($copyTo && $copyMethod == 'bcc') {
-                $mailTemplate->addBcc($copyTo);
+                foreach ($copyTo as $email) {
+                    $mailTemplate->addBcc($email);
+                }
             }
 
         }
@@ -404,7 +406,9 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Core_Model_Abstract
                 'email' => $order->getCustomerEmail()
             );
             if ($copyTo && $copyMethod == 'bcc') {
-                $mailTemplate->addBcc($copyTo);
+                foreach ($copyTo as $email) {
+                    $mailTemplate->addBcc($email);
+                }
             }
 
         }

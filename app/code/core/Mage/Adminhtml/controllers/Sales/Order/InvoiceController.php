@@ -296,6 +296,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                     $invoice->setEmailSent(true);
                 }
 
+                $invoice->getOrder()->setIsInProcess(true);
+
                 $transactionSave = Mage::getModel('core/resource_transaction')
                     ->addObject($invoice)
                     ->addObject($invoice->getOrder());

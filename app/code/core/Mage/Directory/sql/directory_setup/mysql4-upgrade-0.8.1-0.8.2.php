@@ -19,31 +19,23 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Mage
- * @package    Mage_Adminhtml
+ * @package    Mage_Directory
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Adminhtml dashboard helper for products
+ * Directory upgrade - adding regions of France (#6068)
  *
  * @category   Mage
- * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_Directory
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Helper_Dashboard_Product extends Mage_Adminhtml_Helper_Dashboard_Abstract
-{
-
-    protected function _initCollection()
-    {
-        $this->_collection = array(
-            array('name'=>'Product 1', 'avarage'=>263, 'salary'=>3666),
-            array('name'=>'Product 2', 'avarage'=>263, 'salary'=>266),
-            array('name'=>'Product 3', 'avarage'=>263, 'salary'=>366),
-            array('name'=>'Product 4', 'avarage'=>203, 'salary'=>6866),
-            array('name'=>'Product 5', 'avarage'=>263, 'salary'=>566)
-           );
-    }
-
-}
- // Class Mage_Adminhtml_Helper_Dashboard_Product end
+$installer = $this;
+/* @var $installer Mage_Core_Model_Resource_Setup */
+$installer->startSetup();
+$installer->run("
+REPLACE INTO `{$installer->getTable('directory_country_region_name')}` (`locale`, `region_id`, `name`)
+SELECT 'en_US', `region_id`, `default_name` FROM `{$installer->getTable('directory_country_region')}` WHERE `country_id` = 'FR';
+");
+$installer->endSetup();

@@ -31,9 +31,10 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Extensions_Custom_Edit_Tab_Grid
-    extends Mage_Adminhtml_Block_Widget_Grid
+class Mage_Adminhtml_Block_Extensions_Custom_Edit_Tab_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected $_defaultLimit = 200;
+
     public function __construct()
     {
         parent::__construct();
@@ -68,9 +69,6 @@ class Mage_Adminhtml_Block_Extensions_Custom_Edit_Tab_Grid
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/load', array(
-            'id' => $row->getFilenameId(),
-        ));
+        return $this->getUrl('*/*/load') . '?id=' . urlencode($row->getFilenameId());
     }
-
 }

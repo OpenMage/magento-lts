@@ -158,10 +158,23 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection extends Mage_Ca
      */
     protected function _loadProductCount()
     {
+        $this->loadProductCount($this->_items, true, true);
+    }
+
+    /**
+     * Load product count for specified items
+     *
+     * @param array $items
+     * @param boolean $countRegular get product count for regular (non-anchor) categories
+     * @param boolean $countAnchor get product count for anchor categories
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
+     */
+    public function loadProductCount($items, $countRegular = true, $countAnchor = true)
+    {
         $anchor     = array();
         $regular    = array();
 
-        foreach ($this->_items as $item) {
+        foreach ($items as $item) {
             if ($item->getIsAnchor()) {
                 $anchor[$item->getId()] = $item;
             } else {
@@ -169,39 +182,43 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection extends Mage_Ca
             }
         }
 
-        // Retrieve regular categories product counts
-        $regularIds = array_keys($regular);
-        if (!empty($regularIds)) {
-            $select = $this->_conn->select();
-            $select->from(
-                    array('main_table'=>$this->_productTable),
-                    array('category_id', new Zend_Db_Expr('COUNT(main_table.product_id)'))
-                )
-                ->where($this->_conn->quoteInto('main_table.category_id IN(?)', $regularIds))
-                ->group('main_table.category_id');
-            $counts = $this->_conn->fetchPairs($select);
-            foreach ($regular as $item) {
-                if (isset($counts[$item->getId()])) {
-                    $item->setProductCount($counts[$item->getId()]);
-                } else {
-                    $item->setProductCount(0);
+        if ($countRegular) {
+            // Retrieve regular categories product counts
+            $regularIds = array_keys($regular);
+            if (!empty($regularIds)) {
+                $select = $this->_conn->select();
+                $select->from(
+                        array('main_table'=>$this->_productTable),
+                        array('category_id', new Zend_Db_Expr('COUNT(main_table.product_id)'))
+                    )
+                    ->where($this->_conn->quoteInto('main_table.category_id IN(?)', $regularIds))
+                    ->group('main_table.category_id');
+                $counts = $this->_conn->fetchPairs($select);
+                foreach ($regular as $item) {
+                    if (isset($counts[$item->getId()])) {
+                        $item->setProductCount($counts[$item->getId()]);
+                    } else {
+                        $item->setProductCount(0);
+                    }
                 }
             }
         }
 
-        // Retrieve Anchor categories product counts
-        foreach ($anchor as $item) {
-            if ($allChildren = $item->getAllChildren()) {
-                $select = $this->_conn->select();
-                $select->from(
-                        array('main_table'=>$this->_productTable),
-                        new Zend_Db_Expr('COUNT( DISTINCT main_table.product_id)')
-                    )
-                    ->where($this->_conn->quoteInto('main_table.category_id IN(?)', explode(',', $item->getAllChildren())));
+        if ($countAnchor) {
+            // Retrieve Anchor categories product counts
+            foreach ($anchor as $item) {
+                if ($allChildren = $item->getAllChildren()) {
+                    $select = $this->_conn->select();
+                    $select->from(
+                            array('main_table'=>$this->_productTable),
+                            new Zend_Db_Expr('COUNT( DISTINCT main_table.product_id)')
+                        )
+                        ->where($this->_conn->quoteInto('main_table.category_id IN(?)', explode(',', $allChildren)));
 
-                $item->setProductCount((int) $this->_conn->fetchOne($select));
-            } else {
-                $item->setProductCount(0);
+                    $item->setProductCount((int) $this->_conn->fetchOne($select));
+                } else {
+                    $item->setProductCount(0);
+                }
             }
         }
         return $this;

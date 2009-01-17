@@ -28,6 +28,8 @@
 class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 {
     const DEFAULT_ONLINE_MINUTES_INTERVAL = 15;
+    const VISITOR_TYPE_CUSTOMER = 'c';
+    const VISITOR_TYPE_VISITOR  = 'v';
 
     protected function _construct()
     {

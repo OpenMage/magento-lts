@@ -288,8 +288,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
         foreach ($this->_conn->fetchAll($select) as $item) {
             $path  = explode('/', $item['path']);
             $level = (int)$item['level'];
-            while ($level > 0)
-            {
+            while ($level > 0) {
                 $path[count($path) - 1] = '%';
                 $where[sprintf("`level`=%d AND `path` LIKE '%s'", $level, implode('/', $path))] = true;
                 array_pop($path);
@@ -300,26 +299,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
 
         // get all required records
         if ($addCollectionData) {
-            $select = $this->_getDefaultCollection($this->_orderField)
-                ->getSelect();
-            // add attributes to select
-            foreach (array('name', 'url_key', 'is_active') as $attributeCode) {
-                $attribute = Mage::getResourceSingleton('catalog/category')->getAttribute($attributeCode);
-                $tableAs   = "_$attributeCode";
-                $select->joinLeft(
-                    array($tableAs => $attribute->getBackend()->getTable()),
-                    sprintf('`%1$s`.entity_id=e.entity_id AND `%1$s`.attribute_id=%2$d AND `%1$s`.entity_type_id=e.entity_type_id',
-                        $tableAs, $attribute->getData('attribute_id')
-                    ),
-                    array($attributeCode => 'value')
-                );
-            }
-            // count products qty
-            $select->joinLeft(array('_category_product' => Mage::getSingleton('core/resource')->getTableName('catalog/category_product')),
-                'e.entity_id=_category_product.category_id',
-                array('product_count' => 'COUNT(_category_product.product_id)')
-            )
-            ->group('e.entity_id');
+            $select = $this->_createCollectionDataSelect();
         }
         else {
             $select = clone $this->_select;
@@ -332,8 +312,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
         if (!$arrNodes) {
             return false;
         }
+        $this->_updateAnchorProductCount($arrNodes);
         $childrenItems = array();
-        foreach ($arrNodes as $nodeInfo) {
+        foreach ($arrNodes as $key => $nodeInfo) {
             $pathToParent = explode('/', $nodeInfo[$this->_pathField]);
             array_pop($pathToParent);
             $pathToParent = implode('/', $pathToParent);
@@ -344,4 +325,96 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
         return $this;
     }
 
+    /**
+     * Load array of category parents
+     *
+     * @param string $path
+     * @param bool $addCollectionData
+     * @param bool $withRootNode
+     * @return array
+     */
+    public function loadBreadcrumbsArray($path, $addCollectionData = true, $withRootNode = false)
+    {
+        $path = explode('/', $path);
+        if (!$withRootNode) {
+            array_shift($path);
+        }
+        $result = array();
+        if (!empty($path)) {
+            if ($addCollectionData) {
+                $select = $this->_createCollectionDataSelect(false);
+            }
+            else {
+                $select = clone $this->_select;
+            }
+            $select->where(sprintf('e.entity_id IN (%s)', implode(', ', $path)))
+                ->order(new Zend_Db_Expr('LENGTH(e.path) ASC'));
+            $result = $this->_conn->fetchAll($select);
+            $this->_updateAnchorProductCount($result);
+        }
+        return $result;
+    }
+
+    /**
+     * Replace products count with self products count, if category is non-anchor
+     *
+     * @param array $data
+     */
+    protected function _updateAnchorProductCount(&$data)
+    {
+        foreach ($data as $key => $row) {
+            if (0 === (int)$row['is_anchor']) {
+                $data[$key]['product_count'] = $row['self_product_count'];
+            }
+        }
+    }
+
+    /**
+     * Obtain select for categories with attributes.
+     *
+     * By default everything from entity table is selected
+     * + name, is_active and is_anchor
+     *
+     * Also the correct product_count is selected, depending on is the category anchor or not.
+     *
+     * @param bool $sorted
+     * @param array $optionalAttributes
+     * @return Zend_Db_Select
+     */
+    protected function _createCollectionDataSelect($sorted = true, $optionalAttributes = array())
+    {
+        $select = $this->_getDefaultCollection($sorted ? $this->_orderField : false)
+            ->getSelect();
+        // add attributes to select
+        $attributes = array('name', 'is_active', 'is_anchor');
+        if ($optionalAttributes) {
+            $attributes = array_unique(array_merge($attributes, $optionalAttributes));
+        }
+        foreach ($attributes as $attributeCode) {
+            $attribute = Mage::getResourceSingleton('catalog/category')->getAttribute($attributeCode);
+            $tableAs   = "_$attributeCode";
+            $select->joinLeft(
+                array($tableAs => $attribute->getBackend()->getTable()),
+                sprintf('`%1$s`.entity_id=e.entity_id AND `%1$s`.attribute_id=%2$d AND `%1$s`.entity_type_id=e.entity_type_id AND `%1$s`.store_id=%3$d',
+                    $tableAs, $attribute->getData('attribute_id'), Mage_Core_Model_App::ADMIN_STORE_ID
+                ),
+                array($attributeCode => 'value')
+            );
+        }
+
+        // count children products qty plus self products qty
+        $categoriesTable         = Mage::getSingleton('core/resource')->getTableName('catalog/category');
+        $categoriesProductsTable = Mage::getSingleton('core/resource')->getTableName('catalog/category_product');
+        $select->joinLeft(array('_category_product' => $categoriesProductsTable),
+            'e.entity_id=_category_product.category_id',
+            array(
+                'self_product_count' => new Zend_Db_Expr('COUNT(_category_product.product_id)'),
+                'product_count' => new Zend_Db_Expr('(SELECT COUNT(DISTINCT cp.product_id) FROM ' . $categoriesTable . ' ee
+                    LEFT JOIN ' . $categoriesProductsTable . ' cp ON ee.entity_id=cp.category_id
+                    WHERE ee.entity_id=e.entity_id OR ee.path like CONCAT(e.path, \'/%\'))'
+        )))
+        ->group('e.entity_id');
+
+        return $select;
+    }
 }

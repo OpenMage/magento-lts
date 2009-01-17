@@ -56,6 +56,7 @@ class Mage_CatalogIndex_Model_Mysql4_Data_Grouped extends Mage_CatalogIndex_Mode
         foreach ($groups as $group) {
             $resultMinimal    = null;
             $resultTaxClassId = 0;
+            $taxClassId       = 0;
             $customerGroup = $group->getId();
             $storeObject = $stores->getItemById($store);
 

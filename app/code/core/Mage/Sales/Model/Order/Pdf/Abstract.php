@@ -45,6 +45,10 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      */
     protected $_renderers = array();
 
+    const XML_PATH_SALES_PDF_INVOICE_PUT_ORDER_ID = 'sales_pdf/invoice/put_order_id';
+    const XML_PATH_SALES_PDF_SHIPMENT_PUT_ORDER_ID = 'sales_pdf/shipment/put_order_id';
+    const XML_PATH_SALES_PDF_CREDITMEMO_PUT_ORDER_ID = 'sales_pdf/creditmemo/put_order_id';
+
     abstract public function getPdf();
 
     /**
@@ -142,7 +146,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         //return $page;
     }
 
-    protected function insertOrder(&$page, $order)
+    protected function insertOrder(&$page, $order, $putOrderId = true)
     {
 
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(0.5));
@@ -153,8 +157,11 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         $this->_setFontRegular($page);
 
 
-        $page->drawText(Mage::helper('sales')->__('Order # ').$order->getRealOrderId(), 35, 770, 'UTF-8');
-        $page->drawText(Mage::helper('sales')->__('Order Date: ') . date( 'D M j Y', strtotime( $order->getCreatedAt() ) ), 35, 760, 'UTF-8');
+        if ($putOrderId) {
+            $page->drawText(Mage::helper('sales')->__('Order # ').$order->getRealOrderId(), 35, 770, 'UTF-8');
+        }
+        //$page->drawText(Mage::helper('sales')->__('Order Date: ') . date( 'D M j Y', strtotime( $order->getCreatedAt() ) ), 35, 760, 'UTF-8');
+        $page->drawText(Mage::helper('sales')->__('Order Date: ') . Mage::helper('core')->formatDate($order->getCreatedAt(), 'medium', false), 35, 760, 'UTF-8');
 
         $page->setFillColor(new Zend_Pdf_Color_Rgb(0.93, 0.92, 0.92));
         $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
@@ -266,7 +273,10 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
             $yShipments = $this->y;
 
-            $page->drawText(Mage::helper('sales')->__('(Total Shipping Charges %s)', $order->formatPriceTxt($order->getBaseShippingAmount())), 285, $yShipments-7, 'UTF-8');
+
+            $totalShippingChargesText = "(" . Mage::helper('sales')->__('Total Shipping Charges') . " " . $order->formatPriceTxt($order->getBaseShippingAmount()) . ")";
+
+            $page->drawText($totalShippingChargesText, 285, $yShipments-7, 'UTF-8');
             $yShipments -=10;
             $tracks = $order->getTracksCollection();
             if (count($tracks)) {

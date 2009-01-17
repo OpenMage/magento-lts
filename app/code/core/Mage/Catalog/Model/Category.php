@@ -357,7 +357,13 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             ->getAttribute($attributeCode);
     }
 
-    public function getAllChildren()
+    /**
+     * Get all children categories IDs
+     *
+     * @param boolean $asArray return resul as array instead of comma-separated list of IDs
+     * @return array|string
+     */
+    public function getAllChildren($asArray = false)
     {
         $this->getTreeModelInstance()->load();
         $children = $this->getTreeModelInstance()->getChildren($this->getId());
@@ -368,7 +374,11 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         } else {
             $children = $myId;
         }
-        return implode(',', $children);
+        if ($asArray) {
+            return $children;
+        } else {
+            return implode(',', $children);
+        }
     }
 
     public function getChildren()

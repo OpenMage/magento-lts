@@ -267,6 +267,10 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
             $fileName = $this->getName();
         }
 
+        if (!preg_match('/^[a-z0-9]+[a-z0-9\-\_\.]*(\/[a-z0-9]+[a-z0-9\-\_\.]*)*$/i', $fileName)) {
+            return false;
+        }
+
         if (!$this->getPackageXml()) {
             $this->generatePackageXml();
         }
@@ -285,7 +289,17 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
         $this->unsRoles();
         $xml = Mage::helper('core')->assocToXml($this->getData());
 
-        if (!@file_put_contents($dir.DS.$fileName.'.xml', $xml->asXML())) {
+        // prepare dir to save
+        $parts = explode('/', $fileName);
+        array_pop($parts);
+        $newDir = implode(DS, $parts);
+        if ((!empty($newDir)) && (!is_dir($dir . DS . $newDir))) {
+            if (!@mkdir($dir . DS . $newDir, 0777, true)) {
+                return false;
+            }
+        }
+
+        if (!@file_put_contents($dir . DS . $fileName . '.xml', $xml->asXML())) {
             return false;
         }
 

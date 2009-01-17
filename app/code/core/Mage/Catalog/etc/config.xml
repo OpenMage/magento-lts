@@ -248,6 +248,40 @@
                         </option2>
                     </options_container>
                 </design>
+                <options>
+                    <custom>
+                        <groups>
+                            <text translate="label" module="catalog">
+                                <label>Text</label>
+                                <types>
+                                    <field translate="label" module="catalog">
+                                        <label>Field</label>
+                                    </field>
+                                    <area translate="label" module="catalog">
+                                        <label>Area</label>
+                                    </area>
+                                </types>
+                            </text>
+                            <select translate="label" module="catalog">
+                                <label>Select</label>
+                                <types>
+                                    <drop_down translate="label" module="catalog">
+                                        <label>Drop-down</label>
+                                    </drop_down>
+                                    <radio translate="label" module="catalog">
+                                        <label>Radio Buttons</label>
+                                    </radio>
+                                    <checkbox translate="label" module="catalog">
+                                        <label>Checkbox</label>
+                                    </checkbox>
+                                    <multiple translate="label" module="catalog">
+                                        <label>Multiple Select</label>
+                                    </multiple>
+                                </types>
+                            </select>
+                        </groups>
+                    </custom>
+                </options>
             </product>
         </catalog>
     </global>

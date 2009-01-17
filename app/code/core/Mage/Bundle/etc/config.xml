@@ -91,6 +91,24 @@
                         <index_data_retreiver>bundle/catalogIndex_data_bundle</index_data_retreiver>
                     </bundle>
                 </type>
+                <options>
+                    <bundle>
+                        <types>
+                            <select translate="label" module="bundle">
+                                <label>Drop-down</label>
+                            </select>
+                            <radio translate="label" module="bundle">
+                                <label>Radio Buttons</label>
+                            </radio>
+                            <checkbox translate="label" module="bundle">
+                                <label>Checkbox</label>
+                            </checkbox>
+                            <multi translate="label" module="bundle">
+                                <label>Multiple Select</label>
+                            </multi>
+                        </types>
+                    </bundle>
+                </options>
             </product>
         </catalog>
         <sales>

@@ -123,8 +123,8 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'index'=>'type',
             'type' => 'options',
             'options' => array(
-                'c' => Mage::helper('customer')->__('Customer'),
-                'v' => Mage::helper('customer')->__('Visitor'),
+                Mage_Log_Model_Visitor::VISITOR_TYPE_CUSTOMER => Mage::helper('customer')->__('Customer'),
+                Mage_Log_Model_Visitor::VISITOR_TYPE_VISITOR  => Mage::helper('customer')->__('Visitor'),
             ),
             'renderer'=>'adminhtml/customer_online_grid_renderer_type',
         ));
@@ -146,15 +146,4 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
     {
         return ( intval($row->getCustomerId()) > 0 ) ? $this->getUrl('*/customer/edit', array('id' => $row->getCustomerId())) : '';
     }
-
-    protected function _addColumnFilterToCollection($column)
-    {
-        if($column->getId()=='type') {
-            $this->getCollection()->addFieldToFilter($column->getIndex(), $column->getFilter()->getValue());
-        } else {
-            $this->getCollection()->addFieldToFilter($column->getIndex(), $column->getFilter()->getCondition());
-        }
-        return $this;
-    }
-
 }

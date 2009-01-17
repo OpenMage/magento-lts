@@ -258,17 +258,24 @@ class Mage_Log_Model_Mysql4_Visitor_Collection extends Varien_Data_Collection_Db
         return $range;
     }
 
-    public function addFieldToFilter($fieldName, $fieldValue=null)
+    /**
+     * Filter by customer ID, as 'type' field does not exist
+     *
+     * @param string $fieldName
+     * @param array $condition
+     * @return Mage_Log_Model_Mysql4_Visitor_Collection
+     */
+    public function addFieldToFilter($fieldName, $condition=null)
     {
-        if( $fieldName == 'type' ) {
-            if ($fieldValue == 'v') {
-                return parent::addFieldToFilter('customer_table.customer_id', array('null' => 1));
+        if ($fieldName == 'type' && is_array($condition) && isset($condition['eq'])) {
+            $fieldName = 'customer_id';
+            if ($condition['eq'] === Mage_Log_Model_Visitor::VISITOR_TYPE_VISITOR) {
+                $condition = array('null' => 1);
             } else {
-                return parent::addFieldToFilter('customer_table.customer_id', array('moreq' => 1));
+                $condition = array('moreq' => 1);
             }
-        } else {
-            return parent::addFieldToFilter($this->_getFieldMap($fieldName), $fieldValue);
         }
+        return parent::addFieldToFilter($this->_getFieldMap($fieldName), $condition);
     }
 
     protected function _getFieldMap($fieldName)

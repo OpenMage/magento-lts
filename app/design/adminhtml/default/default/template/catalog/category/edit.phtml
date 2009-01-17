@@ -70,7 +70,7 @@
                parameters:  params || {},
                method:      'post',
                loaderArea:  categoryContainer,
-               onComplete:  refreshTree?refreshTreeArea.bind(this):false,
+               onComplete:  refreshTree ? refreshTreeArea.bind(this) : false,
                evalScripts: true
             }
         );
@@ -78,54 +78,46 @@
 
     function refreshTreeArea(transport)
     {
-        if (tree && tree.addNodeTo) {
-            var parent = tree.getNodeById(tree.currentNodeId);
-            var parameters = {
-                text:        $('_generalname').value,
-                draggable:   tree.rootVisible,
-                allowDrop:   tree.rootVisible,
-                id:          $('_generalid').value,
-                path:        $('_generalpath').value,
-                expanded:    false,
-                store_id:    tree.storeId,
-                category_id: $('_generalid').value
-            };
-
-            var node = new Ext.tree.AsyncTreeNode(parameters);
-            node.loaded = true;
-            tree.addNodeTo = false;
-            tree.currentNodeId = node.id;
-            parent.appendChild(node);
-
-            if (parent.expanded) {
-                tree.selectCurrentNode();
-            } else {
-                var timer;
-                parent.expand();
-                var f = function(){
-                    if(parent.expanded){ // done expanding
-                        clearInterval(timer);
-                        tree.selectCurrentNode();
-                    }
-                };
-                timer = setInterval(f, 200);
-                return;
+        if (tree && editingCategoryBreadcrumbs) {
+            // category deleted - delete its node
+            if (tree.nodeForDelete) {
+                var parentNode = tree.getNodeById(tree.nodeForDelete).parentNode;
+                parentNode.removeChild(tree.getNodeById(tree.nodeForDelete));
+                tree.nodeForDelete = false;
+                tree.currentNodeId = false;
             }
-//            tree.selectCurrentNode();
-        }
-        else if (tree && tree.nodeForDelete) {
-            var parentNode = tree.getNodeById(tree.nodeForDelete).parentNode;
-            parentNode.removeChild(tree.getNodeById(tree.nodeForDelete));
-            tree.nodeForDelete = false;
-            tree.currentNodeId = false;
-        }
-    }
-    
-    function updateNodeName(name)
-    {
-        if (tree && !tree.addNodeTo) {
-         var currentNode = tree.getNodeById(tree.currentNodeId);
-          currentNode.setText(name);
+            // category created - add its node
+            else if (tree.addNodeTo) {
+                var parent = tree.getNodeById(tree.currentNodeId);
+                var node = new Ext.tree.AsyncTreeNode(editingCategoryBreadcrumbs[editingCategoryBreadcrumbs.length - 1]);
+                node.loaded = true;
+                tree.addNodeTo = false;
+                tree.currentNodeId = node.id;
+                parent.appendChild(node);
+
+                if (parent.expanded) {
+                    tree.selectCurrentNode();
+                } else {
+                    var timer;
+                    parent.expand();
+                    var f = function(){
+                        if(parent.expanded){ // done expanding
+                            clearInterval(timer);
+                            tree.selectCurrentNode();
+                        }
+                    };
+                    timer = setInterval(f, 200);
+                }
+                // tree.selectCurrentNode();
+            }
+
+            // update all affected categories nodes names
+            for (var i = 0; i < editingCategoryBreadcrumbs.length; i++) {
+                var node = tree.getNodeById(editingCategoryBreadcrumbs[i].id);
+                if (node) {
+                    node.setText(editingCategoryBreadcrumbs[i].text);
+                }
+            }
         }
     }
 

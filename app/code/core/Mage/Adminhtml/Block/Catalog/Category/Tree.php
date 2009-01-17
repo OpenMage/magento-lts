@@ -188,8 +188,45 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         return $ids;
     }
 
-    protected function _getNodeJson($node, $level=0)
+    /**
+     * Get JSON of array of categories, that are breadcrumbs for specified category path
+     *
+     * @param string $path
+     * @param string $javascriptVarName
+     * @return string
+     */
+    public function getBreadcrumbsJavascript($path, $javascriptVarName)
     {
+        if (empty($path)) {
+            return '';
+        }
+        $categories = Mage::getResourceSingleton('catalog/category_tree')->loadBreadcrumbsArray($path);
+        if (empty($categories)) {
+            return '';
+        }
+        foreach ($categories as $key => $category) {
+            $categories[$key] = $this->_getNodeJson($category);
+        }
+        return
+            '<script type="text/javascript">'
+            . $javascriptVarName . ' = ' . Zend_Json::encode($categories) . ';'
+            . '</script>';
+    }
+
+    /**
+     * Get JSON of a tree node or an associative array
+     *
+     * @param Varien_Data_Tree_Node|array $node
+     * @param int $level
+     * @return string
+     */
+    protected function _getNodeJson($node, $level = 0)
+    {
+        // create a node from data array
+        if (is_array($node)) {
+            $node = new Varien_Data_Tree_Node($node, 'entity_id', new Varien_Data_Tree);
+        }
+
         $item = array();
         $item['text']= $this->htmlEscape($node->getName());
 

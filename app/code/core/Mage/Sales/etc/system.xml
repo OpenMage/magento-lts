@@ -681,5 +681,73 @@
                 </creditmemo_comment>
             </groups>
         </sales_email>
+        <sales_pdf translate="label" module="sales">
+            <label>PDF Print-outs</label>
+            <tab>sales</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>302</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <invoice translate="label">
+                    <label>Invoice</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>10</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <put_order_id translate="label">
+                            <label>Display Order ID in Header</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </put_order_id>
+                    </fields>
+                </invoice>
+                <shipment translate="label">
+                    <label>Shipment</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <put_order_id translate="label">
+                            <label>Display Order ID in Header</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </put_order_id>
+                    </fields>
+                </shipment>
+                <creditmemo translate="label">
+                    <label>Credit Memo</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <put_order_id translate="label">
+                            <label>Display Order ID in Header</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </put_order_id>
+                    </fields>
+                </creditmemo>
+            </groups>
+        </sales_pdf>
     </sections>
 </config>

@@ -844,6 +844,17 @@
                 <copy_method>bcc</copy_method>
             </creditmemo_comment>
         </sales_email>
+        <sales_pdf>
+            <invoice>
+                <put_order_id>1</put_order_id>
+            </invoice>
+            <shipment>
+                <put_order_id>1</put_order_id>
+            </shipment>
+            <creditmemo>
+                <put_order_id>1</put_order_id>
+            </creditmemo>
+        </sales_pdf>
     </default>
 
     <crontab>
