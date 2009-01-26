@@ -154,7 +154,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
             if ($gRequestMethods = $this->getData('root/calculate/shipping/method')) {
                 $carriers = array();
                 $errors = array();
-                foreach (Mage::getStoreConfig('carriers') as $carrierCode=>$carrierConfig) {
+                foreach (Mage::getStoreConfig('carriers', $this->getStoreId()) as $carrierCode=>$carrierConfig) {
                     if (!isset($carrierConfig['title'])) {
                         continue;
                     }

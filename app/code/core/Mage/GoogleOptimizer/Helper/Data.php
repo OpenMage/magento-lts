@@ -105,7 +105,7 @@ class Mage_GoogleOptimizer_Helper_Data extends Mage_Core_Helper_Abstract
             return $attributeHtml;
         }
 
-        $newAttributeName = 'product_'.$attributeName.'_'.$category->getId();
+        $newAttributeName = 'category_'.$attributeName.'_'.$category->getId();
         if (strlen($newAttributeName) > self::MAX_ATTRIBUTE_LENGTH_LIMIT) {
             $newAttributeName = 'category_';
             $newAttributeName .= substr($attributeName, 0, (self::MAX_ATTRIBUTE_LENGTH_LIMIT - strlen('category__'.$category->getId())));

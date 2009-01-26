@@ -75,6 +75,17 @@
         <blocks>
             <googleoptimizer><class>Mage_GoogleOptimizer_Block</class></googleoptimizer>
         </blocks>
+        <events>
+            <cms_page_load_after>
+                <observers>
+                    <googleoptimizer_observer>
+                        <type>singleton</type>
+                        <class>googleoptimizer/observer</class>
+                        <method>appendToPageGoogleOptimizerScripts</method>
+                    </googleoptimizer_observer>
+                </observers>
+            </cms_page_load_after>
+        </events>
     </global>
     <admin>
         <attributes>
@@ -111,15 +122,6 @@
             </updates>
         </layout>
         <events>
-            <cms_page_load_after>
-                <observers>
-                    <googleoptimizer_observer>
-                        <type>singleton</type>
-                        <class>googleoptimizer/observer</class>
-                        <method>appendToPageGoogleOptimizerScripts</method>
-                    </googleoptimizer_observer>
-                </observers>
-            </cms_page_load_after>
             <catalog_product_load_after>
                 <observers>
                     <googleoptimizer_observer>

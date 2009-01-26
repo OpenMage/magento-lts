@@ -29,7 +29,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Order extends Mage_GoogleCheckout_Model_
     protected function _getApiUrl()
     {
         $url = $this->_getBaseApiUrl();
-        $url .= 'request/Merchant/'.Mage::getStoreConfig('google/checkout/merchant_id');
+        $url .= 'request/Merchant/'.Mage::getStoreConfig('google/checkout/merchant_id', $this->getStoreId());
         return $url;
     }
 

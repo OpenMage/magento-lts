@@ -43,9 +43,9 @@ class Mage_GoogleCheckout_Model_Observer
             return;
         }
 
-        $api = Mage::getModel('googlecheckout/api');
-
-        $api->deliver($order->getExtOrderId(), $track->getCarrierCode(), $track->getNumber());
+        Mage::getModel('googlecheckout/api')
+            ->setStoreId($order->getStoreId())
+            ->deliver($order->getExtOrderId(), $track->getCarrierCode(), $track->getNumber());
     }
 
     public function salesOrderShipmentSaveAfter(Varien_Event_Observer $observer)
@@ -66,7 +66,9 @@ class Mage_GoogleCheckout_Model_Observer
         }
 
         if ($items) {
-            Mage::getModel('googlecheckout/api')->shipItems($order->getExtOrderId(), $items);
+            Mage::getModel('googlecheckout/api')
+                ->setStoreId($order->getStoreId())
+                ->shipItems($order->getExtOrderId(), $items);
         }
     }
 }

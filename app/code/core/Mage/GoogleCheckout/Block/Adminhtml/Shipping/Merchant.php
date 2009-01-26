@@ -82,8 +82,18 @@ class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Merchant
     protected function getShippingMethods()
     {
         if (!$this->hasData('shipping_methods')) {
+            $website = $this->getRequest()->getParam('website');
+            $store   = $this->getRequest()->getParam('store');
+
+            $storeId = null;
+            if (!is_null($website)) {
+                $storeId = Mage::getModel('core/website')->load($website, 'code')->getDefaultGroup()->getDefaultStoreId();
+            } elseif (!is_null($store)) {
+                $storeId = Mage::getModel('core/store')->load($store, 'code')->getId();
+            }
+
             $methods = array();
-            $carriers = Mage::getSingleton('shipping/config')->getActiveCarriers();
+            $carriers = Mage::getSingleton('shipping/config')->getActiveCarriers($storeId);
             foreach ($carriers as $carrierCode=>$carrierModel) {
                 if (!$carrierModel->isActive()) {
                     continue;
@@ -92,7 +102,7 @@ class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Merchant
                 if (!$carrierMethods) {
                     continue;
                 }
-                $carrierTitle = Mage::getStoreConfig('carriers/'.$carrierCode.'/title');
+                $carrierTitle = Mage::getStoreConfig('carriers/'.$carrierCode.'/title', $storeId);
                 $methods[$carrierCode] = array(
                     'title'   => $carrierTitle,
                     'methods' => array(),

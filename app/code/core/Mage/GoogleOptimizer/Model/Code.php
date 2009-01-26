@@ -139,11 +139,18 @@ class Mage_GoogleOptimizer_Model_Code extends Mage_Core_Model_Abstract
         if (!$this->getEntity()->getGoogleOptimizerScripts()) {
             return $this;
         }
+        $script = $this->getEntity()->getGoogleOptimizerScripts();
 
-        $this->setData($this->getEntity()->getGoogleOptimizerScripts()->getData())
+        $this->setData($script->getData())
             ->setEntityId($this->getEntity()->getId())
-            ->setEntityType($this->getEntityType())
-            ->setStoreId($storeId);
+            ->setEntityType($this->getEntityType());
+
+        /**
+         * We can't modify store id if existing stcript
+         */
+        if (!$script->getId()) {
+            $this->setStoreId($storeId);
+        }
 
         if (false === $this->_validate()) {
             throw new Exception(Mage::helper('googleoptimizer')->__('All fields of script types have to be filled.'));

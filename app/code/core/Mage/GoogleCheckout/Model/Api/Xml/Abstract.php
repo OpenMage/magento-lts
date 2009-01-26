@@ -50,7 +50,7 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
     public function getMerchantId()
     {
         if (!$this->hasData('merchant_id')) {
-            $this->setData('merchant_id', Mage::getStoreConfig('google/checkout/merchant_id'));
+            $this->setData('merchant_id', Mage::getStoreConfig('google/checkout/merchant_id', $this->getStoreId()));
         }
         return $this->getData('merchant_id');
     }
@@ -58,7 +58,7 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
     public function getMerchantKey()
     {
         if (!$this->hasData('merchant_key')) {
-            $this->setData('merchant_key', Mage::getStoreConfig('google/checkout/merchant_key'));
+            $this->setData('merchant_key', Mage::getStoreConfig('google/checkout/merchant_key', $this->getStoreId()));
         }
         return $this->getData('merchant_key');
     }
@@ -66,7 +66,7 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
     public function getServerType()
     {
         if (!$this->hasData('server_type')) {
-            $this->setData('server_type', Mage::getStoreConfig('google/checkout/sandbox') ? "sandbox" : "");
+            $this->setData('server_type', Mage::getStoreConfig('google/checkout/sandbox', $this->getStoreId()) ? "sandbox" : "");
         }
         return $this->getData('server_type');
     }
@@ -74,7 +74,7 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
     public function getLocale()
     {
         if (!$this->hasData('locale')) {
-            $this->setData('locale', Mage::getStoreConfig('google/checkout/locale'));
+            $this->setData('locale', Mage::getStoreConfig('google/checkout/locale', $this->getStoreId()));
         }
         return $this->getData('locale');
     }
@@ -165,7 +165,7 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\r\n".$xml;
 
-        if (Mage::getStoreConfig('google/checkout/debug')) {
+        if (Mage::getStoreConfig('google/checkout/debug', $this->getStoreId())) {
             $debug = Mage::getModel('googlecheckout/api_debug');
             $debug->setDir('out')->setUrl($url)->setRequestBody($xml)->save();
         }
@@ -198,6 +198,6 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
 
     protected function _getCallbackUrl()
     {
-        return Mage::getUrl('googlecheckout/api', array('_forced_secure'=>Mage::getStoreConfig('google/checkout/use_secure_callback_url')));
+        return Mage::getUrl('googlecheckout/api', array('_forced_secure'=>Mage::getStoreConfig('google/checkout/use_secure_callback_url', $this->getStoreId())));
     }
 }

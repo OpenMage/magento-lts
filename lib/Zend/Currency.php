@@ -176,7 +176,7 @@ class Zend_Currency
             $value = Zend_Locale_Format::convertNumerals($value, 'Latn', $options['script']);
         }
 
-        $this->_processSymbolChoice($options);
+        $this->_processSymbolChoice($options, $value);
 
         // Get the sign to be placed next to the number
         if (is_numeric($options['display']) === false) {
@@ -228,9 +228,10 @@ class Zend_Currency
      * Select currency symbol if multiple symbols were specified
      *
      * @param array $options
+     * @param integer|float $value  Currency value
      * @return array
      */
-    protected function _processSymbolChoice($options)
+    protected function _processSymbolChoice($options, $value)
     {
         if (isset($options['symbol_choice']) && $options['symbol_choice']) {
             $symbols = explode('|', $options['symbol']);
