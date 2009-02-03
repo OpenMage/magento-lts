@@ -31,7 +31,7 @@
 <?php if($this->getResultCount()): ?>
     <div class="advanced-search-found-amount">
         <?php echo $this->helper('catalogsearch')
-            ->__('<b>%d item(s)</b> were found using the following search criteria', $this->getResultCount()); ?>
+            ->__('<strong>%d item(s)</strong> were found using the following search criteria', $this->getResultCount()); ?>
     </div>
 <?php else: ?>
     <div class="advanced-search-nothing-found"><?php echo $this->helper('catalogsearch')->__('No items were found using the following search criteria.');?> <a href="<?php echo $this->getFormUrl(); ?>"><?php echo $this->helper('catalogsearch')->__('Modify your search'); ?></a></div>
@@ -43,7 +43,7 @@
         <?php if(@$searchCriterias[$side]): ?>
             <ul>
                 <?php foreach($searchCriterias[$side] as $criteria): ?>
-                    <li><span><?php echo $this->htmlEscape($this->helper('catalogsearch')->__($criteria['name'])); ?>:</span> <?php echo $this->htmlEscape($criteria['value']); ?></li>
+                    <li><span><?php echo $this->htmlEscape($this->helper('catalog')->__($criteria['name'])); ?>:</span> <?php echo $this->htmlEscape($criteria['value']); ?></li>
                 <?php endforeach; ?>
             </ul>
         <?php endif; ?>

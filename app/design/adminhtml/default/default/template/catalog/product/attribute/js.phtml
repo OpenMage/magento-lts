@@ -84,6 +84,19 @@ function bindAttributeInputType()
             $('is_filterable_in_search').disabled = true;
         }
     }
+
+    if ($('frontend_input') && ($('frontend_input').value=='text' || $('frontend_input').value=='textarea')) {
+        if($('is_html_allowed_on_front')){
+            $('is_html_allowed_on_front').disabled = false;
+        }
+    }
+    else {
+        if($('is_html_allowed_on_front')){
+            $('is_html_allowed_on_front').selectedIndex=0;
+            $('is_html_allowed_on_front').disabled = true;
+        }
+    }
+
     switchIsFilterable();
 }
 

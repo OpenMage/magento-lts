@@ -58,4 +58,16 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * Check if page identifier exist for specific store
+     * return page id if page exists
+     *
+     * @param   string $identifier
+     * @param   int $storeId
+     * @return  int
+     */
+    public function checkIdentifier($identifier, $storeId)
+    {
+        return $this->_getResource()->checkIdentifier($identifier, $storeId);
+    }
 }

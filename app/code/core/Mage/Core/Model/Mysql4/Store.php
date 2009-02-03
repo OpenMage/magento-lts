@@ -30,7 +30,20 @@ class Mage_Core_Model_Mysql4_Store extends Mage_Core_Model_Mysql4_Abstract
     protected function _construct()
     {
         $this->_init('core/store', 'store_id');
-        $this->_uniqueFields = array(array('field' => 'code', 'title' => Mage::helper('core')->__('Store with the same code')));
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = array(array(
+            'field' => 'code',
+            'title' => Mage::helper('core')->__('Store with the same code')
+        ));
+        return $this;
     }
 
     protected function _beforeSave(Mage_Core_Model_Abstract $model)

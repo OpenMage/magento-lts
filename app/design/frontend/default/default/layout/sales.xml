@@ -84,6 +84,7 @@ Customer account home dashboard layout
             <block type="sales/order_view" name="sales.order.view">
                 <block type="sales/order_items" name="order_items" template="sales/order/items.phtml">
                     <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
+                    <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
                     <block type="sales/order_tax" name="tax" template="sales/order/tax.phtml" />
                 </block>
             </block>
@@ -103,6 +104,7 @@ Customer account home dashboard layout
             <block type="sales/order_invoice" name="sales.order.invoice">
                 <block type="sales/order_invoice_items" name="invoice_items" template="sales/order/invoice/items.phtml">
                     <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/invoice/items/renderer/default.phtml</template></action>
+                    <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/invoice/items/renderer/default.phtml</template></action>
                 </block>
             </block>
         </reference>
@@ -139,6 +141,7 @@ Customer account home dashboard layout
             <block type="sales/order_creditmemo" name="sales.order.creditmemo">
                 <block type="sales/order_creditmemo_items" name="creditmemo_items" template="sales/order/creditmemo/items.phtml">
                     <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
+                    <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
                 </block>
             </block>
         </reference>
@@ -161,6 +164,7 @@ Customer account home dashboard layout
         <reference name="content">
             <block type="sales/order_print" name="sales.order.print" template="sales/order/print.phtml">
                 <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
                 <block type="sales/order_tax" name="tax" template="sales/order/print/tax.phtml" />
             </block>
         </reference>
@@ -170,6 +174,7 @@ Customer account home dashboard layout
         <reference name="content">
             <block type="sales/order_print_invoice" name="sales.order.print.invoice" template="sales/order/print/invoice.phtml">
                 <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/invoice/items/renderer/default.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/invoice/items/renderer/default.phtml</template></action>
             </block>
         </reference>
     </sales_order_printinvoice>
@@ -186,6 +191,7 @@ Customer account home dashboard layout
         <reference name="content">
             <block type="sales/order_print_creditmemo" name="sales.order.print.creditmemo" template="sales/order/print/creditmemo.phtml">
                 <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
             </block>
         </reference>
     </sales_order_printcreditmemo>
@@ -196,12 +202,14 @@ Email layouts section
     <sales_email_order_items>
         <block type="sales/order_email_items" name="items" template="email/order/items.phtml">
             <action method="addItemRender"><type>default</type><block>sales/order_email_items_order_default</block><template>email/order/items/order/default.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>sales/order_email_items_order_grouped</block><template>email/order/items/order/default.phtml</template></action>
         </block>
     </sales_email_order_items>
 
     <sales_email_order_invoice_items>
         <block type="sales/order_email_invoice_items" name="items" template="email/order/invoice/items.phtml">
             <action method="addItemRender"><type>default</type><block>sales/order_email_items_default</block><template>email/order/items/invoice/default.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>sales/order_email_items_grouped</block><template>email/order/items/invoice/default.phtml</template></action>
         </block>
     </sales_email_order_invoice_items>
 
@@ -214,6 +222,7 @@ Email layouts section
     <sales_email_order_creditmemo_items>
         <block type="sales/order_email_creditmemo_items" name="items" template="email/order/creditmemo/items.phtml">
             <action method="addItemRender"><type>default</type><block>sales/order_email_items_default</block><template>email/order/items/creditmemo/default.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>sales/order_email_items_grouped</block><template>email/order/items/creditmemo/default.phtml</template></action>
         </block>
     </sales_email_order_creditmemo_items>
 

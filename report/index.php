@@ -131,6 +131,7 @@ if ($action == 'email') {
 }
 
 if ($action == 'print') {
+    header("HTTP/1.0 503 Service Unavailable");
     $reportData = unserialize(file_get_contents($reportFile));
 }
 

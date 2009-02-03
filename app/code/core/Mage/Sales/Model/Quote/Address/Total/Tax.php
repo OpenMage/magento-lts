@@ -126,17 +126,15 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
 
 
         $shippingTaxClass = Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_SHIPPING_TAX_CLASS, $store);
+
+        $shippingTax      = 0;
+        $shippingBaseTax  = 0;
+
         if ($shippingTaxClass) {
             if ($rate = $taxCalculationModel->getRate($request->setProductClassId($shippingTaxClass))) {
                 if (!Mage::helper('tax')->shippingPriceIncludesTax()) {
                     $shippingTax    = $address->getShippingAmount() * $rate/100;
                     $shippingBaseTax= $address->getBaseShippingAmount() * $rate/100;
-
-                    $shippingTax    = $store->roundPrice($shippingTax);
-                    $shippingBaseTax= $store->roundPrice($shippingBaseTax);
-
-                    $address->setShippingTaxAmount($shippingTax);
-                    $address->setBaseShippingTaxAmount($shippingBaseTax);
                 } else {
                     $shippingTax    = $address->getShippingTaxAmount();
                     $shippingBaseTax= $address->getBaseShippingTaxAmount();
@@ -156,6 +154,11 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
                     $rate
                 );
             }
+        }
+
+        if (!Mage::helper('tax')->shippingPriceIncludesTax()) {
+            $address->setShippingTaxAmount($shippingTax);
+            $address->setBaseShippingTaxAmount($shippingBaseTax);
         }
 
         $address->setGrandTotal($address->getGrandTotal() + $address->getTaxAmount());

@@ -50,7 +50,7 @@ class Mage_CatalogInventory_Model_Observer
     public function addInventoryData($observer)
     {
         $product = $observer->getEvent()->getProduct();
-        if($product instanceof Mage_Catalog_Model_Product) {
+        if ($product instanceof Mage_Catalog_Model_Product) {
             Mage::getModel('cataloginventory/stock_item')->assignProduct($product);
         }
         return $this;
@@ -74,6 +74,10 @@ class Mage_CatalogInventory_Model_Observer
         $product = $observer->getEvent()->getProduct();
 
         if (is_null($product->getStockData())) {
+            if ($product->dataHasChangedFor('status')) {
+                Mage::getSingleton('cataloginventory/stock_status')
+                    ->updateStatus($product->getId());
+            }
             return $this;
         }
 
@@ -394,6 +398,20 @@ class Mage_CatalogInventory_Model_Observer
         Mage::getResourceSingleton('cataloginventory/stock')->updateSetOutOfStock();
         Mage::getResourceSingleton('cataloginventory/stock')->updateSetInStock();
         Mage::getResourceSingleton('cataloginventory/stock')->updateLowStockDate();
+        return $this;
+    }
+
+    /**
+     * Update Only product status observer
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_CatalogInventory_Model_Observer
+     */
+    public function productStatusUpdate(Varien_Event_Observer $observer)
+    {
+        $productId = $observer->getEvent()->getProductId();
+        Mage::getSingleton('cataloginventory/stock_status')
+            ->updateStatus($productId);
         return $this;
     }
 }

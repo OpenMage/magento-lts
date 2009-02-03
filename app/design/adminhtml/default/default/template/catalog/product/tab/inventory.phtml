@@ -127,8 +127,10 @@
         <tr>
             <td class="label"><label for="inventory_stock_availability"><?php echo Mage::helper('catalog')->__('Stock Availability') ?></label></td>
             <td class="value"><select id="inventory_stock_availability" name="<?php echo $this->getFieldSuffix() ?>[stock_data][is_in_stock]" class="select">
-                <option value="1"><?php echo Mage::helper('catalog')->__('In Stock') ?></option>
-                <option value="0"<?php if($this->getFieldValue('is_in_stock')==0): ?> selected="selected"<?php endif; ?>><?php echo Mage::helper('catalog')->__('Out of Stock') ?></option>
+            <?php foreach ($this->getStockOption() as $option): ?>
+                <?php $_selected = ($option['value'] == $this->getFieldValue('is_in_stock')) ? 'selected="selected"' : '' ?>
+                <option value="<?php echo $option['value'] ?>" <?php echo $_selected ?>><?php echo $option['label'] ?></option>
+            <?php endforeach; ?>
             </select>
             </td>
             <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
@@ -136,6 +138,10 @@
         </table>
     <script type="text/javascript">
     //<![CDATA[
+    var cataloginventoryNotManagestockFields = {
+        inventory_min_sale_qty: true,
+        inventory_max_sale_qty: true
+    };
     function changeManageStockOption()
     {
         $$('#table_cataloginventory tr').each(manageStockEach);
@@ -151,6 +157,11 @@
         }
         if (el == $('inventory_manage_stock').up(1)) {
             return;
+        }
+        for(field in cataloginventoryNotManagestockFields) {
+            if ($(field) && ($(field).up(1) == el)) {
+                return;
+            }
         }
         if (manageStock == 1) {
             el.show();

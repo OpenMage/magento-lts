@@ -62,6 +62,6 @@ class Mage_Downloadable_Block_Sales_Order_Email_Items_Downloadable extends Mage_
 
     public function getPurchasedLinkUrl($item)
     {
-        return $this->getUrl('downloadable/download/link', array('id' => $item->getId(), '_secure' => true));
+        return $this->getUrl('downloadable/download/link', array('id' => $item->getLinkHash(), '_secure' => true));
     }
 }

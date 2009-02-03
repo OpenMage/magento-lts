@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_Sales_Model_Order_Shipment_Track extends Mage_Core_Model_Abstract
+class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
 {
     const CUSTOM_CARRIER_CODE   = 'custom';
     protected $_shipment = null;
@@ -86,5 +86,18 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Core_Model_Abstract
         }
 
         return $trackingInfo;
+    }
+
+    /**
+     * Get store object
+     *
+     * @return Mage_Core_Model_Store
+     */
+    public function getStore()
+    {
+        if ($this->getShipment()) {
+            return $this->getShipment()->getStore();
+        }
+        return Mage::app()->getStore();
     }
 }

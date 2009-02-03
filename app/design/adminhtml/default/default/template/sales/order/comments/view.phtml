@@ -43,8 +43,8 @@
     <ul class="note-list">
     <?php foreach ($_entity->getCommentsCollection(true) as $_comment): ?>
         <li>
-            <strong><?php echo $this->helper('core')->formatDate($_comment->getCreatedAt(), 'medium') ?></strong>
-            <?php echo $this->helper('core')->formatTime($_comment->getCreatedAt(), 'medium') ?><span class="separator">|</span><small><?php echo $this->helper('sales')->__('Customer') ?>
+            <strong><?php echo $this->helper('core')->formatDate($_comment->getCreatedAtDate(), 'medium') ?></strong>
+            <?php echo $this->helper('core')->formatTime($_comment->getCreatedAtDate(), 'medium') ?><span class="separator">|</span><small><?php echo $this->helper('sales')->__('Customer') ?>
             <strong class="subdue">
             <?php if ($_comment->getIsCustomerNotified()): ?>
             <?php echo $this->helper('sales')->__('Notified') ?>

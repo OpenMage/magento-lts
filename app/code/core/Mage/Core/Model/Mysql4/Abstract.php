@@ -105,7 +105,7 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
      *
      * @var array
      */
-    protected $_uniqueFields = array();
+    protected $_uniqueFields = null;
 
     /**
      * Standard resource model initialization
@@ -372,16 +372,54 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
         return $this;
     }
 
+    /**
+     * Add unique field restriction
+     *
+     * @param   array|string $field
+     * @return  Mage_Core_Model_Mysql4_Abstract
+     */
     public function addUniqueField($field)
     {
-        if( is_array($this->_uniqueFields) ) {
+        $this->_initUniqueFields();
+        if(is_array($this->_uniqueFields) ) {
             $this->_uniqueFields[] = $field;
         }
+        return $this;
     }
 
+    /**
+     * Reset unique fields restrictions
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
     public function resetUniqueField()
     {
          $this->_uniqueFields = array();
+         return $this;
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = array();
+        return $this;
+    }
+
+    /**
+     * Get configuration of all unique fields
+     *
+     * @return array
+     */
+    public function getUniqueFields()
+    {
+        if (is_null($this->_uniqueFields)) {
+            $this->_initUniqueFields();
+        }
+        return $this->_uniqueFields;
     }
 
     /**
@@ -431,19 +469,20 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
     /**
      * Check for unique values existence
      *
-     * @param Varien_Object $object
-     * @return Mage_Core_Model_Mysql4_Abstract
-     * @throws Mage_Core_Exception
+     * @param   Varien_Object $object
+     * @return  Mage_Core_Model_Mysql4_Abstract
+     * @throws  Mage_Core_Exception
      */
     protected function _checkUnique(Mage_Core_Model_Abstract $object)
     {
         $existent = array();
-        if (!empty($this->_uniqueFields)) {
-            if (!is_array($this->_uniqueFields)) {
+        $fields = $this->getUniqueFields();
+        if (!empty($fields)) {
+            if (!is_array($fields)) {
                 $this->_uniqueFields = array(
                     array(
-                        'field' => $this->_uniqueFields,
-                        'title' => $this->_uniqueFields
+                        'field' => $fields,
+                        'title' => $fields
                 ));
             }
 
@@ -451,7 +490,7 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
             $select = $this->_getWriteAdapter()->select()
                 ->from($this->getMainTable());
 
-            foreach ($this->_uniqueFields as $unique) {
+            foreach ($fields as $unique) {
                 $select->reset(Zend_Db_Select::WHERE);
 
                 if (is_array($unique['field'])) {

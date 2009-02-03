@@ -137,10 +137,12 @@
                         </tr>
                    </thead>
                    <?php foreach($track->getProgressdetail() as $_detail): ?>
+                    <?php $_detailDate = (isset($_detail['deliverydate']) ? $this->formatDeliveryDate($_detail['deliverydate']) : '') ?>
+                    <?php $_detailTime = (isset($_detail['deliverytime']) ? $this->formatDeliveryTime($_detail['deliverytime'], $_detailDate) : '') ?>
                     <tr>
                         <td><?php echo (isset($_detail['deliverylocation']) ? $_detail['deliverylocation'] : ''); ?></td>
-                        <td><?php echo (isset($_detail['deliverydate']) ? $this->formatDeliveryDate($_detail['deliverydate']) : '') ?></td>
-                        <td><?php echo (isset($_detail['deliverytime']) ? $this->formatDeliveryTime($_detail['deliverytime']) : '') ?></td>
+                        <td><?php echo $_detailDate ?></td>
+                        <td><?php echo $_detailTime ?></td>
                         <td><?php echo (isset($_detail['activity']) ? $_detail['activity'] : '') ?></td>
                     </tr>
                    <?php endforeach; ?>

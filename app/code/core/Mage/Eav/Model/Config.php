@@ -438,7 +438,7 @@ class Mage_Eav_Model_Config
         if (empty($attributes)) {
             return $this;
         }
-        Varien_Profiler::start('EAV: '.__METHOD__);
+        Varien_Profiler::start('EAV: '.__METHOD__ . ':'.$entityTypeCode);
 
         $attributesInfo = Mage::getResourceModel('eav/entity_attribute_collection')
             ->setEntityTypeFilter($entityType->getId())
@@ -447,6 +447,7 @@ class Mage_Eav_Model_Config
             ->getData();
 
         if (!$attributesInfo) {
+            Varien_Profiler::stop('EAV: '.__METHOD__ . ':'.$entityTypeCode);
             return $this;
         }
 
@@ -468,7 +469,7 @@ class Mage_Eav_Model_Config
 
         $this->_attributeData[$entityTypeCode] = $attributesData;
 
-        Varien_Profiler::stop('EAV: '.__METHOD__);
+        Varien_Profiler::stop('EAV: '.__METHOD__ . ':'.$entityTypeCode);
         return $this;
    }
 }

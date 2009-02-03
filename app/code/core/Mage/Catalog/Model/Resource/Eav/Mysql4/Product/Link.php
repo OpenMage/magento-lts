@@ -89,4 +89,50 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link extends Mage_Core_Mode
     {
         return $this->getTable('catalog/product_link_attribute_'.$type);
     }
+
+/**
+     * Retrieve Required children ids
+     * Return grouped array, ex array(
+     *   group => array(ids)
+     * )
+     *
+     * @param int $parentId
+     * @param int $typeId
+     * @return array
+     */
+    public function getChildrenIds($parentId, $typeId)
+    {
+        $childrenIds = array();
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getMainTable(), array('product_id', 'linked_product_id'))
+            ->where('product_id=?', $parentId)
+            ->where('link_type_id=?', $typeId);
+        foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
+            $childrenIds[$typeId][$row['linked_product_id']] = $row['linked_product_id'];
+        }
+
+        return $childrenIds;
+    }
+
+    /**
+     * Retrieve parent ids array by requered child
+     *
+     * @param int $childId
+     * @param int $typeId
+     * @return array
+     */
+    public function getParentIdsByChild($childId, $typeId)
+    {
+        $parentIds = array();
+
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getMainTable(), array('product_id', 'linked_product_id'))
+            ->where('linked_product_id=?', $childId)
+            ->where('link_type_id=?', $typeId);
+        foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
+            $parentIds[] = $row['product_id'];
+        }
+
+        return $parentIds;
+    }
 }

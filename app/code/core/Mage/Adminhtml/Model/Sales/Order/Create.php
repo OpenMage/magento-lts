@@ -211,12 +211,26 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
             $this->getQuote()->setCustomerIsGuest(true);
         }
 
+        if ($this->getSession()->getUseOldShippingMethod(true)) {
+            /*
+             * if we are making reorder or editing old order
+             * we need to show old shipping as preselected
+             * so for this we need to collect shipping rates
+             */
+            $this->collectShippingRates();
+        } else {
+            /*
+             * if we are creating new order then we don't need to collect
+             * shipping rates before customer hit appropriate button
+             */
+            $this->collectRates();
+        }
+
         // Make collect rates when user click "Get shipping methods and rates" in order creating
         // $this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
         // $this->getQuote()->getShippingAddress()->collectShippingRates();
 
-        $this->getQuote()->collectTotals()
-            ->save();
+        $this->getQuote()->save();
 
         return $this;
     }

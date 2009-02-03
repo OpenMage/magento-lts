@@ -339,6 +339,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             ));
 //        }
 
+        $htmlAllowed = $fieldset->addField('is_html_allowed_on_front', 'select', array(
+            'name' => 'is_html_allowed_on_front',
+            'label' => Mage::helper('catalog')->__('Allow HTML-tags on Front-end'),
+            'title' => Mage::helper('catalog')->__('Allow HTML-tags on Front-end'),
+            'values' => $yesno,
+        ));
+        if (!$model->getId()) {
+            $htmlAllowed->setValue(1);
+        }
+
 
         if ($model->getId()) {
             $form->getElement('attribute_code')->setDisabled(1);

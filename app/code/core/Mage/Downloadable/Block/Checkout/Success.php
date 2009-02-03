@@ -43,7 +43,9 @@ class Mage_Downloadable_Block_Checkout_Success extends Mage_Checkout_Block_Onepa
     {
         $hasDownloadableFlag = Mage::getSingleton('checkout/session')
             ->getHasDownloadableProducts(true);
-
+        if (!$this->isOrderVisible()) {
+            return false;
+        }
         return $hasDownloadableFlag;
     }
 

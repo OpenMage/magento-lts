@@ -35,9 +35,24 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
 {
     protected $_customer;
 
+    /**
+     * Retrieve customer sharing configuration model
+     *
+     * @return Mage_Customer_Model_Config_Share
+     */
+    public function getCustomerConfigShare()
+    {
+        return Mage::getSingleton('customer/config_share');
+    }
+
     public function __construct()
     {
-        $this->init('customer');
+        $namespace = 'customer';
+        if ($this->getCustomerConfigShare()->isWebsiteScope()) {
+            $namespace .= '_' . (Mage::app()->getStore()->getWebsite()->getCode());
+        }
+
+        $this->init($namespace);
         Mage::dispatchEvent('customer_session_init', array('customer_session'=>$this));
     }
 

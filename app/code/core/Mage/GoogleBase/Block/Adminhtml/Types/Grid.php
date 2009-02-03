@@ -57,11 +57,21 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Grid extends Mage_Adminhtml_Block_Wi
                 'width'     => '150px',
                 'index'     => 'attribute_set_name',
         ));
+
         $this->addColumn('gbase_itemtype',
             array(
                 'header'    => $this->__('Google Base Item type'),
                 'width'     => '150px',
                 'index'     => 'gbase_itemtype',
+        ));
+
+        $this->addColumn('target_country',
+            array(
+                'header'    => $this->__('Target Country'),
+                'width'     => '150px',
+                'index'     => 'target_country',
+                'renderer'  => 'googlebase/adminhtml_types_renderer_country',
+                'filter'    => false
         ));
 
         $this->addColumn('items_total',
@@ -77,7 +87,7 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Grid extends Mage_Adminhtml_Block_Wi
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id'=>$row->getId()));
+        return $this->getUrl('*/*/edit', array('id'=>$row->getId(), '_current'=>true));
     }
 
     public function getGridUrl()

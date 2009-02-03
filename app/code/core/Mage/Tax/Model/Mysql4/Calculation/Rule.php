@@ -33,15 +33,22 @@
  */
 class Mage_Tax_Model_Mysql4_Calculation_Rule extends Mage_Core_Model_Mysql4_Abstract
 {
-    protected $_uniqueFields = array(
-        array(
-            'field' => array('code'),
-            'title' => 'Code',
-        ),
-    );
-
     protected function _construct()
     {
         $this->_init('tax/tax_calculation_rule', 'tax_calculation_rule_id');
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = array(array(
+            'field' => array('code'),
+            'title' => Mage::helper('tax')->__('Code'),
+        ));
+        return $this;
     }
 }

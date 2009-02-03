@@ -164,12 +164,29 @@ varienTabs.prototype = {
 
             if ( isAjax && (isEmpty || isNotLoaded) )
             {
-                new Ajax.Updater(tabContentElement.id, tab.href, {
+                new Ajax.Request(tab.href, {
                     parameters: {form_key: FORM_KEY},
-                    onComplete : function () {
-                        this.showTabContentImmediately(tab)
-                    }.bind(this),
-                     evalScripts : true
+                    evalScripts: true,
+                    onSuccess: function(transport) {
+                        try {
+                            if (transport.responseText.isJSON()) {
+                                var response = transport.responseText.evalJSON()
+                                if (response.error) {
+                                    alert(response.message);
+                                }
+                                if(response.ajaxExpired && response.ajaxRedirect) {
+                                    setLocation(response.ajaxRedirect);
+                                }
+                            } else {
+                                $(tabContentElement.id).update(transport.responseText);
+                                this.showTabContentImmediately(tab)
+                            }
+                        }
+                        catch (e) {
+                            $(tabContentElement.id).update(transport.responseText);
+                            this.showTabContentImmediately(tab)
+                        }
+                    }.bind(this)
                 });
             }
             else {
@@ -181,14 +198,33 @@ varienTabs.prototype = {
     loadShadowTab : function(tab) {
         var tabContentElement = $(this.getTabContentElementId(tab));
         if (tabContentElement && Element.hasClassName(tab, 'ajax') && Element.hasClassName(tab, 'notloaded')) {
-            new Ajax.Updater(tabContentElement.id, tab.href, {
+            new Ajax.Request(tab.href, {
                 parameters: {form_key: FORM_KEY},
-                onComplete : function () {
-                    if (!Element.hasClassName(tab, 'ajax only')) {
-                        Element.removeClassName(tab, 'notloaded');
+                evalScripts: true,
+                onSuccess: function(transport) {
+                    try {
+                        if (transport.responseText.isJSON()) {
+                            var response = transport.responseText.evalJSON()
+                            if (response.error) {
+                                alert(response.message);
+                            }
+                            if(response.ajaxExpired && response.ajaxRedirect) {
+                                setLocation(response.ajaxRedirect);
+                            }
+                        } else {
+                            $(tabContentElement.id).update(transport.responseText);
+                            if (!Element.hasClassName(tab, 'ajax only')) {
+                                Element.removeClassName(tab, 'notloaded');
+                            }
+                        }
                     }
-                }.bind(this),
-                evalScripts : true
+                    catch (e) {
+                        $(tabContentElement.id).update(transport.responseText);
+                        if (!Element.hasClassName(tab, 'ajax only')) {
+                            Element.removeClassName(tab, 'notloaded');
+                        }
+                    }
+                }.bind(this)
             });
         }
     },

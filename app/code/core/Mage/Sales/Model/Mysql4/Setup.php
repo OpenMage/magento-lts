@@ -53,7 +53,7 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
         return $this;
     }
 
-    protected function _addFlatAttribute($table, $attribute, $data)
+    protected function _addFlatAttribute($table, $attribute, $attr)
     {
         $tableInfo = $this->getConnection()->describeTable($this->getTable($table));
         if (isset($tableInfo[$attribute])) {

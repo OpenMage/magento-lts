@@ -67,7 +67,8 @@
 .add-to-holder,
 .advanced-search-summary-box,
 .listing-type-grid .grid-row,
-.one-page-checkout .default-box { zoom:1; }
+.one-page-checkout .default-box,
+.cart-tax-total { zoom:1; }
 
 input.radio,
 input.checkbox { width:13px; height:13px; }

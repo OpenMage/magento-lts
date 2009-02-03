@@ -35,12 +35,20 @@ class Mage_Poll_Model_Mysql4_Poll extends Mage_Core_Model_Mysql4_Abstract
     protected function _construct()
     {
         $this->_init('poll/poll', 'poll_id');
-        $this->_uniqueFields = array(
-            array(
-                'field' => 'poll_title',
-                'title' => Mage::helper('poll')->__('Poll with the same question')
-            )
-        );
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = array(array(
+            'field' => 'poll_title',
+            'title' => Mage::helper('poll')->__('Poll with the same question')
+        ));
+        return $this;
     }
 
     /**

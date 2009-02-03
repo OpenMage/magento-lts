@@ -37,10 +37,26 @@ class Mage_Api_Model_Mysql4_User extends Mage_Core_Model_Mysql4_Abstract
     protected function _construct()
     {
         $this->_init('api/user', 'user_id');
-            $this->_uniqueFields = array(
-                 array('field' => 'email', 'title' => Mage::helper('api')->__('Email')),
-                 array('field' => 'username', 'title' => Mage::helper('api')->__('User Name')),
-            );
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = array(
+            array(
+                'field' => 'email',
+                'title' => Mage::helper('api')->__('Email')
+            ),
+            array(
+                'field' => 'username',
+                'title' => Mage::helper('api')->__('User Name')
+            ),
+        );
+        return $this;
     }
 
     /**

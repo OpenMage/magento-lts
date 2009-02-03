@@ -42,4 +42,15 @@ class Mage_GoogleBase_Block_Adminhtml_Types extends Mage_Adminhtml_Block_Widget_
         $this->_headerText = Mage::helper('googlebase')->__('Manage Attribute Mapping');
         parent::__construct();
     }
+
+//    public function getGridHtml()
+//    {
+//        $_storeSwitcherHtml = $this->getLayout()->createBlock('googlebase/adminhtml_store_switcher')->toHtml();
+//        return $_storeSwitcherHtml . parent::getGridHtml();
+//    }
+//
+//    public function getCreateUrl()
+//    {
+//        return $this->getUrl('*/*/new', array('_current'=>true));
+//    }
 }

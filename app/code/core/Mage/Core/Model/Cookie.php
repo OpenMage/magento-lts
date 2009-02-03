@@ -30,89 +30,231 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Cookie
 {
+    const XML_PATH_COOKIE_DOMAIN    = 'web/cookie/cookie_domain';
+    const XML_PATH_COOKIE_PATH      = 'web/cookie/cookie_path';
+    const XML_PATH_COOKIE_LIFETIME  = 'web/cookie/cookie_lifetime';
+    const XML_PATH_COOKIE_HTTPONLY  = 'web/cookie/cookie_httponly';
 
-    const COOKIE_NAME = 'magento';
+    /**
+     * Store object
+     *
+     * @var Mage_Core_Model_Store
+     */
+    protected $_store;
 
-    protected $_id = null;
-
-    public function __construct()
+    /**
+     * Set Store object
+     *
+     * @param mixed $store
+     * @return Mage_Core_Model_Cookie
+     */
+    public function setStore($store)
     {
-        if (isset($_COOKIE[self::COOKIE_NAME])) {
-            $this->_id = $_COOKIE[self::COOKIE_NAME];
+        $this->_store = Mage::app()->getStore($store);
+        return $this;
+    }
+
+    /**
+     * Retrieve Store object
+     *
+     * @return Mage_Core_Model_Store
+     */
+    public function getStore()
+    {
+        if (is_null($this->_store)) {
+            $this->_store = Mage::app()->getStore();
+        }
+        return $this->_store;
+    }
+
+    /**
+     * Retrieve Request object
+     *
+     * @return Mage_Core_Controller_Request_Http
+     */
+    protected function _getRequest()
+    {
+        return Mage::app()->getRequest();
+    }
+
+    /**
+     * Retrieve Response object
+     *
+     * @return Mage_Core_Controller_Response_Http
+     */
+    protected function _getResponse()
+    {
+        return Mage::app()->getResponse();
+    }
+
+    /**
+     * Retrieve Domain for cookie
+     *
+     * @return string
+     */
+    public function getDomain()
+    {
+        $domain = Mage::getStoreConfig(self::XML_PATH_COOKIE_DOMAIN, $this->getStore());
+        if (empty($domain)) {
+            $domain = $this->_getRequest()->getHttpHost();
+        }
+        return $domain;
+    }
+
+    /**
+     * Retrieve Path for cookie
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        $path = Mage::getStoreConfig(self::XML_PATH_COOKIE_PATH, $this->getStore());
+        if (empty($path)) {
+            $path = $this->_getRequest()->getBasePath();
+        }
+        return $path;
+    }
+
+    /**
+     * Retrieve cookie lifetime
+     *
+     * @return int
+     */
+    public function getLifetime()
+    {
+        $lifetime = Mage::getStoreConfig(self::XML_PATH_COOKIE_LIFETIME, $this->getStore());
+        if (!is_numeric($lifetime)) {
+            $lifetime = 3600;
+        }
+        return $lifetime;
+    }
+
+    /**
+     * Retrieve use HTTP only flag
+     *
+     * @return bool
+     */
+    public function getHttponly()
+    {
+        $httponly = Mage::getStoreConfig(self::XML_PATH_COOKIE_HTTPONLY, $this->getStore());
+        if (is_null($httponly)) {
+            return null;
+        }
+        return (bool)$httponly;
+    }
+
+    /**
+     * Is https secure request
+     * Use secure on adminhtml only
+     *
+     * @return bool
+     */
+    public function isSecure()
+    {
+        if ($this->getStore()->isAdmin()) {
+            return $this->_getRequest()->isSecure();
+        }
+        return false;
+    }
+
+    /**
+     * Set cookie
+     *
+     * @param string $name The cookie name
+     * @param string $value The cookie value
+     * @param int $period Lifetime period
+     * @param string $path
+     * @param string $domain
+     * @param int|bool $secure
+     * @return Mage_Core_Model_Cookie
+     */
+    public function set($name, $value, $period = null, $path = null, $domain = null, $secure = null, $httponly = null)
+    {
+        /**
+         * Check headers sent
+         */
+        if (!$this->_getResponse()->canSendHeaders(false)) {
+            return $this;
+        }
+
+        if ($period === true) {
+            $period = 3600 * 24 * 365;
+        } elseif (is_null($period)) {
+            $period = $this->getLifetime();
+        }
+
+        if ($period == 0) {
+            $expire = 0;
         }
         else {
-            $this->_id = $this->randomSequence();
-            setcookie(self::COOKIE_NAME, $this->_id, time()+60*60*24*30, $this->getCookiePath(), $this->getCookieDomain());
+            $expire = time() + $period;
         }
-    }
-
-    public function getCookieDomain()
-    {
-    	$domain = Mage::getStoreConfig('web/cookie/cookie_domain');
-    	if (empty($domain) && isset($_SERVER['HTTP_HOST'])) {
-    		$domainArr = explode(':', $_SERVER['HTTP_HOST']);
-    		$domain = $domainArr[0];
-    	}
-    	return $domain;
-    }
-
-    public function getCookiePath()
-    {
-    	$path = Mage::getStoreConfig('web/cookie/cookie_path');
-    	if (empty($path)) {
-    	    $request = new Mage_Core_Controller_Request_Http();
-    	    $path = $request->getBasePath();
-    	}
-    	return $path;
-    }
-
-    public function getId()
-    {
-        return $this->_id;
-    }
-
-    public function randomSequence($length=32)
-    {
-        $id = '';
-        $par = array();
-        $char = array_merge(range('a','z'),range(0,9));
-        $charLen = count($char)-1;
-        for ($i=0;$i<$length;$i++){
-            $disc = mt_rand(0, $charLen);
-            $par[$i] = $char[$disc];
-            $id = $id.$char[$disc];
+        if (is_null($path)) {
+            $path = $this->getPath();
         }
-        return $id;
-    }
-
-    public function set($cookieName, $value, $period=null)
-    {
-        if( !isset($period) ) {
-            $period = 3600 * 24 * 365;
+        if (is_null($domain)) {
+            $domain = $this->getDomain();
         }
-        $expire = time() + $period;
-        $this->delete($cookieName);
-        setcookie($cookieName, $value, $expire, $this->getCookiePath(), $this->getCookieDomain());
+        if (is_null($secure)) {
+            $secure = $this->isSecure();
+        }
+        if (is_null($httponly)) {
+            $httponly = $this->getHttponly();
+        }
+
+        setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
+
         return $this;
     }
 
-    public function get($cookieName)
+    /**
+     * Retrieve cookie or false if not exists
+     *
+     * @param string $neme The cookie name
+     * @return mixed
+     */
+    public function get($name = null)
     {
-        if( isset($_COOKIE[$cookieName]) ) {
-            return $_COOKIE[$cookieName];
-        } else {
-            return false;
-        }
+        return $this->_getRequest()->getCookie($name, false);
     }
 
-    public function delete($cookieName)
+    /**
+     * Delete cookie
+     *
+     * @param string $name
+     * @param string $path
+     * @param string $domain
+     * @param int|bool $secure
+     * @param int|bool $httponly
+     * @return Mage_Core_Model_Cookie
+     */
+    public function delete($name, $path = null, $domain = null, $secure = null, $httponly = null)
     {
-        setcookie($cookieName, '', (time() - 3600) );
+        /**
+         * Check headers sent
+         */
+        if (!$this->_getResponse()->canSendHeaders(false)) {
+            return $this;
+        }
+
+        if (is_null($path)) {
+            $path = $this->getPath();
+        }
+        if (is_null($domain)) {
+            $domain = $this->getDomain();
+        }
+        if (is_null($secure)) {
+            $secure = $this->isSecure();
+        }
+        if (is_null($httponly)) {
+            $httponly = $this->getHttponly();
+        }
+
+        setcookie($name, null, null, $path, $domain, $secure, $httponly);
         return $this;
     }
-
 }

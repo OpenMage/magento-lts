@@ -112,10 +112,9 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     {
         Mage::dispatchEvent('controller_front_init_before', array('front'=>$this));
 
-        Varien_Profiler::start('ctrl/init');
-
         $routersInfo = Mage::app()->getStore()->getConfig(self::XML_STORE_ROUTERS_PATH);
 
+        Varien_Profiler::start('mage::app::init_front_controller::collect_routers');
         foreach ($routersInfo as $routerCode => $routerInfo) {
             if (isset($routerInfo['disabled']) && $routerInfo['disabled']) {
             	continue;
@@ -128,46 +127,31 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             	$this->addRouter($routerCode, $router);
             }
         }
+        Varien_Profiler::stop('mage::app::init_front_controller::collect_routers');
+
         Mage::dispatchEvent('controller_front_init_routers', array('front'=>$this));
 
         // Add default router at the last
         $default = new Mage_Core_Controller_Varien_Router_Default();
         $this->addRouter('default', $default);
 
-//         init admin modules router
-//        $admin = new Mage_Core_Controller_Varien_Router_Admin();
-//        $admin->collectRoutes('admin', 'admin');
-//        $this->addRouter('admin', $admin);
-//
-//         init standard frontend modules router
-//        $standard = new Mage_Core_Controller_Varien_Router_Standard();
-//        $standard->collectRoutes('frontend', 'standard');
-//        $this->addRouter('standard', $standard);
-//
-//         init custom routers
-//        Mage::dispatchEvent('controller_front_init_routers', array('front'=>$this));
-//
-//         init default router (articles and 404)
-//        $default = new Mage_Core_Controller_Varien_Router_Default();
-//        $this->addRouter('default', $default);
-
-        Varien_Profiler::stop('ctrl/init');
-
         return $this;
     }
 
     public function dispatch()
     {
-        Varien_Profiler::start('ctrl/dispatch');
-
         $request = $this->getRequest();
         $request->setPathInfo()->setDispatched(false);
 
+        Varien_Profiler::start('mage::dispatch::db_url_rewrite');
         Mage::getModel('core/url_rewrite')->rewrite();
+        Varien_Profiler::stop('mage::dispatch::db_url_rewrite');
+
+        Varien_Profiler::start('mage::dispatch::config_url_rewrite');
         $this->rewrite();
+        Varien_Profiler::stop('mage::dispatch::config_url_rewrite');
 
-        Varien_Profiler::stop('app/init');
-
+        Varien_Profiler::start('mage::dispatch::routers_match');
         $i = 0;
         while (!$request->isDispatched() && $i++<100) {
             foreach ($this->_routers as $router) {
@@ -176,15 +160,14 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
                 }
             }
         }
+        Varien_Profiler::stop('mage::dispatch::routers_match');
         if ($i>100) {
             Mage::throwException('Front controller reached 100 router match iterations');
         }
 
-        Varien_Profiler::stop('ctrl/dispatch');
-
-        Varien_Profiler::start('ctrl/response');
+        Varien_Profiler::start('mage::app::dispatch::send_response');
         $this->getResponse()->sendResponse();
-        Varien_Profiler::stop('ctrl/response');
+        Varien_Profiler::stop('mage::app::dispatch::send_response');
 
         return $this;
     }

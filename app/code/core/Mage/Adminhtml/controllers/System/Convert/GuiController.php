@@ -129,21 +129,21 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
 
     protected function _isAllowed()
     {
-        switch ($this->getRequest()->getActionName()) {
-            case 'index':
-                $aclResource = 'admin/system/convert/gui';
-                break;
-            case 'grid':
-                $aclResource = 'admin/system/convert/gui';
-                break;
-            case 'run':
-                $aclResource = 'admin/system/convert/gui/run';
-                break;
-            default:
-                $aclResource = 'admin/system/convert/gui/edit';
-                break;
-        }
+//        switch ($this->getRequest()->getActionName()) {
+//            case 'index':
+//                $aclResource = 'admin/system/convert/gui';
+//                break;
+//            case 'grid':
+//                $aclResource = 'admin/system/convert/gui';
+//                break;
+//            case 'run':
+//                $aclResource = 'admin/system/convert/gui/run';
+//                break;
+//            default:
+//                $aclResource = 'admin/system/convert/gui/edit';
+//                break;
+//        }
 
-        return Mage::getSingleton('admin/session')->isAllowed($aclResource);
+        return Mage::getSingleton('admin/session')->isAllowed('admin/system/convert/gui');
     }
 }

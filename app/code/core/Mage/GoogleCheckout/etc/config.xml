@@ -210,6 +210,11 @@ Something like this is to be added to resolve bug #4890
                 <sallowspecific_2>0</sallowspecific_2>
                 <sallowspecific_3>0</sallowspecific_3>
             </checkout_shipping_flatrate>
+            <checkout_shipping_virtual>
+                <active>1</active>
+                <schedule>OPTIMISTIC</schedule>
+                <method>email</method>
+            </checkout_shipping_virtual>
         </google>
     </default>
 </config>

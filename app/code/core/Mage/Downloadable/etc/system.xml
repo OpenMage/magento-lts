@@ -37,15 +37,15 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <order_status translate="label">
-                            <label>Order Status to enable Downloads</label>
+                        <order_item_status translate="label">
+                            <label>Order Item Status to enable Downloads</label>
                             <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_order_status</source_model>
+                            <source_model>downloadable/system_config_source_orderitemstatus</source_model>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </order_status>
+                        </order_item_status>
                         <downloads_number translate="label">
                             <label>Default Maximum Number of Downloads</label>
                             <frontend_type>text</frontend_type>

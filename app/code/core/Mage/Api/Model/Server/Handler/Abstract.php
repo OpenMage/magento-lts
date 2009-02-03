@@ -40,7 +40,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
     static public function handlePhpError($errorCode, $errorMessage, $errorFile)
     {
-        Mage::log($errorMessage, null, $errorFile);
+        Mage::log($errorMessage . $errorFile);
         if (in_array($errorCode, array(E_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR))) {
             $this->_fault('internal');
         }

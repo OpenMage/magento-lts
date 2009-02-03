@@ -53,6 +53,16 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Target Country
+     *
+     * @return string Two-letters country ISO code
+     */
+    public function getTargetCountry()
+    {
+        return Mage::getSingleton('googlebase/config')->getTargetCountry($this->getStoreId());
+    }
+
+    /**
      * Save item to Google Base
      *
      * @return Mage_GoogleBase_Model_Item
@@ -277,7 +287,7 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
         if (is_array($registry) && isset($registry[$attributeSetId])) {
             return $registry[$attributeSetId];
         }
-        $model = Mage::getModel('googlebase/type')->loadByAttributeSetId($attributeSetId);
+        $model = Mage::getModel('googlebase/type')->loadByAttributeSetId($attributeSetId, $this->getTargetCountry());
         $registry[$attributeSetId] = $model;
         Mage::unregister(self::TYPES_REGISTRY_KEY);
         Mage::register(self::TYPES_REGISTRY_KEY, $registry);
@@ -340,7 +350,7 @@ class Mage_GoogleBase_Model_Item extends Mage_Core_Model_Abstract
             return $registry[$attributeSetId];
         }
         $collection = Mage::getResourceModel('googlebase/attribute_collection')
-            ->addAttributeSetFilter($attributeSetId)
+            ->addAttributeSetFilter($attributeSetId, $this->getTargetCountry())
             ->load();
         $registry[$attributeSetId] = $collection;
         Mage::unregister(self::ATTRIBUTES_REGISTRY_KEY);

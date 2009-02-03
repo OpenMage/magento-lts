@@ -209,7 +209,9 @@ class Mage_Googleoptimizer_Block_Adminhtml_Catalog_Product_Edit_Tab_Googleoptimi
 
     public function canShowTab()
     {
-        if (Mage::helper('googleoptimizer')->isOptimizerActive() && $this->getProduct()->getAttributeSetId()) {
+        if (Mage::helper('googleoptimizer')->isOptimizerActive($this->getProduct()->getStoreId())
+            && $this->getProduct()->getAttributeSetId())
+        {
             return true;
         }
         return false;

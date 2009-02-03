@@ -36,7 +36,7 @@
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
+class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 {
     /**
      * XML configuration paths
@@ -1275,19 +1275,15 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * Get formated order created date in store timezone
+     *
+     * @param   string $format date format type (short|medium|long|full)
+     * @return  string
+     */
     public function getCreatedAtFormated($format)
     {
-        return Mage::getBlockSingleton('core/text')->formatDate($this->getCreatedAt(), $format);
-    }
-
-    /**
-     * Retrieve created at store date object
-     *
-     * @return Zend_Date
-     */
-    public function getCreatedAtDate()
-    {
-        return Mage::app()->getLocale()->storeDate($this->getStore(), $this->_getResource()->mktime(($this->getCreatedAt())), true);
+        return Mage::helper('core')->formatDate($this->getCreatedAtStoreDate(), $format);
     }
 
     public function getEmailCustomerNote()
@@ -1342,7 +1338,10 @@ class Mage_Sales_Model_Order extends Mage_Core_Model_Abstract
                     $this->setState(self::STATE_COMPLETE, true);
                 }
             }
-            else {
+            /**
+             * Order can be closed just in case when we have refunded amount
+             */
+            elseif(floatval($this->getTotalRefunded())) {
                 if ($this->getState() !== self::STATE_CLOSED) {
                     $this->setState(self::STATE_CLOSED, true);
                 }

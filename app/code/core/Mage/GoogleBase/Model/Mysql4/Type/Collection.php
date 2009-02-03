@@ -63,6 +63,18 @@ class Mage_GoogleBase_Model_Mysql4_Type_Collection extends Mage_Core_Model_Mysql
 	}
 
 	/**
+	 * Add country ISO filter to collection
+	 *
+	 * @param string $iso Two-letter country ISO code
+	 * @return Mage_GoogleBase_Model_Mysql4_Type_Collection
+	 */
+	public function addCountryFilter($iso)
+	{
+        $this->getSelect()->where('target_country=?', $iso);
+        return $this;
+	}
+
+	/**
 	 * Join Attribute Set data
 	 *
 	 * @return Mage_GoogleBase_Model_Mysql4_Type_Collection

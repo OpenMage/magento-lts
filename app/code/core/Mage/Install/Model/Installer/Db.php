@@ -56,14 +56,23 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
 
         try {
             $connection = Mage::getSingleton('core/resource')->createConnection('install', $this->_getConnenctionType(), $config);
-            $result = $connection->query($connection->quoteInto('SHOW VARIABLES LIKE ?', 'version'));
-            $row = $result->fetch();
-            $version = $row['Value'];
-            preg_match("([0-9.]+)",$version,$toCompare);
+            $variables  = $connection->fetchPairs("SHOW VARIABLES");
+
+            $version = isset($variables['version']) ? $variables['version'] : 'undefined';
+            $match = array();
+            if (preg_match("#^([0-9\.]+)#", $version, $match)) {
+                $version = $match[0];
+            }
             $requiredVersion = (string)Mage::getSingleton('install/config')->getNode('check/mysql/version');
 
-            if (version_compare(isset($toCompare[0])?$toCompare[0]:$version, $requiredVersion) == -1) {
+            // check MySQL Server version
+            if (version_compare($version, $requiredVersion) == -1) {
                 Mage::throwException(Mage::helper('install')->__('Database server version does not match system requirements (required: %s, actual: %s)', $requiredVersion, $version));
+            }
+
+            // check InnoDB support
+            if (!isset($variables['have_innodb']) || $variables['have_innodb'] != 'YES') {
+                Mage::throwException(Mage::helper('install')->__('Database server does not support InnoDB storage engine'));
             }
         }
         catch (Exception $e){
@@ -72,6 +81,11 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
         }
     }
 
+    /**
+     * Retrieve Connection Type
+     *
+     * @return string
+     */
     protected function _getConnenctionType()
     {
         return (string) Mage::getConfig()->getNode('global/resources/default_setup/connection/type');

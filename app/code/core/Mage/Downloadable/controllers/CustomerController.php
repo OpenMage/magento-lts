@@ -56,6 +56,9 @@ class Mage_Downloadable_CustomerController extends Mage_Core_Controller_Front_Ac
     {
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
+        if ($block = $this->getLayout()->getBlock('downloadable_customer_products_list')) {
+            $block->setRefererUrl($this->_getRefererUrl());
+        }
         $this->renderLayout();
     }
 

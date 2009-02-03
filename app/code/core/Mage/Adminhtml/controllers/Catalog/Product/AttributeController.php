@@ -193,6 +193,11 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
             try {
                 $model->save();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('Product attribute was successfully saved'));
+
+                /**
+                 * Clear translation cache because attribute labels are stored in translation
+                 */
+                Mage::app()->cleanCache(array(Mage_Core_Model_Translate::CACHE_TAG));
                 Mage::getSingleton('adminhtml/session')->setAttributeData(false);
                 if ($this->getRequest()->getParam('popup')) {
                     $this->_redirect('adminhtml/catalog_product/addAttribute', array(

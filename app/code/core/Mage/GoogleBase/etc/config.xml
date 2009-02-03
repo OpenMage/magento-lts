@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_GoogleBase>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </Mage_GoogleBase>
     </modules>
     <global>
@@ -193,6 +193,26 @@
             </base>
             <googlebase>
                 <target_country>US</target_country>
+                <allowed_countries>
+                    <US translate="name">
+                        <name>United States</name>
+                        <language>EN</language>
+                        <locale>en_US</locale>
+                        <default_item_type>products</default_item_type>
+                    </US>
+                    <GB translate="name">
+                        <name>United Kingdom</name>
+                        <language>EN</language>
+                        <locale>en_GB</locale>
+                        <default_item_type>products</default_item_type>
+                    </GB>
+                    <DE translate="name">
+                        <name>Germany</name>
+                        <language>DE</language>
+                        <locale>de_DE</locale>
+                        <default_item_type>produkte</default_item_type>
+                    </DE>
+                </allowed_countries>
             </googlebase>
         </google>
     </default>

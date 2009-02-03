@@ -51,6 +51,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
         }
         $purchasedItems = Mage::getResourceModel('downloadable/link_purchased_item_collection')
             ->addFieldToFilter('purchased_id', array('in' => $purchasedIds))
+            ->addFieldToFilter('status', array('nin' => Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING_PAYMENT))
             ->setOrder('item_id', 'desc');
         $this->setItems($purchasedItems);
     }
@@ -92,6 +93,9 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
      */
     public function getBackUrl()
     {
+        if ($this->getRefererUrl()) {
+            return $this->getRefererUrl();
+        }
         return $this->getUrl('customer/account/');
     }
 
@@ -117,7 +121,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
      */
     public function getDownloadUrl($item)
     {
-        return $this->getUrl('*/download/link', array('id' => $item->getId()));
+        return $this->getUrl('*/download/link', array('id' => $item->getLinkHash(), '_secure' => true));
     }
 
     /**

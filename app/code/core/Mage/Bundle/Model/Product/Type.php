@@ -61,6 +61,34 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     }
 
     /**
+     * Retrieve Required children ids
+     * Return grouped array, ex array(
+     *   group => array(ids)
+     * )
+     *
+     * @param int $parentId
+     * @param bool $required
+     * @return array
+     */
+    public function getChildrenIds($parentId, $required = true)
+    {
+        return Mage::getResourceSingleton('bundle/selection')
+            ->getChildrenIds($parentId, $required);
+    }
+
+    /**
+     * Retrieve parent ids array by requered child
+     *
+     * @param int $childId
+     * @return array
+     */
+    public function getParentIdsByChild($childId)
+    {
+        return Mage::getResourceSingleton('bundle/selection')
+            ->getParentIdsByChild($childId);
+    }
+
+    /**
      * Return product sku based on sku_type attribute
      *
      * @return string
@@ -328,8 +356,9 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      */
     public function isSalable()
     {
-        if (!parent::isSalable()) {
-            return false;
+        $salable = parent::isSalable();
+        if (!is_null($salable)) {
+            return $salable;
         }
 
         $optionCollection = $this->getOptionsCollection();
@@ -509,14 +538,23 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 );
 
                 //if (!$product->getPriceType()) {
-                $result[] = $selection->setParentProductId($product->getId())
+                $_result = $selection->getTypeInstance()->prepareForCart($buyRequest);
+                if (is_string($_result) && !is_array($_result)) {
+                    return $_result;
+                }
+
+                if (!isset($_result[0])) {
+                    return Mage::helper('checkout')->__('Can not add item to shopping cart');
+                }
+
+                $result[] = $_result[0]->setParentProductId($product->getId())
                     ->addCustomOption('bundle_option_ids', serialize($optionIds))
                     ->addCustomOption('bundle_selection_attributes', serialize($attributes))
                     ->setCartQty($qty);
                 //}
 
-                $selectionIds[] = $selection->getSelectionId();
-                $uniqueKey[] = $selection->getSelectionId();
+                $selectionIds[] = $_result[0]->getSelectionId();
+                $uniqueKey[] = $_result[0]->getSelectionId();
                 $uniqueKey[] = $qty;
             }
             /**

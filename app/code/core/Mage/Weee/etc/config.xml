@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Weee>
-            <version>0.12</version>
+            <version>0.13</version>
         </Mage_Weee>
     </modules>
 

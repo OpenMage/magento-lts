@@ -130,7 +130,10 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         parent::preDispatch();
 
-        if ($this->getRequest()->isPost() && !$this->_validateFormKey()) {
+        if ($this->getRequest()->isPost()
+            && !$this->_validateFormKey()
+            && Mage::getSingleton('admin/session')->isLoggedIn()) {
+
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
             if ($this->getRequest()->getQuery('isAjax', false) || $this->getRequest()->getQuery('ajax', false)) {
@@ -348,5 +351,4 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     {
         return Mage::helper('adminhtml')->getUrl($route, $params);
     }
-    
 }

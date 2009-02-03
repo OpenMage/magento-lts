@@ -347,6 +347,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             'is_filterable'         => isset($attr['filterable']) ? $attr['filterable'] : 0,
             'is_comparable'         => isset($attr['comparable']) ? $attr['comparable'] : 0,
             'is_visible_on_front'   => isset($attr['visible_on_front']) ? $attr['visible_on_front'] : 0,
+            'is_html_allowed_on_front'   => isset($attr['is_html_allowed_on_front']) ? $attr['is_html_allowed_on_front'] : 0,
             'is_visible_in_advanced_search' => isset($attr['visible_in_advanced_search']) ? $attr['visible_in_advanced_search'] : 0,
             'is_unique'             => isset($attr['unique']) ? $attr['unique'] : 0,
             'apply_to'              => isset($attr['apply_to']) ? $attr['apply_to'] : '',

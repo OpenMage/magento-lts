@@ -88,10 +88,10 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
                 //   return array();
                 //}
 
-                $resource->title = Mage::helper($module)->__((string)$resource->title);
+                //$resource->title = Mage::helper($module)->__((string)$resource->title);
 
                 if ( is_null($represent2Darray) ) {
-                    $result[$resourceName]['name']  = (string)$resource->title;
+                    $result[$resourceName]['name']  = Mage::helper($module)->__((string)$resource->title);
                     $result[$resourceName]['level'] = $level;
                 } else {
                     $result[] = $resourceName;

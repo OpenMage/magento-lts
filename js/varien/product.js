@@ -219,6 +219,7 @@ Product.Config = Class.create();
 Product.Config.prototype = {
     initialize: function(config){
         this.config     = config;
+        this.taxConfig  = this.config.taxConfig;
         this.settings   = $$('.super-attribute-select');
         this.state      = new Hash();
         this.priceTemplate = new Template(this.config.template);
@@ -355,9 +356,29 @@ Product.Config.prototype = {
 
     getOptionLabel: function(option, price){
         var price = parseFloat(price);
+        if (this.taxConfig.includeTax) {
+            var tax = price / (100 + this.taxConfig.defaultTax) * this.taxConfig.defaultTax;
+            var excl = price - tax;
+            var incl = excl*(1+(this.taxConfig.currentTax/100));
+        } else {
+            var tax = price * (this.taxConfig.currentTax / 100);
+            var excl = price;
+            var incl = excl + tax;
+        }
+
+        if (this.taxConfig.showIncludeTax || this.taxConfig.showBothPrices) {
+            price = incl;
+        } else {
+            price = excl;
+        }
+
         var str = option.label;
         if(price){
-            str+= ' (' + this.formatPrice(price, true) + ')';
+            if (this.taxConfig.showBothPrices) {
+                str+= ' ' + this.formatPrice(excl, true) + ' (' + this.formatPrice(price, true) + ' ' + this.taxConfig.inclTaxTitle + ')';
+            } else {
+                str+= ' ' + this.formatPrice(price, true);
+            }
         }
         return str;
     },
@@ -505,6 +526,8 @@ Product.OptionsPrice.prototype = {
         this.optionPrices = {};
         this.containers = {};
 
+        this.displayZeroPrice   = true;
+
         this.initPrices();
     },
 
@@ -566,7 +589,7 @@ Product.OptionsPrice.prototype = {
                     var excl = price - tax;
                     var incl = excl*(1+(this.currentTax/100));
                 } else {
-                    var tax = price * (this.defaultTax / 100);
+                    var tax = price * (this.currentTax / 100);
                     var excl = price;
                     var incl = excl + tax;
                 }
@@ -601,7 +624,13 @@ Product.OptionsPrice.prototype = {
                 }
 
                 if (price < 0) price = 0;
-                formattedPrice = this.formatPrice(price);
+
+                if (price > 0 || this.displayZeroPrice) {
+                    formattedPrice = this.formatPrice(price);
+                } else {
+                    formattedPrice = '';
+                }
+
                 if ($(pair.value).select('.price')[0]) {
                     $(pair.value).select('.price')[0].innerHTML = formattedPrice;
                     if ($(pair.value+this.duplicateIdSuffix) && $(pair.value+this.duplicateIdSuffix).select('.price')[0]) {

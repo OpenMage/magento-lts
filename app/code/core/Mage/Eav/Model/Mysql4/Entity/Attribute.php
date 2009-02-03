@@ -38,10 +38,20 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
     protected function _construct()
     {
         $this->_init('eav/attribute', 'attribute_id');
-        $this->_uniqueFields = array(
-            array('field' => array('attribute_code','entity_type_id'),
-                'title' => Mage::helper('eav')->__('Attribute with the same code')
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = array(array(
+            'field' => array('attribute_code','entity_type_id'),
+            'title' => Mage::helper('eav')->__('Attribute with the same code')
         ));
+        return $this;
     }
 
     protected function _loadTypeAttributes($entityTypeId)

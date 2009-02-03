@@ -44,10 +44,10 @@ class Mage_Adminhtml_Model_System_Config_Backend_Log_Cron extends Mage_Core_Mode
      */
     protected function _afterSave()
     {
-        $enabled    = $this->getData('groups/log/enabled/value');
+        $enabled    = $this->getData('groups/log/fields/enabled/value');
         $time       = $this->getData('groups/log/fields/time/value');
-        $frequncy   = $this->getData('groups/log/frequency/value');
-        $errorEmail = $this->getData('groups/log/error_email/value');
+        $frequncy   = $this->getData('groups/log/fields/frequency/value');
+        $errorEmail = $this->getData('groups/log/fields/error_email/value');
 
         $frequencyDaily     = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_DAILY;
         $frequencyWeekly    = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_WEEKLY;

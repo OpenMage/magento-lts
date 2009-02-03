@@ -86,15 +86,15 @@ class Mage_GoogleBase_Model_Service_Feed extends Mage_GoogleBase_Model_Service
     /**
      * Returns Google Base recommended Item Types
      *
+     * @param string $targetCountry Two-letters country ISO code
      * @return array
      */
-    public function getItemTypes($storeId = null)
+    public function getItemTypes($targetCountry)
     {
-        if (is_array($this->_itemTypes)) {
-            return $this->_itemTypes;
-        }
-        $location = self::ITEM_TYPES_LOCATION . '/' . Mage::app()->getLocale()->getLocale();
-        $feed = $this->getFeed($location, $storeId);
+        $locale = Mage::getSingleton('googlebase/config')->getCountryInfo($targetCountry, 'locale');
+        $location = self::ITEM_TYPES_LOCATION . '/' . $locale;
+
+        $feed = $this->getGuestService()->getFeed($location);
 
         $itemTypes = array();
         foreach ($feed->entries as $entry) {
@@ -130,14 +130,15 @@ class Mage_GoogleBase_Model_Service_Feed extends Mage_GoogleBase_Model_Service
      * Returns Google Base Attributes
      *
      * @param string $type Google Base Item Type
+     * @param string $targetCountry Two-letters country ISO code
      * @return array
      */
-    public function getAttributes($type, $storeId = null)
+    public function getAttributes($type, $targetCountry)
     {
-        $itemTypes = $this->getItemTypes($storeId);
+        $itemTypes = $this->getItemTypes($targetCountry);
         if (isset($itemTypes[$type]) && $itemTypes[$type] instanceof Varien_Object) {
             return $itemTypes[$type]->getAttributes();
         }
-        Mage::throwException(Mage::helper('googlebase')->__('No such Item Type "%s" in Google Base to retrieve attributes', $type));
+        return array();
     }
 }

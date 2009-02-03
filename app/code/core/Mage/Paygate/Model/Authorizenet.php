@@ -285,7 +285,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     ->setXCustId($billing->getCustomerId())
                     ->setXCustomerIp($order->getRemoteIp())
                     ->setXCustomerTaxId($billing->getTaxId())
-                    ->setXEmail($billing->getEmail())
+                    ->setXEmail($order->getCustomerEmail())
                     ->setXEmailCustomer($this->getConfigData('email_customer'))
                     ->setXMerchantEmail($this->getConfigData('merchant_email'));
             }

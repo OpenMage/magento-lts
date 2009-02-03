@@ -424,6 +424,43 @@
                         </specificcountry_3>
                     </fields>
                 </checkout_shipping_flatrate>
+                <checkout_shipping_virtual translate="label">
+                    <label>Google Checkout Shipping - Digital Delivery</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>200</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enable Digital Delivery</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <schedule translate="label">
+                            <label>Delivery schedule</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>googlecheckout/source_shipping_virtual_schedule</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </schedule>
+                        <method translate="label">
+                            <label>Method</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>googlecheckout/source_shipping_virtual_method</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </method>
+                    </fields>
+                </checkout_shipping_virtual>
             </groups>
         </google>
     </sections>

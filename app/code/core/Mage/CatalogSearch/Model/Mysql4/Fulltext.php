@@ -333,6 +333,8 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
         if (is_null($this->_searchableAttributes)) {
             $this->_searchableAttributes = array();
             $entityType = $this->getEavConfig()->getEntityType('catalog_product');
+            $entity     = $entityType->getEntity();
+
             $select = $this->_getReadAdapter()->select()
                 ->from($this->getTable('eav/attribute'), array('attribute_code'))
                 ->where('entity_type_id=?', $entityType->getEntityTypeId())
@@ -341,6 +343,7 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
             $this->getEavConfig()->preloadAttributes($entityType, $attributeCodes);
             foreach ($attributeCodes as $attributeCode) {
                 $attribute = $this->getEavConfig()->getAttribute($entityType, $attributeCode);
+                $attribute->setEntity($entity);
                 $this->_searchableAttributes[$attribute->getId()] = $attribute;
             }
         }
@@ -377,7 +380,7 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
                 }
             }
         }
-        return $this->getEavConfig()->getAttribute($attribute);
+        return $this->getEavConfig()->getAttribute('catalog_product', $attribute);
     }
 
     /**

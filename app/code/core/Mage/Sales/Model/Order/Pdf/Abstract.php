@@ -180,7 +180,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $page->drawText(Mage::helper('sales')->__('Order # ').$order->getRealOrderId(), 35, 770, 'UTF-8');
         }
         //$page->drawText(Mage::helper('sales')->__('Order Date: ') . date( 'D M j Y', strtotime( $order->getCreatedAt() ) ), 35, 760, 'UTF-8');
-        $page->drawText(Mage::helper('sales')->__('Order Date: ') . Mage::helper('core')->formatDate($order->getCreatedAt(), 'medium', false), 35, 760, 'UTF-8');
+        $page->drawText(Mage::helper('sales')->__('Order Date: ') . Mage::helper('core')->formatDate($order->getCreatedAtStoreDate(), 'medium', false), 35, 760, 'UTF-8');
 
         $page->setFillColor(new Zend_Pdf_Color_Rgb(0.93, 0.92, 0.92));
         $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
@@ -294,7 +294,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $yShipments = $this->y;
 
 
-            $totalShippingChargesText = "(" . Mage::helper('sales')->__('Total Shipping Charges') . " " . $order->formatPriceTxt($order->getBaseShippingAmount()) . ")";
+            $totalShippingChargesText = "(" . Mage::helper('sales')->__('Total Shipping Charges') . " " . $order->formatPriceTxt($order->getShippingAmount()) . ")";
 
             $page->drawText($totalShippingChargesText, 285, $yShipments-7, 'UTF-8');
             $yShipments -=10;
@@ -491,6 +491,19 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         return $this->_renderers[$type]['renderer'];
     }
 
+    /**
+     * Public method of protected @see _getRenderer()
+     *
+     * Retrieve renderer model
+     *
+     * @param string $type
+     * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
+     */
+    public function getRenderer($type)
+    {
+        return $this->_getRenderer($type);
+    }
+
     protected function _drawItem(Varien_Object $item, Zend_Pdf_Page $page, Mage_Sales_Model_Order $order)
     {
         $type = $item->getOrderItem()->getProductType();
@@ -499,6 +512,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         $renderer->setItem($item);
         $renderer->setPdf($this);
         $renderer->setPage($page);
+        $renderer->setRenderedModel($this);
 
         $renderer->draw();
     }

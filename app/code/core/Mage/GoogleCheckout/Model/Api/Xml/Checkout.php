@@ -80,7 +80,6 @@ EOT;
             }
             $taxClass = ($item->getTaxClassId() == 0 ? 'none' : $item->getTaxClassId());
             $weight = (float) $item->getWeight();
-            $digital = $item->getIsVirtual() ? 'true' : 'false';
 
             $xml .= <<<EOT
             <item>
@@ -91,7 +90,7 @@ EOT;
                 <quantity>{$item->getQty()}</quantity>
                 <item-weight unit="{$weightUnit}" value="{$weight}" />
                 <tax-table-selector>{$taxClass}</tax-table-selector>
-                {$this->_getDigitalContentXml($item)}
+                {$this->_getDigitalContentXml($item->getIsVirtual())}
                 {$this->_getMerchantPrivateItemDataXml($item)}
             </item>
 
@@ -111,6 +110,7 @@ EOT;
                 <quantity>1</quantity>
                 <item-weight unit="{$weightUnit}" value="0.00" />
                 <tax-table-selector>none</tax-table-selector>
+                {$this->_getDigitalContentXml($this->getQuote()->isVirtual())}
             </item>
 
 EOT;
@@ -121,24 +121,36 @@ EOT;
         return $xml;
     }
 
-    protected function _getDigitalContentXml($item)
+    protected function _getDigitalContentXml($isVirtual)
     {
-        return '';
-        if (!$item->getIsVirtual()) {
+        if (!$isVirtual) {
             return '';
         }
-        $xml = '<digital-content><email-delivery>true</email-delivery></digital-content>';
+
+        $active = Mage::getStoreConfigFlag('google/checkout_shipping_virtual/active', $this->getQuote()->getStoreId());
+        if (!$active) {
+            return '';
+        }
+
+        $schedule = Mage::getStoreConfig('google/checkout_shipping_virtual/schedule', $this->getQuote()->getStoreId());
+        $method = Mage::getStoreConfig('google/checkout_shipping_virtual/method', $this->getQuote()->getStoreId());
+
+        $xml = "<display-disposition>{$schedule}</display-disposition>";
+
+        if ($method == 'email') {
+            $xml .= "<email-delivery>true</email-delivery>";
+        } elseif ($method == 'key_url') {
+        } elseif ($method == 'description_based') {
+        }
+
+        $xml = "<digital-content>{$xml}</digital-content>";
 
         return $xml;
     }
 
     protected function _getMerchantPrivateItemDataXml($item)
     {
-        $xml = <<<EOT
-            <merchant-private-item-data>
-                <quote-item-id>{$item->getId()}</quote-item-id>
-            </merchant-private-item-data>
-EOT;
+        $xml = "<merchant-private-item-data><quote-item-id>{$item->getId()}</quote-item-id></merchant-private-item-data>";
         return $xml;
     }
     protected function _getMerchantPrivateDataXml()

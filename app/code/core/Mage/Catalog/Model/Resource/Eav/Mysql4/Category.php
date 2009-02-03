@@ -95,23 +95,45 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
     {
         parent::_beforeDelete($object);
 
-        $toUpdateChild = explode('/',substr($object->getPath(),0,strrpos($object->getPath(),'/')));
-        $child = $this->getChildrenCount($object->getId());
-        $child+=1;
-
+        /**
+         * Update children count for all parent categories
+         */
+        $parentIds = $object->getParentIds();
+        $childDecrease = $object->getChildrenCount() + 1; // +1 is itself
         $this->_getWriteAdapter()->update(
             $this->getEntityTable(),
-            array('children_count'=>new Zend_Db_Expr('`children_count`-'.$child)),
-            $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $toUpdateChild)
+            array('children_count'=>new Zend_Db_Expr('`children_count`-'.$childDecrease)),
+            $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $parentIds)
         );
 
-        if ($child = $this->_getTree()->getNodeById($object->getId())) {
+        /**
+         * Recursion use a lot of memmory, that why we run one request for delete children
+         */
+        /*if ($child = $this->_getTree()->getNodeById($object->getId())) {
             $children = $child->getChildren();
             foreach ($children as $child) {
                 $childObject = Mage::getModel('catalog/category')->load($child->getId())->delete();
             }
+        }*/
+
+        $select = $this->_getWriteAdapter()->select()
+            ->from($this->getEntityTable(), array('entity_id'))
+            ->where($this->_getWriteAdapter()->quoteInto('`path` LIKE ?', $object->getPath().'/%'));
+
+        $childrenIds = $this->_getWriteAdapter()->fetchCol($select);
+
+        if (!empty($childrenIds)) {
+            $this->_getWriteAdapter()->delete(
+                $this->getEntityTable(),
+                $this->_getWriteAdapter()->quoteInto('entity_id IN (?)', $childrenIds)
+            );
         }
 
+        /**
+         * Add deleted children ids to object
+         * This data can be used in after delete event
+         */
+        $object->setDeletedChildrenIds($childrenIds);
         return $this;
     }
 

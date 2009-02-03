@@ -85,7 +85,6 @@
                         <allowed_selection_types>
                             <simple />
                             <virtual />
-                            <downloadable />
                         </allowed_selection_types>
                         <price_model>bundle/product_price</price_model>
                         <index_data_retreiver>bundle/catalogIndex_data_bundle</index_data_retreiver>

@@ -37,9 +37,20 @@ class Mage_Poll_Model_Mysql4_Poll_Answer extends Mage_Core_Model_Mysql4_Abstract
     protected function _construct()
     {
         $this->_init('poll/poll_answer', 'answer_id');
-        $this->_uniqueFields = array(
-            array('field' => array('answer_title', 'poll_id'),
-            'title' => Mage::helper('poll')->__('Answer with the same title in this poll'))
-        );
     }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = array(array(
+            'field' => array('answer_title', 'poll_id'),
+            'title' => Mage::helper('poll')->__('Answer with the same title in this poll')
+        ));
+        return $this;
+    }
+
 }

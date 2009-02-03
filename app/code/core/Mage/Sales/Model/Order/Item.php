@@ -397,6 +397,19 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Return real product type of item or NULL if item is not composite
+     *
+     * @return string | null
+     */
+    public function getRealProductType()
+    {
+        if ($productType = $this->getProductOptionByCode('real_product_type')) {
+            return $productType;
+        }
+        return null;
+    }
+
+    /**
      * Adds child item to this item
      *
      * @param Mage_Sales_Model_Order_Item $item

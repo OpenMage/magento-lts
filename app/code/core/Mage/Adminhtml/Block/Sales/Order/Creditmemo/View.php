@@ -104,7 +104,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
 
         $header = Mage::helper('sales')->__('Credit Memo #%s | Date %s | Status %s (%s)',
             $this->getCreditmemo()->getIncrementId(),
-            $this->formatDate($this->getCreditmemo()->getCreatedAt(), 'medium', true),
+            $this->formatDate($this->getCreditmemo()->getCreatedAtDate(), 'medium', true),
             $this->getCreditmemo()->getStateName(),
             $emailSent
         );

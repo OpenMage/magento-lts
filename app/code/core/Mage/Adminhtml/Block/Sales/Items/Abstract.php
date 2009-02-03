@@ -91,8 +91,11 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * @param string $template
      * @return Mage_Adminhtml_Block_Sales_Items_Abstract
      */
-    public function addColumnRender($column, $block, $template)
+    public function addColumnRender($column, $block, $template, $type=null)
     {
+        if (!is_null($type)) {
+            $column .= '_' . $type;
+        }
         $this->_columnRenders[$column] = array(
             'block'     => $block,
             'template'  => $template,
@@ -127,17 +130,22 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      * Retrieve column renderer block
      *
      * @param string $column
+     * @param string $compositePart
      * @return Mage_Core_Block_Abstract
      */
-    public function getColumnRenderer($column)
+    public function getColumnRenderer($column, $compositePart='')
     {
+        if (isset($this->_columnRenders[$column . '_' . $compositePart])) {
+            $column .= '_' . $compositePart;
+        }
         if (!isset($this->_columnRenders[$column])) {
             return false;
         }
         if (is_null($this->_columnRenders[$column]['renderer'])) {
             $this->_columnRenders[$column]['renderer'] = $this->getLayout()
                 ->createBlock($this->_columnRenders[$column]['block'])
-                ->setTemplate($this->_columnRenders[$column]['template']);
+                ->setTemplate($this->_columnRenders[$column]['template'])
+                ->setRenderedBlock($this);
         }
         return $this->_columnRenders[$column]['renderer'];
     }
@@ -171,7 +179,13 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      */
     public function getColumnHtml(Varien_Object $item, $column, $field = null)
     {
-        if ($block = $this->getColumnRenderer($column)) {
+        if ($item->getOrderItem()) {
+            $block = $this->getColumnRenderer($column, $item->getOrderItem()->getProductType());
+        } else {
+            $block = $this->getColumnRenderer($column, $item->getProductType());
+        }
+
+        if ($block) {
             $block->setItem($item);
             if (!is_null($field)) {
                 $block->setField($field);

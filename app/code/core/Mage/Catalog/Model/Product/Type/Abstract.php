@@ -33,7 +33,6 @@
  */
 abstract class Mage_Catalog_Model_Product_Type_Abstract
 {
-
     /**
      * Product model instance
      *
@@ -98,6 +97,32 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     public function getRelationInfo()
     {
         return new Varien_Object();
+    }
+
+    /**
+     * Retrieve Required children ids
+     * Return grouped array, ex array(
+     *   group => array(ids)
+     * )
+     *
+     * @param int $parentId
+     * @param bool $required
+     * @return array
+     */
+    public function getChildrenIds($parentId, $required = true)
+    {
+        return array();
+    }
+
+    /**
+     * Retrieve parent ids array by requered child
+     *
+     * @param int $childId
+     * @return array
+     */
+    public function getParentIdsByChild($childId)
+    {
+        return array();
     }
 
     /**
@@ -196,8 +221,12 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         $salable = $this->getProduct()->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_ENABLED;
         if ($salable && $this->getProduct()->hasData('is_salable')) {
-            return $this->getProduct()->getData('is_salable');
+            $salable = $this->getProduct()->getData('is_salable');
         }
+        elseif ($salable && $this->isComposite()) {
+            $salable = null;
+        }
+
         return $salable;
     }
 

@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Downloadable>
-            <version>0.1.12</version>
+            <version>0.1.14</version>
         </Mage_Downloadable>
     </modules>
     <global>
@@ -41,6 +41,7 @@
                 <customer_id><to_downloadable>*</to_downloadable></customer_id>
             </downloadable_sales_copy_order>
             <downloadable_sales_copy_order_item>
+                <item_id><to_downloadable>order_item_id</to_downloadable></item_id>
                 <name><to_downloadable>product_name</to_downloadable></name>
                 <sku><to_downloadable>product_sku</to_downloadable></sku>
             </downloadable_sales_copy_order_item>
@@ -132,6 +133,21 @@
                         <price_model>downloadable/product_price</price_model>
                         <index_data_retreiver>downloadable/catalogIndex_data_downloadable</index_data_retreiver>
                     </downloadable>
+                    <bundle>
+                        <allowed_selection_types>
+                            <downloadable />
+                        </allowed_selection_types>
+                    </bundle>
+                    <configurable>
+                        <allow_product_types>
+                            <downloadable />
+                        </allow_product_types>
+                    </configurable>
+                    <grouped>
+                        <allow_product_types>
+                            <downloadable />
+                        </allow_product_types>
+                    </grouped>
                 </type>
             </product>
         </catalog>
@@ -824,7 +840,7 @@
         </translate>
         <layout>
             <updates>
-                <downloadable>
+                <downloadable module="Mage_Downloadable">
                     <file>downloadable.xml</file>
                 </downloadable>
             </updates>
@@ -892,7 +908,7 @@
         <catalog>
             <downloadable>
                 <downloads_number>0</downloads_number>
-                <order_status>complete</order_status>
+                <order_item_status>9</order_item_status>
                 <samples_title>Samples</samples_title>
                 <links_title>Links</links_title>
                 <links_target_new_window>1</links_target_new_window>

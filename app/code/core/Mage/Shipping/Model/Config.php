@@ -41,7 +41,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
         $config = Mage::getStoreConfig('carriers', $store);
         foreach ($config as $code => $carrierConfig) {
             if (Mage::getStoreConfigFlag('carriers/'.$code.'/active', $store)) {
-                $carriers[$code] = $this->_getCarrier($code, $carrierConfig);
+                $carriers[$code] = $this->_getCarrier($code, $carrierConfig, $store);
             }
         }
         return $carriers;
@@ -58,7 +58,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
         $carriers = array();
         $config = Mage::getStoreConfig('carriers', $store);
         foreach ($config as $code => $carrierConfig) {
-            $carriers[$code] = $this->_getCarrier($code, $carrierConfig);
+            $carriers[$code] = $this->_getCarrier($code, $carrierConfig, $store);
         }
         return $carriers;
     }

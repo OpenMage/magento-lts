@@ -192,8 +192,8 @@ class Mage_Catalog_Model_Product_Type_Price
             $fromDate   = Mage::app()->getLocale()->date($product->getSpecialFromDate(), null, null, false);
             $toDate     = Mage::app()->getLocale()->date($product->getSpecialToDate(), null, null, false);
 
-            if ($product->getSpecialFromDate() && $storeDate->compare($fromDate)<0) {
-            } elseif ($product->getSpecialToDate() && $storeDate->compare($toDate)>0) {
+            if ($product->getSpecialFromDate() && $storeDate->compare($fromDate, Zend_Date::DATES)<0) {
+            } elseif ($product->getSpecialToDate() && $storeDate->compare($toDate, Zend_Date::DATES)>0) {
             } else {
                $finalPrice = min($finalPrice, $specialPrice);
             }
@@ -325,8 +325,8 @@ class Mage_Catalog_Model_Product_Type_Price
         $toDate     = Mage::app()->getLocale()->date($specialPriceTo, null, null, false);
 
         if ($specialPrice !== null && $specialPrice !== false) {
-            if ($specialPriceFrom && $storeDate->compare($fromDate)<0) {
-            } elseif ($specialPriceTo && $storeDate->compare($toDate)>0) {
+            if ($specialPriceFrom && $storeDate->compare($fromDate, Zend_Date::DATES)<0) {
+            } elseif ($specialPriceTo && $storeDate->compare($toDate, Zend_Date::DATES)>0) {
             } else {
                $finalPrice = min($finalPrice, $specialPrice);
             }

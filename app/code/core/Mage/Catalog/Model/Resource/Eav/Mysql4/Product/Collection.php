@@ -283,6 +283,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
             array('position'=>'position')
         );
         $this->_categoryIndexJoined = true;
+        $this->_joinFields['position'] = array('table'=>$alias, 'field'=>'position' );
 //        $this->joinField(
 //            $alias,
 //            'catalog/category_product_index',
@@ -466,6 +467,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
             $select     = clone $this->getSelect();
             $select->reset(Zend_Db_Select::COLUMNS);
             $select->reset(Zend_Db_Select::GROUP);
+            $select->reset(Zend_Db_Select::ORDER);
             $select->distinct(false);
             $select->join(
                     array('category_count_table' => $this->_productCategoryTable),
@@ -792,7 +794,12 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
                 array()
             );
             $this->getSelect()->order('_price_order_table.value ' . $dir);
-            $this->getSelect()->group('e.entity_id');
+
+            /**
+             * Distinct we are using for remove duplicates of products which have
+             * several rows in price index (like grouped products)
+             */
+            $this->getSelect()->distinct(true);
         } else {
             parent::setOrder($attribute, $dir);
         }

@@ -38,8 +38,16 @@ class Mage_GoogleBase_Model_Type extends Mage_Core_Model_Abstract
         $this->_init('googlebase/type');
     }
 
-    public function loadByAttributeSetId($attributeSetId)
+    /**
+     * Load type model by Attribute Set Id
+     *
+     * @param int $attributeSetId Attribute Set
+     * @param string $targetCountry Two-letters country ISO code
+     * @return Mage_GoogleBase_Model_Type
+     */
+    public function loadByAttributeSetId($attributeSetId, $targetCountry)
     {
-        return $this->load($attributeSetId, 'attribute_set_id');
+        $typeId = $this->getResource()->getTypeIdByAttributeSetId($attributeSetId, $targetCountry);
+        return $this->load($typeId);
     }
 }

@@ -239,10 +239,15 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         return max(0, (int) Mage::getStoreConfig('sendfriend/email/check_by'));
     }
 
+    /**
+     * Retrieve amount by cookie
+     * @return int
+     */
     private function _amountByCookies()
     {
         $newTimes = array();
-        $oldTimes = Mage::getSingleton('core/cookie')->get($this->_cookieName);
+        $oldTimes = Mage::app()->getCookie()
+            ->get($this->_cookieName);
         if ($oldTimes){
             $oldTimes = explode(',', $oldTimes);
             foreach ($oldTimes as $time){
@@ -254,12 +259,17 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         $amount = count($newTimes);
 
         $newTimes[] = time();
-        Mage::getSingleton('core/cookie')
+        Mage::app()->getCookie()
             ->set($this->_cookieName, implode(',', $newTimes), $this->_period);
 
         return $amount;
     }
 
+    /**
+     * Retrieve amount by IP address
+     * 
+     * @return int
+     */
     private function _amountByIp()
     {
         $this->_deleteLogsBefore(time() - $this->_period);
@@ -272,12 +282,23 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         return $amount;
     }
 
+    /**
+     * Delete Before Log
+     * 
+     * @param int $time
+     * @return Mage_Sendfriend_Model_Sendfriend
+     */
     private function _deleteLogsBefore($time)
     {
         $this->_getResource()->deleteLogsBefore($time);
         return $this;
     }
 
+    /**
+     * Check and register object
+     * 
+     * @return Mage_Sendfriend_Model_Sendfriend
+     */
     public function register()
     {
         if (!Mage::registry('send_to_friend_model')) {

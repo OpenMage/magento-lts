@@ -25,7 +25,7 @@
  */
 
 
-class Mage_Sales_Model_Order_Status_History extends Mage_Core_Model_Abstract
+class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 {
     /**
      * Order instance
@@ -74,7 +74,18 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Core_Model_Abstract
         if($this->getOrder()) {
             return $this->getOrder()->getConfig()->getStatusLabel($this->getStatus());
         }
-        
     }
 
+    /**
+     * Get store object
+     *
+     * @return unknown
+     */
+    public function getStore()
+    {
+        if ($this->getOrder()) {
+            return $this->getOrder()->getStore();
+        }
+        return Mage::app()->getStore();
+    }
 }

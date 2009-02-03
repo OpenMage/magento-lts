@@ -240,6 +240,7 @@
 "Unknown scope ""%s""","Unknown scope ""%s"""
 "Unsecure","Unsecure"
 "Url Options","Url Options"
+"Use HTTP Only","Use HTTP Only"
 "Use Secure URLs in Admin","Use Secure URLs in Admin"
 "Use Secure URLs in Frontend","Use Secure URLs in Frontend"
 "Use Web Server Rewrites","Use Web Server Rewrites"

@@ -204,7 +204,7 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         if ($useContainer = $this->getUseContainer()) {
             $html .= '<form '.$this->serialize(array('id', 'name', 'method', 'action', 'enctype', 'class', 'onsubmit')).'>';
             $html .= '<div>';
-            if ($this->getData('method') == 'post') {
+            if (strtolower($this->getData('method')) == 'post') {
                 $html .= '<input name="form_key" type="hidden" value="'.Mage::getSingleton('core/session')->getFormKey().'" />';
             }
             $html .= '</div>';

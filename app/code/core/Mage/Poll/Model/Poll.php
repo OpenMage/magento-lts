@@ -44,6 +44,41 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Retrieve Cookie Object
+     *
+     * @return Mage_Core_Model_Cookie
+     */
+    public function getCookie()
+    {
+        return Mage::app()->getCookie();
+    }
+
+    /**
+     * Get Cookie Name
+     *
+     * @param int $pollId
+     * @return string
+     */
+    public function getCookieName($pollId = null)
+    {
+        return $this->_pollCookieDefaultName . $this->getPoolId($pollId);
+    }
+
+    /**
+     * Retrieve defined or current Id
+     *
+     * @param int $pollId
+     * @return int
+     */
+    public function getPoolId($pollId = null)
+    {
+        if (is_null($pollId)) {
+            $pollId = $this->getId();
+        }
+        return $pollId;
+    }
+
+    /**
      * Check if validation by IP option is enabled in config
      *
      * @return bool
@@ -61,8 +96,8 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
      */
     public function setVoted($pollId=null)
     {
-        $pollId = $pollId === null ? $this->getId() : $pollId;
-        Mage::getSingleton('core/cookie')->set($this->_pollCookieDefaultName . $pollId, $pollId);
+        $this->getCookie()->set($this->getCookieName($pollId), $this->getPoolId($pollId));
+
         return $this;
     }
 
@@ -74,10 +109,10 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
      */
     public function isVoted($pollId = null)
     {
-        $pollId = $pollId === null ? $this->getId() : $pollId;
+        $pollId = $this->getPoolId($pollId);
 
         // check if it is in cookie
-        $cookie = Mage::getSingleton('core/cookie')->get($this->_pollCookieDefaultName . $pollId);
+        $cookie = $this->getCookie()->get($this->getCookieName($pollId));
         if (false !== $cookie) {
             return true;
         }
@@ -148,14 +183,14 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     {
         $idsArray = array();
 
-        // load from cookies
-        foreach ($_COOKIE as $cookieName => $cookieValue) {
-            $pattern = "/^" . $this->_pollCookieDefaultName . "([0-9]*?)$/";
-            if (preg_match($pattern, $cookieName, $m)) {
-                if ($m[1] != Mage::getSingleton('core/session')->getJustVotedPoll()) {
-                    $idsArray[$m[1]] = $m[1];
-                }
-            }
+        foreach ($this->getCookie()->get() as $cookieName => $cookieValue) {
+        	$pattern = '#^' . preg_quote($this->_pollCookieDefaultName, '#') . '(\d+)$#';
+        	$match   = array();
+        	if (preg_match($pattern, $cookieName, $match)) {
+        	    if ($match[1] != Mage::getSingleton('core/session')->getJustVotedPoll()) {
+        	        $idsArray[$match[1]] = $match[1];
+        	    }
+        	}
         }
 
         // load from db for this ip

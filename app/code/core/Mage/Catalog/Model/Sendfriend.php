@@ -41,7 +41,6 @@ class Mage_Catalog_Model_Sendfriend extends Mage_Core_Model_Abstract
         $this->_init('catalog/sendfriend');
     }
 
-
     public function toOptionArray()
     {
         if(!$collection = Mage::registry('config_system_email_template')) {
@@ -237,7 +236,7 @@ class Mage_Catalog_Model_Sendfriend extends Mage_Core_Model_Abstract
     private function _amountByCookies()
     {
         $newTimes = array();
-        $oldTimes = Mage::getSingleton('core/cookie')->get($this->_cookieName);
+        $oldTimes = Mage::app()->getCookie()->get($this->_cookieName);
         if ($oldTimes){
             $oldTimes = explode(',', $oldTimes);
             foreach ($oldTimes as $time){
@@ -249,7 +248,7 @@ class Mage_Catalog_Model_Sendfriend extends Mage_Core_Model_Abstract
         $amount = count($newTimes);
 
         $newTimes[] = time();
-        Mage::getSingleton('core/cookie')
+        Mage::app()->getCookie()
             ->set($this->_cookieName, implode(',', $newTimes), $this->_period);
 
         return $amount;

@@ -30,7 +30,20 @@ class Mage_Core_Model_Mysql4_Website extends Mage_Core_Model_Mysql4_Abstract
     protected function _construct()
     {
         $this->_init('core/website', 'website_id');
-        $this->_uniqueFields = array(array('field' => 'code', 'title' => Mage::helper('core')->__('Website with the same code')));
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = array(array(
+            'field' => 'code',
+            'title' => Mage::helper('core')->__('Website with the same code')
+        ));
+        return $this;
     }
 
     /**
@@ -79,4 +92,27 @@ class Mage_Core_Model_Mysql4_Website extends Mage_Core_Model_Mysql4_Abstract
         );
         return $this;
     }
+
+    /**
+     * Retrieve default stores select object
+     * Select fields website_id, store_id
+     *
+     * @param $withDefault include/exclude default admin website
+     * @return Varien_Db_Select
+     */
+    public function getDefaultStoresSelect($withDefault = false) {
+        $select = $this->_getReadAdapter()->select()
+            ->from(array('website_table' => $this->getTable('core/website')), array('website_id'))
+            ->joinLeft(
+                array('store_group_table' => $this->getTable('core/store_group')),
+                '`website_table`.`website_id`=`store_group_table`.`website_id`'
+                    . ' AND `website_table`.`default_group_id`=`store_group_table`.`group_id`',
+                array('store_id' => 'IFNULL(`store_group_table`.`default_store_id`, 0)')
+            );
+        if (!$withDefault) {
+            $select->where('`website_table`.`website_id` <> ?', 0);
+        }
+        return $select;
+    }
+
 }

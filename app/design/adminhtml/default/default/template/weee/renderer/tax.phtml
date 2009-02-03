@@ -89,8 +89,8 @@
         var itemsCount = 0;
     }
     var weeeTaxControl = {
-            deleteButton: false,
-            addItem  : function () {
+        deleteButton: false,
+        addItem : function () {
             var data = {};
             data.prefix = '';
             data.website_id = 0;
@@ -177,8 +177,7 @@
                     weeeEditorState[elem.id]=elem.disabled;elem.disabled=true;
                 });
             }
-        },
-
+        }
     }
     <?php foreach ($this->getValues() as $_item): ?>
     weeeTaxControl.addItem('<?php echo $_htmlId ?>', '<?php echo $_item['website_id'] ?>', '<?php echo $_item['country'] ?>', '<?php echo $_item['state'] ?>', '<?php echo sprintf('%.2f', $_item['value']) ?>');

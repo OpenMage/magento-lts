@@ -142,11 +142,14 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     {
         if (!$this->getId() || !$this->getProductId()) {
             $this->_getResource()->loadByProductId($this, $product->getId());
+            $this->setOrigData();
         }
 
         $product->setStockItem($this);
         $this->setProduct($product);
-        $product->setIsSalable($this->getIsInStock());
+        $product->setIsInStock($this->getIsInStock());
+        Mage::getSingleton('cataloginventory/stock_status')
+            ->assignProduct($product, $this->getStockId(), $this->getStockStatus());
         return $this;
     }
 
@@ -285,19 +288,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $result->setOrigQty($origQty);
         }
 
-        if (!$this->getManageStock()) {
-            return $result;
-        }
-
-        if (!$this->getIsInStock()) {
-            $result->setHasError(true)
-                ->setMessage(Mage::helper('cataloginventory')->__('This product is currently out of stock.'))
-                ->setQuoteMessage(Mage::helper('cataloginventory')->__('Some of the products are currently out of stock'))
-                ->setQuoteMessageIndex('stock');
-            $result->setItemUseOldQty(true);
-            return $result;
-        }
-
         if ($this->getMinSaleQty() && ($qty) < $this->getMinSaleQty()) {
             $result->setHasError(true)
                 ->setMessage(Mage::helper('cataloginventory')->__('The minimum quantity allowed for purchase is %s.', $this->getMinSaleQty() * 1))
@@ -311,6 +301,19 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                 ->setMessage(Mage::helper('cataloginventory')->__('The maximum quantity allowed for purchase is %s.', $this->getMaxSaleQty() * 1))
                 ->setQuoteMessage(Mage::helper('cataloginventory')->__('Some of the products can not be ordered in requested quantity'))
                 ->setQuoteMessageIndex('qty');
+            return $result;
+        }
+
+        if (!$this->getManageStock()) {
+            return $result;
+        }
+
+        if (!$this->getIsInStock()) {
+            $result->setHasError(true)
+                ->setMessage(Mage::helper('cataloginventory')->__('This product is currently out of stock.'))
+                ->setQuoteMessage(Mage::helper('cataloginventory')->__('Some of the products are currently out of stock'))
+                ->setQuoteMessageIndex('stock');
+            $result->setItemUseOldQty(true);
             return $result;
         }
 
@@ -397,6 +400,13 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         }
         else {
             $this->setQty(0);
+        }
+
+        if (($product && $product->dataHasChangedFor('status'))
+            OR $this->dataHasChangedFor('is_in_stock')
+            OR $this->dataHasChangedFor('manage_stock')) {
+            Mage::getSingleton('cataloginventory/stock_status')
+                ->changeItemStatus($this);
         }
 
         Mage::dispatchEvent('cataloginventory_stock_item_save_before', array('item' => $this));

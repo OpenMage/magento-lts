@@ -205,6 +205,19 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
                     }
                     break;
 
+                case 'rebuild_inventory_stock_status':
+                    try {
+                        Mage::getSingleton('cataloginventory/stock_status')->rebuild();
+                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('CatalogInventory Stock Status was rebuilded successfully'));
+                    }
+                    catch (Mage_Core_Exception $e) {
+                        $this->_getSession()->addError($e->getMessage());
+                    }
+                    catch (Exception $e) {
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Error while rebuilded CatalogInventory Stock Status. Please try again later'));
+                    }
+                    break;
+
                 default:
                     break;
             }

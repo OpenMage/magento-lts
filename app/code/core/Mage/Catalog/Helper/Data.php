@@ -47,6 +47,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
                     ->addAttributeToSelect('name')
                     ->addAttributeToSelect('url_key')
                     ->addFieldToFilter('entity_id', array('in'=>$pathIds))
+                    ->addFieldToFilter('is_active', 1)
                     ->load()
                     ->getItems();
 

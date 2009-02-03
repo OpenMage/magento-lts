@@ -140,14 +140,33 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
         /*echo '<pre>';
         print_r($this->_prices);
         echo '</pre>';die();*/
+
+        $_request = Mage::getSingleton('tax/calculation')->getRateRequest(false, false, false);
+        $_request->setProductClassId($this->getProduct()->getTaxClassId());
+        $defaultTax = Mage::getSingleton('tax/calculation')->getRate($_request);
+
+        $_request = Mage::getSingleton('tax/calculation')->getRateRequest();
+        $_request->setProductClassId($this->getProduct()->getTaxClassId());
+        $currentTax = Mage::getSingleton('tax/calculation')->getRate($_request);
+
+        $taxConfig = array(
+            'includeTax'        => Mage::helper('tax')->priceIncludesTax(),
+            'showIncludeTax'    => Mage::helper('tax')->displayPriceIncludingTax(),
+            'showBothPrices'    => Mage::helper('tax')->displayBothPrices(),
+            'defaultTax'        => $defaultTax,
+            'currentTax'        => $currentTax,
+            'inclTaxTitle'      => Mage::helper('catalog')->__('Incl. Tax'),
+        );
+
         $config = array(
-            'attributes'=> $attributes,
-            'template'  => str_replace('%s', '#{price}', $store->getCurrentCurrency()->getOutputFormat()),
-//            'prices'    => $this->_prices,
-            'basePrice' => $this->_registerJsPrice($this->_convertPrice($this->getProduct()->getFinalPrice())),
-            'oldPrice'  => $this->_registerJsPrice($this->_convertPrice($this->getProduct()->getPrice())),
-            'productId' => $this->getProduct()->getId(),
-            'chooseText'=> Mage::helper('catalog')->__('Choose option...'),
+            'attributes'        => $attributes,
+            'template'          => str_replace('%s', '#{price}', $store->getCurrentCurrency()->getOutputFormat()),
+//            'prices'          => $this->_prices,
+            'basePrice'         => $this->_registerJsPrice($this->_convertPrice($this->getProduct()->getFinalPrice())),
+            'oldPrice'          => $this->_registerJsPrice($this->_convertPrice($this->getProduct()->getPrice())),
+            'productId'         => $this->getProduct()->getId(),
+            'chooseText'        => Mage::helper('catalog')->__('Choose option...'),
+            'taxConfig'         => $taxConfig,
         );
 
         return Zend_Json::encode($config);

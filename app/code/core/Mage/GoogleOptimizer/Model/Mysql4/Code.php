@@ -93,8 +93,13 @@ class Mage_GoogleOptimizer_Model_Mysql4_Code extends Mage_Core_Model_Mysql4_Abst
     {
         $write = $this->_getWriteAdapter();
         if ($write) {
-            $where = $write->quoteInto($this->getMainTable().'.entity_id=?', $object->getEntity()->getId()) .
-                ' AND ' . $write->quoteInto($this->getMainTable().'.entity_type=?', $object->getEntityType()) .
+            $entityIds = $object->getEntityIds();
+            if (!empty($entityIds)) {
+                $where = $write->quoteInto($this->getMainTable().'.entity_id IN (?)', $entityIds);
+            } else {
+                $where = $write->quoteInto($this->getMainTable().'.entity_id=?', $object->getEntity()->getId());
+            }
+            $where.= ' AND ' . $write->quoteInto($this->getMainTable().'.entity_type=?', $object->getEntityType()) .
                 ' AND ' . $write->quoteInto($this->getMainTable().'.store_id=?', $store_id);
             $write->delete($this->getMainTable(), $where);
         }

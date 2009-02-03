@@ -222,6 +222,7 @@
 
             <cookie>
                 <cookie_lifetime>3600</cookie_lifetime>
+                <cookie_httponly>1</cookie_httponly>
             </cookie>
             
             <session>

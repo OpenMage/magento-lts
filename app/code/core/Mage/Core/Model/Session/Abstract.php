@@ -55,20 +55,34 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         return $this;
     }
 
+    /**
+     * Retrieve Cookie domain
+     *
+     * @return string
+     */
     public function getCookieDomain()
     {
-        return Mage::getSingleton('core/cookie')->getCookieDomain();
+        return $this->getCookie()->getDomain();
     }
 
+    /**
+     * Retrieve cookie path
+     *
+     * @return string
+     */
     public function getCookiePath()
     {
-        return Mage::getSingleton('core/cookie')->getCookiePath();
+        return $this->getCookie()->getPath();
     }
 
+    /**
+     * Retrieve cookie lifetime
+     *
+     * @return int
+     */
     public function getCookieLifetime()
     {
-        $lifetime = Mage::getStoreConfig(self::XML_PATH_COOKIE_LIFETIME);
-        return $lifetime;
+        return $this->getCookie()->getLifetime();
     }
 
 /**

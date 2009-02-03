@@ -82,7 +82,7 @@ final class Mage {
 
     public static function getVersion()
     {
-        return '1.2.0.3';
+        return '1.2.1';
     }
 
     /**
@@ -416,15 +416,22 @@ final class Mage {
     public static function app($code = '', $type = 'store', $options=array())
     {
         if (null === self::$_app) {
-            Varien_Profiler::start('app/init');
-
+            Varien_Profiler::start('mage::app::construct');
             self::$_app = new Mage_Core_Model_App();
+            Varien_Profiler::stop('mage::app::construct');
 
             Mage::setRoot();
             Mage::register('events', new Varien_Event_Collection());
-            Mage::register('config', new Mage_Core_Model_Config());
 
+
+            Varien_Profiler::start('mage::app::register_config');
+            Mage::register('config', new Mage_Core_Model_Config());
+            Varien_Profiler::stop('mage::app::register_config');
+
+            Varien_Profiler::start('mage::app::init');
             self::$_app->init($code, $type, $options);
+            Varien_Profiler::stop('mage::app::init');
+
             self::$_app->loadAreaPart(Mage_Core_Model_App_Area::AREA_GLOBAL, Mage_Core_Model_App_Area::PART_EVENTS);
         }
         return self::$_app;
@@ -440,17 +447,17 @@ final class Mage {
     public static function run($code = '', $type = 'store', $options=array())
     {
         try {
-            Varien_Profiler::start('app');
+            Varien_Profiler::start('mage');
 
-            Varien_Profiler::start('app::init');
+            Varien_Profiler::start('mage::app');
             self::app($code, $type, $options);
-            Varien_Profiler::stop('app::init');
+            Varien_Profiler::stop('mage::app');
 
-            Varien_Profiler::start('app::dispatch');
+            Varien_Profiler::start('mage::dispatch');
             self::app()->getFrontController()->dispatch();
-            Varien_Profiler::stop('app::dispatch');
+            Varien_Profiler::stop('mage::dispatch');
 
-            Varien_Profiler::stop('app');
+            Varien_Profiler::stop('mage');
         }
         catch (Mage_Core_Model_Session_Exception $e) {
             header('Location: ' . Mage::getBaseUrl());

@@ -37,4 +37,21 @@ class Mage_GoogleBase_Model_Mysql4_Type extends Mage_Core_Model_Mysql4_Abstract
     {
         $this->_init('googlebase/types', 'type_id');
     }
+
+    /**
+     * Return Type ID by Attribute Set Id and target country
+     *
+     * @param int $attributeSetId Attribute Set
+     * @param string $targetCountry Two-letters country ISO code
+     * @return int
+     */
+    public function getTypeIdByAttributeSetId($attributeSetId, $targetCountry)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getMainTable(), 'type_id')
+            ->where('attribute_set_id=?', $attributeSetId)
+            ->where('target_country=?', $targetCountry);
+
+        return $this->_getReadAdapter()->fetchOne($select);
+    }
 }

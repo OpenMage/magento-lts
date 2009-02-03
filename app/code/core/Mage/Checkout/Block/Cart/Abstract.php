@@ -49,18 +49,32 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
     /**
      * Add renderer for item product type
      *
-     * @param   string $type
-     * @param   string $block
+     * @param   string $productType
+     * @param   string $blockType
      * @param   string $template
      * @return  Mage_Checkout_Block_Cart_Abstract
      */
-    public function addItemRender($type, $block, $template)
+    public function addItemRender($productType, $blockType, $template)
     {
-        $this->_itemRenders[$type] = array(
-            'block' => $block,
-            'template' => $template
+        $this->_itemRenders[$productType] = array(
+            'block' => $blockType,
+            'template' => $template,
+            'blockInstance' => null
         );
         return $this;
+    }
+
+    /**
+     * Get renderer information by product type code
+     *
+     * @deprecated please use getItemRendererInfo() method instead
+     * @see getItemRendererInfo()
+     * @param   string $type
+     * @return  array
+     */
+    public function getItemRender($type)
+    {
+        return $this->getItemRendererInfo();
     }
 
     /**
@@ -69,13 +83,35 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
      * @param   string $type
      * @return  array
      */
-    public function getItemRender($type)
+    public function getItemRendererInfo($type)
     {
         if (isset($this->_itemRenders[$type])) {
             return $this->_itemRenders[$type];
         }
         return $this->_itemRenders['default'];
+     }
+
+    /**
+     * Get renderer block instance by product type code
+     *
+     * @param   string $type
+     * @return  array
+     */
+    public function getItemRenderer($type)
+    {
+        if (!isset($this->_itemRenders[$type])) {
+            $type = 'default';
+        }
+        if (is_null($this->_itemRenders[$type]['blockInstance'])) {
+             $this->_itemRenders[$type]['blockInstance'] = $this->getLayout()
+                ->createBlock($this->_itemRenders[$type]['block'])
+                    ->setTemplate($this->_itemRenders[$type]['template'])
+                    ->setRenderedBlock($this);
+        }
+
+        return $this->_itemRenders[$type]['blockInstance'];
     }
+
 
     /**
      * Get logged in customer
@@ -134,13 +170,8 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
      */
     public function getItemHtml(Mage_Sales_Model_Quote_Item $item)
     {
-        $itemRenderInfo = $this->getItemRender($item->getProductType());
-        $itemBlock = $this->getLayout()
-            ->createBlock($itemRenderInfo['block'])
-                ->setTemplate($itemRenderInfo['template'])
-                ->setItem($item);
-
-        return $itemBlock->toHtml();
+        $renderer = $this->getItemRenderer($item->getProductType())->setItem($item);
+        return $renderer->toHtml();
     }
 
     public function getTotals()

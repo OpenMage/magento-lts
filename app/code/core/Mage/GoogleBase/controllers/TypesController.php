@@ -69,6 +69,7 @@ class Mage_GoogleBase_TypesController extends Mage_Adminhtml_Controller_Action
             $this->getLayout()->createBlock('googlebase/adminhtml_types_grid')->toHtml()
         );
     }
+
     public function newAction()
     {
         try {
@@ -79,7 +80,7 @@ class Mage_GoogleBase_TypesController extends Mage_Adminhtml_Controller_Action
                 ->renderLayout();
         } catch (Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-            $this->_redirect('*/*/index');
+            $this->_redirect('*/*/index', array('store' => $this->_getStore()->getId()));
         }
     }
 
@@ -93,7 +94,7 @@ class Mage_GoogleBase_TypesController extends Mage_Adminhtml_Controller_Action
             if ($id) {
                 $model->load($id);
                 $collection = Mage::getResourceModel('googlebase/attribute_collection')
-                    ->addAttributeSetFilter($model->getAttributeSetId())
+                    ->addTypeFilter($model->getTypeId())
                     ->load();
                 foreach ($collection as $attribute) {
                     $result[] = $attribute->getData();
@@ -132,6 +133,7 @@ class Mage_GoogleBase_TypesController extends Mage_Adminhtml_Controller_Action
             }
             $typeModel->setAttributeSetId($this->getRequest()->getParam('attribute_set_id'))
                 ->setGbaseItemtype($this->getRequest()->getParam('gbase_itemtype'))
+                ->setTargetCountry($this->getRequest()->getParam('target_country'))
                 ->save();
 
 
@@ -154,7 +156,7 @@ class Mage_GoogleBase_TypesController extends Mage_Adminhtml_Controller_Action
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         }
-        $this->_redirect('*/*/index');
+        $this->_redirect('*/*/index', array('store' => $this->_getStore()->getId()));
     }
 
     public function deleteAction ()
@@ -170,7 +172,7 @@ class Mage_GoogleBase_TypesController extends Mage_Adminhtml_Controller_Action
         } catch (Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
-        $this->_redirect('*/*/index');
+        $this->_redirect('*/*/index', array('store' => $this->_getStore()->getId()));
     }
 
     public function loadAttributesAction ()
@@ -180,6 +182,7 @@ class Mage_GoogleBase_TypesController extends Mage_Adminhtml_Controller_Action
             $this->getLayout()->createBlock('googlebase/adminhtml_types_edit_attributes')
                 ->setAttributeSetId($this->getRequest()->getParam('attribute_set_id'))
                 ->setGbaseItemtype($this->getRequest()->getParam('gbase_itemtype'))
+                ->setTargetCountry($this->getRequest()->getParam('target_country'))
                 ->setAttributeSetSelected(true)
                 ->toHtml()
             );
@@ -187,6 +190,43 @@ class Mage_GoogleBase_TypesController extends Mage_Adminhtml_Controller_Action
             // just need to output text with error
             $this->_getSession()->addError($e->getMessage());
         }
+    }
+
+    public function loadItemTypesAction()
+    {
+        try {
+            $this->getResponse()->setBody(
+                $this->getLayout()->getBlockSingleton('googlebase/adminhtml_types_edit_form')
+                    ->getItemTypesSelectElement($this->getRequest()->getParam('target_country'))
+                    ->toHtml()
+            );
+        } catch (Exception $e) {
+            // just need to output text with error
+            $this->_getSession()->addError($e->getMessage());
+        }
+    }
+
+    protected function loadAttributeSetsAction()
+    {
+        try {
+            $this->getResponse()->setBody(
+                $this->getLayout()->getBlockSingleton('googlebase/adminhtml_types_edit_form')
+                    ->getAttributeSetsSelectElement($this->getRequest()->getParam('target_country'))
+                    ->toHtml()
+            );
+        } catch (Exception $e) {
+            // just need to output text with error
+            $this->_getSession()->addError($e->getMessage());
+        }
+    }
+
+    public function _getStore()
+    {
+        $storeId = (int) $this->getRequest()->getParam('store', 0);
+        if ($storeId == 0) {
+            return Mage::app()->getDefaultStoreView();
+        }
+        return Mage::app()->getStore($storeId);
     }
 
     protected function _isAllowed()

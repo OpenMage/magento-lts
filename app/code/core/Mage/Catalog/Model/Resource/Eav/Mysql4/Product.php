@@ -237,15 +237,18 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
 
     public function refreshIndex($product)
     {
+        /**
+         * Ids of all categories where product is assigned (not related with store)
+         */
         $categoryIds = $product->getCategoryIds();
 
         /**
-         * Refresh category/product index
+         * Clear previos index data related with product
          */
-//        $this->_getWriteAdapter()->delete(
-//            $this->getTable('catalog/category_product_index'),
-//            'product_id='.$product->getId()
-//        );
+        $this->_getWriteAdapter()->delete(
+            $this->getTable('catalog/category_product_index'),
+            $this->_getWriteAdapter()->quoteInto('product_id=?', $product->getId())
+        );
 
         if (!empty($categoryIds)) {
             $categoriesSelect = $this->_getWriteAdapter()->select()
@@ -269,16 +272,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
             $indexCategoryIds   = array_unique($indexCategoryIds);
             $indexProductIds    = array($product->getId());
             Mage::getResourceSingleton('catalog/category')->refreshProductIndex($indexCategoryIds, $indexProductIds);
-//            foreach ($indexCategoryIds as $categoryId) {
-//                $position = isset($categoriesPositions[(int)$categoryId]) ? $categoriesPositions[(int)$categoryId] : 0;
-//                $data = array(
-//                    'category_id'   => $categoryId,
-//                    'product_id'    => $product->getId(),
-//                    'position'      => $position,
-//                    'is_parent'     => in_array($categoryId, $categoryIds)
-//                );
-//                $this->_getWriteAdapter()->insert($this->getTable('catalog/category_product_index'), $data);
-//            }
         }
 
         /**

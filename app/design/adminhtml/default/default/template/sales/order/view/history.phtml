@@ -56,8 +56,8 @@
     <ul class="note-list">
     <?php foreach ($this->getOrder()->getStatusHistoryCollection(true) as $_history): ?>
         <li>
-            <strong><?php echo $this->helper('core')->formatDate($_history->getCreatedAt(), 'medium') ?></strong>
-            <?php echo $this->helper('core')->formatTime($_history->getCreatedAt(), 'medium') ?><span class="separator">|</span><strong><?php echo $_history->getStatusLabel() ?></strong><br/><small><?php echo $this->helper('sales')->__('Customer') ?>
+            <strong><?php echo $this->helper('core')->formatDate($_history->getCreatedAtDate(), 'medium') ?></strong>
+            <?php echo $this->helper('core')->formatTime($_history->getCreatedAtDate(), 'medium') ?><span class="separator">|</span><strong><?php echo $_history->getStatusLabel() ?></strong><br/><small><?php echo $this->helper('sales')->__('Customer') ?>
             <strong class="subdue">
                 <?php if ($_history->getIsCustomerNotified()): ?>
                 <?php echo $this->helper('sales')->__('Notified') ?>

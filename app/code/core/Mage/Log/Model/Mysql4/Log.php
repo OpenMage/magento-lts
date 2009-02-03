@@ -58,8 +58,8 @@ class Mage_Log_Model_Mysql4_Log extends Mage_Core_Model_Mysql4_Abstract
         ));
 
         $this->_cleanVisitors($cleanTime);
-        $this->_cleanCustomers();
-        $this->_cleanCustomers();
+        $this->_cleanCustomers($cleanTime);
+        $this->_cleanUrls();
 
         Mage::dispatchEvent('log_log_clean_after', array(
             'log'   => $object
@@ -131,14 +131,16 @@ class Mage_Log_Model_Mysql4_Log extends Mage_Core_Model_Mysql4_Abstract
     /**
      * Clean customer table
      *
+     * @param int $time
      * @return Mage_Log_Model_Mysql4_Log
      */
-    protected function _cleanCustomers()
+    protected function _cleanCustomers($time)
     {
         // retrieve last active customer log id
         $row = $this->_getReadAdapter()->fetchRow(
             $this->_getReadAdapter()->select()
                 ->from($this->getTable('log/customer'), 'log_id')
+                ->where('login_at < ?', gmdate('Y-m-d H:i:s', time() - $time))
                 ->order('log_id DESC')
                 ->limit(1)
         );
@@ -149,15 +151,19 @@ class Mage_Log_Model_Mysql4_Log extends Mage_Core_Model_Mysql4_Abstract
 
         $lastLogId = $row['log_id'];
 
-        $needLogIds = array();
+        // Order by desc log_id before grouping (within-group aggregates query pattern)
         $select = $this->_getReadAdapter()->select()
             ->from(
-                $this->getTable('log/customer'),
+                array('log_customer_main' => $this->getTable('log/customer')),
                 array('log_id'))
-            ->group('customer_id')
-            ->where('log_id<?', $lastLogId + 1)
-            ->order('log_id DESC');
+            ->joinLeft(
+                array('log_customer' => $this->getTable('log/customer')),
+                'log_customer_main.customer_id = log_customer.customer_id AND log_customer_main.log_id < log_customer.log_id',
+                array())
+            ->where('log_customer.customer_id IS NULL')
+            ->where('log_customer_main.log_id<?', $lastLogId + 1);
 
+        $needLogIds = array();
         $query = $this->_getReadAdapter()->query($select);
         while ($row = $query->fetch()) {
             $needLogIds[$row['log_id']] = 1;
@@ -174,17 +180,18 @@ class Mage_Log_Model_Mysql4_Log extends Mage_Core_Model_Mysql4_Abstract
                 ->where('log_id<?', $lastLogId + 1)
                 ->order('log_id')
                 ->limit(1000);
+
             $query = $this->_getReadAdapter()->query($select);
             $count = 0;
             while ($row = $query->fetch()) {
-                $count ++;
+                $count++;
                 $customerLogId = $row['log_id'];
                 if (!isset($needLogIds[$row['log_id']])) {
                     $visitorIds[] = $row['visitor_id'];
                 }
             }
 
-            if (!$count || $customerLogId == $lastLogId) {
+            if (!$count) {
                 break;
             }
 
@@ -212,6 +219,16 @@ class Mage_Log_Model_Mysql4_Log extends Mage_Core_Model_Mysql4_Abstract
                     $this->getTable('log/visitor'),
                     $this->_getWriteAdapter()->quoteInto('visitor_id IN(?)', $visitorIds)
                 );
+
+                // remove customers from log/customer
+                $this->_getWriteAdapter()->delete(
+                    $this->getTable('log/customer'),
+                    $this->_getWriteAdapter()->quoteInto('visitor_id IN(?)', $visitorIds)
+                );
+            }
+
+            if ($customerLogId == $lastLogId) {
+                break;
             }
         }
 

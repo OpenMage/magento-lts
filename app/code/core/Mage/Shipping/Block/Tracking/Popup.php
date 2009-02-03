@@ -169,7 +169,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         return Mage::app()->getLocale()->date(strtotime($date.' '.$time),Zend_Date::TIMESTAMP)->toString('MM/dd/YYYY hh:mm a');
     }
 
-     /*
+    /*
     * change date format to mm/dd/Y
     */
     public function formatDeliveryDate($date)
@@ -177,11 +177,14 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         return Mage::app()->getLocale()->date(strtotime($date),Zend_Date::TIMESTAMP)->toString('MM/dd/YYYY');
     }
 
-       /*
+    /*
     * change date format to mm/dd/Y
     */
-    public function formatDeliveryTime($time)
+    public function formatDeliveryTime($time, $date = null)
     {
+        if (!empty($date)) {
+            $time = $date.' '.$time;
+        }
         return Mage::app()->getLocale()->date(strtotime($time),Zend_Date::TIMESTAMP)->toString('hh:mm a');
     }
 

@@ -219,27 +219,32 @@ class Mage_Core_Model_Resource_Setup
 
         $sqlFilesDir = Mage::getModuleDir('sql', $modName).DS.$this->_resourceName;
         if (!is_dir($sqlFilesDir) || !is_readable($sqlFilesDir)) {
-            return false;
+            Mage::getResourceModel('core/resource')->setDbVersion($this->_resourceName, $toVersion);
+            return $toVersion;
         }
         // Read resource files
         $arrAvailableFiles = array();
         $sqlDir = dir($sqlFilesDir);
         while (false !== ($sqlFile = $sqlDir->read())) {
+            $matches = array();
             if (preg_match('#^'.$resModel.'-'.$actionType.'-(.*)\.(sql|php)$#i', $sqlFile, $matches)) {
                 $arrAvailableFiles[$matches[1]] = $sqlFile;
             }
         }
         $sqlDir->close();
         if (empty($arrAvailableFiles)) {
-            return false;
+            Mage::getResourceModel('core/resource')->setDbVersion($this->_resourceName, $toVersion);
+            return $toVersion;
         }
 
         // Get SQL files name
         $arrModifyFiles = $this->_getModifySqlFiles($actionType, $fromVersion, $toVersion, $arrAvailableFiles);
         if (empty($arrModifyFiles)) {
-            return false;
+            Mage::getResourceModel('core/resource')->setDbVersion($this->_resourceName, $toVersion);
+            return $toVersion;
         }
 
+        $modifyVersion = null;
         foreach ($arrModifyFiles as $resourceFile) {
             $sqlFile = $sqlFilesDir.DS.$resourceFile['fileName'];
             $fileType = pathinfo($resourceFile['fileName'], PATHINFO_EXTENSION);
@@ -287,8 +292,17 @@ class Mage_Core_Model_Resource_Setup
                     throw Mage::exception('Mage_Core', Mage::helper('core')->__('Error in file: "%s" - %s', $sqlFile, $e->getMessage()));
                 }
             }
-            $toVersion = $resourceFile['toVersion'];
+
+            $modifyVersion = $resourceFile['toVersion'];
         }
+
+        if ($actionType == 'upgrade' && $modifyVersion != $toVersion) {
+            Mage::getResourceModel('core/resource')->setDbVersion($this->_resourceName, $toVersion);
+        }
+        else {
+            $toVersion = $modifyVersion;
+        }
+
         self::$_hadUpdates = true;
         return $toVersion;
     }

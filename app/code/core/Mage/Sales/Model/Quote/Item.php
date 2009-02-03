@@ -302,6 +302,16 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         return $this->_getData('product_type');
     }
 
+    /**
+     * Return real product type of item
+     *
+     * @return unknown
+     */
+    public function getRealProductType()
+    {
+        return $this->_getData('product_type');
+    }
+
     public function toArray(array $arrAttributes=array())
     {
         $data = parent::toArray($arrAttributes);

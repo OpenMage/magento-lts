@@ -128,10 +128,21 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
             $this->getRequest()->setParam('id', $_prevCategoryId);
         }
 
-        if (!$category = $this->_initCategory(true)) {
+        if (!($category = $this->_initCategory(true))) {
             return;
         }
 
+        /**
+         * Check if we have data in session (if duering category save was exceprion)
+         */
+        $data = Mage::getSingleton('adminhtml/session')->getCategoryData(true);
+        if (isset($data['general'])) {
+            $category->addData($data['general']);
+        }
+
+        /**
+         * Build response for ajax request
+         */
         if ($this->getRequest()->getQuery('isAjax')) {
             // prepare breadcrumbs of selected category, if any
             $breadcrumbsPath = $category->getPath();
@@ -169,11 +180,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         $this->_setActiveMenu('catalog/categories');
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true)
             ->setContainerCssClass('catalog-categories');
-
-        $data = Mage::getSingleton('adminhtml/session')->getCategoryData(true);
-        if (isset($data['general'])) {
-            $category->addData($data['general']);
-        }
 
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Manage Catalog Categories'),
              Mage::helper('catalog')->__('Manage Categories')
@@ -260,21 +266,20 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
             ));
 
             try {
-              //  if( $this->getRequest()->getParam('image') )
-
                 $category->save();
-
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('Category saved'));
+                $refreshTree = 'true';
             }
             catch (Exception $e){
                 $this->_getSession()->addError($e->getMessage())
                     ->setCategoryData($data);
-                $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('_current'=> true, 'id'=>$category->getId())));
-                return;
+                $refreshTree = 'false';
             }
         }
         $url = $this->getUrl('*/*/edit', array('_current' => true, 'id' => $category->getId()));
-        $this->getResponse()->setBody('<script type="text/javascript">parent.updateContent("' . $url . '", {}, true);</script>');
+        $this->getResponse()->setBody(
+            '<script type="text/javascript">parent.updateContent("' . $url . '", {}, '.$refreshTree.');</script>'
+        );
     }
 
     /**

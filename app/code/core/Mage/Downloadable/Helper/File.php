@@ -104,7 +104,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
     {
         $file = '';
 
-        $file = substr($pathFile, strrpos($pathFile, DS)+1);
+        $file = substr($pathFile, strrpos($this->_prepareFileForPath($pathFile), DS)+1);
 
         return $file;
     }

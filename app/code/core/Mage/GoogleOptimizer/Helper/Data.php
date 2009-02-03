@@ -69,7 +69,7 @@ class Mage_GoogleOptimizer_Helper_Data extends Mage_Core_Helper_Abstract
         $attributeName  = $params['attribute'];
         $product        = $params['product'];
 
-        if (!$this->isOptimizerActive()
+        if (!$this->isOptimizerActive($product->getStoreId())
             || !$product->getGoogleOptimizerScripts()
             || !$product->getGoogleOptimizerScripts()->getControlScript()) {
             return $attributeHtml;
@@ -99,7 +99,7 @@ class Mage_GoogleOptimizer_Helper_Data extends Mage_Core_Helper_Abstract
         $attributeName  = $params['attribute'];
         $category       = $params['category'];
 
-        if (!$this->isOptimizerActive()
+        if (!$this->isOptimizerActive($category->getStoreId())
             || !$category->getGoogleOptimizerScripts()
             || !$category->getGoogleOptimizerScripts()->getControlScript()) {
             return $attributeHtml;

@@ -110,7 +110,7 @@ var linkTemplate = '<tr>'+
         '<?php echo $_product->getStoreId()?'<input type="checkbox" id="downloadable_link_{{id}}_title" name="downloadable[link][{{id}}][use_default_title]" value="1" /><label class="normal" for="downloadable_link_{{id}}_title">Use Default Value</label>':'' ?>'+
     '</td>'+
     '<td class="input-price">'+
-        '<input type="text" class="required-entry input-text" name="downloadable[link][{{id}}][price]" value="{{price}}" /> '+
+        '<input type="text" class="input-text validate-number link-prices" name="downloadable[link][{{id}}][price]" value="{{price}}" /> '+
         '<label>[<?php echo Mage::app()->getBaseCurrencyCode() ?>]</label>'+
         '<?php echo $_product->getStoreId() && $this->getIsPriceWebsiteScope()?'<br /><input type="checkbox" id="downloadable_link_{{id}}_price" name="downloadable[link][{{id}}][use_default_price]" value="1" /> <label for="downloadable_link_{{id}}_price">Use Default Value</label>':'' ?>'+
     '</td>'+
@@ -298,6 +298,7 @@ var linkItems = {
         }
 
         this.itemCount++;
+        this.togglePriceFields();
         this.bindRemoveButtons();
     },
     remove : function(event){
@@ -321,12 +322,26 @@ var linkItems = {
                 Event.observe(buttons[i], 'click', this.remove.bind(this));
             }
         }
+    },
+    togglePriceFields : function(){
+        var toogleTo = $('downloadable_link_purchase_type').value;
+        var disableFlag = true;
+        if (toogleTo == '1') {
+            disableFlag = false;
+        }
+        $$('.link-prices[type="text"]').each(function(elm){
+            elm.disabled = disableFlag;
+        });
     }
 }
 
 linkItems.bindRemoveButtons();
 
-if($('add_link_item')){
+if ($('downloadable_link_purchase_type')) {
+    Event.observe('downloadable_link_purchase_type', 'change', linkItems.togglePriceFields.bind());
+}
+
+if($('add_link_item')) {
     Event.observe('add_link_item', 'click', linkItems.add.bind(linkItems));
 }
 

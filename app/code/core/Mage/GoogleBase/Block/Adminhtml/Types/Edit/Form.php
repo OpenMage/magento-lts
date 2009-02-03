@@ -38,44 +38,59 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit_Form extends Mage_Adminhtml_Blo
     {
         $form = new Varien_Data_Form();
 
-        $itemType = Mage::registry('current_item_type');
+        $itemType = $this->getItemType();
 
         $fieldset = $form->addFieldset('base_fieldset', array(
             'legend'    => $this->__('Attribute Set and Item Type')
         ));
 
-        $attributeSelect = $fieldset->addField('select_attribute_set', 'select', array(
+        if ( !($targetCountry = $itemType->getTargetCountry()) ) {
+            $isoKeys = array_keys($this->_getCountriesArray());
+            $targetCountry = isset($isoKeys[0]) ? $isoKeys[0] : null;
+        }
+        $countrySelect = $fieldset->addField('select_target_country', 'select', array(
+            'label'     => $this->__('Target Country'),
+            'title'     => $this->__('Target Country'),
+            'name'      => 'target_country',
+            'required'  => true,
+            'options'   => $this->_getCountriesArray(),
+            'value'     => $targetCountry,
+        ));
+        if ($itemType->getTargetCountry()) {
+            $countrySelect->setDisabled(true);
+        }
+
+        $attributeSetsSelect = $this->getAttributeSetsSelectElement($targetCountry)->setValue($itemType->getAttributeSetId());
+        if ($itemType->getAttributeSetId()) {
+            $attributeSetsSelect->setDisabled(true);
+        }
+
+        $fieldset->addField('attribute_set', 'note', array(
             'label'     => $this->__('Attribute Set'),
             'title'     => $this->__('Attribute Set'),
-            'name'      => 'attribute_set_id',
             'required'  => true,
-            'options'   => $this->_getAttributeSetsArray(),
-            'value'     => $itemType->getAttributeSetId(),
+            'text'      => '<div id="attribute_set_select">' . $attributeSetsSelect->toHtml() . '</div>',
         ));
-        if ($itemType->getAttributeSetId()) {
-            $attributeSelect->setValue($itemType->getAttributeSetId())
-                ->setDisabled(true);
+
+        $itemTypesSelect = $this->getItemTypesSelectElement($targetCountry)->setValue($itemType->getGbaseItemtype());
+        if ($itemType->getGbaseItemtype()) {
+            $itemTypesSelect->setDisabled(true);
         }
 
-        $itemTypeSelect = $fieldset->addField('select_itemtype', 'select', array(
+        $fieldset->addField('itemtype', 'note', array(
             'label'     => $this->__('Google Base Item Type'),
             'title'     => $this->__('Google Base Item Type'),
-            'name'      => 'gbase_itemtype',
             'required'  => true,
-            'options'   => $this->_getGbaseItemTypesArray(),
-            'value'     => $itemType->getGbaseItemtype(),
+            'text'      => '<div id="gbase_itemtype_select">' . $itemTypesSelect->toHtml() . '</div>',
         ));
-        if ($itemType->getGbaseItemtype()) {
-            $itemTypeSelect->setValue($itemType->getGbaseItemtype())
-                ->setDisabled(true);
-        }
 
-        $attributesBlock = $this->getLayout()->createBlock('googlebase/adminhtml_types_edit_attributes');
+        $attributesBlock = $this->getLayout()
+            ->createBlock('googlebase/adminhtml_types_edit_attributes')
+            ->setTargetCountry($targetCountry);
         if ($itemType->getId()) {
             $attributesBlock->setAttributeSetId($itemType->getAttributeSetId())
                 ->setGbaseItemtype($itemType->getGbaseItemtype())
                 ->setAttributeSetSelected(true);
-
         }
 
         $attributes = Mage::registry('attributes');
@@ -96,16 +111,50 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit_Form extends Mage_Adminhtml_Blo
         $this->setForm($form);
     }
 
-    protected function _getAttributeSetsArray()
+    public function getAttributeSetsSelectElement($targetCountry)
+    {
+        $field = new Varien_Data_Form_Element_Select();
+        $field->setName('attribute_set_id')
+            ->setId('select_attribute_set')
+            ->setForm(new Varien_Data_Form())
+            ->addClass('required-entry')
+            ->setValues($this->_getAttributeSetsArray($targetCountry));
+        return $field;
+    }
+
+    public function getItemTypesSelectElement($targetCountry)
+    {
+        $field = new Varien_Data_Form_Element_Select();
+        $field->setName('gbase_itemtype')
+            ->setId('select_itemtype')
+            ->setForm(new Varien_Data_Form())
+            ->addClass('required-entry')
+            ->setValues($this->_getGbaseItemTypesArray($targetCountry));
+        return $field;
+    }
+
+    protected function _getCountriesArray()
+    {
+        $_allowed = Mage::getSingleton('googlebase/config')->getAllowedCountries();
+        $result = array();
+        foreach ($_allowed as $iso => $info) {
+            $result[$iso] = $info['name'];
+        }
+        return $result;
+    }
+
+    protected function _getAttributeSetsArray($targetCountry)
     {
         $entityType = Mage::getModel('catalog/product')->getResource()->getEntityType();
         $collection = Mage::getResourceModel('eav/entity_attribute_set_collection')
             ->setEntityTypeFilter($entityType->getId());
 
         $ids = array();
-        $itemType = Mage::registry('current_item_type');
-        if (!$itemType->getId()) {
-            $typesCollection = Mage::getResourceModel('googlebase/type_collection')->load();
+        $itemType = $this->getItemType();
+        if ( !($itemType instanceof Varien_Object && $itemType->getId()) ) {
+            $typesCollection = Mage::getResourceModel('googlebase/type_collection')
+                ->addCountryFilter($targetCountry)
+                ->load();
             foreach ($typesCollection as $type) {
                 $ids[] = $type->getAttributeSetId();
             }
@@ -119,9 +168,10 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit_Form extends Mage_Adminhtml_Blo
         }
         return $result;
     }
-    protected function _getGbaseItemTypesArray()
+
+    protected function _getGbaseItemTypesArray($targetCountry)
     {
-        $itemTypes = Mage::getModel('googlebase/service_feed')->getItemTypes();
+        $itemTypes = Mage::getModel('googlebase/service_feed')->getItemTypes($targetCountry);
         $result = array('' => '');
         foreach ($itemTypes as $type) {
             $result[$type->getId()] = $type->getName();

@@ -44,12 +44,13 @@ class Mage_GoogleBase_Model_Mysql4_Attribute_Collection extends Mage_Core_Model_
 		$this->_init('googlebase/attribute');
 	}
 
-	public function addAttributeSetFilter($attributeSetId)
+	public function addAttributeSetFilter($attributeSetId, $targetCountry)
 	{
 	    if (!$this->getJoinAttributeSetFlag()) {
 	        return $this;
 	    }
 	    $this->getSelect()->where('attribute_set_id = ?', $attributeSetId);
+	    $this->getSelect()->where('target_country = ?', $targetCountry);
 	    return $this;
 	}
 
@@ -77,7 +78,7 @@ class Mage_GoogleBase_Model_Mysql4_Attribute_Collection extends Mage_Core_Model_
             ->joinInner(
                 array('types'=>$this->getTable('googlebase/types')),
                 'main_table.type_id=types.type_id',
-                array('attribute_set_id' => 'types.attribute_set_id'));
+                array('attribute_set_id' => 'types.attribute_set_id', 'target_country' => 'types.target_country'));
         return $this;
 	}
 

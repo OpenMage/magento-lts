@@ -25,7 +25,7 @@
  */
 
 
-class Mage_Sales_Model_Order_Creditmemo extends Mage_Core_Model_Abstract
+class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
 {
     const STATE_OPEN        = 1;
     const STATE_REFUNDED    = 2;

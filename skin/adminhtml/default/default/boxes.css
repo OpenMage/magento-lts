@@ -645,30 +645,17 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 /* LOGIN
 *******************************************************************************/
 #page-login                             { background:#f8f8f8; text-align:center; }
-.login-container                        { width:581px; padding-left:32px; background:url(images/login_logo.gif) no-repeat; margin:170px auto; text-align:center; }
-.login-box                              { position:relative; }
+.login-container                        { width:581px; margin:170px auto; padding-left:32px; background:url(images/login_logo.gif) no-repeat; }
 .login-form                             { padding:27px 57px 35px 57px; background:url(images/login_box_bg.jpg) no-repeat; text-align:left; }
-.login-form #messages                   { margin:0 8px 0 0; }
-.login-form .input-left                 { float:left; width:50%; }
-.login-form .input-right                { float:right; width:50%; }
-.login-form .input-box input.input-text { width:94%; }
-.login-form .input-box input.input-text.forgot-password { width:100%; }
+.login-form .input-left                 { float:left; }
+.login-form .input-right                { float:right; }
+.login-form .input-box input.input-text { width:224px; }
 .login-form h2                          { font-size:1.7em; font-weight:normal; }
 .login-form label                       { font-weight:bold; }
 .login-form .form-buttons               { margin:12px 0 0 0; clear:both; text-align:right; }
-.login-box .bottom  {
-    width:581px;
-    height:5px;
-    background:url(images/login_box_bottom.jpg) no-repeat;
-    overflow:hidden;
-    }
-.login-container .legal {
-    margin:0;
-    background:url(images/login_box_legal_bg.gif) no-repeat;
-    padding:8px 8px 5px 8px;
-    font-size:.95em;
-    }
-.login-form .validation-advice          { margin:0 17px 0 0; }
+.login-box .bottom                      { width:581px; height:5px; background:url(images/login_box_bottom.jpg) no-repeat; overflow:hidden; }
+.login-container .legal                 { margin:0; background:url(images/login_box_legal_bg.gif) no-repeat; padding:8px 8px 5px 8px; font-size:.95em; }
+.login-form .validation-advice          { margin:3px 0 0 0; }
 .login-form .forgot-link                { margin:0 17px 0 0; text-align:right; }
 
 
@@ -1171,6 +1158,7 @@ ul.super-product-attributes { padding-left:15px; }
 .normal             { font-weight:normal !important; }
 
 /* Clear */ /* This keeps our HTML free of buncha clearing elements */
+.login-form .form-buttons:after,
 .wrapper:after,
 .bundle .option-title:after,
 .columns:after,

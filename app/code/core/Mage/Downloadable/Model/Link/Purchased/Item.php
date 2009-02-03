@@ -33,11 +33,12 @@
  */
 class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_ORDER_STATUS = 'catalog/downloadable/order_status';
+    const XML_PATH_ORDER_ITEM_STATUS = 'catalog/downloadable/order_item_status';
 
     const LINK_STATUS_PENDING   = 'pending';
     const LINK_STATUS_AVAILABLE = 'available';
     const LINK_STATUS_EXPIRED   = 'expired';
+    const LINK_STATUS_PENDING_PAYMENT = 'pending_payment';
 
     /**
      * Enter description here...

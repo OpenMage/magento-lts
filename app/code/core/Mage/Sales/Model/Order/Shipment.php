@@ -25,7 +25,7 @@
  */
 
 
-class Mage_Sales_Model_Order_Shipment extends Mage_Core_Model_Abstract
+class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
 {
     const STATUS_NEW    = 1;
 

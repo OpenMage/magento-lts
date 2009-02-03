@@ -25,7 +25,7 @@
  */
 
 
-class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Core_Model_Abstract
+class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstract
 {
     /**
      * Creditmemo instance
@@ -62,5 +62,18 @@ class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Core_Model_Abstract
     public function getCreditmemo()
     {
         return $this->_creditmemo;
+    }
+
+    /**
+     * Get store object
+     *
+     * @return Mage_Core_Model_Store
+     */
+    public function getStore()
+    {
+        if ($this->getCreditmemo()) {
+            return $this->getCreditmemo()->getStore();
+        }
+        return Mage::app()->getStore();
     }
 }

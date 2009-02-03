@@ -42,6 +42,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
         return Mage::getSingleton('cataloginventory/source_backorders')->toOptionArray();
     }
 
+    /**
+     * Retrieve stock option array
+     *
+     * @return array
+     */
+    public function getStockOption()
+    {
+        return Mage::getSingleton('cataloginventory/source_stock')->toOptionArray();
+    }
+
     public function getProduct()
     {
         return Mage::registry('product');

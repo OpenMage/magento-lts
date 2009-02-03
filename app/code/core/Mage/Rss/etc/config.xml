@@ -46,7 +46,7 @@
       </blocks>
    </global>
 
-   <!--<admin>
+   <admin>
       <routers>
          <rss>
             <use>admin</use>
@@ -56,7 +56,7 @@
             </args>
          </rss>
       </routers>
-    </admin>-->
+    </admin>
 
     <adminhtml>
         <translate>

@@ -37,9 +37,19 @@ class Mage_Tax_Model_Mysql4_Class extends Mage_Core_Model_Mysql4_Abstract
     public function _construct()
     {
         $this->_init('tax/tax_class', 'class_id');
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    protected function _initUniqueFields()
+    {
         $this->_uniqueFields = array(array(
             'field' => array('class_type', 'class_name'),
             'title' => Mage::helper('tax')->__('Error while saving this tax class. Class with the same name '),
         ));
+        return $this;
     }
 }

@@ -293,21 +293,21 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
 
     protected function _isAllowed()
     {
-        switch ($this->getRequest()->getActionName()) {
-            case 'index':
-                $aclResource = 'admin/system/convert/profiles';
-                break;
-            case 'grid':
-                $aclResource = 'admin/system/convert/profiles';
-                break;
-            case 'run':
-                $aclResource = 'admin/system/convert/profiles/run';
-                break;
-            default:
-                $aclResource = 'admin/system/convert/profiles/edit';
-                break;
-        }
+//        switch ($this->getRequest()->getActionName()) {
+//            case 'index':
+//                $aclResource = 'admin/system/convert/profiles';
+//                break;
+//            case 'grid':
+//                $aclResource = 'admin/system/convert/profiles';
+//                break;
+//            case 'run':
+//                $aclResource = 'admin/system/convert/profiles/run';
+//                break;
+//            default:
+//                $aclResource = 'admin/system/convert/profiles/edit';
+//                break;
+//        }
 
-        return Mage::getSingleton('admin/session')->isAllowed($aclResource);
+        return Mage::getSingleton('admin/session')->isAllowed('admin/system/convert/profiles');
     }
 }

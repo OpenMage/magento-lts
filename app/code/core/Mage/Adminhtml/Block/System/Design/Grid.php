@@ -18,14 +18,25 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * Design changes grid
+ *
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
 
+    /**
+     * Class constructor
+     */
     public function __construct()
     {
         parent::__construct();
@@ -34,6 +45,11 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
         $this->setUseAjax(true);
     }
 
+    /**
+     * Prepare grid data collection
+     * 
+     * @return Mage_Adminhtml_Block_System_Design_Grid
+     */
     protected function _prepareCollection()
     {
         $storeId = (int) $this->getRequest()->getParam('store', 0);
@@ -45,21 +61,27 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
         return $this;
     }
 
+    /**
+     * Define grid columns
+     *
+     * @return Mage_Adminhtml_Block_System_Design_Grid
+     */
     protected function _prepareColumns()
     {
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', array(
-                'header'    => Mage::helper('catalog')->__('Store'),
-                'width'     => '100px',
-                'type'      => 'store',
-                'index'     => 'store_id',
+                'header'        => Mage::helper('catalog')->__('Store'),
+                'width'         => '100px',
+                'type'          => 'store',
+                'store_view'    => true,
+                'sortable'      => false,
+                'index'         => 'store_id',
             ));
         }
 
-        $this->addColumn('package',
-            array(
-                'header'=> Mage::helper('catalog')->__('Design'),
-                'width' => '150px',
+        $this->addColumn('package', array(
+                'header'    => Mage::helper('catalog')->__('Design'),
+                'width'     => '150px',
                 'index'     => 'design',
         ));
         $this->addColumn('date_from', array(
@@ -81,14 +103,25 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
         return parent::_prepareColumns();
     }
 
+    /**
+     * Prepare row click url
+     *
+     * @param Varien_Object $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id'=>$row->getId()));
+        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
     }
 
+    /**
+     * Prepare grid url
+     *
+     * @return string
+     */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current'=>true));
+        return $this->getUrl('*/*/grid', array('_current' => true));
     }
 
 }

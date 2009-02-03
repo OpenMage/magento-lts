@@ -47,10 +47,10 @@ class Mage_CatalogInventory_Model_Mysql4_Stock_Item_Collection extends Mage_Core
     public function addStockFilter($stock)
     {
         if ($stock instanceof Mage_CatalogInventory_Model_Stock) {
-            $this->addFieldToFilter('stock_id', $stock->getId());
+            $this->addFieldToFilter('main_table.stock_id', $stock->getId());
         }
         else {
-            $this->addFieldToFilter('stock_id', $stock);
+            $this->addFieldToFilter('main_table.stock_id', $stock);
         }
         return $this;
     }
@@ -65,18 +65,38 @@ class Mage_CatalogInventory_Model_Mysql4_Stock_Item_Collection extends Mage_Core
     {
         $productIds = array();
         foreach ($products as $product) {
-        	if ($product instanceof Mage_Catalog_Model_Product) {
-        	    $productIds[] = $product->getId();
-        	}
-        	else {
-        	    $productIds[] = $product;
-        	}
+            if ($product instanceof Mage_Catalog_Model_Product) {
+                $productIds[] = $product->getId();
+            }
+            else {
+                $productIds[] = $product;
+            }
         }
         if (empty($productIds)) {
             $productIds[] = false;
             $this->_setIsLoaded(true);
         }
-        $this->addFieldToFilter('product_id', array('in'=>$productIds));
+        $this->addFieldToFilter('main_table.product_id', array('in'=>$productIds));
+        return $this;
+    }
+
+    /**
+     * Join Stock Status to collection
+     *
+     * @param int $storeId
+     * @return Mage_CatalogInventory_Model_Mysql4_Stock_Item_Collection
+     */
+    public function joinStockStatus($storeId = null)
+    {
+        $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
+        $this->getSelect()->joinLeft(
+            array('status_table' => $this->getTable('cataloginventory/stock_status')),
+            '`main_table`.`product_id`=`status_table`.`product_id`'
+                . ' AND `main_table`.`stock_id`=`status_table`.`stock_id`'
+                . $this->getConnection()->quoteInto(' AND `status_table`.`website_id`=?', $websiteId),
+            array('stock_status')
+        );
+
         return $this;
     }
 
@@ -97,7 +117,7 @@ class Mage_CatalogInventory_Model_Mysql4_Stock_Item_Collection extends Mage_Core
         if (!in_array($comparsionMethod, $allowedMethods)) {
             Mage::throwException(Mage::helper('cataloginventory')->__('%s is not correct comparsion method.', $comparsionMethod));
         }
-		$this->getSelect()->where("qty {$comparsionMethod} ?", $qty);
+        $this->getSelect()->where("main_table.qty {$comparsionMethod} ?", $qty);
         return $this;
     }
 

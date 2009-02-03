@@ -47,7 +47,7 @@
         <?php foreach ($_orders as $_order): ?>
             <tr>
                 <td><?php echo $_order->getRealOrderId() ?></td>
-                <td><?php echo $this->formatDate($_order->getCreatedAt()) ?></td>
+                <td><?php echo $this->formatDate($_order->getCreatedAtStoreDate()) ?></td>
                 <td><?php echo $_order->getShippingAddress() ? $this->htmlEscape($_order->getShippingAddress()->getName()) : '&nbsp;' ?></td>
                 <td><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
                 <td><em><?php echo $_order->getStatusLabel() ?></em></td>

@@ -31,11 +31,12 @@ if (!Mage::isInstalled()) {
     exit;
 }
 
-Mage::app('admin');
-
 // Only for urls
 // Don't remove this
-$_SERVER['SCRIPT_FILENAME'] = 'index.php';
+$_SERVER['SCRIPT_NAME'] = str_replace(basename(__FILE__), 'index.php', $_SERVER['SCRIPT_NAME']);
+$_SERVER['SCRIPT_FILENAME'] = str_replace(basename(__FILE__), 'index.php', $_SERVER['SCRIPT_FILENAME']);
+
+Mage::app('admin');
 
 try {
     Mage::getConfig()->init()->loadEventObservers('crontab');

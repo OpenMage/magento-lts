@@ -37,7 +37,13 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     public function __construct($arguments=array())
     {
         parent::__construct($arguments);
-        $this->setId('skuChooserGrid_'.$this->getId());
+
+        if ($this->getRequest()->getParam('current_grid_id')) {
+            $this->setId($this->getRequest()->getParam('current_grid_id'));
+        } else {
+            $this->setId('skuChooserGrid_'.$this->getId());
+        }
+
         $form = $this->getJsFormObject();
         $this->setRowClickCallback("$form.chooserGridRowClick.bind($form)");
         $this->setCheckboxCheckCallback("$form.chooserGridCheckboxCheck.bind($form)");
@@ -129,8 +135,9 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
     public function getGridUrl()
     {
         return $this->getUrl('*/*/chooser', array(
-            '_current' => true,
-            'collapse' => null
+            '_current'          => true,
+            'current_grid_id'   => $this->getId(),
+            'collapse'          => null
         ));
     }
 

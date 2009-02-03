@@ -121,6 +121,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         // check if local modules are disabled
         $disableLocalModules = (string)$this->getNode('global/disable_local_modules');
         $disableLocalModules = !empty($disableLocalModules) && (('true' === $disableLocalModules) || ('1' === $disableLocalModules));
+
         if ($disableLocalModules) {
             /**
              * Reset include path
@@ -145,16 +146,14 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         if (Mage::isInstalled()) {
             if (Mage::app()->useCache('config')) {
-                Varien_Profiler::start('config/load-cache');
+                Varien_Profiler::start('mage::app::init::config::load_cache');
                 $loaded = $this->loadCache();
-                Varien_Profiler::stop('config/load-cache');
+                Varien_Profiler::stop('mage::app::init::config::load_cache');
                 if ($loaded) {
                     return $this;
                 }
             }
         }
-
-        Varien_Profiler::stop('config/load-cache');
 
         $mergeConfig = new Mage_Core_Model_Config_Base();
 

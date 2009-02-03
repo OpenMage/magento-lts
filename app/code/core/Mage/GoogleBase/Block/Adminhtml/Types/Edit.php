@@ -53,16 +53,56 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit extends Mage_Adminhtml_Block_Wi
             var itemType = function() {
                 return {
                     updateAttributes: function() {
-                        if ($("select_attribute_set").value != "" && $("select_itemtype").value != "")
+                        if ($("select_attribute_set").value != "" && $("select_itemtype").value != "" && itemType.confirmChanges())
                         {
-                            var blocksCount = Element.select($("attributes_details"), "div[id^=gbase_attribute_]").length;
-                            if (blocksCount > 0 && confirm("'.$this->__('Current Mapping will be reloaded. Continue?').'") || blocksCount == 0)
-                            {
-                                var elements = [$("select_attribute_set"),$("select_itemtype")].flatten();
-                                 $(\'save_button\').disabled = true;
-                                new Ajax.Updater("attributes_details", "'.$this->getUrl('*/*/loadAttributes').'", {parameters:Form.serializeElements(elements), evalScripts:true,  onComplete:function(){ $(\'save_button\').disabled = false; } });
-                            }
+                            var elements = [$("select_attribute_set"),$("select_itemtype"),$("select_target_country")].flatten();
+                            $(\'save_button\').disabled = true;
+                            new Ajax.Updater("attributes_details", "'.$this->getUrl('*/*/loadAttributes').'",
+                                {
+                                    parameters:Form.serializeElements(elements),
+                                    evalScripts:true,
+                                    onComplete:function(){ $(\'save_button\').disabled = false; }
+                                }
+                            );
                         }
+                    },
+
+                    reloadItemTypes: function() {
+                        if ($("select_target_country").value != "" && itemType.confirmChanges())
+                        {
+                            var elements = [$("select_attribute_set"),$("select_itemtype"),$("select_target_country")].flatten();
+                            new Ajax.Updater("gbase_itemtype_select", "'.$this->getUrl('*/*/loadItemTypes').'",
+                                {
+                                    parameters:Form.serializeElements(elements),
+                                    evalScripts:true,
+                                    onComplete:function(){
+                                        $(\'save_button\').disabled = false;
+                                        Event.observe($("select_itemtype"), \'change\', itemType.updateAttributes);
+                                    }
+                                }
+                            );
+
+                            new Ajax.Updater("attribute_set_select", "'.$this->getUrl('*/*/loadAttributeSets').'",
+                                {
+                                    parameters:Form.serializeElements(elements),
+                                    evalScripts:true,
+                                    onComplete:function(){
+                                        $(\'save_button\').disabled = false;
+                                        Event.observe($("select_attribute_set"), \'change\', itemType.updateAttributes);
+                                    }
+                                }
+                            );
+                            $("attributes_details").innerHTML = "' . $this->__('Please, select Attribute Set and Google Item Type to load attributes') . '";
+                        }
+                    },
+
+                    confirmChanges: function() {
+                        var blocksCount = Element.select($("attributes_details"), "div[id^=gbase_attribute_]").length;
+                        if (blocksCount > 0 && confirm("'.$this->__('Current Mapping will be reloaded. Continue?').'") || blocksCount == 0)
+                        {
+                            return true;
+                        }
+                        return false;
                     }
                 }
             }();
@@ -73,6 +113,9 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit extends Mage_Adminhtml_Block_Wi
              	}
              	if ($("select_itemtype")) {
              		Event.observe($("select_itemtype"), \'change\', itemType.updateAttributes);
+             	}
+             	if ($("select_target_country")) {
+             		Event.observe($("select_target_country"), \'change\', itemType.reloadItemTypes);
              	}
            });
         ';

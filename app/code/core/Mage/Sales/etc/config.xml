@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sales>
-            <version>0.9.29</version>
+            <version>0.9.31</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -632,12 +632,14 @@
         <pdf>
             <invoice>
                 <default>sales/order_pdf_items_invoice_default</default>
+                <grouped>sales/order_pdf_items_invoice_grouped</grouped>
             </invoice>
             <shipment>
                 <default>sales/order_pdf_items_shipment_default</default>
             </shipment>
             <creditmemo>
                 <default>sales/order_pdf_items_creditmemo_default</default>
+                <grouped>sales/order_pdf_items_creditmemo_grouped</grouped>
             </creditmemo>
         </pdf>
     </global>

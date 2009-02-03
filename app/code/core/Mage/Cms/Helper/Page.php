@@ -54,12 +54,6 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
             return false;
         }
 
-//        $customerSession = Mage::getSingleton('customer/session');
-//        if (!$customerSession->authenticate($action)) {
-//            $customerSession->setBeforeAuthUrl(Mage::getBaseUrl().$page->getIdentifier());
-//            return true;
-//        }
-
         if ($page->getCustomTheme()) {
             $apply = true;
             $today = Mage::app()->getLocale()->date()->toValue();

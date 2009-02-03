@@ -25,7 +25,7 @@
  */
 
 
-class Mage_Sales_Model_Order_Invoice_Comment extends Mage_Core_Model_Abstract
+class Mage_Sales_Model_Order_Invoice_Comment extends Mage_Sales_Model_Abstract
 {
     /**
      * Invoice instance
@@ -62,5 +62,18 @@ class Mage_Sales_Model_Order_Invoice_Comment extends Mage_Core_Model_Abstract
     public function getInvoice()
     {
         return $this->_invoice;
+    }
+
+    /**
+     * Get store object
+     *
+     * @return Mage_Core_Model_Store
+     */
+    public function getStore()
+    {
+        if ($this->getInvoice()) {
+            return $this->getInvoice()->getStore();
+        }
+        return Mage::app()->getStore();
     }
 }

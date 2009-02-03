@@ -34,14 +34,16 @@
 
 class Mage_Cms_Model_Mysql4_Page extends Mage_Core_Model_Mysql4_Abstract
 {
-
+    /**
+     * Initialize resource model
+     */
     protected function _construct()
     {
         $this->_init('cms/page', 'page_id');
     }
 
     /**
-     *
+     * Process page data before saving
      *
      * @param Mage_Core_Model_Abstract $object
      */
@@ -76,6 +78,7 @@ class Mage_Cms_Model_Mysql4_Page extends Mage_Core_Model_Mysql4_Abstract
     }
 
     /**
+     * Assign page to store views
      *
      * @param Mage_Core_Model_Abstract $object
      */
@@ -135,7 +138,10 @@ class Mage_Cms_Model_Mysql4_Page extends Mage_Core_Model_Mysql4_Abstract
         $select = parent::_getLoadSelect($field, $value, $object);
 
         if ($object->getStoreId()) {
-            $select->join(array('cps' => $this->getTable('cms/page_store')), $this->getMainTable().'.page_id = `cps`.page_id')
+            $select->join(
+                        array('cps' => $this->getTable('cms/page_store')),
+                        $this->getMainTable().'.page_id = `cps`.page_id'
+                    )
                     ->where('is_active=1 AND `cps`.store_id in (0, ?) ', $object->getStoreId())
                     ->order('store_id DESC')
                     ->limit(1);
@@ -177,5 +183,27 @@ class Mage_Cms_Model_Mysql4_Page extends Mage_Core_Model_Mysql4_Abstract
     protected function isNumericPageIdentifier (Mage_Core_Model_Abstract $object)
     {
         return preg_match('/^[0-9]+$/', $object->getData('identifier'));
+    }
+
+    /**
+     * Check if page identifier exist for specific store
+     * return page id if page exists
+     *
+     * @param   string $identifier
+     * @param   int $storeId
+     * @return  int
+     */
+    public function checkIdentifier($identifier, $storeId)
+    {
+        $select = $this->_getReadAdapter()->select()->from(array('main_table'=>$this->getMainTable()), 'page_id')
+            ->join(
+                array('cps' => $this->getTable('cms/page_store')),
+                'main_table.page_id = `cps`.page_id'
+            )
+            ->where('main_table.identifier=?', $identifier)
+            ->where('main_table.is_active=1 AND `cps`.store_id in (0, ?) ', $storeId)
+            ->order('store_id DESC');
+
+        return $this->_getReadAdapter()->fetchOne($select);
     }
 }

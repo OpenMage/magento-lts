@@ -34,10 +34,20 @@ class Mage_Customer_Model_Entity_Group extends Mage_Core_Model_Mysql4_Abstract
     protected function _construct()
     {
         $this->_init('customer/customer_group', 'customer_group_id');
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    protected function _initUniqueFields()
+    {
         $this->_uniqueFields = array(array(
             'field' => 'customer_group_code',
             'title' => Mage::helper('customer')->__('Customer Group')
         ));
+        return $this;
     }
 
     protected function _beforeDelete(Mage_Core_Model_Abstract $group)

@@ -55,6 +55,36 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     }
 
     /**
+     * Retrieve Required children ids
+     * Return grouped array, ex array(
+     *   group => array(ids)
+     * )
+     *
+     * @param int $parentId
+     * @param bool $required
+     * @return array
+     */
+    public function getChildrenIds($parentId, $required = true)
+    {
+        return Mage::getResourceSingleton('catalog/product_link')
+            ->getChildrenIds($parentId,
+                Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED);
+    }
+
+    /**
+     * Retrieve parent ids array by requered child
+     *
+     * @param int $childId
+     * @return array
+     */
+    public function getParentIdsByChild($childId)
+    {
+        return Mage::getResourceSingleton('catalog/product_link')
+            ->getParentIdsByChild($childId,
+                Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED);
+    }
+
+    /**
      * Retrieve array of associated products
      *
      * @return array
@@ -158,8 +188,8 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      */
     public function isSalable()
     {
-        $salable = $this->getProduct()->getIsSalable();
-        if (!is_null($salable) && !$salable) {
+        $salable = parent::isSalable();
+        if (!is_null($salable)) {
             return $salable;
         }
 
@@ -200,9 +230,19 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                     if(isset($productsInfo[$subProduct->getId()])) {
                         $qty = $productsInfo[$subProduct->getId()];
                         if (!empty($qty)) {
-                            $subProduct->setCartQty($qty);
-                            $subProduct->addCustomOption('product_type', self::TYPE_CODE, $this->getProduct());
-                            $subProduct->addCustomOption('info_buyRequest',
+
+                            $_result = $subProduct->getTypeInstance()->prepareForCart($buyRequest);
+                            if (is_string($_result) && !is_array($_result)) {
+                                return $_result;
+                            }
+
+                            if (!isset($_result[0])) {
+                                return Mage::helper('checkout')->__('Can not add item to shopping cart');
+                            }
+
+                            $_result[0]->setCartQty($qty);
+                            $_result[0]->addCustomOption('product_type', self::TYPE_CODE, $this->getProduct());
+                            $_result[0]->addCustomOption('info_buyRequest',
                                 serialize(array(
                                     'super_product_config' => array(
                                         'product_type'  => self::TYPE_CODE,
@@ -210,7 +250,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                                     )
                                 ))
                             );
-                            $products[] = $subProduct;
+                            $products[] = $_result[0];
                         }
                     }
                 }

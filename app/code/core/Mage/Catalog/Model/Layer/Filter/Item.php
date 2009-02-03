@@ -56,7 +56,10 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
      */
     public function getUrl()
     {
-        $query = array($this->getFilter()->getRequestVar()=>$this->getValue());
+        $query = array(
+            $this->getFilter()->getRequestVar()=>$this->getValue(),
+            Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null // exclude current page from urls
+        );
         return Mage::getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true, '_query'=>$query));
     }
 

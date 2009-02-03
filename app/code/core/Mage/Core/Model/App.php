@@ -237,11 +237,15 @@ class Mage_Core_Model_App
             $options = array('etc_dir'=>$options);
         }
 
+        Varien_Profiler::start('mage::app::init::config');
         $this->_config = Mage::getConfig();
         $this->_config->init($options);
+        Varien_Profiler::stop('mage::app::init::config');
 
         if (Mage::isInstalled($options)) {
+            Varien_Profiler::start('mage::app::init::stores');
             $this->_initStores();
+            Varien_Profiler::stop('mage::app::init::stores');
 
             if (empty($code) && !is_null($this->_website)) {
                 $code = $this->_website->getCode();
@@ -271,6 +275,16 @@ class Mage_Core_Model_App
     }
 
     /**
+     * Retrieve cookie object
+     *
+     * @return Mage_Core_Model_Cookie
+     */
+    public function getCookie()
+    {
+        return Mage::getSingleton('core/cookie');
+    }
+
+    /**
      * Check get store
      *
      * @return Mage_Core_Model_App
@@ -280,6 +294,10 @@ class Mage_Core_Model_App
         if (empty($_GET)) {
             return $this;
         }
+
+        /**
+         * @todo check XML_PATH_STORE_IN_URL
+         */
 
         if (!isset($_GET['___store'])) {
             return $this;
@@ -311,9 +329,7 @@ class Mage_Core_Model_App
         }
 
         if ($this->_currentStore == $store) {
-            $cookie = Mage::getSingleton('core/cookie');
-            /* @var $cookie Mage_Core_Model_Cookie */
-            $cookie->set('store', $this->_currentStore);
+            $this->getCookie()->set('store', $this->_currentStore, true);
         }
         return $this;
     }
@@ -326,13 +342,11 @@ class Mage_Core_Model_App
      */
     protected function _checkCookieStore($type)
     {
-        if (empty($_COOKIE)) {
+        if (!$this->getCookie()->get()) {
             return $this;
         }
-        $cookie = Mage::getSingleton('core/cookie');
-        /* @var $cookie Mage_Core_Model_Cookie */
 
-        $store  = $cookie->get('store');
+        $store  = $this->getCookie()->get('store');
         if ($store && isset($this->_stores[$store])
             && $this->_stores[$store]->getId()
             && $this->_stores[$store]->getIsActive()) {
@@ -499,7 +513,9 @@ class Mage_Core_Model_App
     {
         $this->_frontController = new Mage_Core_Controller_Varien_Front();
         Mage::register('controller', $this->_frontController);
+        Varien_Profiler::start('mage::app::init_front_controller');
         $this->_frontController->init();
+        Varien_Profiler::stop('mage::app::init_front_controller');
         return $this;
     }
 
@@ -1199,5 +1215,4 @@ class Mage_Core_Model_App
     {
         return $this->_useSessionVar;
     }
-
 }

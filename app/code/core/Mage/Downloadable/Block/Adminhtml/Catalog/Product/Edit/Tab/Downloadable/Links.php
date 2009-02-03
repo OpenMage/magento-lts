@@ -86,6 +86,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
             ->setName('product[links_purchased_separately]')
+            ->setId('downloadable_link_purchase_type')
             ->setOptions(Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray())
             ->setValue($this->getProduct()->getLinksPurchasedSeparately());
 
@@ -160,10 +161,13 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                 Mage_Downloadable_Model_Link::getBasePath(), $item->getLinkFile()
             );
             if ($item->getLinkFile() && is_file($file)) {
+                $name = '<a href="' . $this->getUrl('downloadable/product_edit/link', array('id' => $item->getId(), '_secure' => true)) . '">' .
+                    Mage::helper('downloadable/file')->getFileFromPathFile($item->getLinkFile()) .
+                    '</a>';
                 $tmpLinkItem['file_save'] = array(
                     array(
                         'file' => $item->getLinkFile(),
-                        'name' => Mage::helper('downloadable/file')->getFileFromPathFile($item->getLinkFile()),
+                        'name' => $name,
                         'size' => filesize($file),
                         'status' => 'old'
                     ));

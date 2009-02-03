@@ -721,7 +721,11 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     {
         $query = Mage::getSingleton('core/url')->escape(ltrim(Mage::app()->getRequest()->getRequestString(), '/'));
 
-        $parsedUrl = parse_url($this->getUrl(''));
+        if (Mage::app()->getStore()->isCurrentlySecure()) {
+        	$parsedUrl = parse_url($this->getUrl('', array('_secure' => true)));
+        } else {
+        	$parsedUrl = parse_url($this->getUrl(''));
+        }
         $parsedQuery = array();
         if (isset($parsedUrl['query'])) {
             parse_str($parsedUrl['query'], $parsedQuery);

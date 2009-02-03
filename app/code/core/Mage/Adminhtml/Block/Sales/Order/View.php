@@ -144,20 +144,8 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     {
         $text = Mage::helper('sales')->__('Order # %s | Order Date %s',
             $this->getOrder()->getRealOrderId(),
-            $this->formatDate($this->getOrder()->getCreatedAt(), 'medium', true)
+            $this->formatDate($this->getOrder()->getCreatedAtDate(), 'medium', true)
         );
-        /*if ($this->getOrder()->getRelationParentRealId()) {
-            $text = Mage::helper('sales')->__('Order # %s | Order Date %s',
-                $this->getOrder()->getRealOrderId(),
-                $this->formatDate($this->getOrder()->getCreatedAt(), 'medium', true)
-            );
-        }
-        else {
-            $text = Mage::helper('sales')->__('Order # %s | Order Date %s',
-                $this->getOrder()->getRealOrderId(),
-                $this->formatDate($this->getOrder()->getCreatedAt(), 'medium', true)
-            );
-        }*/
         return $text;
     }
 

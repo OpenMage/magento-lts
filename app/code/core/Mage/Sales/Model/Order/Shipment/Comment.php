@@ -25,7 +25,7 @@
  */
 
 
-class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Core_Model_Abstract
+class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
 {
     /**
      * Shipment instance
@@ -62,5 +62,18 @@ class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Core_Model_Abstract
     public function getShipment()
     {
         return $this->_shipment;
+    }
+
+    /**
+     * Get store object
+     *
+     * @return Mage_Core_Model_Store
+     */
+    public function getStore()
+    {
+        if ($this->getShipment()) {
+            return $this->getShipment()->getStore();
+        }
+        return Mage::app()->getStore();
     }
 }

@@ -35,6 +35,7 @@
     <h3><?php echo Mage::helper('downloadable')->__('My Downloadable Products') ?></h3>
 </div>
 <?php echo $this->getChildHtml('pager'); ?>
+<?php if(count($_items)): ?>
 <table cellspacing="0" class="data-table" id="my-downloadable-products-table">
     <thead>
         <tr>
@@ -59,4 +60,10 @@
     </tbody>
 </table>
 <script type="text/javascript">decorateTable('my-downloadable-products-table')</script>
+<?php else: ?>
+    <p><?php echo Mage::helper('downloadable')->__('You have no Downloadable Products.'); ?></p>
+<?php endif; ?>
 <?php echo $this->getChildHtml('pager'); ?>
+<div class="buttons-set">
+    <a href="<?php echo $this->getBackUrl() ?>" class="back-link">&laquo; <?php echo $this->__('Back') ?></a>
+</div>

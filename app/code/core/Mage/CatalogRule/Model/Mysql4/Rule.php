@@ -239,23 +239,23 @@ class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
          */
         $productPrices = array();
         foreach ($prices as $index => $priceData) {
-        	$websiteId = Mage::app()->getStore($priceData['store_id'])->getWebsiteId();
+            $websiteId = Mage::app()->getStore($priceData['store_id'])->getWebsiteId();
 
-        	if (!isset($productPrices[$priceData['entity_id']])) {
-        		$productPrices[$priceData['entity_id']] = array(
+            if (!isset($productPrices[$priceData['entity_id']])) {
+                $productPrices[$priceData['entity_id']] = array(
                     'default'    => $priceData['value'],
                     'websites'   => array($websiteId=>$priceData['value'])
-        		);
-        	}
-        	else {
+                );
+            }
+            else {
                 $productPrices[$priceData['entity_id']]['websites'][$websiteId] = $priceData['value'];
-        	}
+            }
         }
 
         foreach ($ruleProducts as &$p) {
-        	if (isset($productPrices[$p['product_id']]['websites'][$p['website_id']])) {
+            if (isset($productPrices[$p['product_id']]['websites'][$p['website_id']])) {
                 $p['price'] = $productPrices[$p['product_id']]['websites'][$p['website_id']];
-        	}
+            }
             elseif (isset($productPrices[$p['product_id']]['default'])) {
                 $p['price'] = $productPrices[$p['product_id']]['default'];
             }
@@ -312,7 +312,11 @@ class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
 
         foreach (Mage::app()->getWebsites() as $website) {
             $websiteId  = $website->getId();
-            $storeId    = $website->getDefaultGroup()->getDefaultStoreId();
+            $defaultGroup = $website->getDefaultGroup();
+            if (!$defaultGroup instanceof Mage_Core_Model_Store_Group) {
+                continue;
+            }
+            $storeId    = $defaultGroup->getDefaultStoreId();
             $tableAlias = 'pp'.$websiteId;
             $fieldAlias = 'website_'.$websiteId.'_price';
             $select->joinLeft(
@@ -517,7 +521,7 @@ class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
             $data['rule_date']          = $this->formatDate($data['rule_date'], false);
             $data['latest_start_date']  = $this->formatDate($data['latest_start_date'], false);
             $data['earliest_end_date']  = $this->formatDate($data['earliest_end_date'], false);
-        	$rows[] = '(' . $this->_getWriteAdapter()->quote($data) . ')';
+            $rows[] = '(' . $this->_getWriteAdapter()->quote($data) . ')';
         }
         $query = $header.join(',', $rows);
         $insertQuery = 'REPLACE INTO ' . $this->getTable('catalogrule/affected_product') . ' (product_id)  VALUES ' .

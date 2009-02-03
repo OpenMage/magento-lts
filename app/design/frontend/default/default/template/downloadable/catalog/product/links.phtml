@@ -87,8 +87,11 @@
                     }
                 });
                 try {
+                    var _displayZeroPrice = optionsPrice.displayZeroPrice;
+                    optionsPrice.displayZeroPrice = false;
                     optionsPrice.changePrice('downloadable', price);
                     optionsPrice.reload();
+                    optionsPrice.displayZeroPrice = _displayZeroPrice;
                 } catch (e) {
 
                 }

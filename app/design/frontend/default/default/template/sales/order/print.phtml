@@ -26,7 +26,7 @@
 ?>
 <?php $_order = $this->getOrder() ?>
 <h3><?php echo $this->__('Order #%s', $_order->getRealOrderId()) ?></h3>
-<p><?php echo $this->__('Order Date: %s', $this->formatDate($_order->getCreatedAt(), 'long')) ?></p>
+<p><?php echo $this->__('Order Date: %s', $this->formatDate($_order->getCreatedAtStoreDate(), 'long')) ?></p>
 <div class="divider"></div>
 <div class="col2-set">
     <?php if (!$_order->getIsVirtual()): ?>

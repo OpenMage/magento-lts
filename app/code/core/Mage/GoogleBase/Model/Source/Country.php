@@ -35,10 +35,11 @@ class Mage_GoogleBase_Model_Source_Country
 {
     public function toOptionArray()
     {
-        return array(
-            array('value' => 'US', 'label' => Mage::helper('googlebase')->__('United States')),
-            array('value' => 'GB', 'label' => Mage::helper('googlebase')->__('United Kingdom')),
-            array('value' => 'DE', 'label' => Mage::helper('googlebase')->__('Germany')),
-        );
+        $_allowed = Mage::getSingleton('googlebase/config')->getAllowedCountries();
+        $result = array();
+        foreach ($_allowed as $iso => $info) {
+            $result[] = array('value' => $iso, 'label' => $info['name']);
+        }
+        return $result;
     }
 }

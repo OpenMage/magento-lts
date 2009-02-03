@@ -36,9 +36,19 @@ class Mage_Tax_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
     protected function _construct()
     {
         $this->_init('tax/tax_rule', 'tax_rule_id');
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    protected function _initUniqueFields()
+    {
         $this->_uniqueFields = array(array(
             'field' => array('tax_customer_class_id', 'tax_product_class_id', 'tax_rate_type_id'),
             'title' => Mage::helper('tax')->__('Error while saving this tax rule. This product tax class, customer tax class and tax rate combination'),
         ));
+        return $this;
     }
 }

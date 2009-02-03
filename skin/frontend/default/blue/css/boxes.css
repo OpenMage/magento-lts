@@ -1006,6 +1006,12 @@ td.attributes-col h4.title a { font-weight:bold; }
 .tax-details td { font-size:0.91em; color:#626465; background-color:#dae1e4; }
 .tax-details-first td { border-top:1px solid #d2d8db; }
 
+/* Shopping cart tax info */
+.cart-tax-info, .cart-price { padding-right:20px; }
+.cart-tax-total { cursor:pointer; }
+.cart-tax-total { padding-right:20px; background:url(../images/bg_collapse.gif) 100% 5px no-repeat; cursor:pointer; }
+.cart-tax-total-expanded { background-position:100% -52px; }
+
 
 .shopping-cart-collaterals {
     float:left;

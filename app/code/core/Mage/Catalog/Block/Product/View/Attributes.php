@@ -67,7 +67,7 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
                     if (strlen($value) && $product->hasData($attribute->getAttributeCode())) {
                         if ($attribute->getFrontendInput() == 'price') {
                             $value = Mage::app()->getStore()->convertPrice($value,true);
-                        } else {
+                        } elseif (!$attribute->getIsHtmlAllowedOnFront()) {
                             $value = $this->htmlEscape($value);
                         }
                         $data[$attribute->getAttributeCode()] = array(

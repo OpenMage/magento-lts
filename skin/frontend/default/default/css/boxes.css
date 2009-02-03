@@ -241,7 +241,7 @@ p.required { font-size:.95em; text-align:right; }
     overflow:hidden;
     }
 
-.box-header {font-size:1.05em;text-align:left;background:#EEEEEE none repeat scroll 0%;font-weight:bold;padding:2px 8px;margin:10px 0; }
+.box-header { font-size:1.05em; text-align:left; background:#eee; font-weight:bold; padding:2px 8px; margin:10px 0; }
 .category-head .link-feed {float:right; margin-top:10px; position:relative; }
 
 /********************* Tables */
@@ -1031,8 +1031,8 @@ td.attributes-col h4.title a { font-weight:bold; }
 /* Shopping cart tax info */
 .cart-tax-info, .cart-price { padding-right:20px; }
 .cart-tax-total { cursor:pointer; }
-.cart-tax-total { padding-right:20px; background:url(../images/bg_collapse.gif) right 5px no-repeat; cursor:pointer; }
-.cart-tax-total-expanded { background-position:right -52px; }
+.cart-tax-total { padding-right:20px; background:url(../images/bg_collapse.gif) 100% 5px no-repeat; cursor:pointer; }
+.cart-tax-total-expanded { background-position:100% -52px; }
 
 
 .shopping-cart-collaterals {

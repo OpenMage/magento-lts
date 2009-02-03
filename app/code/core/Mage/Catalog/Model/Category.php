@@ -85,8 +85,10 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     }
 
     /**
-    * @return Mage_Core_Model_Url_Rewrite
-    */
+     * Get url rewrite model
+     *
+     * @return Mage_Core_Model_Url_Rewrite
+     */
     public function getUrlRewrite()
     {
         if (!self::$_urlRewrite) {
@@ -320,16 +322,35 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         return $path;
     }
 
+    /**
+     * Get parent category object
+     *
+     * @return Mage_Catalog_Model_Category
+     */
     public function getParentCategory()
     {
         return Mage::getModel('catalog/category')->load($this->getParentId());
     }
 
+    /**
+     * Get parent category identifier
+     *
+     * @return int
+     */
     public function getParentId()
     {
-        $parentPath = explode('/', $this->getPath());
-        array_pop($parentPath);
-        return intval(array_pop($parentPath));
+        $parentIds = $this->getParentIds();
+        return intval(array_pop($parentIds));
+    }
+
+    /**
+     * Get all parent categories ids
+     *
+     * @return array
+     */
+    public function getParentIds()
+    {
+        return array_diff($this->getPathIds(), array($this->getId()));
     }
 
     public function getCustomDesignDate()
@@ -410,6 +431,12 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         return $this->_getResource()->checkId($id);
     }
 
+    /**
+     * Get array categories ids which are part of category path
+     * Result array contain id of current category because it is part of the path
+     *
+     * @return array
+     */
     public function getPathIds()
     {
         $ids = $this->getData('path_ids');

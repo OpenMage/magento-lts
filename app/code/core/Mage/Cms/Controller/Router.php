@@ -45,16 +45,16 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
 
         $identifier = trim($request->getPathInfo(), '/');
 
-        $page = Mage::getSingleton('cms/page');
-        $page->setStoreId(Mage::app()->getStore()->getId());
-        if (!$page->load($identifier)->getId()) {
+        $page = Mage::getModel('cms/page');
+        $pageId = $page->checkIdentifier($identifier, Mage::app()->getStore()->getId());
+        if (!$pageId) {
             return false;
         }
 
         $request->setModuleName(isset($d[0]) ? $d[0] : 'cms')
             ->setControllerName(isset($d[1]) ? $d[1] : 'page')
             ->setActionName(isset($d[2]) ? $d[2] : 'view')
-            ->setParam('page_id', $page->getId());
+            ->setParam('page_id', $pageId);
 		$request->setAlias(
 			Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
 			$identifier

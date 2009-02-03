@@ -68,6 +68,15 @@ class Mage_Bundle_Model_Mysql4_Selection extends Mage_Core_Model_Mysql4_Abstract
     }
 */
 
+    /**
+     * Retrieve Price From index
+     *
+     * @param int $productId
+     * @param float $qty
+     * @param int $storeId
+     * @param int $groupId
+     * @return mixed
+     */
     public function getPriceFromIndex($productId, $qty, $storeId, $groupId) {
         $select = clone $this->_getReadAdapter()->select();
         $select->reset();
@@ -93,4 +102,79 @@ class Mage_Bundle_Model_Mysql4_Selection extends Mage_Core_Model_Mysql4_Abstract
         }
     }
 
+    /**
+     * Retrieve Required children ids
+     * Return grouped array, ex array(
+     *   group => array(ids)
+     * )
+     *
+     * @param int $parentId
+     * @param bool $required
+     * @return array
+     */
+    public function getChildrenIds($parentId, $required = true)
+    {
+        $childrenIds = array();
+        $notRequired = array();
+        $select = $this->_getReadAdapter()->select()
+            ->from(
+                array('tbl_selection' => $this->getMainTable()),
+                array('product_id', 'parent_product_id', 'option_id'))
+            ->join(
+                array('tbl_option' => $this->getTable('bundle/option')),
+                '`tbl_option`.`option_id` = `tbl_selection`.`option_id`',
+                array('required')
+            )
+            ->where('`tbl_selection`.`parent_product_id`=?', $parentId);
+        foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
+            if ($row['required']) {
+                $childrenIds[$row['option_id']][$row['product_id']] = $row['product_id'];
+            }
+            else {
+                $notRequired[$row['option_id']][$row['product_id']] = $row['product_id'];
+            }
+        }
+
+        if (!$required) {
+            $childrenIds = array_merge($childrenIds, $notRequired);
+        }
+        else {
+            if (!$childrenIds) {
+                foreach ($notRequired as $groupedChildrenIds) {
+                    foreach ($groupedChildrenIds as $childId) {
+                        $childrenIds[0][$childId] = $childId;
+                    }
+                }
+            }
+        }
+
+        return $childrenIds;
+    }
+
+    /**
+     * Retrieve parent ids array by requered child
+     *
+     * @param int $childId
+     * @return array
+     */
+    public function getParentIdsByChild($childId)
+    {
+        $parentIds = array();
+
+        $select = $this->_getReadAdapter()->select()
+            ->from(
+                array('tbl_selection' => $this->getMainTable()),
+                array('product_id', 'parent_product_id', 'option_id'))
+            ->join(
+                array('tbl_option' => $this->getTable('bundle/option')),
+                '`tbl_option`.`option_id` = `tbl_selection`.`option_id`',
+                array('required')
+            )
+            ->where('`tbl_selection`.`product_id`=?', $childId);
+        foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
+            $parentIds[] = $row['parent_product_id'];
+        }
+
+        return $parentIds;
+    }
 }

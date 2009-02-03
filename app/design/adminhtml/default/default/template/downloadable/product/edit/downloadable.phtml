@@ -74,10 +74,26 @@ var Downloadable = {
             }
         }
     },
+    unsetUploaderObj : function(type, key){
+        try {
+            this.uploaderObj.get(type).unset(key);
+        } catch (e) {
+            try {
+                console.log(e);
+            } catch (e2) {
+                alert(e.name + '\n' + e.message);
+            }
+        }
+    },
     massUploadByType : function(type){
         try {
             this.uploaderObj.get(type).each(function(item){
-                item.value.upload();
+                container = item.value.container.up('tr');
+                if (container.visible() && !container.hasClassName('no-display')) {
+                    item.value.upload();
+                } else {
+                    Downloadable.unsetUploaderObj(type, item.key);
+                }
             });
         } catch (e) {
             try {

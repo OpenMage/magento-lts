@@ -304,7 +304,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 
         $hasOptions         = false;
         $hasRequiredOptions = false;
-        $this->canAffectOptions($this->_canAffectOptions && $this->getCanSaveCustomOptions());
+
+        $this->canAffectOptions($this->_canAffectOptions || $this->getCanSaveCustomOptions());
         if ($this->getCanSaveCustomOptions()) {
             $options = $this->getProductOptions();
             if (is_array($options)) {
@@ -340,7 +341,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setHasOptions(false);
             $this->setRequiredOptions(false);
         }
-
         parent::_beforeSave();
     }
 
@@ -948,7 +948,21 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function isSalable()
     {
-        return $this->getTypeInstance()->isSalable();
+        Mage::dispatchEvent('catalog_product_is_salable_before', array(
+            'product'   => $this
+        ));
+
+        $salable = $this->getTypeInstance()->isSalable();
+
+        $object = new Varien_Object(array(
+            'product'    => $this,
+            'is_salable' => $salable
+        ));
+        Mage::dispatchEvent('catalog_product_is_salable_after', array(
+            'product'   => $this,
+            'salable'   => $object
+        ));
+        return $object->getIsSalable();
     }
 
     public function isSaleable()

@@ -105,6 +105,16 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
 
         $r->setOrigCountry(Mage::getModel('directory/country')->load($origCountry)->getIso2Code());
 
+        if ($request->getOrigRegionCode()) {
+            $origRegionCode = $request->getOrigRegionCode();
+        } else {
+            $origRegionCode = Mage::getStoreConfig('shipping/origin/region_id', $this->getStore());
+            if (is_numeric($origRegionCode)) {
+                $origRegionCode = Mage::getModel('directory/region')->load($origRegionCode)->getCode();
+            }
+        }
+        $r->setOrigRegionCode($origRegionCode);
+
         if ($request->getOrigPostcode()) {
             $r->setOrigPostal($request->getOrigPostcode());
         } else {
@@ -130,6 +140,8 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
         }
 
         $r->setDestCountry(Mage::getModel('directory/country')->load($destCountry)->getIso2Code());
+
+        $r->setDestRegionCode($request->getDestRegionCode());
 
         if ($request->getDestPostcode()) {
             $r->setDestPostal($request->getDestPostcode());
@@ -496,8 +508,10 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
             '14_origCountry' => $r->getOrigCountry(),
             '15_origPostal'  => $r->getOrigPostal(),
             'origCity'       => $r->getOrigCity(),
+            'origRegionCode' => $r->getOrigRegionCode(),
             '19_destPostal'  => $r->getDestPostal(),
             '22_destCountry' => $r->getDestCountry(),
+            'destRegionCode' => $r->getDestRegionCode(),
             '23_weight'      => $r->getWeight(),
             '47_rate_chart'  => $r->getPickup(),
             '48_container'   => $r->getContainer(),
@@ -530,18 +544,26 @@ $xmlRequest .= <<< XMLRequest
           <Description>{$serviceDescription}</Description>
       </Service>
       <Shipper>
+XMLRequest;
+
+        if ($this->getConfigFlag('negotiated_active') && ($shipper = $this->getConfigData('shipper_number')) ) {
+            $xmlRequest .= "<ShipperNumber>{$shipper}</ShipperNumber>";
+        }
+
+$xmlRequest .= <<< XMLRequest
       <Address>
           <City>{$params['origCity']}</City>
           <PostalCode>{$params['15_origPostal']}</PostalCode>
           <CountryCode>{$params['14_origCountry']}</CountryCode>
+          <StateProvinceCode>{$params['origRegionCode']}</StateProvinceCode>
       </Address>
     </Shipper>
-
     <ShipTo>
       <Address>
           <PostalCode>{$params['19_destPostal']}</PostalCode>
           <CountryCode>{$params['22_destCountry']}</CountryCode>
           <ResidentialAddress>{$params['49_residential']}</ResidentialAddress>
+          <StateProvinceCode>{$params['destRegionCode']}</StateProvinceCode>
 XMLRequest;
 
           $xmlRequest .= ($params['49_residential']==='01' ? "<ResidentialAddressIndicator>{$params['49_residential']}</ResidentialAddressIndicator>" : '');
@@ -555,6 +577,7 @@ $xmlRequest .= <<< XMLRequest
       <Address>
           <PostalCode>{$params['15_origPostal']}</PostalCode>
           <CountryCode>{$params['14_origCountry']}</CountryCode>
+          <StateProvinceCode>{$params['origRegionCode']}</StateProvinceCode>
       </Address>
     </ShipFrom>
 
@@ -565,10 +588,16 @@ $xmlRequest .= <<< XMLRequest
         <Weight>{$params['23_weight']}</Weight>
       </PackageWeight>
     </Package>
+XMLRequest;
+        if ($this->getConfigFlag('negotiated_active')) {
+            $xmlRequest .= "<RateInformation><NegotiatedRatesIndicator/></RateInformation>";
+        }
 
+$xmlRequest .= <<< XMLRequest
   </Shipment>
 </RatingServiceSelectionRequest>
 XMLRequest;
+
         try {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);

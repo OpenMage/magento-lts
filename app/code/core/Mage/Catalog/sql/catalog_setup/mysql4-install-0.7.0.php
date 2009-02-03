@@ -485,7 +485,7 @@ CREATE TABLE {$this->getTable('catalog_product_super_link')} (
 -- DROP TABLE IF EXISTS {$this->getTable('catalog_product_type')};
 CREATE TABLE {$this->getTable('catalog_product_type')} (
   `type_id` tinyint(3) unsigned NOT NULL auto_increment,
-  `code` varchar(32) character set cp1251 NOT NULL default '',
+  `code` varchar(32) NOT NULL default '',
   PRIMARY KEY  (`type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

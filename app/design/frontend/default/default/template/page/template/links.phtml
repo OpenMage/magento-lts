@@ -32,7 +32,7 @@
 <?php $_links = $this->getLinks(); ?>
 <?php if(count($_links)>0): ?>
     <div>
-        <ul<?php if($this->getName()): ?>):?> id="<?php echo $this->getName() ?>"<?php endif;?>>
+        <ul<?php if($this->getName()): ?> id="<?php echo $this->getName() ?>"<?php endif;?>>
             <?php foreach($_links as $_link): ?>
                 <li <?php if($_link->getIsFirst()): ?> class="first"<?php elseif($_link->getIsLast()): ?> class="last"<?php endif; ?><?php echo $_link->getLiParams() ?>><?php echo $_link->getBeforeText() ?><a href="<?php echo $_link->getUrl() ?>" title="<?php echo $_link->getTitle() ?>" <?php echo $_link->getAParams() ?>><?php echo $_link->getLabel() ?></a><?php echo $_link->getAfterText() ?></li>
             <?php endforeach; ?>

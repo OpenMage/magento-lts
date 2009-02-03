@@ -30,7 +30,7 @@
     <button class="form-button"><span><?php echo $this->__('Print All Invoices') ?></span></button>
 </div>-->
 <h3><?php echo $this->__('Order #%s', $_order->getRealOrderId()) ?></h3>
-<p><?php echo $this->__('Order Date: %s', $this->formatDate($_order->getCreatedAt(), 'long')) ?></p>
+<p><?php echo $this->__('Order Date: %s', $this->formatDate($_order->getCreatedAtStoreDate(), 'long')) ?></p>
 <?php $_invoice = $this->getInvoice() ?>
 <?php if($_invoice): ?>
     <?php $_invoices = array($_invoice); ?>

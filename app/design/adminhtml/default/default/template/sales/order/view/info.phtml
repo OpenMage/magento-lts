@@ -26,8 +26,8 @@
 ?>
 <?php $_order = $this->getOrder() ?>
 <?php
-$orderAdminDate = $this->formatDate($_order->getCreatedAt(), 'medium', true);
-$orderStoreDate = $this->formatDate($_order->getCreatedAtDate(), 'medium', true);
+$orderAdminDate = $this->formatDate($_order->getCreatedAtDate(), 'medium', true);
+$orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', true);
 ?>
 <div class="box-left">
     <!--Order Information-->
@@ -53,7 +53,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtDate(), 'medium', true)
             </tr>
             <?php if ($orderAdminDate != $orderStoreDate):?>
             <tr>
-                <td class="label"><label><?php echo Mage::helper('sales')->__('Order Date (%s)', $_order->getCreatedAtDate()->getTimezone()) ?></label></td>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('Order Date (%s)', $_order->getCreatedAtStoreDate()->getTimezone()) ?></label></td>
                 <td><strong><?php echo $orderStoreDate ?></strong></td>
             </tr>
             <?php endif;?>

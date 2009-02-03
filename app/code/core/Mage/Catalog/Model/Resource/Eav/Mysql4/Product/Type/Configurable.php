@@ -33,22 +33,76 @@
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable extends Mage_Core_Model_Mysql4_Abstract
 {
+    /**
+     * Init resource
+     *
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_super_link', 'link_id');
     }
 
+    /**
+     * Save product
+     *
+     * @param int $mainProductId the parent id
+     * @param array $productIds the children id array
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable
+     */
     public function saveProducts($mainProductId, $productIds)
     {
         $this->_getWriteAdapter()->delete($this->getMainTable(),
             $this->_getWriteAdapter()->quoteInto('parent_id=?', $mainProductId)
         );
         foreach ($productIds as $productId) {
-        	$this->_getWriteAdapter()->insert($this->getMainTable(), array(
-        	   'product_id'    => $productId,
-        	   'parent_id'     => $mainProductId
-        	));
+            $this->_getWriteAdapter()->insert($this->getMainTable(), array(
+               'product_id'    => $productId,
+               'parent_id'     => $mainProductId
+            ));
         }
         return $this;
+    }
+
+    /**
+     * Retrieve Required children ids
+     * Return grouped array, ex array(
+     *   group => array(ids)
+     * )
+     *
+     * @param int $parentId
+     * @param bool $required
+     * @return array
+     */
+    public function getChildrenIds($parentId, $required = true)
+    {
+        $childrenIds = array();
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getMainTable(), array('product_id', 'parent_id'))
+            ->where('parent_id=?', $parentId);
+        foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
+            $childrenIds[0][$row['product_id']] = $row['product_id'];
+        }
+
+        return $childrenIds;
+    }
+
+    /**
+     * Retrieve parent ids array by requered child
+     *
+     * @param int $childId
+     * @return array
+     */
+    public function getParentIdsByChild($childId)
+    {
+        $parentIds = array();
+
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getMainTable(), array('product_id', 'parent_id'))
+            ->where('product_id=?', $childId);
+        foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
+            $parentIds[] = $row['parent_id'];
+        }
+
+        return $parentIds;
     }
 }

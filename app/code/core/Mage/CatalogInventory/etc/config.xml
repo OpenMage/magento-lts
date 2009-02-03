@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_CatalogInventory>
-            <version>0.7.4</version>
+            <version>0.7.5</version>
         </Mage_CatalogInventory>
     </modules>
     <global>
@@ -46,6 +46,9 @@
                     <stock_item>
                         <table>cataloginventory_stock_item</table>
                     </stock_item>
+                    <stock_status>
+                        <table>cataloginventory_stock_status</table>
+                    </stock_status>
                 </entities>
             </cataloginventory_mysql4>
         </models>
@@ -95,6 +98,15 @@
                     </inventory>
                 </observers>
             </catalog_product_collection_load_after>
+            <catalog_product_status_update>
+                <observers>
+                    <inventory>
+                        <type>singleton</type>
+                        <class>cataloginventory/observer</class>
+                        <method>productStatusUpdate</method>
+                    </inventory>
+                </observers>
+            </catalog_product_status_update>
             <sales_quote_item_qty_set_after>
                 <observers>
                     <inventory>

@@ -486,4 +486,27 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         }
         return $currency;
     }
+
+    /**
+     * Retrieve Default Website Store or null
+     *
+     * @return Mage_Core_Model_Store
+     */
+    public function getDefaultStore()
+    {
+        // init stores if not loaded
+        $this->getStores();
+        return $this->_defaultStore;
+    }
+
+    /**
+     * Retrieve default stores select object
+     * Select fields website_id, store_id
+     *
+     * @param $withDefault include/exclude default admin website
+     * @return Varien_Db_Select
+     */
+    public function getDefaultStoresSelect($withDefault = false) {
+        return $this->getResource()->getDefaultStoresSelect($withDefault);
+    }
 }

@@ -294,7 +294,12 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
 
         $order = $convertQuote->toOrder($quote);
 
-        $convertQuote->addressToOrder($quote->getShippingAddress(), $order);
+        if ($quote->isVirtual()) {
+            $convertQuote->addressToOrder($quote->getBillingAddress(), $order);
+        } else {
+            $convertQuote->addressToOrder($quote->getShippingAddress(), $order);
+        }
+
 
         $order->setExtOrderId($this->getGoogleOrderNumber());
         $order->setExtCustomerId($this->getData('root/buyer-id/VALUE'));
@@ -310,7 +315,9 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         }
 
         $order->setBillingAddress($convertQuote->addressToOrderAddress($quote->getBillingAddress()));
-        $order->setShippingAddress($convertQuote->addressToOrderAddress($quote->getShippingAddress()));
+        if (!$quote->isVirtual()) {
+            $order->setShippingAddress($convertQuote->addressToOrderAddress($quote->getShippingAddress()));
+        }
         #$order->setPayment($convertQuote->paymentToOrderPayment($quote->getPayment()));
 
         foreach ($quote->getAllItems() as $item) {
@@ -323,13 +330,22 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
 
         $emailAllowed = ($this->getData('root/buyer-marketing-preferences/email-allowed/VALUE')==='true');
 
-        $order->setCustomerNote(
+        $order->addStatusToHistory(
+            $order->getStatus(),
             $this->__('Google Order Number: %s', '<strong>'.$this->getGoogleOrderNumber()).'</strong>'.
             '<br />'.
             $this->__('Google Buyer Id: %s', '<strong>'.$this->getData('root/buyer-id/VALUE').'</strong>').
             '<br />'.
             $this->__('Is Buyer Willing To Receive Marketing E-Mails: %s', '<strong>' . ($emailAllowed ? $this->__('Yes') : $this->__('No')) . '</strong>')
         );
+
+//        $order->setCustomerNote(
+//            $this->__('Google Order Number: %s', '<strong>'.$this->getGoogleOrderNumber()).'</strong>'.
+//            '<br />'.
+//            $this->__('Google Buyer Id: %s', '<strong>'.$this->getData('root/buyer-id/VALUE').'</strong>').
+//            '<br />'.
+//            $this->__('Is Buyer Willing To Receive Marketing E-Mails: %s', '<strong>' . ($emailAllowed ? $this->__('Yes') : $this->__('No')) . '</strong>')
+//        );
 
 #ob_start(array($this, 'log'));
 

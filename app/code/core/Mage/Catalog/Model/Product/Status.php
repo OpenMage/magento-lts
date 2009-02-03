@@ -83,10 +83,10 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
         $res = array();
         $res[] = array('value'=>'', 'label'=> Mage::helper('catalog')->__('-- Please Select --'));
         foreach (self::getOptionArray() as $index => $value) {
-        	$res[] = array(
-        	   'value' => $index,
-        	   'label' => $value
-        	);
+            $res[] = array(
+               'value' => $index,
+               'label' => $value
+            );
         }
         return $res;
     }
@@ -113,6 +113,24 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
             array($productId),
             $storeId ? array($storeId) : array()
         );
+        Mage::dispatchEvent('catalog_product_status_update', array(
+            'product_id'    => $productId,
+            'store_id'      => $storeId,
+            'status'        => $value
+        ));
         return $this;
+    }
+
+    /**
+     * Retrieve Product(s) status for store
+     * Return array where key is product, value - status
+     *
+     * @param int|array $productIds
+     * @param int $storeId
+     * @return array
+     */
+    public function getProductStatus($productIds, $storeId = null)
+    {
+        return $this->getResource()->getProductStatus($productIds, $storeId);
     }
 }

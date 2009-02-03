@@ -76,7 +76,7 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit_Attributes extends Mage_Adminht
         $options = array('' => $this->__('Custom attribute, no mapping'));
 
         $attributes = Mage::getModel('googlebase/service_feed')
-            ->getAttributes($this->getGbaseItemtype());
+            ->getAttributes($this->getGbaseItemtype(), $this->getTargetCountry());
         foreach ($attributes as $attr) {
             $options[$attr->getId()] = $attr->getName();
         }

@@ -34,16 +34,22 @@
  */
 class Mage_Directory_Model_Mysql4_Country_Format extends Mage_Core_Model_Mysql4_Abstract
 {
-
     protected function _construct()
     {
         $this->_init('directory/country_format', 'country_format_id');
-        $this->_uniqueFields = array(
-            array(
-                'field' => array('country_id', 'type'),
-                'title' => Mage::helper('directory')->__('Country and Format Type combination should be unique')
-            )
-        );
     }
 
+    /**
+     * Initialize unique fields
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = array(array(
+            'field' => array('country_id', 'type'),
+            'title' => Mage::helper('directory')->__('Country and Format Type combination should be unique')
+        ));
+        return $this;
+    }
 }

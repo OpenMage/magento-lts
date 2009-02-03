@@ -45,15 +45,7 @@ class Mage_GoogleBase_Block_Adminhtml_Items extends Mage_Adminhtml_Block_Widget_
     {
         $this->setChild('item', $this->getLayout()->createBlock('googlebase/adminhtml_items_item'));
         $this->setChild('product', $this->getLayout()->createBlock('googlebase/adminhtml_items_product'));
-        if (!Mage::app()->isSingleStoreMode()) {
-            $_defaultStoreName = Mage::app()->getDefaultStoreView()->getName();
-            $this->setChild('store_switcher',
-                $this->getLayout()->createBlock('adminhtml/store_switcher')
-                    ->setDefaultStoreName($this->__('Default Store (%s)', $_defaultStoreName))
-                    ->setUseConfirm(false)
-                    ->setSwitchUrl($this->getUrl('*/*/*', array('store'=>null)))
-            );
-        }
+        $this->setChild('store_switcher', $this->getLayout()->createBlock('googlebase/adminhtml_store_switcher'));
     }
 
     public function getAddButtonHtml()

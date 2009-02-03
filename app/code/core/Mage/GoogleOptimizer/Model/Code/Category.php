@@ -34,4 +34,28 @@
 class Mage_GoogleOptimizer_Model_Code_Category extends Mage_GoogleOptimizer_Model_Code
 {
     protected $_entityType = 'category';
+
+    /**
+     * Removing scripts assigned to entity
+     *
+     * @param Varien_Object $entity
+     * @return Mage_Googleoptimizer_Model_Code
+     */
+    public function deleteScripts($storeId)
+    {
+        $category = $this->getEntity();
+        if ($category) {
+            /**
+             * We need check category children ids
+             */
+            $ids = $category->getDeletedChildrenIds();
+            if (is_array($ids)) {
+                $ids[] = $category->getId();
+            } else {
+                $ids = array($category->getId());
+            }
+            $this->setEntityIds($ids);
+        }
+        return parent::deleteScripts($storeId);
+    }
 }

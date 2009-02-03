@@ -31,14 +31,22 @@
  * @package    Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_Model_Mysql4_Order_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
+    /**
+     * Initialize orders collection
+     *
+     */
     protected function _construct()
     {
         $this->_init('sales/order');
     }
 
+    /**
+     * Add order items count expression
+     *
+     * @return Mage_Sales_Model_Mysql4_Order_Collection
+     */
     public function addItemCountExpr()
     {
         $orderTable = $this->getEntity()->getEntityTable();
@@ -50,5 +58,35 @@ class Mage_Sales_Model_Mysql4_Order_Collection extends Mage_Eav_Model_Entity_Col
             )
             ->group('e.entity_id');
         return $this;
+    }
+
+    /**
+     * Minimize usual count select
+     *
+     * @return Varien_Db_Select
+     */
+    public function getSelectCountSql()
+    {
+        $countSelect = parent::getSelectCountSql();
+        $countSelect->resetJoinLeft();
+        return $countSelect;
+    }
+
+    /**
+     * Retrive all ids for collection
+     *
+     * @return array
+     */
+    public function getAllIds($limit=null, $offset=null)
+    {
+        $idsSelect = clone $this->getSelect();
+        $idsSelect->reset(Zend_Db_Select::ORDER);
+        $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
+        $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
+        $idsSelect->reset(Zend_Db_Select::COLUMNS);
+        $idsSelect->from(null, 'e.'.$this->getEntity()->getIdFieldName());
+        $idsSelect->limit($limit, $offset);
+        $idsSelect->resetJoinLeft();
+        return $this->getConnection()->fetchCol($idsSelect, $this->_bindParams);
     }
 }

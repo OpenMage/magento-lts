@@ -199,7 +199,7 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Varien_Data_Col
     public function addFieldToFilter($field, $condition=null)
     {
         if(!is_null($condition)) {
-            $this->_select->having($this->_getConditionSql($field, $condition));
+            $this->_select->where($this->_getConditionSql($this->_getFieldTableAlias($field), $condition));
             $this->_countFilterPart[] = $this->_getConditionSql($this->_getFieldTableAlias($field), $condition);
         }
         return $this;

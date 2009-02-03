@@ -76,7 +76,9 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
     {
         $filter = (int) $request->getParam($this->getRequestVar());
         $this->_categoryId = $filter;
-        $this->_appliedCategory = Mage::getModel('catalog/category')->load($filter);
+        $this->_appliedCategory = Mage::getModel('catalog/category')
+            ->setStoreId(Mage::app()->getStore()->getId())
+            ->load($filter);
 
         if ($this->_isValidCategory($this->_appliedCategory)) {
             $this->getLayer()->getProductCollection()

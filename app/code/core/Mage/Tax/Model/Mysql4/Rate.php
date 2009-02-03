@@ -34,16 +34,23 @@
 
 class Mage_Tax_Model_Mysql4_Rate extends Mage_Core_Model_Mysql4_Abstract
 {
-    protected $_uniqueFields = array(
-        array(
-            'field' => array('tax_country_id', 'tax_region_id', 'tax_postcode'),
-            'title' => 'Country/Region/Postal code combination',
-        ),
-    );
-
     protected function _construct()
     {
         $this->_init('tax/tax_rate', 'tax_rate_id');
+    }
+
+    /**
+     * Initialize unique fields
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    protected function _initUniqueFields()
+    {
+        $this->_uniqueFields = array(array(
+            'field' => array('tax_country_id', 'tax_region_id', 'tax_postcode'),
+            'title' => Mage::helper('tax')->__('Country/Region/Postal code combination'),
+        ));
+        return $this;
     }
 
 //    public function loadWithAttributes($rateId = 0)

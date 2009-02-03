@@ -89,8 +89,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
                 if ($inputType = $attribute->getFrontend()->getInputType()) {
                     $element = $fieldset->addField($attribute->getAttributeCode(), $inputType,
                         array(
-                            'name'  => $attribute->getAttributeCode(),
-                            'label' => $attribute->getFrontend()->getLabel(),
+                            'name'      => $attribute->getAttributeCode(),
+                            'label'     => $attribute->getFrontend()->getLabel(),
+                            'class'     => $attribute->getFrontend()->getClass(),
+                            'required'  => $attribute->getIsRequired(),
                         )
                     )
                     ->setEntityAttribute($attribute)

@@ -348,6 +348,13 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 }
 
                 $store = $group->getDefaultStore();
+                /**
+                 * It can happens when website with store was created but store view not yet
+                 */
+                if (!$store) {
+                    continue;
+                }
+
                 foreach ($this->_getPriorifiedProductTypes() as $type) {
                     $collection = $this->_getProductCollection($store, $products);
                     $collection->addAttributeToFilter('status', array('in'=>Mage::getModel('catalog/product_status')->getSaleableStatusIds()));

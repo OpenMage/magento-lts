@@ -65,9 +65,9 @@
 
             <?php echo $this->getChildHtml('alert_urls') ?>
             <?php echo $this->getChildHtml('product_type_data') ?>
+            <?php echo $this->getTierPriceHtml() ?>
 
             <?php if (!$this->hasOptions()):?>
-                <?php echo $this->getTierPriceHtml() ?>
                 <div class="add-to-holder">
                     <?php if($_product->isSaleable()): ?>
                         <?php echo $this->getChildHtml('addtocart') ?>

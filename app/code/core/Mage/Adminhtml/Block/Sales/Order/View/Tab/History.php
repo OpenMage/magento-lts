@@ -64,49 +64,49 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
                 $this->_prepareHistoryItem(
                     $_history->getStatusLabel(),
                     $_history->getIsCustomerNotified(),
-                    $_history->getCreatedAt());
+                    $_history->getCreatedAtDate());
         }
 
         foreach ($order->getCreditmemosCollection() as $_memo){
             $_fullHistory[$_memo->getEntityId()] =
                 $this->_prepareHistoryItem($this->__('Credit Memo #%s created', $_memo->getIncrementId()),
-                    $_memo->getEmailSent(), $_memo->getCreatedAt());
+                    $_memo->getEmailSent(), $_memo->getCreatedAtDate());
 
             foreach ($_memo->getCommentsCollection() as $_comment){
                 $_fullHistory[$_comment->getEntityId()] =
                     $this->_prepareHistoryItem($this->__('Credit Memo #%s comment added', $_memo->getIncrementId()),
-                        $_comment->getIsCustomerNotified(), $_comment->getCreatedAt(), $_comment->getComment());
+                        $_comment->getIsCustomerNotified(), $_comment->getCreatedAtDate(), $_comment->getComment());
             }
         }
 
         foreach ($order->getShipmentsCollection() as $_shipment){
             $_fullHistory[$_shipment->getEntityId()] =
                 $this->_prepareHistoryItem($this->__('Shipment #%s created', $_shipment->getIncrementId()),
-                    $_shipment->getEmailSent(), $_shipment->getCreatedAt());
+                    $_shipment->getEmailSent(), $_shipment->getCreatedAtDate());
 
             foreach ($_shipment->getCommentsCollection() as $_comment){
                 $_fullHistory[$_comment->getEntityId()] =
                     $this->_prepareHistoryItem($this->__('Shipment #%s comment added', $_shipment->getIncrementId()),
-                        $_comment->getIsCustomerNotified(), $_comment->getCreatedAt(), $_comment->getComment());
+                        $_comment->getIsCustomerNotified(), $_comment->getCreatedAtDate(), $_comment->getComment());
             }
         }
 
         foreach ($order->getInvoiceCollection() as $_invoice){
             $_fullHistory[$_invoice->getEntityId()] =
                 $this->_prepareHistoryItem($this->__('Invoice #%s created', $_invoice->getIncrementId()),
-                    $_invoice->getEmailSent(), $_invoice->getCreatedAt());
+                    $_invoice->getEmailSent(), $_invoice->getCreatedAtDate());
 
             foreach ($_invoice->getCommentsCollection() as $_comment){
                 $_fullHistory[$_comment->getEntityId()] =
                     $this->_prepareHistoryItem($this->__('Invoice #%s comment added', $_invoice->getIncrementId()),
-                        $_comment->getIsCustomerNotified(), $_comment->getCreatedAt(), $_comment->getComment());
+                        $_comment->getIsCustomerNotified(), $_comment->getCreatedAtDate(), $_comment->getComment());
             }
         }
 
         foreach ($order->getTracksCollection() as $_track){
             $_fullHistory[$_track->getEntityId()] =
                 $this->_prepareHistoryItem($this->__('Tracking number %s for %s assigned', $_track->getNumber(), $_track->getTitle()),
-                    false, $_track->getCreatedAt());
+                    false, $_track->getCreatedAtDate());
         }
 
         krsort($_fullHistory);

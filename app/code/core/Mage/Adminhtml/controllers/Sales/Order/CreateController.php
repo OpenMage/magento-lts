@@ -279,6 +279,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 
         if ($order->getId()) {
             $order->setReordered(true);
+            $this->_getSession()->setUseOldShippingMethod(true);
             $this->_getOrderCreateModel()->initFromOrder($order);
 
             $this->_redirect('*/*');
