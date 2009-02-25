@@ -31,6 +31,7 @@
     <adminhtml_catalog_product_downloadable>
         <reference name="product_tabs">
             <action method="addTab"><name>downloadable_items</name><block>downloadable/adminhtml_catalog_product_edit_tab_downloadable</block></action>
+            <action method="bindShadowTabs"><first>downloadable_items</first><second>customer_options</second></action>
         </reference>
     </adminhtml_catalog_product_downloadable>
 

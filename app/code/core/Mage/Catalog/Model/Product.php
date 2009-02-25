@@ -305,7 +305,11 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $hasOptions         = false;
         $hasRequiredOptions = false;
 
-        $this->canAffectOptions($this->_canAffectOptions || $this->getCanSaveCustomOptions());
+        /**
+         * $this->_canAffectOptions - set by type instance only
+         * $this->getCanSaveCustomOptions() - set either in controller when "Custom Options" ajax tab is loaded, or in type instance as well
+         */
+        $this->canAffectOptions($this->_canAffectOptions && $this->getCanSaveCustomOptions());
         if ($this->getCanSaveCustomOptions()) {
             $options = $this->getProductOptions();
             if (is_array($options)) {

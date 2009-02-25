@@ -452,6 +452,20 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
+     * Setting specified product type variables
+     *
+     * @param array $config
+     * @return Mage_Catalog_Model_Product_Type_Abstract
+     */
+    public function setConfig($config)
+    {
+        if (isset($config['composite'])) {
+            $this->_isComposite = (bool) $config['composite'];
+        }
+        return $this;
+    }
+
+    /**
      * Default action to get sku of product
      *
      * @return string

@@ -253,7 +253,10 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     {
         $invoice = $this->getOrder()->prepareInvoice();
 
-        $invoice->register()->capture();
+        $invoice->register();
+        if ($this->getMethodInstance()->canCapture()) {
+            $invoice->capture();
+        }
 
         $this->getOrder()->addRelatedObject($invoice);
         return $invoice;

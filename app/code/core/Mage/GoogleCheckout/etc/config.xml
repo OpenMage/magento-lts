@@ -28,16 +28,16 @@
 <config>
     <modules>
         <Mage_GoogleCheckout>
-            <version>0.7.1</version>
+            <version>0.7.3</version>
         </Mage_GoogleCheckout>
     </modules>
     <global>
         <sales>
 	        <quote>
 		        <item>
-			        <product_attributes>
-                        <disable_googlecheckout/>
-			        </product_attributes>
+                    <product_attributes>
+                        <enable_googlecheckout/>
+                    </product_attributes>
 		        </item>
 	        </quote>
         </sales>

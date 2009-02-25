@@ -72,6 +72,17 @@ class Mage_GoogleBase_Model_Config extends Varien_Object
     }
 
     /**
+     * Google Account target country info
+     *
+     * @param int $storeId
+     * @return array
+     */
+    public function getTargetCountryInfo($storeId = null)
+    {
+        return $this->getCountryInfo($this->getTargetCountry($storeId), null, $storeId);
+    }
+
+    /**
      * Google Account target country
      *
      * @param int $storeId
@@ -80,6 +91,29 @@ class Mage_GoogleBase_Model_Config extends Varien_Object
     public function getTargetCountry($storeId = null)
     {
         return $this->getConfigData('target_country', $storeId);
+    }
+
+    /**
+     * Google Account target currency (for target country)
+     *
+     * @param int $storeId
+     * @return string Three-letters currency ISO code
+     */
+    public function getTargetCurrency($storeId = null)
+    {
+        $country = $this->getTargetCountry($storeId);
+        return $this->getCountryInfo($country, 'currency');
+    }
+
+    /**
+     * Check whether System Base currency equals Google Base target currency or not
+     *
+     * @param int $storeId
+     * @return boolean
+     */
+    public function isValidBaseCurrencyCode($storeId = null)
+    {
+        return Mage::app()->getBaseCurrencyCode() == $this->getTargetCurrency($storeId);
     }
 
     /**

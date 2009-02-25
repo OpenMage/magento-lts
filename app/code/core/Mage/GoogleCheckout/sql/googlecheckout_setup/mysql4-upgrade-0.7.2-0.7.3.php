@@ -29,18 +29,8 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->run("
-
--- drop table if exists {$this->getTable('googlecheckout_api_debug')};
-CREATE TABLE {$this->getTable('googlecheckout_api_debug')} (
-  `debug_id` int(10) unsigned NOT NULL auto_increment,
-  `dir` enum('in', 'out'),
-  `url` varchar(255),
-  `request_body` text,
-  `response_body` text,
-  PRIMARY KEY  (`debug_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-    ");
+$installer->updateAttribute('catalog_product', 'enable_googlecheckout', array(
+    'default_value' => '1',
+));
 
 $installer->endSetup();

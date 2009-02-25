@@ -451,6 +451,19 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                         return Mage::helper('checkout')->__('Can not add item to shopping cart');
                     }
 
+                    /**
+                     * Adding parent product custom options to child product
+                     * to be sure that it will be unique as its parent
+                     */
+                    if ($optionIds = $product->getCustomOption('option_ids')) {
+                        $optionIds = explode(',', $optionIds->getValue());
+                        foreach ($optionIds as $optionId) {
+                            if ($option = $product->getCustomOption('option_' . $optionId)) {
+                                $_result[0]->addCustomOption('option_' . $optionId, $option->getValue());
+                            }
+                        }
+                    }
+
                     $_result[0]->setParentProductId($product->getId())
                         ->setCartQty(1);
 

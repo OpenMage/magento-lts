@@ -82,6 +82,7 @@
                     <bundle translate="label" module="bundle">
                         <label>Bundle Product</label>
                         <model>bundle/product_type</model>
+                        <composite>1</composite>
                         <allowed_selection_types>
                             <simple />
                             <virtual />

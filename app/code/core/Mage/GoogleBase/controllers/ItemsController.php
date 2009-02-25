@@ -56,6 +56,17 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
             );
         }
 
+        if (!$this->_getConfig()->isValidBaseCurrencyCode($this->_getStore()->getId())) {
+            $_countryInfo = $this->_getConfig()->getTargetCountryInfo($this->_getStore()->getId());
+            $this->_getSession()->addNotice(
+                $this->__(
+                    "Base Currency should be set to %s for %s in system configuration. Otherwise item prices won't be correct in Google Base.",
+                    $_countryInfo['currency_name'],
+                    $_countryInfo['name']
+                )
+            );
+        }
+
         $this->_initAction()
             ->_addBreadcrumb(Mage::helper('googlebase')->__('Items'), Mage::helper('googlebase')->__('Items'))
             ->_addContent($contentBlock)
@@ -316,6 +327,11 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
             return Mage::app()->getDefaultStoreView();
         }
         return Mage::app()->getStore($storeId);
+    }
+
+    protected function _getConfig()
+    {
+        return Mage::getSingleton('googlebase/config');
     }
 
     protected function _isAllowed()
