@@ -224,6 +224,9 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                             ->setProductId($product->getId())
                             ->setStoreId($product->getStoreId())
                             ->setWebsiteId($product->getStore()->getWebsiteId());
+                        if (null === $linkModel->getPrice()) {
+                            $linkModel->setPrice(0);
+                        }
                         if ($linkModel->getIsUnlimited()) {
                             $linkModel->setNumberOfDownloads(0);
                         }
@@ -296,6 +299,10 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
         if (is_string($result)) {
             return $result;
         }
+        // if adding product from admin area we add all links to product
+        if ($this->getProduct()->getSkipCheckRequiredOption()) {
+            $this->getProduct()->setLinksPurchasedSeparately(false);
+        }
         $preparedLinks = array();
         if ($this->getProduct()->getLinksPurchasedSeparately()) {
             if ($links = $buyRequest->getLinks()) {
@@ -351,7 +358,6 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     {
         parent::beforeSave();
 
-        $this->getProduct()->canAffectOptions(true);
 
         if ($this->getLinkSelectionRequired()) {
             $this->getProduct()->setTypeHasOptions(true);

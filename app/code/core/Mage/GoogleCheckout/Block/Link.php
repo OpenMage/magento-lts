@@ -93,7 +93,7 @@ class Mage_GoogleCheckout_Block_Link extends Mage_Core_Block_Template
         /* @var $quote Mage_Sales_Model_Quote */
         foreach ($quote->getAllVisibleItems() as $item) {
             /* @var $item Mage_Sales_Model_Quote_Item */
-            if ($item->getProduct()->getDisableGooglecheckout()) {
+            if (!$item->getProduct()->getEnableGooglecheckout()) {
                 return true;
             }
         }

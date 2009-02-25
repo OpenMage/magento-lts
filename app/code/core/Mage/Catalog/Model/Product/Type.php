@@ -47,6 +47,7 @@ class Mage_Catalog_Model_Product_Type
     const DEFAULT_PRICE_MODEL   = 'catalog/product_type_price';
 
     static protected $_types;
+    static protected $_compositeTypes;
     static protected $_priceModels;
 
     /**
@@ -67,6 +68,7 @@ class Mage_Catalog_Model_Product_Type
 
         $typeModel = Mage::getModel($typeModelName);
         $typeModel->setProduct($product);
+        $typeModel->setConfig($types[$product->getTypeId()]);
         return $typeModel;
     }
 
@@ -149,5 +151,24 @@ class Mage_Catalog_Model_Product_Type
         }
 
         return self::$_types;
+    }
+
+    /**
+     * Return composite product type Ids
+     *
+     * @return array
+     */
+    static public function getCompositeTypes()
+    {
+        if (is_null(self::$_compositeTypes)) {
+            self::$_compositeTypes = array();
+            $types = self::getTypes();
+            foreach ($types as $typeId=>$typeInfo) {
+                if (array_key_exists('composite', $typeInfo) && $typeInfo['composite']) {
+                    self::$_compositeTypes[] = $typeId;
+                }
+            }
+        }
+        return self::$_compositeTypes;
     }
 }

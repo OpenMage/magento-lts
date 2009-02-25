@@ -19,28 +19,29 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Mage
- * @package    Mage_GoogleCheckout
+ * @package    Mage_Payment
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-$installer = $this;
-/* @var $installer Mage_GoogleCheckout_Model_Mysql4_Setup */
-
-$installer->startSetup();
-
-$installer->run("
-
--- drop table if exists {$this->getTable('googlecheckout_api_debug')};
-CREATE TABLE {$this->getTable('googlecheckout_api_debug')} (
-  `debug_id` int(10) unsigned NOT NULL auto_increment,
-  `dir` enum('in', 'out'),
-  `url` varchar(255),
-  `request_body` text,
-  `response_body` text,
-  PRIMARY KEY  (`debug_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-    ");
-
-$installer->endSetup();
+/**
+ * Automatic invoice create source model
+ *
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Mage_Payment_Model_Source_Invoice
+{
+    public function toOptionArray()
+    {
+        return array(
+            array(
+                'value' => Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE_CAPTURE,
+                'label' => Mage::helper('core')->__('Yes')
+            ),
+            array(
+                'value' => '',
+                'label' => Mage::helper('core')->__('No')
+            ),
+        );
+    }
+}

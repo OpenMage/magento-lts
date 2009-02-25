@@ -187,9 +187,8 @@ class Mage_Reports_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Re
         $productIdTableName = $this->getTable('sales/order_item');
         $productIdFieldName = 'product_id';
 
-        $productTypes = " AND (e.type_id = '" .
-            Mage_Catalog_Model_Product_Type::TYPE_SIMPLE .
-            "' OR e.type_id = '" . Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL  . "')";
+        $compositeTypeIds = Mage::getSingleton('catalog/product_type')->getCompositeTypes();
+        $productTypes = $this->getConnection()->quoteInto(' AND (e.type_id NOT IN (?))', $compositeTypeIds);
 
         if ($from != '' && $to != '') {
             $dateFilter = " AND `order`.created_at BETWEEN '{$from}' AND '{$to}'";

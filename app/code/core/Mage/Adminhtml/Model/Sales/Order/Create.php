@@ -573,6 +573,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
             $product->setSkipCheckRequiredOption(true);
             $item = $this->getQuote()->addProduct($product, $qty);
             $product->unsSkipCheckRequiredOption();
+            if (is_string($item)) {
+                Mage::throwException($item);
+            }
             $item->checkData();
         }
 

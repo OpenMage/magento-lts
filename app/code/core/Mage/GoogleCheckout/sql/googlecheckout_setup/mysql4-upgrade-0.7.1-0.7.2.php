@@ -29,18 +29,18 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->run("
+$installer->updateAttribute('catalog_product', 'disable_googlecheckout', array(
+    'attribute_code'    => 'enable_googlecheckout',
+    'frontend_label'    => 'Is product available for purchase with Google Checkout',
+));
 
--- drop table if exists {$this->getTable('googlecheckout_api_debug')};
-CREATE TABLE {$this->getTable('googlecheckout_api_debug')} (
-  `debug_id` int(10) unsigned NOT NULL auto_increment,
-  `dir` enum('in', 'out'),
-  `url` varchar(255),
-  `request_body` text,
-  `response_body` text,
-  PRIMARY KEY  (`debug_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+$attribute = $installer->getAttribute('catalog_product', 'enable_googlecheckout');
+if (!empty($attribute['attribute_id'])) {
+    $installer->run("
+        UPDATE `{$installer->getAttributeTable('catalog_product', 'enable_googlecheckout')}`
+        SET `value` = ! `value`
+        WHERE `attribute_id` = {$attribute['attribute_id']}
     ");
+}
 
 $installer->endSetup();

@@ -271,16 +271,23 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
             $entry->setContent($content);
         }
 
-        if ($this->_getItemType() == 'products') {
-        	$quantity = $object->getQuantity() ? max(1, (int)$object->getQuantity()) : 1;
-        	$this->_setAttribute('quantity', $quantity, 'int');
+        $targetCountry = $this->getConfig()->getTargetCountry($this->getStoreId());
+
+        if ($this->_getItemType() == $this->getConfig()->getDefaultItemType($this->getStoreId())) {
+            $this->_setAttribute(
+                $this->getConfig()->getCountryInfo($targetCountry, 'price_attribute_name', $this->getStoreId()),
+                sprintf('%.2f', $object->getPrice()),
+                'floatUnit'
+            );
+
+            $quantity = $object->getQuantity() ? max(1, (int)$object->getQuantity()) : 1;
+            $this->_setAttribute('quantity', $quantity, 'int');
         }
 
         if ($object->getImageUrl()) {
             $this->_setAttribute('image_link', $object->getImageUrl(), 'url');
         }
 
-        $targetCountry = $this->getConfig()->getTargetCountry($this->getStoreId());
         $this->_setAttribute('target_country', $targetCountry, 'text');
         $this->_setAttribute('item_language', $this->getConfig()->getCountryInfo($targetCountry, 'language'), 'text');
 

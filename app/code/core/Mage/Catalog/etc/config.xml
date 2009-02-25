@@ -218,10 +218,12 @@
                         <label>Simple Product</label>
                         <model>catalog/product_type_simple</model>
                         <index_priority>10</index_priority>
+                        <composite>0</composite>
                     </simple>
                     <grouped translate="label" module="catalog">
                         <label>Grouped Product</label>
                         <model>catalog/product_type_grouped</model>
+                        <composite>1</composite>
                         <allow_product_types>
                             <simple/>
                             <virtual/>
@@ -232,6 +234,7 @@
                         <label>Configurable Product</label>
                         <model>catalog/product_type_configurable</model>
                         <price_model>catalog/product_type_configurable_price</price_model>
+                        <composite>1</composite>
                         <allow_product_types>
                             <simple/>
                             <virtual/>
@@ -242,12 +245,8 @@
                         <label>Virtual Product</label>
                         <model>catalog/product_type_virtual</model>
                         <index_priority>20</index_priority>
+                        <composite>0</composite>
                     </virtual>
-                    <downloadable translate="label" module="catalog">
-                        <label>Downloadable Product</label>
-                        <model>downloadable/catalog_product_type</model>
-                        <price_model>downloadable/catalog_product_price</price_model>
-                    </downloadable>
                 </type>
                 <design>
                     <options_container>

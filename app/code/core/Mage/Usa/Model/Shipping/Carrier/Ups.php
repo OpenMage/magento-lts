@@ -625,12 +625,26 @@ XMLRequest;
             if($success===1){
                 $arr = $xml->getXpath("//RatingServiceSelectionResponse/RatedShipment");
                 $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));
+
+                // Negotiated rates
+                $negotiatedArr = $xml->getXpath("//RatingServiceSelectionResponse/RatedShipment/NegotiatedRates");
+                $negotiatedActive = $this->getConfigFlag('negotiated_active')
+                    && $this->getConfigData('shipper_number')
+                    && !empty($negotiatedArr);
+
                 foreach ($arr as $shipElement){
                     $code = (string)$shipElement->Service->Code;
                     #$shipment = $this->getShipmentByCode($code);
                     if (in_array($code, $allowedMethods)) {
-                        $costArr[$code] = $shipElement->TotalCharges->MonetaryValue;
-                        $priceArr[$code] = $this->getMethodPrice(floatval($shipElement->TotalCharges->MonetaryValue),$code);
+
+                        if ($negotiatedActive) {
+                            $cost = $shipElement->NegotiatedRates->NetSummaryCharges->GrandTotal->MonetaryValue;
+                        } else {
+                            $cost = $shipElement->TotalCharges->MonetaryValue;
+                        }
+
+                        $costArr[$code] = $cost;
+                        $priceArr[$code] = $this->getMethodPrice(floatval($cost),$code);
                     }
                 }
             } else {
