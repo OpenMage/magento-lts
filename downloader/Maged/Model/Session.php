@@ -128,6 +128,9 @@ class Maged_Model_Session extends Maged_Model
 
     public function getReturnUrl()
     {
-        return $this->get('return_url');
+        if (!$this->_session) {
+            return '';
+        }
+        return Mage::getSingleton('adminhtml/url')->getUrl('adminhtml');
     }
 }
