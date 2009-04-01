@@ -48,18 +48,13 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
     {
         $this->_initAction();
 
-        $this->_addContent($this->getLayout()->createBlock('adminhtml/permissions_roles'));
-
         $this->renderLayout();
     }
 
     public function roleGridAction()
     {
-        $this->getResponse()
-            ->setBody($this->getLayout()
-            ->createBlock('adminhtml/permissions_grid_role')
-            ->toHtml()
-        );
+        $this->loadLayout();
+        $this->getResponse()->setBody($this->getLayout()->getBlock('adminhtml.permission.role.grid')->toHtml());
     }
 
     public function editRoleAction()
@@ -77,10 +72,6 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         $this->_addBreadcrumb($breadCrumb, $breadCrumbTitle);
 
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
-
-        $this->_addLeft(
-            $this->getLayout()->createBlock('adminhtml/permissions_editroles')
-        );
 
         $this->_addContent(
             $this->getLayout()->createBlock('adminhtml/permissions_buttons')
@@ -129,8 +120,9 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
                     ->setId($rid)
                     ->setName($this->getRequest()->getParam('rolename', false))
                     ->setPid($this->getRequest()->getParam('parent_id', false))
-                    ->setRoleType('G')
-                    ->save();
+                    ->setRoleType('G');
+            Mage::dispatchEvent('admin_permissions_role_prepare_save', array('object' => $role, 'request' => $this->getRequest()));
+            $role->save();
 
             Mage::getModel("admin/rules")
                 ->setRoleId($role->getId())

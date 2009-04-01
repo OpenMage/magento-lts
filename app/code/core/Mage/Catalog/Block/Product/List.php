@@ -34,7 +34,18 @@
  */
 class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstract
 {
+    /**
+     * Default toolbar block name
+     *
+     * @var string
+     */
     protected $_defaultToolbarBlock = 'catalog/product_list_toolbar';
+
+    /**
+     * Product Collection
+     *
+     * @var Mage_Eav_Model_Entity_Collection_Abstract
+     */
     protected $_productCollection;
 
     /**
@@ -74,13 +85,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
             }
             $this->_productCollection = $layer->getProductCollection();
 
-            if ($sortField = $this->getSortBy()) {
-                $sortOrder = 'asc';
-                if (strtolower($this->getSortOrder()) == 'desc') {
-                    $sortOrder = 'desc';
-                }
-                $this->_productCollection->addAttributeToSort($sortField, $sortOrder);
-            }
+            $this->prepareSortableFieldsByCategory($layer->getCurrentCategory());
 
             if ($origCategory) {
                 $layer->setCurrentCategory($origCategory);
@@ -120,13 +125,24 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
             $toolbar->setTemplate($toolbarTemplate);
         }*/
         $toolbar = $this->getToolbarBlock();
+
+        // called prepare sortable parameters
+        $collection = $this->_getProductCollection();
+
+        // use sortable parameters
         if ($orders = $this->getAvailableOrders()) {
             $toolbar->setAvailableOrders($orders);
+        }
+        if ($sort = $this->getSortBy()) {
+            $toolbar->setDefaultOrder($sort);
         }
         if ($modes = $this->getModes()) {
             $toolbar->setModes($modes);
         }
-        $toolbar->setCollection($this->_getProductCollection());
+
+        // set collection to tollbar and apply sort
+        $toolbar->setCollection($collection);
+
         $this->setChild('toolbar', $toolbar);
         Mage::dispatchEvent('catalog_block_product_list_collection', array(
             'collection'=>$this->_getProductCollection(),
@@ -137,6 +153,11 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         return parent::_beforeToHtml();
     }
 
+    /**
+     * Retrieve Toolbar block
+     *
+     * @return Mage_Catalog_Block_Product_List_Toolbar
+     */
     public function getToolbarBlock()
     {
         if ($blockName = $this->getToolbarBlockName()) {
@@ -175,4 +196,56 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         return $this->_getData('price_block_template');
     }
 
+    /**
+     * Retrieve Catalog Config object
+     *
+     * @return Mage_Catalog_Model_Config
+     */
+    protected function _getConfig()
+    {
+        return Mage::getSingleton('catalog/config');
+    }
+
+    /**
+     * Prepare Sort By fields from Category Data
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return Mage_Catalog_Block_Product_List
+     */
+    public function prepareSortableFieldsByCategory($category) {
+        if (!$this->getAvailableOrders()) {
+            $this->setAvailableOrders($category->getAvailableSortByOptions());
+        }
+        $availableOrders = $this->getAvailableOrders();
+        if (!$this->getSortBy()) {
+            if ($categorySortBy = $category->getDefaultSortBy()) {
+                if (!$availableOrders) {
+                    $availableOrders = $this->_getConfig()->getAttributeUsedForSortByArray();
+                }
+                if (isset($availableOrders[$categorySortBy])) {
+                    $this->setSortBy($categorySortBy);
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Retrieve url for add product to cart
+     * Rewrited for Product List and has required options products
+     *
+     * @param  Mage_Catalog_Model_Product $product
+     * @param array $additional
+     * @return string
+     */
+    public function getAddToCartUrl($product, $additional = array())
+    {
+        if ($product->hasRequiredOptions()) {
+            $url = $product->getProductUrl();
+            $link = (strpos($url, '?') !== false) ? '&' : '?';
+            return $url . $link . 'options=cart';
+        }
+        return parent::getAddToCartUrl($product, $additional);
+    }
 }

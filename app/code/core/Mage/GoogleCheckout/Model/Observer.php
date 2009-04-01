@@ -62,6 +62,9 @@ class Mage_GoogleCheckout_Model_Observer
         $items = array();
 
         foreach ($shipment->getAllItems() as $item) {
+            if ($item->getOrderItem()->getParentItemId()) {
+                continue;
+            }
             $items[] = $item->getSku();
         }
 

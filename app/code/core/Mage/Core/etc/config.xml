@@ -40,6 +40,7 @@
                     <store_group><table>core_store_group</table></store_group>
                     <store><table>core_store</table></store>
                     <config_field><table>core_config_field</table></config_field>
+                    <config_data><table>core_config_data</table></config_data>
                     <email_template><table>core_email_template</table></email_template>
                     <translate><table>core_translate</table></translate>
                     <session><table>core_session</table></session>
@@ -60,6 +61,11 @@
                 <class>Mage_Core_Block</class>
             </core>
         </blocks>
+        <helpers>
+            <core>
+                <encryption_model>Mage_Core_Model_Encryption</encryption_model>
+            </core>
+        </helpers>
         <template>
             <email />
         </template>
@@ -224,7 +230,7 @@
                 <cookie_lifetime>3600</cookie_lifetime>
                 <cookie_httponly>1</cookie_httponly>
             </cookie>
-            
+
             <session>
                 <use_remote_addr>1</use_remote_addr>
                 <use_http_via>1</use_http_via>
@@ -241,6 +247,9 @@
                 <use_custom>0</use_custom>
                 <custom></custom>
             </url>
+            <security>
+                <use_form_key>1</use_form_key>
+            </security>
         </admin>
 
         <general>

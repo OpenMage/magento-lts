@@ -312,7 +312,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
     {
         $r = $this->_rawRequest;
 
-        $xml = new SimpleXMLElement('<eCommerce/>');
+        $xml = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><eCommerce/>');
         $xml->addAttribute('action', 'Request');
         $xml->addAttribute('version', '1.1');
 
@@ -921,7 +921,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
     {
         $r = $this->_rawTrackRequest;
 
-        $xml = new SimpleXMLElement('<eCommerce/>');
+        $xml = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><eCommerce/>');
         $xml->addAttribute('action', 'Request');
         $xml->addAttribute('version', '1.1');
 

@@ -26,7 +26,7 @@
 ?>
 <div class="page-head button-level">
     <h3><?php echo $this->__('Change Billing Address') ?></h3>
-    <button class="form-button-alt" onclick="setLocation('<?php echo $this->getAddNewUrl() ?>')"><span><?php echo $this->__('Add New Address') ?></span></button>
+    <button type="button" class="form-button-alt" onclick="setLocation('<?php echo $this->getAddNewUrl() ?>')"><span><?php echo $this->__('Add New Address') ?></span></button>
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <div class="content-box">
@@ -36,7 +36,7 @@
     <div class="col-<?php echo ($_index%3+1) ?>">
         <div class="box">
             <p class="actions">
-                <a href="<?php echo $this->getEditAddressUrl($_address) ?>"><?php echo $this->__('Edit Address') ?></a> <span class="separator">|</span> 
+                <a href="<?php echo $this->getEditAddressUrl($_address) ?>"><?php echo $this->__('Edit Address') ?></a> <span class="separator">|</span>
                 <a href="<?php echo $this->getSetAddressUrl($_address) ?>"><strong><?php echo $this->__('Select Address') ?></strong></a>
             </p>
             <address>
@@ -50,8 +50,8 @@
             </address>
         </div>
     </div>
+    <?php $_index++ ?>
     <?php if($_index && $_index%3==0): ?></div><br/><?php endif; ?>
-<?php $_index++ ?>
 <?php endforeach; ?>
 <?php if(!$_index || $_index%3!=0): ?></div><br/><?php endif; ?>
 </div>

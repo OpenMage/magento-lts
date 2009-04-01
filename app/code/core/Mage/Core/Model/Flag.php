@@ -20,19 +20,41 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
+/**
+ * Core Flag model
+ *
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
 {
+    /**
+     * Flag code
+     *
+     * @var string
+     */
     protected $_flagCode = null;
 
+    /**
+     * Init resource model
+     *
+     */
     protected function _construct()
     {
         $this->_init('core/flag');
     }
 
+    /**
+     * Processing object before save data
+     *
+     * @return Mage_Core_Model_Flag
+     */
     protected function _beforeSave()
     {
         if (is_null($this->_flagCode)) {
@@ -45,6 +67,11 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
         return parent::_beforeSave();
     }
 
+    /**
+     * Retrieve flag data
+     *
+     * @return mixed
+     */
     public function getFlagData()
     {
         if ($this->hasFlagData()) {
@@ -54,11 +81,22 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
         }
     }
 
+    /**
+     * Set flag data
+     *
+     * @param mixed $value
+     * @return Mage_Core_Model_Flag
+     */
     public function setFlagData($value)
     {
         return $this->setData('flag_data', serialize($value));
     }
 
+    /**
+     * load self (load by flag code)
+     *
+     * @return Mage_Core_Model_Flag
+     */
     public function loadSelf()
     {
         if (is_null($this->_flagCode)) {

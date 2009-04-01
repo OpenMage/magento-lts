@@ -51,11 +51,15 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
     }
 
     public function setListOrders() {
+        $category = Mage::getSingleton('catalog/layer')
+            ->getCurrentCategory();
+        /* @var $category Mage_Catalog_Model_Category */
+
+        $availableOrders = $category->getAvailableSortByOptions();
+        unset($availableOrders['position']);
+
         $this->getChild('search_result_list')
-            ->setAvailableOrders(array(
-                'name' => Mage::helper('catalogsearch')->__('Name'),
-                'price'=>Mage::helper('catalogsearch')->__('Price'))
-            );
+            ->setAvailableOrders($availableOrders);
     }
 
     public function setListModes() {

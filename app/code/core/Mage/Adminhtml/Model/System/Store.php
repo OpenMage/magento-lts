@@ -81,6 +81,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         foreach (Mage::getModel('core/website')->getCollection() as $website) {
             $this->_websiteCollection[$website->getId()] = $website;
         }
+        $this->_cleanupCollection();
         return $this;
     }
 
@@ -95,6 +96,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         foreach (Mage::getModel('core/store_group')->getCollection() as $group) {
             $this->_groupCollection[$group->getId()] = $group;
         }
+        $this->_cleanupCollection();
         return $this;
     }
 
@@ -109,10 +111,16 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         foreach (Mage::getModel('core/store')->getCollection() as $store) {
             $this->_storeCollection[$store->getId()] = $store;
         }
+        $this->_cleanupCollection();
         return $this;
     }
 
-    public function getStoreValuesForForm($empty = false, $all = false)
+    protected function _cleanupCollection()
+    {
+        return $this;
+    }
+
+    protected function _getDefaultStoreOptions($empty=false, $all=false)
     {
         $options = array();
         if ($empty) {
@@ -127,6 +135,18 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                 'value' => 0
             );
         }
+
+        return $options;
+    }
+
+    protected function _forceDisableWebsitesAll()
+    {
+        return false;
+    }
+
+    public function getStoreValuesForForm($empty = false, $all = false)
+    {
+        $options = $this->_getDefaultStoreOptions($empty, $all);
 
         foreach ($this->_websiteCollection as $website) {
             $websiteShow = false;
@@ -175,7 +195,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                 'value' => ''
             );
         }
-        if ($all) {
+        if ($all && !$this->_forceDisableWebsitesAll()) {
             $options[] = array(
                 'label' => Mage::helper('adminhtml')->__('Admin'),
                 'value' => 0
@@ -187,6 +207,32 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                 'label' => $website->getName(),
                 'value' => $website->getId(),
             );
+        }
+        return $options;
+    }
+
+    public function getWebsiteValuesForGridFilter()
+    {
+        $options = array();
+        foreach ($this->_websiteCollection as $website) {
+            $options[$website->getId()] = $website->getName();
+        }
+        return $options;
+    }
+
+    public function getStoreValuesForGridFilter()
+    {
+        $options = array();
+        foreach ($this->_storeCollection as $store) {
+            $options[$store->getId()] = $store->getName();
+        }
+        return $options;
+    }
+
+    public function getStoreGroupValuesForGridFilter()
+    {
+        foreach ($this->_groupCollection as $group) {
+            $options[$group->getId()] = $group->getName();
         }
         return $options;
     }

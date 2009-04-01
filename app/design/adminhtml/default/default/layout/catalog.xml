@@ -27,6 +27,16 @@
 -->
 
 <layout>
+    <adminhtml_catalog_product_index>
+        <reference name="content">
+            <block type="adminhtml/catalog_product" name="products_list">
+                <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">
+                    <action method="setUseConfirm"><params>0</params></action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_catalog_product_index>
+
     <adminhtml_catalog_product_new>
         <reference name="content">
             <block type="adminhtml/catalog_product_edit" name="product_edit"></block>
@@ -102,4 +112,14 @@ Layout handle for configurable products
             <block type="adminhtml/catalog_product_edit_action_attribute" name="attribute" template="catalog/product/edit/action/attribute.phtml" />
         </reference>
     </adminhtml_catalog_product_action_attribute_edit>
+    
+    <adminhtml_catalog_category_edit>
+        <reference name="left">
+            <block name="category.tree" type="adminhtml/catalog_category_tree" template="catalog/category/tree.phtml" />
+        </reference>
+        <reference name="content">
+            <block name="category.edit"  type="adminhtml/catalog_category_edit" template="catalog/category/edit.phtml" />
+        </reference>
+    </adminhtml_catalog_category_edit>
+
 </layout>

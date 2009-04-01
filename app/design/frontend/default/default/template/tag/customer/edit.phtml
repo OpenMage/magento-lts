@@ -41,7 +41,7 @@
 </fieldset>
 <div class="button-set">
     <a href="<?php echo $this->getUrl('*/*/view/', array('tagId' => $this->getTag()->getTagId())) ?>" class="left">&laquo; <?php echo $this->__('Back to view Tag') ?></a>
-    <button class="form-button" onclick="tagForm.submit();"><span><?php echo $this->__('Save Tag') ?></span></button>
+    <button type="button" class="form-button" onclick="tagForm.submit();"><span><?php echo $this->__('Save Tag') ?></span></button>
 </div>
 </form>
 <script type="text/javascript">

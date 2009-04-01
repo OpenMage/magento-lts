@@ -52,7 +52,8 @@ ul.tabs li a,
 .notification-global,
 .files .row,
 .files-wide .row,
-.uploader .file-row { zoom:1; }
+.uploader .file-row,
+.grid tr.filter .range .range-line { zoom:1; }
 
 .clear { display:block; clear:both; height:0; font-size:0; line-height:0; overflow:hidden; }
 

@@ -19,7 +19,7 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Mage
- * @package    Mage_Permissions
+ * @package    Mage_Admin
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -35,7 +35,7 @@ class Mage_Admin_Model_Mysql4_Role_Collection extends Mage_Core_Model_Mysql4_Col
      * Enter description here...
      *
      * @param int $userId
-     * @return Mage_Permissions_Model_Mysql4_Role_Collection
+     * @return Mage_Admin_Model_Mysql4_Role_Collection
      */
     public function setUserFilter($userId)
     {

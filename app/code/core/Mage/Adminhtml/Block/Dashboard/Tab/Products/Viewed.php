@@ -52,12 +52,11 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
         } else {
             $storeId = (int)$this->getParam('store');
         }
-
         $collection = Mage::getResourceModel('reports/product_collection')
             ->addAttributeToSelect('*')
+            ->addViewsCount()
             ->setStoreId($storeId)
-            ->addStoreFilter($storeId)
-            ->addViewsCount();
+            ->addStoreFilter($storeId);
 
         $this->setCollection($collection);
 

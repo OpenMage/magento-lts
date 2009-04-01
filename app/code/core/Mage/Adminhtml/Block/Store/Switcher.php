@@ -70,8 +70,9 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
             $group = Mage::getModel('core/store_group')->load($group);
         }
         $stores = $group->getStoreCollection();
-        if (!empty($this->_storeIds)) {
-            $stores->addIdFilter($this->_storeIds);
+        $_storeIds = $this->getStoreIds();
+        if (!empty($_storeIds)) {
+            $stores->addIdFilter($_storeIds);
         }
         return $stores;
     }
@@ -93,6 +94,11 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
     {
         $this->_storeIds = $storeIds;
         return $this;
+    }
+
+    public function getStoreIds()
+    {
+        return $this->_storeIds;
     }
 
     public function isShow()

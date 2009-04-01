@@ -126,9 +126,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
 
     public function getStoreSwitcherHtml()
     {
-        if (Mage::app()->isSingleStoreMode()) {
-            return '';
-        }
         return $this->getChildHtml('store_switcher');
     }
 
@@ -243,7 +240,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         //$item['allowDrop'] = ($level<3) ? true : false;
         $item['allowDrop'] = true;
         // disallow drag if it's first level and category is root of a store
-        $item['allowDrag'] = ($node->getLevel()==1 && $rootForStores) ? false : true;
+        $item['allowDrag'] = $this->_allowNodesDrag() 
+                                ? ($node->getLevel()==1 && $rootForStores) ? false : true
+                                : false;
 
         if ((int)$node->getChildrenCount()>0) {
             $item['children'] = array();
@@ -282,6 +281,12 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         return $result;
     }
 
+    protected function _allowNodesDrag()
+    {
+    	return true;
+    }
+    
+    
     protected function _isParentSelectedCategory($node)
     {
         if ($node && $this->getCategory()) {
@@ -292,5 +297,15 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         }
 
         return false;
+    }
+
+    /**
+     * Check if page loaded by outside link to category edit
+     *
+     * @return boolean
+     */
+    public function isClearEdit()
+    {
+        return (bool) $this->getRequest()->getParam('clear');
     }
 }

@@ -44,7 +44,9 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
     {
         parent::__construct();
 
-        $this->setTemplate('widget/form/container.phtml');
+        if (!$this->hasData('template')) {
+            $this->setTemplate('widget/form/container.phtml');
+        }
 
         $this->_addButton('back', array(
             'label'     => Mage::helper('adminhtml')->__('Back'),
@@ -76,7 +78,9 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
 
     protected function _prepareLayout()
     {
-        $this->setChild('form', $this->getLayout()->createBlock($this->_blockGroup . '/' . $this->_controller . '_' . $this->_mode . '_form'));
+        if ($this->_blockGroup && $this->_controller && $this->_mode) {
+            $this->setChild('form', $this->getLayout()->createBlock($this->_blockGroup . '/' . $this->_controller . '_' . $this->_mode . '_form'));
+        }
         return parent::_prepareLayout();
     }
 

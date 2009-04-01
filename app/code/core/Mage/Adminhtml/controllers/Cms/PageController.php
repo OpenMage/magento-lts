@@ -108,7 +108,6 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             && Mage::helper('googleoptimizer')->isOptimizerActive()) {
             $this->_addJs($this->getLayout()->createBlock('googleoptimizer/js')->setTemplate('googleoptimizer/js.phtml'));
         }
-
         $this->renderLayout();
     }
 
@@ -145,7 +144,6 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('cms')->__('Page was successfully saved'));
                 // clear previously saved data from session
                 Mage::getSingleton('adminhtml/session')->setFormData(false);
-
                 // check if 'Save and Continue'
                 if ($this->getRequest()->getParam('back')) {
                     $this->_redirect('*/*/edit', array('page_id' => $model->getId()));
@@ -175,18 +173,22 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     {
         // check if we know what should be deleted
         if ($id = $this->getRequest()->getParam('page_id')) {
+            $title = "";
             try {
                 // init model and delete
                 $model = Mage::getModel('cms/page');
-                $model->setId($id);
+                $model->load($id);
+                $title = $model->getTitle();
                 $model->delete();
                 // display success message
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('cms')->__('Page was successfully deleted'));
                 // go to grid
+                Mage::dispatchEvent('adminhtml_cmspage_on_delete', array('title' => $title, 'status' => 'success'));
                 $this->_redirect('*/*/');
                 return;
 
             } catch (Exception $e) {
+                Mage::dispatchEvent('adminhtml_cmspage_on_delete', array('title' => $title, 'status' => 'fail'));
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 // go back to edit form

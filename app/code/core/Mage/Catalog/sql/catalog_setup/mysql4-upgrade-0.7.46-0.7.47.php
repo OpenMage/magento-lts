@@ -63,8 +63,10 @@ $categories = $installer->getConnection()->fetchAll(
         ->order('path')
 );
 
+// $installer->run("
+// LOCK TABLES `{$installer->getTable('catalog_category_product_index')}` WRITE, `{$installer->getTable('catalog_category_product')}` READ, `{$installer->getTable('catalog_category_entity')}` READ;
+// ");
 $installer->run("
-LOCK TABLES `{$installer->getTable('catalog_category_product_index')}` WRITE, `{$installer->getTable('catalog_category_product')}` READ, `{$installer->getTable('catalog_category_entity')}` READ;
 /*!40000 ALTER TABLE `{$installer->getTable('catalog_category_product_index')}` DISABLE KEYS */;
 ");
 
@@ -84,8 +86,10 @@ foreach ($categories as $category) {
 
 $installer->run("
 /*!40000 ALTER TABLE `{$installer->getTable('catalog_category_product_index')}` ENABLE KEYS */;
-UNLOCK TABLES;
 ");
+// $installer->run("
+// UNLOCK TABLES;
+// ");
 
 /**
  * Build product visibility index

@@ -121,6 +121,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
             Mage::getSingleton('adminhtml/session')->setPageData($model->getData());
             try {
                 $model->save();
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalogrule')->__('Rule was successfully saved'));
                 Mage::getSingleton('adminhtml/session')->setPageData(false);
                 if ($autoApply) {
@@ -145,7 +146,7 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
         if ($id = $this->getRequest()->getParam('id')) {
             try {
                 $model = Mage::getModel('catalogrule/rule');
-                $model->setId($id);
+                $model->load($id);
                 $model->delete();
                 Mage::app()->saveCache(1, 'catalog_rules_dirty');
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalogrule')->__('Rule was successfully deleted'));

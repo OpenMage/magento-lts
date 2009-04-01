@@ -53,7 +53,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
              * Skip if this item is virtual
              */
 
-            if ($item->getProduct()->getTypeInstance()->isVirtual()) {
+            if ($item->getProduct()->isVirtual()) {
                 continue;
             }
             /**
@@ -65,7 +65,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
 
             if ($item->getHasChildren() && $item->isShipSeparately()) {
                 foreach ($item->getChildren() as $child) {
-                    if ($child->getProduct()->getTypeInstance()->isVirtual()) {
+                    if ($child->getProduct()->isVirtual()) {
                         continue;
                     }
                     $addressQty += $item->getQty()*$child->getQty();
@@ -87,8 +87,8 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                             }
                         }
                         $freeMethodWeight += $rowWeight;
+                        $item->setRowWeight($rowWeight);
                     }
-                    $item->setRowWeight($rowWeight);
                 }
                 if ($item->getProduct()->getWeightType()) {
                     $itemWeight = $item->getWeight();
@@ -110,7 +110,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                 }
             }
             else {
-                if (!$item->getProduct()->getTypeInstance()->isVirtual()) {
+                if (!$item->getProduct()->isVirtual()) {
                     $addressQty += $item->getQty();
                 }
                 $itemWeight = $item->getWeight();

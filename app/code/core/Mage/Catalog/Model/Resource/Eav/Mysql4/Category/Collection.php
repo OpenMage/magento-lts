@@ -34,6 +34,19 @@
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection extends Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract
 {
+    /**
+     * Event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'catalog_category_collection';
+
+    /**
+     * Event object name
+     *
+     * @var string
+     */
+    protected $_eventObject = 'category_collection';
 
     protected $_productTable;
 
@@ -101,6 +114,32 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection extends Mage_Ca
     {
         $this->_loadWithProductCount = $flag;
         return $this;
+    }
+
+
+    /**
+     * Before collection load
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
+     */
+    protected function _beforeLoad()
+    {
+        Mage::dispatchEvent($this->_eventPrefix . '_load_before',
+                            array($this->_eventObject => $this));
+        return parent::_beforeLoad();
+    }
+
+    /**
+     * After collection load
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
+     */
+    protected function _afterLoad()
+    {
+        Mage::dispatchEvent($this->_eventPrefix . '_load_after',
+                            array($this->_eventObject => $this));
+
+        return parent::_afterLoad();
     }
 
     /**
@@ -253,4 +292,53 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection extends Mage_Ca
         );
         return $this;
     }
+
+    public function addIsActiveFilter()
+    {
+        $this->addAttributeToFilter('is_active', 1);
+        return $this;
+    }
+
+    public function addNameToResult()
+    {
+        $this->addAttributeToSelect('name');
+        return $this;
+    }
+
+    public function addUrlRewriteToResult()
+    {
+        $this->joinUrlRewrite();
+        return $this;
+    }
+
+    public function addPathsFilter($paths)
+    {
+        if (!is_array($paths)) {
+            $paths = array($paths);
+        }
+        $select = $this->getSelect();
+        $orWhere = false;
+        foreach ($paths as $path) {
+            if ($orWhere) {
+                $select->orWhere('e.path LIKE ?', "$path%");
+            } else {
+                $select->where('e.path LIKE ?', "$path%");
+                $orWhere = true;
+            }
+        }
+        return $this;
+    }
+
+    public function addLevelFilter($level)
+    {
+        $this->getSelect()->where('e.level <= ?', $level);
+        return $this;
+    }
+
+    public function addOrderField($field)
+    {
+        $this->setOrder($field, 'ASC');
+        return $this;
+    }
+
 }

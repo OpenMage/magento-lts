@@ -28,17 +28,32 @@
  * implementing now
  *
  */
-class Mage_Adminhtml_Block_Permissions_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_Form
+class Mage_Adminhtml_Block_Permissions_Tab_Roleinfo extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
-    public function __construct()
+    public function getTabLabel()
     {
-        parent::__construct();
+        return Mage::helper('adminhtml')->__('Role Info');
+    }
+
+    public function getTabTitle()
+    {
+        return $this->getTabLabel();
+    }
+
+    public function canShowTab()
+    {
+        return true;
+    }
+
+    public function isHidden()
+    {
+        return false;
     }
 
     public function _beforeToHtml() {
-    	$this->_initForm();
+        $this->_initForm();
 
-    	return parent::_beforeToHtml();
+        return parent::_beforeToHtml();
     }
 
     protected function _initForm()

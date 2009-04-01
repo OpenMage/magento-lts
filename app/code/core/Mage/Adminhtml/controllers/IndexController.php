@@ -154,6 +154,16 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         );
     }
 
+    public function deniedIframeAction()
+    {
+        $this->getResponse()->setBody($this->_getDeniedIframe());
+    }
+
+    protected function _getDeniedIframe()
+    {
+        return '<script type="text/javascript">parent.window.location = \''.$this->getUrl('*/index/login').'\';</script>';
+    }
+
     public function forgotpasswordAction ()
     {
         $email = $this->getRequest()->getParam('email');
@@ -189,7 +199,6 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         $data = array(
             'email' => $email
         );
-
         $this->_outTemplate('forgotpassword', $data);
     }
 

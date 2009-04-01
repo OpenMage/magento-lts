@@ -155,17 +155,31 @@ varienGrid.prototype = {
         }
         url = url || this.url;
         if(this.useAjax){
-            new Ajax.Updater(
-                this.containerId,
-                url + (url.match(new RegExp('\\?')) ? '&ajax=true' : '?ajax=true' ),
-                {
-                    onComplete:this.initGrid.bind(this),
-                    onFailure:this._processFailure.bind(this),
-                    evalScripts:true,
-                    parameters:this.reloadParams || {},
-                    loaderArea: this.containerId
-                }
-            );
+            new Ajax.Request(url + (url.match(new RegExp('\\?')) ? '&ajax=true' : '?ajax=true' ), {
+                loaderArea: this.containerId,
+                parameters: this.reloadParams || {},
+                evalScripts: true,
+                onFailure: this._processFailure.bind(this),
+                onComplete: this.initGrid.bind(this),
+                onSuccess: function(transport) {
+                    try {
+                        if (transport.responseText.isJSON()) {
+                            var response = transport.responseText.evalJSON()
+                            if (response.error) {
+                                alert(response.message);
+                            }
+                            if(response.ajaxExpired && response.ajaxRedirect) {
+                                setLocation(response.ajaxRedirect);
+                            }
+                        } else {
+                            $(this.containerId).update(transport.responseText);
+                        }
+                    }
+                    catch (e) {
+                        $(this.containerId).update(transport.responseText);
+                    }
+                }.bind(this)
+            });
             return;
         }
         else{

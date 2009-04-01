@@ -136,7 +136,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
 
         $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
         $r->setWeightPounds(floor($weight));
-        $r->setWeightOunces(($weight-floor($weight))*16);
+        $r->setWeightOunces(round(($weight-floor($weight))*16, 1));
         if ($request->getFreeMethodWeight()!=$request->getPackageWeight()) {
             $r->setFreeMethodWeight($request->getFreeMethodWeight());
         }
@@ -165,7 +165,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
 
         $weight = $this->getTotalNumOfBoxes($r->getFreeMethodWeight());
         $r->setWeightPounds(floor($weight));
-        $r->setWeightOunces(floor(($weight-floor($weight))*16));
+        $r->setWeightOunces(round(($weight-floor($weight))*16, 1));
         $r->setService($freeMethod);
     }
 
@@ -173,7 +173,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     {
         $r = $this->_rawRequest;
         if ($r->getDestCountryId() == self::USA_COUNTRY_ID || $r->getDestCountryId() == self::PUERTORICO_COUNTRY_ID) {
-            $xml = new SimpleXMLElement('<RateV3Request/>');
+            $xml = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><RateV3Request/>');
 
             $xml->addAttribute('USERID', $r->getUserId());
 
@@ -200,7 +200,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             $request = $xml->asXML();
 
         } else {
-            $xml = new SimpleXMLElement('<IntlRateRequest/>');
+            $xml = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><IntlRateRequest/>');
 
             $xml->addAttribute('USERID', $r->getUserId());
 
@@ -467,7 +467,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
          $r = $this->_rawTrackRequest;
 
          foreach ($trackings as $tracking){
-             $xml = new SimpleXMLElement('<TrackRequest/>');
+             $xml = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><TrackRequest/>');
              $xml->addAttribute('USERID', $r->getUserId());
 
 

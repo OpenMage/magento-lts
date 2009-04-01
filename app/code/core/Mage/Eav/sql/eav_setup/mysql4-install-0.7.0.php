@@ -42,6 +42,7 @@ CREATE TABLE {$this->getTable('eav_attribute')} (
   `backend_table` varchar(255) default NULL,
   `frontend_model` varchar(255) default NULL,
   `frontend_input` varchar(50) default NULL,
+  `frontend_input_renderer` varchar(255) default NULL,
   `frontend_label` varchar(255) default NULL,
   `frontend_class` varchar(255) default NULL,
   `source_model` varchar(255) default NULL,
@@ -56,9 +57,15 @@ CREATE TABLE {$this->getTable('eav_attribute')} (
   `is_visible_on_front` tinyint(1) unsigned NOT NULL default '0',
   `is_unique` tinyint(1) unsigned NOT NULL default '0',
   `apply_to` tinyint(3) unsigned NOT NULL default '0',
+  `is_used_for_price_rules` tinyint(1) unsigned NOT NULL default '0',
+  `is_filterable_in_search` tinyint(1) unsigned NOT NULL default '0',
   `use_in_super_product` tinyint(1) unsigned NOT NULL default '1',
+  `used_in_product_listing` tinyint(1) unsigned NOT NULL default '0',
+  `used_for_sort_by` tinyint(1) unsigned NOT NULL default '0',
   PRIMARY KEY  (`attribute_id`),
   UNIQUE KEY `entity_type_id` (`entity_type_id`,`attribute_code`),
+  KEY `IDX_USED_FOR_SORT_BY` (`entity_type_id`,`used_for_sort_by`),
+  KEY `IDX_USED_IN_PRODUCT_LISTING` (`entity_type_id`,`used_in_product_listing`),
   CONSTRAINT `FK_eav_attribute` FOREIGN KEY (`entity_type_id`) REFERENCES `{$this->getTable('eav_entity_type')}` (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

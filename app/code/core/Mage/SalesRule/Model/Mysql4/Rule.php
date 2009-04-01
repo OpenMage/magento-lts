@@ -37,13 +37,17 @@ class Mage_SalesRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
         if (!$object->getFromDate()) {
             $object->setFromDate(new Zend_Date(Mage::getModel('core/date')->gmtTimestamp()));
         }
-        $object->setFromDate($object->getFromDate()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
+        if ($object->getFromDate() instanceof Zend_Date) {
+            $object->setFromDate($object->getFromDate()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
+        }
 
         if (!$object->getToDate()) {
             $object->setToDate(new Zend_Db_Expr('NULL'));
         }
         else {
-            $object->setToDate($object->getToDate()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
+            if ($object->getToDate() instanceof Zend_Date) {
+                $object->setToDate($object->getToDate()->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
+            }
         }
 
         if (!$object->getDiscountQty()) {

@@ -49,14 +49,16 @@ $installer->getConnection()->dropColumn($productTable, 'parent_id');
 $installer->getConnection()->dropColumn($productTable, 'store_id');
 $installer->getConnection()->dropColumn($productTable, 'is_active');
 
-$installer->run("
-INSERT INTO {$this->getTable('catalog_product_website')}
-    SELECT DISTINCT ps.product_id, cs.website_id
-    FROM {$this->getTable('catalog_product_store')} ps, {$this->getTable('core_store')} cs
-    WHERE cs.store_id=ps.store_id AND ps.store_id>0;
-DROP TABLE IF EXISTS {$this->getTable('catalog_product_store')};
-");
-
+try {
+	$installer->run("
+	INSERT INTO {$this->getTable('catalog_product_website')}
+		SELECT DISTINCT ps.product_id, cs.website_id
+		FROM {$this->getTable('catalog_product_store')} ps, {$this->getTable('core_store')} cs
+		WHERE cs.store_id=ps.store_id AND ps.store_id>0;
+	DROP TABLE IF EXISTS {$this->getTable('catalog_product_store')};
+	");
+} catch (Exception $e) {
+}
 
 $categoryTable = $this->getTable('catalog/category');
 $installer->getConnection()->dropForeignKey($categoryTable, 'FK_CATALOG_CATEGORY_ENTITY_TREE_NODE');
@@ -65,8 +67,10 @@ try {
     $this->run("ALTER TABLE `{$this->getTable('catalog/category')}` ADD `path` VARCHAR( 255 ) NOT NULL, ADD `position` INT NOT NULL;");
 } catch (Exception $e) {
 }
-
-$this->run("DROP TABLE IF EXISTS `{$this->getTable('catalog/category_tree')}`;");
+try {
+	$this->run("DROP TABLE IF EXISTS `{$this->getTable('catalog/category_tree')}`;");
+} catch (Exception $e) {
+}
 
 $installer->getConnection()->dropKey($categoryTable, 'FK_catalog_category_ENTITY_ENTITY_TYPE');
 $installer->getConnection()->dropKey($categoryTable, 'FK_catalog_category_ENTITY_STORE');

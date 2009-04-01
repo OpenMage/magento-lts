@@ -104,17 +104,27 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Page_Block_Html_Pager
     protected $_viewMode            = null;
 
     /**
+     * Retrieve Catalog Config object
+     *
+     * @return Mage_Catalog_Model_Config
+     */
+    protected function _getConfig()
+    {
+        return Mage::getSingleton('catalog/config');
+    }
+
+    /**
      * Init Toolbar
      *
      */
     protected function _construct()
     {
         parent::_construct();
-        $this->_availableOrder = array(
-            'position'  => $this->__('Best Value'),
-            'name'      => $this->__('Name'),
-            'price'     => $this->__('Price')
+        $this->_orderField  = Mage::getStoreConfig(
+            Mage_Catalog_Model_Config::XML_PATH_LIST_DEFAULT_SORT_BY
         );
+
+        $this->_availableOrder = $this->_getConfig()->getAttributeUsedForSortByArray();
 
         switch (Mage::getStoreConfig('catalog/frontend/list_mode')) {
             case 'grid':
@@ -267,6 +277,32 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Page_Block_Html_Pager
     }
 
     /**
+     * Add order to available orders
+     *
+     * @param string $order
+     * @param string $value
+     * @return Mage_Catalog_Block_Product_List_Toolbar
+     */
+    public function addOrderToAvailableOrders($order, $value)
+    {
+        $this->_availableOrder[$order] = $value;
+        return $this;
+    }
+    /**
+     * Remove order from available orders if exists
+     *
+     * @param string $order
+     * @param Mage_Catalog_Block_Product_List_Toolbar
+     */
+    public function removeOrderFromAvailableOrders($order)
+    {
+        if (isset($this->_availableOrder[$order])) {
+            unset($this->_availableOrder[$order]);
+        }
+        return $this;
+    }
+
+    /**
      * Compare defined order field vith current order field
      *
      * @param string $order
@@ -274,7 +310,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Page_Block_Html_Pager
      */
     public function isOrderCurrent($order)
     {
-        return $order == $this->getRequest()->getParam('order');
+        return ($order == $this->getCurrentOrder());
     }
 
     /**

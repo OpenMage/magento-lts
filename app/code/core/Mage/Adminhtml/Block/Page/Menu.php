@@ -53,8 +53,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     {
         // getting roles for current user, for now one role per user
         $roles = implode('', Mage::getSingleton('admin/session')->getUser()->getRoles());
-        $a = explode('/', $this->getActive());
-        return 'admin_top_nav_'.$a[0].'_'.$roles.'_'.Mage::app()->getLocale()->getLocaleCode();
+        return 'admin_top_nav_'.$this->getActive().'_'.$roles.'_'.Mage::app()->getLocale()->getLocaleCode();
     }
 
     public function getMenuArray()

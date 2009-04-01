@@ -32,7 +32,7 @@
  * @package    Varien_Object
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Varien_Object
+class Varien_Object implements ArrayAccess
 {
 
     /**
@@ -582,7 +582,7 @@ class Varien_Object
      */
     public function isEmpty()
     {
-        if(empty($this->_data)) {
+        if (empty($this->_data)) {
             return true;
         }
         return false;
@@ -633,7 +633,7 @@ class Varien_Object
 
         foreach ($this->_data as $key => $value) {
             if (in_array($key, $attributes)) {
-                $data[] = $key.$valueSeparator.$quote.$value.$quote;
+                $data[] = $key . $valueSeparator . $quote . $value . $quote;
             }
         }
         $res = implode($fieldSeparator, $data);
@@ -756,4 +756,52 @@ class Varien_Object
         }
         return $debug;
     }
+
+    /**
+     * Implementation of ArrayAccess::offsetSet()
+     *
+     * @link http://www.php.net/manual/en/arrayaccess.offsetset.php
+     * @param string $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->_data[$offset] = $value;
+    }
+
+    /**
+     * Implementation of ArrayAccess::offsetExists()
+     *
+     * @link http://www.php.net/manual/en/arrayaccess.offsetexists.php
+     * @param string $offset
+     * @return boolean
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->_data[$offset]);
+    }
+
+    /**
+     * Implementation of ArrayAccess::offsetUnset()
+     *
+     * @link http://www.php.net/manual/en/arrayaccess.offsetunset.php
+     * @param string $offset
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->_data[$offset]);
+    }
+
+    /**
+     * Implementation of ArrayAccess::offsetGet()
+     *
+     * @link http://www.php.net/manual/en/arrayaccess.offsetget.php
+     * @param string $offset
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return isset($this->_data[$offset]) ? $this->_data[$offset] : null;
+    }
+
 }

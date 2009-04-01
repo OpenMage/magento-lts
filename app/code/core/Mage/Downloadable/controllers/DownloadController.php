@@ -110,7 +110,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
             }
             try {
                 $this->_processDownload($resource, $resourceType);
-                exit();
+                exit(0);
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError(Mage::helper('downloadable')->__('Sorry, there was an error getting requested content. Please contact store owner.'));
             }
@@ -140,6 +140,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
             }
             try {
                 $this->_processDownload($resource, $resourceType);
+                exit(0);
             } catch (Mage_Core_Exception $e) {
                 $this->_getCustomerSession()->addError(Mage::helper('downloadable')->__('Sorry, there was an error getting requested content. Please contact store owner.'));
             }
@@ -205,6 +206,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
                     $linkPurchasedItem->setStatus(Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_EXPIRED);
                 }
                 $linkPurchasedItem->save();
+                exit(0);
             }
             catch (Exception $e) {
                 $this->_getCustomerSession()->addError(

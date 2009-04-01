@@ -132,6 +132,13 @@
                 </faults>
             </customer_address>
         </resources>
+        <v2>
+            <resources_function_prefix>
+                <customer>customerCustomer</customer>
+                <customer_group>customerGroup</customer_group>
+                <customer_address>customerAddress</customer_address>
+            </resources_function_prefix>
+        </v2>
         <acl>
             <resources>
                 <customer translate="title" module="customer">

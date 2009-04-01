@@ -96,11 +96,11 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     }
 
     /**
-     *  Return loaded product instance
+     * Return loaded product instance
      *
-     *  @param    int|string $productId (SKU or ID)
-     *  @param    int|string $store
-     *  @return	  object Mage_Catalog_Model_Product instance
+     * @param  int|string $productId (SKU or ID)
+     * @param  int|string $store
+     * @return Mage_Catalog_Model_Product
      */
     protected function _getProduct ($productId, $store = null)
     {

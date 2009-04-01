@@ -164,11 +164,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
      */
     protected function _getWebsiteOptions()
     {
-        $options    = array();
-        foreach (Mage::app()->getWebsites() as $website) {
-            $options[$website->getId()] = $website->getName();
-        }
-        return $options;
+        return Mage::getModel('adminhtml/system_store')->getWebsiteValuesForGridFilter();
     }
 
     /**
@@ -178,15 +174,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
      */
     protected function _getStoreGroupOptions()
     {
-        $options    = array();
-        foreach (Mage::app()->getWebsites() as $website) {
-            /* @var $website Mage_Core_Model_Website */
-            foreach ($website->getGroups() as $group) {
-                /* @var $group Mage_Core_Model_Store_Group */
-                $options[$group->getId()] = $group->getName();
-            }
-        }
-        return $options;
+        return Mage::getModel('adminhtml/system_store')->getStoreGroupValuesForGridFilter();
     }
 
     /**
@@ -196,12 +184,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
      */
     protected function _getStoreOptions()
     {
-        $options    = array();
-        foreach (Mage::app()->getStores() as $store) {
-            /* @var $store Mage_Core_Model_Store */
-            $options[$store->getId()] = $store->getName();
-        }
-        return $options;
+        return Mage::getModel('adminhtml/system_store')->getStoreValuesForGridFilter();
     }
 
     protected function _prepareMassaction()

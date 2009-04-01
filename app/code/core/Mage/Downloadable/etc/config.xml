@@ -815,6 +815,15 @@
                     </downloadable_observer>
                 </observers>
             </catalog_product_prepare_save>
+            <sales_order_item_save_after>
+                <observers>
+                    <downloadable_observer>
+                        <type>singleton</type>
+                        <class>downloadable/observer</class>
+                        <method>saveDownloadableOrderItem</method>
+                    </downloadable_observer>
+                </observers>
+            </sales_order_item_save_after>
             <sales_order_save_after>
                 <observers>
                     <downloadable_observer>

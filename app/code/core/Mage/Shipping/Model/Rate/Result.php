@@ -132,7 +132,6 @@ class Mage_Shipping_Model_Rate_Result
 	/**
 	 *  Sort rates by price from min to max
 	 *
-	 *  @param    none
 	 *  @return	  Mage_Shipping_Model_Rate_Result
 	 */
 	public function sortRatesByPrice ()

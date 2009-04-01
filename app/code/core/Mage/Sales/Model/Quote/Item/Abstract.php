@@ -177,7 +177,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         }
 
         try {
-            $this->getProduct()->getTypeInstance()->checkProductBuyState();
+            $this->getProduct()->getTypeInstance(true)->checkProductBuyState($this->getProduct());
         } catch (Mage_Core_Exception $e) {
             $this->setHasError(true);
             $this->setMessage($e->getMessage());
@@ -425,8 +425,25 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                 $sAddress = $bAddress;
             }
 
-            $priceExcludingTax = Mage::helper('tax')->getPrice($this->getProduct()->setTaxPercent(null), $value, false, $sAddress, $bAddress, $this->getQuote()->getCustomerTaxClassId(), $store);
-            $priceIncludingTax = Mage::helper('tax')->getPrice($this->getProduct()->setTaxPercent(null), $value, true, $sAddress, $bAddress, $this->getQuote()->getCustomerTaxClassId(), $store);
+            $priceExcludingTax = Mage::helper('tax')->getPrice(
+                $this->getProduct()->setTaxPercent(null),
+                $value,
+                false,
+                $sAddress,
+                $bAddress,
+                $this->getQuote()->getCustomerTaxClassId(),
+                $store
+            );
+
+            $priceIncludingTax = Mage::helper('tax')->getPrice(
+                $this->getProduct()->setTaxPercent(null),
+                $value,
+                true,
+                $sAddress,
+                $bAddress,
+                $this->getQuote()->getCustomerTaxClassId(),
+                $store
+            );
 
             if ($saveTaxes) {
                 $qty = $this->getQty();
@@ -436,8 +453,24 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
 
                 if (Mage::helper('tax')->displayCartPriceInclTax($store)) {
                     $rowTotal = $value*$qty;
-                    $rowTotalExcTax = Mage::helper('tax')->getPrice($this->getProduct()->setTaxPercent(null), $rowTotal, false, $sAddress, $bAddress, $this->getQuote()->getCustomerTaxClassId(), $store);
-                    $rowTotalIncTax = Mage::helper('tax')->getPrice($this->getProduct()->setTaxPercent(null), $rowTotal, true, $sAddress, $bAddress, $this->getQuote()->getCustomerTaxClassId(), $store);
+                    $rowTotalExcTax = Mage::helper('tax')->getPrice(
+                        $this->getProduct()->setTaxPercent(null),
+                        $rowTotal,
+                        false,
+                        $sAddress,
+                        $bAddress,
+                        $this->getQuote()->getCustomerTaxClassId(),
+                        $store
+                    );
+                    $rowTotalIncTax = Mage::helper('tax')->getPrice(
+                        $this->getProduct()->setTaxPercent(null),
+                        $rowTotal,
+                        true,
+                        $sAddress,
+                        $bAddress,
+                        $this->getQuote()->getCustomerTaxClassId(),
+                        $store
+                    );
                     $totalBaseTax = $rowTotalIncTax-$rowTotalExcTax;
                     $this->setRowTotalExcTax($rowTotalExcTax);
                 }

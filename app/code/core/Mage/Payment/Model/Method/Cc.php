@@ -137,12 +137,43 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             $errorMsg = $this->_getHelper()->__('Credit card type is not allowed for this payment method');
         }
 
+								//validate credit card verification number
+        if ($errorMsg === false && $this->hasVerification()) {
+            $verifcationRegEx = $this->getVerificationRegEx();
+            $regExp = isset($verifcationRegEx[$info->getCcType()]) ? $verifcationRegEx[$info->getCcType()] : '';
+            if (!$info->getCcCid() || !$regExp || !preg_match($regExp ,$info->getCcCid())){
+                $errorMsg = $this->_getHelper()->__('Please enter a valid credit card verification number.');
+            }
+        }					
+
         if($errorMsg){
             Mage::throwException($errorMsg);
             //throw Mage::exception('Mage_Payment', $errorMsg, $errorCode);
         }
 
         return $this;
+    }
+
+				public function hasVerification()
+    {
+        $configData = $this->getConfigData('useccv');
+        if(is_null($configData)){
+            return true;
+        }
+        return (bool) $configData;
+    }
+
+				public function getVerificationRegEx()
+    {
+        $verificationExpList = array(
+            'VI' => '/^[0-9]{3}$/', // Visa
+            'MC' => '/^[0-9]{3}$/',       // Master Card
+            'AE' => '/^[0-9]{4}$/',        // American Express
+            'DI' => '/^[0-9]{3}$/',          // Discovery
+            'SS' => '/^[0-9]{4}$/',
+            'OT' => '/^[0-9]{3,4}$/'
+        );
+        return $verificationExpList;
     }
 
     protected function _validateExpDate($expYear, $expMonth)

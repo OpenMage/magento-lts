@@ -385,4 +385,41 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
         }
     }
 
+    /**
+     * Retrieve Select For Flat Attribute update
+     *
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param int $store
+     * @return Varien_Db_Select
+     */
+    public function getFlatUpdateSelect(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $store) {
+        return $this->_getReadAdapter()->select()
+            ->joinLeft(
+                array('t1' => $attribute->getBackend()->getTable()),
+                "`e`.`entity_id`=`t1`.`entity_id` AND `e`.`child_id`=`t1`.`entity_id`",
+                array()
+                )
+            ->joinLeft(
+                array('t2' => $attribute->getBackend()->getTable()),
+                "t2.entity_id = t1.entity_id"
+                    . " AND t1.entity_type_id = t2.entity_type_id"
+                    . " AND t1.attribute_id = t2.attribute_id"
+                    . " AND t2.store_id = {$store}",
+                array($attribute->getAttributeCode() => "IFNULL(t2.value, t1.value)"))
+            ->where("t1.entity_type_id=?", $attribute->getEntityTypeId())
+            ->where("t1.attribute_id=?", $attribute->getId())
+            ->where("t1.store_id=?", 0)
+            ->where("e.is_child=?", 0);
+    }
+
+    /**
+     * Describe table
+     *
+     * @param string $table
+     * @return array
+     */
+    public function describeTable($table) {
+        return $this->_getReadAdapter()->describeTable($table);
+    }
+
 }

@@ -252,7 +252,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
 
             $appliedRuleIds[$rule->getRuleId()] = $rule->getRuleId();
 
-            if ($rule->getCouponCode() && ($rule->getCouponCode() == $this->getCouponCode())) {
+            if ($rule->getCouponCode() && ( strtolower($rule->getCouponCode()) == strtolower($this->getCouponCode()))) {
                 $address->setCouponCode($this->getCouponCode());
             }
 

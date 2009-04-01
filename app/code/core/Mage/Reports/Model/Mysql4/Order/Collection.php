@@ -221,6 +221,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
             ->addAttributeToSelect('*')
             ->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to))
             ->addExpressionAttributeToSelect('orders', 'COUNT(DISTINCT({{entity_id}}))', array('entity_id'))
+            ->addAttributeToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED))
             ->getSelect()->group('("*")');
 
         /**
@@ -363,6 +364,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
      */
     public function addOrdersCount()
     {
+        $this->addAttributeToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED));
         $this->getSelect()
             ->from('', array("orders_count" => "COUNT(e.entity_id)"));
 
@@ -398,7 +400,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
             /**
              * calculate average and total amount
              */
-            $expr = "(e.base_subtotal-IFNULL(e.base_subtotal_refunded,0)-IFNULL(e.base_subtotal_canceled,0))/_b2gr_{$baseToGlobalRateTableName}.{$baseToGlobalRateTableName}";
+            $expr = "(e.base_subtotal-IFNULL(e.base_subtotal_refunded,0)-IFNULL(e.base_subtotal_canceled,0))*_b2gr_{$baseToGlobalRateTableName}.{$baseToGlobalRateTableName}";
 
         } else {
 

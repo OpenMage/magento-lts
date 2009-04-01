@@ -88,8 +88,8 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         if (is_array($filters)) {
             try {
                 foreach ($filters as $field => $value) {
-                    if (isset($this->_filtersMap[$field])) {
-                        $field = $this->_filtersMap[$field];
+                    if (isset($this->_attributesMap['order'][$field])) {
+                        $field = $this->_attributesMap['order'][$field];
                     }
 
                     $collection->addFieldToFilter($field, $value);

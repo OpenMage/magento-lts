@@ -24,102 +24,11 @@
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php $_source  = $this->getSource() ?>
-<?php $_order   = $this->getOrder() ?>
+<?php $_source = $this->getSource(); ?>
 <?php $this->setPriceDataObject($_source) ?>
-<?php $_currency= $this->getCurrency() ?>
 <?php if ($_source): ?>
 <table cellspacing="0" width="100%">
-    <tfoot>
-        <tr>
-            <td class="label">
-                <strong><big>
-                <?php if ($this->getGrandTotalTitle()): ?>
-                    <?php echo $this->getGrandTotalTitle() ?>
-                <?php else: ?>
-                    <?php echo Mage::helper('sales')->__('Grand Total') ?>
-                <?php endif; ?>
-                </big></strong>
-            </td>
-            <td class="emph"><big><?php echo $this->displayPriceAttribute('grand_total', true) ?></big></td>
-        </tr>
-        <?php if ($this->getCanDisplayTotalPaid()): ?>
-        <tr>
-            <td class="label"><strong><?php echo Mage::helper('sales')->__('Total Paid') ?></strong></td>
-            <td class="emph"><?php echo $this->displayPriceAttribute('total_paid', true) ?>
-            </td>
-        </tr>
-        <?php endif; ?>
-        <?php if ($this->getCanDisplayTotalRefunded()): ?>
-        <tr>
-            <td class="label"><strong><?php echo Mage::helper('sales')->__('Total Refunded') ?></strong></td>
-            <td class="emph"><?php echo $this->displayPriceAttribute('total_refunded', true) ?></td>
-        </tr>
-        <?php endif; ?>
-        <?php if ($this->getCanDisplayTotalDue()): ?>
-        <tr>
-            <td class="label"><big><strong><?php echo Mage::helper('sales')->__('Total Due', true) ?></strong></big></td>
-            <td class="emph"><big><?php echo $this->displayPriceAttribute('total_due', true) ?></big></td>
-        </tr>
-        <?php endif; ?>
-    </tfoot>
-    <tbody>
-        <?php if ((float) $_source->getSubtotal()): ?>
-        <tr>
-            <td class="label"><?php echo Mage::helper('sales')->__('Subtotal') ?></td>
-            <td><?php echo $this->displayPriceAttribute('subtotal') ?></td>
-        </tr>
-        <?php endif; ?>
-        <?php if ((float) $_source->getTaxAmount()): ?>
-            <?php if ($this->getChild('order_totals_tax')): ?>
-                <?php echo $this->getChildHtml('order_totals_tax'); ?>
-            <?php else: ?>
-            <tr>
-                <td class="label"><?php echo Mage::helper('sales')->__('Tax') ?></td>
-                <td><?php echo $this->displayPriceAttribute('tax_amount') ?></td>
-            </tr>
-            <?php endif; ?>
-        <?php endif; ?>
-
-        <?php if ((float) $_source->getShippingAmount() || $_source->getShippingDescription()): ?>
-        <tr>
-            <td class="label"><?php echo Mage::helper('sales')->__('Shipping &amp; Handling') ?></td>
-            <td><?php echo $this->displayPriceAttribute('shipping_amount') ?></td>
-        </tr>
-        <?php endif; ?>
-        <?php if ((float) $_source->getDiscountAmount()): ?>
-        <tr>
-            <td class="label">
-                <?php if ($_order->getCouponCode()): ?>
-                    <?php echo Mage::helper('sales')->__('Discount (%s)', $_order->getCouponCode()) ?>
-                <?php else: ?>
-                    <?php echo Mage::helper('sales')->__('Discount') ?>
-                <?php endif; ?>
-            </td>
-            <td><?php echo $this->displayPriceAttribute('discount_amount') ?></td>
-        </tr>
-        <?php endif; ?>
-
-        <?php if ((float) $_source->getGiftcertAmount()): ?>
-        <tr>
-            <td class="label"><?php echo Mage::helper('sales')->__('Gift Certificate') ?></td>
-            <td><?php echo $this->displayPriceAttribute('giftcert_amount') ?></td>
-        </tr>
-        <?php endif; ?>
-
-        <?php if ((float) $_source->getAdjustmentPositive()): ?>
-        <tr>
-            <td class="label"><?php echo Mage::helper('sales')->__('Adjustment Refund') ?></td>
-            <td><?php echo $this->displayPriceAttribute('adjustment_positive') ?></td>
-        </tr>
-        <?php endif; ?>
-
-        <?php if ((float) $_source->getAdjustmentNegative()): ?>
-        <tr>
-            <td class="label"><?php echo Mage::helper('sales')->__('Adjustment Fee') ?></td>
-            <td><?php echo $this->displayPriceAttribute('adjustment_negative') ?></td>
-        </tr>
-        <?php endif; ?>
-    </tbody>
+    <?php echo $this->getChildHtml('main'); ?>
+    <?php echo $this->getChildHtml('footer'); ?>
 </table>
 <?php endif; ?>

@@ -37,13 +37,6 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
 
     protected function _prepareLayout()
     {
-        $this->setChild('store_switcher',
-            $this->getLayout()->createBlock('adminhtml/store_switcher')
-                ->setUseConfirm(false)
-                ->setSwitchUrl($this->getUrl('*/*/*', array('store'=>null)))
-                ->setTemplate('dashboard/store/switcher.phtml')
-        );
-
         $this->setChild('lastOrders',
                 $this->getLayout()->createBlock('adminhtml/dashboard_orders_grid')
         );
@@ -73,11 +66,6 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
         );
 
         parent::_prepareLayout();
-    }
-
-    public function getStoreSwitcherHtml()
-    {
-        return $this->getChildHtml('store_switcher');
     }
 
     public function getSwitchUrl()

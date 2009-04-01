@@ -18,33 +18,35 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_GoogleOptimizer
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_GoogleOptimizer
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * Google Optimizer Source Model
  *
- * @category   Mage
- * @package    Mage_GoogleOptmizer
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_GoogleOptimizer
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GoogleOptimizer_Model_Adminhtml_System_Config_Source_Googleoptimizer_Conversionpages
 {
+    
     public function toOptionArray()
     {
         return array(
-            array('value'=>'', 'label'=>Mage::helper('googleoptimizer')->__('-- Please Select --')),
-            array('value'=>'other', 'label'=>Mage::helper('googleoptimizer')->__('Other')),
-            array('value'=>'checkout_cart', 'label'=>Mage::helper('googleoptimizer')->__('Shopping Cart')),
-            array('value'=>'checkout_onepage', 'label'=>Mage::helper('googleoptimizer')->__('One Page Checkout')),
-            array('value'=>'checkout_multishipping', 'label'=>Mage::helper('googleoptimizer')->__('Multi Address Checkout')),
-            array('value'=>'checkout_onepage_success', 'label'=>Mage::helper('googleoptimizer')->__('Order Success (One Page Checkout)')),
-            array('value'=>'checkout_multishipping_success', 'label'=>Mage::helper('googleoptimizer')->__('Order Success (Multi Address Checkout)')),
-            array('value'=>'customer_account_create', 'label'=>Mage::helper('googleoptimizer')->__('Account Registration')),
+            array('value' => '',                                'label' => Mage::helper('googleoptimizer')->__('-- Please Select --')),
+            array('value' => 'other',                           'label' => Mage::helper('googleoptimizer')->__('Other')),
+            array('value' => 'checkout_cart',                   'label' => Mage::helper('googleoptimizer')->__('Shopping Cart')),
+            array('value' => 'checkout_onepage',                'label' => Mage::helper('googleoptimizer')->__('One Page Checkout')),
+            array('value' => 'checkout_multishipping',          'label' => Mage::helper('googleoptimizer')->__('Multi Address Checkout')),
+            array('value' => 'checkout_onepage_success',        'label' => Mage::helper('googleoptimizer')->__('Order Success (One Page Checkout)')),
+            array('value' => 'checkout_multishipping_success',  'label' => Mage::helper('googleoptimizer')->__('Order Success (Multi Address Checkout)')),
+            array('value' => 'customer_account_create',         'label' => Mage::helper('googleoptimizer')->__('Account Registration')),
         );
     }
+    
 }

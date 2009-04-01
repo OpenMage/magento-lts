@@ -59,41 +59,40 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * @param  Mage_Core_Controller_Request_Http $request
      * @return Mage_Admin_Model_User|null
      */
-    public function login($username, $password, $request=null)
+    public function login($username, $password, $request = null)
     {
         if (empty($username) || empty($password)) {
             return;
         }
 
-        $user = Mage::getModel('admin/user')->login($username, $password);
-        if ( $user->getId() && $user->getIsActive() != '1' ) {
-            if ($request && !$request->getParam('messageSent')) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Your Account has been deactivated.'));
-                $request->setParam('messageSent', true);
-            }
-        } elseif (!Mage::getModel('admin/user')->hasAssigned2Role($user->getId())) {
-            if ($request && !$request->getParam('messageSent')) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Access Denied.'));
-                $request->setParam('messageSent', true);
-            }
-        } else {
+        try {
+            /* @var $user Mage_Admin_Model_User */
+            $user = Mage::getModel('admin/user');
+            $user->login($username, $password);
             if ($user->getId()) {
+                if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
+                    Mage::getSingleton('adminhtml/url')->renewSecretUrls();
+                }
                 $session = Mage::getSingleton('admin/session');
                 $session->setIsFirstVisit(true);
                 $session->setUser($user);
                 $session->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
-                if ($request) {
-                    header('Location: ' . $request->getRequestUri());
+                if ($requestUri = $this->_getRequestUri($request)) {
+                    header('Location: ' . $requestUri);
                     exit;
                 }
-
-            } else {
-                if ($request && !$request->getParam('messageSent')) {
-                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Invalid Username or Password.'));
-                    $request->setParam('messageSent', true);
-                }
+            }
+            else {
+                Mage::throwException(Mage::helper('adminhtml')->__('Invalid Username or Password.'));
             }
         }
+        catch (Mage_Core_Exception $e) {
+            if ($request && !$request->getParam('messageSent')) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $request->setParam('messageSent', true);
+            }
+        }
+
         return $user;
     }
 
@@ -179,4 +178,20 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         return $this->_isFirstPageAfterLogin;
     }
 
+    /**
+     * Custom REQUEST_URI logic
+     *
+     * @param Mage_Core_Controller_Request_Http $request
+     * @return string|null
+     */
+    protected function _getRequestUri($request = null)
+    {
+        if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
+            return Mage::getSingleton('adminhtml/url')->getUrl('*/*/*', array('_current' => true));
+        } elseif ($request) {
+            return $request->getRequestUri();
+        } else {
+            return null;
+        }
+    }
 }

@@ -51,6 +51,11 @@ class Mage_Reports_Block_Product_Viewed extends Mage_Reports_Block_Product_Abstr
         return Mage::getStoreConfig(self::XML_PATH_RECENTLY_VIEWED_COUNT);
     }
 
+    /**
+     * Retrieve Product Ids to skip
+     *
+     * @return array
+     */
     protected function _getProductsToSkip()
     {
         $ids = array();
@@ -60,14 +65,25 @@ class Mage_Reports_Block_Product_Viewed extends Mage_Reports_Block_Product_Abstr
         return $ids;
     }
 
+    /**
+     * Check session has viewed products
+     *
+     * @return bool
+     */
     protected function _hasViewedProductsBefore()
     {
         return Mage::getSingleton('reports/session')->getData('viewed_products');
     }
 
+    /**
+     * Prepare to html
+     * check has viewed products
+     *
+     * @return string
+     */
     protected function _toHtml()
     {
-        if ($this->_hasViewedProductsBefore() === false) {
+        if (!$this->_hasViewedProductsBefore()) {
             return '';
         }
 

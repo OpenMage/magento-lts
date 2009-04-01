@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Customer>
-            <version>0.8.9</version>
+            <version>0.8.10</version>
         </Mage_Customer>
     </modules>
 

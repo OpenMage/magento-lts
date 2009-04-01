@@ -50,7 +50,7 @@ class Maged_View
 
     public function mageUrl()
     {
-        return dirname($this->baseUrl());
+        return str_replace('\\', '/', dirname($this->baseUrl()));
     }
 
     public function template($name)

@@ -59,7 +59,6 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
         $collection = Mage::getModel('catalog/product')->getCollection()
             ->addAttributeToSelect('*')
             ->setStoreId($storeId)
-            ->addStoreFilter($storeId)
             ->addAttributeToFilter('type_id', array(
                 Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
                 Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL
@@ -71,6 +70,10 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
                 '{{table}}.stock_id=1',
                 'left')
             ->setOrder('qty', 'asc');
+
+        if( $storeId ) {
+            $collection->addStoreFilter($storeId);
+        }
 
         $this->setCollection($collection);
         return parent::_prepareCollection();

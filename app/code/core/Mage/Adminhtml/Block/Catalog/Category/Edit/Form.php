@@ -33,6 +33,13 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Block_Catalog_Category_Abstract
 {
+    /**
+     * Additional buttons on category page
+     *
+     * @var array
+     */
+    protected $_additionalButtons = array();
+
     public function __construct()
     {
         parent::__construct();
@@ -105,6 +112,51 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
             return $this->getChildHtml('reset_button');
         }
         return '';
+    }
+
+    /**
+     * Retrieve additional buttons html
+     *
+     * @return string
+     */
+    public function getAdditionalButtonsHtml()
+    {
+        $html = '';
+        foreach ($this->_additionalButtons as $childName) {
+            $html .= $this->getChildHtml($childName);
+        }
+        return $html;
+    }
+
+    /**
+     * Add additional button
+     *
+     * @param string $alias
+     * @param array $config
+     * @return Mage_Adminhtml_Block_Catalog_Category_Edit_Form
+     */
+    public function addAdditionalButton($alias, $config)
+    {
+        $this->setChild($alias . '_button',
+                        $this->getLayout()->createBlock('adminhtml/widget_button')->addData($config));
+        $this->_additionalButtons[$alias] = $alias . '_button';
+        return $this;
+    }
+
+    /**
+     * Remove additional button
+     *
+     * @param string $alias
+     * @return Mage_Adminhtml_Block_Catalog_Category_Edit_Form
+     */
+    public function removeAdditionalButton($alias)
+    {
+        if (isset($this->_additionalButtons[$alias])) {
+            $this->unsetChild($this->_additionalButtons[$alias]);
+            unset($this->_additionalButtons[$alias]);
+        }
+
+        return $this;
     }
 
     public function getTabsHtml()

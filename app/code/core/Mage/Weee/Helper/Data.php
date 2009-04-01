@@ -114,8 +114,12 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_storeDisplayConfig[$key];
     }
 
-    public function getAmount($product, $shipping = null, $billing = null, $website = null, $calculateTaxes = false) {
-        return Mage::getSingleton('weee/tax')->getWeeeAmount($product, $shipping, $billing, $website, $calculateTaxes);
+    public function getAmount($product, $shipping = null, $billing = null, $website = null, $calculateTaxes = false)
+    {
+        if ($this->isEnabled()) {
+            return Mage::getSingleton('weee/tax')->getWeeeAmount($product, $shipping, $billing, $website, $calculateTaxes);
+        }
+        return 0;
     }
 
     public function typeOfDisplay($product, $compareTo = null, $zone = null, $store = null)
@@ -212,7 +216,10 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
 
     public function getProductWeeeAttributesForDisplay($product)
     {
-        return $this->getProductWeeeAttributes($product, null, null, null, $this->typeOfDisplay($product, 1));
+        if ($this->isEnabled()) {
+            return $this->getProductWeeeAttributes($product, null, null, null, $this->typeOfDisplay($product, 1));
+        }
+        return array();
     }
 
 

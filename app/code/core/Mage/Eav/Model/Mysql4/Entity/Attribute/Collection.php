@@ -41,8 +41,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     protected $_addSetInfoFlag = false;
 
     /**
-     * Enter description here...
-     *
+     * Resource model initialization
      */
     public function _construct()
     {
@@ -50,10 +49,31 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
+     * Specify select columns which are used for load arrtibute values
      *
-     * @param int $typeId
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     */
+    public function useLoadDataFields()
+    {
+        $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
+        $this->getSelect()->columns(array(
+            'attribute_id',
+            'entity_type_id',
+            'attribute_code',
+            'attribute_model',
+            'backend_model',
+            'backend_type',
+            'backend_table',
+            'is_global'
+        ));
+        return $this;
+    }
+
+    /**
+     * Specify attribute entity type filter
+     *
+     * @param   int $typeId
+     * @return  Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
     public function setEntityTypeFilter($typeId)
     {
@@ -62,10 +82,10 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
+     * Specify attribute set filter
      *
-     * @param int $setId
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @param   int $setId
+     * @return  Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
     public function setAttributeSetFilter($setId)
     {
@@ -84,10 +104,11 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
+     * Specify multiple attribute sets filter
+     * Result will be ordered by sort_order
      *
-     * @param array $setIds
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @param   array $setIds
+     * @return  Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
     public function setAttributeSetsFilter(array $setIds)
     {
@@ -120,10 +141,10 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
+     * Add filter which exclude attributes assigned to attribute set
      *
-     * @param int $setId
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @param   int $setId
+     * @return  Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
     public function setAttributeSetExcludeFilter($setId)
     {
@@ -134,23 +155,22 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
+     * Exclude attributes filter
      *
-     * @param int $attributes
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @param   array $attributes
+     * @return  Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
     public function setAttributesExcludeFilter($attributes)
     {
-        #$this->join('entity_attribute', 'entity_attribute.attribute_id=main_table.attribute_id', 'sort_order');
         $this->getSelect()->where('main_table.attribute_id NOT IN(?)', $attributes);
         return $this;
     }
 
     /**
-     * Enter description here...
+     * Filter by attribute group id
      *
-     * @param int $groupId
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @param   int $groupId
+     * @return  Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
     public function setAttributeGroupFilter($groupId)
     {
@@ -161,7 +181,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
+     * Declare group by attribute id condition for collection select
      *
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
@@ -172,7 +192,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
+     * Specify filter by "is_visible" field
      *
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
@@ -183,7 +203,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
+     * Specify "is_filterable" filter
      *
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
@@ -205,7 +225,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
+     * Specify "is_unique" filter as true
      *
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
@@ -216,7 +236,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
+     * Specify "is_unique" filter as false
      *
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
@@ -227,7 +247,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
+     * Specify "is_searchable" filter
      *
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
@@ -238,7 +258,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
+     * Specify filter to select just attributes with options
      *
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
@@ -255,7 +275,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
+     * Specify "is_visible_in_advanced_search" filter
      *
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
@@ -279,12 +299,23 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
         return $this;
     }
 
+    /**
+     * Flag for adding information about attributes sets to result
+     *
+     * @param   bool $flag
+     * @return  Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     */
     public function addSetInfo($flag=true)
     {
         $this->_addSetInfoFlag = $flag;
         return $this;
     }
 
+    /**
+     * Ad information about attribute sets to collection result data
+     *
+     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     */
     protected function _addSetInfo()
     {
         if ($this->_addSetInfoFlag) {
@@ -331,6 +362,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
             unset($attributeToSetInfo);
             unset($attributeIds);
         }
+        return $this;
     }
 
     protected function _afterLoadData()

@@ -34,6 +34,16 @@
 class Mage_CatalogSearch_Model_Fulltext_Observer
 {
     /**
+     * Retrieve fulltext (indexer) model
+     *
+     * @return Mage_CatalogSearch_Model_Fulltext
+     */
+    protected function _getFulltextModel()
+    {
+        return Mage::getSingleton('catalogsearch/fulltext');
+    }
+
+    /**
      * Update product index when product data updated
      *
      * @param Varien_Object $observer
@@ -131,6 +141,36 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     {
         $storeId = $observer->getEvent()->getStore()->getId();
         Mage::getModel('catalogsearch/fulltext')->rebuildIndex($storeId);
+        return $this;
+    }
+
+    /**
+     * Catalog Product mass website update
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_CatalogSearch_Model_Fulltext_Observer
+     */
+    public function catalogProductWebsiteUpdate(Varien_Event_Observer $observer)
+    {
+        $websiteIds = $observer->getEvent()->getWebsiteIds();
+        $productIds = $observer->getEvent()->getProductIds();
+        $actionType = $observer->getEvent()->getAction();
+
+        foreach ($websiteIds as $websiteId) {
+            foreach (Mage::app()->getWebsite($websiteId)->getStoreIds() as $storeId) {
+                if ($actionType == 'remove') {
+                    $this->_getFulltextModel()
+                        ->cleanIndex($storeId, $productIds)
+                        ->resetSearchResults();
+                }
+                elseif ($actionType == 'add') {
+                    $this->_getFulltextModel()
+                        ->rebuildIndex($storeId, $productIds)
+                        ->resetSearchResults();
+                }
+            }
+        }
+
         return $this;
     }
 }

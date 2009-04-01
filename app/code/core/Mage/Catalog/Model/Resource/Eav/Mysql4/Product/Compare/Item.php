@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,17 +30,27 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item extends Mage_Core_Model_Mysql4_Abstract
 {
-
+    /**
+     * Initialize connection
+     *
+     */
     protected function _construct()
     {
         $this->_init('catalog/compare_item', 'catalog_compare_item_id');
     }
 
-    public function loadByProduct(Mage_Core_Model_Abstract $object, $product)
+    /**
+     * Load object by product
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @param mixed $product
+     * @return bool
+     */
+    public function loadByProduct(Mage_Catalog_Model_Product_Compare_Item $object, $product)
     {
         $read = $this->_getReadAdapter();
         if ($product instanceof Mage_Catalog_Model_Product) {
@@ -69,6 +79,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item extends Mage_C
         return true;
     }
 
+    /**
+     * Resource retrieve count compare items
+     *
+     * @param int $customerId
+     * @param int $visitorId
+     * @return int
+     */
     public function getCount($customerId, $visitorId)
     {
         $select = $this->_getReadAdapter()->select()->from($this->getMainTable(), 'COUNT(*)')
@@ -92,10 +109,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item extends Mage_C
                 ->from(array('compare_table' => $this->getMainTable()), array('catalog_compare_item_id'))
                 ->joinLeft(
                     array('visitor_table' => $this->getTable('log/visitor')),
-                    'compare_table.visitor_id = visitor_table.visitor_id',
+                    '`visitor_table`.`visitor_id`=`compare_table`.`visitor_id`',
                     array())
-                ->where('compare_table.visitor_id NOT IS NULL')
-                ->where('visitor_table.visitor_id IS NULL')
+                ->where('compare_table.visitor_id>?',0)
+                ->where('`visitor_table`.`visitor_id` IS NULL')
                 ->limit(1000);
             $itemIds = $this->_getReadAdapter()->fetchCol($select);
 
@@ -105,7 +122,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item extends Mage_C
 
             $this->_getWriteAdapter()->delete(
                 $this->getMainTable(),
-                $this->_getWriteAdapter()->quoteInto('catalog_compare_item_id IN(?)', $eventIds)
+                $this->_getWriteAdapter()->quoteInto('catalog_compare_item_id IN(?)', $itemIds)
             );
         }
 

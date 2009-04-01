@@ -176,7 +176,7 @@ class Zend_Currency
             $value = Zend_Locale_Format::convertNumerals($value, 'Latn', $options['script']);
         }
 
-        $this->_processSymbolChoice($options, $value);
+        $options = $this->_processSymbolChoice($options, $value);
 
         // Get the sign to be placed next to the number
         if (is_numeric($options['display']) === false) {

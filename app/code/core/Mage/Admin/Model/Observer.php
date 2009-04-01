@@ -55,7 +55,13 @@ class Mage_Admin_Model_Observer
                     $user = $session->login($username, $password, $request);
                 }
                 if (!$request->getParam('forwarded')) {
-                    if($request->getParam('isAjax')) {
+                    if ($request->getParam('isIframe')) {
+                        $request->setParam('forwarded', true)
+                            ->setControllerName('index')
+                            ->setActionName('deniedIframe')
+                            ->setDispatched(false);
+                    }
+                    elseif($request->getParam('isAjax')) {
                         $request->setParam('forwarded', true)
                             ->setControllerName('index')
                             ->setActionName('deniedJson')

@@ -36,18 +36,18 @@ class Mage_Sitemap_Model_Mysql4_Catalog_Product extends Mage_Core_Model_Mysql4_A
 {
     /**
      * Collection Zend Db select
-     * 
+     *
      * @var Zend_Db_Select
      */
     protected $_select;
-    
+
     /**
      * Attribute cache
-     * 
+     *
      * @var array
      */
     protected $_attributesCache = array();
-    
+
     /**
      * Init resource model (catalog/category)
      */
@@ -55,37 +55,37 @@ class Mage_Sitemap_Model_Mysql4_Catalog_Product extends Mage_Core_Model_Mysql4_A
     {
         $this->_init('catalog/product', 'entity_id');
     }
-    
+
     /**
      * Add attribute to filter
-     * 
+     *
      * @param int $storeId
      * @param string $attributeCode
      * @param mixed $value
      * @param string $type
-     * 
+     *
      * @return Zend_Db_Select
      */
     protected function _addFilter($storeId, $attributeCode, $value, $type = '=')
     {
         if (!isset($this->_attributesCache[$attributeCode])) {
             $attribute = Mage::getSingleton('catalog/product')->getResource()->getAttribute($attributeCode);
-            
+
             $this->_attributesCache[$attributeCode] = array(
                 'entity_type_id'    => $attribute->getEntityTypeId(),
                 'attribute_id'      => $attribute->getId(),
                 'table'             => $attribute->getBackend()->getTable(),
-                'is_global'         => $attribute->getIsGlobal(),
+                'is_global'         => $attribute->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
                 'backend_type'      => $attribute->getBackendType()
             );
         }
-        
+
         $attribute = $this->_attributesCache[$attributeCode];
 
         if (!$this->_select instanceof Zend_Db_Select) {
-            return false; 
+            return false;
         }
-        
+
         switch ($type) {
             case '=':
                 $conditionRule = '=?';
@@ -97,13 +97,13 @@ class Mage_Sitemap_Model_Mysql4_Catalog_Product extends Mage_Core_Model_Mysql4_A
                 return false;
                 break;
         }
-        
+
         if ($attribute['backend_type'] == 'static') {
             $this->_select->where('e.' . $attributeCode . $conditionRule, $value);
         }
         else {
             if ($attribute['is_global']) {
-                
+
             }
             else {
                 $this->_select->join(
@@ -120,27 +120,27 @@ class Mage_Sitemap_Model_Mysql4_Catalog_Product extends Mage_Core_Model_Mysql4_A
                 ->where('IFNULL(t2_'.$attributeCode.'.value, t1_'.$attributeCode.'.value)'.$conditionRule, $value);
             }
         }
-        
+
         return $this->_select;
     }
-    
-    
+
+
     /**
      * Get category collection array
-     * 
+     *
      * @return array
      */
     public function getCollection($storeId)
     {
         $products = array();
-        
+
         $store = Mage::app()->getStore($storeId);
         /* @var $store Mage_Core_Model_Store */
-        
+
         if (!$store) {
             return false;
         }
-        
+
         $urCondions = array(
             'e.entity_id=ur.product_id',
             'ur.category_id IS NULL',
@@ -161,22 +161,22 @@ class Mage_Sitemap_Model_Mysql4_Catalog_Product extends Mage_Core_Model_Mysql4_A
                 array('url' => 'request_path')
             )
             ;
-        
-        $this->_addFilter($storeId, 'visibility', array(2,4), 'in');
-        $this->_addFilter($storeId, 'status', 1);
-        
+
+        $this->_addFilter($storeId, 'visibility', Mage::getSingleton('catalog/product_visibility')->getVisibleInSearchIds(), 'in');
+        $this->_addFilter($storeId, 'status', Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(), 'in');
+
         $query = $this->_getWriteAdapter()->query($this->_select);
         while ($row = $query->fetch()) {
             $product = $this->_prepareProduct($row);
             $products[$product->getId()] = $product;
         }
-        
+
         return $products;
     }
-    
+
     /**
      * Prepare product
-     * 
+     *
      * @param array $productRow
      * @return Varien_Object
      */

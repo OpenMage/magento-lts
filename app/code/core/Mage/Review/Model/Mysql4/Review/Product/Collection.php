@@ -58,15 +58,27 @@ class Mage_Review_Model_Mysql4_Review_Product_Collection extends Mage_Catalog_Mo
         $this->getSelect()
             ->join(array('store'=>$this->_reviewStoreTable),
                 'rt.review_id=store.review_id AND store.store_id=' . (int)$storeId, array());
-
         return $this;
     }
 
     public function setStoreFilter($storeId)
     {
-        $this->getSelect()
-            ->join(array('store'=>$this->_reviewStoreTable),
-                'rt.review_id=store.review_id AND store.store_id=' . (int)$storeId, array());
+        if( is_array($storeId) && isset($storeId['eq']) ) {
+            $storeId = array_shift($storeId);
+        }
+
+        if( is_array($storeId) ) {
+            $this->getSelect()
+                ->join(array('store'=>$this->_reviewStoreTable),
+                    $this->getConnection()->quoteInto('rt.review_id=store.review_id AND store.store_id IN(?)', $storeId), array())
+                ->distinct(true)
+                ;
+        } else {
+            $this->getSelect()
+                ->join(array('store'=>$this->_reviewStoreTable),
+                    'rt.review_id=store.review_id AND store.store_id=' . (int)$storeId, array());
+        }
+
         return $this;
     }
 

@@ -142,6 +142,8 @@ class Mage_Sales_Model_Mysql4_Quote_Item_Collection extends Mage_Core_Model_Mysq
             ->addStoreFilter()
             ->addUrlRewrite();
 
+        Mage::dispatchEvent('sales_quote_item_collection_products_after_load', array('product_collection'=>$productCollection));
+
         $recollectQuote = false;
         foreach ($this as $item) {
             if ($this->_quote) {
@@ -155,9 +157,10 @@ class Mage_Sales_Model_Mysql4_Quote_Item_Collection extends Mage_Core_Model_Mysq
                     /**
                      * Call type specified logic for product associated with quote item
                      */
-                    $product->getTypeInstance()->assignProductToOption(
+                    $product->getTypeInstance(true)->assignProductToOption(
                             $productCollection->getItemById($option->getProductId()),
-                            $option
+                            $option,
+                            $product
                         );
                 }
                 $item->setProduct($product);

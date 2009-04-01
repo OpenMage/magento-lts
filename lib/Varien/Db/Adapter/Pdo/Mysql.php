@@ -38,6 +38,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
 
     protected $_transactionLevel    = 0;
     protected $_connectionFlagsSet  = false;
+    protected $_describesCache      = array();
 
     /**
      * SQL bind params
@@ -384,6 +385,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     {
         $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
         if (strpos($create, "CONSTRAINT `$fk` FOREIGN KEY (")!==false) {
+            $this->resetDescribesCache($table);
             return $this->raw_query("ALTER TABLE `$table` DROP FOREIGN KEY `$fk`");
         }
         return true;
@@ -400,6 +402,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     {
         $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
         if (strpos($create, "KEY `$key` (")!==false) {
+            $this->resetDescribesCache($table);
             return $this->raw_query("ALTER TABLE `$table` DROP KEY `$key`");
         }
         return true;
@@ -432,7 +435,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         if (!is_null($onUpdate)) {
             $sql .= ' ON UPDATE ' . strtoupper($onUpdate);
         }
-
+        $this->resetDescribesCache($tableName);
         return $this->raw_query($sql);
     }
 
@@ -466,6 +469,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         if ($this->tableColumnExists($tableName, $columnName)) {
             return true;
         }
+        $this->resetDescribesCache($tableName);
         $result = $this->raw_query("alter table `$tableName` add column `$columnName` ".$definition);
         return $result;
     }
@@ -499,7 +503,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         }
 
         $alterDrop[] = 'DROP COLUMN `'.$columnName.'`';
-
+        $this->resetDescribesCache($tableName);
         return $this->raw_query('ALTER TABLE `'.$tableName.'` ' . join(', ', $alterDrop));
     }
 
@@ -523,6 +527,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         $sql = 'ALTER TABLE ' . $this->quoteIdentifier($tableName)
             . ' CHANGE COLUMN ' . $this->quoteIdentifier($oldColumnName)
             . ' ' . $this->quoteIdentifier($newColumnName) . ' ' . $definition;
+        $this->resetDescribesCache($tableName);
         $result = $this->raw_query($sql);
         if ($showStatus) {
             $this->showTableStatus($tableName);
@@ -549,6 +554,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         $sql = 'ALTER TABLE ' . $this->quoteIdentifier($tableName)
             . ' MODIFY COLUMN ' . $this->quoteIdentifier($columnName)
             . ' ' . $definition;
+        $this->resetDescribesCache($tableName);
         $result = $this->raw_query($sql);
         if ($showStatus) {
             $this->showTableStatus($tableName);
@@ -573,13 +579,57 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         $keyList = array();
         $create  = $this->raw_fetchRow('SHOW CREATE TABLE ' . $this->quoteIdentifier($tableName), 'Create Table');
         $matches = array();
-        preg_match_all('#KEY `([^`]+)` \(([^)]+)\)#s', $create, $matches, PREG_SET_ORDER);
+        preg_match_all('#KEY `([^`]+)` (USING (BTREE|HASH) )?\(([^)]+)\)#s', $create, $matches, PREG_SET_ORDER);
 
         foreach ($matches as $v) {
             $keyList[$v[1]] = split(',', str_replace($this->getQuoteIdentifierSymbol(), '', $v[2]));
         }
 
         return $keyList;
+    }
+
+    /**
+     * Retrieve INDEX list for table
+     *
+     * @param string $tableName
+     * @return array
+     */
+    public function getIndexList($tableName)
+    {
+        $indexList = array();
+
+        $sql = "SHOW INDEX FROM " . $this->quoteIdentifier($tableName);
+        foreach ($this->fetchAll($sql) as $row) {
+            $fieldKeyName   = 'Key_name';
+            $fieldNonUnique = 'Non_unique';
+            $fieldColumn    = 'Column_name';
+            $fieldIndexType = 'Index_type';
+
+            if ($row[$fieldKeyName] == 'PRIMARY') {
+                $indexType  = 'primary';
+            }
+            elseif ($row[$fieldNonUnique] == 1) {
+                $indexType  = 'unique';
+            }
+            elseif ($row[$fieldIndexType] == 'FULLTEXT') {
+                $indexType  = 'fulltext';
+            }
+            else {
+                $indexType  = 'index';
+            }
+
+            if (isset($indexList[$row[$fieldKeyName]])) {
+                $indexList[$row[$fieldKeyName]]['fields'][] = $row[$fieldColumn];
+            }
+            else {
+                $indexList[$row[$fieldKeyName]] = array(
+                    'type'   => $indexType,
+                    'fields' => array($row[$fieldColumn])
+                );
+            }
+        }
+
+        return $indexList;
     }
 
     /**
@@ -627,7 +677,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         }
 
         $sql .= ' ADD ' . $condition . ' (' . $fieldSql . ')';
-
+        $this->resetDescribesCache($tableName);
         return $this->raw_query($sql);
     }
 
@@ -751,5 +801,96 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
             $value = new Zend_Db_Expr('NULL');
         }
         return parent::quoteInto($text, $value, $type, $count);
+    }
+
+    /**
+     * Reset table describe cache data
+     *
+     * @param   string $tableName
+     * @param   string $schemaName OPTIONAL
+     * @return  Varien_Db_Adapter_Pdo_Mysql
+     */
+    public function resetDescribesCache($tableName = null, $schemaName = null)
+    {
+        if ($tableName) {
+            $key = $tableName;
+            if ($schemaName) {
+                $key = $schemaName . '.' . $key;
+            }
+            unset($this->_describesCache[$key]);
+        } else {
+            $this->_describesCache = array();
+        }
+        return $this;
+    }
+
+    /**
+     * Returns the column descriptions for a table.
+     *
+     * The return value is an associative array keyed by the column name,
+     * as returned by the RDBMS.
+     *
+     * The value of each array element is an associative array
+     * with the following keys:
+     *
+     * SCHEMA_NAME      => string; name of database or schema
+     * TABLE_NAME       => string;
+     * COLUMN_NAME      => string; column name
+     * COLUMN_POSITION  => number; ordinal position of column in table
+     * DATA_TYPE        => string; SQL datatype name of column
+     * DEFAULT          => string; default expression of column, null if none
+     * NULLABLE         => boolean; true if column can have nulls
+     * LENGTH           => number; length of CHAR/VARCHAR
+     * SCALE            => number; scale of NUMERIC/DECIMAL
+     * PRECISION        => number; precision of NUMERIC/DECIMAL
+     * UNSIGNED         => boolean; unsigned property of an integer type
+     * PRIMARY          => boolean; true if column is part of the primary key
+     * PRIMARY_POSITION => integer; position of column in primary key
+     * IDENTITY         => integer; true if column is auto-generated with unique values
+     *
+     * @param string $tableName
+     * @param string $schemaName OPTIONAL
+     * @return array
+     */
+    public function describeTable($tableName, $schemaName = null)
+    {
+        $key = $tableName;
+        if ($schemaName) {
+            $key = $schemaName . '.' . $key;
+        }
+
+        if (!isset($this->_describesCache[$key])) {
+            $this->_describesCache[$key] = parent::describeTable($tableName, $schemaName);
+        }
+
+        return $this->_describesCache[$key];
+    }
+
+    /**
+     * Retrieve Database limitation
+     *
+     * @return mixed
+     */
+    public function getLimitation($code)
+    {
+        switch ($code) {
+            case 'index':
+                $value = 64;
+                break;
+            case 'join':
+                $value = 61;
+                break;
+            case 'column':
+                $value = 1000;
+                break;
+            case 'columns_per_index':
+                $value = 16;
+                break;
+            default:
+                $value = null;
+                break;
+        }
+
+        return $value;
     }
 }

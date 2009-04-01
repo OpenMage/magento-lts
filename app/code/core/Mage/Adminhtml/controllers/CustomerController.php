@@ -81,6 +81,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
     public function gridAction()
     {
+        $this->loadLayout();
         $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/customer_grid')->toHtml());
     }
 
@@ -113,18 +114,6 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
          */
         $this->_setActiveMenu('customer/new');
 
-        /**
-         * Append customer edit block to content
-         */
-        $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/customer_edit')
-        );
-
-        /**
-         * Append customer edit tabs to left block
-         */
-        $this->_addLeft($this->getLayout()->createBlock('adminhtml/customer_edit_tabs'));
-
         $this->renderLayout();
     }
 
@@ -145,6 +134,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $customer = Mage::registry('current_customer');
         if ($customer->getId()) {
             try {
+                $customer->load($customer->getId());
                 $customer->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Customer was deleted'));
             }
@@ -161,6 +151,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost()) {
+        	$redirectBack   = $this->getRequest()->getParam('back', false);
             $this->_initCustomer('customer_id');
             $customer = Mage::registry('current_customer');
 
@@ -231,6 +222,15 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 }
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Customer was successfully saved'));
+                Mage::dispatchEvent('adminhtml_customer_save_after', array('customer' => $customer));
+
+                if ($redirectBack) {
+	                $this->_redirect('*/*/edit', array(
+	                    'id'    => $customer->getId(),
+	                    '_current'=>true
+	                ));
+	                return;
+                }
             }
             catch (Exception $e){
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());

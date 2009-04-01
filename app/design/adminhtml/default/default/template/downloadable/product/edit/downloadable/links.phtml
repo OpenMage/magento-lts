@@ -126,7 +126,7 @@ var linkTemplate = '<tr>'+
     '<td>'+
         '<div class="files">'+
             '<div class="row">'+
-                '<label for="downloadable_link_{{id}}_sample_file_type"><input type="radio" class="radio" id="downloadable_link_{{id}}_sample_file_type" name="downloadable[link][{{id}}][sample][type]" value="file" /> File:</label>'+
+                '<label for="downloadable_link_{{id}}_sample_file_type"><input type="radio" class="radio" id="downloadable_link_{{id}}_sample_file_type" name="downloadable[link][{{id}}][sample][type]" value="file"{{sample_file_checked}} /> File:</label>'+
                 '<input type="hidden" id="downloadable_link_{{id}}_sample_file_save" name="downloadable[link][{{id}}][sample][file]" value="{{sample_file_save}}" />'+
                 '<div id="downloadable_link_{{id}}_sample_file" class="uploader">'+
                     '<div id="downloadable_link_{{id}}_sample_file-old" class="file-row-info"></div>'+
@@ -140,15 +140,17 @@ var linkTemplate = '<tr>'+
                 '</div>'+
             '</div>'+
             '<div class="row">'+
-                '<label for="downloadable_link_{{id}}_sample_url_type"><input type="radio" class="radio" id="downloadable_link_{{id}}_sample_url_type" name="downloadable[link][{{id}}][sample][type]" value="url" /> URL:</label><input type="text" class="input-text" name="downloadable[link][{{id}}][sample][url]" value="{{sample_url}}" />'+
+                '<label for="downloadable_link_{{id}}_sample_url_type"><input type="radio" class="radio" id="downloadable_link_{{id}}_sample_url_type" name="downloadable[link][{{id}}][sample][type]" value="url"{{sample_url_checked}} /> URL:</label><input type="text" class="input-text" name="downloadable[link][{{id}}][sample][url]" value="{{sample_url}}" />'+
             '</div>'+
-            '<span id="downloadable_link_{{id}}_sample_container"></span>'+
+            '<div>'+
+                '<span id="downloadable_link_{{id}}_sample_container"></span>'+
+            '</div>'+
         '</div>'+
     '</td>'+
     '<td>'+
         '<div class="files">'+
             '<div class="row">'+
-                '<label for="downloadable_link_{{id}}_file_type"><input type="radio" class="radio validate-one-required-by-name" id="downloadable_link_{{id}}_file_type" name="downloadable[link][{{id}}][type]" value="file" checked="checked" /> File:</label>'+
+                '<label for="downloadable_link_{{id}}_file_type"><input type="radio" class="radio validate-one-required-by-name" id="downloadable_link_{{id}}_file_type" name="downloadable[link][{{id}}][type]" value="file"{{file_checked}} /> File:</label>'+
             '<input type="hidden" class="validate-downloadable-file" id="downloadable_link_{{id}}_file_save" name="downloadable[link][{{id}}][file]" value="{{file_save}}" />'+
                 '<div id="downloadable_link_{{id}}_file" class="uploader">'+
                     '<div id="downloadable_link_{{id}}_file-old" class="file-row-info"></div>'+
@@ -162,9 +164,11 @@ var linkTemplate = '<tr>'+
                 '</div>'+
             '</div>'+
             '<div class="row">'+
-                '<label for="downloadable_link_{{id}}_url_type"><input type="radio" class="radio validate-one-required-by-name" id="downloadable_link_{{id}}_url_type" name="downloadable[link][{{id}}][type]" value="url" /> URL:</label><input type="text" class="validate-downloadable-url input-text" name="downloadable[link][{{id}}][link_url]" value="{{link_url}}" />'+
+                '<label for="downloadable_link_{{id}}_url_type"><input type="radio" class="radio validate-one-required-by-name" id="downloadable_link_{{id}}_url_type" name="downloadable[link][{{id}}][type]" value="url"{{url_checked}} /> URL:</label><input type="text" class="validate-downloadable-url input-text" name="downloadable[link][{{id}}][link_url]" value="{{link_url}}" />'+
             '</div>'+
-            '<span id="downloadable_link_{{id}}_link_container"></span>'+
+            '<div>'+
+                '<span id="downloadable_link_{{id}}_link_container"></span>'+
+            '</div>'+
         '</div>'+
     '</td>'+
     '<td class="a-center"><input type="text" name="downloadable[link][{{id}}][sort_order]" value="{{sort_order}}" class="input-text sort" /></td>'+
@@ -185,9 +189,24 @@ var linkItems = {
         if(!data.link_id){
             data = {};
             data.link_id  = 0;
+            data.link_type = 'file';
+            data.sample_type = 'none';
             data.number_of_downloads = '<?php echo $this->getConfigMaxDownloads() ?>';
         }
+
         data.id = this.itemCount;
+
+        if (data.link_type == 'url') {
+            data.url_checked = ' checked="checked"';
+        } else if (data.link_type == 'file') {
+            data.file_checked = ' checked="checked"';
+        }
+        if (data.sample_type == 'url') {
+            data.sample_url_checked = ' checked="checked"';
+        } else if (data.sample_type == 'file') {
+            data.sample_file_checked = ' checked="checked"';
+        }
+
         Element.insert(this.tbody, {'bottom':this.template.evaluate(data)});
 
         scopeTitle = $('downloadable_link_'+data.id+'_title');
@@ -281,21 +300,7 @@ var linkItems = {
         linkUrl.advaiceContainer = 'downloadable_link_'+data.id+'_link_container';
         $('downloadable_link_'+data.id+'_file_save').advaiceContainer = 'downloadable_link_'+data.id+'_link_container';
 
-        if (data.link_type == 'url') {
-            linkUrl.checked = true;
-        } else if (data.link_type == 'file') {
-            linkFile.checked = true;
-        }
-
         sampleFile = $('downloadable_link_'+data.id+'_sample_file_type');
-//        sampleFile.advaiceContainer = 'downloadable_link_'+data.id+'_sample_container';
-//        sampleUrl.advaiceContainer = 'downloadable_link_'+data.id+'_sample_container';
-
-        if (data.sample_type == 'url') {
-            sampleUrl.checked = true;
-        } else if (data.sample_type == 'file') {
-            sampleFile.checked = true;
-        }
 
         this.itemCount++;
         this.togglePriceFields();

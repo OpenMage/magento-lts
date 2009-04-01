@@ -25,6 +25,9 @@
  */
 ?>
 <?php $_element = $this->getElement() ?>
+<?php if ($_element->getFieldsetContainerId()): ?>
+<div id="<?php echo $_element->getFieldsetContainerId(); ?>">
+<?php endif; ?>
 <?php if ($_element->getLegend()): ?>
 <div class="entry-edit-head">
     <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $_element->getLegend() ?></h4>
@@ -35,12 +38,20 @@
     <div class="fieldset <?php echo $_element->getClass() ?>" id="<?php echo $_element->getHtmlId() ?>">
 <?php endif; ?>
     <div class="hor-scroll">
+        <?php if ($_element->hasHtmlContent()): ?>
+            <?php echo $_element->getHtmlContent(); ?>
+        <?php else: ?>
         <table cellspacing="0" class="form-list">
             <tbody>
-                <?php echo $_element->getChildrenHtml() ?>
+                <?php echo $_element->getChildrenHtml(); ?>
             </tbody>
         </table>
+        <?php endif; ?>
     </div>
+    <?php echo $_element->getSubFieldsetHtml() ?>
 <?php if (!$_element->getNoContainer()): ?>
     </div>
+<?php endif; ?>
+<?php if ($_element->getFieldsetContainerId()): ?>
+</div>
 <?php endif; ?>

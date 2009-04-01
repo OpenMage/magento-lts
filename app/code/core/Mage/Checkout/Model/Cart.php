@@ -222,7 +222,9 @@ class Mage_Checkout_Model_Cart extends Varien_Object
             if (is_string($result)) {
 
                 $this->getCheckoutSession()->setRedirectUrl($product->getProductUrl());
-                $this->getCheckoutSession()->setUseNotice(true);
+                if ($this->getCheckoutSession()->getUseNotice() === null) {
+                    $this->getCheckoutSession()->setUseNotice(true);
+                }
                 Mage::throwException($result);
             }
         }

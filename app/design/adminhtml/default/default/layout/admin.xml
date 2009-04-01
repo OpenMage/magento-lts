@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+
+<layout>
+    <!-- admin acl roles grid page -->
+    <adminhtml_permissions_role_index>
+        <reference name="content">
+            <block type="adminhtml/permissions_roles" name="adminhtml.permission.role.index" template="permissions/roles.phtml">
+                <block type="adminhtml/permissions_grid_role" name="adminhtml.permission.role.grid" as="grid"/>
+            </block>
+        </reference>
+    </adminhtml_permissions_role_index>
+    <adminhtml_permissions_role_rolegrid>
+        <remove name="root"/>
+        <block type="adminhtml/permissions_grid_role" name="adminhtml.permission.role.grid"/>
+    </adminhtml_permissions_role_rolegrid>
+
+    <!-- admin acl roles edit page -->
+    <adminhtml_permissions_role_editrole>
+        <reference name="left">
+            <block type="adminhtml/permissions_editroles" name="adminhtml.permissions.editroles"/>
+        </reference>
+    </adminhtml_permissions_role_editrole>
+    <adminhtml_system_config_edit>
+        <reference name="left">
+            <block type="adminhtml/system_config_switcher" name="adminhtml.system.config.switcher" before="-"/>
+        </reference>
+    </adminhtml_system_config_edit>
+    <adminhtml_dashboard_index>
+        <reference name="content">
+            <block type="adminhtml/dashboard" name="dashboard">
+                <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher" template="store/switcher.phtml">
+                    <action method="setUseConfirm"><params>0</params></action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_dashboard_index>
+</layout>

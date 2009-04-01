@@ -167,12 +167,8 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      */
     public function changeItemStatus(Mage_CatalogInventory_Model_Stock_Item $item)
     {
-        if ($product = $item->getProduct()) {
-            $productId      = $product->getId();
-            $productType    = $product->getTypeId();
-        }
-        else {
-            $productId      = $item->getProductId();
+        $productId  = $item->getProductId();
+        if (!$productType = $item->getProductTypeId()) {
             $productType    = $this->getProductType($productId);
         }
 
@@ -414,7 +410,8 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      *
      * @return Mage_CatalogInventory_Model_Mysql4_Stock_Status
      */
-    public function getResource() {
+    public function getResource()
+    {
         return parent::getResource();
     }
 
@@ -424,7 +421,8 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * @param int $productId
      * @return string|false
      */
-    public function getProductType($productId) {
+    public function getProductType($productId)
+    {
         $types = $this->getResource()->getProductsType($productId);
         if (isset($types[$productId])) {
             return $types[$productId];
@@ -439,8 +437,47 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * @param array|int $productIds
      * @return array
      */
-    public function getProductsType($productIds) {
+    public function getProductsType($productIds)
+    {
         return $this->getResource()->getProductsType($productIds);
     }
-}
 
+    /**
+     * Add information about stock status to product collection
+     *
+     * @param   Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $productCollection
+     * @param   int|null $websiteId
+     * @param   int|null $stockId
+     * @return  Mage_CatalogInventory_Model_Stock_Status
+     */
+    public function addStockStatusToProducts($productCollection, $websiteId = null, $stockId = null)
+    {
+        if ($stockId === null) {
+            $stockId = Mage_CatalogInventory_Model_Stock::DEFAULT_STOCK_ID;
+        }
+        if ($websiteId === null) {
+            $websiteId = Mage::app()->getStore()->getWebsiteId();
+        }
+        $productIds = array();
+        foreach ($productCollection as $product) {
+            $productIds[] = $product->getId();
+        }
+
+        if (!empty($productIds)) {
+            $stockStatuses = $this->_getResource()->getProductStatus($productIds, $websiteId, $stockId);
+            foreach ($stockStatuses as $productId => $status) {
+                if ($product = $productCollection->getItemById($productId)) {
+                    $product->setIsSalable($status);
+                }
+            }
+        }
+
+        /* back compatible stock item */
+        foreach ($productCollection as $product) {
+            $object = new Varien_Object(array('is_in_stock' => $product->getData('is_salable')));
+            $product->setStockItem($object);
+        }
+
+        return $this;
+    }
+}

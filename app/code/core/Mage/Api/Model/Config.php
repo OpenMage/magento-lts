@@ -186,6 +186,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      */
     public function loadAclResources(Mage_Api_Model_Acl $acl, $resource=null, $parentName=null)
     {
+        $resourceName = null;
         if (is_null($resource)) {
             $resource = $this->getNode('acl/resources');
         } else {

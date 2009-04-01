@@ -53,7 +53,11 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
             Mage::getResourceModel('catalog/category')->refreshProductIndex(
                 array(), $productIds
             );
-
+            Mage::dispatchEvent('catalog_product_website_update', array(
+                'website_ids'   => $websiteIds,
+                'product_ids'   => $productIds,
+                'action'        => 'remove'
+            ));
         }
         catch (Exception $e) {
             Mage::throwException(
@@ -70,14 +74,19 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
      * @param array $productIds
      * @return Mage_Catalog_Model_Product_Website
      */
-    public function addProducts($websiteIds, $productsIds)
+    public function addProducts($websiteIds, $productIds)
     {
         try {
-            $this->_getResource()->addProducts($websiteIds, $productsIds);
-            $this->_refreshRewrites($productsIds);
+            $this->_getResource()->addProducts($websiteIds, $productIds);
+            $this->_refreshRewrites($productIds);
             Mage::getResourceModel('catalog/category')->refreshProductIndex(
-                array(), $productsIds
+                array(), $productIds
             );
+            Mage::dispatchEvent('catalog_product_website_update', array(
+                'website_ids'   => $websiteIds,
+                'product_ids'   => $productIds,
+                'action'        => 'add'
+            ));
         }
         catch (Exception $e) {
             Mage::throwException(

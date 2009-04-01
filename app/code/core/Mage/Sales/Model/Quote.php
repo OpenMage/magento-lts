@@ -605,6 +605,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                     $child->isDeleted(true);
                 }
             }
+            Mage::dispatchEvent('sales_quote_remove_item', array('quote_item' => $item));
         }
         return $this;
     }
@@ -620,6 +621,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $item->setQuote($this);
         if (!$item->getId()) {
             $this->getItemsCollection()->addItem($item);
+            Mage::dispatchEvent('sales_quote_add_item', array('quote_item' => $item));
         }
         return $this;
     }
@@ -645,7 +647,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             Mage::throwException(Mage::helper('sales')->__('Invalid request for adding product to quote'));
         }
 
-        $cartCandidates = $product->getTypeInstance()->prepareForCart($request);
+        $cartCandidates = $product->getTypeInstance(true)
+            ->prepareForCart($request, $product);
 
         /**
          * Error message
@@ -1067,7 +1070,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if ($_item->getParentItemId()) {
                 continue;
             }
-            if ($_item->getProduct()->getTypeInstance()->isVirtual()) {
+            if ($_item->getProduct()->isVirtual()) {
                 $hasVirtual = true;
             }
         }
@@ -1126,13 +1129,16 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $code = $this->_getData('coupon_code');
         if ($code) {
             $addressHasCoupon = false;
-            foreach ($this->getAllAddresses() as $address) {
-            	if ($address->hasCouponCode()) {
-            	    $addressHasCoupon = true;
-            	}
-            }
-            if (!$addressHasCoupon) {
-                $this->setCouponCode('');
+            $addresses = $this->getAllAddresses();
+            if (count($addresses)>0) {
+                foreach ($addresses as $address) {
+                    if ($address->hasCouponCode()) {
+                        $addressHasCoupon = true;
+                    }
+                }
+                if (!$addressHasCoupon) {
+                    $this->setCouponCode('');
+                }
             }
         }
         return $this;

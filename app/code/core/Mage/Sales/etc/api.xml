@@ -203,6 +203,13 @@
             <order_shipment>sales_order_shipment</order_shipment>
             <order_invoice>sales_order_invoice</order_invoice>
         </resources_alias>
+        <v2>
+            <resources_function_prefix>
+                <order>salesOrder</order>
+                <order_shipment>salesOrderShipment</order_shipment>
+                <order_invoice>salesOrderInvoice</order_invoice>
+            </resources_function_prefix>
+        </v2>
         <acl>
             <resources>
                 <sales translate="title" module="sales">

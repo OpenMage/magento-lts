@@ -35,6 +35,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
 {
     public function _initAction()
     {
+        $act = $this->getRequest()->getActionName();
         $this->loadLayout()
             ->_addBreadcrumb(Mage::helper('reports')->__('Reports'), Mage::helper('reports')->__('Reports'))
             ->_addBreadcrumb(Mage::helper('reports')->__('Shopping Cart'), Mage::helper('reports')->__('Shopping Cart'));

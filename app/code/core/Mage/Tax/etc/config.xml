@@ -100,7 +100,7 @@
             <sales_convert_quote_address_to_order>
                 <observers>
                     <tax>
-                        <type>model</type>
+                        <type>singleton</type>
                         <class>tax/observer</class>
                         <method>salesEventConvertQuoteAddressToOrder</method>
                     </tax>
@@ -109,7 +109,7 @@
             <sales_order_save_after>
                 <observers>
                     <tax>
-                        <type>model</type>
+                        <type>singleton</type>
                         <class>tax/observer</class>
                         <method>salesEventOrderAfterSave</method>
                     </tax>
@@ -118,12 +118,21 @@
             <catalogindex_prepare_price_select>
                 <observers>
                     <tax>
-                        <type>model</type>
+                        <type>singleton</type>
                         <class>tax/observer</class>
                         <method>prepareCatalogIndexPriceSelect</method>
                     </tax>
                 </observers>
             </catalogindex_prepare_price_select>
+            <catalog_product_collection_load_after>
+                <observers>
+                    <tax>
+                        <type>singleton</type>
+                        <class>tax/observer</class>
+                        <method>addTaxPercentToProductCollection</method>
+                    </tax>
+                </observers>
+            </catalog_product_collection_load_after>
         </events>
     </global>
     <adminhtml>

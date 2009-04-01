@@ -71,7 +71,6 @@ class Mage_Customer_Block_Account_Dashboard_Info extends Mage_Core_Block_Templat
     /**
      *  Newsletter module availability
      *
-     *  @param    none
      *  @return	  boolean
      */
     public function isNewsletterEnabled()

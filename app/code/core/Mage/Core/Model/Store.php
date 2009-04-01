@@ -58,6 +58,16 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
     protected $_cacheTag    = true;
 
+    /**
+     * @var string
+     */
+    protected $_eventPrefix = 'store';
+
+    /**
+     * @var string
+     */
+    protected $_eventObject = 'store';
+
     protected $_priceFilter;
 
     /**
@@ -74,7 +84,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     protected $_group;
 
-    protected $_configCache = array();
+    protected $_configCache = null;
+    protected $_configCacheBaseNodes = array();
 
     protected $_dirCache = array();
 
@@ -84,9 +95,24 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
     protected $_session;
 
+    protected $_isAdminSecure = null;
+    protected $_isFrontSecure = null;
+
     protected function _construct()
     {
         $this->_init('core/store');
+        $this->_configCacheBaseNodes = array(
+            self::XML_PATH_PRICE_SCOPE,
+            self::XML_PATH_SECURE_BASE_URL,
+            self::XML_PATH_SECURE_IN_ADMINHTML,
+            self::XML_PATH_SECURE_IN_FRONTEND,
+            self::XML_PATH_STORE_IN_URL,
+            self::XML_PATH_UNSECURE_BASE_URL,
+            self::XML_PATH_USE_REWRITES,
+            'web/unsecure/base_link_url',
+            'web/secure/base_link_url',
+            'general/locale/code'
+        );
     }
 
     /**
@@ -147,19 +173,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve store identifier
-     *
-     * @return int
-     */
-//    public function getId()
-//    {
-//        if (is_null(parent::getId())) {
-//            $this->setId($this->getConfig('system/store/id'));
-//        }
-//        return parent::getId();
-//    }
-
-    /**
      * Retrieve Store code
      *
      * @return string
@@ -176,7 +189,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * @param   string $scope
      * @return  string|null
      */
-    public function getConfig($path) {
+    public function getConfig($path)
+    {
         if (isset($this->_configCache[$path])) {
             return $this->_configCache[$path];
         }
@@ -192,6 +206,44 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             return null;
         }
         return $this->_processConfigValue($fullPath, $path, $data);
+    }
+
+    /**
+     * Initialize base store configuration data
+     * Method provide cache configuration data without loading store config XML
+     *
+     * @return Mage_Core_Model_Config
+     */
+    public function initConfigCache()
+    {
+        return $this;
+        /**
+         * Funtionality related with config separation
+         */
+        if ($this->_configCache === null) {
+            $code = $this->getCode();
+            if ($code) {
+                if (Mage::app()->useCache('config')) {
+                    $cacheId = 'store_' . $code . '_config_cache';
+                    $data = Mage::app()->loadCache($cacheId);
+                    if ($data) {
+                        $data = unserialize($data);
+                    } else {
+                        $data = array();
+                        foreach ($this->_configCacheBaseNodes as $node) {
+                            $data[$node] = $this->getConfig($node);
+                        }
+                        Mage::app()->saveCache(
+                            serialize($data),
+                            $cacheId,
+                            array(self::CACHE_TAG, Mage_Core_Model_Config::CACHE_TAG)
+                        );
+                    }
+                    $this->_configCache = $data;
+                }
+            }
+        }
+        return $this;
     }
 
     /**
@@ -388,9 +440,47 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         return $url;
     }
 
+    /**
+     * Get store identifier
+     *
+     * @return  int
+     */
+    public function getId()
+    {
+        return $this->_getData('store_id');
+    }
+
+    /**
+     * Check if store is admin store
+     *
+     * @return unknown
+     */
     public function isAdmin()
     {
-        return !$this->getId();
+        return $this->getId() == Mage_Core_Model_App::ADMIN_STORE_ID;
+    }
+
+
+    public function isAdminUrlSecure()
+    {
+        if ($this->_isAdminSecure === null) {
+        	$this->_isAdminSecure = Mage::getStoreConfigFlag(
+        	   Mage_Core_Model_Url::XML_PATH_SECURE_IN_ADMIN,
+        	   $this->getId()
+        	);
+        }
+        return $this->_isAdminSecure;
+    }
+
+    public function isFrontUrlSecure()
+    {
+        if ($this->_isFrontSecure === null) {
+        	$this->_isFrontSecure = Mage::getStoreConfigFlag(
+        	   Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
+        	   $this->getId()
+        	);
+        }
+        return $this->_isFrontSecure;
     }
 
     public function isCurrentlySecure()
@@ -791,4 +881,11 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
         return $this;
     }
+
+//    public function __destruct()
+//    {
+//        echo '<pre>';
+//        print_r($this->_configCache);
+//        echo '</pre>';
+//    }
 }

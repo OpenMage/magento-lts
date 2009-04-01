@@ -24,13 +24,17 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Paypal Standard Checkout Controller
  *
+ * @category   Mage
+ * @package    Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
 {
+    
     /**
      * Order instance
      */
@@ -39,7 +43,6 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
     /**
      *  Get order
      *
-     *  @param    none
      *  @return	  Mage_Sales_Model_Order
      */
     public function getOrder()
@@ -148,4 +151,5 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
         $this->getStandard()->setIpnFormData($this->getRequest()->getPost());
         $this->getStandard()->ipnPostSubmit();
     }
+    
 }

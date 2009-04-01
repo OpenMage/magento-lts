@@ -89,7 +89,7 @@ var sampleTemplate = '<tr>'+
                         '<td>'+
                             '<div class="files-wide">'+
                                 '<div class="row">'+
-                                    '<label for="downloadable_sample_{{id}}_file_type"><input type="radio" class="radio validate-one-required-by-name" id="downloadable_sample_{{id}}_file_type" name="downloadable[sample][{{id}}][type]" value="file" checked="checked" /> File:</label>'+
+                                    '<label for="downloadable_sample_{{id}}_file_type"><input type="radio" class="radio validate-one-required-by-name" id="downloadable_sample_{{id}}_file_type" name="downloadable[sample][{{id}}][type]" value="file"{{file_checked}} /> File:</label>'+
                                     '<input type="hidden" class="validate-downloadable-file" id="downloadable_sample_{{id}}_file_save" name="downloadable[sample][{{id}}][file]" value="{{file_save}}" />'+
                                     '<div id="downloadable_sample_{{id}}_file" class="uploader">'+
                                         '<div id="downloadable_sample_{{id}}_file-old" class="file-row-info"></div>'+
@@ -103,10 +103,13 @@ var sampleTemplate = '<tr>'+
                                     '</div>'+
                                 '</div>'+
                                 '<div class="row">'+
-                                    '<label for="downloadable_sample_{{id}}_url_type"><input type="radio" class="radio validate-one-required-by-name" id="downloadable_sample_{{id}}_url_type" name="downloadable[sample][{{id}}][type]" value="url" /> URL:</label> <input type="text" class="validate-downloadable-url input-text" name="downloadable[sample][{{id}}][sample_url]" value="{{sample_url}}" />'+
+                                    '<label for="downloadable_sample_{{id}}_url_type"><input type="radio" class="radio validate-one-required-by-name" id="downloadable_sample_{{id}}_url_type" name="downloadable[sample][{{id}}][type]" value="url"{{url_checked}} /> URL:</label> <input type="text" class="validate-downloadable-url input-text" name="downloadable[sample][{{id}}][sample_url]" value="{{sample_url}}" />'+
                                 '</div>'+
-                                '<span id="downloadable_sample_{{id}}_container"></span>'+
+                                '<div>'+
+                                    '<span id="downloadable_sample_{{id}}_container"></span>'+
+                                '</div>'+
                             '</div>'+
+
                         '</td>'+
                         '<td class="a-center"><input type="text" name="downloadable[sample][{{id}}][sort_order]" value="{{sort_order}}" class="input-text sort" /></td>'+
                         '<td>'+
@@ -124,9 +127,18 @@ var sampleItems = {
 
         if(!data.sample_id){
             data = {};
+            data.sample_type = 'file';
             data.sample_id  = 0;
         }
+
         data.id = this.itemCount;
+
+        if (data.sample_type == 'url') {
+            data.url_checked = ' checked="checked"';
+        } else if (data.sample_type == 'file') {
+            data.file_checked = ' checked="checked"';
+        }
+
         Element.insert(this.tbody, {'bottom':this.template.evaluate(data)});
 
         scopeTitle = $('downloadable_sample_'+data.id+'_title');
@@ -164,12 +176,6 @@ var sampleItems = {
         sampleFile = $('downloadable_sample_'+data.id+'_file_type');
         sampleFile.advaiceContainer = 'downloadable_sample_'+data.id+'_container';
         $('downloadable_sample_'+data.id+'_file_save').advaiceContainer = 'downloadable_sample_'+data.id+'_container';
-//        $('downloadable_sample_'+data.id+'_file_save').advaiceContainer = 'custom-advice-container';
-        if (data.sample_type == 'url') {
-            sampleUrl.checked = true;
-        } else if (data.sample_type == 'file') {
-            sampleFile.checked = true;
-        }
 
         this.itemCount++;
         this.bindRemoveButtons();

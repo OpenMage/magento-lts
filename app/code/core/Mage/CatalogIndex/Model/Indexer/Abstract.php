@@ -41,11 +41,11 @@ class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_Abstract
         $associated = array();
         switch ($object->getTypeId()) {
             case Mage_Catalog_Model_Product_Type::TYPE_GROUPED:
-                $associated = $object->getTypeInstance()->getAssociatedProducts();
+                $associated = $object->getTypeInstance(true)->getAssociatedProducts($object);
                 break;
 
             case Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE:
-                $associated = $object->getTypeInstance()->getUsedProducts();
+                $associated = $object->getTypeInstance(true)->getUsedProducts(null, $object);
                 break;
         }
 

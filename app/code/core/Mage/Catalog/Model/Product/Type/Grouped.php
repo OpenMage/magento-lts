@@ -34,10 +34,34 @@
 class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product_Type_Abstract
 {
     const TYPE_CODE = 'grouped';
-    protected $_associatedProducts  = null;
-    protected $_associatedProductIds= null;
-    protected $_statusFilters = null;
-    protected $_isComposite = true;
+
+    /**
+     * Cache key for Associated Products
+     *
+     * @var string
+     */
+    protected $_keyAssociatedProducts   = '_cache_instance_associated_products';
+
+    /**
+     * Cache key for Associated Product Ids
+     *
+     * @var string
+     */
+    protected $_keyAssociatedProductIds = '_cache_instance_associated_product_ids';
+
+    /**
+     * Cache key for Status Filters
+     *
+     * @var string
+     */
+    protected $_keyStatusFilters        = '_cache_instance_status_filters';
+
+    /**
+     * Product is composite properties
+     *
+     * @var bool
+     */
+    protected $_isComposite             = true;
 
     /**
      * Return relation info about used products
@@ -87,115 +111,134 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     /**
      * Retrieve array of associated products
      *
+     * @param Mage_Catalog_Model_Product $product
      * @return array
      */
-    public function getAssociatedProducts()
+    public function getAssociatedProducts($product = null)
     {
-        if (is_null($this->_associatedProducts)) {
-            $this->_associatedProducts = array();
+        if (!$this->getProduct($product)->hasData($this->_keyAssociatedProducts)) {
+            $associatedProducts = array();
 
             if (!Mage::app()->getStore()->isAdmin()) {
-                $this->setSaleableStatus();
+                $this->setSaleableStatus($product);
             }
 
-            $collection = $this->getAssociatedProductCollection()
+            $collection = $this->getAssociatedProductCollection($product)
                 ->addAttributeToSelect('*')
                 ->addFilterByRequiredOptions()
                 ->setPositionOrder()
-                ->addStoreFilter($this->getStoreFilter())
-                ->addAttributeToFilter('status', array('in' => $this->getStatusFilters()));
+                ->addStoreFilter($this->getStoreFilter($product))
+                ->addAttributeToFilter('status', array('in' => $this->getStatusFilters($product)));
 
             foreach ($collection as $product) {
-                $this->_associatedProducts[] = $product;
+                $associatedProducts[] = $product;
             }
+
+            $this->getProduct($product)->setData($this->_keyAssociatedProducts, $associatedProducts);
         }
-        return $this->_associatedProducts;
+        return $this->getProduct($product)->getData($this->_keyAssociatedProducts);
     }
 
     /**
-     *  Add status filter to collection
+     * Add status filter to collection
      *
-     *  @param    int $status
-     *  @return	  void
+     * @param  int $status
+     * @param  Mage_Catalog_Model_Product $product
+     * @return Mage_Catalog_Model_Product_Type_Grouped
      */
-    public function addStatusFilter ($status)
+    public function addStatusFilter($status, $product = null)
     {
-        $this->_statusFilters[] = $status;
+        $statusFilters = $this->getProduct($product)->getData($this->_keyStatusFilters);
+        if (!is_array($statusFilters)) {
+            $statusFilters = array();
+        }
+
+        $statusFilters[] = $status;
+        $this->getProduct($product)->setData($this->_keyStatusFilters, $statusFilters);
+
         return $this;
     }
 
     /**
-     *  Set only saleable filter
+     * Set only saleable filter
      *
-     *  @param    none
-     *  @return	  void
+     * @param  Mage_Catalog_Model_Product $product
+     * @return Mage_Catalog_Model_Product_Type_Grouped
      */
-    public function setSaleableStatus ()
+    public function setSaleableStatus($product = null)
     {
-        $this->_statusFilters = Mage::getSingleton('catalog/product_status')->getSaleableStatusIds();
+        $this->getProduct($product)->setData($this->_keyStatusFilters,
+            Mage::getSingleton('catalog/product_status')->getSaleableStatusIds());
         return $this;
     }
 
     /**
-     *  Return all assigned status filters
+     * Return all assigned status filters
      *
-     *  @param    none
-     *  @return	  void
+     * @param Mage_Catalog_Model_Product $product
+     * @return array
      */
-    public function getStatusFilters ()
+    public function getStatusFilters($product = null)
     {
-        if ($this->_statusFilters === null) {
+        if (!$this->getProduct($product)->hasData($this->_keyStatusFilters)) {
             return array(
                 Mage_Catalog_Model_Product_Status::STATUS_ENABLED,
                 Mage_Catalog_Model_Product_Status::STATUS_DISABLED
             );
         }
-        return $this->_statusFilters;
+        return $this->getProduct($product)->getData($this->_keyStatusFilters);
     }
 
     /**
      * Retrieve related products identifiers
      *
+     * @param Mage_Catalog_Model_Product $product
      * @return array
      */
-    public function getAssociatedProductIds()
+    public function getAssociatedProductIds($product = null)
     {
-        if (is_null($this->_associatedProductIds)) {
-            $this->_associatedProductIds = array();
-            foreach ($this->getAssociatedProducts() as $product) {
-                $this->_associatedProductIds[] = $product->getId();
+        if (!$this->getProduct($product)->hasData($this->_keyAssociatedProductIds)) {
+            $associatedProductIds = array();
+            foreach ($this->getAssociatedProducts($product) as $product) {
+                $associatedProductIds[] = $product->getId();
             }
+            $this->getProduct($product)->setData($this->_keyAssociatedProductIds, $associatedProductIds);
         }
-        return $this->_associatedProductIds;
+        return $this->getProduct($product)->getData($this->_keyAssociatedProductIds);
     }
 
     /**
      * Retrieve collection of associated products
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
      */
-    public function getAssociatedProductCollection()
+    public function getAssociatedProductCollection($product = null)
     {
-        $collection = $this->getProduct()->getLinkInstance()->useGroupedLinks()
+        $collection = $this->getProduct($product)->getLinkInstance()->useGroupedLinks()
             ->getProductCollection()
+            ->setFlag('require_stock_items', true)
             ->setIsStrongMode();
-        $collection->setProduct($this->getProduct());
+        $collection->setProduct($this->getProduct($product));
         return $collection;
     }
 
     /**
      * Check is product available for sale
      *
+     * @param Mage_Catalog_Model_Product $product
      * @return bool
      */
-    public function isSalable()
+    public function isSalable($product = null)
     {
-        $salable = parent::isSalable();
+        $salable = parent::isSalable($product);
         if (!is_null($salable)) {
             return $salable;
         }
 
         $salable = false;
-        foreach ($this->getAssociatedProducts() as $product) {
-            $salable = $salable || $product->isSalable();
+        foreach ($this->getAssociatedProducts($product) as $associatedProduct) {
+            $salable = $salable || $associatedProduct->isSalable();
         }
         return $salable;
     }
@@ -203,12 +246,13 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     /**
      * Save type related data
      *
-     * @return unknown
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Catalog_Model_Product_Type_Grouped
      */
-    public function save()
+    public function save($product = null)
     {
-        parent::save();
-        $this->getProduct()->getLinkInstance()->saveGroupedLinks($this->getProduct());
+        parent::save($product);
+        $this->getProduct($product)->getLinkInstance()->saveGroupedLinks($this->getProduct($product));
         return $this;
     }
 
@@ -216,22 +260,23 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      * Initialize product(s) for add to cart process
      *
      * @param   Varien_Object $buyRequest
+     * @param Mage_Catalog_Model_Product $product
      * @return  array || string || false
      */
-    public function prepareForCart(Varien_Object $buyRequest)
+    public function prepareForCart(Varien_Object $buyRequest, $product = null)
     {
         $productsInfo = $buyRequest->getSuperGroup();
         if (!empty($productsInfo) && is_array($productsInfo)) {
             $products = array();
-            $associatedProducts = $this->getAssociatedProducts();
+            $associatedProducts = $this->getAssociatedProducts($product);
             if ($associatedProducts) {
-                $productId = $this->getProduct()->getId();
                 foreach ($associatedProducts as $subProduct) {
                     if(isset($productsInfo[$subProduct->getId()])) {
                         $qty = $productsInfo[$subProduct->getId()];
                         if (!empty($qty)) {
 
-                            $_result = $subProduct->getTypeInstance()->prepareForCart($buyRequest);
+                            $_result = $subProduct->getTypeInstance(true)
+                                ->prepareForCart($buyRequest, $subProduct);
                             if (is_string($_result) && !is_array($_result)) {
                                 return $_result;
                             }
@@ -241,12 +286,12 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                             }
 
                             $_result[0]->setCartQty($qty);
-                            $_result[0]->addCustomOption('product_type', self::TYPE_CODE, $this->getProduct());
+                            $_result[0]->addCustomOption('product_type', self::TYPE_CODE, $this->getProduct($product));
                             $_result[0]->addCustomOption('info_buyRequest',
                                 serialize(array(
                                     'super_product_config' => array(
                                         'product_type'  => self::TYPE_CODE,
-                                        'product_id'    => $this->getProduct()->getId()
+                                        'product_id'    => $this->getProduct($product)->getId()
                                     )
                                 ))
                             );

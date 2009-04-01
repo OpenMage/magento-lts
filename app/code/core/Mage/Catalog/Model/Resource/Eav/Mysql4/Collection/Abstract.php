@@ -71,8 +71,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract extends Mage_Ea
      * @param   string $table
      * @return  Mage_Eav_Model_Entity_Collection_Abstract
      */
-    protected function _getLoadAttributesSelect($table)
+    protected function _getLoadAttributesSelect($table, $attributeIds = array())
     {
+        if (empty($attributeIds)) {
+        	$attributeIds = $this->_selectAttributes;
+        }
         if ((int) $this->getStoreId()) {
             $entityIdField = $this->getEntity()->getEntityIdField();
             $joinCondition = 'store.attribute_id=default.attribute_id
@@ -91,7 +94,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract extends Mage_Ea
                 )
                 ->where('default.entity_type_id=?', $this->getEntity()->getTypeId())
                 ->where("default.$entityIdField in (?)", array_keys($this->_itemsById))
-                ->where('default.attribute_id in (?)', $this->_selectAttributes)
+                ->where('default.attribute_id in (?)', $attributeIds)
                 ->where('default.store_id = 0');
         }
         else {

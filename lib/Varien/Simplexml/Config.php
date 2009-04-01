@@ -147,7 +147,7 @@ class Varien_Simplexml_Config
     {
         if (!$this->_xml instanceof Varien_Simplexml_Element) {
             return false;
-        } elseif (empty($path)) {
+        } elseif ($path === null) {
             return $this->_xml;
         } else {
             return $this->_xml->descend($path);

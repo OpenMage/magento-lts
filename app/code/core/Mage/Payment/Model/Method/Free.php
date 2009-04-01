@@ -42,18 +42,9 @@ class Mage_Payment_Model_Method_Free extends Mage_Payment_Model_Method_Abstract
            return false;
         }
 
-        /* @var $quote Mage_Sales_Model_Quote */
-        $totals = $quote->getTotals();
-
-        if (!isset($totals['grand_total'])) {
-            return false;
-        }
-        $grandTotal = $totals['grand_total'];
-
-        if (Mage::app()->getStore()->roundPrice($grandTotal->getValue()) == 0) {
+        if (Mage::app()->getStore()->roundPrice($quote->getGrandTotal()) == 0) {
             return true;
         }
-
         return false;
     }
 }

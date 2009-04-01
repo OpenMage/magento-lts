@@ -70,7 +70,18 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
 
         if ($options = $this->getOrderItem()->getProductOptions()) {
             if (isset($options['options'])) {
-                $result = array_merge($result, $options['options']);
+                /**
+                 * Remove html tags from option
+                 */
+                $productOptions = $options['options'];
+                if ($this->getPrintStatus()) {
+                    foreach ($productOptions as &$option) {
+                    	if (isset($option['value'])) {
+                            $option['value'] = strip_tags($option['value']);
+                    	}
+                    }
+                }
+                $result = array_merge($result, $productOptions);
             }
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
@@ -85,6 +96,10 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
 
     public function getFormatedOptionValue($optionValue)
     {
+        if (Mage::helper('catalog/product_options')->isHtmlFormattedOptionValue($optionValue)) {
+            return array('value' => $optionValue);
+        }
+
         $formateOptionValue = array();
         if (is_array($optionValue)) {
             $_truncatedValue = implode("\n", $optionValue);
@@ -103,7 +118,6 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
             $formateOptionValue['value'] = $formateOptionValue['value'] . ' <a href="#" class="dots" onclick="return false">...</a>';
             $optionValue = nl2br($optionValue);
             $formateOptionValue = array_merge($formateOptionValue, array('full_view' => $optionValue));
-
         }
 
         return $formateOptionValue;

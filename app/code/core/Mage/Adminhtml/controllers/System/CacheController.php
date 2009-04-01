@@ -158,7 +158,6 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
                     }
                     break;
 
-
                 case 'refresh_layered_navigation':
                     try {
                         $flag = Mage::getModel('catalogindex/catalog_index_flag')->loadSelf();
@@ -195,26 +194,54 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
                 case 'rebuild_search_index':
                     try {
                         Mage::getSingleton('catalogsearch/fulltext')->rebuildIndex();
-                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Search Index was rebuilded successfully'));
+                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Search Index was rebuilt successfully'));
                     }
                     catch (Mage_Core_Exception $e) {
                         $this->_getSession()->addError($e->getMessage());
                     }
                     catch (Exception $e) {
-                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Error while rebuilded Search Index. Please try again later'));
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Search Index rebuild error. Please try again later'));
                     }
                     break;
 
                 case 'rebuild_inventory_stock_status':
                     try {
                         Mage::getSingleton('cataloginventory/stock_status')->rebuild();
-                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('CatalogInventory Stock Status was rebuilded successfully'));
+                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('CatalogInventory Stock Status was rebuilt successfully'));
                     }
                     catch (Mage_Core_Exception $e) {
                         $this->_getSession()->addError($e->getMessage());
                     }
                     catch (Exception $e) {
-                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Error while rebuilded CatalogInventory Stock Status. Please try again later'));
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('CatalogInventory Stock Status rebuild error. Please try again later'));
+                    }
+                    break;
+
+                case 'rebuild_flat_catalog_category':
+                    try {
+                        Mage::getResourceModel('catalog/category_flat')->rebuild();
+                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Flat Catalog Category was rebuilt successfully'));
+                    }
+                    catch (Mage_Core_Exception $e) {
+                        $this->_getSession()->addError($e->getMessage());
+                    }
+                    catch (Exception $e) {
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Flat Catalog Category rebuild error'));
+                    }
+                    break;
+
+                case 'rebuild_flat_catalog_product':
+                    try {
+                        Mage::getResourceModel('catalog/product_flat_indexer')->rebuild();
+                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Flat Catalog Product was rebuilt successfully'));
+                    }
+                    catch (Mage_Core_Exception $e) {
+                        $this->_getSession()->addError($e->getMessage());
+                    }
+                    catch (Exception $e) {
+                        echo $e;
+                        die();
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Flat Catalog Product rebuild error. Please try again later'));
                     }
                     break;
 

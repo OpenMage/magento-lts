@@ -230,7 +230,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
             ->setQuoteParentItemId($item->getParentItemId())
             ->setProductId($item->getProductId())
             ->setProductType($item->getProductType())
-            ->setProductOptions($item->getProduct()->getTypeInstance()->getOrderOptions())
+            ->setProductOptions($item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct()))
             ->setQtyBackordered($item->getBackorders())
             ;
 

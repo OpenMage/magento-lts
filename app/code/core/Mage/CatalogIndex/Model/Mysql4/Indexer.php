@@ -50,6 +50,17 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
         return $this->_attributeCache[$id];
     }
 
+    /**
+     * Delete index data by specific conditions
+     *
+     * @param   bool $eav clear eav index data flag
+     * @param   bool $price clear price index data flag
+     * @param   bool $minimal clear minimal price index data flag
+     * @param   bool $finalPrice clear final price index data flag
+     * @param   bool $tierPrice clear tier price index data flag
+     * @param   mixed $products applicable products
+     * @param   mixed $store applicable stores
+     */
     public function clear($eav = true, $price = true, $minimal = true, $finalPrice = true, $tierPrice = true, $products = null, $store = null)
     {
         $suffix = '';
@@ -141,17 +152,40 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
         }
     }
 
+    /**
+     * Get tables which are used for index related with price
+     *
+     * @return array
+     */
     protected function _getPriceTables()
     {
         return array('catalogindex/price', 'catalogindex/minimal_price');
     }
 
+    /**
+     * Reindex data for tier prices
+     *
+     * @param   array $products array of product ids
+     * @param   Mage_Core_Model_Store $store
+     * @param   int | null $forcedId identifier of "parent" product
+     *
+     * @return  Mage_CatalogIndex_Model_Mysql4_Indexer
+     */
     public function reindexTiers($products, $store, $forcedId = null)
     {
         $websiteId = $store->getWebsiteId();
         $attribute = Mage::getSingleton('eav/entity_attribute')->getIdByCode('catalog_product', 'tier_price');
-        $this->_beginInsert('catalogindex/price', array('entity_id', 'attribute_id', 'value', 'website_id', 'customer_group_id', 'qty'));
+        $this->_beginInsert(
+            'catalogindex/price',
+            array('entity_id', 'attribute_id', 'value', 'website_id', 'customer_group_id', 'qty')
+        );
 
+        /**
+         * Get information about product types
+         * array (
+         *      $productType => array()
+         * )
+         */
         $products = Mage::getSingleton('catalogindex/retreiver')->assignProductTypes($products);
         if (is_null($forcedId)) {
             foreach ($products as $type=>$typeIds) {
@@ -166,32 +200,73 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
                 }
             }
         }
+
         $attributeIndex = $this->getTierData($products, $store);
         foreach ($attributeIndex as $index) {
             $type = $index['type_id'];
             $id = (is_null($forcedId) ? $index['entity_id'] : $forcedId);
             if ($id && $index['value']) {
                 if ($index['all_groups'] == 1) {
-                    foreach (Mage::getModel('catalogindex/retreiver')->getCustomerGroups() as $group) {
-                        $this->_insert('catalogindex/price', array($id, $attribute, $index['value'], $websiteId, (int) $group->getId(), (int) $index['qty']));
+                    foreach (Mage::getSingleton('catalogindex/retreiver')->getCustomerGroups() as $group) {
+                        $this->_insert('catalogindex/price', array(
+                            $id,
+                            $attribute,
+                            $index['value'],
+                            $websiteId,
+                            (int) $group->getId(),
+                            (int) $index['qty']
+                        ));
                     }
                 } else {
-                    $this->_insert('catalogindex/price', array($id, $attribute, $index['value'], $websiteId, (int) $index['customer_group_id'], (int) $index['qty']));
+                    $this->_insert('catalogindex/price', array(
+                        $id,
+                        $attribute,
+                        $index['value'],
+                        $websiteId,
+                        (int) $index['customer_group_id'],
+                        (int) $index['qty']
+                    ));
                 }
             }
         }
         $this->_commitInsert('catalogindex/price');
+        return $this;
     }
 
+    /**
+     * Reindex product prices
+     *
+     * @param   array | int $products product ids
+     * @param   array $attributeIds
+     * @param   Mage_Core_Model_Store $store
+     * @return  Mage_CatalogIndex_Model_Mysql4_Indexer
+     */
     public function reindexPrices($products, $attributeIds, $store)
     {
         $this->reindexAttributes($products, $attributeIds, $store, null, 'catalogindex/price', true);
+        return $this;
     }
 
+    /**
+     * Reindex product final prices
+     *
+     * @param   array $products array of product ids
+     * @param   Mage_Core_Model_Store $store
+     * @param   int | null $forcedId identifier of "parent" product
+     *
+     * @return  Mage_CatalogIndex_Model_Mysql4_Indexer
+     */
     public function reindexFinalPrices($products, $store, $forcedId = null)
     {
         $priceAttribute = Mage::getSingleton('eav/entity_attribute')->getIdByCode('catalog_product', 'price');
-        $this->_beginInsert('catalogindex/price', array('entity_id', 'website_id', 'customer_group_id', 'value', 'attribute_id', 'tax_class_id'));
+        $this->_beginInsert('catalogindex/price', array(
+            'entity_id',
+            'website_id',
+            'customer_group_id',
+            'value',
+            'attribute_id',
+            'tax_class_id'
+        ));
 
         $productTypes = Mage::getSingleton('catalogindex/retreiver')->assignProductTypes($products);
         foreach ($productTypes as $type=>$products) {
@@ -205,25 +280,48 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
                         }
                     }
                 }
-                foreach (Mage::getModel('catalogindex/retreiver')->getCustomerGroups() as $group) {
+                foreach (Mage::getSingleton('catalogindex/retreiver')->getCustomerGroups() as $group) {
                     $finalPrice = $retreiver->getFinalPrice($product, $store, $group);
                     $taxClassId = $retreiver->getTaxClassId($product, $store);
                     $id = $product;
-                    if (!is_null($forcedId))
+                    if (!is_null($forcedId)) {
                         $id = $forcedId;
+                    }
 
                     if (false !== $finalPrice && false !== $id && false !== $priceAttribute) {
-                        $this->_insert('catalogindex/price', array($id, $store->getWebsiteId(), $group->getId(), $finalPrice, $priceAttribute, $taxClassId));
+                        $this->_insert('catalogindex/price', array(
+                            $id,
+                            $store->getWebsiteId(),
+                            $group->getId(),
+                            $finalPrice,
+                            $priceAttribute,
+                            $taxClassId
+                        ));
                     }
                 }
             }
         }
         $this->_commitInsert('catalogindex/price');
+        return $this;
     }
 
+    /**
+     * Reindex product minimal prices
+     *
+     * @param   array $products array of product ids
+     * @param   Mage_Core_Model_Store $store
+     *
+     * @return  Mage_CatalogIndex_Model_Mysql4_Indexer
+     */
     public function reindexMinimalPrices($products, $store)
     {
-        $this->_beginInsert('catalogindex/minimal_price', array('website_id', 'entity_id', 'customer_group_id', 'value', 'tax_class_id'));
+        $this->_beginInsert('catalogindex/minimal_price', array(
+            'website_id',
+            'entity_id',
+            'customer_group_id',
+            'value',
+            'tax_class_id'
+        ));
         $this->clear(false, false, true, false, false, $products, $store);
         $products = Mage::getSingleton('catalogindex/retreiver')->assignProductTypes($products);
 
@@ -246,15 +344,33 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
                         if (!isset($price['tax_class_id'])) {
                             $price['tax_class_id'] = 0;
                         }
-                        $this->_insert('catalogindex/minimal_price', array($store->getWebsiteId(), $id, $price['customer_group_id'], $price['minimal_value'], $price['tax_class_id']));
+                        $this->_insert('catalogindex/minimal_price', array(
+                            $store->getWebsiteId(),
+                            $id,
+                            $price['customer_group_id'],
+                            $price['minimal_value'],
+                            $price['tax_class_id']
+                        ));
                     }
                 }
             }
         }
 
         $this->_commitInsert('catalogindex/minimal_price');
+        return $this;
     }
 
+    /**
+     * Reindex attributes data
+     *
+     * @param   array $products
+     * @param   array $attributeIds
+     * @param   mixed $store
+     * @param   int|null $forcedId
+     * @param   string $table
+     * @param   bool $storeIsWebsite
+     * @return  Mage_CatalogIndex_Model_Mysql4_Indexer
+     */
     public function reindexAttributes($products, $attributeIds, $store, $forcedId = null, $table = 'catalogindex/eav', $storeIsWebsite = false)
     {
         $storeField = 'store_id';
@@ -265,7 +381,7 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
                 $websiteId = $store->getWebsiteId();
             } else {
                 $websiteId = Mage::app()->getStore($store)->getWebsiteId();
-            }            
+            }
         }
 
         $this->_beginInsert($table, array('entity_id', 'attribute_id', 'value', $storeField));
@@ -299,17 +415,35 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
 
                 if (is_array($index['value'])) {
                     foreach ($index['value'] as $value) {
-                        $this->_insert($table, array($id, $index['attribute_id'], $value, (is_null($websiteId) ? $store->getId() : $websiteId)));
+                        $this->_insert($table, array(
+                            $id,
+                            $index['attribute_id'],
+                            $value,
+                            (is_null($websiteId) ? $store->getId() : $websiteId)
+                        ));
                     }
                 } else {
-                    $this->_insert($table, array($id, $index['attribute_id'], $index['value'], (is_null($websiteId) ? $store->getId() : $websiteId)));
+                    $this->_insert($table, array(
+                        $id,
+                        $index['attribute_id'],
+                        $index['value'],
+                        (is_null($websiteId) ? $store->getId() : $websiteId)
+                    ));
                 }
             }
         }
 
         $this->_commitInsert($table);
+        return $this;
     }
 
+    /**
+     * Get tier prices data by set of products
+     *
+     * @param   array $products
+     * @param   Mage_Core_Model_Store $store
+     * @return  array
+     */
     public function getTierData($products, $store){
         $result = array();
         foreach ($products as $type=>$typeIds) {
@@ -322,6 +456,13 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
         return $result;
     }
 
+    /**
+     * Get minimal prices by set of the products
+     *
+     * @param   arary $products
+     * @param   Mage_Core_Model_Store $store
+     * @return  array
+     */
     public function getMinimalPrice($products, $store)
     {
         $result = array();
@@ -335,6 +476,14 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
         return $result;
     }
 
+    /**
+     * Get data for products
+     *
+     * @param   array $products
+     * @param   array $attributeIds
+     * @param   Mage_Core_Model_Store $store
+     * @return  array
+     */
     public function getProductData($products, $attributeIds, $store){
         $result = array();
         foreach ($products as $type=>$typeIds) {
@@ -347,10 +496,25 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
         return $result;
     }
 
+    /**
+     * Prepare base information for data insert
+     *
+     * @param   string $table
+     * @param   array $fields
+     * @return  Mage_CatalogIndex_Model_Mysql4_Indexer
+     */
     protected function _beginInsert($table, $fields){
         $this->_tableFields[$table] = $fields;
+        return $this;
     }
 
+    /**
+     * Put data into table
+     *
+     * @param   string $table
+     * @param   bool $forced
+     * @return  Mage_CatalogIndex_Model_Mysql4_Indexer
+     */
     protected function _commitInsert($table, $forced = true){
         if (isset($this->_insertData[$table]) && count($this->_insertData[$table]) && ($forced || count($this->_insertData[$table]) >= 100)) {
             $query = 'REPLACE INTO ' . $this->getTable($table) . ' (' . implode(', ', $this->_tableFields[$table]) . ') VALUES ';
@@ -363,10 +527,138 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer extends Mage_Core_Model_Mysql4_Abst
             $this->_getWriteAdapter()->query($query);
             $this->_insertData[$table] = array();
         }
+        return $this;
     }
 
+    /**
+     * Insert data to table
+     *
+     * @param   string $table
+     * @param   array $data
+     * @return  Mage_CatalogIndex_Model_Mysql4_Indexer
+     */
     protected function _insert($table, $data) {
         $this->_insertData[$table][] = $data;
         $this->_commitInsert($table, false);
+        return $this;
+    }
+
+    /**
+     * Add price columns for catalog product flat table
+     *
+     * @param Varien_Object $object
+     * @return Mage_CatalogIndex_Model_Mysql4_Indexer
+     */
+    public function prepareCatalogProductFlatColumns(Varien_Object $object)
+    {
+        $columns = $object->getColumns();
+
+        foreach (Mage::getSingleton('catalogindex/retreiver')->getCustomerGroups() as $group) {
+            $columnName = 'display_price_group_' . $group->getId();
+            $columns[$columnName] = array(
+                'type'      => 'decimal(12,4)',
+                'unsigned'  => false,
+                'is_null'   => true,
+                'default'   => null,
+                'extra'     => null
+            );
+        }
+
+        $object->setColumns($columns);
+
+        return $this;
+    }
+
+    /**
+     * Add price indexes for catalog product flat table
+     *
+     * @param Varien_Object $object
+     * @return Mage_CatalogIndex_Model_Mysql4_Indexer
+     */
+    public function prepareCatalogProductFlatIndexes(Varien_Object $object)
+    {
+        $indexes = $object->getIndexes();
+
+        foreach (Mage::getSingleton('catalogindex/retreiver')->getCustomerGroups() as $group) {
+            $columnName = 'display_price_group_' . $group->getId();
+            $indexName  = 'IDX_DISPLAY_PRICE_GROUP_' . $group->getId();
+            $indexes[$indexName] = array(
+                'type'   => 'index',
+                'fields' => array($columnName)
+            );
+        }
+
+        $object->setIndexes($indexes);
+
+        return $this;
+    }
+
+    /**
+     * Update prices for Catalog Product flat
+     *
+     * @param int $storeId
+     * @param string $tableName
+     * @return Mage_CatalogIndex_Model_Mysql4_Indexer
+     */
+    public function updateCatalogProductFlat($storeId, $productIds = null, $tableName = null)
+    {
+        if (is_null($tableName)) {
+            $tableName = $this->getTable('catalog/product_flat') . '_' . $storeId;
+        }
+
+        $priceAttribute = Mage::getSingleton('eav/entity_attribute')
+            ->getIdByCode('catalog_product', 'price');
+        $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
+
+        foreach (Mage::getSingleton('catalogindex/retreiver')->getCustomerGroups() as $group) {
+            $columnName = 'display_price_group_' . $group->getId();
+
+            /**
+             * Update prices of main products in flat table
+             */
+            $select = $this->_getWriteAdapter()->select()
+                ->join(
+                    array('p' => $this->getTable('catalogindex/price')),
+                    "`e`.`entity_id`=`p`.`entity_id`"
+                        . " AND `p`.`attribute_id`={$priceAttribute}"
+                        . " AND `p`.`customer_group_id`={$group->getId()}"
+                        . " AND `p`.`website_id`={$websiteId}",
+                    array($columnName => 'value'))
+                ->where('e.is_child=?', 0);
+
+            if ($productIds instanceof Mage_Catalog_Model_Product_Condition_Interface) {
+            	$select->where('e.entity_id IN ('.$productIds->getIdsSelect($this->_getWriteAdapter())->__toString().')');
+            } elseif (!is_null($productIds)) {
+                $select->where("e.entity_id IN(?)", $productIds);
+            }
+
+            $sql = $select->crossUpdateFromSelect(array('e' => $tableName));
+            $this->_getWriteAdapter()->query($sql);
+
+            /**
+             * Update prices for children products in flat table
+             */
+            $select = $this->_getWriteAdapter()->select()
+                ->join(
+                    array('p' => $this->getTable('catalogindex/price')),
+                    "`e`.`child_id`=`p`.`entity_id`"
+                        . " AND `p`.`attribute_id`={$priceAttribute}"
+                        . " AND `p`.`customer_group_id`={$group->getId()}"
+                        . " AND `p`.`website_id`={$websiteId}",
+                    array($columnName => 'value'))
+                ->where('e.is_child=?', 1);
+
+            if ($productIds instanceof Mage_Catalog_Model_Product_Condition_Interface) {
+            	$select->where('e.child_id IN ('.$productIds->getIdsSelect($this->_getWriteAdapter())->__toString().')');
+            } elseif (!is_null($productIds)) {
+                $select->where("e.child_id IN(?)", $productIds);
+            }
+
+            $sql = $select->crossUpdateFromSelect(array('e' => $tableName));
+            $this->_getWriteAdapter()->query($sql);
+
+        }
+
+        return $this;
     }
 }

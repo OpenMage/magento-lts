@@ -55,6 +55,8 @@
                     <en_US/><!-- English (United States) -->
                     <es_AR/><!-- Spanish (Argentina) -->
                     <es_CO/><!-- Spanish (Colombia) -->
+                    <es_PA/><!-- Spanish (Panama) -->
+                    <gl_ES/><!-- Galician (Galician) -->
                     <es_CR/><!-- Spanish (Costa Rica) -->
                     <es_ES/><!-- Spanish (Spain) -->
                     <es_MX/><!-- Spanish (Mexico) -->
@@ -103,6 +105,9 @@
                     <zh_CN/><!-- Chinese (China) -->
                     <zh_HK/><!-- Chinese (Hong Kong SAR) -->
                     <zh_TW/><!-- Chinese (Taiwan) -->
+                    <es_CL/><!-- Spanich (Chile) -->
+                    <lo_LA/><!-- Laotian -->
+                    <es_VE/><!-- Spanish (Venezuela) -->
                 </codes>
                 <currencies>
                     <AFN/><!-- Afghani -->

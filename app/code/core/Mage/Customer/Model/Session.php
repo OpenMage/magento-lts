@@ -135,7 +135,19 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function isLoggedIn()
     {
-        return (bool)$this->getId() && (bool)$this->getCustomer()->getId();
+        return (bool)$this->getId() && (bool)$this->checkCustomerId($this->getId());
+    }
+
+    /**
+     * Check exists customer (light check)
+     *
+     * @param int $customerId
+     * @return bool
+     */
+    public function checkCustomerId($customerId)
+    {
+        return Mage::getResourceSingleton('customer/customer')
+            ->checkCustomerId($customerId);
     }
 
     /**

@@ -54,7 +54,11 @@ $installer->addAttribute('catalog_product', 'disable_googlecheckout', array(
 $attributeId = $installer->getAttributeId('catalog_product', 'disable_googlecheckout');
 
 foreach ($installer->getAllAttributeSetIds('catalog_product') as $attributeSetId) {
-    $attributeGroupId = $installer->getAttributeGroupId('catalog_product', $attributeSetId, 'Prices');
+    try {
+        $attributeGroupId = $installer->getAttributeGroupId('catalog_product', $attributeSetId, 'Prices');
+    } catch (Exception $e) {
+        $attributeGroupId = $installer->getDefaultAttributeGroupId('catalog_product', $attributeSetId);
+    }
     $installer->addAttributeToSet('catalog_product', $attributeSetId, $attributeGroupId, $attributeId);
 }
 $installer->endSetup();

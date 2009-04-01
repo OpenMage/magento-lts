@@ -137,11 +137,26 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     protected function _beforeToHtml()
     {
         $this->_prepareForm();
+        $this->_initFormValues();
+        Mage::dispatchEvent('adminhtml_widget_form_before_tohtml',
+            array('form' => $this->getForm(), 'layout' => $this->getLayout())
+        );
         return parent::_beforeToHtml();
     }
 
     /**
-     * Enter description here...
+     * Initialize form fileds values
+     * Method will be called after prepareForm and can be used for field values initialization
+     *
+     * @return Mage_Adminhtml_Block_Widget_Form
+     */
+    protected function _initFormValues()
+    {
+        return $this;
+    }
+
+    /**
+     * Set Fieldset to Form
      *
      * @param array $attributes attributes that are to be added
      * @param Varien_Data_Form_Element_Fieldset $fieldset
@@ -151,6 +166,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     {
         $this->_addElementTypes($fieldset);
         foreach ($attributes as $attribute) {
+            /* @var $attribute Mage_Eav_Model_Entity_Attribute */
             if (!$attribute || !$attribute->getIsVisible()) {
                 continue;
             }
@@ -158,7 +174,15 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
                  && !in_array($attribute->getAttributeCode(), $exclude)
                  && ('media_image' != $inputType)
                  ) {
-                $element = $fieldset->addField($attribute->getAttributeCode(), $inputType,
+
+                $fieldType      = $inputType;
+                $rendererClass  = $attribute->getFrontend()->getInputRendererClass();
+                if (!empty($rendererClass)) {
+                    $fieldType  = $inputType . '_' . $attribute->getAttributeCode();
+                    $fieldset->addType($fieldType, $rendererClass);
+                }
+
+                $element = $fieldset->addField($attribute->getAttributeCode(), $fieldType,
                     array(
                         'name'      => $attribute->getAttributeCode(),
                         'label'     => __($attribute->getFrontend()->getLabel()),
@@ -182,7 +206,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Enter description here...
+     * Add new element type
      *
      * @param Varien_Data_Form_Abstract $baseElement
      */
@@ -195,7 +219,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Enter description here...
+     * Retrieve predefined additional element types
      *
      * @return array
      */

@@ -81,6 +81,11 @@ class Mage_CatalogIndex_Model_Mysql4_Attribute extends Mage_CatalogIndex_Model_M
 
     public function applyFilterToCollection($collection, $attribute, $value)
     {
+        if ($collection->isEnabledFlat()) {
+            $collection->getSelect()->where("e.{$attribute->getAttributeCode()}=?", $value);
+            return $this;
+        }
+
         $alias = 'attr_index_'.$attribute->getId();
         $collection->getSelect()->join(
             array($alias => $this->getMainTable()),

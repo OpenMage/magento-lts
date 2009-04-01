@@ -170,7 +170,9 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
             ->setPrefix($entityStoreConfig->getIncrementPrefix())
             ->setPadLength($this->getIncrementPadLength())
             ->setPadChar($this->getIncrementPadChar())
-            ->setLastId($entityStoreConfig->getIncrementLastId());
+            ->setLastId($entityStoreConfig->getIncrementLastId())
+            ->setEntityTypeId($entityStoreConfig->getEntityTypeId())
+            ->setStoreId($entityStoreConfig->getStoreId());
 
         /**
          * do read lock on eav/entity_store to solve potential timing issues

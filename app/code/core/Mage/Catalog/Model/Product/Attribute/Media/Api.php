@@ -291,7 +291,8 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
      */
     protected function _getGalleryAttribute($product)
     {
-        $attributes = $product->getTypeInstance()->getSetAttributes();
+        $attributes = $product->getTypeInstance(true)
+            ->getSetAttributes($product);
 
         if (!isset($attributes[self::ATTRIBUTE_CODE])) {
             $this->_fault('not_media');

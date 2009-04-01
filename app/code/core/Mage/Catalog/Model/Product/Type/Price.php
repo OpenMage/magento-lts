@@ -186,19 +186,7 @@ class Mage_Catalog_Model_Product_Type_Price
      */
     protected function _applySpecialPrice($product, $finalPrice)
     {
-        $specialPrice = $product->getSpecialPrice();
-        if (is_numeric($specialPrice)) {
-            $storeDate  = Mage::app()->getLocale()->storeDate($product->getStore());
-            $fromDate   = Mage::app()->getLocale()->date($product->getSpecialFromDate(), null, null, false);
-            $toDate     = Mage::app()->getLocale()->date($product->getSpecialToDate(), null, null, false);
-
-            if ($product->getSpecialFromDate() && $storeDate->compare($fromDate, Zend_Date::DATES)<0) {
-            } elseif ($product->getSpecialToDate() && $storeDate->compare($toDate, Zend_Date::DATES)>0) {
-            } else {
-               $finalPrice = min($finalPrice, $specialPrice);
-            }
-        }
-        return $finalPrice;
+        return self::calculateSpecialPrice($finalPrice, $product->getSpecialPrice(), $product->getSpecialFromDate(), $product->getSpecialToDate(), $product->getStore());
     }
 
     /**
@@ -260,26 +248,13 @@ class Mage_Catalog_Model_Product_Type_Price
             $basePrice = $finalPrice;
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 if ($option = $product->getOptionById($optionId)) {
-                    $optionValue = $product->getCustomOption('option_'.$option->getId())->getValue();
-                    if ($option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_CHECKBOX
-                        || $option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
-                        foreach(split(',', $optionValue) as $value) {
-                            $finalPrice += $this->_getPricingOptionValue(array(
-                                'is_percent' => ($option->getValueById($value)->getPriceType() == 'percent')? true:false,
-                                'pricing_value' => $option->getValueById($value)->getPrice()
-                            ), $basePrice);
-                        }
-                    } elseif ($option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
-                        $finalPrice += $this->_getPricingOptionValue(array(
-                            'is_percent' => ($option->getValueById($optionValue)->getPriceType() == 'percent')? true:false,
-                            'pricing_value' => $option->getValueById($optionValue)->getPrice()
-                        ), $basePrice);
-                    } else {
-                        $finalPrice += $this->_getPricingOptionValue(array(
-                            'is_percent' => ($option->getPriceType() == 'percent')? true:false,
-                            'pricing_value' => $option->getPrice()
-                        ), $basePrice);
-                    }
+
+                    $quoteItemOption = $product->getCustomOption('option_'.$option->getId());
+                    $group = $option->groupFactory($option->getType())
+                        ->setOption($option)
+                        ->setQuoteItemOption($quoteItemOption);
+
+                    $finalPrice += $group->getOptionPrice($quoteItemOption->getValue(), $basePrice);
                 }
             }
         }
@@ -288,59 +263,77 @@ class Mage_Catalog_Model_Product_Type_Price
     }
 
     /**
-     * Get product pricing option value
+     * Calculate product price based on special price data and price rules
      *
-     * @param array $value
-     * @param double $basePrice
-     * @return double
+     * @param   float $basePrice
+     * @param   float $specialPrice
+     * @param   string $specialPriceFrom
+     * @param   string $specialPriceTo
+     * @param   float|null|false $rulePrice
+     * @param   mixed $wId
+     * @param   mixed $gId
+     * @param   null|int $productId
+     * @return  float
      */
-    protected function _getPricingOptionValue($value, $basePrice)
-    {
-        if($value['is_percent']) {
-            $ratio = $value['pricing_value']/100;
-            $price = $basePrice * $ratio;
-        } else {
-            $price = $value['pricing_value'];
-        }
-
-        return $price;
-    }
-
     public static function calculatePrice($basePrice, $specialPrice, $specialPriceFrom, $specialPriceTo, $rulePrice = false, $wId = null, $gId = null, $productId = null)
     {
+        Varien_Profiler::start('__PRODUCT_CALCULATE_PRICE__');
         if ($wId instanceof Mage_Core_Model_Store) {
             $sId = $wId->getId();
             $wId = $wId->getWebsiteId();
         } else {
             $sId = Mage::app()->getWebsite($wId)->getDefaultGroup()->getDefaultStoreId();
         }
-        $storeDate = Mage::app()->getLocale()->storeDate($sId);
 
+        $finalPrice = $basePrice;
         if ($gId instanceof Mage_Customer_Model_Group) {
             $gId = $gId->getId();
         }
-        $finalPrice = $basePrice;
 
-        $fromDate   = Mage::app()->getLocale()->date($specialPriceFrom, null, null, false);
-        $toDate     = Mage::app()->getLocale()->date($specialPriceTo, null, null, false);
-
-        if ($specialPrice !== null && $specialPrice !== false) {
-            if ($specialPriceFrom && $storeDate->compare($fromDate, Zend_Date::DATES)<0) {
-            } elseif ($specialPriceTo && $storeDate->compare($toDate, Zend_Date::DATES)>0) {
-            } else {
-               $finalPrice = min($finalPrice, $specialPrice);
-            }
-        }
+        $finalPrice = self::calculateSpecialPrice($finalPrice, $specialPrice, $specialPriceFrom, $specialPriceTo, $sId);
 
         if ($rulePrice === false) {
-            $rulePrice = Mage::getResourceModel('catalogrule/rule')->getRulePrice($storeDate, $wId, $gId, $productId);
+            $storeTimestamp = Mage::app()->getLocale()->storeTimeStamp($sId);
+            $rulePrice = Mage::getResourceModel('catalogrule/rule')
+                ->getRulePrice($storeTimestamp, $wId, $gId, $productId);
         }
+
         if ($rulePrice !== null && $rulePrice !== false) {
             $finalPrice = min($finalPrice, $rulePrice);
         }
 
         $finalPrice = max($finalPrice, 0);
+        Varien_Profiler::stop('__PRODUCT_CALCULATE_PRICE__');
+        return $finalPrice;
+    }
 
+    /**
+     * Calculate and apply special price
+     *
+     * @param float $finalPrice
+     * @param float $specialPrice
+     * @param string $specialPriceFrom
+     * @param string $specialPriceTo
+     * @param mixed $store
+     * @return float
+     */
+    public static function calculateSpecialPrice($finalPrice, $specialPrice, $specialPriceFrom, $specialPriceTo, $store = null)
+    {
+        if (!is_null($specialPrice) && $specialPrice != false) {
+            if (!$store instanceof Mage_Core_Model_Store) {
+                $store = Mage::app()->getStore($store);
+            }
+
+            $storeTimeStamp = Mage::app()->getLocale()->storeTimeStamp($store);
+            $fromTimeStamp  = strtotime($specialPriceFrom);
+            $toTimeStamp    = strtotime($specialPriceTo);
+
+            if ($specialPriceFrom && $storeTimeStamp < $fromTimeStamp) {
+            } elseif ($specialPriceTo && $storeTimeStamp > $toTimeStamp) {
+            } else {
+                $finalPrice     = min($finalPrice, $specialPrice);
+            }
+        }
         return $finalPrice;
     }
 }

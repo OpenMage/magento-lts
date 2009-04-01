@@ -61,9 +61,9 @@
 </table>
 <script type="text/javascript">decorateTable('my-downloadable-products-table')</script>
 <?php else: ?>
-    <p><?php echo Mage::helper('downloadable')->__('You have no Downloadable Products.'); ?></p>
+    <p><?php echo Mage::helper('downloadable')->__('You have not purchased any downloadable products yet.'); ?></p>
 <?php endif; ?>
 <?php echo $this->getChildHtml('pager'); ?>
-<div class="buttons-set">
-    <a href="<?php echo $this->getBackUrl() ?>" class="back-link">&laquo; <?php echo $this->__('Back') ?></a>
+<div class="button-set">
+    <a href="<?php echo $this->getBackUrl() ?>" class="left">&laquo; <?php echo $this->__('Back') ?></a>
 </div>

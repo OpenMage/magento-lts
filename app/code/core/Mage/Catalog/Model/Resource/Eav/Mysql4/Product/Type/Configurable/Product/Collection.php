@@ -56,4 +56,15 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Product_C
         $this->getSelect()->where('link_table.parent_id=?', (int) $product->getId());
         return $this;
     }
+
+    /**
+     * Retrieve is flat enabled flag
+     * Return alvays false if magento run admin
+     *
+     * @return bool
+     */
+    public function isEnabledFlat()
+    {
+        return false;
+    }
 }

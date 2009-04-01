@@ -71,6 +71,13 @@ class Mage_Core_Model_Locale
     protected $_locale;
 
     /**
+     * Locale code
+     *
+     * @var string
+     */
+    protected $_localeCode;
+
+    /**
      * Emulated locales stack
      *
      * @var array
@@ -81,8 +88,10 @@ class Mage_Core_Model_Locale
 
     public function __construct($locale = null)
     {
-        Zend_Locale_Data::setCache(Mage::app()->getCache());
-        $this->setLocale($locale);
+        if (empty($locale)) {
+            $locale = $this->getDefaultLocale();
+        }
+        $this->_localeCode = $locale;
     }
 
     /**
@@ -123,7 +132,11 @@ class Mage_Core_Model_Locale
     public function setLocale($locale = null)
     {
         Mage::dispatchEvent('core_locale_set_locale', array('locale'=>$this));
-        $this->_locale = new Zend_Locale($this->getDefaultLocale());
+        Zend_Locale_Data::setCache(Mage::app()->getCache());
+        if ($locale === null) {
+        	$locale = $this->_localeCode;
+        }
+        $this->_locale = new Zend_Locale($locale);
         return $this;
     }
 
@@ -156,6 +169,8 @@ class Mage_Core_Model_Locale
     {
         if (!$this->_locale) {
             $this->setLocale();
+        } elseif ($this->_locale->__toString() != $this->_localeCode) {
+        	$this->setLocale($this->_localeCode);
         }
 
         return $this->_locale;
@@ -168,7 +183,19 @@ class Mage_Core_Model_Locale
      */
     public function getLocaleCode()
     {
-        return $this->getLocale()->toString();
+        return $this->_localeCode;
+    }
+
+    /**
+     * Specify current locale code
+     *
+     * @param   string $code
+     * @return  Mage_Core_Model_Locale
+     */
+    public function setLocaleCode($code)
+    {
+        $this->_localeCode = $code;
+        return $this;
     }
 
     /**
@@ -452,8 +479,24 @@ class Mage_Core_Model_Locale
                 ->setMinute(0)
                 ->setSecond(0);
         }
-//        $date->getTimezone();
         return $date;
+    }
+
+    /**
+     * Get store timestamp
+     * Timstamp will be builded with store timezone settings
+     *
+     * @param   mixed $store
+     * @return  int
+     */
+    public function storeTimeStamp($store=null)
+    {
+        $timezone = Mage::app()->getStore($store)->getConfig(self::XML_PATH_DEFAULT_TIMEZONE);
+        $currentTimezone = @date_default_timezone_get();
+        @date_default_timezone_set($timezone);
+        $date = date('Y-m-d H:i:s');
+        @date_default_timezone_set($currentTimezone);
+        return strtotime($date);
     }
 
     /**
@@ -596,6 +639,7 @@ class Mage_Core_Model_Locale
         if ($storeId) {
             $this->_emulatedLocales[] = clone $this->getLocale();
             $this->_locale = new Zend_Locale(Mage::getStoreConfig(self::XML_PATH_DEFAULT_LOCALE, $storeId));
+            $this->_localeCode = $this->_locale->toString();
             Mage::getSingleton('core/translate')->setLocale($this->_locale)->init('frontend', true);
         }
         else {
@@ -611,6 +655,7 @@ class Mage_Core_Model_Locale
     {
         if ($locale = array_pop($this->_emulatedLocales)) {
             $this->_locale = $locale;
+            $this->_localeCode = $this->_locale->toString();
             Mage::getSingleton('core/translate')->setLocale($this->_locale)->init('adminhtml', true);
         }
     }

@@ -29,7 +29,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
 {
     public function fetchDefault()
     {
-    	// set defaults
+        // set defaults
         $d = explode('/', (string)Mage::getConfig()->getNode('default/web/default/admin'));
         $this->getFront()->setDefault(array(
             'module'     => !empty($d[0]) ? $d[0] : '',
@@ -38,111 +38,41 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
         ));
     }
 
-    public function match(Zend_Controller_Request_Http $request)
+    /**
+     * dummy call to pass through checking
+     *
+     * @return unknown
+     */
+    protected function _beforeModuleMatch()
     {
-        $this->fetchDefault();
+        return true;
+    }
 
-        $front = $this->getFront();
-
-        $p = explode('/', trim($request->getPathInfo(), '/'));
-
-        // get module name
-        if ($request->getModuleName()) {
-            $module = $request->getModuleName();
-        } else {
-            $module = !empty($p[0]) ? $p[0] : $this->getFront()->getDefault('module');
-        }
-        if (!$module) {
-            if (Mage::app()->getStore()->isAdmin()) {
-                $module = 'admin';
-            } else {
-                return false;
-            }
-        }
-
-        $realModule = $this->getModuleByFrontName($module);
-        if (!$realModule) {
-            if ($moduleFrontName = array_search($module, $this->_modules)) {
-                $realModule = $module;
-                $module = $moduleFrontName;
-            } else {
-                return false;
-            }
-        }
-
-        $request->setRouteName($this->getRouteByFrontName($module));
-
+    /**
+     * checking if we installed or not and doing redirect
+     *
+     * @return bool
+     */
+    protected function _afterModuleMatch()
+    {
         if (!Mage::isInstalled()) {
             Mage::app()->getFrontController()->getResponse()
                 ->setRedirect(Mage::getUrl('install'))
                 ->sendResponse();
             exit;
         }
+        return true;
+    }
 
-        $this->_checkShouldBeSecure($request);
-
-        // get controller name
-        if ($request->getControllerName()) {
-            $controller = $request->getControllerName();
-        } else {
-            $controller = !empty($p[1]) ? $p[1] : $front->getDefault('controller');
-        }
-        $controllerFileName = $this->getControllerFileName($realModule, $controller);
-        if (!$this->validateControllerFileName($controllerFileName)) {
-            $controller = 'index';
-            $action = 'noroute';
-            $controllerFileName = $this->getControllerFileName($realModule, $controller);
-        }
-
-        $controllerClassName = $this->getControllerClassName($realModule, $controller);
-        if (!$controllerClassName) {
-            $controller = 'index';
-            $action = 'noroute';
-            $controllerFileName = $this->getControllerFileName($realModule, $controller);
-        }
-
-        // get action name
-        if (empty($action)) {
-            if ($request->getActionName()) {
-                $action = $request->getActionName();
-            } else {
-                $action = !empty($p[2]) ? $p[2] : $front->getDefault('action');
-            }
-        }
-
-        // include controller file if needed
-        if (!class_exists($controllerClassName, false)) {
-            if (!file_exists($controllerFileName)) {
-                return false;
-            }
-            include $controllerFileName;
-
-            if (!class_exists($controllerClassName, false)) {
-                throw Mage::exception('Mage_Core', Mage::helper('core')->__('Controller file was loaded but class does not exist'));
-            }
-        }
-        // instantiate controller class
-        $controllerInstance = new $controllerClassName($request, $front->getResponse());
-
-        if (!$controllerInstance->hasAction($action)) {
-            return false;
-        }
-
-        // set values only after all the checks are done
-        $request->setModuleName($module);
-        $request->setControllerName($controller);
-        $request->setActionName($action);
-
-        // set parameters from pathinfo
-        for ($i=3, $l=sizeof($p); $i<$l; $i+=2) {
-            $request->setParam($p[$i], isset($p[$i+1]) ? $p[$i+1] : '');
-        }
-
-        // dispatch action
-        $request->setDispatched(true);
-        $controllerInstance->dispatch($action);
-
-        return true;#$request->isDispatched();
+    /**
+     * We need to have noroute action in this router
+     * not to pass dispatching to next routers
+     *
+     * @return bool
+     */
+    protected function _noRouteShouldBeApplied()
+    {
+        return true;
     }
 
     protected function _shouldBeSecure($path)

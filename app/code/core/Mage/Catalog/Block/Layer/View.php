@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,10 +38,11 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      *
      * @return Mage_Catalog_Block_Layer_View
      */
-    public function _prepareLayout()
+    protected function _prepareLayout()
     {
         $stateBlock = $this->getLayout()->createBlock('catalog/layer_state')
             ->setLayer($this->getLayer());
+
         $categryBlock = $this->getLayout()->createBlock('catalog/layer_filter_category')
             ->setLayer($this->getLayer())
             ->init();
@@ -62,6 +63,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
                     ->setAttributeModel($attribute)
                     ->init());
         }
+
         $this->getLayer()->apply();
         return parent::_prepareLayout();
     }
@@ -156,6 +158,11 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
         return $this->canShowOptions() || count($this->getLayer()->getState()->getFilters());
     }
 
+    /**
+     * Retrieve Price Filter block
+     *
+     * @return Mage_Catalog_Block_Layer_Filter_Price
+     */
     protected function _getPriceFilter()
     {
         return $this->getChild('_price_filter');

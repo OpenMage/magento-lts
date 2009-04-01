@@ -120,7 +120,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
 
     public function getSubtotal()
     {
-//        return '66';
         $totals = $this->getQuote()->getTotals();
         if (isset($totals['subtotal'])) {
             return $totals['subtotal']->getValue();
@@ -130,7 +129,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
 
     public function getSubtotalWithDiscount()
     {
-//        return '55';
         return $this->getQuote()->getShippingAddress()->getSubtotalWithDiscount();
     }
 
@@ -188,35 +186,19 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 if ($option = $item->getProduct()->getOptionById($optionId)) {
                     $optionValue = $item->getOptionByCode('option_' . $option->getId())->getValue();
+
                     $optionStr .= $option->getTitle() . ':';
-                    if ($option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_CHECKBOX
-                        || $option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
-                        foreach (explode(',', $optionValue) as $_value) {
-                            $optionStr .= $option->getValueById($_value)->getTitle() . ', ';
-                        }
-                        $optionStr = Mage::helper('core/string')->substr($optionStr, 0, -2);
-                    } elseif ($option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
-                        $optionStr .= $option->getValueById($optionValue)->getTitle();
-                    } else {
-                        $optionStr .= $optionValue;
-                    }
+
+                    $quoteItemOption = $item->getOptionByCode('option_' . $option->getId());
+                    $group = $option->groupFactory($option->getType())
+                        ->setOption($option)
+                        ->setQuoteItemOption($quoteItemOption);
+
+                    $optionStr .= $group->getEditableOptionValue($quoteItemOption->getValue());
                     $optionStr .= "\n";
                 }
             }
         }
-        foreach ($item->getProduct()->getOptions() as $option) {
-            if ($option->getIsRequire() && !$item->getOptionByCode('option_'.$option->getId())) {
-                $optionStr .= $option->getTitle() . ':' . "\n";
-            }
-        }
-        if ($additionalOptions = $item->getOptionByCode('additional_options')) {
-            $this->_moveToCustomerStorage = false;
-            foreach (unserialize($additionalOptions->getValue()) as $additionalOption) {
-                $optionStr .= $additionalOption['label'] . ':' . $additionalOption['value'] . "\n";
-            }
-        }
-        $optionStr = $this->helper('core/string')->substr($optionStr, 0, -1);
-
         return $optionStr;
     }
 
@@ -258,5 +240,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         } else {
             return Mage::helper('sales')->__('* - Enter custom price excluding tax');
         }
+    }
+
+    public function getStore()
+    {
+        return $this->getQuote()->getStore();
     }
 }

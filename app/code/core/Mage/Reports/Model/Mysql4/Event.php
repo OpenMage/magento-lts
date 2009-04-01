@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,21 +29,33 @@
  *
  * @category   Mage
  * @package    Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Reports_Model_Mysql4_Event extends Mage_Core_Model_Mysql4_Abstract
 {
+    /**
+     * Initialize connection
+     *
+     */
     protected function _construct()
     {
         $this->_init('reports/event', 'event_id');
     }
 
+    /**
+     * Update customer type after customer login
+     *
+     * @param Mage_Reports_Model_Event $model
+     * @param int $visitorId
+     * @param int $customerId
+     * @param array $types
+     * @return Mage_Reports_Model_Mysql4_Event
+     */
     public function updateCustomerType(Mage_Reports_Model_Event $model, $visitorId, $customerId, $types = array())
     {
         if ($types) {
             $this->_getWriteAdapter()->update($this->getMainTable(),
-                array('subject_id'=>$customerId, 'subtype'=>0),
+                array('subject_id' => $customerId, 'subtype' => 0),
                 array(
                     $this->_getWriteAdapter()->quoteInto('subject_id=?', $visitorId),
                     $this->_getWriteAdapter()->quoteInto('subtype=?', 1),
@@ -135,6 +147,9 @@ class Mage_Reports_Model_Mysql4_Event extends Mage_Core_Model_Mysql4_Abstract
 
     /**
      * Clean report event table
+     *
+     * @param Mage_Reports_Model_Event $object
+     * @return Mage_Reports_Model_Mysql4_Event
      */
     public function clean(Mage_Reports_Model_Event $object)
     {

@@ -186,10 +186,17 @@ class Mage_Log_Model_Mysql4_Visitor extends Mage_Core_Model_Mysql4_Abstract
         }
 
         if ($visitor->getDoQuoteDestroy()) {
-            $write->update($this->getTable('log/quote_table'),
-                array('deleted_at'=> now()),
+            /**
+             * We have delete quote from log because if original quote was
+             * deleted and Mysql restarted we will get key duplication error
+             */
+            $write->delete($this->getTable('log/quote_table'),
                 $write->quoteInto('quote_id=?', $visitor->getQuoteId())
             );
+//            $write->update($this->getTable('log/quote_table'),
+//                array('deleted_at'=> now()),
+//                $write->quoteInto('quote_id=?', $visitor->getQuoteId())
+//            );
             $visitor->setDoQuoteDestroy(false);
             $visitor->setQuoteId(null);
         }

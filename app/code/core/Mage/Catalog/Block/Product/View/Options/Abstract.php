@@ -34,7 +34,41 @@
  */
 abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Core_Block_Template
 {
+    /**
+     * Product object
+     *
+     * @var Mage_Catalog_Model_Product
+     */
+    protected $_product;
+
+    /**
+     * Product option object
+     *
+     * @var Mage_Catalog_Model_Product_Option
+     */
     protected $_option;
+
+    /**
+     * Set Product object
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Catalog_Block_Product_View_Options_Abstract
+     */
+    public function setProduct(Mage_Catalog_Model_Product $product = null)
+    {
+        $this->_product = $product;
+        return $this;
+    }
+
+    /**
+     * Retrieve Product object
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getProduct()
+    {
+        return $this->_product;
+    }
 
     /**
      * Set option
@@ -117,9 +151,9 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
     public function getPrice($price, $includingTax = null)
     {
         if (!is_null($includingTax)) {
-            $price = Mage::helper('tax')->getPrice($this->getOption()->getProduct(), $price, true);
+            $price = Mage::helper('tax')->getPrice($this->getProduct(), $price, true);
         } else {
-            $price = Mage::helper('tax')->getPrice($this->getOption()->getProduct(), $price);
+            $price = Mage::helper('tax')->getPrice($this->getProduct(), $price);
         }
         return $price;
     }

@@ -54,7 +54,14 @@ class Mage_Catalog_Seo_SitemapController extends Mage_Core_Controller_Front_Acti
      */
     public function categoryAction()
     {
-        $this->loadLayout();
+        $update = $this->getLayout()->getUpdate();
+        $update->addHandle('default');
+        $this->addActionLayoutHandles();
+        if (Mage::helper('catalog/map')->getIsUseCategoryTreeMode()) {
+            $update->addHandle(strtolower($this->getFullActionName()).'_tree');
+        }
+        $this->loadLayoutUpdates();
+        $this->generateLayoutXml()->generateLayoutBlocks();
         $this->renderLayout();
     }
 

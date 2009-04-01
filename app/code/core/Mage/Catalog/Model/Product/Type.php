@@ -54,9 +54,10 @@ class Mage_Catalog_Model_Product_Type
      * Product type instance factory
      *
      * @param   Mage_Catalog_Model_Product $product
+     * @param   bool $singleton
      * @return  Mage_Catalog_Model_Product_Type_Abstract
      */
-    public static function factory($product)
+    public static function factory($product, $singleton = false)
     {
         $types = self::getTypes();
 
@@ -66,8 +67,13 @@ class Mage_Catalog_Model_Product_Type
             $typeModelName = self::DEFAULT_TYPE_MODEL;
         }
 
-        $typeModel = Mage::getModel($typeModelName);
-        $typeModel->setProduct($product);
+        if ($singleton === true) {
+            $typeModel = Mage::getSingleton($typeModelName);
+        }
+        else {
+            $typeModel = Mage::getModel($typeModelName);
+            $typeModel->setProduct($product);
+        }
         $typeModel->setConfig($types[$product->getTypeId()]);
         return $typeModel;
     }
@@ -118,10 +124,10 @@ class Mage_Catalog_Model_Product_Type
         $res = array();
         $res[] = array('value'=>'', 'label'=>'');
         foreach (self::getOptionArray() as $index => $value) {
-        	$res[] = array(
-        	   'value' => $index,
-        	   'label' => $value
-        	);
+            $res[] = array(
+               'value' => $index,
+               'label' => $value
+            );
         }
         return $res;
     }
@@ -130,10 +136,10 @@ class Mage_Catalog_Model_Product_Type
     {
         $res = array();
         foreach (self::getOptionArray() as $index => $value) {
-        	$res[] = array(
-        	   'value' => $index,
-        	   'label' => $value
-        	);
+            $res[] = array(
+               'value' => $index,
+               'label' => $value
+            );
         }
         return $res;
     }

@@ -28,84 +28,83 @@
 /**
  * Catalog product media config
  *
- * @category   Mage
- * @package    Mage_Catalog
+ * @category    Mage
+ * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_Config_Interface
 {
+    public function getBaseMediaPath()
+    {
+        return Mage::getBaseDir('media') . DS . 'catalog' . DS . 'product';
+    }
 
-        public function getBaseMediaPath()
-        {
-            return Mage::getBaseDir('media') . DS . 'catalog' . DS . 'product';
+    public function getBaseMediaUrl()
+    {
+        return Mage::getBaseUrl('media') . 'catalog/product';
+    }
+
+    public function getBaseTmpMediaPath()
+    {
+        return Mage::getBaseDir('media') . DS . 'tmp' . DS . 'catalog' . DS . 'product';
+    }
+
+    public function getBaseTmpMediaUrl()
+    {
+        return Mage::getBaseUrl('media') . 'tmp/catalog/product';
+    }
+
+    public function getMediaUrl($file)
+    {
+        $file = $this->_prepareFileForUrl($file);
+
+        if(substr($file, 0, 1) == '/') {
+            return $this->getBaseMediaUrl() . $file;
         }
 
-        public function getBaseMediaUrl()
-        {
-            return Mage::getBaseUrl('media') . 'catalog/product';
+        return $this->getBaseMediaUrl() . '/' . $file;
+    }
+
+    public function getMediaPath($file)
+    {
+        $file = $this->_prepareFileForPath($file);
+
+        if(substr($file, 0, 1) == DS) {
+            return $this->getBaseMediaPath() . DS . substr($file, 1);
         }
 
-        public function getBaseTmpMediaPath()
-        {
-            return Mage::getBaseDir('media') . DS . 'tmp' . DS . 'catalog' . DS . 'product';
+        return $this->getBaseMediaPath() . DS . $file;
+    }
+
+    public function getTmpMediaUrl($file)
+    {
+        $file = $this->_prepareFileForUrl($file);
+
+        if(substr($file, 0, 1) == '/') {
+            return $this->getBaseTmpMediaUrl() . $file;
         }
 
-        public function getBaseTmpMediaUrl()
-        {
-            return Mage::getBaseUrl('media') . 'tmp/catalog/product';
+        return $this->getBaseTmpMediaUrl() . '/' . $file;
+    }
+
+    public function getTmpMediaPath($file)
+    {
+        $file = $this->_prepareFileForPath($file);
+
+        if(substr($file, 0, 1) == DS) {
+            return $this->getBaseTmpMediaPath() . DS . substr($file, 1);
         }
 
-        public function getMediaUrl($file)
-        {
-            $file = $this->_prepareFileForUrl($file);
+        return $this->getBaseTmpMediaPath() . DS . $file;
+    }
 
-            if(substr($file, 0, 1) == '/') {
-                return $this->getBaseMediaUrl() . $file;
-            }
+    protected function _prepareFileForUrl($file)
+    {
+        return str_replace(DS, '/', $file);
+    }
 
-            return $this->getBaseMediaUrl() . '/' . $file;
-        }
-
-        public function getMediaPath($file)
-        {
-            $file = $this->_prepareFileForPath($file);
-
-            if(substr($file, 0, 1) == DS) {
-                return $this->getBaseMediaPath() . DS . substr($file, 1);
-            }
-
-            return $this->getBaseMediaPath() . DS . $file;
-        }
-
-        public function getTmpMediaUrl($file)
-        {
-            $file = $this->_prepareFileForUrl($file);
-
-            if(substr($file, 0, 1) == '/') {
-                return $this->getBaseTmpMediaUrl() . $file;
-            }
-
-            return $this->getBaseTmpMediaUrl() . '/' . $file;
-        }
-
-        public function getTmpMediaPath($file)
-        {
-            $file = $this->_prepareFileForPath($file);
-
-            if(substr($file, 0, 1) == DS) {
-                return $this->getBaseTmpMediaPath() . DS . substr($file, 1);
-            }
-
-            return $this->getBaseTmpMediaPath() . DS . $file;
-        }
-
-        protected function _prepareFileForUrl($file)
-        {
-            return str_replace(DS, '/', $file);
-        }
-
-        protected function _prepareFileForPath($file)
-        {
-            return str_replace('/', DS, $file);
-        }
+    protected function _prepareFileForPath($file)
+    {
+        return str_replace('/', DS, $file);
+    }
 }

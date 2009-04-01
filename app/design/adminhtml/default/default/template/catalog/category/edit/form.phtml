@@ -35,6 +35,7 @@
                     <?php echo $this->getDeleteButtonHtml() ?>
             <?php endif; ?>
             <?php echo $this->getSaveButtonHtml() ?>
+            <?php echo $this->getAdditionalButtonsHtml(); ?>
         </td>
     </tr>
 </table>
@@ -48,6 +49,7 @@
 <?php endif; ?>
 <iframe name="iframeSave" style="display:none; width:100%;" src="<?php echo $this->getJsUrl() ?>blank.html"></iframe>
 <form target="iframeSave" id="category_edit_form" action="<?php echo $this->getSaveUrl() ?>" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="isIframe" value="1" />
     <input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
     <div class="no-display">
         <input type="hidden" name="category_products" id="in_category_products" value="" />

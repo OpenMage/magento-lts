@@ -153,10 +153,12 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
     {
         // check if we know what should be deleted
         if ($id = $this->getRequest()->getParam('block_id')) {
+            $title = "";
             try {
                 // init model and delete
                 $model = Mage::getModel('cms/block');
-                $model->setId($id);
+                $model->load($id);
+                $title = $model->getTitle();
                 $model->delete();
                 // display success message
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('cms')->__('Block was successfully deleted'));

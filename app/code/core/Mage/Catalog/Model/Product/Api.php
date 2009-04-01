@@ -115,7 +115,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
             'websites'   => $product->getWebsiteIds()
         );
 
-        foreach ($product->getTypeInstance()->getEditableAttributes() as $attribute) {
+        foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             if ($this->_isAllowedAttribute($attribute, $attributes)) {
                 $result[$attribute->getAttributeCode()] = $product->getData(
                                                                 $attribute->getAttributeCode());
@@ -146,7 +146,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
             ->setTypeId($type)
             ->setSku($sku);
 
-        foreach ($product->getTypeInstance()->getEditableAttributes() as $attribute) {
+        foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             if ($this->_isAllowedAttribute($attribute)
                 && isset($productData[$attribute->getAttributeCode()])) {
                 $product->setData(
@@ -187,7 +187,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
             $this->_fault('not_exists');
         }
 
-        foreach ($product->getTypeInstance()->getEditableAttributes() as $attribute) {
+        foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             if ($this->_isAllowedAttribute($attribute)
                 && isset($productData[$attribute->getAttributeCode()])) {
                 $product->setData(

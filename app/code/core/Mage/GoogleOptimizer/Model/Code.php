@@ -169,7 +169,7 @@ class Mage_GoogleOptimizer_Model_Code extends Mage_Core_Model_Abstract
     /**
      * Removing scripts assigned to entity
      *
-     * @param Varien_Object $entity
+     * @param integer $storeId
      * @return Mage_Googleoptimizer_Model_Code
      */
     public function deleteScripts($storeId)

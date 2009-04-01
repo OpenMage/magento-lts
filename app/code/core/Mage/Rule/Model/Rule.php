@@ -163,6 +163,17 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
                     }
                 }
             } else {
+                /**
+                 * convert dates into Zend_Date
+                 */
+                if (in_array($key, array('from_date', 'to_date')) && $value) {
+                    $value = Mage::app()->getLocale()->date(
+                        $value,
+                        Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
+                        null,
+                        false
+                    );
+                }
                 $this->setData($key, $value);
             }
         }
@@ -232,13 +243,6 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
             Mage::throwException(Mage::helper('rule')->__('Invalid discount amount.'));
         }
 
-        // convert dates into Zend_Date and hope it will validate 'em
-        foreach (array('from_date', 'to_date') as $dateType) {
-            if ($date = $this->getData($dateType)) {
-                $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-                $this->setData($dateType, Mage::app()->getLocale()->date($date, $format, null, false));
-            }
-        }
 
         if ($this->getConditions()) {
             $this->setConditionsSerialized(serialize($this->getConditions()->asArray()));

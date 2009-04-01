@@ -168,7 +168,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @return Mage_Catalog_Model_Product_Option
      */
-    public function setProduct(Mage_Catalog_Model_Product $product)
+    public function setProduct(Mage_Catalog_Model_Product $product = null)
     {
         $this->_product = $product;
         return $this;
@@ -199,6 +199,21 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
         );
 
         return isset($optionGroupsToTypes[$type])?$optionGroupsToTypes[$type]:'';
+    }
+
+    /**
+     * Group model factory
+     *
+     * @param string $type Option type
+     * @return Mage_Catalog_Model_Product_Option_Group_Abstract
+     */
+    public function groupFactory($type)
+    {
+        $group = $this->getGroupByType($type);
+        if (!empty($group)) {
+            return Mage::getModel('catalog/product_option_type_' . $group);
+        }
+        Mage::throwException(Mage::helper('catalog')->__('Wrong option type to get group instance.'));
     }
 
     /**
@@ -242,6 +257,8 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                                 break;
                             case self::OPTION_GROUP_FILE:
                                 $this->setData('file_extension', '');
+                                $this->setData('image_size_x', '0');
+                                $this->setData('image_size_y', '0');
                                 break;
                             case self::OPTION_GROUP_TEXT:
                                 $this->setData('max_characters', '0');

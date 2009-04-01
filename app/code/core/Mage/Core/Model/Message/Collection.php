@@ -39,7 +39,8 @@ class Mage_Core_Model_Message_Collection
      * @var array
      */
     protected $_messages = array();
-    
+    protected $_lastAddedMessage;
+
     /**
      * Adding new message to collection
      *
@@ -63,20 +64,71 @@ class Mage_Core_Model_Message_Collection
             $this->_messages[$message->getType()] = array();
         }
         $this->_messages[$message->getType()][] = $message;
+        $this->_lastAddedMessage = $message;
         return $this;
     }
-    
+
     /**
-     * Clear all messages
+     * Clear all messages except sticky
      *
      * @return Mage_Core_Model_Message_Collection
      */
     public function clear()
     {
-        $this->_messages = array();
+        foreach ($this->_messages as $type => $messages) {
+            foreach ($messages as $id => $message) {
+                if (!$message->getIsSticky()) {
+                    unset($this->_messages[$type][$id]);
+                }
+            }
+            if (empty($this->_messages[$type])) {
+                unset($this->_messages[$type]);
+            }
+        }
         return $this;
     }
-    
+
+    /**
+     * Get last added message if any
+     *
+     * @return Mage_Core_Model_Message_Abstract|null
+     */
+    public function getLastAddedMessage()
+    {
+        return $this->_lastAddedMessage;
+    }
+
+    /**
+     * Get first even message by identifier
+     *
+     * @param string $identifier
+     * @return Mage_Core_Model_Message_Abstract|null
+     */
+    public function getMessageByIdentifier($identifier)
+    {
+        foreach ($this->_messages as $type => $messages) {
+            foreach ($messages as $id => $message) {
+                if ($identifier === $message->getIdentifier()) {
+                    return $message;
+                }
+            }
+        }
+    }
+
+    public function deleteMessageByIdentifier($identifier)
+    {
+        foreach ($this->_messages as $type => $messages) {
+            foreach ($messages as $id => $message) {
+                if ($identifier === $message->getIdentifier()) {
+                    unset($this->_messages[$type][$id]);
+                }
+                if (empty($this->_messages[$type])) {
+                    unset($this->_messages[$type]);
+                }
+            }
+        }
+    }
+
     /**
      * Retrieve messages collection items
      *
@@ -88,15 +140,15 @@ class Mage_Core_Model_Message_Collection
         if ($type) {
             return isset($this->_messages[$type]) ? $this->_messages[$type] : array();
         }
-        
+
         $arrRes = array();
         foreach ($this->_messages as $messageType => $messages) {
             $arrRes = array_merge($arrRes, $messages);
         }
-        
+
         return $arrRes;
     }
-    
+
     /**
      * Retrieve all messages by type
      *
@@ -107,7 +159,7 @@ class Mage_Core_Model_Message_Collection
     {
         return isset($this->_messages[$type]) ? $this->_messages[$type] : array();
     }
-    
+
     /**
      * Retrieve all error messages
      *
@@ -117,7 +169,7 @@ class Mage_Core_Model_Message_Collection
     {
         return $this->getItemsByType(Mage_Core_Model_Message::ERROR);
     }
-    
+
     public function toString()
     {
         $out = '';
@@ -125,10 +177,10 @@ class Mage_Core_Model_Message_Collection
         foreach ($arrItems as $item) {
             $out.= $item->toString();
         }
-        
+
         return $out;
     }
-    
+
     /**
      * Retrieve messages count
      *

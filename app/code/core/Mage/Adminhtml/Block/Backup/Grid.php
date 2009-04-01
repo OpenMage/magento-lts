@@ -58,8 +58,6 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         $url7zip = Mage::helper('adminhtml')->__('The archive can be uncompressed with <a href="%s">%s</a> on Windows systems', 'http://www.7-zip.org/', '7-Zip');
 
-        $gridUrl = $this->getUrl('*/*/');
-
         $this->addColumn('time', array(
             'header'    => Mage::helper('backup')->__('Time'),
             'index'     => 'time_formated',
@@ -83,7 +81,7 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->addColumn('download', array(
             'header'    => Mage::helper('backup')->__('Download'),
-            'format'    => '<a href="' . $gridUrl .'download/time/$time/type/$type/">gz</a> &nbsp; <small>('.$url7zip.')</small>',
+            'format'    => '<a href="' . $this->getUrl('*/*/download', array('time' => '$time', 'type' => '$type')) .'">gz</a> &nbsp; <small>('.$url7zip.')</small>',
             'index'     => 'type',
             'sortable'  => false,
             'filter'    => false
@@ -96,7 +94,7 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'filter'    => false,
             'sortable'  => false,
             'actions'   => array(array(
-                'url'       => $gridUrl .'delete/time/$time/type/$type/',
+                'url'       => $this->getUrl('*/*/delete', array('time' => '$time', 'type' => '$type')),
                 'caption'   => Mage::helper('adminhtml')->__('Delete'),
                 'confirm'   => Mage::helper('adminhtml')->__('Are you sure you want to do this?')
             )),

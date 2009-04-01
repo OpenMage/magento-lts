@@ -92,11 +92,20 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
      */
     protected function _getAdditionalElementHtml($element)
     {
-        return '<span class="attribute-change-checkbox"><input type="checkbox" id="' . $element->getId()
-             . '-checkbox" onclick="toogleFieldEditMode(this, \'' . $element->getId()
-             . '\')" /><label for="' . $element->getId() . '-checkbox">' . Mage::helper('catalog')->__('Change')
-             . '</label></span>
-                <script type="text/javascript">initDisableFields(\''.$element->getId().'\')</script>';
+        if( $this->_returnAdditionalElementHtml($element) === true ) {
+            return '<span class="attribute-change-checkbox"><input type="checkbox" id="' . $element->getId()
+                 . '-checkbox" onclick="toogleFieldEditMode(this, \'' . $element->getId()
+                 . '\')" /><label for="' . $element->getId() . '-checkbox">' . Mage::helper('catalog')->__('Change')
+                 . '</label></span>
+                    <script type="text/javascript">initDisableFields(\''.$element->getId().'\')</script>';
+        } else {
+            return '';
+        }
+    }
+
+    protected function _returnAdditionalElementHtml($element)
+    {
+        return true;
     }
 
     /**

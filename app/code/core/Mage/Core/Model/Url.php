@@ -254,10 +254,12 @@ class Mage_Core_Model_Url extends Varien_Object
             return $this->getData('secure');
         }
 
-        if ($this->getStore()->isAdmin() && !Mage::getStoreConfigFlag(self::XML_PATH_SECURE_IN_ADMIN, $this->getStore()->getId())) {
+        $store = $this->getStore();
+
+        if ($store->isAdmin() && !$store->isAdminUrlSecure()) { //!Mage::getStoreConfigFlag(self::XML_PATH_SECURE_IN_ADMIN, $this->getStore()->getId())
             return false;
         }
-        if (!$this->getStore()->isAdmin() && !Mage::getStoreConfigFlag(self::XML_PATH_SECURE_IN_FRONT)) {
+        if (!$store->isAdmin() && !$store->isFrontUrlSecure()) {//!Mage::getStoreConfigFlag(self::XML_PATH_SECURE_IN_FRONT
             return false;
         }
 
@@ -266,7 +268,7 @@ class Mage_Core_Model_Url extends Varien_Object
                 $pathSecure = Mage::getConfig()->shouldUrlBeSecure('/'.$this->getActionPath());
                 $this->setData('secure', $pathSecure);
             } else {
-                $this->setData('secure', Mage::app()->getStore()->isCurrentlySecure());
+                $this->setData('secure', $store->isCurrentlySecure());
             }
         }
         return $this->getData('secure');
@@ -763,9 +765,7 @@ class Mage_Core_Model_Url extends Varien_Object
             $query = $routeParams['_query'];
             unset($routeParams['_query']);
         }
-
         $url = $this->getRouteUrl($routePath, $routeParams);
-
         /**
          * Apply query params, need call after getRouteUrl for rewrite _current values
          */
@@ -789,6 +789,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if ($this->getFragment()) {
             $url .= '#'.$this->getFragment();
         }
+
         return $this->escape($url);
     }
 

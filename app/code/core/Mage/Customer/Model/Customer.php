@@ -87,6 +87,10 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (!$this->validatePassword($password)) {
             throw new Exception(Mage::helper('customer')->__('Invalid login or password.'), self::EXCEPTION_INVALID_EMAIL_OR_PASSWORD);
         }
+        Mage::dispatchEvent('customer_customer_authenticated', array(
+           'model'    => $this,
+           'password' => $password,
+        ));
         return true;
     }
 
@@ -123,19 +127,13 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
     /**
      * Change customer password
-     * $data = array(
-     *      ['password']
-     *      ['confirmation']
-     *      ['current_password']
-     * )
      *
-     * @param   array $data
-     * @param   bool $checkCurrent
+     * @param   string $newPassword
      * @return  this
      */
-    public function changePassword($newPassword, $checkCurrent=true)
+    public function changePassword($newPassword)
     {
-        $this->_getResource()->changePassword($this, $newPassword, $checkCurrent);
+        $this->_getResource()->changePassword($this, $newPassword);
         return $this;
     }
 
@@ -942,5 +940,18 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         $this->_protectFromNonAdmin();
         return parent::_beforeDelete();
+    }
+
+    /**
+     * Get customer created at date timestamp
+     *
+     * @return int
+     */
+    public function getCreatedAtTimestamp()
+    {
+        if ($date = $this->getCreatedAt()) {
+            return $this->_getResource()->mktime($date);
+        }
+        return null;
     }
 }

@@ -28,14 +28,14 @@
 
 OptionTemplateDate = '<table class="border" cellpadding="0" cellspacing="0">'+
         '<tr class="headings">'+
-            '<th class="type-price"><?php echo Mage::helper('catalog')->__('Price') ?> <span class="required">*</span></th>'+
+            '<th class="type-price"><?php echo Mage::helper('catalog')->__('Price') ?></th>'+
             '<th class="type-type"><?php echo Mage::helper('catalog')->__('Price Type') ?></th>'+
-            '<th class="last"><?php echo Mage::helper('catalog')->__('SKU') ?> <span class="required">*</span></th>'+
+            '<th class="last"><?php echo Mage::helper('catalog')->__('SKU') ?></th>'+
         '</tr>'+
         '<tr>'+
             '<td><input type="text" class="required-entry input-text validate-zero-or-greater product-option-price" id="product_option_{{option_id}}_price" name="product[options][{{option_id}}][price]" value="{{price}}"></td>'+
             '<td><?php echo $this->getPriceTypeSelectHtml() ?>{{checkboxScopePrice}}</td>'+
-            '<td class="last"><input type="text" class="required-entry input-text type-sku" name="product[options][{{option_id}}][sku]" value="{{sku}}"></td>'+
+            '<td class="last"><input type="text" class="input-text type-sku" name="product[options][{{option_id}}][sku]" value="{{sku}}"></td>'+
         '</tr>'+
     '</table>';
 

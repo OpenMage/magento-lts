@@ -46,6 +46,7 @@ class Mage_Reports_Model_Mysql4_Invoiced_Collection extends Mage_Sales_Model_Ent
             ->addExpressionAttributeToSelect('orders_invoiced',
                 'SUM(IF({{base_total_invoiced}} > 0, 1, 0))',
                  array('base_total_invoiced'))
+            ->addAttributeToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED))
             ->getSelect()->group('("*")')->having('orders > 0');
 
         return $this;

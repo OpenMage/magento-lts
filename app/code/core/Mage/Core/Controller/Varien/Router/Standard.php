@@ -39,10 +39,32 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         }
         foreach ($routers as $routerName=>$routerConfig) {
             $use = (string)$routerConfig->use;
-            if ($use==$useRouterName) {
-                $moduleName = (string)$routerConfig->args->module;
+            if ($use == $useRouterName) {
+                $modules = array((string)$routerConfig->args->module);
+                if ($routerConfig->args->modules) {
+                    foreach ($routerConfig->args->modules->children() as $customModule) {
+                        if ($customModule) {
+                            if ($before = $customModule->getAttribute('before')) {
+                                $position = array_search($before, $modules);
+                                if ($position === false) {
+                                    $position = 0;
+                                }
+                                array_splice($modules, $position, 0, (string)$customModule);
+                            } elseif ($after = $customModule->getAttribute('after')) {
+                                $position = array_search($after, $modules);
+                                if ($position === false) {
+                                    $position = count($modules);
+                                }
+                                array_splice($modules, $position+1, 0, (string)$customModule);
+                            } else {
+                                $modules[] = (string)$customModule;
+                            }
+                        }
+                    }
+                }
+
                 $frontName = (string)$routerConfig->args->frontName;
-                $this->addModule($frontName, $moduleName, $routerName);
+                $this->addModule($frontName, $modules, $routerName);
             }
         }
     }
@@ -57,11 +79,37 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         ));
     }
 
-    public function match(Zend_Controller_Request_Http $request)
+    /**
+     * checking if this admin if yes then we don't use this router
+     *
+     * @return bool
+     */
+    protected function _beforeModuleMatch()
     {
         if (Mage::app()->getStore()->isAdmin()) {
             return false;
         }
+        return true;
+    }
+
+    /**
+     * dummy call to pass through checking
+     *
+     * @return bool
+     */
+    protected function _afterModuleMatch()
+    {
+        return true;
+    }
+
+    public function match(Zend_Controller_Request_Http $request)
+    {
+        //checkings before even try to findout that current module
+        //should use this router
+        if (!$this->_beforeModuleMatch()) {
+            return false;
+        }
+
         $this->fetchDefault();
 
         $front = $this->getFront();
@@ -73,79 +121,115 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
             $module = $request->getModuleName();
         } else {
             if(!empty($p[0])) {
-            	$module = $p[0];
+                $module = $p[0];
             } else {
-            	$module = $this->getFront()->getDefault('module');
+                $module = $this->getFront()->getDefault('module');
                 $request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,	'');
             }
         }
         if (!$module) {
-            return false;
+            if (Mage::app()->getStore()->isAdmin()) {
+                $module = 'admin';
+            } else {
+                return false;
+            }
         }
-        $realModule = $this->getModuleByFrontName($module);
-        if (!$realModule) {
-            if ($moduleFrontName = array_search($module, $this->_modules)) {
-                $realModule = $module;
+
+        /**
+         * Searching router args by module name from route using it as key
+         */
+        $modules = $this->getModuleByFrontName($module);
+
+        /**
+         * If we did not found anything  we searching exact this module
+         * name in array values
+         */
+        if ($modules === false) {
+            if ($moduleFrontName = $this->getModuleByName($module, $this->_modules)) {
+                $modules = array($module);
                 $module = $moduleFrontName;
             } else {
                 return false;
             }
         }
 
-        $request->setRouteName($this->getRouteByFrontName($module));
-
-        // get controller name
-        if ($request->getControllerName()) {
-            $controller = $request->getControllerName();
-        } else {
-            if (!empty($p[1])) {
-                $controller = $p[1];
-            } else {
-            	$controller = $front->getDefault('controller');
-            	$request->setAlias(
-            	   Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
-            	   ltrim($request->getOriginalPathInfo(), '/')
-            	);
-            }
-        }
-        $controllerFileName = $this->getControllerFileName($realModule, $controller);
-        if (!$this->validateControllerFileName($controllerFileName)) {
+        //checkings after we foundout that this router should be used for current module
+        if (!$this->_afterModuleMatch()) {
             return false;
         }
 
-        $controllerClassName = $this->getControllerClassName($realModule, $controller);
-        if (!$controllerClassName) {
-            return false;
-        }
+        /**
+         * Going through modules to find appropriate controller
+         */
+        $found = false;
+        foreach ($modules as $realModule) {
+            $request->setRouteName($this->getRouteByFrontName($module));
 
-        // get action name
-        if (empty($action)) {
-            if ($request->getActionName()) {
-                $action = $request->getActionName();
+            // get controller name
+            if ($request->getControllerName()) {
+                $controller = $request->getControllerName();
             } else {
-                $action = !empty($p[2]) ? $p[2] : $front->getDefault('action');
+                if (!empty($p[1])) {
+                    $controller = $p[1];
+                } else {
+                    $controller = $front->getDefault('controller');
+                    $request->setAlias(
+                        Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
+                        ltrim($request->getOriginalPathInfo(), '/')
+                    );
+                }
             }
+
+            // get action name
+            if (empty($action)) {
+                if ($request->getActionName()) {
+                    $action = $request->getActionName();
+                } else {
+                    $action = !empty($p[2]) ? $p[2] : $front->getDefault('action');
+                }
+            }
+
+            //checking if this place should be secure
+            $this->_checkShouldBeSecure($request, '/'.$module.'/'.$controller.'/'.$action);
+
+            $controllerClassName = $this->_validateControllerClassName($realModule, $controller);
+            if (!$controllerClassName) {
+                continue;
+            }
+
+            // instantiate controller class
+            $controllerInstance = new $controllerClassName($request, $front->getResponse());
+
+            if (!$controllerInstance->hasAction($action)) {
+                continue;
+            }
+
+            $found = true;
+            break;
         }
 
-        $this->_checkShouldBeSecure($request, '/'.$module.'/'.$controller.'/'.$action);
+        /**
+         * if we did not found any siutibul
+         */
+        if (!$found) {
+            if ($this->_noRouteShouldBeApplied()) {
+                $controller = 'index';
+                $action = 'noroute';
 
-        // include controller file if needed
-        if (!class_exists($controllerClassName, false)) {
-            if (!file_exists($controllerFileName)) {
+                $controllerClassName = $this->_validateControllerClassName($realModule, $controller);
+                if (!$controllerClassName) {
+                    return false;
+                }
+
+                // instantiate controller class
+                $controllerInstance = new $controllerClassName($request, $front->getResponse());
+
+                if (!$controllerInstance->hasAction($action)) {
+                    return false;
+                }
+            } else {
                 return false;
             }
-            include $controllerFileName;
-
-            if (!class_exists($controllerClassName, false)) {
-                throw Mage::exception('Mage_Core', Mage::helper('core')->__('Controller file was loaded but class does not exist'));
-            }
-        }
-
-        // instantiate controller class
-        $controllerInstance = new $controllerClassName($request, $front->getResponse());
-
-        if (!$controllerInstance->hasAction($action)) {
-            return false;
         }
 
         // set values only after all the checks are done
@@ -162,7 +246,66 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         $request->setDispatched(true);
         $controllerInstance->dispatch($action);
 
-        return true;#$request->isDispatched();
+        return true;
+    }
+
+    /**
+     * Allow to control if we need to enable norout functionality in current router
+     *
+     * @return bool
+     */
+    protected function _noRouteShouldBeApplied()
+    {
+        return false;
+    }
+
+    /**
+     * Generating and validating class file name,
+     * class and if evrything ok do include if needed and return of class name
+     *
+     * @return mixed
+     */
+    protected function _validateControllerClassName($realModule, $controller)
+    {
+        $controllerFileName = $this->getControllerFileName($realModule, $controller);
+        if (!$this->validateControllerFileName($controllerFileName)) {
+            return false;
+        }
+
+        $controllerClassName = $this->getControllerClassName($realModule, $controller);
+        if (!$controllerClassName) {
+            return false;
+        }
+
+        // include controller file if needed
+        if (!$this->_inludeControllerClass($controllerFileName, $controllerClassName)) {
+            return false;
+        }
+
+        return $controllerClassName;
+    }
+
+
+    /**
+     * Including controller class if checking of existense class before include
+     *
+     * @param string $controllerFileName
+     * @param string $controllerClassName
+     * @return bool
+     */
+    protected function _inludeControllerClass($controllerFileName, $controllerClassName)
+    {
+        if (!class_exists($controllerClassName, false)) {
+            if (!file_exists($controllerFileName)) {
+                return false;
+            }
+            include $controllerFileName;
+
+            if (!class_exists($controllerClassName, false)) {
+                throw Mage::exception('Mage_Core', Mage::helper('core')->__('Controller file was loaded but class does not exist'));
+            }
+        }
+        return true;
     }
 
     public function addModule($frontName, $moduleName, $routeName)
@@ -176,6 +319,17 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     {
         if (isset($this->_modules[$frontName])) {
             return $this->_modules[$frontName];
+        }
+        return false;
+    }
+
+    public function getModuleByName($moduleName, $modules)
+    {
+        foreach ($modules as $module) {
+            if ($moduleName === $module || (is_array($module)
+                    && $this->getModuleByName($moduleName, $module))) {
+                return true;
+            }
         }
         return false;
     }
@@ -195,7 +349,12 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     public function getControllerFileName($realModule, $controller)
     {
+        $parts = explode('_', $realModule);
+        $realModule = implode('_', array_splice($parts, 0, 2));
         $file = Mage::getModuleDir('controllers', $realModule);
+        if (count($parts)) {
+            $file .= DS . implode(DS, $parts);
+        }
         $file .= DS.uc_words($controller, DS).'Controller.php';
         return $file;
     }

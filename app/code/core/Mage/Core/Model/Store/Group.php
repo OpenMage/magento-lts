@@ -35,7 +35,18 @@
 class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
 {
     const CACHE_TAG      = 'store_group';
+
     protected $_cacheTag = true;
+
+    /**
+     * @var string
+     */
+    protected $_eventPrefix = 'store_group';
+
+    /**
+     * @var string
+     */
+    protected $_eventObject = 'store_group';
 
     /**
      * Group Store collection array

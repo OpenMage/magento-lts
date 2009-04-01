@@ -116,9 +116,12 @@ class Mage_Core_Model_Translate
         $this->_translateInline = Mage::getSingleton('core/translate_inline')
             ->isAllowed($area=='adminhtml' ? 'admin' : null);
 
-        if (!$forceReload && ($this->_data = $this->_loadCache())) {
+        if (!$forceReload) {
             if ($this->_canUseCache()) {
-                return $this;
+                $this->_data = $this->_loadCache();
+                if ($this->_data !== false) {
+                    return $this;
+                }
             }
             Mage::app()->removeCache($this->getCacheId());
         }

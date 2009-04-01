@@ -39,7 +39,8 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
 
     public function getAllowAttributes()
     {
-        return $this->getProduct()->getTypeInstance()->getConfigurableAttributes();
+        return $this->getProduct()->getTypeInstance(true)
+            ->getConfigurableAttributes($this->getProduct());
     }
 
     public function hasOptions()
@@ -60,7 +61,8 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     {
         if (!$this->hasAllowProducts()) {
             $products = array();
-            $allProducts = $this->getProduct()->getTypeInstance()->getUsedProducts();
+            $allProducts = $this->getProduct()->getTypeInstance(true)
+                ->getUsedProducts(null, $this->getProduct());
             foreach ($allProducts as $product) {
                 if ($product->isSaleable()) {
                     $products[] = $product;

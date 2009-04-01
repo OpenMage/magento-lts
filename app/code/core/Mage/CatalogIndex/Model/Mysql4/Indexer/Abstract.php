@@ -32,6 +32,14 @@
  */
 class Mage_CatalogIndex_Model_Mysql4_Indexer_Abstract extends Mage_Core_Model_Mysql4_Abstract
 {
+    /**
+     * should be defined because abstract
+     */
+    protected function _construct()
+    {
+
+    }
+
     public function saveIndex($data, $storeId, $productId)
     {
         return $this->saveIndices(array($data), $storeId, $productId);
@@ -71,11 +79,6 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer_Abstract extends Mage_Core_Model_My
 
         $conditions = implode (' AND ', $conditions);
         $this->_getWriteAdapter()->delete($this->getMainTable(), $conditions);
-    }
-
-    protected function _construct()
-    {
-        return parent::_construct();
     }
 
     public function loadAttributeCodesByCondition($conditions)

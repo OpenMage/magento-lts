@@ -41,7 +41,7 @@
     <div class="button-set no-border">
         <div id="shipping-method-buttons-container">
             <a href="#" onclick="checkout.back(); return false;" class="back left"><?php echo $this->__('Back') ?></a>
-            <button class="form-button right" onclick="shippingMethod.save()"><span><?php echo $this->__('Continue') ?></span></button>
+            <button type="button" class="form-button right" onclick="shippingMethod.save()"><span><?php echo $this->__('Continue') ?></span></button>
             <span id="shipping-method-please-wait" style="display:none;" class="opc-please-wait">
                 <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" class="v-middle" alt="" /> &nbsp; <?php echo $this->__('Loading next step...') ?> &nbsp;
             </span>

@@ -89,7 +89,7 @@ class Mage_CatalogRule_Model_Observer
         if ($observer->hasDate()) {
             $date = $observer->getDate();
         } else {
-            $date = Mage::app()->getLocale()->storeDate($storeId);
+            $date = Mage::app()->getLocale()->storeTimeStamp($storeId);
         }
 
         if ($observer->hasWebsiteId()) {

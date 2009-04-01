@@ -58,6 +58,11 @@
         <resources_alias>
             <product_stock>cataloginventory_stock_item</product_stock>
         </resources_alias>
+        <v2>
+            <resources_function_prefix>
+                <product_stock>catalogInventoryStockItem</product_stock>
+            </resources_function_prefix>
+        </v2>
         <acl>
             <resources>
                 <cataloginventory translate="title" module="cataloginventory">

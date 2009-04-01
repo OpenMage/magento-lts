@@ -95,7 +95,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                 $session->addException($e, Mage::helper('adminnotification')->__('Error while marking as read. Please try again later.'));
             }
         }
-        $this->_redirectReferer();
+        $this->_redirect('*/*/');
     }
 
     public function removeAction()

@@ -228,7 +228,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     public function getIsConfigured()
     {
         if ($this->getProduct()->isConfigurable()
-            && !($superAttributes = $this->getProduct()->getTypeInstance()->getUsedProductAttributeIds())) {
+            && !($superAttributes = $this->getProduct()->getTypeInstance(true)->getUsedProductAttributeIds($this->getProduct()))) {
             $superAttributes = false;
         }
 

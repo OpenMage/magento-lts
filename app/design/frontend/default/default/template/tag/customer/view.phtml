@@ -54,7 +54,7 @@
                 </td>
                 <td class="a-center">
                     <?php if($_product->isSaleable()): ?>
-                        <button class="form-button" onclick="setLocation('<?php echo $this->getUrl('checkout/cart/add',array('product'=>$_product->getId())) ?>')"><span><?php echo $this->__('Add to Cart') ?></span></button>
+                        <button type="button" class="form-button" onclick="setLocation('<?php echo $this->getUrl('checkout/cart/add',array('product'=>$_product->getId())) ?>')"><span><?php echo $this->__('Add to Cart') ?></span></button>
                     <?php endif; ?>
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
                     <br /><a href="<?php echo $this->getUrl('wishlist/index/add',array('product'=>$_product->getId())) ?>"><?php echo $this->__('Add to Wishlist') ?></a>

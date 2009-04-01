@@ -34,7 +34,9 @@
     </tr>
 </table>
 </div>
-<?php echo $this->getStoreSwitcherHtml() ?>
+<?php if( !$this->isSingleStoreMode() ): ?>
+<?php echo $this->getChildHtml('store_switcher');?>
+<?php endif;?>
 <div>
     <?php echo $this->getGridHtml() ?>
 </div>

@@ -231,6 +231,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                     $value['sku'] = $this->htmlEscape($option->getSku());
                     $value['max_characters'] = $option->getMaxCharacters();
                     $value['file_extension'] = $option->getFileExtension();
+                    $value['image_size_x'] = $option->getImageSizeX();
+                    $value['image_size_y'] = $option->getImageSizeY();
                     if ($this->getProduct()->getStoreId() != '0' && $scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE) {
                         $value['checkboxScopePrice'] = $this->getCheckboxScopeHtml($option->getOptionId(), 'price', is_null($option->getStorePrice()));
                         $value['scopePriceDisabled'] = is_null($option->getStorePrice())?'disabled':null;

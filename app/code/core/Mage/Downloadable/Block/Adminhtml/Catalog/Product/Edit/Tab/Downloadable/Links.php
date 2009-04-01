@@ -141,7 +141,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     public function getLinkData()
     {
         $linkArr = array();
-        $links = $this->getProduct()->getTypeInstance()->getLinks();
+        $links = $this->getProduct()->getTypeInstance(true)->getLinks($this->getProduct());
         $priceWebsiteScope = $this->getIsPriceWebsiteScope();
         foreach ($links as $item) {
             $tmpLinkItem = array(

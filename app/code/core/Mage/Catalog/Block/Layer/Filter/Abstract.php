@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,19 +29,39 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_Template
 {
+    /**
+     * Catalog Layer Filter Attribute model
+     *
+     * @var Mage_Catalog_Model_Layer_Filter_Attribute
+     */
     protected $_filter;
+
+    /**
+     * Filter Model Name
+     *
+     * @var string
+     */
     protected $_filterModelName;
 
+    /**
+     * Initialize filter template
+     *
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('catalog/layer/filter.phtml');
     }
 
+    /**
+     * Initialize filter model object
+     *
+     * @return Mage_Catalog_Block_Layer_Filter_Abstract
+     */
     public function init()
     {
         $this->_initFilter();
@@ -66,6 +86,11 @@ abstract class Mage_Catalog_Block_Layer_Filter_Abstract extends Mage_Core_Block_
         return $this;
     }
 
+    /**
+     * Prepare filter process
+     *
+     * @return Mage_Catalog_Block_Layer_Filter_Abstract
+     */
     protected function _prepareFilter()
     {
         return $this;

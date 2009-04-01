@@ -20,10 +20,18 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
+/**
+ * Catalog Observer
+ *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Catalog_Model_Observer
 {
     /**
@@ -32,7 +40,7 @@ class Mage_Catalog_Model_Observer
      * @param   Varien_Event_Observer $observer
      * @return  Mage_Catalog_Model_Observer
      */
-    public function storeEdit($observer)
+    public function storeEdit(Varien_Event_Observer $observer)
     {
         $store = $observer->getEvent()->getStore();
         /* @var $store Mage_Core_Model_Store */
@@ -44,6 +52,9 @@ class Mage_Catalog_Model_Observer
                 array(),
                 array($store->getId())
             );
+            if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
+                Mage::getResourceModel('catalog/category_flat')->synchronize(null, array($store->getId()));
+            }
             Mage::getResourceSingleton('catalog/product')->refreshEnabledIndex($store);
         }
         return $this;
@@ -55,7 +66,7 @@ class Mage_Catalog_Model_Observer
      * @param   Varien_Event_Observer $observer
      * @return  Mage_Catalog_Model_Observer
      */
-    public function storeAdd($observer)
+    public function storeAdd(Varien_Event_Observer $observer)
     {
         $store = $observer->getEvent()->getStore();
         /* @var $store Mage_Core_Model_Store */
@@ -67,6 +78,10 @@ class Mage_Catalog_Model_Observer
             array(),
             array($store->getId())
         );
+        if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
+            Mage::getResourceModel('catalog/category_flat')
+                ->synchronize(null, array($store->getId()));
+        }
         Mage::getResourceModel('catalog/product')->refreshEnabledIndex($store);
         return $this;
     }
@@ -77,7 +92,7 @@ class Mage_Catalog_Model_Observer
      * @param   Varien_Event_Observer $observer
      * @return  Mage_Catalog_Model_Observer
      */
-    public function storeGroupSave($observer)
+    public function storeGroupSave(Varien_Event_Observer $observer)
     {
         $group = $observer->getEvent()->getGroup();
         /* @var $group Mage_Core_Model_Store_Group */
@@ -90,6 +105,10 @@ class Mage_Catalog_Model_Observer
                     array(),
                     array($store->getId())
                 );
+                if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
+                    Mage::getResourceModel('catalog/category_flat')
+                        ->synchronize(null, array($store->getId()));
+                }
             }
         }
         return $this;
@@ -101,7 +120,7 @@ class Mage_Catalog_Model_Observer
      * @param   Varien_Event_Observer $observer
      * @return  Mage_Catalog_Model_Observer
      */
-    public function categoryMove($observer)
+    public function categoryMove(Varien_Event_Observer $observer)
     {
         $categoryId = $observer->getEvent()->getCategoryId();
         $prevParentId = $observer->getEvent()->getPrevParentId();
@@ -110,9 +129,12 @@ class Mage_Catalog_Model_Observer
         Mage::getResourceSingleton('catalog/category')->refreshProductIndex(array(
             $categoryId, $prevParentId, $parentId
         ));
-        $model = Mage::getModel('catalog/category')->load($prevParentId)->save();
-        $model = Mage::getModel('catalog/category')->load($parentId)->save();
-        $model = null;
+        Mage::getModel('catalog/category')->load($prevParentId)->save();
+        Mage::getModel('catalog/category')->load($parentId)->save();
+        if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
+            Mage::getResourceModel('catalog/category_flat')
+                ->move($categoryId, $prevParentId, $parentId);
+        }
         return $this;
     }
 
@@ -122,7 +144,7 @@ class Mage_Catalog_Model_Observer
      * @param   Varien_Event_Observer $observer
      * @return  Mage_Catalog_Model_Observer
      */
-    public function catalogProductImportAfter($observer)
+    public function catalogProductImportAfter(Varien_Event_Observer $observer)
     {
         Mage::getModel('catalog/url')->refreshRewrites();
         Mage::getResourceSingleton('catalog/category')->refreshProductIndex();
@@ -138,6 +160,21 @@ class Mage_Catalog_Model_Observer
     public function catalogProductCompareClean(Varien_Event_Observer $observer)
     {
         Mage::getModel('catalog/product_compare_item')->clean();
+        return $this;
+    }
+
+    /**
+     * After save event of category
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Catalog_Model_Observer
+     */
+    public function categorySaveAfter(Varien_Event_Observer $observer)
+    {
+        if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
+            $category = $observer->getEvent()->getCategory();
+            Mage::getResourceModel('catalog/category_flat')->synchronize($category);
+        }
         return $this;
     }
 }

@@ -46,23 +46,35 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         return $obj;
     }
 
+    /**
+     * Add special attributes
+     *
+     * @param array $attributes
+     */
     protected function _addSpecialAttributes(array &$attributes)
     {
         $attributes['attribute_set_id'] = Mage::helper('catalogrule')->__('Attribute Set');
         $attributes['category_ids'] = Mage::helper('catalogrule')->__('Category');
     }
 
+    /**
+     * Load attribute options
+     *
+     * @return Mage_CatalogRule_Model_Rule_Condition_Product
+     */
     public function loadAttributeOptions()
     {
         $productAttributes = Mage::getResourceSingleton('catalog/product')
-            ->loadAllAttributes()->getAttributesByCode();
+            ->loadAllAttributes()
+            ->getAttributesByCode();
 
         $attributes = array();
-        foreach ($productAttributes as $attr) {
-            if (!$attr->isAllowedForRuleCondition() || !$attr->getIsUsedForPriceRules()) {
+        foreach ($productAttributes as $attribute) {
+            /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+            if (!$attribute->isAllowedForRuleCondition() || !$attribute->getIsUsedForPriceRules()) {
                 continue;
             }
-            $attributes[$attr->getAttributeCode()] = $attr->getFrontend()->getLabel();
+            $attributes[$attribute->getAttributeCode()] = $attribute->getFrontendLabel();
         }
 
         $this->_addSpecialAttributes($attributes);
@@ -73,6 +85,12 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         return $this;
     }
 
+    /**
+     * Retrieve value by option
+     *
+     * @param mixed $option
+     * @return string
+     */
     public function getValueOption($option=null)
     {
         if (!$this->getData('value_option')) {
@@ -106,6 +124,11 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         return $this->getData('value_option'.(!is_null($option) ? '/'.$option : ''));
     }
 
+    /**
+     * Retrieve select option values
+     *
+     * @return array
+     */
     public function getValueSelectOptions()
     {
         if (!$this->getData('value_select_options')) {
@@ -129,6 +152,11 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         return $this->getData('value_select_options');
     }
 
+    /**
+     * Retrieve after element HTML
+     *
+     * @return string
+     */
     public function getValueAfterElementHtml()
     {
         $html = '';
@@ -145,6 +173,11 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         return $html;
     }
 
+    /**
+     * Retrieve attribute element
+     *
+     * @return Varien_Form_Element_Abstract
+     */
     public function getAttributeElement()
     {
         $element = parent::getAttributeElement();
@@ -152,6 +185,12 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         return $element;
     }
 
+    /**
+     * Collect validated attributes
+     *
+     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $productCollection
+     * @return Mage_CatalogRule_Model_Rule_Condition_Product
+     */
     public function collectValidatedAttributes($productCollection)
     {
         $attributes = $this->getRule()->getCollectedAttributes();
@@ -161,6 +200,11 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         return $this;
     }
 
+    /**
+     * Retrieve input type
+     *
+     * @return string
+     */
     public function getInputType()
     {
         if ($this->getAttribute()==='attribute_set_id') {
@@ -184,6 +228,11 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         }
     }
 
+    /**
+     * Retrieve value element type
+     *
+     * @return string
+     */
     public function getValueElementType()
     {
         if ($this->getAttribute()==='attribute_set_id') {
@@ -207,6 +256,11 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         }
     }
 
+    /**
+     * Retrieve value element
+     *
+     * @return Varien_Data_Form_Element_Abstract
+     */
     public function getValueElement()
     {
         $element = parent::getValueElement();
@@ -221,6 +275,11 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         return $element;
     }
 
+    /**
+     * Retrieve value element chooser URL
+     *
+     * @return string
+     */
     public function getValueElementChooserUrl()
     {
         $url = false;
@@ -236,6 +295,11 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         return $url!==false ? Mage::helper('adminhtml')->getUrl($url) : '';
     }
 
+    /**
+     * Retrieve Explicit Apply
+     *
+     * @return bool
+     */
     public function getExplicitApply()
     {
         switch ($this->getAttribute()) {
@@ -251,6 +315,12 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         return false;
     }
 
+    /**
+     * Load array
+     *
+     * @param array $arr
+     * @return Mage_CatalogRule_Model_Rule_Condition_Product
+     */
     public function loadArray($arr)
     {
         $this->setAttribute(isset($arr['attribute']) ? $arr['attribute'] : false);
@@ -264,6 +334,12 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         return parent::loadArray($arr);
     }
 
+    /**
+     * Validate product attrbute value for condition
+     *
+     * @param Varien_Object $object
+     * @return bool
+     */
     public function validate(Varien_Object $object)
     {
         $attr = $object->getResource()->getAttribute($this->getAttribute());

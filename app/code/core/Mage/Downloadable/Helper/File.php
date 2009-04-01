@@ -33,15 +33,41 @@
  */
 class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
 {
-	/**
-	 * Move file from tmp path to base path
-	 *
-	 * @param string $baseTmpPath
-	 * @param string $basePath
-	 * @param string $file
-	 * @return string
-	 */
+    /**
+     * Checking file for moving and move it
+     *
+     * @param string $baseTmpPath
+     * @param string $basePath
+     * @param array $file
+     * @return string
+     */
     public function moveFileFromTmp($baseTmpPath, $basePath, $file)
+    {
+        if (isset($file[0])) {
+            $fileName = $file[0]['file'];
+            if ($file[0]['status'] == 'new') {
+                try {
+                    $fileName = $this->_moveFileFromTmp(
+                        $baseTmpPath, $basePath, $file[0]['file']
+                    );
+                } catch (Exception $e) {
+                    Mage::throwException(Mage::helper('downloadable')->__('An error occurred while saving the file(s).'));
+                }
+            }
+            return $fileName;
+        }
+        return '';
+    }
+
+    /**
+     * Move file from tmp path to base path
+     *
+     * @param string $baseTmpPath
+     * @param string $basePath
+     * @param string $file
+     * @return string
+     */
+    protected function _moveFileFromTmp($baseTmpPath, $basePath, $file)
     {
         $ioObject = new Varien_Io_File();
         $destDirectory = dirname($this->getFilePath($basePath, $file));
@@ -60,7 +86,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
                   . Varien_File_Uploader::getNewFileName($this->getFilePath($basePath, $file));
         $result = $ioObject->mv(
             $this->getFilePath($baseTmpPath, $file),
-            $this->getFilePath($basePath, $file)
+            $this->getFilePath($basePath, $destFile)
         );
         return str_replace($ioObject->dirsep(), '/', $destFile);
     }

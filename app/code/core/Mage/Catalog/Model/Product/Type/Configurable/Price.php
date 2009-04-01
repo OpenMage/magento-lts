@@ -47,14 +47,16 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
         }
 
         $finalPrice = parent::getFinalPrice($qty, $product);
-        $product->getTypeInstance()->setStoreFilter($product->getStore());
-        $attributes = $product->getTypeInstance()->getConfigurableAttributes();
+        $product->getTypeInstance(true)
+            ->setStoreFilter($product->getStore(), $product);
+        $attributes = $product->getTypeInstance(true)
+            ->getConfigurableAttributes($product);
 
         $selectedAttributes = array();
         if ($product->getCustomOption('attributes')) {
             $selectedAttributes = unserialize($product->getCustomOption('attributes')->getValue());
         }
-        
+
         $basePrice = $finalPrice;
         foreach ($attributes as $attribute) {
             $attributeId = $attribute->getProductAttribute()->getId();
@@ -71,7 +73,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
         $product->setFinalPrice($finalPrice);
         return max(0, $product->getData('final_price'));
     }
-    
+
     /**
      * Calculate configurable product selection price
      *
@@ -89,7 +91,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
         }
         return $price;
     }
-    
+
     protected function _getValueByIndex($values, $index) {
         foreach ($values as $value) {
             if($value['value_index'] == $index) {

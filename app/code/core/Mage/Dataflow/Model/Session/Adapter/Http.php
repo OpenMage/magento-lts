@@ -18,18 +18,18 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Varien
- * @package    Mage_Dataflow_Model_Convert
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Dataflow
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * Convert HTTP adapter
  *
- * @category   Varien
- * @package    Mage_Dataflow_Model_Convert
+ * @category    Mage
+ * @package     Mage_Dataflow
  * @author      Magento Core Team <core@magentocommerce.com>
  */
  class Mage_Dataflow_Model_Session_Adapter_Http extends Mage_Dataflow_Model_Convert_Adapter_Abstract
@@ -82,5 +82,7 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
             }
          }
          return $this;
-     } // end
+     }
+
  }
+ 

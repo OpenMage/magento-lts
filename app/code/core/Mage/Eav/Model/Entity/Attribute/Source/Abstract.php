@@ -100,4 +100,46 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
         }
         return null;
     }
+
+    /**
+     * Add Value Sort To Collection Select
+     *
+     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @param string $dir direction
+     * @return Mage_Eav_Model_Entity_Attribute_Source_Abstract
+     */
+    public function addValueSortToCollection($collection, $dir = 'asc') {
+        return $this;
+    }
+
+    /**
+     * Retrieve Column(s) for Flat
+     *
+     * @return array
+     */
+    public function getFlatColums()
+    {
+        return array();
+    }
+
+    /**
+     * Retrieve Indexes(s) for Flat
+     *
+     * @return array
+     */
+    public function getFlatIndexes()
+    {
+        return array();
+    }
+
+    /**
+     * Retrieve Select For Flat Attribute update
+     *
+     * @param int $store
+     * @return Varien_Db_Select|null
+     */
+    public function getFlatUpdateSelect($store)
+    {
+        return null;
+    }
 }

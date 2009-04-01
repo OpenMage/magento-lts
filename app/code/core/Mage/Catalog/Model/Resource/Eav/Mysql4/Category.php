@@ -56,6 +56,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
     protected $_isActiveAttributeId = null;
 
     /**
+     * Store id
+     *
+     * @var int
+     */
+    protected $_storeId = null;
+
+    /**
      * Class constructor
      */
     public function __construct()
@@ -67,6 +74,31 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
                 $resource->getConnection('catalog_write')
             );
         $this->_categoryProductTable = $this->getTable('catalog/category_product');
+    }
+
+    /**
+     * Set store Id
+     *
+     * @param integer $storeId
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category
+     */
+    public function setStoreId($storeId)
+    {
+        $this->_storeId = $storeId;
+        return $this;
+    }
+
+    /**
+     * Return store id
+     *
+     * @return integer
+     */
+    public function getStoreId()
+    {
+        if (is_null($this->_storeId)) {
+            return Mage::app()->getStore()->getId();
+        }
+        return $this->_storeId;
     }
 
     /**
@@ -765,5 +797,165 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
             }
         }
         return $this;
+    }
+
+    /**
+     * Retrieve categories
+     *
+     * @param integer $parent
+     * @param integer $recursionLevel
+     * @param boolean|string $sorted
+     * @param boolean $asCollection
+     * @param boolean $toLoad
+     * @return Varien_Data_Tree_Node_Collection|Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
+     */
+    public function getCategories($parent, $recursionLevel = 0, $sorted=false, $asCollection=false, $toLoad=true)
+    {
+        $tree = Mage::getResourceModel('catalog/category_tree');
+        /** @var $tree Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree */
+        $nodes = $tree->loadNode($parent)
+            ->loadChildren($recursionLevel)
+            ->getChildren();
+
+        $tree->addCollectionData(null, $sorted, $parent, $toLoad, true);
+
+        if ($asCollection) {
+            return $tree->getCollection();
+        }
+        return $nodes;
+    }
+
+    /**
+     * Return parent categories of category
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return array
+     */
+    public function getParentCategories($category)
+    {
+        $pathIds = array_reverse(explode(',', $category->getPathInStore()));
+        $categories = Mage::getResourceModel('catalog/category_collection')
+            ->setStore(Mage::app()->getStore())
+            ->addAttributeToSelect('name')
+            ->addAttributeToSelect('url_key')
+            ->addFieldToFilter('entity_id', array('in'=>$pathIds))
+            ->addFieldToFilter('is_active', 1)
+            ->load()
+            ->getItems();
+        return $categories;
+    }
+
+    /**
+     * Enter description here...
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return unknown
+     */
+    public function getChildrenCategories($category)
+    {
+        $collection = $category->getCollection();
+        /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection */
+        $collection->addAttributeToSelect('url_key')
+            ->addAttributeToSelect('name')
+            ->addAttributeToSelect('all_children')
+            ->addAttributeToSelect('is_anchor')
+            ->addAttributeToFilter('is_active', 1)
+            ->addIdFilter($category->getChildren())
+            ->setOrder('position', 'ASC')
+            ->joinUrlRewrite()
+            ->load();
+        return $collection;
+    }
+
+    /**
+     * Return children ids of category
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @param boolean $recursive
+     * @return array
+     */
+    public function getChildren($category, $recursive = true)
+    {
+        $attributeId = $this->_getIsActiveAttributeId();
+        $select = $this->_getReadAdapter()->select()
+            ->from(array('m' => $this->getEntityTable()), 'entity_id')
+            ->joinLeft(
+                array('d' => $this->getEntityTable() . '_int'),
+                "d.attribute_id = '{$attributeId}' AND d.store_id = 0 AND d.entity_id = m.entity_id",
+                array()
+            )
+            ->joinLeft(
+                array('c' => $this->getEntityTable() . '_int'),
+                "c.attribute_id = '{$attributeId}' AND c.store_id = '{$category->getStoreId()}' AND c.entity_id = m.entity_id",
+                array()
+            )
+            ->where('(IFNULL(c.value, d.value) = ?)', '1')
+            ->where('path LIKE ?', "{$category->getPath()}/%");
+        if (!$recursive) {
+            $select->where('level <= ?', $category->getLevel() + 1);
+        }
+        $_categories = $this->_getReadAdapter()->fetchAll($select);
+        $categoriesIds = array();
+        foreach ($_categories as $_category) {
+            $categoriesIds[] = $_category['entity_id'];
+        }
+
+        return $categoriesIds;
+
+//        $this->_getTree()->load();
+//        return $this->_getTree()->getChildren($category->getId(), false);
+    }
+
+    /**
+     * Return all children ids of category (with category id)
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return array
+     */
+    public function getAllChildren($category)
+    {
+        $children = $this->getChildren($category);
+        $myId = array($category->getId());
+        $children = array_merge($myId, $children);
+
+        return $children;
+
+//        $this->_getTree()->load();
+//        $children = $this->_getTree()->getChildren($category->getId());
+//
+//        $myId = array($category->getId());
+//        if (is_array($children)) {
+//            $children = array_merge($myId, $children);
+//        } else {
+//            $children = $myId;
+//        }
+//
+//        return $children;
+    }
+
+    /**
+     * Check is category in list of store categories
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return boolean
+     */
+    public function isInRootCategoryList($category)
+    {
+        $innerSelect = $this->_getReadAdapter()->select()
+            ->from($this->getEntityTable(), new Zend_Db_Expr("CONCAT(path, '/%')"))
+            ->where('entity_id = ?', Mage::app()->getStore()->getRootCategoryId());
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getEntityTable(), 'entity_id')
+            ->where('entity_id = ?', $category->getId())
+            ->where(new Zend_Db_Expr("path LIKE ({$innerSelect->__toString()})"));
+        return (bool) $this->_getReadAdapter()->fetchOne($select);
+
+//        $tree = $this->_getTree();
+//        $tree->load();
+//        $children = $tree->getChildren(Mage::app()->getStore()->getRootCategoryId(), true);
+//        if (!in_array($category->getId(), $children)) {
+//            return false;
+//        }
+//        return true;
     }
 }

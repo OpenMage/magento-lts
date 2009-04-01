@@ -32,7 +32,7 @@
             <?php echo $this->getAddSubButtonHtml() ?>
         <?php endif; ?>
     </div>
-    <?php echo $this->getStoreSwitcherHtml() ?>
+    <?php echo $this->getStoreSwitcherHtml();?>
     <div class="tree-actions">
         <?php if($this->getRoot()): ?>
             <?php //echo $this->getCollapseButtonHtml() ?>
@@ -71,7 +71,7 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
 
         this.storeId = parameters['store_id'];
 
-        if ( this.storeId != 0) {
+        if ( this.storeId != 0 && $('add_root_category_button')) {
             $('add_root_category_button').hide();
         }
 
@@ -259,6 +259,11 @@ function _renderNewTree(config, storeParam)
     if (storeParam) {
         url = url + storeParam;
     }
+    <?php if ($this->isClearEdit()):?>
+    if (selectedNode) {
+        url = url + 'id/' + config.parameters.category_id;
+    }
+    <?php endif;?>
     updateContent(url);
 }
 

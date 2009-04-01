@@ -47,10 +47,18 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     public function getCacheKey()
     {
         $key = Mage::app()->getStore()->getId().'_CATALOG_NAVIGATION' . md5($this->getTemplate());
-        if ($this->getCurrentCategory()) {
-            $key.=  md5($this->getCurrentCategory()->getPath());
-        }
+        $key.=  md5($this->getCurrenCategoryKey());
+        $key.= Mage::getSingleton('customer/session')->getCustomerGroupId();
         return $key;
+    }
+
+    public function getCurrenCategoryKey()
+    {
+        if ($category = Mage::registry('current_category')) {
+            return $category->getPath();
+        } else {
+            return Mage::app()->getStore()->getRootCategoryId();
+        }
     }
 
     /**
@@ -74,21 +82,11 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $layer = Mage::getSingleton('catalog/layer');
         $category   = $layer->getCurrentCategory();
         /* @var $category Mage_Catalog_Model_Category */
-        $collection = Mage::getModel('catalog/category')->getCollection();
-        /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection */
-        $collection->addAttributeToSelect('url_key')
-            ->addAttributeToSelect('name')
-            ->addAttributeToSelect('is_anchor')
-            ->addAttributeToFilter('is_active', 1)
-            ->addIdFilter($category->getChildren())
-            ->setOrder('position', 'ASC')
-            ->joinUrlRewrite()
-            ->load();
-
+        $categories = $category->getChildrenCategories();
         $productCollection = Mage::getResourceModel('catalog/product_collection');
         $layer->prepareProductCollection($productCollection);
-        $productCollection->addCountToCategories($collection);
-        return $collection;
+        $productCollection->addCountToCategories($categories);
+        return $categories;
     }
 
     /**
@@ -128,6 +126,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
                 ->setData($category->getData())
                 ->getUrl();
         }
+
         return $url;
     }
 
@@ -143,12 +142,16 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     {
         $html = '';
         if (!$category->getIsActive()) {
-
             return $html;
         }
-
-        $children = $category->getChildren();
-        $hasChildren = $children && $children->count();
+        if (Mage::helper('catalog/category_flat')->isEnabled()) {
+            $children = $category->getChildrenNodes();
+            $childrenCount = count($children);
+        } else {
+            $children = $category->getChildren();
+            $childrenCount = $children->count();
+        }
+        $hasChildren = $children && $childrenCount;
         $html.= '<li';
         if ($hasChildren) {
              $html.= ' onmouseover="toggleMenu(this,1)" onmouseout="toggleMenu(this,0)"';
@@ -173,7 +176,6 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         }
         $html.= '">'."\n";
         $html.= '<a href="'.$this->getCategoryUrl($category).'"><span>'.$this->htmlEscape($category->getName()).'</span></a>'."\n";
-        //$html.= '<span>'.$level.'</span>';
 
         if ($hasChildren){
 

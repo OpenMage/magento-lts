@@ -129,7 +129,7 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
             }
 
             if (false !== $condition) {
-                $this->addSearchCriteria($attribute, $value);
+                $this->_addSearchCriteria($attribute, $value);
 
                 if (in_array($code, $filteredAttributes))
                     continue;
@@ -153,7 +153,14 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
         return $this;
     }
 
-    private function addSearchCriteria($attribute, $value)
+    /**
+     * Add data about search criteria to object state
+     *
+     * @param   Mage_Eav_Model_Entity_Attribute $attribute
+     * @param   mixed $value
+     * @return  Mage_CatalogSearch_Model_Advanced
+     */
+    protected function _addSearchCriteria($attribute, $value)
     {
         $name = $attribute->getFrontend()->getLabel();
 
@@ -197,6 +204,7 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
         }
 
         $this->_searchCriterias[] = array('name'=>$name, 'value'=>$value);
+        return $this;
     }
 
     public function getSearchCriterias()

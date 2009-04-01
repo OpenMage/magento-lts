@@ -71,7 +71,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
     public function getSampleData()
     {
         $samplesArr = array();
-        $samples = $this->getProduct()->getTypeInstance()->getSamples();
+        $samples = $this->getProduct()->getTypeInstance(true)->getSamples($this->getProduct());
         foreach ($samples as $item) {
             $tmpSampleItem = array(
                 'sample_id' => $item->getId(),

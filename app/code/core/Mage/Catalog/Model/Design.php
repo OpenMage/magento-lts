@@ -32,6 +32,39 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
 
     public function applyDesign($object, $calledFrom = 0)
     {
+        switch ($calledFrom) {
+            case self::APPLY_FOR_PRODUCT:
+                $calledFrom = 3;
+                break;
+
+            case self::APPLY_FOR_CATEGORY:
+                $calledFrom = 4;
+                break;
+        }
+        if (Mage::helper('catalog/category_flat')->isEnabled()) {
+            $this->_applyDesign($object, $calledFrom);
+        } else {
+            $this->_applyDesignRecursively($object, $calledFrom);
+        }
+
+        return $this;
+    }
+
+    private function _apply($package, $theme)
+    {
+        Mage::getSingleton('core/design_package')
+            ->setPackageName($package)
+            ->setTheme($theme);
+    }
+
+    /**
+     * Apply design recursively
+     *
+     * @param Varien_Object $object
+     * @param integer $calledFrom
+     */
+    protected function _applyDesignRecursively($object, $calledFrom = 0)
+    {
         $error      = 0;
         $package    = '';
         $theme      = '';
@@ -46,14 +79,6 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         }
 
         switch ($calledFrom) {
-            case self::APPLY_FOR_PRODUCT:
-                $calledFrom = 3;
-                break;
-
-            case self::APPLY_FOR_CATEGORY:
-                $calledFrom = 4;
-                break;
-
             case 3:
                 if ($application && $application != 1 && $application != 3)
                     $error = 1;
@@ -98,14 +123,94 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         }
 
         if ($category && $category->getId()){
-            $this->applyDesign($category, $calledFrom);
+            $this->_applyDesignRecursively($category, $calledFrom);
         }
     }
 
-    private function _apply($package, $theme)
+    /**
+     * Apply design
+     *
+     * @param Varien_Object|array $designUpdateData
+     * @param integer $calledFrom
+     * @param boolean $loaded
+     * @return Mage_Catalog_Model_Design
+     */
+    protected function _applyDesign($designUpdateData, $calledFrom = 0, $loaded = false)
     {
-        Mage::getSingleton('core/design_package')
-            ->setPackageName($package)
-            ->setTheme($theme);
+        $objects = array();
+        if (is_object($designUpdateData)) {
+            $objects = array($designUpdateData);
+        } elseif (is_array($designUpdateData)) {
+            $objects = &$designUpdateData;
+        }
+        foreach ($objects as $object) {
+            $error      = 0;
+            $package    = '';
+            $theme      = '';
+            $design     = $object->getCustomDesign();
+            $date       = $object->getCustomDesignDate();
+            $application= $object->getCustomDesignApply();
+
+            $designInfo = explode("/", $design);
+            if (count($designInfo) > 1){
+                $package= $designInfo[0];
+                $theme  = $designInfo[1];
+            }
+
+            switch ($calledFrom) {
+                case 3:
+                    if ($application && $application != 1 && $application != 3)
+                        $error = 1;
+                    $calledFrom = 0;
+                    break;
+                case 4:
+                    if ($application && $application != 1 && $application != 4)
+                        $error = 1;
+                    //$calledFrom = 0;
+                    break;
+                default:
+                    if ($application && $application != 1)
+                        $error = 1;
+                    break;
+            }
+
+            if ($package && $theme) {
+                $date['from']   = strtotime($date['from']);
+                $date['to']     = strtotime($date['to']);
+
+                if ($date['from'] && $date['from'] > strtotime("today")) {
+                    $error = 1;
+                } else if ($date['to'] && $date['to'] < strtotime("today")) {
+                    $error = 1;
+                }
+
+                if (!$error) {
+                    $this->_apply($package, $theme);
+                    return;
+                }
+            }
+        }
+        if (false === $loaded && is_object($designUpdateData)) {
+            $_designUpdateData = array();
+            if ($designUpdateData instanceof Mage_Catalog_Model_Product) {
+                $_category = $designUpdateData->getCategory();
+                $_designUpdateData = array_merge(
+                    $_designUpdateData, array($_category)
+                );
+            } elseif ($designUpdateData instanceof Mage_Catalog_Model_Category) {
+                $_category = &$designUpdateData;
+            }
+            if ($_category && $_category->getId()) {
+                $_designUpdateData = array_merge(
+                    $_designUpdateData,
+                    $_category->getResource()->getDesignUpdateData($_category)
+                );
+                $this->_applyDesign(
+                    $_designUpdateData,
+                    $calledFrom, true
+                );
+            }
+        }
+        return $this;
     }
 }

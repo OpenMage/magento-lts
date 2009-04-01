@@ -94,7 +94,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
 
     public function getAttributesJson()
     {
-        $attributes = $this->_getProduct()->getTypeInstance()->getConfigurableAttributesAsArray();
+        $attributes = $this->_getProduct()->getTypeInstance(true)->getConfigurableAttributesAsArray($this->_getProduct());
         if(!$attributes) {
             return '[]';
         }
@@ -103,7 +103,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
 
     public function getLinksJson()
     {
-        $products = $this->_getProduct()->getTypeInstance()->getUsedProducts();
+        $products = $this->_getProduct()->getTypeInstance(true)->getUsedProducts(null, $this->_getProduct());
         if(!$products) {
             return '{}';
         }
@@ -116,7 +116,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
 
     public function getConfigurableSettings($product) {
         $data = array();
-        foreach ($this->_getProduct()->getTypeInstance()->getUsedProductAttributes() as $attribute) {
+        foreach ($this->_getProduct()->getTypeInstance(true)->getUsedProductAttributes($this->_getProduct()) as $attribute) {
             $data[] = array(
                 'attribute_id' => $attribute->getId(),
                 'label'        => $product->getAttributeText($attribute->getAttributeCode()),
@@ -180,7 +180,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     protected function _getRequiredAttributesIds()
     {
         $attributesIds = array();
-        foreach ($this->_getProduct()->getTypeInstance()->getConfigurableAttributes() as $attribute) {
+        foreach ($this->_getProduct()->getTypeInstance(true)->getConfigurableAttributes($this->_getProduct()) as $attribute) {
             $attributesIds[] = $attribute->getProductAttribute()->getId();
         }
 

@@ -77,6 +77,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
         if (!empty($data)) {
             $model->addData($data);
         }
+
         $model->getConditions()->setJsFormObject('rule_conditions_fieldset');
         $model->getActions()->setJsFormObject('rule_actions_fieldset');
 
@@ -86,7 +87,6 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
             ->setData('action', $this->getUrl('*/*/save'));
 
         $this->_initAction();
-
         $this->getLayout()->getBlock('head')
             ->setCanLoadExtJs(true)
             ->setCanLoadRulesJs(true);
@@ -148,7 +148,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
         if ($id = $this->getRequest()->getParam('id')) {
             try {
                 $model = Mage::getModel('salesrule/rule');
-                $model->setId($id);
+                $model->load($id);
                 $model->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('salesrule')->__('Rule was successfully deleted'));
                 $this->_redirect('*/*/');

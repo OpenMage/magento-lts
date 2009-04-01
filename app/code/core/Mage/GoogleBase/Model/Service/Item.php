@@ -245,6 +245,8 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
         $object = $this->getObject();
         $entry = $this->getEntry();
 
+        $this->_setAttribute('id', $object->getId() . '_' . $this->getStoreId(), 'text');
+
         if ($object->getName()) {
             $title = $service->newTitle()->setText( $object->getName() );
             $entry->setTitle($title);

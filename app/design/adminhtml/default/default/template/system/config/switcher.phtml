@@ -1,0 +1,21 @@
+<div class="switcher">
+    <label for="store_switcher"><?php echo $this->__('Current Configuration Scope:') ?></label>
+    <select id="store_switcher" class="system-config-store-switcher" onchange="location.href=this.options[this.selectedIndex].getAttribute('url')">
+    <?php foreach ($this->getStoreSelectOptions() as $_value=>$_option): ?>
+    <?php if (isset($_option['is_group'])): ?>
+        <?php if ($_option['is_close']): ?>
+            </optgroup>
+        <?php else: ?>
+            <optgroup label="<?php echo $_option['label'] ?>" style="<?php echo $_option['style'] ?>">
+        <?php endif; ?>
+        <?php continue ?>
+    <?php endif; ?>
+      <option value="<?php echo $_value ?>" url="<?php echo $_option['url'] ?>" <?php echo $_option['selected']?'selected="selected"':'' ?> style="<?php echo $_option['style'] ?>">
+          <?php echo $_option['label'] ?>
+      </option>
+    <?php endforeach ?>
+    </select>
+    <p style="margin:10px 0 0;">
+        <a href="<?php echo $this->getUrl('*/system_store') ?>"><?php echo $this->__('Manage Stores') ?></a>
+    </p>
+</div>

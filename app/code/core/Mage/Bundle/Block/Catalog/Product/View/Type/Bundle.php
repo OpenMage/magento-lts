@@ -40,13 +40,14 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
     public function getOptions()
     {
         if (!$this->_options) {
-            $this->getProduct()->getTypeInstance()->setStoreFilter($this->getProduct()->getStoreId());
+            $this->getProduct()->getTypeInstance(true)->setStoreFilter($this->getProduct()->getStoreId(), $this->getProduct());
 
-            $optionCollection = $this->getProduct()->getTypeInstance()->getOptionsCollection();
+            $optionCollection = $this->getProduct()->getTypeInstance(true)->getOptionsCollection($this->getProduct());
 
-            $selectionCollection = $this->getProduct()->getTypeInstance()->getSelectionsCollection(
-                    $this->getProduct()->getTypeInstance()->getOptionsIds()
-                );
+            $selectionCollection = $this->getProduct()->getTypeInstance(true)->getSelectionsCollection(
+                $this->getProduct()->getTypeInstance(true)->getOptionsIds($this->getProduct()),
+                $this->getProduct()
+            );
 
             $this->_options = $optionCollection->appendSelections($selectionCollection, false, false);
         }

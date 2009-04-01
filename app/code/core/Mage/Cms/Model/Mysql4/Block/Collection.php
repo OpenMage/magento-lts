@@ -62,7 +62,8 @@ class Mage_Cms_Model_Mysql4_Block_Collection extends Mage_Core_Model_Mysql4_Coll
             'main_table.block_id = store_table.block_id',
             array()
         )
-        ->where('store_table.store_id in (?)', array(0, $store));
+        ->where('store_table.store_id in (?)', array(0, $store))
+        ->group('main_table.block_id');
 
         return $this;
     }

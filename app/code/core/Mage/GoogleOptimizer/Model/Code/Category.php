@@ -18,27 +18,29 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_GoogleOptimizer
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_GoogleOptimizer
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Google Optimizer Category model
  *
- * @category   Mage
- * @package    Mage_Googleoptimizer_Model_Code_Category
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_Googleoptimizer
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GoogleOptimizer_Model_Code_Category extends Mage_GoogleOptimizer_Model_Code
 {
+    
     protected $_entityType = 'category';
 
     /**
      * Removing scripts assigned to entity
      *
-     * @param Varien_Object $entity
+     * @param integer $storeId
      * @return Mage_Googleoptimizer_Model_Code
      */
     public function deleteScripts($storeId)
@@ -58,4 +60,5 @@ class Mage_GoogleOptimizer_Model_Code_Category extends Mage_GoogleOptimizer_Mode
         }
         return parent::deleteScripts($storeId);
     }
+
 }

@@ -151,7 +151,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     protected function _getXmlQuotes()
     {
         $r = $this->_rawRequest;
-        $xml = new SimpleXMLElement('<FDXRateAvailableServicesRequest/>');
+        $xml = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><FDXRateAvailableServicesRequest/>');
 
         $xml->addAttribute('xmlns:api', 'http://www.fedex.com/fsmapi');
         $xml->addAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
@@ -544,8 +544,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     /**
      *  Return FeDex currency ISO code by Magento Base Currency Code
      *
-     *  @param    none
-     *  @return	  string 3-digit currency code
+     *  @return   string 3-digit currency code
      */
     public function getCurrencyCode ()
     {
@@ -600,7 +599,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     {
         $r = $this->_rawTrackingRequest;
 
-        $xml = new SimpleXMLElement('<FDXTrack2Request/>');
+        $xml = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><FDXTrack2Request/>');
         $xml->addAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
         $xml->addAttribute('xsi:noNamespaceSchemaLocation', 'FDXTrack2Request.xsd');
 
@@ -700,6 +699,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
               } else {
                 $errorTitle = 'Response is in the wrong format';
               }
+         } else {
+             $errorTitle = false;
          }
 
          if(!$this->_result){
@@ -760,4 +761,5 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
         }
         return $arr;
     }
+
 }

@@ -50,23 +50,17 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Template
                     'class'   => 'add'
                     ))
                 );
-        /**
-         * Display store switcher if system has more one store
-         */
-        if (!Mage::app()->isSingleStoreMode()) {
-            $this->setChild('store_switcher',
-                $this->getLayout()->createBlock('adminhtml/store_switcher')
-                    ->setUseConfirm(false)
-                    ->setSwitchUrl($this->getUrl('*/*/*', array('store'=>null)))
-            );
-        }
+
         $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/catalog_product_grid', 'product.grid'));
         return parent::_prepareLayout();
     }
 
     public function getAddNewButtonHtml()
     {
-        return $this->getChildHtml('add_new_button');
+        if( $this->_enabledAddNewButton() ) {
+            return $this->getChildHtml('add_new_button');
+        }
+        return '';
     }
 
     public function getGridHtml()
@@ -74,10 +68,17 @@ class Mage_Adminhtml_Block_Catalog_Product extends Mage_Adminhtml_Block_Template
         return $this->getChildHtml('grid');
     }
 
-    public function getStoreSwitcherHtml()
+    public function isSingleStoreMode()
     {
-        return $this->getChildHtml('store_switcher');
+        if (!Mage::app()->isSingleStoreMode()) {
+               return false;
+        }
+        return true;
     }
 
+    protected function _enabledAddNewButton()
+    {
+        return true;
+    }
 }
 

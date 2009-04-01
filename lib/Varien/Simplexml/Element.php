@@ -139,17 +139,20 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Find a descendant of a node by path
      *
-     * @todo Do we need to make it xpath look-a-like?
-     * @todo param string $path Subset of xpath. Example: "child/grand[@attrName='attrValue']/subGrand"
-     * @param string $path Example: "child/grand@attrName=attrValue/subGrand" (to make it faster without regex)
-     * @return Varien_Simplexml_Element
+     * @todo    Do we need to make it xpath look-a-like?
+     * @todo    param string $path Subset of xpath. Example: "child/grand[@attrName='attrValue']/subGrand"
+     * @param   string $path Example: "child/grand@attrName=attrValue/subGrand" (to make it faster without regex)
+     * @return  Varien_Simplexml_Element
      */
     public function descend($path)
     {
         #$node = $this->xpath($path);
         #return $node[0];
-
-        $pathArr = explode('/', $path);
+        if (is_array($path)) {
+            $pathArr = $path;
+        } else {
+            $pathArr = explode('/', $path);
+        }
         $desc = $this;
         foreach ($pathArr as $nodeName) {
             if (strpos($nodeName, '@')!==false) {

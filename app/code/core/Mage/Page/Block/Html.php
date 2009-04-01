@@ -71,8 +71,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
     /**
      *  Print Logo URL (Conf -> Sales -> Invoice and Packing Slip Design)
      *
-     *  @param    none
-     *  @return	  void
+     *  @return	  string
      */
     public function getPrintLogoUrl ()
     {

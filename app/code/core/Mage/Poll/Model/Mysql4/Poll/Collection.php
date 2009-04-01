@@ -61,13 +61,17 @@ class Mage_Poll_Model_Mysql4_Poll_Collection extends Mage_Core_Model_Mysql4_Coll
      * @param int $storeId
      * @return Mage_Poll_Model_Mysql4_Poll_Collection
      */
-    public function addStoresFilter($storeId)
+    public function addStoresFilter($store)
     {
-        $this->_select->join(
-            array('store' => $this->getTable('poll/poll_store')),
-            'main_table.poll_id=store.poll_id AND store.store_id=' . (int)$storeId,
+
+        $this->getSelect()->join(
+            array('store_table' => $this->getTable('poll/poll_store')),
+            'main_table.poll_id = store_table.poll_id',
             array()
-        );
+        )
+        ->where('store_table.store_id in (?)', array(0, $store))
+        ->group('main_table.poll_id');
+
         return $this;
     }
 

@@ -33,28 +33,26 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
 {
     protected $_categoryPath;
 
+    /**
+     * Return current category path or get it from current category
+     * and creating array of categories|product paths for breadcrumbs
+     *
+     * @return string
+     */
     public function getBreadcrumbPath()
     {
         if (!$this->_categoryPath) {
 
             $path = array();
-            if ($this->getCategory()) {
-                $pathInStore = $this->getCategory()->getPathInStore();
+            if ($category = $this->getCategory()) {
+                $pathInStore = $category->getPathInStore();
                 $pathIds = array_reverse(explode(',', $pathInStore));
 
-                $categories = Mage::getResourceModel('catalog/category_collection')
-                    ->setStore(Mage::app()->getStore())
-                    ->addAttributeToSelect('name')
-                    ->addAttributeToSelect('url_key')
-                    ->addFieldToFilter('entity_id', array('in'=>$pathIds))
-                    ->addFieldToFilter('is_active', 1)
-                    ->load()
-                    ->getItems();
+                $categories = $category->getParentCategories();
 
                 // add category path breadcrumb
                 foreach ($pathIds as $categoryId) {
                     if (isset($categories[$categoryId]) && $categories[$categoryId]->getName()) {
-                        $categories[$categoryId]->setStoreId(Mage::app()->getStore()->getId());
                         $path['category'.$categoryId] = array(
                             'label' => $categories[$categoryId]->getName(),
                             'link' => $this->_isCategoryLink($categoryId) ? $categories[$categoryId]->getUrl() : ''
@@ -83,6 +81,11 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
         return false;
     }
 
+    /**
+     * Return current category
+     *
+     * @return Mage_Catalog_Model_Category
+     */
     public function getCategory()
     {
         return Mage::registry('current_category');

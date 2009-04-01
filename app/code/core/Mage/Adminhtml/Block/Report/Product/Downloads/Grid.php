@@ -57,9 +57,12 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
         $collection = Mage::getResourceModel('reports/product_downloads_collection')
             ->addAttributeToSelect('*')
             ->setStoreId($storeId)
-            ->addStoreFilter($storeId)
             ->addAttributeToFilter('type_id', array(Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE))
             ->addSummary();
+
+        if( $storeId ) {
+            $collection->addStoreFilter($storeId);
+        }
 
         $this->setCollection($collection);
         return parent::_prepareCollection();

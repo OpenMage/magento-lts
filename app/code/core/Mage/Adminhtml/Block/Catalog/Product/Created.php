@@ -100,7 +100,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
     public function getAttributes()
     {
         if ($this->getConfigurableProduct()->getId()) {
-            return $this->getConfigurableProduct()->getTypeInstance()->getUsedProductAttributes();
+            return $this->getConfigurableProduct()->getTypeInstance(true)->getUsedProductAttributes($this->getConfigurableProduct());
         }
 
         $attributes = array();
@@ -109,7 +109,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
         if ($attributesIds) {
             $attributesIds = explode(',', $attributesIds);
             foreach ($attributesIds as $attributeId) {
-                $attribute = $this->getProduct()->getTypeInstance()->getAttributeById($attributeId);
+                $attribute = $this->getProduct()->getTypeInstance(true)->getAttributeById($attributeId, $this->getProduct());
                 if (!$attribute) {
                     continue;
                 }

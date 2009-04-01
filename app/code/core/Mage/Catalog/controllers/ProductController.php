@@ -39,6 +39,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
      */
     protected function _initProduct()
     {
+        Mage::dispatchEvent('catalog_controller_product_init_before', array('controller_action'=>$this));
         $categoryId = (int) $this->getRequest()->getParam('category', false);
         $productId  = (int) $this->getRequest()->getParam('id');
 
@@ -75,7 +76,14 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
         Mage::register('current_product', $product);
         Mage::register('product', $product);
 
-        Mage::dispatchEvent('catalog_controller_product_init', array('product'=>$product));
+        try {
+            Mage::dispatchEvent('catalog_controller_product_init', array('product'=>$product));
+            Mage::dispatchEvent('catalog_controller_product_init_after', array('product'=>$product, 'controller_action' => $this));
+        } catch (Mage_Core_Exception $e) {
+            Mage::logException($e);
+            return false;
+        }
+
         return $product;
     }
 
@@ -119,6 +127,11 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
         if ($product = $this->_initProduct()) {
             Mage::dispatchEvent('catalog_controller_product_view', array('product'=>$product));
 
+            if ($this->getRequest()->getParam('options')) {
+                $notice = $product->getTypeInstance(true)->getSpecifyOptionMessage();
+                Mage::getSingleton('catalog/session')->addNotice($notice);
+            }
+
             Mage::getSingleton('catalog/session')->setLastViewedProductId($product->getId());
             Mage::getModel('catalog/design')->applyDesign($product, Mage_Catalog_Model_Design::APPLY_FOR_PRODUCT);
 
@@ -129,9 +142,9 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
             $this->renderLayout();
         }
         else {
-            if (isset($_GET['store'])) {
+            if (isset($_GET['store'])  && $this->getRequest()->isDispatched()) {
                 $this->_redirect('');
-            } else {
+            } elseif ($this->getRequest()->isDispatched()) {
                 $this->_forward('noRoute');
             }
         }
@@ -142,7 +155,14 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
      */
     public function galleryAction()
     {
-        $this->_initProduct();
+        if (!$this->_initProduct()) {
+            if (isset($_GET['store']) && $this->getRequest()->isDispatched()) {
+                $this->_redirect('');
+            } elseif ($this->getRequest()->isDispatched()) {
+                $this->_forward('noRoute');
+            }
+            return;
+        }
         $this->loadLayout();
         $this->renderLayout();
     }

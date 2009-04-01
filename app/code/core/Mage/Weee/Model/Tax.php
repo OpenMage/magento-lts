@@ -80,32 +80,32 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
             $discountPercent = $this->_getDiscountPercentForProduct($product);
         }
 
-        $productAttributes = $product->getTypeInstance()->getSetAttributes();
+        $productAttributes = $product->getTypeInstance(true)->getSetAttributes($product);
         foreach ($productAttributes as $code=>$attribute) {
             if (in_array($code, $allWeee)) {
                 $attributeId = $attribute->getId();
 
                 $attributeSelect = $this->getResource()->getReadConnection()->select();
                 $attributeSelect->from($this->getResource()->getTable('weee/tax'), 'value');
-    
+
                 $on = array();
                 $on[] = "attribute_id = '{$attributeId}'";
                 $on[] = "(website_id in ('{$websiteId}', 0))";
-    
+
                 $country = $rateRequest->getCountryId();
                 $on[] = "(country = '{$country}')";
-    
+
                 $region = $rateRequest->getRegionId();
                 $on[] = "(state in ('{$region}', '*'))";
-    
+
                 foreach ($on as $one) {
                     $attributeSelect->where($one);
                 }
                 $attributeSelect->where('entity_id = ?', $product->getId());
                 $attributeSelect->limit(1);
-    
+
                 $order = array('state DESC', 'website_id DESC');
-    
+
                 $attributeSelect->order($order);
                 $value = $this->getResource()->getReadConnection()->fetchOne($attributeSelect);
                 if ($value) {

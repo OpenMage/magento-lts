@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Catalog>
-            <version>0.7.57</version>
+            <version>0.7.63</version>
         </Mage_Catalog>
     </modules>
 
@@ -43,6 +43,7 @@
                 <max_sale_qty><inventory>1</inventory><to_number>1</to_number><use_config>1</use_config></max_sale_qty>
                 <is_in_stock><inventory>1</inventory><inventory_other>1</inventory_other></is_in_stock>
                 <notify_stock_qty><inventory>1</inventory><use_config>1</use_config></notify_stock_qty>
+                <manage_stock><inventory>1</inventory><use_config>1</use_config></manage_stock>
 
                 <image><img>1</img></image>
                 <small_image><img>1</img></small_image>
@@ -101,9 +102,6 @@
                     <category_product_index>
                         <table>catalog_category_product_index</table>
                     </category_product_index>
-                    <category_tree>
-                        <table>catalog_category_tree</table>
-                    </category_tree>
                     <compare_item>
                         <table>catalog_compare_item</table>
                     </compare_item>
@@ -116,12 +114,14 @@
                         <table>catalog_product_enabled_index</table>
                     </product_enabled_index>
 
-                    <product_link>
-                        <table>catalog_product_link</table>
-                    </product_link>
                     <product_link_type>
                         <table>catalog_product_link_type</table>
                     </product_link_type>
+                    
+                    <product_link>
+                        <table>catalog_product_link</table>
+                    </product_link>
+                    
                     <product_link_attribute>
                         <table>catalog_product_link_attribute</table>
                     </product_link_attribute>
@@ -160,10 +160,6 @@
                         <table>catalog_product_entity_media_gallery_value</table>
                     </product_attribute_media_gallery_value>
 
-                    <product_attribute_media_gallery_image>
-                        <table>catalog_product_entity_media_gallery_image</table>
-                    </product_attribute_media_gallery_image>
-
                     <product_option>
                         <table>catalog_product_option</table>
                     </product_option>
@@ -182,6 +178,14 @@
                     <product_option_type_title>
                         <table>catalog_product_option_type_title</table>
                     </product_option_type_title>
+
+                    <category_flat>
+                        <table>catalog_category_flat</table>
+                    </category_flat>
+
+                    <product_flat>
+                        <table>catalog_product_flat</table>
+                    </product_flat>
                 </entities>
             </catalog_resource_eav_mysql4>
         </models>
@@ -211,13 +215,154 @@
             <catalog><class>Mage_Catalog_Block</class></catalog>
         </blocks>
 
+        <events>
+            <store_add>
+                <observers>
+                    <catalog>
+                        <type>singleton</type>
+                        <class>catalog/observer</class>
+                        <method>storeAdd</method>
+                    </catalog>
+                    <catalog_product_flat>
+                        <type>singleton</type>
+                        <class>catalog/product_flat_observer</class>
+                        <method>storeAdd</method>
+                    </catalog_product_flat>
+                </observers>
+            </store_add>
+            <store_edit>
+                <observers>
+                    <catalog>
+                        <type>singleton</type>
+                        <class>catalog/observer</class>
+                        <method>storeEdit</method>
+                    </catalog>
+                    <catalog_product_flat>
+                        <type>singleton</type>
+                        <class>catalog/product_flat_observer</class>
+                        <method>storeEdit</method>
+                    </catalog_product_flat>
+                </observers>
+            </store_edit>
+            <store_delete>
+                <observers>
+                    <catalog_product_flat>
+                        <type>singleton</type>
+                        <class>catalog/product_flat_observer</class>
+                        <method>storeDelete</method>
+                    </catalog_product_flat>
+                </observers>
+            </store_delete>
+            <store_group_save>
+                <observers>
+                    <catalog>
+                        <type>singleton</type>
+                        <class>catalog/observer</class>
+                        <method>storeGroupSave</method>
+                    </catalog>
+                    <catalog_product_flat>
+                        <type>singleton</type>
+                        <class>catalog/product_flat_observer</class>
+                        <method>storeGroupSave</method>
+                    </catalog_product_flat>
+                </observers>
+            </store_group_save>
+            <category_move>
+                <observers>
+                    <catalog>
+                        <type>singleton</type>
+                        <class>catalog/observer</class>
+                        <method>categoryMove</method>
+                    </catalog>
+                </observers>
+            </category_move>
+            <catalog_product_import_after>
+                <observers>
+                    <catalog>
+                        <type>singleton</type>
+                        <class>catalog/observer</class>
+                        <method>catalogProductImportAfter</method>
+                    </catalog>
+                    <catalog_product_flat>
+                        <type>singleton</type>
+                        <class>catalog/product_flat_observer</class>
+                        <method>catalogProductImportAfter</method>
+                    </catalog_product_flat>
+                </observers>
+            </catalog_product_import_after>
+            <catalog_category_save_after>
+                <observers>
+                    <catalog_category_save>
+                        <type>singleton</type>
+                        <class>catalog/observer</class>
+                        <method>categorySaveAfter</method>
+                    </catalog_category_save>
+                </observers>
+            </catalog_category_save_after>
+            
+            <customer_group_save_after>
+                <observers>
+                    <catalog_product_flat>
+                        <type>singleton</type>
+                        <class>catalog/product_flat_observer</class>
+                        <method>customerGroupSaveAfter</method>
+                    </catalog_product_flat>
+                </observers>
+            </customer_group_save_after>
+            
+            <catalog_product_save_after>
+                <observers>
+                    <catalog_product_flat>
+                        <type>singleton</type>
+                        <class>catalog/product_flat_observer</class>
+                        <method>catalogProductSaveAfter</method>
+                    </catalog_product_flat>
+                </observers>
+            </catalog_product_save_after>
+            <catalog_product_status_update>
+                <observers>
+                    <catalog_product_flat>
+                        <type>singleton</type>
+                        <class>catalog/product_flat_observer</class>
+                        <method>catalogProductStatusUpdate</method>
+                    </catalog_product_flat>
+                </observers>
+            </catalog_product_status_update>
+            <catalog_product_website_update>
+                <observers>
+                    <catalog_product_flat>
+                        <type>singleton</type>
+                        <class>catalog/product_flat_observer</class>
+                        <method>catalogProductWebsiteUpdate</method>
+                    </catalog_product_flat>
+                </observers>
+            </catalog_product_website_update>
+            <catalog_entity_attribute_save_after>
+                <observers>
+                    <catalog_product_flat>
+                        <type>singleton</type>
+                        <class>catalog/product_flat_observer</class>
+                        <method>catalogEntityAttributeSaveAfter</method>
+                    </catalog_product_flat>
+                </observers>
+            </catalog_entity_attribute_save_after>
+            <log_log_clean_after>
+                <observers>
+                    <catalog_product_compare_item>
+                        <type>singleton</type>
+                        <class>catalog/observer</class>
+                        <method>catalogProductCompareClean</method>
+                    </catalog_product_compare_item>
+                </observers>
+            </log_log_clean_after>
+        </events>
+
         <catalog>
             <product>
                 <type>
                     <simple translate="label" module="catalog">
                         <label>Simple Product</label>
                         <model>catalog/product_type_simple</model>
-                        <index_priority>10</index_priority>
                         <composite>0</composite>
                     </simple>
                     <grouped translate="label" module="catalog">
@@ -228,7 +373,6 @@
                             <simple/>
                             <virtual/>
                         </allow_product_types>
-                        <index_priority>50</index_priority>
                     </grouped>
                     <configurable translate="label" module="catalog">
                         <label>Configurable Product</label>
@@ -239,12 +383,10 @@
                             <simple/>
                             <virtual/>
                         </allow_product_types>
-                        <index_priority>30</index_priority>
                     </configurable>
                     <virtual translate="label" module="catalog">
                         <label>Virtual Product</label>
                         <model>catalog/product_type_virtual</model>
-                        <index_priority>20</index_priority>
                         <composite>0</composite>
                     </virtual>
                 </type>
@@ -274,6 +416,15 @@
                                     </area>
                                 </types>
                             </text>
+                            <file translate="label" module="adminhtml">
+                                <label>File</label>
+                                <render>adminhtml/catalog_product_edit_tab_options_type_file</render>
+                                <types>
+                                    <file translate="label" module="adminhtml">
+                                        <label>File</label>
+                                    </file>
+                                </types>
+                            </file>
                             <select translate="label" module="adminhtml">
                                 <label>Select</label>
                                 <render>adminhtml/catalog_product_edit_tab_options_type_select</render>
@@ -292,9 +443,30 @@
                                     </multiple>
                                 </types>
                             </select>
+                            <date translate="label" module="adminhtml">
+                                <label>Date</label>
+                                <render>adminhtml/catalog_product_edit_tab_options_type_date</render>
+                                <types>
+                                    <date translate="label" module="adminhtml">
+                                        <label>Date</label>
+                                    </date>
+                                    <date_time translate="label" module="adminhtml">
+                                        <label>Date &amp; Time</label>
+                                    </date_time>
+                                    <time translate="label" module="adminhtml">
+                                        <label>Time</label>
+                                    </time>
+                                </types>
+                            </date>
                         </groups>
                     </custom>
                 </options>
+                <flat>
+                    <max_index_count>64</max_index_count>
+                    <attribute_nodes>
+                        <product_collection>frontend/product/collection/attributes</product_collection>
+                    </attribute_nodes>
+                </flat>
             </product>
         </catalog>
     </global>
@@ -387,62 +559,6 @@
                 </admin>
             </resources>
         </acl>
-        <events>
-            <store_add>
-                <observers>
-                    <catalog>
-                        <type>singleton</type>
-                        <class>catalog/observer</class>
-                        <method>storeAdd</method>
-                    </catalog>
-                </observers>
-            </store_add>
-            <store_edit>
-                <observers>
-                    <catalog>
-                        <type>singleton</type>
-                        <class>catalog/observer</class>
-                        <method>storeEdit</method>
-                    </catalog>
-                </observers>
-            </store_edit>
-            <store_group_save>
-                <observers>
-                    <catalog>
-                        <type>singleton</type>
-                        <class>catalog/observer</class>
-                        <method>storeGroupSave</method>
-                    </catalog>
-                </observers>
-            </store_group_save>
-            <category_move>
-                <observers>
-                    <catalog>
-                        <type>singleton</type>
-                        <class>catalog/observer</class>
-                        <method>categoryMove</method>
-                    </catalog>
-                </observers>
-            </category_move>
-            <catalog_product_import_after>
-                <observers>
-                    <catalogindex>
-                        <type>singleton</type>
-                        <class>catalog/observer</class>
-                        <method>catalogProductImportAfter</method>
-                    </catalogindex>
-                </observers>
-            </catalog_product_import_after>
-            <log_log_clean_after>
-                <observers>
-                    <catalog_product_compare>
-                        <type>singleton</type>
-                        <class>catalog/observer</class>
-                        <method>catalogProductCompareClean</method>
-                    </catalog_product_compare>
-                </observers>
-            </log_log_clean_after>
-        </events>
         <translate>
             <modules>
                 <Mage_Catalog>
@@ -477,6 +593,15 @@
                     </catalog>
                 </observers>
             </customer_login>
+            <sales_convert_quote_item_to_order_item>
+                <observers>
+                    <catalog>
+                        <type>model</type>
+                        <class>catalog/product_option_observer</class>
+                        <method>copyQuoteFilesToOrderFiles</method>
+                    </catalog>
+                </observers>
+            </sales_convert_quote_item_to_order_item>
         </events>
         <translate>
             <modules>
@@ -536,7 +661,13 @@
                 <list_per_page_values>5,10,15,20,25</list_per_page_values>
                 <grid_per_page>9</grid_per_page>
                 <list_per_page>10</list_per_page>
+                <flat_catalog_category>0</flat_catalog_category>
+                <default_sort_by>position</default_sort_by>
             </frontend>
+            <sitemap>
+                <tree_mode>0</tree_mode>
+                <lines_perpage>30</lines_perpage>
+            </sitemap>
             <price>
                 <scope>0</scope>
             </price>
@@ -551,6 +682,11 @@
                 <product_use_categories>1</product_use_categories>
                 <title_separator>-</title_separator>
             </seo>
+            <custom_options>
+                <date_fields_order>m,d,y</date_fields_order>
+                <time_format>12h</time_format>
+                <forbidden_extensions>php,exe</forbidden_extensions>
+            </custom_options>
 <!--
             <layer>
                 <configurable_children>1</configurable_children>

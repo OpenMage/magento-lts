@@ -24,6 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Catalog product website resource model
  *
@@ -33,17 +34,32 @@
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Status extends Mage_Core_Model_Mysql4_Abstract
 {
-    protected function _construct()
-    {
-        $this->_init('catalog/product_enabled_index', 'product_id');
-    }
-
     /**
      * Product atrribute cache
      *
      * @var array
      */
     protected $_productAttributes = array();
+
+    /**
+     * Initialize connection
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/product_enabled_index', 'product_id');
+    }
+
+    /**
+     * Retrieve product attribute (public method for status model)
+     *
+     * @param string $attributeCode
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     */
+    public function getProductAttribute($attributeCode)
+    {
+        return $this->_getProductAttribute($attributeCode);
+    }
 
     /**
      * Retrieve product attribute

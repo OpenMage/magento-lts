@@ -66,20 +66,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
 
         $recursionLevel = max(0, (int) Mage::app()->getStore()->getConfig('catalog/navigation/max_depth'));
 
-        $tree = $category->getTreeModel();
-        /* @var $tree Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree */
-
-        $nodes = $tree->loadNode($parent)
-            ->loadChildren($recursionLevel)
-            ->getChildren();
-
-        $tree->addCollectionData(null, $sorted, $parent, $toLoad, true);
-
-        if ($asCollection) {
-            return $tree->getCollection();
-        } else {
-            return $nodes;
-        }
+        return $category->getCategories($parent, $recursionLevel, $sorted, $asCollection, $toLoad);
     }
 
     /**
@@ -117,13 +104,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         if (!$category->getIsActive()) {
             return false;
         }
-
-        $tree = Mage::getResourceSingleton('catalog/category_tree');
-        /* @var $tree Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree */
-        $tree->load();
-
-        $children = $tree->getChildren(Mage::app()->getStore()->getRootCategoryId(), true);
-        if (!in_array($category->getId(), $children)) {
+        if (!$category->isInRootCategoryList()) {
             return false;
         }
 

@@ -24,7 +24,8 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_Adminhtml_Block_Permissions_Editroles extends Mage_Adminhtml_Block_Widget_Tabs {
+class Mage_Adminhtml_Block_Permissions_Editroles extends Mage_Adminhtml_Block_Widget_Tabs
+{
     public function __construct()
     {
         parent::__construct();
@@ -33,32 +34,23 @@ class Mage_Adminhtml_Block_Permissions_Editroles extends Mage_Adminhtml_Block_Wi
         $this->setTitle(Mage::helper('adminhtml')->__('Role Information'));
     }
 
-    protected function _beforeToHtml()
+    protected function _prepareLayout()
     {
         $roleId = $this->getRequest()->getParam('rid', false);
         $role = Mage::getModel("admin/roles")
            ->load($roleId);
 
-        $this->addTab('info', array(
-            'label'     => Mage::helper('adminhtml')->__('Role Info'),
-            'title'     => Mage::helper('adminhtml')->__('Role Info'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/permissions_tab_roleinfo')->setRole($role)->toHtml(),
-            'active'    => true
-        ));
+        $this->addTab('info', $this->getLayout()->createBlock('adminhtml/permissions_tab_roleinfo')->setRole($role)->setActive(true));
+        $this->addTab('account', $this->getLayout()->createBlock('adminhtml/permissions_tab_rolesedit', 'adminhtml.permissions.tab.rolesedit'));
 
-        $this->addTab('account', array(
-            'label'     => Mage::helper('adminhtml')->__('Role Resources'),
-            'title'     => Mage::helper('adminhtml')->__('Role Resources'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/permissions_tab_rolesedit')->toHtml(),
-        ));
-
-        if( intval($roleId) > 0 ) {
+        if (intval($roleId) > 0) {
             $this->addTab('roles', array(
                 'label'     => Mage::helper('adminhtml')->__('Role Users'),
                 'title'     => Mage::helper('adminhtml')->__('Role Users'),
                 'content'   => $this->getLayout()->createBlock('adminhtml/permissions_tab_rolesusers', 'role.users.grid')->toHtml(),
             ));
         }
-        return parent::_beforeToHtml();
+
+        return parent::_prepareLayout();
     }
 }

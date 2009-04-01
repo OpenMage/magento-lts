@@ -94,10 +94,19 @@
                     <inventory>
                         <type>singleton</type>
                         <class>cataloginventory/observer</class>
-                        <method>addInventoryDataToCollection</method>
+                        <method>addStockStatusToCollection</method>
                     </inventory>
                 </observers>
             </catalog_product_collection_load_after>
+            <sales_quote_item_collection_products_after_load>
+                <observers>
+                    <inventory>
+                        <type>singleton</type>
+                        <class>cataloginventory/observer</class>
+                        <method>addInventoryDataToCollection</method>
+                    </inventory>
+                </observers>
+            </sales_quote_item_collection_products_after_load>
             <catalog_product_status_update>
                 <observers>
                     <inventory>
@@ -179,6 +188,15 @@
                     </inventory>
                 </observers>
             </admin_system_config_changed_section_cataloginventory>
+            <catalog_product_website_update>
+                <observers>
+                    <cataloginventory>
+                        <type>singleton</type>
+                        <class>cataloginventory/observer</class>
+                        <method>catalogProductWebsiteUpdate</method>
+                    </cataloginventory>
+                </observers>
+            </catalog_product_website_update>
         </events>
 
         <catalog>

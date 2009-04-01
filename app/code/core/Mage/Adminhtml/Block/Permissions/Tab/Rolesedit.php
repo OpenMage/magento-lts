@@ -24,9 +24,50 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form {
+class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
+{
+    /**
+     * Get tab label
+     *
+     * @return string
+     */
+    public function getTabLabel()
+    {
+        return Mage::helper('adminhtml')->__('Role Resources');
+    }
 
-    public function __construct() {
+    /**
+     * Get tab title
+     *
+     * @return string
+     */
+    public function getTabTitle()
+    {
+        return $this->getTabLabel();
+    }
+
+    /**
+     * Whether tab is available
+     *
+     * @return bool
+     */
+    public function canShowTab()
+    {
+        return true;
+    }
+
+    /**
+     * Whether tab is visible
+     *
+     * @return bool
+     */
+    public function isHidden()
+    {
+        return false;
+    }
+
+    public function __construct()
+    {
         parent::__construct();
 
         $rid = Mage::app()->getRequest()->getParam('rid', false);

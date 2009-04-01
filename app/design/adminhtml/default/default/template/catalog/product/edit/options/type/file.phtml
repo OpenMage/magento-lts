@@ -28,18 +28,18 @@
 
 OptionTemplateFile = '<table class="border" cellpadding="0" cellspacing="0">'+
         '<tr class="headings">'+
-            '<th class="type-price"><?php echo Mage::helper('catalog')->__('Price') ?> <span class="required">*</span></th>'+
+            '<th class="type-price"><?php echo Mage::helper('catalog')->__('Price') ?></th>'+
             '<th class="type-type"><?php echo Mage::helper('catalog')->__('Price Type') ?></th>'+
-            '<th class="type-sku"><?php echo Mage::helper('catalog')->__('SKU') ?> <span class="required">*</span></th>'+
-            '<th class="last"><?php echo Mage::helper('catalog')->__('File Extension') ?></th>'+
-            '<th class="last"><?php echo Mage::helper('catalog')->__('Image Size') ?></th>'+
+            '<th class="type-sku"><?php echo Mage::helper('catalog')->__('SKU') ?></th>'+
+            '<th class="type-title"><?php echo Mage::helper('catalog')->__('Allowed File Extensions') ?></th>'+
+            '<th class="last"><?php echo Mage::helper('catalog')->__('Maximum Image Size') ?></th>'+
         '</tr>'+
         '<tr>'+
             '<td><input class="input-text type="text" name="product[options][{{option_id}}][price]" value="{{price}}"></td>'+
             '<td><?php echo $this->getPriceTypeSelectHtml() ?></td>'+
             '<td><input type="text" class="input-text" name="product[options][{{option_id}}][sku]" value="{{sku}}"></td>'+
-            '<td class="type-last last"><input class="input-text" type="text" name="product[options][{{option_id}}][file_extension]" value="{{file_extension}}"></td>'+
-            '<td class="type-last last"><input class="input-text" type="text" name="product[options][{{option_id}}][image_size]" value="{{image_size}}"></td>'+
+            '<td><input class="input-text" type="text" name="product[options][{{option_id}}][file_extension]" value="{{file_extension}}"></td>'+
+            '<td class="type-last last" nowrap><input class="input-text" type="text" name="product[options][{{option_id}}][image_size_x]" value="{{image_size_x}}"> <?php echo Mage::helper('catalog')->__('x') ?> <input class="input-text" type="text" name="product[options][{{option_id}}][image_size_y]" value="{{image_size_y}}"> <?php echo Mage::helper('catalog')->__('px.') ?></td>'+
         '</tr>'+
     '</table>';
 

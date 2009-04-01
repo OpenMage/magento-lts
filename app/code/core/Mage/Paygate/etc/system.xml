@@ -75,7 +75,7 @@
                         </email_customer>
                         <login translate="label">
                             <label>API Login ID</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
@@ -135,7 +135,7 @@
                         </title>
                         <trans_key translate="label">
                             <label>Transaction key</label>
-                            <frontend_type>password</frontend_type>
+                            <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
@@ -260,7 +260,7 @@
                         </partner>
                         <pwd translate="label">
                             <label>Password</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>6</sort_order>
                             <show_in_default>1</show_in_default>
@@ -326,7 +326,7 @@
                         </url>
                         <user translate="label">
                             <label>User</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>

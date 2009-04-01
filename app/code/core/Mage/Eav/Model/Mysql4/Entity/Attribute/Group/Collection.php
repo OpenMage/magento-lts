@@ -27,11 +27,21 @@
 
 class Mage_Eav_Model_Mysql4_Entity_Attribute_Group_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
+    /**
+     * Init resource model for collection
+     *
+     */
     public function _construct()
     {
         $this->_init('eav/entity_attribute_group');
     }
 
+    /**
+     * Set Attribute Set Filter
+     *
+     * @param int $setId
+     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Group_Collection
+     */
     public function setAttributeSetFilter($setId)
     {
         $this->getSelect()->where('main_table.attribute_set_id=?', $setId);

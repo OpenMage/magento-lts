@@ -330,15 +330,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             'class' => 'validate-digits',
         ));
 
-//        if ($model->getIsUserDefined() || !$model->getId()) {
-            $fieldset->addField('is_visible_on_front', 'select', array(
-                'name' => 'is_visible_on_front',
-                'label' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
-                'title' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
-                'values' => $yesno,
-            ));
-//        }
-
         $htmlAllowed = $fieldset->addField('is_html_allowed_on_front', 'select', array(
             'name' => 'is_html_allowed_on_front',
             'label' => Mage::helper('catalog')->__('Allow HTML-tags on Front-end'),
@@ -349,6 +340,27 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             $htmlAllowed->setValue(1);
         }
 
+        $fieldset->addField('is_visible_on_front', 'select', array(
+            'name'      => 'is_visible_on_front',
+            'label'     => Mage::helper('catalog')->__('Visible on Product View Page on Front-end'),
+            'title'     => Mage::helper('catalog')->__('Visible on Product View Page on Front-end'),
+            'values'    => $yesno,
+        ));
+
+        $fieldset->addField('used_in_product_listing', 'select', array(
+            'name'      => 'used_in_product_listing',
+            'label'     => Mage::helper('catalog')->__('Used in product listing'),
+            'title'     => Mage::helper('catalog')->__('Used in product listing'),
+            'note'      => Mage::helper('catalog')->__('Depends on design theme'),
+            'values'    => $yesno,
+        ));
+        $fieldset->addField('used_for_sort_by', 'select', array(
+            'name'      => 'used_for_sort_by',
+            'label'     => Mage::helper('catalog')->__('Used for sorting in product listing'),
+            'title'     => Mage::helper('catalog')->__('Used for sorting in product listing'),
+            'note'      => Mage::helper('catalog')->__('Depends on design theme'),
+            'values'    => $yesno,
+        ));
 
         if ($model->getId()) {
             $form->getElement('attribute_code')->setDisabled(1);

@@ -30,7 +30,7 @@
  *
  * @category   Mage
  * @package    Mage_Wishlist
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Wishlist_IndexController extends Mage_Core_Controller_Front_Action
 {
@@ -50,6 +50,11 @@ class Mage_Wishlist_IndexController extends Mage_Core_Controller_Front_Action
         }
     }
 
+    /**
+     * Retrieve wishlist object
+     *
+     * @return Mage_Wishlist_Model_Wishlist
+     */
     protected function _getWishlist()
     {
         try {
@@ -238,37 +243,42 @@ class Mage_Wishlist_IndexController extends Mage_Core_Controller_Front_Action
 
     /**
      * Add all items to shoping cart
+     *
      */
     public function allcartAction() {
-        $messages = array();
-        $urls = array();
-        $wishlistIds = array();
+        $messages           = array();
+        $urls               = array();
+        $wishlistIds        = array();
+        $notSalableNames    = array(); // Out of stock products message
 
-        $wishlist = $this->_getWishlist();
+        $wishlist           = $this->_getWishlist();
         $wishlist->getItemCollection()->load();
 
-        $notSalableNames = array(); // Out of stock products message
-
         foreach ($wishlist->getItemCollection() as $item) {
-             try {
-                $product = Mage::getModel('catalog/product')->load($item->getProductId())->setQty(1);
-                if ($product->isSalable()){
+            try {
+                $product = Mage::getModel('catalog/product')
+                    ->load($item->getProductId())
+                    ->setQty(1);
+                if ($product->isSalable()) {
                     Mage::getSingleton('checkout/cart')->addProduct($product);
                     $item->delete();
-                } else {
+                }
+                else {
                     $notSalableNames[] = $product->getName();
                 }
             } catch(Exception $e) {
-                $url = Mage::getSingleton('checkout/session')->getRedirectUrl(true);
-                if ($url){
-                    $url = Mage::getModel('core/url')->getUrl('catalog/product/view', array(
-                        'id'=>$item->getProductId(),
-                        'wishlist_next'=>1
-                    ));
+                $url = Mage::getSingleton('checkout/session')
+                    ->getRedirectUrl(true);
+                if ($url) {
+                    $url = Mage::getModel('core/url')
+                        ->getUrl('catalog/product/view', array(
+                            'id'            => $item->getProductId(),
+                            'wishlist_next' => 1
+                        ));
 
-                    $urls[] = $url;
-                    $messages[] = $e->getMessage();
-                    $wishlistIds[] = $item->getId();
+                    $urls[]         = $url;
+                    $messages[]     = $e->getMessage();
+                    $wishlistIds[]  = $item->getId();
                 } else {
                     $item->delete();
                 }
@@ -289,7 +299,8 @@ class Mage_Wishlist_IndexController extends Mage_Core_Controller_Front_Action
             Mage::getSingleton('checkout/session')->setWishlistPendingUrls($urls);
             Mage::getSingleton('checkout/session')->setWishlistPendingMessages($messages);
             Mage::getSingleton('checkout/session')->setWishlistIds($wishlistIds);
-        } else {
+        }
+        else {
             $this->_redirect('checkout/cart');
         }
     }

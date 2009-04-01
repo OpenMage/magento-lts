@@ -130,24 +130,30 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
 
     public function getCreateDate()
     {
-        return $this->formatDate($this->getCustomer()->getCreatedAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
+        $date = Mage::app()->getLocale()->date($this->getCustomer()->getCreatedAtTimestamp());
+        return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
     }
 
     public function getStoreCreateDate()
     {
-        $date = Mage::app()->getLocale()->storeDate($this->getCustomer()->getStoreId(), $this->getCustomer()->getCreatedAt(), true);
+        $date = Mage::app()->getLocale()->storeDate(
+            $this->getCustomer()->getStoreId(),
+            $this->getCustomer()->getCreatedAtTimestamp(),
+            true
+        );
         return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
     }
 
     public function getStoreCreateDateTimezone()
     {
-        $date = Mage::app()->getLocale()->storeDate($this->getCustomer()->getStoreId(), $this->getCustomer()->getCreatedAt(), true);
-        return $date->getTimezone();
+        return Mage::app()->getStore($this->getCustomer()->getStoreId())
+            ->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
     }
 
     public function getLastLoginDate()
     {
-        if ($date = $this->getCustomerLog()->getLoginAt()) {
+        if ($date = $this->getCustomerLog()->getLoginAtTimestamp()) {
+            $date = Mage::app()->getLocale()->date($date);
             return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
         }
         return Mage::helper('customer')->__('Never');
@@ -155,14 +161,21 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
 
     public function getStoreLastLoginDate()
     {
-        $date = Mage::app()->getLocale()->storeDate($this->getCustomer()->getStoreId(), $this->getCustomer()->getLoginAt(), true);
-        return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
+        if ($date = $this->getCustomerLog()->getLoginAtTimestamp()) {
+            $date = Mage::app()->getLocale()->storeDate(
+                $this->getCustomer()->getStoreId(),
+                $date,
+                true
+            );
+            return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
+        }
+        return Mage::helper('customer')->__('Never');
     }
 
     public function getStoreLastLoginDateTimezone()
     {
-        $date = Mage::app()->getLocale()->storeDate($this->getCustomer()->getStoreId(), $this->getCustomer()->getLoginAt(), true);
-        return $date->getTimezone();
+        return Mage::app()->getStore($this->getCustomer()->getStoreId())
+            ->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
     }
 
     public function getCurrentStatus()

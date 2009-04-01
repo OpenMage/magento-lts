@@ -89,22 +89,27 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      */
     public function options($attributeId, $store = null)
     {
-        $attribute = Mage::getModel('catalog/entity_attribute');
-        $attribute
+        $attribute = Mage::getModel('catalog/product')
             ->setStoreId($this->_getStoreId($store))
-            ->load($attributeId);
+            ->getResource()
+            ->getAttribute($attributeId);
 
         /* @var $attribute Mage_Catalog_Model_Entity_Attribute */
-        if (!$attribute->getId()) {
+        if (!$attribute) {
             $this->_fault('not_exists');
         }
         $options = array();
         if ($attribute->usesSource()) {
-            $options = Mage::getResourceModel('eav/entity_attribute_option_collection')
-                ->setAttributeFilter($attribute->getId())
-                ->setStoreFilter()
-                ->load()
-                ->toOptionArray();
+            foreach ($attribute->getSource()->getAllOptions() as $optionId=>$optionValue) {
+                if (is_array($optionValue)) {
+                    $options[] = $optionValue;
+                } else {
+                    $options[] = array(
+                        'value' => $optionId,
+                        'label' => $optionValue
+                    );
+                }
+            }
         }
         return $options;
     }

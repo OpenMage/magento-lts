@@ -776,6 +776,26 @@
                         </custom>
                     </fields>
                 </url>
+                <security translate="label">
+                    <label>Security</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>35</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <use_form_key translate="label">
+                            <label>Add Secret key to Urls</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <backend_model>adminhtml/system_config_backend_admin_usesecretkey</backend_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </use_form_key>
+                    </fields>
+                </security>
             </groups>
         </admin>
         <web translate="label" module="core">

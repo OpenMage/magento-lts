@@ -20,16 +20,17 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
- * Product visibility model
+ * Catalog Product visibilite model and attribute source model
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Visibility extends Varien_Object
 {
@@ -38,12 +39,23 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     const VISIBILITY_IN_SEARCH      = 3;
     const VISIBILITY_BOTH           = 4;
 
+    /**
+     * Initialize object
+     *
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setIdFieldName('visibility_id');
     }
 
+    /**
+     * Add visible in catalog filter to collection
+     *
+     * @deprecated
+     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @return Mage_Catalog_Model_Product_Visibility
+     */
     public function addVisibleInCatalogFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
         $collection->setVisibility($this->getVisibleInCatalogIds());
@@ -51,6 +63,13 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         return $this;
     }
 
+    /**
+     * Add visibility in searchfilter to collection
+     *
+     * @deprecated
+     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @return Mage_Catalog_Model_Product_Visibility
+     */
     public function addVisibleInSearchFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
         $collection->setVisibility($this->getVisibleInSearchIds());
@@ -58,6 +77,13 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         return $this;
     }
 
+    /**
+     * Add visibility in site filter to collection
+     *
+     * @deprecated
+     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @return Mage_Catalog_Model_Product_Visibility
+     */
     public function addVisibleInSiteFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
         $collection->setVisibility($this->getVisibleInSiteIds());
@@ -65,16 +91,41 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         return $this;
     }
 
+    /**
+     * Retrieve visible in catalog ids array
+     *
+     * @return array
+     */
     public function getVisibleInCatalogIds()
     {
         return array(self::VISIBILITY_IN_CATALOG, self::VISIBILITY_BOTH);
     }
 
+    /**
+     * Retrieve visible in search ids array
+     *
+     * @return array
+     */
     public function getVisibleInSearchIds()
     {
         return array(self::VISIBILITY_IN_SEARCH, self::VISIBILITY_BOTH);
     }
 
+    /**
+     * Retrieve visible in site ids array
+     *
+     * @return array
+     */
+    public function getVisibleInSiteIds()
+    {
+        return array(self::VISIBILITY_IN_SEARCH, self::VISIBILITY_IN_CATALOG, self::VISIBILITY_BOTH);
+    }
+
+    /**
+     * Retrieve option array
+     *
+     * @return array
+     */
     static public function getOptionArray()
     {
         return array(
@@ -85,6 +136,11 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         );
     }
 
+    /**
+     * Retrieve all options
+     *
+     * @return array
+     */
     static public function getAllOption()
     {
         $options = self::getOptionArray();
@@ -92,27 +148,65 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         return $options;
     }
 
+    /**
+     * Retireve all options
+     *
+     * @return array
+     */
     static public function getAllOptions()
     {
         $res = array();
         $res[] = array('value'=>'', 'label'=> Mage::helper('catalog')->__('-- Please Select --'));
         foreach (self::getOptionArray() as $index => $value) {
-        	$res[] = array(
-        	   'value' => $index,
-        	   'label' => $value
-        	);
+            $res[] = array(
+               'value' => $index,
+               'label' => $value
+            );
         }
         return $res;
     }
 
+    /**
+     * Retrieve option text
+     *
+     * @param int $optionId
+     * @return string
+     */
     static public function getOptionText($optionId)
     {
         $options = self::getOptionArray();
         return isset($options[$optionId]) ? $options[$optionId] : null;
     }
 
-    public function getVisibleInSiteIds()
+    /**
+     * Retrieve Column(s) for Flat
+     *
+     * @return array
+     */
+    public function getFlatColums()
     {
-        return array(self::VISIBILITY_IN_SEARCH, self::VISIBILITY_IN_CATALOG, self::VISIBILITY_BOTH);
+        return array();
+    }
+
+    /**
+     * Retrieve Indexes for Flat
+     *
+     * @return array
+     */
+    public function getFlatIndexes()
+    {
+        return array();
+    }
+
+    /**
+     * Retrieve Select For Flat Attribute update
+     *
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param int $store
+     * @return Varien_Db_Select|null
+     */
+    public function getFlatUpdateSelect($store)
+    {
+        return null;
     }
 }

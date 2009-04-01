@@ -61,7 +61,7 @@ class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template
             ));
 
             $title = array();
-            $path  = Mage::helper('catalog')->getBreadcrumbPath($this->getCategory());
+            $path  = Mage::helper('catalog')->getBreadcrumbPath();
 
             foreach ($path as $name => $breadcrumb) {
                 $breadcrumbsBlock->addCrumb($name, $breadcrumb);

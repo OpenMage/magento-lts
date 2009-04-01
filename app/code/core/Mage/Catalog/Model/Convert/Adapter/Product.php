@@ -203,9 +203,6 @@ class Mage_Catalog_Model_Convert_Adapter_Product
 
     /**
      *  Init stores
-     *
-     *  @param    none
-     *  @return	  void
      */
     protected function _initStores ()
     {
@@ -226,6 +223,13 @@ class Mage_Catalog_Model_Convert_Adapter_Product
     public function getStoreByCode($store)
     {
         $this->_initStores();
+        /**
+         * In single store mode all data should be saved as default
+         */
+        if (Mage::app()->isSingleStoreMode()) {
+            return Mage::app()->getStore(Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
+        }
+
         if (isset($this->_stores[$store])) {
             return $this->_stores[$store];
         }
@@ -241,6 +245,13 @@ class Mage_Catalog_Model_Convert_Adapter_Product
     public function getStoreById($id)
     {
         $this->_initStores();
+        /**
+         * In single store mode all data should be saved as default
+         */
+        if (Mage::app()->isSingleStoreMode()) {
+            return Mage::app()->getStore(Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
+        }
+
         if (isset($this->_storesIdCode[$id])) {
             return $this->getStoreByCode($this->_storesIdCode[$id]);
         }

@@ -383,6 +383,9 @@
                 <catalog>
                     <file>catalog.xml</file>
                 </catalog>
+                <customer>
+                    <file>customer.xml</file>
+                </customer>
             </updates>
         </layout>
         <sales>

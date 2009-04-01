@@ -96,8 +96,19 @@ class Mage_Reports_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_
 
     public function addOrdersCount()
     {
+        $order = Mage::getResourceSingleton('sales/order');
+        /* @var $order Mage_Sales_Model_Entity_Order */
+        $stateAttr = $order->getAttribute('state');
+        $_joinCondition = "{$this->_customerIdTableName}.entity_id=order_state.entity_id";
+        $_joinCondition .= $this->getConnection()->quoteInto(' AND order_state.attribute_id=? ', $stateAttr->getId());
+        $_joinCondition .= $this->getConnection()->quoteInto(' AND order_state.value<>? ', Mage_Sales_Model_Order::STATE_CANCELED);
+
         $this->getSelect()
-            ->from('', array("orders_count" => "COUNT({$this->_customerIdTableName}.entity_id)"))
+            ->from('', array("orders_count" => "COUNT(order_state.entity_id)"))
+            ->joinLeft(
+                array('order_state' => $stateAttr->getBackend()->getTable()),
+                $_joinCondition,
+                array())
             ->group("e.entity_id");
 
         return $this;

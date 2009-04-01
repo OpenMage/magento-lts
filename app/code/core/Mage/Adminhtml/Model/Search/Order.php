@@ -50,6 +50,7 @@ class Mage_Adminhtml_Model_Search_Order extends Varien_Object
             ->joinAttribute('shipping_postcode', 'order_address/postcode', 'shipping_address_id')
 
             ->addAttributeToFilter(array(
+                array('attribute'=>'increment_id', 'like'=>$this->getQuery().'%'),
                 array('attribute'=>'billing_firstname', 'like'=>$this->getQuery().'%'),
                 array('attribute'=>'billing_lastname', 'like'=>$this->getQuery().'%'),
                 array('attribute'=>'billing_telephone', 'like'=>$this->getQuery().'%'),

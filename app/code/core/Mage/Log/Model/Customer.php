@@ -38,10 +38,18 @@ class Mage_Log_Model_Customer extends Mage_Core_Model_Abstract
         parent::__construct();
         $this->_setResourceModel('log/customer');
     }
-    
+
     public function load($customerId, $field=null)
     {
         $this->_getResource()->load($this, $customerId);
         return $this;
+    }
+
+    public function getLoginAtTimestamp()
+    {
+        if ($date = $this->getLoginAt()) {
+            return strtotime($date);
+        }
+        return null;
     }
 }

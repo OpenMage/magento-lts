@@ -36,8 +36,8 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer_Eav extends Mage_CatalogIndex_Model
     {
         $this->_init('catalogindex/eav', 'index_id');
 
-        $this->_entityIdFieldName = 'entity_id';
-        $this->_attributeIdFieldName = 'attribute_id';
-        $this->_storeIdFieldName = 'store_id';
+        $this->_entityIdFieldName       = 'entity_id';
+        $this->_attributeIdFieldName    = 'attribute_id';
+        $this->_storeIdFieldName        = 'store_id';
     }
 }

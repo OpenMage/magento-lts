@@ -405,6 +405,19 @@
             <product_attribute_tier_price>catalog_product_attribute_tier_price</product_attribute_tier_price>
             <product_tier_price>catalog_product_attribute_tier_price</product_tier_price>
         </resources_alias>
+        <v2>
+            <resources_function_prefix>
+                <category>catalogCategory</category>
+                <category_attribute>catalogCategoryAttribute</category_attribute>
+                <product>catalogProduct</product>
+                <product_attribute>catalogProductAttribute</product_attribute>
+                <product_attribute_set>catalogProductAttributeSet</product_attribute_set>
+                <product_type>catalogProductType</product_type>
+                <product_tier_price>catalogProductAttributeTierPrice</product_tier_price>
+                <product_attribute_media>catalogProductAttributeMedia</product_attribute_media>
+                <product_link>catalogProductLink</product_link>
+            </resources_function_prefix>
+        </v2>
         <acl>
             <resources>
                 <catalog translate="title" module="catalog">

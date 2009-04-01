@@ -32,7 +32,7 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 
-class Mage_Catalog_Block_Product_Link_Crosssell extends Mage_Catalog_Block_Product_Abstract
+class Mage_Catalog_Block_Product_List_Crosssell extends Mage_Catalog_Block_Product_Abstract
 {
     protected $_itemCollection;
 

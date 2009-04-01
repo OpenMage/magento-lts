@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sales>
-            <version>0.9.31</version>
+            <version>0.9.32</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -347,9 +347,9 @@
                 <class>Mage_Sales_Model_Mysql4</class>
                 <entities>
                     <quote><table>sales_flat_quote</table></quote>
+                    <quote_item><table>sales_flat_quote_item</table></quote_item>
                     <quote_address><table>sales_flat_quote_address</table></quote_address>
                     <quote_address_item><table>sales_flat_quote_address_item</table></quote_address_item>
-                    <quote_item><table>sales_flat_quote_item</table></quote_item>
                     <quote_item_option><table>sales_flat_quote_item_option</table></quote_item_option>
                     <quote_payment><table>sales_flat_quote_payment</table></quote_payment>
                     <quote_address_shipping_rate><table>sales_flat_quote_shipping_rate</table></quote_address_shipping_rate>
@@ -483,6 +483,15 @@
         <blocks>
             <sales><class>Mage_Sales_Block</class></sales>
         </blocks>
+        <catalog>
+            <product>
+                <flat>
+                    <attribute_nodes>
+                        <sales_quote_item_product_collection>global/sales/quote/item/product_attributes</sales_quote_item_product_collection>
+                    </attribute_nodes>
+                </flat>
+            </product>
+        </catalog>
         <sales>
             <quote>
                 <totals>

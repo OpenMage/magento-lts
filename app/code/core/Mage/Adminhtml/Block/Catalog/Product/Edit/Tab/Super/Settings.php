@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
         ));
 
         $product = $this->_getProduct();
-        $attributes = $product->getTypeInstance()->getSetAttributes();
+        $attributes = $product->getTypeInstance(true)->getSetAttributes($product);
 
         $fieldset->addField('req_text', 'note', array(
             'text' => '<ul class="messages"><li class="notice-msg"><ul><li>'
@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
 
         $hasAttributes = false;
         foreach($attributes as $attribute) {
-            if($product->getTypeInstance()->canUseAttribute($attribute)) {
+            if($product->getTypeInstance(true)->canUseAttribute($attribute, $product)) {
                 $hasAttributes = true;
                 $fieldset->addField('attribute_'.$attribute->getAttributeId(), 'checkbox', array(
                     'label' => $attribute->getFrontend()->getLabel(),

@@ -85,6 +85,19 @@ function bindAttributeInputType()
         }
     }
 
+    if ($('frontend_input') && ($('frontend_input').value=='multiselect'
+        || $('frontend_input').value=='gallery'
+        || $('frontend_input').value=='text')) {
+        if ($('used_for_sort_by')) {
+            $('used_for_sort_by').disabled = true;
+        }
+    }
+    else {
+        if ($('used_for_sort_by')) {
+            $('used_for_sort_by').disabled = false;
+        }
+    }
+
     if ($('frontend_input') && ($('frontend_input').value=='text' || $('frontend_input').value=='textarea')) {
         if($('is_html_allowed_on_front')){
             $('is_html_allowed_on_front').disabled = false;

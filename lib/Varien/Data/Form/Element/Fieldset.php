@@ -73,7 +73,25 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     {
         $html = '';
         foreach ($this->getElements() as $element) {
-            $html.= $element->toHtml();
+            if ($element->getType() != 'fieldset') {
+                $html.= $element->toHtml();
+            }
+        }
+        return $html;
+    }
+
+    /**
+     * Enter description here...
+     *
+     * @return string
+     */
+    public function getSubFieldsetHtml()
+    {
+        $html = '';
+        foreach ($this->getElements() as $element) {
+            if ($element->getType() == 'fieldset') {
+                $html.= $element->toHtml();
+            }
         }
         return $html;
     }

@@ -48,7 +48,7 @@ Mage.Cookies.get = function(name){
     while(i < clen){
         j = i + alen;
         if (document.cookie.substring(i, j) == arg)
-            return Cookies.getCookieVal(j);
+            return Mage.Cookies.getCookieVal(j);
         i = document.cookie.indexOf(" ", i) + 1;
         if(i == 0)
             break;
@@ -57,7 +57,7 @@ Mage.Cookies.get = function(name){
 };
 
 Mage.Cookies.clear = function(name) {
-  if(Cookies.get(name)){
+  if(Mage.Cookies.get(name)){
     document.cookie = name + "=" +
     "; expires=Thu, 01-Jan-70 00:00:01 GMT";
   }

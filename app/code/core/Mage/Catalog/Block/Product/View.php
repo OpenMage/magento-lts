@@ -146,7 +146,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      */
     public function hasOptions()
     {
-        if ($this->getProduct()->getTypeInstance()->hasOptions()) {
+        if ($this->getProduct()->getTypeInstance(true)->hasOptions($this->getProduct())) {
             return true;
         }
         return false;
@@ -159,6 +159,6 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      */
     public function hasRequiredOptions()
     {
-        return $this->getProduct()->getTypeInstance()->hasRequiredOptions();
+        return $this->getProduct()->getTypeInstance(true)->hasRequiredOptions($this->getProduct());
     }
 }

@@ -33,19 +33,23 @@
  */
 class Mage_Adminhtml_Block_Permissions_Roles extends Mage_Adminhtml_Block_Template
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('permissions/roles.phtml');
-    }
-
+    /**
+     * Get URL of adding new record
+     *
+     * @return string
+     */
     public function getAddNewUrl()
     {
         return $this->getUrl('*/*/editrole');
     }
 
+    /**
+     * Get grid HTML
+     *
+     * @return unknown
+     */
     public function getGridHtml()
     {
-        return $this->getLayout()->createBlock('adminhtml/permissions_grid_role')->toHtml();
+        return $this->getChild('grid')->toHtml();
     }
 }

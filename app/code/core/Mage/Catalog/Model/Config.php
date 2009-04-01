@@ -27,6 +27,8 @@
 
 class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 {
+    const XML_PATH_LIST_DEFAULT_SORT_BY     = 'catalog/frontend/default_sort_by';
+
     protected $_attributeSetsById;
     protected $_attributeSetsByName;
 
@@ -35,7 +37,37 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
 
     protected $_productTypesById;
 
+    /**
+     * Array of attributes codes needed for product load
+     *
+     * @var array
+     */
+    protected $_productAttributes;
+
+    /**
+     * Product Attributes used in product listing
+     *
+     * @var array
+     */
+    protected $_usedInProductListing;
+
+    /**
+     * Product Attributes For Sort By
+     *
+     * @var array
+     */
+    protected $_usedForSortBy;
+
     const XML_PATH_PRODUCT_COLLECTION_ATTRIBUTES = 'frontend/product/collection/attributes';
+
+    /**
+     * Initialize resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalog/config');
+    }
 
     public function loadAttributeSets()
     {
@@ -191,13 +223,96 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     }
 
     /**
-     * Load product attributes from config file
+     * Load Product attributes
      *
      * @return array
      */
     public function getProductAttributes()
     {
-        $attributes = Mage::getConfig()->getNode(self::XML_PATH_PRODUCT_COLLECTION_ATTRIBUTES)->asArray();
-        return array_keys($attributes);
+        if (is_null($this->_productAttributes)) {
+            $this->_productAttributes = array();
+            foreach ($this->getAttributesUsedInProductListing() as $attribute) {
+                $this->_productAttributes[] = $attribute['attribute_code'];
+            }
+        }
+        return $this->_productAttributes;
     }
+
+    /**
+     * Retrieve Product Collection Attributes from XML config file
+     * Used only for install/upgrade
+     *
+     * @return array
+     */
+    public function getProductCollectionAttributes() {
+        $attributes = Mage::getConfig()
+            ->getNode(self::XML_PATH_PRODUCT_COLLECTION_ATTRIBUTES)
+            ->asArray();
+        return array_keys($attributes);;
+    }
+
+    /**
+     * Retrieve resource model
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Config
+     */
+    protected function _getResource()
+    {
+        return Mage::getResourceModel('catalog/config');
+    }
+
+    /**
+     * Retrieve Attributes used in product listing
+     *
+     * @return array
+     */
+    public function getAttributesUsedInProductListing() {
+        if (is_null($this->_usedInProductListing)) {
+            $this->_usedInProductListing = $this->_getResource()
+                ->getAttributesUsedInListing();
+        }
+        return $this->_usedInProductListing;
+    }
+
+    /**
+     * Retrieve Attributes array used for sort by
+     *
+     * @return array
+     */
+    public function getAttributesUsedForSortBy() {
+        if (is_null($this->_usedForSortBy)) {
+            $this->_usedForSortBy = $this->_getResource()
+                ->getAttributesUsedForSortBy();
+        }
+        return $this->_usedForSortBy;
+    }
+
+    /**
+     * Retrieve Attributes Used for Sort by as array
+     * key = code, value = name
+     *
+     * @return array
+     */
+    public function getAttributeUsedForSortByArray()
+    {
+        $options = array(
+            'position'  => Mage::helper('catalog')->__('Position')
+        );
+        foreach ($this->getAttributesUsedForSortBy() as $attribute) {
+            $options[$attribute['attribute_code']] = Mage::helper('catalog')->__($attribute['frontend_label']);
+        }
+
+        return $options;
+    }
+
+    /**
+     * Retrieve Product List Default Sort By
+     *
+     * @param mixed $store
+     * @return string
+     */
+    public function getProductListDefaultSortBy($store = null) {
+        return Mage::getStoreConfig(self::XML_PATH_LIST_DEFAULT_SORT_BY, $store);
+    }
+
 }

@@ -18,19 +18,22 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Core
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Core
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core URL helper
  *
+ * @category    Mage
+ * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
 {
+
     /**
      * Retrieve current url
      *
@@ -38,7 +41,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function getCurrentUrl()
     {
-        return $this->_getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true));
+        return $this->_getUrl('*/*/*', array('_current' => true, '_use_rewrite' => true));
     }
 
     /**
@@ -77,4 +80,5 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
 
         return $string;
     }
+
 }

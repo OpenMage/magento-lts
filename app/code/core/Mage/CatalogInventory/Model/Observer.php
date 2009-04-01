@@ -56,9 +56,33 @@ class Mage_CatalogInventory_Model_Observer
         return $this;
     }
 
-    public function addInventoryDataToCollection($observer)
+    /**
+     * Add information about producs stock status to collection
+     * Used in for product collection after load
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogInventory_Model_Observer
+     */
+    public function addStockStatusToCollection($observer)
     {
         $productCollection = $observer->getEvent()->getCollection();
+        if ($productCollection->hasFlag('require_stock_items')) {
+            Mage::getModel('cataloginventory/stock')->addItemsToProducts($productCollection);
+        } else {
+            Mage::getModel('cataloginventory/stock_status')->addStockStatusToProducts($productCollection);
+        }
+        return $this;
+    }
+
+    /**
+     * Add Stock items to product collection
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogInventory_Model_Observer
+     */
+    public function addInventoryDataToCollection($observer)
+    {
+        $productCollection = $observer->getEvent()->getProductCollection();
         Mage::getModel('cataloginventory/stock')->addItemsToProducts($productCollection);
         return $this;
     }
@@ -74,7 +98,7 @@ class Mage_CatalogInventory_Model_Observer
         $product = $observer->getEvent()->getProduct();
 
         if (is_null($product->getStockData())) {
-            if ($product->dataHasChangedFor('status')) {
+            if ($product->getIsChangedWebsites() || $product->dataHasChangedFor('status')) {
                 Mage::getSingleton('cataloginventory/stock_status')
                     ->updateStatus($product->getId());
             }
@@ -112,12 +136,19 @@ class Mage_CatalogInventory_Model_Observer
         return $this;
     }
 
+    /**
+     * Prepare stock item data for save
+     *
+     * @param Mage_CatalogInventory_Model_Stock_Item $item
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_CatalogInventory_Model_Observer
+     */
     protected function _prepareItemForSave($item, $product)
     {
         $item->addData($product->getStockData())
+            ->setProduct($product)
             ->setProductId($product->getId())
-            ->setStockId($item->getStockId())
-            ->setProduct($product);
+            ->setStockId($item->getStockId());
         if (!is_null($product->getData('stock_data/min_qty'))
             && is_null($product->getData('stock_data/use_config_min_qty'))) {
             $item->setData('use_config_min_qty', false);
@@ -165,7 +196,7 @@ class Mage_CatalogInventory_Model_Observer
          * Check item for options
          */
         if (($options = $quoteItem->getQtyOptions()) && $qty > 0) {
-            $qty = $quoteItem->getProduct()->getTypeInstance()->prepareQuoteItemQty($qty);
+            $qty = $quoteItem->getProduct()->getTypeInstance(true)->prepareQuoteItemQty($qty, $quoteItem->getProduct());
             $quoteItem->setData('qty', $qty);
 
             foreach ($options as $option) {
@@ -251,8 +282,8 @@ class Mage_CatalogInventory_Model_Observer
              */
             if ($result->getHasQtyOptionUpdate()
                 && (!$quoteItem->getParentItem()
-                    || $quoteItem->getParentItem()->getProduct()->getTypeInstance()
-                        ->getForceChildItemQtyChanges())) {
+                    || $quoteItem->getParentItem()->getProduct()->getTypeInstance(true)
+                        ->getForceChildItemQtyChanges($quoteItem->getParentItem()->getProduct()))) {
                 $quoteItem->setData('qty', $result->getOrigQty());
             }
 
@@ -412,6 +443,27 @@ class Mage_CatalogInventory_Model_Observer
         $productId = $observer->getEvent()->getProductId();
         Mage::getSingleton('cataloginventory/stock_status')
             ->updateStatus($productId);
+        return $this;
+    }
+
+    /**
+     * Catalog Product website update
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_CatalogInventory_Model_Observer
+     */
+    public function catalogProductWebsiteUpdate(Varien_Event_Observer $observer)
+    {
+        $websiteIds = $observer->getEvent()->getWebsiteIds();
+        $productIds = $observer->getEvent()->getProductIds();
+
+        foreach ($websiteIds as $websiteId) {
+            foreach ($productIds as $productId) {
+                Mage::getSingleton('cataloginventory/stock_status')
+                    ->updateStatus($productId, null, $websiteId);
+            }
+        }
+
         return $this;
     }
 }

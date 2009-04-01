@@ -54,12 +54,12 @@
 # disable user agent verification to not break multiple image upload
 
     php_flag suhosin.session.cryptua off
-    
+
 ###########################################
 # turn off compatibility with PHP4 when dealing with objects
-    
+
     php_flag zend.ze1_compatibility_mode Off
-    
+
 </IfModule>
 
 <IfModule mod_security.c>
@@ -76,8 +76,10 @@
 ## enable apache served files compression
 ## http://developer.yahoo.com/performance/rules.html#gzip
 
-    # Insert filter
-    #SetOutputFilter DEFLATE
+    # Insert filter on all content
+    ###SetOutputFilter DEFLATE
+    # Insert filter on selected content types only
+    #AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
 
     # Netscape 4.x has some problems...
     #BrowserMatch ^Mozilla/4 gzip-only-text/html
@@ -87,6 +89,7 @@
 
     # MSIE masquerades as Netscape, but it is fine
     #BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+
     # Don't compress images
     #SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip dont-vary
 

@@ -67,4 +67,34 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
         }
         return false;
     }
+
+    /**
+     * Get Column(s) names for flat data building
+     *
+     * @return array
+     */
+    public function getFlatColums()
+    {
+        $columns = array();
+        $columns[$this->getAttribute()->getAttributeCode()] = array(
+            'type'      => 'int',
+            'unsigned'  => false,
+            'is_null'   => true,
+            'default'   => null,
+            'extra'     => null
+        );
+        return $columns;
+   }
+
+    /**
+     * Retrieve Select for update Attribute value in flat table
+     *
+     * @param   int $store
+     * @return  Varien_Db_Select|null
+     */
+    public function getFlatUpdateSelect($store)
+    {
+        return Mage::getResourceModel('eav/entity_attribute_option')
+            ->getFlatUpdateSelect($this->getAttribute(), $store, false);
+    }
 }

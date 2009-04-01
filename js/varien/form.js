@@ -65,14 +65,14 @@ VarienForm.prototype = {
 
     elementOnFocus: function(event){
         var element = Event.findElement(event, 'fieldset');
-        if(element && element.className){
+        if(element){
             Element.addClassName(element, this.highlightClass);
         }
     },
 
     elementOnBlur: function(event){
         var element = Event.findElement(event, 'fieldset');
-        if(element && element.className){
+        if(element){
             Element.removeClassName(element, this.highlightClass);
         }
     },

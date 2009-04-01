@@ -33,21 +33,34 @@
     </modules>
 
     <global>
+        <catalogindex>
+            <indexer>
+                <eav><class>catalogindex/indexer_eav</class></eav>
+                <price><class>catalogindex/indexer_price</class></price>
+                <tier_price><class>catalogindex/indexer_tierprice</class></tier_price>
+                <minimal_price><class>catalogindex/indexer_minimalprice</class></minimal_price>
+            </indexer>
+        </catalogindex>
+
         <catalog>
             <product>
                 <type>
                     <simple>
+                        <index_priority>10</index_priority>
                         <index_data_retreiver>catalogindex/data_simple</index_data_retreiver>
                     </simple>
-                    <grouped>
-                        <index_data_retreiver>catalogindex/data_grouped</index_data_retreiver>
-                    </grouped>
-                    <configurable>
-                        <index_data_retreiver>catalogindex/data_configurable</index_data_retreiver>
-                    </configurable>
                     <virtual>
+                        <index_priority>20</index_priority>
                         <index_data_retreiver>catalogindex/data_virtual</index_data_retreiver>
                     </virtual>
+                    <configurable>
+                        <index_priority>30</index_priority>
+                        <index_data_retreiver>catalogindex/data_configurable</index_data_retreiver>
+                    </configurable>
+                    <grouped>
+                        <index_priority>50</index_priority>
+                        <index_data_retreiver>catalogindex/data_grouped</index_data_retreiver>
+                    </grouped>
                 </type>
             </product>
         </catalog>
@@ -85,15 +98,6 @@
                 <connection><use>core_read</use></connection>
             </catalogindex_read>
         </resources>
-
-        <catalogindex>
-            <indexer>
-                <eav><class>catalogindex/indexer_eav</class></eav>
-                <price><class>catalogindex/indexer_price</class></price>
-                <tier_price><class>catalogindex/indexer_tierprice</class></tier_price>
-                <minimal_price><class>catalogindex/indexer_minimalprice</class></minimal_price>
-            </indexer>
-        </catalogindex>
 
         <events>
             <store_add>
@@ -236,6 +240,42 @@
                     </catalogindex>
                 </observers>
             </catalog_product_to_website_change>
+            <catalog_product_flat_prepare_columns>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>catalogProductFlatPrepareColumns</method>
+                    </catalogindex>
+                </observers>
+            </catalog_product_flat_prepare_columns>
+            <catalog_product_flat_prepare_indexes>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>catalogProductFlatPrepareIndexes</method>
+                    </catalogindex>
+                </observers>
+            </catalog_product_flat_prepare_indexes>
+            <catalog_product_flat_rebuild>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>catalogProductFlatRebuild</method>
+                    </catalogindex>
+                </observers>
+            </catalog_product_flat_rebuild>
+            <catalog_product_flat_update_product>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>catalogProductFlatUpdateProduct</method>
+                    </catalogindex>
+                </observers>
+            </catalog_product_flat_update_product>
         </events>
     </adminhtml>
 

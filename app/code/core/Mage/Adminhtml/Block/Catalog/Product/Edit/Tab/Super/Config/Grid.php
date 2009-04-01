@@ -122,7 +122,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
         Mage::getModel('cataloginventory/stock_item')->addCatalogInventoryToProductCollection($collection);
 
-        foreach ($product->getTypeInstance()->getUsedProductAttributes() as $attribute) {
+        foreach ($product->getTypeInstance(true)->getUsedProductAttributes($product) as $attribute) {
             $collection->addAttributeToSelect($attribute->getAttributeCode());
             $collection->addAttributeToFilter($attribute->getAttributeCode(), array('nin'=>array(null)));
         }
@@ -137,7 +137,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     {
         $products = $this->getRequest()->getPost('products', null);
         if (!is_array($products)) {
-            $products = $this->_getProduct()->getTypeInstance()->getUsedProductIds();
+            $products = $this->_getProduct()->getTypeInstance(true)->getUsedProductIds($this->_getProduct());
         }
         return $products;
     }
@@ -145,7 +145,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     protected function _prepareColumns()
     {
         $product = $this->_getProduct();
-        $attributes = $product->getTypeInstance()->getConfigurableAttributes();
+        $attributes = $product->getTypeInstance(true)->getConfigurableAttributes($product);
         $this->addColumn('in_products', array(
             'header_css_class' => 'a-center',
             'type'      => 'checkbox',
@@ -249,7 +249,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     protected function _getRequiredAttributesIds()
     {
         $attributesIds = array();
-        foreach ($this->_getProduct()->getTypeInstance()->getConfigurableAttributes() as $attribute) {
+        foreach ($this->_getProduct()->getTypeInstance(true)->getConfigurableAttributes($this->_getProduct()) as $attribute) {
             $attributesIds[] = $attribute->getProductAttribute()->getId();
         }
 

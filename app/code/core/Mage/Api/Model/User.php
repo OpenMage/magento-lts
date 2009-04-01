@@ -165,6 +165,10 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
         if ($this->authenticate($username, $apiKey)) {
             $this->setSessid($sessId);
             $this->getResource()->recordLogin($this);
+            Mage::dispatchEvent('api_user_authenticated', array(
+               'model'    => $this,
+               'api_key'  => $apiKey,
+            ));
         }
 
         return $this;

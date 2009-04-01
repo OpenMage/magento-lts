@@ -101,7 +101,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         }
 
         try {
-            $modelSet->validate($this->getRequest()->getParam('attribute_set_name'));
+            $modelSet->validate($modelSet->getAttributeSetName());
             $modelSet->save();
             if( $this->getRequest()->getParam('gotoEdit') == 1 ) {
                 $modelSet->initFromSkeleton($this->getRequest()->getParam('skeleton_set'))

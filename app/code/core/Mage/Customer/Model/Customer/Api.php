@@ -148,7 +148,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $this->_fault('not_exists');
         }
 
-        foreach ($this->getAllowedAttributes($customer, $attributes) as $attributeCode=>$attribute) {
+        foreach ($this->getAllowedAttributes($customer) as $attributeCode=>$attribute) {
             if (isset($customerData[$attributeCode])) {
                 $customer->setData($attributeCode, $customerData[$attributeCode]);
             }

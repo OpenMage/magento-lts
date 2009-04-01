@@ -110,6 +110,23 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     }
 
     /**
+     * Removes link by url
+     *
+     * @param string $url
+     * @return Mage_Page_Block_Template_Links
+     */
+    public function removeLinkByUrl($url)
+    {
+        foreach ($this->_links as $k => $v) {
+            if ($v->getUrl() == $url) {
+                unset($this->_links[$k]);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Prepare tag attributes
      *
      * @param string|array $params

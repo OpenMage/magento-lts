@@ -43,6 +43,9 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
         $style = new Zend_Pdf_Style();
         $this->_setFontBold($style, 10);
         foreach ($shipments as $shipment) {
+            if ($shipment->getStoreId()) {
+                Mage::app()->getLocale()->emulate($shipment->getStoreId());
+            }
             $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
             $pdf->pages[] = $page;
 
@@ -116,6 +119,9 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
 
         $this->_afterGetPdf();
 
+        if ($shipment->getStoreId()) {
+            Mage::app()->getLocale()->revert();
+        }
         return $pdf;
     }
 }

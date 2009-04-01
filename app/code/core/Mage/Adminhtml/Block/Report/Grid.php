@@ -168,6 +168,10 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $collection->setPageSize($this->getSubReportSize());
 
         $this->setCollection($collection);
+
+        Mage::dispatchEvent('adminhtml_widget_grid_filter_collection',
+                array('collection' => $this->getCollection(), 'filter_values' => $this->_filterValues)
+        );
     }
 
     protected function _setFilterValues($data)

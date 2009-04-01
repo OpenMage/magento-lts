@@ -38,6 +38,7 @@ class Mage_Customer_Model_Customer_Attribute_Source_Website extends Mage_Eav_Mod
         if (!$this->_options) {
             $this->_options = Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm(true, true);
         }
+
         return $this->_options;
     }
 

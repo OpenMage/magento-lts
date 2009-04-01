@@ -30,6 +30,41 @@ $installer = $this;
 $tableOrder       = $this->getTable('sales/order');
 $tableOrderEntity = $this->getTable('sales/order_entity');
 
+$cleanTables = array(
+    $tableOrder . '_datetime',
+    $tableOrder . '_decimal',
+    $tableOrder . '_int',
+    $tableOrder . '_text',
+    $tableOrder . '_varchar',
+    $tableOrderEntity . '_decimal',
+    $tableOrderEntity . '_datetime',
+    $tableOrderEntity . '_int',
+    $tableOrderEntity . '_text',
+    $tableOrderEntity . '_varchar'
+);
+foreach ($cleanTables as $tableName) {
+    $select = $installer->getConnection()->select()
+        ->from($tableName, array(
+            'entity_id'         => 'entity_id',
+            'attribute_id'      => 'attribute_id',
+            'entity_type_id'    => 'entity_type_id',
+            'rows_count'        => 'COUNT(*)'))
+        ->group(array('entity_id', 'attribute_id', 'entity_type_id'))
+        ->having('rows_count > 1');
+    $query = $installer->getConnection()->query($select);
+
+    while ($row = $query->fetch()) {
+        $sql = 'DELETE FROM `' . $tableName . '`'
+            . ' WHERE entity_id=? AND attribute_id=? AND entity_type_id=?'
+            . ' LIMIT ' . ($row['rows_count'] - 1);
+        $installer->getConnection()->query($sql, array(
+            $row['entity_id'],
+            $row['attribute_id'],
+            $row['entity_type_id']
+        ));
+    }
+}
+
 $installer->getConnection()->addKey("{$tableOrder}_datetime", 'UNQ_ENTITY_ATTRIBUTE_TYPE', array('entity_id', 'attribute_id', 'entity_type_id'), 'unique');
 $installer->getConnection()->addKey("{$tableOrder}_decimal", 'UNQ_ENTITY_ATTRIBUTE_TYPE', array('entity_id', 'attribute_id', 'entity_type_id'), 'unique');
 $installer->getConnection()->addKey("{$tableOrder}_int", 'UNQ_ENTITY_ATTRIBUTE_TYPE', array('entity_id', 'attribute_id', 'entity_type_id'), 'unique');

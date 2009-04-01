@@ -18,22 +18,23 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Backup
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Backup
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Database backup model
  *
- * @category   Mage
- * @package    Mage_Backup
+ * @category    Mage
+ * @package     Mage_Backup
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Backup_Model_Db
 {
+
     /**
      * Buffer length for multi rows
      * default 512 Kb
@@ -147,4 +148,5 @@ class Mage_Backup_Model_Db
 
         return $this;
     }
+
 }

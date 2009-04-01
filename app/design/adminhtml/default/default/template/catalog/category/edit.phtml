@@ -73,27 +73,29 @@
            currentNode.setText(params.node_name);
        }*/
         var categoryContainer = $('category-edit-container');
-        new Ajax.Updater(
-            categoryContainer,
-            url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true' ),
-            {
-                parameters:  params,
-                method:      'post',
-                loaderArea:  categoryContainer,
-                onSuccess: function(transport) {
+        new Ajax.Request(url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true' ), {
+            parameters:  params,
+            evalScripts: true,
+            onComplete:  refreshTree ? refreshTreeArea.bind(this) : false,
+            onSuccess: function(transport) {
+                try {
                     if (transport.responseText.isJSON()) {
-                       var response = transport.responseText.evalJSON();
-                       if (response.ajaxExpired && response.ajaxRedirect) {
-                           setLocation(response.ajaxRedirect);
-                           return false;
-                       }
+                        var response = transport.responseText.evalJSON()
+                        if (response.error) {
+                            alert(response.message);
+                        }
+                        if(response.ajaxExpired && response.ajaxRedirect) {
+                            setLocation(response.ajaxRedirect);
+                        }
+                    } else {
+                        $(categoryContainer).update(transport.responseText);
                     }
-                    // everything is ok
-                },
-                onComplete:  refreshTree ? refreshTreeArea.bind(this) : false,
-                evalScripts: true
+                }
+                catch (e) {
+                    $(categoryContainer).update(transport.responseText);
+                }
             }
-        );
+        });
     }
 
     /**

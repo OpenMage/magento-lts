@@ -84,7 +84,7 @@
                         </debug>
                         <merchant_id translate="label">
                             <label>Merchant ID</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
@@ -93,7 +93,7 @@
                         </merchant_id>
                         <merchant_key translate="label">
                             <label>Merchant Key</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>

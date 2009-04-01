@@ -51,12 +51,6 @@
                     <rule_customer>
                         <table>salesrule_customer</table>
                     </rule_customer>
-                    <rule_product>
-                        <table>salesrule_product</table>
-                    </rule_product>
-                    <rule_product_price>
-                        <table>salesrule_product_price</table>
-                    </rule_product_price>
                 </entities>
             </salesrule_mysql4>
         </models>

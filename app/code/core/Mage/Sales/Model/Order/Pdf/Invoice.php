@@ -44,6 +44,9 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
         $this->_setFontBold($style, 10);
 
         foreach ($invoices as $invoice) {
+            if ($invoice->getStoreId()) {
+                Mage::app()->getLocale()->emulate($invoice->getStoreId());
+            }
             $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
             $pdf->pages[] = $page;
 
@@ -122,6 +125,10 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
 
             /* Add totals */
             $this->insertTotals($page, $invoice);
+
+            if ($invoice->getStoreId()) {
+                Mage::app()->getLocale()->revert();
+            }
         }
 
         $this->_afterGetPdf();

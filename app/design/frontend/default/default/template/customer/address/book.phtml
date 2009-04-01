@@ -32,7 +32,7 @@
 ?>
 <div class="page-head button-level">
     <h3><?php echo $this->__('Address Book') ?></h3>
-    <button class="form-button" onclick="window.location='<?php echo $this->getAddAddressUrl() ?>';"><span><?php echo $this->__('Add New Address') ?></span></button>
+    <button type="button" class="form-button" onclick="window.location='<?php echo $this->getAddAddressUrl() ?>';"><span><?php echo $this->__('Add New Address') ?></span></button>
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <div class="col2-set">

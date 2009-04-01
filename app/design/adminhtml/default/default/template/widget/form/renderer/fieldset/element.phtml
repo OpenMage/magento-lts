@@ -32,7 +32,7 @@
     <?php else: ?>
     <td class="label"><?php echo trim($_element->getLabelHtml()) ?></td>
     <td class="value"><?php echo trim($_element->getElementHtml()) ?></td>
-    <td<?php if ($_element->getNote()): ?> class="note"<?php endif ?>><small><?php echo $_element->getNote()?$_element->getNote():'&nbsp;' ?></small></td>
+    <td<?php if ($_element->getNote()): ?> class="note"<?php endif ?> id="note_<?php echo $_element->getId()?>"><small><?php echo $_element->getNote()?$_element->getNote():'&nbsp;' ?></small></td>
     <?php endif; ?>
 </tr>
 <?php endif; ?>

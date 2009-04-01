@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,16 +29,25 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
 {
+    /**
+     * Initialize Layer State template
+     *
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('catalog/layer/state.phtml');
     }
 
+    /**
+     * Retrieve active filters
+     *
+     * @return array
+     */
     public function getActiveFilters()
     {
         $filters = $this->getLayer()->getState()->getFilters();
@@ -48,6 +57,11 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
         return $filters;
     }
 
+    /**
+     * Retrieve Clear Filters URL
+     *
+     * @return string
+     */
     public function getClearUrl()
     {
         $filterState = array();
@@ -61,6 +75,11 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
         return Mage::getUrl('*/*/*', $params);
     }
 
+    /**
+     * Retrieve Layer object
+     *
+     * @return Mage_Catalog_Model_Layer
+     */
     public function getLayer()
     {
         if (!$this->hasData('layer')) {

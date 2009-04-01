@@ -181,4 +181,18 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection ext
 
         return $this;
     }
+
+    /**
+     * Retrieve is flat enabled flag
+     * Overwrite disable flat for compared item if required EAV resource
+     *
+     * @return bool
+     */
+    public function isEnabledFlat()
+    {
+        if (!Mage::helper('catalog/product_compare')->getAllowUsedFlat()) {
+            return false;
+        }
+        return parent::isEnabledFlat();
+    }
 }

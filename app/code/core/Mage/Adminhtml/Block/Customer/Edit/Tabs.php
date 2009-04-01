@@ -102,8 +102,20 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 'url'       => $this->getUrl('*/*/productTags', array('_current' => true)),
             ));
         }
+        
+        $this->_updateActiveTab();
         Varien_Profiler::stop('customer/tabs');
         return parent::_beforeToHtml();
     }
 
+    protected function _updateActiveTab()
+    {
+    	$tabId = $this->getRequest()->getParam('tab');
+    	if( $tabId ) {
+    		$tabId = preg_replace("#{$this->getId()}_#", '', $tabId);
+    		if($tabId) {
+    			$this->setActiveTab($tabId);
+    		}
+    	}
+    }
 }

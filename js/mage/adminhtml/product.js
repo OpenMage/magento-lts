@@ -752,6 +752,9 @@ Product.Configurable.prototype = {
             var value = this.getValueByIndex(attribute,select.value);
             if (!value) {
                 if (!container.down('.attribute-price')) {
+                    if (value == null) {
+                        value = {};
+                    }
                     container.update(this.pricingValueTemplate.evaluate(value));
                     var priceValueField = container.down('.attribute-price');
                     var priceTypeField = container.down('.attribute-price-type');

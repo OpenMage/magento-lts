@@ -20,23 +20,41 @@
  *
  * @category   Mage
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
+/**
+ * EAV Entity Setup Model
+ *
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 {
+    protected $_attributeTableFields;
     protected $_generalGroupName = 'General';
 
     public $defaultGroupIdAssociations = array('General'=>1);
 
+    /**
+     * Clean cache
+     *
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function cleanCache()
     {
         Mage::app()->cleanCache(array('eav'));
         return $this;
     }
 
+    /**
+     * Install Default Group Ids
+     *
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function installDefaultGroupIds()
     {
         $setIds = $this->getAllAttributeSetIds();
@@ -56,6 +74,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 );
             }
         }
+        return $this;
     }
 
 
@@ -96,10 +115,10 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Update entity row
      *
-     * @param unknown_type $code
-     * @param unknown_type $field
-     * @param unknown_type $value
-     * @return unknown
+     * @param string $code
+     * @param string $field
+     * @param string $value
+     * @return Mage_Eav_Model_Entity_Setup
      */
     public function updateEntityType($code, $field, $value=null)
     {
@@ -110,6 +129,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
+    /**
+     * Retrieve Entity Type Data
+     *
+     * @param int|string $id
+     * @param string $field
+     * @return mixed
+     */
     public function getEntityType($id, $field=null)
     {
         return $this->getTableRow('eav/entity_type',
@@ -118,6 +144,12 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         );
     }
 
+    /**
+     * Retrieve Entity Type Id By Id or Code
+     *
+     * @param mixed $entityTypeId
+     * @return int
+     */
     public function getEntityTypeId($entityTypeId)
     {
         if (!is_numeric($entityTypeId)) {
@@ -129,6 +161,12 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $entityTypeId;
     }
 
+    /**
+     * Remove entity type by Id or Code
+     *
+     * @param mixed $id
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function removeEntityType($id)
     {
         if (is_numeric($id)) {
@@ -146,6 +184,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 
 /******************* ATTRIBUTE SETS *****************/
 
+    /**
+     * Retrieve Attribute Set Sort order
+     *
+     * @param mixed $entityTypeId
+     * @param int $sortOrder
+     * @return int
+     */
     public function getAttributeSetSortOrder($entityTypeId, $sortOrder=null)
     {
         if (!is_numeric($sortOrder)) {
@@ -158,6 +203,14 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $sortOrder;
     }
 
+    /**
+     * Add Attribute Set
+     *
+     * @param mixed $entityTypeId
+     * @param string $name
+     * @param int $sortOrder
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function addAttributeSet($entityTypeId, $name, $sortOrder=null)
     {
         $data = array(
@@ -177,6 +230,15 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
+    /**
+     * Update attribute set data
+     *
+     * @param mixed $entityTypeId
+     * @param int $id
+     * @param string $field
+     * @param mixed $value
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function updateAttributeSet($entityTypeId, $id, $field, $value=null)
     {
         $this->updateTableRow('eav/attribute_set',
@@ -187,6 +249,14 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
+    /**
+     * Retrieve Attribute set data by id or name
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $id
+     * @param string $field
+     * @return mixed
+     */
     public function getAttributeSet($entityTypeId, $id, $field=null)
     {
         return $this->getTableRow('eav/attribute_set',
@@ -196,6 +266,14 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         );
     }
 
+    /**
+     * Retrieve Attribute Set Id By Id or Name
+     *
+     * @throws Mage_Eav_Exception
+     * @param mixed $entityTypeId
+     * @param mixed $setId
+     * @return int
+     */
     public function getAttributeSetId($entityTypeId, $setId)
     {
         if (!is_numeric($setId)) {
@@ -207,6 +285,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $setId;
     }
 
+    /**
+     * Remove Attribute Set
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $id
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function removeAttributeSet($entityTypeId, $id)
     {
         $this->_conn->delete($this->getTable('eav/attribute_set'),
@@ -215,16 +300,59 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
-    public function setDefaultSetToEntityType($entityType)
+    /**
+     * Set Default Attribute Set to Entity Type
+     *
+     * @param mixed $entityType
+     * @return Mage_Eav_Model_Entity_Setup
+     */
+    public function setDefaultSetToEntityType($entityType, $attributeSet = 'Default')
     {
         $entityTypeId = $this->getEntityTypeId($entityType);
-        $setId = $this->getAttributeSetId($entityTypeId, 'Default');
+        $setId = $this->getAttributeSetId($entityTypeId, $attributeSet);
         $this->updateEntityType($entityTypeId, 'default_attribute_set_id', $setId);
         return $this;
     }
 
+    /**
+     * Get identifiers of all attribute sets
+     *
+     * @return array
+     */
+    public function getAllAttributeSetIds($entityTypeId=null)
+    {
+        $where = '';
+        if (!is_null($entityTypeId)) {
+            $where = " WHERE `entity_type_id` = '" . $this->getEntityTypeId($entityTypeId) . "'";
+        }
+        $sql = "SELECT `attribute_set_id` FROM `{$this->getTable('eav/attribute_set')}`" . $where;
+        return $this->_conn->fetchCol($sql);
+    }
+
+    /**
+     * Retrieve Default Attribute Set for Entity Type
+     *
+     * @param string|int $entityType
+     * @return int
+     */
+    public function getDefaultAttributeSetId($entityType)
+    {
+        $select = $this->getConnection()->select()
+            ->from($this->getTable('eav/entity_type'), 'default_attribute_set_id')
+            ->where(is_numeric($entityType) ? 'entity_type_id=?' : 'entity_type_code=?', $entityType);
+        return $this->getConnection()->fetchOne($select);
+    }
+
 /******************* ATTRIBUTE GROUPS *****************/
 
+    /**
+     * Retrieve Attribute Group Sort order
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $setId
+     * @param int $sortOrder
+     * @return int
+     */
     public function getAttributeGroupSortOrder($entityTypeId, $setId, $sortOrder=null)
     {
         if (!is_numeric($sortOrder)) {
@@ -237,6 +365,15 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $sortOrder;
     }
 
+    /**
+     * Add Attribute Group
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $setId
+     * @param string $name
+     * @param int $sortOrder
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function addAttributeGroup($entityTypeId, $setId, $name, $sortOrder=null)
     {
         $setId = $this->getAttributeSetId($entityTypeId, $setId);
@@ -263,6 +400,16 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
+    /**
+     * Update Attribute Group Data
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $setId
+     * @param mixed $id
+     * @param string $field
+     * @param mixed $value
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function updateAttributeGroup($entityTypeId, $setId, $id, $field, $value=null)
     {
         $this->updateTableRow('eav/attribute_group',
@@ -273,6 +420,15 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
+    /**
+     * Retrieve Attribute Group Data
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $setId
+     * @param mixed $id
+     * @param string $field
+     * @return mixed
+     */
     public function getAttributeGroup($entityTypeId, $setId, $id, $field=null)
     {
         $searchId = $id;
@@ -293,6 +449,14 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         );
     }
 
+    /**
+     * Retrieve Attribute Group Id by Id or Name
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $setId
+     * @param mixed $groupId
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function getAttributeGroupId($entityTypeId, $setId, $groupId)
     {
         if (!is_numeric($groupId)) {
@@ -304,6 +468,14 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $groupId;
     }
 
+    /**
+     * Remove Attribute Group By Id or Name
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $setId
+     * @param mixed $id
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function removeAttributeGroup($entityTypeId, $setId, $id)
     {
         $this->_conn->delete($this->getTable('eav/attribute_group'),
@@ -312,7 +484,42 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
+    /**
+     * Retrieve Default Attribute Group Id By Entity Type and Attribute Set
+     *
+     * @param string|int $entityType
+     * @param int $attributeSetId
+     * @return int
+     */
+    public function getDefaultAttributeGroupId($entityType, $attributeSetId = null)
+    {
+        $entityType = $this->getEntityTypeId($entityType);
+        if (!is_numeric($attributeSetId)) {
+            $attributeSetId = $this->getDefaultAttributeSetId($entityType);
+        }
+
+        $select = $this->getConnection()->select()
+            ->from($this->getTable('eav/attribute_group'), 'attribute_group_id')
+            ->where('attribute_set_id=?', $attributeSetId)
+            ->order('default_id DESC, sort_order')
+            ->limit(1);
+        return $this->getConnection()->fetchOne($select);
+    }
+
 /******************* ATTRIBUTES *****************/
+
+    /**
+     * Retrieve value from array by key or return default value
+     *
+     * @param array $array
+     * @param string $key
+     * @param string $default
+     * @return string
+     */
+    protected function _getValue($array, $key, $default = null)
+    {
+        return isset($array[$key]) ? $array[$key] : $default;
+    }
 
     /**
      * Add attribute to an entity type
@@ -328,32 +535,37 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     {
         $entityTypeId = $this->getEntityTypeId($entityTypeId);
         $data = array(
-            'entity_type_id'        => $entityTypeId,
-            'attribute_code'        => $code,
-            'backend_model'         => isset($attr['backend']) ? $attr['backend'] : '',
-            'backend_type'          => isset($attr['type']) ? $attr['type'] : 'varchar',
-            'backend_table'         => isset($attr['table']) ? $attr['table'] : '',
-            'frontend_model'        => isset($attr['frontend']) ? $attr['frontend'] : '',
-//            'frontend_block'        => isset($attr['frontend_block']) ? $attr['frontend_block'] : '',
-            'frontend_input'        => isset($attr['input']) ? $attr['input'] : 'text',
-            'frontend_label'        => isset($attr['label']) ? $attr['label'] : '',
-            'source_model'          => isset($attr['source']) ? $attr['source'] : '',
-            'is_global'             => isset($attr['global']) ? $attr['global'] : 1,
-            'is_visible'            => isset($attr['visible']) ? (int) $attr['visible'] : 1,
-            'is_required'           => isset($attr['required']) ? $attr['required'] : 1,
-            'is_user_defined'       => isset($attr['user_defined']) ? $attr['user_defined'] : 0,
-            'default_value'         => isset($attr['default']) ? $attr['default'] : '',
-            'is_searchable'         => isset($attr['searchable']) ? $attr['searchable'] : 0,
-            'is_filterable'         => isset($attr['filterable']) ? $attr['filterable'] : 0,
-            'is_comparable'         => isset($attr['comparable']) ? $attr['comparable'] : 0,
-            'is_visible_on_front'   => isset($attr['visible_on_front']) ? $attr['visible_on_front'] : 0,
-            'is_html_allowed_on_front'   => isset($attr['is_html_allowed_on_front']) ? $attr['is_html_allowed_on_front'] : 0,
-            'is_visible_in_advanced_search' => isset($attr['visible_in_advanced_search']) ? $attr['visible_in_advanced_search'] : 0,
-            'is_unique'             => isset($attr['unique']) ? $attr['unique'] : 0,
-            'apply_to'              => isset($attr['apply_to']) ? $attr['apply_to'] : '',
-            'is_configurable'       => isset($attr['is_configurable']) ? $attr['is_configurable'] : 1,
-            'note'                  => isset($attr['note']) ? $attr['note'] : '',
-            'position'              => isset($attr['position']) ? $attr['position'] : 0,
+            'entity_type_id'            => $entityTypeId,
+            'attribute_code'            => $code,
+            'backend_model'             => $this->_getValue($attr, 'backend', ''),
+            'backend_type'              => $this->_getValue($attr, 'type', 'varchar'),
+            'backend_table'             => $this->_getValue($attr, 'table', ''),
+            'frontend_model'            => $this->_getValue($attr, 'frontend', ''),
+            'frontend_input'            => $this->_getValue($attr, 'input', 'text'),
+            'frontend_input_renderer'   => $this->_getValue($attr, 'input_renderer', ''),
+            'frontend_label'            => $this->_getValue($attr, 'label', ''),
+            'source_model'              => $this->_getValue($attr, 'source', ''),
+            'is_global'                 => $this->_getValue($attr, 'global', 1),
+            'is_visible'                => $this->_getValue($attr, 'visible', 1),
+            'is_required'               => $this->_getValue($attr, 'required', 1),
+            'is_user_defined'           => $this->_getValue($attr, 'user_defined', 0),
+            'default_value'             => $this->_getValue($attr, 'default', ''),
+            'is_searchable'             => $this->_getValue($attr, 'searchable', 0),
+            'is_filterable'             => $this->_getValue($attr, 'filterable', 0),
+            'is_comparable'             => $this->_getValue($attr, 'comparable', 0),
+            'is_visible_on_front'       => $this->_getValue($attr, 'visible_on_front', 0),
+            'is_html_allowed_on_front'  => $this->_getValue($attr, 'is_html_allowed_on_front', 0),
+            'is_visible_in_advanced_search'
+                                        => $this->_getValue($attr, 'visible_in_advanced_search', 0),
+            'is_used_for_price_rules'   => $this->_getValue($attr, 'used_for_price_rules', 1),
+            'is_filterable_in_search'   => $this->_getValue($attr, 'filterable_in_search', 0),
+            'used_in_product_listing'   => $this->_getValue($attr, 'used_in_product_listing', 0),
+            'used_for_sort_by'          => $this->_getValue($attr, 'used_for_sort_by', 0),
+            'is_unique'                 => $this->_getValue($attr, 'unique', 0),
+            'apply_to'                  => $this->_getValue($attr, 'apply_to', ''),
+            'is_configurable'           => $this->_getValue($attr, 'is_configurable', 1),
+            'note'                      => $this->_getValue($attr, 'note', ''),
+            'position'                  => $this->_getValue($attr, 'position', 0),
         );
 
         $sortOrder = isset($attr['sort_order']) ? $attr['sort_order'] : null;
@@ -361,7 +573,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if ($id = $this->getAttribute($entityTypeId, $code, 'attribute_id')) {
             $this->updateAttribute($entityTypeId, $id, $data, null, $sortOrder);
         } else {
-            $this->_conn->insert($this->getTable('eav/attribute'), $data);
+            $this->_insertAttribute($data);
         }
 
         if (!empty($attr['group'])) {
@@ -387,6 +599,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
+    /**
+     * Add Attribure Option
+     *
+     * @param array $option
+     */
     public function addAttributeOption($option)
     {
         if (isset($option['value'])) {
@@ -435,6 +652,16 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         }
     }
 
+    /**
+     * Update Attribute data
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $id
+     * @param string $field
+     * @param mixed $value
+     * @param int $sortOrder
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function updateAttribute($entityTypeId, $id, $field, $value=null, $sortOrder=null)
     {
         if (!is_null($sortOrder)) {
@@ -443,6 +670,26 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 'sort_order', $sortOrder
             );
         }
+
+        $attributeFields = $this->_getAttributeTableFields();
+        if (is_array($field)) {
+            $bind = array();
+            foreach ($field as $k => $v) {
+                if (isset($attributeFields[$k])) {
+                    $bind[$k] = $v;
+                }
+            }
+            if (!$bind) {
+                return $this;
+            }
+            $field = $bind;
+        }
+        else {
+            if (!isset($attributeFields[$field])) {
+                return $this;
+            }
+        }
+
         $this->updateTableRow('eav/attribute',
             'attribute_id', $this->getAttributeId($entityTypeId, $id),
             $field, $value,
@@ -451,6 +698,14 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
+    /**
+     * Retrieve Attribute Data By Id or Code
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $id
+     * @param string $field
+     * @return mixed
+     */
     public function getAttribute($entityTypeId, $id, $field=null)
     {
         return $this->getTableRow('eav/attribute',
@@ -460,6 +715,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         );
     }
 
+    /**
+     * Retrieve Attribute Id Data By Id or Code
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $id
+     * @return int
+     */
     public function getAttributeId($entityTypeId, $id)
     {
         if (!is_numeric($id)) {
@@ -506,6 +768,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return false;
     }
 
+    /**
+     * Remove Attribute
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $code
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function removeAttribute($entityTypeId, $code)
     {
         if ($attributeId = $this->getAttributeId($entityTypeId, $code)) {
@@ -516,6 +785,15 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $this;
     }
 
+    /**
+     * Retrieve Attribute Sort Order
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $setId
+     * @param mixed $groupId
+     * @param int $sortOrder
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function getAttributeSortOrder($entityTypeId, $setId, $groupId, $sortOrder=null)
     {
         if (!is_numeric($sortOrder)) {
@@ -528,6 +806,16 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         return $sortOrder;
     }
 
+    /**
+     * Add Attribute to All Groups on Attribute Set
+     *
+     * @param mixed $entityTypeId
+     * @param mixed $setId
+     * @param mixed $groupId
+     * @param mixed $attributeId
+     * @param int $sortOrder
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function addAttributeToSet($entityTypeId, $setId, $groupId, $attributeId, $sortOrder=null)
     {
         $entityTypeId = $this->getEntityTypeId($entityTypeId);
@@ -546,18 +834,82 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             return $this;
         }
         $this->_conn->insert($this->getTable('eav/entity_attribute'), array(
-            'entity_type_id'=>$entityTypeId,
-            'attribute_set_id'=>$setId,
+            'entity_type_id'    =>$entityTypeId,
+            'attribute_set_id'  =>$setId,
             'attribute_group_id'=>$groupId,
-            'attribute_id'=>$attributeId,
-            'sort_order'=>$this->getAttributeSortOrder($entityTypeId, $setId, $groupId, $sortOrder),
+            'attribute_id'      =>$attributeId,
+            'sort_order'        =>$this->getAttributeSortOrder($entityTypeId, $setId, $groupId, $sortOrder),
         ));
+
+        return $this;
+    }
+
+    /**
+     * Add or update attribute to group
+     *
+     * @param int|string $entityType
+     * @param int|string $setId
+     * @param int|string $groupId
+     * @param int|string $attributeId
+     * @param int $sortOrder
+     * @return Mage_Eav_Model_Entity_Setup
+     */
+    public function addAttributeToGroup($entityType, $setId, $groupId, $attributeId, $sortOrder = null)
+    {
+        $entityType  = $this->getEntityTypeId($entityType);
+        $setId       = $this->getAttributeSetId($entityType, $setId);
+        $groupId     = $this->getAttributeGroupId($entityType, $setId, $groupId);
+        $attributeId = $this->getAttributeId($entityType, $attributeId);
+
+        $bind   = array(
+            'entity_type_id'        => $entityType,
+            'attribute_set_id'      => $setId,
+            'attribute_group_id'    => $groupId,
+            'attribute_id'          => $attributeId,
+        );
+
+        $select = $this->getConnection()->select()
+            ->from($this->getTable('eav/entity_attribute'))
+            ->where('entity_type_id=?', $entityType)
+            ->where('attribute_set_id=?', $setId)
+            ->where('attribute_id=?', $attributeId);
+        $row = $this->getConnection()->fetchRow($select);
+        if ($row) {
+            // update
+            if (!is_null($sortOrder)) {
+                $bind['sort_order'] = $sortOrder;
+            }
+
+            $this->getConnection()->update(
+                $this->getTable('eav/entity_attribute'),
+                $bind,
+                $this->getConnection()->quoteInto('entity_attribute_id=?', $row['entity_attribute_id'])
+            );
+        }
+        else {
+            if (is_null($sortOrder)) {
+                $select = $this->getConnection()->select()
+                    ->from($this->getTable('eav/entity_attribute'), 'MAX(sort_order) + 10')
+                    ->where('entity_type_id=?', $entityType)
+                    ->where('attribute_set_id=?', $setId)
+                    ->where('attribute_group_id=?', $groupId);
+                $sortOrder = $this->getConnection()->fetchOne($select);
+            }
+            $bind['sort_order'] = $sortOrder;
+            $this->getConnection()->insert($this->getTable('eav/entity_attribute'), $bind);
+        }
 
         return $this;
     }
 
 /******************* BULK INSTALL *****************/
 
+    /**
+     * Install entities
+     *
+     * @param array $entities
+     * @return Mage_Eav_Model_Entity_Setup
+     */
     public function installEntities($entities=null)
     {
         $this->cleanCache();
@@ -691,17 +1043,34 @@ CONSTRAINT `FK_{$baseName}_{$type}_store` FOREIGN KEY (`store_id`) REFERENCES `c
     }
 
     /**
-     * Get identifiers of all attribute sets
+     * Retrieve attribute table fields
      *
      * @return array
      */
-    public function getAllAttributeSetIds($entityTypeId=null)
-    {
-        $where = '';
-        if (!is_null($entityTypeId)) {
-            $where = " WHERE `entity_type_id` = '" . $this->getEntityTypeId($entityTypeId) . "'";
+    protected function _getAttributeTableFields() {
+        return $this->getConnection()->describeTable($this->getTable('eav/attribute'));
+    }
+
+    /**
+     * Insert attribute and filter data
+     *
+     * @return Mage_Eav_Model_Entity_Setup
+     */
+    protected function _insertAttribute(array $data) {
+        $bind   = array();
+        $fields = $this->_getAttributeTableFields();
+
+        foreach ($data as $k => $v) {
+            if (isset($fields[$k])) {
+                $bind[$k] = $v;
+            }
         }
-        $sql = "SELECT `attribute_set_id` FROM `{$this->getTable('eav/attribute_set')}`" . $where;
-        return $this->_conn->fetchCol($sql);
+        if (!$bind) {
+            return $this;
+        }
+
+        $this->getConnection()->insert($this->getTable('eav/attribute'), $bind);
+
+        return $this;
     }
 }

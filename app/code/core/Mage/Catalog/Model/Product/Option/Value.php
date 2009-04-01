@@ -73,6 +73,12 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    public function unsetOption()
+    {
+        $this->_option = null;
+        return $this;
+    }
+
     /**
      * Enter description here...
      *

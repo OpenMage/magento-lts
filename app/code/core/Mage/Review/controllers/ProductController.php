@@ -63,6 +63,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      */
 	protected function _initProduct()
     {
+        Mage::dispatchEvent('review_controller_product_init_before', array('controller_action'=>$this));
         $categoryId = (int) $this->getRequest()->getParam('category', false);
         $productId  = (int) $this->getRequest()->getParam('id');
 
@@ -83,6 +84,15 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
         Mage::register('current_product', $product);
         Mage::register('product', $product);
+
+        try {
+            Mage::dispatchEvent('review_controller_product_init', array('product'=>$product));
+            Mage::dispatchEvent('review_controller_product_init_after', array('product'=>$product, 'controller_action' => $this));
+        } catch (Mage_Core_Exception $e) {
+            Mage::logException($e);
+            return false;
+        }
+
         return $product;
     }
 
@@ -169,7 +179,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             }
 
             $this->renderLayout();
-        } else {
+        } elseif ($this->getRequest()->isDispatched()) {
             $this->_forward('noRoute');
         }
     }

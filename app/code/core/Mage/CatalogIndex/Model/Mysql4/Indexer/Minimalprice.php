@@ -36,8 +36,8 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer_Minimalprice extends Mage_CatalogIn
     {
         $this->_init('catalogindex/minimal_price', 'index_id');
 
-        $this->_entityIdFieldName = 'entity_id';
-        $this->_storeIdFieldName = 'store_id';
+        $this->_entityIdFieldName   = 'entity_id';
+        $this->_storeIdFieldName    = 'store_id';
     }
 
     public function getMinimalValue($conditions)

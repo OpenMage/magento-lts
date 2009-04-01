@@ -207,6 +207,8 @@ class Mage_Tag_Model_Mysql4_Tag_Collection extends Mage_Core_Model_Mysql4_Collec
                 AND summary_store.store_id IN (' . implode(',', $storeId) . ')',
                 array());
 
+            $this->getSelect()->group('summary_store.tag_id');
+
             if($this->getJoinFlag('relation') && $allFilter) {
                 $this->getSelect()->where('relation.store_id IN (' . implode(',', $storeId) . ')');
             }

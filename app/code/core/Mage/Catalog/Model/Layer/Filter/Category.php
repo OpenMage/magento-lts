@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,18 @@
  */
 class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_Filter_Abstract
 {
+    /**
+     * Active Category Id
+     *
+     * @var int
+     */
     protected $_categoryId;
+
+    /**
+     * Applied Category
+     *
+     * @var Mage_Catalog_Model_Category
+     */
     protected $_appliedCategory = null;
 
     /**
@@ -120,8 +131,9 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
      */
     public function getCategory()
     {
-        if ($this->_categoryId) {
-            $category = Mage::getModel('catalog/category')->load($this->_categoryId);
+        if (!is_null($this->_categoryId)) {
+            $category = Mage::getModel('catalog/category')
+                ->load($this->_categoryId);
             if ($category->getId()) {
                 return $category;
             }
@@ -141,21 +153,14 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
 
         if ($data === null) {
             $categoty   = $this->getCategory();
-            $collection = Mage::getResourceModel('catalog/category_collection')
-                ->addAttributeToSelect('name')
-                ->addAttributeToSelect('all_children')
-                ->addAttributeToSelect('is_anchor')
-                ->addAttributeToFilter('is_active', 1)
-                ->addAttributeToSort('position', 'asc')
-                ->joinUrlRewrite()
-                ->addIdFilter($categoty->getChildren())
-                ->load();
+            /** @var $categoty Mage_Catalog_Model_Categeory */
+            $categories = $categoty->getChildrenCategories();
 
             $this->getLayer()->getProductCollection()
-                ->addCountToCategories($collection);
+                ->addCountToCategories($categories);
 
-            $data=array();
-            foreach ($collection as $category) {
+            $data = array();
+            foreach ($categories as $category) {
                 if ($category->getIsActive() && $category->getProductCount()) {
                     $data[] = array(
                         'label' => $category->getName(),

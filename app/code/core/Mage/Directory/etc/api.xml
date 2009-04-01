@@ -61,6 +61,12 @@
             <country>directory_country</country>
             <region>directory_region</region>
         </resources_alias>
+        <v2>
+            <resources_function_prefix>
+                <country>directoryCountry</country>
+                <region>directoryRegion</region>
+            </resources_function_prefix>
+        </v2>
         <acl>
             <resources>
                 <directory translate="title" module="directory">

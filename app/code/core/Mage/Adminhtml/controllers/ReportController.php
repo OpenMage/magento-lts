@@ -77,6 +77,8 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
 */
     public function searchAction()
     {
+        Mage::dispatchEvent('on_view_report', array('report' => 'search'));
+
         $this->_initAction()
             ->_setActiveMenu('report/search')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Search Terms'), Mage::helper('adminhtml')->__('Search Terms'))

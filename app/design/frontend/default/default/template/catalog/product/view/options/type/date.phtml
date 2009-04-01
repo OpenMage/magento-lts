@@ -25,13 +25,37 @@
  */
 ?>
 <?php $_option = $this->getOption() ?>
-<dt><label><?php echo $this->htmlEscape($_option->getTitle()) ?><?php if ($_option->getIsRequire()): ?><span class="required">&nbsp;*</span><?php endif; ?></label></dt>
+<?php $_optionId = $_option->getId() ?>
+<dt><label><?php echo  $this->htmlEscape($_option->getTitle()) ?><?php if ($_option->getIsRequire()): ?><span class="required">&nbsp;*</span><?php endif; ?></label>
+    <?php echo $this->getFormatedPrice() ?></dt>
+<dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
+
 <?php if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME
-        || $_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE): ?>
-<dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>><?php echo $this->__('Date') ?>&nbsp;<?php echo $this->getCalendarHtml() ?></dd>
+    || $_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE): ?>
+    <?php echo $this->getDateHtml() ?>
 <?php endif; ?>
+
 <?php if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME
-        || $_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME): ?>
-<dd <?php if ($_option->decoratedIsLast){?> class="last"<?php }?>><?php echo $this->__('Time') ?> <?php echo $this->getTimeHtml() ?>
-    <?php //echo $this->__('Time') ?> <!--<input type="text" class="input-text<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?>" name="options[<?php echo $_option->getId() ?>]" value="" />--></dd>
+    || $_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME): ?>
+    &nbsp;&nbsp;<?php echo $this->getTimeHtml() ?>
 <?php endif; ?>
+
+<?php if ($_option->getIsRequire()): ?>
+    <input type="hidden" name="validate_datetime_<?php echo $_optionId ?>" class="validate-datetime-<?php echo $_optionId ?>" value="" />
+    <script type="text/javascript">
+    //<![CDATA[
+        Validation.addAllThese(
+        [
+               ['validate-datetime-<?php echo $_optionId ?>', '<?php echo $this->jsQuoteEscape( Mage::helper('catalog')->__('This is a required option') )?>', function(v) {
+                   var dateTimeParts = $$('.datetime-picker[id^="options_<?php echo $_optionId ?>"]');
+                   for (var i=0; i < dateTimeParts.length; i++) {
+                       if (dateTimeParts[i].value == "") return false;
+                   }
+                   return true;
+                }]
+        ]
+        );
+    //]]>
+    </script>
+<?php endif; ?>
+</dd>

@@ -48,7 +48,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
         /**
          * @var Mage_Bundle_Model_Product_Type
          */
-        $typeInstance = $this->getProduct()->getTypeInstance();
+        $typeInstance = $this->getProduct()->getTypeInstance(true);
 
         // get bundle options
         $optionsQuoteItemOption =  $this->getItem()->getOptionByCode('bundle_option_ids');
@@ -57,13 +57,14 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
             /**
             * @var Mage_Bundle_Model_Mysql4_Option_Collection
             */
-            $optionsCollection = $typeInstance->getOptionsByIds($bundleOptionsIds);
+            $optionsCollection = $typeInstance->getOptionsByIds($bundleOptionsIds, $this->getProduct());
 
             // get and add bundle selections collection
             $selectionsQuoteItemOption = $this->getItem()->getOptionByCode('bundle_selection_ids');
 
             $selectionsCollection = $typeInstance->getSelectionsByIds(
-                unserialize($selectionsQuoteItemOption->getValue())
+                unserialize($selectionsQuoteItemOption->getValue()),
+                $this->getProduct()
             );
 
             $bundleOptions = $optionsCollection->appendSelections($selectionsCollection, true);

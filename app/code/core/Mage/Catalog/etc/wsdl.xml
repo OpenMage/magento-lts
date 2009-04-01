@@ -1,0 +1,1301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/"
+    name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+            <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+            <complexType name="catalogProductEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogProductEntity">
+                <all>
+                    <element name="product_id" type="xsd:string" />
+                    <element name="sku" type="xsd:string" />
+                    <element name="name" type="xsd:string" />
+                    <element name="set" type="xsd:string" />
+                    <element name="type" type="xsd:string" />
+                    <element name="category_ids" type="typens:ArrayOfString" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductRequestAttributes">
+                <all>
+                    <element name="attributes" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="additional_attributes" type="typens:ArrayOfString" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductReturnEntity">
+                <all>
+                    <element name="product_id" type="xsd:string" minOccurs="0" />
+                    <element name="sku" type="xsd:string" minOccurs="0" />
+                    <element name="set" type="xsd:string" minOccurs="0" />
+                    <element name="type" type="xsd:string" minOccurs="0" />
+                    <element name="categories" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="websites" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="created_at" type="xsd:string" minOccurs="0" />
+                    <element name="updated_at" type="xsd:string" minOccurs="0" />
+                    <element name="type_id" type="xsd:string" minOccurs="0" />
+                    <element name="name" type="xsd:string" minOccurs="0" />
+                    <element name="description" type="xsd:string" minOccurs="0" />
+                    <element name="short_description" type="xsd:string" minOccurs="0" />
+                    <element name="weight" type="xsd:string" minOccurs="0" />
+                    <element name="status" type="xsd:string" minOccurs="0" />
+                    <element name="url_key" type="xsd:string" minOccurs="0" />
+                    <element name="url_path" type="xsd:string" minOccurs="0" />
+                    <element name="visibility" type="xsd:string" minOccurs="0" />
+                    <element name="category_ids" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="has_options" type="xsd:string" minOccurs="0" />
+                    <element name="gift_message_available" type="xsd:string" minOccurs="0" />
+                    <element name="price" type="xsd:string" minOccurs="0" />
+                    <element name="special_price" type="xsd:string" minOccurs="0" />
+                    <element name="special_from_date" type="xsd:string" minOccurs="0" />
+                    <element name="special_to_date" type="xsd:string" minOccurs="0" />
+                    <element name="tax_class_id" type="xsd:string" minOccurs="0" />
+                    <element name="tier_price" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="meta_title" type="xsd:string" minOccurs="0" />
+                    <element name="meta_keyword" type="xsd:string" minOccurs="0" />
+                    <element name="meta_description" type="xsd:string" minOccurs="0" />
+                    <element name="custom_design" type="xsd:string" minOccurs="0" />
+                    <element name="custom_layout_update" type="xsd:string" minOccurs="0" />
+                    <element name="options_container" type="xsd:string" minOccurs="0" />
+                    <element name="additional_attributes" type="typens:associativeArray" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductCreateEntity">
+                <all>
+                    <element name="categories" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="websites" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="name" type="xsd:string" minOccurs="0" />
+                    <element name="description" type="xsd:string" minOccurs="0" />
+                    <element name="short_description" type="xsd:string" minOccurs="0" />
+                    <element name="weight" type="xsd:string" minOccurs="0" />
+                    <element name="status" type="xsd:string" minOccurs="0" />
+                    <element name="url_key" type="xsd:string" minOccurs="0" />
+                    <element name="url_path" type="xsd:string" minOccurs="0" />
+                    <element name="visibility" type="xsd:string" minOccurs="0" />
+                    <element name="category_ids" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="has_options" type="xsd:string" minOccurs="0" />
+                    <element name="gift_message_available" type="xsd:string" minOccurs="0" />
+                    <element name="price" type="xsd:string" minOccurs="0" />
+                    <element name="special_price" type="xsd:string" minOccurs="0" />
+                    <element name="special_from_date" type="xsd:string" minOccurs="0" />
+                    <element name="special_to_date" type="xsd:string" minOccurs="0" />
+                    <element name="tax_class_id" type="xsd:string" minOccurs="0" />
+                    <element name="tier_price" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="meta_title" type="xsd:string" minOccurs="0" />
+                    <element name="meta_keyword" type="xsd:string" minOccurs="0" />
+                    <element name="meta_description" type="xsd:string" minOccurs="0" />
+                    <element name="custom_design" type="xsd:string" minOccurs="0" />
+                    <element name="custom_layout_update" type="xsd:string" minOccurs="0" />
+                    <element name="options_container" type="xsd:string" minOccurs="0" />
+                    <element name="additional_attributes" type="typens:associativeArray" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductAttributeSetEntity">
+                <all>
+                    <element name="set_id" type="xsd:int" minOccurs="0" />
+                    <element name="name" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductAttributeSetEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductAttributeSetEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogProductTypeEntity">
+                <all>
+                    <element name="type" type="xsd:string" minOccurs="0" />
+                    <element name="label" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductTypeEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductTypeEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogProductTierPriceEntity">
+                <all>
+                    <element name="customer_group_id" type="xsd:string" minOccurs="0" />
+                    <element name="website" type="xsd:string" minOccurs="0" />
+                    <element name="qty" type="xsd:int" minOccurs="0" />
+                    <element name="price" type="xsd:double" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductTierPriceEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductTierPriceEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="ArrayOfCatalogCategoryEntities">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogCategoryEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogCategoryEntity">
+                <all>
+                    <element name="category_id" type="xsd:int" />
+                    <element name="parent_id" type="xsd:int" />
+                    <element name="name" type="xsd:string" />
+                    <element name="is_active" type="xsd:int" />
+                    <element name="position" type="xsd:int" />
+                    <element name="level" type="xsd:int" />
+                    <element name="children" type="typens:ArrayOfCatalogCategoryEntities" />
+                </all>
+            </complexType>
+            <complexType name="catalogCategoryEntityNoChildren">
+                <all>
+                    <element name="category_id" type="xsd:int" />
+                    <element name="parent_id" type="xsd:int" />
+                    <element name="name" type="xsd:string" />
+                    <element name="is_active" type="xsd:int" />
+                    <element name="position" type="xsd:int" />
+                    <element name="level" type="xsd:int" />
+                </all>
+            </complexType>
+            <complexType name="ArrayOfCatalogCategoryEntitiesNoChildren">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogCategoryEntityNoChildren[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogCategoryTree">
+                <all>
+                    <element name="category_id" type="xsd:int" />
+                    <element name="parent_id" type="xsd:int" />
+                    <element name="name" type="xsd:string" />
+                    <element name="position" type="xsd:int" />
+                    <element name="level" type="xsd:int" />
+                    <element name="children" type="typens:ArrayOfCatalogCategoryEntities" />
+                </all>
+            </complexType>
+            <complexType name="catalogCategoryEntityCreate">
+                <all>
+                    <element name="name" type="xsd:string" minOccurs="0" />
+                    <element name="is_active" type="xsd:int" minOccurs="0" />
+                    <element name="position" type="xsd:int" minOccurs="0" />
+                    <element name="available_sort_by" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="custom_design" type="xsd:string" minOccurs="0" />
+                    <element name="custom_design_apply" type="xsd:int" minOccurs="0" />
+                    <element name="custom_design_from" type="xsd:string" minOccurs="0" />
+                    <element name="custom_design_to" type="xsd:string" minOccurs="0" />
+                    <element name="custom_layout_update" type="xsd:string" minOccurs="0" />
+                    <element name="default_sort_by" type="xsd:string" minOccurs="0" />
+                    <element name="description" type="xsd:string" minOccurs="0" />
+                    <element name="display_mode" type="xsd:string" minOccurs="0" />
+                    <element name="is_anchor" type="xsd:int" minOccurs="0" />
+                    <element name="landing_page" type="xsd:int" minOccurs="0" />
+                    <element name="meta_description" type="xsd:string" minOccurs="0" />
+                    <element name="meta_keywords" type="xsd:string" minOccurs="0" />
+                    <element name="meta_title" type="xsd:string" minOccurs="0" />
+                    <element name="page_layout" type="xsd:string" minOccurs="0" />
+                    <element name="url_key" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="catalogCategoryInfo">
+                <all>
+                    <element name="category_id" type="xsd:string" />
+                    <element name="is_active" type="xsd:int" />
+                    <element name="position" type="xsd:string" />
+                    <element name="level" type="xsd:string" />
+                    <element name="parent_id" type="xsd:string" />
+                    <element name="all_children" type="xsd:string" />
+                    <element name="children" type="xsd:string" />
+                    <element name="created_at" type="xsd:string" minOccurs="0" />
+                    <element name="updated_at" type="xsd:string" minOccurs="0" />
+                    <element name="name" type="xsd:string" minOccurs="0" />
+                    <element name="url_key" type="xsd:string" minOccurs="0" />
+                    <element name="description" type="xsd:string" minOccurs="0" />
+                    <element name="meta_title" type="xsd:string" minOccurs="0" />
+                    <element name="meta_keywords" type="xsd:string" minOccurs="0" />
+                    <element name="meta_description" type="xsd:string" minOccurs="0" />
+                    <element name="path" type="xsd:string" minOccurs="0" />
+                    <element name="url_path" type="xsd:string" minOccurs="0" />
+                    <element name="children_count" type="xsd:int" minOccurs="0" />
+                    <element name="display_mode" type="xsd:string" minOccurs="0" />
+                    <element name="is_anchor" type="xsd:int" minOccurs="0" />
+                    <element name="available_sort_by" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="custom_design" type="xsd:string" minOccurs="0" />
+                    <element name="custom_design_apply" type="xsd:string" minOccurs="0" />
+                    <element name="custom_design_from" type="xsd:string" minOccurs="0" />
+                    <element name="custom_design_to" type="xsd:string" minOccurs="0" />
+                    <element name="page_layout" type="xsd:string" minOccurs="0" />
+                    <element name="custom_layout_update" type="xsd:string" minOccurs="0" />
+                    <element name="default_sort_by" type="xsd:string" minOccurs="0" />
+                    <element name="landing_page" type="xsd:int" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="catalogAssignedProduct">
+                <all>
+                    <element name="product_id" type="xsd:int" />
+                    <element name="type" type="xsd:string" />
+                    <element name="set" type="xsd:int" />
+                    <element name="sku" type="xsd:string" />
+                    <element name="position" type="xsd:int" />
+                </all>
+            </complexType>
+            <complexType name="catalogAssignedProductArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogAssignedProduct[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogAttributeEntity">
+                <all>
+                    <element name="attribute_id" type="xsd:int" minOccurs="0" />
+                    <element name="code" type="xsd:string" minOccurs="0" />
+                    <element name="type" type="xsd:string" minOccurs="0" />
+                    <element name="required" type="xsd:string" minOccurs="0" />
+                    <element name="scope" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="catalogAttributeEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogAttributeEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogAttributeOptionEntity">
+                <all>
+                    <element name="label" type="xsd:string" />
+                    <element name="value" type="xsd:string" />
+                </all>
+            </complexType>
+            <complexType name="catalogAttributeOptionEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogAttributeOptionEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogProductImageEntity">
+                <all>
+                    <element name="file" type="xsd:string" />
+                    <element name="label" type="xsd:string" />
+                    <element name="position" type="xsd:string" />
+                    <element name="exclude" type="xsd:string" />
+                    <element name="url" type="xsd:string" />
+                    <element name="types" type="typens:ArrayOfString" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductImageEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductImageEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogProductAttributeMediaTypeEntity">
+                <all>
+                    <element name="code" type="xsd:string" />
+                    <element name="scope" type="xsd:string" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductAttributeMediaTypeEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductAttributeMediaTypeEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogProductImageFileEntity">
+                <all>
+                    <element name="content" type="xsd:string" />
+                    <element name="mime" type="xsd:string" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductAttributeMediaCreateEntity">
+                <all>
+                    <element name="file" type="typens:catalogProductImageFileEntity" minOccurs="0" />
+                    <element name="label" type="xsd:string" minOccurs="0" />
+                    <element name="position" type="xsd:string" minOccurs="0" />
+                    <element name="types" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="exclude" type="xsd:string" minOccurs="0" />
+                    <element name="remove" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductLinkEntity">
+                <all>
+                    <element name="product_id" type="xsd:string" minOccurs="0" />
+                    <element name="type" type="xsd:string" minOccurs="0" />
+                    <element name="set" type="xsd:string" minOccurs="0" />
+                    <element name="sku" type="xsd:string" minOccurs="0" />
+                    <element name="position" type="xsd:string" minOccurs="0" />
+                    <element name="qty" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductLinkEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductLinkEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="catalogProductLinkAttributeEntity">
+                <all>
+                    <element name="code" type="xsd:string" minOccurs="0" />
+                    <element name="type" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductLinkAttributeEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:catalogProductLinkAttributeEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+        </schema>
+    </types>
+    <message name="catalogProductListRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="filters" type="typens:filters" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogProductListResponse">
+        <part name="storeView" type="typens:catalogProductEntityArray" />
+    </message>
+    <message name="catalogProductInfoRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="productId" type="xsd:string" />
+        <part name="storeView" type="xsd:string" />
+        <part name="attributes" type="typens:catalogProductAttributes" />
+    </message>
+    <message name="catalogProductInfoResponse">
+        <part name="info" type="typens:catalogProductReturnEntity" />
+    </message>
+    <message name="catalogProductCreateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="type" type="xsd:string" />
+        <part name="set" type="xsd:string" />
+        <part name="sku" type="xsd:string" />
+        <part name="productData" type="typens:catalogProductCreateEntity" />
+    </message>
+    <message name="catalogProductCreateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="catalogProductUpdateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+        <part name="productData" type="typens:catalogProductCreateEntity" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogProductUpdateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="catalogProductSetSpecialPriceRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+        <part name="specialPrice" type="xsd:string" />
+        <part name="fromDate" type="xsd:string" />
+        <part name="toDate" type="xsd:string" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogProductSetSpecialPriceResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="catalogProductGetSpecialPriceRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+        <part name="storeView " type="xsd:string" />
+    </message>
+    <message name="catalogProductGetSpecialPriceResponse">
+        <part name="result" type="typens:catalogProductReturnEntity" />
+    </message>
+    <message name="catalogProductDeleteRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+    </message>
+    <message name="catalogProductDeleteResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="catalogProductAttributeListRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="setId" type="xsd:int" />
+    </message>
+    <message name="catalogProductAttributeListResponse">
+        <part name="result" type="typens:catalogAttributeEntityArray" />
+    </message>
+    <message name="catalogProductAttributeOptionsRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="attributeId" type="xsd:string" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeOptionsResponse">
+        <part name="result" type="typens:catalogAttributeOptionEntityArray" />
+    </message>
+    <message name="catalogProductAttributeSetListRequest">
+        <part name="sessionId" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeSetListResponse">
+        <part name="result" type="typens:catalogProductAttributeSetEntityArray" />
+    </message>
+    <message name="catalogProductTypeListRequest">
+        <part name="sessionId" type="xsd:string" />
+    </message>
+    <message name="catalogProductTypeListResponse">
+        <part name="result" type="typens:catalogProductTypeEntityArray" />
+    </message>
+    <message name="catalogProductAttributeTierPriceInfoRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="sku" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeTierPriceInfoResponse">
+        <part name="result" type="typens:catalogProductTierPriceEntityArray" />
+    </message>
+    <message name="catalogProductAttributeTierPriceUpdateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="productId" type="xsd:string" />
+        <part name="tier_price" type="typens:catalogProductTierPriceEntityArray" />
+    </message>
+    <message name="catalogProductAttributeTierPriceUpdateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="catalogProductAttributeMediaListRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeMediaListResponse">
+        <part name="result" type="typens:catalogProductImageEntityArray" />
+    </message>
+    <message name="catalogProductAttributeMediaInfoRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+        <part name="file" type="xsd:string" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeMediaInfoResponse">
+        <part name="result" type="typens:catalogProductImageEntity" />
+    </message>
+    <message name="catalogProductAttributeMediaTypesRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="setId" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeMediaTypesResponse">
+        <part name="result" type="typens:catalogProductAttributeMediaTypeEntityArray" />
+    </message>
+    <message name="catalogProductAttributeMediaCreateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+        <part name="data" type="typens:catalogProductAttributeMediaCreateEntity" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeMediaCreateResponse">
+        <part name="result" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeMediaUpdateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+        <part name="file" type="xsd:string" />
+        <part name="data" type="typens:catalogProductAttributeMediaCreateEntity" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeMediaUpdateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="catalogProductAttributeMediaRemoveRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+        <part name="file" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeMediaRemoveResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="catalogProductLinkListRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="type" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+    </message>
+    <message name="catalogProductLinkListResponse">
+        <part name="result" type="typens:catalogProductLinkEntityArray" />
+    </message>
+    <message name="catalogProductLinkAssignRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="type" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+        <part name="linkedProduct" type="xsd:string" />
+        <part name="data" type="typens:catalogProductLinkEntity" />
+    </message>
+    <message name="catalogProductLinkAssignResponse">
+        <part name="result" type="xsd:string" />
+    </message>
+    <message name="catalogProductLinkUpdateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="type" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+        <part name="linkedProduct" type="xsd:string" />
+        <part name="data" type="typens:catalogProductLinkEntity" />
+    </message>
+    <message name="catalogProductLinkUpdateResponse">
+        <part name="result" type="xsd:string" />
+    </message>
+    <message name="catalogProductLinkRemoveRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="type" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+        <part name="linkedProduct" type="xsd:string" />
+    </message>
+    <message name="catalogProductLinkRemoveResponse">
+        <part name="result" type="xsd:string" />
+    </message>
+    <message name="catalogProductLinkTypesRequest">
+        <part name="sessionId" type="xsd:string" />
+    </message>
+    <message name="catalogProductLinkTypesResponse">
+        <part name="result" type="typens:ArrayOfString" />
+    </message>
+    <message name="catalogProductLinkAttributesRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="type" type="xsd:string" />
+    </message>
+    <message name="catalogProductLinkAttributesResponse">
+        <part name="result" type="typens:catalogProductLinkAttributeEntityArray" />
+    </message>
+    <message name="catalogCategoryCurrentStoreRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogCategoryCurrentStoreResponse">
+        <part name="storeView" type="xsd:int" />
+    </message>
+    <message name="catalogCategoryTreeRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="parentId" type="xsd:string" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogCategoryTreeResponse">
+        <part name="tree" type="typens:catalogCategoryTree" />
+    </message>
+    <message name="catalogCategoryLevelRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="website" type="xsd:string" />
+        <part name="storeView" type="xsd:string" />
+        <part name="parentCategory" type="xsd:string" />
+    </message>
+    <message name="catalogCategoryLevelResponse">
+        <part name="tree" type="typens:ArrayOfCatalogCategoryEntitiesNoChildren" />
+    </message>
+    <message name="catalogCategoryInfoRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="categoryId" type="xsd:int" />
+        <part name="storeView" type="xsd:string" />
+        <part name="attributes" type="typens:ArrayOfString" />
+    </message>
+    <message name="catalogCategoryInfoResponse">
+        <part name="info" type="typens:catalogCategoryInfo" />
+    </message>
+    <message name="catalogCategoryCreateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="parentId" type="xsd:int" />
+        <part name="categoryData" type="typens:catalogCategoryEntityCreate" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogCategoryCreateResponse">
+        <part name="id" type="xsd:int" />
+    </message>
+    <message name="catalogCategoryUpdateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="categoryId" type="xsd:int" />
+        <part name="categoryData" type="typens:catalogCategoryEntityCreate" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogCategoryUpdateResponse">
+        <part name="id" type="xsd:boolean" />
+    </message>
+    <message name="catalogCategoryMoveRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="categoryId" type="xsd:int" />
+        <part name="parentId" type="xsd:int" />
+        <part name="afterId" type="xsd:string" />
+    </message>
+    <message name="catalogCategoryMoveResponse">
+        <part name="id" type="xsd:boolean" />
+    </message>
+    <message name="catalogCategoryDeleteRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="categoryId" type="xsd:int" />
+    </message>
+    <message name="catalogCategoryDeleteResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="catalogCategoryAssignedProductsRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="categoryId" type="xsd:int" />
+    </message>
+    <message name="catalogCategoryAssignedProductsResponse">
+        <part name="result" type="typens:catalogAssignedProductArray" />
+    </message>
+    <message name="catalogCategoryAssignProductRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="categoryId" type="xsd:int" />
+        <part name="product" type="xsd:string" />
+        <part name="position" type="xsd:string" />
+    </message>
+    <message name="catalogCategoryAssignProductResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="catalogCategoryUpdateProductRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="categoryId" type="xsd:int" />
+        <part name="product" type="xsd:string" />
+        <part name="position" type="xsd:string" />
+    </message>
+    <message name="catalogCategoryUpdateProductResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="catalogCategoryRemoveProductRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="categoryId" type="xsd:int" />
+        <part name="product" type="xsd:string" />
+    </message>
+    <message name="catalogCategoryRemoveProductResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="catalogCategoryAttributeCurrentStoreRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogCategoryAttributeCurrentStoreResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="catalogCategoryAttributeListRequest">
+        <part name="sessionId" type="xsd:string" />
+    </message>
+    <message name="catalogCategoryAttributeListResponse">
+        <part name="result" type="typens:catalogAttributeEntityArray" />
+    </message>
+    <message name="catalogCategoryAttributeOptionsRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="attributeId" type="xsd:string" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogCategoryAttributeOptionsResponse">
+        <part name="result" type="typens:catalogAttributeOptionEntityArray" />
+    </message>
+    <portType name="{{var wsdl.handler}}PortType">
+        <operation name="catalogCategoryCurrentStore">
+            <documentation>Set_Get current store view</documentation>
+            <input message="typens:catalogCategoryCurrentStoreRequest" />
+            <output message="typens:catalogCategoryCurrentStoreResponse" />
+        </operation>
+        <operation name="catalogCategoryTree">
+            <documentation>Retrieve hierarchical tree of categories.</documentation>
+            <input message="typens:catalogCategoryTreeRequest" />
+            <output message="typens:catalogCategoryTreeResponse" />
+        </operation>
+        <operation name="catalogCategoryLevel">
+            <documentation>Retrieve hierarchical tree of categories.</documentation>
+            <input message="typens:catalogCategoryLevelRequest" />
+            <output message="typens:catalogCategoryLevelResponse" />
+        </operation>
+        <operation name="catalogCategoryInfo">
+            <documentation>Retrieve hierarchical tree of categories.</documentation>
+            <input message="typens:catalogCategoryInfoRequest" />
+            <output message="typens:catalogCategoryInfoResponse" />
+        </operation>
+        <operation name="catalogCategoryCreate">
+            <documentation>Create new category and return its id.</documentation>
+            <input message="typens:catalogCategoryCreateRequest" />
+            <output message="typens:catalogCategoryCreateResponse" />
+        </operation>
+        <operation name="catalogCategoryUpdate">
+            <documentation>Update category</documentation>
+            <input message="typens:catalogCategoryUpdateRequest" />
+            <output message="typens:catalogCategoryUpdateResponse" />
+        </operation>
+        <operation name="catalogCategoryMove">
+            <documentation>Move category in tree</documentation>
+            <input message="typens:catalogCategoryMoveRequest" />
+            <output message="typens:catalogCategoryMoveResponse" />
+        </operation>
+        <operation name="catalogCategoryDelete">
+            <documentation>Delete category</documentation>
+            <input message="typens:catalogCategoryDeleteRequest" />
+            <output message="typens:catalogCategoryDeleteResponse" />
+        </operation>
+        <operation name="catalogCategoryAssignedProducts">
+            <documentation>Retrieve list of assigned products</documentation>
+            <input message="typens:catalogCategoryAssignedProductsRequest" />
+            <output message="typens:catalogCategoryAssignedProductsResponse" />
+        </operation>
+        <operation name="catalogCategoryAssignProduct">
+            <documentation>Assign product to category</documentation>
+            <input message="typens:catalogCategoryAssignProductRequest" />
+            <output message="typens:catalogCategoryAssignProductResponse" />
+        </operation>
+        <operation name="catalogCategoryUpdateProduct">
+            <documentation>Update assigned product</documentation>
+            <input message="typens:catalogCategoryUpdateProductRequest" />
+            <output message="typens:catalogCategoryUpdateProductResponse" />
+        </operation>
+        <operation name="catalogCategoryRemoveProduct">
+            <documentation>Remove product assignment from category</documentation>
+            <input message="typens:catalogCategoryRemoveProductRequest" />
+            <output message="typens:catalogCategoryRemoveProductResponse" />
+        </operation>
+        <operation name="catalogCategoryAttributeCurrentStore">
+            <documentation>Set/Get current store view</documentation>
+            <input message="typens:catalogCategoryAttributeCurrentStoreRequest" />
+            <output message="typens:catalogCategoryAttributeCurrentStoreResponse" />
+        </operation>
+        <operation name="catalogCategoryAttributeList">
+            <documentation>Retrieve category attributes</documentation>
+            <input message="typens:catalogCategoryAttributeListRequest" />
+            <output message="typens:catalogCategoryAttributeListResponse" />
+        </operation>
+        <operation name="catalogCategoryAttributeOptions">
+            <documentation>Retrieve attribute options</documentation>
+            <input message="typens:catalogCategoryAttributeOptionsRequest" />
+            <output message="typens:catalogCategoryAttributeOptionsResponse" />
+        </operation>
+        <operation name="catalogProductCurrentStore">
+            <documentation>Set/Get current store view</documentation>
+            <input message="typens:catalogCategoryCurrentStoreRequest" />
+            <output message="typens:catalogCategoryCurrentStoreResponse" />
+        </operation>
+        <operation name="catalogProductList">
+            <documentation>Retrieve products list by filters</documentation>
+            <input message="typens:catalogProductListRequest" />
+            <output message="typens:catalogProductListResponse" />
+        </operation>
+        <operation name="catalogProductInfo">
+            <documentation>Retrieve product</documentation>
+            <input message="typens:catalogProductInfoRequest" />
+            <output message="typens:catalogProductInfoResponse" />
+        </operation>
+        <operation name="catalogProductCreate">
+            <documentation>Create new product and return product id</documentation>
+            <input message="typens:catalogProductCreateRequest" />
+            <output message="typens:catalogProductCreateResponse" />
+        </operation>
+        <operation name="catalogProductUpdate">
+            <documentation>Update product</documentation>
+            <input message="typens:catalogProductUpdateRequest" />
+            <output message="typens:catalogProductUpdateResponse" />
+        </operation>
+        <operation name="catalogProductSetSpecialPrice">
+            <documentation>Update product special price</documentation>
+            <input message="typens:catalogProductSetSpecialPriceRequest" />
+            <output message="typens:catalogProductSetSpecialPriceResponse" />
+        </operation>
+        <operation name="catalogProductGetSpecialPrice">
+            <documentation>Get product special price data</documentation>
+            <input message="typens:catalogProductGetSpecialPriceRequest" />
+            <output message="typens:catalogProductGetSpecialPriceResponse" />
+        </operation>
+        <operation name="catalogProductDelete">
+            <documentation>Delete product</documentation>
+            <input message="typens:catalogProductDeleteRequest" />
+            <output message="typens:catalogProductDeleteResponse" />
+        </operation>
+        <operation name="catalogProductAttributeCurrentStore">
+            <documentation>Set/Get current store view</documentation>
+            <input message="typens:catalogCategoryCurrentStoreRequest" />
+            <output message="typens:catalogCategoryCurrentStoreResponse" />
+        </operation>
+        <operation name="catalogProductAttributeList">
+            <documentation>Retrieve attribute list</documentation>
+            <input message="typens:catalogProductAttributeListRequest" />
+            <output message="typens:catalogProductAttributeListResponse" />
+        </operation>
+        <operation name="catalogProductAttributeOptions">
+            <documentation>Retrieve attribute options</documentation>
+            <input message="typens:catalogProductAttributeOptionsRequest" />
+            <output message="typens:catalogProductAttributeOptionsResponse" />
+        </operation>
+        <operation name="catalogProductAttributeSetList">
+            <documentation>Retrieve product attribute sets</documentation>
+            <input message="typens:catalogProductAttributeSetListRequest" />
+            <output message="typens:catalogProductAttributeSetListResponse" />
+        </operation>
+        <operation name="catalogProductTypeList">
+            <documentation>Retrieve product types</documentation>
+            <input message="typens:catalogProductTypeListRequest" />
+            <output message="typens:catalogProductTypeListResponse" />
+        </operation>
+        <operation name="catalogProductAttributeTierPriceInfo">
+            <documentation>Retrieve product tier prices</documentation>
+            <input message="typens:catalogProductAttributeTierPriceInfoRequest" />
+            <output message="typens:catalogProductAttributeTierPriceInfoResponse" />
+        </operation>
+        <operation name="catalogProductAttributeTierPriceUpdate">
+            <documentation>Update product tier prices</documentation>
+            <input message="typens:catalogProductAttributeTierPriceUpdateRequest" />
+            <output message="typens:catalogProductAttributeTierPriceUpdateResponse" />
+        </operation>
+        <operation name="catalogProductAttributeMediaCurrentStore">
+            <documentation>Set/Get current store view</documentation>
+            <input message="typens:catalogCategoryCurrentStoreRequest" />
+            <output message="typens:catalogCategoryCurrentStoreResponse" />
+        </operation>
+        <operation name="catalogProductAttributeMediaList">
+            <documentation>Retrieve product image list</documentation>
+            <input message="typens:catalogProductAttributeMediaListRequest" />
+            <output message="typens:catalogProductAttributeMediaListResponse" />
+        </operation>
+        <operation name="catalogProductAttributeMediaInfo">
+            <documentation>Retrieve product image data</documentation>
+            <input message="typens:catalogProductAttributeMediaInfoRequest" />
+            <output message="typens:catalogProductAttributeMediaInfoResponse" />
+        </operation>
+        <operation name="catalogProductAttributeMediaTypes">
+            <documentation>Retrieve product image types</documentation>
+            <input message="typens:catalogProductAttributeMediaTypesRequest" />
+            <output message="typens:catalogProductAttributeMediaTypesResponse" />
+        </operation>
+        <operation name="catalogProductAttributeMediaCreate">
+            <documentation>Upload new product image</documentation>
+            <input message="typens:catalogProductAttributeMediaCreateRequest" />
+            <output message="typens:catalogProductAttributeMediaCreateResponse" />
+        </operation>
+        <operation name="catalogProductAttributeMediaUpdate">
+            <documentation>Update product image</documentation>
+            <input message="typens:catalogProductAttributeMediaUpdateRequest" />
+            <output message="typens:catalogProductAttributeMediaUpdateResponse" />
+        </operation>
+        <operation name="catalogProductAttributeMediaRemove">
+            <documentation>Remove product image</documentation>
+            <input message="typens:catalogProductAttributeMediaRemoveRequest" />
+            <output message="typens:catalogProductAttributeMediaRemoveResponse" />
+        </operation>
+        <operation name="catalogProductLinkList">
+            <documentation>Retrieve linked products</documentation>
+            <input message="typens:catalogProductLinkListRequest" />
+            <output message="typens:catalogProductLinkListResponse" />
+        </operation>
+        <operation name="catalogProductLinkAssign">
+            <documentation>Assign product link</documentation>
+            <input message="typens:catalogProductLinkAssignRequest" />
+            <output message="typens:catalogProductLinkAssignResponse" />
+        </operation>
+        <operation name="catalogProductLinkUpdate">
+            <documentation>Update product link</documentation>
+            <input message="typens:catalogProductLinkUpdateRequest" />
+            <output message="typens:catalogProductLinkUpdateResponse" />
+        </operation>
+        <operation name="catalogProductLinkRemove">
+            <documentation>Remove product link</documentation>
+            <input message="typens:catalogProductLinkRemoveRequest" />
+            <output message="typens:catalogProductLinkRemoveResponse" />
+        </operation>
+        <operation name="catalogProductLinkTypes">
+            <documentation>Retrieve product link types</documentation>
+            <input message="typens:catalogProductLinkTypesRequest" />
+            <output message="typens:catalogProductLinkTypesResponse" />
+        </operation>
+        <operation name="catalogProductLinkAttributes">
+            <documentation>Retrieve product link type attributes</documentation>
+            <input message="typens:catalogProductLinkAttributesRequest" />
+            <output message="typens:catalogProductLinkAttributesResponse" />
+        </operation>
+    </portType>
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="catalogCategoryCurrentStore">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogCategoryTree">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogCategoryLevel">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogCategoryInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogCategoryCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogCategoryUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogCategoryMove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogCategoryDelete">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogCategoryAssignedProducts">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogCategoryAssignProduct">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogCategoryUpdateProduct">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogCategoryRemoveProduct">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductCurrentStore">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductSetSpecialPrice">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductGetSpecialPrice">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductDelete">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeCurrentStore">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeOptions">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeSetList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductTypeList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeTierPriceInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeTierPriceUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogCategoryAttributeCurrentStore">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogCategoryAttributeList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogCategoryAttributeOptions">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeMediaCurrentStore">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeMediaList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeMediaInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeMediaTypes">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeMediaCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeMediaUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductAttributeMediaRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductLinkList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductLinkAssign">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductLinkUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductLinkRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductLinkTypes">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="catalogProductLinkAttributes">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+    </binding>
+    <service name="{{var wsdl.name}}Service">
+        <port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
+            <soap:address location="{{var wsdl.url}}" />
+        </port>
+    </service>
+</definitions>

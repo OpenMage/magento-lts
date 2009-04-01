@@ -288,6 +288,7 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
         $this->unsPackageXml();
         $this->unsRoles();
         $xml = Mage::helper('core')->assocToXml($this->getData());
+        $xml = new Varien_Simplexml_Element($xml->asXML());
 
         // prepare dir to save
         $parts = explode(DS, $fileName);
@@ -299,7 +300,7 @@ class Mage_Adminhtml_Model_Extension extends Varien_Object
             }
         }
 
-        if (!@file_put_contents($dir . DS . $fileName . '.xml', $xml->asXML())) {
+        if (!@file_put_contents($dir . DS . $fileName . '.xml', $xml->asNiceXml())) {
             return false;
         }
 

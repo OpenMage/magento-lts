@@ -106,6 +106,7 @@
         reloadPrice : function(){
             price = new Number();
             config = this.config;
+            skipIds = [];
             $$('.product-custom-option').each(function(element){
                 var optionId = 0;
                 element.name.sub(/[0-9]+/, function(match){
@@ -117,6 +118,17 @@
                             if (config[optionId][element.getValue()]) {
                                 price += parseFloat(config[optionId][element.getValue()]);
                             }
+                        }
+                    } else if(element.hasClassName('datetime-picker') && !skipIds.include(optionId)) {
+                        dateSelected = true;
+                        $$('.product-custom-option[id^="options_' + optionId + '"]').each(function(dt){
+                            if (dt.getValue() == '') {
+                                dateSelected = false;
+                            }
+                        });
+                        if (dateSelected) {
+                            price += parseFloat(this.config[optionId]);
+                            skipIds[optionId] = optionId;
                         }
                     } else if(element.type == 'select-one' || element.type == 'select-multiple') {
                         if (element.options) {

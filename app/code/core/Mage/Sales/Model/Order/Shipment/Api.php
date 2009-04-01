@@ -65,8 +65,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
         if (is_array($filters)) {
             try {
                 foreach ($filters as $field => $value) {
-                    if (isset($this->_filtersMap[$field])) {
-                        $field = $this->_filtersMap[$field];
+                    if (isset($this->_attributesMap['shipment'][$field])) {
+                        $field = $this->_attributesMap['shipment'][$field];
                     }
 
                     $collection->addFieldToFilter($field, $value);

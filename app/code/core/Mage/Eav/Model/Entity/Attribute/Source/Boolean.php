@@ -27,6 +27,11 @@
 
 class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
+    /**
+     * Retrieve all options array
+     *
+     * @return array
+     */
     public function getAllOptions()
     {
         if (is_null($this->_options)) {
@@ -45,6 +50,20 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     }
 
     /**
+     * Retrieve option array
+     *
+     * @return array
+     */
+    public function getOptionArray()
+    {
+        $_options = array();
+        foreach ($this->getAllOptions() as $option) {
+            $_options[$option['value']] = $option['label'];
+        }
+        return $_options;
+    }
+
+    /**
      * Get a text for option value
      *
      * @param string|integer $value
@@ -59,5 +78,46 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
             }
         }
         return false;
+    }
+
+    /**
+     * Retrieve Column(s) for Flat
+     *
+     * @return array
+     */
+    public function getFlatColums()
+    {
+        $columns = array();
+        $columns[$this->getAttribute()->getAttributeCode()] = array(
+            'type'      => 'int',
+            'unsigned'  => false,
+            'is_null'   => true,
+            'default'   => null,
+            'extra'     => null
+        );
+
+        return $columns;
+    }
+
+    /**
+     * Retrieve Indexes(s) for Flat
+     *
+     * @return array
+     */
+    public function getFlatIndexes()
+    {
+        return array();
+    }
+
+    /**
+     * Retrieve Select For Flat Attribute update
+     *
+     * @param int $store
+     * @return Varien_Db_Select|null
+     */
+    public function getFlatUpdateSelect($store)
+    {
+        return Mage::getResourceModel('eav/entity_attribute')
+            ->getFlatUpdateSelect($this->getAttribute(), $store);
     }
 }

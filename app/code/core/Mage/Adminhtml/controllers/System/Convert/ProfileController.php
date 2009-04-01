@@ -267,6 +267,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
             /* @var $batchModel Mage_Dataflow_Model_Batch */
 
             if ($batchModel->getId()) {
+                $result = array();
                 try {
                     $batchModel->beforeFinish();
                 }

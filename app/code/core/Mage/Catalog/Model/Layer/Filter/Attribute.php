@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer_Filter_Abstract
 {
@@ -37,6 +37,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
 
     /**
      * Construct attribute filter
+     *
      */
     public function __construct()
     {
@@ -50,7 +51,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
      * @param   int $optionId
      * @return  unknown
      */
-    protected  function _getOptionText($optionId)
+    protected function _getOptionText($optionId)
     {
         return $this->getAttributeModel()->getFrontend()->getOption($optionId);
     }

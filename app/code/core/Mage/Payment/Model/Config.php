@@ -126,7 +126,7 @@ class Mage_Payment_Model_Config
         $years = array();
         $first = date("Y");
 
-        for ($index=0; $index<10; $index++) {
+        for ($index=0; $index <= 10; $index++) {
             $year = $first + $index;
             $years[$year] = $year;
         }

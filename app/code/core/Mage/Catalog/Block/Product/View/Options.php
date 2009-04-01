@@ -57,7 +57,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     {
         if (!$this->_product) {
             if (Mage::registry('product')) {
-                $this->_product = Mage::registry('product');
+                $this->_product = Mage::registry('current_product');
             } else {
                 $this->_product = Mage::getSingleton('catalog/product');
             }
@@ -71,7 +71,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      * @param Mage_Catalog_Model_Product $product
      * @return Mage_Catalog_Block_Product_View_Options
      */
-    public function setProduct($product)
+    public function setProduct(Mage_Catalog_Model_Product $product = null)
     {
         $this->_product = $product;
         return $this;
@@ -172,6 +172,9 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
             $renderer['renderer'] = $this->getLayout()->createBlock($renderer['block'])
                 ->setTemplate($renderer['template']);
         }
-        return $renderer['renderer']->setOption($option)->toHtml();
+        return $renderer['renderer']
+            ->setProduct($this->getProduct())
+            ->setOption($option)
+            ->toHtml();
     }
 }

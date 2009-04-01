@@ -31,7 +31,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Adminhtml_Block_Sales_Order_Abstract
+class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Adminhtml_Block_Sales_Order_Totals
 {
     /**
      * Retrieve required options from parent

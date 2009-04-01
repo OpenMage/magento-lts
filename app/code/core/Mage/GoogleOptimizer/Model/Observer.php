@@ -125,6 +125,13 @@ class Mage_GoogleOptimizer_Model_Observer
      */
     public function appendToPageGoogleOptimizerScripts($observer)
     {
+        /**
+         * Check activity for frontend
+         */
+        if (Mage::app()->getStore()->getId() && !Mage::helper('googleoptimizer')->isOptimizerActive()) {
+            return $this;
+        }
+        
         $cmsPage = $observer->getEvent()->getObject();
         $googleOptimizerModel = Mage::getModel('googleoptimizer/code_page')
             ->setEntity($cmsPage)

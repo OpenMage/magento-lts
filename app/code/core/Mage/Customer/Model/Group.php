@@ -35,6 +35,22 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     const NOT_LOGGED_IN_ID  = 0;
     const CUST_GROUP_ALL    = 32000;
 
+    /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'customer_group';
+
+    /**
+     * Parameter name in event
+     *
+     * In observe method you can use $observer->getEvent()->getObject() in this case
+     *
+     * @var string
+     */
+    protected $_eventObject = 'object';
+
     protected static $_taxClassIds = array();
 
     protected function _construct()

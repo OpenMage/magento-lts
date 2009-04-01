@@ -325,7 +325,18 @@ Varien.searchForm.prototype = {
             {
                 paramName: this.field.name,
                 minChars: 2,
-                updateElement: this._selectAutocompleteItem.bind(this)
+                updateElement: this._selectAutocompleteItem.bind(this),
+                onShow : function(element, update) { 
+                    if(!update.style.position || update.style.position=='absolute') {
+                        update.style.position = 'absolute';
+                        Position.clone(element, update, {
+                            setHeight: false, 
+                            offsetTop: element.offsetHeight
+                        });
+                    }
+                    Effect.Appear(update,{duration:0});
+                }
+
             }
         );
     },
@@ -334,7 +345,7 @@ Varien.searchForm.prototype = {
         if(element.title){
             this.field.value = element.title;
         }
-        this.submit();
+        this.form.submit();
     }
 }
 

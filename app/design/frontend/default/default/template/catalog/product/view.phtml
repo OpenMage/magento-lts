@@ -33,7 +33,7 @@
 ?>
 <?php
     $_helper = $this->helper('catalog/output');
-    $_product = $this->getProduct()
+    $_product = $this->getProduct();
 ?>
 <script type="text/javascript">
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
@@ -41,7 +41,7 @@
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 <div class="product-info-box">
     <div class="product-essential">
-    <form action="<?php echo $this->getAddToCartUrl($_product) ?>" method="post" id="product_addtocart_form">
+    <form action="<?php echo $this->getAddToCartUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
 
         <div class="product-img-box">
             <?php echo $this->getChildHtml('media') ?>

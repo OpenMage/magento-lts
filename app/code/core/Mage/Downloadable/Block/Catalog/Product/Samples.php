@@ -41,7 +41,8 @@ class Mage_Downloadable_Block_Catalog_Product_Samples extends Mage_Catalog_Block
      */
     public function hasSamples()
     {
-        return $this->getProduct()->getTypeInstance()->hasSamples();
+        return $this->getProduct()->getTypeInstance(true)
+            ->hasSamples($this->getProduct());
     }
 
     /**
@@ -51,7 +52,8 @@ class Mage_Downloadable_Block_Catalog_Product_Samples extends Mage_Catalog_Block
      */
     public function getSamples()
     {
-        return $this->getProduct()->getTypeInstance()->getSamples();
+        return $this->getProduct()->getTypeInstance(true)
+            ->getSamples($this->getProduct());
     }
 
     public function getSampleUrl($sample)

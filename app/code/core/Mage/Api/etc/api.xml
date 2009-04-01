@@ -38,6 +38,16 @@
                     </extensions>
                 </required>
             </soap>
+            <soap_v2>
+                <model>api/server_v2_adapter_soap</model>
+                <handler>soap_v2</handler>
+                <active>1</active>
+                <required>
+                    <extensions>
+                        <soap />
+                    </extensions>
+                </required>
+            </soap_v2>
             <xmlrpc>
                 <model>api/server_adapter_xmlrpc</model>
                 <handler>default</handler>
@@ -51,6 +61,9 @@
             <default>
                 <model>api/server_handler</model>
             </default>
+            <soap_v2>
+                <model>api/server_v2_handler</model>
+            </soap_v2>
         </handlers>
         <resources>
         </resources>

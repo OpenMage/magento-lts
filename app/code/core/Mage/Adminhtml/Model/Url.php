@@ -26,6 +26,11 @@
 class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
 {
     /**
+     * Secret key query param name
+     */
+    const SECRET_KEY_PARAM_NAME = 'key';
+
+    /**
      * Retrieve is secure mode for ULR logic
      *
      * @return bool
@@ -38,4 +43,89 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
         return Mage::getStoreConfigFlag('web/secure/use_in_adminhtml');
     }
 
+    /**
+     * Force strip secret key param if _nosecret param specified
+     *
+     * @return Mage_Core_Model_Url
+     */
+    public function setRouteParams(array $data, $unsetOldParams=true)
+    {
+        if (isset($data['_nosecret'])) {
+            $this->setNoSecret(true);
+            unset($data['_nosecret']);
+        }
+
+        return parent::setRouteParams($data, $unsetOldParams);
+    }
+
+    /**
+     * Custom logic to retrieve Urls
+     *
+     * @param string $routePath
+     * @param array $routeParams
+     * @return string
+     */
+    public function getUrl($routePath=null, $routeParams=null)
+    {
+        $result = parent::getUrl($routePath, $routeParams);
+
+        if (!$this->useSecretKey() || $this->getNoSecret()) {
+            return $result;
+        }
+
+        $_route = $this->getRouteName() ? $this->getRouteName() : '*';
+        $_controller = $this->getControllerName() ? $this->getControllerName() : $this->getDefaultControllerName();
+        $_action = $this->getActionName() ? $this->getActionName() : $this->getDefaultActionName();
+        $secret = array(self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($_controller, $_action));
+        if (is_array($routeParams)) {
+            $routeParams = array_merge($secret, $routeParams);
+        } else {
+            $routeParams = $secret;
+        }
+        if (is_array($this->getRouteParams())) {
+            $routeParams = array_merge($this->getRouteParams(), $routeParams);
+        }
+        return parent::getUrl("{$_route}/{$_controller}/{$_action}", $routeParams);
+    }
+
+    /**
+     * Generate secret key for controller and action based on form key
+     *
+     * @param string $controller Controller name
+     * @param string $action Action name
+     * @return string
+     */
+    public function getSecretKey($controller = null, $action = null)
+    {
+        $salt = Mage::getSingleton('core/session')->getFormKey();
+        if (!$controller) {
+            $controller = $this->getRequest()->getControllerName();
+        }
+        if (!$action) {
+            $action = $this->getRequest()->getActionName();
+        }
+
+        $secret = $controller . $action . $salt;
+        return Mage::helper('core')->getHash($secret);
+    }
+
+    /**
+     * Return secret key settings flag
+     *
+     * @return boolean
+     */
+    public function useSecretKey()
+    {
+        return Mage::getStoreConfigFlag('admin/security/use_form_key');
+    }
+
+    /**
+     * Refresh admin menu cache etc.
+     *
+     * @return Mage_Adminhtml_Model_Url
+     */
+    public function renewSecretUrls()
+    {
+        Mage::app()->cleanCache(array(Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS));
+    }
 }

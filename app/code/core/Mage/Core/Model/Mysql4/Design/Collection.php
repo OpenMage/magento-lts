@@ -54,7 +54,7 @@ class Mage_Core_Model_Mysql4_Design_Collection extends Mage_Core_Model_Mysql4_Co
     public function addStoreFilter($storeId)
     {
         $this->getSelect()
-            ->where('main_table.store_id = ?', $storeId);
+            ->where('main_table.store_id IN(?)', $storeId);
 
         return $this;
     }

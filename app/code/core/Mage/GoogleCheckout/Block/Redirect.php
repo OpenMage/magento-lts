@@ -29,7 +29,6 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @name        Mage_GoogleCheckout_Block_Redirect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GoogleCheckout_Block_Redirect extends Mage_Page_Block_Redirect
@@ -37,8 +36,7 @@ class Mage_GoogleCheckout_Block_Redirect extends Mage_Page_Block_Redirect
     /**
      *  Description goes here...
      *
-     *  @param    none
-     *  @return	  void
+     *  @return	  string
      */
     public function getTargetURL ()
     {

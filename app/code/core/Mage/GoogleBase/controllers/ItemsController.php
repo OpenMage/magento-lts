@@ -117,6 +117,8 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addError($e->getMessage());
             $this->_redirectToCaptcha($e);
             return;
+        } catch (Zend_Gdata_App_Exception $e) {
+            $this->_getSession()->addError( $this->_parseGdataExceptionMessage($e->getMessage()) );
         } catch (Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
@@ -151,6 +153,8 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addError($e->getMessage());
             $this->_redirectToCaptcha($e);
             return;
+        } catch (Zend_Gdata_App_Exception $e) {
+            $this->_getSession()->addError( $this->_parseGdataExceptionMessage($e->getMessage()) );
         } catch (Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
@@ -184,6 +188,8 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addError($e->getMessage());
             $this->_redirectToCaptcha($e);
             return;
+        } catch (Zend_Gdata_App_Exception $e) {
+            $this->_getSession()->addError( $this->_parseGdataExceptionMessage($e->getMessage()) );
         } catch (Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
@@ -217,6 +223,8 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addError($e->getMessage());
             $this->_redirectToCaptcha($e);
             return;
+        } catch (Zend_Gdata_App_Exception $e) {
+            $this->_getSession()->addError( $this->_parseGdataExceptionMessage($e->getMessage()) );
         } catch (Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
@@ -276,6 +284,8 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addError($e->getMessage());
             $this->_redirectToCaptcha($e);
             return;
+        } catch (Zend_Gdata_App_Exception $e) {
+            $this->_getSession()->addError( $this->_parseGdataExceptionMessage($e->getMessage()) );
         } catch (Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
@@ -298,6 +308,8 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addError($this->__('Captcha confirmation error: %s', $e->getMessage()));
             $this->_redirectToCaptcha($e);
             return;
+        } catch (Zend_Gdata_App_Exception $e) {
+            $this->_getSession()->addError( $this->_parseGdataExceptionMessage($e->getMessage()) );
         } catch (Exception $e) {
             $this->_getSession()->addError($this->__('Captcha confirmation error: %s', $e->getMessage()));
         }
@@ -337,5 +349,30 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
     protected function _isAllowed()
     {
         return Mage::getSingleton('admin/session')->isAllowed('catalog/googlebase/items');
+    }
+
+    /**
+     * Parse Exception Response Body
+     *
+     * @param string $message Exception message to parse
+     * @return string
+     */
+    protected function _parseGdataExceptionMessage($message)
+    {
+        $result = array();
+        foreach (explode("\n", $message) as $row) {
+            if (strip_tags($row) == $row) {
+                $result[] = $row;
+                continue;
+            }
+            try {
+                $xml = new Varien_Simplexml_Element($row);
+                $error = $xml->getAttribute('reason');
+                $result[] = $error;
+            } catch (Exception $e) {
+                continue;
+            }
+        }
+        return implode(" ", $result);
     }
 }

@@ -3935,9 +3935,13 @@ Object.extend(Event, (function() {
   var cache = Event.cache;
 
   function getEventID(element) {
-    if (element._prototypeEventID) return element._prototypeEventID[0];
-    arguments.callee.id = arguments.callee.id || 1;
-    return element._prototypeEventID = [++arguments.callee.id];
+    try {
+      if (element._prototypeEventID) return element._prototypeEventID[0];
+      arguments.callee.id = arguments.callee.id || 1;
+      return element._prototypeEventID = [++arguments.callee.id];
+    } catch (error) {
+      return false;
+    }
   }
 
   function getDOMEventName(eventName) {

@@ -57,18 +57,25 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
      */
     public function isValueChanged()
     {
-        $storeCode      = $this->getStoreCode();
-        $websiteCode    = $this->getWebsiteCode();
-        $path           = $this->getPath();
+        return $this->getValue() != $this->getOldValue();
+    }
 
-        $newValue       = $this->getValue();
+    /**
+     * Get old value from existing config
+     *
+     * @return string
+     */
+    public function getOldValue()
+    {
+        $storeCode   = $this->getStoreCode();
+        $websiteCode = $this->getWebsiteCode();
+        $path        = $this->getPath();
         if ($websiteCode) {
-            $oldValue = Mage::app()->getWebsite($websiteCode)->getConfig($path);
-        } elseif ($storeCode) {
-            $oldValue = Mage::app()->getStore($storeCode)->getConfig($path);
-        } else {
-            $oldValue = (string) Mage::getConfig()->getNode('default/'.$path);
+            return Mage::app()->getWebsite($websiteCode)->getConfig($path);
         }
-        return $newValue != $oldValue;
+        if ($storeCode) {
+            return Mage::app()->getStore($storeCode)->getConfig($path);
+        }
+        return (string) Mage::getConfig()->getNode('default/' . $path);
     }
 }

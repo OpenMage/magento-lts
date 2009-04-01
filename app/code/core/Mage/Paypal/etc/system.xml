@@ -290,7 +290,7 @@
                     <fields>
                         <api_password translate="label">
                             <label>API Password</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
@@ -300,7 +300,7 @@
                         <api_signature translate="label">
                             <label>API Signature</label>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>obscure</frontend_type>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -308,7 +308,7 @@
                         </api_signature>
                         <api_username translate="label">
                             <label>API User Name</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
@@ -389,7 +389,7 @@
                     <fields>
                         <business_account translate="label">
                             <label>Business Account</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>

@@ -109,13 +109,21 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (is_null($this->_queryText)) {
             $this->_queryText = $this->_getRequest()->getParam($this->getQueryParamName());
-            if (is_array($this->_queryText)) {
-                $this->_queryText = null;
-            }
-            $this->_queryText = trim($this->_queryText);
-            if (Mage::helper('core/string')->strlen($this->_queryText) > $this->getMaxQueryLength()) {
-                $this->_queryText = Mage::helper('core/string')->substr($this->_queryText, 0, $this->getMaxQueryLength());
-                $this->_isMaxLength = true;
+            if ($this->_queryText === null) {
+                $this->_queryText = '';
+            } else {
+                if (is_array($this->_queryText)) {
+                    $this->_queryText = null;
+                }
+                $this->_queryText = trim($this->_queryText);
+                if (Mage::helper('core/string')->strlen($this->_queryText) > $this->getMaxQueryLength()) {
+                    $this->_queryText = Mage::helper('core/string')->substr(
+                        $this->_queryText,
+                        0,
+                        $this->getMaxQueryLength()
+                    );
+                    $this->_isMaxLength = true;
+                }
             }
         }
         return $this->_queryText;

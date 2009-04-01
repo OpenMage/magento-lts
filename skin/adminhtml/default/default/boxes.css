@@ -196,11 +196,11 @@ table.actions td                { vertical-align:top; }
 .grid tr.filter th.last          { border-right:0; }
 .grid tr.filter input.input-text { width:85%; }
 .grid tr.filter select           { width:100%; }
-.grid tr.filter .range div.range-line { margin-bottom:4px; width:100px; }
+.grid tr.filter .range .range-line { margin-bottom:3px; width:100px; }
 .grid tr.filter .range div.date  { min-width:121px; }
-.grid tr.filter .range input     { width:4.5em !important; margin-bottom:-1px; margin-top:0; }
-.grid tr.filter .range select    { width:5em !important; width:4.88em; margin-bottom:-1px; margin-top:0; }
-.grid tr.filter .range .label    { display:block; width:3em; float:left; padding-left:2px; }
+.grid tr.filter .range input     { float:right; width:50px !important; margin-top:0; }
+.grid tr.filter .range select    { float:right; width:56px !important; margin-top:0; }
+.grid tr.filter .range .label    { display:block; width:36px; float:left; padding-left:2px; }
 .grid tr.filter .date img        { width:15px; height:15px; cursor:pointer; vertical-align:middle; }
 .grid .head-massaction select    { width:50px !important; }
 
@@ -1186,4 +1186,5 @@ div.actions:after,
 .clear:after,
 .notification-global:after,
 .files .row:after,
-.files-wide .row:after { display:block; clear:both; content:"."; font-size:0; line-height:0; height:0; overflow:hidden; }
+.files-wide .row:after,
+.grid tr.filter .range .range-line:after { display:block; clear:both; content:"."; font-size:0; line-height:0; height:0; overflow:hidden; }

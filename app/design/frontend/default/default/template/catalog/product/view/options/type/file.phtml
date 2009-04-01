@@ -26,14 +26,16 @@
 ?>
 <?php $_option = $this->getOption() ?>
 <dt><label><?php echo  $this->htmlEscape($_option->getTitle()) ?><?php if ($_option->getIsRequire()): ?><span class="required">&nbsp;*</span><?php endif; ?></label>
-        (
-        <?php if ($_option->getPriceType() == 'fixed'): ?>
-            <?php echo $this->helper('core')->currency($_option->getPrice()) ?>
-        <?php else: ?>
-            <?php echo '%' . number_format($_option->getPrice(), 0, null, '') ?>
-        <?php endif; ?>
-        )</dt>
-<dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>><input type="file" id="option_<?php echo $_option->getId() ?>_file" name="option_file" />
-    <input type="button" id="option_<?php echo $_option->getId() ?>" name="upload" value="Upload" onclick="optionFileUpload.upload(this)" />
-    <input type="hidden" id="option_<?php echo $_option->getId() ?>_uploaded_file" name="options[<?php echo $_option->getId() ?>][file]" value="" />
+    <?php echo $this->getFormatedPrice() ?></dt>
+<dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
+<input type="file" id="option_<?php echo $_option->getId() ?>_file"  name="options_<?php echo $_option->getId() ?>_file" class="product-custom-option<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?>" onchange="opConfig.reloadPrice()"/>
+<?php if ($_option->getFileExtension()): ?>
+<p class="no-margin"><?php echo Mage::helper('catalog')->__('Allowed file extensions to upload')?>: <strong><?php echo $_option->getFileExtension() ?></strong></p>
+<?php endif; ?>
+<?php if ($_option->getImageSizeX() > 0): ?>
+<p class="no-margin"><?php echo Mage::helper('catalog')->__('Maximum image width')?>: <strong><?php echo $_option->getImageSizeX() ?> <?php echo Mage::helper('catalog')->__('px.')?></strong></p>
+<?php endif; ?>
+<?php if ($_option->getImageSizeY() > 0): ?>
+<p class="no-margin"><?php echo Mage::helper('catalog')->__('Maximum image height')?>: <strong><?php echo $_option->getImageSizeY() ?> <?php echo Mage::helper('catalog')->__('px.')?></strong></p>
+<?php endif; ?>
 </dd>

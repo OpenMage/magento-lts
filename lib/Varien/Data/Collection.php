@@ -107,6 +107,13 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
 
     protected $_cacheLifetime = 86400;
 
+    /**
+     * Additional collection flags
+     *
+     * @var array
+     */
+    protected $_flags = array();
+
     public function __construct()
     {
 
@@ -699,5 +706,40 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     public function getCacheLifetime()
     {
         return $this->_cacheLifetime;
+    }
+
+    /**
+     * Retrieve Flag
+     *
+     * @param string $flag
+     * @return mixed
+     */
+    public function getFlag($flag)
+    {
+        return isset($this->_flags[$flag]) ? $this->_flags[$flag] : null;
+    }
+
+    /**
+     * Set Flag
+     *
+     * @param string $flag
+     * @param mixed $value
+     * @return Varien_Data_Collection
+     */
+    public function setFlag($flag, $value = null)
+    {
+        $this->_flags[$flag] = $value;
+        return $this;
+    }
+
+    /**
+     * Has Flag
+     *
+     * @param string $flag
+     * @return bool
+     */
+    public function hasFlag($flag)
+    {
+        return array_key_exists($flag, $this->_flags);
     }
 }

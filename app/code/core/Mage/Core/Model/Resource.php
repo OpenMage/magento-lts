@@ -57,6 +57,8 @@ class Mage_Core_Model_Resource
      * @var array
      */
     protected $_entities = array();
+    
+    protected $_mappedTableNames;
 
     /**
      * Creates a connection to resource whenever needed
@@ -142,12 +144,36 @@ class Mage_Core_Model_Resource
         } else {
             $tableName = $modelEntity;
         }
+        
+        Mage::dispatchEvent('resource_get_tablename', array('resource' => $this, 'model_entity' => $modelEntity, 'table_name' => $tableName));
+        $mappedTableName = $this->getMappedTableName($tableName);
+        if ($mappedTableName) {
+        	$tableName = $mappedTableName;
+        } else {
+        	$tablePrefix = (string)Mage::getConfig()->getTablePrefix();
+        	$tableName = $tablePrefix . $tableName;
+        }
 
-        $tablePrefix = (string)Mage::getConfig()->getTablePrefix();
-        return $tablePrefix . $tableName;
+        return $tableName;
     }
 
-    public function cleanDbRow(&$row) {
+    public function setMappedTableName($tableName, $mappedName)
+    {
+    	$this->_mappedTableNames[$tableName] = $mappedName;
+    	return $this;
+    }
+    
+    public function getMappedTableName($tableName)
+    {
+    	if (isset($this->_mappedTableNames[$tableName])) {
+    		return $this->_mappedTableNames[$tableName];
+    	} else {
+    		return false;
+    	}
+    }
+    
+    public function cleanDbRow(&$row)
+    {
         if (!empty($row) && is_array($row)) {
             foreach ($row as $key=>&$value) {
                 if (is_string($value) && $value==='0000-00-00 00:00:00') {
@@ -158,7 +184,6 @@ class Mage_Core_Model_Resource
         return $this;
     }
 
-
     public function createConnection($name, $type, $config)
     {
         if (!isset($this->_connections[$name])) {
@@ -167,7 +192,6 @@ class Mage_Core_Model_Resource
         }
         return $this->_connections[$name];
     }
-
 
     public function checkDbConnection()
     {
@@ -189,4 +213,3 @@ class Mage_Core_Model_Resource
     }
 
 }
-

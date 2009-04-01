@@ -28,8 +28,8 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
 {
     protected $_available = null;
 
-    protected $_httpsObjectUrl = 'https://widgets.magentocommerce.com/messagePopupWindow';
-    protected $_httpObjectUrl = 'http://widgets.magentocommerce.com/messagePopupWindow';
+    protected $_httpsObjectUrl = 'https://widgets.magentocommerce.com/notificationPopup';
+    protected $_httpObjectUrl = 'http://widgets.magentocommerce.com/notificationPopup';
 
     protected $_aclResourcePath = 'admin/system/adminnotification/show_toolbar';
 

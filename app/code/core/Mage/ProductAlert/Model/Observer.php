@@ -30,9 +30,9 @@
  *
  * @category   Mage
  * @package    Mage_ProductAlert
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_productAlert_Model_Observer
+class Mage_ProductAlert_Model_Observer
 {
     /**
      * Error email template configuration
@@ -103,6 +103,8 @@ class Mage_productAlert_Model_Observer
     {
         $email->setType('price');
         foreach ($this->_getWebsites() as $website) {
+            /* @var $website Mage_Core_Model_Website */
+
             if (!$website->getDefaultGroup() || !$website->getDefaultGroup()->getDefaultStore()) {
                 continue;
             }
@@ -140,7 +142,9 @@ class Mage_productAlert_Model_Observer
                         $customer = $previousCustomer;
                     }
 
-                    $product = Mage::getModel('catalog/product')->load($alert->getProductId());
+                    $product = Mage::getModel('catalog/product')
+                        ->setStoreId($website->getDefaultStore()->getId())
+                        ->load($alert->getProductId());
                     if (!$product) {
                         continue;
                     }
@@ -151,6 +155,7 @@ class Mage_productAlert_Model_Observer
                         $alert->setPrice($product->getFinalPrice());
                         $alert->setLastSendDate(Mage::getModel('core/date')->gmtDate());
                         $alert->setSendCount($alert->getSendCount() + 1);
+                        $alert->setStatus(1);
                         $alert->save();
                     }
                 }
@@ -181,6 +186,8 @@ class Mage_productAlert_Model_Observer
         $email->setType('stock');
 
         foreach ($this->_getWebsites() as $website) {
+            /* @var $website Mage_Core_Model_Website */
+
             if (!$website->getDefaultGroup() || !$website->getDefaultGroup()->getDefaultStore()) {
                 continue;
             }
@@ -191,6 +198,7 @@ class Mage_productAlert_Model_Observer
                 $collection = Mage::getModel('productalert/stock')
                     ->getCollection()
                     ->addWebsiteFilter($website->getId())
+                    ->addStatusFilter(0)
                     ->setCustomerOrder();
             }
             catch (Exception $e) {
@@ -218,12 +226,17 @@ class Mage_productAlert_Model_Observer
                         $customer = $previousCustomer;
                     }
 
-                    $product = Mage::getModel('catalog/product')->load($alert->getProductId());
+                    $product = Mage::getModel('catalog/product')
+                        ->setStoreId($website->getDefaultStore()->getId())
+                        ->load($alert->getProductId());
+                    /* @var $product Mage_catalog_Model_Product */
                     if (!$product) {
                         continue;
                     }
+
                     $product->setCustomerGroupId($customer->getGroupId());
-                    if ($product->isSaleable()) {
+
+                    if ($product->isSalable()) {
                         $email->addStockProduct($product);
 
                         $alert->setSendDate(Mage::getModel('core/date')->gmtDate());
@@ -283,12 +296,19 @@ class Mage_productAlert_Model_Observer
         return $this;
     }
 
-    public function process($observer)
+    /**
+     * Run process send product alerts
+     *
+     * @return Mage_productAlert_Model_Observer
+     */
+    public function process()
     {
         $email = Mage::getModel('productalert/email');
         /* @var $email Mage_ProductAlert_Model_Email */
         $this->_processPrice($email);
         $this->_processStock($email);
         $this->_sendErrorEmail();
+
+        return $this;
     }
 }

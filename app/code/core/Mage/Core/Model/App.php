@@ -399,6 +399,7 @@ class Mage_Core_Model_App
 
         foreach ($storeCollection as $store) {
             /* @var $store Mage_Core_Model_Store */
+            $store->initConfigCache();
             $store->setWebsite($websiteCollection->getItemById($store->getWebsiteId()));
             $store->setGroup($groupCollection->getItemById($store->getGroupId()));
 
@@ -1127,11 +1128,6 @@ class Mage_Core_Model_App
 
     public function dispatchEvent($eventName, $args)
     {
-        $event = new Varien_Event($args);
-        $event->setName($eventName);
-
-        $observer = new Varien_Event_Observer();
-
         foreach ($this->_events as $area=>$events) {
             if (!isset($events[$eventName])) {
                 $eventConfig = $this->getConfig()->getEventConfig($area, $eventName);
@@ -1153,9 +1149,13 @@ class Mage_Core_Model_App
             }
             if (false===$events[$eventName]) {
                 continue;
+            } else {
+                $event = new Varien_Event($args);
+                $event->setName($eventName);
+                $observer = new Varien_Event_Observer();
             }
-            foreach ($events[$eventName]['observers'] as $obsName=>$obs) {
 
+            foreach ($events[$eventName]['observers'] as $obsName=>$obs) {
                 $observer->setData(array('event'=>$event));
                 Varien_Profiler::start('OBSERVER: '.$obsName);
                 switch ($obs['type']) {

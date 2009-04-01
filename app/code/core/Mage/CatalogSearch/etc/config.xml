@@ -133,6 +133,15 @@
                     </catalogsearch>
                 </observers>
             </store_add>
+            <catalog_product_website_update>
+                <observers>
+                    <catalogsearch>
+                        <type>singleton</type>
+                        <class>catalogsearch/fulltext_observer</class>
+                        <method>catalogProductWebsiteUpdate</method>
+                    </catalogsearch>
+                </observers>
+            </catalog_product_website_update>
         </events>
         <blocks>
             <catalogsearch><class>Mage_CatalogSearch_Block</class></catalogsearch>

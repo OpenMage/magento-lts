@@ -45,7 +45,7 @@
         <script type="text/javascript">decorateList('compare-items')</script>
         <div class="actions">
             <a href="<?php echo $this->helper('catalog/product_compare')->getClearListUrl() ?>" class="left" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove all products from your comparison?') ?>');"><?php echo $this->__('Clear All') ?></a>
-            <button class="form-button-alt" onclick="popWin('<?php echo $this->helper('catalog/product_compare')->getListUrl() ?>','compare','width=800,height=600,resizable=yes,scrollbars=yes')"><span><?php echo $this->__('Compare Items') ?></span></button>
+            <button type="button" class="form-button-alt" onclick="popWin('<?php echo $this->helper('catalog/product_compare')->getListUrl() ?>','compare','width=800,height=600,resizable=yes,scrollbars=yes')"><span><?php echo $this->__('Compare Items') ?></span></button>
         </div>
     <?php else: ?>
         <div class="content"><p><?php echo $this->__('You have no items to compare.') ?></p></div>

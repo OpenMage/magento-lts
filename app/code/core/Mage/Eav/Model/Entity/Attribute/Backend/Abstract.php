@@ -108,7 +108,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
      */
     public function isStatic()
     {
-        return (string)$this->getType()==='' || $this->getType()==='static';
+        return $this->getAttribute()->isStatic();
     }
 
     /**
@@ -183,7 +183,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
         if ($this->getAttribute()->getIsUnique() && !$this->getAttribute()->getIsRequired() && ($value == '' || $this->getAttribute()->isValueEmpty($value))) {
             return true;
         }
-        
+
         if ($this->getAttribute()->getIsUnique()) {
             if (!$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
                 $label = $this->getAttribute()->getFrontend()->getLabel();

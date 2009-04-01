@@ -154,11 +154,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         $this->loadLayout();
         $this->_setActiveMenu('catalog/products');
-
-        $this->_addContent(
-            $this->getLayout()->createBlock('adminhtml/catalog_product')
-        );
-
         $this->renderLayout();
     }
 
@@ -198,7 +193,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     public function editAction()
     {
         $product = $this->_initProduct();
-
         Mage::dispatchEvent('catalog_product_edit_action', array('product' => $product));
 
         $_additionalLayoutPart = '';
@@ -621,10 +615,9 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         if ($id = $this->getRequest()->getParam('id')) {
             $product = Mage::getModel('catalog/product')
-                ->setId($id);
-
+                ->load($id);
+            $sku = $product->getSku();
             try {
-                Mage::dispatchEvent('catalog_controller_product_delete', array('product'=>$product));
                 $product->delete();
                 $this->_getSession()->addSuccess($this->__('Product deleted'));
             }

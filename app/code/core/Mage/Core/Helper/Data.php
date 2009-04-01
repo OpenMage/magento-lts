@@ -31,7 +31,28 @@
  */
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    protected $_crypt;
+    /**
+     * @var Mage_Core_Model_Encryption
+     */
+    protected $_encryptor = null;
+
+    /**
+     * @return Mage_Core_Model_Encryption
+     */
+    public function getEncryptor()
+    {
+        if ($this->_encryptor === null) {
+            $encryptionModel = (string)Mage::getConfig()->getNode('global/helpers/core/encryption_model');
+            if ($encryptionModel) {
+                $this->_encryptor = new $encryptionModel;
+            } else {
+                $this->_encryptor = Mage::getModel('core/encryption');
+            }
+
+            $this->_encryptor->setHelper($this);
+        }
+        return $this->_encryptor;
+    }
 
     /**
      * Convert and format price value for current application store
@@ -160,8 +181,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if (!Mage::isInstalled()) {
             return $data;
         }
-        $result = base64_encode($this->_getCrypt()->encrypt((string)$data));
-        return $result;
+        return $this->getEncryptor()->encrypt($data);
     }
 
     /**
@@ -175,25 +195,12 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if (!Mage::isInstalled()) {
             return $data;
         }
-        $result = trim($this->_getCrypt()->decrypt(base64_decode((string)$data)));
-        $result = str_replace("\x0", '', $result);
-        return $result;
+        return $this->getEncryptor()->decrypt($data);
     }
 
     public function validateKey($key)
     {
-        return $this->_getCrypt($key);
-    }
-
-    protected function _getCrypt($key=null)
-    {
-        if (!$this->_crypt) {
-            if (is_null($key)) {
-                $key = (string)Mage::getConfig()->getNode('global/crypt/key');
-            }
-            $this->_crypt = Varien_Crypt::factory()->init($key);
-        }
-        return $this->_crypt;
+        return $this->getEncryptor()->validateKey($key);
     }
 
     public function getRandomString($len, $chars=null)
@@ -214,25 +221,14 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $password
      * @param string|integer|boolean $salt
      */
-    public function getHash($password, $salt=false)
+    public function getHash($password, $salt = false)
     {
-        if (is_integer($salt)) {
-            $salt = $this->getRandomString($salt);
-        }
-        return $salt===false ? md5($password) : md5($salt.$password).':'.$salt;
+        return $this->getEncryptor()->getHash($password, $salt);
     }
 
     public function validateHash($password, $hash)
     {
-        $hashArr = explode(':', $hash);
-        switch (count($hashArr)) {
-            case 1:
-                return md5($password) === $hash;
-            case 2:
-                return md5($hashArr[1].$password) === $hashArr[0];
-            default:
-                Mage::throwException('Invalid hash: '.$hash);
-        }
+        return $this->getEncryptor()->validateHash($password, $hash);
     }
 
     /**

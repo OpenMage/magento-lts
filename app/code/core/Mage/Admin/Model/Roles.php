@@ -26,6 +26,11 @@
 
 class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
 {
+    /**
+     * @var string
+     */
+    protected $_eventPrefix = 'admin_roles';
+
     protected function _construct()
     {
         $this->_init('admin/roles');

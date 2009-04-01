@@ -131,10 +131,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
             return;
         }
         $freeRateId = false;
-//        if (!is_object($this->_result)) {
-//            mageDebugBacktrace();
-//            exit;
-//        }
 
         if (is_object($this->_result)) {
             foreach ($this->_result->getAllRates() as $i=>$item) {
@@ -165,7 +161,14 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
                     }
                 }
             }
+        } else {
+            /**
+             * if we can apply free shipping for all order we should force price
+             * to $0.00 for shipping with out sending second request to carrier
+             */
+            $price = 0;
         }
+
         /**
          * if we did not get our free shipping method in response we must use its old price
          */

@@ -147,7 +147,14 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
 
     protected function _getRendererByType()
     {
-        switch (strtolower($this->getType())) {
+        $type = strtolower($this->getType());
+        $renderers = $this->getGrid()->getColumnRenderers();
+
+        if (is_array($renderers) && isset($renderers[$type])) {
+            return $renderers[$type];
+        }
+
+        switch ($type) {
             case 'date':
                 $rendererClass = 'adminhtml/widget_grid_column_renderer_date';
                 break;
@@ -230,7 +237,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
 
     protected function _getFilterByType()
     {
-        switch (strtolower($this->getType())) {
+        $type = strtolower($this->getType());
+        $filters = $this->getGrid()->getColumnFilters();
+        if (is_array($filters) && isset($filters[$type])) {
+            return $filters[$type];
+        }
+
+        switch ($type) {
             case 'datetime':
                 $filterClass = 'adminhtml/widget_grid_column_filter_datetime';
                 break;

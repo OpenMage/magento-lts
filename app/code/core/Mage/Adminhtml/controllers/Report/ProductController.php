@@ -40,6 +40,9 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
      */
     public function _initAction()
     {
+        $act = $this->getRequest()->getActionName();
+        if(!$act)
+            $act = 'default';
         $this->loadLayout()
             ->_addBreadcrumb(Mage::helper('reports')->__('Reports'), Mage::helper('reports')->__('Reports'))
             ->_addBreadcrumb(Mage::helper('reports')->__('Products'), Mage::helper('reports')->__('Products'));

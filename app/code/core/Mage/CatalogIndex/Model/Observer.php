@@ -331,4 +331,67 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         $this->_getAggregator()->clearProductData($productIds);
         return $this;
     }
+
+    /**
+     * Prepare columns for catalog product flat
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_CatalogIndex_Model_Observer
+     */
+    public function catalogProductFlatPrepareColumns(Varien_Event_Observer $observer)
+    {
+        $columns = $observer->getEvent()->getColumns();
+
+        $this->_getIndexer()->prepareCatalogProductFlatColumns($columns);
+
+        return $this;
+    }
+
+    /**
+     * Prepare indexes for catalog product flat
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_CatalogIndex_Model_Observer
+     */
+    public function catalogProductFlatPrepareIndexes(Varien_Event_Observer $observer)
+    {
+        $indexes = $observer->getEvent()->getIndexes();
+
+        $this->_getIndexer()->prepareCatalogProductFlatIndexes($indexes);
+
+        return $this;
+    }
+
+    /**
+     * Rebuild catalog product flat
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_CatalogIndex_Model_Observer
+     */
+    public function catalogProductFlatRebuild(Varien_Event_Observer $observer)
+    {
+        $storeId    = $observer->getEvent()->getStoreId();
+        $tableName  = $observer->getEvent()->getTable();
+
+        $this->_getIndexer()->updateCatalogProductFlat($storeId, null, $tableName);
+
+        return $this;
+    }
+
+    /**
+     * Catalog Product Flat update product(s)
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_CatalogIndex_Model_Observer
+     */
+    public function catalogProductFlatUpdateProduct(Varien_Event_Observer $observer)
+    {
+        $storeId    = $observer->getEvent()->getStoreId();
+        $tableName  = $observer->getEvent()->getTable();
+        $productIds = $observer->getEvent()->getProductIds();
+
+        $this->_getIndexer()->updateCatalogProductFlat($storeId, $productIds, $tableName);
+
+        return $this;
+    }
 }

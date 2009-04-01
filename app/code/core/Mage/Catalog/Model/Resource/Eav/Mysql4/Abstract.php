@@ -72,8 +72,19 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
      */
     protected function _getLoadAttributesSelect($object, $table)
     {
+        /**
+         * This condition is applicable for all cases when we was work in not single
+         * store mode, customize some value per specific store view and than back
+         * to single store mode. We should load correct values
+         */
+        if (Mage::app()->isSingleStoreMode()) {
+            $storeId = Mage::app()->getStore(true)->getId();
+        } else {
+            $storeId = $object->getStoreId();
+        }
+
         $joinCondition = 'main.attribute_id=default.attribute_id AND '
-            . $this->_read->quoteInto('main.store_id=? AND ', $object->getStoreId())
+            . $this->_read->quoteInto('main.store_id=? AND ', $storeId)
             . $this->_read->quoteInto('main.'.$this->getEntityIdField() . '=?', $object->getId());
 
         $select = $this->_read->select()
@@ -147,6 +158,20 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
      */
     protected function _updateAttribute($object, $attribute, $valueId, $value)
     {
+        /**
+         * If we work in single store mode all values should be saved just
+         * for default store id
+         * In this case we clear all not default values
+         */
+        if (Mage::app()->isSingleStoreMode()) {
+            $this->_getWriteAdapter()->delete(
+                $attribute->getBackend()->getTable(),
+                $this->_getWriteAdapter()->quoteInto('attribute_id=?', $attribute->getId()) .
+                $this->_getWriteAdapter()->quoteInto(' AND entity_id=?', $object->getId()) .
+                $this->_getWriteAdapter()->quoteInto(' AND store_id!=?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID)
+            );
+        }
+
         /**
          * Update attribute value for store
          */

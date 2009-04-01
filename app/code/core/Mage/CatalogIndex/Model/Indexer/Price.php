@@ -38,10 +38,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
     protected function _construct()
     {
         $this->_init('catalogindex/indexer_price');
-        $this->_currencyModel = Mage::getModel('directory/currency');
         $this->_customerGroups = Mage::getModel('customer/group')->getCollection();
-
-        return parent::_construct();
     }
 
     public function createIndexData(Mage_Catalog_Model_Product $object, Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
@@ -86,16 +83,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
 
     protected function _getIndexableAttributeConditions()
     {
-        /**
-         * Problem with remove price from index - need check
-         */
-        //$conditions = "frontend_input = 'price' OR attribute_code = 'tier_price'";
         $conditions = "frontend_input = 'price' AND attribute_code <> 'price'";
-        return $conditions;
-
-        $conditions = array();
-        $conditions['frontend_input'] = 'price';
-
         return $conditions;
     }
 }

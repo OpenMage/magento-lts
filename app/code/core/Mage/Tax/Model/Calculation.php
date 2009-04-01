@@ -163,9 +163,9 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
                 break;
         }
 
-        if (is_null($customerTaxClass)) {
-            $customerTaxClass = Mage::getSingleton('customer/session')->getCustomer()->getTaxClassId();
-        } elseif ($customerTaxClass === false) {
+        if (is_null($customerTaxClass) && $session->isLoggedIn()) {
+            $customerTaxClass = $session->getCustomer()->getTaxClassId();
+        } elseif (($customerTaxClass === false) || !$session->isLoggedIn()) {
             $defaultCustomerGroup = Mage::getStoreConfig('customer/create_account/default_group', $store);
             $customerTaxClass = Mage::getModel('customer/group')->getTaxClassId($defaultCustomerGroup);
         }

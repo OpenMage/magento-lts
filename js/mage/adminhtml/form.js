@@ -112,7 +112,7 @@ Validation.isVisible = function(elm){
  */
 var varienElementMethods = {
     setHasChanges : function(element, event){
-        if($(element).hasClassName('no-changes')) return;
+        if($(element) && $(element).hasClassName('no-changes')) return;
         var elm = element;
         while(elm && elm.tagName != 'BODY') {
             if(elm.statusBar)

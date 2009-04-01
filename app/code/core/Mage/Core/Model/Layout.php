@@ -401,6 +401,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         try {
             $block = $this->_getBlockInstance($type, $attributes);
         } catch (Exception $e) {
+            Mage::logException($e);
             return false;
         }
 
