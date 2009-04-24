@@ -20,17 +20,29 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Catalog data helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    const PRICE_SCOPE_GLOBAL            = 0;
+    const PRICE_SCOPE_WEBSITE           = 1;
+    const XML_PATH_PRICE_SCOPE          = 'catalog/price/scope';
+
+    /**
+     * Breadcrumb Path cache
+     *
+     * @var string
+     */
     protected $_categoryPath;
 
     /**
@@ -70,6 +82,12 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_categoryPath;
     }
 
+    /**
+     * Check is category link
+     *
+     * @param int $categoryId
+     * @return bool
+     */
     protected function _isCategoryLink($categoryId)
     {
         if ($this->getProduct()) {
@@ -82,20 +100,30 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Return current category
+     * Return current category object
      *
-     * @return Mage_Catalog_Model_Category
+     * @return Mage_Catalog_Model_Category|null
      */
     public function getCategory()
     {
         return Mage::registry('current_category');
     }
 
+    /**
+     * Retrieve current Product object
+     *
+     * @return Mage_Catalog_Model_Product|null
+     */
     public function getProduct()
     {
         return Mage::registry('current_product');
     }
 
+    /**
+     * Retrieve Visitor/Customer Last Viewed URL
+     *
+     * @return string
+     */
     public function getLastViewedUrl()
     {
         if ($productId = Mage::getSingleton('catalog/session')->getLastViewedProductId()) {
@@ -129,6 +157,11 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
         return Mage::helper('core/string')->str_split($sku, $length, true, false, '[\-\s]');
     }
 
+    /**
+     * Retrieve attribute hidden fields
+     *
+     * @return array
+     */
     public function getAttributeHiddenFields()
     {
         if (Mage::registry('attribute_type_hidden_fields')) {
@@ -138,6 +171,11 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
         }
     }
 
+    /**
+     * Retrieve attribute disabled types
+     *
+     * @return array
+     */
     public function getAttributeDisabledTypes()
     {
         if (Mage::registry('attribute_type_disabled_types')) {
@@ -145,5 +183,25 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
         } else {
             return array();
         }
+    }
+
+    /**
+     * Retrieve Catalog Price Scope
+     *
+     * @return int
+     */
+    public function getPriceScope()
+    {
+        return Mage::getStoreConfig(self::XML_PATH_PRICE_SCOPE);
+    }
+
+    /**
+     * Is Global Price
+     *
+     * @return bool
+     */
+    public function isPriceGlobal()
+    {
+        return $this->getPriceScope() == self::PRICE_SCOPE_GLOBAL;
     }
 }

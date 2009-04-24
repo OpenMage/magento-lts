@@ -293,9 +293,11 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                 'order_item' => $orderItem,
                 'quote_item' => $item
             ));
+
+            return $item;
         }
 
-        return $item;
+        return $this;
     }
 
     /**

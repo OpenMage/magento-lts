@@ -179,7 +179,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             }
 
             $this->renderLayout();
-        } elseif ($this->getRequest()->isDispatched()) {
+        } elseif (!$this->getResponse()->isRedirect()) {
             $this->_forward('noRoute');
         }
     }

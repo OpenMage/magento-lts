@@ -196,22 +196,19 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
 
         if ((int)$index && (int)$range) {
             $this->setPriceRange((int)$range);
-            $entityIds = Mage::getSingleton('catalogindex/price')->getFilteredEntities(
+
+            Mage::getSingleton('catalogindex/price')->applyFilterToCollection(
+                $this->getLayer()->getProductCollection(),
                 $this->getAttributeModel(),
                 $range,
-                $index,
-                $this->_getFilterEntityIds()
+                $index
             );
 
-            if ($entityIds) {
-                $this->getLayer()->getProductCollection()
-                    ->addFieldToFilter('entity_id', array('in'=>$entityIds));
+            $this->getLayer()->getState()->addFilter(
+                $this->_createItem($this->_renderItemLabel($range, $index), $filter)
+            );
 
-                $this->getLayer()->getState()->addFilter(
-                    $this->_createItem($this->_renderItemLabel($range, $index), $filter)
-                );
-                $this->_items = array();
-            }
+            $this->_items = array();
         }
         return $this;
     }

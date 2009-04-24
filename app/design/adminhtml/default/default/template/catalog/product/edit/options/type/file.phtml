@@ -39,7 +39,7 @@ OptionTemplateFile = '<table class="border" cellpadding="0" cellspacing="0">'+
             '<td><?php echo $this->getPriceTypeSelectHtml() ?></td>'+
             '<td><input type="text" class="input-text" name="product[options][{{option_id}}][sku]" value="{{sku}}"></td>'+
             '<td><input class="input-text" type="text" name="product[options][{{option_id}}][file_extension]" value="{{file_extension}}"></td>'+
-            '<td class="type-last last" nowrap><input class="input-text" type="text" name="product[options][{{option_id}}][image_size_x]" value="{{image_size_x}}"> <?php echo Mage::helper('catalog')->__('x') ?> <input class="input-text" type="text" name="product[options][{{option_id}}][image_size_y]" value="{{image_size_y}}"> <?php echo Mage::helper('catalog')->__('px.') ?></td>'+
+            '<td class="type-last last" nowrap><input class="input-text" type="text" name="product[options][{{option_id}}][image_size_x]" value="{{image_size_x}}"> <?php echo Mage::helper('catalog')->__('x') ?> <input class="input-text" type="text" name="product[options][{{option_id}}][image_size_y]" value="{{image_size_y}}"> <?php echo Mage::helper('catalog')->__('px.') ?><br/><?php echo Mage::helper('catalog')->__('leave blank if its not an image') ?></td>'+
         '</tr>'+
     '</table>';
 

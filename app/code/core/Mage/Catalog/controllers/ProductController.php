@@ -142,9 +142,9 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
             $this->renderLayout();
         }
         else {
-            if (isset($_GET['store'])  && $this->getRequest()->isDispatched()) {
+            if (isset($_GET['store'])  && !$this->getResponse()->isRedirect()) {
                 $this->_redirect('');
-            } elseif ($this->getRequest()->isDispatched()) {
+            } elseif (!$this->getResponse()->isRedirect()) {
                 $this->_forward('noRoute');
             }
         }
@@ -156,9 +156,9 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
     public function galleryAction()
     {
         if (!$this->_initProduct()) {
-            if (isset($_GET['store']) && $this->getRequest()->isDispatched()) {
+            if (isset($_GET['store']) && !$this->getResponse()->isRedirect()) {
                 $this->_redirect('');
-            } elseif ($this->getRequest()->isDispatched()) {
+            } elseif (!$this->getResponse()->isRedirect()) {
                 $this->_forward('noRoute');
             }
             return;

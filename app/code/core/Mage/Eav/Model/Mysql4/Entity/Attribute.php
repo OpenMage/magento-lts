@@ -393,10 +393,14 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
      * @return Varien_Db_Select
      */
     public function getFlatUpdateSelect(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $store) {
-        return $this->_getReadAdapter()->select()
+        $joinCondition = "`e`.`entity_id`=`t1`.`entity_id`";
+        if ($attribute->getFlatAddChildData()) {
+            $joinCondition .= " AND `e`.`child_id`=`t1`.`entity_id`";
+        }
+        $select = $this->_getReadAdapter()->select()
             ->joinLeft(
                 array('t1' => $attribute->getBackend()->getTable()),
-                "`e`.`entity_id`=`t1`.`entity_id` AND `e`.`child_id`=`t1`.`entity_id`",
+                $joinCondition,
                 array()
                 )
             ->joinLeft(
@@ -408,8 +412,11 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
                 array($attribute->getAttributeCode() => "IFNULL(t2.value, t1.value)"))
             ->where("t1.entity_type_id=?", $attribute->getEntityTypeId())
             ->where("t1.attribute_id=?", $attribute->getId())
-            ->where("t1.store_id=?", 0)
-            ->where("e.is_child=?", 0);
+            ->where("t1.store_id=?", 0);
+        if ($attribute->getFlatAddChildData()) {
+            $select->where("e.is_child=?", 0);
+        }
+        return $select;
     }
 
     /**

@@ -31,6 +31,7 @@
             <groups>
                 <paypal_direct translate="label" module="paypal">
                     <label>PayPal Website Payments Pro - Direct Payments</label>
+                    <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal" target="_blank">Sign up for PayPal Merchant Account now!</a>]]></comment>
                     <frontend_type>text</frontend_type>
                     <sort_order>101</sort_order>
                     <show_in_default>1</show_in_default>
@@ -111,6 +112,7 @@
                 </paypal_direct>
                 <paypal_express translate="label" module="paypal">
                     <label>PayPal Express Checkout</label>
+                    <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal" target="_blank">Sign up for PayPal Merchant Account now!</a>]]></comment>
                     <frontend_type>text</frontend_type>
                     <sort_order>101</sort_order>
                     <show_in_default>1</show_in_default>
@@ -182,6 +184,7 @@
                 </paypal_express>
                 <paypal_standard translate="label" module="paypal">
                     <label>PayPal Website Payments Standard</label>
+                    <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal" target="_blank">Sign up for PayPal Merchant Account now!</a>]]></comment>
                     <frontend_type>text</frontend_type>
                     <sort_order>102</sort_order>
                     <show_in_default>1</show_in_default>
@@ -282,6 +285,7 @@
             <groups>
                 <wpp translate="label">
                     <label>Website Payments Pro and Express Checkout (API Signature)</label>
+                    <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal" target="_blank">Sign up for PayPal Merchant Account now!</a>]]></comment>
                     <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
@@ -381,6 +385,7 @@
                 </wpp>
                 <wps translate="label">
                     <label>Website Payments Standard</label>
+                    <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal" target="_blank">Sign up for PayPal Merchant Account now!</a>]]></comment>
                     <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>

@@ -20,17 +20,24 @@
  *
  * @category   Mage
  * @package    Mage_Rss
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
- * Default rss helper
+ * Rss data helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Rss
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    /**
+     * Authenticate customer on frontend
+     *
+     */
     public function authFrontend()
     {
         $session = Mage::getSingleton('rss/session');
@@ -46,6 +53,11 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
         }
     }
 
+    /**
+     * Authenticate admin and check ACL
+     *
+     * @param string $path
+     */
     public function authAdmin($path)
     {
         $session = Mage::getSingleton('rss/session');
@@ -53,6 +65,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
             return;
         }
         list($username, $password) = $this->authValidate();
+        Mage::getSingleton('adminhtml/url')->setNoSecret(true);
         $adminSession = Mage::getModel('admin/session');
         $user = $adminSession->login($username, $password);
         //$user = Mage::getModel('admin/user')->login($username, $password);
@@ -63,12 +76,22 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
         }
     }
 
+    /**
+     * Validate Authenticate
+     *
+     * @param array $headers
+     * @return array
+     */
     public function authValidate($headers=null)
     {
         $userPass = Mage::helper('core/http')->authValidate($headers);
         return $userPass;
     }
 
+    /**
+     * Send authenticate failed headers
+     *
+     */
     public function authFailed()
     {
         Mage::helper('core/http')->authFailed();

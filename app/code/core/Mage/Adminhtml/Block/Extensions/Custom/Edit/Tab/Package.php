@@ -71,7 +71,6 @@ class Mage_Adminhtml_Block_Extensions_Custom_Edit_Tab_Package
             'name' => 'channel',
             'label' => Mage::helper('adminhtml')->__('Channel'),
             'required' => true,
-            'value' => 'var-dev.varien.com',
         ));
 
         $fieldset->addField('summary', 'textarea', array(

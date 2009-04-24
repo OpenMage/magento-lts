@@ -84,6 +84,7 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
                 ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
                 ->addTagFilter($this->getTag()->getId())
                 ->addStoreFilter()
+                ->addMinimalPrice()
                 ->addUrlRewrite();
             Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($this->_productCollection);
             Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_productCollection);

@@ -78,7 +78,24 @@
                             <show_in_store>1</show_in_store>
                         </trim_sign>
                     </fields>
-                </options>z
+                </options>
+                <webservicex translate="label">
+                    <label>Webservicex</label>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <timeout translate="label">
+                            <label>Connection timeout in seconds</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </timeout>
+                    </fields>
+                </webservicex>
                 <import translate="label">
                     <label>Scheduled Import Settings</label>
                     <frontend_type>text</frontend_type>

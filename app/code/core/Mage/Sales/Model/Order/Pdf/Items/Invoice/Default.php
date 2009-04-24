@@ -64,7 +64,8 @@ class Mage_Sales_Model_Order_Pdf_Items_Invoice_Default extends Mage_Sales_Model_
                 // draw options value
                 $this->_setFontRegular();
                 if ($option['value']) {
-                    $values = explode(', ', strip_tags($option['value']));
+                    $_printValue = isset($option['print_value']) ? $option['print_value'] : strip_tags($option['value']);
+                    $values = explode(', ', $_printValue);
                     foreach ($values as $value) {
                         foreach (Mage::helper('core/string')->str_split($value, 60,true,true) as $_value) {
                             $page->drawText($_value, 40, $pdf->y-$shift[0], 'UTF-8');

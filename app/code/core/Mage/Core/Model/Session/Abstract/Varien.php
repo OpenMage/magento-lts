@@ -67,7 +67,12 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 break;
         }
 
-        Mage::dispatchEvent('core_session_before_set_cookie_params');
+        if (Mage::app()->getStore()->isAdmin()) {
+            $adminSessionLifetime = (int)Mage::getStoreConfig('admin/security/session_cookie_lifetime');
+            if ($adminSessionLifetime > 60) {
+                Mage::getSingleton('core/cookie')->setLifetime($adminSessionLifetime);
+            }
+        }
 
         // set session cookie params
         session_set_cookie_params(
@@ -118,17 +123,17 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if (!$this->getCookie()->getLifetime()) {
             return $this;
         }
-        if (empty($this->_data['_cookie_revalidate'])) {
-            $time = time() + round(ini_get('session.gc_maxlifetime') / 4);
-            $this->_data['_cookie_revalidate'] = $time;
+        if (empty($_SESSION['_cookie_revalidate'])) {
+            $time = time() + round($this->getCookie()->getLifetime() / 4);
+            $_SESSION['_cookie_revalidate'] = $time;
         }
         else {
-            if ($this->_data['_cookie_revalidate'] < time()) {
+            if ($_SESSION['_cookie_revalidate'] < time()) {
                 if (!headers_sent()) {
                     $this->getCookie()->set(session_name(), session_id());
 
                     $time = time() + round($this->getCookie()->getLifetime() / 4);
-                    $this->_data['_cookie_revalidate'] = $time;
+                    $_SESSION['_cookie_revalidate'] = $time;
                 }
             }
         }

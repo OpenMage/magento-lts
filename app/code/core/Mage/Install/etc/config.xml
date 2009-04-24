@@ -118,5 +118,6 @@
                 </install>
             </updates>
         </layout>
+        <eula_file>LICENSE.html</eula_file>
     </install>
 </config>

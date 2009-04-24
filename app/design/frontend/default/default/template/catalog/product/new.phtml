@@ -33,9 +33,7 @@
         <?php if ($i>5): continue; endif; ?>
         <td>
             <div>
-                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>">
-                    <img class="product-image" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(80, 77) ?>" width="80" height="77" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" />
-                </a>
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>"><img class="product-image" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(80, 77) ?>" width="80" height="77" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" /></a>
             </div>
                 <p><a class="product-name" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>)"><?php echo $this->htmlEscape($_product->getName()) ?></a></p>
                 <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>

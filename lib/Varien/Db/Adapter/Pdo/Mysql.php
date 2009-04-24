@@ -893,4 +893,18 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
 
         return $value;
     }
+
+    /**
+     * Truncate table
+     *
+     * @param string $tableName
+     * @return Varien_Db_Adapter_Pdo_Mysql
+     */
+    public function truncate($tableName)
+    {
+        $sql = 'TRUNCATE ' . $this->quoteIdentifier($tableName);
+        $this->raw_query($sql);
+
+        return $this;
+    }
 }

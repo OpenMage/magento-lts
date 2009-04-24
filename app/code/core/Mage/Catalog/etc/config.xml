@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Catalog>
-            <version>0.7.63</version>
+            <version>0.7.66</version>
         </Mage_Catalog>
     </modules>
 
@@ -346,6 +346,15 @@
                     </catalog_product_flat>
                 </observers>
             </catalog_entity_attribute_save_after>
+            <catalog_category_change_products>
+                <observers>
+                    <catalog_product_flat>
+                        <type>singleton</type>
+                        <class>catalog/product_flat_observer</class>
+                        <method>catalogCategoryChangeProducts</method>
+                    </catalog_product_flat>
+                </observers>
+            </catalog_category_change_products>
             <log_log_clean_after>
                 <observers>
                     <catalog_product_compare_item>
@@ -466,6 +475,8 @@
                     <attribute_nodes>
                         <product_collection>frontend/product/collection/attributes</product_collection>
                     </attribute_nodes>
+                    <add_filterable_attributes>0</add_filterable_attributes>
+                    <add_child_data>0</add_child_data>
                 </flat>
             </product>
         </catalog>
@@ -634,9 +645,7 @@
                     <special_price />
                     <special_from_date />
                     <special_to_date />
-                    <description />
                     <short_description />
-                    <image />
                     <thumbnail />
                     <small_image />
                     <image_label />
@@ -644,6 +653,8 @@
                     <small_image_label />
                     <tax_class_id />
                     <status />
+                    <news_from_date/>
+                    <news_to_date/>
                 </attributes>
             </collection>
         </product>

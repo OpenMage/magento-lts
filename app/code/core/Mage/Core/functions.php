@@ -61,10 +61,7 @@ if (get_magic_quotes_gpc()) {
  */
 function __autoload($class)
 {
-    if (strpos($class, '/')!==false) {
-        return;
-    }
-    $classFile = uc_words($class, DS).'.php';
+    $classFile = uc_words($class, DIRECTORY_SEPARATOR).'.php';
 
     //$a = explode('_', $class);
     //Varien_Profiler::start('AUTOLOAD');
@@ -87,10 +84,6 @@ function destruct($object)
         foreach ($object as $obj) {
             destruct($obj);
         }
-    } elseif (is_object($object)) {
-        if (in_array('__destruct', get_class_methods($object))) {
-            $object->__destruct();
-        }
     }
     unset($object);
 }
@@ -98,6 +91,7 @@ function destruct($object)
 /**
  * Translator function
  *
+ * @deprecated 1.3
  * @param string $text the text to translate
  * @param mixed optional parameters to use in sprintf
  */

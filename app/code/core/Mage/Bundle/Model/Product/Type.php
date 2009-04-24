@@ -692,7 +692,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 ->setPositionOrder()
                 ->joinValues(Mage::app()->getStore()->getId())
                 ->setIdFilter($optionIds);
-            $this->getProduct($product)->setData($this->_keyUsedOptions, $usedOptionsIds);
+            $this->getProduct($product)->setData($this->_keyUsedOptions, $usedOptions);
             $this->getProduct($product)->setData($this->_keyUsedOptionsIds, $optionIds);
         }
         return $usedOptions;

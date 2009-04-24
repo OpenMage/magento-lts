@@ -153,12 +153,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
             $this->_attributeCodes = array();
             $whereCond  = array(
                 $this->_getReadAdapter()->quoteInto('backend_type=?', 'static'),
-                $this->_getReadAdapter()->quoteInto('is_filterable>?', 0),
-                $this->_getReadAdapter()->quoteInto('is_filterable_in_search=?', 1),
                 $this->_getReadAdapter()->quoteInto('used_in_product_listing=?', 1),
                 $this->_getReadAdapter()->quoteInto('used_for_sort_by=?', 1),
                 $this->_getReadAdapter()->quoteInto('attribute_code IN(?)', $this->_systemAttributes)
             );
+            if ($this->getFlatHelper()->isAddFilterableAttributes()) {
+                $whereCond[] = $this->_getReadAdapter()->quoteInto('is_filterable>?', 0);
+            }
 
             $select = $this->_getReadAdapter()->select()
                 ->from($this->getTable('eav/attribute'), array('attribute_id','attribute_code'))
@@ -262,51 +263,56 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
     public function getFlatColumns()
     {
         if (is_null($this->_columns)) {
-            $this->_columns = array(
-                'entity_id'         => array(
-                    'type'      => 'int(10)',
-                    'unsigned'  => true,
-                    'is_null'   => false,
-                    'default'   => null,
-                    'extra'     => 'auto_increment'
-                ),
-                'child_id'          => array(
+            $this->_columns = array();
+            $this->_columns['entity_id'] = array(
+                'type'      => 'int(10)',
+                'unsigned'  => true,
+                'is_null'   => false,
+                'default'   => null,
+                'extra'     => 'auto_increment'
+            );
+            if ($this->getFlatHelper()->isAddChildData()) {
+                $this->_columns['child_id'] = array(
                     'type'      => 'int(10)',
                     'unsigned'  => true,
                     'is_null'   => true,
                     'default'   => null,
                     'extra'     => null
-                ),
-                'is_child'          => array(
+                );
+                $this->_columns['is_child'] = array(
                     'type'      => 'tinyint(1)',
                     'unsigned'  => true,
                     'is_null'   => false,
                     'default'   => 0,
                     'extra'     => null
-                ),
-                'attribute_set_id'  => array(
-                    'type'      => 'smallint(5)',
-                    'unsigned'  => true,
-                    'is_null'   => false,
-                    'default'   => 0,
-                    'extra'     => null
-                ),
-                'type_id'           => array(
-                    'type'      => 'varchar(32)',
-                    'unsigned'  => false,
-                    'is_null'   => false,
-                    'default'   => 'simple',
-                    'extra'     => null
-                )
+                );
+            }
+            $this->_columns['attribute_set_id'] = array(
+                'type'      => 'smallint(5)',
+                'unsigned'  => true,
+                'is_null'   => false,
+                'default'   => 0,
+                'extra'     => null
+            );
+            $this->_columns['type_id'] = array(
+                'type'      => 'varchar(32)',
+                'unsigned'  => false,
+                'is_null'   => false,
+                'default'   => 'simple',
+                'extra'     => null
             );
 
             foreach ($this->getAttributes() as $attribute) {
                 /* @var $attribute Mage_Eav_Model_Entity_Attribute */
-                if (is_null($attribute->getFlatColumns())) {
+                $columns = $attribute
+                    ->setFlatAddFilterableAttributes($this->getFlatHelper()->isAddFilterableAttributes())
+                    ->setFlatAddChildData($this->getFlatHelper()->isAddChildData())
+                    ->getFlatColumns();
+                if (is_null($columns)) {
                     continue;
                 }
 
-                $this->_columns = array_merge($this->_columns, $attribute->getFlatColumns());
+                $this->_columns = array_merge($this->_columns, $columns);
             }
 
             $columnsObject = new Varien_Object();
@@ -327,35 +333,47 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
     public function getFlatIndexes()
     {
         if (is_null($this->_indexes)) {
-            $this->_indexes = array(
-                'PRIMARY'       => array(
+            $this->_indexes = array();
+
+            if ($this->getFlatHelper()->isAddChildData()) {
+                $this->_indexes['PRIMARY'] = array(
                     'type'   => 'primary',
                     'fields' => array('entity_id', 'child_id')
-                ),
-                'IDX_CHILD_ID'      => array(
+                );
+                $this->_indexes['IDX_CHILD'] = array(
                     'type'   => 'index',
                     'fields' => array('child_id')
-                ),
-                'IDX_IS_CHILD'      => array(
+                );
+                $this->_indexes['IDX_IS_CHILD'] = array(
                     'type'   => 'index',
                     'fields' => array('entity_id', 'is_child')
-                ),
-                'IDX_TYPE_ID'       => array(
-                    'type'   => 'index',
-                    'fields' => array('type_id')
-                ),
-                'IDX_ATRRIBUTE_SET' => array(
-                    'type'   => 'index',
-                    'fields' => array('attribute_set_id')
-                ),
+                );
+            }
+            else {
+                $this->_indexes['PRIMARY'] = array(
+                    'type'   => 'primary',
+                    'fields' => array('entity_id')
+                );
+            }
+            $this->_indexes['IDX_TYPE_ID'] = array(
+                'type'   => 'index',
+                'fields' => array('type_id')
+            );
+            $this->_indexes['IDX_ATRRIBUTE_SET'] = array(
+                'type'   => 'index',
+                'fields' => array('attribute_set_id')
             );
 
             foreach ($this->getAttributes() as $attribute) {
                 /* @var $attribute Mage_Eav_Model_Entity_Attribute */
-                if (is_null($attribute->getFlatColumns())) {
+                $indexes = $attribute
+                    ->setFlatAddFilterableAttributes($this->getFlatHelper()->isAddFilterableAttributes())
+                    ->setFlatAddChildData($this->getFlatHelper()->isAddChildData())
+                    ->getFlatIndexes();
+                if (is_null($indexes)) {
                     continue;
                 }
-                $this->_indexes = array_merge($this->_indexes, $attribute->getFlatIndexes());
+                $this->_indexes = array_merge($this->_indexes, $indexes);
             }
 
             $indexesObject = new Varien_Object();
@@ -434,10 +452,12 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
             }
 
             $sql .= "  CONSTRAINT `FK_CATALOG_PRODUCT_FLAT_{$store}_ENTITY` FOREIGN KEY (`entity_id`)"
-                . " REFERENCES `{$this->getTable('catalog/product')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE,\n"
-                . "  CONSTRAINT `FK_CATALOG_PRODUCT_FLAT_{$store}_CHILD` FOREIGN KEY (`child_id`)"
-                . " REFERENCES `{$this->getTable('catalog/product')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE\n"
-                . ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+                . " REFERENCES `{$this->getTable('catalog/product')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE";
+            if ($this->getFlatHelper()->isAddChildData()) {
+                $sql .= ",\n  CONSTRAINT `FK_CATALOG_PRODUCT_FLAT_{$store}_CHILD` FOREIGN KEY (`child_id`)"
+                    . " REFERENCES `{$this->getTable('catalog/product')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE";
+            }
+            $sql .= "\n) ENGINE=InnoDB DEFAULT CHARSET=utf8";
             $this->_getWriteAdapter()->query($sql);
         }
         else {
@@ -449,9 +469,43 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
 
             $addIndexes     = array_diff_key($indexes, $indexList);
             $dropIndexes    = array_diff_key($indexList, $indexes);
+            $addConstraints = array();
+
+            if (!$this->getFlatHelper()->isAddChildData() && isset($describe['is_child'])) {
+                $this->_getWriteAdapter()->delete($tableName, 'is_child=1');
+                $this->_getWriteAdapter()->dropForeignKey($tableName, "FK_CATALOG_PRODUCT_FLAT_{$store}_CHILD");
+            }
+            if ($this->getFlatHelper()->isAddChildData() && !isset($describe['is_child'])) {
+                $this->_getWriteAdapter()->truncate($tableName);
+                $dropIndexes['PRIMARY'] = $indexList['PRIMARY'];
+                $addIndexes['PRIMARY']  = $indexes['PRIMARY'];
+                $addConstraints["FK_CATALOG_PRODUCT_FLAT_{$store}_CHILD"] = array(
+                    'table_index'   => 'child_id',
+                    'ref_table'     => $this->getTable('catalog/product'),
+                    'ref_index'     => 'entity_id',
+                    'on_update'     => 'CASCADE',
+                    'on_delete'     => 'CASCADE'
+                );
+            }
 
             if ($addColumns or $dropColumns or $addIndexes or $dropIndexes) {
                 $sql = "ALTER TABLE {$tableNameQuote}";
+                // drop columns
+                foreach ($dropColumns as $columnName => $columnProp) {
+                    $columnNameQuote = $this->_getWriteAdapter()->quoteIdentifier($columnName);
+                    $sql .= " DROP COLUMN {$columnNameQuote},";
+                }
+                // drop indexes
+                foreach ($dropIndexes as $indexName => $indexProp) {
+                    if ($indexName == 'PRIMARY') {
+                        $sql .= " DROP PRIMARY KEY,";
+                    }
+                    else {
+                        $indexNameQuote = $this->_getWriteAdapter()->quoteIdentifier($indexName);
+                        $sql .= " DROP INDEX {$indexNameQuote},";
+                    }
+                }
+
                 // add columns
                 foreach ($addColumns as $columnName => $columnProp) {
                     //var_dump($columnProp);
@@ -463,6 +517,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
                     $sql .= ($columnProp['default'] === null
                         ? ' DEFAULT NULL'
                         : $this->_getReadAdapter()->quoteInto(' DEFAULT ?', $columnProp['default']));
+                    if ($afterField = $this->_arrayPrevKey($columns, $columnName)) {
+                        $sql .= ' AFTER ' . $this->_getWriteAdapter()->quoteIdentifier($afterField);
+                    }
                     $sql .= ",";
                 }
                 // add indexes
@@ -498,19 +555,20 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
 
                     $sql .= " ADD {$condition} ({$fieldSql}),";
                 }
-                // drop columns
-                foreach ($dropColumns as $columnName => $columnProp) {
-                    $columnNameQuote = $this->_getWriteAdapter()->quoteIdentifier($columnName);
-                    $sql .= " DROP COLUMN {$columnNameQuote},";
-                }
-                // drop indexes
-                foreach ($dropIndexes as $indexName => $indexProp) {
-                    $indexNameQuote = $this->_getWriteAdapter()->quoteIdentifier($indexName);
-                    $sql .= " DROP INDEX {$indexNameQuote},";
-                }
-
                 $sql = rtrim($sql, ",");
                 $this->_getWriteAdapter()->query($sql);
+            }
+
+            foreach ($addConstraints as $constraintName => $constraintProp) {
+                $this->_getWriteAdapter()->addConstraint(
+                    $constraintName,
+                    $tableName,
+                    $constraintProp['table_index'],
+                    $constraintProp['ref_table'],
+                    $constraintProp['ref_index'],
+                    $constraintProp['on_delete'],
+                    $constraintProp['on_update']
+                );
             }
         }
 
@@ -529,13 +587,19 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
         $website = Mage::app()->getStore($store)->getWebsite()->getId();
         $status = $this->getAttribute('status');
         /* @var $status Mage_Eav_Model_Entity_Attribute */
-        $fieldList  = array('entity_id', 'child_id', 'is_child', 'type_id', 'attribute_set_id');
-        $isChild = new Zend_Db_Expr('0');
+        $fieldList  = array('entity_id', 'type_id', 'attribute_set_id');
+        $colsList   = array('entity_id', 'type_id', 'attribute_set_id');
+        if ($this->getFlatHelper()->isAddChildData()) {
+            $fieldList = array_merge($fieldList, array('child_id', 'is_child'));
+            $isChild   = new Zend_Db_Expr('0');
+            $colsList  = array_merge($colsList, array('entity_id', $isChild));
+        }
+
         $columns    = $this->getFlatColumns();
         $select     = $this->_getWriteAdapter()->select()
             ->from(
                 array('e' => $this->getTable('catalog/product')),
-                array('entity_id', 'entity_id', $isChild, 'type_id', 'attribute_set_id'))
+                $colsList)
             ->join(
                 array('wp' => $this->getTable('catalog/product_website')),
                 "`e`.`entity_id`=`wp`.`product_id` AND `wp`.`website_id`={$website}",
@@ -586,19 +650,26 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
     {
         $website = Mage::app()->getStore($store)->getWebsite()->getId();
 
+        $joinCond = "`e`.`entity_id`=`wp`.`product_id` AND `wp`.`website_id`={$website}";
+        if ($this->getFlatHelper()->isAddChildData()) {
+            $joinCond .= " AND `e`.`child_id`=`wp`.`product_id`";
+        }
+
         $select = $this->_getWriteAdapter()->select()
             ->from(
                 array('e' => $this->getFlatTableName($store)),
                 null)
             ->joinLeft(
                 array('wp' => $this->getTable('catalog/product_website')),
-                "`e`.`entity_id`=`wp`.`product_id` AND `e`.`child_id`=`wp`.`product_id` AND `wp`.`website_id`={$website}",
+                $joinCond,
                 array());
         if (!is_null($productIds)) {
             $cond = array(
-                $this->_getWriteAdapter()->quoteInto('e.entity_id IN(?)', $productIds),
-                $this->_getWriteAdapter()->quoteInto('e.child_id IN(?)', $productIds)
+                $this->_getWriteAdapter()->quoteInto('e.entity_id IN(?)', $productIds)
             );
+            if ($this->getFlatHelper()->isAddChildData()) {
+                $cond[] = $this->_getWriteAdapter()->quoteInto('e.child_id IN(?)', $productIds);
+            }
             $select->where(join(' OR ', $cond));
         }
 
@@ -620,12 +691,19 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
     {
         if ($attribute->getBackend()->getType() == 'static') {
             $select = $this->_getWriteAdapter()->select()
-                ->from(array('main_table' => $this->getTable('catalog/product')), $attribute->getAttributeCode());
+                ->join(
+                    array('main_table' => $this->getTable('catalog/product')),
+                    'main_table.entity_id=e.entity_id ',
+                    array($attribute->getAttributeCode() => 'main_table.' . $attribute->getAttributeCode())
+                );
+            if ($this->getFlatHelper()->isAddChildData()) {
+                $select->where("e.is_child=?", 0);
+            }
             if (!is_null($productIds)) {
                 $select->where('main_table.entity_id IN(?)', $productIds);
             }
             $sql = $select->crossUpdateFromSelect(array('e' => $this->getFlatTableName($store)));
-            $this->_getWriteAdapter()->query($sql);
+                $this->_getWriteAdapter()->query($sql);
         }
         else {
             $select = $attribute->getFlatUpdateSelect($store);
@@ -702,7 +780,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function updateRelationProducts($store, $productIds = null)
     {
-//        $website = Mage::app()->getStore($store)->getWebsite()->getId();
+        if (!$this->getFlatHelper()->isAddChildData()) {
+            return $this;
+        }
+
         foreach ($this->getProductTypeInstances() as $typeInstance) {
             if (!$typeInstance->isComposite()) {
                 continue;
@@ -723,12 +804,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
                     ->from(
                         array('t' => $this->getTable($relation->getTable())),
                         array($relation->getParentFieldName(), $relation->getChildFieldName(), new Zend_Db_Expr('1')))
-//                    ->join(
-//                        array('wp' => $this->getTable('catalog/product_website')),
-//                        "`t`.`{$relation->getChildFieldName()}`=`wp`.`product_id`"
-//                            . " AND `t`.`{$relation->getParentFieldName()}`=`wp`.`product_id`"
-//                            . " AND `wp`.`website_id`={$website}",
-//                        array())
                     ->join(
                         array('e' => $this->getFlatTableName($store)),
                         "`e`.`entity_id`=`t`.`{$relation->getChildFieldName()}`",
@@ -762,6 +837,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function updateChildrenDataFromParent($store, $productIds = null)
     {
+        if (!$this->getFlatHelper()->isAddChildData()) {
+            return $this;
+        }
+
         $select = $this->_getWriteAdapter()->select();
         foreach (array_keys($this->getFlatColumns()) as $columnName) {
             if ($columnName == 'entity_id' || $columnName == 'child_id' || $columnName == 'is_child') {
@@ -794,6 +873,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function cleanRelationProducts($store)
     {
+        if (!$this->getFlatHelper()->isAddChildData()) {
+            return $this;
+        }
+
         foreach ($this->getProductTypeInstances() as $typeInstance) {
             if (!$typeInstance->isComposite()) {
                 continue;
@@ -851,9 +934,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
     public function removeProduct($productIds, $store)
     {
         $cond = array(
-            $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $productIds),
-            $this->_getWriteAdapter()->quoteInto('child_id IN(?)', $productIds)
+            $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $productIds)
         );
+        if ($this->getFlatHelper()->isAddChildData()) {
+            $cond[] = $this->_getWriteAdapter()->quoteInto('child_id IN(?)', $productIds);
+        }
         $cond = join(' OR ', $cond);
         $this->_getWriteAdapter()->delete($this->getFlatTableName($store), $cond);
 
@@ -869,6 +954,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function removeProductChildren($productIds, $store)
     {
+        if (!$this->getFlatHelper()->isAddChildData()) {
+            return $this;
+        }
         $cond = array(
             $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $productIds),
             $this->_getWriteAdapter()->quoteInto('is_child=?', 1),
@@ -931,5 +1019,44 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
         }
 
         return $this;
+    }
+
+    /**
+     * Retrieve previous key from array by key
+     *
+     * @param array $array
+     * @param mixed $key
+     * @return mixed
+     */
+    protected function _arrayPrevKey(array $array, $key)
+    {
+        $prev = false;
+        foreach (array_keys($array) as $k) {
+            if ($k == $key) {
+                return $prev;
+            }
+            $prev = $k;
+        }
+    }
+
+    /**
+     * Retrieve next key from array by key
+     *
+     * @param array $array
+     * @param mixed $key
+     * @return mixed
+     */
+    protected function _arrayNextKey(array $array, $key)
+    {
+        $next = false;
+        foreach (array_keys($array) as $k) {
+            if ($next === true) {
+                return $k;
+            }
+            if ($k == $key) {
+                $next = true;
+            }
+        }
+        return false;
     }
 }

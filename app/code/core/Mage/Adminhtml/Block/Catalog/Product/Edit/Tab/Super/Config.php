@@ -20,20 +20,24 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Adminhtml catalog super product configurable tab
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    /**
+     * Initialize block
+     *
+     */
     public function __construct()
     {
         parent::__construct();
@@ -42,18 +46,26 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         $this->setId('config_super_product');
     }
 
+    /**
+     * Retrieve Tab class (for loading)
+     *
+     * @return string
+     */
     public function getTabClass()
     {
         return 'ajax';
     }
 
+    /**
+     * Prepare Layout data
+     *
+     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config
+     */
     protected function _prepareLayout()
     {
         $this->setChild('grid',
             $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_super_config_grid')
         );
-
-
 
         $this->setChild('create_empty',
             $this->getLayout()->createBlock('adminhtml/widget_button')
@@ -92,31 +104,51 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         return Mage::registry('current_product');
     }
 
+    /**
+     * Retrieve attributes data in JSON format
+     *
+     * @return string
+     */
     public function getAttributesJson()
     {
-        $attributes = $this->_getProduct()->getTypeInstance(true)->getConfigurableAttributesAsArray($this->_getProduct());
+        $attributes = $this->_getProduct()->getTypeInstance(true)
+            ->getConfigurableAttributesAsArray($this->_getProduct());
         if(!$attributes) {
             return '[]';
         }
         return Zend_Json::encode($attributes);
     }
 
+    /**
+     * Retrieve Links in JSON format
+     *
+     * @return string
+     */
     public function getLinksJson()
     {
-        $products = $this->_getProduct()->getTypeInstance(true)->getUsedProducts(null, $this->_getProduct());
+        $products = $this->_getProduct()->getTypeInstance(true)
+            ->getUsedProducts(null, $this->_getProduct());
         if(!$products) {
             return '{}';
         }
         $data = array();
         foreach ($products as $product) {
-        	$data[$product->getId()] = $this->getConfigurableSettings($product);
+            $data[$product->getId()] = $this->getConfigurableSettings($product);
         }
         return Zend_Json::encode($data);
     }
 
+    /**
+     * Retrieve configurable settings
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return array
+     */
     public function getConfigurableSettings($product) {
         $data = array();
-        foreach ($this->_getProduct()->getTypeInstance(true)->getUsedProductAttributes($this->_getProduct()) as $attribute) {
+        $attributes = $this->_getProduct()->getTypeInstance(true)
+            ->getUsedProductAttributes($this->_getProduct());
+        foreach ($attributes as $attribute) {
             $data[] = array(
                 'attribute_id' => $attribute->getId(),
                 'label'        => $product->getAttributeText($attribute->getAttributeCode()),
@@ -127,16 +159,31 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         return $data;
     }
 
+    /**
+     * Retrieve Grid child HTML
+     *
+     * @return string
+     */
     public function getGridHtml()
     {
         return $this->getChildHtml('grid');
     }
 
+    /**
+     * Retrieve Grid JavaScript object name
+     *
+     * @return string
+     */
     public function getGridJsObject()
     {
         return $this->getChild('grid')->getJsObjectName();
     }
 
+    /**
+     * Retrieve Create New Empty Product URL
+     *
+     * @return string
+     */
     public function getNewEmptyProductUrl()
     {
         return $this->getUrl(
@@ -150,6 +197,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         );
     }
 
+    /**
+     * Retrieve Create New Product URL
+     *
+     * @return string
+     */
     public function getNewProductUrl()
     {
         return $this->getUrl(
@@ -164,8 +216,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         );
     }
 
-
-
+    /**
+     * Retrieve Quick create product URL
+     *
+     * @return string
+     */
     public function getQuickCreationUrl()
     {
         return $this->getUrl(
@@ -176,7 +231,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         );
     }
 
-
+    /**
+     * Retrieve Required attributes Ids (comma separated)
+     *
+     * @return string
+     */
     protected function _getRequiredAttributesIds()
     {
         $attributesIds = array();
@@ -187,26 +246,65 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         return implode(',', $attributesIds);
     }
 
+    /**
+     * Escape JavaScript string
+     *
+     * @param string $string
+     * @return string
+     */
     public function escapeJs($string)
     {
         return addcslashes($string, "'\r\n\\");
     }
 
+    /**
+     * Retrieve Tab label
+     *
+     * @return string
+     */
     public function getTabLabel()
     {
         return Mage::helper('catalog')->__('Associated Products');
     }
+
+    /**
+     * Retrieve Tab title
+     *
+     * @return string
+     */
     public function getTabTitle()
     {
         return Mage::helper('catalog')->__('Associated Products');
     }
+
+    /**
+     * Can show tab flag
+     *
+     * @return bool
+     */
     public function canShowTab()
     {
         return true;
     }
+
+    /**
+     * Check is a hidden tab
+     *
+     * @return bool
+     */
     public function isHidden()
     {
         return false;
     }
 
-}// Class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config END
+    /**
+     * Show "Use default price" checkbox
+     *
+     * @return bool
+     */
+    public function getShowUseDefaultPrice()
+    {
+        return !Mage::helper('catalog')->isPriceGlobal()
+            && $this->_getProduct()->getStoreId();
+    }
+}

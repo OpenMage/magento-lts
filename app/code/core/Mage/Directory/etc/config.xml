@@ -149,6 +149,9 @@
                 <base>USD</base>
                 <default>USD</default>
             </options>
+            <webservicex>
+                <timeout>100</timeout>
+            </webservicex>
             <import>
                 <enabled>0</enabled>
                 <error_email><![CDATA[]]></error_email>

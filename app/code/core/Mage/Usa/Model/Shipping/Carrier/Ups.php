@@ -56,7 +56,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
         $this->setRequest($request);
 
         $this->_result = $this->_getQuotes();
-
         $this->_updateFreeMethodQuote($request);
 
         return $this->getResult();
@@ -261,8 +260,9 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
                 switch (substr($r[0],-1)) {
                     case 3: case 4:
                         if (in_array($r[1], $allowedMethods)) {
-                            $costArr[$r[1]] = $r[8];
-                            $priceArr[$r[1]] = $this->getMethodPrice($r[8], $r[1]);
+                            $responsePrice = Mage::app()->getLocale()->getNumber($r[8]);
+                            $costArr[$r[1]] = $responsePrice;
+                            $priceArr[$r[1]] = $this->getMethodPrice($responsePrice, $r[1]);
                         }
                         break;
                     case 5:
@@ -270,8 +270,9 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
                         break;
                     case 6:
                         if (in_array($r[3], $allowedMethods)) {
-                            $costArr[$r[3]] = $r[10];
-                            $priceArr[$r[3]] = $this->getMethodPrice($r[10], $r[3]);
+                            $responsePrice = Mage::app()->getLocale()->getNumber($r[10]);
+                            $costArr[$r[3]] = $responsePrice;
+                            $priceArr[$r[3]] = $this->getMethodPrice($responsePrice, $r[3]);
                         }
                         break;
                 }

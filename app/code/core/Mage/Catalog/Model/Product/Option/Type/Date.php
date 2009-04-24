@@ -150,21 +150,35 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     public function getFormattedOptionValue($optionValue)
     {
-        $option = $this->getOption();
+        if ($this->_formattedOptionValue === null) {
 
-        if ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE) {
-            $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
-            $result = Mage::app()->getLocale()->date($optionValue, Zend_Date::ISO_8601, null, false)->toString($format);
-        } elseif ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME) {
-            $format = Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-            $result = Mage::app()->getLocale()->date($optionValue, Varien_Date::DATETIME_INTERNAL_FORMAT, null, false)->toString($format);
-        } elseif ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME) {
-            $date = new Zend_Date($optionValue);
-            $result = date($this->is24hTimeFormat() ? 'H:i' : 'h:i a', $date->getTimestamp());
-        } else {
-            $result = $optionValue;
+            $option = $this->getOption();
+            if ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE) {
+                $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
+                $result = Mage::app()->getLocale()->date($optionValue, Zend_Date::ISO_8601, null, false)->toString($format);
+            } elseif ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME) {
+                $format = Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+                $result = Mage::app()->getLocale()->date($optionValue, Varien_Date::DATETIME_INTERNAL_FORMAT, null, false)->toString($format);
+            } elseif ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME) {
+                $date = new Zend_Date($optionValue);
+                $result = date($this->is24hTimeFormat() ? 'H:i' : 'h:i a', $date->getTimestamp());
+            } else {
+                $result = $optionValue;
+            }
+            $this->_formattedOptionValue = $result;
         }
-        return $result;
+        return $this->_formattedOptionValue;
+    }
+
+    /**
+     * Return printable option value
+     *
+     * @param string $optionValue Prepared for cart option value
+     * @return string
+     */
+    public function getPrintableOptionValue($optionValue)
+    {
+        return $this->getFormattedOptionValue($optionValue);
     }
 
     /**

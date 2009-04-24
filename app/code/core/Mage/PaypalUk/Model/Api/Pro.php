@@ -147,7 +147,8 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
 
         if ($result && $result->getResultCode()==self::RESPONSE_CODE_APPROVED) {
              $this->setTransactionId($result->getPnref());
-             $this->setAvsZip($result->getAvsZip());
+             $this->setAvsZip($result->getAvszip());
+             $this->setAvsCode($result->getAvszip());
              $this->setCvv2Match($result->getCvv2match());
          } else {
             $errorArr['code'] = $result->getResultCode();

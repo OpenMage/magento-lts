@@ -135,10 +135,10 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         if (Mage::getSingleton('admin/session')->isLoggedIn()) {
             if ($this->getRequest()->isPost()) {
                 $_isValidFormKey = $this->_validateFormKey();
-                $_keyErrorMsg = 'Invalid Form Key';
+                $_keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.');
             } elseif (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
                 $_isValidSecretKey = $this->_validateSecretKey();
-                $_keyErrorMsg = 'Invalid Secret Key';
+                $_keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Secret Key. Please refresh the page.');
             }
         }
         if (!$_isValidFormKey || !$_isValidSecretKey) {
@@ -147,7 +147,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             if ($this->getRequest()->getQuery('isAjax', false) || $this->getRequest()->getQuery('ajax', false)) {
                 $this->getResponse()->setBody(Zend_Json::encode(array(
                     'error' => true,
-                    'error_msg' => Mage::helper('adminhtml')->__($_keyErrorMsg)
+                    'message' => $_keyErrorMsg
                 )));
             } else {
                 $this->_redirect('*/index/index');

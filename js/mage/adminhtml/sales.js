@@ -696,7 +696,13 @@ AdminOrder.prototype = {
 
         if (Prototype.Browser.IE) {
             parentEl.select('select').each(function (elem) {
-                show ? elem .show() : elem.hide();
+                if (show) {
+                    elem.needShowOnSuccess = false;
+                    elem.style.visibility = '';
+                } else {
+                    elem.style.visibility = 'hidden';
+                    elem.needShowOnSuccess = true;
+                }
             });
         }
 

@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_System_Account_Edit_Form extends Mage_Adminhtml_Block
                 'name'  => 'password',
                 'label' => Mage::helper('adminhtml')->__('New Password'),
                 'title' => Mage::helper('adminhtml')->__('New Password'),
-                'class' => 'input-text validate-password',
+                'class' => 'input-text validate-admin-password',
             )
         );
 

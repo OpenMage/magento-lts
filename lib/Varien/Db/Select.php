@@ -232,6 +232,12 @@ class Varien_Db_Select extends Zend_Db_Select
         $columns = array();
         foreach ($this->_parts[self::COLUMNS] as $columnEntry) {
             list($correlationName, $column, $alias) = $columnEntry;
+            if (empty($alias)) {
+                $alias = $column;
+            }
+            if (!$column instanceof Zend_Db_Expr && !empty($correlationName)) {
+                $column = $this->_adapter->quoteIdentifier(array($correlationName, $column));
+            }
             $columns[] = $this->_adapter->quoteIdentifier(array($tableAlias, $alias))
                 . " = {$column}";
         }

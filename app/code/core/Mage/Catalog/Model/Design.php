@@ -20,27 +20,45 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
+/**
+ * Catalog Custom Category design Model
+ *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
 {
     const APPLY_FOR_PRODUCT     = 1;
     const APPLY_FOR_CATEGORY    = 2;
 
+    /**
+     * Category / Custom Design / Apply To constants
+     *
+     */
+    const CATEGORY_APPLY_CATEGORY_AND_PRODUCT_RECURSIVE = 1;
+    const CATEGORY_APPLY_CATEGORY_ONLY                  = 2;
+    const CATEGORY_APPLY_CATEGORY_AND_PRODUCT_ONLY      = 3;
+    const CATEGORY_APPLY_CATEGORY_RECURSIVE             = 4;
+
+    /**
+     * Apply design from catalog object
+     *
+     * @param array|Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
+     * @param int $calledFrom
+     * @return Mage_Catalog_Model_Design
+     */
     public function applyDesign($object, $calledFrom = 0)
     {
-        switch ($calledFrom) {
-            case self::APPLY_FOR_PRODUCT:
-                $calledFrom = 3;
-                break;
-
-            case self::APPLY_FOR_CATEGORY:
-                $calledFrom = 4;
-                break;
+        if ($calledFrom != self::APPLY_FOR_CATEGORY && $calledFrom != self::APPLY_FOR_PRODUCT) {
+            return $this;
         }
+
         if (Mage::helper('catalog/category_flat')->isEnabled()) {
             $this->_applyDesign($object, $calledFrom);
         } else {
@@ -50,7 +68,13 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         return $this;
     }
 
-    private function _apply($package, $theme)
+    /**
+     * Apply package and theme
+     *
+     * @param string $package
+     * @param string $theme
+     */
+    protected function _apply($package, $theme)
     {
         Mage::getSingleton('core/design_package')
             ->setPackageName($package)
@@ -58,84 +82,144 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Apply design recursively
+     * Check is allow apply for
      *
-     * @param Varien_Object $object
-     * @param integer $calledFrom
+     * @param int $applyForObject
+     * @param int $applyTo
+     * @param int $pass
+     * @return bool
      */
-    protected function _applyDesignRecursively($object, $calledFrom = 0)
+    protected function _isApplyFor($applyForObject, $applyTo, $pass = 0)
     {
-        $error      = 0;
-        $package    = '';
-        $theme      = '';
-        $design     = $object->getCustomDesign();
-        $date       = $object->getCustomDesignDate();
-        $application= $object->getCustomDesignApply();
+        $hasError = false;
+        if ($pass == 0) {
+            switch ($applyForObject) {
+                case self::APPLY_FOR_CATEGORY:
+                    break;
+                case self::APPLY_FOR_PRODUCT:
+                    $validApplyTo = array(
+                        self::CATEGORY_APPLY_CATEGORY_AND_PRODUCT_RECURSIVE,
+                        self::CATEGORY_APPLY_CATEGORY_AND_PRODUCT_ONLY
+                    );
+                    if ($applyTo && !in_array($applyTo, $validApplyTo)) {
+                        $hasError = true;
+                    }
+                    break;
+                default:
+                    $hasError = true;
+                    break;
+            }
+        }
+        else {
+            switch ($applyForObject) {
+                case self::APPLY_FOR_CATEGORY:
+                    $validApplyTo = array(
+                        self::CATEGORY_APPLY_CATEGORY_AND_PRODUCT_RECURSIVE,
+                        self::CATEGORY_APPLY_CATEGORY_RECURSIVE
+                    );
+                    if ($applyTo && !in_array($applyTo, $validApplyTo)) {
+                        $hasError = true;
+                    }
+                    break;
+                case self::APPLY_FOR_PRODUCT:
+                    $validApplyTo = array(
+                        self::CATEGORY_APPLY_CATEGORY_AND_PRODUCT_RECURSIVE
+                    );
+                    if ($applyTo && !in_array($applyTo, $validApplyTo)) {
+                        $hasError = true;
+                    }
+                    break;
+                default:
+                    $hasError = true;
+                    break;
+            }
+        }
+        return !$hasError;
+    }
+
+    /**
+     * Check and apply design
+     *
+     * @param string $design
+     * @param array $date
+     */
+    protected function _isApplyDesign($design, array $date)
+    {
+        if (!array_key_exists('from', $date) || !array_key_exists('to', $date)) {
+            return false;
+        }
 
         $designInfo = explode("/", $design);
-        if (count($designInfo) > 1){
-            $package= $designInfo[0];
-            $theme  = $designInfo[1];
+        if (count($designInfo) != 2) {
+            return false;
         }
 
-        switch ($calledFrom) {
-            case 3:
-                if ($application && $application != 1 && $application != 3)
-                    $error = 1;
+        // define package and theme
+        $package    = $designInfo[0];
+        $theme      = $designInfo[1];
 
-                $calledFrom = 0;
-                break;
+        // compare dates
+        $storeTimeStamp = Mage::app()->getLocale()->storeTimeStamp();
+        $fromTimeStamp  = strtotime($date['from']);
+        $toTimeStamp    = strtotime($date['to']);
 
-            case 4:
-                if ($application && $application != 1 && $application != 4)
-                    $error = 1;
-
-                //$calledFrom = 0;
-                break;
-
-            default:
-                if ($application && $application != 1)
-                    $error = 1;
-
-                break;
+        if ($date['from'] && $storeTimeStamp < $fromTimeStamp) {
+            return false;
+        }
+        elseif ($date['to'] && $storeTimeStamp > $toTimeStamp) {
+            return false;
         }
 
-        if ($package && $theme) {
-            $date['from']   = strtotime($date['from']);
-            $date['to']     = strtotime($date['to']);
+        $this->_apply($package, $theme);
+        return true;
+    }
 
-            if ($date['from'] && $date['from'] > strtotime("today")) {
-                $error = 1;
-            } else if ($date['to'] && $date['to'] < strtotime("today")) {
-                $error = 1;
-            }
+    /**
+     * Apply design recursively (if using EAV)
+     *
+     * @param Varien_Object $object
+     * @param int $calledFrom
+     * @return Mage_Catalog_Model_Design
+     */
+    protected function _applyDesignRecursively($object, $calledFrom = 0, $pass = 0)
+    {
+        $design     = $object->getCustomDesign();
+        $date       = $object->getCustomDesignDate();
+        $applyTo    = $object->getCustomDesignApply();
 
-            if (!$error) {
-                $this->_apply($package, $theme);
-                return;
-            }
+        $checkAndApply = $this->_isApplyFor($calledFrom, $applyTo, $pass)
+            && $this->_isApplyDesign($design, $date);
+        if ($checkAndApply) {
+            return $this;
         }
 
+        $pass ++;
+
+        $category = null;
         if ($object instanceof Mage_Catalog_Model_Product) {
             $category = $object->getCategory();
-        } else if ($object instanceof Mage_Catalog_Model_Category) {
+            $pass --;
+        }
+        elseif ($object instanceof Mage_Catalog_Model_Category) {
             $category = $object->getParentCategory();
         }
 
         if ($category && $category->getId()){
-            $this->_applyDesignRecursively($category, $calledFrom);
+            $this->_applyDesignRecursively($category, $calledFrom, $pass);
         }
+
+        return $this;
     }
 
     /**
-     * Apply design
+     * Apply design (if using Flat Category)
      *
      * @param Varien_Object|array $designUpdateData
-     * @param integer $calledFrom
-     * @param boolean $loaded
+     * @param int $calledFrom
+     * @param bool $loaded
      * @return Mage_Catalog_Model_Design
      */
-    protected function _applyDesign($designUpdateData, $calledFrom = 0, $loaded = false)
+    protected function _applyDesign($designUpdateData, $calledFrom = 0, $loaded = false, $pass = 0)
     {
         $objects = array();
         if (is_object($designUpdateData)) {
@@ -144,52 +228,19 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             $objects = &$designUpdateData;
         }
         foreach ($objects as $object) {
-            $error      = 0;
-            $package    = '';
-            $theme      = '';
             $design     = $object->getCustomDesign();
             $date       = $object->getCustomDesignDate();
-            $application= $object->getCustomDesignApply();
+            $applyTo    = $object->getCustomDesignApply();
 
-            $designInfo = explode("/", $design);
-            if (count($designInfo) > 1){
-                $package= $designInfo[0];
-                $theme  = $designInfo[1];
-            }
-
-            switch ($calledFrom) {
-                case 3:
-                    if ($application && $application != 1 && $application != 3)
-                        $error = 1;
-                    $calledFrom = 0;
-                    break;
-                case 4:
-                    if ($application && $application != 1 && $application != 4)
-                        $error = 1;
-                    //$calledFrom = 0;
-                    break;
-                default:
-                    if ($application && $application != 1)
-                        $error = 1;
-                    break;
-            }
-
-            if ($package && $theme) {
-                $date['from']   = strtotime($date['from']);
-                $date['to']     = strtotime($date['to']);
-
-                if ($date['from'] && $date['from'] > strtotime("today")) {
-                    $error = 1;
-                } else if ($date['to'] && $date['to'] < strtotime("today")) {
-                    $error = 1;
-                }
-
-                if (!$error) {
-                    $this->_apply($package, $theme);
-                    return;
-                }
+            $checkAndApply = $this->_isApplyFor($calledFrom, $applyTo, $pass)
+                && $this->_isApplyDesign($design, $date);
+            if ($checkAndApply) {
+                return $this;
             }
         }
+
+        $pass ++;
+
         if (false === $loaded && is_object($designUpdateData)) {
             $_designUpdateData = array();
             if ($designUpdateData instanceof Mage_Catalog_Model_Product) {
@@ -197,6 +248,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                 $_designUpdateData = array_merge(
                     $_designUpdateData, array($_category)
                 );
+                $pass --;
             } elseif ($designUpdateData instanceof Mage_Catalog_Model_Category) {
                 $_category = &$designUpdateData;
             }
@@ -205,10 +257,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                     $_designUpdateData,
                     $_category->getResource()->getDesignUpdateData($_category)
                 );
-                $this->_applyDesign(
-                    $_designUpdateData,
-                    $calledFrom, true
-                );
+                $this->_applyDesign($_designUpdateData, $calledFrom, true, $pass);
             }
         }
         return $this;

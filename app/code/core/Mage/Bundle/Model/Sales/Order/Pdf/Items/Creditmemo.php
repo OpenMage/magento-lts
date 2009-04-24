@@ -134,7 +134,8 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                     }
                     $this->_setFontRegular();
                     if ($option['value']) {
-                        $values = explode(', ', strip_tags($option['value']));
+                        $_printValue = isset($option['print_value']) ? $option['print_value'] : strip_tags($option['value']);
+                        $values = explode(', ', $_printValue);
                         foreach ($values as $value) {
                             foreach (Mage::helper('core/string')->str_split($value, 50,true,true) as $_value) {
                                 $page->drawText($_value, $leftBound + 5, $pdf->y-$shift[1], 'UTF-8');

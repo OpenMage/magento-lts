@@ -136,6 +136,11 @@ class Mage_Checkout_Model_Type_Onepage
         if (!empty($customerAddressId)) {
             $customerAddress = Mage::getModel('customer/address')->load($customerAddressId);
             if ($customerAddress->getId()) {
+                if ($customerAddress->getCustomerId() != $this->getQuote()->getCustomerId()) {
+                    return array('error' => 1,
+                        'message' => Mage::helper('checkout')->__('Customer Address is not valid.')
+                    );
+                }
                 $address->importCustomerAddress($customerAddress);
             }
         } else {
@@ -152,7 +157,7 @@ class Mage_Checkout_Model_Type_Onepage
             return $res;
         }
 
-        if (!$this->getQuote()->getCustomerId() && 'register' == $this->getQuote()->getCheckoutMethod()) {
+        if (!$this->getQuote()->getCustomerId() && Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
             if ($this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())) {
                 return array('error' => 1,
                     'message' => Mage::helper('checkout')->__('There is already a customer registered using this email address')
@@ -224,7 +229,7 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         // invoke customer model, if it is registering
-        if ('register' == $this->getQuote()->getCheckoutMethod()) {
+        if (Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
             // set customer password hash for further usage
             $customer = Mage::getModel('customer/customer');
             $this->getQuote()->setPasswordHash($customer->encryptPassword($address->getCustomerPassword()));
@@ -250,7 +255,7 @@ class Mage_Checkout_Model_Type_Onepage
                     'message' => implode(', ', $validationResult)
                 );
             }
-        } elseif('guest' == $this->getQuote()->getCheckoutMethod()) {
+        } elseif(Mage_Sales_Model_Quote::CHECKOUT_METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
             $email = $address->getData('email');
             if (!Zend_Validate::is($email, 'EmailAddress')) {
                 return array(
@@ -277,6 +282,11 @@ class Mage_Checkout_Model_Type_Onepage
         if (!empty($customerAddressId)) {
             $customerAddress = Mage::getModel('customer/address')->load($customerAddressId);
             if ($customerAddress->getId()) {
+                if ($customerAddress->getCustomerId() != $this->getQuote()->getCustomerId()) {
+                    return array('error' => 1,
+                        'message' => Mage::helper('checkout')->__('Customer Address is not valid.')
+                    );
+                }
                 $address->importCustomerAddress($customerAddress);
             }
         } else {
@@ -396,7 +406,7 @@ class Mage_Checkout_Model_Type_Onepage
             $shipping = $this->getQuote()->getShippingAddress();
         }
         switch ($this->getQuote()->getCheckoutMethod()) {
-        case 'guest':
+        case Mage_Sales_Model_Quote::CHECKOUT_METHOD_GUEST:
             if (!$this->getQuote()->isAllowedGuestCheckout()) {
                 Mage::throwException(Mage::helper('checkout')->__('Sorry, guest checkout is not enabled. Please try again or contact store owner.'));
             }
@@ -405,7 +415,7 @@ class Mage_Checkout_Model_Type_Onepage
                 ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
             break;
 
-        case 'register':
+        case Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER:
             $customer = Mage::getModel('customer/customer');
             /* @var $customer Mage_Customer_Model_Customer */
 
@@ -501,14 +511,14 @@ class Mage_Checkout_Model_Type_Onepage
          */
         Mage::dispatchEvent('checkout_type_onepage_save_order', array('order'=>$order, 'quote'=>$this->getQuote()));
         // check again, if customer exists
-        if ($this->getQuote()->getCheckoutMethod() == 'register') {
+        if ($this->getQuote()->getCheckoutMethod() == Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER) {
             if ($this->_customerEmailExists($customer->getEmail(), Mage::app()->getWebsite()->getId())) {
                 Mage::throwException(Mage::helper('checkout')->__('There is already a customer registered using this email address'));
             }
         }
         $order->place();
 
-        if ($this->getQuote()->getCheckoutMethod()=='register') {
+        if ($this->getQuote()->getCheckoutMethod()==Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER) {
             $customer->save();
             $customerBillingId = $customerBilling->getId();
             if (!$this->getQuote()->isVirtual()) {
@@ -567,7 +577,7 @@ class Mage_Checkout_Model_Type_Onepage
             $order->sendNewOrderEmail();
         }
 
-        if ($this->getQuote()->getCheckoutMethod()=='register') {
+        if ($this->getQuote()->getCheckoutMethod()==Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER) {
             /**
              * we need to save quote here to have it saved with Customer Id.
              * so when loginById() executes checkout/session method loadCustomerQuote

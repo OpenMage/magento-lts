@@ -32,7 +32,16 @@
 
 <?php if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME
     || $_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE): ?>
+
     <?php echo $this->getDateHtml() ?>
+
+    <?php if (!$this->useCalendar()): ?>
+    <script type="text/javascript">
+        Event.observe('options_<?php echo $_optionId ?>_month', 'change', dateOption.reloadMonth.bind(dateOption));
+        Event.observe('options_<?php echo $_optionId ?>_year', 'change', dateOption.reloadMonth.bind(dateOption));
+    </script>
+    <?php endif; ?>
+
 <?php endif; ?>
 
 <?php if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME

@@ -372,7 +372,7 @@
         <part name="sessionId" type="xsd:string" />
         <part name="productId" type="xsd:string" />
         <part name="storeView" type="xsd:string" />
-        <part name="attributes" type="typens:catalogProductAttributes" />
+        <part name="attributes" type="typens:catalogProductRequestAttributes" />
     </message>
     <message name="catalogProductInfoResponse">
         <part name="info" type="typens:catalogProductReturnEntity" />

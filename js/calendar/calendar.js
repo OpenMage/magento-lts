@@ -95,23 +95,90 @@ Calendar.is_opera = /opera/i.test(navigator.userAgent);
 /// detect KHTML-based browsers
 Calendar.is_khtml = /Konqueror|Safari|KHTML/i.test(navigator.userAgent);
 
+/// detect Gecko browsers
+Calendar.is_gecko = navigator.userAgent.match(/gecko/i);
+
 // BEGIN: UTILITY FUNCTIONS; beware that these might be moved into a separate
 //        library, at some point.
 
-Calendar.getAbsolutePos = function(el) {
-	var SL = 0, ST = 0;
-	var is_div = /^div$/i.test(el.tagName);
-	if (is_div && el.scrollLeft)
-		SL = el.scrollLeft;
-	if (is_div && el.scrollTop)
-		ST = el.scrollTop;
-	var r = { x: el.offsetLeft - SL, y: el.offsetTop - ST };
-	if (el.offsetParent) {
-		var tmp = this.getAbsolutePos(el.offsetParent);
-		r.x += tmp.x;
-		r.y += tmp.y;
-	}
-	return r;
+// Returns CSS property for element
+Calendar.getStyle = function(element, style) {
+    if (element.currentStyle) {
+        var y = element.currentStyle[style];
+    } else if (window.getComputedStyle) {
+        var y = document.defaultView.getComputedStyle(element,null).getPropertyValue(style);
+    }
+
+    return y;
+};
+
+/*
+ * Different ways to find element's absolute position
+ */
+Calendar.getAbsolutePos = function(element) {
+
+    var res = new Object();
+    res.x = 0; res.y = 0;
+
+    // variant 1 (working best, copy-paste from prototype library)
+    do {
+        res.x += element.offsetLeft || 0;
+        res.y += element.offsetTop  || 0;
+        element = element.offsetParent;
+        if (element) {
+            if (element.tagName.toUpperCase() == 'BODY') break;
+            var p = Calendar.getStyle(element, 'position');
+            if (p !== 'static') break;
+        }
+    } while (element);
+
+    return res;
+
+    // variant 2 (good solution, but lost in IE8)
+    if (element !== null) {
+        res.x = element.offsetLeft;
+        res.y = element.offsetTop;
+
+        var offsetParent = element.offsetParent;
+        var parentNode = element.parentNode;
+
+        while (offsetParent !== null) {
+            res.x += offsetParent.offsetLeft;
+            res.y += offsetParent.offsetTop;
+
+            if (offsetParent != document.body && offsetParent != document.documentElement) {
+                res.x -= offsetParent.scrollLeft;
+                res.y -= offsetParent.scrollTop;
+            }
+            //next lines are necessary to support FireFox problem with offsetParent
+            if (Calendar.is_gecko) {
+                while (offsetParent != parentNode && parentNode !== null) {
+                    res.x -= parentNode.scrollLeft;
+                    res.y -= parentNode.scrollTop;
+                    parentNode = parentNode.parentNode;
+                }
+            }
+            parentNode = offsetParent.parentNode;
+            offsetParent = offsetParent.offsetParent;
+        }
+    }
+    return res;
+
+    // variant 2 (not working)
+
+//	var SL = 0, ST = 0;
+//	var is_div = /^div$/i.test(el.tagName);
+//	if (is_div && el.scrollLeft)
+//		SL = el.scrollLeft;
+//	if (is_div && el.scrollTop)
+//		ST = el.scrollTop;
+//	var r = { x: el.offsetLeft - SL, y: el.offsetTop - ST };
+//	if (el.offsetParent) {
+//		var tmp = this.getAbsolutePos(el.offsetParent);
+//		r.x += tmp.x;
+//		r.y += tmp.y;
+//	}
+//	return r;
 };
 
 Calendar.isRelated = function (el, evt) {

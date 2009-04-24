@@ -434,8 +434,11 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                     $optionArr['options'][] = array(
                         'label' => $option->getTitle(),
                         'value' => $group->getFormattedOptionValue($quoteItemOption->getValue()),
+                        'print_value' => $group->getPrintableOptionValue($quoteItemOption->getValue()),
                         'option_id' => $option->getId(),
-                        'option_value' => $quoteItemOption->getValue()
+                        'option_type' => $option->getType(),
+                        'option_value' => $quoteItemOption->getValue(),
+                        'custom_view' => $group->isCustomizedView()
                     );
                 }
             }

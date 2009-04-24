@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,13 +30,25 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute_Collection
     extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
+    /**
+     * Configurable attributes label table name
+     *
+     * @var string
+     */
     protected $_labelTable;
+
+    /**
+     * Configurable attributes price table name
+     *
+     * @var string
+     */
     protected $_priceTable;
+
     /**
      * Product instance
      *
@@ -44,6 +56,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
      */
     protected $_product;
 
+    /**
+     * Initialize connection and define table names
+     *
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_type_configurable_attribute');
@@ -51,12 +67,22 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
         $this->_priceTable = $this->getTable('catalog/product_super_attribute_pricing');
     }
 
-    protected function _initSelect()
+    /**
+     * Retrieve catalog helper
+     *
+     * @return Mage_Catalog_Helper_Data
+     */
+    public function getHelper()
     {
-        parent::_initSelect();
-        return $this;
+        return Mage::helper('catalog');
     }
 
+    /**
+     * Set Product filter (Configurable)
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute_Collection
+     */
     public function setProductFilter($product)
     {
         $this->_product = $product;
@@ -64,17 +90,33 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
         return $this;
     }
 
+    /**
+     * Set order collection by Position
+     *
+     * @param string $dir
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute_Collection
+     */
     public function orderByPosition($dir='asc')
     {
         $this->getSelect()->order('position '.$dir);
         return $this;
     }
 
+    /**
+     * Retrieve Store Id
+     *
+     * @return int
+     */
     public function getStoreId()
     {
-        return (int) $this->_product->getStoreId();
+        return (int)$this->_product->getStoreId();
     }
 
+    /**
+     * After load collection process
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute_Collection
+     */
     protected function _afterLoad()
     {
         parent::_afterLoad();
@@ -108,6 +150,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
         return $this;
     }
 
+    /**
+     * Add Associated Product Filters (From Product Type Instance)
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute_Collection
+     */
     public function _addAssociatedProductFilters()
     {
         $this->getProduct()->getTypeInstance(true)
@@ -150,42 +197,38 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
     protected function _loadPrices()
     {
         if ($this->count()) {
-            /*$select = $this->getConnection()->select()
-                ->from(array('price'=>$this->_priceTable))
-                ->join(array('option'=>$this->getTable('eav/attribute_option')),
-                    'option.option_id=price.value_index'
-                )
-                ->joinLeft(array('option_label'=>$this->getTable('eav/attribute_option_value')),
-                    'option_label.option_id=price.value_index AND option_label.store_id=' . $this->getStoreId(),
-                    array('store_label'=>'value')
-                )
-                ->join(array('option_default_label'=>$this->getTable('eav/attribute_option_value')),
-                    'option_default_label.option_id=price.value_index',
-                    array(
-                        'default_label'=>'value',
-                        'label' => new Zend_Db_Expr('IFNULL(option_label.value, option_default_label.value)')
-                    )
-                )
-                ->where('price.product_super_attribute_id IN (?)', array_keys($this->_items))
-                ->where('option_default_label.store_id=0')
-                ->order('option.sort_order asc');  OLD */
-
-
-
+            $pricings = array(
+                0 => array()
+            );
+            if ($this->getHelper()->isPriceGlobal()) {
+                $websiteId = 0;
+            }
+            else {
+                $websiteId = (int)Mage::app()->getStore($this->getStoreId())->getWebsiteId();
+                $pricing[$websiteId] = array();
+            }
             $select = $this->getConnection()->select()
-                ->from(array('price'=>$this->_priceTable))
-                ->where('price.product_super_attribute_id IN (?)', array_keys($this->_items))
-                ->where('price.pricing_value IS NOT NULL');
+                ->from(array('price' => $this->_priceTable))
+                ->where('price.product_super_attribute_id IN (?)', array_keys($this->_items));
+            if ($websiteId > 0) {
+                $select->where('price.website_id IN(?)', array(0, $websiteId));
+            }
+            else {
+                $select->where('price.website_id=0');
+            }
+            $query = $this->getConnection()->query($select);
 
-            $pricings = $this->getConnection()->fetchAll($select);
+            while ($row = $query->fetch()) {
+                $pricings[(int)$row['website_id']][] = $row;
+            }
 
             $values = array();
 
-
             foreach ($this->_items as $item) {
                $productAttribute = $item->getProductAttribute();
-               if (!($productAttribute instanceof Mage_Eav_Model_Entity_Attribute_Abstract))
+               if (!($productAttribute instanceof Mage_Eav_Model_Entity_Attribute_Abstract)) {
                    continue;
+               }
                $options = $productAttribute->getFrontend()->getSelectOptions();
                foreach ($options as $option) {
                    foreach ($this->getProduct()->getTypeInstance(true)->getUsedProducts(null, $this->getProduct()) as $associatedProduct) {
@@ -202,7 +245,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
                                     'default_label'              => $option['label'],
                                     'store_label'                => $option['label'],
                                     'is_percent'                 => 0,
-                                    'pricing_value'              => null
+                                    'pricing_value'              => null,
+                                    'use_default_value'          => true
                                 );
                             }
                         }
@@ -210,14 +254,26 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
                }
             }
 
-
-            foreach ($pricings as $pricing) {
+            foreach ($pricings[0] as $pricing) {
                 // Addding pricing to options
                 $valueKey = $pricing['product_super_attribute_id'] . ':' . $pricing['value_index'];
                 if (isset($values[$valueKey])) {
-                    $values[$valueKey]['pricing_value'] = $pricing['pricing_value'];
-                    $values[$valueKey]['is_percent']    = $pricing['is_percent'];
-                    $values[$valueKey]['value_id']      = $pricing['value_id'];
+                    $values[$valueKey]['pricing_value']     = $pricing['pricing_value'];
+                    $values[$valueKey]['is_percent']        = $pricing['is_percent'];
+                    $values[$valueKey]['value_id']          = $pricing['value_id'];
+                    $values[$valueKey]['use_default_value'] = true;
+                }
+            }
+
+            if ($websiteId && isset($pricings[$websiteId])) {
+                foreach ($pricings[$websiteId] as $pricing) {
+                    $valueKey = $pricing['product_super_attribute_id'] . ':' . $pricing['value_index'];
+                    if (isset($values[$valueKey])) {
+                        $values[$valueKey]['pricing_value']     = $pricing['pricing_value'];
+                        $values[$valueKey]['is_percent']        = $pricing['is_percent'];
+                        $values[$valueKey]['value_id']          = $pricing['value_id'];
+                        $values[$valueKey]['use_default_value'] = false;
+                    }
                 }
             }
 

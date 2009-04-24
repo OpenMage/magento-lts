@@ -28,12 +28,10 @@
 /**
  * Core configuration class
  *
- * Used to retrieve core configuration values
- *
- * @link       http://var-dev.varien.com/wiki/doku.php?id=magento:api:mage:core:config
+ * @category    Mage
+ * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 {
     const CACHE_TAG         = 'config';
@@ -514,7 +512,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             }
             $moduleDepends[$moduleName] = array(
                 'module'    => $moduleName,
-                'depends'   => $depends
+                'depends'   => $depends,
+                'active'    => ('true' === (string)$moduleNode->active ? true : false),
             );
         }
 
@@ -553,6 +552,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         foreach ($modules as $moduleName => $moduleProps) {
             $depends = $moduleProps['depends'];
             foreach ($moduleProps['depends'] as $depend => $true) {
+                if ($moduleProps['active'] && ((!isset($modules[$depend])) || empty($modules[$depend]['active']))) {
+                    Mage::throwException(Mage::helper('core')->__('Module "%1$s" requires module "%2$s"', $moduleName, $depend));
+                }
                 $depends = array_merge($depends, $modules[$depend]['depends']);
             }
             $modules[$moduleName]['depends'] = $depends;

@@ -88,10 +88,7 @@ class Mage_Core_Model_Locale
 
     public function __construct($locale = null)
     {
-        if (empty($locale)) {
-            $locale = $this->getDefaultLocale();
-        }
-        $this->_localeCode = $locale;
+        $this->setLocale($locale);
     }
 
     /**
@@ -131,12 +128,12 @@ class Mage_Core_Model_Locale
      */
     public function setLocale($locale = null)
     {
-        Mage::dispatchEvent('core_locale_set_locale', array('locale'=>$this));
-        Zend_Locale_Data::setCache(Mage::app()->getCache());
-        if ($locale === null) {
-        	$locale = $this->_localeCode;
+        if (($locale !== null) && is_string($locale)) {
+            $this->_localeCode = $locale;
+        } else {
+            $this->_localeCode = $this->getDefaultLocale();
         }
-        $this->_locale = new Zend_Locale($locale);
+        Mage::dispatchEvent('core_locale_set_locale', array('locale'=>$this));
         return $this;
     }
 
@@ -168,9 +165,10 @@ class Mage_Core_Model_Locale
     public function getLocale()
     {
         if (!$this->_locale) {
-            $this->setLocale();
+            Zend_Locale_Data::setCache(Mage::app()->getCache());
+            $this->_locale = new Zend_Locale($this->getLocaleCode());
         } elseif ($this->_locale->__toString() != $this->_localeCode) {
-        	$this->setLocale($this->_localeCode);
+            $this->setLocale($this->_localeCode);
         }
 
         return $this->_locale;
@@ -183,6 +181,9 @@ class Mage_Core_Model_Locale
      */
     public function getLocaleCode()
     {
+        if ($this->_localeCode === null) {
+            $this->setLocale();
+        }
         return $this->_localeCode;
     }
 

@@ -413,12 +413,22 @@ class Varien_Simplexml_Config
             $this->_saveCache($this->getCacheChecksum(), $this->getCacheChecksumId(), $tags, $this->getCacheLifetime());
         }
 
-        $xmlString = $this->getNode()->asNiceXml('', false);
+        $xmlString = $this->getXmlString();
         $this->_saveCache($xmlString, $this->getCacheId(), $tags, $this->getCacheLifetime());
 
         $this->setCacheSaved(true);
 
         return $this;
+    }
+
+    /**
+     * Return Xml of node as string
+     *
+     * @return string
+     */
+    public function getXmlString()
+    {
+        return $this->getNode()->asNiceXml('', false);
     }
 
     /**

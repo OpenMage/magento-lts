@@ -23,7 +23,7 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Installation begin block
  *
@@ -31,19 +31,40 @@
  */
 class Mage_Install_Block_Begin extends Mage_Install_Block_Abstract
 {
-    public function __construct() 
+    /**
+     * Set template
+     *
+     */
+    public function __construct()
     {
         parent::__construct();
         $this->setTemplate('install/begin.phtml');
     }
-    
+
+    /**
+     * Deprecated
+     */
     public function getLanguages()
     {
-        return Mage::getSingleton('install/config')->getLanguages();
     }
-    
+
+    /**
+     * Get wizard URL
+     *
+     * @return string
+     */
     public function getPostUrl()
     {
         return Mage::getUrl('install/wizard/beginPost');
+    }
+
+    /**
+     * Get License HTML contents
+     *
+     * @return string
+     */
+    public function getLicenseHtml()
+    {
+        return file_get_contents(BP . DS . (string)Mage::getConfig()->getNode('install/eula_file'));
     }
 }

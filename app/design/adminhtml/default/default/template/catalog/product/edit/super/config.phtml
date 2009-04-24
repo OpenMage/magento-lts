@@ -74,22 +74,26 @@
     <?php echo Mage::helper('catalog')->__('Price:') ?>
     <input id="__id___pricing" type="text" class="input-text attribute-price validate-number template no-display" value="'{{pricing_value}}'"/>
 </div>
-<div class="attribute-values-container">
-    <select class="attribute-price-type">
+<div class="attribute-values-container left">
+    &nbsp;<select class="attribute-price-type">
         <option value="0"><?php echo Mage::helper('catalog')->__('Fixed') ?></option>
         <option value="1"><?php echo Mage::helper('catalog')->__('Percentage') ?></option>
     </select>
 </div>
+<?php if ($this->getShowUseDefaultPrice()):?>
+<div class="attribute-values-container">
+    &nbsp;<input id="__id___default" type="checkbox" class="attribute-use-default-value"> <label for="__id___default" class="normal"><?php echo Mage::helper('catalog')->__('Use Default Value') ?></label>
+</div>
+<?php endif;?>
 </div>
 </div>
 <div class="template no-display" id="<?php echo $this->getHtmlId() ?>_simple_pricing">
-
         <div class="attribute-values-container left v-middle">
             &nbsp;<?php echo Mage::helper('catalog')->__('Price:') ?>
             <input type="text" class="input-text attribute-price validate-number"/>
         </div>
         <div class="attribute-values-container left v-middle">
-            <select class="attribute-price-type">
+            &nbsp;<select class="attribute-price-type">
                 <option value="0"><?php echo Mage::helper('catalog')->__('Fixed') ?></option>
                 <option value="1"><?php echo Mage::helper('catalog')->__('Percentage') ?></option>
             </select>

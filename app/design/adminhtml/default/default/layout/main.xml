@@ -74,7 +74,7 @@ Default layout, loads most of the pages
                 <action method="addCss"><name>reset.css</name></action>
                 <action method="addCss"><name>boxes.css</name></action>
 
-                <action method="addItem"><type>skin_css</type><name>iestyles.css</name><params/><if>IE</if></action>
+                <action method="addItem"><type>skin_css</type><name>iestyles.css</name><params/><if>lt IE 8</if></action>
                 <action method="addItem"><type>skin_css</type><name>below_ie7.css</name><params/><if>lt IE 7</if></action>
                 <action method="addItem"><type>skin_css</type><name>ie7.css</name><params/><if>IE 7</if></action>
 

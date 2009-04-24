@@ -686,7 +686,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $this->_rssLists[] = new Varien_Object(
             array(
-                'url'   => $this->getUrl($url),
+                'url'   => Mage::getModel('core/url')->getUrl($url),
                 'label' => $label
             )
         );

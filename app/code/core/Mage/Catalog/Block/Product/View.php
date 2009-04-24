@@ -54,6 +54,13 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
                 $headBlock->setDescription( $this->getProduct()->getDescription() );
             }
         }
+
+        if ($layout = $this->getProduct()->getPageLayout()) {
+            if ($template = (string)Mage::getConfig()->getNode('global/cms/layouts/'.$layout.'/template')) {
+                $this->getLayout()->getBlock('root')->setTemplate($template);
+            }
+        }
+
         return parent::_prepareLayout();
     }
 

@@ -70,10 +70,11 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
      */
     public function prepareForCart()
     {
-        if ($this->getIsValid()) {
+        if ($this->getIsValid() && $this->getUserValue()) {
             return is_array($this->getUserValue()) ? implode(',', $this->getUserValue()) : $this->getUserValue();
+        } else {
+            return null;
         }
-        Mage::throwException(Mage::helper('catalog')->__('Option validation failed to add product to cart'));
     }
 
     /**
@@ -84,8 +85,23 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
      */
     public function getFormattedOptionValue($optionValue)
     {
-        $result = $this->getEditableOptionValue($optionValue);
-        return Mage::helper('core')->htmlEscape($result);
+        if ($this->_formattedOptionValue === null) {
+            $this->_formattedOptionValue = Mage::helper('core')->htmlEscape(
+                $this->getEditableOptionValue($optionValue)
+            );
+        }
+        return $this->_formattedOptionValue;
+    }
+
+    /**
+     * Return printable option value
+     *
+     * @param string $optionValue Prepared for cart option value
+     * @return string
+     */
+    public function getPrintableOptionValue($optionValue)
+    {
+        return $this->getFormattedOptionValue($optionValue);
     }
 
     /**

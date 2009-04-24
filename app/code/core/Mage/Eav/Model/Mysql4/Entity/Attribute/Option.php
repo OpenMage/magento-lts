@@ -81,11 +81,16 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Option extends Mage_Core_Model_Mysq
         $attributeTable = $attribute->getBackend()->getTable();
         $attributeCode  = $attribute->getAttributeCode();
 
+        $joinCondition = "`e`.`entity_id`=`t1`.`entity_id`";
+        if ($attribute->getFlatAddChildData()) {
+            $joinCondition .= " AND `e`.`child_id`=`t1`.`entity_id`";
+        }
+
         $valueExpr = new Zend_Db_Expr("IFNULL(t2.value, t1.value)");
         $select = $this->_getReadAdapter()->select()
             ->joinLeft(
                 array('t1' => $attributeTable),
-                "`e`.`entity_id`=`t1`.`entity_id` AND `e`.`child_id`=`t1`.`entity_id`",
+                $joinCondition,
                 array()
                 )
             ->joinLeft(
@@ -113,6 +118,9 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Option extends Mage_Core_Model_Mysq
             ->where('t1.attribute_id=?', $attribute->getId())
             ->where('t1.store_id=?', 0);
 
+        if ($attribute->getFlatAddChildData()) {
+            $select->where("e.is_child=?", 0);
+        }
         return $select;
     }
 }

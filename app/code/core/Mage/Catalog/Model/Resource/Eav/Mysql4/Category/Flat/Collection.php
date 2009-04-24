@@ -193,6 +193,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat_Collection extends Ma
     public function addIsActiveFilter()
     {
         $this->addFieldToFilter('is_active', 1);
+        Mage::dispatchEvent($this->_eventPrefix . '_add_is_active_filter',
+                            array($this->_eventObject => $this));
         return $this;
     }
 
@@ -240,6 +242,48 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat_Collection extends Ma
 
         $this->getSelect()->columns($attribute, 'main_table');
         return $this;
+    }
+
+    /**
+     * Retrieve resource instance
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat
+     */
+    public function getResource()
+    {
+        return parent::getResource();
+    }
+
+    /**
+     * Add attribute to sort order
+     *
+     * @param string $attribute
+     * @param string $dir
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat_Collection
+     */
+    public function addAttributeToSort($attribute, $dir='asc')
+    {
+        if (!is_string($attribute)) {
+            return $this;
+        }
+        $this->setOrder($attribute, $dir);
+        return $this;
+    }
+
+    /**
+     * Emulate simple add attribute filter to collection
+     *
+     * @param string $attribute
+     * @param mixed $condition
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat_Collection
+     */
+    public function addAttributeToFilter($attribute, $condition = null)
+    {
+        if (!is_string($attribute) || $condition === null) {
+            return $this;
+        }
+
+        return $this->addFieldToFilter($attribute, $condition);
     }
 
     public function addUrlRewriteToResult()

@@ -751,12 +751,15 @@ a.minimal-price-link .price { font-weight:normal; color:#1e7ec8; }
 .best-selling .product-description { margin-left:107px; line-height:1.3em; }
 .best-selling a.product-name, .home-spot .best-selling a.product-name:hover { color:#203548; }
 
-.recently h3 { margin:12px 0 6px 0; color:#e25203; font-size:1.2em; }
-.recently .product-image { border:2px solid #dcdcdc; }
-.recently a.product-name, .recently a.product-name:hover { color:#1d7ecf; font-size:11px; }
+.recently { margin:0 0 12px; }
+.recently h3 { margin:0 0 6px; color:#e25203; font-size:1.2em; }
+.recently .product-image { border:1px solid #dcdcdc; }
+.recently a.product-name { display:block; width:130px; overflow:hidden; }
+.recently a.product-name,
+.recently a.product-name:hover { font-size:11px; color:#1d7ecf; }
 .recently .add-to {margin-top:5px;font-size:11px; }
-table.recently-list {width:100%; }
-table.recently-list td {width:20%; }
+table.recently-list { width:100%; }
+table.recently-list td { width:20%; }
 
 /********************** Search */
 .advanced-search {

@@ -20,22 +20,24 @@
  *
  * @category   Mage
  * @package    Mage_GoogleAnalytics
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
- * Google Analytics block
+ * GoogleAnalitics Page Block
  *
  * @category   Mage
  * @package    Mage_GoogleAnalytics
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
 {
     /**
      * Retrieve Quote Data HTML
      *
-     * @return unknown
+     * @return string
      */
     public function getQuoteOrdersHtml()
     {
@@ -94,12 +96,12 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
         $html .= 'pageTracker._addTrans(';
         $html .= '"' . $order->getIncrementId() . '",';
         $html .= '"' . $order->getAffiliation() . '",';
-        $html .= '"' . $order->getGrandTotal() . '",';
-        $html .= '"' . $order->getTaxAmount() . '",';
-        $html .= '"' . $order->getShippingAmount() . '",';
-        $html .= '"' . $address->getCity() . '",';
-        $html .= '"' . $address->getRegion() . '",';
-        $html .= '"' . $address->getCountry() . '"';
+        $html .= '"' . $order->getBaseGrandTotal() . '",';
+        $html .= '"' . $order->getBaseTaxAmount() . '",';
+        $html .= '"' . $order->getBaseShippingAmount() . '",';
+        $html .= '"' . $this->jsQuoteEscape($address->getCity(), '"') . '",';
+        $html .= '"' . $this->jsQuoteEscape($address->getRegion(), '"') . '",';
+        $html .= '"' . $this->jsQuoteEscape($address->getCountry(), '"') . '"';
         $html .= ');' . "\n";
 
         foreach ($order->getAllItems() as $item) {
@@ -109,10 +111,10 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Text
 
             $html .= 'pageTracker._addItem(';
             $html .= '"' . $order->getIncrementId() . '",';
-            $html .= '"' . $item->getSku() . '",';
-            $html .= '"' . $item->getName() . '",';
+            $html .= '"' . $this->jsQuoteEscape($item->getSku(), '"') . '",';
+            $html .= '"' . $this->jsQuoteEscape($item->getName(), '"') . '",';
             $html .= '"' . $item->getCategory() . '",';
-            $html .= '"' . $item->getPrice() . '",';
+            $html .= '"' . $item->getBasePrice() . '",';
             $html .= '"' . $item->getQtyOrdered() . '"';
             $html .= ');' . "\n";
         }

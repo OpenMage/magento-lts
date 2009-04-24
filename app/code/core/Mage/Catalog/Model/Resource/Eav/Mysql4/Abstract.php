@@ -266,7 +266,7 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
                 $storeAttributes[] = $itemData['attribute_id'];
             }
             elseif ($attribute->isScopeWebsite()) {
-                $websiteAttributes = $itemData['attribute_id'];
+                $websiteAttributes[] = $itemData['attribute_id'];
             }
             else {
                 $globalValues[] = $itemData['value_id'];

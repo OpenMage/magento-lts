@@ -63,7 +63,8 @@ class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default extends Mage_Sales_Mod
                 }
                 // draw options value
                 $this->_setFontRegular();
-                foreach (Mage::helper('core/string')->str_split(strip_tags($option['value']), $x, true, true) as $_value) {
+                $_printValue = isset($option['print_value']) ? $option['print_value'] : strip_tags($option['value']);
+                foreach (Mage::helper('core/string')->str_split($_printValue, $x, true, true) as $_value) {
                     $page->drawText($_value, $x + 5, $pdf->y - $shift[0], 'UTF-8');
                     $shift[0] += 10;
                 }

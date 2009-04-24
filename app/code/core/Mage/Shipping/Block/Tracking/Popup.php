@@ -166,7 +166,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     */
     public function formatDeliveryDateTime($date,$time)
     {
-        return Mage::app()->getLocale()->date(strtotime($date.' '.$time),Zend_Date::TIMESTAMP)->toString('MM/dd/YYYY hh:mm a');
+        return Mage::app()->getLocale()->date(strtotime($date.' '.$time),Zend_Date::TIMESTAMP, null, false)->toString('MM/dd/YYYY hh:mm a');
     }
 
     /*
@@ -174,7 +174,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     */
     public function formatDeliveryDate($date)
     {
-        return Mage::app()->getLocale()->date(strtotime($date),Zend_Date::TIMESTAMP)->toString('MM/dd/YYYY');
+        return Mage::app()->getLocale()->date(strtotime($date),Zend_Date::TIMESTAMP, null, false)->toString('MM/dd/YYYY');
     }
 
     /*
@@ -185,7 +185,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         if (!empty($date)) {
             $time = $date.' '.$time;
         }
-        return Mage::app()->getLocale()->date(strtotime($time),Zend_Date::TIMESTAMP)->toString('hh:mm a');
+        return Mage::app()->getLocale()->date(strtotime($time),Zend_Date::TIMESTAMP, null, false)->toString('hh:mm a');
     }
 
     public function getStoreSupportEmail()

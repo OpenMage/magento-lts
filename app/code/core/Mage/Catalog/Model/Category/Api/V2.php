@@ -55,7 +55,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
 
         foreach ($category->getAttributes() as $attribute) {
             if ($this->_isAllowedAttribute($attribute, $attributes)) {
-                $result[$attribute->getAttributeCode()] = $category->getData($attribute->getAttributeCode());
+                $result[$attribute->getAttributeCode()] = $category->getDataUsingMethod($attribute->getAttributeCode());
             }
         }
         $result['parent_id']   = $category->getParentId();
@@ -135,5 +135,4 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
 
         return true;
     }
-
 }

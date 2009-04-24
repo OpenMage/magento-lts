@@ -102,7 +102,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
             $this->_initLayoutMessages('checkout/session');
             $this->renderLayout();
         }
-        else {
+        elseif (!$this->getResponse()->isRedirect()) {
             $this->_forward('noRoute');
         }
     }

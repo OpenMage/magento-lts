@@ -785,7 +785,7 @@
                     <show_in_store>0</show_in_store>
                     <fields>
                         <use_form_key translate="label">
-                            <label>Add Secret key to Urls</label>
+                            <label>Add Secret Key to URLs</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <backend_model>adminhtml/system_config_backend_admin_usesecretkey</backend_model>
@@ -794,6 +794,14 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </use_form_key>
+                        <session_cookie_lifetime translate="label comment">
+                            <label>Session Lifetime, Seconds</label>
+                            <comment>Values less than 60 are ignored.</comment>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </session_cookie_lifetime>
                     </fields>
                 </security>
             </groups>

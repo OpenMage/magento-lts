@@ -1,4 +1,3 @@
-<?php if (!Mage::registry('current_category')) return ?>
 <?php
 /**
  * Magento
@@ -24,14 +23,14 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-?>
-<?php
+
 /**
  * Category left navigation
  *
  * @see Mage_Catalog_Block_Navigation
  */
 ?>
+<?php if (!Mage::registry('current_category')) return ?>
 <?php $_categories=$this->getCurrentChildCategories() ?>
 <?php $_count = is_array($_categories)?count($_categories):$_categories->count(); ?>
 <?php if($_count): ?>

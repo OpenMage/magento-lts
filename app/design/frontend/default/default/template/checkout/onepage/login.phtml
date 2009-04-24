@@ -42,12 +42,12 @@
             <ul class="form-list">
                 <?php if( $this->getQuote()->isAllowedGuestCheckout() ): ?>
                 <li>
-                    <input type="radio" name="checkout_method" id="login:guest" value="guest"<?php if($this->getQuote()->getCheckoutMethod()=='guest'): ?> checked="checked"<?php endif ?> />
+                    <input type="radio" name="checkout_method" id="login:guest" value="guest"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Sales_Model_Quote::CHECKOUT_METHOD_GUEST): ?> checked="checked"<?php endif ?> />
                     <label for="login:guest"><?php echo $this->__('Checkout as Guest') ?></label>
                 </li>
                 <?php endif; ?>
                 <li>
-                    <input type="radio" name="checkout_method" id="login:register" value="register"<?php if($this->getQuote()->getCheckoutMethod()=='register' || !$this->getQuote()->isAllowedGuestCheckout()): ?> checked="checked"<?php endif ?> />
+                    <input type="radio" name="checkout_method" id="login:register" value="register"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER || !$this->getQuote()->isAllowedGuestCheckout()): ?> checked="checked"<?php endif ?> />
                     <label for="login:register"><?php echo $this->__('Register') ?></label>
                 </li>
             </ul>

@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract
 {
@@ -46,7 +46,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
      * @var string
      */
     protected $_categoryProductTable;
-
 
     /**
      * Id of 'is_active' category attribute
@@ -270,12 +269,12 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
          * new category-product relationships
          */
         $products = $category->getPostedProducts();
+        /**
+         * Example re-save category
+         */
         if (is_null($products)) {
             return $this;
         }
-
-        $catId = $category->getId();
-        $prodTable = $this->getTable('catalog/product');
 
         /**
          * old category-product relationships
@@ -293,78 +292,71 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
          */
         $update = array_diff_assoc($update, $oldProducts);
 
-        $write = $this->getWriteConnection();
-        $updateProducts = array();
+        $productTable = $this->getTable('catalog/product');
+        $productUpdateSql = sprintf('UPDATE `%s` AS `e` SET `category_ids`=(SELECT
+            GROUP_CONCAT(`category_id`) FROM `%s` AS `cp` WHERE `cp`.`product_id`=`e`.`entity_id`)
+            WHERE `e`.`entity_id` IN(?)', $productTable, $this->_categoryProductTable);
 
+        /**
+         * Delete products from category
+         *
+         */
         if (!empty($delete)) {
             $deleteIds = array_keys($delete);
-            $write->delete($this->_categoryProductTable,
-                $write->quoteInto('product_id in(?)', $deleteIds) .
-                $write->quoteInto(' AND category_id=?', $catId)
+            $this->_getWriteAdapter()->delete($this->_categoryProductTable,
+                $this->_getWriteAdapter()->quoteInto('product_id in(?)', $deleteIds) .
+                $this->_getWriteAdapter()->quoteInto(' AND category_id=?', $category->getId())
             );
 
-            /**
-             * Delete association rewrites
-             */
-            Mage::getResourceSingleton('catalog/url')->deleteCategoryProductRewrites($catId, $deleteIds);
-
-            $select = $write->select()
-                ->from($prodTable, array('entity_id', 'category_ids'))
-                ->where('entity_id IN (?)', $deleteIds);
-            $prods = $write->fetchPairs($select);
-            foreach ($prods as $k=>$v) {
-                $a = !empty($v) ? explode(',', $v) : array();
-                $key = array_search($catId, $a);
-                if ($key!==false) {
-                    unset($a[$key]);
-                }
-                $updateProducts[$k] = "when ".(int)$k." then '".implode(',', array_unique($a))."'";
-            }
+            $sql = $this->_getWriteAdapter()->quoteInto($productUpdateSql, $deleteIds);
+            $this->_getWriteAdapter()->query($sql);
         }
 
+        /**
+         * Add products to category
+         *
+         */
         if (!empty($insert)) {
             $insertSql = array();
-            foreach ($insert as $k=>$v) {
-                $insertSql[] = '('.(int)$catId.','.(int)$k.','.(int)$v.')';
+            foreach ($insert as $k => $v) {
+                $insertSql[] = '('.(int)$category->getId().','.(int)$k.','.(int)$v.')';
             }
-
-            $write->query("insert into {$this->_categoryProductTable}
-                (category_id, product_id, position) values ".join(',', $insertSql));
-
-            $select = $write->select()
-                ->from($prodTable, array('entity_id', 'category_ids'))
-                ->where('entity_id IN (?)', array_keys($insert));
-
-            $prods = $write->fetchPairs($select);
-            foreach ($prods as $k=>$v) {
-                $a = !empty($v) ? explode(',', $v) : array();
-                $a[] = (int)$catId;
-                $updateProducts[$k] = "when ".(int)$k." then '".implode(',', array_unique($a))."'";
-            }
-        }
-
-        if (!empty($updateProducts)) {
-            $write->update(
-                $prodTable,
-                array('category_ids'=>new Zend_Db_Expr('case entity_id '.join(' ', $updateProducts).' end')),
-                $write->quoteInto('entity_id in (?)', array_keys($updateProducts))
+            $sql = sprintf(
+                'INSERT INTO `%s` (`category_id`,`product_id`,`position`) VALUES%s',
+                $this->_categoryProductTable,
+                join(',', $insertSql)
             );
+            $this->_getWriteAdapter()->query($sql);
+
+            $insertIds = array_keys($insert);
+            $sql = $this->_getWriteAdapter()->quoteInto($productUpdateSql, $insertIds);
+            $this->_getWriteAdapter()->query($sql);
         }
 
+        /**
+         * Update product positions in category
+         *
+         */
         if (!empty($update)) {
-            $updateProductsPosition = array();
-            foreach ($update as $k=>$v) {
-                if ($v!=$oldProducts[$k]) {
-                    $updateProductsPosition[$k] = 'when '.(int)$k.' then '.(int)$v;
-                }
-            }
-            if (!empty($updateProductsPosition)) {
-                $write->update($this->_categoryProductTable,
-                    array('position'=>new Zend_Db_Expr('case product_id '.join(' ', $updateProductsPosition).' end')),
-                    $write->quoteInto('product_id in (?)', array_keys($updateProductsPosition))
-                    .' and '.$write->quoteInto('category_id=?', $catId)
+            foreach ($update as $k => $v) {
+                $cond   = array(
+                    $this->_getWriteAdapter()->quoteInto('category_id=?', (int)$category->getId()),
+                    $this->_getWriteAdapter()->quoteInto('product_id=?', (int)$k)
                 );
+                $where  = join(' AND ', $cond);
+                $bind   = array(
+                    'position' => (int)$v
+                );
+                $this->_getWriteAdapter()->update($this->_categoryProductTable, $bind, $where);
             }
+        }
+
+        if (!empty($insert) || !empty($delete)) {
+            $productIds = array_unique(array_merge(array_keys($insert), array_keys($delete)));
+            Mage::dispatchEvent('catalog_category_change_products', array(
+                'category'      => $category,
+                'product_ids'   => $productIds
+            ));
         }
 
         if (!empty($insert) || !empty($update) || !empty($delete)) {

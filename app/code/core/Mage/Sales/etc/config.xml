@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sales>
-            <version>0.9.32</version>
+            <version>0.9.35</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -826,6 +826,24 @@
                     </sales_quote_observer>
                 </observers>
             </catalogrule_after_apply>
+            <catalog_product_save_after>
+                <observers>
+                    <sales_quote>
+                        <type>singleton</type>
+                        <class>sales/observer</class>
+                        <method>catalogProductSaveAfter</method>
+                    </sales_quote>
+                </observers>
+            </catalog_product_save_after>
+            <catalog_product_status_update>
+                <observers>
+                    <sales_quote>
+                        <type>singleton</type>
+                        <class>sales/observer</class>
+                        <method>catalogProductStatusUpdate</method>
+                    </sales_quote>
+                </observers>
+            </catalog_product_status_update>
         </events>
     </adminhtml>
 

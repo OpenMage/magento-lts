@@ -59,6 +59,14 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
 
         try {
             try {
+                $_isValid = Zend_Validate::is($user->getUsername(), 'NotEmpty')
+                    && Zend_Validate::is($user->getFirstname(), 'NotEmpty')
+                    && Zend_Validate::is($user->getLastname(), 'NotEmpty')
+                    && Zend_Validate::is($user->getEmail(), 'EmailAddress');
+
+                if (!$_isValid) {
+                    Mage::throwException(Mage::helper('adminhtml')->__('Error while saving account. Please check all required fields'));
+                }
                 if ($user->userExists()) {
                     Mage::throwException(Mage::helper('adminhtml')->__('User with the same User Name or Email aleady exists'));
                 }

@@ -296,6 +296,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection extends Mage_Ca
     public function addIsActiveFilter()
     {
         $this->addAttributeToFilter('is_active', 1);
+        Mage::dispatchEvent($this->_eventPrefix . '_add_is_active_filter',
+                            array($this->_eventObject => $this));
         return $this;
     }
 

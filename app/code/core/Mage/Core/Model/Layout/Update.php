@@ -267,6 +267,7 @@ class Mage_Core_Model_Layout_Update
 
         if (empty($layoutStr)) {
             $updatesRoot = Mage::app()->getConfig()->getNode($area.'/layout/updates');
+            Mage::dispatchEvent('core_layout_update_updates_get_after', array('updates' => $updatesRoot));
             $updateFiles = array();
             foreach ($updatesRoot->children() as $updateNode) {
                 if ($updateNode->file) {

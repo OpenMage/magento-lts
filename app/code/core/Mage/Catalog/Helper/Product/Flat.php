@@ -34,7 +34,9 @@
  */
 class Mage_Catalog_Helper_Product_Flat extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_USE_PRODUCT_FLAT     = 'catalog/frontend/flat_catalog_product';
+    const XML_PATH_USE_PRODUCT_FLAT          = 'catalog/frontend/flat_catalog_product';
+    const XML_NODE_ADD_FILTERABLE_ATTRIBUTES = 'global/catalog/product/flat/add_filterable_attributes';
+    const XML_NODE_ADD_CHILD_DATA            = 'global/catalog/product/flat/add_child_data';
 
     /**
      * Catalog Product Flat Flag object
@@ -79,5 +81,25 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Core_Helper_Abstract
             return false;
         }
         return Mage::getStoreConfigFlag(self::XML_PATH_USE_PRODUCT_FLAT, $store);
+    }
+
+    /**
+     * Is add filterable attributes to Flat table
+     *
+     * @return int
+     */
+    public function isAddFilterableAttributes()
+    {
+        return intval(Mage::getConfig()->getNode(self::XML_NODE_ADD_FILTERABLE_ATTRIBUTES));
+    }
+
+    /**
+     * Is add child data to Flat
+     *
+     * @return int
+     */
+    public function isAddChildData()
+    {
+        return intval(Mage::getConfig()->getNode(self::XML_NODE_ADD_CHILD_DATA));
     }
 }

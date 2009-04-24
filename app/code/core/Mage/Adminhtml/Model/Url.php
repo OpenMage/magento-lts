@@ -53,6 +53,8 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
         if (isset($data['_nosecret'])) {
             $this->setNoSecret(true);
             unset($data['_nosecret']);
+        } else {
+            $this->setNoSecret(false);
         }
 
         return parent::setRouteParams($data, $unsetOldParams);
@@ -69,7 +71,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     {
         $result = parent::getUrl($routePath, $routeParams);
 
-        if (!$this->useSecretKey() || $this->getNoSecret()) {
+        if (!$this->useSecretKey()) {
             return $result;
         }
 
@@ -116,7 +118,29 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      */
     public function useSecretKey()
     {
-        return Mage::getStoreConfigFlag('admin/security/use_form_key');
+        return Mage::getStoreConfigFlag('admin/security/use_form_key') && !$this->getNoSecret();
+    }
+
+    /**
+     * Enable secret key using
+     *
+     * @return Mage_Adminhtml_Model_Url
+     */
+    public function turnOnSecretKey()
+    {
+        $this->setNoSecret(false);
+        return $this;
+    }
+
+    /**
+     * Disable secret key using
+     *
+     * @return Mage_Adminhtml_Model_Url
+     */
+    public function turnOffSecretKey()
+    {
+        $this->setNoSecret(true);
+        return $this;
     }
 
     /**

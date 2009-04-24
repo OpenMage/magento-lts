@@ -837,7 +837,8 @@ class Mage_Core_Model_App
      */
     public function getBaseCurrencyCode()
     {
-        return Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE, 0);
+        //return Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE, 0);
+        return (string) Mage::app()->getConfig()->getNode('default/'.Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
     }
 
     /**

@@ -188,6 +188,15 @@ class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
             $conds[] = $write->quoteInto('product_id=?', $productId);
         }
 
+        /**
+         * Add information about affected products
+         * It can be used in processes which related with product price (like catalog index)
+         */
+        $select = $this->_getWriteAdapter()->select()
+            ->from($this->getTable('catalogrule/rule_product_price'), 'product_id')
+            ->where(implode(' AND ', $conds));
+        $insertQuery = 'REPLACE INTO ' . $this->getTable('catalogrule/affected_product') . ' (product_id)' . $select->__toString();
+        $this->_getWriteAdapter()->query($insertQuery);
         $write->delete($this->getTable('catalogrule/rule_product_price'), $conds);
         return $this;
     }

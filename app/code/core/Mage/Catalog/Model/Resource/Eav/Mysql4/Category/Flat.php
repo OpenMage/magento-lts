@@ -40,6 +40,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
 
     protected $_nodes = array();
 
+    /**
+     * Inactive categories ids
+     *
+     * @var array
+     */
+    protected $_inactiveCategoryIds = null;
+
     protected $_isRebuilt = null;
 
     protected function  _construct()
@@ -111,6 +118,46 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
     }
 
     /**
+     * Add inactive categories ids
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat
+     */
+    public function addInactiveCategoryIds($ids)
+    {
+        if (!is_array($this->_inactiveCategoryIds)) {
+            $this->_initInactiveCategoryIds();
+        }
+        $this->_inactiveCategoryIds = array_merge($ids, $this->_inactiveCategoryIds);
+        return $this;
+    }
+
+    /**
+     * Retreive inactive categories ids
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat
+     */
+    protected function _initInactiveCategoryIds()
+    {
+        $this->_inactiveCategoryIds = array();
+        Mage::dispatchEvent('catalog_category_tree_init_inactive_category_ids', array('tree'=>$this));
+        return $this;
+    }
+
+    /**
+     * Retreive inactive categories ids
+     *
+     * @return array
+     */
+    public function getInactiveCategoryIds()
+    {
+        if (!is_array($this->_inactiveCategoryIds)) {
+            $this->_initInactiveCategoryIds();
+        }
+
+        return $this->_inactiveCategoryIds;
+    }
+
+    /**
      * Load nodes by parent id
      *
      * @param integer $parentId
@@ -155,6 +202,12 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
             $select->where("main_table.level <= ?", $startLevel + $recursionLevel);
         }
 
+        $inactiveCategories = $this->getInactiveCategoryIds();
+
+        if (!empty($inactiveCategories)) {
+            $select->where('main_table.entity_id NOT IN (?)', $inactiveCategories);
+        }
+
         $arrNodes = $_conn->fetchAll($select);
         $nodes = array();
         foreach ($arrNodes as $node) {
@@ -162,7 +215,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
             $nodes[$node['id']] = Mage::getModel('catalog/category')->setData($node);
         }
 
-        Mage::dispatchEvent('catalog_category_flat_load_nodes_after', array('nodes'=>$nodes));
         return $nodes;
     }
 
@@ -861,5 +913,22 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
             $categories[$row['entity_id']] = Mage::getModel('catalog/category')->setData($row);
         }
         return $categories;
+    }
+
+    /**
+     * Retrieve anchors above
+     *
+     * @param array $filterIds
+     * @param int $storeId
+     * @return array
+     */
+    public function getAnchorsAbove(array $filterIds, $storeId = 0)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from(array('e' => $this->getMainStoreTable($storeId)), 'entity_id')
+            ->where('is_anchor = ?', 1)
+            ->where('entity_id IN (?)', $filterIds);
+
+        return $this->_getReadAdapter()->fetchCol($select);
     }
 }

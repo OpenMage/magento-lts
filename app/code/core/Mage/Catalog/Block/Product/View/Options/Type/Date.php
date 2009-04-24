@@ -51,13 +51,23 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     }
 
     /**
+     * Use JS calendar settings
+     *
+     * @return boolean
+     */
+    public function useCalendar()
+    {
+        return Mage::getSingleton('catalog/product_option_type_date')->useCalendar();
+    }
+
+    /**
      * Date input
      *
      * @return string Formatted Html
      */
     public function getDateHtml()
     {
-        if (Mage::getSingleton('catalog/product_option_type_date')->useCalendar()) {
+        if ($this->useCalendar()) {
             return $this->getCalendarDateHtml();
         } else {
             return $this->getDropDownsDateHtml();
@@ -118,12 +128,13 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
      */
     public function getTimeHtml()
     {
-        $hourStart = 0;
         if (Mage::getSingleton('catalog/product_option_type_date')->is24hTimeFormat()) {
+            $hourStart = 0;
             $hourEnd = 23;
             $dayPartHtml = '';
         } else {
-            $hourEnd = 11;
+            $hourStart = 1;
+            $hourEnd = 12;
             $dayPartHtml = $this->_getHtmlSelect('day_part')
                 ->setOptions(array(
                     'am' => Mage::helper('catalog')->__('AM'),

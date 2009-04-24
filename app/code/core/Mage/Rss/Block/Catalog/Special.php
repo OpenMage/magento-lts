@@ -64,7 +64,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Abstract
                 array('attribute'=>'special_to_date', 'is' => new Zend_Db_Expr('null'))
             ), '', 'left')
             ->addAttributeToSort('special_from_date', 'desc')
-            ->addAttributeToSelect(array('name', 'short_description', 'description', 'price', 'thumbnail'), 'inner')
+            ->addAttributeToSelect(array('name', 'short_description', 'description', 'price', 'thumbnail', 'special_to_date'), 'inner')
             ->joinTable('catalogrule/rule_product_price', 'product_id=entity_id', array('rule_price'=>'rule_price', 'rule_start_date'=>'latest_start_date'), $rulePriceWhere, 'left')
         ;
 

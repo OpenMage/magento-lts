@@ -52,6 +52,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
     protected $_joinUrlRewriteIntoCollection = false;
 
     /**
+     * Inactive categories ids
+     *
+     * @var array
+     */
+    protected $_inactiveCategoryIds = null;
+
+    /**
      * Enter description here...
      *
      */
@@ -104,6 +111,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
         }
         $collection->addIdFilter($nodeIds);
         if ($onlyActive) {
+
             $disabledIds = $this->_getDisabledIds($collection);
             if ($disabledIds) {
                 $collection->addFieldToFilter('entity_id', array('nin'=>$disabledIds));
@@ -129,10 +137,58 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
         return $this;
     }
 
+    /**
+     * Add inactive categories ids
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat
+     */
+    public function addInactiveCategoryIds($ids)
+    {
+        if (!is_array($this->_inactiveCategoryIds)) {
+            $this->_initInactiveCategoryIds();
+        }
+        $this->_inactiveCategoryIds = array_merge($ids, $this->_inactiveCategoryIds);
+        return $this;
+    }
+
+    /**
+     * Retreive inactive categories ids
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat
+     */
+    protected function _initInactiveCategoryIds()
+    {
+        $this->_inactiveCategoryIds = array();
+        Mage::dispatchEvent('catalog_category_tree_init_inactive_category_ids', array('tree'=>$this));
+        return $this;
+    }
+
+    /**
+     * Retreive inactive categories ids
+     *
+     * @return array
+     */
+    public function getInactiveCategoryIds()
+    {
+        if (!is_array($this->_inactiveCategoryIds)) {
+            $this->_initInactiveCategoryIds();
+        }
+
+        return $this->_inactiveCategoryIds;
+    }
+
     protected function _getDisabledIds($collection)
     {
         $storeId = Mage::app()->getStore()->getId();
-        $this->_inactiveItems = $this->_getInactiveItemIds($collection, $storeId);
+
+        $this->_inactiveItems = $this->getInactiveCategoryIds();
+
+
+        $this->_inactiveItems = array_merge(
+            $this->_getInactiveItemIds($collection, $storeId),
+            $this->_inactiveItems
+        );
+
 
         $allIds = $collection->getAllIds();
         $disabledIds = array();

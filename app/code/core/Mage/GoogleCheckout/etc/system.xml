@@ -39,7 +39,7 @@
                 <checkout translate="label">
                     <label>Google Checkout</label>
                     <frontend_type>text</frontend_type>
-                    <comment><![CDATA[<a href="http://www.magentocommerce.com/redirect/google-checkout/">Signup for Google Checkout</a>]]></comment>
+                    <comment><![CDATA[<a href="http://www.magentocommerce.com/redirect/google-checkout/" target="_blank">Signup for Google Checkout</a>]]></comment>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>

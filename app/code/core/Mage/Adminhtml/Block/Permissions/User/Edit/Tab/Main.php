@@ -94,7 +94,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Main extends Mage_Adminhtml
                 'label' => Mage::helper('adminhtml')->__('New Password'),
                 'id'    => 'new_pass',
                 'title' => Mage::helper('adminhtml')->__('New Password'),
-                'class' => 'input-text validate-password',
+                'class' => 'input-text validate-admin-password',
             ));
 
             $fieldset->addField('confirmation', 'password', array(

@@ -85,7 +85,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat
      */
     public function getTypeId()
     {
-        return Mage::getSingleton('eav/config')
+        return Mage::getSingleton('catalog/config')
             ->getEntityType('catalog_product')
             ->getEntityTypeId();
     }
@@ -138,5 +138,59 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat
     {
         $describe = $this->_getWriteAdapter()->describeTable($this->getFlatTableName());
         return array_keys($describe);
+    }
+
+    /**
+     * Check whether the attribute is a real field in entity table
+     * Rewrited for EAV Collection
+     *
+     * @param integer|string|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @return bool
+     */
+    public function isAttributeStatic($attribute)
+    {
+        $attributeCode = null;
+        if ($attribute instanceof Mage_Eav_Model_Entity_Attribute_Interface) {
+            $attributeCode = $attribute->getAttributeCode();
+        }
+        elseif (is_string($attribute)) {
+            $attributeCode = $attribute;
+        }
+        elseif (is_numeric($attribute)) {
+            $attributeCode = $this->getAttribute($attribute)
+                ->getAttributeCode();
+        }
+
+        if ($attributeCode) {
+            $columns = $this->getAllTableColumns();
+            if (in_array($attributeCode, $columns)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    /**
+     * Retrieve entity id field name in entity table
+     * Rewrited for EAV collection compatible
+     *
+     * @return string
+     */
+    public function getEntityIdField()
+    {
+        return $this->getIdFieldName();
+    }
+
+    /**
+     * Retrieve attribute instance
+     * Special for non static flat table
+     *
+     * @param mixed $attribute
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     */
+    public function getAttribute($attribute)
+    {
+        return Mage::getSingleton('catalog/config')
+            ->getAttribute('catalog_product', $attribute);
     }
 }

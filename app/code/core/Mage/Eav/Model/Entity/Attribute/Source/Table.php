@@ -175,25 +175,19 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     {
         $indexes = array();
 
-        $filterable = $this->getAttribute()->getIsFilterable()
-            or $this->getAttribute()->getIsFilterableInSearch();
-        $sortable   = $this->getAttribute()->getUsedForSortBy();
+        $index = 'IDX_' . strtoupper($this->getAttribute()->getAttributeCode());
+        $indexes[$index] = array(
+            'type'      => 'index',
+            'fields'    => array($this->getAttribute()->getAttributeCode())
+        );
 
-        if ($filterable or $sortable) {
-            if ($sortable and $this->getAttribute()->getFrontend()->getInputType() != 'multiselect') {
-                $index = 'IDX_' . strtoupper($this->getAttribute()->getAttributeCode()) . '_VALUE';
-                $indexes[$index] = array(
-                    'type'      => 'index',
-                    'fields'    => array($this->getAttribute()->getAttributeCode() . '_value')
-                );
-            }
-            if ($filterable) {
-                $index = 'IDX_' . strtoupper($this->getAttribute()->getAttributeCode());
-                $indexes[$index] = array(
-                    'type'      => 'index',
-                    'fields'    => array($this->getAttribute()->getAttributeCode())
-                );
-            }
+        $sortable   = $this->getAttribute()->getUsedForSortBy();
+        if ($sortable and $this->getAttribute()->getFrontend()->getInputType() != 'multiselect') {
+            $index = 'IDX_' . strtoupper($this->getAttribute()->getAttributeCode()) . '_VALUE';
+            $indexes[$index] = array(
+                'type'      => 'index',
+                'fields'    => array($this->getAttribute()->getAttributeCode() . '_value')
+            );
         }
 
         return $indexes;

@@ -34,17 +34,4 @@
  */
 class Mage_Catalog_Helper_Product_Options extends Mage_Core_Helper_Abstract
 {
-    /**
-     * Simplest way to check if we format our option value using HTML
-     *
-     * @param string $optionValue
-     * @return boolean
-     */
-    public function isHtmlFormattedOptionValue($optionValue)
-    {
-        if (is_string($optionValue) && strlen($optionValue) != strlen(strip_tags($optionValue))) {
-            return true;
-        }
-        return false;
-    }
 }

@@ -116,7 +116,7 @@
             <sort_order>320</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
-            <show_in_store>0</show_in_store>
+            <show_in_store>1</show_in_store>
             <groups>
                 <flatrate translate="label">
                     <label>Flat Rate</label>
@@ -133,7 +133,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </active>
                         <name translate="label">
                             <label>Method name</label>
@@ -149,7 +149,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </price>
                         <handling_type translate="label">
                             <label>Calculate Handling Fee</label>
@@ -166,7 +166,7 @@
                             <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </handling_fee>
                         <sort_order translate="label">
                             <label>Sort order</label>
@@ -174,7 +174,7 @@
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -191,7 +191,7 @@
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </type>
                         <sallowspecific translate="label">
                             <label>Ship to applicable countries</label>
@@ -201,7 +201,7 @@
                             <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </sallowspecific>
                         <specificcountry translate="label">
                             <label>Ship to Specific countries</label>
@@ -210,7 +210,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </specificcountry>
                         <showmethod translate="label">
                             <label>Show method if not applicable</label>
@@ -219,7 +219,7 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </showmethod>
                         <specificerrmsg translate="label">
                             <label>Displayed Error Message</label>
@@ -246,7 +246,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </active>
                         <free_shipping_subtotal translate="label">
                             <label>Minimum order amount</label>
@@ -254,7 +254,7 @@
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </free_shipping_subtotal>
                         <name translate="label">
                             <label>Method name</label>
@@ -270,7 +270,7 @@
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -288,7 +288,7 @@
                             <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </sallowspecific>
                         <specificcountry translate="label">
                             <label>Ship to Specific countries</label>
@@ -297,7 +297,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </specificcountry>
                         <showmethod translate="label">
                             <label>Show method if not applicable</label>
@@ -306,7 +306,7 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </showmethod>
                         <specificerrmsg translate="label">
                             <label>Displayed Error Message</label>
@@ -341,7 +341,7 @@
                             <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </handling_fee>
                         <active translate="label">
                             <label>Enabled</label>
@@ -350,7 +350,7 @@
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </active>
                         <condition_name translate="label">
                             <label>Condition</label>
@@ -392,7 +392,7 @@
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
@@ -410,7 +410,7 @@
                             <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </sallowspecific>
                         <specificcountry translate="label">
                             <label>Ship to Specific countries</label>
@@ -419,7 +419,7 @@
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </specificcountry>
                         <showmethod translate="label">
                             <label>Show method if not applicable</label>
@@ -428,7 +428,7 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </showmethod>
                         <specificerrmsg translate="label">
                             <label>Displayed Error Message</label>

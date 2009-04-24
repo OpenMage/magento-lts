@@ -75,6 +75,11 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
      */
     public function canShow()
     {
+        if (!$this->_isObjectReadable()) {
+            $this->_available = false;
+            return false;
+        }
+
         if (!$this->_isAllowed()) {
             $this->_available = false;
             return false;
@@ -123,5 +128,18 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
         } else {
             return true;
         }
+    }
+
+    /**
+     * Check whether or not the remote flash file is available
+     *
+     * @return boolean
+     */
+    protected function _isObjectReadable()
+    {
+        if (@fopen($this->getObjectUrl() . '.swf', 'r') || @fopen($this->getObjectUrl() . '.dcr', 'r')) {
+            return true;
+        }
+        return false;
     }
 }

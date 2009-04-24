@@ -67,21 +67,9 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
     public function getItemOptions()
     {
         $result = array();
-
         if ($options = $this->getOrderItem()->getProductOptions()) {
             if (isset($options['options'])) {
-                /**
-                 * Remove html tags from option
-                 */
-                $productOptions = $options['options'];
-                if ($this->getPrintStatus()) {
-                    foreach ($productOptions as &$option) {
-                    	if (isset($option['value'])) {
-                            $option['value'] = strip_tags($option['value']);
-                    	}
-                    }
-                }
-                $result = array_merge($result, $productOptions);
+                $result = array_merge($result, $options['options']);
             }
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
@@ -90,17 +78,61 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
                 $result = array_merge($result, $options['attributes_info']);
             }
         }
-
         return $result;
     }
 
+    /**
+     * Accept option value and return its formatted view
+     *
+     * @param mixed $optionValue
+     * Method works well with these $optionValue format:
+     *      1. String
+     *      2. Indexed array e.g. array(val1, val2, ...)
+     *      3. Associative array, containing additional option info, including option value, e.g.
+     *          array
+     *          (
+     *              [label] => ...,
+     *              [value] => ...,
+     *              [print_value] => ...,
+     *              [option_id] => ...,
+     *              [option_type] => ...,
+     *              [custom_view] =>...,
+     *          )
+     *
+     * @return array
+     */
     public function getFormatedOptionValue($optionValue)
     {
-        if (Mage::helper('catalog/product_options')->isHtmlFormattedOptionValue($optionValue)) {
-            return array('value' => $optionValue);
+        $optionInfo = array();
+
+        // define input data format
+        if (is_array($optionValue)) {
+            if (isset($optionValue['option_id'])) {
+                $optionInfo = $optionValue;
+                if (isset($optionInfo['value'])) {
+                    $optionValue = $optionInfo['value'];
+                }
+            } elseif (isset($optionValue['value'])) {
+                $optionValue = $optionValue['value'];
+            }
         }
 
-        $formateOptionValue = array();
+        // render customized option view
+        if (isset($optionInfo['custom_view']) && $optionInfo['custom_view']) {
+            $_default = array('value' => $optionValue);
+            if (isset($optionInfo['option_type'])) {
+                try {
+                    $group = Mage::getModel('catalog/product_option')->groupFactory($optionInfo['option_type']);
+                    return array('value' => $group->getCustomizedView($optionInfo));
+                } catch (Exception $e) {
+                    return $_default;
+                }
+            }
+            return $_default;
+        }
+
+        // truncate standard view
+        $result = array();
         if (is_array($optionValue)) {
             $_truncatedValue = implode("\n", $optionValue);
             $_truncatedValue = nl2br($_truncatedValue);
@@ -110,17 +142,15 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
             $_truncatedValue = nl2br($_truncatedValue);
         }
 
-        $formateOptionValue = array(
-            'value' => $_truncatedValue
-        );
+        $result = array('value' => $_truncatedValue);
 
         if (Mage::helper('core/string')->strlen($optionValue) > 55) {
-            $formateOptionValue['value'] = $formateOptionValue['value'] . ' <a href="#" class="dots" onclick="return false">...</a>';
+            $result['value'] = $result['value'] . ' <a href="#" class="dots" onclick="return false">...</a>';
             $optionValue = nl2br($optionValue);
-            $formateOptionValue = array_merge($formateOptionValue, array('full_view' => $optionValue));
+            $result = array_merge($result, array('full_view' => $optionValue));
         }
 
-        return $formateOptionValue;
+        return $result;
     }
 
     /**

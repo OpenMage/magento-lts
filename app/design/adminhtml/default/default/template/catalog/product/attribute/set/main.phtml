@@ -113,6 +113,7 @@
 
                         //this.ge.addListener('beforerender', editSet.editGroup);
                         this.ge.addListener('beforeshow', editSet.editGroup);
+                        this.ge.addListener('beforecomplete', editSet.beforeRenameGroup);
                         //this.ge.addListener('startedit', editSet.editGroup);
 
                         //-------------------------------------------------------------
@@ -281,13 +282,10 @@
                             this.addGroup();
                         } else if( group_name != false && group_name != null && group_name != '' ) {
 
-                            for (var i=0; i < TreePanels.root.childNodes.length; i++) {
-                                if (TreePanels.root.childNodes[i].text.toLowerCase() == group_name.toLowerCase()) {
-                                    errorText = "<?php echo Mage::helper('catalog')->__('Attribute group with the \"/name/\" name already exists') ?>";
-                                    alert(errorText.replace("/name/",group_name));
-                                    return;
-                                }
+                            if (!editSet.validateGroupName(group_name, 0)) {
+                                return;
                             }
+
                             var newNode = new Ext.tree.TreeNode({
                                     text : group_name,
                                     cls : 'folder',
@@ -304,6 +302,21 @@
                          	TreePanels.ge.cancelEdit();
                          	return false;
                         }
+                    },
+
+                    beforeRenameGroup : function(obj, after, before) {
+                        return editSet.validateGroupName(after, obj.editNode.id);
+                    },
+
+                    validateGroupName : function(name, exceptNodeId) {
+                        for (var i=0; i < TreePanels.root.childNodes.length; i++) {
+                            if (TreePanels.root.childNodes[i].text.toLowerCase() == name.toLowerCase() && TreePanels.root.childNodes[i].id != exceptNodeId) {
+                                errorText = "<?php echo Mage::helper('catalog')->__('Attribute group with the \"/name/\" name already exists') ?>";
+                                alert(errorText.replace("/name/",name));
+                                return false;
+                            }
+                        }
+                        return true;
                     },
 
                     save : function() {

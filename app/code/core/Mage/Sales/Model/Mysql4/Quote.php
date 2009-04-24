@@ -141,4 +141,24 @@ class Mage_Sales_Model_Mysql4_Quote extends Mage_Sales_Model_Mysql4_Abstract
             );
         }
     }
+
+    /**
+     * Mark recollect contain product(s) quotes
+     *
+     * @param array|int $productIds
+     * @return Mage_Sales_Model_Mysql4_Quote
+     */
+    public function markQuotesRecollect($productIds)
+    {
+        $this->_getWriteAdapter()->query("
+            UPDATE `{$this->getTable('sales/quote')}` SET `trigger_recollect` = 1
+            WHERE `entity_id` IN (
+                SELECT DISTINCT `quote_id`
+                FROM `{$this->getTable('sales/quote_item')}`
+                WHERE `product_id` IN (?)
+            )", $productIds
+        );
+
+        return $this;
+    }
 }

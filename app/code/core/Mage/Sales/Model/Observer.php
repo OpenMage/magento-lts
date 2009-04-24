@@ -20,12 +20,26 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
+/**
+ * Sales observer
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Sales_Model_Observer
 {
+    /**
+     * Clean expired quotes (cron process)
+     *
+     * @param Mage_Cron_Model_Schedule $schedule
+     * @return Mage_Sales_Model_Observer
+     */
     public function cleanExpiredQuotes($schedule)
     {
         $lifetimes = Mage::getConfig()->getStoresConfigByPath('checkout/cart/delete_quote_after');
@@ -40,26 +54,68 @@ class Mage_Sales_Model_Observer
             $quotes->addFieldToFilter('is_active', 0);
             $quotes->walk('delete');
         }
+        return $this;
     }
 
     /**
      * When deleting product, substract it from all quotes quantities
      *
      * @throws Exception
+     * @param Varien_Event_Observer
+     * @return Mage_Sales_Model_Observer
      */
     public function substractQtyFromQuotes($observer)
     {
         $product = $observer->getEvent()->getProduct();
         Mage::getResourceSingleton('sales/quote')->substractProductFromQuotes($product);
+        return $this;
     }
 
     /**
      * When applying a catalog price rule, make related quotes recollect on demand
      *
-     * @param object $observer
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Sales_Model_Observer
      */
     public function markQuotesRecollectOnCatalogRules($observer)
     {
         Mage::getResourceSingleton('sales/quote')->markQuotesRecollectOnCatalogRules();
+        return $this;
+    }
+
+    /**
+     * Catalog Product After Save (change status process)
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Sales_Model_Observer
+     */
+    public function catalogProductSaveAfter(Varien_Event_Observer $observer)
+    {
+        $product = $observer->getEvent()->getProduct();
+        if ($product->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
+            return $this;
+        }
+
+        Mage::getResourceSingleton('sales/quote')->markQuotesRecollect($product->getId());
+
+        return $this;
+    }
+
+    /**
+     * Catalog Mass Status update process
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Sales_Model_Observer
+     */
+    public function catalogProductStatusUpdate(Varien_Event_Observer $observer)
+    {
+        $status     = $observer->getEvent()->getStatus();
+        if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
+            return $this;
+        }
+        $productId  = $observer->getEvent()->getProductId();
+        Mage::getResourceSingleton('sales/quote')->markQuotesRecollect($productId);
+
+        return $this;
     }
 }

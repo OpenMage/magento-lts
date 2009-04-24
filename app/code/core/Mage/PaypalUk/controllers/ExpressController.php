@@ -198,7 +198,7 @@ class Mage_PaypalUk_ExpressController extends Mage_Core_Controller_Front_Action
 
             $order->place();
 
-            if (isset($customer) && $customer && $this->getReview()->getQuote()->getCheckoutMethod()=='register') {
+            if (isset($customer) && $customer && $this->getReview()->getQuote()->getCheckoutMethod()==Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER) {
                 $customer->save();
                 $customer->setDefaultBilling($customerBilling->getId());
                 $customerShippingId = isset($customerShipping) ? $customerShipping->getId() : $customerBilling->getId();

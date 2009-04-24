@@ -198,6 +198,10 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     $customer->setForceConfirmed(true);
                 }
 
+                Mage::dispatchEvent('adminhtml_customer_prepare_save',
+                    array('customer' => $customer, 'request' => $this->getRequest())
+                );
+
                 $customer->save();
 
                 // send welcome email

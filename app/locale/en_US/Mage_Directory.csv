@@ -2,6 +2,7 @@
 "Allowed currencies","Allowed currencies"
 "Base currency","Base currency"
 "Cannot retrieve rate from %s","Cannot retrieve rate from %s"
+"Connection timeout in seconds","Connection timeout in seconds"
 "Continue &raquo;","Continue &raquo;"
 "Country","Country"
 "Country Api","Country Api"
@@ -38,4 +39,5 @@
 "Unable to initialize import model","Unable to initialize import model"
 "Undefined rate from ""%s-%s""","Undefined rate from ""%s-%s"""
 "WARNING:","WARNING:"
+"Webservicex","Webservicex"
 "Your current currency is: %s","Your current currency is: %s"

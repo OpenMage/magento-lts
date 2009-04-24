@@ -257,7 +257,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Payment_Model_Method_Abstract
         if the customer checkout from mark(one page) and guest
         */
         if ($this->getSession()->getExpressCheckoutMethod()=='shortcut' ||
-        ($this->getSession()->getExpressCheckoutMethod()!='shortcut' && $q->getCheckoutMethod()!='register')){
+        ($this->getSession()->getExpressCheckoutMethod()!='shortcut' && $q->getCheckoutMethod()!=Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER)){
             $q->getBillingAddress()
                 ->setFirstname($a->getFirstname())
                 ->setLastname($a->getLastname())

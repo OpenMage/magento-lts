@@ -69,6 +69,13 @@
         </resources>
         <resources_alias>
         </resources_alias>
+        <v2>
+            <wsdl>
+                <prefix>
+                    <wsdl>http://schemas.xmlsoap.org/wsdl/</wsdl>
+                </prefix>
+            </wsdl>
+        </v2>
         <faults>
             <unknown>
                 <code>0</code>

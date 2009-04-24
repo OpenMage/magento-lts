@@ -1,6 +1,7 @@
 "--Please Select--","--Please Select--"
 "<label>Make Check payable to:</label> %s","<label>Make Check payable to:</label> %s"
 "<label>Make Check payable to</label>: %s","<label>Make Check payable to</label>: %s"
+"Automatically invoice all items","Automatically invoice all items"
 "Can not configuration for payment method with code: %s","Can not configuration for payment method with code: %s"
 "Can not retrieve payment info model object.","Can not retrieve payment info model object."
 "Can not retrieve payment method instance","Can not retrieve payment method instance"

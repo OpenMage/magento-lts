@@ -64,6 +64,8 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
             'backend_model',
             'backend_type',
             'backend_table',
+            'frontend_input',
+            'source_model',
             'is_global'
         ));
         return $this;

@@ -178,7 +178,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 foreach ($collection as $item) {
                     $user = Mage::getModel('admin/user')->load($item->getId());
                     if ($user->getId()) {
-                        $pass = substr(md5(uniqid(rand(), true)), 0, 6);
+                        $pass = substr(md5(uniqid(rand(), true)), 0, 7);
                         $user->setPassword($pass);
                         $user->save();
                         $user->setPlainPassword($pass);

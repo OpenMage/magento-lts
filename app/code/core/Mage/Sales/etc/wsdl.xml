@@ -177,7 +177,7 @@
             <complexType name="orderItemIdQty">
                 <all>
                     <element name="order_item_id" type="xsd:int" />
-                    <element name="qty" type="xsd:qty" />
+                    <element name="qty" type="xsd:double" />
                 </all>
             </complexType>
             <complexType name="orderItemIdQtyArray">

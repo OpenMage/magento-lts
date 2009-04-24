@@ -177,6 +177,11 @@ final class Maged_Controller
     {
         if (!self::$_instance) {
             self::$_instance = new self;
+            
+            if (self::$_instance->isDownloaded() && self::$_instance->isInstalled()) {
+                Mage::app();
+                Mage::getSingleton('adminhtml/url')->turnOffSecretKey();
+            }
         }
         return self::$_instance;
     }

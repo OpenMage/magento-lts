@@ -89,7 +89,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     {
         $columns = array();
         $columns[$this->getAttribute()->getAttributeCode()] = array(
-            'type'      => 'int',
+            'type'      => 'tinyint(1)',
             'unsigned'  => false,
             'is_null'   => true,
             'default'   => null,
@@ -106,7 +106,15 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
      */
     public function getFlatIndexes()
     {
-        return array();
+        $indexes = array();
+
+        $index = 'IDX_' . strtoupper($this->getAttribute()->getAttributeCode());
+        $indexes[$index] = array(
+            'type'      => 'index',
+            'fields'    => array($this->getAttribute()->getAttributeCode())
+        );
+
+        return $indexes;
     }
 
     /**

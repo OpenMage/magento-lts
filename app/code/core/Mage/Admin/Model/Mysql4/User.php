@@ -279,4 +279,12 @@ class Mage_Admin_Model_Mysql4_User extends Mage_Core_Model_Mysql4_Abstract
         $select->where("({$usersTable}.username = '{$user->getUsername()}' OR {$usersTable}.email = '{$user->getEmail()}') AND {$usersTable}.user_id != '{$user->getId()}'");
         return $this->_getReadAdapter()->fetchRow($select);
     }
+
+    public function saveExtra($object, $data)
+    {
+        if ($object->getId()) {
+            $this->_getWriteAdapter()->update($this->getMainTable(), array('extra'=>$data));
+        }
+        return $this;
+    }
 }

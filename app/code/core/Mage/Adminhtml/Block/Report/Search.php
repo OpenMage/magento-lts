@@ -34,7 +34,10 @@
 
 class Mage_Adminhtml_Block_Report_Search extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
+    /**
+     * Initialize Grid Container
+     *
+     */
     public function __construct()
     {
         $this->_controller = 'report_search';
@@ -42,5 +45,4 @@ class Mage_Adminhtml_Block_Report_Search extends Mage_Adminhtml_Block_Widget_Gri
         parent::__construct();
         $this->_removeButton('add');
     }
-
 }

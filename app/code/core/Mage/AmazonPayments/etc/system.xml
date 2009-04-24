@@ -1,0 +1,427 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   Mage
+ * @package    Mage_AmazonPayments
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <sections>
+        <payment>
+            <groups>
+                <amazonpayments_cba translate="label" module="amazonpayments">
+                    <label>Checkout by Amazon</label>
+                    <comment><![CDATA[<br />
+<div class="custom-options">
+<div class="box">
+<p class="grand-total"><br /><b>Signing up with Checkout by Amazon</b></p>
+<p>To configure Checkout by Amazon&trade; you will need to enter your Checkout by Amazon&trade; Merchant ID, Access Key ID, and Secret Access Key.</p>
+<p>If you do not already have a Checkout by Amazon&trade; account, click here to create one now. <a href="https://sellercentral.amazon.com/gp/on-board/workflow/Registration/login.html/902-0586098-4611057?passthrough%2Fsource=RPVARIENA2ZZYWSJ0WMID8&passthrough%2Fld=DOWNLOADABLE&passthrough%2Faccount=cba&passthrough%2FsuperSource=OAR&passthrough%2FmarketplaceID=AZ4B0ZS3LGLX" target="_blank">Sign-Up</a></p>
+<p>To locate your Merchant ID, sign in to your Seller Central Checkout by Amazon&trade; account and click <b>Settings > Checkout Pipeline Settings.</b></p>
+<p>To locate your Access Key ID and Secret Access Key, sign in to your Seller Central Checkout by Amazon&trade; account and click <b>Integration > AWS Key.</b> Click the link to read the Amazon Web Services Customer Agreement, and then click the check box, if you are setting up a new Access Key ID.</p>
+<p>To enable XML Order Reports click <b>Settings > Checkout Pipeline Settings</b>, and then clicking Edit under the Order Report Settings section. Select <u>Order Report Type</u> as XML to get XML Order Reports using SOAP APIs. Configure your downloads for <u>hourly.</u></p>
+<p>For additional information on setting up your Checkout by Amazon account, <a href="https://payments.amazon.com/sdui/sdui/business?sn=cba/faq" target="_blank">Click Here - FAQ.</a></p>
+<p><br /><a href="https://sellercentral.amazon.com/gp/on-board/workflow/Registration/login.html/902-0586098-4611057?passthrough%2Fsource=RPVARIENA2ZZYWSJ0WMID8&passthrough%2Fld=DOWNLOADABLE&passthrough%2Faccount=cba&passthrough%2FsuperSource=OAR&passthrough%2FmarketplaceID=AZ4B0ZS3LGLX" target="_blank">Signup for Checkout by Amazon</a><br /><br /></p>
+</div>
+</div>
+]]></comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>601</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <title translate="label">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+                        <active translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <sandbox_flag translate="label">
+                            <label>Sandbox</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sandbox_flag>
+                        <!--<use_secure_callback_url translate="label comment">
+                            <label>Secure Callback URL</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Required for live Checkout by Amazon transactions.</comment>
+                        </use_secure_callback_url>-->
+                        <debug_flag translate="label">
+                            <label>Debug</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </debug_flag>
+                        <merchant_id translate="label">
+                            <label>Merchant ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </merchant_id>
+                        <merchant_name translate="label">
+                            <label>Merchant Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </merchant_name>
+                        <accesskey_id translate="label">
+                            <label>Access Key ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </accesskey_id>
+                        <secretkey_id translate="label">
+                            <label>Secret Key ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </secretkey_id>
+                        <merchant_tocken translate="label">
+                            <label>Merchant Tocken</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </merchant_tocken>
+                        <merchant_login translate="label">
+                            <label>Merchant Login</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </merchant_login>
+                        <merchant_pass translate="label">
+                            <label>Merchant Password</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </merchant_pass>
+                        <!--<button_url translate="label comment">
+                            <label>Button URL</label>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </button_url>-->
+                        <order_status translate="label">
+                            <label>New order status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_order_status_new</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </order_status>
+                        <use_callback_api translate="label">
+                            <label>Use Callback Api</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>91</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </use_callback_api>
+                        <standard_rate>
+                            <label>Standard Rate</label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>amazonpayments/adminhtml_shipping_methods</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized</backend_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </standard_rate>
+                        <expedited_rate>
+                            <label>Expedited Rate</label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>amazonpayments/adminhtml_shipping_methods</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized</backend_model>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </expedited_rate>
+                        <oneday_rate>
+                            <label>OneDay Rate</label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>amazonpayments/adminhtml_shipping_methods</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized</backend_model>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </oneday_rate>
+                        <twoday_rate>
+                            <label>TwoDay Rate</label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>amazonpayments/adminhtml_shipping_methods</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized</backend_model>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </twoday_rate>
+                    </fields>
+                </amazonpayments_cba>
+                <amazonpayments_asp translate="label" module="amazonpayments">
+                    <label>Amazon Simple Pay</label>
+                    <comment><![CDATA[<br />
+<div class="custom-options">
+<div class="box">
+<p class="grand-total"><br /><b>Signing up with Amazon Simple Pay</b></p>
+<p>To configure your Amazon Alternate Payment Method (Amazon Simple Pay), you will need to enter your Amazon Web Services Access Key ID, and Secret Access Key.</p>
+<p>If you do not already have an Amazon Payments Business account, click here to create one now. <a href="https://payments.amazon.com/sdui/sdui/business?sn=paynow/o" target="_blank">Sign-Up.</a></p>
+<p>To locate your Amazon Web Services Access Key ID and Secret Key ID, sign in to your AWS account and click <b>Your Account > Access Identifiers.</b> Don't have an AWS account?  Log in to  <a href="http://aws.amazon.com/" target="_blank">aws.amazon.com</a> and setup an AWS account.</p>
+<p>For additional information on setting up your Amazon Simple Pay, <a href="https://payments.amazon.com/sdui/sdui/business?sn=paynow/faq" target="_blank">Click Here - FAQ.</a></p>
+<p><br /><a href="https://payments.amazon.com/sdui/sdui/business?sn=paynow/o" target="_blank">Signup for Amazon Simple Pay</a><br /><br /></p>
+</div>
+</div>
+]]></comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>601</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <title translate="label">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+                        <active translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <is_sandbox translate="label">
+                            <label>Sandbox</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </is_sandbox>
+                        <pay_process_immediate translate="label">
+                            <label>Payment action</label>
+                            <frontend_type>select</frontend_type>
+                            <!-- source_model>adminhtml/system_config_source_yesno</source_model -->
+                            <source_model>amazonpayments/payment_asp_source_paymentAction</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </pay_process_immediate>
+                        <access_key translate="label">
+                            <label>Access key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </access_key>
+                        <secret_key translate="label">
+                            <label>Secret key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </secret_key>
+                        <pay_service_url translate="label">
+                            <label>Payment service URI</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </pay_service_url>
+                        <pay_service_url_sandbox translate="label">
+                            <label>Payment sandbox service URI</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>16</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </pay_service_url_sandbox>
+                        <pay_immediate_return translate="label">
+                            <label>Immediate return</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>19</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Automatically redirect after payment to success page</comment>
+                        </pay_immediate_return>
+                        <fps_service_url translate="label">
+                            <label>FPS service URI</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>21</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </fps_service_url>
+                        <fps_service_url_sandbox translate="label">
+                            <label>FPS sandbox service URI</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </fps_service_url_sandbox>
+
+                        <pay_description translate="label">
+                            <label>Payment description</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </pay_description>
+                        <refund_description translate="label">
+                            <label>Refund description</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </refund_description>
+                        <pay_description translate="label">
+                            <label>Payment description</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </pay_description>
+                        <cancel_description translate="label">
+                            <label>Cancel description</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>33</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </cancel_description>
+                        <report_email translate="label">
+                            <label>Report email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>34</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </report_email>
+                        <email_sender_identity translate="label">
+                            <label>Email Sender</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_identity</source_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </email_sender_identity>
+                        <email_template_notofication_error translate="label">
+                            <label>Notification error transactional email</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>36</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </email_template_notofication_error>
+                        <report_error_to_email translate="label">
+                            <label>Report error to email</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>37</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </report_error_to_email>
+                        <error_log translate="label">
+                            <label>Error log</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>38</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </error_log>
+                        <debug_log translate="label">
+                            <label>Debug log</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>39</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </debug_log>
+                    </fields>
+                </amazonpayments_asp>
+            </groups>
+        </payment>
+    </sections>
+</config>

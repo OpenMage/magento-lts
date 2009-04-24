@@ -28,7 +28,7 @@
 <config>
     <modules>
     <Mage_Log>
-        <version>0.7.3</version>
+        <version>0.7.4</version>
     </Mage_Log>
     </modules>
     <global>
@@ -196,14 +196,14 @@
                     <model>log/cron::logClean</model>
                 </run>
             </log_clean>
-            <every_10_minutes>
+            <!-- every_10_minutes>
                 <schedule>
                     <cron_expr>*/10 * * * *</cron_expr>
                 </schedule>
                 <run>
                     <model>log/aggregation::run</model>
                 </run>
-            </every_10_minutes>
+            </every_10_minutes -->
         </jobs>
     </crontab>
 </config>

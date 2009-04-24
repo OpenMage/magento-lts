@@ -20,35 +20,68 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
+/**
+ * Sales Quote Address Total  abstract model
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
 {
-	protected $_code;
-	
-	public function setCode($code) 
-	{
-		$this->_code = $code;
-		return $this;
-	}
-	
-	public function getCode()
-	{
-		return $this->_code;
-	}
-	
+    /**
+     * Total Code name
+     *
+     * @var string
+     */
+    protected $_code;
+
+    /**
+     * Set total code code name
+     *
+     * @param string $code
+     * @return Mage_Sales_Model_Quote_Address_Total_Abstract
+     */
+    public function setCode($code)
+    {
+        $this->_code = $code;
+        return $this;
+    }
+
+    /**
+     * Retrieve total code name
+     *
+     * @return unknown
+     */
+    public function getCode()
+    {
+        return $this->_code;
+    }
+
+    /**
+     * Collect totals process
+     *
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return Mage_Sales_Model_Quote_Address_Total_Abstract
+     */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         return $this;
     }
-    
+
+    /**
+     * Fetch (Retrieve data as array)
+     *
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return array
+     */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
-        $arr = array();
-        
-        return $arr;
+        return array();
     }
 }

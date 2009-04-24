@@ -53,6 +53,7 @@ class Mage_Admin_Model_Observer
                     $username   = $postLogin['username'];
                     $password   = $postLogin['password'];
                     $user = $session->login($username, $password, $request);
+                    $request->setPost('login', null);
                 }
                 if (!$request->getParam('forwarded')) {
                     if ($request->getParam('isIframe')) {

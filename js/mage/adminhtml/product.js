@@ -311,6 +311,7 @@ Product.Configurable.prototype = {
 		this.onLabelUpdate        = this.updateLabel.bindAsEventListener(this);       // Update attribute label
 		this.onValuePriceUpdate   = this.updateValuePrice.bindAsEventListener(this);  // Update pricing value
 		this.onValueTypeUpdate    = this.updateValueType.bindAsEventListener(this);   // Update pricing type
+		this.onValueDefaultUpdate = this.updateValueUseDefault.bindAsEventListener(this);
 
 		/* Grid initialization and attributes initialization */
 		this.createAttributes(); // Creation of default attributes
@@ -579,6 +580,14 @@ Product.Configurable.prototype = {
 		Event.observe(priceField, 'keyup', this.onValuePriceUpdate);
 		Event.observe(priceField, 'change', this.onValuePriceUpdate);
 		Event.observe(priceTypeField, 'change', this.onValueTypeUpdate);
+		var useDefaultEl = li.down('.attribute-use-default-value');
+		if (useDefaultEl) {
+		    if (li.valueObject.use_default_value) {
+		        useDefaultEl.checked = true;
+		        this.updateUseDefaultRow(useDefaultEl, li);
+		    }
+		    Event.observe(useDefaultEl, 'change', this.onValueDefaultUpdate);
+		}
 	},
 	updateValuePrice: function(event) {
 		var li = Event.findElement(event, 'LI');
@@ -592,6 +601,27 @@ Product.Configurable.prototype = {
 		this.updateSimpleForm();
 		this.updateSaveInput();
 	},
+    updateValueUseDefault: function(event) {
+        var li = Event.findElement(event, 'LI');
+        var useDefaultEl = Event.element(event);
+        li.valueObject.use_default_value = useDefaultEl.checked;
+        this.updateUseDefaultRow(useDefaultEl, li);
+    },
+    updateUseDefaultRow: function(useDefaultEl, li)
+    {
+        var priceField = li.down('.attribute-price');
+        var priceTypeField = li.down('.attribute-price-type');
+        if (useDefaultEl.checked) {
+            priceField.disabled = true;
+            priceTypeField.disabled = true;
+        }
+        else {
+            priceField.disabled = false;
+            priceTypeField.disabled = false;
+        }
+        this.updateSimpleForm();
+        this.updateSaveInput();
+    },
 	updateSaveInput: function() {
 		$(this.idPrefix + 'save_attributes').value = this.attributes.toJSON();
 		$(this.idPrefix + 'save_links').value  = this.links.toJSON();

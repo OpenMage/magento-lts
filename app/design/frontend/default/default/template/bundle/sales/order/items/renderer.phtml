@@ -344,7 +344,7 @@
         <?php foreach ($_options as $_option) : ?>
             <dt><?php echo $this->htmlEscape($_option['label']) ?></dt>
             <?php if (!$this->getPrintStatus()): ?>
-                <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option['value']) ?>
+                <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>
                 <dd<?php if (isset($_formatedOptionValue['full_view'])): ?> class="truncated"<?php endif; ?>>
                     <?php echo $_formatedOptionValue['value'] ?>
                     <?php if (isset($_formatedOptionValue['full_view'])): ?>
@@ -357,7 +357,7 @@
                     <?php endif; ?>
                 </dd>
             <?php else: ?>
-                <dd><?php echo $this->htmlEscape($_option['value']) ?></dd>
+                <dd><?php echo $this->htmlEscape( (isset($_option['print_value']) ? $_option['print_value'] : $_option['value']) ) ?></dd>
             <?php endif; ?>
         <?php endforeach; ?>
         </dl>

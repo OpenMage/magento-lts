@@ -83,12 +83,10 @@ class Mage_Log_Model_Mysql4_Log extends Mage_Core_Model_Mysql4_Abstract
                 array('visitor_id' => 'visitor_table.visitor_id'))
             ->joinLeft(
                 array('customer_table' => $this->getTable('log/customer')),
-                'visitor_table.visitor_id = customer_table.visitor_id',
+                'visitor_table.visitor_id = customer_table.visitor_id AND customer_table.log_id IS NULL',
                 array())
-            ->where('customer_table.log_id IS NULL')
             ->where('visitor_table.last_visit_at < ?', gmdate('Y-m-d H:i:s', time() - $time))
-            ->order('visitor_table.visitor_id')
-            ->limit(1000);
+            ->limit(100);
 
             $query = $this->_getReadAdapter()->query($select);
             $visitorIds = array();
@@ -179,7 +177,7 @@ class Mage_Log_Model_Mysql4_Log extends Mage_Core_Model_Mysql4_Abstract
                 ->where('log_id>?', $customerLogId)
                 ->where('log_id<?', $lastLogId + 1)
                 ->order('log_id')
-                ->limit(1000);
+                ->limit(100);
 
             $query = $this->_getReadAdapter()->query($select);
             $count = 0;
@@ -250,11 +248,9 @@ class Mage_Log_Model_Mysql4_Log extends Mage_Core_Model_Mysql4_Abstract
                     array('url_id'))
                 ->joinLeft(
                     array('url_table' => $this->getTable('log/url_table')),
-                    'url_info_table.url_id = url_table.url_id',
+                    'url_info_table.url_id = url_table.url_id AND url_table.url_id IS NULL',
                     array())
-                ->where('url_table.url_id IS NULL')
-                ->order('url_info_table.url_id ASC')
-                ->limit(1000);
+                ->limit(100);
             $query = $this->_getReadAdapter()->query($select);
             while ($row = $query->fetch()) {
                 $urlIds[] = $row['url_id'];

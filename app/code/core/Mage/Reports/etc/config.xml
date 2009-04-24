@@ -225,6 +225,10 @@
                                 <title>Bestsellers</title>
                                 <action>adminhtml/report_product/ordered</action>
                             </ordered>
+                            <sold translate="title" module="reports">
+                                <title>Products Ordered</title>
+                                <action>adminhtml/report_product/sold</action>
+                            </sold>
                             <viewed translate="title" module="reports">
                                 <title>Most Viewed</title>
                                 <action>adminhtml/report_product/viewed</action>
@@ -361,6 +365,9 @@
                                         <ordered translate="title">
                                             <title>Bestsellers</title>
                                         </ordered>
+                                        <sold translate="title">
+                                            <title>Products Ordered</title>
+                                        </sold>
                                         <viewed translate="title">
                                             <title>Most Viewed</title>
                                         </viewed>

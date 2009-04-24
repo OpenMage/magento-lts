@@ -24,18 +24,29 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Catalog product related items block
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Catalog_Block_Product_List_Crosssell extends Mage_Catalog_Block_Product_Abstract
 {
+    /**
+     * Crosssell item collection
+     *
+     * @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
+     */
     protected $_itemCollection;
 
+    /**
+     * Prepare crosssell items data
+     *
+     * @return Mage_Catalog_Block_Product_List_Crosssell
+     */
     protected function _prepareData()
     {
         $product = Mage::registry('product');
@@ -58,14 +69,43 @@ class Mage_Catalog_Block_Product_List_Crosssell extends Mage_Catalog_Block_Produ
         return $this;
     }
 
-    protected function	_beforeToHtml()
+    /**
+     * Before rendering html process
+     * Prepare items collection
+     *
+     * @return Mage_Catalog_Block_Product_List_Crosssell
+     */
+    protected function _beforeToHtml()
     {
         $this->_prepareData();
         return parent::_beforeToHtml();
     }
 
+    /**
+     * Retrieve crosssell items collection
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
+     */
     public function getItems()
     {
         return $this->_itemCollection;
+    }
+
+    /**
+     * Retrieve url for add product to cart
+     * Rewrited for Product List and has required options products
+     *
+     * @param  Mage_Catalog_Model_Product $product
+     * @param array $additional
+     * @return string
+     */
+    public function getAddToCartUrl($product, $additional = array())
+    {
+        if ($product->hasRequiredOptions()) {
+            $url = $product->getProductUrl();
+            $link = (strpos($url, '?') !== false) ? '&' : '?';
+            return $url . $link . 'options=cart';
+        }
+        return parent::getAddToCartUrl($product, $additional);
     }
 }
