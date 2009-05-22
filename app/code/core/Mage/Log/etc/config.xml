@@ -28,7 +28,7 @@
 <config>
     <modules>
     <Mage_Log>
-        <version>0.7.4</version>
+        <version>0.7.6</version>
     </Mage_Log>
     </modules>
     <global>
@@ -71,6 +71,9 @@
                     <quote_table>
                         <table>log_quote</table>
                     </quote_table>
+                    <visitor_online>
+                        <table>log_visitor_online</table>
+                    </visitor_online>
                 </entities>
             </log_mysql4>
         </models>
@@ -176,6 +179,11 @@
     </adminhtml>
 
     <default>
+        <log>
+            <visitor>
+                <online_update_frequency>60</online_update_frequency>
+            </visitor>
+        </log>
         <system>
             <log>
                 <clean_after_day>180</clean_after_day>

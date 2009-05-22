@@ -96,7 +96,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * @var array
      */
     protected $_reservedRouteParams = array(
-        '_store', '_type', '_secure', '_forced_secure', '_use_rewrite',
+        '_store', '_type', '_secure', '_forced_secure', '_use_rewrite', '_nosid',
         '_absolute', '_current', '_direct', '_fragment', '_escape', '_query'
     );
 
@@ -112,7 +112,7 @@ class Mage_Core_Model_Url extends Varien_Object
      *
      * @var bool
      */
-    protected $_useSession = true;
+    protected $_useSession;
 
     protected function _construct()
     {
@@ -187,6 +187,9 @@ class Mage_Core_Model_Url extends Varien_Object
      */
     public function getUseSession()
     {
+        if (is_null($this->_useSession)) {
+            $this->_useSession = Mage::app()->getUseSessionInUrl();
+        }
         return $this->_useSession;
     }
 
@@ -765,6 +768,12 @@ class Mage_Core_Model_Url extends Varien_Object
             $query = $routeParams['_query'];
             unset($routeParams['_query']);
         }
+
+        $noSid = null;
+        if (isset($routeParams['_nosid'])) {
+            $noSid = (bool)$routeParams['_nosid'];
+            unset($routeParams['_nosid']);
+        }
         $url = $this->getRouteUrl($routePath, $routeParams);
         /**
          * Apply query params, need call after getRouteUrl for rewrite _current values
@@ -780,7 +789,9 @@ class Mage_Core_Model_Url extends Varien_Object
             }
         }
 
-        $this->_prepareSessionUrl($url);
+        if ($noSid !== true) {
+            $this->_prepareSessionUrl($url);
+        }
 
         if ($query = $this->getQuery($escapeQuery)) {
             $url .= '?'.$query;

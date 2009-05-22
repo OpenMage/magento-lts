@@ -208,6 +208,14 @@ class Mage_Core_Model_App
     protected $_updateMode = false;
 
     /**
+     * Use session in URL flag
+     *
+     * @see Mage_Core_Model_Url
+     * @var bool
+     */
+    protected $_useSessionInUrl = true;
+
+    /**
      * Use session var instead of SID for session in URL
      *
      * @var bool
@@ -1215,5 +1223,27 @@ class Mage_Core_Model_App
     public function getUseSessionVar()
     {
         return $this->_useSessionVar;
+    }
+
+    /**
+     * Set Use session in URL flag
+     *
+     * @param bool $flag
+     * @return Mage_Core_Model_App
+     */
+    public function setUseSessionInUrl($flag = true)
+    {
+        $this->_useSessionInUrl = (bool)$flag;
+        return $this;
+    }
+
+    /**
+     * Retrieve use session in URL flag
+     *
+     * @return bool
+     */
+    public function getUseSessionInUrl()
+    {
+        return $this->_useSessionInUrl;
     }
 }

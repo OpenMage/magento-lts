@@ -79,11 +79,15 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      * @param  bool $useSid
      * @return string
      */
-    public function getProductUrl($product, $useSid = true)
+    public function getProductUrl($product, $useSid = null)
     {
-        $cacheUrlKey = 'url_'
-            . ($product->getCategoryId() && !$product->getDoNotUseCategoryId() ? $product->getCategoryId() : 'NONE')
-            . '_' . intval($useSid);
+        if ($useSid === null) {
+            $useSid = Mage::app()->getUseSessionInUrl();
+        }
+
+        $categoryId = $product->getCategoryId() && !$product->getDoNotUseCategoryId() ? $product->getCategoryId() : 0;
+
+        $cacheUrlKey = sprintf('url_%d_%d', $categoryId, $useSid);
         $url = $product->getData($cacheUrlKey);
 
         if (is_null($url)) {
@@ -93,7 +97,9 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
 
             // auto add SID to URL
             $originalSid = $this->getUrlInstance()->getUseSession();
-            $this->getUrlInstance()->setUseSession($useSid);
+            if ($originalSid != $useSid) {
+                $this->getUrlInstance()->setUseSession($useSid);
+            }
 
             if ($product->hasData('request_path') && $product->getRequestPath() != '') {
                 $this->setData($cacheUrlKey, $this->getUrlInstance()->getDirectUrl($product->getRequestPath()));

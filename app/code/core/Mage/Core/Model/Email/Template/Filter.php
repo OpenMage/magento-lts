@@ -20,13 +20,34 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
+/**
+ * Core Email Template Filter Model
+ *
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 {
+    /**
+     * Use absolute links flag
+     *
+     * @var bool
+     */
     protected $_useAbsoluteLinks = false;
+
+    /**
+     * Use session in URL flag
+     *
+     * @var bool
+     */
+    protected $_useSessionInUrl;
+
     /**
      * Url Instance
      *
@@ -34,12 +55,36 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     protected static $_urlInstance;
 
+    /**
+     * Set use absolute links flag
+     *
+     * @param bool $flag
+     * @return Mage_Core_Model_Email_Template_Filter
+     */
     public function setUseAbsoluteLinks($flag)
     {
         $this->_useAbsoluteLinks = $flag;
         return $this;
     }
 
+    /**
+     * Set Use session in URL flag
+     *
+     * @param bool $flag
+     * @return Mage_Core_Model_Email_Template_Filter
+     */
+    public function setUseSessionInUrl($flag)
+    {
+        $this->_useSessionInUrl = (bool)$flag;
+        return $this;
+    }
+
+    /**
+     * Retrieve Block html directive
+     *
+     * @param array $construction
+     * @return string
+     */
     public function blockDirective($construction)
     {
         $skipParams = array('type', 'id', 'output');
@@ -74,10 +119,15 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         return $block->$method();
     }
 
+    /**
+     * Retrieve layout html directive
+     *
+     * @param array $construction
+     * @return string
+     */
     public function layoutDirective($construction)
     {
         $skipParams = array('handle', 'area');
-        $setArea    = null;
 
         $params = $this->_getIncludeParameters($construction[2]);
         $layout = Mage::getModel('core/layout');
@@ -111,6 +161,12 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         return $layout->getOutput();
     }
 
+    /**
+     * Retrieve block parameters
+     *
+     * @param mixed $value
+     * @return array
+     */
     protected function _getBlockParameters($value)
     {
         $tokenizer = new Varien_Filter_Template_Tokenizer_Parameter();
@@ -119,6 +175,12 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         return $tokenizer->tokenize();
     }
 
+    /**
+     * Retrieve Skin URL directive
+     *
+     * @param array $construction
+     * @return string
+     */
     public function skinDirective($construction)
     {
         $params = $this->_getIncludeParameters($construction[2]);
@@ -129,6 +191,25 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         return $url;
     }
 
+    /**
+     * Retrieve media file URL directive
+     *
+     * @param array $construction
+     * @return string
+     */
+    public function mediaDirective($construction)
+    {
+        $params = $this->_getIncludeParameters($construction[2]);
+        return Mage::getBaseUrl('media') . $params['url'];
+    }
+
+    /**
+     * Retrieve store URL directive
+     * Support url and direct_url properties
+     *
+     * @param array $construction
+     * @return string
+     */
     public function storeDirective($construction)
     {
         $params = $this->_getIncludeParameters($construction[2]);
@@ -142,6 +223,10 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             }
         }
         $params['_absolute'] = $this->_useAbsoluteLinks;
+
+        if ($this->_useSessionInUrl === false) {
+            $params['_nosid'] = true;
+        }
 
         if (isset($params['direct_url'])) {
             $path = '';
@@ -177,5 +262,4 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
         return $url;
     }
-
 }

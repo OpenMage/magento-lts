@@ -194,14 +194,18 @@ class Mage_AmazonPayments_Model_Payment_Asp extends Mage_Payment_Model_Method_Ab
         $orderId = $this->getOrder()->getRealOrderId();
         $amount = Mage::app()->getStore()->roundPrice($this->getOrder()->getBaseGrandTotal());
         $currencyCode = $this->getOrder()->getBaseCurrency();
+        
+        $urlModel = Mage::getModel('core/url')
+            ->setUseSession(false);
+        
         return $this->getApi()->getPayParams(
             $orderId, 
             $amount, 
             $currencyCode,
-            Mage::getUrl('amazonpayments/asp/returnCancel'),
-            Mage::getUrl('amazonpayments/asp/returnSuccess'),
-            Mage::getUrl('amazonpayments/asp/notification')
-        );
+            $urlModel->getUrl('amazonpayments/asp/returnCancel'),
+            $urlModel->getUrl('amazonpayments/asp/returnSuccess'),
+            $urlModel->getUrl('amazonpayments/asp/notification')
+            );
     }
 
     /**

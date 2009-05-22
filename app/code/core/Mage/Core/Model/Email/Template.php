@@ -269,6 +269,7 @@ class Mage_Core_Model_Email_Template extends Varien_Object
     public function getProcessedTemplate(array $variables = array())
     {
         $processor = $this->getTemplateFilter();
+        $processor->setUseSessionInUrl(false);
 
         if(!$this->_preprocessFlag) {
             $variables['this'] = $this;
