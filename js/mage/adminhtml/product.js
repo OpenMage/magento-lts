@@ -37,7 +37,9 @@ Product.Gallery.prototype = {
         this.container = $(this.containerId);
         this.uploader = uploader;
         this.imageTypes = imageTypes;
-        this.uploader.onFilesComplete = this.handleUploadComplete.bind(this);
+        if (this.uploader) {
+            this.uploader.onFilesComplete = this.handleUploadComplete.bind(this);
+        }
         //this.uploader.onFileProgress  = this.handleUploadProgress.bind(this);
         //this.uploader.onFileError     = this.handleUploadError.bind(this);
         this.images = this.getElement('save').value.evalJSON();
@@ -292,13 +294,14 @@ Product.Attributes.prototype = {
 
 Product.Configurable = Class.create();
 Product.Configurable.prototype = {
-	initialize: function (attributes, links, idPrefix, grid) {
+	initialize: function (attributes, links, idPrefix, grid, readonly) {
 		this.templatesSyntax = new RegExp('(^|.|\\r|\\n)(\'{{\\s*(\\w+)\\s*}}\')', "");
 	    this.attributes = attributes; // Attributes
 		this.idPrefix   = idPrefix;   // Container id prefix
 		this.links 		= $H(links);  // Associated products
 		this.newProducts = [];        // For product that's created througth Create Empty and Copy from Configurable
-
+        this.readonly = readonly;
+        
 		/* Generation templates */
 		this.addAttributeTemplate     = new Template($(idPrefix + 'attribute_template').innerHTML.replace(/__id__/g,"'{{html_id}}'").replace(/ template no-display/g,''), this.templatesSyntax);
 		this.addValueTemplate         = new Template($(idPrefix + 'value_template').innerHTML.replace(/__id__/g,"'{{html_id}}'").replace(/ template no-display/g,''), this.templatesSyntax);
@@ -351,8 +354,10 @@ Product.Configurable.prototype = {
 			Event.observe(li.down('.attribute-label'),'change', this.onLabelUpdate);
 			Event.observe(li.down('.attribute-label'),'keyup',  this.onLabelUpdate);
 		}.bind(this));
-		// Creation of sortable for attributes sorting
-		Sortable.create(this.container, {handle:'attribute-name-container',onUpdate:this.updatePositions.bind(this)});
+		if (!this.readonly) {
+		    // Creation of sortable for attributes sorting
+		    Sortable.create(this.container, {handle:'attribute-name-container',onUpdate:this.updatePositions.bind(this)});
+		}
 		this.updateSaveInput();
 	},
 

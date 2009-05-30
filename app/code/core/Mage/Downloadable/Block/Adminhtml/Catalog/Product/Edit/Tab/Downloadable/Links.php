@@ -34,9 +34,9 @@
 class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Enter description here...
+     * Purchased Separately Attribute cache
      *
-     * @var unknown_type
+     * @var Mage_Catalog_Model_Resource_Eav_Attribute
      */
     protected $_purchasedSeparatelyAttribute = null;
 
@@ -61,9 +61,9 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     }
 
     /**
-     * Enter description here...
+     * Retrieve Purchased Separately Attribute object
      *
-     * @return Mage_Eav_Model_Entity_Attribute
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute
      */
     public function getPurchasedSeparatelyAttribute()
     {
@@ -78,7 +78,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     }
 
     /**
-     * Enter description here...
+     * Retrieve Purchased Separately HTML select
      *
      * @return string
      */
@@ -94,7 +94,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     }
 
     /**
-     * Enter description here...
+     * Retrieve Add button HTML
      *
      * @return string
      */
@@ -109,11 +109,21 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
         return $addButton->toHtml();
     }
 
+    /**
+     * Retrieve default links title
+     *
+     * @return string
+     */
     public function getLinksTitle()
     {
         return Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE);
     }
 
+    /**
+     * Check exists defined links title
+     *
+     * @return bool
+     */
     public function getUsedDefault()
     {
         return is_null($this->getProduct()->getAttributeDefaultValue('links_title'));
@@ -161,7 +171,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                 Mage_Downloadable_Model_Link::getBasePath(), $item->getLinkFile()
             );
             if ($item->getLinkFile() && is_file($file)) {
-                $name = '<a href="' . $this->getUrl('downloadable/product_edit/link', array('id' => $item->getId(), '_secure' => true)) . '">' .
+                $name = '<a href="' . $this->getUrl('downloadableadmin/product_edit/link', array('id' => $item->getId(), '_secure' => true)) . '">' .
                     Mage::helper('downloadable/file')->getFileFromPathFile($item->getLinkFile()) .
                     '</a>';
                 $tmpLinkItem['file_save'] = array(
@@ -209,11 +219,20 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
         return number_format($value, 2, null, '');
     }
 
+    /**
+     * Retrieve max downloads value from config
+     *
+     * @return int
+     */
     public function getConfigMaxDownloads()
     {
         return Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_DEFAULT_DOWNLOADS_NUMBER);
     }
 
+    /**
+     * Prepare block Layout
+     *
+     */
      protected function _prepareLayout()
     {
         $this->setChild(
@@ -228,6 +247,11 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
         );
     }
 
+    /**
+     * Retrieve Upload button HTML
+     *
+     * @return string
+     */
     public function getUploadButtonHtml()
     {
         return $this->getChild('upload_button')->toHtml();
@@ -240,7 +264,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     public function getConfigJson($type='links')
     {
-        $this->getConfig()->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('downloadable/file/upload', array('type' => $type, '_secure' => true)));
+        $this->getConfig()->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('downloadableadmin/file/upload', array('type' => $type, '_secure' => true)));
         $this->getConfig()->setParams(array('form_key' => $this->getFormKey()));
         $this->getConfig()->setFileField($type);
         $this->getConfig()->setFilters(array(
@@ -268,5 +292,4 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
 
         return $this->_config;
     }
-
 }

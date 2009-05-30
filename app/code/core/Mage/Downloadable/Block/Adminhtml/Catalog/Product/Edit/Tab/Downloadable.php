@@ -75,6 +75,26 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable ex
 //    }
 
     /**
+     * Check is readonly block
+     *
+     * @return boolean
+     */
+    public function isReadonly()
+    {
+        return $this->getProduct()->getDownloadableReadonly();
+    }
+
+    /**
+     * Retrieve product
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getProduct()
+    {
+        return Mage::registry('current_product');
+    }
+
+    /**
      * Get tab label
      *
      * @return string

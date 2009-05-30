@@ -230,10 +230,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     public function getProductAttributes()
     {
         if (is_null($this->_productAttributes)) {
-            $this->_productAttributes = array();
-            foreach ($this->getAttributesUsedInProductListing() as $attribute) {
-                $this->_productAttributes[] = $attribute['attribute_code'];
-            }
+            $this->_productAttributes = array_keys($this->getAttributesUsedInProductListing());
         }
         return $this->_productAttributes;
     }
@@ -268,8 +265,17 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
      */
     public function getAttributesUsedInProductListing() {
         if (is_null($this->_usedInProductListing)) {
-            $this->_usedInProductListing = $this->_getResource()
+            $this->_usedInProductListing = array();
+            $entityType = 'catalog_product';
+            $attributesData = $this->_getResource()
                 ->getAttributesUsedInListing();
+            Mage::getSingleton('eav/config')
+                ->importAttributesData($entityType, $attributesData);
+            foreach ($attributesData as $attributeData) {
+                $attributeCode = $attributeData['attribute_code'];
+                $this->_usedInProductListing[$attributeCode] = Mage::getSingleton('eav/config')
+                    ->getAttribute($entityType, $attributeCode);
+            }
         }
         return $this->_usedInProductListing;
     }
@@ -281,8 +287,17 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
      */
     public function getAttributesUsedForSortBy() {
         if (is_null($this->_usedForSortBy)) {
-            $this->_usedForSortBy = $this->_getResource()
+            $this->_usedForSortBy = array();
+            $entityType     = 'catalog_product';
+            $attributesData = $this->_getResource()
                 ->getAttributesUsedForSortBy();
+            Mage::getSingleton('eav/config')
+                ->importAttributesData($entityType, $attributesData);
+            foreach ($attributesData as $attributeData) {
+                $attributeCode = $attributeData['attribute_code'];
+                $this->_usedForSortBy[$attributeCode] = Mage::getSingleton('eav/config')
+                    ->getAttribute($entityType, $attributeCode);
+            }
         }
         return $this->_usedForSortBy;
     }
@@ -299,7 +314,8 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             'position'  => Mage::helper('catalog')->__('Position')
         );
         foreach ($this->getAttributesUsedForSortBy() as $attribute) {
-            $options[$attribute['attribute_code']] = Mage::helper('catalog')->__($attribute['frontend_label']);
+            /* @var $attribute Mage_Eav_Model_Entity_Attribute_Abstract */
+            $options[$attribute->getAttributeCode()] = Mage::helper('catalog')->__($attribute->getFrontendLabel());
         }
 
         return $options;
@@ -314,5 +330,4 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     public function getProductListDefaultSortBy($store = null) {
         return Mage::getStoreConfig(self::XML_PATH_LIST_DEFAULT_SORT_BY, $store);
     }
-
 }

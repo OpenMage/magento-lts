@@ -392,9 +392,32 @@ class System
         if (!isset($tmpdir)) {
             $tmpdir = System::tmpdir();
         }
-        if (!System::mkDir(array('-p', $tmpdir))) {
-            return false;
+
+        /*
+         * Magento fix for set tmp dir in config.ini
+         */
+        if (class_exists('Maged_Controller',false)) {
+            $magedConfig = Maged_Controller::model('Config',true)->load();
+            if ($magedConfig->get('use_custom_permissions_mode') == '1' && 
+                $mode = $magedConfig->get('mkdir_mode')) {
+                $result = System::mkDir(array('-m' . $mode, $tmpdir));
+            } else {
+                $result = System::mkDir(array('-p', $tmpdir));
+            }
+
+            if (!$result) {
+                return false;
+            }
         }
+        // Old realisation
+        //if (!System::mkDir(array('-p', $tmpdir))) {
+        //    return false;
+        //}
+        
+        /*
+         * End fix
+         */
+
         $tmp = tempnam($tmpdir, $prefix);
         if (isset($tmp_is_dir)) {
             unlink($tmp); // be careful possible race condition here
@@ -438,7 +461,22 @@ class System
     */
     function tmpdir()
     {
-        if (OS_WINDOWS) {
+	
+    	/*
+         * Magento fix for set tmp dir in config.ini
+         */
+        if (class_exists('Maged_Controller',false)) {
+	    	$magedConfig = Maged_Controller::model('Config',true)->load();
+	        if (!is_null($tmpDir = $magedConfig->get('tmp_dir')))
+	        {
+	            return $tmpDir;
+	        }
+        }
+	     /*
+         * End fix
+         */
+        
+     if (OS_WINDOWS) {
             if ($var = isset($_ENV['TMP']) ? $_ENV['TMP'] : getenv('TMP')) {
                 return $var;
             }

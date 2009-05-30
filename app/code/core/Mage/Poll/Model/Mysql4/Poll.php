@@ -151,10 +151,7 @@ class Mage_Poll_Model_Mysql4_Poll extends Mage_Core_Model_Mysql4_Abstract
         $pollId   = $object->getId();
         $storeIds = array();
         if ($pollId) {
-            $select = $this->_getReadAdapter()->select()
-                ->from($this->getTable('poll/poll_store'), 'store_id')
-                ->where('poll_id = ?', $pollId);
-            $storeIds = $this->_getReadAdapter()->fetchCol($select);
+            $storeIds = $this->lookupStoreIds($pollId);
         }
         $object->setStoreIds($storeIds);
     }
@@ -178,5 +175,19 @@ class Mage_Poll_Model_Mysql4_Poll extends Mage_Core_Model_Mysql4_Abstract
             $answer->setPollId($object->getId());
             $answer->save();
         }
+    }
+
+    /**
+     * Get store ids to which specified item is assigned
+     *
+     * @param int $id
+     * @return array
+     */
+    public function lookupStoreIds($id)
+    {
+        return $this->_getReadAdapter()->fetchCol($this->_getReadAdapter()->select()
+            ->from($this->getTable('poll/poll_store'), 'store_id')
+            ->where("{$this->getIdFieldName()} = ?", $id)
+        );
     }
 }

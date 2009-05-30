@@ -525,7 +525,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess
                 $pkOld = $this->_getPrimaryKey(false);
                 foreach ($depTables as $tableClass) {
                     try {
-                        Zend_Loader::loadClass($tableClass);
+                        #Zend_Loader::loadClass($tableClass);
                     } catch (Zend_Exception $e) {
                         #require_once 'Zend/Db/Table/Row/Exception.php';
                         throw new Zend_Db_Table_Row_Exception($e->getMessage());
@@ -603,7 +603,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess
             $pk = $this->_getPrimaryKey();
             foreach ($depTables as $tableClass) {
                 try {
-                    Zend_Loader::loadClass($tableClass);
+                    #Zend_Loader::loadClass($tableClass);
                 } catch (Zend_Exception $e) {
                     #require_once 'Zend/Db/Table/Row/Exception.php';
                     throw new Zend_Db_Table_Row_Exception($e->getMessage());
@@ -856,7 +856,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess
 
         if (is_string($dependentTable)) {
             try {;
-                Zend_Loader::loadClass($dependentTable);
+                #Zend_Loader::loadClass($dependentTable);
             } catch (Zend_Exception $e) {
                 #require_once 'Zend/Db/Table/Row/Exception.php';
                 throw new Zend_Db_Table_Row_Exception($e->getMessage());
@@ -909,7 +909,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess
 
         if (is_string($parentTable)) {
             try {
-                Zend_Loader::loadClass($parentTable);
+                #Zend_Loader::loadClass($parentTable);
             } catch (Zend_Exception $e) {
                 #require_once 'Zend/Db/Table/Row/Exception.php';
                 throw new Zend_Db_Table_Row_Exception($e->getMessage());
@@ -963,7 +963,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess
 
         if (is_string($intersectionTable)) {
             try {
-                Zend_Loader::loadClass($intersectionTable);
+                #Zend_Loader::loadClass($intersectionTable);
             } catch (Zend_Exception $e) {
                 #require_once 'Zend/Db/Table/Row/Exception.php';
                 throw new Zend_Db_Table_Row_Exception($e->getMessage());
@@ -981,7 +981,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess
 
         if (is_string($matchTable)) {
             try {
-                Zend_Loader::loadClass($matchTable);
+                #Zend_Loader::loadClass($matchTable);
             } catch (Zend_Exception $e) {
                 #require_once 'Zend/Db/Table/Row/Exception.php';
                 throw new Zend_Db_Table_Row_Exception($e->getMessage());
@@ -1047,7 +1047,7 @@ abstract class Zend_Db_Table_Row_Abstract implements ArrayAccess
 
         $rowsetClass = $matchTable->getRowsetClass();
         try {
-            Zend_Loader::loadClass($rowsetClass);
+            #Zend_Loader::loadClass($rowsetClass);
         } catch (Zend_Exception $e) {
             #require_once 'Zend/Db/Table/Row/Exception.php';
             throw new Zend_Db_Table_Row_Exception($e->getMessage());

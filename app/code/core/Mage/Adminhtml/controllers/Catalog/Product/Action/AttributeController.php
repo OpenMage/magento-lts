@@ -63,6 +63,13 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
         $websiteRemoveData = $this->getRequest()->getParam('remove_website_ids', array());
         $websiteAddData = $this->getRequest()->getParam('add_website_ids', array());
 
+        /* Prepare inventory data item options (use config settings) */
+        foreach (Mage::helper('cataloginventory')->getConfigItemOptions() as $option) {
+            if (isset($inventoryData[$option]) && !isset($inventoryData['use_config_' . $option])) {
+                $inventoryData['use_config_' . $option] = 0;
+            }
+        }
+
         try {
             if ($attributesData) {
                 $product = Mage::getModel('catalog/product');

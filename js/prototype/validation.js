@@ -234,11 +234,18 @@ Object.extend(Validation, {
         elm.addClassName('validate-ajax');
         if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
             var container = elm.up(Validation.defaultOptions.containerClassName);
-            if (container  && elm.type !== 'radio' && elm.type !== 'checkbox') {
+            if (container && this.allowContainerClassName(elm)) {
                 container.removeClassName('validation-passed');
                 container.addClassName('validation-error');
             }
         }
+    },
+    allowContainerClassName: function (elm) {
+        if (elm.type == 'radio' || elm.type == 'checkbox') {
+            return elm.hasClassName('change-container-classname');
+        }
+        
+        return true;
     },
     test : function(name, elm, useTitle) {
         var v = Validation.get(name);
@@ -257,12 +264,13 @@ Object.extend(Validation, {
             if (!elm.advaiceContainer) {
                 elm.removeClassName('validation-passed');
                 elm.addClassName('validation-failed');
-                if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
-                    var container = elm.up(Validation.defaultOptions.containerClassName);
-                    if (container && elm.type !== 'radio' && elm.type !== 'checkbox') {
-                        container.removeClassName('validation-passed');
-                        container.addClassName('validation-error');
-                    }
+            } 
+            
+           if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
+                var container = elm.up(Validation.defaultOptions.containerClassName);
+                if (container && this.allowContainerClassName(elm)) {
+                    container.removeClassName('validation-passed');
+                    container.addClassName('validation-error');
                 }
             }
             return false;
@@ -275,8 +283,8 @@ Object.extend(Validation, {
             elm.addClassName('validation-passed');
             if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
                 var container = elm.up(Validation.defaultOptions.containerClassName);
-                if (container && elm.type !== 'radio' && elm.type !== 'checkbox') {
-                    if (!Validation.get('IsEmpty').test(elm.value)) { 
+                if (container && !container.down('.validation-failed') && this.allowContainerClassName(elm)) {
+                    if (!Validation.get('IsEmpty').test(elm.value) || !this.isVisible(elm)) { 
                         container.addClassName('validation-passed');
                     } else {
                         container.removeClassName('validation-passed');
@@ -339,7 +347,9 @@ Object.extend(Validation, {
             var prop = '__advice'+value.camelize();
             if(elm[prop]) {
                 var advice = Validation.getAdvice(value, elm);
-                advice.hide();
+                if (advice) {
+                    advice.hide();
+                }
                 elm[prop] = '';
             }
             elm.removeClassName('validation-failed');
@@ -420,6 +430,9 @@ Validation.addAllThese([
                 //return Validation.get('IsEmpty').test(v) || /^[\!\#$%\*/?|\^\{\}`~&\'\+\-=_a-z0-9][\!\#$%\*/?|\^\{\}`~&\'\+\-=_a-z0-9\.]{1,30}[\!\#$%\*/?|\^\{\}`~&\'\+\-=_a-z0-9]@([a-z0-9_-]{1,30}\.){1,5}[a-z]{2,4}$/i.test(v)
                 return Validation.get('IsEmpty').test(v) || /^[a-z0-9,!\#\$%&'\*\+/=\?\^_`\{\|}~-]+(\.[a-z0-9,!#\$%&'\*\+/=\?\^_`\{\|}~-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,})/i.test(v)
             }],
+    ['validate-emailSender', 'Please use only letters (a-z or A-Z), numbers (0-9) , underscore(_) or spaces in this field.', function (v) {
+                return Validation.get('IsEmpty').test(v) ||  /^[a-zA-Z0-9_\s]+$/.test(v)
+                    }],
     ['validate-password', 'Please enter 6 or more characters. Leading or trailing spaces will be ignored.', function(v) {
                 var pass=v.strip(); /*strip leading and trailing spaces*/
                 return !(pass.length>0 && pass.length < 6);
@@ -490,11 +503,16 @@ Validation.addAllThese([
                 });
             }],
     ['validate-one-required-by-name', 'Please select one of the options.', function (v,elm) {
-                var inputs = $$('input');
+                var inputs = $$('input[name="' + elm.name.replace(/([\\"])/g, '\\$1') + '"]');
+                
                 var error = 1;
-                for( i in inputs ) {
-                    if( inputs[i].checked == true && inputs[i].name == elm.name ) {
+                for(var i=0;i<inputs.length;i++) {
+                    if((inputs[i].type == 'checkbox' || inputs[i].type == 'radio') && inputs[i].checked == true) {
                         error = 0;
+                    }
+                    
+                    if(Validation.isOnChange && (inputs[i].type == 'checkbox' || inputs[i].type == 'radio')) {
+                        Validation.reset(inputs[i]);
                     }
                 }
 

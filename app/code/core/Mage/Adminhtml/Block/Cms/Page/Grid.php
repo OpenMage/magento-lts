@@ -68,16 +68,13 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
             'index'     => 'identifier'
         ));
 
-        $layouts = array();
-        foreach (Mage::getConfig()->getNode('global/cms/layouts')->children() as $layoutName=>$layoutConfig) {
-            $layouts[$layoutName] = (string)$layoutConfig->label;
-        }
+
 
         $this->addColumn('root_template', array(
             'header'    => Mage::helper('cms')->__('Layout'),
             'index'     => 'root_template',
             'type'      => 'options',
-            'options'   => $layouts,
+            'options'   => Mage::getSingleton('page/source_layout')->getOptions(),
         ));
 
         /**

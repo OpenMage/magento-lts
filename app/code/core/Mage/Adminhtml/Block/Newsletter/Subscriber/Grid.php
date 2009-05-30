@@ -164,7 +164,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
      */
     protected function _getWebsiteOptions()
     {
-        return Mage::getModel('adminhtml/system_store')->getWebsiteValuesForGridFilter();
+        return Mage::getModel('adminhtml/system_store')->getWebsiteOptionHash();
     }
 
     /**
@@ -174,7 +174,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
      */
     protected function _getStoreGroupOptions()
     {
-        return Mage::getModel('adminhtml/system_store')->getStoreGroupValuesForGridFilter();
+        return Mage::getModel('adminhtml/system_store')->getStoreGroupOptionHash();
     }
 
     /**
@@ -184,7 +184,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
      */
     protected function _getStoreOptions()
     {
-        return Mage::getModel('adminhtml/system_store')->getStoreValuesForGridFilter();
+        return Mage::getModel('adminhtml/system_store')->getStoreOptionHash();
     }
 
     protected function _prepareMassaction()

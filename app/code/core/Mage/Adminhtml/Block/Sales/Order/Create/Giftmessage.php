@@ -34,16 +34,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('sales/order/create/giftmessage.phtml');
-    }
-
     /**
      * Generate form for editing of gift message for entity
      *

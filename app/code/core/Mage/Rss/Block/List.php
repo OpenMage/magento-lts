@@ -57,7 +57,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
      */
     public function addRssFeed($url, $label, $param = array(), $customerGroup=false)
     {
-        $param = array_merge($param, array('sid' => $this->getCurrentStoreId()));
+        $param = array_merge($param, array('store_id' => $this->getCurrentStoreId()));
         if ($customerGroup) {
             $param = array_merge($param, array('cid' => $this->getCurrentCustomerGroupId()));
         }
@@ -126,7 +126,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     public function getCatalogRssUrl($code)
     {
         $store_id = Mage::app()->getStore()->getId();
-        $param = array('sid' => $store_id);
+        $param = array('store_id' => $store_id);
         $custGroup = Mage::getSingleton('customer/session')->getCustomerGroupId();
         if ($custGroup) {
             $param = array_merge($param, array('cid' => $custGroup));

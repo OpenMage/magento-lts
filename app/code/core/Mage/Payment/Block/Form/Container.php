@@ -57,6 +57,10 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
             return false;
         }
 
+        if (!$method->canUseForCurrency(Mage::app()->getStore()->getBaseCurrencyCode())) {
+            return false;
+        }
+
         /**
          * Checking for min/max order total for assigned payment method
          */

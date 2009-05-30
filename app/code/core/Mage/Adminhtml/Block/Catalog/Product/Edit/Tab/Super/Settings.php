@@ -20,19 +20,24 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
- * Create super product settings tab
+ * Create Configuranle procuct Settings Tab Block
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_Adminhtml_Block_Widget_Form
 {
+    /**
+     * Prepare block children and data
+     *
+     */
     protected function _prepareLayout()
     {
         $onclick = "setSuperSettings('".$this->getContinueUrl()."','attribute-checkbox', 'attributes')";
@@ -42,8 +47,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
                     'label'     => Mage::helper('catalog')->__('Continue'),
                     'onclick'   => $onclick,
                     'class'     => 'save'
-                    ))
-                );
+                ))
+        );
 
         $backButton = $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setData(array(
@@ -53,7 +58,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
             ));
 
         $this->setChild('back_button', $backButton);
-        return parent::_prepareLayout();
+        parent::_prepareLayout();
     }
 
     /**
@@ -66,6 +71,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
         return Mage::registry('current_product');
     }
 
+    /**
+     * Prepare form before rendering HTML
+     *
+     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings
+     */
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -73,8 +83,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
             'legend'=>Mage::helper('catalog')->__('Select Configurable Attributes ')
         ));
 
-        $product = $this->_getProduct();
-        $attributes = $product->getTypeInstance(true)->getSetAttributes($product);
+        $product    = $this->_getProduct();
+        $attributes = $product->getTypeInstance(true)
+            ->getSetAttributes($product);
 
         $fieldset->addField('req_text', 'note', array(
             'text' => '<ul class="messages"><li class="notice-msg"><ul><li>'
@@ -83,8 +94,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
         ));
 
         $hasAttributes = false;
-        foreach($attributes as $attribute) {
-            if($product->getTypeInstance(true)->canUseAttribute($attribute, $product)) {
+
+        foreach ($attributes as $attribute) {
+            if ($product->getTypeInstance(true)->canUseAttribute($attribute, $product)) {
                 $hasAttributes = true;
                 $fieldset->addField('attribute_'.$attribute->getAttributeId(), 'checkbox', array(
                     'label' => $attribute->getFrontend()->getLabel(),
@@ -118,8 +130,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
 
 
         $this->setForm($form);
+
+        return parent::_prepareForm();
     }
 
+    /**
+     * Retrieve Continue URL
+     *
+     * @return string
+     */
     public function getContinueUrl()
     {
         return $this->getUrl('*/*/new', array(
@@ -128,6 +147,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
         ));
     }
 
+    /**
+     * Retrieve Back URL
+     *
+     * @return string
+     */
     public function getBackUrl()
     {
         return $this->getUrl('*/*/new', array('set'=>null, 'type'=>null));

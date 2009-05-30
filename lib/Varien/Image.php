@@ -242,6 +242,12 @@ class Varien_Image
         return $this;
     }
 
+    /**
+     * Retrieve image adapter object
+     *
+     * @param string $adapter
+     * @return Varien_Image_Adapter_Abstract
+     */
     protected function _getAdapter($adapter=null)
     {
         if( !isset($this->_adapter) ) {
@@ -250,4 +256,23 @@ class Varien_Image
         return $this->_adapter;
     }
 
+    /**
+     * Retrieve original image width
+     *
+     * @return int|null
+     */
+    public function getOriginalWidth()
+    {
+        return $this->_getAdapter()->getOriginalWidth();
+    }
+
+    /**
+     * Retrieve original image height
+     *
+     * @return int|null
+     */
+    public function getOriginalHeight()
+    {
+        return $this->_getAdapter()->getOriginalHeight();
+    }
 }

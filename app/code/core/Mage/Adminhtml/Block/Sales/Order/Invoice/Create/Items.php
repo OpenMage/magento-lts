@@ -34,6 +34,8 @@
 
 class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
+    protected $_disableSubmitButton = false;
+
     /**
      * Prepare child blocks
      *
@@ -50,17 +52,37 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
                 'onclick'   => $onclick,
             ))
         );
-
+        $this->_disableSubmitButton = true;
+        $_submitButtonClass = ' disabled';
+        foreach ($this->getInvoice()->getAllItems() as $item) {
+            if ($item->getQty() || $this->getSource()->getData('base_grand_total')) {
+                $this->_disableSubmitButton = false;
+                $_submitButtonClass = '';
+                break;
+            }
+        }
+        $_submitLabel = $this->getOrder()->getForcedDoShipmentWithInvoice()?'Submit Invoice and Shipment':'Submit Invoice';
         $this->setChild(
             'submit_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
-                'label'     => Mage::helper('sales')->__('Submit Invoice'),
-                'class'     => 'save submit-button',
+                'label'     => Mage::helper('sales')->__('%s', $_submitLabel),
+                'class'     => 'save submit-button' . $_submitButtonClass,
                 'onclick'   => '$(\'edit_form\').submit()',
+                'disabled'  => $this->_disableSubmitButton
             ))
         );
 
         return parent::_prepareLayout();
+    }
+
+    /**
+     * Get is submit button disabled or not
+     *
+     * @return boolean
+     */
+    public function getDisableSubmitButton()
+    {
+        return $this->_disableSubmitButton;
     }
 
     /**
@@ -86,7 +108,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     /**
      * Retrieve invoice model instance
      *
-     * @return Mage_Sales_Model_Invoice
+     * @return Mage_Sales_Model_Order_Invoice
      */
     public function getInvoice()
     {

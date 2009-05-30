@@ -50,6 +50,22 @@ class Mage_PaypalUk_Model_Direct extends Mage_Payment_Model_Method_Cc
     protected $_canUseCheckout          = true;
     protected $_canUseForMultishipping  = true;
 
+    protected $_allowCurrencyCode = array('AUD', 'CAD', 'CZK', 'DKK', 'EUR', 'HKD', 'HUF', 'ILS', 'JPY', 'MXN', 'NOK', 'NZD', 'PLN', 'GBP', 'SGD', 'SEK', 'CHF', 'USD');
+
+    /**
+     * Check method for processing with base currency
+     *
+     * @param string $currencyCode
+     * @return boolean
+     */
+    public function canUseForCurrency($currencyCode)
+    {
+        if (!in_array($currencyCode, $this->_allowCurrencyCode)) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * overwrites the method of Mage_Payment_Model_Method_Cc
      * for switch or solo card

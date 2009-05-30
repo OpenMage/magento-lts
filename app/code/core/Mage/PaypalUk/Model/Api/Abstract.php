@@ -46,13 +46,16 @@ abstract class Mage_PaypalUk_Model_Api_Abstract extends Varien_Object
 
 
 /******************************************************************************************************************/
-    public function getConfigData($key, $default=false)
+    public function getConfigData($key, $default=false, $storeId = null)
     {
         if (!$this->hasData($key)) {
-             $value = Mage::getStoreConfig('paypal/wpuk/'.$key);
-             if (is_null($value) || false===$value) {
-                 $value = $default;
-             }
+            if ($storeId === null && $this->getPayment() instanceof Varien_Object) {
+                $storeId = $this->getPayment()->getOrder()->getStoreId();
+            }
+            $value = Mage::getStoreConfig('paypal/wpuk/'.$key, $storeId);
+            if (is_null($value) || false===$value) {
+                $value = $default;
+            }
             $this->setData($key, $value);
         }
         return $this->getData($key);
@@ -265,6 +268,7 @@ abstract class Mage_PaypalUk_Model_Api_Abstract extends Varien_Object
     public function getCurrencyCode()
     {
         //return $this->getSessionData('currency_code', 'USD');
+        // !!! return $this->getSessionData('currency_code', $this->getPayment()->getOrder()->getStore()->getBaseCurrencyCode());
         return $this->getSessionData('currency_code', Mage::app()->getStore()->getBaseCurrencyCode());
     }
 

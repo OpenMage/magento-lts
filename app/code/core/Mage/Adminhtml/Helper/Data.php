@@ -48,13 +48,15 @@ class Mage_Adminhtml_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (is_null($url)) {
             $request = Mage::app()->getRequest();
+            $frontModule = $request->getControllerModule();
+            if (!$frontModule) {
+                $frontName = $request->getModuleName();
+                $router = Mage::app()->getFrontController()->getRouterByFrontName($frontName);
 
-            $frontName = $request->getModuleName();
-            $router = Mage::app()->getFrontController()->getRouterByFrontName($frontName);
-
-            $frontModule = $router->getModuleByFrontName($frontName);
-            if (is_array($frontModule)) {
-                $frontModule = $frontModule[0];
+                $frontModule = $router->getModuleByFrontName($frontName);
+                if (is_array($frontModule)) {
+                    $frontModule = $frontModule[0];
+                }
             }
             $url = 'http://www.magentocommerce.com/gethelp/';
             $url.= Mage::app()->getLocale()->getLocaleCode().'/';

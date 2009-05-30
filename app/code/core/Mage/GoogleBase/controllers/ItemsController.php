@@ -45,7 +45,11 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
 
     public function indexAction()
     {
-        $contentBlock = $this->getLayout()->createBlock('googlebase/adminhtml_items');
+        if (0 === (int)$this->getRequest()->getParam('store')) {
+            $this->_redirect('*/*/', array('store' => Mage::app()->getAnyStoreView()->getId(), '_current' => true));
+            return;
+        }
+        $contentBlock = $this->getLayout()->createBlock('googlebase/adminhtml_items')->setStore($this->_getStore());
 
         if ($this->getRequest()->getParam('captcha_token') && $this->getRequest()->getParam('captcha_url')) {
             $contentBlock->setGbaseCaptchaToken(
@@ -242,44 +246,33 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
         $totalDeleted = 0;
 
         try {
-            $collection = Mage::getResourceModel('googlebase/item_collection')
-                ->addStoreFilterId($storeId)
-                ->load();
+            $itemIds = $this->getRequest()->getParam('item');
+            foreach ($itemIds as $itemId) {
+                $item = Mage::getModel('googlebase/item')->load($itemId);
 
-            $existing = array();
-            foreach ($collection as $item) {
-                $existing[$item->getGbaseItemId()] = array(
-                    'id'    => $item->getId(),
-                    'is_hidden' => $item->getIsHidden(),
-                );
-            }
-
-            $stats = Mage::getModel('googlebase/service_feed')->getItemsStatsArray($storeId);
-
-            foreach ($existing as $entryId => $itemInfo) {
-
-                $item = Mage::getModel('googlebase/item')->load($itemInfo['id']);
-
-                if (!isset($stats[$entryId])) {
+                $stats = Mage::getSingleton('googlebase/service_feed')->getItemStats($item->getGbaseItemId(), $storeId);
+                if ($stats === null) {
                     $item->delete();
                     $totalDeleted++;
                     continue;
                 }
 
-                if ($stats[$entryId]['draft'] != $itemInfo['is_hidden']) {
-                    $item->setIsHidden($stats[$entryId]['draft']);
+                if ($stats['draft'] != $item->getIsHidden()) {
+                    $item->setIsHidden($stats['draft']);
                 }
 
-                if (isset($stats[$entryId]['expires'])) {
-                    $item->setExpires($stats[$entryId]['expires']);
+                if (isset($stats['expires'])) {
+                    $item->setExpires($stats['expires']);
                 }
 
                 $item->save();
                 $totalUpdated++;
             }
+
             $this->_getSession()->addSuccess(
                 $this->__('Total of %d items(s) were successfully deleted, Total of %d items(s) were successfully updated', $totalDeleted, $totalUpdated)
             );
+
         } catch (Zend_Gdata_App_CaptchaRequiredException $e) {
             $this->_getSession()->addError($e->getMessage());
             $this->_redirectToCaptcha($e);
@@ -332,13 +325,19 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
         );
     }
 
+    /**
+     * Get store object, basing on request
+     *
+     * @return Mage_Core_Model_Store
+     * @throws Mage_Core_Exception
+     */
     public function _getStore()
     {
-        $storeId = (int) $this->getRequest()->getParam('store', 0);
-        if ($storeId == 0) {
-            return Mage::app()->getDefaultStoreView();
+        $store = Mage::app()->getStore((int)$this->getRequest()->getParam('store', 0));
+        if ((!$store) || 0 == $store->getId()) {
+            Mage::throwException($this->__('Unable to select a Store View'));
         }
-        return Mage::app()->getStore($storeId);
+        return $store;
     }
 
     protected function _getConfig()

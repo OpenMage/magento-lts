@@ -34,6 +34,13 @@
 class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 {
 
+    /**
+     * Action list where need check enabled cookie
+     *
+     * @var array
+     */
+    protected $_cookieCheckActions = array('post');
+
     public function preDispatch()
     {
         parent::preDispatch();
@@ -198,9 +205,19 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $update->addHandle('default');
         $this->addActionLayoutHandles();
 
-        $update->addHandle('PRODUCT_TYPE_'.$product->getTypeId());
-        $this->loadLayoutUpdates();
 
+        $update->addHandle('PRODUCT_TYPE_'.$product->getTypeId());
+
+        if ($product->getPageLayout()) {
+            $this->getLayout()->helper('page/layout')
+                ->applyHandle($product->getPageLayout());
+        }
+
+        $this->loadLayoutUpdates();
+        if ($product->getPageLayout()) {
+            $this->getLayout()->helper('page/layout')
+                ->applyTemplate($product->getPageLayout());
+        }
         $update->addUpdate($product->getCustomLayoutUpdate());
         $this->generateLayoutXml()->generateLayoutBlocks();
     }

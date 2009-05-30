@@ -103,6 +103,7 @@ class Mage_Eav_Model_Config
     /**
      * Reset object state
      *
+     * @deprecated
      * @return Mage_Eav_Model_Config
      */
     public function clear()
@@ -354,26 +355,16 @@ class Mage_Eav_Model_Config
 
         $attributesInfo = Mage::getResourceModel('eav/entity_attribute_collection')
             ->setEntityTypeFilter($entityType->getId())
-            ->addSetInfo()
+//            ->addSetInfo()
             ->getData();
 
-        $attributesData = array();
         $codes = array();
         foreach ($attributesInfo as $attribute) {
-            if (!isset($attribute['attribute_model'])) {
-                $attribute['attribute_model'] = $entityType->getAttributeModel();
-            }
-
-            $attributeCode  = $attribute['attribute_code'];
-            $attributeId    = $attribute['attribute_id'];
-
-            $this->_addAttributeReference($attributeId, $attributeCode, $entityTypeCode);
-            $attributesData[$attributeCode] = $attribute;
-            $codes[] = $attributeCode;
+            $this->_createAttribute($entityType, $attribute);
+            $codes[] = $attribute['attribute_code'];
         }
 
         $entityType->setAttributeCodes($codes);
-        $this->_attributeData[$entityTypeCode] = $attributesData;
         $this->_initializedAttributes[$entityTypeCode] = true;
 
         Varien_Profiler::stop('EAV: '.__METHOD__);
@@ -469,10 +460,11 @@ class Mage_Eav_Model_Config
         }
 
         if ($attributeSetId) {
+
             $attributesInfo = Mage::getResourceModel('eav/entity_attribute_collection')
                 ->setEntityTypeFilter($entityType->getId())
                 ->setAttributeSetFilter($attributeSetId)
-                ->addSetInfo()
+//                ->addSetInfo()
                 ->getData();
             $attributes = array();
             foreach ($attributesInfo as $attributeData) {
@@ -521,7 +513,7 @@ class Mage_Eav_Model_Config
         $attributesInfo = Mage::getResourceModel('eav/entity_attribute_collection')
             ->setEntityTypeFilter($entityType->getId())
             ->setCodeFilter($attributes)
-            ->addSetInfo()
+//            ->addSetInfo()
             ->getData();
 
         if (!$attributesInfo) {
@@ -570,13 +562,12 @@ class Mage_Eav_Model_Config
             }
         }
 
-        if (isset($this->_collectionAttributes[$entityTypeCode][$attribute])) {
-            $attribute = $this->_collectionAttributes[$entityTypeCode][$attribute];
-        } else {
-            $attribute = $this->getAttribute($entityType, $attribute);
+        $attributeKey = $this->_getAttributeKey($entityTypeCode, $attribute);
+        if ($attributeObject = $this->_load($attributeKey)) {
+            return $attributeObject;
         }
 
-        return $attribute;
+        return $this->getAttribute($entityType, $attribute);
     }
 
     /**
@@ -596,6 +587,16 @@ class Mage_Eav_Model_Config
         }
         $loadedAttributes = array_keys($this->_collectionAttributes[$entityTypeCode]);
         $attributes = array_diff($attributes, $loadedAttributes);
+
+        foreach ($attributes as $k => $attribute) {
+            if (is_numeric($attribute)) {
+                $attribute = $this->_getAttributeReference($attribute, $entityTypeCode);
+            }
+            $attributeKey = $this->_getAttributeKey($entityTypeCode, $attribute);
+            if ($this->_load($attributeKey)) {
+                unset($attributes[$k]);
+            }
+        }
 
         if (empty($attributes)) {
             return $this;
@@ -626,6 +627,17 @@ class Mage_Eav_Model_Config
     {
         $entityType     = $this->getEntityType($entityType);
         $entityTypeCode = $entityType->getEntityTypeCode();
+
+        $attributeKey = $this->_getAttributeKey($entityTypeCode, $attributeData['attribute_code']);
+        if (($attribute = $this->_load($attributeKey))) {
+            $existsFullAttribute = $attribute->hasIsRequired();
+            $fullAttributeData   = array_key_exists('is_required', $attributeData);
+
+            if ($existsFullAttribute || (!$existsFullAttribute && !$fullAttributeData)) {
+                return $attribute;
+            }
+        }
+
         if (isset($attributeData['attribute_model'])) {
             $model = $attributeData['attribute_model'];
         }
@@ -641,5 +653,51 @@ class Mage_Eav_Model_Config
         $attributeKey = $this->_getAttributeKey($entityTypeCode, $attributeData['attribute_code']);
         $this->_save($attribute, $attributeKey);
         return $attribute;
+    }
+
+    /**
+     * Validate attribute data from import
+     *
+     * @param array $attributeData
+     * @return bool
+     */
+    protected function _validateAttributeData($attributeData = null)
+    {
+        if (!is_array($attributeData)) {
+            return false;
+        }
+        $requiredKeys = array(
+            'attribute_id',
+            'attribute_code',
+            'entity_type_id',
+            'attribute_model'
+        );
+        foreach ($requiredKeys as $key) {
+            if (!array_key_exists($key, $attributeData)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Import attributes data from external source
+     *
+     * @param string|Mage_Eav_Model_Entity_Type $entityType
+     * @param array $attributes
+     * @return Mage_Eav_Model_Config
+     */
+    public function importAttributesData($entityType, array $attributes)
+    {
+        $entityType = $this->getEntityType($entityType);
+        foreach ($attributes as $attributeData) {
+            if (!$this->_validateAttributeData($attributeData)) {
+                continue;
+            }
+            $this->_createAttribute($entityType, $attributeData);
+        }
+
+        return $this;
     }
 }

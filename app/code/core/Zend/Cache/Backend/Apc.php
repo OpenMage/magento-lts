@@ -24,12 +24,12 @@
 /**
  * Zend_Cache_Backend_Interface
  */
-require_once 'Zend/Cache/Backend/Interface.php';
+#require_once 'Zend/Cache/Backend/Interface.php';
 
 /**
  * Zend_Cache_Backend
  */
-require_once 'Zend/Cache/Backend.php';
+#require_once 'Zend/Cache/Backend.php';
 
 
 /**
@@ -106,7 +106,7 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     protected function _prepareTagId($tagId)
     {
-        return $this->_prepareId($this->_options['tag_prefix'] . $tagId);
+        return $this->_options['tag_prefix'] . $tagId;
     }
 
     /**
@@ -175,13 +175,13 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
                 $this->recordTagUsage($tag);
 
                 $tagid = $this->_prepareTagId($tag);
-                $old_tags = apc_fetch($tagid);
+                $old_tags = apc_fetch($this->_prepareId($tagid));
                 if ($old_tags === false) {
                     $old_tags = array();
                 }
                 $old_tags[$id] = $id;
                 $this->remove($tagid);
-                $result2 = apc_store($tagid, $old_tags);
+                $result2 = apc_store($this->_prepareId($tagid), $old_tags);
             }
         }
 
@@ -213,12 +213,12 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
         }
     }
 
-	/**
-	 * Remove this tagId from a global array of all tags with self::TAGS_MASTER_ID as the id.
-	 *
-	 * @param $tagId string the id of the tag being removed
-	 * @return bool true if the tag was removed, false otherwise
-	 */
+    /**
+     * Remove this tagId from a global array of all tags with self::TAGS_MASTER_ID as the id.
+     *
+     * @param $tagId string the id of the tag being removed
+     * @return bool true if the tag was removed, false otherwise
+     */
     private function removeTagUsage($tagId)
     {
         $tmaster_wrapper = apc_fetch($this->_getTagStorageId());
@@ -245,7 +245,7 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
      */
     public function remove($id)
     {
-        return apc_delete($id);
+        return apc_delete($this->_prepareId($id));
     }
 
     /**
@@ -277,7 +277,7 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
             $idList = array();
             foreach ($tags as $tag) {
                 $tagId = $this->_prepareTagId($tag);
-                $current_idList = apc_fetch($tagId);
+                $current_idList = apc_fetch($this->_prepareId($tagId));
                 if (is_array($current_idList)) {
                     $idList = array_merge($idList, $current_idList);
                 }
@@ -287,7 +287,7 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
             //remove tagIds from the master tag list
             foreach ($tags as $tag) {
                 $tagId = $this->_prepareTagId($tag);
-                apc_delete($tagId);
+                apc_delete($this->_prepareId($tagId));
                 $this->removeTagUsage($tag);
             }
 
@@ -306,7 +306,7 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
             foreach ($masterTagList as $tag) {
                 $needsUpdate = false;
                 $tagId = $this->_prepareTagId($tag);
-                $other_tagList = apc_fetch($tagId);
+                $other_tagList = apc_fetch($this->_prepareId($tagId));
 
                 if (is_array($other_tagList) ) {
                     foreach ($other_tagList as $_tagIdx => $otherRefId) {
@@ -319,9 +319,9 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
                     if ($needsUpdate) {
                         //completely remove tags if there are no more items in their array.
                         if ( count($other_tagList) < 1) {
-                            apc_delete($tagId);
+                            apc_delete($this->_prepareId($tagId));
                         } else {
-                            apc_store($tagId, $other_tagList);
+                            apc_store($this->_prepareId($tagId), $other_tagList);
                         }
                     }
                 }

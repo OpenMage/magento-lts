@@ -97,7 +97,11 @@ Bundle.Selection.prototype = {
             evalScripts : true
         });
 
-        var button = Event.element(event);
+        if (Event.element(event).tagName.toLowerCase() != 'button') {
+            var button = Event.element(event).up('button');
+        } else {
+            var button = Event.element(event);
+        }
         button.hide();
     },
 

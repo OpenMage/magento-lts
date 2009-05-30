@@ -203,6 +203,8 @@ Event.observe(window, 'load', function() {
     var objName = '<?php echo $this->getSelectedTabId() ?>';
     if (objName) {
         obj = $(objName);
+        //IE fix (bubbling event model)
+        product_info_tabsJsTabs.setSkipDisplayFirstTab();
         product_info_tabsJsTabs.showTabContent(obj);
     }
     Product.AttributesBridge.setTabsObject(product_info_tabsJsTabs);

@@ -43,4 +43,15 @@ class Mage_Sitemap_Model_Mysql4_Sitemap_Collection extends Mage_Core_Model_Mysql
         $this->_init('sitemap/sitemap');
     }
 
+    /**
+     * Filter collection by specified store ids
+     *
+     * @param array|int $storeIds
+     * @return Mage_Sitemap_Model_Mysql4_Sitemap_Collection
+     */
+    public function addStoreFilter($storeIds)
+    {
+        $this->getSelect()->where('main_table.store_id IN (?)', $storeIds);
+        return $this;
+    }
 }

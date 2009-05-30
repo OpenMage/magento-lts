@@ -83,21 +83,42 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             ->getProductCollection()
             ->setProduct($this->_getProduct())
             ->addAttributeToSelect('*');
+
+        if ($this->isReadonly()) {
+            $productIds = $this->_getSelectedProducts();
+            if (empty($productIds)) {
+                $productIds = array(0);
+            }
+            $collection->addFieldToFilter('entity_id', array('in'=>$productIds));
+        }
+
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
     }
 
+    /**
+     * Checks when this block is readonly
+     *
+     * @return boolean
+     */
+    public function isReadonly()
+    {
+        return $this->_getProduct()->getCrosssellReadonly();
+    }
+
     protected function _prepareColumns()
     {
-        $this->addColumn('in_products', array(
-            'header_css_class' => 'a-center',
-            'type'      => 'checkbox',
-            'name'      => 'in_products',
-            'values'    => $this->_getSelectedProducts(),
-            'align'     => 'center',
-            'index'     => 'entity_id'
-        ));
+        if (!$this->isReadonly()) {
+            $this->addColumn('in_products', array(
+                'header_css_class' => 'a-center',
+                'type'      => 'checkbox',
+                'name'      => 'in_products',
+                'values'    => $this->_getSelectedProducts(),
+                'align'     => 'center',
+                'index'     => 'entity_id'
+            ));
+        }
 
         $this->addColumn('entity_id', array(
             'header'    => Mage::helper('catalog')->__('ID'),
@@ -171,7 +192,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             'type'      => 'number',
             'validate_class' => 'validate-number',
             'index'     => 'position',
-            'editable'  => true,
+            'editable'  => !$this->isReadonly(),
             'edit_only' => !$this->_getProduct()->getId()
         ));
 

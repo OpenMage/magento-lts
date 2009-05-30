@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Api
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Compiler>
+            <version>0.1.0</version>
+        </Mage_Compiler>
+    </modules>
+    <global>
+        <models>
+            <compiler>
+                <class>Mage_Compiler_Model</class>
+                <resourceModel>compiler_mysql4</resourceModel>
+            </compiler>
+            <compiler_mysql4>
+                <class>Mage_Compiler_Model_Mysql4</class>
+                <entities>
+                    <configuration>
+                        <table>compiler_configuration</table>
+                    </configuration>
+                </entities>
+            </compiler_mysql4>
+        </models>
+        <resources>
+            <compiler_setup>
+                <setup>
+                    <module>Mage_Compiler</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </compiler_setup>
+            <compiler_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </compiler_write>
+            <compiler_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </compiler_read>
+        </resources>
+    </global>
+    <admin>
+        <routers>
+            <compiler>
+                <use>admin</use>
+                <args>
+                    <module>Mage_Compiler</module>
+                    <frontName>compiler</frontName>
+                </args>
+            </compiler>
+        </routers>
+    </admin>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <tools>
+                                    <children>
+                                        <compiler translate="title" module="compiler">
+                                            <title>Compilation</title>
+                                            <sort_order>0</sort_order>
+                                        </compiler>
+                                    </children>
+                                </tools>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <translate>
+            <modules>
+                <Mage_Compiler>
+                    <files>
+                        <default>Mage_Compiler.csv</default>
+                    </files>
+                </Mage_Compiler>
+            </modules>
+        </translate>
+        <menu>
+            <system>
+                <children>
+                    <tools>
+                        <children>
+                            <compiler translate="title" module="compiler">
+                                <title>Compilation (Beta)</title>
+                                <sort_order>1000</sort_order>
+                                <action>compiler/process</action>
+                            </compiler>
+                        </children>
+                    </tools>
+                </children>
+            </system>
+        </menu>
+        <layout>
+            <updates>
+                <compiler>
+                    <file>compiler.xml</file>
+                </compiler>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

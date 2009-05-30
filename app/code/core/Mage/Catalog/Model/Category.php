@@ -59,6 +59,11 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     protected $_eventObject     = 'category';
 
     /**
+     * Model cache tag for clear cache in after save and after delete
+     */
+    protected $_cacheTag        = self::CACHE_TAG;
+
+    /**
      * URL Model instance
      *
      * @var Mage_Core_Model_Url
@@ -194,6 +199,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function getProductCollection()
     {
         $collection = Mage::getResourceModel('catalog/product_collection')
+            ->setStoreId($this->getStoreId())
             ->addCategoryFilter($this);
         return $collection;
     }
@@ -647,6 +653,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
+        if ($this->getResource()->isForbiddenToDelete($this->getId())) {
+            Mage::throwException("Can't delete root category.");
+        }
         return parent::_beforeDelete();
     }
 

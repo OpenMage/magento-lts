@@ -159,19 +159,12 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         $theme      = $designInfo[1];
 
         // compare dates
-        $storeTimeStamp = Mage::app()->getLocale()->storeTimeStamp();
-        $fromTimeStamp  = strtotime($date['from']);
-        $toTimeStamp    = strtotime($date['to']);
-
-        if ($date['from'] && $storeTimeStamp < $fromTimeStamp) {
-            return false;
-        }
-        elseif ($date['to'] && $storeTimeStamp > $toTimeStamp) {
-            return false;
+        if (Mage::app()->getLocale()->IsStoreDateInInterval(null, $date['from'], $date['to'])) {
+            $this->_apply($package, $theme);
+            return true;
         }
 
-        $this->_apply($package, $theme);
-        return true;
+        return false;
     }
 
     /**

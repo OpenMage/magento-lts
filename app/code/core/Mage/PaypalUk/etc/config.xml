@@ -131,6 +131,7 @@
         <paypal>
             <wpuk>
                 <url>https://pilot-payflowpro.verisign.com/transaction</url>
+                <partner>PayPalUK</partner>
                 <user backend_model="adminhtml/system_config_backend_encrypted"/>
                 <pwd backend_model="adminhtml/system_config_backend_encrypted"/>
             </wpuk>

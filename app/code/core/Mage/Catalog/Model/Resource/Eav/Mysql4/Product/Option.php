@@ -267,4 +267,53 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option extends Mage_Core_Mo
 
         return $object;
     }
+
+    /**
+     * Retrieve option searchable data
+     *
+     * @param int $productId
+     * @param int $storeId
+     * @return array
+     */
+    public function getSearchableData($productId, $storeId)
+    {
+        $searchData = array();
+        // retrieve options title
+        $select = $this->_getReadAdapter()->select()
+            ->from(array('option' => $this->getMainTable()), null)
+            ->join(
+                array('option_title_default' => $this->getTable('catalog/product_option_title')),
+                'option_title_default.option_id=option.option_id AND option_title_default.store_id=0',
+                array())
+            ->joinLeft(
+                array('option_title_store' => $this->getTable('catalog/product_option_title')),
+                'option_title_store.option_id=option.option_id AND option_title_store.store_id=' . intval($storeId),
+                array('title' => 'IFNULL(option_title_store.title, option_title_default.title)'))
+            ->where('option.product_id=?', $productId);
+        if ($titles = $this->_getReadAdapter()->fetchCol($select)) {
+            $searchData = array_merge($searchData, $titles);
+        }
+
+        //select option type titles
+        $select = $this->_getReadAdapter()->select()
+            ->from(array('option' => $this->getMainTable()), null)
+            ->join(
+                array('option_type' => $this->getTable('catalog/product_option_type_value')),
+                'option_type.option_id=option.option_id',
+                array())
+            ->join(
+                array('option_title_default' => $this->getTable('catalog/product_option_type_title')),
+                'option_title_default.option_type_id=option_type.option_type_id AND option_title_default.store_id=0',
+                array())
+            ->joinLeft(
+                array('option_title_store' => $this->getTable('catalog/product_option_type_title')),
+                'option_title_store.option_type_id=option_type.option_type_id AND option_title_store.store_id=' . intval($storeId),
+                array('title' => 'IFNULL(option_title_store.title, option_title_default.title)'))
+            ->where('option.product_id=?', $productId);
+        if ($titles = $this->_getReadAdapter()->fetchCol($select)) {
+            $searchData = array_merge($searchData, $titles);
+        }
+
+        return $searchData;
+    }
 }

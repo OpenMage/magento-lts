@@ -104,9 +104,18 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link extends Mage_Core_Mode
     {
         $childrenIds = array();
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), array('product_id', 'linked_product_id'))
+            ->from(array('l' => $this->getMainTable()), array('product_id', 'linked_product_id'))
             ->where('product_id=?', $parentId)
             ->where('link_type_id=?', $typeId);
+        if ($typeId == Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED) {
+            $select->join(
+                array('e' => $this->getTable('catalog/product')),
+                'e.entity_id=l.linked_product_id AND e.required_options=0',
+                array()
+            );
+        }
+
+        $childrenIds[$typeId] = array();
         foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
             $childrenIds[$typeId][$row['linked_product_id']] = $row['linked_product_id'];
         }
@@ -117,7 +126,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link extends Mage_Core_Mode
     /**
      * Retrieve parent ids array by requered child
      *
-     * @param int $childId
+     * @param int|array $childId
      * @param int $typeId
      * @return array
      */
@@ -127,7 +136,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link extends Mage_Core_Mode
 
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable(), array('product_id', 'linked_product_id'))
-            ->where('linked_product_id=?', $childId)
+            ->where('linked_product_id IN(?)', $childId)
             ->where('link_type_id=?', $typeId);
         foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
             $parentIds[] = $row['product_id'];

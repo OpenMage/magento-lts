@@ -51,12 +51,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Newsletter extends Mage_Adminhtml_
         return 'head-newsletter-list';
     }
 
-    protected function _prepareLayout()
-    {
-        $this->setChild('form', $this->getLayout()->createBlock('adminhtml/sales_order_create_newsletter_form'));
-        return parent::_prepareLayout();
-    }
-
     protected function _toHtml()
     {
         if (! Mage::getSingleton('adminhtml/quote')->getIsOldCustomer()) {

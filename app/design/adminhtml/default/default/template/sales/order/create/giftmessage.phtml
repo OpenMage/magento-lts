@@ -24,8 +24,8 @@
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-
-<?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('main', $this->getQuote(), $this->getStoreId())): ?>
+<?php $_items = $this->getItems(); ?>
+<?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('main', $this->getQuote(), $this->getStoreId()) || $_items): ?>
 <div class="clear"></div>
 <div class="giftmessage-order-create">
     <div class="entry-edit">
@@ -34,13 +34,15 @@
         </div>
         <div class="fieldset">
             <div class="box-left">
-                <div class="entire-order">
-                    <h5><?php echo Mage::helper('sales')->__('Add a gift message for the <strong>entire order</strong>') ?></h5>
-                    <?php echo $this->getFormHtml($this->getQuote(), 'main') ?>
-                </div>
+                <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('main', $this->getQuote(), $this->getStoreId())): ?>
+                    <div class="entire-order">
+                        <h5><?php echo Mage::helper('sales')->__('Add a gift message for the <strong>entire order</strong>') ?></h5>
+                        <?php echo $this->getFormHtml($this->getQuote(), 'main') ?>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="box-right">
-                <?php if ($_items=$this->getItems()): ?>
+                <?php if ($_items): ?>
                     <div class="each-order-item">
                         <h5 class="section-head"><?php echo Mage::helper('sales')->__('Add a gift message for <strong>each gift item</strong>') ?></h5>
                         <div class="scroll">

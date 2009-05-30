@@ -56,20 +56,30 @@ class Mage_Poll_Model_Mysql4_Poll_Collection extends Mage_Core_Model_Mysql4_Coll
     }
 
     /**
-     * Add Stores Filter
+     * Deprecated
      *
-     * @param int $storeId
+     * @param int|array $storeId
      * @return Mage_Poll_Model_Mysql4_Poll_Collection
      */
     public function addStoresFilter($store)
     {
+        return $this->addStoresFilter($store);
+    }
 
+    /**
+     * Add Stores Filter
+     *
+     * @param int|array $storeId
+     * @return Mage_Poll_Model_Mysql4_Poll_Collection
+     */
+    public function addStoreFilter($storeId, $withAdmin = true)
+    {
         $this->getSelect()->join(
             array('store_table' => $this->getTable('poll/poll_store')),
             'main_table.poll_id = store_table.poll_id',
             array()
         )
-        ->where('store_table.store_id in (?)', array(0, $store))
+        ->where('store_table.store_id in (?)', ($withAdmin ? array(0, $storeId) : $storeId))
         ->group('main_table.poll_id');
 
         return $this;

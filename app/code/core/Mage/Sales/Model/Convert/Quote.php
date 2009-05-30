@@ -59,6 +59,10 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
             ->setQuoteId($quote->getId());
 
         Mage::helper('core')->copyFieldset('sales_convert_quote', 'to_order', $quote, $order);
+
+        if (!$quote->getCustomerId()) {
+            $order->setCustomerId(null);
+        }
 //
 //            ->setRemoteIp($quote->getRemoteIp())
 //

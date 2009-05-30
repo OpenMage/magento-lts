@@ -70,6 +70,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pcompared extends Mage_Adm
 
             // prepare products collection and apply visitors log to it
             $productCollection = Mage::getModel('catalog/product')->getCollection()
+                ->setStoreId($this->getQuote()->getStoreId())
+                ->addStoreFilter($this->getQuote()->getStoreId())
                 ->addAttributeToSelect('name')
                 ->addAttributeToSelect('price')
                 ->addAttributeToSelect('small_image');

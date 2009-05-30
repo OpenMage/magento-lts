@@ -30,6 +30,21 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
     protected $_actions;
     protected $_form;
 
+    /**
+     * Is model deleteable
+     *
+     * @var boolean
+     */
+    protected $_isDeleteable = true;
+
+    /**
+     * Is model readonly
+     *
+     * @var boolean
+     */
+    protected $_isReadonly = false;
+
+
     protected function _construct()
     {
         $this->_init('rule/rule');
@@ -259,5 +274,50 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
             $this->setCustomerGroupIds(join(',', $this->getCustomerGroupIds()));
         }
         parent::_beforeSave();
+    }
+
+    /**
+     * Check availabitlity to delete model
+     *
+     * @return boolean
+     */
+    public function isDeleteable()
+    {
+        return $this->_isDeleteable;
+    }
+
+    /**
+     * Set is deleteable flag
+     *
+     * @param boolean $flag
+     * @return Mage_Rule_Model_Rule
+     */
+    public function setIsDeleteable($flag)
+    {
+        $this->_isDeleteable = (bool) $flag;
+        return $this;
+    }
+
+
+    /**
+     * Checks model is readonly
+     *
+     * @return boolean
+     */
+    public function isReadonly()
+    {
+        return $this->_isReadonly;
+    }
+
+    /**
+     * Set is readonly flag
+     *
+     * @param boolean $value
+     * @return Mage_Rule_Model_Rule
+     */
+    public function setIsReadonly($value)
+    {
+        $this->_isReadonly = (boolean) $value;
+        return $this;
     }
 }

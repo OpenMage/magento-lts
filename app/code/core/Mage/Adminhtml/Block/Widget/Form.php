@@ -138,9 +138,6 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     {
         $this->_prepareForm();
         $this->_initFormValues();
-        Mage::dispatchEvent('adminhtml_widget_form_before_tohtml',
-            array('form' => $this->getForm(), 'layout' => $this->getLayout())
-        );
         return parent::_beforeToHtml();
     }
 

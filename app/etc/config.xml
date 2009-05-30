@@ -33,6 +33,7 @@
         <locale>
             <allow>
                 <codes>
+                    <af_ZA/><!-- Afrikaans (South Africa) -->
                     <ar_EG/><!-- Arabic (Egypt) -->
                     <ar_KW/><!-- Arabic (Kuwait) -->
                     <ar_MA/><!-- Arabic (Morocco) -->
@@ -79,7 +80,9 @@
                     <it_IT/><!-- Italian (Italy) -->
                     <ja_JP/><!-- Japanese (Japan) -->
                     <ka_GE/><!-- Georgian (Georgia) -->
+                    <km_KH/><!-- Khmer (Cambodia) -->
                     <ko_KR/><!-- Korean (South Korea) -->
+                    <lo_LA/><!-- Lao (Laos) -->
                     <lt_LT/><!-- Lithuanian (Lithuania) -->
                     <lv_LV/><!-- Latvian (Latvia) -->
                     <mk_MK/><!-- Macedonian (Macedonia) -->
@@ -98,6 +101,7 @@
                     <sq_AL/><!-- Albanian (Albania) -->
                     <sr_RS/><!-- Serbian (Serbia) -->
                     <sv_SE/><!-- Swedish (Sweden) -->
+                    <sw_KE/><!-- Swahili (Kenya) -->
                     <th_TH/><!-- Thai (Thailand) -->
                     <tr_TR/><!-- Turkish (Turkey) -->
                     <uk_UA/><!-- Ukrainian (Ukraine) -->

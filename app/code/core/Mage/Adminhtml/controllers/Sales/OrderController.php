@@ -34,6 +34,13 @@
 class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * Array of actions which can be processed without secret key validation
+     *
+     * @var array
+     */
+    protected $_publicActions = array('view');
+
+    /**
      * Additional initialization
      *
      */

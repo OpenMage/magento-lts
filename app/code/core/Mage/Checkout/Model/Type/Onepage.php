@@ -410,7 +410,8 @@ class Mage_Checkout_Model_Type_Onepage
             if (!$this->getQuote()->isAllowedGuestCheckout()) {
                 Mage::throwException(Mage::helper('checkout')->__('Sorry, guest checkout is not enabled. Please try again or contact store owner.'));
             }
-            $this->getQuote()->setCustomerEmail($billing->getEmail())
+            $this->getQuote()->setCustomerId(null)
+                ->setCustomerEmail($billing->getEmail())
                 ->setCustomerIsGuest(true)
                 ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
             break;
@@ -577,7 +578,8 @@ class Mage_Checkout_Model_Type_Onepage
             $order->sendNewOrderEmail();
         }
 
-        if ($this->getQuote()->getCheckoutMethod()==Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER) {
+        if ($this->getQuote()->getCheckoutMethod(true)==Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER
+            && !Mage::getSingleton('customer/session')->isLoggedIn()) {
             /**
              * we need to save quote here to have it saved with Customer Id.
              * so when loginById() executes checkout/session method loadCustomerQuote

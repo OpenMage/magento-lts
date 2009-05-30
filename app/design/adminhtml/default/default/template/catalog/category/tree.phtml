@@ -203,11 +203,13 @@ function reRenderTree(event, switcher)
             }
         }
 
-        if (newStoreId == 0) {
-            $('add_root_category_button').show();
-        }
-        else {
-            $('add_root_category_button').hide();
+        if ($('add_root_category_button')) {
+            if (newStoreId == 0) {
+                $('add_root_category_button').show();
+            }
+            else {
+                $('add_root_category_button').hide();
+            }
         }
 
         // retain current selected category id

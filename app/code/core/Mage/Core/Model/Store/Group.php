@@ -91,6 +91,11 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     protected $_website;
 
     /**
+     * @var bool
+     */
+    private $_isReadOnly = false;
+
+    /**
      * init model
      *
      */
@@ -272,5 +277,19 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     {
         $this->_protectFromNonAdmin();
         return parent::_beforeDelete();
+    }
+
+    /**
+     * Get/Set isReadOnly flag
+     *
+     * @param bool $value
+     * @return bool
+     */
+    public function isReadOnly($value = null)
+    {
+        if (null !== $value) {
+            $this->_isReadOnly = (bool)$value;
+        }
+        return $this->_isReadOnly;
     }
 }

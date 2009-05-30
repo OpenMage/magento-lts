@@ -36,6 +36,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Store_Select extends Mage_Adminhtm
     {
         parent::__construct();
         $this->setId('sc_store_select');
-        $this->setTemplate('sales/order/create/store/select.phtml');
     }
 }

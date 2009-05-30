@@ -103,6 +103,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
                 if(!$attribute->getIsUnique()
                     && $attribute->getFrontend()->getInputType()!='gallery'
+                    && $attribute->getAttributeCode() != 'required_options'
+                    && $attribute->getAttributeCode() != 'has_options'
                     && $attribute->getAttributeCode() != $configProduct->getIdFieldName()) {
                     $data[$attribute->getAttributeCode()] = $configProduct->getData($attribute->getAttributeCode());
                 }
@@ -111,6 +113,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $product->addData($data)
                 ->setWebsiteIds($configProduct->getWebsiteIds());
         }
+
+        $product->setData('_edit_mode', true);
 
         Mage::register('product', $product);
         Mage::register('current_product', $product);
@@ -213,7 +217,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         if (!Mage::app()->isSingleStoreMode() && ($switchBlock = $this->getLayout()->getBlock('store_switcher'))) {
             $switchBlock->setDefaultStoreName($this->__('Default Values'))
                 ->setWebsiteIds($product->getWebsiteIds())
-                ->setSwitchUrl($this->getUrl('*/*/*', array('_current'=>true, 'active_tab'=>null, 'store'=>null)));
+                ->setSwitchUrl($this->getUrl('*/*/*', array('_current'=>true, 'active_tab'=>null, 'tab' => null, 'store'=>null)));
         }
 
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
@@ -387,6 +391,10 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         );
     }
 
+    /**
+     * Validate product
+     *
+     */
     public function validateAction()
     {
         $response = new Varien_Object();
@@ -397,8 +405,20 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             if ($productData && !isset($productData['stock_data']['use_config_manage_stock'])) {
                 $productData['stock_data']['use_config_manage_stock'] = 0;
             }
-            $product = Mage::getModel('catalog/product')
-                ->setId($this->getRequest()->getParam('id'))
+            $product = Mage::getModel('catalog/product');
+            if ($storeId = $this->getRequest()->getParam('store_id')) {
+                $product->setStoreId($storeId);
+            }
+            if ($setId = $this->getRequest()->getParam('set')) {
+                $product->setAttributeSetId($setId);
+            }
+            if ($typeId = $this->getRequest()->getParam('type')) {
+                $product->setTypeId($typeId);
+            }
+            if ($productId = $this->getRequest()->getParam('id')) {
+                $product->load($productId);
+            }
+            $product
                 ->addData($productData)
                 ->validate();
         }
@@ -435,7 +455,18 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $productData['website_ids'] = array();
         }
 
+        $wasLockedMedia = false;
+        if ($product->isLockedAttribute('media')) {
+            $product->unlockAttribute('media');
+            $wasLockedMedia = true;
+        }
+
         $product->addData($productData);
+
+        if ($wasLockedMedia) {
+            $product->lockAttribute('media');
+        }
+
         if (Mage::app()->isSingleStoreMode()) {
             $product->setWebsiteIds(array(Mage::app()->getStore(true)->getWebsite()->getId()));
         }
@@ -452,16 +483,16 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
          * Init product links data (related, upsell, crosssel)
          */
         $links = $this->getRequest()->getPost('links');
-        if (isset($links['related'])) {
+        if (isset($links['related']) && !$product->getRelatedReadonly()) {
             $product->setRelatedLinkData($this->_decodeInput($links['related']));
         }
-        if (isset($links['upsell'])) {
+        if (isset($links['upsell'])  && !$product->getUpsellReadonly()) {
             $product->setUpSellLinkData($this->_decodeInput($links['upsell']));
         }
-        if (isset($links['crosssell'])) {
+        if (isset($links['crosssell'])  && !$product->getCrosssellReadonly()) {
             $product->setCrossSellLinkData($this->_decodeInput($links['crosssell']));
         }
-        if (isset($links['grouped'])) {
+        if (isset($links['grouped'])  && !$product->getGroupedReadonly()) {
             $product->setGroupedLinkData($this->_decodeInput($links['grouped']));
         }
 
@@ -479,21 +510,23 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         /**
          * Initialize data for configurable product
          */
-        if ($data = $this->getRequest()->getPost('configurable_products_data')) {
+        if (($data = $this->getRequest()->getPost('configurable_products_data')) && !$product->getConfigurableReadonly()) {
             $product->setConfigurableProductsData(Zend_Json::decode($data));
         }
-        if ($data = $this->getRequest()->getPost('configurable_attributes_data')) {
+        if (($data = $this->getRequest()->getPost('configurable_attributes_data')) && !$product->getConfigurableReadonly()) {
             $product->setConfigurableAttributesData(Zend_Json::decode($data));
         }
-        $product->setCanSaveConfigurableAttributes((bool)$this->getRequest()->getPost('affect_configurable_product_attributes'));
+
+        $product->setCanSaveConfigurableAttributes((bool)$this->getRequest()->getPost('affect_configurable_product_attributes') && !$product->getConfigurableReadonly());
 
         /**
          * Initialize product options
          */
-        if (isset($productData['options'])) {
+        if (isset($productData['options']) && !$product->getOptionsReadonly()) {
             $product->setProductOptions($productData['options']);
         }
-        $product->setCanSaveCustomOptions((bool)$this->getRequest()->getPost('affect_product_custom_options'));
+
+        $product->setCanSaveCustomOptions((bool)$this->getRequest()->getPost('affect_product_custom_options') && !$product->getOptionsReadonly());
 
         Mage::dispatchEvent('catalog_product_prepare_save', array('product' => $product, 'request' => $this->getRequest()));
 
@@ -621,7 +654,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 $product->delete();
                 $this->_getSession()->addSuccess($this->__('Product deleted'));
             }
-            catch (Exception $e){
+            catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
             }
         }

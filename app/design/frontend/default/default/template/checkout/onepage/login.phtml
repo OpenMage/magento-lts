@@ -64,7 +64,7 @@
     <div class="col-2">
         <h4><?php echo $this->__('Login') ?></h4>
         <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-        <form id="login-form" action="<?php echo $this->getPostAction() ?>" method="post">
+        <form id="login-form" action="<?php echo $this->getPostAction() ?>" method="post" onsubmit="alert('123');">
             <p><strong><?php echo $this->__('Already registered?') ?></strong><br />
             <?php echo $this->__('Please log in below:') ?></p>
             <ul class="form-list">
@@ -95,7 +95,7 @@
         <div class="button-set">
             <p class="required"><?php echo $this->__('* Required Fields') ?></p>
             <a href="<?php echo $this->getUrl('customer/account/forgotpassword') ?>" class="left"><?php echo $this->__('Forgot your password?') ?></a>
-            <button type="button" class="form-button" onclick="loginForm.submit()" ><span><?php echo $this->__('Login') ?></span></button>
+            <button type="button" class="form-button" onclick="onepageLogin(this)" ><span><?php echo $this->__('Login') ?></span></button>
         </div>
     </div>
 </div>
@@ -107,6 +107,13 @@
     $('login-password').observe('keypress', bindLoginPost);
     function bindLoginPost(evt){
         if (evt.keyCode == Event.KEY_RETURN) {
+            loginForm.submit();
+        }
+    }
+    function onepageLogin(button)
+    {
+        if(loginForm.validator && loginForm.validator.validate()){
+            button.disabled = true;
             loginForm.submit();
         }
     }

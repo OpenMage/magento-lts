@@ -57,10 +57,29 @@ class Mage_Core_Model_Mysql4_Url_Rewrite_Collection extends Mage_Core_Model_Mysq
         return $this;
     }
 
-    public function addStoreFilter($store)
+    /**
+     * Filter collections by stores
+     *
+     * @param mixed $store
+     * @param bool $withAdmin
+     * @return Mage_Core_Model_Mysql4_Url_Rewrite_Collection
+     */
+    public function addStoreFilter($store, $withAdmin = true)
     {
-        $storeId = Mage::helper('core')->getStoreId($store);
-        $this->getSelect()->where('store_id=0 or store_id=?', $storeId);
+        if (is_array($store) || is_numeric($store)) {
+            if (!is_array($store)) {
+                $store = array($store);
+            }
+        }
+        else {
+            $store = Mage::helper('core')->getStoreId($store);
+        }
+        if ($withAdmin) {
+            $this->getSelect()->where('store_id = 0 OR store_id IN (?)', $store);
+        }
+        else {
+            $this->getSelect()->where('store_id IN (?)', $store);
+        }
         return $this;
     }
 

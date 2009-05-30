@@ -109,15 +109,21 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
         return $errors;
     }
 
+    /**
+     * Append review summary to product collection
+     *
+     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
+     * @return Mage_Review_Model_Review
+     */
     public function appendSummary($collection)
     {
         $entityIds = array();
-        foreach( $collection->getItems() as $_item ) {
-            $entityIds[] = $_item->getId();
+        foreach ($collection->getItems() as $_itemId => $_item) {
+            $entityIds[] = $_item->getEntityId();
         }
 
-        if( sizeof($entityIds) == 0 ) {
-            return;
+        if (sizeof($entityIds) == 0) {
+            return $this;
         }
 
         $summaryData = Mage::getResourceModel('review/review_summary_collection')
@@ -125,13 +131,15 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
             ->addStoreFilter(Mage::app()->getStore()->getId())
             ->load();
 
-        foreach( $collection->getItems() as $_item ) {
-            foreach( $summaryData as $_summary ) {
-                if( $_summary->getEntityPkValue() == $_item->getId() ) {
+        foreach ($collection->getItems() as $_item ) {
+            foreach ($summaryData as $_summary) {
+                if ($_summary->getEntityPkValue() == $_item->getEntityId()) {
                     $_item->setRatingSummary($_summary);
                 }
             }
         }
+
+        return $this;
     }
 
     protected function _beforeDelete()

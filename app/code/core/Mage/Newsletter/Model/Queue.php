@@ -34,6 +34,13 @@
 class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Abstract
 {
     /**
+     * Newsletter Template object
+     *
+     * @var Mage_Newsletter_Model_Template
+     */
+    protected $_template;
+
+    /**
      * Subscribers collection
      * @var Varien_Data_Collection_Db
      */
@@ -75,14 +82,15 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Abstract
     /**
      * Add template data to queue.
      *
+     * @deprecated
      * @param Varien_Object $data
      * @return Mage_Newsletter_Model_Queue
      */
     public function addTemplateData( $data )
     {
-        if ($data->getTemplateId()) {
-            $this->setTemplate(Mage::getModel('newsletter/template')
-                                    ->load($data->getTemplateId()));
+        $template = $this->getTemplate();
+        if ($data->getTemplateId() && $data->getTemplateId() != $template->getId()) {
+            $template->load($data->getTemplateId());
         }
 
         return $this;
@@ -181,5 +189,19 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Abstract
         }
 
         return $this->_stores;
+    }
+
+    /**
+     * Retrieve Newsletter Template object
+     *
+     * @return Mage_Newsletter_Model_Template
+     */
+    public function getTemplate()
+    {
+        if (is_null($this->_template)) {
+            $this->_template = Mage::getModel('newsletter/template')
+                ->load($this->getTemplateId());
+        }
+        return $this->_template;
     }
 }

@@ -146,6 +146,10 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
             ->setTypeId($type)
             ->setSku($sku);
 
+        if (isset($productData['website_ids']) && is_array($productData['website_ids'])) {
+            $product->setWebsiteIds($productData['website_ids']);
+        }
+
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             if ($this->_isAllowedAttribute($attribute)
                 && isset($productData[$attribute->getAttributeCode()])) {
@@ -185,6 +189,10 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
 
         if (!$product->getId()) {
             $this->_fault('not_exists');
+        }
+
+        if (isset($productData['website_ids']) && is_array($productData['website_ids'])) {
+            $product->setWebsiteIds($productData['website_ids']);
         }
 
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {

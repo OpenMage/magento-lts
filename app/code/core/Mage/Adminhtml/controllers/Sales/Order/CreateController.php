@@ -209,7 +209,12 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $this->_getOrderCreateModel()->getQuote()->getPayment()->addData($paymentData);
         }
 
+        $eventData = array(
+            'order_create_model' => $this->_getOrderCreateModel(),
+            'request'            => $this->getRequest()->getPost(),
+        );
 
+        Mage::dispatchEvent('adminhtml_sales_order_create_process_data', $eventData);
 
         $this->_getOrderCreateModel()
             ->initRuleData()
@@ -258,14 +263,9 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     public function indexAction()
     {
         $this->loadLayout();
-        $this->getLayout()->getBlock('left')->setIsCollapsed(true);
 
         $this->_initSession()
             ->_setActiveMenu('sales/order')
-            ->_addContent($this->getLayout()->createBlock('adminhtml/sales_order_create'))
-            ->_addJs($this->getLayout()->createBlock('adminhtml/template')->setTemplate(
-                'sales/order/create/js.phtml'
-            ))
             ->renderLayout();
     }
 
@@ -318,33 +318,26 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 
         $asJson= $this->getRequest()->getParam('json');
         $block = $this->getRequest()->getParam('block');
-        $res = array();
+
+        $update = $this->getLayout()->getUpdate();
+        if ($asJson) {
+            $update->addHandle('adminhtml_sales_order_create_load_block_json');
+        } else {
+            $update->addHandle('adminhtml_sales_order_create_load_block_plain');
+        }
 
         if ($block) {
             $blocks = explode(',', $block);
-
-            if ($asJson && !in_array('messages', $blocks)) {
-                $blocks[] = 'messages';
+            if ($asJson && !in_array('message', $blocks)) {
+                $blocks[] = 'message';
             }
 
             foreach ($blocks as $block) {
-                $blockName = 'adminhtml/sales_order_create_'.$block;
-                try {
-                    $blockObject = $this->getLayout()->createBlock($blockName);
-                    $res[$block] = $blockObject->toHtml();
-                }
-                catch (Exception $e){
-                    $res[$block] = $this->__('Can not create block "%s"', $blockName);
-                }
+                $update->addHandle('adminhtml_sales_order_create_load_block_' . $block);
             }
         }
-
-        if ($asJson) {
-            $this->getResponse()->setBody(Zend_Json::encode($res));
-        }
-        else {
-            $this->getResponse()->setBody(implode('', $res));
-        }
+        $this->loadLayoutUpdates()->generateLayoutXml()->generateLayoutBlocks();
+        $this->getResponse()->setBody($this->getLayout()->getBlock('content')->toHtml());
     }
 
     /**

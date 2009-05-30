@@ -71,6 +71,9 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
         if (!Mage::registry('store_data')->isCanDelete()) {
             $this->_removeButton('delete');
         }
+        if (Mage::registry('store_data')->isReadOnly()) {
+            $this->_removeButton('save')->_removeButton('reset');
+        }
     }
 
     /**

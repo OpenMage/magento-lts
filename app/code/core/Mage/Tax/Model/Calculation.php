@@ -86,7 +86,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         $process['id'] = "{$id}-{$value}";
         $process['rates'][] = $rate;
 
-        return $process;
+        return array($process);
     }
 
     public function getRate($request)
@@ -169,14 +169,13 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
             $defaultCustomerGroup = Mage::getStoreConfig('customer/create_account/default_group', $store);
             $customerTaxClass = Mage::getModel('customer/group')->getTaxClassId($defaultCustomerGroup);
         }
-
         $request = new Varien_Object();
         $request
             ->setCountryId($address->getCountryId())
             ->setRegionId($address->getRegionId())
             ->setPostcode($address->getPostcode())
+            ->setStore($store)
             ->setCustomerClassId($customerTaxClass);
-
         return $request;
     }
 
@@ -205,7 +204,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
 
     public function getAppliedRates($request)
     {
-        $cacheKey = "{$request->getProductClassId()}|{$request->getCustomerClassId()}|{$request->getCountryId()}|{$request->getRegionId()}|{$request->getPostcode()}";
+        $cacheKey = "{$request->getStore()->getId()}|{$request->getProductClassId()}|{$request->getCustomerClassId()}|{$request->getCountryId()}|{$request->getRegionId()}|{$request->getPostcode()}";
         if (!isset($this->_rateCalculationProcess[$cacheKey])) {
             $this->_rateCalculationProcess[$cacheKey] = $this->_getResource()->getCalculationProcess($request);
         }

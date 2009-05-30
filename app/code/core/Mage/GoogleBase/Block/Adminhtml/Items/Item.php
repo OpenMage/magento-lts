@@ -149,30 +149,36 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Item extends Mage_Adminhtml_Block_Wi
              'label'    => $this->__('Hide'),
              'url'      => $this->getUrl('*/*/massHide', array('_current'=>true))
         ));
+
+        $this->getMassactionBlock()->addItem('refresh', array(
+             'label'    => $this->__('Synchronize'),
+             'url'      => $this->getUrl('*/*/refresh', array('_current'=>true)),
+             'confirm'  => $this->__('This action will update items statistics and remove the items which are not available in Google Base. Continue?')
+        ));
         return $this;
     }
 
-    public function getSynchronizeButtonHtml()
-    {
-        $confirmMsg = $this->__('This action will update items statistics and remove the items which are not available in Google Base. Continue?');
-
-        $refreshButtonHtml = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
-                'label'     => $this->__('Synchronize'),
-                'onclick'   => "if(confirm('".$confirmMsg."'))
-                                {
-                                    setLocation('".$this->getUrl('*/*/refresh', array('_current'=>true))."');
-                                }",
-                'class'     => 'task'
-            ))->toHtml();
-
-        return $refreshButtonHtml;
-    }
-
-    public function getMainButtonsHtml()
-    {
-        return $this->getSynchronizeButtonHtml() . parent::getMainButtonsHtml();
-    }
+//    public function getSynchronizeButtonHtml()
+//    {
+//        $confirmMsg = $this->__('This action will update items statistics and remove the items which are not available in Google Base. Continue?');
+//
+//        $refreshButtonHtml = $this->getLayout()->createBlock('adminhtml/widget_button')
+//            ->setData(array(
+//                'label'     => $this->__('Synchronize'),
+//                'onclick'   => "if(confirm('".$confirmMsg."'))
+//                                {
+//                                    setLocation('".$this->getUrl('*/*/refresh', array('_current'=>true))."');
+//                                }",
+//                'class'     => 'task'
+//            ))->toHtml();
+//
+//        return $refreshButtonHtml;
+//    }
+//
+//    public function getMainButtonsHtml()
+//    {
+//        return $this->getSynchronizeButtonHtml() . parent::getMainButtonsHtml();
+//    }
 
     public function getGridUrl()
     {
@@ -181,6 +187,6 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Item extends Mage_Adminhtml_Block_Wi
 
     protected function _getStore()
     {
-        return $this->getLayout()->getBlockSingleton('googlebase/adminhtml_items')->getStore();
+        return Mage::app()->getStore($this->getRequest()->getParam('store'));
     }
 }

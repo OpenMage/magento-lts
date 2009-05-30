@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Google Base Items Grids Container
  *
@@ -75,10 +74,6 @@ class Mage_GoogleBase_Block_Adminhtml_Items extends Mage_Adminhtml_Block_Widget_
 
     public function getStore()
     {
-        $storeId = (int) $this->getRequest()->getParam('store', 0);
-        if ($storeId == 0) {
-            return Mage::app()->getDefaultStoreView();
-        }
-        return Mage::app()->getStore($storeId);
+        return $this->_getData('store');
     }
 }

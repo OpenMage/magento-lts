@@ -458,7 +458,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             }
             $fileName = mageFindClassFile($block);
             if ($fileName!==false) {
-                include_once ($fileName);
+                //include_once ($fileName);
                 $block = new $block($attributes);
             }
         }

@@ -36,14 +36,12 @@ class Mage_Adminhtml_Block_Permissions_Editroles extends Mage_Adminhtml_Block_Wi
 
     protected function _prepareLayout()
     {
-        $roleId = $this->getRequest()->getParam('rid', false);
-        $role = Mage::getModel("admin/roles")
-           ->load($roleId);
+        $role = Mage::registry('current_role');
 
         $this->addTab('info', $this->getLayout()->createBlock('adminhtml/permissions_tab_roleinfo')->setRole($role)->setActive(true));
         $this->addTab('account', $this->getLayout()->createBlock('adminhtml/permissions_tab_rolesedit', 'adminhtml.permissions.tab.rolesedit'));
 
-        if (intval($roleId) > 0) {
+        if ($role->getId()) {
             $this->addTab('roles', array(
                 'label'     => Mage::helper('adminhtml')->__('Role Users'),
                 'title'     => Mage::helper('adminhtml')->__('Role Users'),

@@ -41,12 +41,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer extends Mage_Adminhtml_Bl
         $this->setId('sales_order_create_customer');
     }
 
-    protected function _prepareLayout()
-    {
-        $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/sales_order_create_customer_grid'));
-        return parent::_prepareLayout();
-    }
-
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Please select a customer');

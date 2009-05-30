@@ -34,14 +34,20 @@
  */
 class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * Action list where need check enabled cookie
+     *
+     * @var array
+     */
+    protected $_cookieCheckActions = array('add');
+
     public function indexAction()
     {
         $items = $this->getRequest()->getParam('items');
 
-        if($this->getRequest()->getParam(self::PARAM_NAME_BASE64_URL)) {
-            Mage::getSingleton('catalog/session')->setBeforeCompareUrl(
-                Mage::helper('core')->urlDecode($this->getRequest()->getParam(self::PARAM_NAME_BASE64_URL))
-            );
+        if ($beforeUrl = $this->getRequest()->getParam(self::PARAM_NAME_URL_ENCODED)) {
+            Mage::getSingleton('catalog/session')
+                ->setBeforeCompareUrl(Mage::helper('core')->urlDecode($beforeUrl));
         }
 
         if ($items) {

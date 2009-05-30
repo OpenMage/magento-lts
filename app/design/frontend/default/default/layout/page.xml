@@ -61,6 +61,8 @@ Default layout, loads most of the pages
                 <action method="addCss"><stylesheet>css/print.css</stylesheet><params>media="print"</params></action>
             </block>
 
+            <block type="page/html_notices" name="global_notices" as="global_notices" template="page/html/notices.phtml" />
+
             <block type="page/html_header" name="header" as="header">
                 <block type="page/template_links" name="top.links" as="topLinks"/>
                 <block type="page/switch" name="store_language" as="store_language" template="page/switch/languages.phtml"/>
@@ -117,4 +119,45 @@ Default layout, loads most of the pages
 
         </block>
     </print>
+    
+     <!-- Custom page layout handles -->
+    <page_empty>
+        <reference name="root">
+            <action method="setTemplate"><template>page/one-column.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action> 
+        </reference>
+    </page_empty>
+    
+    <page_one_column>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action> 
+        </reference>
+    </page_one_column>
+    
+    <page_two_columns_left>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action> 
+        </reference>
+    </page_two_columns_left>
+    
+    <page_two_columns_right>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action> 
+        </reference>
+    </page_two_columns_right>
+    
+    <page_three_columns>
+        <reference name="root">
+            <action method="setTemplate"><template>page/3columns.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action> 
+        </reference>
+    </page_three_columns>
 </layout>

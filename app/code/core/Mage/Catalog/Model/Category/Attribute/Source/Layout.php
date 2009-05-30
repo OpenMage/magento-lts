@@ -36,13 +36,7 @@ class Mage_Catalog_Model_Category_Attribute_Source_Layout extends Mage_Eav_Model
     public function getAllOptions()
     {
         if (!$this->_options) {
-            $layouts = array();
-            foreach (Mage::getConfig()->getNode('global/cms/layouts')->children() as $layoutName=>$layoutConfig) {
-                $this->_options[] = array(
-                   'value'=>$layoutName,
-                   'label'=>(string)$layoutConfig->label
-                );
-            }
+            $this->_options = Mage::getSingleton('page/source_layout')->toOptionArray();
             array_unshift($this->_options, array('value'=>'', 'label'=>Mage::helper('catalog')->__('No layout updates')));
         }
         return $this->_options;

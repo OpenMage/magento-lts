@@ -86,6 +86,13 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
      */
     protected $_idFieldName;
 
+    /**
+     * Primery key auto increment flag
+     *
+     * @var bool
+     */
+    protected $_isPkAutoIncrement = true;
+
     protected $_mainTableFields;
 
     /**
@@ -344,7 +351,20 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
 
         if (!is_null($object->getId())) {
             $condition = $this->_getWriteAdapter()->quoteInto($this->getIdFieldName().'=?', $object->getId());
-            $this->_getWriteAdapter()->update($this->getMainTable(), $this->_prepareDataForSave($object), $condition);
+            /**
+             * Not auto increment primary key support
+             */
+            if ($this->_isPkAutoIncrement) {
+                $this->_getWriteAdapter()->update($this->getMainTable(), $this->_prepareDataForSave($object), $condition);
+            } else {
+                $select = $this->_getWriteAdapter()->select($this->getMainTable(), array($this->getIdFieldName()))
+                    ->where($condition);
+                if ($this->_getWriteAdapter()->fetchOne($select) !== false) {
+                    $this->_getWriteAdapter()->update($this->getMainTable(), $this->_prepareDataForSave($object), $condition);
+                } else {
+                    $this->_getWriteAdapter()->insert($this->getMainTable(), $this->_prepareDataForSave($object));
+                }
+            }
         } else {
             $this->_getWriteAdapter()->insert($this->getMainTable(), $this->_prepareDataForSave($object));
             $object->setId($this->_getWriteAdapter()->lastInsertId($this->getMainTable()));

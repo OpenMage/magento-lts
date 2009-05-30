@@ -35,6 +35,10 @@
 class Mage_Newsletter_Model_Mysql4_Queue_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
 	protected $_addSubscribersFlag = false;
+    /**
+     * @var bool
+     */
+    protected $_isStoreFilter = false;
 
 	/**
 	 * Initializes collection
@@ -177,4 +181,20 @@ class Mage_Newsletter_Model_Mysql4_Queue_Collection extends Mage_Core_Model_Mysq
         return $this->_toOptionArray('queue_id', 'template_subject');
     }
 
+    /**
+     * Filter collection by specified store ids
+     *
+     * @param array|int $storeIds
+     * @return Mage_Newsletter_Model_Mysql4_Queue_Collection
+     */
+    public function addStoreFilter($storeIds)
+    {
+        if (!$this->_isStoreFilter) {
+            $this->getSelect()->joinInner(array('store_link' => $this->getTable('queue_store_link')),
+                'main_table.queue_id = store_link.queue_id', array()
+            )->where('store_link.store_id IN (?)', $storeIds);
+            $this->_isStoreFilter = true;
+        }
+        return $this;
+    }
 }

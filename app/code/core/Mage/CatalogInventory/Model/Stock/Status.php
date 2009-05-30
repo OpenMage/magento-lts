@@ -108,10 +108,10 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 
         $websites = $this->_websites;
         if (!is_null($websiteId) && isset($this->_websites[$websiteId])) {
-            $websites = array($this->_websites[$websiteId]);
+            $websites = array($websiteId => $this->_websites[$websiteId]);
         }
 
-        return $this->_websites;
+        return $websites;
     }
 
     /**
@@ -291,6 +291,8 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
             foreach ($requiredChildrenIds as $groupedChildrenIds) {
                 $childrenIds = array_merge($childrenIds, $groupedChildrenIds);
             }
+            $childrenWebsites = Mage::getSingleton('catalog/product_website')
+                ->getWebsites($childrenIds);
             foreach ($websites as $websiteId => $storeId) {
                 $childrenStatus = $this->getProductStatusModel()
                     ->getProductStatus($childrenIds, $storeId);
@@ -301,6 +303,8 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
                     $optionStatus = false;
                     foreach ($groupedChildrenIds as $childId) {
                         if (isset($childrenStatus[$childId])
+                            and isset($childrenWebsites[$childId])
+                            and in_array($websiteId, $childrenWebsites[$childId])
                             and $childrenStatus[$childId] == $this->getProductStatusEnabled()
                             and isset($childrenStock[$childId])
                             and $childrenStock[$childId] == self::STATUS_IN_STOCK
@@ -478,6 +482,19 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
             $product->setStockItem($object);
         }
 
+        return $this;
+    }
+
+    /**
+     * Add stock status to prepare index select
+     *
+     * @param Varien_Db_Select $select
+     * @param Mage_Core_Model_Website $website
+     * @return Mage_CatalogInventory_Model_Stock_Status
+     */
+    public function addStockStatusToSelect(Varien_Db_Select $select, Mage_Core_Model_Website $website)
+    {
+        $this->_getResource()->addStockStatusToSelect($select, $website);
         return $this;
     }
 }

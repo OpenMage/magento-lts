@@ -37,4 +37,16 @@ class Mage_Dataflow_Model_Mysql4_Profile_Collection extends Mage_Core_Model_Mysq
     {
         $this->_init('dataflow/profile');
     }
+
+    /**
+     * Filter collection by specified store ids
+     *
+     * @param array|int $storeIds
+     * @return Mage_Dataflow_Model_Mysql4_Profile_Collection
+     */
+    public function addStoreFilter($storeIds)
+    {
+        $this->getSelect()->where('main_table.store_id IN (?)', $storeIds);
+        return $this;
+    }
 }

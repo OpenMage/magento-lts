@@ -63,7 +63,7 @@ class Mage_Wishlist_Model_Mysql4_Wishlist extends Mage_Core_Model_Mysql4_Abstrac
                 ->addStoreFilter();
 
             Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
+            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($collection);
 
             $this->_itemsCount = $collection->getSize();
         }

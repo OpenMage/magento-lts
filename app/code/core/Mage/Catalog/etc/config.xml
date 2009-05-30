@@ -28,22 +28,91 @@
 <config>
     <modules>
         <Mage_Catalog>
-            <version>0.7.66</version>
+            <version>0.7.69</version>
         </Mage_Catalog>
     </modules>
 
     <admin>
         <fieldsets>
             <catalog_product_dataflow>
-                <qty><inventory>1</inventory><to_number>1</to_number></qty>
-                <min_qty><inventory>1</inventory><to_number>1</to_number><use_config>1</use_config></min_qty>
-                <is_qty_decimal><inventory>1</inventory></is_qty_decimal>
-                <backorders><inventory>1</inventory><use_config>1</use_config></backorders>
-                <min_sale_qty><inventory>1</inventory><to_number>1</to_number><use_config>1</use_config></min_sale_qty>
-                <max_sale_qty><inventory>1</inventory><to_number>1</to_number><use_config>1</use_config></max_sale_qty>
-                <is_in_stock><inventory>1</inventory><inventory_other>1</inventory_other></is_in_stock>
-                <notify_stock_qty><inventory>1</inventory><use_config>1</use_config></notify_stock_qty>
-                <manage_stock><inventory>1</inventory><use_config>1</use_config></manage_stock>
+                <qty>
+                    <inventory>1</inventory>
+                    <to_number>1</to_number>
+                    <product_type>
+                        <simple />
+                        <virtual />
+                    </product_type>
+                </qty>
+                <min_qty>
+                    <inventory>1</inventory>
+                    <to_number>1</to_number>
+                    <use_config>1</use_config>
+                    <product_type>
+                        <simple />
+                        <virtual />
+                    </product_type>
+                </min_qty>
+                <is_qty_decimal>
+                    <inventory>1</inventory>
+                    <product_type>
+                        <simple />
+                        <virtual />
+                    </product_type>
+                </is_qty_decimal>
+                <backorders>
+                    <inventory>1</inventory>
+                    <use_config>1</use_config>
+                    <product_type>
+                        <simple />
+                        <virtual />
+                    </product_type>
+                </backorders>
+                <min_sale_qty>
+                    <inventory>1</inventory>
+                    <to_number>1</to_number>
+                    <use_config>1</use_config>
+                    <product_type>
+                        <simple />
+                        <virtual />
+                    </product_type>
+                </min_sale_qty>
+                <max_sale_qty>
+                    <inventory>1</inventory>
+                    <to_number>1</to_number>
+                    <use_config>1</use_config>
+                    <product_type>
+                        <simple />
+                        <virtual />
+                    </product_type>
+                </max_sale_qty>
+                <is_in_stock>
+                    <inventory>1</inventory>
+                    <inventory_other>1</inventory_other>
+                    <product_type>
+                        <simple />
+                        <virtual />
+                        <configurable />
+                        <grouped />
+                    </product_type>
+                </is_in_stock>
+                <notify_stock_qty>
+                    <inventory>1</inventory>
+                    <use_config>1</use_config>
+                    <product_type>
+                        <simple />
+                        <virtual />
+                    </product_type>
+                </notify_stock_qty>
+                <manage_stock>
+                    <inventory>1</inventory>
+                    <use_config>1</use_config>
+                    <product_type>
+                        <simple />
+                        <virtual />
+                        <configurable />
+                        <grouped />
+                    </product_type>
+                </manage_stock>
 
                 <image><img>1</img></image>
                 <small_image><img>1</img></small_image>
@@ -76,6 +145,7 @@
                 <item_id><system>1</system></item_id>
                 <product_id><system>1</system></product_id>
                 <stock_id><system>1</system></stock_id>
+                <required_options><system>1</system><ignore>1</ignore></required_options>
             </catalog_product_dataflow>
         </fieldsets>
     </admin>
@@ -117,11 +187,11 @@
                     <product_link_type>
                         <table>catalog_product_link_type</table>
                     </product_link_type>
-                    
+
                     <product_link>
                         <table>catalog_product_link</table>
                     </product_link>
-                    
+
                     <product_link_attribute>
                         <table>catalog_product_link_attribute</table>
                     </product_link_attribute>
@@ -246,6 +316,11 @@
             </store_edit>
             <store_delete>
                 <observers>
+                    <catalog>
+                        <type>singleton</type>
+                        <class>catalog/observer</class>
+                        <method>storeDelete</method>
+                    </catalog>
                     <catalog_product_flat>
                         <type>singleton</type>
                         <class>catalog/product_flat_observer</class>
@@ -299,7 +374,6 @@
                     </catalog_category_save>
                 </observers>
             </catalog_category_save_after>
-            
             <customer_group_save_after>
                 <observers>
                     <catalog_product_flat>
@@ -309,7 +383,6 @@
                     </catalog_product_flat>
                 </observers>
             </customer_group_save_after>
-            
             <catalog_product_save_after>
                 <observers>
                     <catalog_product_flat>
@@ -604,6 +677,15 @@
                     </catalog>
                 </observers>
             </customer_login>
+            <customer_logout>
+                <observers>
+                    <catalog>
+                        <type>model</type>
+                        <class>catalog/product_compare_item</class>
+                        <method>bindCustomerLogout</method>
+                    </catalog>
+                </observers>
+            </customer_logout>
             <sales_convert_quote_item_to_order_item>
                 <observers>
                     <catalog>
@@ -653,8 +735,10 @@
                     <small_image_label />
                     <tax_class_id />
                     <status />
-                    <news_from_date/>
-                    <news_to_date/>
+                    <news_from_date />
+                    <news_to_date />
+                    <created_at />
+                    <updated_at />
                 </attributes>
             </collection>
         </product>

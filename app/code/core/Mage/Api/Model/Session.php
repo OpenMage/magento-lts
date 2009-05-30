@@ -34,17 +34,51 @@
 class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 {
     public $sessionIds = array();
+    protected $_currentSessId = null;
 
     public function start($sessionName=null)
     {
-        parent::start($sessionName=null);
+//        parent::start($sessionName=null);
+        $this->_currentSessId = md5(time() . $sessionName);
         $this->sessionIds[] = $this->getSessionId();
+        return $this;
+    }
+
+    public function init($namespace, $sessionName=null)
+    {
+        if (is_null($this->_currentSessId)) {
+            $this->start();
+        }
+        return $this;
+    }
+
+    public function getSessionId()
+    {
+        return $this->_currentSessId;
+    }
+
+    public function setSessionId($sessId = null)
+    {
+        if (!is_null($sessId)) {
+            $this->_currentSessId = $sessId;
+        }
         return $this;
     }
 
     public function revalidateCookie()
     {
         // In api we don't use cookies
+    }
+
+    public function clear() {
+        if ($sessId = $this->getSessionId()) {
+            try {
+                Mage::getModel('api/user')->logoutBySessId($sessId);
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public function login($username, $apiKey)
@@ -161,10 +195,14 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if (!$user->getId() || !$user->getSessid()) {
             return false;
         }
+
         if ($user->getSessid() == $sessId && !$this->isSessionExpired($user)) {
             $this->setUser($user);
             $this->setAcl(Mage::getResourceModel('api/acl')->loadAcl());
-            $user->getResource()->recordLogin($user);
+
+            $user->getResource()->recordLogin($user)
+                ->recordSession($user);
+
             return true;
         }
         return false;

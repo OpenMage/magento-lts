@@ -78,6 +78,12 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Actions extends Mage_Adminhtml
 
         //$form->setUseContainer(true);
 
+        if ($model->isReadonly()) {
+            foreach ($fieldset->getElements() as $element) {
+                $element->setReadonly(true, true);
+            }
+        }
+
         $this->setForm($form);
 
         return parent::_prepareForm();

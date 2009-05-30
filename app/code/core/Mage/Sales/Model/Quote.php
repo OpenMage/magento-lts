@@ -39,7 +39,7 @@
 class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 {
     /**
-     * Checkout methods 
+     * Checkout methods
      */
     const CHECKOUT_METHOD_REGISTER = 'register';
     const CHECKOUT_METHOD_GUEST = 'guest';
@@ -319,16 +319,17 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Return quote checkout method code
      *
+     * @param boolean $originalMethod if true return defined method from begining
      * @return string
      */
-    public function getCheckoutMethod()
+    public function getCheckoutMethod($originalMethod = false)
     {
-        if ($this->getCustomerId()) {
+        if ($this->getCustomerId() && !$originalMethod) {
             return self::CHECKOUT_METHOD_LOGIN_IN;
         }
         return $this->_getData('checkout_method');
     }
-    
+
     /**
      * Retrieve quote address collection
      *
@@ -888,6 +889,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function collectTotals()
     {
+        Mage::dispatchEvent(
+            $this->_eventPrefix . '_collect_totals_before',
+            array(
+                $this->_eventObject=>$this
+            )
+        );
+
         $this->setSubtotal(0);
         $this->setBaseSubtotal(0);
 
@@ -948,6 +956,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
         $this->setData('trigger_recollect', 0);
         $this->_validateCouponCode();
+
+        Mage::dispatchEvent(
+            $this->_eventPrefix . '_collect_totals_after',
+            array(
+                $this->_eventObject=>$this
+            )
+        );
+
         return $this;
     }
 
@@ -1123,6 +1139,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function merge(Mage_Sales_Model_Quote $quote)
     {
+        Mage::dispatchEvent(
+            $this->_eventPrefix . '_merge_before',
+            array(
+                $this->_eventObject=>$this,
+                'source'=>$quote
+            )
+        );
+
         foreach ($quote->getAllVisibleItems() as $item) {
             $found = false;
             foreach ($this->getAllItems() as $quoteItem) {
@@ -1149,6 +1173,15 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($quote->getCouponCode()) {
             $this->setCouponCode($quote->getCouponCode());
         }
+
+        Mage::dispatchEvent(
+            $this->_eventPrefix . '_merge_after',
+            array(
+                $this->_eventObject=>$this,
+                'source'=>$quote
+            )
+        );
+
         return $this;
     }
 

@@ -42,6 +42,35 @@
                 <class>Mage_Page_Block</class>
             </page>
         </blocks>
+        <page>
+            <layouts>
+                <empty module="page" translate="label">
+                    <label>Empty</label>
+                    <template>page/one-column.phtml</template>
+                    <layout_handle>page_empty</layout_handle>
+                </empty>
+                <one_column module="page" translate="label">
+                    <label>1 column</label>
+                    <template>page/1column.phtml</template>
+                    <layout_handle>page_one_column</layout_handle>
+                </one_column>
+                <two_columns_left module="page" translate="label">
+                    <label>2 columns with left bar</label>
+                    <template>page/2columns-left.phtml</template>
+                    <layout_handle>page_two_columns_left</layout_handle>
+                </two_columns_left>
+                <two_columns_right module="page" translate="label">
+                    <label>2 columns with right bar</label>
+                    <template>page/2columns-right.phtml</template>
+                    <layout_handle>page_two_columns_right</layout_handle>
+                </two_columns_right>
+                <three_columns module="page" translate="label">
+                    <label>3 columns</label>
+                    <template>page/3columns.phtml</template>
+                    <layout_handle>page_three_columns</layout_handle>
+                </three_columns>
+            </layouts>
+        </page>
     </global>
     <frontend>
         <translate>

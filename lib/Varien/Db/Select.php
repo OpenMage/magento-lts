@@ -300,4 +300,20 @@ class Varien_Db_Select extends Zend_Db_Select
         return $sql;
     }
 
+    /**
+     * Modify (hack) part of the structured information for the currect query
+     *
+     * @param string $part
+     * @param mixed $value
+     * @return Varien_Db_Select
+     */
+    public function setPart($part, $value)
+    {
+        $part = strtolower($part);
+        if (!array_key_exists($part, $this->_parts)) {
+            throw new Zend_Db_Select_Exception("Invalid Select part '$part'");
+        }
+        $this->_parts[$part] = $value;
+        return $this;
+    }
 }

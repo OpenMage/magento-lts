@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Api>
-            <version>0.8.0</version>
+            <version>0.8.1</version>
         </Mage_Api>
     </modules>
     <global>
@@ -64,6 +64,9 @@
                     <user>
                         <table>api_user</table>
                     </user>
+                    <session>
+                        <table>api_session</table>
+                    </session>
                 </entities>
             </api_mysql4>
         </models>
@@ -87,6 +90,11 @@
                 </connection>
             </api_read>
         </resources>
+        <request>
+            <direct_front_name>
+                <api/>
+            </direct_front_name>
+        </request>
     </global>
     <frontend>
         <routers>

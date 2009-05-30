@@ -162,11 +162,17 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
             }
 
             $select = $this->_getReadAdapter()->select()
-                ->from($this->getTable('eav/attribute'), array('attribute_id','attribute_code'))
+                ->from($this->getTable('eav/attribute'))
                 ->where('entity_type_id=?', $this->getEntityTypeId())
                 ->where(join(' OR ', $whereCond));
-            $this->_attributeCodes = $this->_getReadAdapter()
-                ->fetchPairs($select);
+            $attributesData = $this->_getReadAdapter()->fetchAll($select);
+            Mage::getSingleton('eav/config')
+                ->importAttributesData($this->getEntityType(), $attributesData);
+            $this->_attributeCodes = array();
+            foreach ($attributesData as $data) {
+                $this->_attributeCodes[$data['attribute_id']] = $data['attribute_code'];
+            }
+            unset($attributesData);
         }
         return $this->_attributeCodes;
     }
@@ -205,8 +211,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
     {
         if (is_null($this->_attributes)) {
             $attributeCodes = $this->getAttributeCodes(false);
-            Mage::getSingleton('eav/config')
-                ->preloadAttributes($this->getEntityType(), $attributeCodes);
             $entity = Mage::getSingleton('eav/config')
                 ->getEntityType($this->getEntityType())
                 ->getEntity();
@@ -486,6 +490,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
                     'on_update'     => 'CASCADE',
                     'on_delete'     => 'CASCADE'
                 );
+            }
+
+            foreach ($indexList as $indexName => $indexProp) {
+                if (isset($indexes[$indexName]) && ($indexes[$indexName]['type'] != $indexProp['type'])) {
+                    $dropIndexes[$indexName] = $indexProp;
+                    $addIndexes[$indexName] = $indexes[$indexName];
+                }
             }
 
             if ($addColumns or $dropColumns or $addIndexes or $dropIndexes) {
@@ -1037,6 +1048,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
             }
             $prev = $k;
         }
+        return false;
     }
 
     /**

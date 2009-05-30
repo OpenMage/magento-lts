@@ -248,8 +248,9 @@ class Mage_Log_Model_Mysql4_Log extends Mage_Core_Model_Mysql4_Abstract
                     array('url_id'))
                 ->joinLeft(
                     array('url_table' => $this->getTable('log/url_table')),
-                    'url_info_table.url_id = url_table.url_id AND url_table.url_id IS NULL',
+                    'url_info_table.url_id = url_table.url_id',
                     array())
+                ->where('url_table.url_id IS NULL')
                 ->limit(100);
             $query = $this->_getReadAdapter()->query($select);
             while ($row = $query->fetch()) {

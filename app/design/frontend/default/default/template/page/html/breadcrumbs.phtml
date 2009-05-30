@@ -30,11 +30,11 @@
     <?php foreach($crumbs as $_crumbName=>$_crumbInfo): ?>
         <li class="<?php echo $_crumbName ?>">
         <?php if($_crumbInfo['link']): ?>
-            <a href="<?php echo $_crumbInfo['link'] ?>" title="<?php echo $_crumbInfo['title'] ?>"><?php echo $_crumbInfo['label'] ?></a>
+            <a href="<?php echo $_crumbInfo['link'] ?>" title="<?php echo $this->htmlEscape($_crumbInfo['title']) ?>"><?php echo $this->htmlEscape($_crumbInfo['label']) ?></a>
         <?php elseif($_crumbInfo['last']): ?>
-            <strong><?php echo $_crumbInfo['label'] ?></strong>
+            <strong><?php echo $this->htmlEscape($_crumbInfo['label']) ?></strong>
         <?php else: ?>
-            <?php echo $_crumbInfo['label'] ?>
+            <?php echo $this->htmlEscape($_crumbInfo['label']) ?>
         <?php endif; ?>
         </li>
         <?php if(!$_crumbInfo['last']): ?>

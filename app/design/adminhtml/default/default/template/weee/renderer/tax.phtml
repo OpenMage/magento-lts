@@ -136,11 +136,11 @@
                 elem = $(weeeEditorPrefixes[i] + '_table');
 
                 if (val != 1) {
-                    elem.parentNode.parentNode.hide();
+                    elem.up(1).hide();
                     weeeTaxControl.disableEditElements(weeeEditorPrefixes[i]);
                 } else {
                     weeeTaxControl.enableEditElements(weeeEditorPrefixes[i]);
-                    elem.parentNode.parentNode.show();
+                    elem.up(1).show();
                 }
             }
         },

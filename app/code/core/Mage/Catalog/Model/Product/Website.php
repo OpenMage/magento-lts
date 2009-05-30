@@ -20,22 +20,37 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
- * Catalog product website model
+ * Catalog Product Website Model
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
 {
+    /**
+     * Initialize resource model
+     *
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_website');
+    }
+
+    /**
+     * Retrieve Resource instance wrapper
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Website
+     */
+    protected function _getResource()
+    {
+        return parent::_getResource();
     }
 
     /**
@@ -49,7 +64,6 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
     {
         try {
             $this->_getResource()->removeProducts($websiteIds, $productIds);
-            $this->_refreshRewrites($productIds);
             Mage::getResourceModel('catalog/category')->refreshProductIndex(
                 array(), $productIds
             );
@@ -78,7 +92,6 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
     {
         try {
             $this->_getResource()->addProducts($websiteIds, $productIds);
-            $this->_refreshRewrites($productIds);
             Mage::getResourceModel('catalog/category')->refreshProductIndex(
                 array(), $productIds
             );
@@ -97,16 +110,14 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Refresh products url rewrites
+     * Retrieve product websites
+     * Return array with key as product ID and value array of websites
      *
-     * @param array $productIds
+     * @param int|array $productIds
+     * @return array
      */
-    protected function _refreshRewrites($productIds)
+    public function getWebsites($productIds)
     {
-//        $urlModel = Mage::getModel('catalog/url');
-        /* @var $urlModel Mage_Catalog_Model_Url */
-        foreach ($productIds as $productId) {
-//            $urlModel->refreshProductRewrite($productId);
-        }
+        return $this->_getResource()->getWebsites($productIds);
     }
-} // Class Mage_Catalog_Model_Product_Website End
+}

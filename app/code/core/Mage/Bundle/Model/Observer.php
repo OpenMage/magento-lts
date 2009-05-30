@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,25 +44,25 @@ class Mage_Bundle_Model_Observer
         $request = $observer->getEvent()->getRequest();
         $product = $observer->getEvent()->getProduct();
 
-        if ($items = $request->getPost('bundle_options')) {
+        if (($items = $request->getPost('bundle_options')) && !$product->getCompositeReadonly()) {
             $product->setBundleOptionsData($items);
         }
 
-        if ($selections = $request->getPost('bundle_selections')) {
+        if (($selections = $request->getPost('bundle_selections')) && !$product->getCompositeReadonly()) {
             $product->setBundleSelectionsData($selections);
         }
 
-        if ($product->getPriceType() == '0') {
+        if ($product->getPriceType() == '0' && !$product->getOptionsReadonly()) {
             $product->setCanSaveCustomOptions(true);
             if ($customOptions = $product->getProductOptions()) {
-                foreach ($customOptions as $key => $customOption) {
+                foreach (array_keys($customOptions) as $key) {
                     $customOptions[$key]['is_delete'] = 1;
                 }
                 $product->setProductOptions($customOptions);
             }
         }
 
-        $product->setCanSaveBundleSelections((bool)$request->getPost('affect_bundle_product_selections'));
+        $product->setCanSaveBundleSelections((bool)$request->getPost('affect_bundle_product_selections') && !$product->getCompositeReadonly());
 
         return $this;
     }
@@ -144,12 +144,19 @@ class Mage_Bundle_Model_Observer
     public function loadProductOptions($observer)
     {
         $collection = $observer->getEvent()->getCollection();
+        /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
+        $hasBundle = false;
         foreach ($collection->getItems() as $item){
             if ($item->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
-                $collection->addOptionsToResult();
-                return $this;
+                $hasBundle = true;
             }
         }
+
+        if ($hasBundle) {
+            Mage::getSingleton('bundle/price_index')
+                ->addPriceIndexToCollection($collection);
+        }
+
         return $this;
     }
 
@@ -223,6 +230,37 @@ class Mage_Bundle_Model_Observer
             Mage::helper('adminhtml/catalog')
                 ->setAttributeTabBlock('bundle/adminhtml_catalog_product_edit_tab_attributes');
         }
+        return $this;
+    }
+
+    /**
+     * Add price index to bundle product after load
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Bundle_Model_Observer
+     */
+    public function catalogProductLoadAfter(Varien_Event_Observer $observer)
+    {
+        $product = $observer->getEvent()->getProduct();
+        if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
+            Mage::getSingleton('bundle/price_index')
+                ->addPriceIndexToProduct($product);
+        }
+
+        return $this;
+    }
+
+    /**
+     * CatalogIndex Indexer after plain reindex process
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Bundle_Model_Observer
+     */
+    public function catalogIndexPlainReindexAfter(Varien_Event_Observer $observer)
+    {
+        $products = $observer->getEvent()->getProducts();
+        Mage::getSingleton('bundle/price_index')->reindex($products);
+
         return $this;
     }
 }

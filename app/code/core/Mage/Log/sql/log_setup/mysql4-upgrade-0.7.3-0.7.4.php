@@ -30,9 +30,6 @@ $installer = $this;
 
 $installer->startSetup();
 $installer->getConnection()->addKey($installer->getTable('log/customer'), 'IDX_VISITOR', 'visitor_id');
-$installer->run("
-DELETE FROM `{$installer->getTable('log/url_table')}` WHERE `url_id`=1 AND `visitor_id`;
-");
 $installer->getConnection()->addKey($installer->getTable('log/url_table'), 'PRIMARY', 'url_id', 'primary');
 $installer->getConnection()->addKey($installer->getTable('log/url_table'), 'IDX_VISITOR', 'visitor_id');
 $installer->endSetup();

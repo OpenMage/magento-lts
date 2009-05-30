@@ -616,7 +616,7 @@ class Zend_Gdata_Gapps extends Zend_Gdata
             foreach ($this->_registeredPackages as $name) {
                  try {
                      #require_once 'Zend/Loader.php';
-                     @Zend_Loader::loadClass("${name}_${class}");
+                     @#Zend_Loader::loadClass("${name}_${class}");
                      $foundClassName = "${name}_${class}";
                      break;
                  } catch (Zend_Exception $e) {

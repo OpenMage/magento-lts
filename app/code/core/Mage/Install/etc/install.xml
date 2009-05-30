@@ -28,27 +28,27 @@
 <config>
     <wizard>
         <steps>
-            <begin>
+            <begin translate="code">
                 <code>License Agreement</code>
                 <controller>wizard</controller>
                 <action>begin</action>
             </begin>
-            <locale>
+            <locale translate="code">
                 <code>Localization</code>
                 <controller>wizard</controller>
                 <action>locale</action>
             </locale>
-            <config>
+            <config translate="code">
                 <code>Configuration</code>
                 <controller>wizard</controller>
                 <action>config</action>
             </config>
-            <administrator>
+            <administrator translate="code">
                 <code>Create Admin Account</code>
                 <controller>wizard</controller>
                 <action>administrator</action>
             </administrator>
-            <end>
+            <end translate="code">
                 <code>You're All Set!</code>
                 <controller>wizard</controller>
                 <action>end</action>
@@ -58,21 +58,21 @@
     <check>
         <filesystem>
             <writeable>
-                <items>
+                <app_etc>
                     <path>/app/etc</path>
                     <existence>1</existence>
                     <recursive>0</recursive>
-                </items>
-                <items>
+                </app_etc>
+                <var>
                     <path>/var</path>
                     <existence>1</existence>
                     <recursive>1</recursive>
-                </items>
-                <items>
+                </var>
+                <media>
                     <path>/media</path>
                     <existence>1</existence>
                     <recursive>1</recursive>
-                </items>
+                </media>
             </writeable>
         </filesystem>
         <php>

@@ -60,7 +60,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     {
         if (is_null(self::$_namespacesPrefix)) {
             self::$_namespacesPrefix = array();
-            $config = Mage::getConfig()->getNode('api/v2/wsdl/prefix')->children();
+            $config = Mage::getSingleton('api/config')->getNode('v2/wsdl/prefix')->children();
             foreach ($config as $prefix => $namespace) {
                 self::$_namespacesPrefix[$namespace->asArray()] = $prefix;
             }
@@ -93,54 +93,25 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
         $this->setCacheChecksum(null);
         $saveCache = true;
 
-        // check if local modules are disabled
-        $disableLocalModules = (string)$this->getNode('global/disable_local_modules');
-        $disableLocalModules = !empty($disableLocalModules) && (('true' === $disableLocalModules) || ('1' === $disableLocalModules));
-
-        if ($disableLocalModules) {
-            /**
-             * Reset include path
-             */
-            $codeDir = Mage::getConfig()->getOptions()->getCodeDir();
-            $libDir = Mage::getConfig()->getOptions()->getLibDir();
-
-            set_include_path(
-                // excluded '/app/code/local'
-                BP . DS . 'app' . DS . 'code' . DS . 'community' . PS .
-                BP . DS . 'app' . DS . 'code' . DS . 'core' . PS .
-                BP . DS . 'lib' . PS .
-                Mage::registry('original_include_path')
-            );
-        }
-
-        if (Mage::isInstalled()) {
-            if (Mage::app()->useCache('config')) {
-                $loaded = $this->loadCache();
-                if ($loaded) {
-                    return $this;
-                }
+        if (Mage::app()->useCache('config')) {
+            $loaded = $this->loadCache();
+            if ($loaded) {
+                return $this;
             }
         }
 
         $mergeWsdl = new Mage_Api_Model_Wsdl_Config_Base();
         $mergeWsdl->setHandler($this->getHandler());
 
-        $modules = Mage::getConfig()->getNode('modules')->children();
+        /**
+         * Exclude Mage_Api wsdl xml file because it used for previous version
+         * of API wsdl declaration
+         */
+        $mergeWsdl->addLoadedFile(Mage::getConfig()->getModuleDir('etc', "Mage_Api").DS.'wsdl.xml');
 
         $baseWsdlFile = Mage::getConfig()->getModuleDir('etc', "Mage_Api").DS.'wsdl2.xml';
         $this->loadFile($baseWsdlFile);
-
-        foreach ($modules as $modName=>$module) {
-            if ($module->is('active') && $modName != 'Mage_Api') {
-                if ($disableLocalModules && ('local' === (string)$module->codePool)) {
-                    continue;
-                }
-                $wsdlFile = Mage::getConfig()->getModuleDir('etc', $modName).DS.'wsdl.xml';
-                if ($mergeWsdl->loadFile($wsdlFile)) {
-                    $this->extend($mergeWsdl, true);
-                }
-            }
-        }
+        Mage::getConfig()->loadModulesConfiguration('wsdl.xml', $this, $mergeWsdl);
 
         if (Mage::app()->useCache('config')) {
             $this->saveCache(array('config'));

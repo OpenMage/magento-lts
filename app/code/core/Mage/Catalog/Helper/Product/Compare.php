@@ -108,7 +108,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getAddToWishlistUrl($product)
     {
-        $beforeCompareUrl = $this->urlEncode(Mage::getSingleton('catalog/session')->getBeforeCompareUrl());
+        $beforeCompareUrl = Mage::getSingleton('catalog/session')->getBeforeCompareUrl();
 
         $params = array(
             'product'=>$product->getId(),
@@ -126,7 +126,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getAddToCartUrl($product)
     {
-        $beforeCompareUrl = $this->urlEncode(Mage::getSingleton('catalog/session')->getBeforeCompareUrl());
+        $beforeCompareUrl = Mage::getSingleton('catalog/session')->getBeforeCompareUrl();
         $params = array(
             'product'=>$product->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl($beforeCompareUrl)

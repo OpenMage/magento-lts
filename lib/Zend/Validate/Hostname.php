@@ -325,7 +325,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
 
                             // Load additional characters
                             $className = 'Zend_Validate_Hostname_' . ucfirst($this->_tld);
-                            Zend_Loader::loadClass($className);
+                            #Zend_Loader::loadClass($className);
                             $labelChars .= call_user_func(array($className, 'getCharacters'));
                             $utf8 = true;
                         }

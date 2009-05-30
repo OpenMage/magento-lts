@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
 
     public function getChangeLocaleUrl()
     {
-        return $this->getUrl('*/index/changeLocale');
+        return $this->getUrl('adminhtml/index/changeLocale');
     }
 
     public function getUrlForReferer()
@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
             ->setTitle(Mage::helper('page')->__('Interface Language'))
             ->setExtraParams('style="width:200px"')
             ->setValue(Mage::app()->getLocale()->getLocaleCode())
-            ->setOptions(Mage::app()->getLocale()->getOptionLocales())
+            ->setOptions(Mage::app()->getLocale()->getTranslatedOptionLocales())
             ->getHtml();
         return $html;
     }

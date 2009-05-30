@@ -47,14 +47,14 @@ function pushCodes()
                         if ($('page_type').value == '<?php echo Mage_GoogleOptimizer_Model_Code_Page::PAGE_TYPE_VARIANT ?>') {
                             $('<?php echo $this->getTrackingFieldKey() ?>').value = response.code_tracking_variants.unescapeHTML().strip();
                         } else {
-                            $('<?php echo $this->getControlFieldKey() ?>').value = response.code_control.unescapeHTML().strip();
-                            $('<?php echo $this->getTrackingFieldKey() ?>').value = response.code_tracking_original.unescapeHTML().strip();
-                            $('<?php echo $this->getConversionFieldKey() ?>').value = response.code_tracking_conversion.unescapeHTML().strip();
+                            $('<?php echo $this->getControlFieldKey() ?>').value = response.code_control.unescapeHTML().strip().replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+                            $('<?php echo $this->getTrackingFieldKey() ?>').value = response.code_tracking_original.unescapeHTML().strip().replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+                            $('<?php echo $this->getConversionFieldKey() ?>').value = response.code_tracking_conversion.unescapeHTML().strip().replace(/&#39;/g, "'").replace(/&quot;/g, '"');
                         }
                     } else {
-                        $('<?php echo $this->getControlFieldKey() ?>').value = response.code_control.unescapeHTML().strip();
-                        $('<?php echo $this->getTrackingFieldKey() ?>').value = response.code_tracking.unescapeHTML().strip();
-                        $('<?php echo $this->getConversionFieldKey() ?>').value = response.code_conversion.unescapeHTML().strip();
+                        $('<?php echo $this->getControlFieldKey() ?>').value = response.code_control.unescapeHTML().strip().replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+                        $('<?php echo $this->getTrackingFieldKey() ?>').value = response.code_tracking.unescapeHTML().strip().replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+                        $('<?php echo $this->getConversionFieldKey() ?>').value = response.code_conversion.unescapeHTML().strip().replace(/&#39;/g, "'").replace(/&quot;/g, '"');
                     }
                 }
             }

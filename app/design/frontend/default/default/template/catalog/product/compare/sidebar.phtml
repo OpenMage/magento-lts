@@ -27,9 +27,9 @@
 <div class="box base-mini mini-compare-products">
     <div class="head">
     <?php if($this->helper('catalog/product_compare')->getItemCount()>0): ?>
-        <h4><?php echo $this->__('Compare Products - %d Items', $this->helper('catalog/product_compare')->getItemCount()) ?></h4>
+        <h4><?php echo Mage::helper('catalog')->__('Compare Products - %d Items', $this->helper('catalog/product_compare')->getItemCount()) ?></h4>
     <?php else: ?>
-        <h4><?php echo $this->__('Compare Products') ?></h4>
+        <h4><?php echo Mage::helper('catalog')->__('Compare Products') ?></h4>
     <?php endif; ?>
     </div>
     <?php if($this->helper('catalog/product_compare')->getItemCount()>0): ?>
@@ -37,17 +37,17 @@
         <?php foreach($this->helper('catalog/product_compare')->getItemCollection() as $_index=>$_item): ?>
             <li class="block-compare-item">
                 <input type="hidden" class="compare-item-id" value="<?php echo $_item->getId() ?>" />
-                <a href="<?php echo $this->helper('catalog/product_compare')->getRemoveUrl($_item) ?>" class="widget-btn"><img src="<?php echo $this->getSkinUrl('images/list_remove_btn.gif') ?>" alt="<?php echo $this->__('Remove This Item') ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the compare products?') ?>');" /></a>
+                <a href="<?php echo $this->helper('catalog/product_compare')->getRemoveUrl($_item) ?>" class="widget-btn"><img src="<?php echo $this->getSkinUrl('images/list_remove_btn.gif') ?>" alt="<?php echo Mage::helper('catalog')->__('Remove This Item') ?>" onclick="return confirm('<?php echo Mage::helper('catalog')->__('Are you sure you would like to remove this item from the compare products?') ?>');" /></a>
                 <a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
             </li>
         <?php endforeach; ?>
         </ol>
         <script type="text/javascript">decorateList('compare-items')</script>
         <div class="actions">
-            <a href="<?php echo $this->helper('catalog/product_compare')->getClearListUrl() ?>" class="left" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove all products from your comparison?') ?>');"><?php echo $this->__('Clear All') ?></a>
-            <button type="button" class="form-button-alt" onclick="popWin('<?php echo $this->helper('catalog/product_compare')->getListUrl() ?>','compare','width=800,height=600,resizable=yes,scrollbars=yes')"><span><?php echo $this->__('Compare Items') ?></span></button>
+            <a href="<?php echo $this->helper('catalog/product_compare')->getClearListUrl() ?>" class="left" onclick="return confirm('<?php echo Mage::helper('catalog')->__('Are you sure you would like to remove all products from your comparison?') ?>');"><?php echo Mage::helper('catalog')->__('Clear All') ?></a>
+            <button type="button" class="form-button-alt" onclick="popWin('<?php echo $this->helper('catalog/product_compare')->getListUrl() ?>','compare','width=800,height=600,resizable=yes,scrollbars=yes')"><span><?php echo Mage::helper('catalog')->__('Compare Items') ?></span></button>
         </div>
     <?php else: ?>
-        <div class="content"><p><?php echo $this->__('You have no items to compare.') ?></p></div>
+        <div class="content"><p><?php echo Mage::helper('catalog')->__('You have no items to compare.') ?></p></div>
     <?php endif; ?>
 </div>

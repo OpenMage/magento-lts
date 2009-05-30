@@ -69,6 +69,10 @@ varienTabs.prototype = {
         this.displayFirst = activeTabId;
         Event.observe(window,'load',this.moveTabContentInDest.bind(this));
     },
+    
+    setSkipDisplayFirstTab : function(){
+        this.displayFirst = null;
+    },
 
     moveTabContentInDest : function(){
         for(var tab=0; tab<this.tabs.length; tab++){

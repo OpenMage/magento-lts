@@ -176,7 +176,7 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
     {
         $this->_connect();
         $stmtClass = $this->_defaultStmtClass;
-        Zend_Loader::loadClass($stmtClass);
+        #Zend_Loader::loadClass($stmtClass);
         $stmt = new $stmtClass($this, $sql);
         $stmt->setFetchMode($this->_fetchMode);
         return $stmt;

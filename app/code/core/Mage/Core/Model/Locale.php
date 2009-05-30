@@ -200,11 +200,32 @@ class Mage_Core_Model_Locale
     }
 
     /**
-     * Retrieve options array for locale dropdown
+     * Get options array for locale dropdown in currunt locale
      *
      * @return array
      */
     public function getOptionLocales()
+    {
+        return $this->_getOptionLocales();
+    }
+
+    /**
+     * Get translated to original locale options array for locale dropdown
+     *
+     * @return array
+     */
+    public function getTranslatedOptionLocales()
+    {
+        return $this->_getOptionLocales(true);
+    }
+
+    /**
+     * Get options array for locale dropdown
+     *
+     * @param   bool $translatedName translation flag
+     * @return  array
+     */
+    protected function _getOptionLocales($translatedName=false)
     {
         $options    = array();
         $locales    = $this->getLocale()->getLocaleList();
@@ -221,9 +242,16 @@ class Mage_Core_Model_Locale
                 if (!isset($languages[$data[0]]) || !isset($countries[$data[1]])) {
                     continue;
                 }
+                if ($translatedName) {
+                    $label = ucwords($this->getLocale()->getLanguageTranslation($data[0], $code))
+                        . ' (' . $this->getLocale()->getCountryTranslation($data[1], $code)  . ') / '
+                        . $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
+                } else {
+                    $label = $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
+                }
                 $options[] = array(
                     'value' => $code,
-                    'label' => $languages[$data[0]] . ' (' . $countries[$data[1]] . ')'
+                    'label' => $label
                 );
             }
         }
@@ -707,5 +735,39 @@ class Mage_Core_Model_Locale
     public function getCountryTranslationList()
     {
         return $this->getLocale()->getCountryTranslationList($this->getLocale());
+    }
+
+    /**
+     * Is Store dat in iterval
+     *
+     * @param int|string|Mage_Core_Model_Store $store
+     * @param string|null $dateFrom
+     * @param string|null $dateTo
+     * @return bool
+     */
+    public function IsStoreDateInInterval($store, $dateFrom = null, $dateTo = null)
+    {
+        if (!$store instanceof Mage_Core_Model_Store) {
+            $store = Mage::app()->getStore($store);
+        }
+
+        $storeTimeStamp = $this->storeTimeStamp($store);
+        $fromTimeStamp  = strtotime($dateFrom);
+        $toTimeStamp    = strtotime($dateTo);
+        if ($dateTo) {
+            // fix date YYYY-MM-DD 00:00:00 to YYYY-MM-DD 23:59:59
+            $toTimeStamp += 86400;
+        }
+
+        $result = false;
+        if (!is_empty_date($dateFrom) && $storeTimeStamp < $fromTimeStamp) {
+        }
+        elseif (!is_empty_date($dateTo) && $storeTimeStamp > $toTimeStamp) {
+        }
+        else {
+            $result = true;
+        }
+
+        return $result;
     }
 }

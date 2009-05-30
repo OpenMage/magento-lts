@@ -380,6 +380,10 @@ h1#logo { float:left; width:202px; margin:3px 0 0 12px; }
 .link-remove { color:#646464 !important;}
 .link-print { background:url(../images/icon_printer.gif) no-repeat 0 2px; padding-left:23px; }
 
+/* Noscript Notice */
+.noscript { border:1px solid #000; border-width:0 0 1px; background:#ffff90; font-size:12px; line-height:1.25; text-align:center; color:#2f2f2f; }
+.noscript .noscript-inner { width:950px; margin:0 auto; padding:12px 0 12px; background:url(../images/i_notice.gif) 20px 50% no-repeat; }
+.noscript p { margin:0; }
 
 /* For Demo store only */
 .demo-notice { margin:0; background:#d75f07; padding:5px 10px 6px 10px; color:#fff; line-height:1em; text-align:center; }

@@ -28,27 +28,29 @@ define('DS', DIRECTORY_SEPARATOR);
 define('PS', PATH_SEPARATOR);
 define('BP', dirname(dirname(__FILE__)));
 
-/**
- * Error reporting
- */
-error_reporting(E_ALL | E_STRICT);
-
 Mage::register('original_include_path', get_include_path());
 
-/**
- * Set include path
- */
-$paths[] = BP . DS . 'app' . DS . 'code' . DS . 'local';
-$paths[] = BP . DS . 'app' . DS . 'code' . DS . 'community';
-$paths[] = BP . DS . 'app' . DS . 'code' . DS . 'core';
-$paths[] = BP . DS . 'lib';
+if (defined('COMPILER_INCLUDE_PATH')) {
+    $app_path = COMPILER_INCLUDE_PATH;
+    set_include_path($app_path . PS . Mage::registry('original_include_path'));
+    include_once "Mage_Core_functions.php";
+    include_once "Varien_Autoload.php";
+} else {
+    /**
+     * Set include path
+     */
+    $paths[] = BP . DS . 'app' . DS . 'code' . DS . 'local';
+    $paths[] = BP . DS . 'app' . DS . 'code' . DS . 'community';
+    $paths[] = BP . DS . 'app' . DS . 'code' . DS . 'core';
+    $paths[] = BP . DS . 'lib';
 
-$app_path = implode(PS, $paths);
+    $app_path = implode(PS, $paths);
+    set_include_path($app_path . PS . Mage::registry('original_include_path'));
+    include_once "Mage/Core/functions.php";
+    include_once "Varien/Autoload.php";
+}
 
-set_include_path($app_path . PS . Mage::registry('original_include_path'));
-
-include_once "Mage/Core/functions.php";
-include_once "Varien/Profiler.php";
+Varien_Autoload::register();
 
 /**
  * Main Mage hub class
@@ -82,7 +84,7 @@ final class Mage {
 
     public static function getVersion()
     {
-        return '1.3.1.1';
+        return '1.3.2';
     }
 
     /**
@@ -464,9 +466,9 @@ final class Mage {
             die();
         }
         catch (Mage_Core_Model_Store_Exception $e) {
-            $baseUrl = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
+            $baseUrl = self::getScriptSystemUrl('404');
             if (!headers_sent()) {
-                header('Location: ' . $baseUrl.'/404/');
+                header('Location: ' . rtrim($baseUrl, '/').'/404/');
             }
             else {
                 print '<script type="text/javascript">';
@@ -656,9 +658,9 @@ final class Mage {
             }
             catch (Exception $e) {}
 
-            $baseUrl = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
-            $reportUrl = $baseUrl . '/report/?id='
-                . $reportId . '&s=' . $storeCode;
+            $baseUrl = self::getScriptSystemUrl('report', true);
+            $reportUrl = rtrim($baseUrl, '/') . '/report/?id='
+            . $reportId . '&s=' . $storeCode;
 
             if (!headers_sent()) {
                 header('Location: ' . $reportUrl);
@@ -671,6 +673,56 @@ final class Mage {
         }
 
         die();
+    }
+
+    /**
+     * Define system folder directory url by virtue of running script directory name
+     * Try to find requested folder by shifting to domain root directory
+     *
+     * @param   string  $folder
+     * @param   boolean $exitIfNot
+     * @return  string
+     */
+    public static function getScriptSystemUrl($folder, $exitIfNot = false)
+    {
+        $runDirUrl  = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
+        $runDir     = rtrim(dirname($_SERVER['SCRIPT_FILENAME']), DS);
+
+        $baseUrl    = null;
+        if (is_dir($runDir.'/'.$folder)) {
+            $baseUrl = str_replace(DS, '/', $runDirUrl);
+        } else {
+            $runDirUrlArray = explode('/', $runDirUrl);
+            $runDirArray = explode('/', $runDir);
+            $count       = count($runDirArray);
+
+            for ($i=0; $i < $count; $i++) {
+                array_pop($runDirUrlArray);
+                array_pop($runDirArray);
+                $_runDir = implode('/', $runDirArray);
+                if (!empty($_runDir)) {
+                    $_runDir .= '/';
+                }
+
+                if (is_dir($_runDir.$folder)) {
+                    $_runDirUrl = implode('/', $runDirUrlArray);
+                    $baseUrl = str_replace(DS, '/', $_runDirUrl);
+                    break;
+                }
+            }
+        }
+
+        if (is_null($baseUrl)) {
+            $errorMessage = "Unable detect system directory: $folder";
+            if ($exitIfNot) {
+                // exit because of infinity loop
+                exit($errorMessage);
+            } else {
+                self::printException(new Exception(), $errorMessage);
+            }
+        }
+
+        return $baseUrl;
     }
 
     public static function setIsDownloader($flag=true)

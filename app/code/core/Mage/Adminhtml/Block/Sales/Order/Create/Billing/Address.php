@@ -34,11 +34,6 @@
 
 class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address extends Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
 {
-    protected function _prepareLayout()
-    {
-        return parent::_prepareLayout();
-    }
-
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Billing Address');

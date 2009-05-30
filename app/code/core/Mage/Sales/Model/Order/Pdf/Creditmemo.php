@@ -40,6 +40,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
         $this->_initRenderer('creditmemo');
 
         $pdf = new Zend_Pdf();
+        $this->_setPdf($pdf);
         $style = new Zend_Pdf_Style();
         $this->_setFontBold($style, 10);
 
@@ -83,31 +84,16 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
                     continue;
                 }
 
-                $shift = array();
                 if ($this->y<20) {
-                    /* Add new table head */
-                    $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
-                    $pdf->pages[] = $page;
-                    $this->y = 800;
-
-                    $this->_setFontRegular($page);
-                    $page->setFillColor(new Zend_Pdf_Color_RGB(0.93, 0.92, 0.92));
-                    $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
-                    $page->setLineWidth(0.5);
-                    $page->drawRectangle(25, $this->y, 570, $this->y-15);
-                    $this->y -=10;
-                    $this->_drawHeader($page);
-
-                    $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
-                    $this->y -=20;
+                    $page = $this->newPage(array('table_header' => true));
                 }
 
                 /* Draw item */
-                $this->_drawItem($item, $page, $order);
+                $page = $this->_drawItem($item, $page, $order);
             }
 
             /* Add totals */
-            $this->insertTotals($page, $creditmemo);
+            $page = $this->insertTotals($page, $creditmemo);
         }
 
         $this->_afterGetPdf();
@@ -147,5 +133,31 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
 
         $text = Mage::helper('sales')->__('Total(inc)');
         $page->drawText($text, $this->getAlignRight($text, $x, 570 - $x, $font, $size), $this->y, 'UTF-8');
+    }
+
+    /**
+     * Create new page and assign to PDF object
+     *
+     * @param array $settings
+     * @return Zend_Pdf_Page
+     */
+    public function newPage(array $settings = array())
+    {
+        $page = parent::newPage($settings);
+
+        if (!empty($settings['table_header'])) {
+            $this->_setFontRegular($page);
+            $page->setFillColor(new Zend_Pdf_Color_RGB(0.93, 0.92, 0.92));
+            $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
+            $page->setLineWidth(0.5);
+            $page->drawRectangle(25, $this->y, 570, $this->y-15);
+            $this->y -=10;
+            $page->setFillColor(new Zend_Pdf_Color_RGB(0.4, 0.4, 0.4));
+            $this->_drawHeader($page);
+            $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
+            $this->y -=20;
+        }
+
+        return $page;
     }
 }

@@ -115,7 +115,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     /**
      * Retrieve parent ids array by requered child
      *
-     * @param int $childId
+     * @param int|array $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -376,9 +376,9 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      */
     public function updateQtyOption($options, Varien_Object $option, $value, $product = null)
     {
-        $optionProduct = $option->getProduct($product);
-
-        $optionCollection = $this->getOptionsCollection($product);
+        $optionProduct      = $option->getProduct($product);
+        $optionUpdateFlag   = $option->getHasQtyOptionUpdate();
+        $optionCollection   = $this->getOptionsCollection($product);
 
         $selections = $this->getSelectionsCollection($optionCollection->getAllIds(), $product);
 
@@ -386,7 +386,12 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             if ($selection->getProductId() == $optionProduct->getId()) {
                 foreach ($options as &$option) {
                     if ($option->getCode() == 'selection_qty_'.$selection->getSelectionId()) {
-                        $option->setValue($value);
+                        if ($optionUpdateFlag) {
+                            $option->setValue(intval($option->getValue()));
+                        }
+                        else {
+                            $option->setValue($value);
+                        }
                     }
                 }
             }
@@ -801,4 +806,24 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         return true;
     }
 
+    /**
+     * Retrieve additional searchable data from type instance
+     * Using based on product id and store_id data
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return array
+     */
+    public function getSearchableData($product = null)
+    {
+        $searchData = parent::getSearchableData($product);
+        $product = $this->getProduct($product);
+
+        $optionSearchData = Mage::getSingleton('bundle/option')
+            ->getSearchableData($product->getId(), $product->getStoreId());
+        if ($optionSearchData) {
+            $searchData = array_merge($searchData, $optionSearchData);
+        }
+
+        return $searchData;
+    }
 }

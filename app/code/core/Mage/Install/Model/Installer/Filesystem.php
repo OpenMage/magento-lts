@@ -89,7 +89,7 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
         if ($mode == self::MODE_WRITE) {
             $setError = false;
             if ($existence) {
-                if (!is_writable($fullPath)) {
+                if ((is_dir($fullPath) && !is_dir_writeable($fullPath)) || !is_writable($fullPath)) {
                     $setError = true;
                 }
             }

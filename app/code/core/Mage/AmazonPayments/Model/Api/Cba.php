@@ -655,6 +655,27 @@ class Mage_AmazonPayments_Model_Api_Cba extends Mage_AmazonPayments_Model_Api_Ab
         return $parsedOrder;
     }
 
+    /**
+     * Parsing xml notification for amazon order id
+     *
+     * @param string $xmlData
+     * @return array
+     */
+    public function parseOrderReadyToShipNotification($xmlData)
+    {
+        $readyToShipData = array();
+        if (strlen(trim($xmlData))) {
+            $xml = simplexml_load_string($xmlData, 'Varien_Simplexml_Element');
+            $aOrderId = (string) $xml->descend('ProcessedOrder/AmazonOrderID');
+            $readyToShipData['amazon_order_id'] = $aOrderId;
+            $readyToShipData['items'] = array();
+            foreach ($xml->descend('ProcessedOrder/ProcessedOrderItems/ProcessedOrderItem') as $item) {
+                $readyToShipData['items'][(string)$item->AmazonOrderItemCode] = (string)$item->Quantity;
+            }
+        }
+        return $readyToShipData;
+    }
+
     public function parseCancelNotification($xmlData)
     {
         $cancelData = array();
@@ -883,6 +904,20 @@ XML;
     }
 
     /**
+     * Associate Magento real order id with Amazon order id
+     *
+     * @param Mage_Sales_Model_Order $order
+     * @return Mage_AmazonPayments_Model_Api_Cba
+     */
+    public function syncOrder($order)
+    {
+        if ($order->getId()) {
+            $this->getDocumentApi()->sendAcknowledgement($order);
+        }
+        return $this;
+    }
+
+    /**
      * Cancel order
      *
      * @param Mage_Sales_Model_Order $order
@@ -926,31 +961,32 @@ XML;
                 'qty' => $item->getQty()
             );
         }
-        $carrier = $shipment->getOrder()->getShippingCarrier();
 
-        $carrierCode = '';
-        $carrierMethod = '';
+        $carrierName = '';
+        $shippingMethod = '';
         $trackNumber = '';
         /**
          * Magento track numbers is not connected with items.
          * Get only first track number
          */
         foreach ($shipment->getAllTracks() as $track) {
+            $carrierName = $track->getTitle();
             $trackNumber = $track->getNumber();
             break;
         }
-        $_shipping = explode('_', $shipment->getOrder()->getShippingMethod());
-        if ($_shipping && count($_shipping) >= 2) {
-            $carrierCode = $_shipping[0];
-            $carrierMethod = $carrier->getCode('method', $_shipping[1]);
+        if (preg_match("/\((.+)\)/", $shipment->getOrder()->getShippingDescription(), $_result)) {
+            $shippingMethod = $_result[1];
         }
 
         $this->getDocumentApi()->confirmShipment(
             $shipment->getOrder()->getExtOrderId(),
-            $carrierCode,
-            $carrierMethod,
+            $carrierName,
+            $shippingMethod,
             $items,
             $trackNumber
+        );
+        $shipment->addComment(
+            Mage::helper('amazonpayments')->__('Shipment was created with Checkout by Amazon.')
         );
         return $this;
     }

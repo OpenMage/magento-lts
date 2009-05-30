@@ -290,10 +290,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->_getFileAttributes();
         $watermark = call_user_func($this->_getCallback('create', $watermarkFileType, 'Unsupported watermark image format.'), $watermarkImage);
 
+        $merged = false;
+
         if( $this->getWatermarkWidth() && $this->getWatermarkHeigth() && ($this->getWatermarkPosition() != self::POSITION_STRETCH) ) {
             $newWatermark = imagecreatetruecolor($this->getWatermarkWidth(), $this->getWatermarkHeigth());
             imagealphablending($newWatermark, false);
             $col = imagecolorallocate($newWatermark, 255, 255, 255);
+            imagecolortransparent($newWatermark, $col);
             imagefilledrectangle($newWatermark, 0, 0, $this->getWatermarkWidth(), $this->getWatermarkHeigth(), $col);
             imagealphablending($newWatermark, true);
 
@@ -307,31 +310,37 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $newWatermark = imagecreatetruecolor($this->_imageSrcWidth, $this->_imageSrcHeight);
             imagealphablending($newWatermark, false);
             $col = imagecolorallocate($newWatermark, 255, 255, 255);
+            imagecolortransparent($newWatermark, $col);
             imagefilledrectangle($newWatermark, 0, 0, $this->_imageSrcWidth, $this->_imageSrcHeight, $col);
             imagealphablending($newWatermark, true);
-
             imagecopyresampled($newWatermark, $watermark, 0, 0, 0, 0, $this->_imageSrcWidth, $this->_imageSrcHeight, imagesx($watermark), imagesy($watermark));
             $watermark = $newWatermark;
         } elseif( $this->getWatermarkPosition() == self::POSITION_TOP_RIGHT ) {
             $positionX = ($this->_imageSrcWidth - imagesx($watermark));
-            imagecopymerge($this->_imageHandler, $watermark, $positionX, $positionY, 0, 0, imagesx($watermark), imagesy($watermark), $watermarkImageOpacity);
+            imagecopy($this->_imageHandler, $watermark, $positionX, $positionY, 0, 0, imagesx($watermark), imagesy($watermark));
+            $merged = true;
+        } elseif( $this->getWatermarkPosition() == self::POSITION_TOP_LEFT  ) {
+            imagecopy($this->_imageHandler, $watermark, $positionX, $positionY, 0, 0, imagesx($watermark), imagesy($watermark));
+            $merged = true;
         } elseif( $this->getWatermarkPosition() == self::POSITION_BOTTOM_RIGHT ) {
             $positionX = ($this->_imageSrcWidth - imagesx($watermark));
             $positionY = ($this->_imageSrcHeight - imagesy($watermark));
-            imagecopymerge($this->_imageHandler, $watermark, $positionX, $positionY, 0, 0, imagesx($watermark), imagesy($watermark), $watermarkImageOpacity);
+            imagecopy($this->_imageHandler, $watermark, $positionX, $positionY, 0, 0, imagesx($watermark), imagesy($watermark));
+            $merged = true;
         } elseif( $this->getWatermarkPosition() == self::POSITION_BOTTOM_LEFT ) {
             $positionY = ($this->_imageSrcHeight - imagesy($watermark));
-            imagecopymerge($this->_imageHandler, $watermark, $positionX, $positionY, 0, 0, imagesx($watermark), imagesy($watermark), $watermarkImageOpacity);
+            imagecopy($this->_imageHandler, $watermark, $positionX, $positionY, 0, 0, imagesx($watermark), imagesy($watermark));
+            $merged = true;
         }
 
-        if( $repeat === false ) {
+        if( $repeat === false && $merged === false ) {
             imagecopymerge($this->_imageHandler, $watermark, $positionX, $positionY, 0, 0, imagesx($watermark), imagesy($watermark), $watermarkImageOpacity);
         } else {
             $offsetX = $positionX;
             $offsetY = $positionY;
             while( $offsetY <= ($this->_imageSrcHeight+imagesy($watermark)) ) {
                 while( $offsetX <= ($this->_imageSrcWidth+imagesx($watermark)) ) {
-                    imagecopymerge($this->_imageHandler, $watermark, $offsetX, $offsetY, 0, 0, imagesx($watermark), imagesy($watermark), $watermarkImageOpacity);
+                    imagecopy($this->_imageHandler, $watermark, $offsetX, $offsetY, 0, 0, imagesx($watermark), imagesy($watermark));
                     $offsetX += imagesx($watermark);
                 }
                 $offsetX = $positionX;

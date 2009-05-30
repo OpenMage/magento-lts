@@ -376,10 +376,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment><![CDATA[
-                                Example: <b>https://www.paypal.com/au/cgi-bin/webscr?cmd=_express-checkout&useraction=<user_action>&amp;token=</b>
-                                Where &lt;user_action&gt; is 'commit' or 'continue', depending on your preference of commit button text.
-                            ]]></comment>
+                            <comment><![CDATA[Example: <b>https://www.paypal.com/au/cgi-bin/webscr?cmd=_express-checkout&useraction=<user_action>&amp;token=</b> Where &lt;user_action&gt; is 'commit' or 'continue', depending on your preference of commit button text.]]></comment>
                         </paypal_url>
                     </fields>
                 </wpp>

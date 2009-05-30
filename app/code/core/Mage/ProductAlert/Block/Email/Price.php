@@ -32,15 +32,8 @@
  * @package    Mage_ProductAlert
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_ProductAlert_Block_Email_Price extends Mage_Core_Block_Template
+class Mage_ProductAlert_Block_Email_Price extends Mage_ProductAlert_Block_Email_Abstract
 {
-    /**
-     * Product collection array
-     *
-     * @var array
-     */
-    protected $_products = array();
-
     /**
      * Constructor
      *
@@ -52,35 +45,6 @@ class Mage_ProductAlert_Block_Email_Price extends Mage_Core_Block_Template
     }
 
     /**
-     * Reset product collection
-     *
-     */
-    public function reset()
-    {
-        $this->_products = array();
-    }
-
-    /**
-     * Add product to collection
-     *
-     * @param Mage_Catalog_Model_Product $product
-     */
-    public function addProduct(Mage_Catalog_Model_Product $product)
-    {
-        $this->_products[$product->getId()] = $product;
-    }
-
-    /**
-     * Retrieve product collection array
-     *
-     * @return array
-     */
-    public function getProducts()
-    {
-        return $this->_products;
-    }
-
-    /**
      * Retrive unsubscribe url for product
      *
      * @param int $productId
@@ -88,10 +52,9 @@ class Mage_ProductAlert_Block_Email_Price extends Mage_Core_Block_Template
      */
     public function getProductUnsubscribeUrl($productId)
     {
-        return $this->getUrl('productalert/unsubscribe/price', array(
-            'product' => $productId,
-            '_query'  => $this->_getStoreUrlParam()
-        ));
+        $params = $this->_getUrlParams();
+        $params['product'] = $productId;
+        return $this->getUrl('productalert/unsubscribe/price', $params);
     }
 
     /**
@@ -101,23 +64,6 @@ class Mage_ProductAlert_Block_Email_Price extends Mage_Core_Block_Template
      */
     public function getUnsubscribeUrl()
     {
-        return $this->getUrl('productalert/unsubscribe/priceAll', array(
-            '_query'  => $this->_getStoreUrlParam()
-        ));
-    }
-
-    /**
-     * Get store url param (GET)
-     *
-     * @return string
-     */
-    protected function _getStoreUrlParam()
-    {
-        if ($this->getStoreCode()) {
-            return array(
-                '___store' => $this->getStoreCode()
-            );
-        }
-        return array();
+        return $this->getUrl('productalert/unsubscribe/priceAll', $this->_getUrlParams());
     }
 }

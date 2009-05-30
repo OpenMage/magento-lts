@@ -31,89 +31,40 @@
  * @package    Mage_Newsletter
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Newsletter_Model_Mysql4_Template
+class Mage_Newsletter_Model_Mysql4_Template extends Mage_Core_Model_Mysql4_Abstract
 {
-
     /**
-     * Templates table name
-     * @var string
-     */
-    protected $_templateTable;
-
-    /**
-     * Queue table name
-     * @var string
-     */
-    protected $_queueTable;
-
-    /**
-     * DB write connection
-     */
-    protected $_write;
-
-    /**
-     * DB read connection
-     */
-    protected $_read;
-
-    /**
-     * Constructor
+     * Initialize connection
      *
-     * Initializes resource
      */
-    public function __construct()
+    protected function _construct()
     {
-        $this->_templateTable = Mage::getSingleton('core/resource')->getTableName('newsletter/template');
-        $this->_queueTable = Mage::getSingleton('core/resource')->getTableName('newsletter/queue');
-        $this->_read = Mage::getSingleton('core/resource')->getConnection('newsletter_read');
-        $this->_write = Mage::getSingleton('core/resource')->getConnection('newsletter_write');
+        $this->_init('newsletter/template', 'template_id');
     }
 
     /**
-     * Load template from DB
+     * Load an object by template code
      *
-     * @param  int $templateId
-     * @return array
+     * @param Mage_Newsletter_Model_Template $object
+     * @param string $templateCode
+     * @return Mage_Newsletter_Model_Mysql4_Template
      */
-    public function load($templateId)
+    public function loadByCode(Mage_Newsletter_Model_Template $object, $templateCode)
     {
-        $select = $this->_read->select()
-            ->from($this->_templateTable)
-            ->where('template_id=?', $templateId);
+        $read = $this->_getReadAdapter();
+        if ($read && !is_null($templateCode)) {
+            $select = $this->_getLoadSelect('template_code', $templateCode, $object)
+                ->where('template_actual=?', 1);
+            $data = $read->fetchRow($select);
 
-        $result = $this->_read->fetchRow($select);
-
-        if (!$result) {
-            return array();
+            if ($data) {
+                $object->setData($data);
+            }
         }
 
-        return $result;
-    }
+        $this->_afterLoad($object);
 
-    /**
-     * Load by template code from DB.
-     *
-     * If $useSystem eq true, loading of system template
-     *
-     * @param  int $templateId
-     * @param  boolean $useSystem
-     * @return array
-     */
-    public function loadByCode($templateCode)
-    {
-        $select = $this->_read->select()
-            ->from($this->_templateTable)
-            ->where('template_code=?', $templateCode)
-            ->where('template_actual=?',1);
-
-
-        $result = $this->_read->fetchRow($select);
-
-        if (!$result) {
-            return array();
-        }
-
-        return $result;
+        return $this;
     }
 
     /**
@@ -124,17 +75,19 @@ class Mage_Newsletter_Model_Mysql4_Template
      */
     public function checkUsageInQueue(Mage_Newsletter_Model_Template $template)
     {
-        if ($template->getTemplateActual()!==0 && !$template->getIsSystem()) {
-            $select = $this->_read->select()
-                ->from($this->_queueTable, new Zend_Db_Expr('COUNT(queue_id)'))
+        if ($template->getTemplateActual() !== 0 && !$template->getIsSystem()) {
+            $select = $this->_getReadAdapter()->select()
+                ->from($this->getTable('newsletter/queue'), new Zend_Db_Expr('COUNT(queue_id)'))
                 ->where('template_id=?',$template->getId());
 
-            $countOfQueue = $this->_read->fetchOne($select);
+            $countOfQueue = $this->_getReadAdapter()->fetchOne($select);
 
             return $countOfQueue > 0;
-        } else if ($template->getIsSystem()) {
-        	return false;
-        } else {
+        }
+        elseif ($template->getIsSystem()) {
+            return false;
+        }
+        else {
             return true;
         }
     }
@@ -147,15 +100,14 @@ class Mage_Newsletter_Model_Mysql4_Template
      */
     public function checkCodeUsage(Mage_Newsletter_Model_Template $template)
     {
-        if($template->getTemplateActual()!=0 || is_null($template->getTemplateActual())) {
-
-            $select = $this->_read->select()
-                ->from($this->_templateTable, new Zend_Db_Expr('COUNT(template_id)'))
+        if ($template->getTemplateActual() != 0 || is_null($template->getTemplateActual())) {
+            $select = $this->_getReadAdapter()->select()
+                ->from($this->getMainTable(), new Zend_Db_Expr('COUNT(template_id)'))
                 ->where('template_id!=?',$template->getId())
                 ->where('template_code=?',$template->getTemplateCode())
                 ->where('template_actual=?',1);
 
-            $countOfCodes = $this->_read->fetchOne($select);
+            $countOfCodes = $this->_getReadAdapter()->fetchOne($select);
 
             return $countOfCodes > 0;
         } else {
@@ -164,115 +116,25 @@ class Mage_Newsletter_Model_Mysql4_Template
     }
 
     /**
-     * Save template to DB
+     * Perform actions before object save
      *
-     * @param   Mage_Newsletter_Model_Template $template
+     * @param Mage_Core_Model_Abstract $object
+     * @return Mage_Newsletter_Model_Mysql4_Template
      */
-    public function save(Mage_Newsletter_Model_Template $template)
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        $this->_write->beginTransaction();
-        try {
-            $data = $this->_prepareSave($template);
-            if($template->getId() && (($template->getTemplateActual()==0 && !is_null($template->getTemplateActual())) || !$this->checkUsageInQueue($template))) {
-                $this->_write->update($this->_templateTable, $data,
-                                      $this->_write->quoteInto('template_id=?',$template->getId()));
-            } else if ($template->getId()) {
-                // Duplicate entry if template used in queue
-                $updata = array();
-                $updata['template_actual'] = 0;
-                $this->_write->update($this->_templateTable, $updata,
-                                      $this->_write->quoteInto('template_id=?',$template->getId()));
-
-                $data['template_text_preprocessed'] = null;
-                $this->_write->insert($this->_templateTable, $data);
-                $template->setId($this->_write->lastInsertId($this->_templateTable));
-            } else {
-                $this->_write->insert($this->_templateTable, $data);
-                $template->setId($this->_write->lastInsertId($this->_templateTable));
-            }
-
-            $this->_write->commit();
-        }
-        catch (Exception $e) {
-            $this->_write->rollBack();
-            //echo $e->getMessage();
-            throw $e;
-        }
-    }
-
-    /**
-     * Prepares template for saving, validates input data
-     *
-     * @param   Mage_Newsletter_Model_Template $template
-     * @return  array
-     */
-    protected function _prepareSave(Mage_Newsletter_Model_Template $template)
-    {
-        $data = array();
-        $data['template_code'] = $template->getTemplateCode();
-        $data['template_text'] = $template->getTemplateText();
-        $data['template_text_preprocessed'] = $template->getTemplateTextPreprocessed();
-        $data['template_type'] = (int) $template->getTemplateType();
-        $data['template_subject'] = $template->getTemplateSubject();
-        $data['template_sender_name'] = $template->getTemplateSenderName();
-        $data['template_sender_email'] = $template->getTemplateSenderEmail();
-        $data['template_actual'] = ( !is_null($template->getTemplateActual()) && $template->getTemplateActual() == 0  ? 0 : 1 );
-
-        if(!$template->getAddedAt()) {
-        	$template->setAddedAt(Mage::getSingleton('core/date')->gmtDate());
-        	$template->setModifiedAt(Mage::getSingleton('core/date')->gmtDate());
-        }
-
-        $data['modified_at']	 = $template->getModifiedAt();
-        $data['added_at']	 = $template->getAddedAt();
-
-        if($this->checkCodeUsage($template)) {
+        if ($this->checkCodeUsage($object)) {
             Mage::throwException(Mage::helper('newsletter')->__('Duplicate of template code'));
         }
 
-        $validators = array(
-            'template_code' => array(Zend_Filter_Input::ALLOW_EMPTY => false),
-            'template_type' => 'Alnum',
-            'template_sender_email' => 'EmailAddress',
-            'template_sender_name'	=> array(Zend_Filter_Input::ALLOW_EMPTY => false)
-        );
-
-        $validateInput = new Zend_Filter_Input(array(), $validators, $data);
-        if(!$validateInput->isValid()) {
-            $errorString = '';
-
-            foreach($validateInput->getMessages() as $message) {
-            	if(is_array($message)) {
-                	foreach($message as $str) {
-                		$errorString.= $str . "\n";
-                	}
-            	} else {
-            		$errorString.= $message . "\n";
-            	}
-
-            }
-
-            Mage::throwException($errorString);
+        if (!$object->hasTemplateActual()) {
+            $object->setTemplateActual(1);
         }
-
-        return $data;
-    }
-
-    /**
-     * Delete template record in DB.
-     *
-     * @param   int $templateId
-     */
-    public function delete($templateId)
-    {
-        $this->_write->beginTransaction();
-        try {
-            $this->_write->delete($this->_templateTable, $this->_write->quoteInto('template_id=?', $templateId));
-            $this->_write->commit();
+        if (!$object->hasAddedAt()) {
+            $object->setAddedAt(Mage::getSingleton('core/date')->gmtDate());
         }
-        catch(Exception $e) {
-            $this->_write->rollBack();
-            Mage::throwException(Mage::helper('newsletter')->__('Cannot delete template'));
-        }
+        $object->setModifiedAt(Mage::getSingleton('core/date')->gmtDate());
+
+        return parent::_beforeSave($object);
     }
 }

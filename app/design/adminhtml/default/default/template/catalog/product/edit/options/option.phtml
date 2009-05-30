@@ -113,6 +113,15 @@ var productOption = {
                 Event.observe(buttons[i], 'click', this.remove.bind(this));
             }
         }
+        <?php if ($this->isReadonly()):?>
+        var inputs = $$('div.product-custom-options button', 'div.product-custom-options input', 'div.product-custom-options select', 'div.product-custom-options textarea');
+        for (var i=0, l = inputs.length; i < l; i ++) {
+            inputs[i].disabled = true;
+            if (inputs[i].tagName.toLowerCase()=='button') {
+                inputs[i].addClassName('disabled');
+            }
+        }
+        <?php endif;?>
     }
 }
 
@@ -336,4 +345,4 @@ productOptionScope.bindScopeCheckbox();
 //]]>
 </script>
 
-<div><input type="hidden" name="affect_product_custom_options" value="1" /></div>
+<div><?php if (!$this->isReadonly()):?><input type="hidden" name="affect_product_custom_options" value="1" /><?php endif;?></div>

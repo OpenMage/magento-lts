@@ -20,6 +20,7 @@
                     <element name="set" type="xsd:string" />
                     <element name="type" type="xsd:string" />
                     <element name="category_ids" type="typens:ArrayOfString" />
+                    <element name="website_ids" type="typens:ArrayOfString" />
                 </all>
             </complexType>
             <complexType name="catalogProductRequestAttributes">
@@ -48,6 +49,7 @@
                     <element name="url_path" type="xsd:string" minOccurs="0" />
                     <element name="visibility" type="xsd:string" minOccurs="0" />
                     <element name="category_ids" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="website_ids" type="typens:ArrayOfString" minOccurs="0" />
                     <element name="has_options" type="xsd:string" minOccurs="0" />
                     <element name="gift_message_available" type="xsd:string" minOccurs="0" />
                     <element name="price" type="xsd:string" minOccurs="0" />
@@ -78,6 +80,7 @@
                     <element name="url_path" type="xsd:string" minOccurs="0" />
                     <element name="visibility" type="xsd:string" minOccurs="0" />
                     <element name="category_ids" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="website_ids" type="typens:ArrayOfString" minOccurs="0" />
                     <element name="has_options" type="xsd:string" minOccurs="0" />
                     <element name="gift_message_available" type="xsd:string" minOccurs="0" />
                     <element name="price" type="xsd:string" minOccurs="0" />

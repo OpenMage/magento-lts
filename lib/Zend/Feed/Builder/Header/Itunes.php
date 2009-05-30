@@ -112,7 +112,7 @@ class Zend_Feed_Builder_Header_Itunes extends ArrayObject
     public function setOwner($name = '', $email = '')
     {
         if (!empty($email)) {
-            Zend_Loader::loadClass('Zend_Validate_EmailAddress');
+            #Zend_Loader::loadClass('Zend_Validate_EmailAddress');
             $validate = new Zend_Validate_EmailAddress();
             if (!$validate->isValid($email)) {
                 /**

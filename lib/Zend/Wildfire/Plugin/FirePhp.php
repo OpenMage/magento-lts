@@ -179,7 +179,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
                 #require_once 'Zend/Wildfire/Exception.php';
                 throw new Zend_Wildfire_Exception('Third argument is not a class string');
             }
-            Zend_Loader::loadClass($class);
+            #Zend_Loader::loadClass($class);
             self::$_instance = new $class();
             if (!self::$_instance instanceof Zend_Wildfire_Plugin_FirePhp) {
                 self::$_instance = null;

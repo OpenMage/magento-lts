@@ -117,9 +117,12 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     public function renderProperty()
     {
         $out = '';
-        if ($this->getColumn()->getEditable() && !$this->getColumn()->getEditOnly()) {
-            $out .= ' span="2"';
-        }
+        /**
+         * Now we generate 2 "col" definition instead span=2
+         */
+//        if ($this->getColumn()->getEditable() && !$this->getColumn()->getEditOnly()) {
+//            $out .= ' span="2"';
+//        }
 
         $width = $this->_defaultWidth;
 

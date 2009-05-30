@@ -156,6 +156,7 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
     	$queue = Mage::getSingleton('newsletter/queue')
     		->load($this->getRequest()->getParam('id'));
 
+        Mage::register('current_queue', $queue);
 
     	$this->loadLayout();
 

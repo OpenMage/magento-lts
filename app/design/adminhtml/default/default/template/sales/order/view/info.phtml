@@ -114,7 +114,13 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
                 <table cellspacing="0" class="form-list">
                 <tr>
                     <td class="label"><label><?php echo Mage::helper('sales')->__('Customer Name') ?></label></td>
-                    <td><strong><?php echo $this->htmlEscape($_order->getCustomerName()) ?></strong></td>
+                    <td>
+                    <?php if ($_customerUrl=$this->getCustomerViewUrl()) : ?>
+                        <a href="<?php echo $_customerUrl ?>" target="_blank"><strong><?php echo $this->htmlEscape($_order->getCustomerName()) ?></strong></a>
+                    <?php else: ?>
+                        <strong><?php echo $this->htmlEscape($_order->getCustomerName()) ?></strong>
+                    <?php endif; ?>
+                    </td>
                 </tr>
                 <tr>
                     <td class="label"><label><?php echo Mage::helper('sales')->__('Email') ?></label></td>

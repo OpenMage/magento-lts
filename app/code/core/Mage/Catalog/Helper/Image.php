@@ -70,6 +70,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         if ($imageFile) {
             $this->setImageFile($imageFile);
         }
+        else {
+            // add for work original size
+            $this->_getModel()->setBaseFile( $this->getProduct()->getData($this->_getModel()->getDestinationSubdir()) );
+        }
         return $this;
     }
 
@@ -358,5 +362,39 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
             );
         }
         return false;
+    }
+
+    /**
+     * Retrieve original image width
+     *
+     * @return int|null
+     */
+    public function getOriginalWidth()
+    {
+        return $this->_getModel()->getImageProcessor()->getOriginalWidth();
+    }
+
+    /**
+     * Retrieve original image height
+     *
+     * @return int|null
+     */
+    public function getOriginalHeigh()
+    {
+        return $this->_getModel()->getImageProcessor()->getOriginalHeight();
+    }
+
+    /**
+     * Retrieve Original image size as array
+     * 0 - width, 1 - height
+     *
+     * @return array
+     */
+    public function getOriginalSizeArray()
+    {
+        return array(
+            $this->getOriginalWidth(),
+            $this->getOriginalHeigh()
+        );
     }
 }

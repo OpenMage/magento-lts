@@ -33,9 +33,8 @@
  */
 class Mage_Downloadable_Model_Mysql4_Sample extends Mage_Core_Model_Mysql4_Abstract
 {
-
     /**
-     * Varien class constructor
+     * Initialize connection
      *
      */
     protected function  _construct()
@@ -80,6 +79,12 @@ class Mage_Downloadable_Model_Mysql4_Sample extends Mage_Core_Model_Mysql4_Abstr
         return $this;
     }
 
+    /**
+     * Delete data by item(s)
+     *
+     * @param Mage_Downloadable_Model_Sample|array|int $items
+     * @return Mage_Downloadable_Model_Mysql4_Sample
+     */
     public function deleteItems($items)
     {
         $where = '';
@@ -101,4 +106,29 @@ class Mage_Downloadable_Model_Mysql4_Sample extends Mage_Core_Model_Mysql4_Abstr
         return $this;
     }
 
+    /**
+     * Retrieve links searchable data
+     *
+     * @param int $productId
+     * @param int $storeId
+     * @return array
+     */
+    public function getSearchableData($productId, $storeId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from(array('sample' => $this->getMainTable()), null)
+            ->join(
+                array('sample_title_default' => $this->getTable('downloadable/sample_title')),
+                'sample_title_default.sample_id=sample.sample_id AND sample_title_default.store_id=0',
+                array())
+            ->joinLeft(
+                array('sample_title_store' => $this->getTable('downloadable/sample_title')),
+                'sample_title_store.sample_id=sample.sample_id AND sample_title_store.store_id=' . intval($storeId),
+                array('title' => 'IFNULL(sample_title_store.title, sample_title_default.title)'))
+            ->where('sample.product_id=?', $productId);
+        if (!$searchData = $this->_getReadAdapter()->fetchCol($select)) {
+            $searchData = array();
+        }
+        return $searchData;
+    }
 }

@@ -121,7 +121,7 @@
                     </fields>
                 </calculation>
                 <defaults translate="label">
-                    <label>Default Tax Origin Calculation</label>
+                    <label>Default Tax Destination Calculation</label>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>

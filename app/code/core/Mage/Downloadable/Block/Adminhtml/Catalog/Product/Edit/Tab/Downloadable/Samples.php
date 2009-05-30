@@ -35,6 +35,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
 {
     /**
      * Class constructor
+     *
      */
     public function __construct()
     {
@@ -53,7 +54,18 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
     }
 
     /**
-     * Enter description here...
+     * Check block is readonly
+     *
+     * @return boolean
+     */
+    public function isReadonly()
+    {
+         return $this->getProduct()->getDownloadableReadonly();
+    }
+
+
+    /**
+     * Retrieve Add Button HTML
      *
      * @return string
      */
@@ -68,6 +80,11 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
         return $addButton->toHtml();
     }
 
+    /**
+     * Retrieve samples array
+     *
+     * @return array
+     */
     public function getSampleData()
     {
         $samplesArr = array();
@@ -101,16 +118,30 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
         return $samplesArr;
     }
 
+    /**
+     * Check exists defined samples title
+     *
+     * @return bool
+     */
     public function getUsedDefault()
     {
         return is_null($this->getProduct()->getAttributeDefaultValue('samples_title'));
     }
 
+    /**
+     * Retrieve Default samples title
+     *
+     * @return string
+     */
     public function getSamplesTitle()
     {
         return Mage::getStoreConfig(Mage_Downloadable_Model_Sample::XML_PATH_SAMPLES_TITLE);
     }
 
+    /**
+     * Prepare layout
+     *
+     */
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -125,6 +156,11 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
         );
     }
 
+    /**
+     * Retrieve Upload button HTML
+     *
+     * @return string
+     */
     public function getUploadButtonHtml()
     {
         return $this->getChild('upload_button')->toHtml();
@@ -137,7 +173,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
      */
     public function getConfigJson()
     {
-        $this->getConfig()->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('downloadable/file/upload', array('type' => 'samples', '_secure' => true)));
+        $this->getConfig()->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('downloadableadmin/file/upload', array('type' => 'samples', '_secure' => true)));
         $this->getConfig()->setParams(array('form_key' => $this->getFormKey()));
         $this->getConfig()->setFileField('samples');
         $this->getConfig()->setFilters(array(

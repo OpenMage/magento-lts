@@ -102,6 +102,16 @@ class Varien_File_Uploader
     protected $_enableFilesDispersion = false;
 
     /**
+     * This variable is used both with $_enableFilesDispersion == true
+     * It helps to avoid problems after migrating from case-insensitive file system to case-insensitive
+     * (e.g. NTFS->ext or ext->NTFS)
+     *
+     * @var bool
+     * @access protected
+     */
+    protected $_caseInsensitiveFilenames = true;
+
+    /**
      * @var string
      * @access protected
      */
@@ -159,6 +169,7 @@ class Varien_File_Uploader
         }
 
         if( $this->_enableFilesDispersion ) {
+            $fileName = $this->correctFileNameCase($fileName);
             $this->setAllowCreateFolders(true);
             $this->_dispretionPath = self::getDispretionPath($fileName);
             $destFile.= $this->_dispretionPath;
@@ -195,6 +206,20 @@ class Varien_File_Uploader
             $fileName = 'file' . substr($fileName, strrpos($fileName, '.'));
         }
 
+        return $fileName;
+    }
+
+    /**
+     * Convert filename to lowercase in case of case-insensitive file names
+     *
+     * @param string
+     * @return string
+     */
+    public function correctFileNameCase($fileName)
+    {
+        if ($this->_caseInsensitiveFilenames) {
+            return strtolower($fileName);
+        }
         return $fileName;
     }
 
@@ -239,7 +264,7 @@ class Varien_File_Uploader
      *
      * @param mixed $flag
      * @access public
-     * @return void
+     * @return Varien_File_Uploader
      */
     public function setAllowCreateFolders($flag)
     {
@@ -252,7 +277,7 @@ class Varien_File_Uploader
      *
      * @param mixed $flag
      * @access public
-     * @return void
+     * @return Varien_File_Uploader
      */
     public function setAllowRenameFiles($flag)
     {
@@ -265,11 +290,24 @@ class Varien_File_Uploader
      *
      * @param mixed $flag
      * @access public
-     * @return void
+     * @return Varien_File_Uploader
      */
     public function setFilesDispersion($flag)
     {
         $this->_enableFilesDispersion = $flag;
+        return $this;
+    }
+
+    /**
+     * Filenames Case-sensitivity  setter
+     *
+     * @param mixed $flag
+     * @return Varien_File_Uploader
+     */
+    public function setFilenamesCaseSensitivity($flag)
+    {
+        $this->_caseInsensitiveFilenames = $flag;
+        return $this;
     }
 
     public function setAllowedExtensions($extensions=array())

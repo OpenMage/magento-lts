@@ -70,6 +70,16 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
         return parent::_prepareLayout();
     }
 
+    /**
+     * Check block readonly
+     *
+     * @return boolean
+     */
+    public function isReadonly()
+    {
+        return $this->getProduct()->getCompositeReadonly();
+    }
+
     public function getAddButtonHtml()
     {
         return $this->getChildHtml('add_button');

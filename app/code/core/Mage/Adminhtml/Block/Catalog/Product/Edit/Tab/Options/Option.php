@@ -96,13 +96,23 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
         return $this->_id;
     }
 
+    /**
+     * Check block is readonly
+     *
+     * @return boolean
+     */
+    public function isReadonly()
+    {
+         return $this->getProduct()->getOptionsReadonly();
+    }
+
     protected function _prepareLayout()
     {
         $this->setChild('delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label' => Mage::helper('catalog')->__('Delete Option'),
-                    'class' => 'delete delete-product-option',
+                    'class' => 'delete delete-product-option '
                 ))
         );
 

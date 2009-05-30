@@ -44,9 +44,17 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
         ));
     }
 
+    /**
+     * Retrieve Key for caching block content
+     *
+     * @return string
+     */
     public function getCacheKey()
     {
-        return 'PAGE_FOOTER_' . Mage::app()->getStore()->getId() . '_' . (int)Mage::app()->getStore()->isCurrentlySecure();
+        return 'PAGE_FOOTER_' . Mage::app()->getStore()->getId()
+            . '_' . (int)Mage::app()->getStore()->isCurrentlySecure()
+            . '_' . Mage::getDesign()->getPackageName()
+            . '_' . Mage::getDesign()->getTheme('template');
     }
 
     public function setCopyright($copyright)

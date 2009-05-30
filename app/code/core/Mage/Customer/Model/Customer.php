@@ -52,6 +52,21 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     protected $_errors    = array();
     protected $_attributes;
 
+    /**
+     * Is model deleteable
+     *
+     * @var boolean
+     */
+    protected $_isDeleteable = true;
+
+    /**
+     * Is model readonly
+     *
+     * @var boolean
+     */
+    protected $_isReadonly = false;
+
+
     private static $_isConfirmationRequired;
 
     function _construct()
@@ -478,6 +493,9 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function isConfirmationRequired()
     {
+        if ($this->canSkipConfirmation()) {
+            return false;
+        }
         if (null === self::$_isConfirmationRequired) {
             self::$_isConfirmationRequired = 1 == Mage::getStoreConfig(self::XML_PATH_IS_CONFIRM, ($this->getStoreId() ? $this->getStoreId() : null));
         }
@@ -588,7 +606,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (is_null($ids)) {
             $ids = array();
             if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
-            	$ids = $this->getStore()->getWebsite()->getStoresIds();
+                $ids = $this->getStore()->getWebsite()->getStoreIds();
             }
             else {
                 foreach (Mage::app()->getStores() as $store) {
@@ -611,7 +629,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (is_null($ids)) {
             $ids = array();
             if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
-            	$ids[] = $this->getWebsiteId();
+                $ids[] = $this->getWebsiteId();
             }
             else {
                 foreach (Mage::app()->getWebsites() as $website) {
@@ -953,5 +971,74 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             return $this->_getResource()->mktime($date);
         }
         return null;
+    }
+
+    /**
+     * Reset all model data
+     *
+     * @return Mage_Customer_Model_Customer
+     */
+    public function reset()
+    {
+        $this->setData(array());
+        $this->setOrigData();
+        $this->_attributes = null;
+
+        return $this;
+    }
+
+    /**
+     * Checks model is deleteable
+     *
+     * @return boolean
+     */
+    public function isDeleteable()
+    {
+        return $this->_isDeleteable;
+    }
+
+    /**
+     * Set is deleteable flag
+     *
+     * @param boolean $value
+     * @return Mage_Customer_Model_Customer
+     */
+    public function setIsDeleteable($value)
+    {
+        $this->_isDeleteable = (boolean) $value;
+        return $this;
+    }
+
+    /**
+     * Checks model is readonly
+     *
+     * @return boolean
+     */
+    public function isReadonly()
+    {
+        return $this->_isReadonly;
+    }
+
+    /**
+     * Set is readonly flag
+     *
+     * @param boolean $value
+     * @return Mage_Customer_Model_Customer
+     */
+    public function setIsReadonly($value)
+    {
+        $this->_isReadonly = (boolean) $value;
+        return $this;
+    }
+
+    /**
+     * Check whether confirmation may be skipped when registering using certain email address
+     *
+     * @return bool
+     */
+    public function canSkipConfirmation()
+    {
+        return $this->getId() && $this->hasSkipConfirmationIfEmail()
+            && strtolower($this->getSkipConfirmationIfEmail()) === strtolower($this->getEmail());
     }
 }

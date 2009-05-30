@@ -129,7 +129,7 @@ class Zend_Amf_Server implements Zend_Server_Interface
 
                 #require_once('Zend/Loader.php');
                 try {
-                    Zend_Loader::loadClass($className, $classPath);
+                    #Zend_Loader::loadClass($className, $classPath);
                 } catch (Exception $e) {
                     #require_once 'Zend/Amf/Server/Exception.php';
                     throw new Zend_Amf_Server_Exception('Class "' . $className . '" does not exist');

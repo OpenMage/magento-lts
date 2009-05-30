@@ -24,6 +24,11 @@
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php if ($this->isReadonly()):?>
+<?php $_readonly = ' disabled="disabled" ';?>
+<?php else: ?>
+<?php $_readonly = '';?>
+<?php endif; ?>
 <div class="entry-edit">
     <div class="entry-edit-head">
         <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Inventory') ?></h4>
@@ -34,63 +39,63 @@
         <table cellspacing="0" class="form-list" id="table_cataloginventory">
         <tr>
             <td class="label"><label for="inventory_manage_stock"><?php echo Mage::helper('catalog')->__('Manage Stock') ?></label></td>
-            <td class="value"><select id="inventory_manage_stock" name="<?php echo $this->getFieldSuffix() ?>[stock_data][manage_stock]" class="select">
+            <td class="value"><select id="inventory_manage_stock" name="<?php echo $this->getFieldSuffix() ?>[stock_data][manage_stock]" class="select" <?php echo $_readonly;?>>
                 <option value="1"><?php echo Mage::helper('catalog')->__('Yes') ?></option>
                 <option value="0"<?php if ($this->getConfigFieldValue('manage_stock') == 0): ?> selected="selected"<?php endif; ?>><?php echo Mage::helper('catalog')->__('No') ?></option>
             </select>
             <input type="hidden" id="inventory_manage_stock_default" value="<?php echo $this->getDefaultConfigValue('manage_stock'); ?>" />
 
             <?php $_checked = ($this->getFieldValue('use_config_manage_stock') || $this->IsNew()) ? 'checked="checked"' : '' ?>
-            <input type="checkbox" id="inventory_use_config_manage_stock" name="<?php echo $this->getFieldSuffix() ?>[stock_data][use_config_manage_stock]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);" class="checkbox" />
+            <input type="checkbox" id="inventory_use_config_manage_stock" name="<?php echo $this->getFieldSuffix() ?>[stock_data][use_config_manage_stock]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);" class="checkbox" <?php echo $_readonly;?>/>
             <label for="inventory_use_config_manage_stock" class="normal"><?php echo Mage::helper('catalog')->__('Use Config Settings') ?></label>
-            <script type="text/javascript">toggleValueElements($('inventory_use_config_manage_stock'), $('inventory_use_config_manage_stock').parentNode);</script></td>
+            <?php if (!$this->isReadonly()):?><script type="text/javascript">toggleValueElements($('inventory_use_config_manage_stock'), $('inventory_use_config_manage_stock').parentNode);</script><?php endif; ?></td>
             <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
         </tr>
 
 <?php if(!$this->getProduct()->isComposite()): ?>
         <tr>
             <td class="label"><label for="inventory_qty"><?php echo Mage::helper('catalog')->__('Qty') ?><span class="required">*</span></label></td>
-            <td class="value"><input type="text" class="input-text required-entry validate-number" id="inventory_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][qty]" value="<?php echo $this->getFieldValue('qty')*1 ?>"/>
+            <td class="value"><input type="text" class="input-text required-entry validate-number" id="inventory_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][qty]" value="<?php echo $this->getFieldValue('qty')*1 ?>" <?php echo $_readonly;?>/>
             </td>
             <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
         </tr>
 
         <tr>
             <td class="label"><label for="inventory_min_qty"><?php echo Mage::helper('catalog')->__('Qty for Item\'s Status to become Out of Stock') ?></label></td>
-            <td class="value"><input type="text" class="input-text validate-number" id="inventory_min_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][min_qty]" value="<?php echo $this->getFieldValue('min_qty')*1 ?>"/>
+            <td class="value"><input type="text" class="input-text validate-number" id="inventory_min_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][min_qty]" value="<?php echo $this->getFieldValue('min_qty')*1 ?>" <?php echo $_readonly;?>/>
 
             <?php $_checked = ($this->getFieldValue('use_config_min_qty') || $this->IsNew()) ? 'checked="checked"' : '' ?>
-            <input type="checkbox" id="inventory_use_config_min_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][use_config_min_qty]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);" />
+            <input type="checkbox" id="inventory_use_config_min_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][use_config_min_qty]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);" <?php echo $_readonly;?> />
             <label for="inventory_use_config_min_qty" class="normal"><?php echo Mage::helper('catalog')->__('Use Config Settings') ?></label>
-            <script type="text/javascript">toggleValueElements($('inventory_use_config_min_qty'), $('inventory_use_config_min_qty').parentNode);</script></td>
+            <?php if (!$this->isReadonly()):?><script type="text/javascript">toggleValueElements($('inventory_use_config_min_qty'), $('inventory_use_config_min_qty').parentNode);</script><?php endif; ?></td>
             <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
         </tr>
 
         <tr>
             <td class="label"><label for="inventory_min_sale_qty"><?php echo Mage::helper('catalog')->__('Minimum Qty Allowed in Shopping Cart') ?></label></td>
-            <td class="value"><input type="text" class="input-text validate-number" id="inventory_min_sale_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][min_sale_qty]" value="<?php echo $this->getFieldValue('min_sale_qty')*1 ?>"/>
+            <td class="value"><input type="text" class="input-text validate-number" id="inventory_min_sale_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][min_sale_qty]" value="<?php echo $this->getFieldValue('min_sale_qty')*1 ?>" <?php echo $_readonly;?>/>
 
             <?php $_checked = ($this->getFieldValue('use_config_min_sale_qty') || $this->IsNew()) ? 'checked="checked"' : '' ?>
-            <input type="checkbox" id="inventory_use_config_min_sale_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][use_config_min_sale_qty]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);" class="checkbox" />
+            <input type="checkbox" id="inventory_use_config_min_sale_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][use_config_min_sale_qty]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);" class="checkbox" <?php echo $_readonly;?> />
             <label for="inventory_use_config_min_sale_qty" class="normal"><?php echo Mage::helper('catalog')->__('Use Config Settings') ?></label>
-            <script type="text/javascript">toggleValueElements($('inventory_use_config_min_sale_qty'), $('inventory_use_config_min_sale_qty').parentNode);</script></td>
+            <?php if (!$this->isReadonly()):?><script type="text/javascript">toggleValueElements($('inventory_use_config_min_sale_qty'), $('inventory_use_config_min_sale_qty').parentNode);</script><?php endif; ?></td>
             <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
         </tr>
 
         <tr>
             <td class="label"><label for="inventory_max_sale_qty"><?php echo Mage::helper('catalog')->__('Maximum Qty Allowed in Shopping Cart') ?></label></td>
-            <td class="value"><input type="text" class="input-text validate-number" id="inventory_max_sale_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][max_sale_qty]" value="<?php echo $this->getFieldValue('max_sale_qty')*1 ?>" />
+            <td class="value"><input type="text" class="input-text validate-number" id="inventory_max_sale_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][max_sale_qty]" value="<?php echo $this->getFieldValue('max_sale_qty')*1 ?>" <?php echo $_readonly;?> />
 
             <?php $_checked = ($this->getFieldValue('use_config_max_sale_qty') || $this->IsNew()) ? 'checked="checked"' : '' ?>
-            <input type="checkbox" id="inventory_use_config_max_sale_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][use_config_max_sale_qty]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);" class="checkbox" />
+            <input type="checkbox" id="inventory_use_config_max_sale_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][use_config_max_sale_qty]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);" class="checkbox" <?php echo $_readonly;?> />
             <label for="inventory_use_config_max_sale_qty" class="normal"><?php echo Mage::helper('catalog')->__('Use Config Settings') ?></label>
-            <script type="text/javascript">toggleValueElements($('inventory_use_config_max_sale_qty'), $('inventory_use_config_max_sale_qty').parentNode);</script></td>
+            <?php if (!$this->isReadonly()):?><script type="text/javascript">toggleValueElements($('inventory_use_config_max_sale_qty'), $('inventory_use_config_max_sale_qty').parentNode);</script><?php endif; ?></td>
             <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
         </tr>
 
         <tr>
             <td class="label"><label for="inventory_is_qty_decimal"><?php echo Mage::helper('catalog')->__('Qty Uses Decimals') ?></label></td>
-            <td class="value"><select id="inventory_is_qty_decimal" name="<?php echo $this->getFieldSuffix() ?>[stock_data][is_qty_decimal]" class="select">
+            <td class="value"><select id="inventory_is_qty_decimal" name="<?php echo $this->getFieldSuffix() ?>[stock_data][is_qty_decimal]" class="select" <?php echo $_readonly;?>>
                 <option value="0"><?php echo Mage::helper('catalog')->__('No') ?></option>
                 <option value="1"<?php if($this->getFieldValue('is_qty_decimal')==1): ?> selected="selected"<?php endif; ?>><?php echo Mage::helper('catalog')->__('Yes') ?></option>
             </select>
@@ -100,7 +105,7 @@
 
         <tr>
             <td class="label"><label for="inventory_backorders"><?php echo Mage::helper('catalog')->__('Backorders') ?></label></td>
-            <td class="value"><select id="inventory_backorders" name="<?php echo $this->getFieldSuffix() ?>[stock_data][backorders]" class="select">
+            <td class="value"><select id="inventory_backorders" name="<?php echo $this->getFieldSuffix() ?>[stock_data][backorders]" class="select" <?php echo $_readonly;?>>
             <?php foreach ($this->getBackordersOption() as $option): ?>
                 <?php $_selected = ($option['value'] == $this->getFieldValue('backorders')) ? 'selected="selected"' : '' ?>
                 <option value="<?php echo $option['value'] ?>" <?php echo $_selected ?>><?php echo $option['label'] ?></option>
@@ -108,25 +113,25 @@
             </select>
 
             <?php $_checked = ($this->getFieldValue('use_config_backorders') || $this->IsNew()) ? 'checked="checked"' : '' ?>
-            <input type="checkbox" id="inventory_use_config_backorders" name="<?php echo $this->getFieldSuffix() ?>[stock_data][use_config_backorders]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);" class="checkbox" />
+            <input type="checkbox" id="inventory_use_config_backorders" name="<?php echo $this->getFieldSuffix() ?>[stock_data][use_config_backorders]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);" class="checkbox" <?php echo $_readonly;?> />
             <label for="inventory_use_config_backorders" class="normal"><?php echo Mage::helper('catalog')->__('Use Config Settings') ?></label>
-            <script type="text/javascript">toggleValueElements($('inventory_use_config_backorders'), $('inventory_use_config_backorders').parentNode);</script></td>
+            <?php if (!$this->isReadonly()):?><script type="text/javascript">toggleValueElements($('inventory_use_config_backorders'), $('inventory_use_config_backorders').parentNode);</script><?php endif; ?></td>
             <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
         </tr>
         <tr>
             <td class="label"><label for="inventory_notify_stock_qty"><?php echo Mage::helper('catalog')->__('Notify for Quantity Below') ?></label></td>
-            <td class="value"><input type="text" class="input-text validate-number" id="inventory_notify_stock_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][notify_stock_qty]" value="<?php echo $this->getFieldValue('notify_stock_qty')*1 ?>"/>
+            <td class="value"><input type="text" class="input-text validate-number" id="inventory_notify_stock_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][notify_stock_qty]" value="<?php echo $this->getFieldValue('notify_stock_qty')*1 ?>" <?php echo $_readonly;?>/>
 
             <?php $_checked = ($this->getFieldValue('use_config_notify_stock_qty') || $this->IsNew()) ? 'checked="checked"' : '' ?>
-            <input type="checkbox" id="inventory_use_config_notify_stock_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][use_config_notify_stock_qty]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);" class="checkbox" />
+            <input type="checkbox" id="inventory_use_config_notify_stock_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][use_config_notify_stock_qty]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);" class="checkbox" <?php echo $_readonly;?>/>
             <label for="inventory_use_config_notify_stock_qty" class="normal"><?php echo Mage::helper('catalog')->__('Use Config Settings') ?></label>
-            <script type="text/javascript">toggleValueElements($('inventory_use_config_notify_stock_qty'), $('inventory_use_config_notify_stock_qty').parentNode);</script></td>
+            <?php if (!$this->isReadonly()):?><script type="text/javascript">toggleValueElements($('inventory_use_config_notify_stock_qty'), $('inventory_use_config_notify_stock_qty').parentNode);</script><?php endif; ?></td>
             <td class="value scope-label"><?php echo Mage::helper('catalog')->__('[GLOBAL]') ?></td>
         </tr>
 <?php endif; ?>
         <tr>
             <td class="label"><label for="inventory_stock_availability"><?php echo Mage::helper('catalog')->__('Stock Availability') ?></label></td>
-            <td class="value"><select id="inventory_stock_availability" name="<?php echo $this->getFieldSuffix() ?>[stock_data][is_in_stock]" class="select">
+            <td class="value"><select id="inventory_stock_availability" name="<?php echo $this->getFieldSuffix() ?>[stock_data][is_in_stock]" class="select" <?php echo $_readonly;?>>
             <?php foreach ($this->getStockOption() as $option): ?>
                 <?php $_selected = ($option['value'] == $this->getFieldValue('is_in_stock')) ? 'selected="selected"' : '' ?>
                 <option value="<?php echo $option['value'] ?>" <?php echo $_selected ?>><?php echo $option['label'] ?></option>

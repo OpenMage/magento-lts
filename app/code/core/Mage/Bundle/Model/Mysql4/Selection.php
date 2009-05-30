@@ -121,6 +121,11 @@ class Mage_Bundle_Model_Mysql4_Selection extends Mage_Core_Model_Mysql4_Abstract
                 array('tbl_selection' => $this->getMainTable()),
                 array('product_id', 'parent_product_id', 'option_id'))
             ->join(
+                array('e' => $this->getTable('catalog/product')),
+                'e.entity_id=tbl_selection.product_id AND e.required_options=0',
+                array()
+            )
+            ->join(
                 array('tbl_option' => $this->getTable('bundle/option')),
                 '`tbl_option`.`option_id` = `tbl_selection`.`option_id`',
                 array('required')
@@ -154,7 +159,7 @@ class Mage_Bundle_Model_Mysql4_Selection extends Mage_Core_Model_Mysql4_Abstract
     /**
      * Retrieve parent ids array by requered child
      *
-     * @param int $childId
+     * @param int|array $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -170,7 +175,7 @@ class Mage_Bundle_Model_Mysql4_Selection extends Mage_Core_Model_Mysql4_Abstract
                 '`tbl_option`.`option_id` = `tbl_selection`.`option_id`',
                 array('required')
             )
-            ->where('`tbl_selection`.`product_id`=?', $childId);
+            ->where('`tbl_selection`.`product_id` IN(?)', $childId);
         foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
             $parentIds[] = $row['parent_product_id'];
         }

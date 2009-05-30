@@ -43,6 +43,12 @@ class Mage_Core_Model_App
     const DISTRO_LOCALE_CODE = 'en_US';
 
     /**
+     * Cache tag for all cache data exclude config cache
+     *
+     */
+    const CACHE_TAG = 'MAGE';
+
+    /**
      * Default store Id (for install)
      */
     const DISTRO_STORE_ID       = 1;
@@ -172,6 +178,11 @@ class Mage_Core_Model_App
     protected $_isSingleStore;
 
     /**
+     * @var bool
+     */
+    protected $_isSingleStoreAllowed = true;
+
+    /**
      * Default store code
      *
      * @var string
@@ -221,6 +232,8 @@ class Mage_Core_Model_App
      * @var bool
      */
     protected $_useSessionVar = false;
+
+    protected $_isCacheLocked = null;
 
     /**
      * Constructor
@@ -399,7 +412,10 @@ class Mage_Core_Model_App
             ->initCache($this->getCache(), 'app', array(Mage_Core_Model_Store::CACHE_TAG))
             ->setLoadDefault(true);
 
-        $this->_isSingleStore = $storeCollection->count() < 3;
+        $this->_isSingleStore = false;
+        if ($this->_isSingleStoreAllowed) {
+            $this->_isSingleStore = $storeCollection->count() < 3;
+        }
 
         $websiteStores = array();
         $websiteGroups = array();
@@ -712,7 +728,10 @@ class Mage_Core_Model_App
             $id = $this->getStore()->getWebsiteId();
         } elseif ($id instanceof Mage_Core_Model_Website) {
             return $id;
+        } elseif ($id === true) {
+        	return $this->_website;
         }
+
         if (empty($this->_websites[$id])) {
             $website = Mage::getModel('core/website');
             if (is_numeric($id)) {
@@ -893,9 +912,21 @@ class Mage_Core_Model_App
     protected function _getCacheId($id=null)
     {
         if ($id) {
-            $id = strtoupper($id);
-            $id = preg_replace('/([^a-zA-Z0-9_]{1,1})/', '_', $id);
+            $id = $this->prepareCacheId($id);
         }
+        return $id;
+    }
+
+    /**
+     * Prepare identifier which can be used as cache id or cache tag
+     *
+     * @param   string $id
+     * @return  string
+     */
+    public function prepareCacheId($id)
+    {
+        $id = strtoupper($id);
+        $id = preg_replace('/([^a-zA-Z0-9_]{1,1})/', '_', $id);
         return $id;
     }
 
@@ -923,10 +954,18 @@ class Mage_Core_Model_App
     {
         if (!$this->_cache) {
             $backend = strtolower((string)Mage::getConfig()->getNode('global/cache/backend'));
-            if (extension_loaded('apc') && ini_get('apc.enabled') && $backend=='apc') {
+            if (!$cachePrefix = (string)Mage::getConfig()->getNode('global/cache/prefix')) {
+                $cachePrefix = md5(Mage::getConfig()->getBaseDir());
+            }
+            if (extension_loaded('apc') && ini_get('apc.enabled') && $backend == 'apc') {
                 $backend = 'Apc';
                 $backendAttributes = array(
-                    'cache_prefix' => (string)Mage::getConfig()->getNode('global/cache/prefix')
+                    'cache_prefix' => $cachePrefix
+                );
+            } elseif (extension_loaded('eaccelerator') && ini_get('eaccelerator.enable') && $backend=='eaccelerator') {
+                $backend = 'Eaccelerator';
+                $backendAttributes = array(
+                    'cache_prefix' => $cachePrefix
                 );
             } elseif ('memcached' == $backend && extension_loaded('memcache')) {
                 $backend = 'Memcached';
@@ -996,6 +1035,13 @@ class Mage_Core_Model_App
     public function saveCache($data, $id, $tags=array(), $lifeTime=false)
     {
         $tags = $this->_getCacheTags($tags);
+
+        /**
+         * Add global magento cache tag to all cached data excluding config cache
+         */
+        if (!in_array($this->_getCacheId(Mage_Core_Model_Config::CACHE_TAG), $tags)) {
+            $tags[] = self::CACHE_TAG;
+        }
         $this->getCache()->save((string)$data, $this->_getCacheId($id), $tags, $lifeTime);
         return $this;
     }
@@ -1025,15 +1071,25 @@ class Mage_Core_Model_App
                 $tags = array($tags);
             }
             $tags = $this->_getCacheTags($tags);
+            $cacheTag = $this->_getCacheId(Mage_Core_Model_Config::CACHE_TAG);
             $this->getCache()->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG, $tags);
         } else {
-            $this->getCache()->clean(Zend_Cache::CLEANING_MODE_ALL);
+            $this->getCache()->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG, array(self::CACHE_TAG));
+            /**
+             * Clear configuration cache separately
+             */
+            Mage::getConfig()->cleanCache();
         }
 
         Mage::dispatchEvent('application_clean_cache', array('tags' => $tags));
         return $this;
     }
 
+    /**
+     * Get file name with cache configuration settings
+     *
+     * @return string
+     */
     public function getUseCacheFilename()
     {
         return Mage::getConfig()->getOptions()->getEtcDir().DS.'use_cache.ser';
@@ -1226,6 +1282,21 @@ class Mage_Core_Model_App
     }
 
     /**
+     * Get either default or any store view
+     *
+     * @return Mage_Core_Model_Store
+     */
+    public function getAnyStoreView()
+    {
+        if ($store = $this->getDefaultStoreView()) {
+            return $store;
+        }
+        foreach ($this->getStores() as $store) {
+            return $store;
+        }
+    }
+
+    /**
      * Set Use session in URL flag
      *
      * @param bool $flag
@@ -1245,5 +1316,17 @@ class Mage_Core_Model_App
     public function getUseSessionInUrl()
     {
         return $this->_useSessionInUrl;
+    }
+
+    /**
+     * Allow or disallow single store mode
+     *
+     * @param bool $value
+     * @return Mage_Core_Model_App
+     */
+    public function setIsSingleStoreModeAllowed($value)
+    {
+        $this->_isSingleStoreAllowed = (bool)$value;
+        return $this;
     }
 }

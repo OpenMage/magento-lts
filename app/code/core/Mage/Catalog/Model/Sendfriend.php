@@ -63,8 +63,7 @@ class Mage_Catalog_Model_Sendfriend extends Mage_Core_Model_Abstract
         $this->_emailModel->load($this->getTemplate());
         if (!$this->_emailModel->getId()) {
             Mage::throwException(
-               Mage::helper('catalog')
-                   ->__('Invalid transactional email code')
+               Mage::helper('catalog')->__('Invalid transactional email code')
             );
         }
 
@@ -79,8 +78,7 @@ class Mage_Catalog_Model_Sendfriend extends Mage_Core_Model_Abstract
 
         if (count($errors)) {
             Mage::throwException(
-                Mage::helper('catalog')
-                    ->__('Email to %s was not sent', implode(', ', $errors))
+                Mage::helper('catalog')->__('Email to %s was not sent', implode(', ', $errors))
             );
         }
     }
@@ -89,8 +87,7 @@ class Mage_Catalog_Model_Sendfriend extends Mage_Core_Model_Abstract
     {
         if (!$this->canEmailToFriend()) {
             Mage::throwException(
-                Mage::helper('catalog')
-                    ->__('You cannot email this product to a friend')
+                Mage::helper('catalog')->__('You cannot email this product to a friend')
             );
         }
 
@@ -102,30 +99,26 @@ class Mage_Catalog_Model_Sendfriend extends Mage_Core_Model_Abstract
 
         if ($amount >= $this->getMaxSendsToFriend()){
             Mage::throwException(
-                Mage::helper('catalog')
-                    ->__('You have exceeded limit of %d sends in an hour', $this->getMaxSendsToFriend())
+                Mage::helper('catalog')->__('You have exceeded limit of %d sends in an hour', $this->getMaxSendsToFriend())
             );
         }
 
         $maxRecipients = $this->getMaxRecipients();
         if (count($this->_emails) > $maxRecipients) {
             Mage::throwException(
-                Mage::helper('catalog')
-                    ->__('You cannot send more than %d emails at a time', $this->getMaxRecipients())
+                Mage::helper('catalog')->__('You cannot send more than %d emails at a time', $this->getMaxRecipients())
             );
         }
 
         if (count($this->_emails) < 1) {
             Mage::throwException(
-                Mage::helper('catalog')
-                    ->__('You have to specify at least one recipient')
+                Mage::helper('catalog')->__('You have to specify at least one recipient')
             );
         }
 
         if (!$this->getTemplate()){
             Mage::throwException(
-                Mage::helper('catalog')
-                    ->__('Email template is not specified by administrator')
+                Mage::helper('catalog')->__('Email template is not specified by administrator')
             );
         }
 

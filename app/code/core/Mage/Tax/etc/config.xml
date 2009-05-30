@@ -40,15 +40,12 @@
             <tax_mysql4>
                 <class>Mage_Tax_Model_Mysql4</class>
                 <entities>
-                    <rate>
-                        <table>tax_rate</table>
-                    </rate>
-                    <rule>
-                        <table>tax_rule</table>
-                    </rule>
                     <tax_class>
                         <table>tax_class</table>
                     </tax_class>
+                    <tax_calculation>
+                        <table>tax_calculation</table>
+                    </tax_calculation>
                     <tax_calculation_rate>
                         <table>tax_calculation_rate</table>
                     </tax_calculation_rate>
@@ -58,20 +55,6 @@
                     <tax_calculation_rule>
                         <table>tax_calculation_rule</table>
                     </tax_calculation_rule>
-
-                    <tax_calculation_rule_product_tax_class>
-                        <table>tax_calculation_rule_product_tax_class</table>
-                    </tax_calculation_rule_product_tax_class>
-                    <tax_calculation_rule_customer_tax_class>
-                        <table>tax_calculation_rule_customer_tax_class</table>
-                    </tax_calculation_rule_customer_tax_class>
-                    <tax_calculation_rule_rate>
-                        <table>tax_calculation_rule_rate</table>
-                    </tax_calculation_rule_rate>
-
-                    <tax_calculation>
-                        <table>tax_calculation</table>
-                    </tax_calculation>
                 </entities>
             </tax_mysql4>
         </models>

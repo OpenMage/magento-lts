@@ -138,12 +138,25 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
         return $this;
     }
 
+    public function processInvoice($invoice, $payment)
+    {
+        parent::processInvoice($invoice, $payment);
+        $invoice->addComment(
+            Mage::helper('amazonpayments')->__('Invoice was created with Checkout by Amazon.')
+        );
+        return $this;
+    }
+
     public function cancel(Varien_Object $payment)
     {
         if ($this->_skipProccessDocument) {
             return $this;
         }
         $this->getApi()->cancel($payment->getOrder());
+        $payment->getOrder()->addStatusToHistory(
+            $payment->getOrder()->getStatus(),
+            Mage::helper('amazonpayments')->__('Order was canceled with Checkout by Amazon.')
+        );
         return $this;
     }
 
@@ -159,6 +172,9 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
             return $this;
         }
         $this->getApi()->refund($payment, $amount);
+        $payment->getCreditmemo()->addComment(
+            Mage::helper('amazonpayments')->__('Refund was created with Checkout by Amazon.')
+        );
         return $this;
     }
 
@@ -234,8 +250,8 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
                     $this->_createNewOrder($newOrderDetails);
                     break;
                 case 'OrderReadyToShipNotification':
-                    $amazonOrderDetails = $this->getApi()->parseOrder($_request['NotificationData']);
-                    $this->_proccessOrder($amazonOrderDetails);
+                    $orderReadyToShipDetails = $this->getApi()->parseOrder($_request['NotificationData']);
+                    $this->_proccessOrder($orderReadyToShipDetails);
                     break;
                 case 'OrderCancelledNotification':
                     $cancelDetails = $this->getApi()->parseCancelNotification($_request['NotificationData']);
@@ -264,10 +280,15 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
      */
     protected function _createNewOrder(array $newOrderDetails)
     {
+        /* @var $order Mage_Sales_Model_Order */
         if (array_key_exists('amazonOrderID', $newOrderDetails)) {
             $_order = Mage::getModel('sales/order')
                 ->loadByAttribute('ext_order_id', $newOrderDetails['amazonOrderID']);
             if ($_order->getId()) {
+                /**
+                * associate real order id with Amazon order
+                */
+                $this->getApi()->syncOrder($_order);
                 $_order = null;
                 return $this;
             }
@@ -331,8 +352,6 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
                 }
             }
         }
-        /** @todo save shipping method */
-//        $this->getQuote()->getShippingAddress()->setShippingMethod($shippingMethod);
 
         $billing->setCountryId($_address['countryCode'])
             ->setRegion($_address['regionCode'])
@@ -372,8 +391,9 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
         $order->setBillingAddress($convertQuote->addressToOrderAddress($billing))
             ->setShippingAddress($convertQuote->addressToOrderAddress($shipping));
 
-        $order->setShippingMethod($shipping->getShippingMethod());
-        $order->setShippingDescription($_shippingDesc);
+        $order->setShippingMethod($shipping->getShippingMethod())
+            ->setShippingDescription($_shippingDesc)
+            ->setForcedDoShipmentWithInvoice(true);
 
         $order->setPayment($convertQuote->paymentToOrderPayment($quote->getPayment()));
 
@@ -386,8 +406,8 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
         foreach ($quote->getAllItems() as $item) {
             /* @var $item Mage_Sales_Model_Quote_Item */
             $order->addItem($convertQuote->itemToOrderItem($item));
-            $orderItem = $order->getItemByQuoteItemId($item->getId());
             /* @var $orderItem Mage_Sales_Model_Order_Item */
+            $orderItem = $order->getItemByQuoteItemId($item->getId());
             $orderItem->setExtOrderItemId($newOrderDetails['items'][$item->getId()]['AmazonOrderItemCode']);
             $orderItemOptions = $orderItem->getProductOptions();
             $orderItemOptions['amazon_amounts'] = serialize(array(
@@ -398,12 +418,19 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
                 'shipping_promo' => $newOrderDetails['items'][$item->getId()]['shipping_promo']
             ));
             $orderItem->setProductOptions($orderItemOptions);
+            $orderItem->setLockedDoInvoice(true)
+                ->setLockedDoShip(true);
         }
 
         $order->place();
 
+        $order->addStatusToHistory(
+            $order->getStatus(),
+            Mage::helper('amazonpayments')->__('New Order Notification received from Checkout by Amazon service.')
+        );
+
         $customer = $quote->getCustomer();
-        if (isset($customer) && $customer) { // && $quote->getCheckoutMethod()==Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER) {
+        if ($customer && $customer->getId()) {
             $order->setCustomerId($customer->getId())
                 ->setCustomerEmail($customer->getEmail())
                 ->setCustomerPrefix($customer->getPrefix())
@@ -413,9 +440,11 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
                 ->setCustomerSuffix($customer->getSuffix())
                 ->setCustomerGroupId($customer->getGroupId())
                 ->setCustomerTaxClassId($customer->getTaxClassId());
+        } else {
+            $quote->setCustomerEmail($newOrderDetails['buyerEmailAddress'])
+                ->setCustomerIsGuest(true)
+                ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
         }
-
-        $order->save();
 
         $quote->setIsActive(false);
         $quote->save();
@@ -427,6 +456,10 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
         $this->getCheckout()->setLastRealOrderId($order->getIncrementId());
 
         $order->sendNewOrderEmail();
+        /**
+         * associate real order id with Amazon order
+         */
+        $this->getApi()->syncOrder($order);
         return $this;
     }
 
@@ -438,14 +471,23 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
      */
     protected function _proccessOrder($amazonOrderDetails)
     {
-        if ($quoteId = $newOrderDetails['ClientRequestId']) {
-            if ($order = Mage::getModel('sales/order')->loadByAttribute('quote_id', $quoteId)) {
-                /* @var $order Mage_Sales_Model_Order */
-
-                $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING);
-                $order->setStatus('Processing');
-                $order->setIsNotified(false);
-                $order->save();
+        if (array_key_exists('amazon_order_id', $amazonOrderDetails)) {
+            $order = Mage::getModel('sales/order')
+                ->loadByAttribute('ext_order_id', $amazonOrderDetails['amazon_order_id']);
+            /* @var $order Mage_Sales_Model_Order */
+            if ($order->getId()) {
+                /* @var $item Mage_Sales_Model_Order_Item */
+                foreach ($order->getAllVisibleItems() as $item) {
+                    if (array_key_exists($item->getExtOrderItemId(), $amazonOrderDetails['items'])) {
+                        $item->setLockedDoInvoice(false)
+                            ->setLockedDoShip(false)
+                            ->save();
+                    }
+                }
+                $order->addStatusToHistory(
+                    $order->getStatus(),
+                    Mage::helper('amazonpayments')->__('Order Ready To Ship Notification received form Checkout by Amazon service.')
+                )->save();
             }
         }
         return true;
@@ -465,7 +507,11 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
             /* @var $order Mage_Sales_Model_Order */
             if ($order->getId()) {
                 try {
-                    $order->cancel()->save();
+                    $order->cancel()
+                        ->addStatusToHistory(
+                            $order->getStatus(),
+                            Mage::helper('amazonpayments')->__('Cancel Order Notification received from Checkout by Amazon service.')
+                        )->save();
                 } catch (Exception $e) {
                     return false;
                 }

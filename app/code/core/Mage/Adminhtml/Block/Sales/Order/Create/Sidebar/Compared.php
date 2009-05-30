@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Admi
                 $collection = $collection->getItemCollection()
                     ->useProductItem(true)
                     ->setStoreId($this->getQuote()->getStoreId())
-                    ->setStoreId($this->getStoreId())
+                    ->addStoreFilter($this->getQuote()->getStoreId())
                     ->setCustomerId($this->getCustomerId())
                     ->addAttributeToSelect('name')
                     ->addAttributeToSelect('price')

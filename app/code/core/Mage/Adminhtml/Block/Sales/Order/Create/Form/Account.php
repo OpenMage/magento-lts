@@ -33,12 +33,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
 {
     protected $_form;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('sales/order/create/form/account.phtml');
-    }
-
     protected function _prepareLayout()
     {
         Varien_Data_Form::setElementRenderer(
@@ -71,12 +65,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
     protected function _prepareForm()
     {
         if (!$this->_form) {
-            if ($this->getQuote()->getCustomerIsGuest()) {
-                $display = array('email' => 1);
-            }
-            else {
-                $display = array('group_id' => 1, 'email' =>2);
-            }
+
+            $display = $this->getDisplayFields();
 
             $this->_form = new Varien_Data_Form();
             $fieldset = $this->_form->addFieldset('main', array());
@@ -86,13 +76,15 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
                 if (!array_key_exists($attribute->getAttributeCode(), $display)) {
                     continue;
                 }
+
                 if ($inputType = $attribute->getFrontend()->getInputType()) {
+                    $field = $display[$attribute->getAttributeCode()];
                     $element = $fieldset->addField($attribute->getAttributeCode(), $inputType,
                         array(
                             'name'      => $attribute->getAttributeCode(),
                             'label'     => $attribute->getFrontend()->getLabel(),
-                            'class'     => $attribute->getFrontend()->getClass(),
-                            'required'  => $attribute->getIsRequired(),
+                            'class'     => isset($field['class']) ? $field['class'] : $attribute->getFrontend()->getClass(),
+                            'required'  => isset($field['required']) ? $field['required'] : $attribute->getIsRequired(),
                         )
                     )
                     ->setEntityAttribute($attribute)
@@ -125,6 +117,32 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
         }
         return 0;
     }
+
+    /**
+     * Return new customer account fields for order
+     *
+     * @return array
+     */
+    public function getDisplayFields()
+    {
+        $fields = array(
+            'group_id' => array(
+                'order' => 1
+            ),
+            'email' => array(
+                'order' => 2,
+                'class' => 'validate-email',
+                'required' => false
+            ),
+        );
+
+        if ($this->getQuote()->getCustomerIsGuest()) {
+            unset($fields['group_id']);
+        }
+
+        return $fields;
+    }
+
 
     public function getCustomerData()
     {

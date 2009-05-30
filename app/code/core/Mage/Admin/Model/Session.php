@@ -89,7 +89,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             }
         }
         catch (Mage_Core_Exception $e) {
-            Mage::dispatchEvent('admin_session_user_login_failed', array('user_name'=>$username));
+            Mage::dispatchEvent('admin_session_user_login_failed', array('user_name'=>$username, 'exception' => $e));
             if ($request && !$request->getParam('messageSent')) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $request->setParam('messageSent', true);
@@ -144,15 +144,13 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
             }
 
             try {
-                if ($acl->isAllowed($user->getAclRole(), 'all', null)){
-                    return true;
-                }
-            } catch (Exception $e) {}
-
-            try {
                 return $acl->isAllowed($user->getAclRole(), $resource, $privilege);
             } catch (Exception $e) {
-                return false;
+                try {
+                    if (!$acl->has($resource)) {
+                        return $acl->isAllowed($user->getAclRole(), null, $privilege);
+                    }
+                } catch (Exception $e) { }
             }
         }
         return false;

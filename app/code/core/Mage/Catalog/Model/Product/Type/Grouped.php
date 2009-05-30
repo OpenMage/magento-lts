@@ -98,7 +98,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     /**
      * Retrieve parent ids array by requered child
      *
-     * @param int $childId
+     * @param int|array $childId
      * @return array
      */
     public function getParentIdsByChild($childId)

@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,13 +30,21 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * Parent template name
+     *
+     * @var string
+     */
+    protected $_parentTemplate;
 
-    protected $_parentTemplate = '';
-
+    /**
+     * Initialize Grid
+     *
+     */
     public function __construct()
     {
         parent::__construct();
@@ -47,9 +55,26 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
         $this->setEmptyText(Mage::helper('customer')->__('No Items Found'));
     }
 
+    /**
+     * Retrieve current customer object
+     *
+     * @return Mage_Customer_Model_Customer
+     */
+    protected function _getCustomer()
+    {
+        return Mage::registry('current_customer');
+    }
+
+    /**
+     * Prepare customer wishlist product collection
+     *
+     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist
+     */
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('wishlist/wishlist')->loadByCustomer(Mage::registry('current_customer'))
+        $collection = Mage::getModel('wishlist/wishlist')
+            ->loadByCustomer($this->_getCustomer())
+            ->setSharedStoreIds($this->_getCustomer()->getSharedStoreIds())
             ->getProductCollection()
                 ->addAttributeToSelect('name')
                 ->addAttributeToSelect('price')
@@ -61,6 +86,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
         return parent::_prepareCollection();
     }
 
+    /**
+     * Prepare Grid columns
+     *
+     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist
+     */
     protected function _prepareColumns()
     {
 
@@ -127,11 +157,22 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
         return parent::_prepareColumns();
     }
 
+    /**
+     * Retrieve Grid URL
+     *
+     * @return string
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/wishlist', array('_current'=>true));
     }
 
+    /**
+     * Add column filter to collection
+     *
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist
+     */
     protected function _addColumnFilterToCollection($column)
     {
         if($column->getId()=='store') {
@@ -146,15 +187,24 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
         return $this;
     }
 
+    /**
+     * Retrieve Grid Parent Block HTML
+     *
+     * @return string
+     */
     public function getGridParentHtml()
     {
         $templateName = Mage::getDesign()->getTemplateFilename($this->_parentTemplate, array('_relative'=>true));
         return $this->fetchView($templateName);
     }
 
+    /**
+     * Retrieve Row click URL
+     *
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_product/edit', array('id' => $row->getProductId()));
     }
-
 }

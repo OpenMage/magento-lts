@@ -34,14 +34,6 @@
 
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setId('sales_order_create_sidebar');
-        $this->setTemplate('sales/order/create/sidebar.phtml');
-    }
-
     protected function _prepareLayout()
     {
         if ($this->getCustomerId()) {
@@ -53,13 +45,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar extends Mage_Adminhtml_Blo
             ));
             $this->setChild('top_button', $button);
         }
-        $this->setChild('cart', $this->getLayout()->createBlock('adminhtml/sales_order_create_sidebar_cart'));
-        $this->setChild('wishlist', $this->getLayout()->createBlock('adminhtml/sales_order_create_sidebar_wishlist'));
-        $this->setChild('reorder', $this->getLayout()->createBlock('adminhtml/sales_order_create_sidebar_reorder'));
-        $this->setChild('viewed', $this->getLayout()->createBlock('adminhtml/sales_order_create_sidebar_viewed'));
-        $this->setChild('compared', $this->getLayout()->createBlock('adminhtml/sales_order_create_sidebar_compared'));
-        $this->setChild('pcompared', $this->getLayout()->createBlock('adminhtml/sales_order_create_sidebar_pcompared'));
-        $this->setChild('pviewed', $this->getLayout()->createBlock('adminhtml/sales_order_create_sidebar_pviewed'));
+
         if ($this->getCustomerId()) {
             $button = clone $button;
             $button->unsId();

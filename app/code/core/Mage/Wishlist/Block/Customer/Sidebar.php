@@ -57,7 +57,7 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Catalog_Block_Product_Ab
                 ->addUrlRewrite();
 
             Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
+            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($collection);
         }
 
         return $this->_wishlist;

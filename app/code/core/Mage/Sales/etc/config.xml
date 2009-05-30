@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sales>
-            <version>0.9.35</version>
+            <version>0.9.38</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -650,6 +650,58 @@
                 <default>sales/order_pdf_items_creditmemo_default</default>
                 <grouped>sales/order_pdf_items_creditmemo_grouped</grouped>
             </creditmemo>
+            <totals>
+                <subtotal translate="title">
+                    <title>Subtotal</title>
+                    <source_field>subtotal</source_field>
+                    <font_size>7</font_size>
+                    <display_zero>1</display_zero>
+                    <sort_order>100</sort_order>
+                </subtotal>
+                <discount translate="title">
+                    <title>Discount</title>
+                    <source_field>discount_amount</source_field>
+                    <amount_prefix>-</amount_prefix>
+                    <font_size>7</font_size>
+                    <display_zero>0</display_zero>
+                    <sort_order>200</sort_order>
+                </discount>
+                <tax translate="title">
+                    <title>Tax</title>
+                    <source_field>tax_amount</source_field>
+                    <font_size>7</font_size>
+                    <display_zero>0</display_zero>
+                    <sort_order>300</sort_order>
+                </tax>
+                <shipping translate="title">
+                    <title>Shipping &amp; Handling</title>
+                    <source_field>shipping_amount</source_field>
+                    <font_size>7</font_size>
+                    <display_zero>0</display_zero>
+                    <sort_order>400</sort_order>
+                </shipping>
+                <adjustment_positive translate="title">
+                    <title>Adjustment Refund</title>
+                    <source_field>adjustment_positive</source_field>
+                    <font_size>7</font_size>
+                    <display_zero>0</display_zero>
+                    <sort_order>100</sort_order>
+                </adjustment_positive>
+                <adjustment_negative translate="title">
+                    <title>Adjustment Fee</title>
+                    <source_field>adjustment_negative</source_field>
+                    <font_size>7</font_size>
+                    <display_zero>0</display_zero>
+                    <sort_order>500</sort_order>
+                </adjustment_negative>
+                <grand_total translate="title">
+                    <title>Grand Total</title>
+                    <source_field>grand_total</source_field>
+                    <font_size>8</font_size>
+                    <display_zero>1</display_zero>
+                    <sort_order>600</sort_order>
+                </grand_total>
+            </totals>
         </pdf>
     </global>
 

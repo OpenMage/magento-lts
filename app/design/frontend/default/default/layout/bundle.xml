@@ -73,6 +73,12 @@ Adding custom product price block
             <action method="addPriceBlockType"><type>bundle</type><block>bundle/catalog_product_price</block><template>bundle/catalog/product/price.phtml</template></action>
         </reference>
     </tag_product_list>
+    
+    <tag_customer_view>
+        <reference name="customer_view">
+            <action method="addPriceBlockType"><type>bundle</type><block>bundle/catalog_product_price</block><template>bundle/catalog/product/price.phtml</template></action>
+        </reference>
+    </tag_customer_view>
 
     <default>
         <reference name="wishlist_sidebar">

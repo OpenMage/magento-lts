@@ -125,6 +125,11 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     protected $_isCanDelete;
 
     /**
+     * @var bool
+     */
+    private $_isReadOnly = false;
+
+    /**
      * init model
      *
      */
@@ -420,7 +425,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      */
     public function isCanDelete()
     {
-        if (!$this->getId()) {
+        if ($this->_isReadOnly || !$this->getId()) {
             return false;
         }
         if (is_null($this->_isCanDelete)) {
@@ -516,7 +521,22 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * @param $withDefault include/exclude default admin website
      * @return Varien_Db_Select
      */
-    public function getDefaultStoresSelect($withDefault = false) {
+    public function getDefaultStoresSelect($withDefault = false)
+    {
         return $this->getResource()->getDefaultStoresSelect($withDefault);
+    }
+
+    /**
+     * Get/Set isReadOnly flag
+     *
+     * @param bool $value
+     * @return bool
+     */
+    public function isReadOnly($value = null)
+    {
+        if (null !== $value) {
+            $this->_isReadOnly = (bool)$value;
+        }
+        return $this->_isReadOnly;
     }
 }

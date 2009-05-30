@@ -38,7 +38,8 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         $this->_objectId = 'id';
         $this->_controller = 'customer';
 
-        if ($this->getCustomerId()) {
+        if ($this->getCustomerId() &&
+            Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/create')) {
             $this->_addButton('order', array(
                 'label' => Mage::helper('customer')->__('Create Order'),
                 'onclick' => 'setLocation(\'' . $this->getCreateOrderUrl() . '\')',
@@ -51,6 +52,14 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         $this->_updateButton('save', 'label', Mage::helper('customer')->__('Save Customer'));
         $this->_updateButton('delete', 'label', Mage::helper('customer')->__('Delete Customer'));
 
+        if (Mage::registry('current_customer')->isReadonly()) {
+            $this->_removeButton('save');
+            $this->_removeButton('reset');
+        }
+
+        if (!Mage::registry('current_customer')->isDeleteable()) {
+            $this->_removeButton('delete');
+        }
     }
 
     public function getCreateOrderUrl()
@@ -77,18 +86,20 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
     {
         return $this->getUrl('*/*/validate', array('_current'=>true));
     }
-    
+
     protected function _prepareLayout()
     {
-    	$this->_addButton('save_and_continue', array(
-            'label'     => Mage::helper('customer')->__('Save And Continue Edit'),
-            'onclick'   => 'saveAndContinueEdit(\''.$this->_getSaveAndContinueUrl().'\')',
-            'class' => 'save'
-        ), 10);
+        if (!Mage::registry('current_customer')->isReadonly()) {
+        	$this->_addButton('save_and_continue', array(
+                'label'     => Mage::helper('customer')->__('Save And Continue Edit'),
+                'onclick'   => 'saveAndContinueEdit(\''.$this->_getSaveAndContinueUrl().'\')',
+                'class' => 'save'
+            ), 10);
+        }
 
     	return parent::_prepareLayout();
     }
-    
+
     protected function _getSaveAndContinueUrl()
     {
     	return $this->getUrl('*/*/save', array(

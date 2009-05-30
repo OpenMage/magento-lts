@@ -24,10 +24,10 @@
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php 
+<?php
 /**
  * Template for filter items block
- * 
+ *
  * @see Mage_Catalog_Block_Layer_Filter
  */
 ?>
@@ -35,7 +35,7 @@
 <ol>
 <?php foreach ($this->getItems() as $_item): ?>
     <li>
-        <a href="<?php echo $_item->getUrl() ?>"><?php echo $_item->getLabel() ?></a>
+        <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
         (<?php echo $_item->getCount() ?>)
     </li>
 <?php endforeach ?>

@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Cms>
-            <version>0.7.6</version>
+            <version>0.7.8</version>
         </Mage_Cms>
     </modules>
     <frontend>
@@ -51,6 +51,15 @@
                     </cms>
                 </observers>
             </controller_action_noroute>
+            <controller_action_nocookies>
+                <observers>
+                    <cms>
+                        <type>singleton</type>
+                        <class>cms/observer</class>
+                        <method>noCookies</method>
+                    </cms>
+                </observers>
+            </controller_action_nocookies>
         </events>
         <translate>
             <modules>
@@ -173,30 +182,6 @@
         <blocks>
             <cms><class>Mage_Cms_Block</class></cms>
         </blocks>
-        <cms>
-            <layouts>
-                <empty>
-                    <label>Empty</label>
-                    <template>page/one-column.phtml</template>
-                </empty>
-                <one_column>
-                    <label>1 column</label>
-                    <template>page/1column.phtml</template>
-                </one_column>
-                <two_columns_left>
-                    <label>2 columns with left bar</label>
-                    <template>page/2columns-left.phtml</template>
-                </two_columns_left>
-                <two_columns_right>
-                    <label>2 columns with right bar</label>
-                    <template>page/2columns-right.phtml</template>
-                </two_columns_right>
-                <three_columns>
-                    <label>3 columns</label>
-                    <template>page/3columns.phtml</template>
-                </three_columns>
-            </layouts>
-        </cms>
         <events>
             <controller_front_init_routers>
                 <observers>
@@ -215,6 +200,7 @@
             <default>
                 <cms_home_page>home</cms_home_page>
                 <cms_no_route>no-route</cms_no_route>
+                <cms_no_cookies>enable-cookies</cms_no_cookies>
                 <front>cms</front>
                 <no_route>cms/index/noRoute</no_route>
                 <show_cms_breadcrumbs>1</show_cms_breadcrumbs>

@@ -113,7 +113,7 @@ class Mage_GoogleBase_Model_Config extends Varien_Object
      */
     public function isValidBaseCurrencyCode($storeId = null)
     {
-        return Mage::app()->getBaseCurrencyCode() == $this->getTargetCurrency($storeId);
+        return Mage::app()->getStore($storeId)->getBaseCurrencyCode() == $this->getTargetCurrency($storeId);
     }
 
     /**

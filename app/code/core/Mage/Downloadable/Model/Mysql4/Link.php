@@ -33,9 +33,8 @@
  */
 class Mage_Downloadable_Model_Mysql4_Link extends Mage_Core_Model_Mysql4_Abstract
 {
-
     /**
-     * Varien class constructor
+     * Initialize connection and define resource
      *
      */
     protected function  _construct()
@@ -107,9 +106,15 @@ class Mage_Downloadable_Model_Mysql4_Link extends Mage_Core_Model_Mysql4_Abstrac
         return $this;
     }
 
+    /**
+     * Delete data by item(s)
+     *
+     * @param Mage_Downloadable_Model_Link|array|int $items
+     * @return Mage_Downloadable_Model_Mysql4_Link
+     */
     public function deleteItems($items)
     {
-		$where = '';
+        $where = '';
         if ($items instanceof Mage_Downloadable_Model_Link) {
             $where = $this->_getReadAdapter()->quoteInto('link_id = ?', $items->getId());
         }
@@ -123,11 +128,36 @@ class Mage_Downloadable_Model_Mysql4_Link extends Mage_Core_Model_Mysql4_Abstrac
             $this->_getWriteAdapter()->delete(
                 $this->getTable('downloadable/link'), $where);
             $this->_getWriteAdapter()->delete(
-	            $this->getTable('downloadable/link_title'), $where);
-	        $this->_getWriteAdapter()->delete(
-                $this->getTable('downloadable/link_price'),$where);
+                $this->getTable('downloadable/link_title'), $where);
+            $this->_getWriteAdapter()->delete(
+                $this->getTable('downloadable/link_price'), $where);
         }
         return $this;
     }
 
+    /**
+     * Retrieve links searchable data
+     *
+     * @param int $productId
+     * @param int $storeId
+     * @return array
+     */
+    public function getSearchableData($productId, $storeId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from(array('link' => $this->getMainTable()), null)
+            ->join(
+                array('link_title_default' => $this->getTable('downloadable/link_title')),
+                'link_title_default.link_id=link.link_id AND link_title_default.store_id=0',
+                array())
+            ->joinLeft(
+                array('link_title_store' => $this->getTable('downloadable/link_title')),
+                'link_title_store.link_id=link.link_id AND link_title_store.store_id=' . intval($storeId),
+                array('title' => 'IFNULL(link_title_store.title, link_title_default.title)'))
+            ->where('link.product_id=?', $productId);
+        if (!$searchData = $this->_getReadAdapter()->fetchCol($select)) {
+            $searchData = array();
+        }
+        return $searchData;
+    }
 }

@@ -26,18 +26,17 @@
 
 class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
-    /**
-     * Flag to prevent double generating of GMT date
-     *
-     * @var boolean
-     */
-    protected $_formated = false;
-
     public function beforeSave($object)
     {
-        if (!$this->_formated) {
-            $value = $this->formatDate($object->getData($this->getAttribute()->getName()));
+        $_formated = $object->getData($this->getAttribute()->getName() . '_is_formated');
+        if (!$_formated) {
+            try {
+                $value = $this->formatDate($object->getData($this->getAttribute()->getName()));
+            } catch (Exception $e) {
+                throw new Exception("Invalid date.");
+            }
             $object->setData($this->getAttribute()->getName(), $value);
+            $object->setData($this->getAttribute()->getName() . '_is_formated', true);
         }
     }
 
@@ -66,7 +65,6 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
                null, false
             );
         }
-        $this->_formated = true;
         return $date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
     }
 

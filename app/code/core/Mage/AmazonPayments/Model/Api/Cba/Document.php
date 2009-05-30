@@ -42,6 +42,7 @@ class Mage_AmazonPayments_Model_Api_Cba_Document extends Varien_Object
     protected $_merchantInfo = array();
     protected $_client = null;
     protected $_result = null;
+    protected $_proccessFailed = false;
     protected $_options = array(
         'trace'     => true,
         'timeout'   => '20',
@@ -170,11 +171,12 @@ class Mage_AmazonPayments_Model_Api_Cba_Document extends Varien_Object
     {
         if ($this->getClient()) {
             $this->_result = null;
+            $this->_proccessFailed = false;
             try {
                 $this->_result = $this->getClient()
                     ->call($method, $params, $this->_options);
             } catch (Exception $e) {
-                Zend_Debug::dump($e->getMessage());
+                $this->_proccessFailed = true;
             }
         }
         return $this;
@@ -238,6 +240,42 @@ class Mage_AmazonPayments_Model_Api_Cba_Document extends Varien_Object
         if (!is_array($this->_result)) {
             $this->_result = array($this->_result);
         }
+        return $this->_result;
+    }
+
+    /**
+     * Associate Magento real order id with Amazon order id
+     *
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
+    public function sendAcknowledgement($order)
+    {
+        $_document = '<?xml version="1.0" encoding="UTF-8"?>
+        <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
+        <Header>
+            <DocumentVersion>1.01</DocumentVersion>
+            <MerchantIdentifier>' . $this->getMerchantIdentifier() . '</MerchantIdentifier>
+        </Header>
+        <MessageType>OrderAcknowledgement</MessageType>
+            <Message>
+                <MessageID>1</MessageID>
+                <OperationType>Update</OperationType>
+                <OrderAcknowledgement>
+                    <AmazonOrderID>' . $order->getExtOrderId() . '</AmazonOrderID>
+                    <MerchantOrderID>' . $order->getRealOrderId() . '</MerchantOrderID>
+                    <StatusCode>Success</StatusCode>
+                </OrderAcknowledgement>
+            </Message>
+        </AmazonEnvelope>';
+
+        $params = array(
+            'merchant' => $this->getMerchantInfo(),
+            'messageType' => self::MESSAGE_TYPE_ACKNOWLEDGEMENT,
+            'doc' => $this->_createAttachment($_document)
+        );
+
+        $this->_proccessRequest('postDocument', $params);
         return $this->_result;
     }
 
@@ -351,13 +389,13 @@ class Mage_AmazonPayments_Model_Api_Cba_Document extends Varien_Object
      * Confirm creating of shipment
      *
      * @param string $aOrderId
-     * @param string $carrierCode
-     * @param string $carrierMethod
+     * @param string $carrierName
+     * @param string $shippingMethod
      * @param array $items
      * @param string $trackNumber
      * @return string Amazon Transaction Id
      */
-    public function confirmShipment($aOrderId, $carrierCode, $carrierMethod, $items, $trackNumber = '')
+    public function confirmShipment($aOrderId, $carrierName, $shippingMethod, $items, $trackNumber = '')
     {
         $fulfillmentDate = gmdate('Y-m-d\TH:i:s');
         $_document = '<?xml version="1.0" encoding="UTF-8"?>
@@ -373,8 +411,8 @@ class Mage_AmazonPayments_Model_Api_Cba_Document extends Varien_Object
                     <AmazonOrderID>' . $aOrderId . '</AmazonOrderID>
                     <FulfillmentDate>' . $fulfillmentDate . '</FulfillmentDate>
                     <FulfillmentData>
-                        <CarrierCode>' . strtoupper($carrierCode) . '</CarrierCode>
-                        <ShippingMethod>' . $carrierMethod . '</ShippingMethod>
+                        <CarrierName>' . strtoupper($carrierName) . '</CarrierName>
+                        <ShippingMethod>' . $shippingMethod . '</ShippingMethod>
                         <ShipperTrackingNumber>' . $trackNumber .'</ShipperTrackingNumber>
                     </FulfillmentData>';
         foreach ($items as $item) {

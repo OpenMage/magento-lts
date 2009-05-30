@@ -128,7 +128,7 @@ abstract class Zend_Uri
                 break;
         }
 
-        Zend_Loader::loadClass($className);
+        #Zend_Loader::loadClass($className);
         $schemeHandler = new $className($scheme, $schemeSpecific);
 
         return $schemeHandler;

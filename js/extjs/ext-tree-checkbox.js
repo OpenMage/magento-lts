@@ -81,7 +81,7 @@ Ext.extend(Ext.tree.CheckboxNodeUI, Ext.tree.TreeNodeUI, {
                 '<span class="x-tree-node-indent">',this.indentMarkup,"</span>",
                 '<img src="', this.emptyIcon, '" class="x-tree-ec-icon">',
                 '<img src="', a.icon || this.emptyIcon, '" class="x-tree-node-icon',(a.icon ? " x-tree-node-inline-icon" : ""),(a.iconCls ? " "+a.iconCls : ""),'" unselectable="on">',
-                '<input class="l-tcb" type="checkbox" ', (a.checked ? "checked>" : '>'),
+                '<input class="l-tcb" '+ (n.disabled ? 'disabled="disabled" ' : '') +' type="checkbox" ', (a.checked ? "checked>" : '>'),
                 '<a hidefocus="on" href="',a.href ? a.href : "#",'" ',
                  a.hrefTarget ? ' target="'+a.hrefTarget+'"' : "", '>',
                  '<span unselectable="on">',n.text,"</span></a></div>",
@@ -152,6 +152,9 @@ Ext.extend(Ext.tree.CheckboxNodeUI, Ext.tree.TreeNodeUI, {
      * @param {Boolean} descend true to walk through the nodes children and set their checkbox values. (defaults to false)
      */
     check : function(state, descend, bulk) {
+        if (this.node.disabled) {
+            return;
+        }
         var n = this.node;
         var tree = n.getOwnerTree();
         var parentNode = n.parentNode;n
@@ -223,6 +226,9 @@ Ext.extend(Ext.tree.CheckNodeMultiSelectionModel, Ext.tree.MultiSelectionModel, 
      * (see {@link Ext.tree.CheckNodeMultiSelectionModel#extendSelection} for the limitations)
      */
     onNodeClick : function(node, e){
+        if (node.disabled) {
+            return;
+        }
         if( e.shiftKey && this.extendSelection(node) ) {
             return true;
         }

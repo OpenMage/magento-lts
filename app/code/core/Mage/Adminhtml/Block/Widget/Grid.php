@@ -117,8 +117,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected $_filterVisibility = true;
 
-    protected $_filterValues = false;
-
     /**
      * Massage block visibility
      *
@@ -312,7 +310,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     protected function _setFilterValues($data)
     {
-        $this->_filterValues = $data;
         foreach ($this->getColumns() as $columnId => $column) {
             if (isset($data[$columnId]) && (!empty($data[$columnId]) || strlen($data[$columnId]) > 0) && $column->getFilter()) {
                 $column->getFilter()->setValue($data[$columnId]);
@@ -367,10 +364,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             } else if(0 !== sizeof($this->_defaultFilter)) {
                 $this->_setFilterValues($this->_defaultFilter);
             }
-
-            Mage::dispatchEvent('adminhtml_widget_grid_filter_collection',
-                array('collection' => $this->getCollection(), 'filter_values' => $this->_filterValues)
-            );
 
             if (isset($this->_columns[$columnId]) && $this->_columns[$columnId]->getIndex()) {
                 $dir = (strtolower($dir)=='desc') ? 'desc' : 'asc';

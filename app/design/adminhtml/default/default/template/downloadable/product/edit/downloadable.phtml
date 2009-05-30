@@ -126,6 +126,7 @@ Downloadable.FileUploader.prototype = {
         this.idName = idName;
         this.config = config;
         uploaderTemplate = new Template(this.uploaderText, this.uploaderSyntax);
+        <?php if (!$this->isReadonly()):?>
         Element.insert(
             elmContainer,
             {'top' : uploaderTemplate.evaluate({
@@ -147,6 +148,7 @@ Downloadable.FileUploader.prototype = {
             varienGlobalEvents.attachEventHandler('tabChangeBefore', Downloadable.getUploaderObj(type, key).onContainerHideBefore);
         }
         new Downloadable.FileList(this.idName, Downloadable.getUploaderObj(type, key));
+        <?php endif;?>
     }
 }
 
@@ -252,6 +254,16 @@ Validation.addAllThese([
 <div style="display:none">
     <div id="custom-advice-container"></div>
 </div>
+<?php if ($this->isReadonly()): ?>
+<script type="text/javascript">
+$('downloadableInfo').select('input', 'select', 'textarea', 'button').each(function (item){
+    item.disabled = true;
+    if (item.tagName.toLowerCase() == 'button') {
+        item.addClassName('disabled');
+    }
+});
+</script>
+<?php endif; ?>
 <!--
 <div><input type="hidden" name="affect_downloadable_information" value="1" /></div>
 -->

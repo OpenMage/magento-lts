@@ -246,6 +246,7 @@
                             <label>Show method if not applicable</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>92</sort_order>
+                            <frontend_class>shipping-skip-hide</frontend_class>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -534,6 +535,7 @@
                             <label>Show method if not applicable</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>92</sort_order>
+                            <frontend_class>shipping-skip-hide</frontend_class>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -798,6 +800,7 @@
                             <label>Show method if not applicable</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>92</sort_order>
+                            <frontend_class>shipping-skip-hide</frontend_class>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -983,6 +986,7 @@
                             <label>Show method if not applicable</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>92</sort_order>
+                            <frontend_class>shipping-skip-hide</frontend_class>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

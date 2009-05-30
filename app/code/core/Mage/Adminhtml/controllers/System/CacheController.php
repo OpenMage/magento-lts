@@ -65,7 +65,7 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
         $postData = $this->getRequest()->getPost();
         if (empty($postData)) {
             $this->_redirect('*/*');
-            return $this;
+            return;
         }
 
         /**
@@ -78,8 +78,9 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
 
         $e = $this->getRequest()->getPost('enable');
         $enable = array();
-        $clean = array();
-        foreach (Mage::helper('core')->getCacheTypes() as $type=>$label) {
+        $clean  = array();
+        $cacheTypes = array_keys(Mage::helper('core')->getCacheTypes());
+        foreach ($cacheTypes as $type) {
             $flag = $allCache!='disable' && (!empty($e[$type]) || $allCache=='enable');
             $enable[$type] = $flag ? 1 : 0;
             if ($allCache=='' && !$flag) {
@@ -88,7 +89,9 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
         }
 
         $beta = $this->getRequest()->getPost('beta');
-        foreach (Mage::helper('core')->getCacheBetaTypes() as $type=>$label) {
+        $betaCache = array_keys(Mage::helper('core')->getCacheBetaTypes());
+
+        foreach ($betaCache as $type) {
             if (empty($beta[$type])) {
                 $clean[] = $type;
             } else {
@@ -217,6 +220,19 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
                     }
                     break;
 
+                case 'rebuild_catalog_index':
+                    try {
+                        Mage::getSingleton('catalog/index')->rebuild();
+                        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Catalog Index was rebuilt successfully'));
+                    }
+                    catch (Mage_Core_Exception $e) {
+                        $this->_getSession()->addError($e->getMessage());
+                    }
+                    catch (Exception $e) {
+                        $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Catalog Index rebuild error. Please try again later'));
+                    }
+                    break;
+
                 case 'rebuild_flat_catalog_category':
                     try {
                         Mage::getResourceModel('catalog/category_flat')->rebuild();
@@ -239,8 +255,6 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
                         $this->_getSession()->addError($e->getMessage());
                     }
                     catch (Exception $e) {
-                        echo $e;
-                        die();
                         $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('Flat Catalog Product rebuild error. Please try again later'));
                     }
                     break;

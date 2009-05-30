@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Tag>
-            <version>0.7.1</version>
+            <version>0.7.2</version>
         </Mage_Tag>
     </modules>
     <global>

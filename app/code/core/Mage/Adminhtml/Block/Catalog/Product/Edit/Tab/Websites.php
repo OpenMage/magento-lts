@@ -71,6 +71,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
         return in_array($websiteId, $this->getProduct()->getWebsiteIds());
     }
 
+    /**
+     * Check websites block is readonly
+     *
+     * @return boolean
+     */
+    public function isReadonly()
+    {
+        return $this->getProduct()->getWebsitesReadonly();
+    }
+
     public function getStoreName($storeId)
     {
         return Mage::app()->getStore($storeId)->getName();

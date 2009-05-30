@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Bundle>
-            <version>0.1.6</version>
+            <version>0.1.7</version>
         </Mage_Bundle>
     </modules>
     <global>
@@ -49,6 +49,9 @@
                     <selection>
                         <table>catalog_product_bundle_selection</table>
                     </selection>
+                    <price_index>
+                        <table>catalog_product_bundle_price_index</table>
+                    </price_index>
                 </entities>
             </bundle_mysql4>
         </models>
@@ -135,6 +138,17 @@
                 <bundle>bundle/sales_order_pdf_items_creditmemo</bundle>
             </creditmemo>
         </pdf>
+        <events>
+            <catalogindex_plain_reindex_after>
+                <observers>
+                    <bundle>
+                        <type>singleton</type>
+                        <class>bundle/observer</class>
+                        <method>catalogIndexPlainReindexAfter</method>
+                    </bundle>
+                </observers>
+            </catalogindex_plain_reindex_after>
+        </events>
     </global>
     <frontend>
         <translate>
@@ -189,9 +203,32 @@
                     </bundle_observer>
                 </observers>
             </catalog_product_collection_load_after>
+            <catalog_product_load_after>
+                <observers>
+                    <bundle_observer>
+                        <type>singleton</type>
+                        <class>bundle/observer</class>
+                        <method>catalogProductLoadAfter</method>
+                    </bundle_observer>
+                </observers>
+            </catalog_product_load_after>
         </events>
     </frontend>
     <admin>
+        <fieldsets>
+            <catalog_product_dataflow>
+                <is_in_stock>
+                    <product_type>
+                        <bundle />
+                    </product_type>
+                </is_in_stock>
+                <manage_stock>
+                    <product_type>
+                        <bundle />
+                    </product_type>
+                </manage_stock>
+            </catalog_product_dataflow>
+        </fieldsets>
         <routers>
             <bundle>
                 <use>admin</use>

@@ -135,6 +135,11 @@ if ($action == 'print') {
     $reportData = unserialize(file_get_contents($reportFile));
 }
 
+$design = false;
+if (file_exists('design.xml')) {
+    $design = simplexml_load_file('design.xml');
+}
+
 $store = 'default';
 if (isset($_GET['s'])) {
     $skinPath = realpath('skin/');
@@ -145,7 +150,7 @@ if (isset($_GET['s'])) {
     }
 }
 
-include_once ('skin/' . $store . '/index.phtml');
+include_once ('skin/' . $store . '/' . ($design ? $design->template : 'index.phtml'));
 
 function checkEmail($email) {
     return eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email);

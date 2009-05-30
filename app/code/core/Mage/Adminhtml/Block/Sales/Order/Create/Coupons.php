@@ -39,7 +39,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Coupons extends Mage_Adminhtml_Blo
     {
         parent::__construct();
         $this->setId('sales_order_create_coupons_form');
-        $this->setTemplate('sales/order/create/coupons/form.phtml');
     }
 
     public function getCouponCode()
@@ -55,16 +54,5 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Coupons extends Mage_Adminhtml_Blo
     public function getHeaderCssClass()
     {
         return 'head-promo-quote';
-    }
-
-    protected function _prepareLayout()
-    {
-        $this->setChild('form', $this->getLayout()->createBlock('adminhtml/sales_order_create_coupons_form'));
-        return parent::_prepareLayout();
-    }
-
-    protected function _toHtml()
-    {
-        return parent::_toHtml();
     }
 }

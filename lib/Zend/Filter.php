@@ -95,7 +95,7 @@ class Zend_Filter implements Zend_Filter_Interface
         foreach ($namespaces as $namespace) {
             $className = $namespace . '_' . ucfirst($classBaseName);
             try {
-                Zend_Loader::loadClass($className);
+                #Zend_Loader::loadClass($className);
             } catch (Zend_Exception $ze) {
                 continue;
             }

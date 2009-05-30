@@ -53,6 +53,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     protected $_canCapture              = false;
     protected $_canCapturePartial       = false;
     protected $_canRefund               = false;
+    protected $_canRefundInvoicePartial = false;
     protected $_canVoid                 = false;
     protected $_canUseInternal          = true;
     protected $_canUseCheckout          = true;
@@ -102,6 +103,16 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     public function canRefund()
     {
         return $this->_canRefund;
+    }
+
+    /**
+     * Check partial refund availability for invoice
+     *
+     * @return bool
+     */
+    public function canRefundPartialPerInvoice()
+    {
+        return $this->_canRefundInvoicePartial;
     }
 
     /**
@@ -193,6 +204,17 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
             }
 
         }
+        return true;
+    }
+
+    /**
+     * Check method for processing with base currency
+     *
+     * @param string $currencyCode
+     * @return boolean
+     */
+    public function canUseForCurrency($currencyCode)
+    {
         return true;
     }
 

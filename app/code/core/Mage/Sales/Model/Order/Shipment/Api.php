@@ -160,6 +160,11 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
             if ($orderItem->getIsVirtual()) {
                 continue;
             }
+            
+            if ((!isset($itemsQty[$orderItem->getId()])) && (count($itemsQty))) {
+                continue;
+            }
+            
             $item = $convertor->itemToShipmentItem($orderItem);
             if (isset($itemsQty[$orderItem->getId()])) {
                 $qty = $itemsQty[$orderItem->getId()];

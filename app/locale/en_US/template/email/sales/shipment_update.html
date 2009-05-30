@@ -16,7 +16,7 @@
         <tr>
             <td valign="top">
                 <p>
-                    <strong>Dear {{var order.getCustomerName()}}</strong>,<br/>
+                    <strong>Dear {{htmlescape var=$order.getCustomerName()}}</strong>,<br/>
                     Your order # {{var order.increment_id}} has been <br/>
                     <strong>{{var order.getStatusLabel()}}</strong>.
                 </p>
@@ -24,7 +24,7 @@
                 <p>{{var comment}}</p>
                 <p>
                     If you have any questions, please feel free to contact us at
-                    <a href="mailto:magento@varien.com" style="color:#1E7EC8;">dummyemail@magentocommerce.com</a> 
+                    <a href="mailto:magento@varien.com" style="color:#1E7EC8;">dummyemail@magentocommerce.com</a>
                     or by phone at (555) 555-0123.
                 </p>
                 <p>Thank you again,<br/><strong>{{var order.getStoreGroupName()}}</strong></p>

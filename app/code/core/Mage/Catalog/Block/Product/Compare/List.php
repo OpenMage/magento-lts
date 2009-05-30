@@ -35,18 +35,18 @@
 class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product_Abstract
 {
     /**
-     * Product Compare Items Collection
+     * Product Compare items collection
      *
      * @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection
      */
-    protected $_items = null;
+    protected $_items;
 
     /**
-     * Product Compare attributes array
+     * Compare Products comparable attributes cache
      *
      * @var array
      */
-    protected $_attributes = null;
+    protected $_attributes;
 
     /**
      * Preparing layout
@@ -84,8 +84,8 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
             }
 
             $this->_items
-                ->loadComaparableAttributes()
                 ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+                ->loadComparableAttributes()
                 ->addMinimalPrice()
                 ->addTaxPercents();
 
@@ -104,30 +104,10 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     public function getAttributes()
     {
         if (is_null($this->_attributes)) {
-            $this->_setAttributesFromProducts();
+            $this->_attributes = $this->getItems()->getComparableAttributes();
         }
 
         return $this->_attributes;
-    }
-
-    /**
-     * Initialize Product Compare Attributes Process
-     *
-     * @return Mage_Catalog_Block_Product_Compare_List
-     */
-    protected function _setAttributesFromProducts()
-    {
-        $this->_attributes = array();
-        foreach ($this->getItems() as $item) {
-            foreach ($item->getTypeInstance(true)->getSetAttributes($item) as $attribute) {
-                if ($attribute->getIsComparable()
-                    && !isset($this->_attributes[$attribute->getAttributeCode()])
-                    && $item->getData($attribute->getAttributeCode())!==null) {
-                    $this->_attributes[$attribute->getAttributeCode()] = $attribute;
-                }
-            }
-        }
-        return $this;
     }
 
     /**

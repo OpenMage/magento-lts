@@ -41,7 +41,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Table extends Mage_Adminhtm
     {
         parent::__construct();
         $this->setId('sales_order_create_totals_table');
-        $this->setTemplate('sales/order/create/totals/table.phtml');
     }
 
 }

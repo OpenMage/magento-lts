@@ -46,6 +46,7 @@
 <body id="html-body"<?php echo $this->getBodyClass()?'class="'.$this->getBodyClass().'"':'' ?>>
 <?php echo $this->getChildHtml('notification_window'); ?>
 <div class="wrapper">
+    <?php echo $this->getChildHtml('global_notices') ?>
         <div class="header">
             <?php echo $this->getChildHtml('header') ?>
         <div class="clear"></div>

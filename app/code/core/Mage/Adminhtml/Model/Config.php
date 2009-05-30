@@ -84,27 +84,8 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     {
         $mergeConfig = Mage::getModel('core/config_base');
 
-        $config = Mage::getConfig();
-        $modules = $config->getNode('modules')->children();
+        $config = Mage::getConfig()->loadModulesConfiguration('system.xml');
 
-        // check if local modules are disabled
-        $disableLocalModules = (string)$config->getNode('global/disable_local_modules');
-        $disableLocalModules = !empty($disableLocalModules) && (('true' === $disableLocalModules) || ('1' === $disableLocalModules));
-
-        foreach ($modules as $modName=>$module) {
-            if ($module->is('active')) {
-                if ($disableLocalModules && ('local' === (string)$module->codePool)) {
-                    continue;
-                }
-
-                $configFile = $config->getModuleDir('etc', $modName).DS.'system.xml';
-
-                if ($mergeConfig->loadFile($configFile)) {
-                    $config->extend($mergeConfig, true);
-                }
-            }
-        }
-        #$config->applyExtends();
         $this->_sections = $config->getNode('sections');
         
         $this->_tabs = $config->getNode('tabs');

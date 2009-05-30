@@ -89,7 +89,7 @@ class Mage_Install_Block_Locale extends Mage_Install_Block_Abstract
             ->setTitle(Mage::helper('install')->__('Locale'))
             ->setClass('required-entry')
             ->setValue($this->getLocale()->__toString())
-            ->setOptions(Mage::app()->getLocale()->getOptionLocales())
+            ->setOptions(Mage::app()->getLocale()->getTranslatedOptionLocales())
             ->getHtml();
         return $html;
     }

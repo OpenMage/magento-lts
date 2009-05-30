@@ -45,6 +45,13 @@ class Mage_Catalog_Model_Convert_Adapter_Product
     protected $_productTypes;
 
     /**
+     * Product Type Instances singletons
+     *
+     * @var array
+     */
+    protected $_productTypeInstances = array();
+
+    /**
      * product attribute set collection array
      *
      * @var array
@@ -63,9 +70,19 @@ class Mage_Catalog_Model_Convert_Adapter_Product
 
     protected $_imageFields = array();
 
-    protected $_inventorySimpleFields = array();
+    /**
+     * Inventory Fields array
+     *
+     * @var array
+     */
+    protected $_inventoryFields             = array();
 
-    protected $_inventoryOtherFields = array();
+    /**
+     * Inventory Fields by product Types
+     *
+     * @var array
+     */
+    protected $_inventoryFieldsProductTypes = array();
 
     protected $_toNumber = array();
 
@@ -180,6 +197,23 @@ class Mage_Catalog_Model_Convert_Adapter_Product
     }
 
     /**
+     * ReDefine Product Type Instance to Product
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Catalog_Model_Convert_Adapter_Product
+     */
+    public function setProductTypeInstance(Mage_Catalog_Model_Product $product)
+    {
+        $type = $product->getTypeId();
+        if (!isset($this->_productTypeInstances[$type])) {
+            $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')
+                ->factory($product, true);
+        }
+        $product->setTypeInstance($this->_productTypeInstances[$type], true);
+        return $this;
+    }
+
+    /**
      * Retrieve product attribute set collection array
      *
      * @return array
@@ -283,15 +317,21 @@ class Mage_Catalog_Model_Convert_Adapter_Product
      */
     public function __construct()
     {
-        foreach (Mage::getConfig()->getFieldset('catalog_product_dataflow', 'admin') as $code=>$node) {
+        $fieldset = Mage::getConfig()->getFieldset('catalog_product_dataflow', 'admin');
+        foreach ($fieldset as $code => $node) {
+            /* @var $node Mage_Core_Model_Config_Element */
             if ($node->is('inventory')) {
-                $this->_inventorySimpleFields[] = $code;
-                if ($node->is('use_config')) {
-                    $this->_inventorySimpleFields[] = 'use_config_'.$code;
-                    $this->_configs[] = $code;
+                foreach ($node->product_type->children() as $productType) {
+                    $productType = $productType->getName();
+                    $this->_inventoryFieldsProductTypes[$productType][] = $code;
+                    if ($node->is('use_config')) {
+                        $this->_inventoryFieldsProductTypes[$productType][] = 'use_config_' . $code;
+                    }
                 }
-                if ($node->is('inventory_other')) {
-                    $this->_inventoryOtherFields[] = $code;
+
+                $this->_inventoryFields[] = $code;
+                if ($node->is('use_config')) {
+                    $this->_inventoryFields[] = 'use_config_'.$code;
                 }
             }
             if ($node->is('required')) {
@@ -469,11 +509,8 @@ class Mage_Catalog_Model_Convert_Adapter_Product
      */
     public function saveRow(array $importData)
     {
-        $product = $this->getProductModel();
-        $product->setData(array());
-        if ($stockItem = $product->getStockItem()) {
-            $stockItem->setData(array());
-        }
+        $product = $this->getProductModel()
+            ->reset();
 
         if (empty($importData['store'])) {
             if (!is_null($this->getBatchParams('store'))) {
@@ -482,7 +519,8 @@ class Mage_Catalog_Model_Convert_Adapter_Product
                 $message = Mage::helper('catalog')->__('Skip import row, required field "%s" not defined', 'store');
                 Mage::throwException($message);
             }
-        } else {
+        }
+        else {
             $store = $this->getStoreByCode($importData['store']);
         }
 
@@ -490,6 +528,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
             $message = Mage::helper('catalog')->__('Skip import row, store "%s" field not exists', $importData['store']);
             Mage::throwException($message);
         }
+
         if (empty($importData['sku'])) {
             $message = Mage::helper('catalog')->__('Skip import row, required field "%s" not defined', 'sku');
             Mage::throwException($message);
@@ -532,6 +571,8 @@ class Mage_Catalog_Model_Convert_Adapter_Product
             }
         }
 
+        $this->setProductTypeInstance($product);
+
         if (isset($importData['category_ids'])) {
             $product->setCategoryIds($importData['category_ids']);
         }
@@ -573,7 +614,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
         }
 
         foreach ($importData as $field => $value) {
-            if (in_array($field, $this->_inventorySimpleFields)) {
+            if (in_array($field, $this->_inventoryFields)) {
                 continue;
             }
             if (in_array($field, $this->_imageFields)) {
@@ -626,7 +667,9 @@ class Mage_Catalog_Model_Convert_Adapter_Product
         }
 
         $stockData = array();
-        $inventoryFields = $product->getTypeId() == 'simple' ? $this->_inventorySimpleFields : $this->_inventoryOtherFields;
+        $inventoryFields = isset($this->_inventoryFieldsProductTypes[$product->getTypeId()])
+            ? $this->_inventoryFieldsProductTypes[$product->getTypeId()]
+            : array();
         foreach ($inventoryFields as $field) {
             if (isset($importData[$field])) {
                 if (in_array($field, $this->_toNumber)) {

@@ -44,6 +44,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
 
     protected function _beforeToHtml()
     {
+/*
         if (Mage::registry('current_customer')->getId()) {
             $this->addTab('view', array(
                 'label'     => Mage::helper('customer')->__('Customer View'),
@@ -51,7 +52,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 'active'    => true
             ));
         }
-
+*/
         $this->addTab('account', array(
             'label'     => Mage::helper('customer')->__('Account Information'),
             'content'   => $this->getLayout()->createBlock('adminhtml/customer_edit_tab_account')->initForm()->toHtml(),

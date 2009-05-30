@@ -106,28 +106,31 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         switch (Mage::registry('store_type')) {
             case 'website':
                 $itemId     = $this->getRequest()->getParam('website_id', null);
-                $model      = Mage::getModel('core/website')->load($itemId);
+                $model      = Mage::getModel('core/website');
                 $notExists  = Mage::helper('core')->__("Website doesn't exist");
                 $codeBase   = Mage::helper('core')->__('Before modifying the website code please make sure that it is not used in index.php');
                 break;
             case 'group':
                 $itemId     = $this->getRequest()->getParam('group_id', null);
-                $model      = Mage::getModel('core/store_group')->load($itemId);
+                $model      = Mage::getModel('core/store_group');
                 $notExists  = Mage::helper('core')->__("Store doesn't exist");
                 $codeBase   = false;
                 break;
             case 'store':
                 $itemId     = $this->getRequest()->getParam('store_id', null);
-                $model      = Mage::getModel('core/store')->load($itemId);
+                $model      = Mage::getModel('core/store');
                 $notExists  = Mage::helper('core')->__("Store view doesn't exist");
                 $codeBase   = Mage::helper('core')->__('Before modifying the store view code please make sure that it is not used in index.php');
                 break;
+        }
+        if (null !== $itemId) {
+            $model->load($itemId);
         }
 
         if ($model->getId() || Mage::registry('store_action') == 'add') {
             Mage::register('store_data', $model);
 
-            if (Mage::registry('store_action') == 'edit' && $codeBase) {
+            if (Mage::registry('store_action') == 'edit' && $codeBase && !$model->isReadOnly()) {
                 $this->_getSession()->addNotice($codeBase);
             }
 

@@ -49,6 +49,22 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     protected $_productCollection;
 
     /**
+     * Default product amount per row in grid display mode
+     *
+     * @var int
+     */
+    protected $_defaultColumnCount = 3;
+
+    /**
+     * Product amount per row in grid display mode depending
+     * on custom page layout of category
+     *
+     * @var array
+     */
+    protected $_columnCountLayoutDepend = array();
+
+
+    /**
      * Retrieve loaded category collection
      *
      * @return Mage_Eav_Model_Entity_Collection_Abstract
@@ -228,24 +244,82 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
             }
         }
 
+
         return $this;
     }
 
     /**
-     * Retrieve url for add product to cart
-     * Rewrited for Product List and has required options products
+     * Retrieve product amount per row in grid display mode
      *
-     * @param  Mage_Catalog_Model_Product $product
-     * @param array $additional
-     * @return string
+     * @return int
      */
-    public function getAddToCartUrl($product, $additional = array())
+    public function getColumnCount()
     {
-        if ($product->hasRequiredOptions()) {
-            $url = $product->getProductUrl();
-            $link = (strpos($url, '?') !== false) ? '&' : '?';
-            return $url . $link . 'options=cart';
+        if (!$this->_getData('column_count')) {
+            $pageLayout = $this->getPageLayout();
+            if ($pageLayout && $this->getColumnCountLayoutDepend($pageLayout->getCode())) {
+                $this->setData(
+                    'column_count',
+                    $this->getColumnCountLayoutDepend($pageLayout->getCode())
+                );
+            } else {
+                $this->setData('column_count', $this->_defaultColumnCount);
+            }
         }
-        return parent::getAddToCartUrl($product, $additional);
+
+        return (int) $this->_getData('column_count');
+    }
+
+    /**
+     * Add row size depends on page layout
+     *
+     * @param string $pageLayout
+     * @param int $rowSize
+     * @return Mage_Catalog_Block_Product_List
+     */
+    public function addColumnCountLayoutDepend($pageLayout, $columnCount)
+    {
+        $this->_columnCountLayoutDepend[$pageLayout] = $columnCount;
+        return $this;
+    }
+
+    /**
+     * Remove row size depends on page layout
+     *
+     * @param string $pageLayout
+     * @return Mage_Catalog_Block_Product_List
+     */
+    public function removeColumnCountLayoutDepend($pageLayout)
+    {
+        if (isset($this->_columnCountLayoutDepend[$pageLayout])) {
+            unset($this->_columnCountLayoutDepend[$pageLayout]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Retrieve row size depends on page layout
+     *
+     * @param string $pageLayout
+     * @return int|boolean
+     */
+    public function getColumnCountLayoutDepend($pageLayout)
+    {
+        if (isset($this->_columnCountLayoutDepend[$pageLayout])) {
+            return $this->_columnCountLayoutDepend[$pageLayout];
+        }
+
+        return false;
+    }
+
+    /**
+     * Retrieve current page layout
+     *
+     * @return Varien_Object
+     */
+    public function getPageLayout()
+    {
+        return $this->helper('page/layout')->getCurrentPageLayout();
     }
 }

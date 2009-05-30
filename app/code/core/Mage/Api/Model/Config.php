@@ -62,36 +62,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
             }
         }
 
-        $mergeConfig = Mage::getModel('core/config_base');
-
-        $config = Mage::getConfig();
-        $modules = $config->getNode('modules')->children();
-
-        // check if local modules are disabled
-        $disableLocalModules = (string)$config->getNode('global/disable_local_modules');
-        $disableLocalModules = !empty($disableLocalModules) && (('true' === $disableLocalModules) || ('1' === $disableLocalModules));
-
-        $configFile = $config->getModuleDir('etc', 'Mage_Api').DS.'api.xml';
-
-
-        if ($mergeConfig->loadFile($configFile)) {
-            $config->extend($mergeConfig, true);
-        }
-
-        foreach ($modules as $modName=>$module) {
-            if ($module->is('active')) {
-                if (($disableLocalModules && ('local' === (string)$module->codePool)) || $modName=='Mage_Api') {
-                    continue;
-                }
-
-                $configFile = $config->getModuleDir('etc', $modName).DS.'api.xml';
-
-                if ($mergeConfig->loadFile($configFile)) {
-                    $config->extend($mergeConfig, true);
-                }
-            }
-        }
-
+        $config = Mage::getConfig()->loadModulesConfiguration('api.xml');
         $this->setXml($config->getNode('api'));
 
         if (Mage::app()->useCache('config_api')) {

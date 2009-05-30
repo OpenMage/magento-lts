@@ -68,4 +68,19 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
             'child_field'=>'product_id'
             );
     }
+
+/**
+     * Prepare select statement before 'fetchLinkInformation' function result fetch
+     *
+     * @param int $store
+     * @param string $table
+     * @param string $idField
+     * @param string $whereField
+     * @param int $id
+     * @param array $additionalWheres
+     */
+    protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = array())
+    {
+        $this->_addAttributeFilter($this->_getLinkSelect(), 'required_options', 'l', $idField, $store, 0);
+    }
 }

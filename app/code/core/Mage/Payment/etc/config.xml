@@ -89,6 +89,18 @@
             </cc>
         </payment>
 
+        <events>
+            <sales_order_save_before>
+                <observers>
+                    <payment_sales_order_save_before>
+                        <type>singleton</type>
+                        <class>payment/observer</class>
+                        <method>salesOrderBeforeSave</method>
+                    </payment_sales_order_save_before>
+                </observers>
+            </sales_order_save_before>
+        </events>
+
     </global>
 
     <frontend>

@@ -43,14 +43,14 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
         $switchAttributeCode = $this->getAttribute()->getAttributeCode().'_type';
         $switchAttributeValue = $this->getProduct()->getData($switchAttributeCode);
 
-        $html = '<select name="product[' . $switchAttributeCode . ']" id="' . $switchAttributeCode . '" type="select" class="required-entry select next-toinput"' . ($this->getProduct()->getId() && $this->getAttribute()->getAttributeCode() == 'price' ? ' disabled="disabled"' : '') . '>
+        $html = '<select name="product[' . $switchAttributeCode . ']" id="' . $switchAttributeCode . '" type="select" class="required-entry select next-toinput"' . ($this->getProduct()->getId() && $this->getAttribute()->getAttributeCode() == 'price' || $this->getElement()->getReadonly() ? ' disabled="disabled"' : '') . '>
             <option value="">' . $this->__('--Select--') . '</option>
             <option ' . ($switchAttributeValue == self::DYNAMIC ? 'selected' : '') . ' value="' . self::DYNAMIC . '">' . $this->__('Dynamic') . '</option>
             <option ' . ($switchAttributeValue == self::FIXED ? 'selected' : '') . ' value="' . self::FIXED . '">' . $this->__('Fixed') . '</option>
         </select>';
 
         $html .= '<span class="next-toselect">'.$elementHtml.'</span>';
-        if ($this->getDisableChild()) {
+        if ($this->getDisableChild() && !$this->getElement()->getReadonly()) {
             $html .= "<script type=\"text/javascript\">
                 function " . $switchAttributeCode . "_change() {
                     if ($('" . $switchAttributeCode . "').value == '" . self::DYNAMIC . "') {

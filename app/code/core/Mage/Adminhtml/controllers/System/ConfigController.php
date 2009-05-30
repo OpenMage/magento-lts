@@ -123,7 +123,6 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         }
 
         try {
-            Mage::app()->cleanCache(array(Mage_Core_Model_Config::CACHE_TAG));
             if (!$this->_isSectionAllowed($this->getRequest()->getParam('section'))) {
                 throw new Exception(Mage::helper('adminhtml')->__('This section is not allowed.'));
             }

@@ -659,7 +659,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
         $cond = '('.join(') AND (', $condArr).')';
 
         // join table
-        $this->getSelect()->$joinMethod(array($tableAlias=>$table), $cond, array($alias=>$field));
+        $this->getSelect()->$joinMethod(array($tableAlias=>$table), $cond, ($field ? array($alias=>$field) : array()));
 
         // save joined attribute
         $this->_joinFields[$alias] = array(
@@ -776,6 +776,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
             return $this;
         }
         Varien_Profiler::start('__EAV_COLLECTION_BEFORE_LOAD__');
+        Mage::dispatchEvent('eav_collection_abstract_load_before', array('collection' => $this));
         $this->_beforeLoad();
         Varien_Profiler::stop('__EAV_COLLECTION_BEFORE_LOAD__');
 

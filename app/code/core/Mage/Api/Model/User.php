@@ -166,7 +166,9 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
         $sessId = $this->getSessid();
         if ($this->authenticate($username, $apiKey)) {
             $this->setSessid($sessId);
-            $this->getResource()->recordLogin($this);
+            $this->getResource()->cleanOldSessions($this)
+                ->recordLogin($this)
+                ->recordSession($this);
             Mage::dispatchEvent('api_user_authenticated', array(
                'model'    => $this,
                'api_key'  => $apiKey,
@@ -191,6 +193,12 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     public function loadBySessId ($sessId)
     {
         $this->setData($this->getResource()->loadBySessId($sessId));
+        return $this;
+    }
+
+    public function logoutBySessId($sessid)
+    {
+        $this->getResource()->clearBySessId($sessid);
         return $this;
     }
 

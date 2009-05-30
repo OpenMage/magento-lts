@@ -71,6 +71,34 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     protected $_canUseForMultishipping  = true;
     protected $_canSaveCc = false;
 
+    protected $_allowCurrencyCode = array('USD');
+
+    /**
+     * Fields that should be replaced in debug with '***'
+     *
+     * @var array
+     */
+    protected $_debugReplacePrivateDataKeys = array('x_login', 'x_tran_key',
+                                                    'x_card_num', 'x_exp_date',
+                                                    'x_card_code', 'x_bank_aba_code',
+                                                    'x_bank_name', 'x_bank_acct_num',
+                                                    'x_bank_acct_type','x_bank_acct_name',
+                                                    'x_echeck_type');
+
+    /**
+     * Check method for processing with base currency
+     *
+     * @param string $currencyCode
+     * @return boolean
+     */
+    public function canUseForCurrency($currencyCode)
+    {
+        if (!in_array($currencyCode, $this->_allowCurrencyCode)) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Send authorize request to gateway
      *
@@ -346,7 +374,15 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         $client->setMethod(Zend_Http_Client::POST);
 
         if ($this->getConfigData('debug')) {
-            foreach( $request->getData() as $key => $value ) {
+            $requestDebug = clone $request;
+
+            foreach ($this->_debugReplacePrivateDataKeys as $key) {
+                if ($requestDebug->hasData($key)) {
+                    $requestDebug->setData($key, '***');
+                }
+            }
+
+            foreach( $requestDebug->getData() as $key => $value ) {
                 $requestData[] = strtoupper($key) . '=' . $value;
             }
 
@@ -354,8 +390,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
             $debug = Mage::getModel('paygate/authorizenet_debug')
                 ->setRequestBody($requestData)
-                ->setRequestSerialized(serialize($request->getData()))
-                ->setRequestDump(print_r($request->getData(),1))
+                ->setRequestSerialized(serialize($requestDebug->getData()))
+                ->setRequestDump(print_r($requestDebug->getData(),1))
                 ->save();
         }
 

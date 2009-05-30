@@ -88,8 +88,9 @@
 <?php // Grid Mode ?>
 <div class="listing-type-grid catalog-listing">
 <?php $_collectionSize = $_productCollection->count() ?>
+    <?php $_columnCount = $this->getColumnCount(); ?>
     <?php $i=0; foreach ($_productCollection as $_product): ?>
-        <?php if($i++%3==0): ?>
+        <?php if($i++%$_columnCount==0): ?>
         <ol class="grid-row">
         <?php endif; ?>
             <li class="item">
@@ -117,7 +118,7 @@
                     <?php endif; ?>
                 </p>
             </li>
-        <?php if($i%3==0 || $i==$_collectionSize): ?>
+        <?php if($i%$_columnCount==0 || $i==$_collectionSize): ?>
         </ol>
         <?php endif; ?>
     <?php endforeach ?>

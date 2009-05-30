@@ -40,17 +40,22 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Tierprice
         $this->_init('catalog/product_attribute_tier_price', 'value_id');
     }
 
+    /**
+     * Load product tier prices
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @return array
+     */
     public function loadProductPrices($product, $attribute)
     {
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable(), array(
-                'website_id',
-                'all_groups',
-                'customer_group_id AS cust_group',
-                'qty AS price_qty',
-                'value AS price'
+                'website_id', 'all_groups', 'cust_group' => 'customer_group_id',
+                'price_qty' => 'qty', 'price' => 'value'
             ))
-            ->where('entity_id=?', $product->getId());
+            ->where('entity_id=?', $product->getId())
+            ->order('qty');
         if ($attribute->isScopeGlobal()) {
             $select->where('website_id=?', 0);
         }
@@ -73,7 +78,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Tierprice
         }
 
         $condition[] = $this->_getWriteAdapter()->quoteInto('entity_id=?', $product->getId());
-        
+
         $this->_getWriteAdapter()->delete($this->getMainTable(), implode(' AND ', $condition));
         return $this;
     }

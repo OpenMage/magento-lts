@@ -36,7 +36,7 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     const XML_PATH_SAMPLES_TITLE = 'catalog/downloadable/samples_title';
 
     /**
-     * Enter description here...
+     * Initialize resource
      *
      */
     protected function _construct()
@@ -56,18 +56,19 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Enter description here...
+     * After save process
      *
      * @return Mage_Downloadable_Model_Sample
      */
     protected function _afterSave()
     {
-        $this->getResource()->saveItemTitle($this);
+        $this->getResource()
+            ->saveItemTitle($this);
         return parent::_afterSave();
     }
 
     /**
-     * Enter description here...
+     * Retrieve sample URL
      *
      * @return string
      */
@@ -80,14 +81,36 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
         }
     }
 
+    /**
+     * Retrieve base tmp path
+     *
+     * @return string
+     */
     public static function getBaseTmpPath()
     {
         return Mage::getBaseDir('media') . DS . 'downloadable' . DS . 'tmp' . DS . 'samples';
     }
 
+    /**
+     * Retrieve sample files path
+     *
+     * @return string
+     */
     public static function getBasePath()
     {
         return Mage::getBaseDir('media') . DS . 'downloadable' . DS . 'files' . DS . 'samples';
     }
 
+    /**
+     * Retrieve links searchable data
+     *
+     * @param int $productId
+     * @param int $storeId
+     * @return array
+     */
+    public function getSearchableData($productId, $storeId)
+    {
+        return $this->_getResource()
+            ->getSearchableData($productId, $storeId);
+    }
 }

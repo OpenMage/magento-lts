@@ -87,11 +87,31 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     protected $_reservedAttributes;
 
     /**
+     * Flag for available duplicate function
+     *
+     * @var boolean
+     */
+    protected $_isDuplicable = true;
+
+    /**
      * Initialize resources
      */
     protected function _construct()
     {
         $this->_init('catalog/product');
+    }
+
+    /**
+     * Retrieve Store Id
+     *
+     * @return int
+     */
+    public function getStoreId()
+    {
+        if ($this->hasData('store_id')) {
+            return $this->getData('store_id');
+        }
+        return Mage::app()->getStore()->getId();
     }
 
     /**
@@ -287,16 +307,32 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getCategoryIds()
     {
         if ($this->hasData('category_ids')) {
-            $ids = $this->getData('category_ids');
+            $ids = $this->_getData('category_ids');
             if (!is_array($ids)) {
+                $wasLocked = false;
+                if ($this->isLockedAttribute('category_ids')) {
+                    $this->unlockAttribute('category_ids');
+                    $wasLocked = true;
+                }
+
                 $ids = !empty($ids) ? explode(',', $ids) : array();
                 $this->setData('category_ids', $ids);
+                if ($wasLocked) {
+                    $this->lockAttribute('category_ids');
+                }
             }
         } else {
+            $wasLocked = false;
+            if ($this->isLockedAttribute('category_ids')) {
+                $this->unlockAttribute('category_ids');
+            }
             $ids = $this->_getResource()->getCategoryIds($this);
             $this->setData('category_ids', $ids);
+            if ($wasLocked) {
+                $this->lockAttribute('category_ids');
+            }
         }
-        return $this->getData('category_ids');
+        return $this->_getData('category_ids');
     }
 
     /**
@@ -1038,6 +1074,29 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
+     * Checks product can be duplicated
+     *
+     * @return boolean
+     */
+    public function isDuplicable()
+    {
+        return $this->_isDuplicable;
+    }
+
+    /**
+     * Set is duplicable flag
+     *
+     * @param boolean $value
+     * @return Mage_Catalog_Model_Product
+     */
+    public function setIsDuplicable($value)
+    {
+        $this->_isDuplicable = (boolean) $value;
+        return $this;
+    }
+
+
+    /**
      * Check is product available for sale
      *
      * @return bool
@@ -1485,5 +1544,23 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     protected function _substractQtyFromQuotes()
     {
         // kept for legacy purposes
+    }
+
+    /**
+     * Reset all model data
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    public function reset()
+    {
+        $this->setData(array());
+        $this->setOrigData();
+        $this->_customOptions       = array();
+        $this->_optionInstance      = null;
+        $this->_options             = array();
+        $this->_canAffectOptions    = false;
+        $this->_errors              = array();
+
+        return $this;
     }
 }

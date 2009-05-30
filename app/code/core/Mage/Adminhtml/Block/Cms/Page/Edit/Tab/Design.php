@@ -64,15 +64,12 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design extends Mage_Adminhtml_Block
             'format'    => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
         ));
 
-        $layouts = array();
-        foreach (Mage::getConfig()->getNode('global/cms/layouts')->children() as $layoutName=>$layoutConfig) {
-            $layouts[$layoutName] = (string)$layoutConfig->label;
-        }
+
         $fieldset->addField('root_template', 'select', array(
             'name'      => 'root_template',
             'label'     => Mage::helper('cms')->__('Layout'),
             'required'  => true,
-            'options'   => $layouts,
+            'values'   => Mage::getSingleton('page/source_layout')->toOptionArray(),
         ));
 
         $fieldset->addField('layout_update_xml', 'editor', array(

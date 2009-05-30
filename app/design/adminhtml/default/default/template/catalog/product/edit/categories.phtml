@@ -85,6 +85,7 @@ Ext.EventManager.onDocumentReady(function() {
         draggable:false,
         checked:'<?php echo $this->getRootNode()->getChecked() ?>',
         id:'<?php echo $this->getRootNode()->getId() ?>',
+        disabled: <?php echo ($this->getRootNode()->getDisabled() ? 'true' : 'false') ?>,
         uiProvider: Ext.tree.CheckboxNodeUI
     });
 
@@ -123,6 +124,9 @@ function bildCategoryTree(parent, config){
 }
 
 function categoryClick(node, e){
+    if (node.disabled) {
+        return;
+    }
     node.getUI().check(!node.getUI().checked())
     varienElementMethods.setHasChanges(Event.element(e), e);
 };

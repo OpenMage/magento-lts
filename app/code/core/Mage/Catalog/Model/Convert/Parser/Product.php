@@ -38,13 +38,19 @@ class Mage_Catalog_Model_Convert_Parser_Product
      */
     protected $_collections;
 
-    protected $_productTypes = array(
-        'simple'=>'Simple',
-        'bundle'=>'Bundle',
-        'configurable'=>'Configurable',
-        'grouped'=>'Grouped',
-        'virtual'=>'Virtual',
-    );
+    /**
+     * Product Type Instances object cache
+     *
+     * @var array
+     */
+    protected $_productTypeInstances = array();
+
+    /**
+     * Product Type cache
+     *
+     * @var array
+     */
+    protected $_productTypes;
 
     protected $_inventoryFields = array();
 
@@ -112,14 +118,48 @@ class Mage_Catalog_Model_Convert_Parser_Product
         return $this->_collections[$storeId];
     }
 
-    public function getProductTypeName($id)
+    /**
+     * Retrieve product type options
+     *
+     * @return array
+     */
+    public function getProductTypes()
     {
-        return isset($this->_productTypes[$id]) ? $this->_productTypes[$id] : false;
+        if (is_null($this->_productTypes)) {
+            $this->_productTypes = Mage::getSingleton('catalog/product_type')
+                ->getOptionArray();
+        }
+        return $this->_productTypes;
     }
 
+    /**
+     * Retrieve Product type name by code
+     *
+     * @param string $code
+     * @return string
+     */
+    public function getProductTypeName($code)
+    {
+        $productTypes = $this->getProductTypes();
+        if (isset($productTypes[$code])) {
+            return $productTypes[$code];
+        }
+        return false;
+    }
+
+    /**
+     * Retrieve product type code by name
+     *
+     * @param string $name
+     * @return string
+     */
     public function getProductTypeId($name)
     {
-        return array_search($name, $this->_productTypes);
+        $productTypes = $this->getProductTypes();
+        if ($code = array_search($name, $productTypes)) {
+            return $code;
+        }
+        return false;
     }
 
     /**
@@ -167,6 +207,23 @@ class Mage_Catalog_Model_Convert_Parser_Product
             $this->_storeId = $this->getStore()->getId();
         }
         return $this->_storeId;
+    }
+
+/**
+     * ReDefine Product Type Instance to Product
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Catalog_Model_Convert_Adapter_Product
+     */
+    public function setProductTypeInstance(Mage_Catalog_Model_Product $product)
+    {
+        $type = $product->getTypeId();
+        if (!isset($this->_productTypeInstances[$type])) {
+            $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')
+                ->factory($product, true);
+        }
+        $product->setTypeInstance($this->_productTypeInstances[$type], true);
+        return $this;
     }
 
     public function getAttributeSetInstance()
@@ -332,10 +389,10 @@ class Mage_Catalog_Model_Convert_Parser_Product
 
         foreach ($entityIds as $i => $entityId) {
             $product = $this->getProductModel()
-                ->setData(array())
+                ->reset()
                 ->setStoreId($this->getStoreId())
                 ->load($entityId);
-            $product->setTypeInstance($this->getAttributeSetInstance());
+            $this->setProductTypeInstance($product);
             /* @var $product Mage_Catalog_Model_Product */
 
             $position = Mage::helper('catalog')->__('Line %d, SKU: %s', ($i+1), $product->getSku());

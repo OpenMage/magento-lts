@@ -96,30 +96,26 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost()) {
-            $model = Mage::getModel('catalogrule/rule');
-//            if ($id = $this->getRequest()->getParam('page_id')) {
-//                $model->load($id);
-//                if ($id != $model->getId()) {
-//                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalogrule')->__('The page you are trying to save no longer exists'));
-//                    Mage::getSingleton('adminhtml/session')->setPageData($data);
-//                    $this->_redirect('*/*/edit', array('page_id' => $this->getRequest()->getParam('page_id')));
-//                    return;
-//                }
-//            }
-            $data['conditions'] = $data['rule']['conditions'];
-            //$data['actions'] = $data['rule']['actions'];
-            unset($data['rule']);
-
-            if (!empty($data['auto_apply'])) {
-                $autoApply = true;
-                unset($data['auto_apply']);
-            } else {
-                $autoApply = false;
-            }
-
-            $model->loadPost($data);
-            Mage::getSingleton('adminhtml/session')->setPageData($model->getData());
             try {
+                $model = Mage::getModel('catalogrule/rule');
+                if ($id = $this->getRequest()->getParam('rule_id')) {
+                    $model->load($id);
+                    if ($id != $model->getId()) {
+                        Mage::throwException(Mage::helper('catalogrule')->__('Wrong rule specified.'));
+                    }
+                }
+                $data['conditions'] = $data['rule']['conditions'];
+                unset($data['rule']);
+
+                if (!empty($data['auto_apply'])) {
+                    $autoApply = true;
+                    unset($data['auto_apply']);
+                } else {
+                    $autoApply = false;
+                }
+
+                $model->loadPost($data);
+                Mage::getSingleton('adminhtml/session')->setPageData($model->getData());
                 $model->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalogrule')->__('Rule was successfully saved'));

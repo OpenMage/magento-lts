@@ -46,14 +46,14 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     /**
      * Update product index when product data updated
      *
-     * @param Varien_Object $observer
+     * @param Varien_Event_Observer $observer
      * @return Mage_CatalogSearch_Model_Fulltext_Observer
      */
-    public function refreshProductIndex($observer)
+    public function refreshProductIndex(Varien_Event_Observer $observer)
     {
         $product = $observer->getEvent()->getProduct();
 
-        Mage::getModel('catalogsearch/fulltext')
+        $this->_getFulltextModel()
             ->rebuildIndex(null, $product->getId())
             ->resetSearchResults();
 
@@ -63,14 +63,14 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     /**
      * Clean product index when product deleted or marked as unsearchable/invisible
      *
-     * @param Varien_Object $observer
+     * @param Varien_Event_Observer $observer
      * @return Mage_CatalogSearch_Model_Fulltext_Observer
      */
-    public function cleanProductIndex($observer)
+    public function cleanProductIndex(Varien_Event_Observer $observer)
     {
         $product = $observer->getEvent()->getProduct();
 
-        Mage::getModel('catalogsearch/fulltext')
+        $this->_getFulltextModel()
             ->cleanIndex(null, $product->getId())
             ->resetSearchResults();
 
@@ -83,7 +83,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
      * @param Varien_Event_Observer $observer
      * @return Mage_CatalogSearch_Model_Fulltext_Observer
      */
-    public function eavAttributeChange($observer)
+    public function eavAttributeChange(Varien_Event_Observer $observer)
     {
         $attribute = $observer->getEvent()->getAttribute();
         /* @var $attribute Mage_Eav_Model_Entity_Attribute */
@@ -110,8 +110,9 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
         }
 
         if ($showNotice) {
+            $url = Mage::getSingleton('adminhtml/url')->getUrl('adminhtml/system_cache');
             Mage::getSingleton('adminhtml/session')->addNotice(
-                Mage::helper('catalogsearch')->__('Attribute setting change related with Search Index. Please run <a href="%s">Rebuild Search Index</a> process', Mage::getUrl('adminhtml/system_cache'))
+                Mage::helper('catalogsearch')->__('Attribute setting change related with Search Index. Please run <a href="%s">Rebuild Search Index</a> process', $url)
             );
         }
 
@@ -121,12 +122,11 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     /**
      * Rebuild index after import
      *
-     * @param Varien_Object $observer
      * @return Mage_CatalogSearch_Model_Fulltext_Observer
      */
-    public function refreshIndexAfterImport($observer)
+    public function refreshIndexAfterImport()
     {
-        Mage::getModel('catalogsearch/fulltext')
+        $this->_getFulltextModel()
             ->rebuildIndex();
         return $this;
     }
@@ -137,10 +137,10 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
      * @param   Varien_Event_Observer $observer
      * @return  Mage_CatalogSearch_Model_Fulltext_Observer
      */
-    public function refreshStoreIndex($observer)
+    public function refreshStoreIndex(Varien_Event_Observer $observer)
     {
         $storeId = $observer->getEvent()->getStore()->getId();
-        Mage::getModel('catalogsearch/fulltext')->rebuildIndex($storeId);
+        $this->_getFulltextModel()->rebuildIndex($storeId);
         return $this;
     }
 
@@ -170,6 +170,23 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
                 }
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Store delete processing
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_CatalogSearch_Model_Fulltext_Observer
+     */
+    public function cleanStoreIndex(Varien_Event_Observer $observer)
+    {
+        $store = $observer->getEvent()->getStore();
+        /* @var $store Mage_Core_Model_Store */
+
+        $this->_getFulltextModel()
+            ->cleanIndex($store->getId());
 
         return $this;
     }

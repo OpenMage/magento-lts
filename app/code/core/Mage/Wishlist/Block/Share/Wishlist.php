@@ -61,9 +61,8 @@ class Mage_Wishlist_Block_Share_Wishlist extends Mage_Catalog_Block_Product_Abst
                 ->addStoreFilter();
 
             Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($this->_collection);
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_collection);
+            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($this->_collection);
         }
-
         return $this->_collection;
     }
 
@@ -81,8 +80,8 @@ class Mage_Wishlist_Block_Share_Wishlist extends Mage_Catalog_Block_Product_Abst
 
     public function getEscapedDescription($item)
     {
-        if ($item->getDescription()) {
-            return $this->htmlEscape($item->getDescription());
+        if ($item->getWishlistItemDescription()) {
+            return $this->htmlEscape($item->getWishlistItemDescription());
         }
         return '&nbsp;';
     }

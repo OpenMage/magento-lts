@@ -120,6 +120,8 @@
                         <email translate="label">
                             <label>Sender email</label>
                             <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
+                            <validate>validate-email</validate>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -128,6 +130,8 @@
                         <name translate="label">
                             <label>Sender name</label>
                             <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
+                            <validate>validate-emailSender</validate>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -146,6 +150,8 @@
                         <email translate="label">
                             <label>Sender email</label>
                             <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
+                            <validate>validate-email</validate>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -154,6 +160,8 @@
                         <name translate="label">
                             <label>Sender name</label>
                             <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
+                            <validate>validate-emailSender</validate>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -172,6 +180,8 @@
                         <email translate="label">
                             <label>Sender email</label>
                             <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
+                            <validate>validate-email</validate>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -180,6 +190,8 @@
                         <name translate="label">
                             <label>Sender name</label>
                             <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
+                            <validate>validate-emailSender</validate>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -198,6 +210,8 @@
                         <email translate="label">
                             <label>Sender email</label>
                             <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
+                            <validate>validate-email</validate>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -206,6 +220,8 @@
                         <name translate="label">
                             <label>Sender name</label>
                             <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
+                            <validate>validate-emailSender</validate>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -224,6 +240,8 @@
                         <email translate="label">
                             <label>Sender email</label>
                             <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
+                            <validate>validate-email</validate>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -232,6 +250,8 @@
                         <name translate="label">
                             <label>Sender name</label>
                             <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_email_sender</backend_model>
+                            <validate>validate-emailSender</validate>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -501,18 +521,27 @@
                     </fields>
                 </log>
                 <js translate="label">
-                    <label>Prototype Deprecation Log</label>
+                    <label>JavaScript Settings</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <deprecation translate="label">
-                            <label>Enabled</label>
+                        <merge_files translate="label">
+                            <label>Merge JavaScript Files</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </merge_files>
+                        <deprecation translate="label">
+                            <label>Enable Prototype Deprecation Log</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -795,7 +824,7 @@
                             <show_in_store>0</show_in_store>
                         </use_form_key>
                         <session_cookie_lifetime translate="label comment">
-                            <label>Session Lifetime, Seconds</label>
+                            <label>Session Lifetime (seconds)</label>
                             <comment>Values less than 60 are ignored.</comment>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
@@ -1107,6 +1136,34 @@
                         </use_http_user_agent>
                     </fields>
                 </session>
+                <browser_capabilities translate="label">
+                    <label>Browser Capabilities Detection</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>200</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <cookies translate="label" module="cms">
+                            <label>Redirect to CMS-page if cookies are disabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cookies>
+                        <javascript translate="label" module="cms">
+                            <label>Show notice if JavaScipt is disabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </javascript>
+                    </fields>
+                </browser_capabilities>
             </groups>
         </web>
     </sections>

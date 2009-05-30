@@ -104,8 +104,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                     'remote_ip'         => array('type'=>'static'),
                     'checkout_method'   => array('type'=>'static'),
                     'password_hash'     => array('type'=>'static'),
-                    'quote_status_id'   => array('type'=>'static'),
-                    'billing_address_id'=> array('type'=>'static'),
                     'orig_order_id'     => array('type'=>'static'),
                     'converted_at'      => array('type'=>'static'),
                     'reserved_order_id' => array('type'=>'static'),
@@ -123,7 +121,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                     'items_count'=> array('type'=>'static'),
                     'items_qty'=> array('type'=>'static'),
 
-                    'custbalance_amount'=> array('type'=>'static'),
                     'grand_total'       => array('type'=>'static'),
                     'base_grand_total'  => array('type'=>'static'),
 
@@ -131,7 +128,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
 
                     'is_virtual'        => array('type'=>'static'),
                     'is_multi_shipping' => array('type'=>'static'),
-                    'is_multi_payment'  => array('type'=>'static'),
 
                     'customer_id'       => array('type'=>'static'),
                     'customer_tax_class_id' => array('type'=>'static'),
@@ -154,7 +150,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                 'entity_model'  => 'sales/quote_item',
                 'table'         => 'sales/quote_item',
                 'attributes' => array(
-                    'parent_id'         => array('type'=>'static'),
                     'product_id'        => array('type'=>'static'),
                     'super_product_id'  => array('type'=>'static'),
                     'parent_product_id' => array('type'=>'static'),
@@ -192,8 +187,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                 'entity_model'  => 'sales/quote_address',
                 'table'         => 'sales/quote_address',
                 'attributes' => array(
-                    'entity_id'     => array('type'=>'static'),
-                    'parent_id'     => array('type'=>'static'),
                     'address_type'  => array('type'=>'static'),
 
                     'customer_id'   => array('type'=>'static'),
@@ -229,7 +222,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                     'shipping_amount'   => array('type'=>'static'),
                     'shipping_tax_amount'   => array('type'=>'static'),
                     'discount_amount'   => array('type'=>'static'),
-                    'custbalance_amount'=> array('type'=>'static'),
                     'grand_total'       => array('type'=>'static'),
 
                     'base_subtotal'             => array('type'=>'static'),
@@ -238,7 +230,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                     'base_shipping_amount'      => array('type'=>'static'),
                     'base_shipping_tax_amount'      => array('type'=>'static'),
                     'base_discount_amount'      => array('type'=>'static'),
-                    'base_custbalance_amount'   => array('type'=>'static'),
                     'base_grand_total'          => array('type'=>'static'),
 
                     'customer_notes' => array('type'=>'static'),
@@ -249,7 +240,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                 'entity_model'  => 'sales/quote_address_item',
                 'table'         =>'sales/quote_entity',
                 'attributes' => array(
-                    'parent_id'     => array('type'=>'static'),
                     'quote_item_id' => array('type'=>'int'),
                     'product_id'    => array('type'=>'int'),
                     'super_product_id'  => array('type'=>'int'),
@@ -287,7 +277,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                 'entity_model'  => 'sales/quote_address_rate',
                 'table'         => 'sales/quote_entity',
                 'attributes' => array(
-                    'parent_id'     => array('type'=>'static'),
                     'code'          => array(),
                     'carrier'       => array(),
                     'carrier_title' => array(),
@@ -301,7 +290,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                 'entity_model'  => 'sales/quote_payment',
                 'table'         =>'sales/quote_entity',
                 'attributes' => array(
-                    'parent_id' => array('type'=>'static'),
                     'method'    => array(),
                     'additional_data' => array('type'=>'text'),
                     'po_number' => array(),
@@ -367,7 +355,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                     'base_to_order_rate'   => array('type'=>'decimal'),
 
                     'is_virtual'        => array('type'=>'int'),
-                    'is_multi_payment'  => array('type'=>'int'),
 
                     'shipping_method' => array(),
                     'shipping_description' => array(),
@@ -378,7 +365,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                     'shipping_tax_amount'   => array('type'=>'static'),
                     'discount_amount'   => array('type'=>'static'),
                     'giftcert_amount'   => array('type'=>'decimal'),
-                    'custbalance_amount'=> array('type'=>'decimal'),
 
                     'subtotal'          => array('type'=>'static'),
                     'grand_total'       => array('type'=>'static'),
@@ -398,7 +384,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                     'base_shipping_tax_amount'   => array('type'=>'static'),
                     'base_discount_amount'   => array('type'=>'static'),
                     'base_giftcert_amount'   => array('type'=>'decimal'),
-                    'base_custbalance_amount'=> array('type'=>'decimal'),
 
                     'base_subtotal'          => array('type'=>'static'),
                     'base_grand_total'       => array('type'=>'static'),

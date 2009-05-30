@@ -613,7 +613,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     if (in_array($prop['DATA_TYPE'], $indexDataTypes)) {
                         $indexName = 'IDX_' . strtoupper($this->getAttributeCode());
                         $indexes[$indexName] = array(
-                            'type'      => $this->getIsUnique() ? 'unique' : 'index',
+                            'type'      => 'index',
                             'fields'    => array($this->getAttributeCode())
                         );
                     }
@@ -625,7 +625,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 case 'varchar':
                     $indexName = 'IDX_' . strtoupper($this->getAttributeCode());
                     $indexes[$indexName] = array(
-                        'type'      => $this->getIsUnique() ? 'unique' : 'index',
+                        'type'      => 'index',
                         'fields'    => array($this->getAttributeCode())
                     );
                     break;

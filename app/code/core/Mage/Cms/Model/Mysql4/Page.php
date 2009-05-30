@@ -206,4 +206,18 @@ class Mage_Cms_Model_Mysql4_Page extends Mage_Core_Model_Mysql4_Abstract
 
         return $this->_getReadAdapter()->fetchOne($select);
     }
+
+    /**
+     * Get store ids to which specified item is assigned
+     *
+     * @param int $id
+     * @return array
+     */
+    public function lookupStoreIds($id)
+    {
+        return $this->_getReadAdapter()->fetchCol($this->_getReadAdapter()->select()
+            ->from($this->getTable('cms/page_store'), 'store_id')
+            ->where("{$this->getIdFieldName()} = ?", $id)
+        );
+    }
 }

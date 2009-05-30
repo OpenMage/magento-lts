@@ -31,7 +31,7 @@
  * @package    Mage_Newsletter
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Newsletter_Model_Template extends Varien_Object
+class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
 {
     /**
      * Types of template
@@ -39,59 +39,88 @@ class Mage_Newsletter_Model_Template extends Varien_Object
     const TYPE_TEXT = 1;
     const TYPE_HTML = 2;
 
+    /**
+     * Template Text Preprocessed flag
+     *
+     * @var bool
+     */
     protected $_preprocessFlag = false;
+
+    /**
+     * Mail object
+     *
+     * @var Zend_Mail
+     */
     protected $_mail;
 
     /**
-     * Return resource of template model.
+     * Initialize resource model
      *
-     * @return Mage_Newsletter_Model_Mysql4_Template
      */
-    public function getResource()
+    protected function _construct()
     {
-        return Mage::getResourceSingleton('newsletter/template');
+        $this->_init('newsletter/template');
     }
 
     /**
-     * Load template by id
+     * Validate Newsletter template
      *
-     * @param   int $templateId
-     * return   Mage_Newsletter_Model_Template
+     * @throws Mage_Core_Exception
+     * @return bool
      */
-    public function load($templateId)
+    public function validate()
     {
-        $this->addData($this->getResource()->load($templateId));
-        return $this;
+        $validators = array(
+            'template_code'         => array(Zend_Filter_Input::ALLOW_EMPTY => false),
+            'template_type'         => 'Alnum',
+            'template_sender_email' => 'EmailAddress',
+            'template_sender_name'  => array(Zend_Filter_Input::ALLOW_EMPTY => false)
+        );
+        $data = array();
+        foreach (array_keys($validators) as $validateField) {
+            $data[$validateField] = $this->getDataUsingMethod($validateField);
+        }
+
+        $validateInput = new Zend_Filter_Input(array(), $validators, $data);
+        if (!$validateInput->isValid()) {
+            $errorMessages = array();
+            foreach ($validateInput->getMessages() as $messages) {
+                if (is_array($messages)) {
+                    foreach ($messages as $message) {
+                        $errorMessages[] = $message;
+                    }
+                }
+                else {
+                    $errorMessages[] = $messages;
+                }
+            }
+
+            Mage::throwException(join("\n", $errorMessages));
+        }
+    }
+
+    /**
+     * Processing object before save data
+     *
+     * @return Mage_Newsletter_Model_Template
+     */
+    protected function _beforeSave()
+    {
+        $this->validate();
+        $this->getTemplateTextPreprocessed();
+        return parent::_beforeSave();
     }
 
     /**
      * Load template by code
      *
-     * @param   string $templateCode
-     * return   Mage_Newsletter_Model_Template
+     * @param string $templateCode
+     * @return Mage_Newsletter_Model_Template
      */
     public function loadByCode($templateCode)
     {
-        $this->addData($this->getResource()->loadByCode($templateCode));
+        $this->_getResource()->loadByCode($this, $templateCode);
         return $this;
-    }
-
-    /**
-     * Return template id
-     * return int|null
-     */
-    public function getId()
-    {
-        return $this->getTemplateId();
-    }
-
-    /**
-     * Set id of template
-     * @param int $value
-     */
-    public function setId($value)
-    {
-        return $this->setTemplateId($value);
     }
 
     /**
@@ -118,33 +147,41 @@ class Mage_Newsletter_Model_Template extends Varien_Object
     }
 
     /**
-     * Save template
+     * Check is Preprocessed
+     *
+     * @return bool
      */
-    public function save()
-    {
-        $this->getResource()->save($this);
-        return $this;
-    }
-
     public function isPreprocessed()
     {
         return strlen($this->getTemplateTextPreprocessed()) > 0;
     }
 
+    /**
+     * Check Template Text Preprocessed
+     *
+     * @return bool
+     */
     public function getTemplateTextPreprocessed()
     {
-        if($this->_preprocessFlag) {
+        if ($this->_preprocessFlag) {
             $this->setTemplateTextPreprocessed($this->getProcessedTemplate());
         }
 
         return $this->getData('template_text_preprocessed');
     }
 
-    public function getProcessedTemplate(array $variables = array(), $usePreprocess=false)
+    /**
+     * Retrieve processed template
+     *
+     * @param array $variables
+     * @param bool $usePreprocess
+     * @return string
+     */
+    public function getProcessedTemplate(array $variables = array(), $usePreprocess = false)
     {
         $processor = Mage::getModel('core/email_template_filter');
 
-        if(!$this->_preprocessFlag) {
+        if (!$this->_preprocessFlag) {
             $variables['this'] = $this;
         }
 
@@ -152,21 +189,25 @@ class Mage_Newsletter_Model_Template extends Varien_Object
             ->setIncludeProcessor(array($this, 'getInclude'))
             ->setVariables($variables);
 
-        if($usePreprocess && $this->isPreprocessed()) {
+        if ($usePreprocess && $this->isPreprocessed()) {
             return $processor->filter($this->getTemplateTextPreprocessed());
         }
 
         return $processor->filter($this->getTemplateText());
     }
 
-    public function getInclude($template, array $variables)
+    /**
+     * Retrieve included template
+     *
+     * @param string $templateCode
+     * @param array $variables
+     * @return string
+     */
+    public function getInclude($templateCode, array $variables)
     {
-        $thisClass = __CLASS__;
-        $includeTemplate = new $thisClass();
-
-        $includeTemplate->loadByCode($template);
-
-        return $includeTemplate->getProcessedTemplate($variables);
+        return Mage::getModel('newsletter/template')
+            ->loadByCode($templateCode)
+            ->getProcessedTemplate($variables);
     }
 
     /**
@@ -194,7 +235,7 @@ class Mage_Newsletter_Model_Template extends Varien_Object
      **/
     public function send($subscriber, array $variables = array(), $name=null, Mage_Newsletter_Model_Queue $queue=null)
     {
-        if(!$this->isValidForSend()) {
+        if (!$this->isValidForSend()) {
             return false;
         }
 
@@ -204,7 +245,8 @@ class Mage_Newsletter_Model_Template extends Varien_Object
             if (is_null($name) && ($subscriber->hasCustomerFirstname() || $subscriber->hasCustomerLastname()) ) {
                 $name = $subscriber->getCustomerFirstname() . ' ' . $subscriber->getCustomerLastname();
             }
-        } else {
+        }
+        else {
             $email = (string) $subscriber;
         }
 
@@ -219,9 +261,10 @@ class Mage_Newsletter_Model_Template extends Varien_Object
         $mail->addTo($email, $name);
         $text = $this->getProcessedTemplate($variables, true);
 
-        if($this->isPlain()) {
+        if ($this->isPlain()) {
             $mail->setBodyText($text);
-        } else {
+        }
+        else {
             $mail->setBodyHTML($text);
         }
 
@@ -231,22 +274,22 @@ class Mage_Newsletter_Model_Template extends Varien_Object
         try {
             $mail->send();
             $this->_mail = null;
-            if(!is_null($queue)) {
+            if (!is_null($queue)) {
                 $subscriber->received($queue);
             }
         }
         catch (Exception $e) {
-            if($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
+            if ($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
                 // If letter sent for subscriber, we create a problem report entry
                 $problem = Mage::getModel('newsletter/problem');
                 $problem->addSubscriberData($subscriber);
-                if(!is_null($queue)) {
+                if (!is_null($queue)) {
                     $problem->addQueueData($queue);
                 }
                 $problem->addErrorData($e);
                 $problem->save();
 
-                if(!is_null($queue)) {
+                if (!is_null($queue)) {
                     $subscriber->received($queue);
                 }
             } else {
@@ -260,15 +303,10 @@ class Mage_Newsletter_Model_Template extends Varien_Object
     }
 
     /**
-     * Delete template from DB
+     * Prepare Process (with save)
+     *
+     * @return Mage_Newsletter_Model_Template
      */
-    public function delete()
-    {
-        $this->getResource()->delete($this->getId());
-        $this->setId(null);
-        return $this;
-    }
-
     public function preprocess()
     {
         $this->_preprocessFlag = true;
@@ -277,27 +315,34 @@ class Mage_Newsletter_Model_Template extends Varien_Object
         return $this;
     }
 
+    /**
+     * Retrieve processed template subject
+     *
+     * @param array $variables
+     * @return string
+     */
     public function getProcessedTemplateSubject(array $variables)
     {
         $processor = new Varien_Filter_Template();
 
-        if(!$this->_preprocessFlag) {
+        if (!$this->_preprocessFlag) {
             $variables['this'] = $this;
         }
 
         $processor->setVariables($variables);
-
         return $processor->filter($this->getTemplateSubject());
     }
 
+    /**
+     * Retrieve template text wrapper
+     *
+     * @return string
+     */
     public function getTemplateText()
     {
         if (!$this->getData('template_text') && !$this->getId()) {
-            $this->setData(
-               'template_text',
-               Mage::helper('newsletter')->__(
-                   '<!-- This tag is for unsubscribe link  --> Follow this link to unsubscribe <a href="{{var subscriber.getUnsubscriptionLink()}}">{{var subscriber.getUnsubscriptionLink()}}</a>'
-               )
+            $this->setData('template_text',
+                Mage::helper('newsletter')->__('<!-- This tag is for unsubscribe link  --> Follow this link to unsubscribe <a href="{{var subscriber.getUnsubscriptionLink()}}">{{var subscriber.getUnsubscriptionLink()}}</a>')
             );
         }
 

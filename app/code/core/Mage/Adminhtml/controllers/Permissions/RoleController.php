@@ -44,6 +44,12 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         return $this;
     }
 
+    protected function _initRole($requestVariable = 'rid')
+    {
+        Mage::register('current_role', Mage::getModel('admin/roles')->load($this->getRequest()->getParam($requestVariable)));
+        return Mage::registry('current_role');
+    }
+
     public function indexAction()
     {
         $this->_initAction();
@@ -59,11 +65,11 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
     public function editRoleAction()
     {
+        $role = $this->_initRole();
         $this->_initAction();
 
-        $roleId = $this->getRequest()->getParam('rid');
-        if( intval($roleId) > 0 ) {
-            $breadCrumb = $this->__('Edit Role');
+        if ($role->getId()) {
+            $breadCrumb      = $this->__('Edit Role');
             $breadCrumbTitle = $this->__('Edit Role');
         } else {
             $breadCrumb = $this->__('Add new Role');
@@ -75,8 +81,8 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
         $this->_addContent(
             $this->getLayout()->createBlock('adminhtml/permissions_buttons')
-                ->setRoleId($roleId)
-                ->setRoleInfo(Mage::getModel('admin/roles')->load($roleId))
+                ->setRoleId($role->getId())
+                ->setRoleInfo($role)
                 ->setTemplate('permissions/roleinfo.phtml')
         );
         $this->_addJs($this->getLayout()->createBlock('adminhtml/template')->setTemplate('permissions/role_users_grid_js.phtml'));
@@ -142,6 +148,8 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             }
             $rid = $role->getId();
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Role successfully saved.'));
+        } catch (Mage_Core_Exception $e) {
+            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('Error while saving this role. Please try again later.'));
         }

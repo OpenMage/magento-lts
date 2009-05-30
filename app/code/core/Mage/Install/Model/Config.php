@@ -42,7 +42,8 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
     public function __construct()
     {
         parent::__construct();
-        $this->loadFile(Mage::getConfig()->getModuleDir('etc','Mage_Install').DS.'install.xml');
+        $this->loadString('<?xml version="1.0"?><config></config>');
+        Mage::getConfig()->loadModulesConfiguration('install.xml', $this);
     }
 
     /**
@@ -83,7 +84,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
 
         $items = (array) $this->getNode(self::XML_PATH_CHECK_WRITEABLE);
 
-        foreach ($items['items'] as $item) {
+        foreach ($items as $item) {
             $res['writeable'][] = (array) $item;
         }
 

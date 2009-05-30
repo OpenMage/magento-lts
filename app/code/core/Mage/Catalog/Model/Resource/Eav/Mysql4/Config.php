@@ -90,5 +90,4 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Config extends Mage_Core_Model_Mysq
             ->where('used_for_sort_by=?', 1);
         return $this->_getReadAdapter()->fetchAll($select);
     }
-
 }

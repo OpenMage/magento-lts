@@ -355,4 +355,31 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
             $this->getProduct($product)->setTypeHasRequiredOptions(false);
         }
     }
+
+    /**
+     * Retrieve additional searchable data from type instance
+     * Using based on product id and store_id data
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return array
+     */
+    public function getSearchableData($product = null)
+    {
+        $searchData = parent::getSearchableData($product);
+        $product = $this->getProduct($product);
+
+        $linkSearchData = Mage::getSingleton('downloadable/link')
+            ->getSearchableData($product->getId(), $product->getStoreId());
+        if ($linkSearchData) {
+            $searchData = array_merge($searchData, $linkSearchData);
+        }
+
+        $sampleSearchData = Mage::getSingleton('downloadable/sample')
+            ->getSearchableData($product->getId(), $product->getStoreId());
+        if ($sampleSearchData) {
+            $searchData = array_merge($searchData, $sampleSearchData);
+        }
+
+        return $searchData;
+    }
 }

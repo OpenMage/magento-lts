@@ -33,15 +33,27 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text
 {
+    /**
+     * Render a grid cell as options
+     *
+     * @param Varien_Object $row
+     * @return string
+     */
     public function render(Varien_Object $row)
     {
         $options = $this->getColumn()->getOptions();
+        $showMissingOptionValues = (bool)$this->getColumn()->getShowMissingOptionValues();
         if (!empty($options) && is_array($options)) {
             $value = $row->getData($this->getColumn()->getIndex());
             if (is_array($value)) {
                 $res = array();
                 foreach ($value as $item) {
-                    $res[] = isset($options[$item]) ? $options[$item] : $item;
+                    if (isset($options[$item])) {
+                        $res[] = $options[$item];
+                    }
+                    elseif ($showMissingOptionValues) {
+                        $res[] = $item;
+                    }
                 }
                 return implode(', ', $res);
             }

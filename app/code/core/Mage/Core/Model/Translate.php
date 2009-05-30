@@ -238,7 +238,12 @@ class Mage_Core_Model_Translate
                 if (!isset($this->_data[$scopeKey])) {
                     if (isset($this->_data[$key])) {
                         $this->_data[$scopeKey] = $this->_data[$key];
-                        unset($this->_data[$key]);
+                        /**
+                         * Not allow use translation not related to module
+                         */
+                        if (Mage::getIsDeveloperMode()) {
+                            unset($this->_data[$key]);
+                        }
                     }
                 }
                 $scopeKey = $scope . self::SCOPE_SEPARATOR . $key;

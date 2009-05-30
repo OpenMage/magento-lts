@@ -20,7 +20,7 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                 <table cellspacing="0" cellpadding="0" border="0" width="650">
                     <tr>
                         <td valign="top">
-                            <p><strong>Dear {{var customer.name}}</strong>, <br/> Welcome to Demo Store.</p>
+                            <p><strong>Dear {{htmlescape var=$customer.name}}</strong>, <br/> Welcome to Demo Store.</p>
 
                             <p>Your e-mail {{var customer.email}} must be confirmed before using it to log in to our store.</p>
 
@@ -29,7 +29,7 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                             <p style="border:1px solid #BEBCB7; padding:13px 18px; background:#F8F7F5; ">
                                 Use the following values when prompted to log in:<br/>
                                 E-mail: {{var customer.email}}<br/>
-                                Password: {{var customer.password}}<p>
+                                Password: {{htmlescape var=$customer.password}}<p>
 
                             <p>If you have any questions about your account or any other matter, please feel free to contact us at <a href="mailto:dummyemail@magentocommerce.com" style="color:#1E7EC8;">dummyemail@magentocommerce.com</a> or by phone at (555) 555-0123.</p>
                         </td>

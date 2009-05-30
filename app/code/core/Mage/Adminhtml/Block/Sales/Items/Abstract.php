@@ -385,8 +385,22 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
         return false;
     }
 
+    /**
+     * Check availability to edit quantity of item
+     *
+     * @return boolean
+     */
     public function canEditQty()
     {
+        /**
+         * Disable editing of quantity of item if creating of shipment forced
+         * and ship partially disabled for order
+         */
+        if ($this->getOrder()->getForcedDoShipmentWithInvoice()
+            && ($this->canShipPartially($this->getOrder()) || $this->canShipPartiallyItem($this->getOrder()))
+        ) {
+            return false;
+        }
         if ($this->getOrder()->getPayment()->canCapture()) {
             return $this->getOrder()->getPayment()->canCapturePartial();
         }
@@ -439,18 +453,36 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
         }
     }
 
-    public function canShipPartially()
+    /**
+     * Return true if can ship partially
+     *
+     * @param Mage_Sales_Model_Order|null $order
+     * @return boolean
+     */
+    public function canShipPartially($order = null)
     {
-        $value = Mage::registry('current_shipment')->getOrder()->getCanShipPartially();
+        if (is_null($order) || !$order instanceof Mage_Sales_Model_Order) {
+            $order = Mage::registry('current_shipment')->getOrder();
+        }
+        $value = $order->getCanShipPartially();
         if (!is_null($value) && !$value) {
             return false;
         }
         return true;
     }
 
-    public function canShipPartiallyItem()
+    /**
+     * Return true if can ship items partially
+     *
+     * @param Mage_Sales_Model_Order|null $order
+     * @return boolean
+     */
+    public function canShipPartiallyItem($order = null)
     {
-        $value = Mage::registry('current_shipment')->getOrder()->getCanShipPartiallyItem();
+        if (is_null($order) || !$order instanceof Mage_Sales_Model_Order) {
+            $order = Mage::registry('current_shipment')->getOrder();
+        }
+        $value = $order->getCanShipPartiallyItem();
         if (!is_null($value) && !$value) {
             return false;
         }

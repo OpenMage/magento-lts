@@ -32,7 +32,13 @@
             <block type="adminhtml/customer_edit" name="customer_edit"></block>
         </reference>
         <reference name="left">
-            <block type="adminhtml/customer_edit_tabs" name="customer_edit_tabs"></block>
+            <block type="adminhtml/customer_edit_tabs" name="customer_edit_tabs">
+                <block type="adminhtml/customer_edit_tab_view" name="customer_edit_tab_view" template="customer/tab/view.phtml">
+                    <block type="adminhtml/customer_edit_tab_view_sales" name="sales" template="customer/tab/view/sales.phtml" before="-" />
+                    <block type="adminhtml/customer_edit_tab_view_accordion" name="accordion" />
+                </block>
+                <action method="addTab"><name>customer_edit_tab_view</name><block>customer_edit_tab_view</block></action>
+            </block>
         </reference>
         <reference name="js">
             <block type="adminhtml/template" template="customer/edit/js.phtml" name="customer.edit.js" as="customer_edit_js"></block>

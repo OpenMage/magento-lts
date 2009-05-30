@@ -51,7 +51,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                 ->setData(array(
                     'label'  => Mage::helper('customer')->__('Delete Address'),
                     'name'   => 'delete_address',
-                    'class'  => 'delete'
+                    'disabled' => $this->isReadonly(),
+                    'class'  => 'delete' . ($this->isReadonly() ? ' disabled' : '')
                 ))
         );
         $this->setChild('add_address_button',
@@ -60,7 +61,8 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                     'label'  => Mage::helper('customer')->__('Add New Address'),
                     'id'     => 'add_address_button',
                     'name'   => 'add_address_button',
-                    'class'  => 'add',
+                    'disabled' => $this->isReadonly(),
+                    'class'  => 'add'  . ($this->isReadonly() ? ' disabled' : ''),
                     'onclick'=> 'customerAddresses.addNewAddress()'
                 ))
         );
@@ -70,11 +72,23 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                     'label'  => Mage::helper('customer')->__('Cancel'),
                     'id'     => 'cancel_add_address'.$this->getTemplatePrefix(),
                     'name'   => 'cancel_address',
-                    'class'  => 'cancel delete-address',
+                    'class'  => 'cancel delete-address'  . ($this->isReadonly() ? ' disabled' : ''),
+                    'disabled' => $this->isReadonly(),
                     'onclick'=> 'customerAddresses.cancelAdd(this)',
                 ))
         );
         return parent::_prepareLayout();
+    }
+
+    /**
+     * Check block is readonly.
+     *
+     * @return boolean
+     */
+    public function isReadonly()
+    {
+        $customer = Mage::registry('current_customer');
+        return $customer->isReadonly();
     }
 
     public function getDeleteButtonHtml()
@@ -84,6 +98,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
 
     public function initForm()
     {
+        $customer = Mage::registry('current_customer');
 
         $form = new Varien_Data_Form();
         $fieldset = $form->addFieldset('address_fieldset', array('legend'=>Mage::helper('customer')->__("Edit Customer's Address")));
@@ -108,8 +123,17 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
             $country->addClass('countries');
         }
 
-        $addressCollection = Mage::registry('current_customer')->getAddresses();
-        $this->assign('customer', Mage::registry('current_customer'));
+        if ($this->isReadonly()) {
+            foreach ($addressModel->getAttributes() as $attribute) {
+                $element = $form->getElement($attribute->getAttributeCode());
+                if ($element) {
+                    $element->setReadonly(true, true);
+                }
+            }
+        }
+
+        $addressCollection = $customer->getAddresses();
+        $this->assign('customer', $customer);
         $this->assign('addressCollection', $addressCollection);
         $this->setForm($form);
 

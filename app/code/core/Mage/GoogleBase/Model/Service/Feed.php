@@ -40,6 +40,7 @@ class Mage_GoogleBase_Model_Service_Feed extends Mage_GoogleBase_Model_Service
      * Google Base Feed Instance
      *
      * @param string $location
+     * @param int $storeId Store Id
      * @return Zend_Gdata_Feed
      */
     public function getFeed($location = null, $storeId = null)
@@ -49,37 +50,48 @@ class Mage_GoogleBase_Model_Service_Feed extends Mage_GoogleBase_Model_Service
     }
 
     /**
-     * Retrieve Items Statistics (expires, clicks, views, impr. etc.)
+     * Retrieve Items Statistics
      *
+     * @param string $id Google Base item ID
+     *        (e.g. http://www.google.com/base/feeds/items/3613244304072139222 or 3613244304072139222)
+     *
+     * @param int $storeId Store Id
      * @return array
      */
-    public function getItemsStatsArray($storeId = null)
+    public function getItemStats($id, $storeId = null)
     {
-        $feed = $this->getFeed(self::ITEMS_LOCATION, $storeId);
-        $result = array();
-        foreach ($feed as $entry) {
-            $draft = 'no';
-            if (is_object($entry->getControl()) && is_object($entry->getControl()->getDraft())) {
-                $draft = $entry->getControl()->getDraft()->getText();
-            }
-            $data = array(
-                'draft'     => ($draft == 'yes' ? 1 : 0)
-            );
-            $elements = $entry->getExtensionElements();
-            foreach ($elements as $el) {
-                switch ($el->rootElement) {
-                    case 'expiration_date':
-                        $data['expires'] = Mage::getSingleton('googlebase/service_item')
-                            ->gBaseDate2DateTime($el->getText());
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-
-            $result[$entry->getId()->getText()] = $data;
+        if (!stristr($id, 'http://')) {
+            $id = self::ITEMS_LOCATION . '/' . $id;
         }
+        try {
+            $entry = $this->getService($storeId)->getGbaseItemEntry($id);
+            return $this->_getEntryStats($entry);
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+
+    /**
+     * Return item stats array based on Zend Gdata Entry object
+     *
+     * @param Zend_Gdata_Gbase_ItemEntry $entry
+     * @return array
+     */
+    protected function _getEntryStats($entry)
+    {
+        $result = array();
+
+        $draft = 'no';
+        if (is_object($entry->getControl()) && is_object($entry->getControl()->getDraft())) {
+            $draft = $entry->getControl()->getDraft()->getText();
+        }
+        $result['draft'] = ($draft == 'yes' ? 1 : 0);
+
+        $expirationDate = $entry->getGbaseAttribute('expiration_date');
+        if (isset($expirationDate[0]) && is_object($expirationDate[0])) {
+            $result['expires'] = Mage::getSingleton('googlebase/service_item')->gBaseDate2DateTime($expirationDate[0]->getText());
+        }
+
         return $result;
     }
 

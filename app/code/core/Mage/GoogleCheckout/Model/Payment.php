@@ -40,6 +40,7 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
     protected $_canCapture              = true;
     protected $_canCapturePartial       = true;
     protected $_canRefund               = true;
+    protected $_canRefundInvoicePartial = true;
     protected $_canVoid                 = true;
     protected $_canUseInternal          = false;
     protected $_canUseCheckout          = false;

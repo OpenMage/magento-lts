@@ -365,6 +365,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
 
     /**
      * Retrieve model resource
+     *
+     * @return Mage_Core_Model_Mysql4_Abstract
      */
     public function getResource()
     {

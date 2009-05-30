@@ -89,10 +89,12 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      */
     public function options($attributeId, $store = null)
     {
+        $storeId = $this->_getStoreId($store);
         $attribute = Mage::getModel('catalog/product')
-            ->setStoreId($this->_getStoreId($store))
+            ->setStoreId($storeId)
             ->getResource()
-            ->getAttribute($attributeId);
+            ->getAttribute($attributeId)
+            ->setStoreId($storeId);
 
         /* @var $attribute Mage_Catalog_Model_Entity_Attribute */
         if (!$attribute) {

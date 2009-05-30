@@ -188,6 +188,9 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
      */
     public function load($printQuery = false, $logQuery = false)
     {
+        if (!$this->isLoaded()) {
+            Mage::dispatchEvent('core_collection_abstract_load_before', array('collection' => $this));
+        }
         parent::load($printQuery, $logQuery);
         foreach ($this->_items as $item) {
             $item->setOrigData();
@@ -211,5 +214,20 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
     protected function _canUseCache()
     {
         return Mage::app()->useCache('collections');
+    }
+
+    /**
+     * Redeclared for processing cache tags throw application object
+     *
+     * @return array
+     */
+    protected function _getCacheTags()
+    {
+        $tags = parent::_getCacheTags();
+        foreach ($tags as $key => $value) {
+        	$tags[$key] = Mage::app()->prepareCacheId($value);
+        }
+        $tags[] = Mage_Core_Model_App::CACHE_TAG;
+        return $tags;
     }
 }

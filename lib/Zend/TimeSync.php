@@ -299,7 +299,7 @@ class Zend_TimeSync implements IteratorAggregate
 
         $className = 'Zend_TimeSync_' . $protocol;
 
-        Zend_Loader::loadClass($className);
+        #Zend_Loader::loadClass($className);
         $timeServerObj = new $className($adress, $port);
 
         $this->_timeservers[$alias] = $timeServerObj;

@@ -41,12 +41,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Store extends Mage_Adminhtml_Block
         $this->setId('sales_order_create_store');
     }
 
-    protected function _prepareLayout()
-    {
-        $this->setChild('select', $this->getLayout()->createBlock('adminhtml/sales_order_create_store_select'));
-        return parent::_prepareLayout();
-    }
-
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Please select a store');

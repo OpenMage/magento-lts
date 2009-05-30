@@ -26,11 +26,26 @@
 
 class Mage_Checkout_Model_Mysql4_Agreement_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
+    /**
+     * @var bool
+     */
+    protected $_isStoreFilterWithAdmin = true;
+
+    /**
+     * Initialize resource
+     *
+     */
     protected function _construct()
     {
         $this->_init('checkout/agreement');
     }
 
+    /**
+     * Filter collection by specified store ids
+     *
+     * @param int|Mage_Core_Model_Store $store
+     * @return Mage_Checkout_Model_Mysql4_Agreement_Collection
+     */
     public function addStoreFilter($store)
     {
         if ($store instanceof Mage_Core_Model_Store) {
@@ -43,9 +58,21 @@ class Mage_Checkout_Model_Mysql4_Agreement_Collection extends Mage_Core_Model_My
             'main_table.agreement_id = store_table.agreement_id',
             array()
         )
-        ->where('store_table.store_id in (?)', array(0, $store))
+        ->where('store_table.store_id in (?)', ($this->_isStoreFilterWithAdmin ? array(0, $store) : $store))
         ->group('main_table.agreement_id');
 
+        return $this;
+    }
+
+    /**
+     * Make store filter using admin website or not
+     *
+     * @param bool $value
+     * @return Mage_Checkout_Model_Mysql4_Agreement_Collection
+     */
+    public function setIsStoreFilterWithAdmin($value)
+    {
+        $this->_isStoreFilterWithAdmin = (bool)$value;
         return $this;
     }
 }

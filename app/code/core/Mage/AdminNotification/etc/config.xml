@@ -151,6 +151,7 @@
         <system>
             <adminnotification>
                 <feed_url>www.magentocommerce.com/notifications_feed</feed_url>
+                <popup_url>widgets.magentocommerce.com/notificationPopup</popup_url>
                 <use_https>0</use_https>
                 <frequency>1</frequency>
                 <last_update>0</last_update>

@@ -88,12 +88,18 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit_Attributes extends Mage_Adminht
         return $select->getHtml();
     }
 
-    public function getAttributesSelectHtml()
+    /**
+     * Build HTML select element of attribute set attributes
+     *
+     * @param boolean $escapeJsQuotes
+     * @return string
+     */
+    public function getAttributesSelectHtml($escapeJsQuotes = false)
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
             ->setId($this->getFieldId().'_{{index}}_attribute')
             ->setName($this->getFieldName().'[{{index}}][attribute_id]')
-            ->setOptions($this->_getAttributes($this->getAttributeSetId()));
+            ->setOptions($this->_getAttributes($this->getAttributeSetId(), $escapeJsQuotes));
         return $select->getHtml();
     }
 
@@ -107,14 +113,22 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit_Attributes extends Mage_Adminht
         return $this->getChildHtml('delete_button');
     }
 
-    public function _getAttributes($setId)
+    /**
+     * Get attributes of an attribute set
+     * Skip attributes not needed for Google Base
+     *
+     * @param int $setId
+     * @param boolean $escapeJsQuotes
+     * @return array
+     */
+    public function _getAttributes($setId, $escapeJsQuotes = false)
     {
         $attributes = Mage::getModel('googlebase/attribute')->getAllowedAttributes($setId);
         $result = array();
 
         foreach ($attributes as $attribute) {
             /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
-            $result[$attribute->getAttributeId()] = $attribute->getFrontendLabel();
+            $result[$attribute->getAttributeId()] = $escapeJsQuotes ? $this->jsQuoteEscape($attribute->getFrontendLabel()) : $attribute->getFrontendLabel();
         }
         return $result;
     }

@@ -52,6 +52,22 @@ class Mage_PaypalUk_Model_Express extends Mage_Payment_Model_Method_Abstract
     //Sometime we need this. Reffer to isInitilizeNeeded() method
     protected $_isInitializeNeeded      = true;
 
+    protected $_allowCurrencyCode = array('AUD', 'CAD', 'CZK', 'DKK', 'EUR', 'HKD', 'HUF', 'ILS', 'JPY', 'MXN', 'NOK', 'NZD', 'PLN', 'GBP', 'SGD', 'SEK', 'CHF', 'USD');
+
+    /**
+     * Check method for processing with base currency
+     *
+     * @param string $currencyCode
+     * @return boolean
+     */
+    public function canUseForCurrency($currencyCode)
+    {
+        if (!in_array($currencyCode, $this->_allowCurrencyCode)) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Get Paypal API Model
      *
@@ -110,7 +126,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Payment_Model_Method_Abstract
     public function getPaymentAction($paymentAction=null)
     {
         if (is_null($paymentAction)) {
-            $paymentAction = Mage::getStoreConfig('payment/paypaluk_express/payment_action');
+            $paymentAction = $this->getConfigData('payment_action');
         }
         if (!$paymentAction) {
             $paymentAction = Mage_PaypalUk_Model_Api_Pro::TRXTYPE_AUTH_ONLY;
@@ -153,6 +169,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Payment_Model_Method_Abstract
     {
         $this->getQuote()->reserveOrderId();
         $this->getApi()
+            ->setPayment($this->getPayment())
             ->setTrxtype($this->getPaymentAction())
             ->setAmount($this->getQuote()->getBaseGrandTotal())
             ->setCurrencyCode($this->getQuote()->getBaseCurrencyCode())
@@ -234,7 +251,8 @@ class Mage_PaypalUk_Model_Express extends Mage_Payment_Model_Method_Abstract
     protected function _getExpressCheckoutDetails()
     {
         $api = $this->getApi()
-         ->setTrxtype($this->getPaymentAction());
+            ->setPayment($this->getPayment())
+            ->setTrxtype($this->getPaymentAction());
 
         if ($api->callGetExpressCheckoutDetails()===false) {
             //here need to take care where is the page should land
@@ -283,8 +301,9 @@ class Mage_PaypalUk_Model_Express extends Mage_Payment_Model_Method_Abstract
 /*********************** DO EXPRESS CHECKOUT DETAILS ***************************/
     public function placeOrder(Varien_Object $payment)
     {
-        $api = $this->getApi();
-        $api->setAmount($payment->getOrder()->getBaseGrandTotal())
+        $api = $this->getApi()
+            ->setPayment($payment)
+            ->setAmount($payment->getOrder()->getBaseGrandTotal())
             ->setTrxtype($this->getPaymentAction())
             ->setCurrencyCode($payment->getOrder()->getBaseCurrencyCode());
 
@@ -433,6 +452,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Payment_Model_Method_Abstract
         }
 
         $this->getApi()
+            ->setPayment($this->getPayment())
             ->setTrxtype($this->getPaymentAction($paymentAction))
             ->setAmount($address->getBaseGrandTotal())
             ->setCurrencyCode($this->getQuote()->getBaseCurrencyCode())

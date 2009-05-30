@@ -131,7 +131,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             }
             if (!empty($items['script'])) {
                 $scriptItems = array();
-                if (!Mage::getStoreConfigFlag('dev/js/deprecation')) {
+                if (Mage::getStoreConfigFlag('dev/js/merge_files')) {
                     $scriptItems = $this->getChunkedItems($items['script'], 'index.php?c=auto&amp;f=');
                 } else {
                     $scriptItems = $items['script'];

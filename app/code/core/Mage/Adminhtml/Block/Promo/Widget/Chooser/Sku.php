@@ -90,7 +90,8 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
         	->addAttributeToSelect('name')
             ->addAttributeToFilter('type_id', array('in'=>array(
                 Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
-                Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE
+                Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE,
+                Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
             )));
 
         $this->setCollection($collection);

@@ -236,6 +236,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         $request->setModuleName($module);
         $request->setControllerName($controller);
         $request->setActionName($action);
+        $request->setControllerModule($realModule);
 
         // set parameters from pathinfo
         for ($i=3, $l=sizeof($p); $i<$l; $i+=2) {

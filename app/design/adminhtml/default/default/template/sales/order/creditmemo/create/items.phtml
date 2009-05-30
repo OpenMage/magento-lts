@@ -109,8 +109,10 @@
               <input id="send_email" name="creditmemo[send_email]" value="1" type="checkbox" />
           </p>
           <?php endif; ?>
+              <?php echo $this->getChildHtml('submit_before') ?>
               <?php echo $this->getChildHtml('submit_offline') ?>
               <?php echo $this->getChildHtml('submit_button') ?>
+              <?php echo $this->getChildHtml('submit_after') ?>
           </div>
     </div>
 </div>

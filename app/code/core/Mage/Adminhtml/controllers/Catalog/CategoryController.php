@@ -248,7 +248,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
             $category->setAttributeSetId($category->getDefaultAttributeSetId());
 
-            if (isset($data['category_products'])) {
+            if (isset($data['category_products']) &&
+                !$category->getProductsReadonly()) {
                 $products = array();
                 parse_str($data['category_products'], $products);
                 $category->setPostedProducts($products);
@@ -309,9 +310,13 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
             $this->getResponse()->setBody("SUCCESS");
         }
+        catch (Mage_Core_Exception $e) {
+            $this->getResponse()->setBody($e->getMessage());
+        }
         catch (Exception $e){
             $this->getResponse()->setBody(Mage::helper('catalog')->__('Category move error'));
         }
+
     }
 
     /**
@@ -340,7 +345,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
     public function gridAction()
     {
-        if (!$category = $this->_initCategory()) {
+        if (!$category = $this->_initCategory(true)) {
             return;
         }
         $this->getResponse()->setBody(

@@ -244,11 +244,13 @@ RegionUpdater.prototype = {
     },
 
     setMarkDisplay: function(elem, display){
-        if(elem.parentNode){
-            var marks = Element.select(elem.parentNode, '.required');
-            if(marks[0]){
-                display ? marks[0].show() : marks[0].hide();
-            }
+        elem = $(elem);
+        var labelElement = elem.up(1).down('label > span.required') || 
+                           elem.up(2).down('label > span.required') ||
+                           elem.up(1).down('label.required > em') ||
+                           elem.up(2).down('label.required > em');
+        if(labelElement) {
+            display ? labelElement.show() : labelElement.hide();
         }
     }
 }

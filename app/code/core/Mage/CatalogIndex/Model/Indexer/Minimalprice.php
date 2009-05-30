@@ -65,7 +65,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
         return $data;
     }
 
-    public function createIndexData(Mage_Catalog_Model_Product $object)
+    public function createIndexData(Mage_Catalog_Model_Product $object, Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
     {
         $searchEntityId = $object->getId();
         $priceAttributeId = $this->getTierPriceAttribute()->getId();

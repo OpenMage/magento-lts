@@ -209,7 +209,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             usort($elements, array($this, '_sortForm'));
 
             foreach ($elements as $e) {
-
                 if (!$this->_canShowField($e)) {
                     continue;
                 }
@@ -246,7 +245,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     $model->setPath($path)->setValue($data)->afterLoad();
                     $data = $model->getValue();
                 }
-
                 $field = $fieldset->addField($id, $fieldType, array(
                     'name'                  => $name,
                     'label'                 => $label,
@@ -260,6 +258,11 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     'can_use_default_value' => $this->canUseDefaultValue((int)$e->show_in_default),
                     'can_use_website_value' => $this->canUseWebsiteValue((int)$e->show_in_website),
                 ));
+
+                if (isset($e->validate)) {
+                    $field->addClass($e->validate);
+                }
+
                 if (isset($e->frontend_type) && 'multiselect' === (string)$e->frontend_type && isset($e->can_be_empty)) {
                     $field->setCanBeEmpty(true);
                 }

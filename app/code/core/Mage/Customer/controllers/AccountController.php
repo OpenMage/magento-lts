@@ -34,6 +34,13 @@
 class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 {
     /**
+     * Action list where need check enabled cookie
+     *
+     * @var array
+     */
+    protected $_cookieCheckActions = array('loginPost', 'create');
+
+    /**
      * Retrieve customer session model object
      *
      * @return Mage_Customer_Model_Session
@@ -191,7 +198,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         if ($this->getRequest()->isPost()) {
             $errors = array();
 
-            $customer = Mage::getModel('customer/customer')->setId(null);
+            if (!$customer = Mage::registry('current_customer')) {
+                $customer = Mage::getModel('customer/customer')->setId(null);
+            }
 
             foreach (Mage::getConfig()->getFieldset('customer_account') as $code=>$node) {
                 if ($node->is('create') && ($value = $this->getRequest()->getParam($code)) !== null) {

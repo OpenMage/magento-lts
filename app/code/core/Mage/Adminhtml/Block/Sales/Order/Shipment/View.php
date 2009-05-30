@@ -76,8 +76,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
             $emailSent = Mage::helper('sales')->__('Shipment email not sent');
         }
 
-        $header = Mage::helper('sales')
-            ->__('Shipment #%s (%s)', $this->getShipment()->getIncrementId(), $emailSent);
+        $header = Mage::helper('sales')->__('Shipment #%s (%s)', $this->getShipment()->getIncrementId(), $emailSent);
         return $header;
     }
 

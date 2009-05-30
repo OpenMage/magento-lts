@@ -174,6 +174,17 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
+     * Escape html entities in url
+     *
+     * @param string $data
+     * @return string
+     */
+    public function urlEscape($data)
+    {
+        return htmlspecialchars($data);
+    }
+
+    /**
      * Escape quotes in java script
      *
      * @param moxed $data

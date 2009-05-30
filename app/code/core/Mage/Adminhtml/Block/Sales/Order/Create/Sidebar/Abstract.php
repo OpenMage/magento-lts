@@ -35,12 +35,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
 {
     protected $_sidebarStorageAction = 'add';
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('sales/order/create/sidebar/items.phtml');
-    }
-
     /**
      * Return name of sidebar storage action
      *

@@ -91,7 +91,7 @@ class Zend_Service_Nirvanix
         $options['namespace'] = ucfirst($namespace);
         $options = array_merge($this->_options, $options);
 
-        Zend_Loader::loadClass($class);
+        #Zend_Loader::loadClass($class);
         return new $class($options);
     }
     

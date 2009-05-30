@@ -119,7 +119,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     /**
      * Retrieve parent ids array by requered child
      *
-     * @param int $childId
+     * @param int|array $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -553,6 +553,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                     }
 
                     $_result[0]->setParentProductId($product->getId())
+                        // add custom option to simple product for protection of process when we add simple product separately
+                        ->addCustomOption('parent_product_id', $product->getId())
                         ->setCartQty(1);
 
                     $result[] = $_result[0];

@@ -32,6 +32,9 @@ trackingControl = {
         this.index++;
         var data = {index:this.index};
         Element.insert($('track_row_container'), {bottom: this.template.evaluate(data)});
+        $('trackingC' + this.index).disabled = false;
+        $('trackingT' + this.index).disabled = false;
+        $('trackingN' + this.index).disabled = false;
         this.bindCurrierOnchange();
     },
     deleteRow : function(event) {
@@ -84,14 +87,14 @@ trackingControl = {
     <tbody id="track_row_container">
         <tr id="track_row_template" class="template no-display">
             <td>
-                <select name="tracking[__index__][carrier_code]" class="select carrier" style="width:110px;" disabled="disabled">
+                <select name="tracking[__index__][carrier_code]" id="trackingC__index__" class="select carrier" style="width:110px;" disabled="disabled">
                     <?php foreach ($this->getCarriers() as $_code=>$_name): ?>
                     <option value="<?php echo $_code ?>"><?php echo $_name ?></option>
                     <?php endforeach; ?>
                 </select>
             </td>
-            <td><input class="input-text number-title" type="text" name="tracking[__index__][title]" value="" disabled="disabled" /></td>
-            <td><input class="input-text" type="text" name="tracking[__index__][number]" value="" disabled="disabled" /></td>
+            <td><input class="input-text number-title" type="text" name="tracking[__index__][title]" id="trackingT__index__" value="" disabled="disabled" /></td>
+            <td><input class="input-text" type="text" name="tracking[__index__][number]" id="trackingN__index__" value="" disabled="disabled" /></td>
             <td class="last"><a href="#" onclick="trackingControl.deleteRow(event);return false"><?php echo $this->__('Delete') ?></a></td>
         </tr>
     </tbody>
@@ -99,6 +102,6 @@ trackingControl = {
 </div>
 <script type="text/javascript">
 //<![CDATA[
-trackingControl.template = new Template('<tr>' + $('track_row_template').innerHTML.replace(/__index__/g, '#{index}').replace(/disabled="disabled"/g, '') + '<\/tr>');
+trackingControl.template = new Template('<tr>' + $('track_row_template').innerHTML.replace(/__index__/g, '#{index}') + '<\/tr>');
 //]]>
 </script>

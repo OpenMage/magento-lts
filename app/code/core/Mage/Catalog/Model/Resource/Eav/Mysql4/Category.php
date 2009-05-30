@@ -650,7 +650,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
                     {$categoryId},
                     cp.product_id,
                     cp.position,
-                    {$categoryId}=cp.category_id as is_parent,
+                    MAX({$categoryId}=cp.category_id) as is_parent,
                     {$storeId},
                     IFNULL(t_v.value, t_v_default.value)
                 FROM
@@ -949,5 +949,24 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
 //            return false;
 //        }
 //        return true;
+    }
+
+    /**
+     * Check category is forbidden to delete.
+     *
+     * If category is root and assigned to store group return false
+     *
+     * @param integer $categoryId
+     * @return boolean
+     */
+    public function isForbiddenToDelete($categoryId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getTable('core/store_group'), array('group_id'))
+            ->where('root_category_id = ?', $categoryId);
+        if ($this->_getReadAdapter()->fetchOne($select)) {
+            return true;
+        }
+        return false;
     }
 }

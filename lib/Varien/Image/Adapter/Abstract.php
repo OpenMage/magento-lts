@@ -87,6 +87,28 @@ abstract class Varien_Image_Adapter_Abstract
         }
     }
 
+    /**
+     * Retrieve Original Image Width
+     *
+     * @return int|null
+     */
+    public function getOriginalWidth()
+    {
+        $this->getMimeType();
+        return $this->_imageSrcWidth;
+    }
+
+    /**
+     * Retrieve Original Image Height
+     *
+     * @return int|null
+     */
+    public function getOriginalHeight()
+    {
+        $this->getMimeType();
+        return $this->_imageSrcHeight;
+    }
+
     public function setWatermarkPosition($position)
     {
         $this->_watermarkPosition = $position;

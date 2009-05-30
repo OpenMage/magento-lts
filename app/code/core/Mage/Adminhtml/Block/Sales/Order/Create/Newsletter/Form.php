@@ -39,7 +39,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Newsletter_Form extends Mage_Admin
     {
         parent::__construct();
         $this->setId('sales_order_create_newsletter_form');
-        $this->setTemplate('sales/order/create/newsletter/form.phtml');
     }
 
 }

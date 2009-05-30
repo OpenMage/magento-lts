@@ -62,8 +62,6 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         }
 
         if ($root = $this->getLayout()->getBlock('root')) {
-            $template = (string)Mage::getConfig()->getNode('global/cms/layouts/'.$page->getRootTemplate().'/template');
-            $root->setTemplate($template);
             $root->addBodyClass('cms-'.$page->getIdentifier());
         }
 

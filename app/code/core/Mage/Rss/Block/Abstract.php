@@ -4,7 +4,7 @@ class Mage_Rss_Block_Abstract extends Mage_Core_Block_Template
     protected function _getStoreId()
     {
         //store id is store view id
-        $storeId =   (int) $this->getRequest()->getParam('sid');
+        $storeId =   (int) $this->getRequest()->getParam('store_id');
         if($storeId == null) {
            $storeId = Mage::app()->getStore()->getId();
         }

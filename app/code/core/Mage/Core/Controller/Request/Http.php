@@ -34,15 +34,29 @@
  */
 class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 {
+    const XML_NODE_DIRECT_FRONT_NAMES = 'global/request/direct_front_name';
+
     /**
      * ORIGINAL_PATH_INFO
      * @var string
      */
-    protected $_originalPathInfo = '';
-    protected $_storeCode = null;
-    protected $_requestString = '';
+    protected $_originalPathInfo= '';
+    protected $_storeCode       = null;
+    protected $_requestString   = '';
 
     protected $_route;
+
+    protected $_directFrontNames = array();
+    protected $_controllerModule = null;
+
+    public function __construct($uri = null)
+    {
+        parent::__construct($uri);
+        $names = Mage::getConfig()->getNode(self::XML_NODE_DIRECT_FRONT_NAMES);
+        if ($names) {
+            $this->_directFrontNames = $names->asArray();
+        }
+    }
 
     /**
      * Returns ORIGINAL_PATH_INFO.
@@ -63,7 +77,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         if (!$this->_storeCode) {
             // get store view code
-            if (Mage::isInstalled() && Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL)) {
+            if ($this->_canBeStoreCodeInUrl()) {
                 $p = explode('/', trim($this->getPathInfo(), '/'));
                 $storeCode = $p[0];
 
@@ -96,7 +110,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     public function setPathInfo($pathInfo = null)
     {
         if ($pathInfo === null) {
-            if (null === ($requestUri = $this->getRequestUri())) {
+            $requestUri = $this->getRequestUri();
+            if (null === $requestUri) {
                 return $this;
             }
 
@@ -106,25 +121,27 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             }
 
             $baseUrl = $this->getBaseUrl();
-            if ((null !== $baseUrl)
-                && (false === ($pathInfo = substr($requestUri, strlen($baseUrl)))))
-            {
-                // If substr() returns false then PATH_INFO is set to an empty string
+            $pathInfo = substr($requestUri, strlen($baseUrl));
+
+            if ((null !== $baseUrl) && (false === $pathInfo)) {
                 $pathInfo = '';
             } elseif (null === $baseUrl) {
                 $pathInfo = $requestUri;
             }
 
-            if (Mage::isInstalled() && Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL)) {
-                $p = explode('/', ltrim($pathInfo, '/'), 2);
-                $storeCode = $p[0];
-                $stores = Mage::app()->getStores(true, true);
-                if ($storeCode!=='' && isset($stores[$storeCode])) {
-                    Mage::app()->setCurrentStore($storeCode);
-                    $pathInfo = '/'.(isset($p[1]) ? $p[1] : '');
-                }
-                elseif ($storeCode !== '') {
-                    $this->setActionName('noRoute');
+            if ($this->_canBeStoreCodeInUrl()) {
+                $pathParts = explode('/', ltrim($pathInfo, '/'), 2);
+                $storeCode = $pathParts[0];
+
+                if (!$this->isDirectAccessFrontendName($storeCode)) {
+                    $stores = Mage::app()->getStores(true, true);
+                    if ($storeCode!=='' && isset($stores[$storeCode])) {
+                        Mage::app()->setCurrentStore($storeCode);
+                        $pathInfo = '/'.(isset($pathParts[1]) ? $pathParts[1] : '');
+                    }
+                    elseif ($storeCode !== '') {
+                        $this->setActionName('noRoute');
+                    }
                 }
             }
 
@@ -135,6 +152,39 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 
         $this->_pathInfo = (string) $pathInfo;
         return $this;
+    }
+
+    /**
+     * Check if can be store code as part of url
+     *
+     * @return bool
+     */
+    protected function _canBeStoreCodeInUrl()
+    {
+        return Mage::isInstalled() && Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL);
+    }
+
+    /**
+     * Check if code declared as direct access frontend name
+     * this mean what this url can be used without store code
+     *
+     * @param   string $code
+     * @return  bool
+     */
+    public function isDirectAccessFrontendName($code)
+    {
+        $names = $this->getDirectFrontNames();
+        return isset($names[$code]);
+    }
+
+    /**
+     * Get list of front names available with access without store code
+     *
+     * @return array
+     */
+    public function getDirectFrontNames()
+    {
+        return $this->_directFrontNames;
     }
 
     public function getOriginalRequest()
@@ -219,5 +269,27 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             $_POST[$key] = $value;
         }
         return $this;
+    }
+
+    /**
+     * Specify module name where was found currently used controller
+     *
+     * @param   string $module
+     * @return  Mage_Core_Controller_Request_Http
+     */
+    public function setControllerModule($module)
+    {
+        $this->_controllerModule = $module;
+        return $this;
+    }
+
+    /**
+     * Get module name of currently used controller
+     *
+     * @return  string
+     */
+    public function getControllerModule()
+    {
+        return $this->_controllerModule;
     }
 }

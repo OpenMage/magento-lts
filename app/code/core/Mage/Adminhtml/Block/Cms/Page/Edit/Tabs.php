@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tabs extends Mage_Adminhtml_Block_Widge
             'content'   => $this->getLayout()->createBlock('adminhtml/cms_page_edit_tab_meta')->toHtml(),
         ));
         if (Mage::app()->getConfig()->getModuleConfig('Mage_GoogleOptimizer')->is('active', true)
-            && Mage::helper('googleoptimizer')->isOptimizerActive()) {
+            && Mage::helper('googleoptimizer')->isOptimizerActiveForCms()) {
             $this->addTab('googleoptimizer_section', array(
                 'label'     => Mage::helper('googleoptimizer')->__('Page View Optimization'),
                 'title'     => Mage::helper('googleoptimizer')->__('Page View Optimization'),

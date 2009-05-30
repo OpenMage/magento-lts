@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
         foreach (Mage::helper('core')->getCacheTypes() as $type=>$label) {
             $fieldset->addField('enable_'.$type, 'checkbox', array(
                 'name'=>'enable['.$type.']',
-                'label'=>$label,
+                'label'=>Mage::helper('adminhtml')->__($label),
                 'value'=>1,
                 'checked'=>(int)Mage::app()->useCache($type),
                 //'options'=>$options,
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_System_Cache_Form extends Mage_Adminhtml_Block_Widget
         foreach (Mage::helper('core')->getCacheBetaTypes() as $type=>$label) {
             $fieldset->addField('beta_enable_'.$type, 'checkbox', array(
                 'name'=>'beta['.$type.']',
-                'label'=>$label,
+                'label'=>Mage::helper('adminhtml')->__($label),
                 'value'=>1,
                 'checked'=>(int)Mage::app()->useCache($type),
             ));

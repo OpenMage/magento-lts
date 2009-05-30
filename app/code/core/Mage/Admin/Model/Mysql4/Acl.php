@@ -34,6 +34,8 @@
  */
 class Mage_Admin_Model_Mysql4_Acl
 {
+    const ACL_ALL_RULES = 'all';
+
     /**
      * Read resource connection
      *
@@ -135,6 +137,9 @@ class Mage_Admin_Model_Mysql4_Acl
             }
             try {
                 if ( $rule['permission'] == 'allow' ) {
+                    if ($resource === self::ACL_ALL_RULES) {
+                        $acl->allow($role, null, $privileges, $assert);
+                    }
                 	$acl->allow($role, $resource, $privileges, $assert);
                 } else if ( $rule['permission'] == 'deny' ) {
                 	$acl->deny($role, $resource, $privileges, $assert);

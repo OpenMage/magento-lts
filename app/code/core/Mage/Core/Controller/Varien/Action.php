@@ -42,6 +42,7 @@ abstract class Mage_Core_Controller_Varien_Action
     const FLAG_NO_POST_DISPATCH         = 'no-postDispatch';
     const FLAG_NO_START_SESSION         = 'no-startSession';
     const FLAG_NO_DISPATCH_BLOCK_EVENT  = 'no-beforeGenerateLayoutBlocksDispatch';
+    const FLAG_NO_COOKIES_REDIRECT      = 'no-cookies-redirect';
 
     const PARAM_NAME_SUCCESS_URL        = 'success_url';
     const PARAM_NAME_ERROR_URL          = 'error_url';
@@ -80,6 +81,13 @@ abstract class Mage_Core_Controller_Varien_Action
      * @var array
      */
     protected $_flags = array();
+
+    /**
+     * Action list where need check enabled cookie
+     *
+     * @var array
+     */
+    protected $_cookieCheckActions = array();
 
     /**
      * Constructor
@@ -346,30 +354,56 @@ abstract class Mage_Core_Controller_Varien_Action
 
     public function dispatch($action)
     {
-        $actionMethodName = $this->getActionMethodName($action);
+        try {
+            $actionMethodName = $this->getActionMethodName($action);
 
-        if (!is_callable(array($this, $actionMethodName))) {
-            $actionMethodName = 'norouteAction';
+            if (!is_callable(array($this, $actionMethodName))) {
+                $actionMethodName = 'norouteAction';
+            }
+
+            Varien_Profiler::start(self::PROFILER_KEY.'::predispatch');
+            $this->preDispatch();
+            Varien_Profiler::stop(self::PROFILER_KEY.'::predispatch');
+
+            if ($this->getRequest()->isDispatched()) {
+                /**
+                 * preDispatch() didn't change the action, so we can continue
+                 */
+                if (!$this->getFlag('', self::FLAG_NO_DISPATCH)) {
+                    $_profilerKey = self::PROFILER_KEY.'::'.$this->getFullActionName();
+
+                    Varien_Profiler::start($_profilerKey);
+                    $this->$actionMethodName();
+                    Varien_Profiler::stop($_profilerKey);
+
+                    Varien_Profiler::start(self::PROFILER_KEY.'::postdispatch');
+                    $this->postDispatch();
+                    Varien_Profiler::stop(self::PROFILER_KEY.'::postdispatch');
+                }
+            }
         }
-
-        Varien_Profiler::start(self::PROFILER_KEY.'::predispatch');
-        $this->preDispatch();
-        Varien_Profiler::stop(self::PROFILER_KEY.'::predispatch');
-
-        if ($this->getRequest()->isDispatched()) {
-            /**
-             * preDispatch() didn't change the action, so we can continue
-             */
-            if (!$this->getFlag('', self::FLAG_NO_DISPATCH)) {
-                $_profilerKey = self::PROFILER_KEY.'::'.$this->getFullActionName();
-
-                Varien_Profiler::start($_profilerKey);
-                $this->$actionMethodName();
-                Varien_Profiler::stop($_profilerKey);
-
-                Varien_Profiler::start(self::PROFILER_KEY.'::postdispatch');
-                $this->postDispatch();
-                Varien_Profiler::stop(self::PROFILER_KEY.'::postdispatch');
+        catch (Mage_Core_Controller_Varien_Exception $e) {
+            // set prepared flags
+            foreach ($e->getResultFlags() as $flagData) {
+                list($action, $flag, $value) = $flagData;
+                $this->setFlag($action, $flag, $value);
+            }
+            // call forward, redirect or an action
+            list($method, $parameters) = $e->getResultCallback();
+            switch ($method) {
+                case Mage_Core_Controller_Varien_Exception::RESULT_REDIRECT:
+                    list($path, $arguments) = $parameters;
+                    $this->_redirect($path, $arguments);
+                    break;
+                case Mage_Core_Controller_Varien_Exception::RESULT_FORWARD:
+                    list($action, $controller, $module, $params) = $parameters;
+                    $this->_forward($action, $controller, $module, $params);
+                    break;
+                default:
+                    $actionMethodName = $this->getActionMethodName($method);
+                    $this->getRequest()->setActionName($method);
+                    $this->$actionMethodName($method);
+                    break;
             }
         }
     }
@@ -398,10 +432,20 @@ abstract class Mage_Core_Controller_Varien_Action
         }
 
         if (!$this->getFlag('', self::FLAG_NO_START_SESSION)) {
-            Mage::getSingleton('core/session', array('name'=>$this->getLayout()->getArea()))->start();
+            $namespace   = $this->getLayout()->getArea();
+            $checkCookie = in_array($this->getRequest()->getActionName(), $this->_cookieCheckActions);
+            if ($checkCookie && !Mage::getSingleton('core/cookie')->get($namespace)) {
+                $this->setFlag('', self::FLAG_NO_COOKIES_REDIRECT, true);
+            }
+            Mage::getSingleton('core/session', array('name' => $namespace))->start();
         }
 
         Mage::app()->loadArea($this->getLayout()->getArea());
+
+        if ($this->getFlag('', self::FLAG_NO_COOKIES_REDIRECT) && Mage::getStoreConfig('web/browser_capabilities/cookies')) {
+            $this->_forward('noCookies', 'index', 'core');
+            return;
+        }
 
         if ($this->getFlag('', self::FLAG_NO_PRE_DISPATCH)) {
             return;
@@ -412,6 +456,7 @@ abstract class Mage_Core_Controller_Varien_Action
             'controller_action_predispatch_'.$this->getRequest()->getRouteName(),
             array('controller_action'=>$this)
         );
+        Varien_Autoload::registerScope($this->getRequest()->getRouteName());
         Mage::dispatchEvent(
             'controller_action_predispatch_'.$this->getFullActionName(),
             array('controller_action'=>$this)
@@ -461,6 +506,28 @@ abstract class Mage_Core_Controller_Varien_Action
         }
     }
 
+    public function noCookiesAction()
+    {
+        $redirect = new Varien_Object();
+        Mage::dispatchEvent('controller_action_nocookies', array(
+            'action'    => $this,
+            'redirect'  => $redirect
+        ));
+
+        if ($url = $redirect->getRedirectUrl()) {
+            $this->_redirectUrl($url);
+        }
+        elseif ($redirect->getRedirect()) {
+            $this->_redirect($redirect->getPath(), $redirect->getArguments());
+        }
+        else {
+            $this->loadLayout(array('default', 'noCookie'));
+            $this->renderLayout();
+        }
+
+        $this->getRequest()->setDispatched(true);
+    }
+
     protected function _forward($action, $controller = null, $module = null, array $params = null)
     {
         $request = $this->getRequest();
@@ -479,7 +546,7 @@ abstract class Mage_Core_Controller_Varien_Action
         }
 
         $request->setActionName($action)
-                ->setDispatched(false);
+            ->setDispatched(false);
     }
 
     protected function _initLayoutMessages($messagesStorage)

@@ -45,7 +45,18 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit extends Mage_Adminhtml_Block_Widget_
 
         $this->_updateButton('save', 'label', Mage::helper('salesrule')->__('Save Rule'));
         $this->_updateButton('delete', 'label', Mage::helper('salesrule')->__('Delete Rule'));
-        
+
+        $rule = Mage::registry('current_promo_quote_rule');
+
+        if (!$rule->isDeleteable()) {
+            $this->_removeButton('delete');
+        }
+
+        if ($rule->isReadonly()) {
+            $this->_removeButton('save');
+            $this->_removeButton('reset');
+        }
+
         #$this->setTemplate('promo/quote/edit.phtml');
     }
 
@@ -59,7 +70,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit extends Mage_Adminhtml_Block_Widget_
             return Mage::helper('salesrule')->__('New Rule');
         }
     }
-    
+
     public function getProductsJson()
     {
         return '{}';

@@ -57,6 +57,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
     }
 
     /**
+     * Check block is readonly
+     *
+     * @return boolean
+     */
+    public function isReadonly()
+    {
+         return $this->_getProduct()->getCompositeReadonly();
+    }
+
+    /**
      * Prepare Layout data
      *
      * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config

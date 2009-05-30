@@ -119,13 +119,13 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         );
 
         $allAttributes = array();
-        if (isset($attributes['attributes'])) {
-            $allAttributes += array_merge($allAttributes, $attributes['attributes']);
+        if (isset($attributes->attributes)) {
+            $allAttributes += array_merge($allAttributes, $attributes->attributes);
         }
 
         $_additionalAttributeCodes = array();
-        if (isset($attributes['additional_attributes'])) {
-            foreach ($attributes['additional_attributes'] as $k => $_attributeCode) {
+        if (isset($attributes->additional_attributes)) {
+            foreach ($attributes->additional_attributes as $k => $_attributeCode) {
                 $allAttributes[] = $_attributeCode;
                 $_additionalAttributeCodes[] = $_attributeCode;
             }
@@ -167,6 +167,10 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             ->setAttributeSetId($set)
             ->setTypeId($type)
             ->setSku($sku);
+
+        if (property_exists($productData, 'website_ids') && is_array($productData->website_ids)) {
+            $product->setWebsiteIds($productData->website_ids);
+        }
 
         if (property_exists($productData, 'additional_attributes')) {
             foreach ($productData->additional_attributes as $_attribute) {
@@ -215,6 +219,10 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
 
         if (!$product->getId()) {
             $this->_fault('not_exists');
+        }
+
+        if (property_exists($productData, 'website_ids') && is_array($productData->website_ids)) {
+            $product->setWebsiteIds($productData->website_ids);
         }
 
         if (property_exists($productData, 'additional_attributes')) {

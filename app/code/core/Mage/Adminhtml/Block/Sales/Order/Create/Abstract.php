@@ -33,13 +33,6 @@
  */
 abstract class Mage_Adminhtml_Block_Sales_Order_Create_Abstract extends Mage_Adminhtml_Block_Widget
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('sales/order/create/abstract.phtml');
-    }
-
     /**
      * Retrieve create order model object
      *

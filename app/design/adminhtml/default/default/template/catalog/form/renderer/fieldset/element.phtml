@@ -38,7 +38,7 @@
     <td class="scope-label"><?php echo $this->getScopeLabel() ?></td>
     <?php if ($this->canDisplayUseDefault()): ?>
     <td class="value use-default">
-        <input type="checkbox" name="use_default[]" id="<?php echo $_element->getHtmlId() ?>_default"<?php if ($this->usedDefault()): ?> checked="checked"<?php endif; ?> onclick="toggleValueElements(this, this.parentNode.parentNode)" value="<?php echo $this->getAttributeCode() ?>"/>
+        <input <?php if($_element->getReadonly()):?> disabled="disabled"<?php endif; ?> type="checkbox" name="use_default[]" id="<?php echo $_element->getHtmlId() ?>_default"<?php if ($this->usedDefault()): ?> checked="checked"<?php endif; ?> onclick="toggleValueElements(this, this.parentNode.parentNode)" value="<?php echo $this->getAttributeCode() ?>"/>
         <label for="<?php echo $_element->getHtmlId() ?>_default" class="normal"><?php echo $this->__('Use Default Value') ?></label>
     </td>
     <?php endif; ?>

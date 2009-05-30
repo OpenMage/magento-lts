@@ -38,26 +38,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
     {
         parent::__construct();
         $this->setId('sales_order_create_form');
-        $this->setTemplate('sales/order/create/form.phtml');
-    }
-
-    protected function _prepareLayout()
-    {
-        $this->setChild('data', $this->getLayout()->createBlock('adminhtml/sales_order_create_data'));
-        $childNames = array(
-            'customer',
-            'store',
-            'data',
-            'messages',
-        );
-
-        foreach ($childNames as  $name) {
-            $this->setChild($name, $this->getLayout()->createBlock('adminhtml/sales_order_create_' . $name));
-        }
-        $this->getLayout()->getBlock('head')
-            ->addJs('mage/adminhtml/sales.js')
-            ->addJs('mage/adminhtml/giftmessage.js');
-        return parent::_prepareLayout();
     }
 
     /**

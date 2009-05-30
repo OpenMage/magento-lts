@@ -115,6 +115,21 @@ class Mage_Catalog_Model_Observer
     }
 
     /**
+     * Process delete of store
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Catalog_Model_Observer
+     */
+    public function storeDelete(Varien_Event_Observer $observer)
+    {
+        if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
+            $store = $observer->getEvent()->getStore();
+            Mage::getResourceModel('catalog/category_flat')->deleteStores($store->getId());
+        }
+        return $this;
+    }
+
+    /**
      * Process catalog data after category move
      *
      * @param   Varien_Event_Observer $observer

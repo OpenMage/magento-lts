@@ -34,7 +34,34 @@
  */
 class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    const XML_PATH_POPUP_URL    = 'system/adminnotification/popup_url';
+
+    /**
+     * Widget Popup Notification Object URL
+     *
+     * @var string
+     */
+    protected $_popupUrl;
+
+    /**
+     * Is readable Popup Notification Object flag
+     *
+     * @var bool
+     */
+    protected $_popupReadable;
+
+    /**
+     * Last Notice object
+     *
+     * @var Mage_AdminNotification_Model_Inbox
+     */
     protected $_latestNotice;
+
+    /**
+     * count of unread notes by type
+     *
+     * @var array
+     */
     protected $_unreadNoticeCounts;
 
     /**
@@ -62,5 +89,46 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
             $this->_unreadNoticeCounts = Mage::getModel('adminnotification/inbox')->getNoticeStatus();
         }
         return isset($this->_unreadNoticeCounts[$severity]) ? $this->_unreadNoticeCounts[$severity] : 0;
+    }
+
+    /**
+     * Retrieve Widget Popup Notification Object URL
+     *
+     * @param bool $withExt
+     * @return string
+     */
+    public function getPopupObjectUrl($withExt = false)
+    {
+        if (is_null($this->_popupUrl)) {
+            $sheme = Mage::app()->getFrontController()->getRequest()->isSecure()
+                ? 'https://'
+                : 'http://';
+
+            $this->_popupUrl = $sheme . Mage::getStoreConfig(self::XML_PATH_POPUP_URL);
+        }
+        return $this->_popupUrl . ($withExt ? '.swf' : '');
+    }
+
+    /**
+     * Check is readable Popup Notification Object
+     *
+     * @return bool
+     */
+    public function isReadablePopupObject()
+    {
+        if (is_null($this->_popupReadable)) {
+            $this->_popupReadable = false;
+            $curl = new Varien_Http_Adapter_Curl();
+            $curl->setConfig(array(
+                'timeout'   => 2
+            ));
+            $curl->write(Zend_Http_Client::GET, $this->getPopupObjectUrl(true));
+            if ($curl->read()) {
+                if ($curl->getInfo(CURLINFO_HTTP_CODE) == 200) {
+                    $this->_popupReadable = true;
+                }
+            }
+        }
+        return $this->_popupReadable;
     }
 }

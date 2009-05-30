@@ -90,6 +90,8 @@ class Mage_Log_Model_Mysql4_Visitor_Collection extends Varien_Data_Collection_Db
      */
     protected $_quoteTable;
 
+    protected $_isOnlineFilterUsed = false;
+
     protected $_fieldMap = array(
         'customer_firstname' => 'customer_firstname_table.value',
         'customer_lastname'  => 'customer_lastname_table.value',
@@ -169,6 +171,7 @@ class Mage_Log_Model_Mysql4_Visitor_Collection extends Varien_Data_Collection_Db
                 'customer_email_table.entity_id=customer_table.customer_id',
                 array('customer_email'=>'email')
              );
+        $this->_isOnlineFilterUsed = true;
         return $this;
     }
 
@@ -288,4 +291,27 @@ class Mage_Log_Model_Mysql4_Visitor_Collection extends Varien_Data_Collection_Db
         }
     }
 
+    public function load($printQuery = false, $logQuery = false)
+    {
+        if ($this->isLoaded()) {
+            return $this;
+        }
+        Mage::dispatchEvent('log_visitor_collection_load_before', array('collection' => $this));
+        return parent::load($printQuery, $logQuery);
+    }
+
+    public function getIsOnlineFilterUsed()
+    {
+        return $this->_isOnlineFilterUsed;
+    }
+
+    /**
+     * Filter visitors by specified store ids
+     *
+     * @param array|int $storeIds
+     */
+    public function addVisitorStoreFilter($storeIds)
+    {
+        $this->_select->where('visitor_table.store_id IN (?)', $storeIds);
+    }
 }

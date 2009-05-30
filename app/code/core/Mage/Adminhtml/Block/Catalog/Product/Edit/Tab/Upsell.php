@@ -78,26 +78,47 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
         return $this;
     }
 
+    /**
+     * Checks when this block is readonly
+     *
+     * @return boolean
+     */
+    public function isReadonly()
+    {
+        return $this->_getProduct()->getUpsellReadonly();
+    }
+
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('catalog/product_link')->useUpSellLinks()
             ->getProductCollection()
             ->setProduct($this->_getProduct())
             ->addAttributeToSelect('*');
+
+        if ($this->isReadonly()) {
+            $productIds = $this->_getSelectedProducts();
+            if (empty($productIds)) {
+                $productIds = array(0);
+            }
+            $collection->addFieldToFilter('entity_id', array('in'=>$productIds));
+        }
+
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
 
     protected function _prepareColumns()
     {
-        $this->addColumn('in_products', array(
-            'header_css_class' => 'a-center',
-            'type'      => 'checkbox',
-            'name'      => 'in_products',
-            'values'    => $this->_getSelectedProducts(),
-            'align'     => 'center',
-            'index'     => 'entity_id'
-        ));
+        if (!$this->_getProduct()->getUpsellReadonly()) {
+            $this->addColumn('in_products', array(
+                'header_css_class' => 'a-center',
+                'type'      => 'checkbox',
+                'name'      => 'in_products',
+                'values'    => $this->_getSelectedProducts(),
+                'align'     => 'center',
+                'index'     => 'entity_id'
+            ));
+        }
 
         $this->addColumn('entity_id', array(
             'header'    => Mage::helper('catalog')->__('ID'),
@@ -170,7 +191,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
             'width'     => '60px',
             'validate_class' => 'validate-number',
             'index'     => 'position',
-            'editable'  => true,
+            'editable'  => !$this->_getProduct()->getUpsellReadonly(),
             'edit_only' => !$this->_getProduct()->getId()
         ));
 

@@ -151,4 +151,18 @@ class Mage_Cms_Model_Mysql4_Block extends Mage_Core_Model_Mysql4_Abstract
 
         return true;
     }
+
+    /**
+     * Get store ids to which specified item is assigned
+     *
+     * @param int $id
+     * @return array
+     */
+    public function lookupStoreIds($id)
+    {
+        return $this->_getReadAdapter()->fetchCol($this->_getReadAdapter()->select()
+            ->from($this->getTable('cms/block_store'), 'store_id')
+            ->where("{$this->getIdFieldName()} = ?", $id)
+        );
+    }
 }

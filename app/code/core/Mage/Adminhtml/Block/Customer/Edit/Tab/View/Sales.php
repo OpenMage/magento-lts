@@ -55,7 +55,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
     {
         parent::__construct();
         $this->setId('customer_view_sales_grid');
-        $this->setTemplate('customer/tab/view/sales.phtml');
     }
 
     public function _beforeToHtml()

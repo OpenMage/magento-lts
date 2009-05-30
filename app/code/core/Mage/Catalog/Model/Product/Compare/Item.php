@@ -149,6 +149,18 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Customer logout bind process
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Catalog_Model_Product_Compare_Item
+     */
+    public function bindCustomerLogout(Varien_Event_Observer $observer)
+    {
+        Mage::getSingleton('log/visitor')->setCatalogCompareItemsCount(0);
+        return $this;
+    }
+
+    /**
      * Clean compare items
      *
      * @return Mage_Catalog_Model_Product_Compare_Item

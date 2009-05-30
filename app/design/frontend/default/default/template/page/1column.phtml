@@ -36,6 +36,7 @@
 </head>
 <body <?php echo $this->getBodyClass()?'class="'.$this->getBodyClass().'"':'' ?>>
 <div class="wrapper">
+    <?php echo $this->getChildHtml('global_notices') ?>
         <!-- start header -->
         <div class="header">
             <?php echo $this->getChildHtml('header') ?>

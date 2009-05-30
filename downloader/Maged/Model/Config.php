@@ -28,7 +28,20 @@ class Maged_Model_Config extends Maged_Model
 {
     public function saveConfigPost($p)
     {
-        $this->set('preferred_state', $p['preferred_state']);
+        $configParams = array(
+            'preferred_state',
+            'use_custom_permissions_mode',
+            'mkdir_mode',
+            'chmod_file_mode',
+            'chmod_file_mode_executable'
+        );
+
+        foreach ($configParams as $paramName){
+            if (isset($p[$paramName])) {
+               $this->set($paramName, $p[$paramName]);
+            }
+        }
+        
         //$this->set('mage_dir', $p['mage_dir']);
         $this->save();
         return $this;
@@ -54,7 +67,7 @@ class Maged_Model_Config extends Maged_Model
                 continue;
             }
             $key = trim($arr[0]);
-            $value = trim($arr[1], " \t\"'");
+            $value = trim($arr[1], " \t\"'\n");
             if (!$key || $key[0]=='#' || $key[0]==';') {
                 continue;
             }

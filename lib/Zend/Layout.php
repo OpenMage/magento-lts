@@ -265,7 +265,7 @@ class Zend_Layout
         $front = Zend_Controller_Front::getInstance();
         if (!$front->hasPlugin($pluginClass)) {
             #require_once 'Zend/Loader.php';
-            Zend_Loader::loadClass($pluginClass);
+            #Zend_Loader::loadClass($pluginClass);
             $front->registerPlugin(
                 // register to run last | BUT before the ErrorHandler (if its available)
                 new $pluginClass($this), 
@@ -285,7 +285,7 @@ class Zend_Layout
         #require_once 'Zend/Controller/Action/HelperBroker.php';
         if (!Zend_Controller_Action_HelperBroker::hasHelper('layout')) {
             #require_once 'Zend/Loader.php';
-            Zend_Loader::loadClass($helperClass);
+            #Zend_Loader::loadClass($helperClass);
             Zend_Controller_Action_HelperBroker::getStack()->offsetSet(-90, new $helperClass($this));
         }
     }

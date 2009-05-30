@@ -33,7 +33,15 @@
  */
 class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * @var array
+     */
     protected $_storeIds;
+
+    /**
+     * @var bool
+     */
+    protected $_hasDefaultOption = true;
 
     public function __construct()
     {
@@ -44,6 +52,9 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
         $this->setDefaultStoreName($this->__('All Store Views'));
     }
 
+    /**
+     * Deprecated
+     */
     public function getWebsiteCollection()
     {
         $collection = Mage::getModel('core/website')->getResourceCollection();
@@ -56,6 +67,27 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
         return $collection->load();
     }
 
+    /**
+     * Get websites
+     *
+     * @return array
+     */
+    public function getWebsites()
+    {
+        $websites = Mage::app()->getWebsites();
+        if ($websiteIds = $this->getWebsiteIds()) {
+            foreach ($websites as $websiteId => $website) {
+                if (!in_array($websiteId, $websiteIds)) {
+                    unset($websites[$websiteId]);
+                }
+            }
+        }
+        return $websites;
+    }
+
+    /**
+     * Deprecated
+     */
     public function getGroupCollection($website)
     {
         if (!$website instanceof Mage_Core_Model_Website) {
@@ -64,6 +96,23 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
         return $website->getGroupCollection();
     }
 
+    /**
+     * Get store groups for specified website
+     *
+     * @param Mage_Core_Model_Website $website
+     * @return array
+     */
+    public function getStoreGroups($website)
+    {
+        if (!$website instanceof Mage_Core_Model_Website) {
+            $website = Mage::app()->getWebsite($website);
+        }
+        return $website->getGroups();
+    }
+
+    /**
+     * Deprecated
+     */
     public function getStoreCollection($group)
     {
         if (!$group instanceof Mage_Core_Model_Store_Group) {
@@ -77,12 +126,34 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
         return $stores;
     }
 
+    /**
+     * Get store views for specified store group
+     *
+     * @param Mage_Core_Model_Store_Group $group
+     * @return array
+     */
+    public function getStores($group)
+    {
+        if (!$group instanceof Mage_Core_Model_Store_Group) {
+            $group = Mage::app()->getGroup($group);
+        }
+        $stores = $group->getStores();
+        if ($storeIds = $this->getStoreIds()) {
+            foreach ($stores as $storeId => $store) {
+                if (!in_array($storeId, $storeIds)) {
+                    unset($stores[$storeId]);
+                }
+            }
+        }
+        return $stores;
+    }
+
     public function getSwitchUrl()
     {
         if ($url = $this->getData('switch_url')) {
             return $url;
         }
-        return $this->getUrl('*/*/*', array('_current'=>true, 'store'=>null));
+        return $this->getUrl('*/*/*', array('_current' => true, 'store' => null));
     }
 
     public function getStoreId()
@@ -112,5 +183,19 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
             return parent::_toHtml();
         }
         return '';
+    }
+
+    /**
+     * Set/Get whether the switcher should show default option
+     *
+     * @param bool $hasDefaultOption
+     * @return bool
+     */
+    public function hasDefaultOption($hasDefaultOption = null)
+    {
+        if (null !== $hasDefaultOption) {
+            $this->_hasDefaultOption = $hasDefaultOption;
+        }
+        return $this->_hasDefaultOption;
     }
 }

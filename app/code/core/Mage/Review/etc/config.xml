@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Review>
-            <version>0.7.3</version>
+            <version>0.7.4</version>
         </Mage_Review>
     </modules>
     <global>
@@ -173,13 +173,24 @@
                 </Mage_Review>
             </modules>
         </translate>
-          <layout>
-              <updates>
-                  <review module="Mage_Review">
-                      <file>review.xml</file>
-                  </review>
-              </updates>
-          </layout>
+        <layout>
+            <updates>
+                <review module="Mage_Review">
+                    <file>review.xml</file>
+                </review>
+            </updates>
+        </layout>
+        <events>
+            <tag_tag_product_collection_load_after>
+                <observers>
+                    <review>
+                        <type>model</type>
+                        <class>review/observer</class>
+                        <method>tagProductCollectionLoadAfter</method>
+                    </review>
+                </observers>
+            </tag_tag_product_collection_load_after>
+        </events>
     </frontend>
     <default>
         <catalog>

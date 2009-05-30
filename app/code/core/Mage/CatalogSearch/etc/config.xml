@@ -133,6 +133,15 @@
                     </catalogsearch>
                 </observers>
             </store_add>
+            <store_delete>
+                <observers>
+                    <catalogsearch>
+                        <type>singleton</type>
+                        <class>catalogsearch/fulltext_observer</class>
+                        <method>cleanStoreIndex</method>
+                    </catalogsearch>
+                </observers>
+            </store_delete>
             <catalog_product_website_update>
                 <observers>
                     <catalogsearch>

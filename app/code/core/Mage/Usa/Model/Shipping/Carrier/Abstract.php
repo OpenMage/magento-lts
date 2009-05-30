@@ -73,4 +73,35 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     {
         return true;
     }
+
+    /**
+     * Processing additional validation to check is carrier applicable.
+     *
+     * @param Mage_Shipping_Model_Rate_Request $request
+     * @return Mage_Shipping_Model_Carrier_Abstract|Mage_Shipping_Model_Rate_Result_Error|boolean
+     */
+    public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
+    {
+        $maxAllowedWeight = (float) $this->getConfigData('max_package_weight');
+        $error = null;
+        $showMethod = $this->getConfigData('showmethod');
+        foreach ($request->getAllItems() as $item) {
+            if ($item->getProduct() && $item->getProduct()->getId()) {
+                if ($item->getProduct()->getWeight() > $maxAllowedWeight) {
+                    $error = Mage::getModel('shipping/rate_result_error');
+                    $error->setCarrier($this->_code)
+                        ->setCarrierTitle($this->getConfigData('title'));
+                    $errorMsg = $this->getConfigData('specificerrmsg');
+                    $error->setErrorMessage($errorMsg?$errorMsg:Mage::helper('shipping')->__('The shipping module is not available.'));
+                    break;
+                }
+            }
+        }
+        if (null !== $error && $showMethod) {
+            return $error;
+        } elseif (null !== $error) {
+            return false;
+        }
+        return $this;
+    }
 }

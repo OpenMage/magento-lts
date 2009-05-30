@@ -20,14 +20,18 @@
  *
  * @category   Mage
  * @package    Mage_Cms
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
- * Cms data helper
+ * CMS Data helper
+ *
+ * @category   Mage
+ * @package    Mage_Cms
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
 {
-
 }

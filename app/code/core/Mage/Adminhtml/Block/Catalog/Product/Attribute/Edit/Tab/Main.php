@@ -322,6 +322,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             'values' => $yesno,
         ));
 
+        $fieldset->addField('is_used_for_price_rules', 'select', array(
+            'name' => 'is_used_for_price_rules',
+            'label' => Mage::helper('catalog')->__('Use for Price Rule Conditions'),
+            'title' => Mage::helper('catalog')->__('Use for Price Rule Conditions'),
+            'values' => $yesno,
+        ));
+
         $fieldset->addField('position', 'text', array(
             'name' => 'position',
             'label' => Mage::helper('catalog')->__('Position'),

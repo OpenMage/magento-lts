@@ -188,7 +188,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         /**
          * Saving locale information into DB
          */
-        $locale = Mage::getSingleton('install/session')->getLocaleData();
+        $locale = $this->getDataModel()->getLocaleData();
         if (!empty($locale['locale'])) {
             $setupModel->setConfigData(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $locale['locale']);
         }

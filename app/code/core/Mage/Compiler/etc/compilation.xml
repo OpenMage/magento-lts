@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Api
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <includes>
+        <default>
+            <Zend_Db_Statement_Pdo/>
+
+            <Zend_Loader/>
+            <Zend_Json/>
+            <Zend_Filter_Interface/>
+
+            <Zend_Db_Statement_Interface/>
+            <Zend_Db_Statement/>
+            <Zend_Db_Select/>
+            <Zend_Db_Profiler/>
+            <Zend_Db_Expr/>
+            <Zend_Db_Adapter_Pdo_Mysql/>
+            <Zend_Db_Adapter_Pdo_Abstract/>
+            <Zend_Db_Adapter_Abstract/>
+            <Zend_Db/>
+            <Zend_Controller_Response_Http/>
+            <Zend_Controller_Response_Abstract/>
+            <Zend_Controller_Request_Http/>
+            <Zend_Controller_Request_Abstract/>
+            <Zend_Cache_Core/>
+            <Zend_Cache_Backend_Interface/>
+            <Zend_Cache_Backend/>
+            <Zend_Cache/>
+
+            <Varien_Simplexml_Element/>
+            <Varien_Simplexml_Config/>
+            <Varien_Object/>
+            <Varien_Filter_Template_Tokenizer_Parameter/>
+            <Varien_Filter_Template_Tokenizer_Abstract/>
+            <Varien_Filter_Template/>
+            <Varien_Event_Observer_Collection/>
+            <Varien_Event_Observer/>
+            <Varien_Event_Collection/>
+            <Varien_Event/>
+            <Varien_Db_Select/>
+            <Varien_Db_Adapter_Pdo_Mysql/>
+            <Varien_Data_Collection_Db/>
+            <Varien_Data_Collection/>
+            
+            <Mage_Wishlist_Helper_Data/>
+            <Mage_Wishlist_Block_Links/>
+
+            <Mage_Tag_Model_Tag/>
+            <Mage_Tag_Model_Mysql4_Tag/>
+            <Mage_Tag_Model_Mysql4_Popular_Collection/>
+            <Mage_Tag_Block_Popular/>
+
+            <Mage_Rss_Helper_Data/>
+
+            <Mage_Reports_Model_Session/>
+            <Mage_Reports_Model_Event/>
+            <Mage_Reports_Block_Product_Viewed/>
+            <Mage_Reports_Block_Product_Compared/>
+            <Mage_Reports_Block_Product_Abstract/>
+
+            <Mage_Poll_Model_Poll_Answer/>
+            <Mage_Poll_Model_Poll/>
+            <Mage_Poll_Model_Mysql4_Poll_Answer_Collection/>
+            <Mage_Poll_Model_Mysql4_Poll_Answer/>
+            <Mage_Poll_Model_Mysql4_Poll/>
+            <Mage_Poll_Block_ActivePoll/>
+
+            <Mage_Page_Block_Template_Links/>
+            <Mage_Page_Block_Switch/>
+            <Mage_Page_Block_Html_Header/>
+            <Mage_Page_Block_Html_Head/>
+            <Mage_Page_Block_Html_Footer/>
+            <Mage_Page_Block_Html_Breadcrumbs/>
+            <Mage_Page_Block_Html/>
+
+            <Mage_Newsletter_Block_Subscribe/>
+
+            <Mage_Log_Model_Visitor/>
+            <Mage_Log_Model_Mysql4_Visitor/>
+
+            <Mage_GoogleOptimizer_Model_Observer/>
+            <Mage_GoogleOptimizer_Helper_Data/>
+            <Mage_GoogleOptimizer_Block_Code_Page/>
+            <Mage_GoogleOptimizer_Block_Code/>
+            <Mage_GoogleAnalytics_Block_Ga/>
+
+            <Mage_Customer_Model_Session/>
+            <Mage_Customer_Model_Observer/>
+            <Mage_Customer_Model_Group/>
+            <Mage_Customer_Model_Config_Share/>
+            <Mage_Customer_Helper_Data/>
+
+            <Mage_Contacts_Helper_Data/>
+
+            <Mage_Cms_Model_Page/>
+            <Mage_Cms_Model_Mysql4_Page/>
+            <Mage_Cms_Model_Block/>
+            <Mage_Cms_Helper_Page/>
+            <Mage_Cms_Controller_Router/>
+            <Mage_Cms_Block_Page/>
+            <Mage_Cms_Block_Block/>
+
+            <Mage_Checkout_Model_Session/>
+            <Mage_Checkout_Model_Cart/>
+            <Mage_Checkout_Helper_Data/>
+            <Mage_Checkout_Helper_Cart/>
+            <Mage_Checkout_Block_Links/>
+            <Mage_Checkout_Block_Cart_Sidebar/>
+            <Mage_Checkout_Block_Cart_Abstract/>
+
+            <Mage_CatalogSearch_Helper_Data/>
+
+            <Mage_Catalog_Model_Session/>
+            <Mage_Catalog_Model_Category/>
+            <Mage_Catalog_Model_Abstract/>
+            <Mage_Catalog_Helper_Product_Compare/>
+            <Mage_Catalog_Helper_Map/>
+            <Mage_Catalog_Helper_Data/>
+            <Mage_Catalog_Block_Product_Abstract/>
+            <Mage_Catalog_Block_Navigation/>
+
+            <Mage_Core_Model_Website/>
+            <Mage_Core_Model_Url_Rewrite/>
+            <Mage_Core_Model_Url/>
+            <Mage_Core_Model_Translate_Inline/>
+            <Mage_Core_Model_Translate_Expr/>
+            <Mage_Core_Model_Translate/>
+            <Mage_Core_Model_Store_Group/>
+            <Mage_Core_Model_Store/>
+            <Mage_Core_Model_Session_Abstract_Varien/>
+            <Mage_Core_Model_Session_Abstract/>
+            <Mage_Core_Model_Session/>
+            <Mage_Core_Model_Resource_Type_Db_Pdo_Mysql/>
+            <Mage_Core_Model_Resource_Type_Db/>
+            <Mage_Core_Model_Resource_Type_Abstract/>
+            <Mage_Core_Model_Resource_Abstract/>
+            <Mage_Core_Model_Resource/>
+            <Mage_Core_Model_Mysql4_Website_Collection/>
+            <Mage_Core_Model_Mysql4_Website/>
+            <Mage_Core_Model_Mysql4_Url_Rewrite/>
+            <Mage_Core_Model_Mysql4_Store_Group_Collection/>
+            <Mage_Core_Model_Mysql4_Store_Group/>
+            <Mage_Core_Model_Mysql4_Store_Collection/>
+            <Mage_Core_Model_Mysql4_Store/>
+            <Mage_Core_Model_Mysql4_Design/>
+            <Mage_Core_Model_Mysql4_Collection_Abstract/>
+            <Mage_Core_Model_Mysql4_Abstract/>
+            <Mage_Core_Model_Message_Collection/>
+            <Mage_Core_Model_Message/>
+            <Mage_Core_Model_Locale/>
+            <Mage_Core_Model_Layout_Update/>
+            <Mage_Core_Model_Layout_Element/>
+            <Mage_Core_Model_Layout/>
+            <Mage_Core_Model_Email_Template_Filter/>
+            <Mage_Core_Model_Design_Package/>
+            <Mage_Core_Model_Design/>
+            <Mage_Core_Model_Cookie/>
+            <Mage_Core_Model_Config_Options/>
+            <Mage_Core_Model_Config_Element/>
+            <Mage_Core_Model_Config_Data/>
+            <Mage_Core_Model_Config_Base/>
+            <Mage_Core_Model_Config/>
+            <Mage_Core_Model_App_Area/>
+            <Mage_Core_Model_App/>
+            <Mage_Core_Model_Abstract/>
+            <Mage_Core_Helper_Url/>
+            <Mage_Core_Helper_String/>
+            <Mage_Core_Helper_Js/>
+            <Mage_Core_Helper_Data/>
+            <Mage_Core_Helper_Abstract/>
+            <Mage_Core_Controller_Varien_Router_Standard/>
+            <Mage_Core_Controller_Varien_Router_Default/>
+            <Mage_Core_Controller_Varien_Router_Admin/>
+            <Mage_Core_Controller_Varien_Router_Abstract/>
+            <Mage_Core_Controller_Varien_Front/>
+            <Mage_Core_Controller_Varien_Action/>
+            <Mage_Core_Controller_Response_Http/>
+            <Mage_Core_Controller_Request_Http/>
+            <Mage_Core_Controller_Front_Action/>
+            <Mage_Core_Block_Text_List/>
+            <Mage_Core_Block_Text/>
+            <Mage_Core_Block_Template/>
+            <Mage_Core_Block_Profiler/>
+            <Mage_Core_Block_Messages/>
+            <Mage_Core_Block_Abstract/>
+        </default>
+
+        <cms>
+            <Mage_Page_Helper_Data/>
+            <Mage_Page_Helper_Layout/>
+            <Mage_Page_Model_Config/>
+        </cms>
+
+        <catalog>
+            <Mage_Catalog_Block_Breadcrumbs/>
+            <Mage_Catalog_Helper_Category_Flat/>
+            <Mage_Catalog_Helper_Output/>
+            <Mage_Catalog_Helper_Product_Flat/>
+            <Mage_Catalog_Model_Config/>
+            <Mage_Catalog_Model_Design/>
+            <Mage_Catalog_Model_Product/>
+            <Mage_Catalog_Model_Product_Status/>
+            <Mage_Catalog_Model_Product_Visibility/>
+            <Mage_Catalog_Model_Resource_Eav_Attribute/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Config/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection/>
+            <Mage_Eav_Model_Config/>
+            <Mage_Eav_Model_Entity/>
+            <Mage_Eav_Model_Entity_Abstract/>
+            <Mage_Eav_Model_Entity_Attribute/>
+            <Mage_Eav_Model_Entity_Attribute_Abstract/>
+            <Mage_Eav_Model_Entity_Attribute_Interface/>
+            <Mage_Eav_Model_Entity_Collection_Abstract/>
+            <Mage_Eav_Model_Entity_Interface/>
+            <Mage_Eav_Model_Entity_Type/>
+            <Mage_Eav_Model_Mysql4_Entity_Attribute/>
+            <Mage_Eav_Model_Mysql4_Entity_Type/>
+        </catalog>
+
+        <checkout>
+            <Mage_CatalogIndex_Model_Mysql4_Abstract/>
+            <Mage_CatalogIndex_Model_Mysql4_Price/>
+            <Mage_CatalogIndex_Model_Price/>
+            <Mage_CatalogInventory_Model_Mysql4_Stock/>
+            <Mage_CatalogInventory_Model_Mysql4_Stock_Item/>
+            <Mage_CatalogInventory_Model_Mysql4_Stock_Item_Collection/>
+            <Mage_CatalogInventory_Model_Mysql4_Stock_Status/>
+            <Mage_CatalogInventory_Model_Observer/>
+            <Mage_CatalogInventory_Model_Stock/>
+            <Mage_CatalogInventory_Model_Stock_Item/>
+            <Mage_CatalogInventory_Model_Stock_Status/>
+            <Mage_CatalogRule_Helper_Data/>
+            <Mage_CatalogRule_Model_Mysql4_Rule/>
+            <Mage_CatalogRule_Model_Observer/>
+            <Mage_CatalogRule_Model_Rule_Condition_Product/>
+            <Mage_Catalog_Block_Product_Price/>
+            <Mage_Catalog_Helper_Product_Flat/>
+            <Mage_Catalog_Model_Config/>
+            <Mage_Catalog_Model_Product/>
+            <Mage_Catalog_Model_Product_Attribute_Backend_Media/>
+            <Mage_Catalog_Model_Product_Attribute_Backend_Price/>
+            <Mage_Catalog_Model_Product_Attribute_Backend_Startdate/>
+            <Mage_Catalog_Model_Product_Attribute_Backend_Tierprice/>
+            <Mage_Catalog_Model_Product_Attribute_Backend_Urlkey/>
+            <Mage_Catalog_Model_Product_Link/>
+            <Mage_Catalog_Model_Product_Media_Config/>
+            <Mage_Catalog_Model_Product_Option/>
+            <Mage_Catalog_Model_Product_Status/>
+            <Mage_Catalog_Model_Product_Type/>
+            <Mage_Catalog_Model_Product_Type_Abstract/>
+            <Mage_Catalog_Model_Product_Type_Price/>
+            <Mage_Catalog_Model_Product_Type_Simple/>
+            <Mage_Catalog_Model_Product_Url/>
+            <Mage_Catalog_Model_Product_Visibility/>
+            <Mage_Catalog_Model_Resource_Eav_Attribute/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Config/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Media/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Tierprice/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option/>
+            <Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Collection/>
+            <Mage_Checkout_Block_Cart/>
+            <Mage_Checkout_Block_Cart_Coupon/>
+            <Mage_Checkout_Block_Cart_Crosssell/>
+            <Mage_Checkout_Block_Cart_Item_Renderer/>
+            <Mage_Checkout_Block_Cart_Shipping/>
+            <Mage_Checkout_Block_Cart_Totals/>
+            <Mage_Checkout_Block_Multishipping_Link/>
+            <Mage_Checkout_Block_Onepage_Link/>
+            <Mage_Checkout_Block_Total_Default/>
+            <Mage_Checkout_Block_Total_Tax/>
+            <Mage_Checkout_Model_Observer/>
+            <Mage_Core_Block_Html_Select/>
+            <Mage_Core_Model_Date/>
+            <Mage_Core_Model_Encryption/>
+            <Mage_Core_Model_Locale_Currency/>
+            <Mage_Customer_Model_Address_Abstract/>
+            <Mage_Customer_Model_Entity_Group/>
+            <Mage_Directory_Block_Data/>
+            <Mage_Directory_Helper_Data/>
+            <Mage_Directory_Model_Currency/>
+            <Mage_Directory_Model_Mysql4_Currency/>
+            <Mage_Directory_Model_Mysql4_Region/>
+            <Mage_Directory_Model_Region/>
+            <Mage_Eav_Model_Config/>
+            <Mage_Eav_Model_Entity/>
+            <Mage_Eav_Model_Entity_Attribute/>
+            <Mage_Eav_Model_Entity_Attribute_Backend_Abstract/>
+            <Mage_Eav_Model_Entity_Attribute_Backend_Array/>
+            <Mage_Eav_Model_Entity_Attribute_Backend_Datetime/>
+            <Mage_Eav_Model_Entity_Attribute_Backend_Default/>
+            <Mage_Eav_Model_Entity_Attribute_Backend_Interface/>
+            <Mage_Eav_Model_Entity_Attribute_Backend_Time_Created/>
+            <Mage_Eav_Model_Entity_Attribute_Backend_Time_Updated/>
+            <Mage_Eav_Model_Entity_Attribute_Interface/>
+            <Mage_Eav_Model_Entity_Collection_Abstract/>
+            <Mage_Eav_Model_Entity_Interface/>
+            <Mage_Eav_Model_Entity_Type/>
+            <Mage_Eav_Model_Mysql4_Entity_Attribute/>
+            <Mage_Eav_Model_Mysql4_Entity_Attribute_Collection/>
+            <Mage_Eav_Model_Mysql4_Entity_Type/>
+            <Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config/>
+            <Mage_GiftMessage_Model_Observer/>
+            <Mage_GoogleCheckout_Block_Link/>
+            <Mage_GoogleCheckout_Helper_Data/>
+            <Mage_GoogleOptimizer_Block_Code_Conversion/>
+            <Mage_Reports_Model_Event_Observer/>
+            <Mage_Rule_Helper_Data/>
+            <Mage_Rule_Model_Condition_Abstract/>
+            <Mage_Rule_Model_Condition_Combine/>
+            <Mage_Rule_Model_Condition_Interface/>
+            <Mage_Rule_Model_Rule/>
+            <Mage_SalesRule_Helper_Data/>
+            <Mage_SalesRule_Model_Mysql4_Rule/>
+            <Mage_SalesRule_Model_Mysql4_Rule_Collection/>
+            <Mage_SalesRule_Model_Observer/>
+            <Mage_SalesRule_Model_Rule/>
+            <Mage_SalesRule_Model_Rule_Condition_Combine/>
+            <Mage_SalesRule_Model_Rule_Condition_Product/>
+            <Mage_SalesRule_Model_Rule_Condition_Product_Combine/>
+            <Mage_SalesRule_Model_Rule_Customer/>
+            <Mage_SalesRule_Model_Validator/>
+            <Mage_Sales_Helper_Data/>
+            <Mage_Sales_Model_Mysql4_Abstract/>
+            <Mage_Sales_Model_Mysql4_Quote/>
+            <Mage_Sales_Model_Mysql4_Quote_Address/>
+            <Mage_Sales_Model_Mysql4_Quote_Address_Collection/>
+            <Mage_Sales_Model_Mysql4_Quote_Address_Item/>
+            <Mage_Sales_Model_Mysql4_Quote_Address_Item_Collection/>
+            <Mage_Sales_Model_Mysql4_Quote_Address_Rate/>
+            <Mage_Sales_Model_Mysql4_Quote_Address_Rate_Collection/>
+            <Mage_Sales_Model_Mysql4_Quote_Item/>
+            <Mage_Sales_Model_Mysql4_Quote_Item_Collection/>
+            <Mage_Sales_Model_Mysql4_Quote_Item_Option/>
+            <Mage_Sales_Model_Mysql4_Quote_Item_Option_Collection/>
+            <Mage_Sales_Model_Quote/>
+            <Mage_Sales_Model_Quote_Address/>
+            <Mage_Sales_Model_Quote_Address_Item/>
+            <Mage_Sales_Model_Quote_Address_Rate/>
+            <Mage_Sales_Model_Quote_Address_Total/>
+            <Mage_Sales_Model_Quote_Address_Total_Abstract/>
+            <Mage_Sales_Model_Quote_Address_Total_Discount/>
+            <Mage_Sales_Model_Quote_Address_Total_Grand/>
+            <Mage_Sales_Model_Quote_Address_Total_Shipping/>
+            <Mage_Sales_Model_Quote_Address_Total_Subtotal/>
+            <Mage_Sales_Model_Quote_Address_Total_Tax/>
+            <Mage_Sales_Model_Quote_Config/>
+            <Mage_Sales_Model_Quote_Item/>
+            <Mage_Sales_Model_Quote_Item_Abstract/>
+            <Mage_Sales_Model_Quote_Item_Option/>
+            <Mage_Shipping_Model_Rate_Abstract/>
+            <Mage_Tax_Helper_Data/>
+            <Mage_Tax_Model_Calculation/>
+            <Mage_Tax_Model_Config/>
+            <Mage_Tax_Model_Mysql4_Calculation/>
+            <Mage_Tax_Model_Observer/>
+            <Varien_Crypt/>
+            <Varien_Crypt_Abstract/>
+            <Varien_Crypt_Mcrypt/>
+            <Zend_Currency/>
+            <Zend_Date/>
+            <Zend_Date_DateObject/>
+            <Zend_Locale/>
+            <Zend_Locale_Data/>
+            <Zend_Locale_Format/>
+            <Zend_Locale_Math/>
+        </checkout>
+    </includes>
+</config>

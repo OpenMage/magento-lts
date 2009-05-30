@@ -20,34 +20,64 @@
  *
  * @category   Mage
  * @package    Mage_Core
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
+/**
+ * Core Session Abstract model
+ *
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_Varien
 {
-    const XML_PATH_COOKIE_DOMAIN    = 'web/cookie/cookie_domain';
-    const XML_PATH_COOKIE_PATH      = 'web/cookie/cookie_path';
-    const XML_PATH_COOKIE_LIFETIME  = 'web/cookie/cookie_lifetime';
-    const XML_NODE_SESSION_SAVE     = 'global/session_save';
+    const XML_PATH_COOKIE_DOMAIN        = 'web/cookie/cookie_domain';
+    const XML_PATH_COOKIE_PATH          = 'web/cookie/cookie_path';
+    const XML_PATH_COOKIE_LIFETIME      = 'web/cookie/cookie_lifetime';
+    const XML_NODE_SESSION_SAVE         = 'global/session_save';
     const XML_NODE_SESSION_SAVE_PATH    = 'global/session_save_path';
 
-    const XML_PATH_USE_REMOTE_ADDR  = 'web/session/use_remote_addr';
-    const XML_PATH_USE_HTTP_VIA     = 'web/session/use_http_via';
-    const XML_PATH_USE_X_FORWARDED  = 'web/session/use_http_x_forwarded_for';
-    const XML_PATH_USE_USER_AGENT   = 'web/session/use_http_user_agent';
+    const XML_PATH_USE_REMOTE_ADDR      = 'web/session/use_remote_addr';
+    const XML_PATH_USE_HTTP_VIA         = 'web/session/use_http_via';
+    const XML_PATH_USE_X_FORWARDED      = 'web/session/use_http_x_forwarded_for';
+    const XML_PATH_USE_USER_AGENT       = 'web/session/use_http_user_agent';
 
-    const XML_NODE_USET_AGENT_SKIP  = 'global/session/validation/http_user_agent_skip';
+    const XML_NODE_USET_AGENT_SKIP      = 'global/session/validation/http_user_agent_skip';
+    const XML_PATH_LOG_EXCEPTION_FILE   = 'dev/log/exception_file';
 
-    const SESSION_ID_QUERY_PARAM = 'SID';
+    const SESSION_ID_QUERY_PARAM        = 'SID';
 
+    /**
+     * URL host cache
+     *
+     * @var array
+     */
     protected static $_urlHostCache = array();
 
+    /**
+     * Encrypted session id cache
+     *
+     * @var string
+     */
     protected static $_encryptedSessionId;
 
-    protected $_skipSessionIdFlag = false;
+    /**
+     * Skip session id flag
+     *
+     * @var bool
+     */
+    protected $_skipSessionIdFlag   = false;
 
+    /**
+     * Init session
+     *
+     * @param string $namespace
+     * @param string $sessionName
+     * @return Mage_Core_Model_Session_Abstract
+     */
     public function init($namespace, $sessionName=null)
     {
         parent::init($namespace, $sessionName);
@@ -85,7 +115,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         return $this->getCookie()->getLifetime();
     }
 
-/**
+    /**
      * Use REMOTE_ADDR in validator key
      *
      * @return bool
@@ -185,6 +215,14 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      */
     public function addException(Exception $exception, $alternativeText)
     {
+        // log exception to exceptions log
+        $message = sprintf('Exception message: %s%sTrace: %s',
+            $exception->getMessage(),
+            "\n",
+            $exception->getTraceAsString());
+        $file    = Mage::getStoreConfig(self::XML_PATH_LOG_EXCEPTION_FILE);
+        Mage::log($message, Zend_Log::DEBUG, $file);
+
         $this->addMessage(Mage::getSingleton('core/message')->error($alternativeText));
         return $this;
     }
@@ -274,8 +312,9 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     public function setSessionId($id=null)
     {
         if (is_null($id)) {
-            if (isset($_GET[self::SESSION_ID_QUERY_PARAM])) {
-                $id = $_GET[self::SESSION_ID_QUERY_PARAM];
+            $_queryParam = $this->getSessionIdQueryParam();
+            if (isset($_GET[$_queryParam])) {
+                $id = $_GET[$_queryParam];
                 /**
                  * No reason use crypt key for session
                  */
@@ -311,6 +350,10 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
 
     public function getSessionIdQueryParam()
     {
+        $_sessionName = $this->getSessionName();
+        if ($_sessionName && $queryParam = (string)Mage::getConfig()->getNode($_sessionName . '/session/query_param')) {
+            return $queryParam;
+        }
         return self::SESSION_ID_QUERY_PARAM;
     }
 
@@ -371,6 +414,12 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         return self::$_urlHostCache[$urlHost];
     }
 
+    /**
+     * Check is valid session for hostname
+     *
+     * @param string $host
+     * @return bool
+     */
     public function isValidForHost($host)
     {
         $hostArr = explode(':', $host);
@@ -378,6 +427,12 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         return (!empty($hosts[$hostArr[0]]));
     }
 
+    /**
+     * Add hostname to session
+     *
+     * @param string $host
+     * @return Mage_Core_Model_Session_Abstract
+     */
     public function addHost($host)
     {
         if ($host === true) {
@@ -396,6 +451,11 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         return $this;
     }
 
+    /**
+     * Retrieve session hostnames
+     *
+     * @return array
+     */
     public function getSessionHosts()
     {
         return $this->getData('session_hosts');
@@ -426,5 +486,4 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         }
         return parent::getSessionSavePath();
     }
-
 }

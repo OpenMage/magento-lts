@@ -88,7 +88,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
             /**
              * Don't display website tab for single mode
              */
-            if (!Mage::app()->isSingleStoreMode() && $this->_enabledWebsites()) {
+            if (!Mage::app()->isSingleStoreMode()) {
                 $this->addTab('websites', array(
                     'label'     => Mage::helper('catalog')->__('Websites'),
                     'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_websites')->toHtml(),
@@ -208,10 +208,5 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
     {
         $this->_attributeTabBlock = $attributeTabBlock;
         return $this;
-    }
-
-    protected function _enabledWebsites()
-    {
-        return true;
     }
 }

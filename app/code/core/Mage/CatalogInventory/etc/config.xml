@@ -98,6 +98,15 @@
                     </inventory>
                 </observers>
             </catalog_product_collection_load_after>
+            <catalog_product_prepare_index_select>
+                <observers>
+                    <inventory>
+                        <type>singleton</type>
+                        <class>cataloginventory/observer</class>
+                        <method>addStockStatusToPrepareIndexSelect</method>
+                    </inventory>
+                </observers>
+            </catalog_product_prepare_index_select>
             <sales_quote_item_collection_products_after_load>
                 <observers>
                     <inventory>

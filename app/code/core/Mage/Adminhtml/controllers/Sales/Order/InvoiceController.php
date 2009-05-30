@@ -81,9 +81,14 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             $invoice    = $convertor->toInvoice($order);
 
             $savedQtys = $this->_getItemQtys();
+            /* @var $orderItem Mage_Sales_Model_Order_Item */
             foreach ($order->getAllItems() as $orderItem) {
 
-                if (!$orderItem->isDummy() && !$orderItem->getQtyToInvoice()) {
+                if (!$orderItem->isDummy() && !$orderItem->getQtyToInvoice() && $orderItem->getLockedDoInvoice()) {
+                    continue;
+                }
+
+                if ($order->getForcedDoShipmentWithInvoice() && $orderItem->getLockedDoShip()) {
                     continue;
                 }
 
@@ -159,7 +164,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 $qty = $item->getQtyToShip();
             }
 
-            if (!$item->isDummy(true) && !$item->getQtyToShip()) {
+            if (!$item->isDummy(true) && !$item->getQtyToShip() && $item->getLockedDoShip()) {
                 continue;
             }
 
@@ -308,7 +313,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                     ->addObject($invoice)
                     ->addObject($invoice->getOrder());
                 $shipment = false;
-                if (!empty($data['do_shipment'])) {
+                if (!empty($data['do_shipment']) || (int) $invoice->getOrder()->getForcedDoShipmentWithInvoice()) {
                     $shipment = $this->_prepareShipment($invoice);
                     if ($shipment) {
                         $shipment->setEmailSent($invoice->getEmailSent());

@@ -84,6 +84,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         return $this->getMethodInstance()->canRefund();
     }
 
+    public function canRefundPartialPerInvoice()
+    {
+        return $this->getMethodInstance()->canRefundPartialPerInvoice();
+    }
+
     public function canCapturePartial()
     {
         return $this->getMethodInstance()->canCapturePartial();
@@ -92,7 +97,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Place payment information
      *
-     * This method are colling when order will be place
+     * This method is called when order will be placed
      *
      * @return Mage_Sales_Model_Order_Payment
      */
@@ -106,7 +111,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $this->setShippingAmount($this->getOrder()->getShippingAmount());
         $this->setBaseShippingAmount($this->getOrder()->getBaseShippingAmount());
 
-        $methodInstance = $this->getMethodInstance();
+        $methodInstance = $this->getMethodInstance()->setStore($this->getOrder()->getStoreId());
 
         $orderState = Mage_Sales_Model_Order::STATE_NEW;
         $orderStatus= false;
@@ -199,7 +204,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
         Mage::dispatchEvent('sales_order_payment_capture', array('payment' => $this, 'invoice' => $invoice));
 
-        $this->getMethodInstance()->capture($this, sprintf('%.2f', $invoice->getBaseGrandTotal()));
+        $this->getMethodInstance()
+            ->setStore($this->getOrder()->getStoreId())
+            ->capture($this, sprintf('%.2f', $invoice->getBaseGrandTotal()));
         $this->getMethodInstance()->processInvoice($invoice, $this);
         return $this;
     }
@@ -274,7 +281,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     public function void(Varien_Object $document)
     {
-        $this->getMethodInstance()->processBeforeVoid($document, $this);
+        $this->getMethodInstance()
+            ->setStore($this->getOrder()->getStoreId())
+            ->processBeforeVoid($document, $this);
         //$this->getMethodInstance()->void($document);
         $this->getMethodInstance()->void($this);
 
@@ -288,6 +297,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if ($this->getMethodInstance()->canRefund() && $creditmemo->getDoTransaction()) {
             $this->setCreditmemo($creditmemo);
             if ($creditmemo->getInvoice()) {
+                $this->getMethodInstance()->setStore($this->getOrder()->getStoreId());
                 $this->getMethodInstance()->processBeforeRefund($creditmemo->getInvoice(), $this);
                 $this->getMethodInstance()->refund($this, $creditmemo->getBaseGrandTotal());
                 $this->getMethodInstance()->processCreditmemo($creditmemo, $this);
@@ -320,7 +330,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     public function cancel()
     {
-        $this->getMethodInstance()->cancel($this);
+        $this->getMethodInstance()
+            ->setStore($this->getOrder()->getStoreId())
+            ->cancel($this);
 
         Mage::dispatchEvent('sales_order_payment_cancel', array('payment' => $this));
 

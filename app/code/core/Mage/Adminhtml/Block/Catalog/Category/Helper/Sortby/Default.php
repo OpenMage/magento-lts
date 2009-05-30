@@ -52,7 +52,12 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Sortby_Default
         $htmlId = 'use_config_' . $this->getHtmlId();
         $html .= '<input id="'.$htmlId.'" value="1"';
         $html .= ($disabled ? ' checked="checked"' : '');
+        if ($this->getReadonly()) {
+            $html .= ' disabled="disabled"';
+        }
         $html .= 'onclick="toggleValueElements(this, this.parentNode);" class="checkbox" type="checkbox">';
+
+
 
         $html .= ' <label for="'.$htmlId.'" class="normal">'
             . Mage::helper('adminhtml')->__('Use Config Settings').'</label>';

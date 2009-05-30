@@ -35,6 +35,8 @@ class Mage_Core_Model_Mysql4_Website_Collection extends Mage_Core_Model_Mysql4_C
 {
     protected $_loadDefault = false;
 
+    protected $_map = array('fields' => array('website_id' => 'main_table.website_id'));
+
     protected function _construct()
     {
         $this->_init('core/website');

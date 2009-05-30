@@ -69,6 +69,13 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected $_data = null;
 
+    /**
+     * Fields map for corellation names & real selected fields
+     *
+     * @var array
+     */
+    protected $_map = null;
+
     public function __construct($conn=null)
     {
         parent::__construct();

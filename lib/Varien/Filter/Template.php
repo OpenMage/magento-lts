@@ -43,6 +43,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      * Cunstruction logic regular expression
      */
     const CONSTRUCTION_DEPEND_PATTERN = '/{{depend\s*(.*?)}}(.*?){{\\/depend\s*}}/si';
+    const CONSTRUCTION_IF_PATTERN = '/{{if\s*(.*?)}}(.*?)({{else}}(.*?))?{{\\/if\s*}}/si';
 
     /**
      * Assigned template variables
@@ -100,20 +101,25 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      */
     public function filter($value)
     {
-        // Depend operand should be first
-        if(preg_match_all(self::CONSTRUCTION_DEPEND_PATTERN, $value, $constructions, PREG_SET_ORDER)) {
-            foreach($constructions as $index=>$construction) {
-                $replacedValue = '';
-                $callback = array($this, 'dependDirective');
-                if(!is_callable($callback)) {
-                    continue;
+        // "depend" and "if" operands should be first
+        foreach (array(
+            self::CONSTRUCTION_DEPEND_PATTERN => 'dependDirective',
+            self::CONSTRUCTION_IF_PATTERN     => 'ifDirective',
+            ) as $pattern => $directive) {
+            if (preg_match_all($pattern, $value, $constructions, PREG_SET_ORDER)) {
+                foreach($constructions as $index => $construction) {
+                    $replacedValue = '';
+                    $callback = array($this, $directive);
+                    if(!is_callable($callback)) {
+                        continue;
+                    }
+                    try {
+                        $replacedValue = call_user_func($callback, $construction);
+                    } catch (Exception $e) {
+                        throw $e;
+                    }
+                    $value = str_replace($construction[0], $replacedValue, $value);
                 }
-                try {
-					$replacedValue = call_user_func($callback, $construction);
-                } catch (Exception $e) {
-                	throw $e;
-                }
-                $value = str_replace($construction[0], $replacedValue, $value);
             }
         }
 
@@ -172,6 +178,22 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         }
 
         if($this->_getVariable($construction[1], '')=='') {
+            return '';
+        } else {
+            return $construction[2];
+        }
+    }
+
+    public function ifDirective($construction)
+    {
+        if (count($this->_templateVars) == 0) {
+            return $construction[0];
+        }
+
+        if($this->_getVariable($construction[1], '') == '') {
+            if (isset($construction[3]) && isset($construction[4])) {
+                return $construction[4];
+            }
             return '';
         } else {
             return $construction[2];

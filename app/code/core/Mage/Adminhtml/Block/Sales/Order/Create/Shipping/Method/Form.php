@@ -39,7 +39,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form extends Mage_
     {
         parent::__construct();
         $this->setId('sales_order_create_shipping_method_form');
-        $this->setTemplate('sales/order/create/shipping/method/form.phtml');
     }
 
     /**

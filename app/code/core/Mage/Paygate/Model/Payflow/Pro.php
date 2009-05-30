@@ -76,6 +76,14 @@ class Mage_Paygate_Model_Payflow_Pro extends  Mage_Payment_Model_Method_Cc
 	protected $_isProxy = false;
 
     /**
+     * Fields that should be replaced in debug with '***'
+     *
+     * @var array
+     */
+    protected $_debugReplacePrivateDataKeys = array('user', 'pwd', 'acct',
+                                                    'expdate', 'cvv2');
+
+    /**
      * 3 = Authorisation approved
      * 6 = Settlement pending (transaction is scheduled to be settled)
      * 9 = Authorisation captured
@@ -183,10 +191,6 @@ class Mage_Paygate_Model_Payflow_Pro extends  Mage_Payment_Model_Method_Cc
             $payment->setTransactionId($payment->getCcTransId());
             $request=$this->_buildBasicRequest($payment);
             $result = $this->_postRequest($request);
-            if ($this->getConfigData('debug')) {
-              $payment->setCcDebugRequestBody($result->getRequestBody())
-                ->setCcDebugResponseSerialized(serialize($result));
-            }
 
             if($result->getResultCode()==self::RESPONSE_CODE_APPROVED){
                 if($result->getTransstate()>1000){
@@ -225,10 +229,6 @@ class Mage_Paygate_Model_Payflow_Pro extends  Mage_Payment_Model_Method_Cc
             $request=$this->_buildBasicRequest($payment);
             $result = $this->_postRequest($request);
 
-            if ($this->getConfigData('debug')) {
-              $payment->setCcDebugRequestBody($result->getRequestBody())
-                ->setCcDebugResponseSerialized(serialize($result));
-            }
             if($result->getResultCode()==self::RESPONSE_CODE_APPROVED){
                  $payment->setStatus(self::STATUS_SUCCESS);
                  $payment->setCcTransId($result->getPnref());
@@ -269,10 +269,6 @@ class Mage_Paygate_Model_Payflow_Pro extends  Mage_Payment_Model_Method_Cc
             $request->setAmt(round($amount,2));
             $result = $this->_postRequest($request);
 
-            if ($this->getConfigData('debug')) {
-              $payment->setCcDebugRequestBody($result->getRequestBody())
-                ->setCcDebugResponseSerialized(serialize($result));
-            }
             if($result->getResultCode()==self::RESPONSE_CODE_APPROVED){
                  $payment->setStatus(self::STATUS_SUCCESS);
                  $payment->setCcTransId($result->getPnref());
@@ -296,7 +292,16 @@ class Mage_Paygate_Model_Payflow_Pro extends  Mage_Payment_Model_Method_Cc
     protected function _postRequest(Varien_Object $request)
     {
         if ($this->getConfigData('debug')) {
-            foreach( $request->getData() as $key => $value ) {
+            $requestDebug = clone $request;
+
+
+            foreach ($this->_debugReplacePrivateDataKeys as $key) {
+                if ($requestDebug->hasData($key)) {
+                    $requestDebug->setData($key, '***');
+                }
+            }
+
+            foreach( $requestDebug->getData() as $key => $value ) {
                 $value = (string)$value;
                 $requestData[] = strtoupper($key) . '[' . strlen($value) . ']=' . $value;
             }
@@ -305,8 +310,8 @@ class Mage_Paygate_Model_Payflow_Pro extends  Mage_Payment_Model_Method_Cc
 
             $debug = Mage::getModel('paygate/authorizenet_debug')
                 ->setRequestBody($requestData)
-                ->setRequestSerialized(serialize($request->getData()))
-                ->setRequestDump(print_r($request->getData(),1))
+                ->setRequestSerialized(serialize($requestDebug->getData()))
+                ->setRequestDump(print_r($requestDebug->getData(),1))
                 ->save();
         }
 

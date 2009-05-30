@@ -63,7 +63,7 @@
                     <div class="out-of-stock"><?php echo $this->__('Out of stock') ?></div>
                     <?php endif; ?>
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                    <a href="#" onclick="setPLocation('<?php echo $this->helper('catalog/product_compare')->getAddToWishlistUrl($_item) ?>', true)" class="link-cart"><small><?php echo $this->__('Add to My Wishlist') ?></small></a>
+                    <a href="#" onclick="setPLocation('<?php echo $this->helper('catalog/product_compare')->getAddToWishlistUrl($_item) ?>', true)" class="link-cart"><small><?php echo $this->__('Add to Wishlist') ?></small></a>
                     <?php endif; ?>
                 </td>
             <?php endforeach; ?>

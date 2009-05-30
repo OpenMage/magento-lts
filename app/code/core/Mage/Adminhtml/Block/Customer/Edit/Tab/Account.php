@@ -71,41 +71,43 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 //        }
 
         if ($customer->getId()) {
-            // add password management fieldset
-            $newFieldset = $form->addFieldset(
-                'password_fieldset',
-                array('legend'=>Mage::helper('customer')->__('Password Management'))
-            );
-            // New customer password
-            $field = $newFieldset->addField('new_password', 'text',
-                array(
-                    'label' => Mage::helper('customer')->__('New Password'),
-                    'name'  => 'new_password',
-                    'class' => 'validate-new-password'
-                )
-            );
-            $field->setRenderer($this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass'));
+            if (!$customer->isReadonly()) {
+                // add password management fieldset
+                $newFieldset = $form->addFieldset(
+                    'password_fieldset',
+                    array('legend'=>Mage::helper('customer')->__('Password Management'))
+                );
+                // New customer password
+                $field = $newFieldset->addField('new_password', 'text',
+                    array(
+                        'label' => Mage::helper('customer')->__('New Password'),
+                        'name'  => 'new_password',
+                        'class' => 'validate-new-password'
+                    )
+                );
+                $field->setRenderer($this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass'));
 
-            // prepare customer confirmation control (only for existing customers)
-            $confirmationKey = $customer->getConfirmation();
-            if ($confirmationKey || $customer->isConfirmationRequired()) {
-                $confirmationAttribute = $customer->getAttribute('confirmation');
-                if (!$confirmationKey) {
-                    $confirmationKey = $customer->getRandomConfirmationKey();
-                }
-                $element = $fieldset->addField('confirmation', 'select', array(
-                    'name'  => 'confirmation',
-                    'label' => Mage::helper('customer')->__($confirmationAttribute->getFrontendLabel()),
-                ))->setEntityAttribute($confirmationAttribute)
-                    ->setValues(array('' => 'Confirmed', $confirmationKey => 'Not confirmed'));
+                // prepare customer confirmation control (only for existing customers)
+                $confirmationKey = $customer->getConfirmation();
+                if ($confirmationKey || $customer->isConfirmationRequired()) {
+                    $confirmationAttribute = $customer->getAttribute('confirmation');
+                    if (!$confirmationKey) {
+                        $confirmationKey = $customer->getRandomConfirmationKey();
+                    }
+                    $element = $fieldset->addField('confirmation', 'select', array(
+                        'name'  => 'confirmation',
+                        'label' => Mage::helper('customer')->__($confirmationAttribute->getFrontendLabel()),
+                    ))->setEntityAttribute($confirmationAttribute)
+                        ->setValues(array('' => 'Confirmed', $confirmationKey => 'Not confirmed'));
 
-                // prepare send welcome email checkbox, if customer is not confirmed
-                // no need to add it, if website id is empty
-                if ($customer->getConfirmation() && $customer->getWebsiteId()) {
-                    $fieldset->addField('sendemail', 'checkbox', array(
-                        'name'  => 'sendemail',
-                        'label' => Mage::helper('customer')->__('Send Welcome Email after Confirmation')
-                    ));
+                    // prepare send welcome email checkbox, if customer is not confirmed
+                    // no need to add it, if website id is empty
+                    if ($customer->getConfirmation() && $customer->getWebsiteId()) {
+                        $fieldset->addField('sendemail', 'checkbox', array(
+                            'name'  => 'sendemail',
+                            'label' => Mage::helper('customer')->__('Send Welcome Email after Confirmation')
+                        ));
+                    }
                 }
             }
         }
@@ -146,6 +148,15 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 "
                 . '</script>'
             );
+        }
+
+        if ($customer->isReadonly()) {
+            foreach ($customer->getAttributes() as $attribute) {
+                $element = $form->getElement($attribute->getAttributeCode());
+                if ($element) {
+                    $element->setReadonly(true, true);
+                }
+            }
         }
 
         $form->setValues($customer->getData());

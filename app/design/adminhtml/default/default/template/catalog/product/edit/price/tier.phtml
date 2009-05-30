@@ -27,6 +27,7 @@
 <?php $_htmlId      = $this->getElement()->getHtmlId() ?>
 <?php $_htmlClass   = $this->getElement()->getClass() ?>
 <?php $_htmlName    = $this->getElement()->getName() ?>
+<?php $_readonly    = $this->getElement()->getReadonly() ?>
 <?php $_multiWebsite= $this->isMultiWebsites(); ?>
 <tr>
     <td class="label"><?php echo $this->getElement()->getLabel() ?></td>
@@ -88,6 +89,11 @@
         itemsCount : 0,
         deleteButton: false,
         addItem  : function () {
+            <?php if ($_readonly): ?>
+            if (arguments.length < 4) {
+                return;
+            }
+            <?php endif; ?>
             var data = {};
             data.website_id = 0;
             data.group = '<?php echo $this->getDefaultCustomerGroup() ?>';
@@ -103,6 +109,16 @@
             Element.insert($('<?php echo $_htmlId ?>_container'), {'bottom':this.template.evaluate(data)});
             $('tier_price_row_'+data.index+'_cust_group').value = data.group;
             $('tier_price_row_'+data.index+'_website').value = data.website_id;
+            <?php if ($_readonly): ?>
+            $('<?php echo $_htmlId ?>_container').select('input', 'select')
+                .each(this.disableElement);
+            $('<?php echo $_htmlId ?>_container').up('table').select('button')
+                .each(this.disableElement);
+            <?php endif; ?>
+        },
+        disableElement: function(elem) {
+            elem.disabled = true
+            elem.addClassName('disabled');
         },
         deleteItem : function(event) {
             var tr = Event.findElement(event, 'tr');
@@ -117,6 +133,10 @@
     <?php foreach ($this->getValues() as $_item): ?>
     tierPriceControl.addItem('<?php echo $_item['website_id'] ?>', '<?php echo $_item['cust_group'] ?>', '<?php echo $_item['price_qty']*1 ?>','<?php echo sprintf('%.2f', $_item['price']) ?>');
     <?php endforeach; ?>
+    <?php if ($_readonly): ?>
+        $('<?php echo $_htmlId ?>_container').up('table').select('button')
+            .each(tierPriceControl.disableElement);
+    <?php endif; ?>
 //]]>
 </script>
 </td>

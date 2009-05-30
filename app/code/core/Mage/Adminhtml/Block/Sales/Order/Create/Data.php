@@ -33,35 +33,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Data extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('sales/order/create/data.phtml');
-    }
-
-    protected function _prepareLayout()
-    {
-        $childNames = array(
-            'sidebar',
-            'form_account',
-            'shipping_address',
-            'billing_address',
-            'shipping_method',
-            'billing_method',
-            'newsletter',
-            'search',
-            'items',
-            'comment',
-            'totals',
-            'giftmessage'
-        );
-
-        foreach ($childNames as  $name) {
-            $this->setChild($name, $this->getLayout()->createBlock('adminhtml/sales_order_create_' . $name));
-        }
-        return parent::_prepareLayout();
-    }
-
     /**
      * Retrieve avilable currency codes
      *

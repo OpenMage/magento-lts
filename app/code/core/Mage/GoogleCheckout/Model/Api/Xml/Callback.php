@@ -129,6 +129,16 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
             $googleAddresses = $googleAddress;
         }
 
+        $methods = Mage::getStoreConfig('google/checkout_shipping_merchant/allowed_methods', $this->getStoreId());
+        $methods = unserialize($methods);
+        $limitCarrier = array();
+        foreach ($methods['method'] as $method) {
+            if ($method) {
+                list($carrierCode, $methodCode) = explode('/', $method);
+                $limitCarrier[] = $carrierCode;
+            }
+        }
+
         foreach($googleAddresses as $googleAddress) {
             $addressId = $googleAddress['id'];
 
@@ -142,12 +152,14 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                 ->setRegion($regionCode)
                 ->setRegionId($regionId)
                 ->setCity($googleAddress['city']['VALUE'])
-                ->setPostcode($googleAddress['postal-code']['VALUE']);
+                ->setPostcode($googleAddress['postal-code']['VALUE'])
+                ->setLimitCarrier($limitCarrier);
             $billingAddress->setCountryId($countryCode)
                 ->setRegion($regionCode)
                 ->setRegionId($regionId)
                 ->setCity($googleAddress['city']['VALUE'])
-                ->setPostcode($googleAddress['postal-code']['VALUE']);
+                ->setPostcode($googleAddress['postal-code']['VALUE'])
+                ->setLimitCarrier($limitCarrier);
 
             $address->setCollectShippingRates(true)->collectShippingRates();
 

@@ -24,9 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-#error_log('========================'."\n", 3, 'var/log/magento.log');
-
-
 /**
  * Disable magic quotes in runtime if needed
  *
@@ -57,20 +54,18 @@ if (get_magic_quotes_gpc()) {
  * Class autoload
  *
  * @todo change to spl_autoload_register
+ * @deprecated
  * @param string $class
  */
 function __autoload($class)
 {
-    $classFile = uc_words($class, DIRECTORY_SEPARATOR).'.php';
-
-    //$a = explode('_', $class);
-    //Varien_Profiler::start('AUTOLOAD');
-    //Varien_Profiler::start('AUTOLOAD: '.$a[0]);
+    if (defined('COMPILER_INCLUDE_PATH')) {
+        $classFile = $class.'.php';
+    } else {
+        $classFile = uc_words($class, DIRECTORY_SEPARATOR).'.php';
+    }
 
     include($classFile);
-
-    //Varien_Profiler::stop('AUTOLOAD');
-    //Varien_Profiler::stop('AUTOLOAD: '.$a[0]);
 }
 
 /**
@@ -139,7 +134,11 @@ function is_empty_date($date)
 
 function mageFindClassFile($class)
 {
-    $classFile = uc_words($class, DS).'.php';
+    if (defined('COMPILER_INCLUDE_PATH')) {
+        $classFile = $class.'.php';
+    } else {
+        $classFile = uc_words($class, DIRECTORY_SEPARATOR).'.php';
+    }
     $found = false;
     foreach (explode(PS, get_include_path()) as $path) {
         $fileName = $path.DS.$classFile;
@@ -320,36 +319,23 @@ function mageParseCsv($string, $delimiter=",", $enclosure='"', $escape='\\')
     return $elements;
 }
 
-
-if ( !function_exists('sys_get_temp_dir') ) {
-    // Based on http://www.phpit.net/
-    // article/creating-zip-tar-archives-dynamically-php/2/
-    function sys_get_temp_dir()
-    {
-        // Try to get from environment variable
-        if ( !empty($_ENV['TMP']) ) {
-            return realpath( $_ENV['TMP'] );
-        }
-        else if ( !empty($_ENV['TMPDIR']) ) {
-            return realpath( $_ENV['TMPDIR'] );
-        }
-        else if ( !empty($_ENV['TEMP']) ) {
-            return realpath( $_ENV['TEMP'] );
-        }
-
-        // Detect by creating a temporary file
-        else {
-            // Try to use system's temporary directory
-            // as random name shouldn't exist
-            $temp_file = tempnam( md5(uniqid(rand(), TRUE)), '' );
-            if ( $temp_file ) {
-                $temp_dir = realpath( dirname($temp_file) );
-                unlink( $temp_file );
-                return $temp_dir;
+function is_dir_writeable($dir)
+{
+    if (is_dir($dir) && is_writable($dir)) {
+        if (stripos(PHP_OS, 'win') === 0) {
+            $dir    = ltrim($dir, DIRECTORY_SEPARATOR);
+            $file   = $dir . DIRECTORY_SEPARATOR . uniqid(mt_rand()).'.tmp';
+            $exist  = file_exists($file);
+            $fp     = @fopen($file, 'a');
+            if ($fp === false) {
+                return false;
             }
-            else {
-                return FALSE;
+            fclose($fp);
+            if (!$exist) {
+                unlink($file);
             }
         }
+        return true;
     }
+    return false;
 }

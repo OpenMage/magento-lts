@@ -96,6 +96,17 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     }
 
     /**
+     * Public wrapper for the _removeButton() method
+     *
+     * @param string $id
+     * @return Mage_Adminhtml_Block_Widget_Container
+     */
+    public function removeButton($id)
+    {
+        return $this->_removeButton($id);
+    }
+
+    /**
      * Update specified button property
      *
      * @param string $id
@@ -203,4 +214,14 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         return false;
     }
 
+    /**
+     * Prepare html output
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        Mage::dispatchEvent('adminhtml_widget_container_html_before', array('block' => $this));
+        return parent::_toHtml();
+    }
 }

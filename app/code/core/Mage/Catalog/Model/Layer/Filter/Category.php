@@ -93,7 +93,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
 
         if ($this->_isValidCategory($this->_appliedCategory)) {
             $this->getLayer()->getProductCollection()
-                ->addCategoryFilter($this->_appliedCategory, true);
+                ->addCategoryFilter($this->_appliedCategory);
 
             $this->getLayer()->getState()->addFilter(
                 $this->_createItem($this->_appliedCategory->getName(), $filter)

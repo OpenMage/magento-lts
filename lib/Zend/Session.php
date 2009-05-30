@@ -729,7 +729,7 @@ class Zend_Session extends Zend_Session_Abstract
         }
 
         foreach ($_SESSION['__ZF']['VALID'] as $validator_name => $valid_data) {
-            Zend_Loader::loadClass($validator_name);
+            #Zend_Loader::loadClass($validator_name);
             $validator = new $validator_name;
             if ($validator->validate() === false) {
                 /** @see Zend_Session_Exception */

@@ -19,17 +19,18 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Mage
- * @package    Mage_CatalogInventory
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @package    Mage_CatalogInvemtory
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
- * Stock item model
+ * Catalog Inventory Stock Model
  *
  * @category   Mage
- * @package    Mage_CatalogInventory
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_CatalogInvemtory
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
 {
@@ -453,15 +454,20 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $this->setQty(0);
         }
 
-        if ($this->getProductStatusChanged()
-            OR $this->getProductChangedWebsites()
-            OR $this->dataHasChangedFor('is_in_stock')
-            OR $this->dataHasChangedFor('manage_stock')) {
-            Mage::getSingleton('cataloginventory/stock_status')
-                ->changeItemStatus($this);
-        }
-
         Mage::dispatchEvent('cataloginventory_stock_item_save_before', array('item' => $this));
+        return $this;
+    }
+
+    /**
+     * Processing object after save data
+     *
+     * @return Mage_CatalogInventory_Model_Stock_Item
+     */
+    protected function _afterSave()
+    {
+        parent::_afterSave();
+        Mage::getSingleton('cataloginventory/stock_status')
+            ->changeItemStatus($this);
         return $this;
     }
 

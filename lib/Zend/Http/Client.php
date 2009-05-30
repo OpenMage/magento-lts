@@ -776,7 +776,7 @@ class Zend_Http_Client
     {
         if (is_string($adapter)) {
             try {
-                Zend_Loader::loadClass($adapter);
+                #Zend_Loader::loadClass($adapter);
             } catch (Zend_Exception $e) {
                 /** @see Zend_Http_Client_Exception */
                 #require_once 'Zend/Http/Client/Exception.php';

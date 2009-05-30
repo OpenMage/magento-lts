@@ -1312,7 +1312,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
         $email = $this->getData('account/email');
         if (empty($email)) {
             $host = $this->getSession()->getStore()->getConfig(Mage_Customer_Model_Customer::XML_PATH_DEFAULT_EMAIL_DOMAIN);
-            $email = $customer->getIncrementId().'@'. $host;
+            $account = $customer->getIncrementId() ? $customer->getIncrementId() : time();
+            $email = $account.'@'. $host;
         }
         return $email;
     }

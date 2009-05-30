@@ -95,6 +95,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
                 }
             }
 
+            if (Mage::registry('product')->hasLockedAttributes()) {
+                foreach (Mage::registry('product')->getLockedAttributes() as $attribute) {
+                    if ($element = $form->getElement($attribute)) {
+                        $element->setReadonly(true, true);
+                    }
+                }
+            }
+
             Mage::dispatchEvent('adminhtml_catalog_product_edit_prepare_form', array('form'=>$form));
 
             $form->addValues($values);
@@ -111,7 +119,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
             'image'   => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_image'),
             'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean')
         );
- 
+
         $response = new Varien_Object();
         $response->setTypes(array());
         Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', array('response'=>$response));
@@ -119,7 +127,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
         foreach ($response->getTypes() as $typeName=>$typeClass) {
             $result[$typeName] = $typeClass;
         }
-        
+
         return $result;
     }
 }

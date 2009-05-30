@@ -13,4 +13,4 @@ Available vars in this template:
 Use vars: {{var var_name}}
 *}<!--@subject Welcome, {{var name}} @-->
 
-Welcome, {{var name}}<br /><br />Please look at <a href="{{var product_url}}">{{var product_name}}</a><br /><br />Here is message: <br />{{var message}}<br /><br />
+Welcome, {{htmlescape var=$name}}<br /><br />Please look at <a href="{{var product_url}}">{{var product_name}}</a><br /><br />Here is message: <br />{{var message}}<br /><br />

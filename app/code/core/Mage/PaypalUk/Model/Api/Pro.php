@@ -76,6 +76,16 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
     protected $_canUseCheckout          = true;
     protected $_canUseForMultishipping  = true;
 
+    /**
+     * Fields that should be replaced in debug with '***'
+     *
+     * @var array
+     */
+    protected $_debugReplacePrivateDataKeys = array('ACCT', 'EXPDATE', 'CVV2',
+                                                    'CARDISSUE', 'CARDSTART',
+                                                    'CREDITCARDTYPE', 'USER',
+                                                    'PWD');
+
     /*
     * 3 = Authorisation approved
     * 6 = Settlement pending (transaction is scheduled to be settled)
@@ -352,16 +362,24 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
         ), $proArr);
 
         $proReq = '';
+        $proReqDebug = '';
         foreach ($proArr as $k=>$v) {
             //payflow gateway doesn't allow urlencoding.
             //$proReq .= '&'.$k.'='.urlencode($v);
             $proReq .= '&'.$k.'='.$v;
+            $proReqDebug .= '&'.$k.'=';
+            if (in_array($k, $this->_debugReplacePrivateDataKeys)) {
+                $proReqDebug .=  '***';
+            } else {
+                $proReqDebug .=  $v;
+            }
         }
         $proReq = substr($proReq, 1);
+        $proReqDebug = substr($proReqDebug, 1);
 
         if ($this->getDebug()) {
             $debug = Mage::getModel('paypaluk/api_debug')
-                ->setRequestBody($proReq)
+                ->setRequestBody($proReqDebug)
                 ->save();
         }
         $http = new Varien_Http_Adapter_Curl();

@@ -36,4 +36,25 @@ class Mage_CatalogRule_Model_Mysql4_Rule_Collection extends Mage_Core_Model_Mysq
     {
         $this->walk('afterLoad');
     }
+
+    /**
+     * Filter collection by specified website IDs
+     *
+     * @param int|array $websiteIds
+     * @return Mage_CatalogRule_Model_Mysql4_Rule_Collection
+     */
+    public function addWebsiteFilter($websiteIds)
+    {
+        if (!is_array($websiteIds)) {
+            $websiteIds = array($websiteIds);
+        }
+        $parts = array();
+        foreach ($websiteIds as $websiteId) {
+            $parts[] = $this->getConnection()->quoteInto('FIND_IN_SET(?, main_table.website_ids)', $websiteId);
+        }
+        if ($parts) {
+            $this->getSelect()->where(new Zend_Db_Expr(implode(' OR ', $parts)));
+        }
+        return $this;
+    }
 }

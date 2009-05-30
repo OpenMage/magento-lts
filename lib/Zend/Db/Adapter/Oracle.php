@@ -208,7 +208,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
     {
         $this->_connect();
         $stmtClass = $this->_defaultStmtClass;
-        Zend_Loader::loadClass($stmtClass);
+        #Zend_Loader::loadClass($stmtClass);
         $stmt = new $stmtClass($this, $sql);
         if ($stmt instanceof Zend_Db_Statement_Oracle) {
             $stmt->setLobAsString($this->getLobAsString());

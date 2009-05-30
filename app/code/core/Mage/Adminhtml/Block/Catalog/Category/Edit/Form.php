@@ -52,32 +52,57 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
             $this->getLayout()->createBlock('adminhtml/catalog_category_tabs', 'tabs')
         );
 
-        $this->setChild('save_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('catalog')->__('Save Category'),
-                    'onclick'   => "categorySubmit('".$this->getSaveUrl()."',true)",
-                    'class' => 'save'
-                ))
-        );
+        if (!$this->getCategory()->isReadonly()) {
+            $this->setChild('save_button',
+                $this->getLayout()->createBlock('adminhtml/widget_button')
+                    ->setData(array(
+                        'label'     => Mage::helper('catalog')->__('Save Category'),
+                        'onclick'   => "categorySubmit('".$this->getSaveUrl()."',true)",
+                        'class' => 'save'
+                    ))
+            );
+        }
+        if (!in_array($this->getCategory()->getId(), $this->getRootIds()) &&
+            $this->getCategory()->isDeleteable()) {
+            $this->setChild('delete_button',
+                $this->getLayout()->createBlock('adminhtml/widget_button')
+                    ->setData(array(
+                        'label'     => Mage::helper('catalog')->__('Delete Category'),
+                        'onclick'   => "categoryDelete('".$this->getUrl('*/*/delete', array('_current'=>true))."',true)",
+                        'class' => 'delete'
+                    ))
+            );
+        }
 
-        $this->setChild('delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('catalog')->__('Delete Category'),
-                    'onclick'   => "categoryDelete('".$this->getUrl('*/*/delete', array('_current'=>true))."',true)",
-                    'class' => 'delete'
-                ))
-        );
+        if (!$this->getCategory()->isReadonly()) {
+            $this->setChild('reset_button',
+                $this->getLayout()->createBlock('adminhtml/widget_button')
+                    ->setData(array(
+                        'label'     => Mage::helper('catalog')->__('Reset'),
+                        'onclick'   => "categoryReset('".$this->getUrl('*/*/edit', array('_current'=>true))."',true)"
+                    ))
+            );
+        }
 
-        $this->setChild('reset_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label'     => Mage::helper('catalog')->__('Reset'),
-                    'onclick'   => "categoryReset('".$this->getUrl('*/*/edit', array('_current'=>true))."',true)"
-                ))
-        );
         return parent::_prepareLayout();
+    }
+
+    /**
+     * Return array of root categories ids
+     *
+     * @return array
+     */
+    public function getRootIds()
+    {
+        $ids = $this->getData('root_ids');
+        if (is_null($ids)) {
+            $ids = array();
+            foreach (Mage::app()->getStores() as $store) {
+                $ids[] = $store->getRootCategoryId();
+            }
+            $this->setData('root_ids', $ids);
+        }
+        return $ids;
     }
 
     public function getStoreConfigurationUrl()

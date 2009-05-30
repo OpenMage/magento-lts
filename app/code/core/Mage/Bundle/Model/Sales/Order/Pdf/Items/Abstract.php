@@ -32,7 +32,7 @@
  * @package    Mage_Bundle
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_Order_Pdf_Items_Abstract
+abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_Order_Pdf_Items_Abstract
 {
     /**
      * Getting all available childs for Invoice, Shipmen or Creditmemo item
@@ -69,6 +69,12 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_
         }
     }
 
+    /**
+     * Retrieve is Shipment Separately flag for Item
+     *
+     * @param Varien_Object $item
+     * @return bool
+     */
     public function isShipmentSeparately($item = null)
     {
         if ($item) {
@@ -102,6 +108,12 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_
         return false;
     }
 
+    /**
+     * Retrieve is Child Calculated
+     *
+     * @param Varien_Object $item
+     * @return bool
+     */
     public function isChildCalculated($item = null)
     {
         if ($item) {
@@ -136,8 +148,14 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_
         return false;
     }
 
-    public function getBundleOptions($item = null) {
-
+    /**
+     * Retrieve Bundle Options
+     *
+     * @param Varien_Object $item
+     * @return array
+     */
+    public function getBundleOptions($item = null)
+    {
         if ($options = $this->getOrderItem()->getProductOptions()) {
             if (isset($options['bundle_options'])) {
                 return $options['bundle_options'];
@@ -146,7 +164,14 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_
         return array();
     }
 
-    public function getSelectionAttributes($item) {
+    /**
+     * Retrieve Selection attributes
+     *
+     * @param Varien_Object $item
+     * @return mixed
+     */
+    public function getSelectionAttributes($item)
+    {
         if ($item instanceof Mage_Sales_Model_Order_Item) {
             $options = $item->getProductOptions();
         } else {
@@ -158,6 +183,12 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_
         return null;
     }
 
+    /**
+     * Retrieve Order options
+     *
+     * @param Varien_Object $item
+     * @return array
+     */
     public function getOrderOptions($item = null)
     {
         $result = array();
@@ -176,6 +207,11 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_
         return $result;
     }
 
+    /**
+     * Retrieve Order Item
+     *
+     * @return Mage_Sales_Order_Item
+     */
     public function getOrderItem()
     {
         if ($this->getItem() instanceof Mage_Sales_Order_Item) {
@@ -185,6 +221,12 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_
         }
     }
 
+    /**
+     * Retrieve Value HTML
+     *
+     * @param Mage_Sales_Order_Item $item
+     * @return string
+     */
     public function getValueHtml($item)
     {
         $result = strip_tags($item->getName());
@@ -201,6 +243,12 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_
         return $result;
     }
 
+    /**
+     * Can show price info for item
+     *
+     * @param Mage_Sales_Order_Item $item
+     * @return bool
+     */
     public function canShowPriceInfo($item)
     {
         if (($item->getOrderItem()->getParentItem() && $this->isChildCalculated())
@@ -208,14 +256,5 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sales_Model_
             return true;
         }
         return false;
-    }
-
-    /**
-     * This abstract method of parent will
-     * be redeclared in childs of this class
-     *
-     */
-    public function draw()
-    {
     }
 }

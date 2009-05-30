@@ -229,6 +229,7 @@ class Mage_AmazonPayments_Model_Payment_Asp extends Mage_Payment_Model_Method_Ab
      */
     public function processEventReturnSuccess()
     {
+        $this->getOrder()->sendNewOrderEmail();
         $this->getOrder()->addStatusToHistory(
            $this->getOrder()->getStatus(),
            Mage::helper('amazonpayments')->__('Customer successfully returned from Amazon Simple Pay site')

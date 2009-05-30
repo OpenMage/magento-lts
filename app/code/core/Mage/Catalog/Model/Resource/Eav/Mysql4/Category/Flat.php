@@ -432,6 +432,17 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
     }
 
     /**
+     * Create Flate Table(s)
+     *
+     * @param array|int $stores
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat
+     */
+    public function createTable($stores)
+    {
+        return $this->_createTable($stores);
+    }
+
+    /**
      * Creating table and adding attributes as fields to table
      *
      * @param array|integer $stores
@@ -490,6 +501,37 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
                     $_write->addColumn($this->getMainStoreTable($stores), $attribute['attribute_code'], $type);
                 }
             }
+        }
+        return $this;
+    }
+
+    /**
+     * Delete store table(s) of given stores;
+     *
+     * @param array|integer $stores
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat
+     */
+    public function deleteStores($stores)
+    {
+        $this->_deleteTable($stores);
+        return $this;
+    }
+
+    /**
+     * Delete table(s) of given stores.
+     *
+     * @param array|integer $stores
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat
+     */
+    protected function _deleteTable($stores)
+    {
+        if (!is_array($stores)) {
+            $stores = array($stores);
+        }
+        foreach ($stores as $store) {
+            $_tableExist = $this->_getReadAdapter()->query(
+                "DROP TABLE IF EXISTS `{$this->getMainStoreTable($store)}`"
+            );
         }
         return $this;
     }
@@ -625,6 +667,12 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
             }
             $_tmpCategory = null;
         }
+        return $this;
+    }
+
+    public function removeStores($stores)
+    {
+        $this->_deleteTable($stores);
         return $this;
     }
 

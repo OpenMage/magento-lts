@@ -83,15 +83,27 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
             $storeId = $object->getStoreId();
         }
 
+        $select = $this->_read->select()
+            ->from(array('default' => $table));
+        if ($setId = $object->getAttributeSetId()) {
+            $select->join(
+                array('set_table' => $this->getTable('eav/entity_attribute')),
+                'default.attribute_id=set_table.attribute_id AND '
+                    . 'set_table.attribute_set_id=' . intval($setId),
+                array()
+            );
+        }
+
         $joinCondition = 'main.attribute_id=default.attribute_id AND '
-            . $this->_read->quoteInto('main.store_id=? AND ', $storeId)
+            . $this->_read->quoteInto('main.store_id=? AND ', intval($storeId))
             . $this->_read->quoteInto('main.'.$this->getEntityIdField() . '=?', $object->getId());
 
-        $select = $this->_read->select()
-            ->from(array('default' => $table))
-            ->joinLeft(array('main' => $table), $joinCondition, array(
-                'store_value_id'=>'value_id',
-                'store_value'=>'value'
+        $select->joinLeft(
+            array('main' => $table),
+            $joinCondition,
+            array(
+                'store_value_id' => 'value_id',
+                'store_value'    => 'value'
             ))
             ->where('default.'.$this->getEntityIdField() . '=?', $object->getId())
             ->where('default.store_id=?', $this->getDefaultStoreId());
@@ -140,9 +152,28 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
             'value'         => $this->_prepareValueForSave($value, $attribute),
             'store_id'      => $this->getDefaultStoreId()
         );
-        $this->_getWriteAdapter()->insert($attribute->getBackend()->getTable(), $row);
+        $fields = array();
+        $values = array();
+        foreach ($row as $k => $v) {
+            $fields[] = $this->_getWriteAdapter()->quoteIdentifier('?', $k);
+            $values[] = $this->_getWriteAdapter()->quoteInto('?', $v);
+        }
+        $sql = sprintf('INSERT IGNORE INTO %s (%s) VALUES(%s)',
+            $this->_getWriteAdapter()->quoteIdentifier($attribute->getBackend()->getTable()),
+            join(',', array_keys($row)),
+            join(',', $values));
+        $this->_getWriteAdapter()->query($sql);
+        if (!$lastId = $this->_getWriteAdapter()->lastInsertId()) {
+            $select = $this->_getReadAdapter()->select()
+                ->from($attribute->getBackend()->getTable(), 'value_id')
+                ->where($entityIdField . '=?', $row[$entityIdField])
+                ->where('entity_type_id=?', $row['entity_type_id'])
+                ->where('attribute_id=?', $row['attribute_id'])
+                ->where('store_id=?', $row['store_id']);
+            $lastId = $select->query()->fetchColumn();
+        }
         if ($object->getStoreId() != $this->getDefaultStoreId()) {
-            $this->_updateAttribute($object, $attribute, $this->_getWriteAdapter()->lastInsertId(), $value);
+            $this->_updateAttribute($object, $attribute, $lastId, $value);
         }
         return $this;
     }

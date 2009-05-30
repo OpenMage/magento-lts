@@ -20,19 +20,34 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
- * Quote item model
+ * Sales Quote Item Model
  *
  * @category   Mage
  * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 {
+    /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
     protected $_eventPrefix = 'sales_quote_item';
+
+    /**
+     * Parameter name in event
+     *
+     * In observe method you can use $observer->getEvent()->getObject() in this case
+     *
+     * @var string
+     */
     protected $_eventObject = 'item';
 
     /**
@@ -40,16 +55,43 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
      *
      * @var Mage_Sales_Model_Quote
      */
-    protected $_quote       = null;
-    protected $_options = array();
-    protected $_optionsByCode = array();
-    protected $_norRepresentOptions = array('info_buyRequest');
+    protected $_quote;
 
-    function _construct()
+    /**
+     * Item options array
+     *
+     * @var array
+     */
+    protected $_options             = array();
+
+    /**
+     * Item options by code cache
+     *
+     * @var array
+     */
+    protected $_optionsByCode       = array();
+
+    /**
+     * Not Represent options
+     *
+     * @var array
+     */
+    protected $_notRepresentOptions = array('info_buyRequest');
+
+    /**
+     * Initialize resource model
+     *
+     */
+    protected function _construct()
     {
         $this->_init('sales/quote_item');
     }
 
+    /**
+     * Quote Item Before Save prepare data process
+     *
+     * @return Mage_Sales_Model_Quote_Item
+     */
     protected function _beforeSave()
     {
         parent::_beforeSave();
@@ -83,6 +125,12 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         return $this->_quote;
     }
 
+    /**
+     * Prepare quantity
+     *
+     * @param float|int $qty
+     * @return int|float
+     */
     protected function _prepareQty($qty)
     {
         $qty = Mage::app()->getLocale()->getNumber($qty);
@@ -93,8 +141,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Adding quantity to quote item
      *
-     * @param   float $qty
-     * @return  Mage_Sales_Model_Quote_Item
+     * @param float $qty
+     * @return Mage_Sales_Model_Quote_Item
      */
     public function addQty($qty)
     {
@@ -115,8 +163,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Declare quote item quantity
      *
-     * @param   float $qty
-     * @return  Mage_Sales_Model_Quote_Item
+     * @param float $qty
+     * @return Mage_Sales_Model_Quote_Item
      */
     public function setQty($qty)
     {
@@ -239,13 +287,10 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
 
         $itemOptions    = $this->getOptions();
         $productOptions = $product->getCustomOptions();
-        if (count($itemOptions) != count($productOptions)) {
-            return false;
-        }
 
         foreach ($itemOptions as $option) {
             $code = $option->getCode();
-            if (in_array($code, $this->_norRepresentOptions )) {
+            if (in_array($code, $this->_notRepresentOptions )) {
                 continue;
             }
             if ( !isset($productOptions[$code])
@@ -322,6 +367,12 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         return $this->_getData('product_type');
     }
 
+    /**
+     * Convert Quote Item to array
+     *
+     * @param array $arrAttributes
+     * @return array
+     */
     public function toArray(array $arrAttributes=array())
     {
         $data = parent::toArray($arrAttributes);

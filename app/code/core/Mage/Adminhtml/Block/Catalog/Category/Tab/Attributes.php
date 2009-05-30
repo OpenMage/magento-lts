@@ -113,6 +113,14 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
             }
         }
 
+        if ($this->getCategory()->hasLockedAttributes()) {
+            foreach ($this->getCategory()->getLockedAttributes() as $attribute) {
+                if ($element = $form->getElement($attribute)) {
+                    $element->setReadonly(true, true);
+                }
+            }
+        }
+
         $form->addValues($this->getCategory()->getData());
 
         $form->setFieldNameSuffix('general');

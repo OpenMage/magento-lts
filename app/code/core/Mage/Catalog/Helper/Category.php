@@ -36,6 +36,13 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     const XML_PATH_CATEGORY_URL_SUFFIX  = 'catalog/seo/category_url_suffix';
 
     /**
+     * Store categories cache
+     *
+     * @var array
+     */
+    protected $_storeCategories = array();
+
+    /**
      * Cache for category rewrite suffix
      *
      * @var array
@@ -51,7 +58,12 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      */
     public function getStoreCategories($sorted=false, $asCollection=false, $toLoad=true)
     {
-        $parent = Mage::app()->getStore()->getRootCategoryId();
+        $parent     = Mage::app()->getStore()->getRootCategoryId();
+        $cacheKey   = sprintf('%d-%d-%d-%d', $parent, $sorted, $asCollection, $toLoad);
+        if (isset($this->_storeCategories[$cacheKey])) {
+            return $this->_storeCategories[$cacheKey];
+        }
+
         /**
          * Check if parent node of the store still exists
          */
@@ -64,9 +76,11 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
             return array();
         }
 
-        $recursionLevel = max(0, (int) Mage::app()->getStore()->getConfig('catalog/navigation/max_depth'));
+        $recursionLevel  = max(0, (int) Mage::app()->getStore()->getConfig('catalog/navigation/max_depth'));
+        $storeCategories = $category->getCategories($parent, $recursionLevel, $sorted, $asCollection, $toLoad);
 
-        return $category->getCategories($parent, $recursionLevel, $sorted, $asCollection, $toLoad);
+        $this->_storeCategories[$cacheKey] = $storeCategories;
+        return $storeCategories;
     }
 
     /**

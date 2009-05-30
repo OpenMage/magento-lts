@@ -932,6 +932,17 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
+     * Escape html entities in url
+     *
+     * @param string $data
+     * @return string
+     */
+    public function urlEscape($data)
+    {
+        return $this->helper('core')->urlEscape($data);
+    }
+
+    /**
      * Escape quotes in java scripts
      *
      * @param mixed $data

@@ -31,6 +31,16 @@
  */
 class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 {
+    /**
+     * Fields that should be replaced in debug with '***'
+     *
+     * @var array
+     */
+    protected $_debugReplacePrivateDataKeys = array('ACCT', 'EXPDATE', 'CVV2',
+                                                    'CARDISSUE', 'CARDSTART',
+                                                    'CREDITCARDTYPE', 'USER',
+                                                    'PWD', 'SIGNATURE');
+
     public function getPageStyle()
     {
         return $this->getConfigData('page_style');
@@ -430,14 +440,22 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         ), $nvpArr);
 
         $nvpReq = '';
+        $nvpReqDebug = '';
+
         foreach ($nvpArr as $k=>$v) {
             $nvpReq .= '&'.$k.'='.urlencode($v);
+            $nvpReqDebug .= '&'.$k.'=';
+            if (in_array($k, $this->_debugReplacePrivateDataKeys)) {
+                $nvpReqDebug .= '***';
+            } else {
+                $nvpReqDebug .= urlencode($v);
+            }
         }
         $nvpReq = substr($nvpReq, 1);
         if ($this->getDebug()) {
             $debug = Mage::getModel('paypal/api_debug')
                 ->setApiEndpoint($this->getApiEndpoint())
-                ->setRequestBody($nvpReq)
+                ->setRequestBody($nvpReqDebug)
                 ->save();
         }
 

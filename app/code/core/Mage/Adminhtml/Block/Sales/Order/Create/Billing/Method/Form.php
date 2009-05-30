@@ -33,13 +33,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_Payment_Block_Form_Container
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('sales/order/create/billing/method/form.phtml');
-    }
-
     /**
      * Check payment method model
      *

@@ -61,8 +61,8 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     public function getFeedUrl()
     {
         if (is_null($this->_feedUrl)) {
-            $this->_feedUrl = Mage::getStoreConfigFlag(self::XML_USE_HTTPS_PATH) ? 'https://' : 'http://'
-            . Mage::getStoreConfig(self::XML_FEED_URL_PATH);
+            $this->_feedUrl = (Mage::getStoreConfigFlag(self::XML_USE_HTTPS_PATH) ? 'https://' : 'http://')
+                . Mage::getStoreConfig(self::XML_FEED_URL_PATH);
         }
         return $this->_feedUrl;
     }
@@ -81,6 +81,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
         $feedData = array();
 
         $feedXml = $this->getFeedData();
+
         if ($feedXml && $feedXml->channel && $feedXml->channel->item) {
             foreach ($feedXml->channel->item as $item) {
                 $feedData[] = array(
@@ -156,6 +157,9 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     public function getFeedData()
     {
         $curl = new Varien_Http_Adapter_Curl();
+        $curl->setConfig(array(
+            'timeout'   => 2
+        ));
         $curl->write(Zend_Http_Client::GET, $this->getFeedUrl(), '1.0');
         $data = $curl->read();
         if ($data === false) {

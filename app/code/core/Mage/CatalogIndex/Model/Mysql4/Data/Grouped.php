@@ -20,10 +20,18 @@
  *
  * @category   Mage
  * @package    Mage_CatalogIndex
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
+/**
+ * CatalogIndex Grouped Products Data Retriever Resource Model
+ *
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_CatalogIndex_Model_Mysql4_Data_Grouped extends Mage_CatalogIndex_Model_Mysql4_Data_Abstract
 {
     /**
@@ -32,65 +40,59 @@ class Mage_CatalogIndex_Model_Mysql4_Data_Grouped extends Mage_CatalogIndex_Mode
      * @param array $products
      * @param array $priceAttributes
      * @param int $store
-     * @return mixed
+     * @return array
      */
     public function getMinimalPrice($products, $priceAttributes, $store)
     {
-        $stores = Mage::getModel('core/store')->getCollection()->setLoadDefault(false)->load();
-        $storeObject = $stores->getItemById($store);
-        $website = $storeObject->getWebsiteId();
         $result = array();
-        $fields = array('customer_group_id', 'minimal_value'=>'MIN(value)');
+        $store  = Mage::app()->getStore($store);
+
         $select = $this->_getReadAdapter()->select()
-            ->from(array('base'=>$this->getTable('catalogindex/price')), array(
-                'customer_group_id', 'minimal_value' => 'value', 'tax_class_id'
-            ))
-            ->where('base.entity_id in (?)', $products)
-            ->where('base.attribute_id in (?)', $priceAttributes)
-            ->where('base.website_id = ?', $website)
-            ->order(array('customer_group_id', 'value'));
-        $select = $this->_getReadAdapter()->select()
-            ->from(array('blah' => new Zend_Db_Expr("({$select})")))
-            ->group(new Zend_Db_Expr(1));
-        $visible = $this->_getReadAdapter()->fetchAll($select);
+            ->from($this->getTable('catalogindex/price'), array(
+                'customer_group_id', 'value', 'tax_class_id'))
+            ->where('entity_id IN(?)', $products)
+            ->where('attribute_id IN(?)', $priceAttributes)
+            ->where('website_id=?', $store->getWebsiteId());
+        $prices = $select->query()->fetchAll();
 
         $groups = Mage::getSingleton('catalogindex/retreiver')->getCustomerGroups();
         foreach ($groups as $group) {
-            $resultMinimal    = null;
-            $resultTaxClassId = 0;
-            $taxClassId       = 0;
-            $customerGroup = $group->getId();
+            $resultMinimal      = null;
+            $resultTaxClassId   = 0;
+            $taxClassId         = 0;
+            $customerGroup      = $group->getId();
 
-            $typedProducts = Mage::getSingleton('catalogindex/retreiver')->assignProductTypes($products);
+            $typedProducts = Mage::getSingleton('catalogindex/retreiver')
+                ->assignProductTypes($products);
             foreach ($typedProducts as $type=>$typeIds) {
                 $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
                 foreach ($typeIds as $id) {
-                    $finalPrice = $retreiver->getFinalPrice($id, $storeObject, $group);
+                    $finalPrice = $retreiver->getFinalPrice($id, $store, $group);
                     if ((null === $resultMinimal) || ($finalPrice < $resultMinimal)) {
                         $resultMinimal    = $finalPrice;
-                        $resultTaxClassId = $retreiver->getTaxClassId($id, $storeObject);
+                        $resultTaxClassId = $retreiver->getTaxClassId($id, $store);
                     }
 
-                    $tiers = $retreiver->getTierPrices($id, $storeObject);
+                    $tiers = $retreiver->getTierPrices($id, $store);
                     foreach ($tiers as $tier) {
                         if ($tier['customer_group_id'] != $customerGroup && !$tier['all_groups']) {
                             continue;
                         }
                         if ((null === $resultMinimal) || ($tier['value'] < $resultMinimal)) {
                             $resultMinimal    = $tier['value'];
-                            $resultTaxClassId = $retreiver->getTaxClassId($tier['entity_id'], $storeObject);
+                            $resultTaxClassId = $retreiver->getTaxClassId($tier['entity_id'], $store);
                         }
                     }
                 }
             }
 
-            foreach ($visible as $one) {
+            foreach ($prices as $one) {
                 if ($one['customer_group_id'] != $customerGroup) {
                     continue;
                 }
 
-                if ((null === $resultMinimal) || ($one['minimal_value'] < $resultMinimal)) {
-                    $resultMinimal = $one['minimal_value'];
+                if ((null === $resultMinimal) || ($one['value'] < $resultMinimal)) {
+                    $resultMinimal = $one['value'];
                     $taxClassId    = $one['tax_class_id'];
                 } else {
                     $taxClassId = $resultTaxClassId;
@@ -98,9 +100,29 @@ class Mage_CatalogIndex_Model_Mysql4_Data_Grouped extends Mage_CatalogIndex_Mode
             }
 
             if (!is_null($resultMinimal)){
-                $result[] = array('customer_group_id'=>$customerGroup, 'minimal_value'=>$resultMinimal, 'tax_class_id' => $taxClassId);
+                $result[] = array(
+                    'customer_group_id' => $customerGroup,
+                    'minimal_value'     => $resultMinimal,
+                    'tax_class_id'      => $taxClassId
+                );
             }
         }
+
         return $result;
+    }
+
+    /**
+     * Prepare select statement before 'fetchLinkInformation' function result fetch
+     *
+     * @param int $store
+     * @param string $table
+     * @param string $idField
+     * @param string $whereField
+     * @param int $id
+     * @param array $additionalWheres
+     */
+    protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = array())
+    {
+        $this->_addAttributeFilter($this->_getLinkSelect(), 'required_options', 'l', $idField, $store, 0);
     }
 }

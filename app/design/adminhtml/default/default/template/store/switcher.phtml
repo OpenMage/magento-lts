@@ -24,25 +24,26 @@
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php $_websiteCollection = $this->getWebsiteCollection() ?>
-<?php if ($_websiteCollection->getSize()): ?>
+<?php if ($websites = $this->getWebsites()): ?>
 <p class="switcher"><label for="store_switcher"><?php echo $this->__('Choose Store View') ?>:</label>
 <select name="store_switcher" id="store_switcher" class="left-col-block" onchange="return switchStore(this);">
+<?php if ($this->hasDefaultOption()): ?>
     <option value=""><?php echo $this->getDefaultStoreName() ?></option>
-    <?php foreach ($_websiteCollection as $_website): ?>
+<?php endif; ?>
+    <?php foreach ($websites as $website): ?>
         <?php $showWebsite=false; ?>
-        <?php foreach ($this->getGroupCollection($_website) as $_group): ?>
+        <?php foreach ($website->getGroups() as $group): ?>
             <?php $showGroup=false; ?>
-            <?php foreach ($this->getStoreCollection($_group) as $_store): ?>
+            <?php foreach ($this->getStores($group) as $store): ?>
                 <?php if ($showWebsite == false): ?>
                     <?php $showWebsite = true; ?>
-                    <optgroup label="<?php echo $_website->getName() ?>"></optgroup>
+                    <optgroup label="<?php echo $website->getName() ?>"></optgroup>
                 <?php endif; ?>
                 <?php if ($showGroup == false): ?>
                     <?php $showGroup = true; ?>
-                    <optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $_group->getName() ?>">
+                    <optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $group->getName() ?>">
                 <?php endif; ?>
-                <option value="<?php echo $_store->getId() ?>"<?php if($this->getStoreId() == $_store->getId()): ?> selected="selected"<?php endif; ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $_store->getName() ?></option>
+                <option value="<?php echo $store->getId() ?>"<?php if($this->getStoreId() == $store->getId()): ?> selected="selected"<?php endif; ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $store->getName() ?></option>
             <?php endforeach; ?>
             <?php if ($showGroup): ?>
                 </optgroup>

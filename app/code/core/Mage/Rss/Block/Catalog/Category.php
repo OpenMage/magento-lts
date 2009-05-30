@@ -40,7 +40,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Abstract
         */
         $this->setCacheKey('rss_catalog_category_'
             .$this->getRequest()->getParam('cid').'_'
-            .$this->getRequest()->getParam('sid')
+            .$this->getRequest()->getParam('store_id')
         );
         $this->setCacheLifetime(600);
     }

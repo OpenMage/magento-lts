@@ -61,9 +61,7 @@ class Mage_Core_Model_Mysql4_Design extends Mage_Core_Model_Mysql4_Abstract
         );
 
         if ($check){
-            Mage::throwException(Mage::helper('core')
-                ->__('Your design change for the specified store intersects with another one, please specify another date range')
-            );
+            Mage::throwException(Mage::helper('core')->__('Your design change for the specified store intersects with another one, please specify another date range'));
         }
 
         if (is_null($object->getDateFrom()))

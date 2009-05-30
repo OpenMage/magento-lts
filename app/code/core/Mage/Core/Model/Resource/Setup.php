@@ -390,6 +390,34 @@ class Mage_Core_Model_Resource_Setup
     }
 
     /**
+     * Delete table row
+     *
+     * @param   string $table
+     * @param   string $idField
+     * @param   string|int $id
+     * @param   null|string $parentField
+     * @param   int|string $parentId
+     * @return  Mage_Core_Model_Resource_Setup
+     */
+    public function deleteTableRow($table, $idField, $id, $parentField=null, $parentId=0)
+    {
+        if (strpos($table, '/')!==false) {
+            $table = $this->getTable($table);
+        }
+
+        $condition = $this->_conn->quoteInto("$idField=?", $id);
+        if ($parentField !== null) {
+            $condition.= $this->_conn->quoteInto(" AND $parentField=?", $parentId);
+        }
+        $this->_conn->delete($table, $condition);
+
+        if (isset($this->_setupCache[$table][$parentId][$id])) {
+            unset($this->_setupCache[$table][$parentId][$id]);
+        }
+        return $this;
+    }
+
+    /**
      * Update one or more fields of table row
      *
      * @param string $table

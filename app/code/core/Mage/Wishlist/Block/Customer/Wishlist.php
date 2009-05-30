@@ -56,7 +56,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Catalog_Block_Product_A
                 ->addStoreFilter();
 
             Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
+            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($collection);
 
             $this->_wishlistLoaded = true;
         }

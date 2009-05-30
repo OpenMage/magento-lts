@@ -129,6 +129,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
         $this->setCollection($collection);
 
+        if ($this->isReadonly()) {
+            $collection->addFieldToFilter('entity_id', array('in' => $this->_getSelectedProducts()));
+        }
+
         parent::_prepareCollection();
         return $this;
     }
@@ -142,20 +146,33 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         return $products;
     }
 
+    /**
+     * Check block is readonly
+     *
+     * @return boolean
+     */
+    public function isReadonly()
+    {
+         return $this->_getProduct()->getCompositeReadonly();
+    }
+
     protected function _prepareColumns()
     {
         $product = $this->_getProduct();
         $attributes = $product->getTypeInstance(true)->getConfigurableAttributes($product);
-        $this->addColumn('in_products', array(
-            'header_css_class' => 'a-center',
-            'type'      => 'checkbox',
-            'name'      => 'in_products',
-            'values'    => $this->_getSelectedProducts(),
-            'align'     => 'center',
-            'index'     => 'entity_id',
-            'renderer'  => 'adminhtml/catalog_product_edit_tab_super_config_grid_renderer_checkbox',
-            'attributes' => $attributes
-        ));
+
+        if (!$this->isReadonly()) {
+            $this->addColumn('in_products', array(
+                'header_css_class' => 'a-center',
+                'type'      => 'checkbox',
+                'name'      => 'in_products',
+                'values'    => $this->_getSelectedProducts(),
+                'align'     => 'center',
+                'index'     => 'entity_id',
+                'renderer'  => 'adminhtml/catalog_product_edit_tab_super_config_grid_renderer_checkbox',
+                'attributes' => $attributes
+            ));
+        }
 
         $this->addColumn('entity_id', array(
             'header'    => Mage::helper('catalog')->__('ID'),

@@ -45,9 +45,26 @@ class Mage_GoogleBase_Model_Mysql4_Item_Collection extends Mage_Core_Model_Mysql
         return $this;
     }
 
+    /**
+     * Deprecated
+     *
+     * @param int $storeId
+     * @return Mage_GoogleBase_Model_Mysql4_Item_Collection
+     */
     public function addStoreFilterId($storeId)
     {
-        $this->getSelect()->where('main_table.store_id=?', $storeId);
+        return $this->addStoreFilter($storeId);
+    }
+
+    /**
+     * Filter collection by specified store ids
+     *
+     * @param array|int $storeIds
+     * @return Mage_GoogleBase_Model_Mysql4_Item_Collection
+     */
+    public function addStoreFilter($storeIds)
+    {
+        $this->getSelect()->where('main_table.store_id IN (?)', $storeIds);
         return $this;
     }
 

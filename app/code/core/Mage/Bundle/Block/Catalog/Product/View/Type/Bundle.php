@@ -77,6 +77,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             }
             $option = array (
                 'selections' => array(),
+                'title'   => $_option->getTitle(),
                 'isMulti' => ($_option->getType() == 'multi' || $_option->getType() == 'checkbox')
             );
 
@@ -91,6 +92,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     'priceValue' => Mage::helper('core')->currency($_selection->getSelectionPriceValue(), false, false),
                     'priceType' => $_selection->getSelectionPriceType(),
                     'tierPrice' => $_selection->getTierPrice(),
+                    'name' => $_selection->getName(),
                     'plusDisposition' => 0,
                     'minusDisposition' => 0,
                 );

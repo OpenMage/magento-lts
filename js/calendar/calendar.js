@@ -416,7 +416,7 @@ Calendar.tableMouseUp = function(ev) {
 	var mon = Calendar.findMonth(target);
 	var date = null;
 	if (mon) {
-		date = new Date(cal.date);
+		date = new CalendarDateObject(cal.date);
 		if (mon.month != date.getMonth()) {
 			date.setMonth(mon.month);
 			cal.setDate(date);
@@ -426,7 +426,7 @@ Calendar.tableMouseUp = function(ev) {
 	} else {
 		var year = Calendar.findYear(target);
 		if (year) {
-			date = new Date(cal.date);
+			date = new CalendarDateObject(cal.date);
 			if (year.year != date.getFullYear()) {
 				date.setFullYear(year.year);
 				cal.setDate(date);
@@ -660,7 +660,7 @@ Calendar.cellClick = function(el, ev) {
 		date = cal.date;
 		var other_month = !(cal.dateClicked = !el.otherMonth);
 		if (!other_month && !cal.currentDateEl)
-			cal._toggleMultipleDate(new Date(date));
+			cal._toggleMultipleDate(new CalendarDateObject(date));
 		else
 			newdate = !el.disabled;
 		// a date was clicked
@@ -672,9 +672,9 @@ Calendar.cellClick = function(el, ev) {
 			cal.callCloseHandler();
 			return;
 		}
-		date = new Date(cal.date);
+		date = new CalendarDateObject(cal.date);
 		if (el.navtype == 0)
-			date.setDateOnly(new Date()); // TODAY
+			date.setDateOnly(new CalendarDateObject()); // TODAY
 		// unless "today" was clicked, we assume no date was clicked so
 		// the selected handler will know not to close the calenar when
 		// in single-click mode.
@@ -795,7 +795,7 @@ Calendar.prototype.create = function (_par) {
 		parent = _par;
 		this.isPopup = false;
 	}
-	this.date = this.dateStr ? new Date(this.dateStr) : new Date();
+	this.date = this.dateStr ? new CalendarDateObject(this.dateStr) : new CalendarDateObject();
 
 	var table = Calendar.createElement("table");
 	this.table = table;
@@ -1074,12 +1074,12 @@ Calendar._keyEvent = function(ev) {
 				ne = cal.ar_days[y][x];
 			};setVars();
 			function prevMonth() {
-				var date = new Date(cal.date);
+				var date = new CalendarDateObject(cal.date);
 				date.setDate(date.getDate() - step);
 				cal.setDate(date);
 			};
 			function nextMonth() {
-				var date = new Date(cal.date);
+				var date = new CalendarDateObject(cal.date);
 				date.setDate(date.getDate() + step);
 				cal.setDate(date);
 			};
@@ -1146,7 +1146,7 @@ Calendar._keyEvent = function(ev) {
  *  (RE)Initializes the calendar to the given date and firstDayOfWeek
  */
 Calendar.prototype._init = function (firstDayOfWeek, date) {
-	var today = new Date(),
+	var today = new CalendarDateObject(),
 		TY = today.getFullYear(),
 		TM = today.getMonth(),
 		TD = today.getDate();
@@ -1160,7 +1160,7 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 		date.setFullYear(year);
 	}
 	this.firstDayOfWeek = firstDayOfWeek;
-	this.date = new Date(date);
+	this.date = new CalendarDateObject(date);
 	var month = date.getMonth();
 	var mday = date.getDate();
 	var no_days = date.getMonthDays();
@@ -1231,7 +1231,7 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 				}
 			}
 			if (!cell.disabled) {
-				cell.caldate = new Date(date);
+				cell.caldate = new CalendarDateObject(date);
 				cell.ttip = "_";
 				if (!this.multiple && current_month
 				    && iday == mday && this.hiliteToday) {
@@ -1256,7 +1256,7 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 	this.table.style.visibility = "visible";
 	this._initMultipleDates();
 	// PROFILE
-	// this.tooltips.innerHTML = "Generated in " + ((new Date()) - today) + " ms";
+	// this.tooltips.innerHTML = "Generated in " + ((new CalendarDateObject()) - today) + " ms";
 };
 
 Calendar.prototype._initMultipleDates = function() {
@@ -1649,7 +1649,7 @@ Date.DAY    = 24 * Date.HOUR;
 Date.WEEK   =  7 * Date.DAY;
 
 Date.parseDate = function(str, fmt) {
-	var today = new Date();
+	var today = new CalendarDateObject();
 	var y = 0;
 	var m = -1;
 	var d = 0;
@@ -1731,7 +1731,7 @@ Date.parseDate = function(str, fmt) {
 	if (isNaN(hr)) hr = today.getHours();
 	if (isNaN(min)) min = today.getMinutes();
 	if (y != 0 && m != -1 && d != 0)
-		return new Date(y, m, d, hr, min, 0);
+		return new CalendarDateObject(y, m, d, hr, min, 0);
 	y = 0; m = -1; d = 0;
 	for (i = 0; i < a.length; ++i) {
 		if (a[i].search(/[a-zA-Z]+/) != -1) {
@@ -1757,7 +1757,7 @@ Date.parseDate = function(str, fmt) {
 	if (y == 0)
 		y = today.getFullYear();
 	if (m != -1 && d != 0)
-		return new Date(y, m, d, hr, min, 0);
+		return new CalendarDateObject(y, m, d, hr, min, 0);
 	return today;
 };
 
@@ -1776,15 +1776,15 @@ Date.prototype.getMonthDays = function(month) {
 
 /** Returns the number of day in the year. */
 Date.prototype.getDayOfYear = function() {
-	var now = new Date(this.getFullYear(), this.getMonth(), this.getDate(), 0, 0, 0);
-	var then = new Date(this.getFullYear(), 0, 0, 0, 0, 0);
+	var now = new CalendarDateObject(this.getFullYear(), this.getMonth(), this.getDate(), 0, 0, 0);
+	var then = new CalendarDateObject(this.getFullYear(), 0, 0, 0, 0, 0);
 	var time = now - then;
 	return Math.floor(time / Date.DAY);
 };
 
 /** Returns the number of the week in year, as defined in ISO 8601. */
 Date.prototype.getWeekNumber = function() {
-	var d = new Date(this.getFullYear(), this.getMonth(), this.getDate(), 0, 0, 0);
+	var d = new CalendarDateObject(this.getFullYear(), this.getMonth(), this.getDate(), 0, 0, 0);
 	var DoW = d.getDay();
 	d.setDate(d.getDate() - (DoW + 6) % 7 + 3); // Nearest Thu
 	var ms = d.valueOf(); // GMT
@@ -1804,7 +1804,7 @@ Date.prototype.equalsTo = function(date) {
 
 /** Set only the year, month, date parts (keep existing time) */
 Date.prototype.setDateOnly = function(date) {
-	var tmp = new Date(date);
+	var tmp = new CalendarDateObject(date);
 	this.setDate(1);
 	this.setFullYear(tmp.getFullYear());
 	this.setMonth(tmp.getMonth());
@@ -1880,12 +1880,30 @@ Date.prototype.print = function (str) {
 
 Date.prototype.__msh_oldSetFullYear = Date.prototype.setFullYear;
 Date.prototype.setFullYear = function(y) {
-	var d = new Date(this);
+	var d = new CalendarDateObject(this);
 	d.__msh_oldSetFullYear(y);
 	if (d.getMonth() != this.getMonth())
 		this.setDate(28);
 	this.__msh_oldSetFullYear(y);
 };
+
+CalendarDateObject.prototype = new Date();
+CalendarDateObject.prototype.constructor = CalendarDateObject;
+CalendarDateObject.prototype.parent = Date.prototype;
+function CalendarDateObject() {
+    var dateObj;
+    if (arguments.length > 1) {
+        dateObj = eval("new this.parent.constructor("+Array.prototype.slice.call(arguments).join(",")+");");
+    } else if (arguments.length > 0) {
+        dateObj = new this.parent.constructor(arguments[0]);
+    } else {
+        dateObj = new this.parent.constructor();
+        if (typeof(CalendarDateObject._LOCAL_TIMZEONE_OFFSET_SECONDS) != "undefined") {
+            dateObj.setTime(dateObj.getTime()+(CalendarDateObject._LOCAL_TIMZEONE_OFFSET_SECONDS - dateObj.getTimezoneOffset())*1000);
+        }
+    }
+    return dateObj;
+}
 
 // END: DATE OBJECT PATCHES
 

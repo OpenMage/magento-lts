@@ -390,13 +390,16 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * Retrieve list of assigned products to category
      *
      * @param int $categoryId
+     * @param string|int $store
      * @return array
      */
-    public function assignedProducts($categoryId)
+    public function assignedProducts($categoryId, $store = null)
     {
         $category = $this->_initCategory($categoryId);
 
-        $collection = $category->getProductCollection()->setOrder('position', 'asc');
+        $collection = $category->setStoreId($this->_getStoreId($store))
+            ->getProductCollection()
+            ->setOrder('position', 'asc');
 
         $result = array();
 

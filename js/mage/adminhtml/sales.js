@@ -240,7 +240,7 @@ AdminOrder.prototype = {
         }
 
         if(!this.paymentMethod || method){
-            $('order-billing_method').select('input', 'select').each(function(elem){
+            $('order-billing_method_form').select('input', 'select').each(function(elem){
                 if(elem.type != 'radio') elem.disabled = true;
             })
         }
@@ -473,7 +473,8 @@ AdminOrder.prototype = {
         }
     },
 
-    itemChange : function(){
+    itemChange : function(event){
+        this.giftmessageOnItemChange(event);
         this.orderItemChanged = true;
     },
 
@@ -523,6 +524,22 @@ AdminOrder.prototype = {
         this.saveData(this.serializeData('order-giftmessage'));
     },
 
+    giftmessageOnItemChange : function(event) {
+        var element = Event.element(event);
+        if(element.name.indexOf("giftmessage") != -1 && element.type == "checkbox" && !element.checked) {
+            var messages = $("order-giftmessage").select('textarea');
+            var name;
+            for(var i=0; i<messages.length; i++) {
+                name = messages[i].id.split("_");
+                if(name.length < 2) continue;
+                if (element.name.indexOf("[" + name[1] + "]") != -1 && messages[i].value != "") {
+                    alert("First, clean the Message field in Gift Message form");
+                    element.checked = true;
+                }
+            }
+        }
+    },
+
     loadArea : function(area, indicator, params){
         var url = this.loadBaseUrl;
         if(area) url+= 'block/' + area
@@ -543,7 +560,7 @@ AdminOrder.prototype = {
                     if(typeof this.loadingAreas == 'string'){
                         this.loadingAreas = [this.loadingAreas];
                     }
-                    if(this.loadingAreas.indexOf('messages'==-1)) this.loadingAreas.push('messages');
+                    if(this.loadingAreas.indexOf('message'==-1)) this.loadingAreas.push('message');
                     for(var i=0; i<this.loadingAreas.length; i++){
                         var id = this.loadingAreas[i];
                         if($(this.getAreaId(id))){

@@ -50,6 +50,151 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     protected $_defaultValues = array();
 
     /**
+     * Locked attributes
+     *
+     * @var array
+     */
+    protected $_lockedAttributes = array();
+
+    /**
+     * Is model deleteable
+     *
+     * @var boolean
+     */
+    protected $_isDeleteable = true;
+
+    /**
+     * Is model readonly
+     *
+     * @var boolean
+     */
+    protected $_isReadonly = false;
+
+
+    /**
+     * Lock attribute
+     *
+     * @param string $attributeCode
+     * @return Mage_Catalog_Model_Abstract
+     */
+    public function lockAttribute($attributeCode)
+    {
+        $this->_lockedAttributes[$attributeCode] = true;
+        return $this;
+    }
+
+    /**
+     * Unlock attribute
+     *
+     * @param string $attributeCode
+     * @return Mage_Catalog_Model_Abstract
+     */
+    public function unlockAttribute($attributeCode)
+    {
+        if ($this->isLockedAttribute($attributeCode)) {
+            unset($this->_lockedAttributes[$attributeCode]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Unlock all attributes
+     *
+     * @return Mage_Catalog_Model_Abstract
+     */
+    public function unlockAttributes()
+    {
+        $this->_lockedAttributes = array();
+        return $this;
+    }
+
+    /**
+     * Retrieve locked attributes
+     *
+     * @return array
+     */
+    public function getLockedAttributes()
+    {
+        return array_keys($this->_lockedAttributes);
+    }
+
+    /**
+     * Checks that model have locked attribtues
+     *
+     * @return boolean
+     */
+    public function hasLockedAttributes()
+    {
+        return !empty($this->_lockedAttributes);
+    }
+
+    /**
+     * Retrieve locked attributes
+     *
+     * @return array
+     */
+    public function isLockedAttribute($attributeCode)
+    {
+        return isset($this->_lockedAttributes[$attributeCode]);
+    }
+
+    /**
+     * Overwrite data in the object.
+     *
+     * $key can be string or array.
+     * If $key is string, the attribute value will be overwritten by $value
+     *
+     * If $key is an array, it will overwrite all the data in the object.
+     *
+     * $isChanged will specify if the object needs to be saved after an update.
+     *
+     * @param string|array $key
+     * @param mixed $value
+     * @param boolean $isChanged
+     * @return Varien_Object
+     */
+    public function setData($key, $value=null)
+    {
+        if ($this->hasLockedAttributes()) {
+            if (is_array($key)) {
+                 foreach ($this->getLockedAttributes() as $attribute) {
+                     if (isset($key[$attribute])) {
+                         unset($key[$attribute]);
+                     }
+                 }
+            } elseif ($this->isLockedAttribute($key)) {
+                return $this;
+            }
+        } elseif ($this->isReadonly()) {
+            return $this;
+        }
+
+        return parent::setData($key, $value);
+    }
+
+    /**
+     * Unset data from the object.
+     *
+     * $key can be a string only. Array will be ignored.
+     *
+     * $isChanged will specify if the object needs to be saved after an update.
+     *
+     * @param string $key
+     * @param boolean $isChanged
+     * @return Varien_Object
+     */
+    public function unsetData($key=null)
+    {
+        if ((!is_null($key) && $this->isLockedAttribute($key)) ||
+            $this->isReadonly()) {
+            return $this;
+        }
+
+        return parent::unsetData($key);
+    }
+
+    /**
      * Get collection instance
      *
      * @return object
@@ -60,13 +205,13 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
             ->setStoreId($this->getStoreId());
         return $collection;
     }
-    
+
     public function loadByAttribute($attribute, $value, $additionalAttributes='*')
     {
         $collection = $this->getResourceCollection()
             ->addAttributeToSelect($additionalAttributes)
             ->addAttributeToFilter($attribute, $value)
-            ->setPage(1,1);   
+            ->setPage(1,1);
 
         foreach ($collection as $object) {
             return $object;
@@ -118,4 +263,60 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     {
         return isset($this->_defaultValues[$attributeCode]) ? $this->_defaultValues[$attributeCode] : null;
     }
+
+    /**
+     * Before save unlock attributes
+     *
+     * @return Mage_Catalog_Model_Abstract
+     */
+    protected function _beforeSave()
+    {
+        $this->unlockAttributes();
+        return parent::_beforeSave();
+    }
+
+    /**
+     * Checks model is deleteable
+     *
+     * @return boolean
+     */
+    public function isDeleteable()
+    {
+        return $this->_isDeleteable;
+    }
+
+    /**
+     * Set is deleteable flag
+     *
+     * @param boolean $value
+     * @return Mage_Catalog_Model_Abstract
+     */
+    public function setIsDeleteable($value)
+    {
+        $this->_isDeleteable = (boolean) $value;
+        return $this;
+    }
+
+    /**
+     * Checks model is deleteable
+     *
+     * @return boolean
+     */
+    public function isReadonly()
+    {
+        return $this->_isReadonly;
+    }
+
+    /**
+     * Set is deleteable flag
+     *
+     * @param boolean $value
+     * @return Mage_Catalog_Model_Abstract
+     */
+    public function setIsReadonly($value)
+    {
+        $this->_isReadonly = (boolean) $value;
+        return $this;
+    }
+
 }

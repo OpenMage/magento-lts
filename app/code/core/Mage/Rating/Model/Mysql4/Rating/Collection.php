@@ -33,12 +33,10 @@
  */
 class Mage_Rating_Model_Mysql4_Rating_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
-    /*
-    protected $_ratingTable;
-    protected $_ratingEntityTable;
-    protected $_ratingOptionTable;
-    protected $_ratingVoteTable;
-    */
+    /**
+     * @var bool
+     */
+    protected $_isStoreJoined = false;
 
     public function _construct()
     {
@@ -91,12 +89,12 @@ class Mage_Rating_Model_Mysql4_Rating_Collection extends Mage_Core_Model_Mysql4_
         if (empty($storeId)) {
         	return $this;
         }
-        $condition = $this->getConnection()->quoteInto('store.store_id IN(?)', $storeId);
-
-
-        $this->getSelect()->join(array('store'=>$this->getTable('rating_store')), 'main_table.rating_id = store.rating_id')
-            ->group('main_table.rating_id')
-            ->where($condition);
+        if (!$this->_isStoreJoined) {
+            $this->getSelect()->join(array('store'=>$this->getTable('rating_store')), 'main_table.rating_id = store.rating_id')
+                ->group('main_table.rating_id');
+            $this->_isStoreJoined = true;
+        }
+        $this->getSelect()->where($this->getConnection()->quoteInto('store.store_id IN(?)', $storeId));
         $this->setPositionOrder();
         return $this;
     }

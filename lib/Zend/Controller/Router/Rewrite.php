@@ -168,7 +168,7 @@ class Zend_Controller_Router_Rewrite extends Zend_Controller_Router_Abstract
     protected function _getRouteFromConfig(Zend_Config $info)
     {
         $class = (isset($info->type)) ? $info->type : 'Zend_Controller_Router_Route';
-        Zend_Loader::loadClass($class);
+        #Zend_Loader::loadClass($class);
        
         $route = call_user_func(array($class, 'getInstance'), $info);
 

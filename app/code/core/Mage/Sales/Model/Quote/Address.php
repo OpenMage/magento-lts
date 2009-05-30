@@ -604,6 +604,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
          */
         $request->setBaseCurrency($this->getQuote()->getStore()->getBaseCurrency());
         $request->setPackageCurrency($this->getQuote()->getStore()->getCurrentCurrency());
+        $request->setLimitCarrier($this->getLimitCarrier());
 
         $result = Mage::getModel('shipping/shipping')
             ->collectRates($request)

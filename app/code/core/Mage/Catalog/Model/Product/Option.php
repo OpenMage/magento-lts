@@ -420,4 +420,16 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
 
         return $this;
     }
+
+    /**
+     * Retrieve option searchable data
+     *
+     * @param int $productId
+     * @param int $storeId
+     * @return array
+     */
+    public function getSearchableData($productId, $storeId)
+    {
+        return $this->_getResource()->getSearchableData($productId, $storeId);
+    }
 }

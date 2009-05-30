@@ -52,6 +52,22 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     //Sometime we need this. Reffer to isInitilizeNeeded() method
     protected $_isInitializeNeeded      = true;
 
+    protected $_allowCurrencyCode = array('AUD', 'CAD', 'CZK', 'DKK', 'EUR', 'HKD', 'HUF', 'ILS', 'JPY', 'MXN', 'NOK', 'NZD', 'PLN', 'GBP', 'SGD', 'SEK', 'CHF', 'USD');
+
+    /**
+     * Check method for processing with base currency
+     *
+     * @param string $currencyCode
+     * @return boolean
+     */
+    public function canUseForCurrency($currencyCode)
+    {
+        if (!in_array($currencyCode, $this->_allowCurrencyCode)) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Get Paypal API Model
      *
@@ -216,7 +232,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      */
     public function getPaymentAction()
     {
-        $paymentAction = Mage::getStoreConfig('payment/paypal_express/payment_action');
+        $paymentAction = $this->getConfigData('payment_action');
         if (!$paymentAction) {
             $paymentAction = Mage_Paypal_Model_Api_Nvp::PAYMENT_TYPE_AUTH;
         }
@@ -232,6 +248,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     {
         $this->getQuote()->reserveOrderId()->save();
         $this->getApi()
+            ->setPayment($this->getPayment())
             ->setPaymentType($this->getPaymentAction())
             ->setAmount($this->getQuote()->getBaseGrandTotal())
             ->setCurrencyCode($this->getQuote()->getBaseCurrencyCode())
@@ -284,6 +301,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     protected function _getExpressCheckoutDetails()
     {
         $api = $this->getApi();
+        $api->setPayment($this->getPayment());
         if (!$api->callGetExpressCheckoutDetails()) {
             Mage::throwException(Mage::helper('paypal')->__('Problem during communication with PayPal'));
         }
@@ -396,6 +414,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         $api = $this->getApi();
 
         $api->setAmount($payment->getOrder()->getBaseGrandTotal())
+            ->setPayment($payment)
             ->setCurrencyCode($payment->getOrder()->getBaseCurrencyCode())
             ->setInvNum($this->getQuote()->getReservedOrderId());
 
@@ -426,6 +445,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         $error = false;
         if($payment->getVoidTransactionId()){
             $api = $this->getApi();
+            $api->setPayment($payment);
             $api->setAuthorizationId($payment->getVoidTransactionId());
 
              if ($api->callDoVoid()!==false){
@@ -457,7 +477,8 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         if ($payment->getRefundTransactionId() && $amount>0) {
             $api = $this->getApi();
             //we can refund the amount full or partial so it is good to set up as partial refund
-            $api->setTransactionId($payment->getRefundTransactionId())
+            $api->setPayment($payment)
+                ->setTransactionId($payment->getRefundTransactionId())
                 ->setRefundType(Mage_Paypal_Model_Api_Nvp::REFUND_TYPE_PARTIAL)
                 ->setAmount($amount);
 
@@ -491,6 +512,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
         }
 
         $this->getApi()
+            ->setPayment($this->getPayment())
             ->setPaymentType($paymentAction)
             ->setAmount($address->getBaseGrandTotal())
             ->setCurrencyCode($this->getQuote()->getBaseCurrencyCode())

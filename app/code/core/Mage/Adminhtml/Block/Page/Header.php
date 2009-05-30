@@ -53,4 +53,15 @@ class Mage_Adminhtml_Block_Page_Header extends Mage_Adminhtml_Block_Template
     {
         return $this->getUrl('adminhtml/index/logout');
     }
+
+    /**
+     * Check if noscript notice should be displayed
+     *
+     * @return boolean
+     */
+    public function displayNoscriptNotice()
+    {
+        return Mage::getStoreConfig('web/browser_capabilities/javascript');
+    }
+
 }

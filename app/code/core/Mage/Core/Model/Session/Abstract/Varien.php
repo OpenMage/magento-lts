@@ -84,7 +84,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         );
 
         if (!empty($sessionName)) {
-            session_name($sessionName);
+            $this->setSessionName($sessionName);
         }
 
         // potential custom logic for session id (ex. switching between hosts)
@@ -202,6 +202,28 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if (!is_null($id) && preg_match('#^[0-9a-zA-Z,-]+$#', $id)) {
             session_id($id);
         }
+        return $this;
+    }
+
+    /**
+     * Retrieve session name
+     *
+     * @return string
+     */
+    public function getSessionName()
+    {
+        return session_name();
+    }
+
+    /**
+     * Set session name
+     *
+     * @param string $name
+     * @return Mage_Core_Model_Session_Abstract_Varien
+     */
+    public function setSessionName($name)
+    {
+        session_name($name);
         return $this;
     }
 

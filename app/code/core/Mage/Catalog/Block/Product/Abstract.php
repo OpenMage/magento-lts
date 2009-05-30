@@ -42,7 +42,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     private $_reviewsHelperBlock;
 
     /**
-     * Enter description here...
+     * Retrieve url for add product to cart
+     * Will return product view page URL if product has required options
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array $additional
@@ -50,6 +51,11 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getAddToCartUrl($product, $additional = array())
     {
+        if ($product->getTypeInstance(true)->hasRequiredOptions($product)) {
+            $url = $product->getProductUrl();
+            $link = (strpos($url, '?') !== false) ? '&' : '?';
+            return $url . $link . 'options=cart';
+        }
         return $this->helper('checkout/cart')->getAddUrl($product, $additional);
     }
 
@@ -292,4 +298,5 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
 
         return $label;
     }
+
 }

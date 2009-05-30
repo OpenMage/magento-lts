@@ -442,7 +442,7 @@ class Zend_Controller_Front
     public function setRequest($request)
     {
         if (is_string($request)) {
-            Zend_Loader::loadClass($request);
+            #Zend_Loader::loadClass($request);
             $request = new $request();
         }
         if (!$request instanceof Zend_Controller_Request_Abstract) {
@@ -481,7 +481,7 @@ class Zend_Controller_Front
     public function setRouter($router)
     {
         if (is_string($router)) {
-            Zend_Loader::loadClass($router);
+            #Zend_Loader::loadClass($router);
             $router = new $router();
         }
 
@@ -610,7 +610,7 @@ class Zend_Controller_Front
     public function setResponse($response)
     {
         if (is_string($response)) {
-            Zend_Loader::loadClass($response);
+            #Zend_Loader::loadClass($response);
             $response = new $response();
         }
         if (!$response instanceof Zend_Controller_Response_Abstract) {

@@ -175,6 +175,12 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main extends Mage_Adminhtml_Bloc
 
         $form->setValues($model->getData());
 
+        if ($model->isReadonly()) {
+            foreach ($fieldset->getElements() as $element) {
+                $element->setReadonly(true, true);
+            }
+        }
+
         //$form->setUseContainer(true);
 
         $this->setForm($form);

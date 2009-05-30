@@ -153,6 +153,6 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Product extends Mage_Adminhtml_Block
 
     protected function _getStore()
     {
-        return $this->getLayout()->getBlockSingleton('googlebase/adminhtml_items')->getStore();
+        return Mage::app()->getStore($this->getRequest()->getParam('store'));
     }
 }

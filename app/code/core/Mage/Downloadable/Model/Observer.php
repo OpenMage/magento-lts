@@ -130,8 +130,11 @@ class Mage_Downloadable_Model_Observer
         if (!$session->getHasDownloadableProducts()) {
             $order = $observer->getEvent()->getOrder();
             foreach ($order->getAllItems() as $item) {
+                /* @var $item Mage_Sales_Model_Order_Item */
                 if ($item->getProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
-                || $item->getProductOptionByCode('is_downloadable')) {
+                || $item->getRealProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
+                || $item->getProductOptionByCode('is_downloadable'))
+                {
                     $session->setHasDownloadableProducts(true);
                     break;
                 }
@@ -149,7 +152,7 @@ class Mage_Downloadable_Model_Observer
     public function setLinkStatus($observer)
     {
         $order = $observer->getEvent()->getOrder();
-        /** @var $order Mage_Sales_Model_Order */
+        /* @var $order Mage_Sales_Model_Order */
         $status = '';
         $orderItemsIds = array();
         $orderItemStatusToEnable = Mage::getStoreConfig(Mage_Downloadable_Model_Link_Purchased_Item::XML_PATH_ORDER_ITEM_STATUS);
@@ -162,7 +165,9 @@ class Mage_Downloadable_Model_Observer
             $status = Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING_PAYMENT;
         } else {
             foreach ($order->getAllItems() as $item) {
-                if ($item->getProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE) {
+                if ($item->getProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
+                    || $item->getRealProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE)
+                {
                     if ($item->getStatusId() == $orderItemStatusToEnable) {
                         $orderItemsIds[] = $item->getId();
                     }
@@ -174,7 +179,9 @@ class Mage_Downloadable_Model_Observer
         }
         if (!$orderItemsIds && $status) {
             foreach ($order->getAllItems() as $item) {
-                if ($item->getProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE) {
+                if ($item->getProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
+                    || $item->getRealProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE)
+                {
                     $orderItemsIds[] = $item->getId();
                 }
             }

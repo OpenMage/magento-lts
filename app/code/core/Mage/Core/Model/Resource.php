@@ -72,12 +72,14 @@ class Mage_Core_Model_Resource
             return $this->_connections[$name];
         }
         $connConfig = Mage::getConfig()->getResourceConnectionConfig($name);
+
         if (!$connConfig || !$connConfig->is('active', 1)) {
             return false;
         }
         $origName = $connConfig->getParent()->getName();
 
         if (isset($this->_connections[$origName])) {
+            $this->_connections[$name] = $this->_connections[$origName];
             return $this->_connections[$origName];
         }
 

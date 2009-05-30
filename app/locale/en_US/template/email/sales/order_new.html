@@ -19,7 +19,7 @@
             <tr>
                 <td valign="top">
                     <p>
-                        <strong>Hello {{var order.getCustomerName()}}</strong>,<br/>
+                        <strong>Hello {{htmlescape var=$order.getCustomerName()}}</strong>,<br/>
                         Thank you for your order from {{var order.getStoreGroupName()}}.
                         Once your package ships we will send an email with a link to track your order.
                         You can check the status of your order by <a href="{{store url="customer/account/"}}" style="color:#1E7EC8;">logging into your account</a>.
@@ -75,8 +75,6 @@
                     <br/>
                     {{/depend}}
                     {{layout handle="sales_email_order_items" order=$order}}
-
-                    {{var items_html}}
                     <br/>
                     {{var order.getEmailCustomerNote()}}
                     <p>Thank you again,<br/><strong>{{var order.getStoreGroupName()}}</strong></p>

@@ -33,8 +33,14 @@
  */
 class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Action
 {
-
     const FLAG_IS_URLS_CHECKED = 'check_url_settings';
+
+    /**
+     * Array of actions which can be processed without secret key validation
+     *
+     * @var array
+     */
+    protected $_publicActions = array();
 
     /**
      * Used module name in current adminhtml controller
@@ -107,11 +113,6 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         return $this;
     }
 
-    public function hasAction($action)
-    {
-        return true;
-    }
-
     /**
      * Controller predispatch method
      *
@@ -126,9 +127,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         $this->getLayout()->setArea('adminhtml');
 
         Mage::dispatchEvent('adminhtml_controller_action_predispatch_start', array());
-
         parent::preDispatch();
-
         $_isValidFormKey = true;
         $_isValidSecretKey = true;
         $_keyErrorMsg = '';
@@ -150,7 +149,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
                     'message' => $_keyErrorMsg
                 )));
             } else {
-                $this->_redirect('*/index/index');
+                $this->_redirect( Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl() );
             }
             return $this;
         }
@@ -345,16 +344,6 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     protected function _forward($action, $controller = null, $module = null, array $params = null)
     {
         $this->_getSession()->setIsUrlNotice($this->getFlag('', self::FLAG_IS_URLS_CHECKED));
-
-        // Save original values for controller and action included in secret key Urls
-        $_urlModel = Mage::getSingleton('adminhtml/url');
-        if (!$_urlModel->getOriginalControllerName()) {
-            $_urlModel->setOriginalControllerName($this->getRequest()->getControllerName());
-        }
-        if (!$_urlModel->getOriginalActionName()) {
-            $_urlModel->setOriginalActionName($this->getRequest()->getActionName());
-        }
-
         return parent::_forward($action, $controller, $module, $params);
     }
 
@@ -370,7 +359,6 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         return Mage::helper('adminhtml')->getUrl($route, $params);
     }
 
-
     /**
      * Validate Secret Key
      *
@@ -378,10 +366,12 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     protected function _validateSecretKey()
     {
-        $url = Mage::getSingleton('adminhtml/url');
+        if (is_array($this->_publicActions) && in_array($this->getRequest()->getActionName(), $this->_publicActions)) {
+            return true;
+        }
 
         if (!($secretKey = $this->getRequest()->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME, null))
-            || $secretKey != $url->getSecretKey($url->getOriginalControllerName(), $url->getOriginalActionName())) {
+            || $secretKey != Mage::getSingleton('adminhtml/url')->getSecretKey()) {
             return false;
         }
         return true;

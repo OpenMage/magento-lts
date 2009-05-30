@@ -375,7 +375,7 @@ abstract class Zend_Db_Adapter_Abstract
         }
 
         if ($profilerInstance === null) {
-            Zend_Loader::loadClass($profilerClass);
+            #Zend_Loader::loadClass($profilerClass);
             $profilerInstance = new $profilerClass();
         }
 

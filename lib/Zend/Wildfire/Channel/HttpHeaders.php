@@ -90,7 +90,7 @@ class Zend_Wildfire_Channel_HttpHeaders extends Zend_Controller_Plugin_Abstract 
                 #require_once 'Zend/Wildfire/Exception.php';
                 throw new Zend_Wildfire_Exception('Third argument is not a class string');
             }
-            Zend_Loader::loadClass($class);
+            #Zend_Loader::loadClass($class);
             self::$_instance = new $class();
             if (!self::$_instance instanceof Zend_Wildfire_Channel_HttpHeaders) {
                 self::$_instance = null;

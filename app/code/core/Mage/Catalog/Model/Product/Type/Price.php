@@ -186,7 +186,7 @@ class Mage_Catalog_Model_Product_Type_Price
      */
     protected function _applySpecialPrice($product, $finalPrice)
     {
-        return self::calculateSpecialPrice($finalPrice, $product->getSpecialPrice(), $product->getSpecialFromDate(), $product->getSpecialToDate(), $product->getStore());
+        return $this->calculateSpecialPrice($finalPrice, $product->getSpecialPrice(), $product->getSpecialFromDate(), $product->getSpecialToDate(), $product->getStore());
     }
 
     /**
@@ -320,17 +320,7 @@ class Mage_Catalog_Model_Product_Type_Price
     public static function calculateSpecialPrice($finalPrice, $specialPrice, $specialPriceFrom, $specialPriceTo, $store = null)
     {
         if (!is_null($specialPrice) && $specialPrice != false) {
-            if (!$store instanceof Mage_Core_Model_Store) {
-                $store = Mage::app()->getStore($store);
-            }
-
-            $storeTimeStamp = Mage::app()->getLocale()->storeTimeStamp($store);
-            $fromTimeStamp  = strtotime($specialPriceFrom);
-            $toTimeStamp    = strtotime($specialPriceTo);
-
-            if ($specialPriceFrom && $storeTimeStamp < $fromTimeStamp) {
-            } elseif ($specialPriceTo && $storeTimeStamp > $toTimeStamp) {
-            } else {
+            if (Mage::app()->getLocale()->IsStoreDateInInterval($store, $specialPriceFrom, $specialPriceTo)) {
                 $finalPrice     = min($finalPrice, $specialPrice);
             }
         }

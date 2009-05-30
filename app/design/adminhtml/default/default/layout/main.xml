@@ -97,6 +97,7 @@ Default layout, loads most of the pages
                 <block type="core/html_calendar" name="head.calendar" as="calendar" template="page/js/calendar.phtml"/>
             </block>
 
+            <block type="adminhtml/page_notices" name="global_notices" as="global_notices" template="page/notices.phtml" />
             <block type="adminhtml/page_header" name="header" as="header"></block>
             <block type="adminhtml/page_menu" name="menu" as="menu"></block>
             <block type="adminhtml/notification_toolbar" name="notification_toolbar" as="notification_toolbar" acl="system/adminnotification/show_toolbar" template="notification/toolbar.phtml"></block>

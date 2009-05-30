@@ -142,11 +142,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         if ($filter = $this->getValueFilter()) {
             $value = $filter->filter($value);
         }
-        try {
-            return $this->_escape($value);
-        } catch (Exception $e) {
-            return $value;
-        }
+        return $this->_escape($value);
     }
 
     public function setRenderer(Varien_Data_Form_Element_Renderer_Interface $renderer)
@@ -218,9 +214,37 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         if (in_array('disabled', $attributes) && !empty($this->_data['disabled'])) {
             $this->_data['disabled'] = 'disabled';
         }
+        else {
+            unset($this->_data['disabled']);
+        }
         if (in_array('checked', $attributes) && !empty($this->_data['checked'])) {
             $this->_data['checked'] = 'checked';
         }
+        else {
+            unset($this->_data['checked']);
+        }
         return parent::serialize($attributes, $valueSeparator, $fieldSeparator, $quote);
     }
+
+    public function setReadonly($readonly, $useDisabled = false)
+    {
+        if ($useDisabled) {
+            $this->setDisabled($readonly);
+            $this->setData('readonly_disabled', $readonly);
+        } else {
+            $this->setData('readonly', $readonly);
+        }
+
+        return $this;
+    }
+
+    public function getReadonly()
+    {
+        if ($this->hasData('readonly_disabled')) {
+            return $this->_getData('readonly_disabled');
+        }
+
+        return $this->_getData('readonly');
+    }
+
 }

@@ -314,7 +314,10 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
             $this->setInvoiceId($this->getInvoice()->getId());
         }
 
-        $this->getOrder()->getPayment()->refund($this);
+        if (!$this->getPaymentRefundDisallowed()) {
+            $this->getOrder()->getPayment()->refund($this);
+        }
+
         Mage::dispatchEvent('sales_order_creditmemo_refund', array($this->_eventObject=>$this));
         return $this;
     }

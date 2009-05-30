@@ -98,7 +98,7 @@ class Zend_InfoCard_Xml_Security_Transform
     public function applyTransforms($strXmlDocument)
     {
         foreach($this->_transformList as $transform) {
-            Zend_Loader::loadClass($transform['class']);
+            #Zend_Loader::loadClass($transform['class']);
 
             $transformer = new $transform['class'];
 

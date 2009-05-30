@@ -60,6 +60,11 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     protected $_storeCollection;
 
     /**
+     * @var bool
+     */
+    private $_isAdminScopeAllowed = true;
+
+    /**
      * Init model
      * Load Website, Group and Store collections
      *
@@ -77,11 +82,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      */
     protected function _loadWebsiteCollection()
     {
-        $this->_websiteCollection = array();
-        foreach (Mage::getModel('core/website')->getCollection() as $website) {
-            $this->_websiteCollection[$website->getId()] = $website;
-        }
-        $this->_cleanupCollection();
+        $this->_websiteCollection = Mage::app()->getWebsites();
         return $this;
     }
 
@@ -93,10 +94,11 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     protected function _loadGroupCollection()
     {
         $this->_groupCollection = array();
-        foreach (Mage::getModel('core/store_group')->getCollection() as $group) {
-            $this->_groupCollection[$group->getId()] = $group;
+        foreach (Mage::app()->getWebsites() as $website) {
+            foreach ($website->getGroups() as $group) {
+                $this->_groupCollection[$group->getId()] = $group;
+            }
         }
-        $this->_cleanupCollection();
         return $this;
     }
 
@@ -107,20 +109,11 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      */
     protected function _loadStoreCollection()
     {
-        $this->_storeCollection = array();
-        foreach (Mage::getModel('core/store')->getCollection() as $store) {
-            $this->_storeCollection[$store->getId()] = $store;
-        }
-        $this->_cleanupCollection();
+        $this->_storeCollection = Mage::app()->getStores();
         return $this;
     }
 
-    protected function _cleanupCollection()
-    {
-        return $this;
-    }
-
-    protected function _getDefaultStoreOptions($empty=false, $all=false)
+    public function getStoreValuesForForm($empty = false, $all = false)
     {
         $options = array();
         if ($empty) {
@@ -129,24 +122,12 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                 'value' => ''
             );
         }
-        if ($all) {
+        if ($all && $this->_isAdminScopeAllowed) {
             $options[] = array(
                 'label' => Mage::helper('adminhtml')->__('All Store Views'),
                 'value' => 0
             );
         }
-
-        return $options;
-    }
-
-    protected function _forceDisableWebsitesAll()
-    {
-        return false;
-    }
-
-    public function getStoreValuesForForm($empty = false, $all = false)
-    {
-        $options = $this->_getDefaultStoreOptions($empty, $all);
 
         foreach ($this->_websiteCollection as $website) {
             $websiteShow = false;
@@ -195,7 +176,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                 'value' => ''
             );
         }
-        if ($all && !$this->_forceDisableWebsitesAll()) {
+        if ($all && $this->_isAdminScopeAllowed) {
             $options[] = array(
                 'label' => Mage::helper('adminhtml')->__('Admin'),
                 'value' => 0
@@ -211,28 +192,48 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         return $options;
     }
 
-    public function getWebsiteValuesForGridFilter()
+    /**
+     * Get websites as id => name associative array
+     *
+     * @param bool $withDefault
+     * @param string $attribute
+     * @return array
+     */
+    public function getWebsiteOptionHash($withDefault = false, $attribute = 'name')
     {
         $options = array();
-        foreach ($this->_websiteCollection as $website) {
-            $options[$website->getId()] = $website->getName();
+        foreach (Mage::app()->getWebsites((bool)$withDefault && $this->_isAdminScopeAllowed) as $website) {
+            $options[$website->getId()] = $website->getDataUsingMethod($attribute);
         }
         return $options;
     }
 
-    public function getStoreValuesForGridFilter()
+    /**
+     * Get store views as id => name associative array
+     *
+     * @param bool $withDefault
+     * @param string $attribute
+     * @return array
+     */
+    public function getStoreOptionHash($withDefault = false, $attribute = 'name')
     {
         $options = array();
-        foreach ($this->_storeCollection as $store) {
-            $options[$store->getId()] = $store->getName();
+        foreach (Mage::app()->getStores((bool)$withDefault && $this->_isAdminScopeAllowed) as $store) {
+            $options[$store->getId()] = $store->getDataUsingMethod($attribute);
         }
         return $options;
     }
 
-    public function getStoreGroupValuesForGridFilter()
+    /**
+     * Get store groups as id => name associative array
+     *
+     * @param string $attribute
+     * @return array
+     */
+    public function getStoreGroupOptionHash($attribute = 'name')
     {
         foreach ($this->_groupCollection as $group) {
-            $options[$group->getId()] = $group->getName();
+            $options[$group->getId()] = $group->getDataUsingMethod($attribute);
         }
         return $options;
     }
@@ -410,5 +411,17 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
             }
         }
         return $name;
+    }
+
+    /**
+     * Specify whether to show admin-scope options
+     *
+     * @param bool $value
+     * @return Mage_Adminhtml_Model_System_Store
+     */
+    public function setIsAdminScopeAllowed($value)
+    {
+        $this->_isAdminScopeAllowed = (bool)$value;
+        return $this;
     }
 }

@@ -40,6 +40,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
         $this->_initRenderer('shipment');
 
         $pdf = new Zend_Pdf();
+        $this->_setPdf($pdf);
         $style = new Zend_Pdf_Style();
         $this->_setFontBold($style, 10);
         foreach ($shipments as $shipment) {
@@ -88,32 +89,12 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
                     continue;
                 }
 
-                $shift = 10;
-                $shift = array();
                 if ($this->y<15) {
-                    /* Add new table head */
-                    $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
-                    $pdf->pages[] = $page;
-                    $this->y = 800;
-
-                    $this->_setFontRegular($page);
-                    $page->setFillColor(new Zend_Pdf_Color_RGB(0.93, 0.92, 0.92));
-                    $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
-                    $page->setLineWidth(0.5);
-                    $page->drawRectangle(25, $this->y, 570, $this->y-15);
-                    $this->y -=10;
-
-                    $page->setFillColor(new Zend_Pdf_Color_RGB(0.4, 0.4, 0.4));
-                    $page->drawText(Mage::helper('sales')->__('QTY'), 35, $this->y, 'UTF-8');
-                    $page->drawText(Mage::helper('sales')->__('Products'), 60, $this->y, 'UTF-8');
-                    $page->drawText(Mage::helper('sales')->__('SKU'), 470, $this->y, 'UTF-8');
-
-                    $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
-                    $this->y -=20;
+                    $page = $this->newPage(array('table_header' => true));
                 }
 
                 /* Draw item */
-                $this->_drawItem($item, $page, $order);
+                $page = $this->_drawItem($item, $page, $order);
             }
         }
 
@@ -123,5 +104,38 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
             Mage::app()->getLocale()->revert();
         }
         return $pdf;
+    }
+
+    /**
+     * Create new page and assign to PDF object
+     *
+     * @param array $settings
+     * @return Zend_Pdf_Page
+     */
+    public function newPage(array $settings = array())
+    {
+        /* Add new table head */
+        $page = $this->_getPdf()->newPage(Zend_Pdf_Page::SIZE_A4);
+        $this->_getPdf()->pages[] = $page;
+        $this->y = 800;
+
+        if (!empty($settings['table_header'])) {
+            $this->_setFontRegular($page);
+            $page->setFillColor(new Zend_Pdf_Color_RGB(0.93, 0.92, 0.92));
+            $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
+            $page->setLineWidth(0.5);
+            $page->drawRectangle(25, $this->y, 570, $this->y-15);
+            $this->y -=10;
+
+            $page->setFillColor(new Zend_Pdf_Color_RGB(0.4, 0.4, 0.4));
+            $page->drawText(Mage::helper('sales')->__('QTY'), 35, $this->y, 'UTF-8');
+            $page->drawText(Mage::helper('sales')->__('Products'), 60, $this->y, 'UTF-8');
+            $page->drawText(Mage::helper('sales')->__('SKU'), 470, $this->y, 'UTF-8');
+
+            $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
+            $this->y -=20;
+        }
+
+        return $page;
     }
 }

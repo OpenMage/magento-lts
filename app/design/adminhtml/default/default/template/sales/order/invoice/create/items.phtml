@@ -144,6 +144,7 @@
 //<![CDATA[
 var submitButtons = $$('.submit-button');
 var updateButtons = $$('.update-button');
+var enableSubmitButtons = <?php echo (int) !$this->getDisableSubmitButton() ?>;
 var fields = $$('.qty-input');
 
 updateButtons.each(function (elem) {elem.disabled=true;elem.addClassName('disabled');});
@@ -165,7 +166,9 @@ function checkButtonsRelation() {
         updateButtons.each(function (elem) {elem.disabled=false;elem.removeClassName('disabled');});
     }
     else {
-        submitButtons.each(function (elem) {elem.disabled=false;elem.removeClassName('disabled');});
+        if (enableSubmitButtons) {
+            submitButtons.each(function (elem) {elem.disabled=false;elem.removeClassName('disabled');});
+        }
         updateButtons.each(function (elem) {elem.disabled=true;elem.addClassName('disabled');});
     }
 }

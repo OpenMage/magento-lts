@@ -65,7 +65,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
             ->setCurPage(1)
         ;
         Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
+        Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($collection);
 
         // apply events log to collection with required parameters
         $skip = $this->_getProductsToSkip();

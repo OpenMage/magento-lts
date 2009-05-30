@@ -46,12 +46,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search extends Mage_Adminhtml_Bloc
         return Mage::helper('sales')->__('Please select products to add');
     }
 
-    protected function _prepareLayout()
-    {
-        $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/sales_order_create_search_grid'));
-        return parent::_prepareLayout();
-    }
-
     public function getButtonsHtml()
     {
         $addButtonData = array(

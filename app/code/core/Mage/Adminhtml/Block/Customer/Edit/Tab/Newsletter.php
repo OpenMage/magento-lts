@@ -57,6 +57,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
              )
         );
 
+        if ($customer->isReadonly()) {
+            $form->getElement('subscription')->setReadonly(true, true);
+        }
+
         $form->getElement('subscription')->setIsChecked($subscriber->isSubscribed());
 
         if($changedDate = $this->getStatusChangedDate()) {

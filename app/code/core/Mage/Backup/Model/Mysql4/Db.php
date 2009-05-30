@@ -36,7 +36,7 @@ class Mage_Backup_Model_Mysql4_Db
     /**
      * Read connection
      *
-     * @var Zend_Db_Adapter_Abstract
+     * @var Varien_Db_Adapter_Pdo_Mysql
      */
     protected $_read;
 
@@ -183,6 +183,32 @@ class Mage_Backup_Model_Mysql4_Db
     }
 
     /**
+     * Quote Table Row
+     *
+     * @param string $tableName
+     * @param array $row
+     * @return string
+     */
+    protected function _quoteRow($tableName, array $row)
+    {
+        $describe = $this->_read->describeTable($tableName);
+        $rowData = array();
+        foreach ($row as $k => $v) {
+            if (is_null($v)) {
+                $value = 'NULL';
+            }
+            elseif (in_array(strtolower($describe[$k]['DATA_TYPE']), array('bigint','mediumint','smallint','tinyint'))) {
+                $value = $v;
+            }
+            else {
+                $value = $this->_read->quoteInto('?', $v);
+            }
+            $rowData[] = $value;
+        }
+        return '('.join(',', $rowData).')';
+    }
+
+    /**
      * Retrive table partical data SQL insert
      *
      * @param string $tableName
@@ -207,21 +233,7 @@ class Mage_Backup_Model_Mysql4_Db
                 $sql .= ',';
             }
 
-            //$sql .= $this->_read->quoteInto('(?)', $row);
-            $rowData = array();
-            foreach ($row as $v) {
-                if (is_null($v)) {
-                    $value = 'NULL';
-                }
-                elseif (is_numeric($v) && $v == intval($v)) {
-                    $value = $v;
-                }
-                else {
-                    $value = $this->_read->quoteInto('?', $v);
-                }
-                $rowData[] = $value;
-            }
-            $sql .= '('.join(',', $rowData).')';
+            $sql .= $this->_quoteRow($tableName, $row);
         }
 
         if (!is_null($sql)) {

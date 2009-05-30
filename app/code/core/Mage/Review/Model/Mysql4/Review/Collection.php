@@ -69,12 +69,13 @@ class Mage_Review_Model_Mysql4_Review_Collection extends Varien_Data_Collection_
     /**
      * Add store filter
      *
-     * @param   int $storeId
+     * @param   int|array $storeId
      * @return  Varien_Data_Collection_Db
      */
     public function addStoreFilter($storeId)
     {
-        $this->_select->join(array('store'=>$this->_reviewStoreTable), 'main_table.review_id=store.review_id AND store.store_id=' . (int)$storeId, array());
+        $this->getSelect()->join(array('store'=>$this->_reviewStoreTable), 'main_table.review_id=store.review_id', array());
+        $this->getSelect()->where('store.store_id IN (?)', $storeId);
         return $this;
     }
 
@@ -184,6 +185,7 @@ class Mage_Review_Model_Mysql4_Review_Collection extends Varien_Data_Collection_
         if ($this->isLoaded()) {
             return $this;
         }
+        Mage::dispatchEvent('review_review_collection_load_before', array('collection' => $this));
         parent::load($printQuery, $logQuery);
         if($this->_addStoreDataFlag) {
             $this->_addStoreData();

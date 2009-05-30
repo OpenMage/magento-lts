@@ -46,8 +46,8 @@ class Mage_Api_Model_Server_V2_Handler extends Mage_Api_Model_Server_Handler_Abs
     {
         $sessionId = array_shift( $args );
         $apiKey = '';
-        $config = Mage::getConfig();
-        foreach ($config->getNode('api/v2/resources_function_prefix')->children() as $resource => $prefix) {
+        $nodes = Mage::getSingleton('api/config')->getNode('v2/resources_function_prefix')->children();
+        foreach ($nodes as $resource => $prefix) {
             $prefix = $prefix->asArray();
             if (false !== strpos($function, $prefix)) {
                 $method = substr($function, strlen($prefix));

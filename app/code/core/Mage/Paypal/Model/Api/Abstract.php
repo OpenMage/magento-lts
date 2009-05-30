@@ -52,13 +52,16 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         return $this->getData('server_name');
     }
 
-    public function getConfigData($key, $default=false)
+    public function getConfigData($key, $default=false, $storeId = null)
     {
         if (!$this->hasData($key)) {
-             $value = Mage::getStoreConfig('paypal/wpp/'.$key);
-             if (is_null($value) || false===$value) {
-                 $value = $default;
-             }
+            if ($storeId === null && $this->getPayment() instanceof Varien_Object) {
+                $storeId = $this->getPayment()->getOrder()->getStoreId();
+            }
+            $value = Mage::getStoreConfig('paypal/wpp/'.$key, $storeId);
+            if (is_null($value) || false===$value) {
+                $value = $default;
+            }
             $this->setData($key, $value);
         }
         return $this->getData($key);

@@ -32,7 +32,7 @@ class Mage_Rule_Block_Editable extends Mage_Core_Block_Abstract
 	{
 	    $valueName = $element->getValueName();
 
-	    if ($valueName=='') {
+	    if ($valueName==='') {
 	        $valueName = '...';
 	    } else {
 	        $valueName = Mage::helper('core/string')->truncate($valueName, 30);

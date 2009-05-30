@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,6 +34,10 @@
  */
 class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract
 {
+    /**
+     * Draw item line
+     *
+     */
     public function draw()
     {
         $order  = $this->getOrder();
@@ -43,24 +47,44 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
 
         $items = $this->getChilds($item);
         $_prevOptionId = '';
-        $shift  = array(0, 0, 0);
+        $drawItems = array();
         $leftBound  =  35;
         $rightBound = 565;
-        $size = 7;
 
         foreach ($items as $_item) {
-            $this->_setFontRegular();
-            $x = $leftBound;
+            $x      = $leftBound;
+            $line   = array();
+
+            if ($attributes = $this->getSelectionAttributes($_item)) {
+                $optionId   = $attributes['option_id'];
+            }
+            else {
+                $optionId = 0;
+            }
+
+            if (!isset($drawItems[$optionId])) {
+                $drawItems[$optionId] = array(
+                    'lines'  => array(),
+                    'height' => 10
+                );
+            }
 
             // draw selection attributes
             if ($_item->getOrderItem()->getParentItem()) {
-                $attributes = $this->getSelectionAttributes($_item);
                 if ($_prevOptionId != $attributes['option_id']) {
-                    $this->_setfontItalic();
-                    $page->drawText($attributes['option_label'], $x, $pdf->y, 'UTF-8');
-                    $this->_setFontRegular();
+                    $line[0] = array(
+                        'font'  => 'italic',
+                        'text'  => $attributes['option_label'],
+                        'feed'  => $x
+                    );
+
+                    $drawItems[$optionId] = array(
+                        'lines'  => array($line),
+                        'height' => 10
+                    );
+
+                    $line = array();
                     $_prevOptionId = $attributes['option_id'];
-                    $pdf->y -= 10;
                 }
             }
 
@@ -72,86 +96,129 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                 $feed = $x;
                 $name = $_item->getName();
             }
-            foreach (Mage::helper('core/string')->str_split($name, 60, true, true) as $key => $part) {
-                $page->drawText($part, $feed, $pdf->y - $shift[0], 'UTF-8');
-                if ($key > 0) {
-                    $shift[0] += 10;
-                }
-            }
+
+            $line[] = array(
+                'text'  => Mage::helper('core/string')->str_split($name, 60, true, true),
+                'feed'  => $feed
+            );
+
             $x += 220;
 
             // draw SKUs
-            $shift[2] = 0;
             if (!$_item->getOrderItem()->getParentItem()) {
-                foreach (Mage::helper('core/string')->str_split($item->getSku(), 30) as $key => $part) {
-                    if ($key > 0) {
-                        $shift[2] += 10;
-                    }
-                    $page->drawText($part, $x, $pdf->y - $shift[2], 'UTF-8');
+                $text = array();
+                foreach (Mage::helper('core/string')->str_split($item->getSku(), 30) as $part) {
+                    $text[] = $part;
                 }
+                $line[] = array(
+                    'text'  => $text,
+                    'feed'  => $x
+                );
             }
+
             $x += 100;
 
-            $font = $this->_setFontBold();
+            // draw prices
             if ($this->canShowPriceInfo($_item)) {
                 // draw Total(ex)
                 $text = $order->formatPriceTxt($_item->getRowTotal());
-                $page->drawText($text, $pdf->getAlignRight($text, $x, 50, $font, $size), $pdf->y, 'UTF-8');
+                $line[] = array(
+                    'text'  => $text,
+                    'feed'  => $x,
+                    'font'  => 'bold',
+                    'align' => 'right',
+                    'width' => 50
+                );
                 $x += 50;
 
                 // draw Discount
                 $text = $order->formatPriceTxt(-$_item->getDiscountAmount());
-                $page->drawText($text, $pdf->getAlignRight($text, $x, 50, $font, $size), $pdf->y, 'UTF-8');
+                $line[] = array(
+                    'text'  => $text,
+                    'feed'  => $x,
+                    'font'  => 'bold',
+                    'align' => 'right',
+                    'width' => 50
+                );
                 $x += 50;
 
                 // draw QTY
                 $text = $_item->getQty() * 1;
-                $page->drawText($text, $pdf->getAlignCenter($text, $x, 30, $font, $size), $pdf->y, 'UTF-8');
+                $line[] = array(
+                    'text'  => $_item->getQty()*1,
+                    'feed'  => $x,
+                    'font'  => 'bold',
+                    'align' => 'center',
+                    'width' => 30
+                );
                 $x += 30;
 
                 // draw Tax
                 $text = $order->formatPriceTxt($_item->getTaxAmount());
-                $page->drawText($text, $pdf->getAlignRight($text, $x, 45, $font, $size, 10), $pdf->y, 'UTF-8');
+                $line[] = array(
+                    'text'  => $text,
+                    'feed'  => $x,
+                    'font'  => 'bold',
+                    'align' => 'right',
+                    'width' => 45
+                );
                 $x += 45;
 
                 // draw Total(inc)
                 $text = $order->formatPriceTxt($_item->getRowTotal()+$_item->getTaxAmount()-$_item->getDiscountAmount());
-                $page->drawText($text, 565-$pdf->widthForStringUsingFontSize($text, $font, 7), $pdf->y, 'UTF-8');
+                $line[] = array(
+                    'text'  => $text,
+                    'feed'  => $rightBound,
+                    'font'  => 'bold',
+                    'align' => 'right',
+                );
             }
 
-            $pdf->y -=max($shift)+10;
+            $drawItems[$optionId]['lines'][] = $line;
+
         }
 
-        if ($item->getOrderItem()->getProductOptions() || $item->getOrderItem()->getDescription()) {
-            $this->_setFontRegular();
+        if ($item->getOrderItem()->getProductOptions()) {
             $options = $item->getOrderItem()->getProductOptions();
             if (isset($options['options'])) {
                 foreach ($options['options'] as $option) {
-                    $this->_setFontItalic();
+                    $lines = array();
+                    $text = array();
                     foreach (Mage::helper('core/string')->str_split(strip_tags($option['label']), 60, false, true) as $_option) {
-                        $page->drawText($_option, $leftBound, $pdf->y-$shift[1], 'UTF-8');
-                        $shift[1] += 10;
+                        $text[] = $_option;
                     }
-                    $this->_setFontRegular();
+
+                    $lines = array(array(
+                        'text'  => $text,
+                        'font'  => 'italic',
+                        'feed'  => $leftBound
+                    ));
+
                     if ($option['value']) {
+                        $text = array();
                         $_printValue = isset($option['print_value']) ? $option['print_value'] : strip_tags($option['value']);
                         $values = explode(', ', $_printValue);
                         foreach ($values as $value) {
-                            foreach (Mage::helper('core/string')->str_split($value, 50,true,true) as $_value) {
-                                $page->drawText($_value, $leftBound + 5, $pdf->y-$shift[1], 'UTF-8');
-                                $shift[1] += 10;
+                            foreach (Mage::helper('core/string')->str_split($value, 50, true, true) as $_value) {
+                                $text[] = $_value;
                             }
                         }
+
+                        $lines[] = array(
+                            'text'  => $text,
+                            'feed'  => $leftBound + 5
+                        );
                     }
+
+                    $drawItems[] = array(
+                        'lines'  => $lines,
+                        'height' => 10
+                    );
                 }
             }
-
-            foreach ($this->_parseDescription() as $description){
-                $page->drawText(strip_tags($description), $leftBound + 5, $pdf->y-$shift{1}, 'UTF-8');
-                $shift[1] += 10;
-            }
-
-            $pdf->y -= max($shift)+10;
         }
+
+        $page = $pdf->drawLineBlocks($page, $drawItems, array('table_header' => true));
+        $this->setPage($page);
     }
 }

@@ -69,12 +69,49 @@ class Mage_Api_Model_Mysql4_User extends Mage_Core_Model_Mysql4_Abstract
     public function recordLogin(Mage_Api_Model_User $user)
     {
         $data = array(
-            'logdate' => now(),
             'lognum'  => $user->getLognum()+1,
-            'sessid'  => $user->getSessid()
         );
         $condition = $this->_getWriteAdapter()->quoteInto('user_id=?', $user->getUserId());
         $this->_getWriteAdapter()->update($this->getTable('api/user'), $data, $condition);
+        return $this;
+    }
+
+    public function recordSession(Mage_Api_Model_User $user)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getTable('api/session'), 'user_id')
+            ->where('user_id = ?', $user->getId())
+            ->where('sessid = ?', $user->getSessid());
+        $logdate = now();
+        if ($this->_getReadAdapter()->fetchRow($select)) {
+            $this->_getWriteAdapter()->update(
+                $this->getTable('api/session'),
+                array ('logdate' => $logdate),
+                $this->_getReadAdapter()->quoteInto('user_id = ?', $user->getId()) . ' AND '
+                . $this->_getReadAdapter()->quoteInto('sessid = ?', $user->getSessid())
+            );
+        } else {
+            $this->_getWriteAdapter()->insert(
+                $this->getTable('api/session'),
+                array(
+                    'user_id' => $user->getId(),
+                    'logdate' => $logdate,
+                    'sessid' => $user->getSessid()
+                )
+            );
+        }
+        $user->setLogdate($logdate);
+        return $this;
+    }
+
+    public function cleanOldSessions(Mage_Api_Model_User $user)
+    {
+        $timeout = Mage::getStoreConfig('api/config/session_timeout');
+        $this->_getWriteAdapter()->delete(
+            $this->getTable('api/session'),
+            $this->_getReadAdapter()->quoteInto('user_id = ?', $user->getId()) . ' AND '
+            . new Zend_Db_Expr('(UNIX_TIMESTAMP(\'' . now() . '\') - UNIX_TIMESTAMP(logdate)) > ' . $timeout)
+        );
         return $this;
     }
 
@@ -87,9 +124,27 @@ class Mage_Api_Model_Mysql4_User extends Mage_Core_Model_Mysql4_Abstract
 
     public function loadBySessId ($sessId)
     {
-        $select = $this->_getReadAdapter()->select()->from($this->getTable('api/user'))
-            ->where('sessid=:sessid');
-        return $this->_getReadAdapter()->fetchRow($select, array('sessid'=>$sessId));
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getTable('api/session'))
+            ->where('sessid = ?', $sessId);
+        if ($apiSession = $this->_getReadAdapter()->fetchRow($select)) {
+            $selectUser = $this->_getReadAdapter()->select()
+                ->from($this->getTable('api/user'))
+                ->where('user_id = ?', $apiSession['user_id']);
+                if ($user = $this->_getReadAdapter()->fetchRow($selectUser)) {
+                    return array_merge($user, $apiSession);
+                }
+        }
+        return array();
+    }
+
+    public function clearBySessId($sessid)
+    {
+        $this->_getWriteAdapter()->delete(
+            $this->getTable('api/session'),
+            $this->_getReadAdapter()->quoteInto('sessid = ?', $sessid)
+        );
+        return $this;
     }
 
     public function hasAssigned2Role($user)

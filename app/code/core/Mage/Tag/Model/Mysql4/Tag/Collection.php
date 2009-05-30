@@ -34,7 +34,7 @@
 
 class Mage_Tag_Model_Mysql4_Tag_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
-
+    protected $_isStoreFilter = false;
     protected $_joinFlags = array();
 
     var $_map = array(
@@ -199,38 +199,28 @@ class Mage_Tag_Model_Mysql4_Tag_Collection extends Mage_Core_Model_Mysql4_Collec
 
     public function addStoreFilter($storeId, $allFilter = true)
     {
-        //$this->addFieldToFilter('main_table.store_id', $storeId);
-        if (is_array($storeId)) {
-            $this->getSelect()->join(array(
-                'summary_store'=>$this->getTable('summary')),
-                'main_table.tag_id = summary_store.tag_id
-                AND summary_store.store_id IN (' . implode(',', $storeId) . ')',
-                array());
-
-            $this->getSelect()->group('summary_store.tag_id');
-
-            if($this->getJoinFlag('relation') && $allFilter) {
-                $this->getSelect()->where('relation.store_id IN (' . implode(',', $storeId) . ')');
-            }
-
-            if($this->getJoinFlag('prelation') && $allFilter) {
-                $this->getSelect()->where('prelation.store_id IN (' . implode(',', $storeId) . ')');
-            }
-        } else {
-            $this->getSelect()->join(array(
-                'summary_store'=>$this->getTable('summary')),
-                'main_table.tag_id = summary_store.tag_id
-                AND summary_store.store_id = ' . (int) $storeId,
-                array());
-
-            if($this->getJoinFlag('relation') && $allFilter) {
-                $this->getSelect()->where('relation.store_id = ?', $storeId);
-            }
-
-            if($this->getJoinFlag('prelation') && $allFilter) {
-                $this->getSelect()->where('prelation.store_id = ?', $storeId);
-            }
+        if ($this->_isStoreFilter) {
+            return $this;
         }
+        if (!is_array($storeId)) {
+            $storeId = array($storeId);
+        }
+        $this->getSelect()->join(array(
+            'summary_store'=>$this->getTable('summary')),
+            'main_table.tag_id = summary_store.tag_id
+            AND summary_store.store_id IN (' . implode(',', $storeId) . ')',
+            array());
+
+        $this->getSelect()->group('summary_store.tag_id');
+
+        if($this->getJoinFlag('relation') && $allFilter) {
+            $this->getSelect()->where('relation.store_id IN (' . implode(',', $storeId) . ')');
+        }
+
+        if($this->getJoinFlag('prelation') && $allFilter) {
+            $this->getSelect()->where('prelation.store_id IN (' . implode(',', $storeId) . ')');
+        }
+        $this->_isStoreFilter = true;
 
         return $this;
     }

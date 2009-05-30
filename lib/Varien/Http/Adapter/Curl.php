@@ -62,6 +62,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      */
     public function connect($host, $port = 80, $secure = false)
     {
+        //curl_setopt();
         if (isset($this->_config['timeout'])) {
             curl_setopt($this->_getResource(), CURLOPT_TIMEOUT, $this->_config['timeout']);
         }
@@ -159,5 +160,16 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     public function getError()
     {
         return curl_error($this->_getResource());
+    }
+
+    /**
+     * Get information regarding a specific transfer
+     *
+     * @param int $opt CURLINFO option
+     * @return mixed
+     */
+    public function getInfo($opt = 0)
+    {
+        return curl_getinfo($this->_getResource(), $opt);
     }
 }

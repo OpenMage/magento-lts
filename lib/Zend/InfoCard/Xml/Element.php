@@ -86,7 +86,7 @@ abstract class Zend_InfoCard_Xml_Element
     static public function convertToObject(DOMElement $e, $classname)
     {
 
-        Zend_Loader::loadClass($classname);
+        #Zend_Loader::loadClass($classname);
 
         $reflection = new ReflectionClass($classname);
 

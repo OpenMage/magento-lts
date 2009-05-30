@@ -20,17 +20,27 @@
  *
  * @category   Mage
  * @package    Mage_CatalogIndex
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
- * Data retreiver abstract model
+ * CatalogIndex Data Retreiver Abstract Model
  *
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
 {
+    /**
+     * Product Type instance
+     *
+     * @var Mage_Catalog_Model_Product_Type_Abstract
+     */
+    protected $_typeInstance;
+
     /**
      * Defines when product type has children
      *
@@ -52,6 +62,10 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     const LINK_GET_CHILDREN = 1;
     const LINK_GET_PARENTS = 1;
 
+    /**
+     * Initialize abstract resource model
+     *
+     */
     protected function _construct()
     {
         $this->_init('catalogindex/data_abstract');
@@ -269,5 +283,21 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
             return false;
         }
         return true;
+    }
+
+    /**
+     * Retrieve Product Type Instance
+     *
+     * @return Mage_Catalog_Model_Product_Type_Abstract
+     */
+    public function getTypeInstance()
+    {
+        if (is_null($this->_typeInstance)) {
+            $product = new Varien_Object();
+            $product->setTypeId($this->getTypeCode());
+            $this->_typeInstance = Mage::getSingleton('catalog/product_type')
+                ->factory($product, true);
+        }
+        return $this->_typeInstance;
     }
 }

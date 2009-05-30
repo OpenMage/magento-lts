@@ -46,6 +46,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     const PRICE_SCOPE_WEBSITE           = 1;
 
     const URL_TYPE_LINK                 = 'link';
+    const URL_TYPE_DIRECT_LINK          = 'direct_link';
     const URL_TYPE_WEB                  = 'web';
     const URL_TYPE_SKIN                 = 'skin';
     const URL_TYPE_JS                   = 'js';
@@ -97,6 +98,11 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
     protected $_isAdminSecure = null;
     protected $_isFrontSecure = null;
+
+    /**
+     * @var bool
+     */
+    private $_isReadOnly = false;
 
     protected function _construct()
     {
@@ -216,7 +222,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function initConfigCache()
     {
-        return $this;
+//        return $this;
         /**
          * Funtionality related with config separation
          */
@@ -403,6 +409,12 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                     $url = $this->_updatePathUseStoreView($url);
                     break;
 
+                case self::URL_TYPE_DIRECT_LINK:
+                    $secure = (bool)$secure;
+                    $url = $this->getConfig('web/'.($secure ? 'secure' : 'unsecure').'/base_link_url');
+                    $url = $this->_updatePathUseRewrites($url);
+                    break;
+
                 case self::URL_TYPE_SKIN:
                 case self::URL_TYPE_MEDIA:
                 case self::URL_TYPE_JS:
@@ -416,11 +428,16 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
             $this->_baseUrlCache[$cacheKey] = rtrim($url, '/').'/';
         }
-#echo "CACHE: ".$cacheKey.','.$this->_baseUrlCache[$cacheKey].' *** ';
 
         return $this->_baseUrlCache[$cacheKey];
     }
 
+    /**
+     * Remove script file name from url in case when server rewrites are enabled
+     *
+     * @param   string $url
+     * @return  string
+     */
     protected function _updatePathUseRewrites($url)
     {
         if ($this->isAdmin()
@@ -430,11 +447,16 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         }
         return $url;
     }
+
+    /**
+     * Add store code to url in case if it is enabled in configuration
+     *
+     * @param   string $url
+     * @return  string
+     */
     protected function _updatePathUseStoreView($url)
     {
-        if (Mage::isInstalled() &&
-//            !$this->isAdmin() &&
-            $this->getConfig(self::XML_PATH_STORE_IN_URL)) {
+        if (Mage::isInstalled() && $this->getConfig(self::XML_PATH_STORE_IN_URL)) {
             $url .= $this->getCode().'/';
         }
         return $url;
@@ -821,7 +843,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             parse_str($parsedUrl['query'], $parsedQuery);
         }
 
-        foreach (Mage::app()->getRequest()->getParams() as $k => $v) {
+        foreach (Mage::app()->getRequest()->getQuery() as $k => $v) {
             $parsedQuery[$k] = $v;
         }
 
@@ -882,10 +904,17 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         return $this;
     }
 
-//    public function __destruct()
-//    {
-//        echo '<pre>';
-//        print_r($this->_configCache);
-//        echo '</pre>';
-//    }
+    /**
+     * Get/Set isReadOnly flag
+     *
+     * @param bool $value
+     * @return bool
+     */
+    public function isReadOnly($value = null)
+    {
+        if (null !== $value) {
+            $this->_isReadOnly = (bool)$value;
+        }
+        return $this->_isReadOnly;
+    }
 }

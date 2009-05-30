@@ -38,15 +38,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items extends Mage_Adminhtml_Block
     {
         parent::__construct();
         $this->setId('sales_order_create_items');
-        $this->setTemplate('sales/order/create/items.phtml');
-    }
-
-    protected function _prepareLayout()
-    {
-        $this->setChild('grid',
-            $this->getLayout()->createBlock('adminhtml/sales_order_create_items_grid')
-        );
-        return parent::_prepareLayout();
     }
 
     public function getHeaderText()

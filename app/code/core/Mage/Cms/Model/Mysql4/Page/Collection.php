@@ -89,7 +89,7 @@ class Mage_Cms_Model_Mysql4_Page_Collection extends Mage_Core_Model_Mysql4_Colle
      * @param int|Mage_Core_Model_Store $store
      * @return Mage_Cms_Model_Mysql4_Page_Collection
      */
-    public function addStoreFilter($store)
+    public function addStoreFilter($store, $withAdmin = true)
     {
         if ($store instanceof Mage_Core_Model_Store) {
             $store = array($store->getId());
@@ -100,7 +100,7 @@ class Mage_Cms_Model_Mysql4_Page_Collection extends Mage_Core_Model_Mysql4_Colle
             'main_table.page_id = store_table.page_id',
             array()
         )
-        ->where('store_table.store_id in (?)', array(0, $store))
+        ->where('store_table.store_id in (?)', ($withAdmin ? array(0, $store) : $store))
         ->group('main_table.page_id');
 
         return $this;

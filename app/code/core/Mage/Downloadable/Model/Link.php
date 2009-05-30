@@ -43,7 +43,7 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
     const LINK_SHAREABLE_CONFIG = 2;
 
     /**
-     * Enter description here...
+     * Initialize resource model
      *
      */
     protected function _construct()
@@ -73,24 +73,56 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
         return parent::_afterSave();
     }
 
+    /**
+     * Retrieve base temporary path
+     *
+     * @return string
+     */
     public static function getBaseTmpPath()
     {
         return Mage::getBaseDir('media') . DS . 'downloadable' . DS . 'tmp' . DS . 'links';
     }
 
+    /**
+     * Retrieve Base files path
+     *
+     * @return string
+     */
     public static function getBasePath()
     {
         return Mage::getBaseDir('media') . DS . 'downloadable' . DS . 'files' . DS . 'links';
     }
 
+    /**
+     * Retrieve base sample temporary path
+     *
+     * @return string
+     */
     public static function getBaseSampleTmpPath()
     {
         return Mage::getBaseDir('media') . DS . 'downloadable' . DS . 'tmp' . DS . 'link_samples';
     }
 
+    /**
+     * Retrieve base sample path
+     *
+     * @return string
+     */
     public static function getBaseSamplePath()
     {
         return Mage::getBaseDir('media') . DS . 'downloadable' . DS . 'files' . DS . 'link_samples';
     }
 
+    /**
+     * Retrieve links searchable data
+     *
+     * @param int $productId
+     * @param int $storeId
+     * @return array
+     */
+    public function getSearchableData($productId, $storeId)
+    {
+        return $this->_getResource()
+            ->getSearchableData($productId, $storeId);
+    }
 }

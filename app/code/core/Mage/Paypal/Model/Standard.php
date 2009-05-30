@@ -38,7 +38,28 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
     protected $_code  = 'paypal_standard';
     protected $_formBlockType = 'paypal/standard_form';
-    protected $_allowCurrencyCode = array('AUD', 'CAD', 'CHF', 'CZK', 'DKK', 'EUR', 'GBP', 'HKD', 'HUF', 'JPY', 'NOK', 'NZD', 'PLN', 'SEK', 'SGD','USD');
+    protected $_allowCurrencyCode = array('AUD', 'CAD', 'CZK', 'DKK', 'EUR', 'HKD', 'HUF', 'ILS', 'JPY', 'MXN', 'NOK', 'NZD', 'PLN', 'GBP', 'SGD', 'SEK', 'CHF', 'USD');
+
+    /**
+     * Check method for processing with base currency
+     *
+     * @param string $currencyCode
+     * @return boolean
+     */
+    public function canUseForCurrency($currencyCode)
+    {
+        if (!in_array($currencyCode, $this->_allowCurrencyCode)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Fields that should be replaced in debug with '***'
+     *
+     * @var array
+     */
+    protected $_debugReplacePrivateDataKeys = array('business');
 
      /**
      * Get paypal session namespace
@@ -258,7 +279,10 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         }
 
         $sReq = '';
+        $sReqDebug = '';
         $rArr = array();
+
+
         foreach ($sArr as $k=>$v) {
             /*
             replacing & char with and. otherwise it will break the post
@@ -266,6 +290,12 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
             $value =  str_replace("&","and",$v);
             $rArr[$k] =  $value;
             $sReq .= '&'.$k.'='.$value;
+            $sReqDebug .= '&'.$k.'=';
+            if (in_array($k, $this->_debugReplacePrivateDataKeys)) {
+                $sReqDebug .= '***';
+            } else  {
+                $sReqDebug .= $value;
+            }
         }
 
         if ($this->getDebug() && $sReq) {
@@ -297,8 +327,11 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     public function ipnPostSubmit()
     {
         $sReq = '';
+        $sReqDebug = '';
         foreach($this->getIpnFormData() as $k=>$v) {
             $sReq .= '&'.$k.'='.urlencode(stripslashes($v));
+            $sReqDebug .= '&'.$k.'=';
+
         }
         //append ipn commdn
         $sReq .= "&cmd=_notify-validate";
@@ -395,8 +428,18 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
                             $notified = true
                         );
                     }
+
+                    $ipnCustomerNotified = true;
+                    if (!$order->getPaypalIpnCustomerNotified()) {
+                        $ipnCustomerNotified = false;
+                        $order->setPaypalIpnCustomerNotified(1);
+                    }
+
                     $order->save();
-                    $order->sendNewOrderEmail();
+
+                    if (!$ipnCustomerNotified) {
+                        $order->sendNewOrderEmail();
+                    }
 
                 }//else amount the same and there is order obj
                 //there are status added to order

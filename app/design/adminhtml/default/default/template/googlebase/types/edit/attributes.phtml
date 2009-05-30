@@ -88,7 +88,7 @@ var attributesSelectTemplate = '<div id="<?php echo $this->getFieldId() ?>_{{ind
         '</thead>' +
         '<tbody>' +
             '<tr>' +
-                '<td><?php echo $this->getAttributesSelectHtml() ?>' +
+                '<td><?php echo $this->getAttributesSelectHtml(true) ?>' +
                 '<input type="hidden" name="<?php echo $this->getFieldName() ?>[{{index}}][delete]" value="" class="delete">' +
                 '</td>' +
                 '<td><?php echo $this->getGbaseAttributesSelectHtml() ?></td>' +

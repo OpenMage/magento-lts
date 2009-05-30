@@ -56,7 +56,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
             $stockData['qty'] = $data->qty;
         }
 
-        if (isset($datais_in_stock)) {
+        if (isset($data->is_in_stock)) {
             $stockData['is_in_stock'] = $data->is_in_stock;
         }
 

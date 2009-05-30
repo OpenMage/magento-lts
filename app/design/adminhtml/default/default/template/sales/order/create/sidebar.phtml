@@ -26,11 +26,16 @@
 ?>
 <div class="entry-edit"><div class="entry-edit-head"><h4><?php echo $this->helper('sales')->__('Customer\'s Current Activities') ?></h4></div></div>
 <div class="create-order-sidebar-container">
+<?php echo $this->getChildHtml('top_button'); ?>
 <?php foreach ($this->getChild() as $_child): ?>
-<div id="order-sidebar_<?php echo $_child->getBlockAlias() ?>">
-    <?php if($this->canDisplay($_child)): ?>
-        <?php echo $this->getChildHtml($_child->getBlockAlias()) ?>
+    <?php $_alias = $_child->getBlockAlias(); ?>
+    <?php if ($_alias != 'top_button' && $_alias != 'bottom_button'): ?>
+        <div id="order-sidebar_<?php echo $_alias ?>">
+            <?php if($this->canDisplay($_child)): ?>
+                <?php echo $this->getChildHtml($_alias) ?>
+            <?php endif; ?>
+        </div>
     <?php endif; ?>
-</div>
 <?php endforeach; ?>
+<?php echo $this->getChildHtml('bottom_button'); ?>
 </div>

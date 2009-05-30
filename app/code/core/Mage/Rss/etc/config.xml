@@ -26,36 +26,36 @@
  */
 -->
 <config>
-   <modules>
-      <Mage_Rss>
-         <version>0.8.0</version>
-      </Mage_Rss>
-   </modules>
-   <global>
-      <models>
-         <rss>
-            <class>Mage_Rss_Model</class>
-            <resourceModel>rss_mysql4</resourceModel>
-         </rss>
-         <rss_mysql4>
-            <class>Mage_Rss_Model_Mysql4</class>
-         </rss_mysql4>
-      </models>
-      <blocks>
-         <rss><class>Mage_Rss_Block</class></rss>
-      </blocks>
-   </global>
+    <modules>
+        <Mage_Rss>
+            <version>0.8.0</version>
+        </Mage_Rss>
+    </modules>
+    <global>
+        <models>
+            <rss>
+                <class>Mage_Rss_Model</class>
+                <resourceModel>rss_mysql4</resourceModel>
+            </rss>
+            <rss_mysql4>
+                <class>Mage_Rss_Model_Mysql4</class>
+            </rss_mysql4>
+        </models>
+        <blocks>
+            <rss><class>Mage_Rss_Block</class></rss>
+        </blocks>
+    </global>
 
-   <admin>
-      <routers>
-         <rss>
-            <use>admin</use>
-            <args>
-               <module>Mage_Rss</module>
-               <frontName>rss</frontName>
-            </args>
-         </rss>
-      </routers>
+    <admin>
+        <!--routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Mage_Rss before="Mage_Adminhtml">Mage_Rss</Mage_Rss>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers-->
     </admin>
 
     <adminhtml>
@@ -69,12 +69,12 @@
             </modules>
         </translate>
         <layout>
-          <updates>
-              <rss>
-                  <file>rss.xml</file>
-              </rss>
-          </updates>
-      </layout>
+            <updates>
+                <rss>
+                    <file>rss.xml</file>
+                </rss>
+            </updates>
+        </layout>
         <acl>
             <resources>
                 <admin>
@@ -106,25 +106,25 @@
                 </Mage_Rss>
             </modules>
         </translate>
-      <secure_url>
-          <rss_catalog_review>/rss/catalog/review</rss_catalog_review>
-           <rss_order_new>/rss/catalog/review</rss_order_new>
-      </secure_url>
-      <routers>
-         <rss>
-            <use>standard</use>
-            <args>
-               <module>Mage_Rss</module>
-               <frontName>rss</frontName>
-            </args>
-         </rss>
-      </routers>
-      <layout>
-              <updates>
-                  <rss>
-                      <file>rss.xml</file>
-                  </rss>
-              </updates>
-          </layout>
-   </frontend>
+        <secure_url>
+            <rss_catalog_review>/rss/catalog/review</rss_catalog_review>
+            <rss_order_new>/rss/catalog/review</rss_order_new>
+        </secure_url>
+        <routers>
+            <rss>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Rss</module>
+                    <frontName>rss</frontName>
+                </args>
+            </rss>
+        </routers>
+        <layout>
+            <updates>
+                <rss>
+                    <file>rss.xml</file>
+                </rss>
+            </updates>
+        </layout>
+    </frontend>
 </config>

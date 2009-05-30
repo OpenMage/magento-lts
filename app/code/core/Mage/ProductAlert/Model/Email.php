@@ -201,7 +201,8 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     protected function _getPriceBlock()
     {
         if (is_null($this->_priceBlock)) {
-            $this->_priceBlock = Mage::helper('productalert')->createBlock('productalert/email_price');
+            $this->_priceBlock = Mage::helper('productalert')
+                ->createBlock('productalert/email_price');
         }
         return $this->_priceBlock;
     }
@@ -214,7 +215,8 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     protected function _getStockBlock()
     {
         if (is_null($this->_stockBlock)) {
-            $this->_stockBlock = Mage::helper('productalert')->createBlock('productalert/email_stock');
+            $this->_stockBlock = Mage::helper('productalert')
+                ->createBlock('productalert/email_stock');
         }
         return $this->_stockBlock;
     }
@@ -236,8 +238,8 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             return false;
         }
 
-        $storeId    = $this->_website->getDefaultGroup()->getDefaultStore()->getId();
-        $storeCode  = $this->_website->getDefaultGroup()->getDefaultStore()->getCode();
+        $store      = $this->_website->getDefaultStore();
+        $storeId    = $store->getId();
 
         if ($this->_type == 'price' && !Mage::getStoreConfig(self::XML_PATH_EMAIL_PRICE_TEMPLATE, $storeId)) {
             return false;
@@ -253,7 +255,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
         $translate->setTranslateInline(false);
 
         if ($this->_type == 'price') {
-            $this->_getPriceBlock()->setStoreCode($storeCode);
+            $this->_getPriceBlock()->setStore($store);
             foreach ($this->_priceProducts as $product) {
                 $product->setCustomerGroupId($this->_customer->getGroupId());
                 $this->_getPriceBlock()->addProduct($product);
@@ -262,7 +264,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             $templateId = Mage::getStoreConfig(self::XML_PATH_EMAIL_PRICE_TEMPLATE, $storeId);
         }
         elseif ($this->_type == 'stock') {
-            $this->_getStockBlock()->setStoreCode($storeCode);
+            $this->_getStockBlock()->setStore($store);
             foreach ($this->_stockProducts as $product) {
                 $product->setCustomerGroupId($this->_customer->getGroupId());
                 $this->_getStockBlock()->addProduct($product);

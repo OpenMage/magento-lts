@@ -87,6 +87,22 @@ class Mage_Log_Model_Mysql4_Visitor_Online_Collection extends Mage_Core_Model_My
             }
         }
 
+        $this->setFlag('has_customer_data', true);
+        return $this;
+    }
+
+    /**
+     * Filter collection by specified website(s)
+     *
+     * @param int|array $websiteIds
+     * @return Mage_Log_Model_Mysql4_Visitor_Online_Collection
+     */
+    public function addWebsiteFilter($websiteIds)
+    {
+        if ($this->getFlag('has_customer_data')) {
+            $this->getSelect()
+                ->where('customer_email.website_id IN (?)', $websiteIds);
+        }
         return $this;
     }
 }

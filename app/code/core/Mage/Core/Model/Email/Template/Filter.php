@@ -262,4 +262,27 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
         return $url;
     }
+
+    /**
+     * Directive for converting special characters to HTML entities
+     * Supported options:
+     *     allowed_tags - Comma separated html tags that have not to be converted
+     *
+     * @param array $construction
+     * @return string
+     */
+    public function htmlescapeDirective($construction)
+    {
+        $params = $this->_getIncludeParameters($construction[2]);
+        if (!isset($params['var'])) {
+            return '';
+        }
+
+        $allowedTags = null;
+        if (isset($params['allowed_tags'])) {
+            $allowedTags = preg_split('/\s*\,\s*/', $params['allowed_tags'], 0, PREG_SPLIT_NO_EMPTY);
+        }
+
+        return Mage::helper('core')->htmlEscape($params['var'], $allowedTags);
+    }
 }

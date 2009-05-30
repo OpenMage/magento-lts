@@ -212,7 +212,7 @@
             <output message="typens:customerCustomerDeleteResponse" />
         </operation>
         <operation name="customerGroupList">
-            <documentation>Retrieve customer’s groups</documentation>
+            <documentation>Retrieve customer groups</documentation>
             <input message="typens:customerGroupListRequest" />
             <output message="typens:customerGroupListResponse" />
         </operation>

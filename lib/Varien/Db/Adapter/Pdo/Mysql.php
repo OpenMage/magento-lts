@@ -36,9 +36,31 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     const ISO_DATE_FORMAT       = 'yyyy-MM-dd';
     const ISO_DATETIME_FORMAT   = 'yyyy-MM-dd HH-mm-ss';
 
+    const DDL_DESCRIBE          = 1;
+    const DDL_CREATE            = 2;
+    const DDL_INDEX             = 3;
+    const DDL_FOREIGN_KEY       = 4;
+
+    /**
+     * Current Transaction Level
+     *
+     * @var int
+     */
     protected $_transactionLevel    = 0;
+
+    /**
+     * Set attribute to connection flag
+     *
+     * @var bool
+     */
     protected $_connectionFlagsSet  = false;
-    protected $_describesCache      = array();
+
+    /**
+     * Tables DDL cache
+     *
+     * @var array
+     */
+    protected $_ddlCache            = array();
 
     /**
      * SQL bind params
@@ -299,6 +321,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         return strtr($string, $translate);
     }
 
+    /**
+     * Run Multi Query
+     *
+     * @param string $sql
+     * @return array
+     */
     public function multi_query($sql)
     {
         ##$result = $this->raw_query($sql);
@@ -315,6 +343,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
             #$this->rollback();
             throw $e;
         }
+
+        $this->resetDdlCache();
+
         return $result;
     }
 
@@ -377,35 +408,90 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     /**
      * Delete foreign key if it exist
      *
-     * @param   string $table
-     * @param   string $fk
-     * @return  bool
+     * @param string $tableName
+     * @param string $foreignKey
+     * @param string $shemaName
+     * @return mixed
      */
-    public function dropForeignKey($table, $fk)
+    public function dropForeignKey($tableName, $foreignKey, $schemaName = null)
     {
-        $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (strpos($create, "CONSTRAINT `$fk` FOREIGN KEY (")!==false) {
-            $this->resetDescribesCache($table);
-            return $this->raw_query("ALTER TABLE `$table` DROP FOREIGN KEY `$fk`");
+        $foreignKeys = $this->getForeignKeys($tableName, $schemaName);
+        if (isset($foreignKeys[strtoupper($foreignKey)])) {
+            $sql = sprintf('ALTER TABLE %s DROP FOREIGN KEY %s',
+                $this->quoteIdentifier($this->_getTableName($tableName, $schemaName)),
+                $this->quoteIdentifier($foreignKeys[strtoupper($foreignKey)]['FK_NAME']));
+//            echo '<pre>';
+//            var_dump($tableName, $schemaName, $foreignKey, $foreignKeys, $sql);
+//            echo '</pre>';
+
+            $this->resetDdlCache($tableName, $schemaName);
+
+            return $this->raw_query($sql);
         }
+
         return true;
     }
 
     /**
-     * Delte index if it exist
+     * Delete index from a table if it exist
      *
-     * @param   string $table
-     * @param   string $key
-     * @return  bool
+     * @param string $tableName
+     * @param string $keyName
+     * @param string $shemaName
+     * @return bool
      */
-    public function dropKey($table, $key)
+    public function dropKey($tableName, $keyName, $shemaName = null)
     {
-        $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (strpos($create, "KEY `$key` (")!==false) {
-            $this->resetDescribesCache($table);
-            return $this->raw_query("ALTER TABLE `$table` DROP KEY `$key`");
+        $indexList = $this->getIndexList($tableName, $shemaName);
+        $keyName = strtoupper($keyName);
+        if (!isset($indexList[$keyName])) {
+            return true;
         }
-        return true;
+
+        if ($keyName == 'PRIMARY') {
+            $cond = 'DROP PRIMARY KEY';
+        }
+        else {
+            $cond = sprintf('DROP KEY %s', $this->quoteIdentifier($indexList[$keyName]['KEY_NAME']));
+        }
+        $sql = sprintf('ALTER TABLE %s %s',
+            $this->quoteIdentifier($this->_getTableName($tableName, $shemaName)),
+            $cond);
+
+        $this->resetDdlCache($tableName, $shemaName);
+        return $this->raw_query($sql);
+    }
+
+    /**
+     * Prepare table before add constraint foreign key
+     *
+     * @param string $tableName
+     * @param string $columnName
+     * @param string $refTableName
+     * @param string $refColumnName
+     * @param string $onDelete
+     * @return Varien_Db_Adapter_Pdo_Mysql
+     */
+    public function purgeOrphanRecords($tableName, $columnName, $refTableName, $refColumnName, $onDelete = 'cascade')
+    {
+        if (strtoupper($onDelete) == 'CASCADE'
+            || strtoupper($onDelete) == 'RESTRICT') {
+            $sql = "DELETE `p`.* FROM `{$tableName}` AS `p`"
+                . " LEFT JOIN `{$refTableName}` AS `r`"
+                . " ON `p`.`{$columnName}` = `r`.`{$refColumnName}`"
+                . " WHERE `r`.`{$refColumnName}` IS NULL";
+            $this->raw_query($sql);
+        }
+        elseif (strtoupper($onDelete) == 'SET NULL') {
+            $sql = "UPDATE `{$tableName}` AS `p`"
+                . " LEFT JOIN `{$refTableName}` AS `r`"
+                . " ON `p`.`{$columnName}` = `r`.`{$refColumnName}`"
+                . " SET `p`.`{$columnName}`=NULL"
+                . " WHERE `r`.`{$refColumnName}` IS NULL";
+            $this->raw_query($sql);
+        }
+
+        return $this;
     }
 
     /**
@@ -418,8 +504,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
      * @param string $refKeyName refered table field name
      * @param string $onUpdate on update statement
      * @param string $onDelete on delete statement
+     * @param bool $purge
+     * @return mixed
      */
-    public function addConstraint($fkName, $tableName, $keyName, $refTableName, $refKeyName, $onDelete = 'cascade', $onUpdate = 'cascade')
+    public function addConstraint($fkName, $tableName, $columnName,
+        $refTableName, $refColumnName, $onDelete = 'cascade', $onUpdate = 'cascade', $purge = false)
     {
         if (substr($fkName, 0, 3) != 'FK_') {
             $fkName = 'FK_' . $fkName;
@@ -427,29 +516,36 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
 
         $this->dropForeignKey($tableName, $fkName);
 
+        if ($purge) {
+            $this->purgeOrphanRecords($tableName, $columnName, $refTableName, $refColumnName, $onDelete);
+        }
+
         $sql = 'ALTER TABLE `'.$tableName.'` ADD CONSTRAINT `'.$fkName.'`'
-            . 'FOREIGN KEY (`'.$keyName.'`) REFERENCES `'.$refTableName.'` (`'.$refKeyName.'`)';
+            . ' FOREIGN KEY (`'.$columnName.'`) REFERENCES `'.$refTableName.'` (`'.$refColumnName.'`)';
         if (!is_null($onDelete)) {
             $sql .= ' ON DELETE ' . strtoupper($onDelete);
         }
         if (!is_null($onUpdate)) {
             $sql .= ' ON UPDATE ' . strtoupper($onUpdate);
         }
-        $this->resetDescribesCache($tableName);
+
+        $this->resetDdlCache($tableName);
         return $this->raw_query($sql);
     }
 
     /**
      * Check table column exist
      *
-     * @param   string $tableName
-     * @param   string $columnName
-     * @return  bool
+     * @param string $tableName
+     * @param string $columnName
+     * @param string $schemaName
+     * @return bool
      */
-    public function tableColumnExists($tableName, $columnName)
+    public function tableColumnExists($tableName, $columnName, $schemaName = null)
     {
-        foreach ($this->fetchAll('DESCRIBE `'.$tableName.'`') as $row) {
-            if ($row['Field'] == $columnName) {
+        $describe = $this->describeTable($tableName, $schemaName);
+        foreach ($describe as $column) {
+            if ($column['COLUMN_NAME'] == $columnName) {
                 return true;
             }
         }
@@ -469,42 +565,47 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         if ($this->tableColumnExists($tableName, $columnName)) {
             return true;
         }
-        $this->resetDescribesCache($tableName);
-        $result = $this->raw_query("alter table `$tableName` add column `$columnName` ".$definition);
+
+        $sql = sprintf('ALTER TABLE %s ADD COLUMN %s %s',
+            $this->quoteIdentifier($tableName),
+            $this->quoteIdentifier($columnName),
+            $definition
+        );
+        $result = $this->raw_query($sql);
+        $this->resetDdlCache($tableName);
         return $result;
     }
 
     /**
      * Delete table column
      *
-     * @param   string $tableName
-     * @param   string $columnName
-     * @return  bool
+     * @param string $tableName
+     * @param string $columnName
+     * @param string $shemaName
+     * @return bool
      */
-    public function dropColumn($tableName, $columnName)
+    public function dropColumn($tableName, $columnName, $shemaName = null)
     {
-        if (!$this->tableColumnExists($tableName, $columnName)) {
+        if (!$this->tableColumnExists($tableName, $columnName, $shemaName)) {
             return true;
         }
 
-        $create = $this->raw_fetchRow('SHOW CREATE TABLE `'.$tableName.'`', 'Create Table');
-
         $alterDrop = array();
 
-        /**
-         * find foreign keys for column
-         */
-        $matches = array();
-        preg_match_all('/CONSTRAINT `([^`]*)` FOREIGN KEY \(`([^`]*)`\)/', $create, $matches, PREG_SET_ORDER);
-        foreach ($matches as $match) {
-            if ($match[2] == $columnName) {
-                $alterDrop[] = 'DROP FOREIGN KEY `'.$match[1].'`';
+        $foreignKeys = $this->getForeignKeys($tableName, $shemaName);
+        foreach ($foreignKeys as $fkProp) {
+            if ($fkProp['COLUMN_NAME'] == $columnName) {
+                $alterDrop[] = sprintf('DROP FOREIGN KEY %s', $this->quoteIdentifier($fkProp['FK_NAME']));
             }
         }
 
-        $alterDrop[] = 'DROP COLUMN `'.$columnName.'`';
-        $this->resetDescribesCache($tableName);
-        return $this->raw_query('ALTER TABLE `'.$tableName.'` ' . join(', ', $alterDrop));
+        $alterDrop[] = sprintf('DROP COLUMN %s', $this->quoteIdentifier($columnName));
+        $sql = sprintf('ALTER TABLE %s %s',
+            $this->quoteIdentifier($this->_getTableName($tableName, $shemaName)),
+            join(', ', $alterDrop));
+
+        $this->resetDdlCache($tableName, $shemaName);
+        return $this->raw_query($sql);
     }
 
     /**
@@ -521,17 +622,21 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     public function changeColumn($tableName, $oldColumnName, $newColumnName, $definition,  $showStatus = false)
     {
         if (!$this->tableColumnExists($tableName, $oldColumnName)) {
-            Mage::throwException('Column "' . $oldColumnName . '" does not exists on table "' . $tableName . '"');
+            throw new Exception(sprintf('Column "%s" does not exists on table "%s"', $oldColumnName, $tableName));
         }
 
-        $sql = 'ALTER TABLE ' . $this->quoteIdentifier($tableName)
-            . ' CHANGE COLUMN ' . $this->quoteIdentifier($oldColumnName)
-            . ' ' . $this->quoteIdentifier($newColumnName) . ' ' . $definition;
-        $this->resetDescribesCache($tableName);
+        $sql = sprintf('ALTER TABLE %s CHANGE COLUMN %s %s %s',
+            $this->quoteIdentifier($tableName),
+            $this->quoteIdentifier($oldColumnName),
+            $this->quoteIdentifier($newColumnName),
+            $definition);
+
         $result = $this->raw_query($sql);
         if ($showStatus) {
             $this->showTableStatus($tableName);
         }
+
+        $this->resetDdlCache($tableName);
         return $result;
     }
 
@@ -548,17 +653,19 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     public function modifyColumn($tableName, $columnName, $definition, $showStatus = false)
     {
         if (!$this->tableColumnExists($tableName, $columnName)) {
-            Mage::throwException('Column "' . $columnName . '" does not exists on table "' . $tableName . '"');
+            throw new Exception(sprintf('Column "%s" does not exists on table "%s"', $columnName, $tableName));
         }
 
-        $sql = 'ALTER TABLE ' . $this->quoteIdentifier($tableName)
-            . ' MODIFY COLUMN ' . $this->quoteIdentifier($columnName)
-            . ' ' . $definition;
-        $this->resetDescribesCache($tableName);
+        $sql = sprintf('ALTER TABLE %s MODIFY COLUMN %s %s',
+            $this->quoteIdentifier($tableName),
+            $this->quoteIdentifier($columnName),
+            $definition);
         $result = $this->raw_query($sql);
         if ($showStatus) {
             $this->showTableStatus($tableName);
         }
+
+        $this->resetDdlCache($tableName);
         return $result;
     }
 
@@ -574,62 +681,171 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         return $this->raw_fetchRow($sql);
     }
 
-    public function getKeyList($tableName)
+    /**
+     * Retrieve table index key list
+     *
+     * @deprecated use getIndexList(
+     * @param string $tableName
+     * @param string $schemaName
+     * @return array
+     */
+    public function getKeyList($tableName, $schemaName = null)
     {
-        $keyList = array();
-        $create  = $this->raw_fetchRow('SHOW CREATE TABLE ' . $this->quoteIdentifier($tableName), 'Create Table');
-        $matches = array();
-        preg_match_all('#KEY `([^`]+)` (USING (BTREE|HASH) )?\(([^)]+)\)#s', $create, $matches, PREG_SET_ORDER);
+        $keyList   = array();
+        $indexList = $this->getIndexList($tableName, $schemaName);
 
-        foreach ($matches as $v) {
-            $keyList[$v[1]] = split(',', str_replace($this->getQuoteIdentifierSymbol(), '', $v[2]));
+        foreach ($indexList as $indexProp) {
+            $keyList[$indexProp['KEY_NAME']] = $indexProp['COLUMNS_LIST'];
         }
 
         return $keyList;
     }
 
     /**
-     * Retrieve INDEX list for table
+     * Retrieve Create Table SQL
      *
      * @param string $tableName
+     * @param string $schemaName
+     * @return string
+     */
+    public function getCreateTable($tableName, $schemaName = null)
+    {
+        $tableName = $this->_getTableName($tableName, $schemaName);
+        if (!isset($this->_ddlCache[self::DDL_CREATE][$tableName])) {
+            $sql = sprintf('SHOW CREATE TABLE %s', $this->quoteIdentifier($tableName));
+            $this->_ddlCache[self::DDL_CREATE][$tableName] = $this->raw_fetchRow($sql, 'Create Table');
+        }
+        return $this->_ddlCache[self::DDL_CREATE][$tableName];
+    }
+
+    /**
+     * Retrieve the foreign keys descriptions for a table.
+     *
+     * The return value is an associative array keyed by the UPPERCASE foreign key,
+     * as returned by the RDBMS.
+     *
+     * The value of each array element is an associative array
+     * with the following keys:
+     *
+     * FK_NAME          => string; original foreign key name
+     * SCHEMA_NAME      => string; name of database or schema
+     * TABLE_NAME       => string;
+     * COLUMN_NAME      => string; column name
+     * REF_SCHEMA_NAME  => string; name of reference database or schema
+     * REF_TABLE_NAME   => string; reference table name
+     * REF_COLUMN_NAME  => string; reference column name
+     * ON_DELETE        => string; action type on delete row
+     * ON_UPDATE        => string; action type on update row
+     *
+     * @param string $tableName
+     * @param string $schemaName
      * @return array
      */
-    public function getIndexList($tableName)
+    public function getForeignKeys($tableName, $schemaName = null)
     {
-        $indexList = array();
+        $cacheKey = $this->_getTableName($tableName, $schemaName);
+        if (!isset($this->_ddlCache[self::DDL_FOREIGN_KEY][$cacheKey])) {
+            $foreignKeys = array();
+            $createSql = $this->getCreateTable($tableName, $schemaName);
 
-        $sql = "SHOW INDEX FROM " . $this->quoteIdentifier($tableName);
-        foreach ($this->fetchAll($sql) as $row) {
-            $fieldKeyName   = 'Key_name';
-            $fieldNonUnique = 'Non_unique';
-            $fieldColumn    = 'Column_name';
-            $fieldIndexType = 'Index_type';
-
-            if ($row[$fieldKeyName] == 'PRIMARY') {
-                $indexType  = 'primary';
-            }
-            elseif ($row[$fieldNonUnique] == 1) {
-                $indexType  = 'unique';
-            }
-            elseif ($row[$fieldIndexType] == 'FULLTEXT') {
-                $indexType  = 'fulltext';
-            }
-            else {
-                $indexType  = 'index';
-            }
-
-            if (isset($indexList[$row[$fieldKeyName]])) {
-                $indexList[$row[$fieldKeyName]]['fields'][] = $row[$fieldColumn];
-            }
-            else {
-                $indexList[$row[$fieldKeyName]] = array(
-                    'type'   => $indexType,
-                    'fields' => array($row[$fieldColumn])
+            // collect CONSTRAINT
+            $regExp  = '#,\s+CONSTRAINT `([^`]*)` FOREIGN KEY \(`([^`]*)`\) '
+                . 'REFERENCES (`[^`]*\.)?`([^`]*)` \(`([^`]*)`\)'
+                . '( ON DELETE (RESTRICT|CASCADE|SET NULL|NO ACTION))?'
+                . '( ON UPDATE (RESTRICT|CASCADE|SET NULL|NO ACTION))?#';
+            $matches = array();
+            preg_match_all($regExp, $createSql, $matches, PREG_SET_ORDER);
+            foreach ($matches as $match) {
+                $foreignKeys[strtoupper($match[1])] = array(
+                    'FK_NAME'           => $match[1],
+                    'SCHEMA_NAME'       => $schemaName,
+                    'TABLE_NAME'        => $tableName,
+                    'COLUMN_NAME'       => $match[2],
+                    'REF_SHEMA_NAME'    => isset($match[3]) ? $match[3] : $schemaName,
+                    'REF_TABLE_NAME'    => $match[4],
+                    'REF_COLUMN_NAME'   => $match[5],
+                    'ON_DELETE'         => isset($match[6]) ? $match[7] : '',
+                    'ON_UPDATE'         => isset($match[8]) ? $match[9] : ''
                 );
             }
+
+            $this->_ddlCache[self::DDL_FOREIGN_KEY][$cacheKey] = $foreignKeys;
         }
 
-        return $indexList;
+        return $this->_ddlCache[self::DDL_FOREIGN_KEY][$cacheKey];
+    }
+
+    /**
+     * Retrieve table index information
+     *
+     * The return value is an associative array keyed by the UPPERCASE index key,
+     * as returned by the RDBMS.
+     *
+     * The value of each array element is an associative array
+     * with the following keys:
+     *
+     * SCHEMA_NAME      => string; name of database or schema
+     * TABLE_NAME       => string; name of the table
+     * KEY_NAME         => string; the original index name
+     * COLUMNS_LIST     => array; array of index column names
+     * INDEX_TYPE       => string; create index type
+     * INDEX_METHOD     => string; index method using
+     * type             => string; see INDEX_TYPE
+     * fields           => array; see COLUMNS_LIST
+     *
+     * @param string $tableName
+     * @param string $schemaName
+     * @return array
+     */
+    public function getIndexList($tableName, $schemaName = null)
+    {
+        $cacheKey = $this->_getTableName($tableName, $schemaName);
+        if (!isset($this->_ddlCache[self::DDL_INDEX][$cacheKey])) {
+            $indexList = array();
+
+            $sql = sprintf('SHOW INDEX FROM %s',
+                $this->quoteIdentifier($this->_getTableName($tableName, $schemaName)));
+            foreach ($this->fetchAll($sql) as $row) {
+                $fieldKeyName   = 'Key_name';
+                $fieldNonUnique = 'Non_unique';
+                $fieldColumn    = 'Column_name';
+                $fieldIndexType = 'Index_type';
+
+                if ($row[$fieldKeyName] == 'PRIMARY') {
+                    $indexType  = 'primary';
+                }
+                elseif ($row[$fieldNonUnique] == 0) {
+                    $indexType  = 'unique';
+                }
+                elseif ($row[$fieldIndexType] == 'FULLTEXT') {
+                    $indexType  = 'fulltext';
+                }
+                else {
+                    $indexType  = 'index';
+                }
+
+                if (isset($indexList[$row[$fieldKeyName]])) {
+                    $indexList[$row[$fieldKeyName]]['fields'][] = $row[$fieldColumn]; // for compatible
+                    $indexList[$row[$fieldKeyName]]['COLUMNS_LIST'][] = $row[$fieldColumn];
+                }
+                else {
+                    $indexList[strtoupper($row[$fieldKeyName])] = array(
+                        'SCHEMA_NAME'   => $schemaName,
+                        'TABLE_NAME'    => $tableName,
+                        'KEY_NAME'      => $row[$fieldKeyName],
+                        'COLUMNS_LIST'  => array($row[$fieldColumn]),
+                        'INDEX_TYPE'    => strtoupper($indexType),
+                        'INDEX_METHOD'  => $row[$fieldIndexType],
+                        'type'          => $indexType, // for compatible
+                        'fields'        => array($row[$fieldColumn]) // for compatible
+                    );
+                }
+            }
+
+            $this->_ddlCache[self::DDL_INDEX][$cacheKey] = $indexList;
+        }
+
+        return $this->_ddlCache[self::DDL_INDEX][$cacheKey];
     }
 
     /**
@@ -643,6 +859,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
      */
     public function addKey($tableName, $indexName, $fields, $indexType = 'index')
     {
+        $columns = $this->describeTable($tableName);
         $keyList = $this->getKeyList($tableName);
 
         $sql = 'ALTER TABLE '.$this->quoteIdentifier($tableName);
@@ -650,16 +867,20 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
             $sql .= ' DROP INDEX ' . $this->quoteIdentifier($indexName) . ',';
         }
 
-        if (is_array($fields)) {
-            $fieldSql = array();
-            foreach ($fields as $field) {
-                $fieldSql[] = $this->quoteIdentifier($field);
+        if (!is_array($fields)) {
+            $fields = array($fields);
+        }
+
+        $fieldSql = array();
+        foreach ($fields as $field) {
+            if (!isset($columns[$field])) {
+                $msg = sprintf('There is no field "%s" that you are trying to create an index on "%s"',
+                    $field, $tableName);
+                throw new Exception($msg);
             }
-            $fieldSql = join(',', $fieldSql);
+            $fieldSql[] = $this->quoteIdentifier($field);
         }
-        else {
-            $fieldSql = $this->quoteIdentifier($fields);
-        }
+        $fieldSql = join(',', $fieldSql);
 
         switch (strtolower($indexType)) {
             case 'primary':
@@ -677,8 +898,67 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         }
 
         $sql .= ' ADD ' . $condition . ' (' . $fieldSql . ')';
-        $this->resetDescribesCache($tableName);
-        return $this->raw_query($sql);
+
+        $cycle = true;
+        while ($cycle === true) {
+            try {
+                $result = $this->raw_query($sql);
+                $cycle  = false;
+            }
+            catch (PDOException $e) {
+                if (in_array(strtolower($indexType), array('primary', 'unique'))) {
+                    $match = array();
+                    if (preg_match('#SQLSTATE\[23000\]: [^:]+: 1062[^\']+\'([\d-]+)\'#', $e->getMessage(), $match)) {
+                        $ids = explode('-', $match[1]);
+                        $this->_removeDuplicateEntry($tableName, $fields, $ids);
+                        continue;
+                    }
+                }
+                throw $e;
+            }
+            catch (Exception $e) {
+                throw $e;
+            }
+        }
+
+        $this->resetDdlCache($tableName);
+
+        return $result;
+    }
+
+    /**
+     * Remove duplicate entry for create key
+     *
+     * @param string $table
+     * @param array $fields
+     * @param array $ids
+     * @return Varien_Db_Adapter_Pdo_Mysql
+     */
+    protected function _removeDuplicateEntry($table, $fields, $ids)
+    {
+        $where = array();
+        $i = 0;
+        foreach ($fields as $field) {
+            $where[] = $this->quoteInto($field . '=?', $ids[$i]);
+            $i ++;
+        }
+
+        if (!$where) {
+            return $this;
+        }
+        $whereCond = join(' AND ', $where);
+        $sql = sprintf('SELECT COUNT(*) as `cnt` FROM `%s` WHERE %s', $table, $whereCond);
+
+        if ($cnt = $this->raw_fetchRow($sql, 'cnt')) {
+            $sql = sprintf('DELETE FROM `%s` WHERE %s LIMIT %d',
+                $table,
+                $whereCond,
+                $cnt - 1
+            );
+            $this->raw_query($sql);
+        }
+
+        return $this;
     }
 
     /**
@@ -767,6 +1047,11 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         throw $e;
     }
 
+    /**
+     * Debug write to file process
+     *
+     * @param string $str
+     */
     protected function _debugWriteToFile($str)
     {
         if (!$this->_debugIoAdapter) {
@@ -804,23 +1089,37 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     }
 
     /**
-     * Reset table describe cache data
+     * Retrieve ddl cache name
      *
-     * @param   string $tableName
-     * @param   string $schemaName OPTIONAL
-     * @return  Varien_Db_Adapter_Pdo_Mysql
+     * @param string $tableName
+     * @param string $schemaName
      */
-    public function resetDescribesCache($tableName = null, $schemaName = null)
+    protected function _getTableName($tableName, $schemaName = null)
     {
-        if ($tableName) {
-            $key = $tableName;
-            if ($schemaName) {
-                $key = $schemaName . '.' . $key;
-            }
-            unset($this->_describesCache[$key]);
-        } else {
-            $this->_describesCache = array();
+        return ($schemaName ? $schemaName . '.' : '') . $tableName;
+    }
+
+    /**
+     * Reset table DDL
+     *
+     * @param string $tableName
+     * @param string $schemaName OPTIONAL
+     * @return Varien_Db_Adapter_Pdo_Mysql
+     */
+    public function resetDdlCache($tableName = null, $schemaName = null)
+    {
+        if (is_null($tableName)) {
+            $this->_ddlCache = array();
         }
+        else {
+            $cacheKey = $this->_getTableName($tableName, $schemaName);
+
+            unset($this->_ddlCache[self::DDL_DESCRIBE][$cacheKey]);
+            unset($this->_ddlCache[self::DDL_CREATE][$cacheKey]);
+            unset($this->_ddlCache[self::DDL_INDEX][$cacheKey]);
+            unset($this->_ddlCache[self::DDL_FOREIGN_KEY][$cacheKey]);
+        }
+
         return $this;
     }
 
@@ -854,57 +1153,44 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
      */
     public function describeTable($tableName, $schemaName = null)
     {
-        $key = $tableName;
-        if ($schemaName) {
-            $key = $schemaName . '.' . $key;
+        $cacheKey = $this->_getTableName($tableName, $schemaName);
+
+        if (!isset($this->_ddlCache[self::DDL_DESCRIBE][$cacheKey])) {
+            $this->_ddlCache[self::DDL_DESCRIBE][$cacheKey] = parent::describeTable($tableName, $schemaName);
         }
 
-        if (!isset($this->_describesCache[$key])) {
-            $this->_describesCache[$key] = parent::describeTable($tableName, $schemaName);
-        }
-
-        return $this->_describesCache[$key];
-    }
-
-    /**
-     * Retrieve Database limitation
-     *
-     * @return mixed
-     */
-    public function getLimitation($code)
-    {
-        switch ($code) {
-            case 'index':
-                $value = 64;
-                break;
-            case 'join':
-                $value = 61;
-                break;
-            case 'column':
-                $value = 1000;
-                break;
-            case 'columns_per_index':
-                $value = 16;
-                break;
-            default:
-                $value = null;
-                break;
-        }
-
-        return $value;
+        return $this->_ddlCache[self::DDL_DESCRIBE][$cacheKey];
     }
 
     /**
      * Truncate table
      *
      * @param string $tableName
+     * @param string $schemaName
      * @return Varien_Db_Adapter_Pdo_Mysql
      */
-    public function truncate($tableName)
+    public function truncate($tableName, $schemaName = null)
     {
-        $sql = 'TRUNCATE ' . $this->quoteIdentifier($tableName);
+        $tableName = $this->_getTableName($tableName, $schemaName);
+        $sql = sprintf('TRUNCATE %s', $this->quoteIdentifier($tableName));
         $this->raw_query($sql);
 
         return $this;
+    }
+
+    /**
+     * Change table storage engine
+     *
+     * @param string $tableName
+     * @param string $engine
+     * @param string $type
+     * @return mixed
+     */
+    public function changeTableEngine($tableName, $engine, $schemaName = null)
+    {
+        $sql = sprintf('ALTER TABLE %s ENGINE=%s',
+            $this->quoteIdentifier($this->_getTableName($tableName, $schemaName)),
+            $engine);
+        return $this->raw_query($sql);
     }
 }

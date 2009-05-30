@@ -86,10 +86,23 @@
 
     <div class="entry-edit">
         <div class="entry-edit-head">
-            <h4 class="icon-head head-products"><?php echo Mage::helper('sales')->__('Items to Invoice') ?></h4>
+            <?php
+                $_itemsGridLabel = $this->getForcedShipmentCreate()?'Items to Invoice and Ship':'Items to Invoice';
+            ?>
+            <h4 class="icon-head head-products"><?php echo Mage::helper('sales')->__('%s', $_itemsGridLabel) ?></h4>
         </div>
     </div>
     <div id="invoice_item_container">
           <?php echo $this->getChildHtml('order_items') ?>
     </div>
 </form>
+<script>
+    /*forced creating of shipment*/
+    var forcedShipmentCreate = <?php echo $this->getForcedShipmentCreate() ?>;
+    var shipmentElement = $('invoice_do_shipment');
+    if (forcedShipmentCreate && shipmentElement) {
+        shipmentElement.checked = true;
+        shipmentElement.disabled = true;
+        document.getElementById('tracking').style.display = 'block';
+    }
+</script>

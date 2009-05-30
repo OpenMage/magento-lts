@@ -254,7 +254,7 @@ class Zend_Db
          * Load the adapter class.  This throws an exception
          * if the specified class cannot be loaded.
          */
-        Zend_Loader::loadClass($adapterName);
+        #Zend_Loader::loadClass($adapterName);
 
         /*
          * Create an instance of the adapter class.

@@ -75,10 +75,10 @@ class Mage_Core_Model_Mysql4_Store_Group_Collection extends Mage_Core_Model_Mysq
     public function addWebsiteFilter($website)
     {
         if (is_array($website)) {
-            $condition = $this->getConnection()->quoteInto('website_id IN(?)', $website);
+            $condition = $this->getConnection()->quoteInto('main_table.website_id IN(?)', $website);
         }
         else {
-            $condition = $this->getConnection()->quoteInto('website_id=?', $website);
+            $condition = $this->getConnection()->quoteInto('main_table.website_id=?', $website);
         }
         return $this->addFilter('website_id', $condition, 'string');
     }

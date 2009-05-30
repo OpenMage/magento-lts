@@ -41,7 +41,7 @@ class Mage_GoogleBase_Model_Attribute extends Mage_Core_Model_Abstract
     protected $_ignoredAttributeCodes = array(
         'custom_design','custom_design_from','custom_design_to','custom_layout_update',
         'gift_message_available','news_from_date','news_to_date','options_container',
-        'price','price_view','sku_type'
+        'price_view','sku_type'
     );
 
     /**

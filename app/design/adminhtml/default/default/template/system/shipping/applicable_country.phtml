@@ -57,11 +57,15 @@ CountryModel.prototype = {
                 if (applyCountryElement.value == 1) {
                    //if specific country element selected
                    specifCountryElement.enable();
-                   showMethodElement.up(1).show();
+                   if (showMethodElement) {
+                       this.showElement(showMethodElement.up(1));
+                   }
                    //specifErrMsgElement.up(1).show();
                  } else {
                    specifCountryElement.disable();
-                   showMethodElement.up(1).hide();
+                   if (showMethodElement) {
+                       this.hideElement(showMethodElement.up(1));
+                   }
                    //specifErrMsgElement.up(1).hide();
                 }
             }
@@ -79,12 +83,16 @@ CountryModel.prototype = {
                 if (applyCountryElement.value == 1) {
                    //if specific country element selected
                    specifCountryElement.enable();
-                   showMethodElement.up(1).show();
+                   if (showMethodElement) {
+                       this.showElement(showMethodElement.up(1));
+                   }
                    //specifErrMsgElement.up(1).show();
                  } else {
                     this.unselectSpecificCountry(specifCountryElement);
                     specifCountryElement.disable();
-                    showMethodElement.up(1).hide();
+                    if (showMethodElement) {
+                        this.hideElement(showMethodElement.up(1));
+                    }
                     //specifErrMsgElement.up(1).hide();
                 }
             }
@@ -96,6 +104,24 @@ CountryModel.prototype = {
         for (var i=0; i<element.options.length; i++) {
             if (element.options[i].selected) {
               element.options[i].selected=false;;
+            }
+        }
+    },
+
+    showElement : function(elm)
+    {
+        if (elm) {
+            if (!elm.down('.shipping-skip-show')) {
+                elm.show();
+            }
+        }
+    },
+
+    hideElement : function(elm)
+    {
+        if (elm) {
+            if (!elm.down('.shipping-skip-hide')) {
+                elm.hide();
             }
         }
     }

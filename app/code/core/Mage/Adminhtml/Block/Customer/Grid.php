@@ -133,14 +133,12 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $websites = Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForGridFilter(true, true);
-
             $this->addColumn('website_id', array(
                 'header'    => Mage::helper('customer')->__('Website'),
                 'align'     => 'center',
                 'width'     => '80px',
                 'type'      => 'options',
-                'options'   => $websites,
+                'options'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteOptionHash(true),
                 'index'     => 'website_id',
             ));
         }

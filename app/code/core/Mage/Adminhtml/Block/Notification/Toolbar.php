@@ -34,6 +34,10 @@
  */
 class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * Initialize Toolbar block
+     *
+     */
     protected function _construct()
     {}
 
@@ -47,8 +51,16 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
         return Mage::helper('adminnotification');
     }
 
+    /**
+     * Check is show toolbar
+     *
+     * @return bool
+     */
     public function isShow()
     {
+        if (!$this->isOutputEnabled('Mage_AdminNotification')) {
+            return false;
+        }
         if ($this->getRequest()->getControllerName() == 'notification') {
             return false;
         }
@@ -58,41 +70,86 @@ class Mage_Adminhtml_Block_Notification_Toolbar extends Mage_Adminhtml_Block_Tem
         return true;
     }
 
+    /**
+     * Retrieve count of critical errors
+     *
+     * @return int
+     */
     public function getCriticalCount()
     {
-        return $this->_getHelper()->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_CRITICAL);
+        return $this->_getHelper()
+            ->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_CRITICAL);
     }
 
+    /**
+     * Retrieve count of major errors
+     *
+     * @return int
+     */
     public function getMajorCount()
     {
-        return $this->_getHelper()->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_MAJOR);
+        return $this->_getHelper()
+            ->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_MAJOR);
     }
 
+    /**
+     * Retrieve count of minor errors
+     *
+     * @return int
+     */
     public function getMinorCount()
     {
-        return $this->_getHelper()->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_MINOR);
+        return $this->_getHelper()
+            ->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_MINOR);
     }
 
+    /**
+     * Retrieve count of notices
+     *
+     * @return int
+     */
     public function getNoticeCount()
     {
-        return $this->_getHelper()->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_NOTICE);
+        return $this->_getHelper()
+            ->getUnreadNoticeCount(Mage_AdminNotification_Model_Inbox::SEVERITY_NOTICE);
     }
 
+    /**
+     * Retrieve Notices Inbox URL
+     *
+     * @return string
+     */
     public function getNoticesInboxUrl()
     {
         return $this->getUrl('adminhtml/notification');
     }
 
+    /**
+     * Retrieve last notice Title
+     *
+     * @return string
+     */
     public function getLatestNotice()
     {
-        return  $this->_getHelper()->getLatestNotice()->getTitle();
+        return  $this->_getHelper()
+            ->getLatestNotice()->getTitle();
     }
 
+    /**
+     * Retrieve Last Notice URL
+     *
+     * @return string
+     */
     public function getLatestNoticeUrl()
     {
         return $this->_getHelper()->getLatestNotice()->getUrl();
     }
 
+    /**
+     * Check is Message Window Available
+     *
+     * @return bool
+     */
     public function isMessageWindowAvailable()
     {
         $block = $this->getLayout()->getBlock('notification_window');

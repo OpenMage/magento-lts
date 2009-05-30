@@ -28,7 +28,7 @@ $installer = $this;
 /* @var $installer Mage_Customer_Model_Entity_Setup  */
 
 $installer->startSetup();
-$table = $installer->getTable('tax/rule');
+$table = $installer->getTable('tax_rule');
 
 $installer->run("
 ALTER TABLE `{$table}` ADD `priority` SMALLINT( 5 ) NOT NULL;

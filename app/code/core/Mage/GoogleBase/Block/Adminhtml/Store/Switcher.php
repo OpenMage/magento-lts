@@ -31,14 +31,19 @@
  * @package    Mage_GoogleBase
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_GoogleBase_Block_Adminhtml_Store_Switcher extends Mage_Adminhtml_Block_Store_Switcher
 {
+    /**
+     * @var bool
+     */
+    protected $_hasDefaultOption = false;
+
+    /**
+     * Set overriden params
+     */
     public function __construct()
     {
         parent::__construct();
-        $this->setDefaultStoreName($this->__('Default Store (%s)', Mage::app()->getDefaultStoreView()->getName()))
-            ->setUseConfirm(false)
-            ->setSwitchUrl($this->getUrl('*/*/*', array('store'=>null)));
+        $this->setUseConfirm(false)->setSwitchUrl($this->getUrl('*/*/*', array('store' => null)));
     }
 }

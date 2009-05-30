@@ -152,7 +152,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         ));
 
         if($this->helper('giftmessage/message')->getIsMessagesAvailable(
-            'main', $this->getQuote(), $this->getStore()
+            'items', $this->getQuote(), $this->getStore()
         )) {
             $this->addColumn('giftmessage', array(
                 'filter'    => false,
@@ -160,7 +160,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
                 'header'    => Mage::helper('sales')->__('Gift'),
                 'renderer'  => 'adminhtml/sales_order_create_search_grid_renderer_giftmessage',
                 'field_name'=> 'giftmessage',
-                'inline_css'=> 'checkbox',
+                'inline_css'=> 'checkbox input-text',
                 'align'     => 'center',
                 'index'     => 'entity_id',
                 'values'    => $this->_getGiftmessageSaveModel()->getAllowQuoteItemsProducts(),

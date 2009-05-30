@@ -38,7 +38,7 @@ $installer = $this;
 
 $installer->startSetup();
 
-$table = $installer->getTable('tax/rate');
+$table = $installer->getTable('tax_rate');
 $installer->getConnection()->dropColumn($table, 'tax_county_id');
 $installer->run("update {$table} set tax_postcode='*' where tax_postcode='' or tax_postcode is null");
 

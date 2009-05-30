@@ -34,6 +34,13 @@
  */
 class Mage_Wishlist_IndexController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * Action list where need check enabled cookie
+     *
+     * @var array
+     */
+    protected $_cookieCheckActions = array('add');
+
     public function preDispatch()
     {
         parent::preDispatch();
