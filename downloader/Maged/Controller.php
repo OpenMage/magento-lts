@@ -74,12 +74,6 @@ final class Maged_Controller
                 echo $this->view()->template('install/writable.phtml');
             } else {
                 $this->view()->set('mage_url', dirname(dirname($_SERVER['SCRIPT_NAME'])));
-                
-                $this->view()->set('use_custom_permissions_mode', $this->config()->get('use_custom_permissions_mode'));
-                $this->view()->set('mkdir_mode', $this->config()->get('mkdir_mode'));
-                $this->view()->set('chmod_file_mode', $this->config()->get('chmod_file_mode'));
-                $this->view()->set('chmod_file_mode_executable', $this->config()->get('chmod_file_mode_executable'));
-                
                 echo $this->view()->template('install/download.phtml');
             }
         } else {
@@ -103,7 +97,6 @@ final class Maged_Controller
 
     public function pearInstallAllAction()
     {
-        $this->config()->saveConfigPost($_POST);
         $this->model('pear', true)->installAll(!empty($_GET['force']));
     }
 
@@ -157,12 +150,6 @@ final class Maged_Controller
         $pearConfig = $this->model('pear', true)->pear()->getConfig();
         $this->view()->set('state', $pearConfig->get('preferred_state'));
         $this->view()->set('mage_dir', $pearConfig->get('mage_dir'));
-
-        $this->view()->set('use_custom_permissions_mode', $this->config()->get('use_custom_permissions_mode'));
-        $this->view()->set('mkdir_mode', $this->config()->get('mkdir_mode'));
-        $this->view()->set('chmod_file_mode', $this->config()->get('chmod_file_mode'));
-        $this->view()->set('chmod_file_mode_executable', $this->config()->get('chmod_file_mode_executable'));
-                
         echo $this->view()->template('settings.phtml');
     }
 

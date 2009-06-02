@@ -35,6 +35,9 @@
     <p>You are now ready to continue the installation process by downloading the most up-to-date copy of the Magento software.</p>
     <form id="install_all" method="post" action="<?php echo $this->url('pearInstallAll') ?>" target="pear_iframe" onsubmit="return installAll()">
         <fieldset>
+            <button class="form-button" type="submit">Start the download process</button>
+        </fielset>
+    </form>
 <?php else: ?>
     <p>There's an indication that Magento files already have been downloaded.</p>
     <p>If you feel that you have arrived to this page by mistake, please continue installation:</p>
@@ -43,45 +46,6 @@
     <p>Alternatively, you could proceed with Re-Downloading all packages</p>
     <form id="reinstall_all" method="post" action="<?php echo $this->url('pearInstallAll') ?>&force=1" target="pear_iframe" onsubmit="return installAll(true)">
         <fieldset>
-<?php endif; ?>
-
-        <table cellspacing="0" class="form-list">
-            <tr>
-                <td class="label">Use custom permissions:</td>
-                <td class="value">
-                    <select onchange="useCustomPermissions(this)" id="use_custom_permissions_mode" name="use_custom_permissions_mode" style="width:150px;">
-                        <option value="1" <?php if ($this->get('use_custom_permissions_mode')=='1'):?>selected="selected"<?php endif ?>>Yes</option>
-                        <option value="0" <?php if ($this->get('use_custom_permissions_mode')=='0'):?>selected="selected"<?php endif ?>>No</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
-        <table cellspacing="0" class="form-list" id="use_custom_permissions_mode_panel" <?php if ($this->get('use_custom_permissions_mode')=='0'):?>style="display:none;"<?php endif ?>>
-            <tr>
-                <td class="label">Folders:</td>
-                <td class="value">
-                    <input id="mkdir_mode" name="mkdir_mode" value="<?php echo($this->get('mkdir_mode'));?>" style="width:50px;" type="text"></input>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">Files:</td>
-                <td class="value">
-                    <input id="chmod_file_mode" name="chmod_file_mode" value="<?php echo($this->get('chmod_file_mode'));?>" style="width:50px;" type="text"></input>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">Executable files:</td>
-                <td class="value">
-                    <input id="chmod_file_mode_executable" name="chmod_file_mode_executable" value="<?php echo($this->get('chmod_file_mode_executable'));?>" style="width:50px;" type="text"></input>
-                </td>
-            </tr>
-        </table>
-
-<?php if (!$this->controller()->isDownloaded()): ?>
-            <button class="form-button" type="submit">Start the download process</button>
-        </fielset>
-    </form>
-<?php else: ?>
             <button class="form-button" type="submit">Re-Download All Magento Core Packages</button>
         </fieldset>
     </form>
@@ -106,18 +70,6 @@
     <?php echo $this->template('messages.phtml') ?>
     <button class="form-button" type="button" onclick="location.reload()"><span>Refresh</span></button>
 </div>
-
-<script>
-function useCustomPermissions (element)
-{
-    if (element.value == '1') {
-        disabledMode = 'block';
-    } else {
-        disabledMode = 'none';
-    }
-    document.getElementById('use_custom_permissions_mode_panel').style.display = disabledMode;
-}
-</script>
 
 <script type="text/javascript">
 function installAll(force)

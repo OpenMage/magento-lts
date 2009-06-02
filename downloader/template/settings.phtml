@@ -26,18 +26,6 @@
 ?>
 <?php echo $this->template('header.phtml') ?>
 
-<script>
-function useCustomPermissions (element)
-{
-    if (element.value == '1') {
-        disabledMode = 'block';
-    } else {
-        disabledMode = 'none';
-    }
-    document.getElementById('use_custom_permissions_mode_panel').style.display = disabledMode;
-}
-</script>
-
 <h2 class="page-head">Settings</h2>
 <form action="<?php echo $this->url('settingsPost') ?>" method="POST">
     <fieldset>
@@ -66,39 +54,6 @@ function useCustomPermissions (element)
             </tr>
             -->
         </table>
-        <p>Permission to create new files and folders.</p>
-        <table cellspacing="0" class="form-list">
-            <tr>
-                <td class="label">Use custom permissions:</td>
-                <td class="value">
-                    <select onchange="useCustomPermissions(this)" id="use_custom_permissions_mode" name="use_custom_permissions_mode" style="width:150px;">
-                        <option value="1" <?php if ($this->get('use_custom_permissions_mode')=='1'):?>selected="selected"<?php endif ?>>Yes</option>
-                        <option value="0" <?php if ($this->get('use_custom_permissions_mode')=='0'):?>selected="selected"<?php endif ?>>No</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
-        <table cellspacing="0" class="form-list" id="use_custom_permissions_mode_panel" <?php if ($this->get('use_custom_permissions_mode')=='0'):?>style="display:none;"<?php endif ?>>
-            <tr>
-                <td class="label">Folders:</td>
-                <td class="value">
-                    <input id="mkdir_mode" name="mkdir_mode" value="<?php echo($this->get('mkdir_mode'));?>" style="width:50px;" type="text"></input>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">Files:</td>
-                <td class="value">
-                    <input id="chmod_file_mode" name="chmod_file_mode" value="<?php echo($this->get('chmod_file_mode'));?>" style="width:50px;" type="text"></input>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">Executable files:</td>
-                <td class="value">
-                    <input id="chmod_file_mode_executable" name="chmod_file_mode_executable" value="<?php echo($this->get('chmod_file_mode_executable'));?>" style="width:50px;" type="text"></input>
-                </td>
-            </tr>
-        </table>
-
         <p><button type="submit">Save Settings</button></p>
     </fieldset>
 </form>
