@@ -131,7 +131,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             }
 
             $date = new Zend_Date($timestamp);
-            $result = $date->toString(Varien_date::DATETIME_INTERNAL_FORMAT);
+            $result = $date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
 
             // Save date in internal format to avoid locale date bugs
             $this->_setInternalInRequest($result);

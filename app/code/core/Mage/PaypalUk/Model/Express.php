@@ -316,8 +316,7 @@ class Mage_PaypalUk_Model_Express extends Mage_Payment_Model_Method_Abstract
                 $payment->setLastTransId($api->getTransactionId());
            }
         } else {
-            $e = $api->getError();
-            die($e['message']);
+            $this->throwError();
         }
         return $this;
     }

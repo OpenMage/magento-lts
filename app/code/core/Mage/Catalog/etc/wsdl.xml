@@ -319,6 +319,7 @@
                 <all>
                     <element name="content" type="xsd:string" />
                     <element name="mime" type="xsd:string" />
+                    <element name="name" type="xsd:string" minOccurs="0" />
                 </all>
             </complexType>
             <complexType name="catalogProductAttributeMediaCreateEntity">

@@ -82,8 +82,8 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             $this->_quote = $quote;
         }
 
-        if (isset($_SERVER['REMOTE_ADDR'])) {
-            $this->_quote->setRemoteIp($_SERVER['REMOTE_ADDR']);
+        if ($remoteAddr = Mage::helper('core/http')->getRemoteAddr()) {
+            $this->_quote->setRemoteIp($remoteAddr);
         }
         return $this->_quote;
     }

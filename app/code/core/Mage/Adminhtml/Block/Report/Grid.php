@@ -362,7 +362,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         if ($to == '') {
             $to = $this->getFilter('report_to');
         }
-        $totalObj = new Mage_Reports_Model_Totals();
+        $totalObj = Mage::getModel('reports/totals');
         $this->setTotals($totalObj->countTotals($this, $from, $to));
         $this->addGrandTotals($this->getTotals());
         return $this->getCollection()->getReport($from, $to);

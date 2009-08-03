@@ -62,4 +62,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Main extends Ma
     {
         return Mage::helper('catalog')->__('Manage Attribute Sets');
     }
+
+    protected function _toHtml()
+    {
+        Mage::dispatchEvent('adminhtml_catalog_product_attribute_set_toolbar_main_html_before', array('block' => $this));
+        return parent::_toHtml();
+    }
 }

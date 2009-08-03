@@ -143,35 +143,37 @@ class Mage_Rating_Model_Mysql4_Rating extends Mage_Core_Model_Mysql4_Abstract
         return $this;
     }
 
+    /**
+     * Perform actions after object delete
+     * Prepare rating data for reaggregate all data for reviews
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @return Mage_Rating_Model_Mysql4_Rating
+     */
+    protected function _afterDelete(Mage_Core_Model_Abstract $object)
+    {
+        parent::_afterDelete($object);
+        $data = $this->_getEntitySummaryData($object);
+        $summary = array();
+        foreach ($data as $row) {
+            $clone = clone $object;
+            $clone->addData( $row );
+            $summary[$clone->getStoreId()][$clone->getEntityPkValue()] = $clone;
+        }
+        Mage::getResourceModel('review/review_summary')->reAggregate($summary);
+        return $this;
+    }
+
+    /**
+     * Return array of rating summary
+     *
+     * @param Mage_Rating_Model_Rating $object
+     * @param boolean $onlyForCurrentStore
+     * @return array
+     */
     public function getEntitySummary($object, $onlyForCurrentStore = true)
     {
-        $read = $this->_getReadAdapter();
-        $sql = "SELECT
-                    SUM({$this->getTable('rating_vote')}.percent) as sum,
-                    COUNT(*) as count,
-                    {$this->getTable('review/review_store')}.store_id
-                FROM
-                    {$this->getTable('rating_vote')}
-                INNER JOIN
-                    {$this->getTable('review/review')}
-                    ON {$this->getTable('rating_vote')}.review_id={$this->getTable('review/review')}.review_id
-                LEFT JOIN
-                    {$this->getTable('review/review_store')}
-                    ON {$this->getTable('rating_vote')}.review_id={$this->getTable('review/review_store')}.review_id
-                INNER JOIN
-                    {$this->getTable('rating/rating_store')} AS rst
-                    ON rst.rating_id = {$this->getTable('rating_vote')}.rating_id AND rst.store_id = {$this->getTable('review/review_store')}.store_id
-                INNER JOIN
-                    {$this->getTable('review/review_status')} AS review_status
-                    ON {$this->getTable('review/review')}.status_id = review_status.status_id
-                WHERE
-                    {$read->quoteInto($this->getTable('rating_vote').'.entity_pk_value=?', $object->getEntityPkValue())}
-                    AND review_status.status_code = 'approved'
-                GROUP BY
-                    {$this->getTable('rating_vote')}.entity_pk_value, {$this->getTable('review/review_store')}.store_id";
-
-        $data = $read->fetchAll($sql);
-
+        $data = $this->_getEntitySummaryData($object);
 
         if($onlyForCurrentStore) {
             foreach ($data as $row) {
@@ -205,9 +207,46 @@ class Mage_Rating_Model_Mysql4_Rating extends Mage_Core_Model_Mysql4_Abstract
                }
         }
 
-
-
         return array_values($result);
+    }
+
+    /**
+     * Return data of rating summary
+     *
+     * @param Mage_Rating_Model_Rating $object
+     * @return array
+     */
+    protected function _getEntitySummaryData($object)
+    {
+        $read = $this->_getReadAdapter();
+        $sql = "SELECT
+                    {$this->getTable('rating_vote')}.entity_pk_value as entity_pk_value,
+                    SUM({$this->getTable('rating_vote')}.percent) as sum,
+                    COUNT(*) as count,
+                    {$this->getTable('review/review_store')}.store_id
+                FROM
+                    {$this->getTable('rating_vote')}
+                INNER JOIN
+                    {$this->getTable('review/review')}
+                    ON {$this->getTable('rating_vote')}.review_id={$this->getTable('review/review')}.review_id
+                LEFT JOIN
+                    {$this->getTable('review/review_store')}
+                    ON {$this->getTable('rating_vote')}.review_id={$this->getTable('review/review_store')}.review_id
+                INNER JOIN
+                    {$this->getTable('rating/rating_store')} AS rst
+                    ON rst.rating_id = {$this->getTable('rating_vote')}.rating_id AND rst.store_id = {$this->getTable('review/review_store')}.store_id
+                INNER JOIN
+                    {$this->getTable('review/review_status')} AS review_status
+                    ON {$this->getTable('review/review')}.status_id = review_status.status_id
+                WHERE ";
+        if ($object->getEntityPkValue()) {
+            $sql .= "{$read->quoteInto($this->getTable('rating_vote').'.entity_pk_value=?', $object->getEntityPkValue())} AND ";
+        }
+        $sql .= "review_status.status_code = 'approved'
+                GROUP BY
+                    {$this->getTable('rating_vote')}.entity_pk_value, {$this->getTable('review/review_store')}.store_id";
+
+        return $read->fetchAll($sql);
     }
 
     public function getReviewSummary($object, $onlyForCurrentStore = true)

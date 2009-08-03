@@ -176,10 +176,11 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     public function validate($object)
     {
         $attrCode = $this->getAttribute()->getAttributeCode();
-        if ($this->getAttribute()->getIsRequired() && !$object->getData($attrCode)) {
+        $value = $object->getData($attrCode);
+        if ($this->getAttribute()->getIsRequired() && $this->getAttribute()->isValueEmpty($value)) {
             return false;
         }
-        $value = $object->getData($this->getAttribute()->getAttributeCode());
+
         if ($this->getAttribute()->getIsUnique() && !$this->getAttribute()->getIsRequired() && ($value == '' || $this->getAttribute()->isValueEmpty($value))) {
             return true;
         }

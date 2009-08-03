@@ -126,12 +126,34 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
     {
         foreach ($customer->getAddresses() as $address) {
             if ($address->getData('_deleted')) {
+                if ($address->getId() == $customer->getData('default_billing')) {
+                    $customer->setData('default_billing', null);
+                }
+                if ($address->getId() == $customer->getData('default_shipping')) {
+                    $customer->setData('default_shipping', null);
+                }
                 $address->delete();
             }
             else {
                 $address->setParentId($customer->getId())
                     ->setStoreId($customer->getStoreId())
                     ->save();
+                if ($address->getIsPrimaryBilling()
+                    && $address->getId() != $customer->getData('default_billing'))
+                {
+                    $customer->setData('default_billing', $address->getId());
+                }
+                if ($address->getIsPrimaryShipping()
+                    && $address->getId() != $customer->getData('default_shipping'))
+                {
+                    $customer->setData('default_shipping', $address->getId());
+                }
+            }
+            if ($customer->dataHasChangedFor('default_billing')) {
+                $this->saveAttribute($customer, 'default_billing');
+            }
+            if ($customer->dataHasChangedFor('default_shipping')) {
+                $this->saveAttribute($customer, 'default_shipping');
             }
         }
         return $this;

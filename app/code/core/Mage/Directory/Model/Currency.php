@@ -107,7 +107,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Get currency rate
+     * Get currency rate (only base=>allowed)
      *
      * @param   string $toCurrency
      * @return  double
@@ -124,6 +124,29 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         $rates = $this->getRates();
         if (!isset($rates[$code])) {
             $rates[$code] = $this->_getResource()->getRate($this->getCode(), $toCurrency);
+            $this->setRates($rates);
+        }
+        return $rates[$code];
+    }
+    
+	/**
+     * Get currency rate (base=>allowed or allowed=>base)
+     *
+     * @param   string $toCurrency
+     * @return  double
+     */
+    public function getAnyRate($toCurrency)
+    {
+        if (is_string($toCurrency)) {
+            $code = $toCurrency;
+        } elseif ($toCurrency instanceof Mage_Directory_Model_Currency) {
+            $code = $toCurrency->getCurrencyCode();
+        } else {
+            throw Mage::exception('Mage_Directory', Mage::helper('directory')->__('Invalid target currency'));
+        }
+        $rates = $this->getRates();
+        if (!isset($rates[$code])) {
+            $rates[$code] = $this->_getResource()->getAnyRate($this->getCode(), $toCurrency);
             $this->setRates($rates);
         }
         return $rates[$code];

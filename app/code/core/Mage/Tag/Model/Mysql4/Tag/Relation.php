@@ -34,51 +34,72 @@
 
 class Mage_Tag_Model_Mysql4_Tag_Relation extends Mage_Core_Model_Mysql4_Abstract
 {
+    /**
+     * Initialize resource connection and define table resource
+     *
+     */
     protected function _construct()
     {
         $this->_init('tag/relation', 'tag_relation_id');
     }
 
+    /**
+     * Load by Tag and Customer
+     *
+     * @param Mage_Tag_Model_Tag_Relation $model
+     * @return Mage_Tag_Model_Mysql4_Tag_Relation
+     */
     public function loadByTagCustomer($model)
     {
-        if( $model->getTagId() && $model->getCustomerId() ) {
+        if ($model->getTagId() && $model->getCustomerId()) {
             $read = $this->_getReadAdapter();
-            $select = $read->select();
-
-            $select->from($this->getMainTable())
+            $select = $read->select()
+                ->from($this->getMainTable())
                 ->join($this->getTable('tag/tag'), "{$this->getTable('tag/tag')}.tag_id = {$this->getMainTable()}.tag_id")
                 ->where("{$this->getMainTable()}.tag_id = ?", $model->getTagId())
                 ->where('customer_id = ?', $model->getCustomerId());
 
-            if( $model->getProductId() ) {
+            if ($model->getProductId()) {
                 $select->where("{$this->getMainTable()}.product_id = ?", $model->getProductId());
             }
 
-            if( $model->hasStoreId() ) {
+            if ($model->hasStoreId()) {
                 $select->where("{$this->getMainTable()}.store_id = ?", $model->getStoreId());
             }
 
             $data = $read->fetchRow($select);
             $model->setData( ( is_array($data) ) ? $data : array() );
-            return $this;
-        } else {
-            return $this;
         }
+
+        return $this;
     }
 
+    /**
+     * Retrieve Tagged Products
+     *
+     * @param Mage_Tag_Model_Tag_Relation $model
+     * @return array
+     */
     public function getProductIds($model)
     {
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable(), 'product_id')
-            ->where("tag_id = ?", $model->getTagId())
+            ->where("tag_id=?", $model->getTagId())
             ->where('customer_id=?', $model->getCustomerId())
             ->where('active=1');
-        if( $model->hasStoreId() ) {
+        if ($model->hasStoreId()) {
             $select->where('store_id = ?', $model->getStoreId());
         }
         return $this->_getReadAdapter()->fetchCol($select);
     }
 
+    /**
+     * Deactivate tag relations by tag and customer
+     *
+     * @param int $tagId
+     * @param int $customerId
+     * @return Mage_Tag_Model_Mysql4_Tag_Relation
+     */
     public function deactivate($tagId, $customerId)
     {
         $condition = $this->_getWriteAdapter()->quoteInto('tag_id = ?', $tagId) . ' AND ';

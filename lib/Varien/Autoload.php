@@ -103,7 +103,7 @@ class Varien_Autoload
     static public function registerScope($code)
     {
         self::$_scope = $code;
-        @include self::SCOPE_FILE_PREFIX.$code.'.php';
+        @include_once self::SCOPE_FILE_PREFIX.$code.'.php';
     }
 
     /**

@@ -179,7 +179,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
 
             $package = $xml->addChild('Package');
                 $package->addAttribute('ID', 0);
-                $package->addChild('Service', $r->getService());
+                $service = $this->getCode('service_to_code', $r->getService());
+                if (!$service) {
+                    $service = $r->getService();
+                }
+                $package->addChild('Service', $service);
 
                 // no matter Letter, Flat or Parcel, use Parcel
                 if ($r->getService() == 'FIRST CLASS') {
@@ -192,7 +196,12 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                 $package->addChild('Ounces', $r->getWeightOunces());
 //                $package->addChild('Pounds', '0');
 //                $package->addChild('Ounces', '3');
-                $package->addChild('Container', $r->getContainer());
+
+                // Because some methods don't accept VARIABLE and (NON)RECTANGULAR containers
+                if (strtoupper($r->getContainer()) == 'FLAT RATE ENVELOPE' || strtoupper($r->getContainer()) == 'FLAT RATE BOX') {
+                    $package->addChild('Container', $r->getContainer());
+                }
+
                 $package->addChild('Size', $r->getSize());
                 $package->addChild('Machinable', $r->getMachinable());
 

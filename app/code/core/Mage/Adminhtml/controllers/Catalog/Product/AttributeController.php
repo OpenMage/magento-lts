@@ -155,6 +155,10 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 $data['frontend_input'] = $model->getFrontendInput();
             }
 
+            if (!isset($data['is_configurable'])) {
+                $data['is_configurable'] = 0;
+            }
+
             if (is_null($model->getIsUserDefined()) || $model->getIsUserDefined() != 0) {
                 $data['backend_type'] = $model->getBackendTypeByInput($data['frontend_input']);
             }

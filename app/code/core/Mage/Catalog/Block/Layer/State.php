@@ -66,7 +66,7 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
     {
         $filterState = array();
         foreach ($this->getActiveFilters() as $item) {
-            $filterState[$item->getFilter()->getRequestVar()] = $item->getFilter()->getResetValue();
+            $filterState[$item->getFilter()->getRequestVar()] = $item->getFilter()->getCleanValue();
         }
         $params['_current'] = true;
         $params['_use_rewrite'] = true;

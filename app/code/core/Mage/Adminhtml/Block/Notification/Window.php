@@ -79,6 +79,11 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
      */
     public function canShow()
     {
+        if (!Mage::getSingleton('admin/session')->isFirstPageAfterLogin()) {
+            $this->_available = false;
+            return false;
+        }
+        
         if (!$this->isOutputEnabled('Mage_AdminNotification')) {
             $this->_available = false;
             return false;
@@ -95,10 +100,6 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
         }
 
         if (is_null($this->_available)) {
-            if (!Mage::getSingleton('admin/session')->isFirstPageAfterLogin()) {
-                $this->_available = false;
-                return false;
-            }
             $this->_available = $this->isShow();
         }
         return $this->_available;

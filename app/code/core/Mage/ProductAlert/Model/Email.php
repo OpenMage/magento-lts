@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_ProductAlert
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,7 +30,7 @@
  *
  * @category   Mage
  * @package    Mage_ProductAlert
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
 {
@@ -247,15 +247,23 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             return false;
         }
 
-        Mage::getDesign()->setStore($storeId);
-        Mage::getDesign()->setArea('frontend');
+        // set design parameters, required for email (remember current)
+        $currentDesign = Mage::getDesign()->setAllGetOld(array(
+            'store'   => $storeId,
+            'area'    => 'frontend',
+            'package' => Mage::getStoreConfig('design/package/name', $storeId),
+        ));
+
+        Mage::app()->getLocale()->emulate($storeId);
 
         $translate = Mage::getSingleton('core/translate');
         /* @var $translate Mage_Core_Model_Translate */
         $translate->setTranslateInline(false);
 
         if ($this->_type == 'price') {
-            $this->_getPriceBlock()->setStore($store);
+            $this->_getPriceBlock()
+                ->setStore($store)
+                ->reset();
             foreach ($this->_priceProducts as $product) {
                 $product->setCustomerGroupId($this->_customer->getGroupId());
                 $this->_getPriceBlock()->addProduct($product);
@@ -264,7 +272,9 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             $templateId = Mage::getStoreConfig(self::XML_PATH_EMAIL_PRICE_TEMPLATE, $storeId);
         }
         elseif ($this->_type == 'stock') {
-            $this->_getStockBlock()->setStore($store);
+            $this->_getStockBlock()
+                ->setStore($store)
+                ->reset();
             foreach ($this->_stockProducts as $product) {
                 $product->setCustomerGroupId($this->_customer->getGroupId());
                 $this->_getStockBlock()->addProduct($product);
@@ -273,6 +283,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             $templateId = Mage::getStoreConfig(self::XML_PATH_EMAIL_STOCK_TEMPLATE, $storeId);
         }
         else {
+            Mage::app()->getLocale()->revert();
             return false;
         }
 
@@ -292,6 +303,10 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             );
 
         $translate->setTranslateInline(true);
+
+        // revert current design
+        Mage::getDesign()->setAllGetOld($currentDesign);
+        Mage::app()->getLocale()->revert();
 
         return true;
     }

@@ -187,6 +187,9 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
         $imageInfo = getimagesize($file);
 
+        if (!isset($imageInfo[0]) || !isset($imageInfo[1])) {
+            return 0;
+        }
         if (!isset($imageInfo['channels'])) {
             // if there is no info about this parameter lets set it for maximum
             $imageInfo['channels'] = 4;

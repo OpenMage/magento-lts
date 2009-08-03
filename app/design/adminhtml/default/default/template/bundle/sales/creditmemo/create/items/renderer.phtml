@@ -222,15 +222,17 @@
                 &nbsp;
             <?php endif; ?>
         </td>
+        <?php if ($this->canParentReturnToStock($_item)) : ?>
         <td class="a-center">
             <?php if ($this->canShowPriceInfo($_item)): ?>
-                <?php if ($this->canReturnToStock()) : ?>
+                <?php if ($this->canReturnItemToStock($_item)) : ?>
                     <input type="checkbox" name="creditmemo[items][<?php echo $_item->getOrderItemId() ?>][back_to_stock]" value="1"<?php if ($_item->getBackToStock()):?> checked="checked"<?php endif;?> />
                 <?php endif; ?>
             <?php else: ?>
                 &nbsp;
             <?php endif; ?>
         </td>
+        <?php endif; ?>
         <td class="a-center">
             <?php if ($this->canShowPriceInfo($_item)): ?>
                 <?php if ($this->canEditQty()) : ?>

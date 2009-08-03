@@ -254,4 +254,15 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
         return $result;
     }
+
+    /**
+     * Clean non UTF-8 characters
+     *
+     * @param string $string
+     * @return string
+     */
+    public function cleanString($string)
+    {
+        return iconv(self::ICONV_CHARSET, self::ICONV_CHARSET . '//IGNORE', $string);
+    }
 }

@@ -96,8 +96,21 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
         }
         $category->setParentId($parent_category->getId());
         try {
+            $validate = $category->validate();
+            if ($validate !== true) {
+                foreach ($validate as $code => $error) {
+                    if ($error === true) {
+                        Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required', $code));
+                    }
+                    else {
+                        Mage::throwException($error);
+                    }
+                }
+            }
+
             $category->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -128,8 +141,20 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
         }
 
         try {
+            $validate = $category->validate();
+            if ($validate !== true) {
+                foreach ($validate as $code => $error) {
+                    if ($error === true) {
+                        Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required', $code));
+                    }
+                    else {
+                        Mage::throwException($error);
+                    }
+                }
+            }
             $category->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
 

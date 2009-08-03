@@ -63,18 +63,20 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     public function initServerData()
     {
-        $s = $_SERVER;
+        /* @var $helper Mage_Core_Helper_Http */
+        $helper = Mage::helper('core/http');
+
         $this->addData(array(
-            'server_addr'       => empty($s['SERVER_ADDR']) ? '' : ip2long($s['SERVER_ADDR']),
-            'remote_addr'       => empty($s['REMOTE_ADDR']) ? '' : ip2long($s['REMOTE_ADDR']),
-            'http_secure'       => Mage::app()->getStore()->isCurrentlySecure(),
-            'http_host'         => empty($s['HTTP_HOST']) ? '' : $s['HTTP_HOST'],
-            'http_user_agent'   => empty($s['HTTP_USER_AGENT']) ? '' : $s['HTTP_USER_AGENT'],
-            'http_accept_language'=> empty($s['HTTP_ACCEPT_LANGUAGE']) ? '' : $s['HTTP_ACCEPT_LANGUAGE'],
-            'http_accept_charset'=> empty($s['HTTP_ACCEPT_CHARSET']) ? '' : $s['HTTP_ACCEPT_CHARSET'],
-            'request_uri'       => empty($s['REQUEST_URI']) ? '' : $s['REQUEST_URI'],
-            'session_id'        => $this->_getSession()->getSessionId(),
-            'http_referer'      => empty($s['HTTP_REFERER']) ? '' : $s['HTTP_REFERER'],
+            'server_addr'           => $helper->getServerAddr(true),
+            'remote_addr'           => $helper->getRemoteAddr(true),
+            'http_secure'           => Mage::app()->getStore()->isCurrentlySecure(),
+            'http_host'             => $helper->getHttpHost(true),
+            'http_user_agent'       => $helper->getHttpUserAgent(true),
+            'http_accept_language'  => $helper->getHttpAcceptLanguage(true),
+            'http_accept_charset'   => $helper->getHttpAcceptCharset(true),
+            'request_uri'           => $helper->getRequestUri(true),
+            'session_id'            => $this->_getSession()->getSessionId(),
+            'http_referer'          => $helper->getHttpReferer(true),
         ));
 
         return $this;

@@ -88,12 +88,12 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api_V2 extends Mage_Catalog_Mod
 
         $tmpDirectory = Mage::getBaseDir('var') . DS . 'api' . DS . $this->_getSession()->getSessionId();
 
-        if (isset($data['file']['name']) && $data['file']['name']) {
-            $fileName  = $data['file']['name'];
+        if (isset($data->file->name) && $data->file->name) {
+            $fileName  = $data->file->name;
         } else {
             $fileName  = 'image';
         }
-        $fileName .= '.' . $this->_mimeTypes[$data['file']['mime']];
+        $fileName .= '.' . $this->_mimeTypes[$data->file->mime];
 
         $ioAdapter = new Varien_Io_File();
         try {

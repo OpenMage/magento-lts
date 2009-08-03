@@ -149,7 +149,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function validate()
     {
+        Mage::dispatchEvent($this->_eventPrefix.'_validate_before', array($this->_eventObject=>$this));
         $this->_getResource()->validate($this);
+        Mage::dispatchEvent($this->_eventPrefix.'_validate_after', array($this->_eventObject=>$this));
         return $this;
     }
 

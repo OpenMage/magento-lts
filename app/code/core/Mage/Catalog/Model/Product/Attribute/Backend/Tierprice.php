@@ -149,9 +149,9 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
         $data = $this->_getResource()
             ->loadProductPrices($object, $this->getAttribute());
         foreach ($data as $k => $v) {
+            $data[$k]['website_price'] = $v['price'];
             if ($v['all_groups']) {
                 $data[$k]['cust_group'] = Mage_Customer_Model_Group::CUST_GROUP_ALL;
-                $data[$k]['website_price'] = $v['price'];
             }
         }
 

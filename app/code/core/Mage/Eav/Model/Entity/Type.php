@@ -155,6 +155,9 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
             //throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Valid store_id is expected!'));
         }
 
+        // Start transaction to run SELECT ... FOR UPDATE
+        $this->_getResource()->beginTransaction();
+
         $entityStoreConfig = Mage::getModel('eav/entity_store')
             ->loadByEntityStore($this->getId(), $storeId);
 
@@ -181,6 +184,9 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
         $incrementId = $incrementInstance->getNextId();
         $entityStoreConfig->setIncrementLastId($incrementId);
         $entityStoreConfig->save();
+
+        // Commit increment_last_id changes
+        $this->_getResource()->commit();
 
         return $incrementId;
     }

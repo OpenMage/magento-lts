@@ -650,6 +650,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function setStore(Mage_Core_Model_Store $store)
     {
         $this->setStoreId($store->getId());
+        $this->setWebsiteId($store->getWebsite()->getId());
         return $this;
     }
 
@@ -1040,5 +1041,16 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         return $this->getId() && $this->hasSkipConfirmationIfEmail()
             && strtolower($this->getSkipConfirmationIfEmail()) === strtolower($this->getEmail());
+    }
+    
+	public function __clone()
+    {
+    	$newAddressCollection = $this->getPrimaryAddresses();
+    	$newAddressCollection = array_merge($newAddressCollection, $this->getAdditionalAddresses());
+    	$this->setId(null);
+    	$this->cleanAllAddresses();
+        foreach ($newAddressCollection as $address) {
+        	$this->addAddress(clone $address);
+        }
     }
 }

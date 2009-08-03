@@ -181,4 +181,22 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
     {
         return $this->getUrl("*/catalog_category/edit", array('_current'=>true, 'store'=>null, '_query'=>false, 'id'=>null, 'parent'=>null));
     }
+
+    /**
+     * Return ids of root categories as array
+     *
+     * @return array
+     */
+    public function getRootIds()
+    {
+        $ids = $this->getData('root_ids');
+        if (is_null($ids)) {
+            $ids = array();
+            foreach (Mage::app()->getGroups() as $store) {
+                $ids[] = $store->getRootCategoryId();
+            }
+            $this->setData('root_ids', $ids);
+        }
+        return $ids;
+    }
 }

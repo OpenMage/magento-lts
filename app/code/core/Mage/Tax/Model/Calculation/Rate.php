@@ -127,4 +127,17 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     	Mage::dispatchEvent('tax_settings_change_after');
     	return $this;
     }
+
+    /**
+     * Load rate model by code 
+     * 
+     * @param  string $code
+     * @return Mage_Tax_Model_Calculation_Rate
+     */
+    public function loadByCode($code)
+    {
+        $this->load($code, 'code');
+        return $this;
+    }
+    
 }

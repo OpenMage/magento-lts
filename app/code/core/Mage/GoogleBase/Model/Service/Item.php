@@ -280,6 +280,8 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
             $entry->setContent($content);
         }
 
+        $this->_setAttributePrice(false, $object->getPrice());
+
         if ($object->getQuantity()) {
             $quantity = $object->getQuantity() ? max(1, (int)$object->getQuantity()) : 1;
             $this->_setAttribute('quantity', $quantity, 'int');
@@ -329,12 +331,15 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
      */
     protected function _setAttributePrice($attribute, $value, $type = 'text')
     {
-        $targetCountry = $this->getConfig()->getTargetCountry($this->getStoreId());
-        $this->_setAttribute(
-            $this->getConfig()->getCountryInfo($targetCountry, 'price_attribute_name', $this->getStoreId()),
-            sprintf('%.2f', $value),
-            'floatUnit'
-        );
+        if (!$this->getData('price_assigned')) {
+            $targetCountry = $this->getConfig()->getTargetCountry($this->getStoreId());
+            $this->_setAttribute(
+                $this->getConfig()->getCountryInfo($targetCountry, 'price_attribute_name', $this->getStoreId()),
+                sprintf('%.2f', $value),
+                'floatUnit'
+            );
+            $this->setData('price_assigned', true);
+        }
     }
 
     /**

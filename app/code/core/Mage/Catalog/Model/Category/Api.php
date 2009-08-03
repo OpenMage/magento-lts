@@ -236,12 +236,9 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function create($parentId, $categoryData, $store = null)
     {
-         $parent_category = $this->_initCategory($parentId);
-
+        $parent_category = $this->_initCategory($parentId);
         $category = Mage::getModel('catalog/category')
             ->setStoreId($this->_getStoreId($store));
-
-
 
         $category->addData(array('path'=>implode('/',$parent_category->getPathIds())));
 
@@ -257,10 +254,25 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 );
             }
         }
+
         $category->setParentId($parent_category->getId());
+
         try {
+            $validate = $category->validate();
+            if ($validate !== true) {
+                foreach ($validate as $code => $error) {
+                    if ($error === true) {
+                        Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required', $code));
+                    }
+                    else {
+                        Mage::throwException($error);
+                    }
+                }
+            }
+
             $category->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -290,8 +302,21 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         }
 
         try {
+            $validate = $category->validate();
+            if ($validate !== true) {
+                foreach ($validate as $code => $error) {
+                    if ($error === true) {
+                        Mage::throwException(Mage::helper('catalog')->__('Attribute "%s" is required', $code));
+                    }
+                    else {
+                        Mage::throwException($error);
+                    }
+                }
+            }
+
             $category->save();
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
 

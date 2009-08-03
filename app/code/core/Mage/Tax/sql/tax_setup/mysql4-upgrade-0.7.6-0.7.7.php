@@ -24,8 +24,9 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/* @var $installer Mage_Tax_Model_Mysql4_Setup */
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup  */
+
 
 $installer->startSetup();
 
@@ -40,7 +41,7 @@ $installer->run("
 PRIMARY KEY ( `tax_calculation_rate_id` ),
 KEY `IDX_TAX_CALCULATION_RATE` (`tax_country_id`, `tax_region_id`, `tax_postcode`),
 KEY `IDX_TAX_CALCULATION_RATE_CODE` (`code`)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
  CREATE TABLE `{$installer->getTable('tax_calculation_rate_title')}` (
 `tax_calculation_rate_title_id` INT NOT NULL AUTO_INCREMENT ,
@@ -51,7 +52,7 @@ PRIMARY KEY ( `tax_calculation_rate_title_id` ),
 KEY `IDX_TAX_CALCULATION_RATE_TITLE` (`tax_calculation_rate_id`, `store_id`),
 KEY `FK_TAX_CALCULATION_RATE_TITLE_RATE` (`tax_calculation_rate_id`),
 KEY `FK_TAX_CALCULATION_RATE_TITLE_STORE` (`store_id`)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
  CREATE TABLE `{$installer->getTable('tax_calculation_rule')}` (
 `tax_calculation_rule_id` INT NOT NULL AUTO_INCREMENT ,
@@ -61,7 +62,7 @@ KEY `FK_TAX_CALCULATION_RATE_TITLE_STORE` (`store_id`)
 PRIMARY KEY ( `tax_calculation_rule_id` ),
 KEY `IDX_TAX_CALCULATION_RULE` (`priority`, `position`, `tax_calculation_rule_id`),
 KEY `IDX_TAX_CALCULATION_RULE_CODE` (`code`)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
  CREATE TABLE `{$installer->getTable('tax_calculation')}` (
 `tax_calculation_rate_id` INT NOT NULL,
@@ -73,7 +74,7 @@ KEY `FK_TAX_CALCULATION_RATE` (`tax_calculation_rate_id`),
 KEY `FK_TAX_CALCULATION_CTC` (`customer_tax_class_id`),
 KEY `FK_TAX_CALCULATION_PTC` (`product_tax_class_id`),
 KEY `IDX_TAX_CALCULATION` (`tax_calculation_rate_id`, `customer_tax_class_id`, `product_tax_class_id`)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 ");
 
 
@@ -86,8 +87,7 @@ $installer->getConnection()->addConstraint('FK_TAX_CALCULATION_CTC', $installer-
 $installer->getConnection()->addConstraint('FK_TAX_CALCULATION_PTC', $installer->getTable('tax_calculation'), 'product_tax_class_id', $installer->getTable('tax_class'), 'class_id');
 
 
-$this->convertOldTaxData();
-
+$installer->convertOldTaxData();
 
 $installer->run("
 DROP TABLE `{$installer->getTable('tax_rule')}`;
@@ -95,6 +95,5 @@ DROP TABLE `{$installer->getTable('tax_rate_type')}`;
 DROP TABLE `{$installer->getTable('tax_rate_data')}`;
 DROP TABLE `{$installer->getTable('tax_rate')}`;
 ");
-
 
 $installer->endSetup();

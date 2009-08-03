@@ -41,6 +41,8 @@ class Mage_Compiler_Model_Process
     protected $_includePaths    = array();
     protected $_processedClasses= array();
 
+    protected $_controllerFolders = array();
+
     public function __construct($options=array())
     {
         if (isset($options['compile_dir'])) {
@@ -102,6 +104,7 @@ class Mage_Compiler_Model_Process
                 }
                 $sourceFile = $source . DS . $file;
                 if ($file == 'controllers') {
+                    $this->_controllerFolders[] = $sourceFile;
                     continue;
                 }
 
@@ -144,6 +147,57 @@ class Mage_Compiler_Model_Process
     }
 
     /**
+     * Copy controllers with folders structure
+     *
+     * @param   string $basePath base include path where files are located
+     * @return  Mage_Compiler_Model_Process
+     */
+    protected function _copyControllers($basePath)
+    {
+        foreach ($this->_controllerFolders as $path) {
+            $relPath = str_replace($basePath, '', $path);
+            $relPath = trim($relPath, DS);
+            $arrDirs = explode(DS, $relPath);
+            $destPath = $this->_includeDir;
+            foreach ($arrDirs as $dir) {
+                $destPath.= DS.$dir;
+                $this->_mkdir($destPath);
+            }
+            $this->_copyAll($path, $destPath);
+        }
+        return $this;
+    }
+
+    /**
+     * Copy all files and subfolders
+     *
+     * @param   string $source
+     * @param   string $target
+     * @return  Mage_Compiler_Model_Process
+     */
+    protected function _copyAll($source, $target)
+    {
+        if (is_dir($source)) {
+            $this->_mkdir($target);
+            $dir = dir($source);
+            while (false !== ($file = $dir->read())) {
+                if (($file[0] == '.')) {
+                    continue;
+                }
+                $sourceFile = $source . DS . $file;
+                $targetFile = $target . DS . $file;
+                $this->_copyAll($sourceFile, $targetFile);
+            }
+        } else {
+            if (!in_array(substr($source, strlen($source)-4, 4), array('.php'))) {
+                return $this;
+            }
+            copy($source, $target);
+        }
+        return $this;
+    }
+
+    /**
      * Create directory if not exist
      *
      * @param   string $dir
@@ -159,7 +213,8 @@ class Mage_Compiler_Model_Process
     }
 
     /**
-     * Copy files from all include directories to one
+     * Copy files from all include directories to one.
+     * Lib files and controllers files will be copied as is
      *
      * @return Mage_Compiler_Model_Process
      */
@@ -168,10 +223,16 @@ class Mage_Compiler_Model_Process
         $paths  = $this->_getIncludePaths();
         $paths  = array_reverse($paths);
         $destDir= $this->_includeDir;
+        $libDir = Mage::getBaseDir('lib');
 
         $this->_mkdir($destDir);
         foreach ($paths as $path) {
+            $this->_controllerFolders = array();
             $this->_copy($path, $destDir);
+            $this->_copyControllers($path);
+            if ($path == $libDir) {
+                $this->_copyAll($libDir, $destDir);
+            }
         }
 
         $destDir.= DS.'Data';
@@ -370,7 +431,7 @@ class Mage_Compiler_Model_Process
     {
         $result = array();
         if (!is_writeable($this->_compileDir)) {
-            $result[] = Mage::helper('compiler')->__('Directory "%s" must be writeable', $this->_includeDir);
+            $result[] = Mage::helper('compiler')->__('Directory "%s" must be writeable', $this->_compileDir);
         }
         $file = $this->_compileDir.DS.'config.php';
         if (!is_writeable($file)) {

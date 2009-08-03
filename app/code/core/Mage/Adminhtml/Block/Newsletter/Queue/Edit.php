@@ -35,6 +35,19 @@
 class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Template
 {
     /**
+     * Check for template Id in request
+     *
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+        $templateId = $this->getRequest()->getParam('template_id');
+        if ($templateId) {
+            $this->setTemplateId($templateId);
+        }
+    }
+
+    /**
      * Retrieve current Newsletter Queue Object
      *
      * @return Mage_Newsletter_Model_Queue
@@ -57,7 +70,12 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save',array('id'=>$this->getRequest()->getParam('id')));
+        if ($this->getTemplateId()) {
+            $params = array('template_id' => $this->getTemplateId());
+        } else {
+            $params = array('id' => $this->getRequest()->getParam('id'));
+        }
+        return $this->getUrl('*/*/save', $params);
     }
 
     protected function _prepareLayout()
@@ -93,8 +111,9 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
                 ->setData(
                     array(
                         'label'   => Mage::helper('newsletter')->__('Back'),
-                        'onclick' => "window.location.href = '" . $this->getUrl('*/*') . "'",
-                        'class'     => 'back'
+                        'onclick' => "window.location.href = '" . $this->getUrl((
+                            $this->getTemplateId() ? '*/newsletter_template/' : '*/*')) . "'",
+                        'class'   => 'back'
                     )
                 )
         );

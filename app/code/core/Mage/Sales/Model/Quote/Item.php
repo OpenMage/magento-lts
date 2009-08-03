@@ -288,6 +288,10 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
         $itemOptions    = $this->getOptions();
         $productOptions = $product->getCustomOptions();
 
+        if (count($itemOptions) != count($productOptions)) {
+            return false;
+        }
+
         foreach ($itemOptions as $option) {
             $code = $option->getCode();
             if (in_array($code, $this->_notRepresentOptions )) {

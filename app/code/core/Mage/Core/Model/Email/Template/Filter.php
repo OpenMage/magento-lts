@@ -56,6 +56,22 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     protected static $_urlInstance;
 
     /**
+     * Modifier Callbacks
+     *
+     * @var array
+     */
+    protected $_modifiers = array('nl2br'  => '');
+
+    /**
+     * Setup callbacks for filters
+     *
+     */
+    public function __construct()
+    {
+        $this->_modifiers['escape'] = array($this, 'modifierEscape');
+    }
+
+    /**
      * Set use absolute links flag
      *
      * @param bool $flag
@@ -284,5 +300,77 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         }
 
         return Mage::helper('core')->htmlEscape($params['var'], $allowedTags);
+    }
+
+    /**
+     * Var directive with modifiers support
+     *
+     * @param array $construction
+     * @return string
+     */
+    public function varDirective($construction)
+    {
+        if (count($this->_templateVars)==0) {
+            // If template preprocessing
+            return $construction[0];
+        }
+
+        $parts = explode('|', $construction[2], 2);
+        if (2 === count($parts)) {
+            list($variableName, $modifiersString) = $parts;
+            return $this->_amplifyModifiers($this->_getVariable($variableName, ''), $modifiersString);
+        }
+        return $this->_getVariable($construction[2], '');
+    }
+
+    /**
+     * Apply modifiers one by one, with specified params
+     *
+     * Modifier syntax: modifier1[:param1:param2:...][|modifier2:...]
+     *
+     * @param string $value
+     * @param string $modifiers
+     * @return string
+     */
+    protected function _amplifyModifiers($value, $modifiers)
+    {
+        foreach (explode('|', $modifiers) as $part) {
+            if (empty($part)) {
+                continue;
+            }
+            $params   = explode(':', $part);
+            $modifier = array_shift($params);
+            if (isset($this->_modifiers[$modifier])) {
+                $callback = $this->_modifiers[$modifier];
+                if (!$callback) {
+                    $callback = $modifier;
+                }
+                array_unshift($params, $value);
+                $value = call_user_func_array($callback, $params);
+            }
+        }
+        return $value;
+    }
+
+    /**
+     * Escape specified string
+     *
+     * @param string $value
+     * @param string $type
+     * @return string
+     */
+    public function modifierEscape($value, $type = 'html')
+    {
+        switch ($type) {
+            case 'html':
+                return htmlspecialchars($value, ENT_QUOTES);
+
+            case 'htmlentities':
+                return htmlentities($value, ENT_QUOTES);
+
+            case 'url':
+                return rawurlencode($value);
+        }
+        return $value;
     }
 }

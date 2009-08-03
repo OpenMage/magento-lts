@@ -150,10 +150,10 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
     {
         $arr = $this->_convertFlatToRecursive($rule);
         if (isset($arr['conditions'])) {
-            $this->getConditions()->loadArray($arr['conditions'][1]);
+            $this->getConditions()->setConditions(array())->loadArray($arr['conditions'][1]);
         }
         if (isset($arr['actions'])) {
-            $this->getActions()->loadArray($arr['actions'][1]);
+            $this->getActions()->setActions(array())->loadArray($arr['actions'][1]);
         }
 
         return $this;

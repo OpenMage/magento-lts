@@ -96,6 +96,12 @@
                 }
             }
         });
+        var headers = $$('div.content-header-floating');
+        for(var i=0; i<headers.length;i++) {
+            if (headers[i].down('div.content-header')) {
+                headers[i].down('div.content-header').remove();
+            }
+        }
     }
 
     /**

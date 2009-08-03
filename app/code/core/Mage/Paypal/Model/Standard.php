@@ -36,6 +36,8 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     const PAYMENT_TYPE_AUTH = 'AUTHORIZATION';
     const PAYMENT_TYPE_SALE = 'SALE';
 
+    const DATA_CHARSET = 'utf-8';
+
     protected $_code  = 'paypal_standard';
     protected $_formBlockType = 'paypal/standard_form';
     protected $_allowCurrencyCode = array('AUD', 'CAD', 'CZK', 'DKK', 'EUR', 'HKD', 'HUF', 'ILS', 'JPY', 'MXN', 'NOK', 'NZD', 'PLN', 'GBP', 'SGD', 'SEK', 'CHF', 'USD');
@@ -144,7 +146,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
     public function canCapture()
     {
-        return true;
+        return false;
     }
 
     public function getOrderPlaceRedirectUrl()
@@ -176,6 +178,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         */
 
         $sArr = array(
+            'charset'           => self::DATA_CHARSET,
             'business'          => Mage::getStoreConfig('paypal/wps/business_account'),
             'return'            => Mage::getUrl('paypal/standard/success',array('_secure' => true)),
             'cancel_return'     => Mage::getUrl('paypal/standard/cancel',array('_secure' => false)),
@@ -416,7 +419,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
                                ->addObject($invoice->getOrder())
                                ->save();
                            $order->setState(
-                               Mage_Sales_Model_Order::STATE_PROCESSING, $newOrderStatus,
+                               Mage_Sales_Model_Order::STATE_COMPLETE, true,
                                Mage::helper('paypal')->__('Invoice #%s created', $invoice->getIncrementId()),
                                $notified = true
                            );

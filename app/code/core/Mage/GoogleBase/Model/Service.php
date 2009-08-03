@@ -42,11 +42,16 @@ class Mage_GoogleBase_Model_Service extends Varien_Object
     {
         $user = $this->getConfig()->getAccountLogin($storeId);
         $pass = $this->getConfig()->getAccountPassword($storeId);
+        $type = $this->getConfig()->getAccountType($storeId);
 
         // Create an authenticated HTTP client
         $errorMsg = Mage::helper('googlebase')->__('Unable to connect to Google Base. Please, check Account settings in configuration.');
         try {
-            $client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, Zend_Gdata_Gbase::AUTH_SERVICE_NAME, null, '', $loginToken, $loginCaptcha);
+            $client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, Zend_Gdata_Gbase::AUTH_SERVICE_NAME, null, '',
+                $loginToken, $loginCaptcha,
+                Zend_Gdata_ClientLogin::CLIENTLOGIN_URI,
+                $type
+            );
         } catch (Zend_Gdata_App_CaptchaRequiredException $e) {
             throw $e;
         } catch (Zend_Gdata_App_HttpException $e) {

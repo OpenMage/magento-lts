@@ -185,9 +185,9 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     public function getFullActionName($delimiter='_')
     {
-        return $this->getRequest()->getRouteName().$delimiter.
-            $this->getRequest()->getControllerName().$delimiter.
-            $this->getRequest()->getActionName();
+        return $this->getRequest()->getRequestedRouteName().$delimiter.
+            $this->getRequest()->getRequestedControllerName().$delimiter.
+            $this->getRequest()->getRequestedActionName();
     }
 
     /**

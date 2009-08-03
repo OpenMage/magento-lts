@@ -153,12 +153,16 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
      *
      * @param string $name
      * @throws Mage_Core_Exception
+     * @return bool
      */
-    public function validate($name)
+    public function validate()
     {
-        if (!$this->_getResource()->validate($this, $name)) {
-            Mage::throwException(Mage::helper('eav')->__('Attribute set with the "%s" name already exists',$name));
+        if (!$this->_getResource()->validate($this, $this->getAttributeSetName())) {
+            Mage::throwException(
+                Mage::helper('eav')->__('Attribute set with the "%s" name already exists', $this->getAttributeSetName())
+            );
         }
+        return true;
     }
 
     /**

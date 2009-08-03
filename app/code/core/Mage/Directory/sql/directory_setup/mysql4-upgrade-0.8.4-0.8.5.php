@@ -19,36 +19,21 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Mage
- * @package    Mage_Adminhtml
+ * @package    Mage_Directory
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- * Backup type column renderer
- *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
- */
-class Mage_Adminhtml_Block_Backup_Grid_Renderer_Type extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
-{
-    protected function _getOption($id)
-    {
-        $options = array(
-                'db'=>Mage::helper('backup')->__('DB')
-        );
 
-        if(!isset($options[$id])) {
-        	return '';
-        }
-        return $options[$id];
-    }
+$installer = $this;
+/* @var $installer Mage_Core_Model_Resource_Setup */
 
-    public function render(Varien_Object $row)
-    {
-    	return $this->_getOption($row->getData($this->getColumn()->getIndex()));
-    }
+$installer->startSetup();
 
+$installer->run("
+    UPDATE {$installer->getTable('directory/country_region')}
+    SET code = 'GR'
+    WHERE region_id = 113
+");
 
-}
+$installer->endSetup();

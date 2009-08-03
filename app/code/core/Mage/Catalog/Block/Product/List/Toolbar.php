@@ -20,9 +20,10 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Product list toolbar
@@ -198,16 +199,27 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Page_Block_Html_Pager
      */
     public function getCurrentOrder()
     {
-        $order = $this->getRequest()->getParam($this->getOrderVarName());
         $orders = $this->getAvailableOrders();
+        $order = $this->getRequest()->getParam($this->getOrderVarName());
         if ($order && isset($orders[$order])) {
-            return $order;
+            Mage::getSingleton('catalog/session')->setSortOrder($order);
         }
-        if ($this->_orderField && isset($orders[$this->_orderField])) {
-            return $this->_orderField;
+        else {
+            $order = Mage::getSingleton('catalog/session')->getSortOrder();
         }
-        $keys = array_keys($orders);
-        return $keys[0];
+
+        // validate session value
+        if (!isset($orders[$order])) {
+            $order = $this->_orderField;
+        }
+
+        // validate has order value
+        if (!isset($orders[$order])) {
+            $keys = array_keys($orders);
+            $order = $keys[0];
+        }
+
+        return $order;
     }
 
     /**
@@ -217,13 +229,21 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Page_Block_Html_Pager
      */
     public function getCurrentDirection()
     {
-        if ($dir = (string) $this->getRequest()->getParam($this->getDirectionVarName())) {
-            $dir = strtolower($dir);
-            if (in_array($dir, array('asc', 'desc'))) {
-                return $dir;
-            }
+        $directions = array('asc', 'desc');
+        $dir = strtolower($this->getRequest()->getParam($this->getDirectionVarName()));
+        if ($dir && in_array($dir, $directions)) {
+            Mage::getSingleton('catalog/session')->setSortDirection($dir);
         }
-        return $this->_direction;
+        else {
+            $dir = Mage::getSingleton('catalog/session')->getSortDirection();
+        }
+
+        // validate direction
+        if (!$dir || !in_array($dir, $directions)) {
+            $dir = $this->_direction;
+        }
+
+        return $dir;
     }
 
     /**

@@ -98,11 +98,11 @@
       <events>
           <catalog_controller_product_view>
               <observers>
-                  <reports>
+                  <sendfriend>
                       <type>singleton</type>
                       <class>sendfriend/sendfriend</class>
                       <method>register</method>
-                  </reports>
+                  </sendfriend>
               </observers>
           </catalog_controller_product_view>
       </events>

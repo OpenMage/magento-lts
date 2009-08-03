@@ -98,18 +98,5 @@
 
 <script type="text/javascript">
     var coShippingMethodForm = new VarienForm('shipping-zip-form');
-    Validation.addAllThese(
-    [
-           ['validate-postcode', '<?php echo $this->__('Please enter a valid zip code. For example 90602 or 90602-1234.') ?>', function(v) {
-                var element = $('postcode');
-                if (element && ('' != element.value)) {
-                    if (!element.value.match(/(^[A-z0-9]{2,10}([\s]{0,2}|[\-]{0,2})[A-z0-9]{2,10}$)/ )) {
-                        return false;
-                    }
-                }
-                return true;
-           }]
-    ]
-    );
 </script>
 </div>

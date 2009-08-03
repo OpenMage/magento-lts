@@ -147,9 +147,7 @@ Access denied
 
     <adminhtml_denied>
         <reference name="content">
-            <block type="core/text" name="content.denied">
-                <action method="setText" translate="text" module="adminhtml"><text><![CDATA[<h1 class="page-heading">Access denied</h1><p>Access denied.</p>]]></text></action>
-            </block>
+            <block type="adminhtml/denied" name="content.denied" template="access_denied.phtml"/>
         </reference>
     </adminhtml_denied>
 

@@ -166,7 +166,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     protected function _formatAddress($address)
     {
         $return = array();
-        foreach (split("\|", $address) as $str) {
+        foreach (split('\|', $address) as $str) {
             foreach (Mage::helper('core/string')->str_split($str, 65, true, true) as $part) {
                 if (empty($part)) {
                     continue;

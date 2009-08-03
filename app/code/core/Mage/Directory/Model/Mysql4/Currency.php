@@ -61,7 +61,7 @@ class Mage_Directory_Model_Mysql4_Currency extends Mage_Core_Model_Mysql4_Abstra
     }
 
     /**
-     * Retrieve currency rate
+     * Retrieve currency rate (only base=>allowed)
      *
      * @param   string $currencyFrom
      * @param   string $currencyTo
@@ -91,6 +91,42 @@ class Mage_Directory_Model_Mysql4_Currency extends Mage_Core_Model_Mysql4_Abstra
             self::$_rateCache[$currencyFrom][$currencyTo] = $read->fetchOne($select);
         }
 
+        return self::$_rateCache[$currencyFrom][$currencyTo];
+    }
+    
+	/**
+     * Retrieve currency rate (base=>allowed or allowed=>base)
+     *
+     * @param   string $currencyFrom
+     * @param   string $currencyTo
+     * @return  float
+     */
+    public function getAnyRate($currencyFrom, $currencyTo)
+    {
+        if ($currencyFrom instanceof Mage_Directory_Model_Currency) {
+            $currencyFrom = $currencyFrom->getCode();
+        }
+
+        if ($currencyTo instanceof Mage_Directory_Model_Currency) {
+            $currencyTo = $currencyTo->getCode();
+        }
+
+        if ($currencyFrom == $currencyTo) {
+            return 1;
+        }
+
+        if (!isset(self::$_rateCache[$currencyFrom][$currencyTo])) {
+            $read = $this->_getReadAdapter();
+            $select = $read->select()
+                ->from($this->_currencyRateTable, new Zend_Db_Expr($read->quoteInto('if(currency_from=?,rate,1/rate)', strtoupper($currencyFrom))))
+                ->where('currency_from=?', strtoupper($currencyFrom))
+                ->where('currency_to=?', strtoupper($currencyTo))
+                ->orWhere('currency_from=?', strtoupper($currencyTo))
+                ->where('currency_to=?', strtoupper($currencyFrom));
+
+            self::$_rateCache[$currencyFrom][$currencyTo] = $read->fetchOne($select);
+        }
+        
         return self::$_rateCache[$currencyFrom][$currencyTo];
     }
 

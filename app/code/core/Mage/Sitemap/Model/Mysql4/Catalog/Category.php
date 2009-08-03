@@ -168,21 +168,22 @@ class Mage_Sitemap_Model_Mysql4_Catalog_Category extends Mage_Core_Model_Mysql4_
             $this->_select->where('e.' . $attributeCode . $conditionRule, $value);
         }
         else {
-            if ($attribute['is_global']) {
+            $this->_select->join(
+                array('t1_'.$attributeCode => $attribute['table']),
+                'e.entity_id=t1_'.$attributeCode.'.entity_id AND t1_'.$attributeCode.'.store_id=0',
+                array()
+            )
+            ->where('t1_'.$attributeCode.'.attribute_id=?', $attribute['attribute_id']);
 
+            if ($attribute['is_global']) {
+                $this->_select->where('t1_'.$attributeCode.'.value'.$conditionRule, $value);
             }
             else {
-                $this->_select->join(
-                    array('t1_'.$attributeCode => $attribute['table']),
-                    'e.entity_id=t1_'.$attributeCode.'.entity_id AND t1_'.$attributeCode.'.store_id=0',
-                    array()
-                )
-                ->joinLeft(
+                $this->_select->joinLeft(
                     array('t2_'.$attributeCode => $attribute['table']),
                     $this->_getWriteAdapter()->quoteInto('t1_'.$attributeCode.'.entity_id = t2_'.$attributeCode.'.entity_id AND t1_'.$attributeCode.'.attribute_id = t2_'.$attributeCode.'.attribute_id AND t2_'.$attributeCode.'.store_id=?', $storeId),
                     array()
                 )
-                ->where('t1_'.$attributeCode.'.attribute_id=?', $attribute['attribute_id'])
                 ->where('IFNULL(t2_'.$attributeCode.'.value, t1_'.$attributeCode.'.value)'.$conditionRule, $value);
             }
         }

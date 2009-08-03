@@ -49,8 +49,8 @@
             </default_setup>
         </resources>
         <session_save>{{session_save}}</session_save>
-     </global>
-     <admin>
+    </global>
+    <admin>
         <routers>
             <adminhtml>
                 <args>
@@ -58,5 +58,5 @@
                 </args>
             </adminhtml>
         </routers>
-     </admin>
+    </admin>
 </config>

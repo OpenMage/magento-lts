@@ -471,6 +471,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 Mage::helper('sales')->__('Cannot create an empty shipment.')
             );
         }
+        return parent::_beforeSave();
     }
 
     protected function _beforeDelete()

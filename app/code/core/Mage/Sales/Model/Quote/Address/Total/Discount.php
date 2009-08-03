@@ -75,11 +75,6 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
                  */
 
                 if ($item->getHasChildren() && $item->isChildrenCalculated()) {
-                    $eventArgs['item'] = $item;
-                    Mage::dispatchEvent('sales_quote_address_discount_item', $eventArgs);
-                    if ($item->getDiscountAmount() || $item->getFreeShipping()) {
-                        $hasDiscount = true;
-                    }
                     foreach ($item->getChildren() as $child) {
                         $eventArgs['item'] = $child;
                         Mage::dispatchEvent('sales_quote_address_discount_item', $eventArgs);

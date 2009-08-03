@@ -40,7 +40,6 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
      */
     public function draw()
     {
-        $order  = $this->getOrder();
         $item   = $this->getItem();
         $pdf    = $this->getPdf();
         $page   = $this->getPage();
@@ -56,7 +55,8 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
         foreach ($items as $_item) {
             $line   = array();
 
-            if ($attributes = $this->getSelectionAttributes($_item)) {
+            $attributes = $this->getSelectionAttributes($_item);
+            if (is_array($attributes)) {
                 $optionId   = $attributes['option_id'];
             }
             else {
@@ -74,7 +74,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                 if ($_prevOptionId != $attributes['option_id']) {
                     $line[0] = array(
                         'font'  => 'italic',
-                        'text'  => $attributes['option_label'],
+                        'text'  => Mage::helper('core/string')->str_split($attributes['option_label'],60, true, true),
                         'feed'  => 60
                     );
 
@@ -84,6 +84,8 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                     );
 
                     $line = array();
+
+                    $_prevOptionId = $attributes['option_id'];
                 }
             }
 
@@ -134,33 +136,29 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
             $drawItems[$optionId]['lines'][] = $line;
         }
 
-        if ($item->getOrderItem()->getProductOptions()) {
-            $options = $item->getOrderItem()->getProductOptions();
+        // custom options
+        $options = $item->getOrderItem()->getProductOptions();
+        if ($options) {
             if (isset($options['options'])) {
                 foreach ($options['options'] as $option) {
                     $lines = array();
-                    $text = array();
-                    foreach (Mage::helper('core/string')->str_split(strip_tags($option['label']), 60, false, true) as $_option) {
-                        $text[] = $_option;
-                    }
-
-                    $lines = array(array(
-                        'text'  => $text,
+                    $lines[][] = array(
+                        'text'  => Mage::helper('core/string')->str_split(strip_tags($option['label']), 70, true, true),
                         'font'  => 'italic',
                         'feed'  => 60
-                    ));
+                    );
 
                     if ($option['value']) {
                         $text = array();
                         $_printValue = isset($option['print_value']) ? $option['print_value'] : strip_tags($option['value']);
                         $values = explode(', ', $_printValue);
                         foreach ($values as $value) {
-                            foreach (Mage::helper('core/string')->str_split($value, 70, true, true) as $_value) {
+                            foreach (Mage::helper('core/string')->str_split($value, 50, true, true) as $_value) {
                                 $text[] = $_value;
                             }
                         }
 
-                        $lines[] = array(
+                        $lines[][] = array(
                             'text'  => $text,
                             'feed'  => 65
                         );

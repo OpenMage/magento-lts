@@ -47,7 +47,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset
     {
         $html = $this->_getHeaderHtml($element);
 
-        foreach ($element->getElements() as $field) {
+        foreach ($element->getSortedElements() as $field) {
             $html.= $field->toHtml();
         }
 

@@ -19,37 +19,26 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Mage
- * @package    Mage_Adminhtml
+ * @package    Mage_GoogleBase
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Backup type column filter
+ * Google Data Api account types Source
  *
  * @category   Mage
- * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @package    Mage_GoogleBase
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Backup_Grid_Filter_Type extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
+class Mage_GoogleBase_Model_Source_Accounttype
 {
-    protected function _getOptions()
+    public function toOptionArray()
     {
-        $options = array(
-                array(
-                    'value'=>'',
-                    'label'=>Mage::helper('backup')->__('All types')
-                ),
-                array(
-                    'value'=>'db',
-                    'label'=>Mage::helper('backup')->__('DB')
-                ),
-            );
-        return $options;
-    }
-
-    public function getCondition()
-    {
-    	return $this->getValue();
+        return array(
+            array('value' => 'HOSTED_OR_GOOGLE', 'label' => Mage::helper('googlebase')->__('Hosted or Google')),
+            array('value' => 'GOOGLE', 'label' => Mage::helper('googlebase')->__('Google')),
+            array('value' => 'HOSTED', 'label' => Mage::helper('googlebase')->__('Hosted'))
+        );
     }
 }

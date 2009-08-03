@@ -35,6 +35,13 @@
 class Mage_Log_Model_Mysql4_Visitor_Online_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
     /**
+     * joined fields array
+     *
+     * @var array
+     */
+    protected $_fields = array();
+
+    /**
      * Initialize collection model
      *
      */
@@ -70,6 +77,8 @@ class Mage_Log_Model_Mysql4_Visitor_Online_Collection extends Mage_Core_Model_My
                     sprintf('%s.entity_id=main_table.customer_id', $tableAlias),
                     array($alias => $attribute->getAttributeCode())
                 );
+
+                $this->_fields[$alias] = sprintf('%s.%s', $tableAlias, $attribute->getAttributeCode());
             }
             else {
                 $tableAlias = 'customer_' . $attribute->getAttributeCode();
@@ -84,6 +93,8 @@ class Mage_Log_Model_Mysql4_Visitor_Online_Collection extends Mage_Core_Model_My
                     join(' AND ', $joinConds),
                     array($alias => 'value')
                 );
+
+                $this->_fields[$alias] = sprintf('%s.value', $tableAlias);
             }
         }
 
@@ -104,5 +115,28 @@ class Mage_Log_Model_Mysql4_Visitor_Online_Collection extends Mage_Core_Model_My
                 ->where('customer_email.website_id IN (?)', $websiteIds);
         }
         return $this;
+    }
+
+    /**
+     * Add field filter to collection
+     *
+     * If $attribute is an array will add OR condition with following format:
+     * array(
+     *     array('attribute'=>'firstname', 'like'=>'test%'),
+     *     array('attribute'=>'lastname', 'like'=>'test%'),
+     * )
+     *
+     * @see self::_getConditionSql for $condition
+     * @param string|array $attribute
+     * @param null|string|array $condition
+     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     */
+    public function addFieldToFilter($field, $condition=null)
+    {
+        if (isset($this->_fields[$field])) {
+            $field = $this->_fields[$field];
+        }
+
+        return parent::addFieldToFilter($field, $condition);
     }
 }

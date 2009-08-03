@@ -192,9 +192,21 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
             Mage::dispatchEvent('core_collection_abstract_load_before', array('collection' => $this));
         }
         parent::load($printQuery, $logQuery);
+        return $this;
+    }
+
+    /**
+     * Redeclare after load method for specifying collection items original data
+     *
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     */
+    protected function _afterLoad()
+    {
+        parent::_afterLoad();
         foreach ($this->_items as $item) {
             $item->setOrigData();
         }
+        Mage::dispatchEvent('core_collection_abstract_load_after', array('collection' => $this));
         return $this;
     }
 

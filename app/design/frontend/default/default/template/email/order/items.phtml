@@ -46,7 +46,7 @@
         <?php if($_order->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_order->getGiftMessageId())): ?>
         <tr>
             <td colspan="4" align="left" style="padding:3px 9px">
-            <strong><?php echo $this->__('Gift Message') ?></strong>
+            <strong><?php echo $this->__('Gift Message for this Order') ?></strong>
             <br /><?php echo $this->__('From:'); ?> <?php echo $this->htmlEscape($_giftMessage->getSender()) ?>
             <br /><?php echo $this->__('To:'); ?> <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?>
             <br /><?php echo $this->__('Message:'); ?><br /> <?php echo $this->htmlEscape($_giftMessage->getMessage()) ?>

@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Customer>
-            <version>0.8.10</version>
+            <version>0.8.11</version>
         </Mage_Customer>
     </modules>
 
@@ -378,6 +378,9 @@ T: {{var telephone}}
                 <suffix_options></suffix_options>
                 <dob_show></dob_show>
             </address>
+            <startup>
+                <redirect_dashboard>1</redirect_dashboard>
+            </startup>
         </customer>
     </default>
 </config>

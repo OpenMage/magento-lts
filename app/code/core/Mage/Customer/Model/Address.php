@@ -43,22 +43,23 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     /**
      * Retrieve address customer identifier
      *
-     * @return int
+     * @return integer
      */
     public function getCustomerId()
     {
-        return $this->_getResource()->getCustomerId($this);
+        return $this->_getData('customer_id') ? $this->_getData('customer_id') : $this->getParentId();
     }
 
     /**
      * Declare address customer identifier
      *
-     * @param unknown_type $id
-     * @return unknown
+     * @param integer $id
+     * @return Mage_Customer_Model_Address
      */
     public function setCustomerId($id)
     {
-        $this->_getResource()->setCustomerId($this, $id);
+        $this->setParentId($id);
+        $this->setData('customer_id', $id);
         return $this;
     }
 
@@ -86,7 +87,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      */
     public function delete()
     {
-        $this->_getResource()->delete($this);
+        parent::delete();
         $this->setData(array());
         return $this;
     }

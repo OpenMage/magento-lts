@@ -116,6 +116,8 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                     $this->_queryText = null;
                 }
                 $this->_queryText = trim($this->_queryText);
+                $this->_queryText = Mage::helper('core/string')->cleanString($this->_queryText);
+
                 if (Mage::helper('core/string')->strlen($this->_queryText) > $this->getMaxQueryLength()) {
                     $this->_queryText = Mage::helper('core/string')->substr(
                         $this->_queryText,

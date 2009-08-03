@@ -184,7 +184,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         /**
          * @todo add flag to attribute model which will notify what options was changed
          */
-        $attribute = $observer->getAttribute();
+        $attribute = $observer->getEvent()->getAttribute();
         $tags = array(
             Mage_Eav_Model_Entity_Attribute::CACHE_TAG.':'.$attribute->getId()
         );
@@ -269,6 +269,9 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     public function catalogCategorySaveAfter(Varien_Event_Observer $observer)
     {
         $category = $observer->getEvent()->getCategory();
+        if ($category->getInitialSetupFlag()) {
+            return $this;
+        }
         $tags = array(
             Mage_Catalog_Model_Category::CACHE_TAG.':'.$category->getPath()
         );

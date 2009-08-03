@@ -181,8 +181,12 @@ function syncOnchangeValue(baseElem, distElem){
 
 if (!navigator.appVersion.match('MSIE 6.')) {
     var header, header_offset, header_copy;
-
     Event.observe(window, 'load', function() {
+        createTopButtonToolbarToggle();
+    });
+
+    function createTopButtonToolbarToggle()
+    {
         var headers = $$('.content-header');
         for(var i=0; i<headers.length;i++) {
             if(!headers[i].hasClassName('skip-header')) {
@@ -191,7 +195,7 @@ if (!navigator.appVersion.match('MSIE 6.')) {
         }
 
         if (!header) {
-;            return
+            return;
         }
         header_offset = Element.cumulativeOffset(header)[1];
         var buttons = $$('.content-buttons')[0];
@@ -212,7 +216,16 @@ if (!navigator.appVersion.match('MSIE 6.')) {
         if ($(header_copy).down('.content-buttons-placeholder')) {
             $(header_copy).down('.content-buttons-placeholder').remove();
         }
-    });
+    }
+
+    function updateTopButtonToolbarToggle()
+    {
+        if (header_copy) {
+            header_copy.remove();
+        }
+        createTopButtonToolbarToggle();
+        floatingTopButtonToolbarToggle();
+    }
 
     function floatingTopButtonToolbarToggle() {
 

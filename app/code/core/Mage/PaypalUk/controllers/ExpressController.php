@@ -166,6 +166,15 @@ class Mage_PaypalUk_ExpressController extends Mage_Core_Controller_Front_Action
                     return;
                 }
             }
+
+            $customer = $this->getReview()->getQuote()->getCustomer();
+            if (!$customer || !$customer->getId()) {
+                $this->getReview()->getQuote()
+                    ->setCustomerIsGuest(true)
+                    ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+            }
+            unset($customer); // for backward compatibility, see logic after place order
+
             $billing = $this->getReview()->getQuote()->getBillingAddress();
             $shipping = $this->getReview()->getQuote()->getShippingAddress();
 

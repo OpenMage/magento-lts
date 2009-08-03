@@ -540,6 +540,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             'frontend_input'            => $this->_getValue($attr, 'input', 'text'),
             'frontend_input_renderer'   => $this->_getValue($attr, 'input_renderer', ''),
             'frontend_label'            => $this->_getValue($attr, 'label', ''),
+            'frontend_class'            => $this->_getValue($attr, 'frontend_class', ''),
             'source_model'              => $this->_getValue($attr, 'source', ''),
             'is_global'                 => $this->_getValue($attr, 'global', 1),
             'is_visible'                => $this->_getValue($attr, 'visible', 1),

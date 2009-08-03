@@ -34,6 +34,7 @@
 
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
+	protected $_canReturnToStock;
     /**
      * Prepare child blocks
      *
@@ -168,14 +169,37 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
         ));
     }
 
-    public function canReturnToStock() {
-
+    public function canReturnToStock() 
+    {
         $canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT);
         if (Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)) {
             return true;
         } else {
             return false;
         }
+    }
+    
+    /**
+     * Whether to show 'Return to stock' column in creaditmemo grid
+     * @return bool 
+     */
+    public function canReturnItemsToStock() 
+    {
+    	if (is_null($this->_canReturnToStock)) {
+    		if ($this->_canReturnToStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_CAN_SUBTRACT)) {
+    			$canReturnToStock = false;
+	    		foreach ($this->getCreditmemo()->getAllItems() as $item) {
+	    			$product = Mage::getModel('catalog/product')->load($item->getOrderItem()->getProductId());
+	    			if ( $product->getId() && $product->getStockItem()->getManageStock() ) {
+	    				$item->setCanReturnToStock($canReturnToStock = true);
+	    			} else {
+	    				$item->setCanReturnToStock(false);
+	    			}
+	    		}
+	    		$this->getCreditmemo()->getOrder()->setCanReturnToStock($this->_canReturnToStock = $canReturnToStock);
+    		}
+    	}
+    	return $this->_canReturnToStock;
     }
 
     public function canSendCreditmemoEmail()

@@ -54,14 +54,12 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Grid extends Mage_Adminhtml_Block_Wi
         $this->addColumn('attribute_set_name',
             array(
                 'header'    => $this->__('Attributes Set'),
-                'width'     => '150px',
                 'index'     => 'attribute_set_name',
         ));
 
         $this->addColumn('gbase_itemtype',
             array(
                 'header'    => $this->__('Google Base Item type'),
-                'width'     => '150px',
                 'index'     => 'gbase_itemtype',
         ));
 

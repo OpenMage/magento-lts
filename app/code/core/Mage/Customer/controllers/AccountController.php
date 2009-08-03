@@ -70,7 +70,20 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             if (!$this->_getSession()->authenticate($this)) {
                 $this->setFlag('', 'no-dispatch', true);
             }
+        } else {
+            $this->_getSession()->setNoReferer(true);
         }
+    }
+
+    /**
+     * Action postdispatch
+     *
+     * Remove No-referer flag from customer session after each action
+     */
+    public function postDispatch()
+    {
+        parent::postDispatch();
+        $this->_getSession()->unsNoReferer(false);
     }
 
     /**
@@ -145,9 +158,38 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 $session->addError($this->__('Login and password are required'));
             }
         }
+
+        $this->_loginPostRedirect();
+    }
+
+    /**
+     * Define target URL and redirect customer after logging in
+     */
+    protected function _loginPostRedirect()
+    {
+        $session = $this->_getSession();
+
         if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl() ) {
+
+            // Set default URL to redirect customer to
             $session->setBeforeAuthUrl(Mage::helper('customer')->getAccountUrl());
+
+            // Redirect customer to the last page visited after logging in
+            if ($session->isLoggedIn())
+            {
+                if (!Mage::getStoreConfigFlag('customer/startup/redirect_dashboard')) {
+                    if ($referer = $this->getRequest()->getParam(Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME)) {
+                        $referer = Mage::helper('core')->urlDecode($referer);
+                        if ($this->_isUrlInternal($referer)) {
+                            $session->setBeforeAuthUrl($referer);
+                        }
+                    }
+                }
+            } else {
+                $session->setBeforeAuthUrl(Mage::helper('customer')->getLoginUrl());
+            }
         }
+
         $this->_redirectUrl($session->getBeforeAuthUrl(true));
     }
 

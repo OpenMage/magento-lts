@@ -711,14 +711,27 @@ abstract class Mage_Eav_Model_Entity_Abstract
      * Validate all object's attributes against configuration
      *
      * @param Varien_Object $object
-     * @return Varien_Object
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
+     * @return bool|array
      */
     public function validate($object)
     {
         $this->loadAllAttributes($object);
-        $this->walkAttributes('backend/validate', array($object));
+        $result = $this->walkAttributes('backend/validate', array($object));
+        $errors = array();
+        foreach ($result as $attributeCode => $error) {
+            if ($error === false) {
+                $errors[$attributeCode] = true;
+            }
+            elseif (is_string($error)) {
+                $errors[$attributeCode] = $error;
+            }
+        }
+        if (!$errors) {
+            return true;
+        }
 
-        return $this;
+        return $errors;
     }
 
     /**

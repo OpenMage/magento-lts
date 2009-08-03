@@ -59,11 +59,26 @@ class Mage_Customer_Model_Entity_Address extends Mage_Eav_Model_Entity_Abstract
         return $this;
     }
 
+    /**
+     * Return customer id
+     *
+     * @deprecated
+     * @param Mage_Customer_Model_Address $object
+     * @return integer
+     */
     public function getCustomerId($object)
     {
         return $object->getData('customer_id') ? $object->getData('customer_id') :$object->getParentId();
     }
 
+    /**
+     * Set customer id
+     *
+     * @deprecated
+     * @param Mage_Customer_Model_Address $object
+     * @param integer $id
+     * @return Mage_Customer_Model_Address
+     */
     public function setCustomerId($object, $id)
     {
         $object->setParentId($id);

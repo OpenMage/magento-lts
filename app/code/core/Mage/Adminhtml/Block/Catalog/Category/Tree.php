@@ -178,19 +178,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         return $json;
     }
 
-    public function getRootIds()
-    {
-        $ids = $this->getData('root_ids');
-        if (is_null($ids)) {
-            $ids = array();
-            foreach (Mage::app()->getStores() as $store) {
-            	$ids[] = $store->getRootCategoryId();
-            }
-            $this->setData('root_ids', $ids);
-        }
-        return $ids;
-    }
-
     /**
      * Get JSON of array of categories, that are breadcrumbs for specified category path
      *

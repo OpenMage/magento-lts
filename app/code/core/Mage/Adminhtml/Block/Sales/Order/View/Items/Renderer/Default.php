@@ -199,6 +199,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      */
     public function canDisplayGiftmessage()
     {
+        if (!$this->getItem()->getOrder()->canInvoice()) {
+            return false;
+        }
         return $this->helper('giftmessage/message')->getIsMessagesAvailable(
             'order_item', $this->getItem(), $this->getItem()->getOrder()->getStoreId()
         );

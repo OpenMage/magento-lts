@@ -72,6 +72,17 @@ class Mage_GoogleBase_Model_Config extends Varien_Object
     }
 
     /**
+     * Google Account type
+     *
+     * @param int $storeId
+     * @return string
+     */
+    public function getAccountType($storeId = null)
+    {
+        return $this->getConfigData('account_type', $storeId);
+    }
+
+    /**
      * Google Account target country info
      *
      * @param int $storeId

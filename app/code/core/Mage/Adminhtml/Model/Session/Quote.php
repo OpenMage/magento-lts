@@ -99,14 +99,30 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
     }
 
     /**
+     * Set customer model object
+     * To enable quick switch of preconfigured customer  
+     * @param Mage_Customer_Model_Customer $customer
+     * @return Mage_Adminhtml_Model_Session_Quote
+     */
+    public function setCustomer(Mage_Customer_Model_Customer $customer)
+    {
+        $this->_customer = $customer;
+        return $this;
+    }
+    
+/**
      * Retrieve customer model object
-     *
+     * @param bool $forceReload
+     * @param bool $useSetStore 
      * @return Mage_Customer_Model_Customer
      */
-    public function getCustomer()
+    public function getCustomer($forceReload=false, $useSetStore=false)
     {
-        if (is_null($this->_customer)) {
+        if (is_null($this->_customer) || $forceReload) {
             $this->_customer = Mage::getModel('customer/customer');
+            if ($useSetStore && $this->getStore()->getId()) {
+            	$this->_customer->setStore($this->getStore());
+            }
             if ($customerId = $this->getCustomerId()) {
                 $this->_customer->load($customerId);
             }

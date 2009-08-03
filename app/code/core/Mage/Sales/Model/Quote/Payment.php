@@ -107,7 +107,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
         }
         $method->prepareSave();
         if ($this->getQuote()) {
-            $this->setParentId($this->getQuote()->getId());
+            $this->setQuoteId($this->getQuote()->getId());
         }
         return parent::_beforeSave();
     }

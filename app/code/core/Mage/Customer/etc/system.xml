@@ -262,6 +262,25 @@
                         </taxvat_show>
                     </fields>
                 </address>
+                <startup translate="label">
+                    <label>Login Options</label>
+                    <sort_order>90</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <redirect_dashboard translate="label comment">
+                            <label>Redirect Customer to Account Dashboard after Logging in</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>Customer will stay on the current page if "No" is selected</comment>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </redirect_dashboard>
+                    </fields>
+                </startup>
             </groups>
         </customer>
     </sections>

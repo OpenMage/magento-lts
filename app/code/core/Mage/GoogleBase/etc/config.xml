@@ -193,6 +193,7 @@
             </base>
             <googlebase>
                 <target_country>US</target_country>
+                <account_type>HOSTED_OR_GOOGLE</account_type>
                 <allowed_countries>
                     <US translate="name currency_name">
                         <name>United States</name>

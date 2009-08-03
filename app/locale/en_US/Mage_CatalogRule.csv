@@ -55,7 +55,6 @@
 "Start at: %s","Start at: %s"
 "Status","Status"
 "Stop further rules processing","Stop further rules processing"
-"The page you are trying to save no longer exists","The page you are trying to save no longer exists"
 "There are rules that have been changed but not applied. Please, click Apply Rules in order to see immediate effect in catalog.","There are rules that have been changed but not applied. Please, click Apply Rules in order to see immediate effect in catalog."
 "This rule no longer exists","This rule no longer exists"
 "To Date","To Date"
@@ -63,4 +62,5 @@
 "Unable to find a page to delete","Unable to find a page to delete"
 "Update product's %s %s: %s","Update product's %s %s: %s"
 "Websites","Websites"
+"Wrong rule specified.","Wrong rule specified."
 "Yes","Yes"

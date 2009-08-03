@@ -34,6 +34,7 @@
 class Mage_Page_Model_Config
 {
     const XML_PATH_PAGE_LAYOUTS = 'global/page/layouts';
+    const XML_PATH_CMS_LAYOUTS = 'global/cms/layouts';
 
     /**
      * Available page layouts
@@ -51,17 +52,34 @@ class Mage_Page_Model_Config
     {
         if ($this->_pageLayouts === null) {
             $this->_pageLayouts = array();
-
-            foreach (Mage::getConfig()->getNode(self::XML_PATH_PAGE_LAYOUTS)->children() as $layoutCode => $layoutConfig) {
-                $this->_pageLayouts[$layoutCode] = new Varien_Object(array(
-                    'label' => Mage::helper('page')->__((string)$layoutConfig->label),
-                    'code' => $layoutCode,
-                    'template' => (string) $layoutConfig->template,
-                    'layout_handle' => (string) $layoutConfig->layout_handle
-                ));
-            }
+            $this->_appendPageLayouts(self::XML_PATH_CMS_LAYOUTS);
+            $this->_appendPageLayouts(self::XML_PATH_PAGE_LAYOUTS);
         }
+        return $this;
+    }
 
+    /**
+     * Fill in $_pageLayouts by reading layouts from config
+     *
+     * @param string $xmlPath XML path to layouts root
+     * @return Mage_Page_Model_Config
+     */
+    protected function _appendPageLayouts($xmlPath)
+    {
+        if (!Mage::getConfig()->getNode($xmlPath)) {
+            return $this;
+        }
+        if (!is_array($this->_pageLayouts)) {
+            $this->_pageLayouts = array();
+        }
+        foreach (Mage::getConfig()->getNode($xmlPath)->children() as $layoutCode => $layoutConfig) {
+            $this->_pageLayouts[$layoutCode] = new Varien_Object(array(
+                'label' => Mage::helper('page')->__((string)$layoutConfig->label),
+                'code' => $layoutCode,
+                'template' => (string) $layoutConfig->template,
+                'layout_handle' => (string) $layoutConfig->layout_handle
+            ));
+        }
         return $this;
     }
 

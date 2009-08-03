@@ -70,8 +70,12 @@
     <?php endif; ?>
     </td>
     <td class="a-center"><?php echo $this->getColumnHtml($_item, 'qty') ?></td>
-    <?php if ($this->canReturnToStock()) : ?>
-        <td class="a-center"><input type="checkbox" name="creditmemo[items][<?php echo $_item->getOrderItemId() ?>][back_to_stock]" value="1"<?php if ($_item->getBackToStock()):?> checked<?php endif;?>/></td>
+    <?php if ($this->canParentReturnToStock($_item)) : ?>
+        <td class="a-center">
+        <?php if ($this->canReturnItemToStock($_item)) : ?>
+            <input type="checkbox" name="creditmemo[items][<?php echo $_item->getOrderItemId() ?>][back_to_stock]" value="1"<?php if ($_item->getBackToStock()):?> checked<?php endif;?>/>
+        <?php endif; ?>
+        </td>
     <?php endif; ?>
     <td class="a-center">
     <?php if ($this->canEditQty()) : ?>

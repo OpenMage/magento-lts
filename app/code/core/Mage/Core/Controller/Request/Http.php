@@ -44,6 +44,14 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     protected $_storeCode       = null;
     protected $_requestString   = '';
 
+    /**
+     * Path info array used before applying rewrite from config
+     *
+     * @var null || array
+     */
+    protected $_rewritedPathInfo= null;
+    protected $_requestedRouteName = null;
+
     protected $_route;
 
     protected $_directFrontNames = array();
@@ -116,7 +124,8 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             }
 
             // Remove the query string from REQUEST_URI
-            if ($pos = strpos($requestUri, '?')) {
+            $pos = strpos($requestUri, '?');
+            if ($pos) {
                 $requestUri = substr($requestUri, 0, $pos);
             }
 
@@ -151,6 +160,22 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         }
 
         $this->_pathInfo = (string) $pathInfo;
+        return $this;
+    }
+
+    /**
+     * Specify new path info
+     * It happen when occur rewrite based on configuration
+     *
+     * @param   string $pathInfo
+     * @return  Mage_Core_Controller_Request_Http
+     */
+    public function rewritePathInfo($pathInfo)
+    {
+        if (($pathInfo != $this->getPathInfo()) && ($this->_rewritedPathInfo === null)) {
+            $this->_rewritedPathInfo = explode('/', trim($this->getPathInfo(), '/'));
+        }
+        $this->setPathInfo($pathInfo);
         return $this;
     }
 
@@ -291,5 +316,79 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     public function getControllerModule()
     {
         return $this->_controllerModule;
+    }
+
+    /**
+     * Retrieve the module name
+     *
+     * @return string
+     */
+    public function getModuleName()
+    {
+        return $this->_module;
+    }
+    /**
+     * Retrieve the controller name
+     *
+     * @return string
+     */
+    public function getControllerName()
+    {
+        return $this->_controller;
+    }
+    /**
+     * Retrieve the action name
+     *
+     * @return string
+     */
+    public function getActionName()
+    {
+        return $this->_action;
+    }
+
+    /**
+     * Get route name used in request (ignore rewrite)
+     *
+     * @return string
+     */
+    public function getRequestedRouteName()
+    {
+        if ($this->_requestedRouteName === null) {
+            if ($this->_rewritedPathInfo !== null && isset($this->_rewritedPathInfo[0])) {
+                $fronName = $this->_rewritedPathInfo[0];
+                $router = Mage::app()->getFrontController()->getRouterByFrontName($fronName);
+                $this->_requestedRouteName = $router->getRouteByFrontName($fronName);
+            } else {
+                // no rewritten path found, use default route name
+                return $this->getRouteName();
+            }
+        }
+        return $this->_requestedRouteName;
+    }
+
+    /**
+     * Get controller name used in request (ignore rewrite)
+     *
+     * @return string
+     */
+    public function getRequestedControllerName()
+    {
+        if (($this->_rewritedPathInfo !== null) && isset($this->_rewritedPathInfo[1])) {
+            return $this->_rewritedPathInfo[1];
+        }
+        return $this->getControllerName();
+    }
+
+    /**
+     * Get action name used in request (ignore rewrite)
+     *
+     * @return string
+     */
+    public function getRequestedActionName()
+    {
+        if (($this->_rewritedPathInfo !== null) && isset($this->_rewritedPathInfo[2])) {
+            return $this->_rewritedPathInfo[2];
+        }
+        return $this->getActionName();
     }
 }

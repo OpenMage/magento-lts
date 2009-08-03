@@ -99,15 +99,27 @@ class Mage_Log_Model_Mysql4_Visitor extends Mage_Core_Model_Mysql4_Abstract
      */
     protected function _saveVisitorInfo($visitor)
     {
+        /* @var $stringHelper Mage_Core_Helper_String */
+        $stringHelper = Mage::helper('core/string');
+
+        $referer    = $stringHelper->cleanString($visitor->getHttpReferer());
+        $referer    = $stringHelper->substr($referer, 0, 255);
+        $userAgent  = $stringHelper->cleanString($visitor->getHttpUserAgent());
+        $userAgent  = $stringHelper->substr($userAgent, 0, 255);
+        $charset    = $stringHelper->cleanString($visitor->getHttpAcceptCharset());
+        $charset    = $stringHelper->substr($charset, 0, 255);
+        $language   = $stringHelper->cleanString($visitor->getHttpAcceptLanguage());
+        $language   = $stringHelper->substr($language, 0, 255);
+
         $write = $this->_getWriteAdapter();
         $data = array(
-            'visitor_id'        => $visitor->getId(),
-            'http_referer'      => Mage::helper('core/string')->substr($visitor->getHttpReferer(), 0, 250),
-            'http_user_agent'   => $visitor->getHttpUserAgent(),
-            'http_accept_charset'=>$visitor->getHttpAcceptCharset(),
-            'http_accept_language'=>$visitor->getHttpAcceptLanguage(),
-            'server_addr'       => $visitor->getServerAddr(),
-            'remote_addr'       => $visitor->getRemoteAddr(),
+            'visitor_id'            => $visitor->getId(),
+            'http_referer'          => $stringHelper->substr($visitor->getHttpReferer(), 0, 255),
+            'http_user_agent'       => $stringHelper->substr($visitor->getHttpUserAgent(), 0, 255),
+            'http_accept_charset'   => $stringHelper->substr($visitor->getHttpAcceptCharset(), 0, 255),
+            'http_accept_language'  => $stringHelper->substr($visitor->getHttpAcceptLanguage(), 0, 255),
+            'server_addr'           => $visitor->getServerAddr(),
+            'remote_addr'           => $visitor->getRemoteAddr(),
         );
 
         $write->insert($this->getTable('log/visitor_info'), $data);

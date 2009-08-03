@@ -84,7 +84,7 @@ final class Mage {
 
     public static function getVersion()
     {
-        return '1.3.2.1';
+        return '1.3.2.2';
     }
 
     /**
@@ -596,7 +596,7 @@ final class Mage {
             return;
         }
         $file = Mage::getStoreConfig('dev/log/exception_file');
-        self::log("\n".$e->getTraceAsString(), Zend_Log::ERR, $file);
+        self::log("\n".(string)$e, Zend_Log::ERR, $file);
     }
 
     /**

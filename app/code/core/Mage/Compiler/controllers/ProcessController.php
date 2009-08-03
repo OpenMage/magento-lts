@@ -105,6 +105,6 @@ class Mage_Compiler_ProcessController extends Mage_Adminhtml_Controller_Action
 
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('compiler');
+        return Mage::getSingleton('admin/session')->isAllowed('system/tools/compiler');
     }
 }

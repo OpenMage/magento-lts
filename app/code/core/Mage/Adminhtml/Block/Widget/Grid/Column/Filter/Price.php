@@ -134,7 +134,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price extends Mage_Adminhtm
 
     protected function _getRate($from, $to)
     {
-        return Mage::getModel('directory/currency')->load($from)->getRate($to);
+        return Mage::getModel('directory/currency')->load($from)->getAnyRate($to);
     }
 
     public function prepareRates($displayCurrency)

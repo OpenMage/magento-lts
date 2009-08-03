@@ -188,28 +188,6 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
     }
 
     /**
-     * Queue Newsletter
-     *
-     */
-    public function toqueueAction ()
-    {
-        $template = Mage::getModel('newsletter/template')
-            ->load($this->getRequest()->getParam('id'));
-        if (!$template->getIsSystem()) {
-            $template->preprocess();
-            $queue = Mage::getModel('newsletter/queue')
-                ->setTemplateId($template->getId())
-                ->setQueueStatus(Mage_Newsletter_Model_Queue::STATUS_NEVER)
-                ->save();
-            $template->save();
-            $this->_redirect('*/newsletter_queue/edit', array('id' => $queue->getId()));
-        }
-        else {
-            $this->_redirect('*/*');
-        }
-    }
-
-    /**
      * Check is allowed access
      *
      * @return bool

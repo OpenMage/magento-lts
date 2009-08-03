@@ -72,9 +72,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      */
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('wishlist/wishlist')
-            ->loadByCustomer($this->_getCustomer())
-            ->setSharedStoreIds($this->_getCustomer()->getSharedStoreIds())
+        $wishlist = Mage::getModel('wishlist/wishlist');
+        $collection = $wishlist->loadByCustomer($this->_getCustomer())
+            ->setSharedStoreIds($wishlist->getSharedStoreIds(false))
             ->getProductCollection()
                 ->addAttributeToSelect('name')
                 ->addAttributeToSelect('price')

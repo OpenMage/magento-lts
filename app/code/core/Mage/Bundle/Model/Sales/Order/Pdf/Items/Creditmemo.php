@@ -55,7 +55,8 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
             $x      = $leftBound;
             $line   = array();
 
-            if ($attributes = $this->getSelectionAttributes($_item)) {
+            $attributes = $this->getSelectionAttributes($_item);
+            if (is_array($attributes)) {
                 $optionId   = $attributes['option_id'];
             }
             else {
@@ -74,7 +75,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                 if ($_prevOptionId != $attributes['option_id']) {
                     $line[0] = array(
                         'font'  => 'italic',
-                        'text'  => $attributes['option_label'],
+                        'text'  => Mage::helper('core/string')->str_split($attributes['option_label'],60, true, true),
                         'feed'  => $x
                     );
 
@@ -178,21 +179,17 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
 
         }
 
-        if ($item->getOrderItem()->getProductOptions()) {
-            $options = $item->getOrderItem()->getProductOptions();
+        // custom options
+        $options = $item->getOrderItem()->getProductOptions();
+        if ($options) {
             if (isset($options['options'])) {
                 foreach ($options['options'] as $option) {
                     $lines = array();
-                    $text = array();
-                    foreach (Mage::helper('core/string')->str_split(strip_tags($option['label']), 60, false, true) as $_option) {
-                        $text[] = $_option;
-                    }
-
-                    $lines = array(array(
-                        'text'  => $text,
+                    $lines[][] = array(
+                        'text'  => Mage::helper('core/string')->str_split(strip_tags($option['label']), 70, true, true),
                         'font'  => 'italic',
                         'feed'  => $leftBound
-                    ));
+                    );
 
                     if ($option['value']) {
                         $text = array();
@@ -204,7 +201,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                             }
                         }
 
-                        $lines[] = array(
+                        $lines[][] = array(
                             'text'  => $text,
                             'feed'  => $leftBound + 5
                         );

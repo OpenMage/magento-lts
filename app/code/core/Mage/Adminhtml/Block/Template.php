@@ -69,4 +69,15 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
         }
         return !Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName);
     }
+
+    /**
+     * Prepare html output
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        Mage::dispatchEvent('adminhtml_block_html_before', array('block' => $this));
+        return parent::_toHtml();
+    }
 }

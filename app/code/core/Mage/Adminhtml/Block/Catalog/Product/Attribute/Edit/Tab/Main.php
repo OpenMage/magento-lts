@@ -53,6 +53,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             'url_key'   => array(
                 'is_unique',
             ),
+            'status'    => array(
+                'is_configurable'
+            )
+        );
+
+        $rewriteAttributeValue = array(
+            'status'    => array(
+                'is_configurable' => 0
+            )
         );
 
         $fieldset = $form->addFieldset('base_fieldset',
@@ -384,6 +393,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
         }
 
         $form->addValues($model->getData());
+
+        if ($model->getId() && isset($rewriteAttributeValue[$model->getAttributeCode()])) {
+            foreach ($rewriteAttributeValue[$model->getAttributeCode()] as $field => $value) {
+                $form->getElement($field)->setValue($value);
+            }
+        }
 
         $form->getElement('apply_to')->setSize(5);
 

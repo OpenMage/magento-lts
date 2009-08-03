@@ -54,8 +54,19 @@ class Mage_Shipping_Model_Carrier_Flatrate
         $freeBoxes = 0;
         if ($request->getAllItems()) {
             foreach ($request->getAllItems() as $item) {
-                if ($item->getFreeShipping() && !$item->getProduct()->isVirtual()) {
-                    $freeBoxes+=$item->getQty();
+
+                if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
+                    continue;
+                }
+
+                if ($item->getHasChildren() && $item->isShipSeparately()) {
+                    foreach ($item->getChildren() as $child) {
+                        if ($child->getFreeShipping() && !$child->getProduct()->isVirtual()) {
+                            $freeBoxes += $item->getQty() * $child->getQty();
+                        }
+                    }
+                } elseif ($item->getFreeShipping()) {
+                    $freeBoxes += $item->getQty();
                 }
             }
         }

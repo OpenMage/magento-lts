@@ -275,8 +275,11 @@ class Mage_Bundle_Model_Mysql4_Price_Index extends Mage_Core_Model_Mysql4_Abstra
                 array('selection_table' => $this->getTable('bundle/selection')),
                 'selection_table.option_id=option_table.option_id',
                 array('selection_id', 'product_id', 'selection_price_type',
-                    'selection_price_value', 'selection_qty', 'selection_can_change_qty')
-            )
+                    'selection_price_value', 'selection_qty', 'selection_can_change_qty'))
+            ->join(
+                array('e' => $this->getTable('catalog/product')),
+                'e.entity_id=selection_table.product_id AND e.required_options=0',
+                array())
             ->where('option_table.parent_id=?', $productId);
         $query = $this->_getReadAdapter()->query($select);
         while ($row = $query->fetch()) {
@@ -674,6 +677,7 @@ class Mage_Bundle_Model_Mysql4_Price_Index extends Mage_Core_Model_Mysql4_Abstra
         $productId, $priceType, $basePrice, $priceData, $priceIndex, $website, $group)
     {
         $minPrice = $maxPrice = $basePrice;
+        $optPrice = 0;
 
         foreach ($options as $option) {
             $optionPrices = array();
@@ -725,6 +729,9 @@ class Mage_Bundle_Model_Mysql4_Price_Index extends Mage_Core_Model_Mysql4_Abstra
                 if ($option['required']) {
                     $minPrice += min($optionPrices);
                 }
+                else {
+                    $optPrice = $optPrice && $optPrice < min($optionPrices) ? $optPrice : min($optionPrices);
+                }
                 if (in_array($option['type'], array('multi', 'checkbox'))) {
                     $maxPrice += array_sum($optionPrices);
                 }
@@ -732,6 +739,10 @@ class Mage_Bundle_Model_Mysql4_Price_Index extends Mage_Core_Model_Mysql4_Abstra
                     $maxPrice += max($optionPrices);
                 }
             }
+        }
+
+        if ($minPrice == 0) {
+            $minPrice = $optPrice;
         }
         return array($minPrice, $maxPrice);
     }

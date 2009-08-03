@@ -70,8 +70,8 @@ class Mage_Backup_Model_Backup extends Varien_Object
             'id'   => $filePath . DS . $fileName,
             'time' => (int)$time,
             'path' => $filePath,
-            'time_formated' => date('Y-m-d H:i:s', (int)$time))
-        );
+            'date_object' => new Zend_Date((int)$time)
+        ));
         $this->setType($type);
         return $this;
     }

@@ -138,13 +138,13 @@
         </paypal>
         <payment>
             <paypaluk_express>
-                <payment_action>Authorization</payment_action>
+                <payment_action>authorize</payment_action>
                 <model>paypaluk/express</model>
                 <title>PaypalUk Express</title>
                 <allowspecific>0</allowspecific>
             </paypaluk_express>
             <paypaluk_direct>
-                <payment_action>Authorization</payment_action>
+                <payment_action>authorize</payment_action>
                 <model>paypaluk/direct</model>
                 <title>PaypalUk Direct</title>
                 <cctypes>AE,VI,MC,DI</cctypes>

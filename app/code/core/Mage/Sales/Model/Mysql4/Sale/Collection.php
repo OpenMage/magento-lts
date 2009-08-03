@@ -95,6 +95,8 @@ class Mage_Sales_Model_Mysql4_Sale_Collection extends Varien_Object implements I
                 ->where('sales.customer_id=?', $this->_customer->getId());
         }
 
+        Mage::dispatchEvent('sales_sale_collection_query_before', array('collection' => $this));
+
         $this->printLogQuery($printQuery, $logQuery);
         try {
             $values = $this->_read->fetchAll($this->getSelect()->__toString());
@@ -120,6 +122,12 @@ class Mage_Sales_Model_Mysql4_Sale_Collection extends Varien_Object implements I
             }
         }
 
+        return $this;
+    }
+
+    public function addStoreFilter($storeIds)
+    {
+        $this->getSelect()->where('store_id IN (?)', $storeIds);
         return $this;
     }
 

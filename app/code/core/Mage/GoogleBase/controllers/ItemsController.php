@@ -364,14 +364,21 @@ class Mage_GoogleBase_ItemsController extends Mage_Adminhtml_Controller_Action
                 $result[] = $row;
                 continue;
             }
-            try {
-                $xml = new Varien_Simplexml_Element($row);
-                $error = $xml->getAttribute('reason');
-                $result[] = $error;
-            } catch (Exception $e) {
-                continue;
+
+            // parse not well-formatted xml
+            preg_match_all('/(reason|field|type)=\"([^\"]+)\"/', $row, $matches);
+
+            if (is_array($matches) && count($matches) == 3) {
+                if (is_array($matches[1]) && count($matches[1]) > 0) {
+                    $c = count($matches[1]);
+                    for ($i = 0; $i < $c; $i++) {
+                        if (isset($matches[2][$i])) {
+                            $result[] = ucfirst($matches[1][$i]) . ': ' . $matches[2][$i];
+                        }
+                    }
+                }
             }
         }
-        return implode(" ", $result);
+        return implode(". ", $result);
     }
 }

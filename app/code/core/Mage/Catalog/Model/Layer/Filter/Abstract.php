@@ -80,6 +80,16 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     }
 
     /**
+     * Retrieve filter value for Clear All Items filter state
+     *
+     * @return mixed
+     */
+    public function getCleanValue()
+    {
+        return null;
+    }
+
+    /**
      * Apply filter to collection
      *
      * @param  Zend_Controller_Request_Abstract $request

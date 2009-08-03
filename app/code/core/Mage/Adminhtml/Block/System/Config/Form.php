@@ -206,7 +206,14 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         foreach ($group->fields as $elements) {
 
             $elements = (array)$elements;
-            usort($elements, array($this, '_sortForm'));
+            // sort either by sort_order or by child node values bypassing the sort_order
+            if ($group->sort_fields && $group->sort_fields->by) {
+                $fieldset->setSortElementsByAttribute((string)$group->sort_fields->by,
+                    ($group->sort_fields->direction_desc ? SORT_DESC : SORT_ASC)
+                );
+            } else {
+                usort($elements, array($this, '_sortForm'));
+            }
 
             foreach ($elements as $e) {
                 if (!$this->_canShowField($e)) {

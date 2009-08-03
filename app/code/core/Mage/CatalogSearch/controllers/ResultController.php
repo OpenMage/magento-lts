@@ -76,6 +76,7 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
 
             $this->loadLayout();
             $this->_initLayoutMessages('catalog/session');
+            $this->_initLayoutMessages('checkout/session');
             $this->renderLayout();
 
             if (!Mage::helper('catalogSearch')->isMinQueryLength()) {

@@ -110,13 +110,6 @@
                 <Mage_Dataflow />
             </depends>
         </Mage_Catalog>
-        <Mage_CatalogSearch>
-            <active>true</active>
-            <codePool>core</codePool>
-            <depends>
-                <Mage_Catalog />
-            </depends>
-        </Mage_CatalogSearch>
         <Mage_CatalogRule>
             <active>true</active>
             <codePool>core</codePool>
@@ -126,6 +119,22 @@
                 <Mage_Customer />
             </depends>
         </Mage_CatalogRule>
+        <Mage_CatalogIndex>
+            <active>true</active>
+            <codePool>core</codePool>
+            <depends>
+                <Mage_Catalog />
+                <Mage_Eav />
+                <Mage_CatalogRule />
+            </depends>
+        </Mage_CatalogIndex>
+        <Mage_CatalogSearch>
+            <active>true</active>
+            <codePool>core</codePool>
+            <depends>
+                <Mage_Catalog />
+            </depends>
+        </Mage_CatalogSearch>
         <Mage_Sales>
             <active>true</active>
             <codePool>core</codePool>
@@ -365,15 +374,6 @@
                 <Mage_Newsletter />
             </depends>
         </Mage_ProductAlert>
-        <Mage_CatalogIndex>
-            <active>true</active>
-            <codePool>core</codePool>
-            <depends>
-                <Mage_Catalog />
-                <Mage_Eav />
-                <Mage_CatalogRule />
-            </depends>
-        </Mage_CatalogIndex>
         <Mage_GoogleOptimizer>
             <active>true</active>
             <codePool>core</codePool>

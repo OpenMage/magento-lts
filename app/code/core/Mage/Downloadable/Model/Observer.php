@@ -155,7 +155,7 @@ class Mage_Downloadable_Model_Observer
         /* @var $order Mage_Sales_Model_Order */
         $status = '';
         $orderItemsIds = array();
-        $orderItemStatusToEnable = Mage::getStoreConfig(Mage_Downloadable_Model_Link_Purchased_Item::XML_PATH_ORDER_ITEM_STATUS);
+        $orderItemStatusToEnable = Mage::getStoreConfig(Mage_Downloadable_Model_Link_Purchased_Item::XML_PATH_ORDER_ITEM_STATUS, $order->getStoreId());
         if ($order->getState() == Mage_Sales_Model_Order::STATE_HOLDED) {
             $status = Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING;
         } elseif ($order->getState() == Mage_Sales_Model_Order::STATE_CANCELED

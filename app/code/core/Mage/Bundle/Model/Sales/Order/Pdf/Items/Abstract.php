@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,7 +54,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
 
         if ($_items) {
             foreach ($_items as $_item) {
-                if ($parentItem = $_item->getOrderItem()->getParentItem()) {
+                $parentItem = $_item->getOrderItem()->getParentItem();
+                if ($parentItem) {
                     $_itemsArray[$parentItem->getId()][$_item->getOrderItemId()] = $_item;
                 } else {
                     $_itemsArray[$_item->getOrderItem()->getId()][$_item->getOrderItemId()] = $_item;
@@ -81,17 +82,23 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
             if ($item->getOrderItem()) {
                 $item = $item->getOrderItem();
             }
-            if ($parentItem = $item->getParentItem()) {
-                if ($options = $parentItem->getProductOptions()) {
-                    if (isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
+
+            $parentItem = $item->getParentItem();
+            if ($parentItem) {
+                $options = $parentItem->getProductOptions();
+                if ($options) {
+                    if (isset($options['shipment_type'])
+                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
                         return true;
                     } else {
                         return false;
                     }
                 }
             } else {
-                if ($options = $item->getProductOptions()) {
-                    if (isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
+                $options = $item->getProductOptions();
+                if ($options) {
+                    if (isset($options['shipment_type'])
+                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
                         return false;
                     } else {
                         return true;
@@ -100,8 +107,10 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
             }
         }
 
-        if ($options = $this->getOrderItem()->getProductOptions()) {
-            if (isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
+        $options = $this->getOrderItem()->getProductOptions();
+        if ($options) {
+            if (isset($options['shipment_type'])
+                && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
                 return true;
             }
         }
@@ -120,8 +129,11 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
             if ($item->getOrderItem()) {
                 $item = $item->getOrderItem();
             }
-            if ($parentItem = $item->getParentItem()) {
-                if ($options = $parentItem->getProductOptions()) {
+
+            $parentItem = $item->getParentItem();
+            if ($parentItem) {
+                $options = $parentItem->getProductOptions();
+                if ($options) {
                     if (isset($options['product_calculations']) && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
                         return true;
                     } else {
@@ -129,7 +141,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                     }
                 }
             } else {
-                if ($options = $item->getProductOptions()) {
+                $options = $item->getProductOptions();
+                if ($options) {
                     if (isset($options['product_calculations']) && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
                         return false;
                     } else {
@@ -139,7 +152,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
             }
         }
 
-        if ($options = $this->getOrderItem()->getProductOptions()) {
+        $options = $this->getOrderItem()->getProductOptions();
+        if ($options) {
             if (isset($options['product_calculations'])
                 && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
                 return true;
@@ -156,7 +170,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
      */
     public function getBundleOptions($item = null)
     {
-        if ($options = $this->getOrderItem()->getProductOptions()) {
+        $options = $this->getOrderItem()->getProductOptions();
+        if ($options) {
             if (isset($options['bundle_options'])) {
                 return $options['bundle_options'];
             }
@@ -193,7 +208,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     {
         $result = array();
 
-        if ($options = $this->getOrderItem()->getProductOptions()) {
+        $options = $this->getOrderItem()->getProductOptions();
+        if ($options) {
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
@@ -231,12 +247,14 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     {
         $result = strip_tags($item->getName());
         if (!$this->isShipmentSeparately($item)) {
-            if ($attributes = $this->getSelectionAttributes($item)) {
+            $attributes = $this->getSelectionAttributes($item);
+            if ($attributes) {
                 $result =  sprintf('%d', $attributes['qty']) . ' x ' . $result;
             }
         }
         if (!$this->isChildCalculated($item)) {
-            if ($attributes = $this->getSelectionAttributes($item)) {
+            $attributes = $this->getSelectionAttributes($item);
+            if ($attributes) {
                 $result .= " " . strip_tags($this->getOrderItem()->getOrder()->formatPrice($attributes['price']));
             }
         }

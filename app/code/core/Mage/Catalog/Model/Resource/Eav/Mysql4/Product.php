@@ -136,7 +136,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
             ->refreshIndex($product);
 
         parent::_afterSave($product);
-    	return $this;
+        return $this;
     }
 
     /**
@@ -234,6 +234,12 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
         return $this;
     }
 
+    /**
+     * Refresh Product Enabled Index
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product
+     */
     public function refreshIndex($product)
     {
         /**
@@ -265,7 +271,20 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
 
             $indexCategoryIds   = array_unique($indexCategoryIds);
             $indexProductIds    = array($product->getId());
-            Mage::getResourceSingleton('catalog/category')->refreshProductIndex($indexCategoryIds, $indexProductIds);
+            Mage::getResourceSingleton('catalog/category')
+                ->refreshProductIndex($indexCategoryIds, $indexProductIds);
+        }
+        else {
+            $websites = $product->getWebsiteIds();
+            if ($websites) {
+                $storeIds = array();
+                foreach ($websites as $websiteId) {
+                    $website  = Mage::app()->getWebsite($websiteId);
+                    $storeIds = array_merge($storeIds, $website->getStoreIds());
+                }
+                Mage::getResourceSingleton('catalog/category')
+                    ->refreshProductIndex(array(), array($product->getId()), $storeIds);
+            }
         }
 
         /**
@@ -311,8 +330,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
                 );
                 $deleteCondition    = $this->_getWriteAdapter()->quoteInto(' AND product_id IN (?)', $product);
             }
-        	$this->_getWriteAdapter()->delete($indexTable, 'store_id='.$storeId.$deleteCondition);
-        	$query = "INSERT INTO $indexTable
+            $this->_getWriteAdapter()->delete($indexTable, 'store_id='.$storeId.$deleteCondition);
+            $query = "INSERT INTO $indexTable
             SELECT
                 t_v_default.entity_id, {$storeId}, IFNULL(t_v.value, t_v_default.value)
             FROM
@@ -335,12 +354,12 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
                 t_v_default.attribute_id='{$visibilityAttributeId}'
                 AND t_v_default.store_id=0{$productsCondition}
                 AND (IFNULL(t_s.value, t_s_default.value)=".Mage_Catalog_Model_Product_Status::STATUS_ENABLED.")";
-        	$this->_getWriteAdapter()->query($query);
+            $this->_getWriteAdapter()->query($query);
         }
         elseif (is_null($store)) {
             foreach ($product->getStoreIds() as $storeId) {
-            	$store = Mage::app()->getStore($storeId);
-            	$this->refreshEnabledIndex($store, $product);
+                $store = Mage::app()->getStore($storeId);
+                $this->refreshEnabledIndex($store, $product);
             }
         }
         else {

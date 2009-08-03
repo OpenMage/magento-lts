@@ -846,7 +846,7 @@
             </downloadable>
         </routers>
         <secure_url>
-            <downloadable>downloadable/customer/</downloadable>
+            <downloadable>/downloadable/customer/</downloadable>
         </secure_url>
         <translate>
             <modules>

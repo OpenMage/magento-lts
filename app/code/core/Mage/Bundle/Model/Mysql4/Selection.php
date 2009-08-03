@@ -151,6 +151,9 @@ class Mage_Bundle_Model_Mysql4_Selection extends Mage_Core_Model_Mysql4_Abstract
                     }
                 }
             }
+            if (!$childrenIds) {
+                $childrenIds = array(array());
+            }
         }
 
         return $childrenIds;

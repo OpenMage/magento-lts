@@ -810,4 +810,15 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 
         return $sortBy;
     }
+
+    /**
+     * Validate attribute values
+     *
+     * @throws Mage_Eav_Model_Entity_Attribute_Exception
+     * @return bool|array
+     */
+    public function validate()
+    {
+        return $this->_getResource()->validate($this);
+    }
 }

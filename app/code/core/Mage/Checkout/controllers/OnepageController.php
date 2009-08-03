@@ -27,6 +27,12 @@
 
 class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 {
+    protected $_sectionUpdateFunctions = array(
+        'payment-method'  => '_getPaymentMethodsHtml',
+        'shipping-method' => '_getShippingMethodsHtml',
+        'review'          => '_getReviewHtml',
+    );
+
     /**
      * @return Mage_Checkout_OnepageController
      */
@@ -98,6 +104,11 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $layout->generateBlocks();
         $output = $layout->getOutput();
         return $output;
+    }
+
+    protected function _getReviewHtml()
+    {
+        return $this->getLayout()->getBlock('root')->toHtml();
     }
 
     /**
@@ -349,7 +360,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 $result['goto_section'] = 'review';
                 $result['update_section'] = array(
                     'name' => 'review',
-                    'html' => $this->getLayout()->getBlock('root')->toHtml()
+                    'html' => $this->_getReviewHtml()
                 );
 
 //                $result['review_html'] = $this->getLayout()->getBlock('root')->toHtml();
@@ -393,6 +404,23 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $result['success'] = false;
             $result['error'] = true;
             $result['error_messages'] = $e->getMessage();
+
+            if ($gotoSection = $this->getOnepage()->getCheckout()->getGotoSection()) {
+                $result['goto_section'] = $gotoSection;
+                $this->getOnepage()->getCheckout()->setGotoSection(null);
+            }
+
+            if ($updateSection = $this->getOnepage()->getCheckout()->getUpdateSection()) {
+                if (isset($this->_sectionUpdateFunctions[$updateSection])) {
+                    $updateSectionFunction = $this->_sectionUpdateFunctions[$updateSection];
+                    $result['update_section'] = array(
+                        'name' => $updateSection,
+                        'html' => $this->$updateSectionFunction()
+                    );
+                }
+                $this->getOnepage()->getCheckout()->setUpdateSection(null);
+            }
+
             $this->getOnepage()->getQuote()->save();
         }
         catch (Exception $e) {

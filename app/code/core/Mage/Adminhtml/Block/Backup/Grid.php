@@ -60,8 +60,8 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->addColumn('time', array(
             'header'    => Mage::helper('backup')->__('Time'),
-            'index'     => 'time_formated',
-            'type'      => 'datetime'
+            'index'     => 'date_object',
+            'type'      => 'datetime',
         ));
 
         $this->addColumn('size', array(
@@ -74,8 +74,8 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->addColumn('type', array(
             'header'    => Mage::helper('backup')->__('Type'),
-            'filter'    => 'adminhtml/backup_grid_filter_type',
-            'renderer'  => 'adminhtml/backup_grid_renderer_type',
+            'type'      => 'options',
+            'options'   => array('db' => Mage::helper('backup')->__('DB')),
             'index'     =>'type'
         ));
 

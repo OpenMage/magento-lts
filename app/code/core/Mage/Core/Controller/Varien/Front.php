@@ -214,6 +214,11 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         return $router;
     }
 
+    /**
+     * Apply configuration rewrites to current url
+     *
+     * @return Mage_Core_Controller_Varien_Front
+     */
     public function rewrite()
     {
         $request = $this->getRequest();
@@ -227,8 +232,37 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             if (empty($from) || empty($to)) {
                 continue;
             }
+            $from = $this->_processRewriteUrl($from);
+            $to   = $this->_processRewriteUrl($to);
+
             $pathInfo = preg_replace($from, $to, $request->getPathInfo());
-            $request->setPathInfo($pathInfo);
+            
+            if (isset($rewrite->complete)) {
+                $request->setPathInfo($pathInfo);
+            } else {
+                $request->rewritePathInfo($pathInfo);
+            }
         }
+    }
+
+    /**
+     * Replace route name placeholders in url to front name
+     *
+     * @param   string $url
+     * @return  string
+     */
+    protected function _processRewriteUrl($url)
+    {
+        $startPos = strpos($url, '{');
+        if ($startPos!==false) {
+            $endPos = strpos($url, '}');
+            $routeName = substr($url, $startPos+1, $endPos-$startPos-1);
+            $router = $this->getRouterByRoute($routeName);
+            if ($router) {
+                $fronName = $router->getFrontNameByRoute($routeName);
+                $url = str_replace('{'.$routeName.'}', $fronName, $url);
+            }
+        }
+        return $url;
     }
 }

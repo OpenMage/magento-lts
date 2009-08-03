@@ -96,32 +96,6 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items extends Mage_Adminh
         return $this->getUrl('*/*/updateQty', array('order_id'=>$this->getShipment()->getOrderId()));
     }
 
-    public function canShipPartially()
-    {
-        $value = Mage::registry('current_shipment')->getOrder()->getCanShipPartially();
-        if (!is_null($value) && !$value) {
-            return false;
-        }
-        return true;
-    }
-
-    public function canShipPartiallyItem()
-    {
-        $value = Mage::registry('current_shipment')->getOrder()->getCanShipPartiallyItem();
-        if (!is_null($value) && !$value) {
-            return false;
-        }
-        return true;
-    }
-
-    public function isShipmentRegular()
-    {
-        if (!$this->canShipPartiallyItem() || !$this->canShipPartially()) {
-            return false;
-        }
-        return true;
-    }
-
     public function canSendShipmentEmail()
     {
         return Mage::helper('sales')->canSendNewShipmentEmail($this->getOrder()->getStore()->getId());

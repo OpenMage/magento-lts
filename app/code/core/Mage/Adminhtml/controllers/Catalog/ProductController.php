@@ -427,6 +427,10 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $response->setAttribute($e->getAttributeCode());
             $response->setMessage($e->getMessage());
         }
+        catch (Mage_Core_Exception $e) {
+            $response->setError(true);
+            $response->setMessage($e->getMessage());
+        }
         catch (Exception $e) {
             $this->_getSession()->addError($e->getMessage());
             $this->_initLayoutMessages('adminhtml/session');

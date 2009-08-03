@@ -359,6 +359,26 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     }
 
     /**
+     * Get item base tax amount
+     *
+     * @return decimal
+     */
+    public function getBaseTaxAmount()
+    {
+        $priceType = $this->getProduct()->getPriceType();
+        if ($this->getHasChildren() && (null !== $priceType) && (int)$priceType === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
+            $baseAmount = 0;
+            foreach ($this->getChildren() as $child) {
+                $baseAmount+= $child->getBaseTaxAmount();
+            }
+            return $baseAmount;
+        }
+        else {
+            return $this->_getData('base_tax_amount');
+        }
+    }
+
+    /**
      * Get item price (item price always exclude price)
      *
      * @return decimal

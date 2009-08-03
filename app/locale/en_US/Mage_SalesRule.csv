@@ -71,7 +71,6 @@
 "Status","Status"
 "Stop further rules processing","Stop further rules processing"
 "Subtotal","Subtotal"
-"The page you are trying to save no longer exists","The page you are trying to save no longer exists"
 "This rule no longer exists","This rule no longer exists"
 "To Date","To Date"
 "To Fixed Amount","To Fixed Amount"
@@ -86,4 +85,5 @@
 "Update the Product","Update the Product"
 "Uses per coupon","Uses per coupon"
 "Uses per customer","Uses per customer"
+"Wrong rule specified.","Wrong rule specified."
 "Yes","Yes"

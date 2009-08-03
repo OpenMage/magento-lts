@@ -935,7 +935,7 @@ class Zend_Gdata_App
             $foundClassName = null;
             foreach ($this->_registeredPackages as $name) {
                  try {
-                     @#Zend_Loader::loadClass("${name}_${class}");
+                     @Zend_Loader::loadClass("${name}_${class}");
                      $foundClassName = "${name}_${class}";
                      break;
                  } catch (Zend_Exception $e) {

@@ -292,4 +292,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
     {
         return Mage::getModel('eav/entity_attribute_set')->load( $this->_getSetId() );
     }
+
+    protected function _toHtml()
+    {
+        Mage::dispatchEvent('adminhtml_catalog_product_attribute_set_main_html_before', array('block' => $this));
+        return parent::_toHtml();
+    }
 }

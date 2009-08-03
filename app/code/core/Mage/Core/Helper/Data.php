@@ -284,10 +284,11 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $allow = true;
 
         $allowedIps = Mage::getStoreConfig('dev/restrict/allow_ips', $storeId);
-        if (!empty($allowedIps) && isset($_SERVER['REMOTE_ADDR'])) {
+        $remoteAddr = Mage::helper('core/http')->getRemoteAddr();
+        if (!empty($allowedIps) && !empty($remoteAddr)) {
             $allowedIps = preg_split('#\s*,\s*#', $allowedIps, null, PREG_SPLIT_NO_EMPTY);
-            if (array_search($_SERVER['REMOTE_ADDR'], $allowedIps)===false
-                && array_search($_SERVER['HTTP_HOST'], $allowedIps)===false) {
+            if (array_search($remoteAddr, $allowedIps) === false
+                && array_search(Mage::helper('core/http')->getHttpHost(), $allowedIps) === false) {
                 $allow = false;
             }
         }

@@ -28,83 +28,72 @@
  * Extension packages files collection
  *
  */
-class Mage_Adminhtml_Model_Extension_Collection extends Mage_Adminhtml_Model_Extension_Collection_Abstract
+class Mage_Adminhtml_Model_Extension_Collection extends Varien_Data_Collection_Filesystem
 {
-    public static $allowDirs     = '/^[a-z0-9\.\-]+$/i';
-    public static $allowFiles    = '/^[a-z0-9\.\-\_]+\.(xml|ser)$/i';
-    public static $disallowFiles = '/^package\.xml$/i';
+    /**
+     * Files and folders regexsp
+     *
+     * @var string
+     */
+    protected $_allowedDirsMask     = '/^[a-z0-9\.\-]+$/i';
+    protected $_allowedFilesMask    = '/^[a-z0-9\.\-\_]+\.(xml|ser)$/i';
+    protected $_disallowedFilesMask = '/^package\.xml$/i';
 
     /**
-     * Get all packages identifiers
+     * Base dir where packages are located
      *
-     * @return array
+     * @var string
      */
-    protected function _fetchPackages()
+    protected $_baseDir = '';
+
+    /**
+     * Set base dir
+     */
+    public function __construct()
     {
-        $baseDir = Mage::getBaseDir('var') . DS . 'pear';
-        $files = array();
-        $this->_collectRecursive($baseDir,  $files);
-        $result = array();
-        foreach ($files as $file) {
-            $file = preg_replace(array('/^' . preg_quote($baseDir . DS, '/') . '/', '/\.(xml|ser)$/'), '', $file);
-            $result[] = array(
-                'filename'    => $file,
-                'filename_id' => $file
-            );
-        }
-        return $result;
+        $this->_baseDir = Mage::getBaseDir('var') . DS . 'pear';
+        $this->addTargetDir($this->_baseDir);
     }
 
     /**
-     * Get package files from directory recursively
+     * Row generator
      *
-     * @param string $dir
-     * @param array &$result
-     * @param bool $dirsFirst
+     * @param string $filename
+     * @return array
      */
-    protected function _collectRecursive($dir, &$result, $dirsFirst = true)
+    protected function _generateRow($filename)
     {
-        $_result = glob($dir . DS . '*');
+        $row = parent::_generateRow($filename);
+        $row['package'] = preg_replace('/\.(xml|ser)$/', '', str_replace($this->_baseDir . DS, '', $filename));
+        $row['filename_id'] = $row['package'];
+        $folder = explode(DS, $row['package']);
+        array_pop($folder);
+        $row['folder'] = DS;
+        if (!empty($folder)) {
+            $row['folder'] = implode(DS, $folder) . DS;
+        }
+        return $row;
+    }
 
-        if (!is_array($_result)) {
-            return;
+    /**
+     * Get all folders as options array
+     *
+     * @return array
+     */
+    public function collectFolders()
+    {
+        $collectFiles = $this->_collectFiles;
+        $collectDirs = $this->_collectDirs;
+        $this->setCollectFiles(false)->setCollectDirs(true);
+
+        $this->_collectRecursive($this->_baseDir);
+        $result = array(DS => DS);
+        foreach ($this->_collectedDirs as $dir) {
+            $dir = str_replace($this->_baseDir . DS, '', $dir) . DS;
+            $result[$dir] = $dir;
         }
 
-        if (!$dirsFirst) {
-            // collect all the stuff recursively
-            foreach ($_result as $item) {
-                if (is_dir($item) && preg_match(self::$allowDirs, basename($item))) {
-                    $this->_collectRecursive($item, $result, $dirsFirst);
-                }
-                elseif (is_file($item)
-                    && preg_match(self::$allowFiles, basename($item))
-                    && !preg_match(self::$disallowFiles, basename($item))) {
-                        $result[] = $item;
-                }
-            }
-        }
-        else {
-            // collect directories first
-            $dirs  = array();
-            $files = array();
-            foreach ($_result as $item) {
-                if (is_dir($item) && preg_match(self::$allowDirs, basename($item))) {
-                    $dirs[] = $item;
-                }
-                elseif (is_file($item)
-                    && preg_match(self::$allowFiles, basename($item))
-                    && !preg_match(self::$disallowFiles, basename($item))) {
-                        $files[] = $item;
-                }
-            }
-            // search directories recursively
-            foreach ($dirs as $item) {
-                $this->_collectRecursive($item, $result, $dirsFirst);
-            }
-            // add files
-            foreach ($files as $item) {
-                $result[] = $item;
-            }
-        }
+        $this->setCollectFiles($collectFiles)->setCollectDirs($collectDirs);
+        return $result;
     }
 }

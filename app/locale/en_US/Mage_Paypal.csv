@@ -1,10 +1,3 @@
-"
-                                Example: <b>https://www.paypal.com/au/cgi-bin/webscr?cmd=_express-checkout&useraction=<user_action>&amp;token=</b>
-                                Where &lt;user_action&gt; is 'commit' or 'continue', depending on your preference of commit button text.
-                            ","
-                                Example: <b>https://www.paypal.com/au/cgi-bin/webscr?cmd=_express-checkout&useraction=<user_action>&amp;token=</b>
-                                Where &lt;user_action&gt; is 'commit' or 'continue', depending on your preference of commit button text.
-                            "
 "API Password","API Password"
 "API Signature","API Signature"
 "API User Name","API User Name"
@@ -29,6 +22,7 @@
 "Enabled","Enabled"
 "Error in creating an invoice","Error in creating an invoice"
 "Error in refunding the payment","Error in refunding the payment"
+"Example: <b>https://www.paypal.com/au/cgi-bin/webscr?cmd=_express-checkout&useraction=<user_action>&amp;token=</b> Where &lt;user_action&gt; is 'commit' or 'continue', depending on your preference of commit button text.","Example: <b>https://www.paypal.com/au/cgi-bin/webscr?cmd=_express-checkout&useraction=<user_action>&amp;token=</b> Where &lt;user_action&gt; is 'commit' or 'continue', depending on your preference of commit button text."
 "Expiration Date","Expiration Date"
 "Expiration Date: %s/%s","Expiration Date: %s/%s"
 "Incl. Tax","Incl. Tax"

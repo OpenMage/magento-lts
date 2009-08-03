@@ -205,14 +205,23 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve shared store ids
+     * Retrieve shared store ids for current website or all stores if $current is false
      *
+     * @param bool $current Use current website or not
      * @return array
      */
-    public function getSharedStoreIds()
+    public function getSharedStoreIds($current = true)
     {
         if (is_null($this->_storeIds)) {
-            $this->_storeIds = $this->getStore()->getWebsite()->getStoreIds();
+            if ($current) {
+                $this->_storeIds = $this->getStore()->getWebsite()->getStoreIds();
+            } else {
+                $_storeIds = array();
+                foreach (Mage::app()->getStores() as $store) {
+                    $_storeIds[] = $store->getId();
+                }
+                $this->_storeIds = $_storeIds;
+            }
         }
         return $this->_storeIds;
     }

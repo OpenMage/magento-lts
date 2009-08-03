@@ -432,7 +432,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 ->setTransactionType($r[11])
                 ->setCustomerId($r[12])
                 ->setMd5Hash($r[37])
-                ->setCardCodeResponseCode($r[39]);
+                ->setCardCodeResponseCode($r[38])
+                ->setCAVVResponseCode($r[39]);
         } else {
              Mage::throwException(
                 Mage::helper('paygate')->__('Error in payment gateway')

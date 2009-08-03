@@ -56,19 +56,13 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
             $storeId = '';
         }
 
-        $collection = Mage::getModel('catalog/product')->getCollection()
+        $collection = Mage::getResourceModel('reports/product_lowstock_collection')
             ->addAttributeToSelect('*')
             ->setStoreId($storeId)
-            ->addAttributeToFilter('type_id', array(
-                Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
-                Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL
-            ))
-            ->joinField('qty',
-                'cataloginventory/stock_item',
-                'qty',
-                'product_id=entity_id',
-                '{{table}}.stock_id=1',
-                'left')
+            ->filterByIsQtyProductTypes()
+            ->joinInventoryItem('qty')
+            ->useManageStockFilter($storeId)
+            ->useNotifyStockQtyFilter($storeId)
             ->setOrder('qty', 'asc');
 
         if( $storeId ) {

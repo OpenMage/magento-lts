@@ -308,7 +308,7 @@ VarienRulesForm.prototype = {
                 this.chooserSelectedItems.set(element.value,1);
             }
         } else {
-            this.chooserSelectedItems.remove(element.value);
+            this.chooserSelectedItems.unset(element.value);
         }
         grid.reloadParams = {'selected[]':this.chooserSelectedItems.keys()};
         this.updateElement.value = this.chooserSelectedItems.keys().join(', ');

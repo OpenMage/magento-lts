@@ -45,4 +45,35 @@ class Mage_Review_Model_Mysql4_Review_Summary extends Mage_Core_Model_Mysql4_Abs
 	   	$select->where('store_id = ?', (int)$object->getStoreId());
         return $select;
     }
+
+    /**
+     * Reaggregate all data by rating summary
+     *
+     * @param array $summary
+     * @return Mage_Review_Model_Mysql4_Review_Summary
+     */
+    public function reAggregate($summary)
+    {
+        $select = $this->_getWriteAdapter()->select()
+            ->from($this->getMainTable())
+            ->group(array('entity_pk_value', 'store_id'));
+        foreach ($this->_getWriteAdapter()->fetchAll($select) as $row) {
+            if (isset($summary[$row['store_id']]) && isset($summary[$row['store_id']][$row['entity_pk_value']])) {
+                $summaryItem = $summary[$row['store_id']][$row['entity_pk_value']];
+                if ($summaryItem->getCount()) {
+                    $ratingSummary = round($summaryItem->getSum() / $summaryItem->getCount());
+                } else {
+                    $ratingSummary = $summaryItem->getSum();
+                }
+            } else {
+                $ratingSummary = 0;
+            }
+            $this->_getWriteAdapter()->update(
+                $this->getMainTable(),
+                array('rating_summary' => $ratingSummary),
+                $this->_getWriteAdapter()->quoteInto('primary_id = ?', $row['primary_id'])
+            );
+        }
+        return $this;
+    }
 }

@@ -279,11 +279,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 unset($csvData[0][$u]);
             }
         }
-
-
         if ($csvData[0] == $csvFields) {
-            Mage::getModel('tax/calculation_rate')->deleteAllRates();
-
             foreach ($csvData as $k => $v) {
                 if ($k == 0) {
                     continue;
@@ -329,8 +325,11 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                         'rate'=>$v[4],
                     );
 
-                    $rateModel = Mage::getModel('tax/calculation_rate')
-                        ->setData($rateData);
+                    $rateModel = Mage::getModel('tax/calculation_rate')->loadByCode($rateData['code']);
+                    foreach($rateData as $dataName => $dataValue) {
+                        $rateModel->setData($dataName, $dataValue);
+                    }
+
                     $titles = array();
                     foreach ($stores as $field=>$id) {
                         $titles[$id]=$v[$field];

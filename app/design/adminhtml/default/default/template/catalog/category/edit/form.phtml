@@ -26,19 +26,15 @@
 ?>
 
 <div class="content-header">
-<table cellspacing="0">
-    <tr>
-        <td><h3 class="icon-head head-categories"><?php echo $this->getHeader() . ($this->getCategoryId() ? ' (' . Mage::helper('catalog')->__('ID: %s', $this->getCategoryId()) . ')' : '') ?></h3></td>
-        <td class="form-buttons">
+        <h3 class="icon-head head-categories"><?php echo $this->getHeader() . ($this->getCategoryId() ? ' (' . Mage::helper('catalog')->__('ID: %s', $this->getCategoryId()) . ')' : '') ?></h3>
+        <p class="content-buttons form-buttons">
             <?php echo $this->getResetButtonHtml() ?>
             <?php if($this->getCategoryId()): ?>
                     <?php echo $this->getDeleteButtonHtml() ?>
             <?php endif; ?>
             <?php echo $this->getAdditionalButtonsHtml(); ?>
             <?php echo $this->getSaveButtonHtml() ?>
-        </td>
-    </tr>
-</table>
+        </p>
 </div>
 <?php if($this->hasStoreRootCategory()): ?>
     <?php echo $this->getTabsHtml() ?>
@@ -198,5 +194,8 @@
     }
     $('active_tab_id').tabsJsObject = <?php echo $_tabsJsObject ?>;
 <?php endif; ?>
+
+updateTopButtonToolbarToggle();
+
 //]]>
 </script>

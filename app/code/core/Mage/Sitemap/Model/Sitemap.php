@@ -100,6 +100,16 @@ class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Return full file name with path
+     *
+     * @return string
+     */
+    public function getPreparedFilename()
+    {
+        return $this->getPath() . $this->getSitemapFilename();
+    }
+
+    /**
      * Generate XML file
      *
      * @return Mage_Sitemap_Model_Sitemap

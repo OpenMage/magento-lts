@@ -35,6 +35,11 @@
 class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
+     * Query param name for last url visited
+     */
+    const REFERER_QUERY_PARAM_NAME = 'referer';
+
+    /**
      * Customer groups collection
      *
      * @var Mage_Customer_Model_Entity_Group_Collection
@@ -120,7 +125,21 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLoginUrl()
     {
-        return $this->_getUrl('customer/account/login');
+        $params = array();
+
+        $referer = $this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME);
+
+        if (!$referer && !Mage::getStoreConfigFlag('customer/startup/redirect_dashboard')) {
+            if (!Mage::getSingleton('customer/session')->getNoReferer()) {
+                $referer = Mage::getUrl('*/*/*', array('_current' => true));
+                $referer = Mage::helper('core')->urlEncode($referer);
+            }
+        }
+        if ($referer) {
+            $params = array(self::REFERER_QUERY_PARAM_NAME => $referer);
+        }
+
+        return $this->_getUrl('customer/account/login', $params);
     }
 
     /**
@@ -130,7 +149,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLoginPostUrl()
     {
-        return $this->_getUrl('customer/account/loginPost');
+        $params = array();
+        if ($this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME)) {
+            $params = array(self::REFERER_QUERY_PARAM_NAME => $this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME));
+        }
+        return $this->_getUrl('customer/account/loginPost', $params);
     }
 
     /**

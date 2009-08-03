@@ -373,6 +373,9 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
         $sql = '';
         $fieldName = $this->_getConditionFieldName($fieldName);
+        if (is_array($condition) && isset($condition['field_expr'])) {
+            $fieldName = str_replace('#?', $this->getConnection()->quoteIdentifier($fieldName), $condition['field_expr']);
+        }
         if (is_array($condition)) {
             if (isset($condition['from']) || isset($condition['to'])) {
                 if (isset($condition['from'])) {

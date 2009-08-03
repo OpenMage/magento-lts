@@ -86,7 +86,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
 
     public function processAddToCart($observer)
     {
-        $request = $observer->getRequest();
+        $request = $observer->getEvent()->getRequest();
         $sharedWishlist = Mage::getSingleton('checkout/session')->getSharedWishlist();
         $messages = Mage::getSingleton('checkout/session')->getWishlistPendingMessages();
         $urls = Mage::getSingleton('checkout/session')->getWishlistPendingUrls();
@@ -129,7 +129,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
 
             Mage::getSingleton('checkout/session')->addError($message);
 
-            $observer->getResponse()->setRedirect($url);
+            $observer->getEvent()->getResponse()->setRedirect($url);
             Mage::getSingleton('checkout/session')->setNoCartRedirect(true);
         }
     }

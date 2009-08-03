@@ -159,24 +159,29 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
             return;
         }
 
-        if($tagId) {
+        if ($tagId) {
             try {
                 $productId  = 0;
-                $isNew      = false;
                 $message    = false;
                 $storeId    = Mage::app()->getStore()->getId();
 
                 $tagModel = Mage::getModel('tag/tag');
                 $tagModel->load($tagId);
 
-                if( $tagModel->getName() != $tagName ) {
+                /* @var $tagRelationModel Mage_Tag_Model_Tag_Relation */
+                $tagRelationModel = Mage::getModel('tag/tag_relation');
+                // rename isset tag
+                if ($tagModel->getName() != $tagName) {
+                    // deactivate old tagged products
+                    $tagRelationModel->loadByTagCustomer(null, $tagModel->getId(), $customerId, $storeId)
+                        ->deactivate();
+
                     $tagModel->loadByName($tagName);
 
                     if($tagModel->getId()) {
                         $status = $tagModel->getStatus();
                     }
                     else {
-                        $isNew  = true;
                         $message= Mage::helper('tag')->__('Thank you. Your tag has been accepted for moderation.');
                         $status = $tagModel->getPendingStatus();
                     }
@@ -187,19 +192,18 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
                         ->save();
                 }
 
-                $tagRalationModel = Mage::getModel('tag/tag_relation');
-                $tagRalationModel->loadByTagCustomer(null, $tagId, $customerId, $storeId);
+                $tagRelationModel->loadByTagCustomer(null, $tagId, $customerId, $storeId);
 
-                if ($tagRalationModel->getCustomerId() == $customerId ) {
-                    $productIds = $tagRalationModel->getProductIds();
-                    if ($tagRalationModel->getTagId()!=$tagModel->getId()) {
-                        $tagRalationModel->deactivate();
+                if ($tagRelationModel->getCustomerId() == $customerId ) {
+                    $productIds = $tagRelationModel->getProductIds();
+                    if ($tagRelationModel->getTagId()!=$tagModel->getId()) {
+                        $tagRelationModel->deactivate();
                     } else {
-                        $tagRalationModel->delete();
+                        $tagRelationModel->delete();
                     }
 
                     foreach ($productIds as $productId) {
-                        $newTagRalationModel = Mage::getModel('tag/tag_relation')
+                        Mage::getModel('tag/tag_relation')
                             ->setTagId($tagModel->getId())
                             ->setCustomerId($customerId)
                             ->setStoreId($storeId)
@@ -209,16 +213,21 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
                     }
                 }
 
-                if( $tagModel->getId() ) {
+                if ($tagModel->getId()) {
                     $tagModel->aggregate();
                     $this->getResponse()->setRedirect(Mage::getUrl('*/*/'));
                 }
+
                 $message = ($message) ? $message : Mage::helper('tag')->__('Your tag was successfully saved');
                 Mage::getSingleton('tag/session')->addSuccess($message);
                 $this->_redirect('*/*/');
                 return;
-            } catch (Exception $e) {
-                Mage::getSingleton('tag/session')->addError(
+            }
+            catch (Mage_Core_Exception $e) {
+                Mage::getSingleton('tag/session')->addError($e->getMessage());
+            }
+            catch (Exception $e) {
+                Mage::getSingleton('tag/session')->addException($e,
                     Mage::helper('tag')->__('Unable to save your tag. Please, try again later.')
                 );
             }

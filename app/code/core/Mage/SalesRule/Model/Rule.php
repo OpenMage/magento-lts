@@ -87,10 +87,10 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
     {
         $arr = $this->_convertFlatToRecursive($rule);
 		if (isset($arr['conditions'])) {
-    		$this->getConditions()->loadArray($arr['conditions'][1]);
+    		$this->getConditions()->setConditions(array())->loadArray($arr['conditions'][1]);
 		}
 		if (isset($arr['actions'])) {
-    		$this->getActions()->loadArray($arr['actions'][1], 'actions');
+    		$this->getActions()->setActions(array())->loadArray($arr['actions'][1], 'actions');
 		}
 
     	return $this;

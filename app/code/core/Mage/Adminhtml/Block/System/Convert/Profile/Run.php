@@ -29,7 +29,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Block_Abstract
 {
@@ -43,6 +43,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
         $profile = $this->getProfile();
 
         echo '<html><head>';
+        echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>';
         echo '<script type="text/javascript">var FORM_KEY = "'.Mage::getSingleton('core/session')->getFormKey().'";</script>';
 
         $headBlock = $this->getLayout()->createBlock('page/html_head');

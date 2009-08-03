@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +40,6 @@ class Mage_Sales_Model_Order_Pdf_Items_Shipment_Default extends Mage_Sales_Model
      */
     public function draw()
     {
-        $order  = $this->getOrder();
         $item   = $this->getItem();
         $pdf    = $this->getPdf();
         $page   = $this->getPage();
@@ -58,33 +57,36 @@ class Mage_Sales_Model_Order_Pdf_Items_Shipment_Default extends Mage_Sales_Model
             'feed'  => 35
         );
 
-        if ($options = $this->getItemOptions()) {
+        // draw SKU
+        $lines[0][] = array(
+            'text'  => Mage::helper('core/string')->str_split($this->getSku($item), 25),
+            'feed'  => 440
+        );
+
+        // Custom options
+        $options = $this->getItemOptions();
+        if ($options) {
             foreach ($options as $option) {
                 // draw options label
                 $lines[][] = array(
-                    'text' => Mage::helper('core/string')->str_split(strip_tags($option['label']), 60, false, true),
+                    'text' => Mage::helper('core/string')->str_split(strip_tags($option['label']), 70, true, true),
                     'font' => 'italic',
                     'feed' => 60
                 );
+
                 // draw options value
                 if ($option['value']) {
                     $_printValue = isset($option['print_value']) ? $option['print_value'] : strip_tags($option['value']);
                     $values = explode(', ', $_printValue);
                     foreach ($values as $value) {
                         $lines[][] = array(
-                            'text' => Mage::helper('core/string')->str_split($value, 55, true, true),
+                            'text' => Mage::helper('core/string')->str_split($value, 50, true, true),
                             'feed' => 65
                         );
                     }
                 }
             }
         }
-
-        // draw SKU
-        $lines[0][] = array(
-            'text'  => Mage::helper('core/string')->str_split($this->getSku($item), 25),
-            'feed'  => 440
-        );
 
         $lineBlock = array(
             'lines'  => $lines,

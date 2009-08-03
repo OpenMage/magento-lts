@@ -87,19 +87,19 @@ class Mage_CatalogRule_Model_Observer
         $storeId    = $product->getStoreId();
 
         if ($observer->hasDate()) {
-            $date = $observer->getDate();
+            $date = $observer->getEvent()->getDate();
         } else {
             $date = Mage::app()->getLocale()->storeTimeStamp($storeId);
         }
 
         if ($observer->hasWebsiteId()) {
-            $wId = $observer->getWebsiteId();
+            $wId = $observer->getEvent()->getWebsiteId();
         } else {
             $wId = Mage::app()->getStore($storeId)->getWebsiteId();
         }
 
         if ($observer->hasCustomerGroupId()) {
-            $gId = $observer->getCustomerGroupId();
+            $gId = $observer->getEvent()->getCustomerGroupId();
         } else {
             $gId = Mage::getSingleton('customer/session')->getCustomerGroupId();
         }

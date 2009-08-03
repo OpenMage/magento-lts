@@ -560,6 +560,93 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
     }
 
     /**
+     * Refresh Category Product Index for Store Root Catgory
+     *
+     * @param array|int $productIds
+     * @param array|int $storeIds
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category
+     */
+    protected function _refreshRootCategoryProductIndex($productIds = array(), $storeIds = array())
+    {
+        if (is_numeric($storeIds)) {
+            $storeIds = array($storeIds);
+        }
+        elseif (!is_array($storeIds) || empty($storeIds)) {
+            $storeIds = array();
+            foreach (Mage::app()->getStores() as $store) {
+                $storeIds[] = $store->getId();
+            }
+        }
+
+        /**
+         * Prepare visibility and status attributes information
+         */
+        $status             = Mage::getSingleton('eav/config')->getAttribute('catalog_product', 'status');
+        $visibility         = Mage::getSingleton('eav/config')->getAttribute('catalog_product', 'visibility');
+        $statusTable        = $status->getBackend()->getTable();
+        $visibilityTable    = $visibility->getBackend()->getTable();
+
+        $indexTable         = $this->getTable('catalog/category_product_index');
+
+        foreach ($storeIds as $storeId) {
+            $store = Mage::app()->getStore($storeId);
+            $categoryId = $store->getRootCategoryId();
+
+            $select = $this->_getWriteAdapter()->select()
+                ->from(array('e' => $this->getTable('catalog/product')), null)
+                ->joinLeft(
+                    array('i' => $indexTable),
+                    'e.entity_id=i.product_id AND i.category_id=' . (int)$categoryId
+                        . ' AND i.store_id=' . (int) $storeId,
+                    array())
+                ->joinInner(
+                    array('pw' => $this->getTable('catalog/product_website')),
+                    'e.entity_id=pw.product_id AND pw.website_id=' . (int)$store->getWebsiteId(),
+                    array())
+                ->join(
+                    array('t_v_default' => $visibilityTable),
+                    't_v_default.entity_id=e.entity_id'
+                        . ' AND t_v_default.attribute_id=' . (int)$visibility->getAttributeId()
+                        . ' AND t_v_default.store_id=0',
+                    array())
+                ->joinLeft(
+                    array('t_v' => $visibilityTable),
+                    't_v.entity_id=e.entity_id'
+                        . ' AND t_v.attribute_id=' . (int)$visibility->getAttributeId()
+                        . ' AND t_v.store_id='. (int)$storeId,
+                    array())
+                ->join(
+                    array('t_s_default' => $statusTable),
+                    't_s_default.entity_id=e.entity_id'
+                        . ' AND t_s_default.attribute_id=' . (int)$status->getAttributeId()
+                        . ' AND t_s_default.store_id=0',
+                    array())
+                ->joinLeft(
+                    array('t_s' => $statusTable),
+                    't_s.entity_id=e.entity_id'
+                        . ' AND t_s.attribute_id=' . (int)$status->getAttributeId()
+                        . ' AND t_s.store_id='. (int)$storeId,
+                    array())
+                ->where('i.product_id IS NULL')
+                ->where('IFNULL(t_s.value, t_s_default.value)=?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+
+            $select->columns(new Zend_Db_Expr($categoryId));
+            $select->columns('e.entity_id');
+            $select->columns(new Zend_Db_Expr(0));
+            $select->columns(new Zend_Db_Expr(0));
+            $select->columns(new Zend_Db_Expr($storeId));
+            $select->columns(new Zend_Db_Expr('IFNULL(t_v.value, t_v_default.value)'));
+
+            if (!empty($productIds)) {
+                $select->where('e.entity_id IN(?)', $productIds);
+            }
+
+            $this->_getWriteAdapter()->query($select->insertFromSelect($indexTable));
+        }
+        return $this;
+    }
+
+    /**
      * Rebuild associated products index
      *
      * @param   array $categoryIds
@@ -683,6 +770,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
 
                 $this->_getWriteAdapter()->query($query);
             }
+
+            $this->_refreshRootCategoryProductIndex($productIds, array($storeId));
         }
         return $this;
     }

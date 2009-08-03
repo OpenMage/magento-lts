@@ -44,6 +44,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     protected $_role;
 
+    protected $_hasAvailableResources = true;
+
     /**
      * Varien constructor
      */
@@ -333,6 +335,18 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 }
             }
         }
+        $this->_hasAvailableResources = false;
+        return '*/*/denied';
+    }
+
+    /**
+     * Check if user has available resources
+     *
+     * @return bool
+     */
+    public function hasAvailableResources()
+    {
+        return $this->_hasAvailableResources;
     }
 
     /**

@@ -91,8 +91,8 @@ class Mage_Rating_Model_Mysql4_Rating_Option
             );
 
             if( !$option->getDoUpdate() ) {
-                $data['remote_ip'] = $action->getRequest()->getServer('REMOTE_ADDR');
-                $data['remote_ip_long'] = ip2long($action->getRequest()->getServer('REMOTE_ADDR'));
+                $data['remote_ip'] = Mage::helper('core/http')->getRemoteAddr();
+                $data['remote_ip_long'] = Mage::helper('core/http')->getRemoteAddr(true);
                 $data['customer_id'] = Mage::getSingleton('customer/session')->getCustomerId();
                 $data['entity_pk_value'] = $option->getEntityPkValue();
                 $data['rating_id'] = $option->getRatingId();

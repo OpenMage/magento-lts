@@ -40,67 +40,26 @@ class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default extends Mage_Sales_Mod
         $item   = $this->getItem();
         $pdf    = $this->getPdf();
         $page   = $this->getPage();
-        $shift  = array(0, 10, 0);
+        $lines  = array();
+
         $leftBound  =  35;
         $rightBound = 565;
 
-        // draw name
-//        $this->_setFontRegular();
         $x = $leftBound;
         // draw Product name
         $lines[0] = array(array(
             'text' => Mage::helper('core/string')->str_split($item->getName(), 60, true, true),
             'feed' => $x,
         ));
-//        foreach (Mage::helper('core/string')->str_split($item->getName(), $x, true, true) as $key => $part) {
-//            $page->drawText($part, $x, $pdf->y - $shift[0], 'UTF-8');
-//            $shift[0] += 10;
-//        }
-
-        // draw options
-        if ($options = $this->getItemOptions()) {
-            foreach ($options as $option) {
-                // draw options label
-                // draw options label
-                $lines[][] = array(
-                    'text' => Mage::helper('core/string')->str_split(strip_tags($option['label']), 60, false, true),
-                    'font' => 'italic',
-                    'feed' => $x
-                );
-//
-//                $this->_setFontItalic();
-//                foreach (Mage::helper('core/string')->str_split(strip_tags($option['label']), $x, false, true) as $_option) {
-//                    $page->drawText($_option, $x, $pdf->y - $shift[0], 'UTF-8');
-//                    $shift[0] += 10;
-//                }
-                // draw options value
-
-//                $this->_setFontRegular();
-                $_printValue = isset($option['print_value']) ? $option['print_value'] : strip_tags($option['value']);
-                $lines[][] = array(
-                    'text' => Mage::helper('core/string')->str_split($_printValue, 55, true, true),
-                    'feed' => $x + 5
-                );
-//                foreach (Mage::helper('core/string')->str_split($_printValue, $x, true, true) as $_value) {
-//                    $page->drawText($_value, $x + 5, $pdf->y - $shift[0], 'UTF-8');
-//                    $shift[0] += 10;
-//                }
-            }
-        }
 
         $x += 220;
-
         // draw SKU
         $lines[0][] = array(
             'text'  => Mage::helper('core/string')->str_split($this->getSku($item), 25),
             'feed'  => $x
         );
-//        foreach (Mage::helper('core/string')->str_split($this->getSku($item), 25) as $key => $part) {
-//            $page->drawText($part, $x, $pdf->y - $shift[2], 'UTF-8');
-//                $shift[2] += 10;
-//        }
-        $x += 100;
 
+        $x += 100;
         // draw Total (ex)
         $lines[0][] = array(
             'text'  => $order->formatPriceTxt($item->getRowTotal()),
@@ -109,8 +68,8 @@ class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default extends Mage_Sales_Mod
             'align' => 'right',
             'width' => 50,
         );
-        $x += 50;
 
+        $x += 50;
         // draw Discount
         $lines[0][] = array(
             'text'  => $order->formatPriceTxt(-$item->getDiscountAmount()),
@@ -119,8 +78,8 @@ class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default extends Mage_Sales_Mod
             'align' => 'right',
             'width' => 50,
         );
-        $x += 50;
 
+        $x += 50;
         // draw QTY
         $lines[0][] = array(
             'text'  => $item->getQty()*1,
@@ -129,8 +88,8 @@ class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default extends Mage_Sales_Mod
             'align' => 'center',
             'width' => 30,
         );
-        $x += 30;
 
+        $x += 30;
         // draw Tax
         $lines[0][] = array(
             'text'  => $order->formatPriceTxt($item->getTaxAmount()),
@@ -139,8 +98,8 @@ class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default extends Mage_Sales_Mod
             'align' => 'right',
             'width' => 45,
         );
-        $x += 45;
 
+        $x += 45;
         // draw Subtotal
         $lines[0][] = array(
             'text'  => $order->formatPriceTxt($item->getRowTotal() + $item->getTaxAmount() - $item->getDiscountAmount()),
@@ -149,33 +108,26 @@ class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default extends Mage_Sales_Mod
             'align' => 'right'
         );
 
-//        $font = $this->_setFontBold();
+        // draw options
+        $options = $this->getItemOptions();
+        if ($options) {
+            foreach ($options as $option) {
+                // draw options label
+                $lines[][] = array(
+                    'text' => Mage::helper('core/string')->str_split(strip_tags($option['label']), 70, true, true),
+                    'font' => 'italic',
+                    'feed' => $leftBound
+                );
 
-        // draw Total(ex)
-//        $text = $order->formatPriceTxt($item->getRowTotal());
-//        $page->drawText($text, $pdf->getAlignRight($text, $x, 50, $font, 7), $pdf->y, 'UTF-8');
-//        $x += 50;
-//
-//        // draw Discount
-//        $text = $order->formatPriceTxt(-$item->getDiscountAmount());
-//        $page->drawText($text, $pdf->getAlignRight($text, $x, 50, $font, 7), $pdf->y, 'UTF-8');
-//        $x += 50;
-//
-//        // draw QTY
-//        $text = $item->getQty() * 1;
-//        $page->drawText($text, $pdf->getAlignCenter($text, $x, 30, $font, 7), $pdf->y, 'UTF-8');
-//        $x += 30;
-//
-//        // draw Tax
-//        $text = $order->formatPriceTxt($item->getTaxAmount());
-//        $page->drawText($text, $pdf->getAlignRight($text, $x, 45, $font, 7, 10), $pdf->y, 'UTF-8');
-//        $x += 45;
-//
-//        // draw Total(inc)
-//        $text = $order->formatPriceTxt($item->getRowTotal() + $item->getTaxAmount() - $item->getDiscountAmount());
-//        $page->drawText($text, $pdf->getAlignRight($text, $x, $rightBound - $x, $font, 7, 0), $pdf->y, 'UTF-8');
-//
-//        $pdf->y -= max($shift) + 10;
+                // draw options value
+                $_printValue = isset($option['print_value']) ? $option['print_value'] : strip_tags($option['value']);
+                $lines[][] = array(
+                    'text' => Mage::helper('core/string')->str_split($_printValue, 50, true, true),
+                    'feed' => $leftBound + 5
+                );
+            }
+        }
+
         $lineBlock = array(
             'lines'  => $lines,
             'height' => 10

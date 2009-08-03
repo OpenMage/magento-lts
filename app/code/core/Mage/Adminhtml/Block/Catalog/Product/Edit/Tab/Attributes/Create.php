@@ -81,6 +81,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
 
     protected function _toHtml()
     {
+        $this->setCanShow(true);
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_tab_attributes_create_html_before', array('block' => $this));
+        if (!$this->getCanShow()) {
+            return '';
+        }
+
         $html = parent::_toHtml();
         $html .= Mage::helper('adminhtml/js')->getScript(
             "var {$this->getJsObjectName()} = new Product.Attributes('{$this->getId()}');\n"
