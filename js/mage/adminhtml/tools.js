@@ -211,7 +211,7 @@ if (!navigator.appVersion.match('MSIE 6.')) {
 
         header_copy = document.createElement('div');
         header_copy.appendChild(header.cloneNode(true));
-        document.body.appendChild(header_copy);
+        document.body.insertBefore(header_copy, document.body.lastChild)
         $(header_copy).addClassName('content-header-floating');
         if ($(header_copy).down('.content-buttons-placeholder')) {
             $(header_copy).down('.content-buttons-placeholder').remove();

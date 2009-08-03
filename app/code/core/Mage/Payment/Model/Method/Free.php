@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Payment
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,12 +30,23 @@
  *
  * @category   Mage
  * @package    Mage_Payment
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Payment_Model_Method_Free extends Mage_Payment_Model_Method_Abstract
 {
+    /**
+     * Payment code name
+     *
+     * @var string
+     */
     protected $_code = 'free';
 
+    /**
+     * Check method is available
+     *
+     * @param Mage_Sales_Model_Quote $quote
+     * @return bool
+     */
     public function isAvailable($quote=null)
     {
         if (is_null($quote)) {

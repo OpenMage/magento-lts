@@ -147,7 +147,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                         $this->setAmountAuthorized($this->getOrder()->getTotalDue());
                         $this->setBaseAmountAuthorized($this->getOrder()->getBaseTotalDue());
 
-                        $orderState = Mage_Sales_Model_Order::STATE_PROCESSING;
+                        $orderState = $this->getOrder()->getIsVirtual()
+                            ? Mage_Sales_Model_Order::STATE_COMPLETE
+                            : Mage_Sales_Model_Order::STATE_PROCESSING;
                         break;
                     default:
                         break;
@@ -174,7 +176,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 $orderStatus = $methodInstance->getConfigData('order_status');
             }
 
-            if (!$orderStatus) {
+            if (!$orderStatus || $this->getOrder()->getIsVirtual()) {
                 $orderStatus = $this->getOrder()->getConfig()->getStateDefaultStatus($orderState);
             }
         }

@@ -36,12 +36,12 @@
 <div class="box">
 <p class="grand-total"><br /><b>Signing up with Checkout by Amazon</b></p>
 <p>To configure Checkout by Amazon&trade; you will need to enter your Checkout by Amazon&trade; Merchant ID, Access Key ID, and Secret Access Key.</p>
-<p>If you do not already have a Checkout by Amazon&trade; account, click here to create one now. <a href="https://sellercentral.amazon.com/gp/on-board/workflow/Registration/login.html/902-0586098-4611057?passthrough%2Fsource=RPVARIENA2ZZYWSJ0WMID8&passthrough%2Fld=DOWNLOADABLE&passthrough%2Faccount=cba&passthrough%2FsuperSource=OAR&passthrough%2FmarketplaceID=AZ4B0ZS3LGLX" target="_blank">Sign-Up</a></p>
+<p>If you do not already have a Checkout by Amazon&trade; account, click here to create one now. <a href="https://sellercentral.amazon.com/gp/on-board/workflow/Registration/login.html/902-0586098-4611057?passthrough%2Fsource=AmazonCheckout&passthrough%2Fld=RPVARIENA2ZZYWSJ0WMID8&passthrough%2Faccount=cba&passthrough%2FsuperSource=OAR&passthrough%2FmarketplaceID=AZ4B0ZS3LGLX" target="_blank">Sign-Up</a></p>
 <p>To locate your Merchant ID, sign in to your Seller Central Checkout by Amazon&trade; account and click <b>Settings > Checkout Pipeline Settings.</b></p>
 <p>To locate your Access Key ID and Secret Access Key, sign in to your Seller Central Checkout by Amazon&trade; account and click <b>Integration > AWS Key.</b> Click the link to read the Amazon Web Services Customer Agreement, and then click the check box, if you are setting up a new Access Key ID.</p>
 <p>To enable XML Order Reports click <b>Settings > Checkout Pipeline Settings</b>, and then clicking Edit under the Order Report Settings section. Select <u>Order Report Type</u> as XML to get XML Order Reports using SOAP APIs. Configure your downloads for <u>hourly.</u></p>
 <p>For additional information on setting up your Checkout by Amazon account, <a href="https://payments.amazon.com/sdui/sdui/business?sn=cba/faq" target="_blank">Click Here - FAQ.</a></p>
-<p><br /><a href="https://sellercentral.amazon.com/gp/on-board/workflow/Registration/login.html/902-0586098-4611057?passthrough%2Fsource=RPVARIENA2ZZYWSJ0WMID8&passthrough%2Fld=DOWNLOADABLE&passthrough%2Faccount=cba&passthrough%2FsuperSource=OAR&passthrough%2FmarketplaceID=AZ4B0ZS3LGLX" target="_blank">Signup for Checkout by Amazon</a><br /><br /></p>
+<p><br /><a href="https://sellercentral.amazon.com/gp/on-board/workflow/Registration/login.html/902-0586098-4611057?passthrough%2Fsource=AmazonCheckout&passthrough%2Fld=RPVARIENA2ZZYWSJ0WMID8&passthrough%2Faccount=cba&passthrough%2FsuperSource=OAR&passthrough%2FmarketplaceID=AZ4B0ZS3LGLX" target="_blank">Signup for Checkout by Amazon</a><br /><br /></p>
 </div>
 </div>
 ]]></comment>

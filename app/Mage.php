@@ -84,7 +84,7 @@ final class Mage {
 
     public static function getVersion()
     {
-        return '1.3.2.2';
+        return '1.3.2.3';
     }
 
     /**
