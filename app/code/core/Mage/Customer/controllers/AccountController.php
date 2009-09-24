@@ -318,7 +318,10 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     ->addException($e, $this->__('Can\'t save customer'));
             }
         }
-
+        /**
+         * Protect XSS injection in user input
+         */
+        $this->_getSession()->setEscapeMessages(true);
         $this->_redirectError(Mage::getUrl('*/*/create', array('_secure'=>true)));
     }
 

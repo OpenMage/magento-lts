@@ -553,6 +553,9 @@ abstract class Mage_Core_Controller_Varien_Action
     {
         if ($storage = Mage::getSingleton($messagesStorage)) {
             $this->getLayout()->getMessagesBlock()->addMessages($storage->getMessages(true));
+            $this->getLayout()->getMessagesBlock()->setEscapeMessageFlag(
+                $storage->getEscapeMessages(true)
+            );
         }
         else {
             Mage::throwException(
