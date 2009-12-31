@@ -104,7 +104,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
 
         $rootArray = $this->_getNodeJson($resources->admin, 1);
 
-        $json = Zend_Json::encode(isset($rootArray['children']) ? $rootArray['children'] : array());
+        $json = Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : array());
 
         return $json;
     }

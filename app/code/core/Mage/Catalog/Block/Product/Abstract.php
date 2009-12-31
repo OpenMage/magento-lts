@@ -20,26 +20,26 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
- * Product abstract block
+ * Catalog Product Abstract Block
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Template
 {
-    private $_priceBlock = array();
-    private $_priceBlockDefaultTemplate = 'catalog/product/price.phtml';
-    private $_tierPriceDefaultTemplate  = 'catalog/product/view/tierprices.phtml';
-    private $_priceBlockTypes = array();
+    protected $_priceBlock = array();
+    protected $_priceBlockDefaultTemplate = 'catalog/product/price.phtml';
+    protected $_tierPriceDefaultTemplate  = 'catalog/product/view/tierprices.phtml';
+    protected $_priceBlockTypes = array();
 
-    private $_reviewsHelperBlock;
+    protected $_reviewsHelperBlock;
 
     /**
      * Retrieve url for add product to cart
@@ -52,9 +52,15 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     public function getAddToCartUrl($product, $additional = array())
     {
         if ($product->getTypeInstance(true)->hasRequiredOptions($product)) {
-            $url = $product->getProductUrl();
-            $link = (strpos($url, '?') !== false) ? '&' : '?';
-            return $url . $link . 'options=cart';
+            if (!isset($additional['_escape'])) {
+                $additional['_escape'] = true;
+            }
+            if (!isset($additional['_query'])) {
+                $additional['_query'] = array();
+            }
+            $additional['_query']['options'] = 'cart';
+
+            return $this->getProductUrl($product, $additional);
         }
         return $this->helper('checkout/cart')->getAddUrl($product, $additional);
     }
@@ -67,11 +73,11 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getAddToWishlistUrl($product)
     {
-        return $this->getUrl('wishlist/index/add',array('product'=>$product->getId()));
+        return $this->helper('wishlist')->getAddUrl($product);
     }
 
     /**
-     * Enter description here...
+     * Retrieve Add Product to Compare Products List URL
      *
      * @param Mage_Catalog_Model_Product $product
      * @return string
@@ -299,4 +305,42 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         return $label;
     }
 
+    /**
+     * Retrieve Product URL using UrlDataObject
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param array $additional the route params
+     * @return string
+     */
+    public function getProductUrl($product, $additional = array())
+    {
+        if ($this->hasProductUrl($product)) {
+            if (!isset($additional['_escape'])) {
+                $additional['_escape'] = true;
+            }
+            return $product->getUrlModel()->getUrl($product, $additional);
+        }
+
+        return '#';
+    }
+
+    /**
+     * Check Product has URL
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return bool
+     */
+    public function hasProductUrl($product)
+    {
+        if ($product->getVisibleInSiteVisibilities()) {
+            return true;
+        }
+        if ($product->hasUrlDataObject()) {
+            if (in_array($product->hasUrlDataObject()->getVisibility(), $product->getVisibleInSiteVisibilities())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

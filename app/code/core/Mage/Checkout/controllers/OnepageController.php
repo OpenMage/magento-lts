@@ -56,21 +56,27 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         return $this;
     }
 
+    /**
+     * Validate ajax request and redirect on failure
+     *
+     * @return bool
+     */
     protected function _expireAjax()
     {
         if (!$this->getOnepage()->getQuote()->hasItems()
             || $this->getOnepage()->getQuote()->getHasError()
             || $this->getOnepage()->getQuote()->getIsMultiShipping()) {
             $this->_ajaxRedirectResponse();
-            exit;
+            return true;
         }
         $action = $this->getRequest()->getActionName();
         if (Mage::getSingleton('checkout/session')->getCartWasUpdated(true)
             && !in_array($action, array('index', 'progress'))) {
             $this->_ajaxRedirectResponse();
-            exit;
+            return true;
         }
-        Mage::getSingleton('core/translate_inline')->setIsAjaxRequest(true);
+
+        return false;
     }
 
     protected function _getShippingMethodsHtml()
@@ -156,21 +162,27 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     public function progressAction()
     {
-        $this->_expireAjax();
+        if ($this->_expireAjax()) {
+            return;
+        }
         $this->loadLayout(false);
         $this->renderLayout();
     }
 
     public function shippingMethodAction()
     {
-        $this->_expireAjax();
+        if ($this->_expireAjax()) {
+            return;
+        }
         $this->loadLayout(false);
         $this->renderLayout();
     }
 
     public function reviewAction()
     {
-        $this->_expireAjax();
+        if ($this->_expireAjax()) {
+            return;
+        }
         $this->loadLayout(false);
         $this->renderLayout();
     }
@@ -222,7 +234,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     public function getAddressAction()
     {
-        $this->_expireAjax();
+        if ($this->_expireAjax()) {
+            return;
+        }
         $addressId = $this->getRequest()->getParam('address', false);
         if ($addressId) {
             $address = $this->getOnepage()->getAddress($addressId);
@@ -233,11 +247,13 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
     public function saveMethodAction()
     {
-        $this->_expireAjax();
+        if ($this->_expireAjax()) {
+            return;
+        }
         if ($this->getRequest()->isPost()) {
             $method = $this->getRequest()->getPost('method');
             $result = $this->getOnepage()->saveCheckoutMethod($method);
-            $this->getResponse()->setBody(Zend_Json::encode($result));
+            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
 
@@ -246,7 +262,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     public function saveBillingAction()
     {
-        $this->_expireAjax();
+        if ($this->_expireAjax()) {
+            return;
+        }
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost('billing', array());
             $customerAddressId = $this->getRequest()->getPost('billing_address_id', false);
@@ -278,13 +296,15 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 }
             }
 
-            $this->getResponse()->setBody(Zend_Json::encode($result));
+            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
 
     public function saveShippingAction()
     {
-        $this->_expireAjax();
+        if ($this->_expireAjax()) {
+            return;
+        }
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost('shipping', array());
             $customerAddressId = $this->getRequest()->getPost('shipping_address_id', false);
@@ -302,13 +322,15 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 //            $result['shipping_methods_html'] = $this->getLayout()->getBlock('root')->toHtml();
 //            $result['shipping_methods_html'] = $this->_getShippingMethodsHtml();
 
-            $this->getResponse()->setBody(Zend_Json::encode($result));
+            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
 
     public function saveShippingMethodAction()
     {
-        $this->_expireAjax();
+        if ($this->_expireAjax()) {
+            return;
+        }
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost('shipping_method', '');
             $result = $this->getOnepage()->saveShippingMethod($data);
@@ -317,7 +339,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             */
             if(!$result) {
                 Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', array('request'=>$this->getRequest(), 'quote'=>$this->getOnepage()->getQuote()));
-                $this->getResponse()->setBody(Zend_Json::encode($result));
+                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
 
                 $result['goto_section'] = 'payment';
                 $result['update_section'] = array(
@@ -327,56 +349,64 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
 //                $result['payment_methods_html'] = $this->_getPaymentMethodsHtml();
             }
-            $this->getResponse()->setBody(Zend_Json::encode($result));
+            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
 
     }
 
+    /**
+     * Save payment ajax action
+     *
+     * Sets either redirect or a JSON response
+     */
     public function savePaymentAction()
     {
-        $this->_expireAjax();
-        if ($this->getRequest()->isPost()) {
-            $data = $this->getRequest()->getPost('payment', array());
-            /*
-            * first to check payment information entered is correct or not
-            */
+        if ($this->_expireAjax()) {
+            return;
+        }
+        try {
+            if (!$this->getRequest()->isPost()) {
+                $this->_ajaxRedirectResponse();
+                return;
+            }
 
-            try {
-                $result = $this->getOnepage()->savePayment($data);
-            }
-            catch (Mage_Payment_Exception $e) {
-                if ($e->getFields()) {
-                    $result['fields'] = $e->getFields();
-                }
-                $result['error'] = $e->getMessage();
-            }
-            catch (Exception $e) {
-                $result['error'] = $e->getMessage();
-            }
+            // set payment to quote
+            $result = array();
+            $data = $this->getRequest()->getPost('payment', array());
+            $result = $this->getOnepage()->savePayment($data);
+
+            // get section and redirect data
             $redirectUrl = $this->getOnePage()->getQuote()->getPayment()->getCheckoutRedirectUrl();
             if (empty($result['error']) && !$redirectUrl) {
                 $this->loadLayout('checkout_onepage_review');
-
                 $result['goto_section'] = 'review';
                 $result['update_section'] = array(
                     'name' => 'review',
                     'html' => $this->_getReviewHtml()
                 );
-
-//                $result['review_html'] = $this->getLayout()->getBlock('root')->toHtml();
             }
-
             if ($redirectUrl) {
                 $result['redirect'] = $redirectUrl;
             }
-
-            $this->getResponse()->setBody(Zend_Json::encode($result));
+        } catch (Mage_Payment_Exception $e) {
+            if ($e->getFields()) {
+                $result['fields'] = $e->getFields();
+            }
+            $result['error'] = $e->getMessage();
+        } catch (Mage_Core_Exception $e) {
+            $result['error'] = $e->getMessage();
+        } catch (Exception $e) {
+            Mage::logException($e);
+            $result['error'] = $this->__('Unable to set Payment Method.');
         }
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
     public function saveOrderAction()
     {
-        $this->_expireAjax();
+        if ($this->_expireAjax()) {
+            return;
+        }
 
         $result = array();
         try {
@@ -386,7 +416,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                     $result['success'] = false;
                     $result['error'] = true;
                     $result['error_messages'] = $this->__('Please agree to all Terms and Conditions before placing the order.');
-                    $this->getResponse()->setBody(Zend_Json::encode($result));
+                    $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
                     return;
                 }
             }
@@ -440,7 +470,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $result['redirect'] = $redirectUrl;
         }
 
-        $this->getResponse()->setBody(Zend_Json::encode($result));
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
 }

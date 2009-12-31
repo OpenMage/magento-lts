@@ -78,10 +78,15 @@ VarienRulesForm.prototype = {
                this.chooserSelectedItems.set(s,1);
             }
         }
-        new Ajax.Updater(chooser, chooser.getAttribute('url'), {
+        new Ajax.Request(chooser.getAttribute('url'), {
             evalScripts: true,
             parameters: {'form_key': FORM_KEY, 'selected[]':this.chooserSelectedItems.keys() },
-            onSuccess: this._processSuccess.bind(this) && this.showChooserLoaded.bind(this, chooser),
+            onSuccess: function(transport) {
+                if (this._processSuccess(transport)) {
+                    $(chooser).update(transport.responseText);
+                    this.showChooserLoaded(chooser, transport);
+                }
+            }.bind(this),
             onFailure: this._processFailure.bind(this)
         });
     },
@@ -244,20 +249,29 @@ VarienRulesForm.prototype = {
         new_elem.innerHTML = Translator.translate('Please wait, loading...');
         children_ul.insertBefore(new_elem, $(elem).up('li'));
 
-        new Ajax.Updater(new_elem, this.newChildUrl, {
+        new Ajax.Request(this.newChildUrl, {
             evalScripts: true,
             parameters: {form_key: FORM_KEY, type:new_type.replace('/','-'), id:new_id },
             onComplete: this.onAddNewChildComplete.bind(this, new_elem),
-            onSuccess: this._processSuccess.bind(this),
+            onSuccess: function(transport) {
+                if(this._processSuccess(transport)) {
+                    $(new_elem).update(transport.responseText);
+                }
+            }.bind(this),
             onFailure: this._processFailure.bind(this)
         });
     },
 
     _processSuccess : function(transport) {
-        var response = transport.responseText.evalJSON();
-        if (response.ajaxExpired && response.ajaxRedirect) {
-            alert(Translator.translate('Your session has been expired, you will be relogged in now.'));
-            location.href = response.ajaxRedirect;
+        if (transport.responseText.isJSON()) {
+            var response = transport.responseText.evalJSON()
+            if (response.error) {
+                alert(response.message);
+            }
+            if(response.ajaxExpired && response.ajaxRedirect) {
+                setLocation(response.ajaxRedirect);
+            }
+            return false;
         }
         return true;
     },

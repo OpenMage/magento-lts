@@ -27,21 +27,34 @@
 
 class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
+    public function __construct()
+    {
+        $this->setCode('shipping');
+    }
+
+    /**
+     * Collect totals information about shipping
+     *
+     * @param   Mage_Sales_Model_Quote_Address $address
+     * @return  Mage_Sales_Model_Quote_Address_Total_Shipping
+     */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
+        parent::collect($address);
+        
         $oldWeight = $address->getWeight();
         $address->setWeight(0);
-        $address->setShippingAmount(0);
-        $address->setBaseShippingAmount(0);
         $address->setFreeMethodWeight(0);
+        $this->_setAmount(0)
+            ->_setBaseAmount(0);
 
         $items = $address->getAllItems();
         if (!count($items)) {
             return $this;
         }
 
-        $method = $address->getShippingMethod();
-        $freeAddress = $address->getFreeShipping();
+        $method     = $address->getShippingMethod();
+        $freeAddress= $address->getFreeShipping();
 
         $addressWeight      = $address->getWeight();
         $freeMethodWeight   = $address->getFreeMethodWeight();
@@ -52,10 +65,10 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
             /**
              * Skip if this item is virtual
              */
-
             if ($item->getProduct()->isVirtual()) {
                 continue;
             }
+            
             /**
              * Children weight we calculate for parent
              */
@@ -68,11 +81,11 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                     if ($child->getProduct()->isVirtual()) {
                         continue;
                     }
-                    $addressQty += $item->getQty()*$child->getQty();
+                    $addressQty += $child->getTotalQty();
 
                     if (!$item->getProduct()->getWeightType()) {
                         $itemWeight = $child->getWeight();
-                        $itemQty    = $item->getQty()*$child->getQty();
+                        $itemQty    = $child->getTotalQty();
                         $rowWeight  = $itemWeight*$itemQty;
                         $addressWeight += $rowWeight;
                         if ($freeAddress || $child->getFreeShipping()===true) {
@@ -141,8 +154,8 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
 
         $address->collectShippingRates();
 
-        $address->setShippingAmount(0);
-        $address->setBaseShippingAmount(0);
+        $this->_setAmount(0)
+            ->_setBaseAmount(0);
 
         $method = $address->getShippingMethod();
 
@@ -150,19 +163,23 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
             foreach ($address->getAllShippingRates() as $rate) {
                 if ($rate->getCode()==$method) {
                     $amountPrice = $address->getQuote()->getStore()->convertPrice($rate->getPrice(), false);
-                    $address->setShippingAmount($amountPrice);
-                    $address->setBaseShippingAmount($rate->getPrice());
+                    $this->_setAmount($amountPrice);
+                    $this->_setBaseAmount($rate->getPrice());
                     $address->setShippingDescription($rate->getCarrierTitle().' - '.$rate->getMethodTitle());
                     break;
                 }
             }
         }
 
-        $address->setGrandTotal($address->getGrandTotal() + $address->getShippingAmount());
-        $address->setBaseGrandTotal($address->getBaseGrandTotal() + $address->getBaseShippingAmount());
         return $this;
     }
 
+    /**
+     * Add shipping totals information to address object
+     *
+     * @param   Mage_Sales_Model_Quote_Address $address
+     * @return  Mage_Sales_Model_Quote_Address_Total_Shipping
+     */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         $amount = $address->getShippingAmount();

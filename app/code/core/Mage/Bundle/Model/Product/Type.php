@@ -826,4 +826,33 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         return $searchData;
     }
+
+    /**
+     * Check if product can be bought
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Bundle_Model_Product_Type
+     * @throws Mage_Core_Exception
+     */
+    public function checkProductBuyState($product = null)
+    {
+        parent::checkProductBuyState($product);
+        $product = $this->getProduct($product);
+        $productOptionIds = $this->getOptionsIds($product);
+        $productSelections = $this->getSelectionsCollection($productOptionIds, $product);
+
+        $selectionIds   = $product->getCustomOption('bundle_selection_ids');
+        $selectionIds   = unserialize($selectionIds->getValue());
+        foreach ($selectionIds as $selectionId) {
+            /* @var $selection Mage_Bundle_Model_Selection */
+            $selection = $productSelections->getItemById($selectionId);
+            if (!$selection || !$selection->isSalable()) {
+                Mage::throwException(
+                    Mage::helper('bundle')->__('Selected required options not available.')
+                );
+            }
+        }
+
+        return $this;
+    }
 }

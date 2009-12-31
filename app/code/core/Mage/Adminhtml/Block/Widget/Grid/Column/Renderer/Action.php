@@ -82,7 +82,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
         $actionCaption = '';
         $this->_transformActionData($action, $actionCaption, $row);
 
-        $htmlAttibutes = array('value'=>$this->htmlEscape(Zend_Json::encode($action)));
+        $htmlAttibutes = array('value'=>$this->htmlEscape(Mage::helper('core')->jsonEncode($action)));
         $actionAttributes->setData($htmlAttibutes);
         return '<option ' . $actionAttributes->serialize() . '>' . $actionCaption . '</option>';
     }

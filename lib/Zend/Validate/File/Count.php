@@ -215,14 +215,13 @@ class Zend_Validate_File_Count extends Zend_Validate_Abstract
      */
     public function addFile($file)
     {
-var_dump($file);
         if (is_string($file)) {
             $file = array($file);
         }
 
         if (is_array($file)) {
             foreach ($file as $name) {
-                if (!isset($this->_files[$name])) {
+                if (!isset($this->_files[$name]) && !empty($name)) {
                     $this->_files[$name] = $name;
                 }
             }
@@ -245,7 +244,6 @@ var_dump($file);
     public function isValid($value, $file = null)
     {
         $this->addFile($value);
-print "\nVALIDATION:";
         $this->_count = count($this->_files);
         if (($this->_max !== null) && ($this->_count > $this->_max)) {
             return $this->_throw($file, self::TOO_MUCH);

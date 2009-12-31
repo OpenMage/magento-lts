@@ -69,6 +69,15 @@ class Zend_Wildfire_Plugin_FirePhp_Message
     protected $_ruid = false;
 
     /**
+     * Options for the object
+     * @var array
+     */
+    protected $_options = array(
+        'traceOffset' => null, /* The offset in the trace which identifies the source of the message */
+        'includeLineNumbers' => null /* Whether to include line and file info for this message */
+    );
+
+    /**
      * Creates a new message with the given style and message
      * 
      * @param string $style Style of the message.
@@ -191,5 +200,46 @@ class Zend_Wildfire_Plugin_FirePhp_Message
     {
         return $this->_message;
     }
+    
+    /**
+     * Set a single option
+     * 
+     * @param  string $key The name of the option
+     * @param  mixed $value The value of the option
+     * @return mixed The previous value of the option
+     */
+    public function setOption($key, $value)
+    {
+      if(!array_key_exists($key,$this->_options)) {
+        throw new Zend_Wildfire_Exception('Option with name "'.$key.'" does not exist!');
+      }
+      $previous = $this->_options[$key];
+      $this->_options[$key] = $value;
+      return $previous;
+    }
+
+    /**
+     * Retrieve a single option
+     * 
+     * @param  string $key The name of the option
+     * @return mixed The value of the option
+     */
+    public function getOption($key)
+    {
+      if(!array_key_exists($key,$this->_options)) {
+        throw new Zend_Wildfire_Exception('Option with name "'.$key.'" does not exist!');
+      }
+      return $this->_options[$key];
+    }
+
+    /**
+     * Retrieve all options
+     * 
+     * @return array All options
+     */
+    public function getOptions()
+    {
+      return $this->_options;
+    }    
 }
 

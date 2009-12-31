@@ -428,5 +428,4 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
     public function describeTable($table) {
         return $this->_getReadAdapter()->describeTable($table);
     }
-
 }

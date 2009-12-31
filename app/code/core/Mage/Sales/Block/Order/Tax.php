@@ -27,6 +27,7 @@
 /**
  * Sales order view tax block
  *
+ * @deprecated after 1.3.2.2
  * @category   Mage
  * @package    Mage_Sales
  * @author     Magento Core Team <core@magentocommerce.com>

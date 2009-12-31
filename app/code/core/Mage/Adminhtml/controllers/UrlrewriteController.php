@@ -151,7 +151,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
                 // save and redirect
                 $model->save();
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('adminhtml')->__('Urlrewrite has been successfully saved')
+                    Mage::helper('adminhtml')->__('URL Rewrite has been successfully saved')
                 );
                 $this->_redirect('*/*/');
                 return;
@@ -179,7 +179,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
             try {
                 Mage::registry('current_urlrewrite')->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('adminhtml')->__('Urlrewrite has been successfully deleted')
+                    Mage::helper('adminhtml')->__('URL Rewrite has been successfully deleted')
                 );
             }
             catch (Exception $e) {

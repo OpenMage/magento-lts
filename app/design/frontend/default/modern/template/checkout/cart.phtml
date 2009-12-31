@@ -1,0 +1,121 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Shopping cart template
+ *
+ * @see Mage_Checkout_Block_Cart
+ */
+?>
+<div class="page-head">
+    <h3><?php echo $this->__('Shopping Cart') ?></h3>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+<table cellspacing="0" id="shopping-cart-table" class="data-table box-table shopping-cart">
+    <col width="75" />
+    <col />
+<?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
+	<col width="1" />
+<?php endif ?>
+<?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+    <col width="80" />
+<?php endif; ?>
+<?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+    <col width="80" />
+<?php endif; ?>
+    <col width="1" />
+<?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+    <col width="80" />
+<?php endif; ?>
+<?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+    <col width="80" />
+<?php endif; ?>
+    <col width="40" />
+
+<?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+    <thead>
+        <tr>
+            <th rowspan="<?php echo $mergedCells; ?>">&nbsp;</th>
+            <th rowspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Product Name') ?></th>
+            <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
+            <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Move to Wishlist') ?></th>
+            <?php endif ?>
+            <th class="a-center" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Unit Price') ?></th>
+            <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Qty') ?></th>
+            <th colspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Subtotal') ?></th>
+            <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Remove') ?></th>
+        </tr>
+        <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+        <tr>
+            <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+            <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+            <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+            <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+        </tr>
+        <?php endif; ?>
+    </thead>
+    <tfoot>
+        <tr>
+            <td colspan="100" class="a-right">
+                <?php if($this->getContinueShoppingUrl()): ?>
+                    <a href="<?php echo $this->getContinueShoppingUrl() ?>" class="f-left"><?php echo $this->__('Continue Shopping') ?></a>
+                <?php endif; ?>
+                <input type="image" src="<?php echo $this->getSkinUrl('images/btn_update_qty.gif') ?>" alt="<?php echo $this->__('Update Shopping Cart') ?>"/>
+            </td>
+        </tr>
+    </tfoot>
+    <tbody>
+    <?php foreach($this->getItems() as $_item): ?>
+        <?php echo $this->getItemHtml($_item) ?>
+    <?php endforeach ?>
+    </tbody>
+</table>
+<script type="text/javascript">decorateTable('shopping-cart-table')</script>
+</form>
+<br/>
+    <?php echo $this->getChildHtml('crosssell') ?>
+
+<div class="cart-collateral-block">
+    <div class="cart-collateral">
+    <?php echo $this->getChildHtml('coupon') ?>
+    <div class="divider"></div>
+    <?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
+    </div>
+    <div class="cart-totals">
+		<?php echo $this->getChildHtml('totals'); ?>
+        
+        <div class="clear"></div>
+        <?php if(!$this->hasError()): ?>
+        <ul class="checkout-types">
+            <?php echo $this->getChildHtml('methods') ?>
+        </ul>
+        <?php endif; ?>
+    </div>
+</div>
+
+<div class="clear"></div>

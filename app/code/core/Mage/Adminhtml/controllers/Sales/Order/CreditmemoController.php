@@ -190,14 +190,9 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             }
 
             if (isset($data['shipping_amount'])) {
-                $creditmemo->setShippingAmount($data['shipping_amount']);
+                $creditmemo->setBaseShippingAmount((float)$data['shipping_amount']);
             } elseif ($invoice) {
-                $creditmemo->setShippingAmount($invoice->getShippingAmount());
-            }
-            else {
-                $creditmemo->setShippingAmount(
-                    $order->getBaseShippingAmount()-$order->getBaseShippingRefunded()
-                );
+                $creditmemo->setBaseShippingAmount($invoice->getBaseShippingAmount());
             }
 
             if (isset($data['adjustment_positive'])) {
@@ -295,14 +290,14 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 'error'     => true,
                 'message'   => $e->getMessage()
             );
-            $response = Zend_Json::encode($response);
+            $response = Mage::helper('core')->jsonEncode($response);
         }
         catch (Exception $e) {
             $response = array(
                 'error'     => true,
                 'message'   => $this->__('Can not update item qty')
             );
-            $response = Zend_Json::encode($response);
+            $response = Mage::helper('core')->jsonEncode($response);
         }
         $this->getResponse()->setBody($response);
     }
@@ -435,14 +430,14 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 'error'     => true,
                 'message'   => $e->getMessage()
             );
-            $response = Zend_Json::encode($response);
+            $response = Mage::helper('core')->jsonEncode($response);
         }
         catch (Exception $e) {
             $response = array(
                 'error'     => true,
                 'message'   => $this->__('Can not add new comment.')
             );
-            $response = Zend_Json::encode($response);
+            $response = Mage::helper('core')->jsonEncode($response);
         }
         $this->getResponse()->setBody($response);
     }

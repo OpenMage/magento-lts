@@ -41,7 +41,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Cron extends Mage_Core
         $enabled = $this->getData('groups/import/fields/enabled/value');
         $service = $this->getData('groups/import/fields/service/value');
         $time = $this->getData('groups/import/fields/time/value');
-        $frequncy = $this->getData('groups/import/fields/frequncy/value');
+        $frequency = $this->getData('groups/import/fields/frequency/value');
         $errorEmail = $this->getData('groups/import/fields/error_email/value');
 
         $frequencyDaily = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_DAILY;
@@ -53,9 +53,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Cron extends Mage_Core
         $cronExprArray = array(
             intval($time[1]),                                   # Minute
             intval($time[0]),                                   # Hour
-            ($frequncy == $frequencyMonthly) ? '1' : '*',       # Day of the Month
+            ($frequency == $frequencyMonthly) ? '1' : '*',       # Day of the Month
             '*',                                                # Month of the Year
-            ($frequncy == $frequencyWeekly) ? '1' : '*',        # Day of the Week
+            ($frequency == $frequencyWeekly) ? '1' : '*',        # Day of the Week
         );
 
         $cronExprString = join(' ', $cronExprArray);

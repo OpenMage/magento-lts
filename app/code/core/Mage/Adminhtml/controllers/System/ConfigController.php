@@ -151,7 +151,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             $session->addSuccess(Mage::helper('adminhtml')->__('Configuration successfully saved'));
         }
         catch (Mage_Core_Exception $e) {
-            foreach(split("\n", $e->getMessage()) as $message) {
+            foreach(explode("\n", $e->getMessage()) as $message) {
                 $session->addError($message);
             }
         }

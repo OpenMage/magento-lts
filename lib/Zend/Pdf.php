@@ -898,7 +898,7 @@ class Zend_Pdf
      */
     public static function pdfDate($timestamp = null)
     {
-        if (is_null($timestamp)) {
+        if ($timestamp === null) {
             $date = date('\D\:YmdHisO');
         } else {
             $date = date('\D\:YmdHisO', $timestamp);

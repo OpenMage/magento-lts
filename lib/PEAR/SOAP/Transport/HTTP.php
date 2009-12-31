@@ -269,13 +269,13 @@ class SOAP_Transport_HTTP extends SOAP_Transport
     {
         /* Largely borrowed from HTTP_Request. */
         $this->result_headers = array();
-        $headers = split("\r?\n", $headers);
+        $headers = preg_split('/\r?\n/', $headers);
         foreach ($headers as $value) {
             if (strpos($value,':') === false) {
                 $this->result_headers[0] = $value;
                 continue;
             }
-            list($name, $value) = split(':', $value);
+            list($name, $value) = explode(':', $value);
             $headername = strtolower($name);
             $headervalue = trim($value);
             $this->result_headers[$headername] = $headervalue;

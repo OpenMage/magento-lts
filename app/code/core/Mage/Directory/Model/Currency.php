@@ -194,6 +194,24 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      */
     public function format($price, $options=array(), $includeContainer = true, $addBrackets = false)
     {
+        return $this->formatPrecision($price, 2, $options, $includeContainer, $addBrackets);
+    }
+
+    /**
+     * Apply currency format to number with specific rounding precision
+     *
+     * @param   float $price
+     * @param   int $precision
+     * @param   array $options
+     * @param   bool $includeContainer
+     * @param   bool $addBrackets
+     * @return  string
+     */
+    public function formatPrecision($price, $precision, $options=array(), $includeContainer = true, $addBrackets = false)
+    {
+        if (!isset($options['precision'])) {
+            $options['precision'] = $precision;
+        }
         if ($includeContainer) {
             return '<span class="price">' . ($addBrackets ? '[' : '') . $this->formatTxt($price, $options) . ($addBrackets ? ']' : '') . '</span>';
         }

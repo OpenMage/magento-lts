@@ -1,3 +1,0 @@
-#!/bin/bash
-
-rm -rf cache/* data/* docs/* download/* temp/* tests/* php/.channels php/.depdb php/.depdblock php/.filemap php/.lock php/.registry

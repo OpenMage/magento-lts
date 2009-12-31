@@ -25,6 +25,9 @@
 /** Zend_Log_Writer_Abstract */
 #require_once 'Zend/Log/Writer/Abstract.php';
 
+/** Zend_Log_Formatter_Firebug */
+#require_once 'Zend/Log/Formatter/Firebug.php';
+
 /** Zend_Wildfire_Plugin_FirePhp */
 #require_once 'Zend/Wildfire/Plugin/FirePhp.php';
 
@@ -73,6 +76,8 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
         if (php_sapi_name()=='cli') {
             $this->setEnabled(false);
         }
+        
+        $this->_formatter = new Zend_Log_Formatter_Firebug();
     }
     
     /**
@@ -153,18 +158,6 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
     }
 
     /**
-     * Formatting is not possible on this writer
-     *
-     * @return void
-     */
-    public function setFormatter($formatter)
-    {
-        /** @see Zend_Log_Exception */
-        #require_once 'Zend/Log/Exception.php';
-        throw new Zend_Log_Exception(get_class() . ' does not support formatting');
-    }
-
-    /**
      * Log a message to the Firebug Console.
      *
      * @param array $event The event data
@@ -182,6 +175,13 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
             $type = $this->_defaultPriorityStyle;
         }
         
-        Zend_Wildfire_Plugin_FirePhp::getInstance()->send($event['message'], null, $type);
+        $message = $this->_formatter->format($event);
+        
+        $label = isset($event['firebugLabel'])?$event['firebugLabel']:null;
+
+        Zend_Wildfire_Plugin_FirePhp::getInstance()->send($message,
+                                                          $label,
+                                                          $type,
+                                                          array('traceOffset'=>6));
     }
 }

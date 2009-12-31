@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
             $result = $this->_getNodesArray($this->getRoot(null, $recursionLevel));
         }
         if ($asJson) {
-            return Zend_Json::encode($result);
+            return Mage::helper('core')->jsonEncode($result);
         }
         return $result;
     }

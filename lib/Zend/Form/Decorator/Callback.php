@@ -46,7 +46,7 @@
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Callback.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Callback.php 15916 2009-06-06 14:47:55Z matthew $
  */
 class Zend_Form_Decorator_Callback extends Zend_Form_Decorator_Abstract
 {
@@ -59,24 +59,16 @@ class Zend_Form_Decorator_Callback extends Zend_Form_Decorator_Abstract
     /**
      * Set callback
      * 
-     * @param  string|array $callback 
+     * @param  callback $callback 
      * @return Zend_Form_Decorator_Callback
      * @throws Zend_Form_Exception
      */
     public function setCallback($callback)
     {
-        if (!is_string($callback) && !is_array($callback)) {
+        if (!is_callable($callback)) {
             #require_once 'Zend/Form/Exception.php';
             throw new Zend_Form_Exception('Invalid callback provided to callback decorator');
         }
-
-        if (is_array($callback)) {
-            if (2 !== count($callback)) {
-                #require_once 'Zend/Form/Exception.php';
-                throw new Zend_Form_Exception('Invalid method callback provided to callback decorator');
-            }
-        }
-
         $this->_callback = $callback;
         return $this;
     }

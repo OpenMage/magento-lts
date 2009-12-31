@@ -33,6 +33,49 @@
  */
 class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 {
+    /**
+     * Prepare Quote Item Product URLs
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        // prepare cart items URLs
+        $products = array();
+        /* @var $item Mage_Sales_Model_Quote_Item */
+        foreach ($this->getItems() as $item) {
+            $product    = $item->getProduct();
+            $option     = $item->getOptionByCode('product_type');
+            if ($option) {
+                $product = $option->getProduct();
+            }
+
+            if ($item->getStoreId() != Mage::app()->getStore()->getId()
+                && !$item->getRedirectUrl()
+                && !$product->isVisibleInSiteVisibility())
+            {
+                $products[$product->getId()] = $item->getStoreId();
+            }
+        }
+
+        if ($products) {
+            $products = Mage::getResourceSingleton('catalog/url')
+                ->getRewriteByProductStore($products);
+            foreach ($this->getItems() as $item) {
+                $product    = $item->getProduct();
+                $option     = $item->getOptionByCode('product_type');
+                if ($option) {
+                    $product = $option->getProduct();
+                }
+
+                if (isset($products[$product->getId()])) {
+                    $object = new Varien_Object($products[$product->getId()]);
+                    $item->setUrlDataObject($object);
+                }
+            }
+        }
+    }
 
     public function chooseTemplate()
     {

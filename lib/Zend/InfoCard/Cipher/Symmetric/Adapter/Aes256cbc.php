@@ -17,7 +17,7 @@
  * @subpackage Zend_InfoCard_Cipher
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Aes256cbc.php 13213 2008-12-14 11:05:07Z thomas $
+ * @version    $Id: Aes256cbc.php 13522 2009-01-06 16:35:55Z thomas $
  */
 
 /**
@@ -86,7 +86,7 @@ class Zend_InfoCard_Cipher_Symmetric_Adapter_Aes256cbc
     public function decrypt($encryptedData, $decryptionKey, $iv_length = null)
     {
 
-        $iv_length = is_null($iv_length) ? self::IV_LENGTH : $iv_length;
+        $iv_length = ($iv_length === null) ? self::IV_LENGTH : $iv_length;
 
         $mcrypt_iv = null;
 

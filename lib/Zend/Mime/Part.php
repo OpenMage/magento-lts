@@ -158,7 +158,7 @@ class Zend_Mime_Part {
 
         $contentType = $this->type;
         if ($this->charset) {
-            $contentType .= '; charset="' . $this->charset . '"';
+            $contentType .= '; charset=' . $this->charset;
         }
 
         if ($this->boundary) {

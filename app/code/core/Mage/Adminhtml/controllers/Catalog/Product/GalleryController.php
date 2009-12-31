@@ -58,7 +58,7 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
             $result = array('error'=>$e->getMessage(), 'errorcode'=>$e->getCode());
         }
 
-        $this->getResponse()->setBody(Zend_Json::encode($result));
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
     protected function _isAllowed()

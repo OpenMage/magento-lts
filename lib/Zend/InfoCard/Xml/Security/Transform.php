@@ -17,13 +17,8 @@
  * @subpackage Zend_InfoCard_Xml_Security
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Transform.php 13213 2008-12-14 11:05:07Z thomas $
+ * @version    $Id: Transform.php 15577 2009-05-14 12:43:34Z matthew $
  */
-
-/**
- * Zend_Loader
- */
-#require_once 'Zend/Loader.php';
 
 /**
  * A class to create a transform rule set based on XML URIs and then apply those rules
@@ -98,7 +93,10 @@ class Zend_InfoCard_Xml_Security_Transform
     public function applyTransforms($strXmlDocument)
     {
         foreach($this->_transformList as $transform) {
-            #Zend_Loader::loadClass($transform['class']);
+            if (!class_exists($transform['class'])) {
+                #require_once 'Zend/Loader.php';
+                Zend_Loader::loadClass($transform['class']);
+            }
 
             $transformer = new $transform['class'];
 

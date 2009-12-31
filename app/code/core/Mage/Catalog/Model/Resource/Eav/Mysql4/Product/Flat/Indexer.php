@@ -391,6 +391,109 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
     }
 
     /**
+     * Compare Flat style with Describe style columns
+     *
+     * If column a different - return false
+     *
+     * @param array $column
+     * @param array $describe
+     * @return bool
+     */
+    protected function _compareColumnProperties($column, $describe)
+    {
+        $type       = $column['type'];
+        $length     = null;
+        $precision  = null;
+        $scale      = null;
+
+        $matches = array();
+        if (preg_match('/^((?:var)?char)\((\d+)\)/', $type, $matches)) {
+            $type       = $matches[1];
+            $length     = $matches[2];
+        } else if (preg_match('/^decimal\((\d+),(\d+)\)/', $type, $matches)) {
+            $type       = 'decimal';
+            $precision  = $matches[1];
+            $scale      = $matches[2];
+        } else if (preg_match('/^float\((\d+),(\d+)\)/', $type, $matches)) {
+            $type       = 'float';
+            $precision  = $matches[1];
+            $scale      = $matches[2];
+        } else if (preg_match('/^((?:big|medium|small|tiny)?int)\((\d+)\)?/', $type, $matches)) {
+            $type       = $matches[1];
+        }
+
+        return ($describe['DATA_TYPE'] == $type)
+            && ($describe['DEFAULT'] == $column['default'])
+            && ((bool)$describe['NULLABLE'] == (bool)$column['is_null'])
+            && ((bool)$describe['UNSIGNED'] == (bool)$column['unsigned'])
+            && ($describe['LENGTH'] == $length)
+            && ($describe['SCALE'] == $scale)
+            && ($describe['PRECISION'] == $precision);
+    }
+
+    /**
+     * Retrieve column definition fragment
+     *
+     * Example: `field_name` smallint(5) unsigned NOT NULL default '0'
+     *
+     * @param string $fieldName
+     * @param array $fieldProp
+     * @return string
+     */
+    protected function _sqlColunmDefinition($fieldName, $fieldProp)
+    {
+        $fieldNameQuote = $this->_getWriteAdapter()->quoteIdentifier($fieldName);
+        return "{$fieldNameQuote} {$fieldProp['type']}"
+            . ($fieldProp['unsigned'] ? ' UNSIGNED' : '')
+            . ($fieldProp['extra'] ? ' ' . $fieldProp['extra'] : '')
+            . ($fieldProp['is_null'] === false ? ' NOT NULL' : '')
+            . ($fieldProp['default'] === null ? ' DEFAULT NULL' : $this->_getReadAdapter()
+                ->quoteInto(' DEFAULT ?', $fieldProp['default']));
+    }
+
+    /**
+     * Retrieve index definition fragment
+     *
+     * Example: INDEX `IDX_NAME` (`field_id`)
+     *
+     * @param string $indexName
+     * @param array $indexProp
+     * @return string
+     */
+    protected function _sqlIndexDefinition($indexName, $indexProp)
+    {
+        $fields = $indexProp['fields'];
+        if (is_array($fields)) {
+            $fieldSql = array();
+            foreach ($fields as $field) {
+                $fieldSql[] = $this->_getReadAdapter()->quoteIdentifier($field);
+            }
+            $fieldSql = join(',', $fieldSql);
+        }
+        else {
+            $fieldSql = $this->_getReadAdapter()->quoteIdentifier($fields);
+        }
+
+        $indexNameQuote = $this->_getReadAdapter()->quoteIdentifier($indexName);
+        switch (strtolower($indexProp['type'])) {
+            case 'primary':
+                $condition = 'PRIMARY KEY';
+                break;
+            case 'unique':
+                $condition = 'UNIQUE ' . $indexNameQuote;
+                break;
+            case 'fulltext':
+                $condition = 'FULLTEXT ' . $indexNameQuote;
+                break;
+            default:
+                $condition = 'INDEX ' . $indexNameQuote;
+                break;
+        }
+
+        return sprintf('%s (%s)', $condition, $fieldSql);
+    }
+
+    /**
      * Prepare flat table for store
      *
      * @param int $store
@@ -414,45 +517,12 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
         if (!$this->_getWriteAdapter()->fetchRow($tableExistsSql)) {
             $sql = "CREATE TABLE {$tableNameQuote} (\n";
             foreach ($columns as $field => $fieldProp) {
-                $fieldNameQuote = $this->_getWriteAdapter()->quoteIdentifier($field);
-                $sql .= "  {$fieldNameQuote} {$fieldProp['type']}";
-                $sql .= ($fieldProp['unsigned'] ? ' UNSIGNED' : '');
-                $sql .= ($fieldProp['extra'] ? ' ' . $fieldProp['extra'] : '');
-                $sql .= ($fieldProp['is_null'] === false ? ' NOT NULL' : '');
-                $sql .= ($fieldProp['default'] === null
-                    ? ' DEFAULT NULL'
-                    : $this->_getReadAdapter()->quoteInto(' DEFAULT ?', $fieldProp['default']));
-                $sql .= ",\n";
+                $sql .= sprintf("  %s,\n",
+                    $this->_sqlColunmDefinition($field, $fieldProp));
             }
             foreach ($indexes as $indexName => $indexProp) {
-                $fields = $indexProp['fields'];
-                if (is_array($fields)) {
-                    $fieldSql = array();
-                    foreach ($fields as $field) {
-                        $fieldSql[] = $this->_getReadAdapter()->quoteIdentifier($field);
-                    }
-                    $fieldSql = join(',', $fieldSql);
-                }
-                else {
-                    $fieldSql = $this->_getReadAdapter()->quoteIdentifier($fields);
-                }
-
-                switch (strtolower($indexProp['type'])) {
-                    case 'primary':
-                        $condition = 'PRIMARY KEY';
-                        break;
-                    case 'unique':
-                        $condition = 'UNIQUE ' . $this->_getReadAdapter()->quoteIdentifier($indexName);
-                        break;
-                    case 'fulltext':
-                        $condition = 'FULLTEXT ' . $this->_getReadAdapter()->quoteIdentifier($indexName);
-                        break;
-                    default:
-                        $condition = 'KEY ' . $this->_getReadAdapter()->quoteIdentifier($indexName);
-                        break;
-                }
-
-                $sql .= "  {$condition} (" . $fieldSql . "),\n";
+                $sql .= sprintf("  %s,\n",
+                    $this->_sqlIndexDefinition($indexName, $indexProp));
             }
 
             $sql .= "  CONSTRAINT `FK_CATALOG_PRODUCT_FLAT_{$store}_ENTITY` FOREIGN KEY (`entity_id`)"
@@ -470,6 +540,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
 
             $addColumns     = array_diff_key($columns, $describe);
             $dropColumns    = array_diff_key($describe, $columns);
+            $modifyColumns  = array();
 
             $addIndexes     = array_diff_key($indexes, $indexList);
             $dropIndexes    = array_diff_key($indexList, $indexes);
@@ -492,6 +563,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
                 );
             }
 
+            foreach ($columns as $field => $fieldProp) {
+                if (isset($describe[$field])
+                    && !$this->_compareColumnProperties($fieldProp, $describe[$field])) {
+                    $modifyColumns[$field] = $fieldProp;
+                }
+            }
+
             foreach ($indexList as $indexName => $indexProp) {
                 if (isset($indexes[$indexName]) && ($indexes[$indexName]['type'] != $indexProp['type'])) {
                     $dropIndexes[$indexName] = $indexProp;
@@ -499,13 +577,14 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
                 }
             }
 
-            if ($addColumns or $dropColumns or $addIndexes or $dropIndexes) {
+            if ($addColumns or $dropColumns or $modifyColumns or $addIndexes or $dropIndexes) {
                 $sql = "ALTER TABLE {$tableNameQuote}";
                 // drop columns
                 foreach ($dropColumns as $columnName => $columnProp) {
                     $columnNameQuote = $this->_getWriteAdapter()->quoteIdentifier($columnName);
                     $sql .= " DROP COLUMN {$columnNameQuote},";
                 }
+
                 // drop indexes
                 foreach ($dropIndexes as $indexName => $indexProp) {
                     if ($indexName == 'PRIMARY') {
@@ -517,54 +596,26 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
                     }
                 }
 
+                // modify colunm
+                foreach ($modifyColumns as $columnName => $columnProp) {
+                    $sql .= sprintf(' MODIFY COLUMN %s,',
+                        $this->_sqlColunmDefinition($columnName, $columnProp));
+                }
+
                 // add columns
                 foreach ($addColumns as $columnName => $columnProp) {
-                    //var_dump($columnProp);
-                    $columnNameQuote = $this->_getWriteAdapter()->quoteIdentifier($columnName);
-                    $sql .= " ADD COLUMN {$columnNameQuote} {$columnProp['type']}";
-                    $sql .= ($columnProp['unsigned'] ? ' UNSIGNED' : '');
-                    $sql .= ($columnProp['extra'] ? ' ' . $columnProp['extra'] : '');
-                    $sql .= ($columnProp['is_null'] === false ? ' NOT NULL' : '');
-                    $sql .= ($columnProp['default'] === null
-                        ? ' DEFAULT NULL'
-                        : $this->_getReadAdapter()->quoteInto(' DEFAULT ?', $columnProp['default']));
-                    if ($afterField = $this->_arrayPrevKey($columns, $columnName)) {
-                        $sql .= ' AFTER ' . $this->_getWriteAdapter()->quoteIdentifier($afterField);
+                    $sql .= sprintf(' ADD COLUMN %s',
+                        $this->_sqlColunmDefinition($columnName, $columnProp));
+                    $afterColumn = $this->_arrayPrevKey($columns, $columnName);
+                    if ($afterColumn) {
+                        $sql .= ' AFTER ' . $this->_getWriteAdapter()->quoteIdentifier($afterColumn);
                     }
-                    $sql .= ",";
+                    $sql .= ',';
                 }
                 // add indexes
                 foreach ($addIndexes as $indexName => $indexProp) {
-                    $indexNameQuote = $this->_getWriteAdapter()->quoteIdentifier($indexName);
-
-                    switch (strtolower($indexProp['type'])) {
-                        case 'primary':
-                            $condition = 'PRIMARY KEY';
-                            break;
-                        case 'unique':
-                            $condition = 'UNIQUE ' . $indexNameQuote;
-                            break;
-                        case 'fulltext':
-                            $condition = 'FULLTEXT ' . $indexNameQuote;
-                            break;
-                        default:
-                            $condition = 'INDEX ' . $indexNameQuote;
-                            break;
-                    }
-
-                    $fields = $indexProp['fields'];
-                    if (is_array($fields)) {
-                        $fieldSql = array();
-                        foreach ($fields as $field) {
-                            $fieldSql[] = $this->_getReadAdapter()->quoteIdentifier($field);
-                        }
-                        $fieldSql = join(',', $fieldSql);
-                    }
-                    else {
-                        $fieldSql = $this->_getReadAdapter()->quoteIdentifier($fields);
-                    }
-
-                    $sql .= " ADD {$condition} ({$fieldSql}),";
+                    $sql .= sprintf(' ADD %s,',
+                        $this->_sqlIndexDefinition($indexName, $indexProp));
                 }
                 $sql = rtrim($sql, ",");
                 $this->_getWriteAdapter()->query($sql);

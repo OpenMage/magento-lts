@@ -146,7 +146,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
     protected function _getDeniedJson()
     {
-        return Zend_Json::encode(
+        return Mage::helper('core')->jsonEncode(
             array(
                 'ajaxExpired'  => 1,
                 'ajaxRedirect' => $this->getUrl('*/index/login')

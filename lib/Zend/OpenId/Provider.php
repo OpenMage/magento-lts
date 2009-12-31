@@ -18,7 +18,7 @@
  * @subpackage Zend_OpenId_Provider
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Provider.php 12507 2008-11-10 16:29:09Z matthew $
+ * @version    $Id: Provider.php 13522 2009-01-06 16:35:55Z thomas $
  */
 
 /**
@@ -603,7 +603,7 @@ class Zend_OpenId_Provider
         if ($trusted === false) {
             $ret['openid.mode'] = 'cancel';
             return $ret;
-        } else if (is_null($trusted)) {
+        } else if ($trusted === null) {
             /* Redirect to Server Trust Screen */
             $params2 = array();
             foreach ($params as $key => $val) {

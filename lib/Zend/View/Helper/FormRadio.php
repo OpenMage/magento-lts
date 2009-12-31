@@ -75,7 +75,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
         extract($info); // name, value, attribs, options, listsep, disable
 
         // retrieve attributes for labels (prefixed with 'label_' or 'label')
-        $label_attribs = array('style' => 'white-space: nowrap;');
+        $label_attribs = array();
         foreach ($attribs as $key => $val) {
             $tmp    = false;
             $keyLen = strlen($key);
@@ -112,7 +112,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
         // build the element
         $xhtml = '';
         $list  = array();
-        
+
         // should the name affect an array collection?
         $name = $this->view->escape($name);
         if ($this->_isArray && ('[]' != substr($name, -2))) {
@@ -157,7 +157,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
 
             // Wrap the radios in labels
             $radio = '<label'
-                    . $this->_htmlAttribs($label_attribs) . '>'
+                    . $this->_htmlAttribs($label_attribs) . ' for="' . $optId . '">'
                     . (('prepend' == $labelPlacement) ? $opt_label : '')
                     . '<input type="' . $this->_inputType . '"'
                     . ' name="' . $name . '"'
@@ -165,7 +165,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
                     . ' value="' . $this->view->escape($opt_value) . '"'
                     . $checked
                     . $disabled
-                    . $this->_htmlAttribs($attribs) 
+                    . $this->_htmlAttribs($attribs)
                     . $endTag
                     . (('append' == $labelPlacement) ? $opt_label : '')
                     . '</label>';

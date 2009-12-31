@@ -304,7 +304,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         if (isset($this->_filters[$name])) {
             return $this->_filters[$name];
         } else {
-            return '';
+            return ($this->getRequest()->getParam($name))
+                    ?htmlspecialchars($this->getRequest()->getParam($name)):'';
         }
     }
 

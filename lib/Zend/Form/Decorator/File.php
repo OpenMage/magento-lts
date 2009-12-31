@@ -22,11 +22,17 @@
 /** Zend_Form_Decorator_Abstract */
 #require_once 'Zend/Form/Decorator/Abstract.php';
 
+/** Zend_Form_Decorator_Marker_File_Interface */
+#require_once 'Zend/Form/Decorator/Marker/File/Interface.php';
+
+/** Zend_File_Transfer_Adapter_Http */
+#require_once 'Zend/File/Transfer/Adapter/Http.php';
+
 /**
  * Zend_Form_Decorator_File
  *
  * Fixes the rendering for all subform and multi file elements
- * 
+ *
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
@@ -34,7 +40,9 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: $
  */
-class Zend_Form_Decorator_File extends Zend_Form_Decorator_Abstract
+class Zend_Form_Decorator_File
+    extends Zend_Form_Decorator_Abstract
+    implements Zend_Form_Decorator_Marker_File_Interface
 {
     /**
      * Attributes that should not be passed to helper
@@ -50,7 +58,7 @@ class Zend_Form_Decorator_File extends Zend_Form_Decorator_Abstract
 
     /**
      * Get attributes to pass to file helper
-     * 
+     *
      * @return array
      */
     public function getAttribs()
@@ -72,8 +80,8 @@ class Zend_Form_Decorator_File extends Zend_Form_Decorator_Abstract
 
     /**
      * Render a form file
-     * 
-     * @param  string $content 
+     *
+     * @param  string $content
      * @return string
      */
     public function render($content)
@@ -101,6 +109,12 @@ class Zend_Form_Decorator_File extends Zend_Form_Decorator_Abstract
         if ($size > 0) {
             $element->setMaxFileSize(0);
             $markup[] = $view->formHidden('MAX_FILE_SIZE', $size);
+        }
+
+        if (Zend_File_Transfer_Adapter_Http::isApcAvailable()) {
+            $markup[] = $view->formHidden('APC_UPLOAD_PROGRESS', uniqid(), array('id' => 'progress_key'));
+        } else if (Zend_File_Transfer_Adapter_Http::isUploadProgressAvailable()) {
+            $markup[] = $view->formHidden('UPLOAD_IDENTIFIER', uniqid(), array('id' => 'progress_key'));
         }
 
         if ($element->isArray()) {

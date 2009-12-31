@@ -30,11 +30,38 @@
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Checkout_Block_Total_Default extends Mage_Core_Block_Template
+class Mage_Checkout_Block_Total_Default extends Mage_Checkout_Block_Cart_Totals
 {
     protected $_template = 'checkout/total/default.phtml';
+    protected $_store;
 
-    protected function _construct(){
+    protected function _construct()
+    {
         $this->setTemplate($this->_template);
+        $this->_store = Mage::app()->getStore();
+    }
+
+    /**
+     * Get style assigned to total object
+     *
+     * @return string
+     */
+    public function getStyle()
+    {
+        return $this->getTotal()->getStyle();
+    }
+
+    public function setTotal($total)
+    {
+        $this->setData('total', $total);
+        if ($total->getAddress()) {
+            $this->_store = $total->getAddress()->getQuote()->getStore();
+        }
+        return $this;
+    }
+
+    public function getStore()
+    {
+        return $this->_store;
     }
 }

@@ -53,32 +53,6 @@
             </td>
         </tr>
         <?php endif; ?>
-        <tr>
-            <td colspan="3" align="right" style="padding:3px 9px"><?php echo $this->__('Subtotal') ?></td>
-            <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice($_order->getSubtotal()) ?></td>
-        </tr>
-        <?php if ($_order->getDiscountAmount() > 0): ?>
-        <tr>
-            <td colspan="3" align="right" style="padding:3px 9px"><?php echo $this->__('Discount '.($_order->getCouponCode()?'('.$_order->getCouponCode().')':'')) ?></td>
-            <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice(0.00 - $_order->getDiscountAmount()) ?></td>
-        </tr>
-        <?php endif; ?>
-        <?php if ($_order->getShippingAmount() || $_order->getShippingDescription()): ?>
-        <tr>
-            <td colspan="3" align="right" style="padding:3px 9px"><?php echo $this->__('Shipping & Handling') ?></td>
-            <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice($_order->getShippingAmount()) ?></td>
-        </tr>
-        <?php endif; ?>
-         <?php if (($_order->getTaxAmount() > 0)||(Mage::helper('tax')->displayZeroTax())): ?>
-        <tr>
-            <td colspan="3" align="right" style="padding:3px 9px"><?php echo $this->__('Tax') ?></td>
-            <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice($_order->getTaxAmount()) ?></td>
-        </tr>
-        <?php endif; ?>
-        <tr bgcolor="#DEE5E8">
-            <td colspan="3" align="right" style="padding:3px 9px"><strong><big><?php echo $this->__('Grand Total') ?></big></strong></td>
-            <td align="right" style="padding:6px 9px"><strong><big><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></big></strong></td>
-        </tr>
+        <?php echo $this->getChildHtml('order_totals') ?>
     </tfoot>
-
 </table>

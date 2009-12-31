@@ -15,7 +15,7 @@
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Abstract.php 9099 2008-03-30 19:35:47Z thomas $
+ * @version    $Id: Abstract.php 14191 2009-02-28 21:53:47Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,7 @@
  * Abstract class representing container for placeholder values
  *
  * @package    Zend_View
- * @subpackage Helpers
+ * @subpackage Helper
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */

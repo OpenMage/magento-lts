@@ -270,7 +270,7 @@
                         for (var i in currentNode.childNodes ) {
                             if (currentNode.childNodes[i].id) {
                                 child = editSet.currentNode.childNodes[i];
-                                if (child.attributes.is_used_in_configurable) {
+                                if (child.attributes.is_configurable) {
                                     return true;
                                 }
                             }
@@ -369,11 +369,16 @@
                     },
 
                     rightBeforeAppend : function(tree, nodeThis, node, newParent) {
-                        if( node.attributes.is_user_defined == 1 ) {
-                            return true;
-                        } else {
+                        if (node.attributes.is_user_defined == 0) {
                             alert('<?php echo Mage::helper('catalog')->__('You cannot remove system attribute from this set.') ?>');
                             return false;
+                        }
+                        else if (node.attributes.is_configurable == 1) {
+                            alert('<?php echo Mage::helper('catalog')->__('This attribute is used in configurable products. You cannot remove it from the attribute set.') ?>');
+                            return false;
+                        }
+                        else {
+                            return true;
                         }
                     },
 
@@ -383,11 +388,16 @@
                             return false;
                         }
 
-                        if( node.attributes.is_user_defined == 1 ) {
-                            return true;
-                        } else {
+                        if (node.attributes.is_user_defined == 0) {
                             alert('<?php echo Mage::helper('catalog')->__('You cannot remove system attribute from this set.') ?>');
                             return false;
+                        }
+                        else if (node.attributes.is_configurable == 1) {
+                            alert('<?php echo Mage::helper('catalog')->__('This attribute is used in configurable products. You cannot remove it from the attribute set.') ?>');
+                            return false;
+                        }
+                        else {
+                            return true;
                         }
                     },
 

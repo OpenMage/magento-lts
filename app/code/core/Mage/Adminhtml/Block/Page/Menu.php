@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,13 +29,23 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 {
-    protected $_url;
     const CACHE_TAGS = 'BACKEND_MAINMENU';
 
+    /**
+     * Adminhtml URL instance
+     *
+     * @var Mage_Adminhtml_Model_Url
+     */
+    protected $_url;
+
+    /**
+     * Initialize template and cache settings
+     *
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -44,23 +54,45 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         $this->setCacheTags(array(self::CACHE_TAGS));
     }
 
+    /**
+     * Retrieve cache lifetime
+     *
+     * @return int
+     */
     public function getCacheLifetime()
     {
         return 86400;
     }
 
+    /**
+     * Retrieve key for cache
+     *
+     * @return string
+     */
     public function getCacheKey()
     {
         // getting roles for current user, for now one role per user
-        $id = Mage::getSingleton('admin/session')->getUser()->getId();
-        return 'admin_top_nav_'.$this->getActive().'_'.$id.'_'.Mage::app()->getLocale()->getLocaleCode();
+//        $id = Mage::getSingleton('admin/session')->getUser()->getId();
+//        return 'admin_top_nav_'.$this->getActive().'_'.$id.'_'.Mage::app()->getLocale()->getLocaleCode();
+        return 'admin_top_nav_'.$this->getActive().'_'.Mage::app()->getLocale()->getLocaleCode();
     }
 
+    /**
+     * Retrieve Adminhtml Menu array
+     *
+     * @return array
+     */
     public function getMenuArray()
     {
         return $this->_buildMenuArray();
     }
 
+    /**
+     * Retrieve Title value for menu node
+     *
+     * @param Varien_Simplexml_Element $child
+     * @return string
+     */
     protected function _getHelperValue(Varien_Simplexml_Element $child)
     {
         $helperName         = 'adminhtml';
@@ -76,13 +108,20 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         return Mage::helper($helperName)->__((string)$child->$titleNodeName);
     }
 
+    /**
+     * Recursive Build Menu array
+     *
+     * @param Varien_Simplexml_Element $parent
+     * @param string $path
+     * @param int $level
+     * @return array
+     */
     protected function _buildMenuArray(Varien_Simplexml_Element $parent=null, $path='', $level=0)
     {
         if (is_null($parent)) {
             $parent = Mage::getConfig()->getNode('adminhtml/menu');
-//        $parent = Mage::getSingleton('adminhtml/config')->getNode('admin/menu');
-
         }
+
         $parentArr = array();
         $sortOrder = 0;
         foreach ($parent->children() as $childName=>$child) {
@@ -103,7 +142,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             $menuArr['sort_order'] = $child->sort_order ? (int)$child->sort_order : $sortOrder;
 
             if ($child->action) {
-                $menuArr['url'] = $this->_url->getUrl((string)$child->action);
+                $menuArr['url'] = $this->_url->getUrl((string)$child->action, array('_cache_secret_key' => true));
             } else {
                 $menuArr['url'] = '#';
                 $menuArr['click'] = 'return false';
@@ -134,11 +173,24 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         return $parentArr;
     }
 
+    /**
+     * Sort menu comparison function
+     *
+     * @param int $a
+     * @param int $b
+     * @return int
+     */
     protected function _sortMenu($a, $b)
     {
         return $a['sort_order']<$b['sort_order'] ? -1 : ($a['sort_order']>$b['sort_order'] ? 1 : 0);
     }
 
+    /**
+     * Check Depends
+     *
+     * @param Varien_Simplexml_Element $depends
+     * @return bool
+     */
     protected function _checkDepends(Varien_Simplexml_Element $depends)
     {
         if ($depends->module) {
@@ -169,6 +221,12 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         return Mage::getSingleton('admin/session')->isAllowed($resource, $privilege);
     }*/
 
+    /**
+     * Check is Allow menu item for admin user
+     *
+     * @param string $resource
+     * @return bool
+     */
     protected function _checkAcl($resource)
     {
         try {
@@ -177,5 +235,30 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             return false;
         }
         return $res;
+    }
+
+    /**
+     * Processing block html after rendering
+     *
+     * @param   string $html
+     * @return  string
+     */
+    protected function _afterToHtml($html)
+    {
+        $html = preg_replace_callback('#'.Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME.'/\$([^\/].*)/([^\$].*)\$#', array($this, '_callbackSecretKey'), $html);
+
+        return $html;
+    }
+
+    /**
+     * Replace Callback Secret Key
+     *
+     * @param array $match
+     * @return string
+     */
+    protected function _callbackSecretKey($match)
+    {
+        return Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME . '/'
+            . $this->_url->getSecretKey($match[1], $match[2]);
     }
 }

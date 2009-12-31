@@ -289,16 +289,12 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Update category ids in flat
      *
+     * @deprecated 1.3.2.2
      * @param Varien_Event_Observer $observer
      * @return Mage_Catalog_Model_Product_Flat_Observer
      */
     public function catalogCategoryChangeProducts(Varien_Event_Observer $observer)
     {
-        if (!$this->_getHelper()->isBuilt()) {
-            return $this;
-        }
-        $this->_getIndexer()->updateAttribute('category_ids');
-
         return $this;
     }
 }

@@ -599,7 +599,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
             if (!is_array($websiteIds)) {
                 $websiteIds = array();
             }
-            $websiteCodes = split(',', $importData['websites']);
+            $websiteCodes = explode(',', $importData['websites']);
             foreach ($websiteCodes as $websiteCode) {
                 try {
                     $website = Mage::app()->getWebsite(trim($websiteCode));
@@ -630,7 +630,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product
             $setValue = $value;
 
             if ($attribute->getFrontendInput() == 'multiselect') {
-                $value = split(self::MULTI_DELIMITER, $value);
+                $value = explode(self::MULTI_DELIMITER, $value);
                 $isArray = true;
                 $setValue = array();
             }

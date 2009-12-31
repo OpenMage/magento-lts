@@ -153,7 +153,16 @@ class Mage_Catalog_Model_Product_Type
     static public function getTypes()
     {
         if (is_null(self::$_types)) {
-            self::$_types = Mage::getConfig()->getNode('global/catalog/product/type')->asArray();
+            $productTypes = Mage::getConfig()->getNode('global/catalog/product/type')->asArray();
+            foreach ($productTypes as $productKey => $productConfig) {
+                $moduleName = 'catalog';
+                if (isset($productConfig['@']['module'])) {
+                    $moduleName = $productConfig['@']['module'];
+                }
+                $translatedLabel = Mage::helper($moduleName)->__($productConfig['label']);
+                $productTypes[$productKey]['label'] = $translatedLabel;
+            }
+            self::$_types = $productTypes;
         }
 
         return self::$_types;

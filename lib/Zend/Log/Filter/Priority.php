@@ -17,7 +17,7 @@
  * @subpackage Filter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Priority.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Priority.php 14132 2009-02-21 20:23:00Z shahar $
  */
 
 /** Zend_Log_Filter_Interface */
@@ -29,7 +29,7 @@
  * @subpackage Filter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Priority.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Priority.php 14132 2009-02-21 20:23:00Z shahar $
  */
 class Zend_Log_Filter_Priority implements Zend_Log_Filter_Interface
 {
@@ -54,6 +54,7 @@ class Zend_Log_Filter_Priority implements Zend_Log_Filter_Interface
     public function __construct($priority, $operator = '<=')
     {
         if (! is_integer($priority)) {
+            #require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception('Priority must be an integer');
         }
 

@@ -275,7 +275,7 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
                     $result = ($this->_remove($file)) && ($result);
                 } else if ($mode == Zend_Cache::CLEANING_MODE_OLD) {
                     // Files older than lifetime get deleted from cache
-                    if (!is_null($this->_directives['lifetime'])) {
+                    if ($this->_directives['lifetime'] !== null) {
                         if ((time() - @filemtime($file)) > $this->_directives['lifetime']) {
                             $result = ($this->_remove($file)) && ($result);
                         }
@@ -302,7 +302,7 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
             # If we can't remove the file (because of locks or any problem), we will touch
             # the file to invalidate it
             $this->_log("Zend_Cache_Backend_ZendPlatform::_remove() : we can't remove $file => we are going to try to invalidate it");
-            if (is_null($this->_directives['lifetime'])) {
+            if ($this->_directives['lifetime'] === null) {
                 return false;
             }
             if (!file_exists($file)) {

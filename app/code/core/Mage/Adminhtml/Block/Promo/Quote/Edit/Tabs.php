@@ -61,6 +61,11 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tabs extends Mage_Adminhtml_Block_Wi
             'content'   => $this->getLayout()->createBlock('adminhtml/promo_quote_edit_tab_actions')->toHtml(),
         ));
 
+        $this->addTab('labels', array(
+            'label'     => Mage::helper('salesrule')->__('Labels'),
+            'content'   => $this->getLayout()->createBlock('adminhtml/promo_quote_edit_tab_labels')->toHtml(),
+        ));
+
         return parent::_beforeToHtml();
     }
 

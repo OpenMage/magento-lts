@@ -234,8 +234,8 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                             $address->setCollectShippingRates(true)->collectTotals();
                             $billingAddress->setCollectShippingRates(true)->collectTotals();
 
-                            $taxAmount = $address->getTaxAmount();
-                            $taxAmount += $billingAddress->getTaxAmount();
+                            $taxAmount = $address->getBaseTaxAmount();
+                            $taxAmount += $billingAddress->getBaseTaxAmount();
 
                             $result->setTaxDetails($taxAmount);
                         }
@@ -250,8 +250,8 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                 $address->setCollectShippingRates(true)->collectTotals();
                 $billingAddress->setCollectShippingRates(true)->collectTotals();
 
-                $taxAmount = $address->getTaxAmount();
-                $taxAmount += $billingAddress->getTaxAmount();
+                $taxAmount = $address->getBaseTaxAmount();
+                $taxAmount += $billingAddress->getBaseTaxAmount();
 
                 $result = new GoogleResult($addressId);
                 $result->setTaxDetails($taxAmount);
@@ -278,7 +278,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         // IMPORT GOOGLE ORDER DATA INTO QUOTE
 
         $quoteId = $this->getData('root/shopping-cart/merchant-private-data/quote-id/VALUE');
-        $quote = Mage::getModel('sales/quote')->load($quoteId);
+        $quote = Mage::getModel('sales/quote')->load($quoteId)->setIsActive(true);
 //
 //        $quoteItems = $quote->getItemsCollection();
 //        foreach ($this->getData('root/shopping-cart/items') as $item) {
@@ -373,6 +373,8 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
             ->setLastSuccessQuoteId($quote->getId())
             ->setLastRealOrderId($order->getIncrementId());
 
+        $quote->setIsActive(false)->save();
+
         if ($emailAllowed) {
             Mage::getModel('newsletter/subscriber')->subscribe($order->getCustomerEmail());
         }
@@ -427,7 +429,11 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
 
     protected function _importGoogleTotals($qAddress)
     {
-        $qAddress->setTaxAmount($this->getData('root/order-adjustment/total-tax/VALUE'));
+        $qAddress->setTaxAmount(
+            $this->_reCalculateToStoreCurrency(
+                $this->getData('root/order-adjustment/total-tax/VALUE'), $qAddress->getQuote()
+            )
+        );
         $qAddress->setBaseTaxAmount($this->getData('root/order-adjustment/total-tax/VALUE'));
 
         $prefix = 'root/order-adjustment/shipping/';
@@ -444,13 +450,18 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
             $excludingTax = $shipping['shipping-cost']['VALUE'];
             $qAddress->setShippingMethod($method)
                 ->setShippingDescription($shipping['shipping-name']['VALUE'])
-                ->setShippingAmount($excludingTax, true)
+                ->setShippingAmount(
+                    $this->_reCalculateToStoreCurrency($excludingTax, $qAddress->getQuote()),
+                    true
+                )
                 ->setBaseShippingAmount($excludingTax, true);
 
             if (!Mage::helper('tax')->shippingPriceIncludesTax()) {
                 $includingTax = Mage::helper('tax')->getShippingPrice($excludingTax, true, $qAddress, $qAddress->getQuote()->getCustomerTaxClassId());
                 $shippingTax = $includingTax - $excludingTax;
-                $qAddress->setShippingTaxAmount($shippingTax)
+                $qAddress->setShippingTaxAmount(
+                    $this->_reCalculateToStoreCurrency($shippingTax, $qAddress->getQuote())
+                    )
                     ->setBaseShippingTaxAmount($shippingTax);
             } else {
                 if ($method == 'googlecheckout_carrier') {
@@ -463,7 +474,11 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         }
 
 
-        $qAddress->setGrandTotal($this->getData('root/order-total/VALUE'));
+        $qAddress->setGrandTotal(
+            $this->_reCalculateToStoreCurrency(
+                $this->getData('root/order-total/VALUE'), $qAddress->getQuote()
+            )
+        );
         $qAddress->setBaseGrandTotal($this->getData('root/order-total/VALUE'));
     }
 

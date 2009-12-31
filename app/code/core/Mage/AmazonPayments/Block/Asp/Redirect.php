@@ -33,6 +33,17 @@
  */
 class Mage_AmazonPayments_Block_Asp_Redirect extends Mage_Core_Block_Template
 {
+
+    /**
+     * Return Amazon Simple Pay payment model
+     *
+     * @return Mage_AmazonPayments_Model_Payment_Asp
+     */
+    public function getPayment()
+    {
+        return Mage::registry('amazonpayments_payment_asp');
+    }
+
     /**
      * Return Amazon Simple Pay payment url
      *
@@ -40,7 +51,7 @@ class Mage_AmazonPayments_Block_Asp_Redirect extends Mage_Core_Block_Template
      */
     public function getRedirectUrl()
     {
-        return Mage::registry('amazonpayments_payment_asp')->getPayRedirectUrl();
+        return $this->getPayment()->getPayRedirectUrl();
     }
 
     /**
@@ -50,6 +61,17 @@ class Mage_AmazonPayments_Block_Asp_Redirect extends Mage_Core_Block_Template
      */
     public function getRedirectParams()
     {
-        return Mage::registry('amazonpayments_payment_asp')->getPayRedirectParams();
+        return $this->getPayment()->getPayRedirectParams();
     }
+
+    /**
+     * Return redirect message
+     *
+     * @return string
+     */
+    public function getRedirectMessage()
+    {
+        return $this->getPayment()->getRedirectMessage();
+    }
+    
 }

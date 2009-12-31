@@ -47,6 +47,6 @@ class Mage_Adminhtml_JsonController extends Mage_Adminhtml_Controller_Action
             }
         }
 
-        $this->getResponse()->setBody(Zend_Json::encode($arrRes));
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($arrRes));
     }
 }

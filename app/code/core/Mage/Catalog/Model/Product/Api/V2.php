@@ -34,7 +34,7 @@
 class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
 {
 
-        /**
+    /**
      * Retrieve list of products with basic info (id, sku, type, set, name)
      *
      * @param array $filters
@@ -79,14 +79,14 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         $result = array();
 
         foreach ($collection as $product) {
-//            $result[] = $product->getData();
-            $result[] = array( // Basic product data
+            $result[] = array(
                 'product_id' => $product->getId(),
                 'sku'        => $product->getSku(),
                 'name'       => $product->getName(),
                 'set'        => $product->getAttributeSetId(),
                 'type'       => $product->getTypeId(),
-                'category_ids'       => $product->getCategoryIds()
+                'category_ids' => $product->getCategoryIds(),
+                'website_ids'  => $product->getWebsiteIds()
             );
         }
 
@@ -179,6 +179,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             }
             unset($productData->additional_attributes);
         }
+
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             $_attrCode = $attribute->getAttributeCode();
             if ($this->_isAllowedAttribute($attribute)
@@ -287,8 +288,16 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             $product->setWebsiteIds($productData->websites);
         }
 
-        if (property_exists($productData, 'stock_data') && is_array($productData->stock_data)) {
-            $product->setStockData($productData->stock_data);
+        if (Mage::app()->isSingleStoreMode()) {
+            $product->setWebsiteIds(array(Mage::app()->getStore(true)->getWebsite()->getId()));
+        }
+
+        if (property_exists($productData, 'stock_data')) {
+            $_stockData = array();
+            foreach ($productData->stock_data as $key => $value) {
+                $_stockData[$key] = $value;
+            }
+            $product->setStockData($_stockData);
         }
     }
 

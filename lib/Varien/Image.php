@@ -230,6 +230,12 @@ class Varien_Image
         return $this;
     }
 
+    public function setWatermarkImageOpacity($imageOpacity)
+    {
+        $this->_getAdapter()->setWatermarkImageOpacity($imageOpacity);
+        return $this;
+    }
+
     public function setWatermarkWidth($width)
     {
         $this->_getAdapter()->setWatermarkWidth($width);

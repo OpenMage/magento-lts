@@ -65,7 +65,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
      * @var Zend_Db_Table_Abstract
      */
     protected $_table;
-    
+
     /**
      * Class constructor
      *
@@ -74,6 +74,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
     public function __construct(Zend_Db_Table_Abstract $table)
     {
         parent::__construct($table->getAdapter());
+
         $this->setTable($table);
     }
 
@@ -86,7 +87,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
     {
         return $this->_table;
     }
-    
+
     /**
      * Sets the primary table name and retrieves the table schema.
      *
@@ -98,7 +99,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
         $this->_adapter = $table->getAdapter();
         $this->_info    = $table->info();
         $this->_table   = $table;
-        
+
         return $this;
     }
 
@@ -139,7 +140,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
             if ($alias !== null) {
                 $column = $alias;
             }
-            
+
             switch (true) {
                 case ($column == self::SQL_WILDCARD):
                     break;
@@ -159,8 +160,8 @@ class Zend_Db_Table_Select extends Zend_Db_Select
      *
      * The table name can be expressed
      *
-     * @param  array|string|Zend_Db_Expr|Zend_Db_Table_Abstract $name The table name or an 
-                                                                      associative array relating 
+     * @param  array|string|Zend_Db_Expr|Zend_Db_Table_Abstract $name The table name or an
+                                                                      associative array relating
                                                                       table name to correlation
                                                                       name.
      * @param  array|string|Zend_Db_Expr $cols The columns to select from this table.
@@ -203,7 +204,7 @@ class Zend_Db_Table_Select extends Zend_Db_Select
         if ($this->_integrityCheck !== false) {
             foreach ($fields as $columnEntry) {
                 list($table, $column) = $columnEntry;
-                
+
                 // Check each column to ensure it only references the primary table
                 if ($column) {
                     if (!isset($from[$table]) || $from[$table]['tableName'] != $primary) {

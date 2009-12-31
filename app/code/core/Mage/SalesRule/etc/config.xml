@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_SalesRule>
-            <version>0.7.7</version>
+            <version>0.7.9</version>
         </Mage_SalesRule>
     </modules>
     <global>
@@ -45,12 +45,9 @@
             <salesrule_mysql4>
                 <class>Mage_SalesRule_Model_Mysql4</class>
                 <entities>
-                    <rule>
-                        <table>salesrule</table>
-                    </rule>
-                    <rule_customer>
-                        <table>salesrule_customer</table>
-                    </rule_customer>
+                    <rule><table>salesrule</table></rule>
+                    <rule_customer><table>salesrule_customer</table></rule_customer>
+                    <label><table>salesrule_label</table></label>
                 </entities>
             </salesrule_mysql4>
         </models>
@@ -58,6 +55,7 @@
             <salesrule_setup>
                 <setup>
                     <module>Mage_SalesRule</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
                 </setup>
                 <connection>
                     <use>core_setup</use>
@@ -74,17 +72,14 @@
                 </connection>
             </salesrule_read>
         </resources>
-
+        <fieldsets>
+            <sales_convert_quote_address>
+                <discount_description><to_order>*</to_order></discount_description>
+                <shipping_discount_amount><to_order>*</to_order></shipping_discount_amount>
+                <base_shipping_discount_amount><to_order>*</to_order></base_shipping_discount_amount>
+            </sales_convert_quote_address>
+        </fieldsets>
         <events>
-            <sales_quote_address_discount_item>
-                <observers>
-                    <salesrule>
-                        <type>singleton</type>
-                        <class>salesrule/observer</class>
-                        <method>sales_quote_address_discount_item</method>
-                    </salesrule>
-                </observers>
-            </sales_quote_address_discount_item>
             <sales_order_place_after>
                 <observers>
                     <salesrule>
@@ -95,6 +90,22 @@
                 </observers>
             </sales_order_place_after>
         </events>
+        <sales>
+            <quote>
+                <totals>
+                    <freeshipping>
+                        <class>salesrule/quote_freeshipping</class>
+                        <after>subtotal</after>
+                        <before>shipping</before>
+                    </freeshipping>
+                    <discount>
+                        <class>salesrule/quote_discount</class>
+                        <after>subtotal,shipping</after>
+                        <before>grand_total</before>
+                    </discount>
+                </totals>
+            </quote>
+        </sales>
     </global>
     <adminhtml>
         <menu>

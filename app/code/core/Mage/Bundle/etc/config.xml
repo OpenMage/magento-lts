@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Bundle>
-            <version>0.1.7</version>
+            <version>0.1.8</version>
         </Mage_Bundle>
     </modules>
     <global>

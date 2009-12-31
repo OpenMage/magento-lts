@@ -20,20 +20,32 @@
  *
  * @category   Mage
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
- * Base wishlist helper
+ * Wishlist Data Helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    /**
+     * Customer Wishlist instance
+     *
+     * @var Mage_Wishlist_Model_Wishlist
+     */
     protected $_wishlist = null;
-    protected $_itemCount = null;
-    protected $_itemCollection = null;
+
+    /**
+     * Wishlist Product Items Collection
+     *
+     * @var Mage_Wishlist_Model_Mysql4_Product_Collection
+     */
     protected $_productCollection = null;
 
     /**
@@ -65,7 +77,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (is_null($this->_wishlist)) {
             $this->_wishlist = Mage::getModel('wishlist/wishlist')
-				->loadByCustomer($this->_getCurrentCustomer());
+                ->loadByCustomer($this->_getCurrentCustomer());
         }
         return $this->_wishlist;
     }
@@ -77,7 +89,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function hasItems()
     {
-        return $this->getItemCount();
+        return $this->getItemCount() > 0;
     }
 
     /**
@@ -87,97 +99,132 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getItemCount()
     {
-        if ($this->_isCustomerLogIn() && is_null($this->_itemCount)) {
-            $this->_itemCount = $this->getWishlist()->getItemsCount();
+        if (!Mage::getSingleton('customer/session')->hasWishlistItemCount()) {
+            $this->calculate();
         }
-        elseif(is_null($this->_itemCount)) {
-            $this->_itemCount = 0;
-        }
-        return $this->_itemCount;
+
+        return Mage::getSingleton('customer/session')->getWishlistItemCount();
     }
 
     /**
-     * Retrieve wishlist items collection
+     * Retrieve wishlist product items collection
      *
-     * @return
+     * alias for getProductCollection
+     *
+     * @return Mage_Wishlist_Model_Mysql4_Product_Collection
      */
     public function getItemCollection()
     {
-        if (is_null($this->_itemCollection)) {
-            $this->_itemCollection = $this->getWishlist()->getProductCollection();
-        }
-        return $this->_itemCollection;
+        return $this->getProductCollection();
     }
 
+    /**
+     * Retrieve wishlist product items collection
+     *
+     * @return Mage_Wishlist_Model_Mysql4_Product_Collection
+     */
     public function getProductCollection()
     {
         if (is_null($this->_productCollection)) {
-            $this->_productCollection = $this->getWishlist()->getProductCollection();
+            $this->_productCollection = $this->getWishlist()
+                ->getProductCollection();
+
+            Mage::getSingleton('catalog/product_visibility')
+                ->addVisibleInSearchFilterToCollection($this->_productCollection);
         }
         return $this->_productCollection;
     }
 
-
-    public function getSharingUrl()
+    /**
+     * Retrieve Item Store for URL
+     *
+     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
+     * @return Mage_Core_Model_Store
+     */
+    protected function _getUrlStore($item)
     {
-
+        $storeId = null;
+        if ($item instanceof Mage_Catalog_Model_Product) {
+            if ($item->isVisibleInSiteVisibility()) {
+                $storeId = $item->getStoreId();
+            }
+            else if ($item->hasUrlDataObject()) {
+                $storeId = $item->getUrlDataObject()->getStoreId();
+            }
+        }
+        return Mage::app()->getStore($storeId);
     }
 
     /**
-     * Retrieve url for removing item from wishlist
+     * Retrieve URL for removing item from wishlist
      *
-     * @param   Mage_Wishlist_Model_Item $item
-     * @return  string
+     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
+     * @return string
      */
     public function getRemoveUrl($item)
     {
-        return $this->_getUrl('wishlist/index/remove', array('item'=>$item->getWishlistItemId()));
+        return $this->_getUrl('wishlist/index/remove', array(
+            'item' => $item->getWishlistItemId()
+        ));
     }
 
     /**
      * Retrieve url for adding product to wishlist
      *
-     * @param   mixed $product
+     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $product
      * @return  string
      */
     public function getAddUrl($item)
     {
+        $productId = null;
         if ($item instanceof Mage_Catalog_Model_Product) {
-            return $this->_getUrl('wishlist/index/add', array('product'=>$item->getId()));
+            $productId = $item->getEntityId();
         }
         if ($item instanceof Mage_Wishlist_Model_Item) {
-            return $this->_getUrl('wishlist/index/add', array('product'=>$item->getProductId()));
+            $productId = $item->getProductId();
         }
+
+        if ($productId) {
+            return $this->_getUrlStore($item)->getUrl('wishlist/index/add', array(
+                'product' => $productId
+            ));
+        }
+
         return false;
     }
 
     /**
-     * Retrieve url for adding item to shoping cart
+     * Retrieve URL for adding item to shoping cart
      *
-     * @param   Mage_Wishlist_Model_Item $item
+     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @return  string
      */
     public function getAddToCartUrl($item)
     {
-        return $this->_getUrl('wishlist/index/cart', array('item'=>$item->getWishlistItemId()));
+        $urlParamName = Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED;
+        $continueUrl  = Mage::helper('core')->urlEncode(Mage::getUrl('*/*/*', array(
+            '_current'      => true,
+            '_use_rewrite'  => true,
+            '_store_to_url' => true,
+        )));
+
+        return $this->_getUrlStore($item)->getUrl('wishlist/index/cart', array(
+            'item'          => $item->getWishlistItemId(),
+            $urlParamName   => $continueUrl
+        ));
     }
 
     /**
      * Retrieve url for adding item to shoping cart with b64 referer
      *
-     * @param   Mage_Wishlist_Model_Item $item
+     * @deprecated
+     * @param   Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @return  string
      */
     public function getAddToCartUrlBase64($item)
     {
-        return $this->_getUrl('wishlist/index/cart', array(
-            'item'=>$item->getWishlistItemId(),
-            Mage_Core_Controller_Front_Action::PARAM_NAME_BASE64_URL => Mage::helper('core')->urlEncode(
-               $this->_getUrl('*/*/*', array('_current'=>true))
-            )
-        ));
+        return $this->getAddToCartUrl($item);
     }
-
 
     /**
      * Retrieve customer wishlist url
@@ -189,41 +236,90 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_getUrl('wishlist');
     }
 
+    /**
+     * Check is allow wishlist module
+     *
+     * @return bool
+     */
     public function isAllow()
     {
-        if (Mage::getStoreConfig('wishlist/general/active')) {
-			return true;
-		}
-		return false;
+        if ($this->isModuleOutputEnabled() && Mage::getStoreConfig('wishlist/general/active')) {
+            return true;
+        }
+        return false;
     }
 
+    /**
+     * Check is allow wishlist action in shopping cart
+     *
+     * @return bool
+     */
     public function isAllowInCart()
     {
         return $this->isAllow() && $this->_isCustomerLogIn();
     }
 
+    /**
+     * Retrieve customer name
+     *
+     * @return string
+     */
     public function getCustomerName()
     {
         return $this->_getCurrentCustomer()->getName();
     }
 
+    /**
+     * Retrieve RSS URL
+     *
+     * @return string
+     */
     public function getRssUrl()
     {
         $customer = $this->_getCurrentCustomer();
         $key = $customer->getId().','.$customer->getEmail();
-        return $this->_getUrl('rss/index/wishlist',array('data' => Mage::helper('core')->urlEncode($key), '_secure' => false));
+        return $this->_getUrl('rss/index/wishlist', array('data' => Mage::helper('core')->urlEncode($key), '_secure' => false));
     }
 
+    /**
+     * Is allow RSS
+     *
+     * @return bool
+     */
     public function isRssAllow()
     {
-         if (Mage::getStoreConfig('rss/wishlist/active')) {
-			return true;
-		}
-		return false;
+        if (Mage::getStoreConfig('rss/wishlist/active')) {
+            return true;
+        }
+        return false;
     }
 
+    /**
+     * Retrieve default empty comment message
+     *
+     * @return string
+     */
     public function defaultCommentString()
     {
         return $this->__('Please, enter your comments...');
+    }
+
+    /**
+     * Calculate count of wishlist items
+     *
+     * @return Mage_Wishlist_Helper_Data
+     */
+    public function calculate()
+    {
+        if (!$this->_isCustomerLogIn()) {
+            $count = 0;
+        }
+        else {
+            $count = $this->getProductCollection()
+                ->getSize();
+        }
+        Mage::getSingleton('customer/session')->setWishlistItemCount($count);
+
+        return $this;
     }
 }

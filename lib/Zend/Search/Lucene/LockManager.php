@@ -94,7 +94,6 @@ class Zend_Search_Lucene_LockManager
      * @return Zend_Search_Lucene_Storage_File
      * @throws Zend_Search_Lucene_Exception
      */
-
     private static function _startReadLockProcessing(Zend_Search_Lucene_Storage_Directory $lockDirectory)
     {
         $lock = $lockDirectory->createFile(self::READ_LOCK_PROCESSING_LOCK_FILE);
@@ -133,7 +132,6 @@ class Zend_Search_Lucene_LockManager
     {
         $lock = $lockDirectory->createFile(self::READ_LOCK_FILE);
         if (!$lock->lock(LOCK_SH)) {
-            self::_stopReadLockProcessing($lockDirectory);
             #require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Can\'t obtain shared reading index lock');
         }

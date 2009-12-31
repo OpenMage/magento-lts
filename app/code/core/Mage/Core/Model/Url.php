@@ -606,6 +606,9 @@ class Mage_Core_Model_Url extends Varien_Object
         $this->unsetData('route_params');
 
         if (isset($routeParams['_direct'])) {
+            if (is_array($routeParams)) {
+                $this->setRouteParams($routeParams, false);
+            }
             return $this->getBaseUrl().$routeParams['_direct'];
         }
 
@@ -692,24 +695,48 @@ class Mage_Core_Model_Url extends Varien_Object
         return $this->_getData('query');
     }
 
-    public function setQueryParams(array $data, $useCurrent = false)
+    /**
+     * Set query Params as array
+     *
+     * @param array $data
+     * @return Mage_Core_Model_Url
+     */
+    public function setQueryParams(array $data)
     {
         $this->unsetData('query');
-        if ($useCurrent) {
-            $params = $this->_getData('query_params');
-            foreach ($data as $param => $value) {
-                $params[$param] = $value;
-            }
-            $this->setData('query_params', $params);
+
+        if ($this->_getData('query_params') == $data) {
             return $this;
         }
 
-        if ($this->_getData('query_params')==$data) {
-            return $this;
+        $params = $this->_getData('query_params');
+        if (!is_array($params)) {
+            $params = array();
         }
-        return $this->setData('query_params', $data);
+        foreach ($data as $param => $value) {
+            $params[$param] = $value;
+        }
+        $this->setData('query_params', $params);
+
+        return $this;
     }
 
+    /**
+     * Purge Query params array
+     *
+     * @return Mage_Core_Model_Url
+     */
+    public function purgeQueryParams()
+    {
+        $this->setData('query_params', array());
+        return $this;
+    }
+
+    /**
+     * Retrurn Query Params
+     *
+     * @return array
+     */
     public function getQueryParams()
     {
         if (!$this->hasData('query_params')) {
@@ -788,6 +815,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
         $query = null;
         if (isset($routeParams['_query'])) {
+            $this->purgeQueryParams();
             $query = $routeParams['_query'];
             unset($routeParams['_query']);
         }

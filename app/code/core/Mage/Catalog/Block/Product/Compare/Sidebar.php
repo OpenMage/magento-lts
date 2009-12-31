@@ -20,42 +20,56 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
- * Catalog comapare sidebar block
+ * Catalog Comapare Products Sidebar Block
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
- class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Product_Abstract
- {
-     protected function _construct()
-     {
-         $this->setId('compare');
-     }
-
-     public function getItems()
-     {
-         return $this->helper('catalog/product_compare')->getItemCollection();
-     }
-
-    public function getRemoveUrl($item)
+class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Product_Compare_Abstract
+{
+    /**
+     * Initialize block
+     *
+     */
+    protected function _construct()
     {
-        return $this->helper('catalog/product_compare')->getRemoveUrl($item);
+        $this->setId('compare');
     }
 
+    /**
+     * Retrieve Compare Products Collection
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection
+     */
+    public function getItems()
+    {
+        return $this->_getHelper()->getItemCollection();
+    }
+
+    /**
+     * Retrieve Clean Compared Items URL
+     *
+     * @return string
+     */
     public function getClearUrl()
     {
-        return $this->helper('catalog/product_compare')->getClearListUrl();
+        return $this->_getHelper()->getClearListUrl();
     }
 
-     public function getCompareUrl()
-     {
-         return $this->helper('catalog/product_compare')->getListUrl();
-     }
- }
+    /**
+     * Retrieve Full Compare page URL
+     *
+     * @return string
+     */
+    public function getCompareUrl()
+    {
+        return $this->_getHelper()->getListUrl();
+    }
+}

@@ -262,7 +262,30 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         if ($storeIds = $this->getData('store_ids')) {
             return $storeIds;
         }
-        $storeIds = $this->getResource()->getStoreIds($this);
+
+        if (!$this->getId()) {
+            return array();
+        }
+
+        $nodes = array();
+        foreach ($this->getPathIds() as $id) {
+            $nodes[] = $id;
+        }
+
+        $storeIds = array();
+        $storeCollection = Mage::getModel('core/store')->getCollection()->loadByCategoryIds($nodes);
+        foreach ($storeCollection as $store) {
+            $storeIds[$store->getId()] = $store->getId();
+        }
+
+        $entityStoreId = $this->getStoreId();
+        if (!in_array($entityStoreId, $storeIds)) {
+            array_unshift($storeIds, $entityStoreId);
+        }
+        if (!in_array(0, $storeIds)) {
+            array_unshift($storeIds, 0);
+        }
+
         $this->setData('store_ids', $storeIds);
         return $storeIds;
     }
@@ -762,7 +785,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             return array();
         }
         if ($available && !is_array($available)) {
-            $available = split(',', $available);
+            $available = explode(',', $available);
         }
         return $available;
     }

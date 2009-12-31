@@ -126,7 +126,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         if(!$attributes) {
             return '[]';
         }
-        return Zend_Json::encode($attributes);
+        return Mage::helper('core')->jsonEncode($attributes);
     }
 
     /**
@@ -145,7 +145,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config extends Mage_Ad
         foreach ($products as $product) {
             $data[$product->getId()] = $this->getConfigurableSettings($product);
         }
-        return Zend_Json::encode($data);
+        return Mage::helper('core')->jsonEncode($data);
     }
 
     /**

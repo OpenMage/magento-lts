@@ -17,7 +17,7 @@
  * @subpackage Zend_Auth_Adapter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DbTable.php 13201 2008-12-13 19:52:26Z sidhighwind $
+ * @version    $Id: DbTable.php 14899 2009-04-14 22:04:56Z ralph $
  */
 
 
@@ -46,6 +46,7 @@
  */
 class Zend_Auth_Adapter_DbTable implements Zend_Auth_Adapter_Interface
 {
+
     /**
      * Database Connection
      *
@@ -53,6 +54,11 @@ class Zend_Auth_Adapter_DbTable implements Zend_Auth_Adapter_Interface
      */
     protected $_zendDb = null;
 
+    /**
+     * @var Zend_Db_Select
+     */
+    protected $_dbSelect = null;
+    
     /**
      * $_tableName - the table name to check
      *
@@ -226,6 +232,20 @@ class Zend_Auth_Adapter_DbTable implements Zend_Auth_Adapter_Interface
     }
 
     /**
+     * getDbSelect() - Return the preauthentication Db Select object for userland select query modification
+     *
+     * @return Zend_Db_Select
+     */
+    public function getDbSelect()
+    {
+        if ($this->_dbSelect == null) {
+            $this->_dbSelect = $this->_zendDb->select();
+        }
+        
+        return $this->_dbSelect;
+    }
+    
+    /**
      * getResultRowObject() - Returns the result row as a stdClass object
      *
      * @param  string|array $returnColumns
@@ -357,7 +377,7 @@ class Zend_Auth_Adapter_DbTable implements Zend_Auth_Adapter_Interface
             );
 
         // get select
-        $dbSelect = $this->_zendDb->select();
+        $dbSelect = clone $this->getDbSelect();
         $dbSelect->from($this->_tableName, array('*', $credentialExpression))
                  ->where($this->_zendDb->quoteIdentifier($this->_identityColumn, true) . ' = ?', $this->_identity);
 

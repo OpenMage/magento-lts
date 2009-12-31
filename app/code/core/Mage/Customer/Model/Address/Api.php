@@ -34,7 +34,7 @@
 class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 {
     protected $_mapAttributes = array(
-        'customer_id' => 'entity_id'
+        'customer_address_id' => 'entity_id'
     );
 
     public function __construct()
@@ -73,8 +73,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
                 }
             }
 
-            $row['is_default_billing'] = $customer->getDefaultBillingAddress() == $address->getId();
-            $row['is_default_shipping'] = $customer->getDefaultShippingAddress() == $address->getId();
+            $row['is_default_billing'] = $customer->getDefaultBilling() == $address->getId();
+            $row['is_default_shipping'] = $customer->getDefaultShipping() == $address->getId();
 
             $result[] = $row;
 
@@ -160,8 +160,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 
 
         if ($customer = $address->getCustomer()) {
-            $result['is_default_billing']  = $customer->getDefaultBillingAddress() == $address->getId();
-            $result['is_default_shipping'] = $customer->getDefaultShippingAddress() == $address->getId();
+            $result['is_default_billing']  = $customer->getDefaultBilling() == $address->getId();
+            $result['is_default_shipping'] = $customer->getDefaultShipping() == $address->getId();
         }
 
         return $result;

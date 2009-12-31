@@ -345,7 +345,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             }
         }
         if ($asJson) {
-            return Zend_Json::encode($result);
+            return Mage::helper('core')->jsonEncode($result);
         }
         return $result;
     }

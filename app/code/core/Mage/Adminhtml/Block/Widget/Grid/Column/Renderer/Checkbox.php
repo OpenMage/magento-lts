@@ -59,18 +59,29 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adm
         else {
             $checked = ($value === $this->getColumn()->getValue()) ? ' checked="checked"' : '';
         }
-	if ($this->getNoObjectId() || $this->getColumn()->getUseIndex()){
-	    //WTF: why getNoObjectId???
-	    $v = $value;
-	} else {
+
+        $disabledValues = $this->getColumn()->getDisabledValues();
+        if (is_array($disabledValues)) {
+            $disabled = in_array($value, $disabledValues) ? ' disabled="disabled"' : '';
+        }
+        else {
+            $disabled = ($value === $this->getColumn()->getDisabledValue()) ? ' disabled="disabled"' : '';
+        }
+
+        $this->setDisabled($disabled);
+
+        if ($this->getNoObjectId() || $this->getColumn()->getUseIndex()){
+            $v = $value;
+        } else {
             $v = ($row->getId() != "") ? $row->getId():$value;
-	}
+        }
+
         return $this->_getCheckboxHtml($v, $checked);
     }
 
     protected function _getCheckboxHtml($value, $checked)
     {
-        return '<input type="checkbox" name="'.$this->getColumn()->getFieldName().'" value="' . $value . '" class="'. ($this->getColumn()->getInlineCss() ? $this->getColumn()->getInlineCss() : 'checkbox' ).'"'.$checked.'/>';
+        return '<input type="checkbox" name="'.$this->getColumn()->getFieldName().'" value="' . $value . '" class="'. ($this->getColumn()->getInlineCss() ? $this->getColumn()->getInlineCss() : 'checkbox' ).'"'.$checked.$this->getDisabled().'/>';
     }
 
     public function renderHeader()
@@ -81,8 +92,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adm
 
         $checked = '';
         if ($filter = $this->getColumn()->getFilter()) {
-            $checked = $filter->getValue() ? 'checked="checked"' : '';
+            $checked = $filter->getValue() ? ' checked="checked"' : '';
         }
-        return '<input type="checkbox" name="'.$this->getColumn()->getFieldName().'" onclick="'.$this->getColumn()->getGrid()->getJsObjectName().'.checkCheckboxes(this)" class="checkbox" '.$checked.' title="'.Mage::helper('adminhtml')->__('Select All').'"/>';
+
+        $disabled = '';
+        if ($this->getColumn()->getDisabled()) {
+            $disabled = ' disabled="disabled"';
+        }
+        return '<input type="checkbox" name="'.$this->getColumn()->getFieldName().'" onclick="'.$this->getColumn()->getGrid()->getJsObjectName().'.checkCheckboxes(this)" class="checkbox"'.$checked.$disabled.' title="'.Mage::helper('adminhtml')->__('Select All').'"/>';
     }
 }

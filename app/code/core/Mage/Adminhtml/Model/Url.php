@@ -69,8 +69,13 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      */
     public function getUrl($routePath=null, $routeParams=null)
     {
-        $result = parent::getUrl($routePath, $routeParams);
+        $cacheSecretKey = false;
+        if (is_array($routeParams) && isset($routeParams['_cache_secret_key'])) {
+            unset($routeParams['_cache_secret_key']);
+            $cacheSecretKey = true;
+        }
 
+        $result = parent::getUrl($routePath, $routeParams);
         if (!$this->useSecretKey()) {
             return $result;
         }
@@ -78,7 +83,13 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
         $_route = $this->getRouteName() ? $this->getRouteName() : '*';
         $_controller = $this->getControllerName() ? $this->getControllerName() : $this->getDefaultControllerName();
         $_action = $this->getActionName() ? $this->getActionName() : $this->getDefaultActionName();
-        $secret = array(self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($_controller, $_action));
+
+        if ($cacheSecretKey) {
+            $secret = array(self::SECRET_KEY_PARAM_NAME => "\${$_controller}/{$_action}\$");
+        }
+        else {
+            $secret = array(self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($_controller, $_action));
+        }
         if (is_array($routeParams)) {
             $routeParams = array_merge($secret, $routeParams);
         } else {
@@ -87,6 +98,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
         if (is_array($this->getRouteParams())) {
             $routeParams = array_merge($this->getRouteParams(), $routeParams);
         }
+
         return parent::getUrl("{$_route}/{$_controller}/{$_action}", $routeParams);
     }
 

@@ -108,6 +108,21 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         return false;
     }
 
+    /**
+     * Retrieve routers collection
+     *
+     * @return array
+     */
+    public function getRouters()
+    {
+        return $this->_routers;
+    }
+
+    /**
+     * Init Fron Controller
+     *
+     * @return Mage_Core_Controller_Varien_Front
+     */
     public function init()
     {
         Mage::dispatchEvent('controller_front_init_before', array('front'=>$this));
@@ -117,14 +132,14 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         Varien_Profiler::start('mage::app::init_front_controller::collect_routers');
         foreach ($routersInfo as $routerCode => $routerInfo) {
             if (isset($routerInfo['disabled']) && $routerInfo['disabled']) {
-            	continue;
+                continue;
             }
             if (isset($routerInfo['class'])) {
-            	$router = new $routerInfo['class'];
-            	if (isset($routerInfo['area'])) {
-            		$router->collectRoutes($routerInfo['area'], $routerCode);
-            	}
-            	$this->addRouter($routerCode, $router);
+                $router = new $routerInfo['class'];
+                if (isset($routerInfo['area'])) {
+                    $router->collectRoutes($routerInfo['area'], $routerCode);
+                }
+                $this->addRouter($routerCode, $router);
             }
         }
         Varien_Profiler::stop('mage::app::init_front_controller::collect_routers');
@@ -236,7 +251,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
             $to   = $this->_processRewriteUrl($to);
 
             $pathInfo = preg_replace($from, $to, $request->getPathInfo());
-            
+
             if (isset($rewrite->complete)) {
                 $request->setPathInfo($pathInfo);
             } else {

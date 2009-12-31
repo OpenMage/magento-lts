@@ -119,7 +119,7 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
     }
 
     /**
-     * Sets the minimum filesize
+     * Sets the files to be checked
      *
      * @param  array $files The files to check in syntax of Zend_File_Transfer
      * @return Zend_Validate_File_Upload Provides a fluent interface
@@ -131,6 +131,13 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
         } else {
             $this->_files = $files;
         }
+
+        foreach($this->_files as $file => $content) {
+            if (!isset($content['error'])) {
+                unset($this->_files[$file]);
+            }
+        }
+
         return $this;
     }
 
@@ -149,11 +156,11 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
             $files[$value] = $this->_files[$value];
         } else {
             foreach ($this->_files as $file => $content) {
-                if ($content['name'] === $value) {
+                if (isset($content['name']) && ($content['name'] === $value)) {
                     $files[$file] = $this->_files[$file];
                 }
 
-                if ($content['tmp_name'] === $value) {
+                if (isset($content['tmp_name']) && ($content['tmp_name'] === $value)) {
                     $files[$file] = $this->_files[$file];
                 }
             }

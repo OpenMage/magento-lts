@@ -34,6 +34,16 @@
 class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
 {
     /**
+     * Get attribute filter block name
+     *
+     * @return string
+     */
+    protected function _getAttributeFilterBlockName()
+    {
+        return 'catalog/layer_filter_attribute';
+    }
+
+    /**
      * Prepare child blocks
      *
      * @return Mage_Catalog_Block_Layer_View
@@ -52,7 +62,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
 
         $filterableAttributes = $this->_getFilterableAttributes();
         foreach ($filterableAttributes as $attribute) {
-            $filterBlockName = 'catalog/layer_filter_attribute';
+            $filterBlockName = $this->_getAttributeFilterBlockName();
             if ($attribute->getFrontendInput() == 'price') {
                 $filterBlockName = 'catalog/layer_filter_price';
             }

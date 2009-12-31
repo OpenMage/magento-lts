@@ -32,7 +32,6 @@
  */
 class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Abstract
 {
-
     protected $_routes = array();
     protected $_separators = array();
 
@@ -42,11 +41,21 @@ class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Ab
      * @param Zend_Config $config Configuration object
      */
     public static function getInstance(Zend_Config $config)
-    { }
-
-    public function chain(Zend_Controller_Router_Route_Interface $route, $separator = '/') {
-
-        $this->_routes[] = $route;
+    {
+        $defs = ($config->defaults instanceof Zend_Config) ? $config->defaults->toArray() : array();
+        return new self($config->route, $defs);
+    }
+    
+    /**
+     * Add a route to this chain
+     * 
+     * @param  Zend_Controller_Router_Route_Abstract $route
+     * @param  string                                $separator
+     * @return Zend_Controller_Router_Route_Chain
+     */
+    public function chain(Zend_Controller_Router_Route_Abstract $route, $separator = '/')
+    {
+        $this->_routes[]     = $route;
         $this->_separators[] = $separator;
 
         return $this;
@@ -57,30 +66,53 @@ class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Ab
      * Matches a user submitted path with a previously defined route.
      * Assigns and returns an array of defaults on a successful match.
      *
-     * @param Zend_Controller_Request_Http $request Request to get the path info from
+     * @param  Zend_Controller_Request_Http $request Request to get the path info from
      * @return array|false An array of assigned values or a false on a mismatch
      */
     public function match($request, $partial = null)
     {
-
-        $path = $request->getPathInfo();
-        
-        $values = array();
+        $path    = trim($request->getPathInfo(), '/');
+        $subPath = $path;
+        $values  = array();
 
         foreach ($this->_routes as $key => $route) {
+            if ($key > 0 && $matchedPath !== null) {
+                $separator = substr($subPath, 0, strlen($this->_separators[$key]));
+                
+                if ($separator !== $this->_separators[$key]) {
+                    return false;                
+                }
+                
+                $subPath = substr($subPath, strlen($separator));
+            }
             
             // TODO: Should be an interface method. Hack for 1.0 BC  
             if (!method_exists($route, 'getVersion') || $route->getVersion() == 1) {
-                $match = $request->getPathInfo();
+                $match = $subPath;
             } else {
-                $match = $request;
+                $request->setPathInfo($subPath);
+                $match = $request;                
             }
             
-            $res = $route->match($match);
-            if ($res === false) return false;
+            $res = $route->match($match, true);
+            if ($res === false) {
+                return false;
+            }
+            
+            $matchedPath = $route->getMatchedPath();
+            
+            if ($matchedPath !== null) {
+                $subPath     = substr($subPath, strlen($matchedPath));
+                $separator   = substr($subPath, 0, strlen($this->_separators[$key]));
+            }
 
             $values = $res + $values;
-
+        }
+        
+        $request->setPathInfo($path);
+        
+        if ($subPath !== '' && $subPath !== false) {
+            return false;
         }
 
         return $values;
@@ -94,14 +126,15 @@ class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Ab
      */
     public function assemble($data = array(), $reset = false, $encode = false)
     {
-        $value = '';
-
+        $value     = '';
+        $numRoutes = count($this->_routes);
+        
         foreach ($this->_routes as $key => $route) {
             if ($key > 0) {
                 $value .= $this->_separators[$key];
             }
             
-            $value .= $route->assemble($data, $reset, $encode);
+            $value .= $route->assemble($data, $reset, $encode, (($numRoutes - 1) > $key));
             
             if (method_exists($route, 'getVariables')) {
                 $variables = $route->getVariables();

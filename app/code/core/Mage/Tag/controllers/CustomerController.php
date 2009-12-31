@@ -176,14 +176,14 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
                     $tagRelationModel->loadByTagCustomer(null, $tagModel->getId(), $customerId, $storeId)
                         ->deactivate();
 
-                    $tagModel->loadByName($tagName);
+                    $existingTagModel = Mage::getModel('tag/tag')->loadByName($tagName);
 
-                    if($tagModel->getId()) {
-                        $status = $tagModel->getStatus();
+                    if($existingTagModel->getId()) {
+                        $status = $existingTagModel->getStatus();
                     }
                     else {
                         $message= Mage::helper('tag')->__('Thank you. Your tag has been accepted for moderation.');
-                        $status = $tagModel->getPendingStatus();
+                        $status = $existingTagModel->getPendingStatus();
                     }
 
                     $tagModel->setName($tagName)
@@ -209,6 +209,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
                             ->setStoreId($storeId)
                             ->setActive(true)
                             ->setProductId($productId)
+                            ->setCreatedAt( $tagRelationModel->getResource()->formatDate(time()) )
                             ->save();
                     }
                 }

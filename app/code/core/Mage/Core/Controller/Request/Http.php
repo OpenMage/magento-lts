@@ -271,7 +271,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             return false;
         }
         if ($trimPort) {
-            $host = split(':', $_SERVER['HTTP_HOST']);
+            $host = explode(':', $_SERVER['HTTP_HOST']);
             return $host[0];
         }
         return $_SERVER['HTTP_HOST'];

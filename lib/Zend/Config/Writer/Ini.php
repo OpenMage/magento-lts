@@ -16,7 +16,7 @@
  * @package    Zend_Config
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ini.php 12221 2008-10-31 20:32:43Z dasprid $
+ * @version    $Id: Ini.php 14175 2009-02-26 22:14:58Z dasprid $
  */
 
 /**
@@ -40,6 +40,13 @@ class Zend_Config_Writer_Ini extends Zend_Config_Writer
     protected $_filename = null;
         
     /**
+     * Wether to exclusively lock the file or not
+     *
+     * @var boolean
+     */
+    protected $_exclusiveLock = false;
+    
+    /**
      * String that separates nesting levels of configuration data identifiers
      *
      * @var string
@@ -55,6 +62,19 @@ class Zend_Config_Writer_Ini extends Zend_Config_Writer
     public function setFilename($filename)
     {
         $this->_filename = $filename;
+        
+        return $this;
+    }
+    
+    /**
+     * Set wether to exclusively lock the file or not
+     *
+     * @param  boolean     $exclusiveLock
+     * @return Zend_Config_Writer_Array
+     */
+    public function setExclusiveLock($exclusiveLock)
+    {
+        $this->_exclusiveLock = $exclusiveLock;
         
         return $this;
     }
@@ -77,11 +97,12 @@ class Zend_Config_Writer_Ini extends Zend_Config_Writer
      *
      * @param  string      $filename
      * @param  Zend_Config $config
+     * @param  boolean     $exclusiveLock
      * @throws Zend_Config_Exception When filename was not set
      * @throws Zend_Config_Exception When filename is not writable
      * @return void
      */
-    public function write($filename = null, Zend_Config $config = null)
+    public function write($filename = null, Zend_Config $config = null, $exclusiveLock = null)
     {
         if ($filename !== null) {
             $this->setFilename($filename);
@@ -89,6 +110,10 @@ class Zend_Config_Writer_Ini extends Zend_Config_Writer
         
         if ($config !== null) {
             $this->setConfig($config);
+        }
+        
+        if ($exclusiveLock !== null) {
+            $this->setExclusiveLock($exclusiveLock);
         }
         
         if ($this->_filename === null) {
@@ -109,19 +134,32 @@ class Zend_Config_Writer_Ini extends Zend_Config_Writer
             $iniString .= '[' . $sectionName . ']' . "\n"
                        .  $this->_addBranch($this->_config)
                        .  "\n";
-        } else {       
+        } else {
             foreach ($this->_config as $sectionName => $data) {
-                if (isset($extends[$sectionName])) {
-                    $sectionName .= ' : ' . $extends[$sectionName];
+                if (!($data instanceof Zend_Config)) {
+                    $iniString .= $sectionName
+                               .  ' = '
+                               .  $this->_prepareValue($data)
+                               .  "\n";
+                } else {
+                    if (isset($extends[$sectionName])) {
+                        $sectionName .= ' : ' . $extends[$sectionName];
+                    }
+                    
+                    $iniString .= '[' . $sectionName . ']' . "\n"
+                               .  $this->_addBranch($data)
+                               .  "\n";
                 }
-                
-                $iniString .= '[' . $sectionName . ']' . "\n"
-                           .  $this->_addBranch($data)
-                           .  "\n";
             }
         }
        
-        $result = @file_put_contents($this->_filename, $iniString);
+        $flags = 0;
+        
+        if ($this->_exclusiveLock) {
+            $flags |= LOCK_EX;
+        }
+        
+        $result = @file_put_contents($this->_filename, $iniString, $flags);
 
         if ($result === false) {
             #require_once 'Zend/Config/Exception.php';

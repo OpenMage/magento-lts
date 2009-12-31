@@ -138,18 +138,20 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection ext
      */
     public function _addJoinToSelect()
     {
-        $this->joinField(
-            'catalog_compare_item_id',
-            'catalog/compare_item',
-            'catalog_compare_item_id',
+        $this->joinTable(
+            array('t_compare' => 'catalog/compare_item'),
             'product_id=entity_id',
+            array(
+                'product_id'    => 'product_id',
+                'customer_id'   => 'customer_id',
+                'visitor_id'    => 'visitor_id',
+                'item_store_id' => 'store_id',
+            ),
             $this->getConditionForJoin()
         );
-        $this->joinTable(
-            'catalog/compare_item',
-            'catalog_compare_item_id=catalog_compare_item_id',
-            array('product_id', 'customer_id', 'visitor_id'));
-        $this->addStoreFilter();
+
+        $this->_productLimitationFilters['store_table']  = 't_compare';
+
         return $this;
     }
 
@@ -274,6 +276,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection ext
     public function useProductItem()
     {
         $this->setObject('catalog/product');
+
+        $this->setFlag('url_data_object', true);
+        $this->setFlag('do_not_use_category_id', true);
+
         return $this;
     }
 
@@ -311,6 +317,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection ext
         }
 
         $this->getConnection()->delete($this->getTable('catalog/compare_item'), $where);
+
+        Mage::dispatchEvent('catalog_product_compare_item_collection_clear');
 
         return $this;
     }

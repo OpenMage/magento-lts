@@ -72,9 +72,9 @@
                     <element name="is_default_shipping" type="xsd:boolean" minOccurs="0" />
                 </all>
             </complexType>
-            <complexType name="customerAddressEntity">
+            <complexType name="customerAddressEntityItem">
                 <all>
-                    <element name="customer_id" type="xsd:int" minOccurs="0" />
+                    <element name="customer_address_id" type="xsd:int" minOccurs="0" />
                     <element name="created_at" type="xsd:string" minOccurs="0" />
                     <element name="updated_at" type="xsd:string" minOccurs="0" />
                     <element name="increment_id" type="xsd:string" minOccurs="0" />
@@ -99,7 +99,7 @@
             <complexType name="customerAddressEntityArray">
                 <complexContent>
                     <restriction base="soapenc:Array">
-                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:customerAddressEntity[]" />
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:customerAddressEntityItem[]" />
                     </restriction>
                 </complexContent>
             </complexType>
@@ -168,7 +168,7 @@
         <part name="addressId" type="xsd:int" />
     </message>
     <message name="customerAddressInfoResponse">
-        <part name="info" type="typens:customerAddressEntity" />
+        <part name="info" type="typens:customerAddressEntityItem" />
     </message>
     <message name="customerAddressUpdateRequest">
         <part name="sessionId" type="xsd:string" />

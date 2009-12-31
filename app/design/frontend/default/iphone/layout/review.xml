@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+-->
+<layout version="0.1.0">
+
+    <customer_account>
+        <!-- Mage_Review -->
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="review"><name>reviews</name><path>customer/review/</path><label>My Product Reviews</label></action>
+        </reference>
+
+    </customer_account>
+
+<!--
+Customer account home dashboard layout
+-->
+
+    <customer_account_index>
+
+        <!-- Mage_Review -->
+        <!-- reference name="customer_account_dashboard">
+            <action method="unsetChild"><name>customer_account_dashboard_info1</name></action>
+            <block type="review/customer_recent" name="customer_account_dashboard_info1" as="info1" template="review/customer/recent.phtml"/>
+        </reference -->
+
+    </customer_account_index>
+
+
+<!--
+Product reviews page (?)
+-->
+
+    <reviews>
+        <!-- Mage_Review -->
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+    </reviews>
+
+<!--
+Product reviews page
+-->
+
+    <review_product_list>
+        <!-- Mage_Review -->
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="head">
+            <action method="addJs"><script>varien/product.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="review/list_detailed" name="product.info" template="review/product/detailed.phtml">
+                <!--<action method="setTemplate"><param>1</param></action> -->
+                <action method="setUsePager"><param>1</param></action>
+                <block type="catalog/product_view_super_config" name="product.info.config" as="super_config" template="catalog/product/view/super/config.phtml"/>
+                <block type="catalog/product_view_super_group" name="product.info.group" as="super_group" template="catalog/product/view/super/group.phtml"/>
+            </block>
+        </reference>
+    </review_product_list>
+
+    <review_product_view>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="review/view" name="review_view"/>
+        </reference>
+    </review_product_view>
+
+    <review_customer_index>
+        <update handle="customer_account"/>
+        <reference name="content">
+            <block type="review/customer_list" name="review_customer_list" template="review/customer/list.phtml"/>
+        </reference>
+    </review_customer_index>
+
+    <review_customer_view>
+        <update handle="customer_account"/>
+        <reference name="content">
+            <block type="review/customer_view" name="customers_review"/>
+        </reference>
+    </review_customer_view>
+
+</layout>

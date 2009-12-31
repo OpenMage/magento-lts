@@ -55,7 +55,10 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
         $this->_disableSubmitButton = true;
         $_submitButtonClass = ' disabled';
         foreach ($this->getInvoice()->getAllItems() as $item) {
-            if ($item->getQty() || $this->getSource()->getData('base_grand_total')) {
+            /**
+             * @see bug #14839
+             */
+            if ($item->getQty()/* || $this->getSource()->getData('base_grand_total')*/) {
                 $this->_disableSubmitButton = false;
                 $_submitButtonClass = '';
                 break;

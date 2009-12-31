@@ -65,7 +65,7 @@ class Mage_Downloadable_FileController extends Mage_Adminhtml_Controller_Action
             $result = array('error'=>$e->getMessage(), 'errorcode'=>$e->getCode());
         }
 
-        $this->getResponse()->setBody(Zend_Json::encode($result));
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
     /**

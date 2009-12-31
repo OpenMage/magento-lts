@@ -14,6 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Soap
+ * @subpackage Client
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -32,6 +33,7 @@
  *
  * @category   Zend
  * @package    Zend_Soap
+ * @subpackage Client
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -76,6 +78,9 @@ class Zend_Soap_Client
     protected $_passphrase          = null;
     protected $_compression         = null;
     protected $_connection_timeout  = null;
+    protected $_stream_context      = null;
+    protected $_features            = null;
+    protected $_cache_wsdl          = null;
 
     /**
      * WSDL used to access server
@@ -98,6 +103,33 @@ class Zend_Soap_Client
      * @var string
      */
     protected $_lastMethod = '';
+
+    /**
+     * SOAP request headers.
+     *
+     * Array of SoapHeader objects
+     *
+     * @var array
+     */
+    protected $_soapInputHeaders = array();
+
+    /**
+     * Permanent SOAP request headers (shared between requests).
+     *
+     * Array of SoapHeader objects
+     *
+     * @var array
+     */
+    protected $_permanentSoapInputHeaders = array();
+
+    /**
+     * Output SOAP headers.
+     *
+     * Array of SoapHeader objects
+     *
+     * @var array
+     */
+    protected $_soapOutputHeaders = array();
 
     /**
      * Constructor
@@ -149,12 +181,16 @@ class Zend_Soap_Client
      *
      * Allows setting options as an associative array of option => value pairs.
      *
-     * @param  array $options
+     * @param  array|Zend_Config $options
      * @return Zend_Soap_Client
      * @throws Zend_SoapClient_Exception
      */
-    public function setOptions(array $options)
+    public function setOptions($options)
     {
+        if($options instanceof Zend_Config) {
+            $options = $options->toArray();
+        }
+
         foreach ($options as $key => $value) {
             switch ($key) {
                 case 'classmap':
@@ -210,6 +246,15 @@ class Zend_Soap_Client
                 case 'compression':
                     $this->setCompressionOptions($value);
                     break;
+                case 'stream_context':
+                    $this->setStreamContext($value);
+                    break;
+                case 'features':
+                    $this->setSoapFeatures($value);
+                    break;
+                case 'cache_wsdl':
+                    $this->setWsdlCache($value);
+                    break;
 
                 // Not used now
                 // case 'connection_timeout':
@@ -252,7 +297,10 @@ class Zend_Soap_Client
         $options['local_cert']     = $this->getHttpsCertificate();
         $options['passphrase']     = $this->getHttpsCertPassphrase();
         $options['compression']    = $this->getCompressionOptions();
-//        $options['connection_timeout'] = $this->_connection_timeout;
+        //$options['connection_timeout'] = $this->_connection_timeout;
+        $options['stream_context'] = $this->getStreamContext();
+        $options['cache_wsdl']     = $this->getWsdlCache();
+        $options['features']       = $this->getSoapFeatures();
 
         foreach ($options as $key => $value) {
             if ($value == null) {
@@ -727,6 +775,79 @@ class Zend_Soap_Client
     }
 
     /**
+     * Set Stream Context
+     *
+     * @return Zend_Soap_Client
+     */
+    public function setStreamContext($context)
+    {
+        if(!is_resource($context) || get_resource_type($context) !== "stream-context") {
+            /**
+             * @see Zend_Soap_Client_Exception
+             */
+            #require_once "Zend/Soap/Client/Exception.php";
+            throw new Zend_Soap_Client_Exception(
+                "Invalid stream context resource given."
+            );
+        }
+
+        $this->_stream_context = $context;
+        return $this;
+    }
+
+    /**
+     * Get Stream Context
+     *
+     * @return resource
+     */
+    public function getStreamContext()
+    {
+        return $this->_stream_context;
+    }
+
+    /**
+     * Set the SOAP Feature options.
+     *
+     * @param  string|int $feature
+     * @return Zend_Soap_Client
+     */
+    public function setSoapFeatures($feature)
+    {
+        $this->_features = $feature;
+        return $this;
+    }
+
+    /**
+     * Return current SOAP Features options
+     *
+     * @return int
+     */
+    public function getSoapFeatures()
+    {
+        return $this->_features;
+    }
+
+    /**
+     * Set the SOAP Wsdl Caching Options
+     *
+     * @param string|int|boolean $caching
+     * @return Zend_Soap_Client
+     */
+    public function setWsdlCache($options)
+    {
+        $this->_cache_wsdl = $options;
+        return $this;
+    }
+
+    /**
+     * Get current SOAP Wsdl Caching option
+     */
+    public function getWsdlCache()
+    {
+        return $this->_cache_wsdl;
+    }
+
+    /**
      * Retrieve request XML
      *
      * @return string
@@ -769,7 +890,7 @@ class Zend_Soap_Client
     }
 
     /**
-     * Retrieve response headers
+     * Retrieve response headers (as string)
      *
      * @return string
      */
@@ -826,7 +947,6 @@ class Zend_Soap_Client
         $wsdl = $this->getWsdl();
         $options = array_merge($this->getOptions(), array('trace' => true));
 
-
         if ($wsdl == null) {
             if (!isset($options['location'])) {
                 #require_once 'Zend/Soap/Client/Exception.php';
@@ -879,6 +999,47 @@ class Zend_Soap_Client
     }
 
     /**
+     * Add SOAP input header
+     *
+     * @param SoapHeader $header
+     * @param boolean $permanent
+     * @return Zend_Soap_Client
+     */
+    public function addSoapInputHeader(SoapHeader $header, $permanent = false)
+    {
+    	if ($permanent) {
+    		$this->_permanentSoapInputHeaders[] = $header;
+    	} else {
+    		$this->_soapInputHeaders[] = $header;
+    	}
+
+    	return $this;
+    }
+
+    /**
+     * Reset SOAP input headers
+     *
+     * @return Zend_Soap_Client
+     */
+    public function resetSoapInputHeaders()
+    {
+        $this->_permanentSoapInputHeaders = array();
+        $this->_soapInputHeaders = array();
+
+        return $this;
+    }
+
+    /**
+     * Get last SOAP output headers
+     *
+     * @return array
+     */
+    public function getLastSoapOutputHeaderObjects()
+    {
+    	return $this->_soapOutputHeaders;
+    }
+
+    /**
      * Perform a SOAP call
      *
      * @param string $name
@@ -893,7 +1054,15 @@ class Zend_Soap_Client
 
         $this->_lastMethod = $name;
 
-        $result = call_user_func_array(array($this->_soapClient, $name), $this->_preProcessArguments($arguments));
+        $soapHeaders = array_merge($this->_permanentSoapInputHeaders, $this->_soapInputHeaders);
+        $result = $this->_soapClient->__soapCall($name,
+                                                 $this->_preProcessArguments($arguments),
+                                                 null, /* Options are already set to the SOAP client object */
+                                                 (count($soapHeaders) > 0)? $soapHeaders : null,
+                                                 $this->_soapOutputHeaders);
+
+        // Reset non-permanent input headers
+        $this->_soapInputHeaders = array();
 
         return $this->_preProcessResult($result);
     }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -17,9 +16,8 @@
  * @package    Zend_Filter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Alpha.php 12751 2008-11-21 18:30:48Z yoshida@zend.co.jp $
+ * @version    $Id: Alpha.php 14560 2009-03-31 14:41:22Z thomas $
  */
-
 
 /**
  * @see Zend_Filter_Interface
@@ -42,6 +40,7 @@ class Zend_Filter_Alpha implements Zend_Filter_Interface
      * Whether to allow white space characters; off by default
      *
      * @var boolean
+     * @depreciated
      */
     public $allowWhiteSpace;
 
@@ -86,6 +85,28 @@ class Zend_Filter_Alpha implements Zend_Filter_Interface
                                                     );
         }
 
+    }
+
+    /**
+     * Returns the allowWhiteSpace option
+     *
+     * @return boolean
+     */
+    public function getAllowWhiteSpace()
+    {
+        return $this->allowWhiteSpace;
+    }
+
+    /**
+     * Sets the allowWhiteSpace option
+     *
+     * @param boolean $allowWhiteSpace
+     * @return Zend_Filter_Alpha Provides a fluent interface
+     */
+    public function setAllowWhiteSpace($allowWhiteSpace)
+    {
+        $this->allowWhiteSpace = (boolean) $allowWhiteSpace;
+        return $this;
     }
 
     /**

@@ -67,6 +67,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_C
     		$result[] = $item;
     	}
 
-    	return Zend_Json::encode($result);
+    	return Mage::helper('core')->jsonEncode($result);
     }
 }// Class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_Checkbox END

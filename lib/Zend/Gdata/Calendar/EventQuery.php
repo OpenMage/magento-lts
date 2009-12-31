@@ -342,7 +342,7 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
      */
     public function setSingleEvents($value)
     {
-        if (!is_null($value)) {
+        if ($value !== null) {
             if (is_bool($value)) {
                 $this->_params['singleevents'] = ($value?'true':'false');
             } elseif ($value == 'true' | $value == 'false') {
@@ -391,7 +391,7 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
      */
     public function setFutureEvents($value)
     {
-        if (!is_null($value)) {
+        if ($value !== null) {
             if (is_bool($value)) {
                 $this->_params['futureevents'] = ($value?'true':'false');
             } elseif ($value == 'true' | $value == 'false') {

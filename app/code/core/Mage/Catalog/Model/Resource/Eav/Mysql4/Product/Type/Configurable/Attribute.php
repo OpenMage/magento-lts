@@ -269,4 +269,26 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
 
         return $this;
     }
+
+    /**
+     * Retrieve Used in Configurable Products Attributes
+     *
+     * @param int $setId The specific attribute set
+     * @return array
+     */
+    public function getUsedAttributes($setId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->distinct(true)
+            ->from(array('e' => $this->getTable('catalog/product')), null)
+            ->join(
+                array('a' => $this->getMainTable()),
+                'e.entity_id=a.product_id',
+                array('attribute_id')
+            )
+            ->where('e.attribute_set_id=?', $setId)
+            ->where('e.type_id=?', Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE);
+
+        return $this->_getReadAdapter()->fetchCol($select);
+    }
 }

@@ -434,7 +434,9 @@ abstract class Mage_Core_Controller_Varien_Action
         if (!$this->getFlag('', self::FLAG_NO_START_SESSION)) {
             $namespace   = $this->getLayout()->getArea();
             $checkCookie = in_array($this->getRequest()->getActionName(), $this->_cookieCheckActions);
-            if ($checkCookie && !Mage::getSingleton('core/cookie')->get($namespace)) {
+            $checkCookie = $checkCookie && !$this->getRequest()->getParam('nocookie', false);
+            $cookies = Mage::getSingleton('core/cookie')->get();
+            if ($checkCookie && empty($cookies)) {
                 $this->setFlag('', self::FLAG_NO_COOKIES_REDIRECT, true);
             }
             Mage::getSingleton('core/session', array('name' => $namespace))->start();
@@ -553,9 +555,6 @@ abstract class Mage_Core_Controller_Varien_Action
     {
         if ($storage = Mage::getSingleton($messagesStorage)) {
             $this->getLayout()->getMessagesBlock()->addMessages($storage->getMessages(true));
-            $this->getLayout()->getMessagesBlock()->setEscapeMessageFlag(
-                $storage->getEscapeMessages(true)
-            );
         }
         else {
             Mage::throwException(

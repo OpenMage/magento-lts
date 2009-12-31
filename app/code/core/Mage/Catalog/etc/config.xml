@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Catalog>
-            <version>0.7.69</version>
+            <version>0.7.72</version>
         </Mage_Catalog>
     </modules>
 
@@ -130,7 +130,7 @@
                 <price><external>1</external><required>1</required></price>
 
                 <tax_class_id><required>1</required></tax_class_id>
-                <category_ids><ignore>1</ignore></category_ids>
+                <category_ids><system>1</system><ignore>1</ignore></category_ids>
 
                 <entity_id><system>1</system><internal>1</internal><ignore>1</ignore></entity_id>
                 <old_id><internal>1</internal></old_id>
@@ -419,15 +419,6 @@
                     </catalog_product_flat>
                 </observers>
             </catalog_entity_attribute_save_after>
-            <catalog_category_change_products>
-                <observers>
-                    <catalog_product_flat>
-                        <type>singleton</type>
-                        <class>catalog/product_flat_observer</class>
-                        <method>catalogCategoryChangeProducts</method>
-                    </catalog_product_flat>
-                </observers>
-            </catalog_category_change_products>
             <log_log_clean_after>
                 <observers>
                     <catalog_product_compare_item>
@@ -586,7 +577,7 @@
                         </children>
                     </attributes>
                     <urlrewrite translate="title" module="catalog">
-                        <title>Url Rewrite Management</title>
+                        <title>URL Rewrite Management</title>
                         <action>adminhtml/urlrewrite/index</action>
                     </urlrewrite>
                 </children>

@@ -51,7 +51,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
         if ($attributeCode == 'default_sort_by') {
             if ($available = $object->getData('available_sort_by')) {
                 if (!is_array($available)) {
-                    $available = split(',', $available);
+                    $available = explode(',', $available);
                 }
                 if (!in_array($object->getData($attributeCode), $available)) {
                     Mage::throwException(Mage::helper('eav')->__('Default Product Listing Sort by not exists on Available Product Listing Sort by'));
@@ -85,7 +85,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
         if ($attributeCode == 'available_sort_by') {
             $data = $object->getData($attributeCode);
             if ($data) {
-                $object->setData($attributeCode, split(',', $data));
+                $object->setData($attributeCode, explode(',', $data));
             }
         }
         return $this;

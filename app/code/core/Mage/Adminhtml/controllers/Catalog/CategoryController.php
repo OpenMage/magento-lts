@@ -246,6 +246,15 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 }
             }
 
+            /**
+             * Process "Use Config Settings" checkboxes
+             */
+            if ($useConfig = $this->getRequest()->getPost('use_config')) {
+                foreach ($useConfig as $attributeCode) {
+                    $category->setData($attributeCode, null);
+                }
+            }
+
             $category->setAttributeSetId($category->getDefaultAttributeSetId());
 
             if (isset($data['category_products']) &&
@@ -370,7 +379,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
         $block = $this->getLayout()->createBlock('adminhtml/catalog_category_tree');
         $root  = $block->getRoot();
-        $this->getResponse()->setBody(Zend_Json::encode(array(
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array(
             'data' => $block->getTree(),
             'parameters' => array(
                 'text'        => $block->buildNodeName($root),
@@ -384,8 +393,24 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         ))));
     }
 
+    /**
+    * Build response for refresh input element 'path' in form
+    */
+    public function refreshPathAction()
+    {
+        if ($id = (int) $this->getRequest()->getParam('id')) {
+            $category = Mage::getModel('catalog/category')->load($id);
+            $this->getResponse()->setBody(
+                Mage::helper('core')->jsonEncode(array(
+                   'id' => $id,
+                   'path' => $category->getPath(),
+                ))
+            );
+        }
+    }
+
     protected function _isAllowed()
     {
-	    return Mage::getSingleton('admin/session')->isAllowed('catalog/categories');
+        return Mage::getSingleton('admin/session')->isAllowed('catalog/categories');
     }
 }

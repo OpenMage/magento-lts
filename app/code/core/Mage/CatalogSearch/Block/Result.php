@@ -48,7 +48,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     protected function _getQuery()
     {
-        return $this->helper('catalogSearch')->getQuery();
+        return $this->helper('catalogsearch')->getQuery();
     }
 
     /**
@@ -58,7 +58,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        $title = $this->__("Search results for: '%s'", $this->helper('catalogSearch')->getEscapedQueryText());
+        $title = $this->__("Search results for: '%s'", $this->helper('catalogsearch')->getEscapedQueryText());
 
         // add Home breadcrumb
         if ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs')) {
@@ -180,8 +180,8 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     public function getNoResultText()
     {
-        if (Mage::helper('catalogSearch')->isMinQueryLength()) {
-            return Mage::helper('catalogSearch')->__('Minimum Search query length is %s', $this->_getQuery()->getMinQueryLenght());
+        if (Mage::helper('catalogsearch')->isMinQueryLength()) {
+            return Mage::helper('catalogsearch')->__('Minimum Search query length is %s', $this->_getQuery()->getMinQueryLenght());
         }
         return $this->_getData('no_result_text');
     }
@@ -193,6 +193,6 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     public function getNoteMessages()
     {
-        return Mage::helper('catalogSearch')->getNoteMessages();
+        return Mage::helper('catalogsearch')->getNoteMessages();
     }
 }

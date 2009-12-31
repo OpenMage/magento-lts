@@ -274,6 +274,38 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         return $this;
     }
 
+    /**
+     * Add column to grid after specified column.
+     *
+     * @param   string $columnId
+     * @param   array|Varien_Object $column
+     * @param   string $after
+     * @return  Mage_Adminhtml_Block_Widget_Grid
+     */
+    public function addColumnAfter($columnId, $column, $after)
+    {
+        $this->addColumn($columnId, $column);
+        // Moving grid column
+        $keys = array_keys($this->_columns);
+        $values = array_values($this->_columns);
+        $positionCurrent = array_search($columnId, $keys);
+
+        if (array_search($after, $keys) === false || $positionCurrent === false) {
+            return $this;
+        }
+
+        $key = array_splice($keys, $positionCurrent, 1);
+        $value = array_splice($values, $positionCurrent, 1);
+        $positionTarget = array_search($after, $keys) + 1;
+        array_splice($keys, $positionTarget, 0, $key);
+        array_splice($values, $positionTarget, 0, $value);
+
+        $this->_columns = array_combine($keys, $values);
+        end($this->_columns);
+        $this->_lastColumnId = key($this->_columns);
+        return $this;
+    }
+
     public function getLastColumnId()
     {
         return $this->_lastColumnId;

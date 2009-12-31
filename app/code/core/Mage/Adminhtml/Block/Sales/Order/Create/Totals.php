@@ -60,16 +60,22 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
 
     protected function _getTotalRenderer($code)
     {
-        if (!isset($this->_totalRenderers[$code])) {
-            $this->_totalRenderers[$code] = $this->_defaultRenderer;
+        $blockName = $code.'_total_renderer';
+        $block = $this->getLayout()->getBlock($blockName);
+        if (!$block) {
+            $block = $this->_defaultRenderer;
             $config = Mage::getConfig()->getNode("global/sales/quote/totals/{$code}/admin_renderer");
-            if ($config)
-                $this->_totalRenderers[$code] = (string) $config;
+            if ($config) {
+                $block = (string) $config;
+            }
 
-            $this->_totalRenderers[$code] = $this->getLayout()->createBlock($this->_totalRenderers[$code], "{$code}_total_renderer");
+            $block = $this->getLayout()->createBlock($block, $blockName);
         }
-
-        return $this->_totalRenderers[$code];
+        /**
+         * Transfer totals to renderer
+         */
+        $block->setTotals($this->getTotals());
+        return $block;
     }
 
     public function renderTotal($total, $area = null, $colspan = 1)
@@ -83,6 +89,15 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
 
     public function renderTotals($area = null, $colspan = 1)
     {
+        $html = '';
+        foreach($this->getTotals() as $total) {
+            if ($total->getArea() != $area && $area != -1) {
+                continue;
+            }
+            $html .= $this->renderTotal($total, $area, $colspan);
+        }
+        return $html;
+
         $html = '';
         foreach($this->getTotals() as $total) {
             $html .= $this->renderTotal($total, $area, $colspan);

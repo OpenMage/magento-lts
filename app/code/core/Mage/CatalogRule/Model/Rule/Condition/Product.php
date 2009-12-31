@@ -193,9 +193,14 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
      */
     public function collectValidatedAttributes($productCollection)
     {
+        if ($this->getAttribute() == 'category_ids') {
+            return $this;
+        }
+
         $attributes = $this->getRule()->getCollectedAttributes();
         $attributes[$this->getAttribute()] = true;
         $this->getRule()->setCollectedAttributes($attributes);
+
         $productCollection->addAttributeToSelect($this->getAttribute(), 'left');
         return $this;
     }
@@ -342,6 +347,10 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
      */
     public function validate(Varien_Object $object)
     {
+        if ($this->getAttribute() == 'category_ids') {
+            return $this->validateAttribute($object->getAvailableInCategories());
+        }
+
         $attr = $object->getResource()->getAttribute($this->getAttribute());
         if ($attr && $attr->getBackendType()=='datetime' && !is_int($this->getValue())) {
             $this->setValue(strtotime($this->getValue()));
@@ -349,16 +358,12 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
             return $this->validateAttribute($value);
         }
 
-        if ($this->getAttribute() == 'category_ids') {
-            return $this->validateAttribute($object->getAvailableInCategories());
-        }
-
         if ($attr && $attr->getFrontendInput() == 'multiselect') {
             $value = $object->getData($this->getAttribute());
             if (!strlen($value)) {
                 $value = array();
             } else {
-                $value = split(',', $value);
+                $value = explode(',', $value);
             }
             return $this->validateAttribute($value);
         }

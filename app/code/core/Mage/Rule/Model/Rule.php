@@ -244,10 +244,13 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
             $this->getActions()->loadArray($actionsArr);
         }
 
-        $this->setWebsiteIds(explode(',',$this->getWebsiteIds()));
+        $websiteIds = $this->getWebsiteIds();
+        if (is_string($websiteIds)) {
+            $this->setWebsiteIds(explode(',', $websiteIds));
+        }
         $groupIds = $this->getCustomerGroupIds();
         if (is_string($groupIds)) {
-            $this->setCustomerGroupIds(explode(',',$groupIds));
+            $this->setCustomerGroupIds(explode(',', $groupIds));
         }
     }
 

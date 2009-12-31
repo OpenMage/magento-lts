@@ -44,11 +44,13 @@ class Mage_Wishlist_Block_Links extends Mage_Core_Block_Template
         $parentBlock = $this->getParentBlock();
         if ($parentBlock && $this->helper('wishlist')->isAllow()) {
             $count = $this->helper('wishlist')->getItemCount();
-            if( $count > 1 ) {
+            if ($count > 1) {
                 $text = $this->__('My Wishlist (%d items)', $count);
-            } elseif( $count == 1 ) {
+            }
+            else if ($count == 1) {
                 $text = $this->__('My Wishlist (%d item)', $count);
-            } else {
+            }
+            else {
                 $text = $this->__('My Wishlist');
             }
             $parentBlock->addLink($text, 'wishlist', $text, true, array(), 30, null, 'class="top-link-wishlist"');

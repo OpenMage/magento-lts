@@ -23,16 +23,17 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+/* @var $this Mage_Wishlist_Block_Customer_Wishlist */
 ?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <div class="page-head">
-    <?php if($this->helper('wishlist')->isRssAllow() && $this->getWishlist()->getSize()): ?>
+    <?php if ($this->helper('wishlist')->isRssAllow() && $this->hasWishlistItems()): ?>
         <a href="<?php echo $this->helper('wishlist')->getRssUrl(); ?>" class="link-feed"><?php echo $this->__('RSS Feed') ?></a>
     <?php endif; ?>
     <h3><?php echo $this->__('My Wishlist') ?></h3>
 </div>
 
-<?php if($this->getWishlist()->getSize()): ?>
+<?php if ($this->hasWishlistItems()): ?>
 <form action="<?php echo $this->getUrl('*/*/update') ?>" method="post">
     <?php echo $this->getBlockHtml('formkey')?>
     <table cellspacing="0" width="100%" class="data-table box-table" id="wishlist-table">
@@ -49,15 +50,15 @@
             </tr>
         </thead>
         <tbody>
-        <?php foreach($this->getWishlist() as $item): ?>
+        <?php foreach($this->getWishlistItems() as $item): ?>
             <tr>
                 <td>
-                    <div><a href="<?php echo $item->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($item, 'small_image')->resize(113, 113); ?>" alt="<?php echo $this->htmlEscape($item->getName()) ?>" width="113" /></a></div>
-                    <div><a href="<?php echo $item->getProductUrl() ?>" title="<?php echo $this->htmlEscape($item->getName()) ?>"><?php echo $this->htmlEscape($item->getName()) ?></a></div>
+                    <div><a href="<?php echo $this->getProductUrl($item) ?>"><img src="<?php echo $this->helper('catalog/image')->init($item, 'small_image')->resize(113, 113); ?>" alt="<?php echo $this->htmlEscape($item->getName()) ?>" width="113" /></a></div>
+                    <div><a href="<?php echo $this->getProductUrl($item) ?>" title="<?php echo $this->htmlEscape($item->getName()) ?>"><?php echo $this->htmlEscape($item->getName()) ?></a></div>
                     <?php echo $this->getPriceHtml($item) ?>
                 </td>
                 <td align="center">
-                    <textarea name="description[<?php echo $item->getWishlistItemId() ?>]" rows="3" cols="3" style="width:95%;height:160px;" onfocus="focusComment(this)" onblur="focusComment(this)"><?php echo ( $this->getEscapedDescription($item) ) ? $this->getEscapedDescription($item) : $this->helper('wishlist')->defaultCommentString() ?></textarea>
+                    <textarea name="description[<?php echo $item->getWishlistItemId() ?>]" rows="3" cols="3" style="width:95%;height:160px;" onfocus="focusComment(this)" onblur="focusComment(this)"><?php echo $this->hasDescription($item) ? $this->getEscapedDescription($item) : $this->helper('wishlist')->defaultCommentString() ?></textarea>
                 </td>
                 <td>
                     <?php echo $this->getFormatedDate($item->getAddedAt()) ?>
@@ -75,7 +76,7 @@
 <script type="text/javascript">decorateTable('wishlist-table')</script>
     <div class="button-set">
         <button onclick="setLocation('<?php echo $this->getUrl('*/*/share') ?>')" class="form-button-alt" type="button"><span><?php echo $this->__('Share Wishlist') ?></span></button>&nbsp;
-        <?php if($this->isSaleable()):?>
+        <?php if ($this->isSaleable()):?>
         <button onclick="setLocation('<?php echo $this->getUrl('*/*/allcart') ?>')" class="form-button-alt"  type="button"><span><?php echo $this->__('Add All to Cart') ?></span></button>&nbsp;
         <?php endif;?>
         <button type="submit" class="form-button" name="do"><span><?php echo $this->__('Update Wishlist') ?></span></button>

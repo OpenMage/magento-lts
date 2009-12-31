@@ -93,6 +93,15 @@ getFinalPrice() - used in shopping cart calculations
     public function addNewItemXmlCallback($args)
     {
         $product = $args['product'];
+
+        $product->setAllowedInRss(true);
+        Mage::dispatchEvent('rss_catalog_new_xml_callback', $args);
+
+        if (!$product->getAllowedInRss()) {
+            //Skip adding product to RSS
+            return;
+        }
+
         //$product->unsetData()->load($args['row']['entity_id']);
         $product->setData($args['row']);
         $final_price = $product->getFinalPrice();

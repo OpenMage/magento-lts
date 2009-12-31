@@ -80,15 +80,15 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
     /**
      * Retrieve product category identifiers
      *
-     * @param   $product
-     * @return  Mage_Catalog_Model_Resource_Eav_Mysql4_Product
+     * @param Mage_Catalog_Model_Product $product
+     * @return array
      */
     public function getCategoryIds($product)
     {
-        $select = $this->_getWriteAdapter()->select()
+        $select = $this->_getReadAdapter()->select()
             ->from($this->_productCategoryTable, 'category_id')
             ->where('product_id=?', $product->getId());
-        return $this->_getWriteAdapter()->fetchCol($select);
+        return $this->_getReadAdapter()->fetchCol($select);
     }
 
     /**
@@ -111,15 +111,15 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
     protected function _beforeSave(Varien_Object $object)
     {
         if (!$object->getId() && $object->getSku()) {
-           $object->setId($this->getIdBySku($object->getSku()));
+            $object->setId($this->getIdBySku($object->getSku()));
         }
 
         $categoryIds = $object->getCategoryIds();
         if ($categoryIds) {
             $categoryIds = Mage::getModel('catalog/category')->verifyIds($categoryIds);
+            $object->setCategoryIds($categoryIds);
         }
 
-        $object->setData('category_ids', implode(',', $categoryIds));
         return parent::_beforeSave($object);
     }
 
@@ -191,15 +191,14 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
     /**
      * Save product category relations
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  Mage_Catalog_Model_Resource_Eav_Mysql4_Product
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product
      */
     protected function _saveCategories(Varien_Object $object)
     {
         $categoryIds = $object->getCategoryIds();
 
-        $oldCategoryIds = $object->getOrigData('category_ids');
-        $oldCategoryIds = !empty($oldCategoryIds) ? explode(',', $oldCategoryIds) : array();
+        $oldCategoryIds = $this->getCategoryIds($object);
 
         $object->setIsChangedCategories(false);
 
@@ -208,23 +207,28 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
 
         $write = $this->_getWriteAdapter();
         if (!empty($insert)) {
-            $insertSql = array();
-            foreach ($insert as $v) {
-                if (!empty($v)) {
-                    $insertSql[] = '('.(int)$v.','.$object->getId().',0)';
+            $data = array();
+            foreach ($insert as $categoryId) {
+                if (empty($categoryId)) {
+                    continue;
                 }
-            };
-            if ($insertSql) {
-                $write->query("insert into {$this->_productCategoryTable}
-                    (category_id, product_id, position) values ".join(',', $insertSql));
+                $data[] = array(
+                    'category_id' => (int)$categoryId,
+                    'product_id'  => $object->getId(),
+                    'position'    => 1
+                );
+            }
+            if ($data) {
+                $write->insertMultiple($this->_productCategoryTable, $data);
             }
         }
 
         if (!empty($delete)) {
-            $write->delete($this->_productCategoryTable,
-                $write->quoteInto('product_id=?', $object->getId())
-                .' and '.$write->quoteInto('category_id in (?)', $delete)
-            );
+            $where = join(' AND ', array(
+                $write->quoteInto('product_id=?', $object->getId()),
+                $write->quoteInto('category_id IN(?)', $delete)
+            ));
+            $write->delete($this->_productCategoryTable, $where);
         }
 
         if (!empty($insert) || !empty($delete)) {
@@ -409,6 +413,20 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
                 null)
             ->addFieldToFilter('product_id', (int) $product->getId());
         return $collection;
+    }
+
+    /**
+     * Retrieve category ids where product is available
+     *
+     * @param Mage_Catalog_Model_Product $object
+     * @return array
+     */
+    public function getAvailableInCategories($object)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getTable('catalog/category_product_index'), array('category_id'))
+            ->where('product_id=?', $object->getEntityId());
+        return $this->_getReadAdapter()->fetchCol($select);
     }
 
     /**

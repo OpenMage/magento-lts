@@ -389,12 +389,6 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
                     }
                     */
 
-                    // get from config order status to be set
-                    $newOrderStatus = $this->getConfigData('order_status', $order->getStoreId());
-                    if (empty($newOrderStatus)) {
-                        $newOrderStatus = $order->getStatus();
-                    }
-
                     /*
                     if payer_status=verified ==> transaction in sale mode
                     if transactin in sale mode, we need to create an invoice
@@ -426,6 +420,10 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
                            );
                        }
                     } else {
+                        $newOrderStatus = $this->getConfigData('order_status', $order->getStoreId());
+                        if (empty($newOrderStatus)) {
+                            $newOrderStatus = true;
+                        }
                         $order->setState(
                             Mage_Sales_Model_Order::STATE_PROCESSING, $newOrderStatus,
                             Mage::helper('paypal')->__('Received IPN verification'),

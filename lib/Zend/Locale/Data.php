@@ -17,7 +17,7 @@
  * @subpackage Data
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Data.php 12057 2008-10-21 17:19:43Z thomas $
+ * @version    $Id: Data.php 15765 2009-05-25 19:59:45Z thomas $
  */
 
 /**
@@ -59,6 +59,14 @@ class Zend_Locale_Data
      * @access private
      */
     private static $_cache = null;
+
+    /**
+     * Internal option, cache disabled
+     *
+     * @var    boolean
+     * @access private
+     */
+    private static $_cacheDisabled = false;
 
     /**
      * Read the content from locale
@@ -202,7 +210,6 @@ class Zend_Locale_Data
         return true;
     }
 
-
     /**
      * Read the right LDML file
      *
@@ -235,7 +242,6 @@ class Zend_Locale_Data
         }
         return $temp;
     }
-
 
     /**
      * Find the details for supplemental calendar datas
@@ -291,17 +297,25 @@ class Zend_Locale_Data
     public static function getList($locale, $path, $value = false)
     {
         $locale = self::_checkLocale($locale);
-        if (isset(self::$_cache)) {
-            $val = $value;
-            if (is_array($value)) {
-                $val = implode('_' , $value);
-            }
 
-            $val = urlencode($val);
-            $id = strtr('Zend_LocaleL_' . $locale . '_' . $path . '_' . $val, array('-' => '_', '%' => '_', '+' => '_'));
-            if ($result = self::$_cache->load($id)) {
-                return unserialize($result);
-            }
+        if (!isset(self::$_cache) && !self::$_cacheDisabled) {
+            #require_once 'Zend/Cache.php';
+            self::$_cache = Zend_Cache::factory(
+                'Core',
+                'File',
+                array('automatic_serialization' => true),
+                array());
+        }
+
+        $val = $value;
+        if (is_array($value)) {
+            $val = implode('_' , $value);
+        }
+
+        $val = urlencode($val);
+        $id = strtr('Zend_LocaleL_' . $locale . '_' . $path . '_' . $val, array('-' => '_', '%' => '_', '+' => '_'));
+        if (!self::$_cacheDisabled && ($result = self::$_cache->load($id))) {
+            return unserialize($result);
         }
 
         $temp = array();
@@ -744,6 +758,56 @@ class Zend_Locale_Data
                 }
                 break;
 
+            case 'phonetoterritory':
+                $_temp = self::_getFile('telephoneCodeData', '/supplementalData/telephoneCodeData/codesByTerritory', 'territory');
+                foreach ($_temp as $key => $keyvalue) {
+                    $temp += self::_getFile('telephoneCodeData', '/supplementalData/telephoneCodeData/codesByTerritory[@territory=\'' . $key . '\']/telephoneCountryCode', 'code', $key);
+                }
+                break;
+
+            case 'territorytophone':
+                $_temp = self::_getFile('telephoneCodeData', '/supplementalData/telephoneCodeData/codesByTerritory', 'territory');
+                foreach ($_temp as $key => $keyvalue) {
+                    $val = self::_getFile('telephoneCodeData', '/supplementalData/telephoneCodeData/codesByTerritory[@territory=\'' . $key . '\']/telephoneCountryCode', 'code', $key);
+                    if (!isset($val[$key])) {
+                        continue;
+                    }
+                    if (!isset($temp[$val[$key]])) {
+                        $temp[$val[$key]] = $key;
+                    } else {
+                        $temp[$val[$key]] .= " " . $key;
+                    }
+                }
+                break;
+
+            case 'numerictoterritory':
+                $_temp = self::_getFile('supplementalData', '/supplementalData/codeMappings/territoryCodes', 'type');
+                foreach ($_temp as $key => $keyvalue) {
+                    $temp += self::_getFile('supplementalData', '/supplementalData/codeMappings/territoryCodes[@type=\'' . $key . '\']', 'numeric', $key);
+                }
+                break;
+
+            case 'territorytonumeric':
+                $_temp = self::_getFile('supplementalData', '/supplementalData/codeMappings/territoryCodes', 'numeric');
+                foreach ($_temp as $key => $keyvalue) {
+                    $temp += self::_getFile('supplementalData', '/supplementalData/codeMappings/territoryCodes[@numeric=\'' . $key . '\']', 'type', $key);
+                }
+                break;
+
+            case 'alpha3toterritory':
+                $_temp = self::_getFile('supplementalData', '/supplementalData/codeMappings/territoryCodes', 'type');
+                foreach ($_temp as $key => $keyvalue) {
+                    $temp += self::_getFile('supplementalData', '/supplementalData/codeMappings/territoryCodes[@type=\'' . $key . '\']', 'alpha3', $key);
+                }
+                break;
+
+            case 'territorytoalpha3':
+                $_temp = self::_getFile('supplementalData', '/supplementalData/codeMappings/territoryCodes', 'alpha3');
+                foreach ($_temp as $key => $keyvalue) {
+                    $temp += self::_getFile('supplementalData', '/supplementalData/codeMappings/territoryCodes[@alpha3=\'' . $key . '\']', 'type', $key);
+                }
+                break;
+
             default :
                 #require_once 'Zend/Locale/Exception.php';
                 throw new Zend_Locale_Exception("Unknown list ($path) for parsing locale data.");
@@ -770,16 +834,23 @@ class Zend_Locale_Data
     {
         $locale = self::_checkLocale($locale);
 
-        if (isset(self::$_cache)) {
-            $val = $value;
-            if (is_array($value)) {
-                $val = implode('_' , $value);
-            }
-            $val = urlencode($val);
-            $id = strtr('Zend_LocaleC_' . $locale . '_' . $path . '_' . $val, array('-' => '_', '%' => '_', '+' => '_'));
-            if ($result = self::$_cache->load($id)) {
-                return unserialize($result);
-            }
+        if (!isset(self::$_cache) && !self::$_cacheDisabled) {
+            #require_once 'Zend/Cache.php';
+            self::$_cache = Zend_Cache::factory(
+                'Core',
+                'File',
+                array('automatic_serialization' => true),
+                array());
+        }
+
+        $val = $value;
+        if (is_array($value)) {
+            $val = implode('_' , $value);
+        }
+        $val = urlencode($val);
+        $id = strtr('Zend_LocaleC_' . $locale . '_' . $path . '_' . $val, array('-' => '_', '%' => '_', '+' => '_'));
+        if (!self::$_cacheDisabled && ($result = self::$_cache->load($id))) {
+            return unserialize($result);
         }
 
         switch(strtolower($path)) {
@@ -1140,6 +1211,48 @@ class Zend_Locale_Data
                 }
                 break;
 
+            case 'phonetoterritory':
+                $temp = self::_getFile('telephoneCodeData', '/supplementalData/telephoneCodeData/codesByTerritory[@territory=\'' . $value . '\']/telephoneCountryCode', 'code', $value);
+                break;
+
+            case 'territorytophone':
+                $_temp2 = self::_getFile('telephoneCodeData', '/supplementalData/telephoneCodeData/codesByTerritory', 'territory');
+                $_temp = array();
+                foreach ($_temp2 as $key => $found) {
+                    $_temp += self::_getFile('telephoneCodeData', '/supplementalData/telephoneCodeData/codesByTerritory[@territory=\'' . $key . '\']/telephoneCountryCode', 'code', $key);
+                }
+                $temp = array();
+                foreach($_temp as $key => $found) {
+                    $_temp3 = explode(" ", $found);
+                    foreach($_temp3 as $found3) {
+                        if ($found3 !== $value) {
+                            continue;
+                        }
+                        if (!isset($temp[$found3])) {
+                            $temp[$found3] = (string) $key;
+                        } else {
+                            $temp[$found3] .= " " . $key;
+                        }
+                    }
+                }
+                break;
+
+            case 'numerictoterritory':
+                $temp = self::_getFile('supplementalData', '/supplementalData/codeMappings/territoryCodes[@type=\''.$value.'\']', 'numeric', $value);
+                break;
+
+            case 'territorytonumeric':
+                $temp = self::_getFile('supplementalData', '/supplementalData/codeMappings/territoryCodes[@numeric=\''.$value.'\']', 'type', $value);
+                break;
+
+            case 'alpha3toterritory':
+                $temp = self::_getFile('supplementalData', '/supplementalData/codeMappings/territoryCodes[@type=\''.$value.'\']', 'alpha3', $value);
+                break;
+
+            case 'territorytoalpha3':
+                $temp = self::_getFile('supplementalData', '/supplementalData/codeMappings/territoryCodes[@alpha3=\''.$value.'\']', 'type', $value);
+                break;
+
             default :
                 #require_once 'Zend/Locale/Exception.php';
                 throw new Zend_Locale_Exception("Unknown detail ($path) for parsing locale data.");
@@ -1208,5 +1321,15 @@ class Zend_Locale_Data
     public static function clearCache()
     {
         self::$_cache->clean();
+    }
+
+    /**
+     * Disables the cache
+     *
+     * @param unknown_type $flag
+     */
+    public static function disableCache($flag)
+    {
+        self::$_cacheDisabled = (boolean) $flag;
     }
 }

@@ -16,7 +16,7 @@
  * @package    Zend_InfoCard
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: InfoCard.php 13213 2008-12-14 11:05:07Z thomas $
+ * @version    $Id: InfoCard.php 13522 2009-01-06 16:35:55Z thomas $
  */
 
 /**
@@ -134,7 +134,7 @@ class Zend_InfoCard
      */
     public function getAdapter()
     {
-        if(is_null($this->_adapter)) {
+        if($this->_adapter === null) {
             #require_once 'Zend/InfoCard/Adapter/Default.php';
             $this->setAdapter(new Zend_InfoCard_Adapter_Default());
         }
@@ -243,7 +243,7 @@ class Zend_InfoCard
                                 'public'      => $public_key_file,
                                 'type_uri'    => $type);
 
-                if(!is_null($password)) {
+                if($password !== null) {
                     $this->_keyPairs[$key_id]['password'] = $password;
                 } else {
                     $this->_keyPairs[$key_id]['password'] = null;

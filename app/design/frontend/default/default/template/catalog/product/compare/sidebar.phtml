@@ -23,22 +23,23 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+/* @var $this Mage_Catalog_Block_Product_Compare_Sidebar */
 ?>
 <div class="box base-mini mini-compare-products">
     <div class="head">
-    <?php if($this->helper('catalog/product_compare')->getItemCount()>0): ?>
+    <?php if ($this->helper('catalog/product_compare')->getItemCount()>0): ?>
         <h4><?php echo Mage::helper('catalog')->__('Compare Products - %d Items', $this->helper('catalog/product_compare')->getItemCount()) ?></h4>
     <?php else: ?>
         <h4><?php echo Mage::helper('catalog')->__('Compare Products') ?></h4>
     <?php endif; ?>
     </div>
-    <?php if($this->helper('catalog/product_compare')->getItemCount()>0): ?>
+    <?php if($this->helper('catalog/product_compare')->getItemCount() > 0): ?>
         <ol id="compare-items">
         <?php foreach($this->helper('catalog/product_compare')->getItemCollection() as $_index=>$_item): ?>
             <li class="block-compare-item">
                 <input type="hidden" class="compare-item-id" value="<?php echo $_item->getId() ?>" />
                 <a href="<?php echo $this->helper('catalog/product_compare')->getRemoveUrl($_item) ?>" class="widget-btn"><img src="<?php echo $this->getSkinUrl('images/list_remove_btn.gif') ?>" alt="<?php echo Mage::helper('catalog')->__('Remove This Item') ?>" onclick="return confirm('<?php echo Mage::helper('catalog')->__('Are you sure you would like to remove this item from the compare products?') ?>');" /></a>
-                <a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
+                <a href="<?php echo $this->getProductUrl($_item) ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
             </li>
         <?php endforeach; ?>
         </ol>

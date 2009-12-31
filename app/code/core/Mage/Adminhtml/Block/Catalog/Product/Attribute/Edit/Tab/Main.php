@@ -46,22 +46,23 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
         ));
 
         $disableAttributeFields = array(
-            'sku'       => array(
+            'sku'           => array(
                 'is_global',
                 'is_unique',
             ),
-            'url_key'   => array(
+            'url_key'       => array(
                 'is_unique',
             ),
-            'status'    => array(
-                'is_configurable'
-            )
-        );
-
-        $rewriteAttributeValue = array(
-            'status'    => array(
-                'is_configurable' => 0
-            )
+            'status'        => array(
+                'is_configurable',
+                'is_filterable',
+                'is_filterable_in_search'
+            ),
+            'visibility'    => array(
+                'is_configurable',
+                'is_filterable',
+                'is_filterable_in_search'
+            ),
         );
 
         $fieldset = $form->addFieldset('base_fieldset',
@@ -142,14 +143,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
                 'label' => Mage::helper('catalog')->__('Price')
             ),
             array(
-                'value' => 'gallery',
-                'label' => Mage::helper('catalog')->__('Gallery')
-            ),
-            array(
                 'value' => 'media_image',
                 'label' => Mage::helper('catalog')->__('Media Image')
             ),
         );
+
+        if ($model->getFrontendInput() == 'gallery') {
+            $inputTypes[] = array(
+                'value' => 'gallery',
+                'label' => Mage::helper('catalog')->__('Gallery')
+            );
+        }
 
         $response = new Varien_Object();
         $response->setTypes(array());
@@ -385,6 +389,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             if (isset($disableAttributeFields[$model->getAttributeCode()])) {
                 foreach ($disableAttributeFields[$model->getAttributeCode()] as $field) {
                     $form->getElement($field)->setDisabled(1);
+                    $form->getElement($field)->setReadonly(1);
                 }
             }
         }
@@ -393,12 +398,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
         }
 
         $form->addValues($model->getData());
-
-        if ($model->getId() && isset($rewriteAttributeValue[$model->getAttributeCode()])) {
-            foreach ($rewriteAttributeValue[$model->getAttributeCode()] as $field => $value) {
-                $form->getElement($field)->setValue($value);
-            }
-        }
 
         $form->getElement('apply_to')->setSize(5);
 

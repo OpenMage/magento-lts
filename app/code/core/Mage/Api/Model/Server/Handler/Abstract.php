@@ -37,10 +37,10 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
     public function __construct()
     {
-        set_error_handler(array(get_class($this), 'handlePhpError'), E_ALL);
+        set_error_handler(array($this, 'handlePhpError'), E_ALL);
     }
 
-    static public function handlePhpError($errorCode, $errorMessage, $errorFile)
+    public function handlePhpError($errorCode, $errorMessage, $errorFile)
     {
         Mage::log($errorMessage . $errorFile);
         if (in_array($errorCode, array(E_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR))) {

@@ -113,8 +113,8 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
 
     public function __toString()
     {
-        if ($valueString)
-            return $valueString;
+        if ($this->_valueString)
+            return $this->_valueString;
         else {
             return 'Starts: ' . $this->getStartTime() . ' ' .
                    'Ends: ' .  $this->getEndTime();

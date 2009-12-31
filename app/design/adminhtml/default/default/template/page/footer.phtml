@@ -25,7 +25,7 @@
  */
 ?>
 <p class="bug-report">
-    <a href="http://www.magentocommerce.com/bug-tracking" id="footer_bug_tracking"><?php echo $this->__('Help Us Keep Magento Healthy - Report All Bugs') ?></a><br/>
+    <a href="<?php echo $this->getBugreportUrl() ?>" id="footer_bug_tracking"><?php echo $this->__('Help Us Keep Magento Healthy - Report All Bugs') ?></a><br/>
     <?php echo $this->__('Interface Locale: %s', $this->getLanguageSelect()) ?>
 </p>
 <p class="legality">

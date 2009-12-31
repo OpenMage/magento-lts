@@ -81,7 +81,7 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
         ));
 
         $this->addColumn('sku', array(
-            'header'    =>Mage::helper('reports')->__('Product Sku'),
+            'header'    =>Mage::helper('reports')->__('Product SKU'),
             'index'     =>'sku'
         ));
 

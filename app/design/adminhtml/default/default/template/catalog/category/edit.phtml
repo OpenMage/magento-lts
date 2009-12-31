@@ -39,9 +39,9 @@
     function categoryReset(url,useAjax){
         if(useAjax){
             var params = {active_tab_id:false};
-            updateContent('<?php echo $this->getResetUrl() ?>', params);
+            updateContent(url, params);
         }else{
-            location.href = '<?php echo $this->getResetUrl() ?>'
+            location.href = url;
         }
     }
     function categoryDelete(url, useAjax){

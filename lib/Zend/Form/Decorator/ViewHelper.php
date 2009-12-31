@@ -39,7 +39,7 @@
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ViewHelper.php 12374 2008-11-07 17:49:43Z matthew $
+ * @version    $Id: ViewHelper.php 15671 2009-05-21 22:48:04Z matthew $
  */
 class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
 {
@@ -237,6 +237,11 @@ class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
         $name          = $element->getFullyQualifiedName();
         $id            = $element->getId();
         $attribs['id'] = $id;
+
+        $helperObject  = $view->getHelper($helper);
+        if (method_exists($helperObject, 'setTranslator')) {
+            $helperObject->setTranslator($element->getTranslator());
+        }
 
         $elementContent = $view->$helper($name, $value, $attribs, $element->options);
         switch ($this->getPlacement()) {

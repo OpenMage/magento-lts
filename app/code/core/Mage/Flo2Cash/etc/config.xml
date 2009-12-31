@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   Mage
+ * @package    Mage_Flo2Cash
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Flo2Cash>
+            <version>0.1.1</version>
+        </Mage_Flo2Cash>
+    </modules>
+    <global>
+        <models>
+            <flo2cash>
+                <class>Mage_Flo2Cash_Model</class>
+                <resourceModel>flo2cash_mysql4</resourceModel>
+            </flo2cash>
+            <flo2cash_mysql4>
+                <class>Mage_Flo2Cash_Model_Mysql4</class>
+                <entities>
+                    <api_debug><table>flo2cash_api_debug</table></api_debug>
+                </entities>
+            </flo2cash_mysql4>
+        </models>
+        <resources>
+            <flo2cash_setup>
+                <setup>
+                    <module>Mage_Flo2Cash</module>
+                    <class>Mage_Flo2Cash_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </flo2cash_setup>
+            <flo2cash_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </flo2cash_write>
+            <flo2cash_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </flo2cash_read>
+        </resources>
+        <blocks>
+            <flo2cash><class>Mage_Flo2Cash_Block</class></flo2cash>
+        </blocks>
+        <helpers>
+            <flo2cash><class>Mage_Flo2Cash_Helper</class></flo2cash>
+        </helpers>
+        <payment>
+            <cc>
+                <types>
+                    <DICL>
+                        <code>DICL</code>
+                        <name>Diners Club</name>
+                        <order>60</order>
+                    </DICL>
+                </types>
+            </cc>
+        </payment>
+    </global>
+    <frontend>
+        <routers>
+            <flo2cash>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Flo2Cash</module>
+                    <frontName>flo2cash</frontName>
+                </args>
+            </flo2cash>
+        </routers>
+        <translate>
+            <modules>
+                <Mage_Flo2Cash>
+                    <files>
+                        <default>Mage_Flo2Cash.csv</default>
+                    </files>
+                </Mage_Flo2Cash>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <flo2cash>
+                    <file>flo2cash.xml</file>
+                </flo2cash>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Mage_Flo2Cash>
+                    <files>
+                        <default>Mage_Flo2Cash.csv</default>
+                    </files>
+                </Mage_Flo2Cash>
+            </modules>
+        </translate>
+    </adminhtml>
+    <default>
+        <payment>
+            <flo2cash_web>
+                <title>Flo2Cash Web Service</title>
+                <cctypes>AE,VI,MC,DICL</cctypes>
+                <allowspecific>0</allowspecific>
+                <model>flo2cash/web</model>
+            </flo2cash_web>
+        </payment>
+    </default>
+</config>

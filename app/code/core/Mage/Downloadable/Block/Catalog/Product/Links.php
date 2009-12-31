@@ -123,7 +123,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
             $config[$link->getId()] = Mage::helper('core')->currency($link->getPrice(), false, false);
         }
 
-        return Zend_Json::encode($config);
+        return Mage::helper('core')->jsonEncode($config);
     }
 
     public function getLinkSamlpeUrl($link)

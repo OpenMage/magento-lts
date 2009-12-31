@@ -29,7 +29,7 @@ $installer = $this;
 
 $installer->startSetup();
 // make attribute 'weight' not applicable to downloadable products
-$applyTo = split(',', $installer->getAttribute('catalog_product', 'weight', 'apply_to'));
+$applyTo = explode(',', $installer->getAttribute('catalog_product', 'weight', 'apply_to'));
 if (in_array('downloadable', $applyTo)) {
     $newApplyTo = array();
     foreach ($applyTo as $key=>$value) {

@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sales>
-            <version>0.9.38</version>
+            <version>0.9.40</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -99,7 +99,6 @@
                 <base_to_quote_rate><to_order>base_to_order_rate</to_order></base_to_quote_rate>
 
                 <coupon_code><to_order>*</to_order></coupon_code>
-                <giftcert_code><to_order>*</to_order></giftcert_code>
                 <is_virtual><to_order>*</to_order></is_virtual>
                 <is_multi_payment><to_order>*</to_order></is_multi_payment>
                 <applied_rule_ids><to_order>*</to_order></applied_rule_ids>
@@ -117,7 +116,6 @@
                 <discount_amount><to_order>*</to_order></discount_amount>
                 <shipping_amount><to_order>*</to_order></shipping_amount>
                 <shipping_tax_amount><to_order>*</to_order></shipping_tax_amount>
-                <giftcert_amount><to_order>*</to_order></giftcert_amount>
                 <custbalance_amount><to_order>*</to_order></custbalance_amount>
                 <grand_total><to_order>*</to_order></grand_total>
 
@@ -126,7 +124,6 @@
                 <base_discount_amount><to_order>*</to_order></base_discount_amount>
                 <base_shipping_amount><to_order>*</to_order></base_shipping_amount>
                 <base_shipping_tax_amount><to_order>*</to_order></base_shipping_tax_amount>
-                <base_giftcert_amount><to_order>*</to_order></base_giftcert_amount>
                 <base_custbalance_amount><to_order>*</to_order></base_custbalance_amount>
                 <base_grand_total><to_order>*</to_order></base_grand_total>
 
@@ -219,7 +216,6 @@
                 <base_grand_total><to_quote>*</to_quote><to_quote_address_shipping>*</to_quote_address_shipping></base_grand_total>
 
                 <coupon_code><to_quote>*</to_quote></coupon_code>
-                <giftcert_code><to_quote>*</to_quote></giftcert_code>
                 <applied_rule_ids><to_quote>*</to_quote></applied_rule_ids>
 
                 <weight><to_quote_address_shipping>*</to_quote_address_shipping></weight>
@@ -232,14 +228,12 @@
                 <tax_string><to_quote_address_shipping>*</to_quote_address_shipping></tax_string>
                 <discount_amount><to_quote_address_shipping>*</to_quote_address_shipping></discount_amount>
                 <shipping_amount><to_quote_address_shipping>*</to_quote_address_shipping></shipping_amount>
-                <giftcert_amount><to_quote_address_shipping>*</to_quote_address_shipping></giftcert_amount>
                 <custbalance_amount><to_quote_address_shipping>*</to_quote_address_shipping></custbalance_amount>
 
                 <base_subtotal><to_quote_address_shipping>*</to_quote_address_shipping></base_subtotal>
                 <base_tax_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_tax_amount>
                 <base_discount_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_discount_amount>
                 <base_shipping_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_shipping_amount>
-                <base_giftcert_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_giftcert_amount>
                 <base_custbalance_amount><to_quote_address_shipping>*</to_quote_address_shipping></base_custbalance_amount>
 
                 <shipping_tax_amount><to_cm>*</to_cm></shipping_tax_amount>
@@ -499,23 +493,11 @@
                         <class>sales/quote_address_total_subtotal</class>
                         <before>grand_total</before>
                     </subtotal>
-                    <discount>
-                        <class>sales/quote_address_total_discount</class>
-                        <after>subtotal</after>
-                        <before>grand_total,shipping</before>
-                    </discount>
                     <shipping>
                         <class>sales/quote_address_total_shipping</class>
-                        <after>subtotal,discount</after>
+                        <after>subtotal,freeshipping</after>
                         <before>grand_total</before>
                     </shipping>
-                    <tax>
-                        <class>sales/quote_address_total_tax</class>
-                        <after>subtotal,shipping</after>
-                        <before>grand_total</before>
-                        <renderer>checkout/total_tax</renderer>
-                        <admin_renderer>adminhtml/sales_order_create_totals_tax</admin_renderer>
-                    </tax>
                     <grand_total>
                         <class>sales/quote_address_total_grand</class>
                         <after>subtotal</after>
@@ -626,6 +608,9 @@
                     <subtotal>
                         <class>sales/order_creditmemo_total_subtotal</class>
                     </subtotal>
+                    <shipping>
+                        <class>sales/order_creditmemo_total_shipping</class>
+                    </shipping>
                     <tax>
                         <class>sales/order_creditmemo_total_tax</class>
                     </tax>
@@ -666,13 +651,6 @@
                     <display_zero>0</display_zero>
                     <sort_order>200</sort_order>
                 </discount>
-                <tax translate="title">
-                    <title>Tax</title>
-                    <source_field>tax_amount</source_field>
-                    <font_size>7</font_size>
-                    <display_zero>0</display_zero>
-                    <sort_order>300</sort_order>
-                </tax>
                 <shipping translate="title">
                     <title>Shipping &amp; Handling</title>
                     <source_field>shipping_amount</source_field>
@@ -685,21 +663,21 @@
                     <source_field>adjustment_positive</source_field>
                     <font_size>7</font_size>
                     <display_zero>0</display_zero>
-                    <sort_order>100</sort_order>
+                    <sort_order>500</sort_order>
                 </adjustment_positive>
                 <adjustment_negative translate="title">
                     <title>Adjustment Fee</title>
                     <source_field>adjustment_negative</source_field>
                     <font_size>7</font_size>
                     <display_zero>0</display_zero>
-                    <sort_order>500</sort_order>
+                    <sort_order>600</sort_order>
                 </adjustment_negative>
                 <grand_total translate="title">
                     <title>Grand Total</title>
                     <source_field>grand_total</source_field>
                     <font_size>8</font_size>
                     <display_zero>1</display_zero>
-                    <sort_order>600</sort_order>
+                    <sort_order>700</sort_order>
                 </grand_total>
             </totals>
         </pdf>

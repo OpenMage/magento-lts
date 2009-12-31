@@ -78,7 +78,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         if(!is_array($value['images']) && strlen($value['images']) > 0) {
-           $value['images'] = Zend_Json::decode($value['images']);
+           $value['images'] = Mage::helper('core')->jsonDecode($value['images']);
         }
 
         if (!is_array($value['images'])) {

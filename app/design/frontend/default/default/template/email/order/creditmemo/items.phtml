@@ -45,45 +45,7 @@
     <?php endforeach; ?>
 
     <tfoot>
-        <tr>
-            <td colspan="3" align="right" style="padding:3px 9px"><?php echo $this->__('Subtotal') ?></td>
-            <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice($_creditmemo->getSubtotal()) ?></td>
-        </tr>
-        <?php if ($_creditmemo->getDiscountAmount() > 0): ?>
-        <tr>
-            <td colspan="3" align="right" style="padding:3px 9px"><?php echo $this->__('Discount%s', $_order->getCouponCode() ? ' ('.$_order->getCouponCode().')' : '') ?></td>
-            <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice(0.00 - $_creditmemo->getDiscountAmount()) ?></td>
-        </tr>
-        <?php endif; ?>
-        <?php if ($_creditmemo->getShippingAmount()): ?>
-        <tr>
-            <td colspan="3" align="right" style="padding:3px 9px"><?php echo $this->__('Shipping & Handling') ?></td>
-            <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice($_creditmemo->getShippingAmount()) ?></td>
-        </tr>
-        <?php endif; ?>
-         <?php if (($_creditmemo->getTaxAmount() > 0)||(Mage::helper('tax')->displayZeroTax())): ?>
-        <tr>
-            <td colspan="3" align="right" style="padding:3px 9px"><?php echo $this->__('Tax') ?></td>
-            <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice($_creditmemo->getTaxAmount()) ?></td>
-        </tr>
-        <?php endif; ?>
-        <?php if ((float) $_creditmemo->getAdjustmentPositive()): ?>
-        <tr>
-            <td colspan="3" align="right" style="padding:3px 9px"><?php echo $this->__('Adjustment Refund') ?></td>
-            <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice($_creditmemo->getAdjustmentPositive()) ?></td>
-        </tr>
-        <?php endif; ?>
-
-        <?php if ((float) $_creditmemo->getAdjustmentNegative()): ?>
-        <tr>
-            <td colspan="3" align="right" style="padding:3px 9px"><?php echo $this->__('Adjustment Fee') ?></td>
-            <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice($_creditmemo->getAdjustmentNegative()) ?></td>
-        </tr>
-        <?php endif; ?>
-        <tr bgcolor="#DEE5E8">
-            <td colspan="3" align="right" style="padding:3px 9px"><strong><big><?php echo $this->__('Grand Total') ?></big></strong></td>
-            <td align="right" style="padding:6px 9px"><strong><big><?php echo $_order->formatPrice($_creditmemo->getGrandTotal()) ?></big></strong></td>
-        </tr>
+       <?php echo $this->getChildHtml('creditmemo_totals');?>
     </tfoot>
 </table>
 <?php endif; ?>

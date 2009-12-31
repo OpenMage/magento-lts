@@ -210,6 +210,8 @@ Something like this is to be added to resolve bug #4890
                 <pay_service_url>https://authorize.payments.amazon.com/pba/paypipeline</pay_service_url>
                 <pay_service_url_sandbox>https://authorize.payments-sandbox.amazon.com/pba/paypipeline</pay_service_url_sandbox>
 
+                <choice_method_description>Your billing address will be ignored and you will be redirected to Amazon Simple Pay website.</choice_method_description>
+                <redirect_message>You will be redirected to Amazon Simple Pay in a few seconds.</redirect_message>
                 <pay_description>MAGENTO ASP PAYMENT</pay_description>
                 <refund_description>MAGENTO ASP REFUND</refund_description>
                 <cancel_description>MAGENTO ASP CANCEL</cancel_description>

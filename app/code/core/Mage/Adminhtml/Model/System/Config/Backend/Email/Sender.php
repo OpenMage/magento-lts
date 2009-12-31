@@ -37,8 +37,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Sender extends Mage_Core_
     protected function _beforeSave()
     {
         $value = $this->getValue();
-        if (!preg_match("/^[A-Za-z0-9_\s]+$/", $value)) {
-            Mage::throwException(Mage::helper('adminhtml')->__('Invalid sender name "%s"', $value));
+        if (!preg_match("/^[\S ]+$/", $value)) {
+            Mage::throwException(Mage::helper('adminhtml')->__('Invalid sender name "%s". Please use only visible characters and spaces.', $value));
         }
         return $this;
     }

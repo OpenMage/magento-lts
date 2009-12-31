@@ -476,7 +476,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
             $element->appendChild($dom->createTextNode($exception->getMessage()));
             $xmlResponse->appendChild($element);
             $code = $exception->getCode();
-        } elseif (!is_null($exception) || 'rest' == $function) {
+        } elseif (($exception !== null) || 'rest' == $function) {
             $xmlResponse->appendChild($dom->createElement('message', 'An unknown error occured. Please try again.'));
         } else {
             $xmlResponse->appendChild($dom->createElement('message', 'Call to ' . $method . ' failed.'));
@@ -486,8 +486,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
         $xmlMethod->appendChild($dom->createElement('status', 'failed'));
 
         // Headers to send
-        if (is_null($code) || (404 != $code))
-        {
+        if ($code === null || (404 != $code)) {
             $this->_headers[] = 'HTTP/1.0 400 Bad Request';
         } else {
             $this->_headers[] = 'HTTP/1.0 404 File Not Found';

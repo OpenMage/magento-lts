@@ -17,14 +17,8 @@
  * @package    Zend_Feed
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Header.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Header.php 13891 2009-01-31 11:41:00Z yoshida@zend.co.jp $
  */
-
-
-/**
- * @see Zend_Loader
- */
-#require_once 'Zend/Loader.php';
 
 /**
  * @see Zend_Feed_Builder_Header_Itunes
@@ -175,7 +169,10 @@ class Zend_Feed_Builder_Header extends ArrayObject
      */
     public function setEmail($email)
     {
-        #Zend_Loader::loadClass('Zend_Validate_EmailAddress');
+        /**
+         * @see Zend_Validate_EmailAddress
+         */
+        #require_once 'Zend/Validate/EmailAddress.php';
         $validate = new Zend_Validate_EmailAddress();
         if (!$validate->isValid($email)) {
             /**
@@ -246,7 +243,10 @@ class Zend_Feed_Builder_Header extends ArrayObject
      */
     public function setWebmaster($webmaster)
     {
-        #Zend_Loader::loadClass('Zend_Validate_EmailAddress');
+        /**
+         * @see Zend_Validate_EmailAddress
+         */
+        #require_once 'Zend/Validate/EmailAddress.php';
         $validate = new Zend_Validate_EmailAddress();
         if (!$validate->isValid($webmaster)) {
             /**
@@ -269,7 +269,10 @@ class Zend_Feed_Builder_Header extends ArrayObject
      */
     public function setTtl($ttl)
     {
-        #Zend_Loader::loadClass('Zend_Validate_Int');
+        /**
+         * @see Zend_Validate_Int
+         */
+        #require_once 'Zend/Validate/Int.php';
         $validate = new Zend_Validate_Int();
         if (!$validate->isValid($ttl)) {
             /**

@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
         if ($json) {
             $jsonRoles = Array();
             foreach($uRoles as $urid) $jsonRoles[$urid] = 0;
-            return Zend_Json::encode((object)$jsonRoles);
+            return Mage::helper('core')->jsonEncode((object)$jsonRoles);
         } else {
             return $uRoles;
         }

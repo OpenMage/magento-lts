@@ -82,7 +82,7 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
     public function bindColumn($column, &$param, $type = null)
     {
         try {
-            if (is_null($type)) {
+            if ($type === null) {
                 return $this->_stmt->bindColumn($column, $param);
             } else {
                 return $this->_stmt->bindColumn($column, $param, $type);
@@ -110,7 +110,7 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             if ($type === null) {
                 if (is_bool($variable)) {
                     $type = PDO::PARAM_BOOL;
-                } elseif (is_null($variable)) {
+                } elseif ($variable === null) {
                     $type = PDO::PARAM_NULL;
                 } elseif (is_integer($variable)) {
                     $type = PDO::PARAM_INT;
@@ -140,7 +140,7 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
             $parameter = ":$parameter";
         }
         try {
-            if (is_null($type)) {
+            if ($type === null) {
                 return $this->_stmt->bindValue($parameter, $value);
             } else {
                 return $this->_stmt->bindValue($parameter, $value, $type);

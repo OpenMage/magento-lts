@@ -20,7 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,21 +29,25 @@
  *
  * @category   Mage
  * @package    Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Reports_Block_Product_Compared extends Mage_Reports_Block_Product_Abstract
 {
     const XML_PATH_RECENTLY_COMPARED_COUNT  = 'catalog/recently_products/compared_count';
 
-    protected $_eventTypeId = Mage_Reports_Model_Event::EVENT_PRODUCT_COMPARE;
+    /**
+     * Compared Product Index model name
+     *
+     * @var string
+     */
+    protected $_indexName       = 'reports/product_index_compared';
 
     /**
      * Retrieve page size (count)
      *
      * @return int
      */
-    protected function getPageSize()
+    public function getPageSize()
     {
         if ($this->hasData('page_size')) {
             return $this->getData('page_size');
@@ -52,54 +56,18 @@ class Mage_Reports_Block_Product_Compared extends Mage_Reports_Block_Product_Abs
     }
 
     /**
-     * Retrieve Product Ids to skip
-     *
-     * @return array
-     */
-    protected function _getProductsToSkip()
-    {
-        $ids = array();
-        if (Mage::helper('catalog/product_compare')->getItemCount()) {
-            foreach (Mage::helper('catalog/product_compare')->getItemCollection() as $_item) {
-                $ids[] = $_item->getId();
-            }
-            if (($product = Mage::registry('product')) && $product->getId()) {
-                $ids[] = $product->getId();
-            }
-        }
-        return $ids;
-    }
-
-    /**
-     * Check session has compared products
-     *
-     * @return bool
-     */
-    protected function _hasComparedProductsBefore()
-    {
-        return Mage::getSingleton('reports/session')->getData('compared_products');
-    }
-
-    /**
      * Prepare to html
-     * check has compared products
+     * Check has compared products
      *
      * @return string
      */
     protected function _toHtml()
     {
-        if (!$this->_hasComparedProductsBefore()) {
+        if (!$this->getCount()) {
             return '';
         }
 
-        $collection = $this->_getRecentProductsCollection();
-        $hasProducts = (bool)count($collection);
-        if (is_null($this->_hasComparedProductsBefore())) {
-            Mage::getSingleton('reports/session')->setData('compared_products', $hasProducts);
-        }
-        if ($hasProducts) {
-            $this->setRecentlyComparedProducts($collection);
-        }
+        $this->setRecentlyComparedProducts($this->getItemsCollection());
 
         return parent::_toHtml();
     }

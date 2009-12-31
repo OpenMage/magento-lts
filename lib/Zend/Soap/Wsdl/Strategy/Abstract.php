@@ -20,8 +20,24 @@
  * @version    $Id$
  */
 
+#require_once "Interface.php";
+
+/**
+ * Abstract class for Zend_Soap_Wsdl_Strategy.
+ *
+ * @category   Zend
+ * @package    Zend_Soap
+ * @subpackage Wsdl
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ */
 abstract class Zend_Soap_Wsdl_Strategy_Abstract implements Zend_Soap_Wsdl_Strategy_Interface
 {
+    /**
+     * Context object
+     *
+     * @var Zend_Soap_Wsdl
+     */
     protected $_context;
 
     /**

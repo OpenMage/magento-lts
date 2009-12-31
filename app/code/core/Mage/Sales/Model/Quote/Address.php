@@ -61,11 +61,11 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     protected $_rates = null;
 
     /**
-     * Total models array
+     * Total models collector
      *
-     * @var array
+     * @var Mage_Sales_Model_Quote_Address_Totla_Collector
      */
-    protected $_totalModels;
+    protected $_totalCollector = null;
 
     /**
      * Total data as array
@@ -73,6 +73,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      * @var array
      */
     protected $_totals = array();
+
+    protected $_totalAmounts = array();
+    protected $_baseTotalAmounts = array();
 
     /**
      * Initialize resource
@@ -240,7 +243,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 }
 
                 if (!$aItem->getQuoteItemImported()) {
-                    if ($qItem = $this->getQuote()->getItemById($aItem->getQuoteItemId())) {
+                    $qItem = $this->getQuote()->getItemById($aItem->getQuoteItemId());
+                    if ($qItem) {
                         $this->addItem($aItem);
                         $aItem->importQuoteItem($qItem);
                     }
@@ -253,12 +257,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 if ($qItem->isDeleted()) {
                     continue;
                 }
-//                if ($this->getAddressType() == self::TYPE_BILLING && $qItem->getProduct()->getIsVirtual()) {
-//                    $items[] = $qItem;
-//                }
-//                elseif ($this->getAddressType() == self::TYPE_SHIPPING && !$qItem->getProduct()->getIsVirtual()) {
-//                    $items[] = $qItem;
-//                }
+
                 /**
                  * For virtual quote we assign all items to billing address
                  */
@@ -312,7 +311,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 $qty += $item->getQty();
             }
         } else {
-            if ($item = $this->getItemById($itemId)) {
+            $item = $this->getItemById($itemId);
+            if ($item) {
                 $qty = $item->getQty();
             }
         }
@@ -369,7 +369,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function removeItem($itemId)
     {
-        if ($item = $this->getItemById($itemId)) {
+        $item = $this->getItemById($itemId);
+        if ($item) {
             $item->isDeleted(true);
         }
         return $this;
@@ -567,7 +568,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
         $this->removeAllShippingRates();
 
-        if (!$this->getCountryId() && !$this->getPostcode()) {
+        $havingOptionalZip = Mage::helper('directory')->getCountriesWithOptionalZip();
+        $postcodeValid = $this->getPostcode() || in_array($this->getCountryId(), $havingOptionalZip);
+        if (!$this->getCountryId() && !$postcodeValid) {
             return $this;
         }
 
@@ -637,29 +640,30 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     }
 
     /**
+     * Get totals collector model
+     *
+     * @return Mage_Sales_Model_Quote_Address_Total_Collector
+     */
+    public function getTotalCollector()
+    {
+        if ($this->_totalCollector === null) {
+            $this->_totalCollector = Mage::getSingleton(
+                'sales/quote_address_total_collector',
+                array('store'=>$this->getQuote()->getStore())
+            );
+        }
+        return $this->_totalCollector;
+    }
+
+    /**
      * Retrieve total models
      *
+     * @deprecated
      * @return array
      */
     public function getTotalModels()
     {
-        if (!$this->_totalModels) {
-            $totalsConfig = Mage::getConfig()->getNode('global/sales/quote/totals');
-            $models = array();
-            foreach ($totalsConfig->children() as $totalCode=>$totalConfig) {
-                $sort = Mage::getStoreConfig('sales/totals_sort/'.$totalCode);
-                while (isset($models[$sort])) {
-                    $sort++;
-                }
-                $class = $totalConfig->getClassName();
-                if ($class && ($model = Mage::getModel($class))) {
-                    $models[$sort] = $model->setCode($totalCode);
-                }
-            }
-            ksort($models);
-            $this->_totalModels = $models;
-        }
-        return $this->_totalModels;
+        return $this->getTotalCollector()->getRetrievers();
     }
 
     /**
@@ -669,25 +673,21 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function collectTotals()
     {
-        foreach ($this->getTotalModels() as $model) {
-            if (is_callable(array($model, 'collect'))) {
-                $model->collect($this);
-            }
+        foreach ($this->getTotalCollector()->getCollectors() as $model) {
+            $model->collect($this);
         }
         return $this;
     }
 
     /**
-     * Retrieve totals as array
+     * Get address totals as array
      *
      * @return array
      */
     public function getTotals()
     {
-        foreach ($this->getTotalModels() as $model) {
-            if (is_callable(array($model, 'fetch'))) {
-                $model->fetch($this);
-            }
+        foreach ($this->getTotalCollector()->getRetrievers() as $model) {
+            $model->fetch($this);
         }
         return $this->_totals;
     }
@@ -706,6 +706,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         } elseif ($total instanceof Mage_Sales_Model_Quote_Total) {
             $totalInstance = $total;
         }
+        $totalInstance->setAddress($this);
         $this->_totals[$totalInstance->getCode()] = $totalInstance;
         return $this;
     }
@@ -776,14 +777,16 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function setShippingAmount($value, $alreadyExclTax = false)
     {
-        if (Mage::helper('tax')->shippingPriceIncludesTax()) {
-            $includingTax = Mage::helper('tax')->getShippingPrice($value, true, $this, $this->getQuote()->getCustomerTaxClassId());
-            if (!$alreadyExclTax) {
-                $value = Mage::helper('tax')->getShippingPrice($value, false, $this, $this->getQuote()->getCustomerTaxClassId());
-            }
-            $this->setShippingTaxAmount($includingTax - $value);
-        }
         return $this->setData('shipping_amount', $value);
+//
+//        if (Mage::helper('tax')->shippingPriceIncludesTax()) {
+//            $includingTax = Mage::helper('tax')->getShippingPrice($value, true, $this, $this->getQuote()->getCustomerTaxClassId());
+//            if (!$alreadyExclTax) {
+//                $value = Mage::helper('tax')->getShippingPrice($value, false, $this, $this->getQuote()->getCustomerTaxClassId());
+//            }
+//            $this->setShippingTaxAmount($includingTax - $value);
+//        }
+//        return $this->setData('shipping_amount', $value);
     }
 
     /**
@@ -795,13 +798,117 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function setBaseShippingAmount($value, $alreadyExclTax = false)
     {
-        if (Mage::helper('tax')->shippingPriceIncludesTax()) {
-            $includingTax = Mage::helper('tax')->getShippingPrice($value, true, $this, $this->getQuote()->getCustomerTaxClassId());
-            if (!$alreadyExclTax) {
-                $value = Mage::helper('tax')->getShippingPrice($value, false, $this, $this->getQuote()->getCustomerTaxClassId());
-            }
-            $this->setBaseShippingTaxAmount($includingTax - $value);
-        }
         return $this->setData('base_shipping_amount', $value);
+//
+//        if (Mage::helper('tax')->shippingPriceIncludesTax()) {
+//            $includingTax = Mage::helper('tax')->getShippingPrice($value, true, $this, $this->getQuote()->getCustomerTaxClassId());
+//            if (!$alreadyExclTax) {
+//                $value = Mage::helper('tax')->getShippingPrice($value, false, $this, $this->getQuote()->getCustomerTaxClassId());
+//            }
+//            $this->setBaseShippingTaxAmount($includingTax - $value);
+//        }
+//        return $this->setData('base_shipping_amount', $value);
+    }
+
+    /**
+     * Set total amount value
+     *
+     * @param   string $code
+     * @param   float $amount
+     * @return  Mage_Sales_Model_Quote_Address
+     */
+    public function setTotalAmount($code, $amount)
+    {
+        $this->_totalAmounts[$code] = $amount;
+        if ($code != 'subtotal') {
+            $code = $code.'_amount';
+        }
+        $this->setData($code, $amount);
+        return $this;
+    }
+
+    /**
+     * Set total amount value in base store currency
+     *
+     * @param   string $code
+     * @param   float $amount
+     * @return  Mage_Sales_Model_Quote_Address
+     */
+    public function setBaseTotalAmount($code, $amount)
+    {
+        $this->_baseTotalAmounts[$code] = $amount;
+        if ($code != 'subtotal') {
+            $code = $code.'_amount';
+        }
+        $this->setData('base_'.$code, $amount);
+        return $this;
+    }
+
+    /**
+     * Get total amount value by code
+     *
+     * @param   string $code
+     * @return  float
+     */
+    public function getTotalAmount($code)
+    {
+        if (isset($this->_totalAmounts[$code])) {
+            return  $this->_totalAmounts[$code];
+        }
+        return 0;
+    }
+
+    /**
+     * Get total amount value by code in base store curncy
+     *
+     * @param   string $code
+     * @return  float
+     */
+    public function getBaseTotalAmount($code)
+    {
+        if (isset($this->_baseTotalAmounts[$code])) {
+            return  $this->_baseTotalAmounts[$code];
+        }
+        return 0;
+    }
+
+    /**
+     * Get all total amount values
+     *
+     * @return array
+     */
+    public function getAllTotalAmounts()
+    {
+        return $this->_totalAmounts;
+    }
+
+    /**
+     * Get all total amount values in base currency
+     *
+     * @return array
+     */
+    public function getAllBaseTotalAmounts()
+    {
+        return $this->_baseTotalAmounts;
+    }
+
+    /**
+     * Get subtotal amount with applied discount in base currency
+     *
+     * @return float
+     */
+    public function getBaseSubtotalWithDiscount()
+    {
+        return $this->getBaseSubtotal()-$this->getBaseDiscountAmount();
+    }
+
+    /**
+     * Get subtotal amount with applied discount
+     *
+     * @return float
+     */
+    public function getSubtotalWithDiscount()
+    {
+        return $this->getSubtotal()-$this->getDiscountAmount();
     }
 }

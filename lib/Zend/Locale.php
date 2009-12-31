@@ -16,7 +16,7 @@
  * @package   Zend_Locale
  * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Locale.php 13368 2008-12-19 10:48:07Z thomas $
+ * @version   $Id: Locale.php 15765 2009-05-25 19:59:45Z thomas $
  */
 
 /**
@@ -127,7 +127,7 @@ class Zend_Locale
      *
      * @var boolean
      */
-    public static $compatibilityMode = true;
+    public static $compatibilityMode = false;
 
     /**
      * Internal variable
@@ -440,7 +440,7 @@ class Zend_Locale
     /**
      * Returns the language part of the locale
      *
-     * @return language
+     * @return string Language
      */
     public function getLanguage()
     {
@@ -871,6 +871,18 @@ class Zend_Locale
     {
         #require_once 'Zend/Locale/Data.php';
         Zend_Locale_Data::clearCache();
+    }
+
+    /**
+     * Disables the set cache
+     *
+     * @param  boolean $flag True disables any set cache, default is false
+     * @return void
+     */
+    public static function disableCache($flag)
+    {
+        #require_once 'Zend/Locale/Data.php';
+        Zend_Locale_Data::disableCache($flag);
     }
 
     /**

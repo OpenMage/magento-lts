@@ -203,15 +203,15 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 );
 
                 $customer->save();
-
                 // send welcome email
                 if ($customer->getWebsiteId() && $customer->hasData('sendemail')) {
+                    $store_id = $customer->getStoreId();
                     if ($isNewCustomer) {
-                        $customer->sendNewAccountEmail();
+                        $customer->sendNewAccountEmail('registered', '', $store_id);
                     }
                     // confirm not confirmed customer
                     elseif ((!$customer->getConfirmation())) {
-                        $customer->sendNewAccountEmail('confirmed');
+                        $customer->sendNewAccountEmail('confirmed', '', $store_id);
                     }
                 }
 

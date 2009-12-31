@@ -30,11 +30,12 @@
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default extends Mage_Core_Block_Template
+class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Default extends Mage_Adminhtml_Block_Sales_Order_Create_Totals
 {
     protected $_template = 'sales/order/create/totals/default.phtml';
 
-    protected function _construct(){
+    protected function _construct()
+    {
         $this->setTemplate($this->_template);
     }
 

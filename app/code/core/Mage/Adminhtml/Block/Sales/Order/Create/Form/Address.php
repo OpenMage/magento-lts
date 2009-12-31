@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
         foreach ($this->getAddressCollection() as $address) {
             $data[$address->getId()] = $address->getData();
         }
-        return Zend_Json::encode($data);
+        return Mage::helper('core')->jsonEncode($data);
     }
 
     public function getForm()
@@ -96,7 +96,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
 
             if ($regionElement = $this->_form->getElement('region')) {
                 $regionElement->setRenderer(
-                    $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_region')
+                    $this->getLayout()
+                        ->createBlock('adminhtml/customer_edit_renderer_region')
+                        ->setStoreId($this->getStoreId())
                 );
             }
             if ($regionElement = $this->_form->getElement('region_id')) {

@@ -144,7 +144,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
             if ($this->getRequest()->getQuery('isAjax', false) || $this->getRequest()->getQuery('ajax', false)) {
-                $this->getResponse()->setBody(Zend_Json::encode(array(
+                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array(
                     'error' => true,
                     'message' => $_keyErrorMsg
                 )));
@@ -192,7 +192,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         if ($defaultSecure == '{{base_url}}' || $defaultUnsecure == '{{base_url}}') {
             $this->_getSession()->addNotice(
-                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure Url / Base Secure Url. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', array('section'=>'web')))
+                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', array('section'=>'web')))
             );
             return $this;
         }
@@ -213,7 +213,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
             if ($url) {
                 $this->_getSession()->addNotice(
-                    $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure Url / Base Secure Url. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $url)
+                    $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $url)
                 );
                 return $this;
             }

@@ -89,16 +89,6 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
     }
 
     /**
-     * Get url to item product
-     *
-     * @return string
-     */
-    public function getProductUrl()
-    {
-        return $this->getProduct()->getProductUrl();
-    }
-
-    /**
      * Get selected for configurable product attributes
      *
      * @return array

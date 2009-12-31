@@ -162,14 +162,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
     public function callbackValidateProduct($args)
     {
         $product = $args['product']->setData($args['row']);
-        if (!empty($args['attributes']['category_ids'])) {
-            $categoryCollection = $product->getCategoryCollection()->load();
-            $categories = array();
-            foreach ($categoryCollection as $category) {
-                $categories[] = $category->getId();
-            }
-            $product->setCategoryIds($categories);
-        }
         if ($this->getConditions()->validate($product)) {
             $this->_productIds[] = $product->getId();
         }

@@ -44,6 +44,7 @@ class Zend_Translate_Adapter_Xliff extends Zend_Translate_Adapter {
     private $_tcontent    = null;
     private $_stag        = false;
     private $_ttag        = false;
+    private $_data        = array();
 
     /**
      * Generates the xliff adapter
@@ -68,15 +69,11 @@ class Zend_Translate_Adapter_Xliff extends Zend_Translate_Adapter {
      * @param  string  $filename  XLIFF file to add, full path must be given for access
      * @param  array   $option    OPTIONAL Options to use
      * @throws Zend_Translation_Exception
+     * @return array
      */
     protected function _loadTranslationData($filename, $locale, array $options = array())
     {
-        $options = $options + $this->_options;
-
-        if ($options['clear']) {
-            $this->_translate = array();
-        }
-
+        $this->_data = array();
         if (!is_readable($filename)) {
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Translation file \'' . $filename . '\' is not readable.');
@@ -98,6 +95,8 @@ class Zend_Translate_Adapter_Xliff extends Zend_Translate_Adapter {
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception($ex);
         }
+
+        return $this->_data;
     }
 
     private function _startElement($file, $name, $attrib)
@@ -122,8 +121,14 @@ class Zend_Translate_Adapter_Xliff extends Zend_Translate_Adapter {
                         $this->_target = $attrib['target-language'];
                     }
 
-                    $this->_translate[$this->_source] = array();
-                    $this->_translate[$this->_target] = array();
+                    if (!isset($this->_data[$this->_source])) {
+                        $this->_data[$this->_source] = array();
+                    }
+
+                    if (!isset($this->_data[$this->_target])) {
+                        $this->_data[$this->_target] = array();
+                    }
+
                     break;
                 case 'trans-unit':
                     $this->_transunit = true;
@@ -163,15 +168,15 @@ class Zend_Translate_Adapter_Xliff extends Zend_Translate_Adapter {
                     break;
                 case 'source':
                     if (!empty($this->_scontent) and !empty($this->_tcontent) or
-                        (isset($this->_translate[$this->_source][$this->_scontent]) === false)) {
-                        $this->_translate[$this->_source][$this->_scontent] = $this->_scontent;
+                        (isset($this->_data[$this->_source][$this->_scontent]) === false)) {
+                        $this->_data[$this->_source][$this->_scontent] = $this->_scontent;
                     }
                     $this->_stag = false;
                     break;
                 case 'target':
                     if (!empty($this->_scontent) and !empty($this->_tcontent) or
-                        (isset($this->_translate[$this->_source][$this->_scontent]) === false)) {
-                        $this->_translate[$this->_target][$this->_scontent] = $this->_tcontent;
+                        (isset($this->_data[$this->_source][$this->_scontent]) === false)) {
+                        $this->_data[$this->_target][$this->_scontent] = $this->_tcontent;
                     }
                     $this->_ttag = false;
                     break;

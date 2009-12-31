@@ -96,7 +96,6 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
 //             * Another data
 //             */
 //            ->setCouponCode($quote->getCouponCode())
-//            ->setGiftcertCode($quote->getGiftcertCode())
 //            ->setIsVirtual($quote->getIsVirtual())
 //            ->setIsMultiPayment($quote->getIsMultiPayment())
 //            ->setAppliedRuleIds($quote->getAppliedRuleIds());
@@ -131,7 +130,6 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
 //            ->setDiscountAmount($address->getDiscountAmount())
 //            ->setShippingAmount($address->getShippingAmount())
 //            ->setShippingTaxAmount($address->getShippingTaxAmount())
-//            ->setGiftcertAmount($address->getGiftcertAmount())
 //            ->setCustbalanceAmount($address->getCustbalanceAmount())
 //            ->setGrandTotal($address->getGrandTotal())
 //
@@ -140,7 +138,6 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
 //            ->setBaseDiscountAmount($address->getBaseDiscountAmount())
 //            ->setBaseShippingAmount($address->getBaseShippingAmount())
 //            ->setBaseShippingTaxAmount($address->getBaseShippingTaxAmount())
-//            ->setBaseGiftcertAmount($address->getBaseGiftcertAmount())
 //            ->setBaseCustbalanceAmount($address->getBaseCustbalanceAmount())
 //            ->setBaseGrandTotal($address->getBaseGrandTotal());
 

@@ -147,7 +147,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
 	    			'name'=>$region->getName()
 	    		);
 	    	}
-	    	$regionsJs = Zend_Json::encode($regions);
+	    	$regionsJs = Mage::helper('core')->jsonEncode($regions);
     	}
     	Varien_Profiler::stop('TEST: '.__METHOD__);
     	return $regionsJs;

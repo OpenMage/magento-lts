@@ -32,7 +32,7 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product_Abstract
+class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product_Compare_Abstract
 {
     /**
      * Product Compare items collection
@@ -55,7 +55,8 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
      */
     protected function _prepareLayout()
     {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
             $headBlock->setTitle(Mage::helper('catalog')->__('Compare Products List') . ' - ' . $headBlock->getDefaultTitle());
         }
         return parent::_prepareLayout();
@@ -70,17 +71,16 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     {
         if (is_null($this->_items)) {
             Mage::helper('catalog/product_compare')->setAllowUsedFlat(false);
+
             $this->_items = Mage::getResourceModel('catalog/product_compare_item_collection')
                 ->useProductItem(true)
                 ->setStoreId(Mage::app()->getStore()->getId());
 
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-                $this->_items
-                    ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
+                $this->_items->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
             }
             else {
-                $this->_items
-                    ->setVisitorId(Mage::getSingleton('log/visitor')->getId());
+                $this->_items->setVisitorId(Mage::getSingleton('log/visitor')->getId());
             }
 
             $this->_items

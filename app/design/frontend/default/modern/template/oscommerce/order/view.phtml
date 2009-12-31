@@ -1,0 +1,138 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php  $_orderSummary = $this->getOrder() ?>
+<?php  $_order = $_orderSummary['order'] ?>
+<?php $_currency = $_order['currency_symbol'] ? $_order['currency_symbol']: $_order['currency']?>
+
+<div class="page-head button-level">
+    <h3><?php echo $this->__('Order') ?> #<?php echo $_order['orders_id'] ?></h3>
+</div>
+<p><?php echo $this->__('Order Date:')?> <?php echo $this->formatDate($_order['date_purchased'], 'medium', false) ?></p>
+
+<div class="col2-set generic-box">
+    <div class="col-1">
+        <h4><?php echo $this->__('Shipping Address') ?></h4>
+        <address>
+<?php echo $_order['delivery_name'] ?><br/>
+<?php echo $_order['delivery_street_address'] ?><br/>
+
+<?php echo $_order['delivery_city'].' , '.$_order['delivery_postcode'].', '.$_order['delivery_state'] ?><br/>
+<?php echo $_order['delivery_country'] ?><br/>
+T: <?php echo $_order['customers_telephone'] ?>
+
+            </address>
+    </div>
+    <?php if (isset($_orderSummary['total'])) {
+        foreach ($_orderSummary['total'] as $_total) {
+            if ($_total['class'] == 'ot_shipping') {
+                $_shippingMethod = str_replace(':','',$_total['title']);
+            }
+        }
+    }
+    ?>
+    <?php if (isset($_shippingMethod)) :?>
+    <div class="col-2">
+        <h4><?php echo $this->__('Shipping Method') ?></h4>
+        <?php echo $_shippingMethod?>
+    </div>
+    <?php endif; ?>
+</div>
+
+
+<div class="col2-set generic-box">
+    <div class="col-1">
+        <h4><?php echo $this->__('Billing Address') ?></h4>
+        <address>
+<?php echo $_order['billing_name'] ?><br/>
+<?php echo $_order['billing_street_address'] ?><br/>
+
+<?php echo $_order['billing_city'].' , '.$_order['billing_postcode'].', '.$_order['billing_state'] ?><br/>
+<?php echo $_order['billing_country'] ?><br/>
+T: <?php echo $_order['customers_telephone'] ?>
+
+            </address>
+    </div>
+    <div class="col-2">
+        <h4>Payment Method</h4>
+        <?php echo $_order['payment_method'] ?>
+    </div>
+</div>
+
+<h4><?php echo $this->__('Items Ordered') ?></h4>
+
+<table cellspacing="0" id="my-orders-table" class="data-table">
+    <thead>
+        <tr class="first last">
+            <th><?php echo $this->__('Product Name') ?></th>
+            <th width="5%"><?php echo $this->__('SKU') ?></th>
+            <th width="10%"><?php echo $this->__('Price') ?></th>
+            <th width="6%" class="a-center wrap"><?php echo $this->__('Qty Ordered') ?></th>
+            <th width="10%" class="a-right"><?php echo $this->__('Subtotal') ?></th>
+        </tr>
+    </thead>
+    <?php if (isset($_orderSummary['products'])): ?>
+    <tbody>
+        <?php foreach($_orderSummary['products'] as $product) :?>
+        <tr id="order-item-row-3" class="odd first last">
+           <td><?php echo $product['products_name'] ?></td>
+           <td class="nowrap"><?php echo $product['products_model'] ?></td>
+           <td class="nowrap a-right"><span class="nobr"><?php echo  $_currency.' '.number_format($product['products_price'],2) ?></span> </td>
+           <td class="a-center"><?php echo $product['products_quantity'] ?></td>
+           <td class="last a-right nowrap"><span class="nobr"><?php echo  $_currency.' '.number_format($product['final_price'],2) ?></span> </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+    <?php endif; ?>
+    <?php if (isset($_orderSummary['total'])) :?>
+    <?php $count = 1; $_total = sizeof($_orderSummary['total']); ?>
+    <tfoot>
+        <?php foreach ($_orderSummary['total'] as $total) :?>
+        <tr class="<?php echo ($count == 1? 'first': ($count == $_total ? 'last' :'')) ?>">
+            <td class="a-right" colspan="4"><?php echo $total['title'] ?></td>
+            <td class="last a-right"><span class="nobr"> <?php echo $_currency.' '.number_format($total['value'],2) ?></span></td>
+        </tr>
+            <?php $count++; ?>
+        <?php endforeach; ?>
+     </tfoot>
+     <?php endif; ?>
+</table>
+
+<?php if (isset($_orderSummary['history'])): ?>
+    <div class="clear">&nbsp;</div>
+    <h4><?php echo $this->__('About Your Order') ?></h4>
+    <div>
+        <dl>
+            <?php foreach ($_orderSummary['history'] as $_historyItem): ?>
+                <dt><?php echo $this->formatDate($_historyItem['date_added'], 'medium', true) ?> | <?php echo $_historyItem['orders_status'] ?> </dt>
+                <dd><?php echo $_historyItem['comments'] ?></dd>
+            <?php endforeach; ?>
+        </dl>
+    </div>
+<?php endif; ?>
+<div class="button-set">
+    <a href="<?php echo $this->getBackUrl() ?>" class="f-left">&laquo; <?php echo $this->__('Back to My Orders') ?></a>
+</div>

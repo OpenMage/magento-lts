@@ -165,7 +165,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
             if ( $json ) {
                 $jsonUsers = Array();
                 foreach($users as $usrid) $jsonUsers[$usrid] = 0;
-                return Zend_Json::encode((object)$jsonUsers);
+                return Mage::helper('core')->jsonEncode((object)$jsonUsers);
             } else {
                 return array_values($users);
             }

@@ -220,26 +220,6 @@
                     </catalogindex>
                 </observers>
             </catalogsearch_reset_search_result>
-        </events>
-        <cache>
-            <betatypes>
-                <layered_navigation translate="label" module="catalogindex">
-                    <label>Layered Navigation</label>
-                </layered_navigation>
-            </betatypes>
-        </cache>
-    </global>
-    <adminhtml>
-        <events>
-            <catalog_product_to_website_change>
-                <observers>
-                    <catalogindex>
-                        <type>singleton</type>
-                        <class>catalogindex/observer</class>
-                        <method>processProductsWebsitesChange</method>
-                    </catalogindex>
-                </observers>
-            </catalog_product_to_website_change>
             <catalog_product_flat_prepare_columns>
                 <observers>
                     <catalogindex>
@@ -276,6 +256,26 @@
                     </catalogindex>
                 </observers>
             </catalog_product_flat_update_product>
+        </events>
+        <cache>
+            <betatypes>
+                <layered_navigation translate="label" module="catalogindex">
+                    <label>Layered Navigation</label>
+                </layered_navigation>
+            </betatypes>
+        </cache>
+    </global>
+    <adminhtml>
+        <events>
+            <catalog_product_to_website_change>
+                <observers>
+                    <catalogindex>
+                        <type>singleton</type>
+                        <class>catalogindex/observer</class>
+                        <method>processProductsWebsitesChange</method>
+                    </catalogindex>
+                </observers>
+            </catalog_product_to_website_change>
         </events>
     </adminhtml>
 

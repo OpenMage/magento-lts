@@ -41,7 +41,7 @@ if ($conn->tableColumnExists($ruleTable, 'store_ids')) {
 
     foreach ($rows as $r) {
         $websiteIds = array();
-        foreach (split(',', $r['store_ids']) as $storeId) {
+        foreach (explode(',', $r['store_ids']) as $storeId) {
             if (($storeId!=='') && isset($websites[$storeId])) {
                 $websiteIds[$websites[$storeId]] = true;
             }

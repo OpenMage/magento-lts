@@ -49,6 +49,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Watermark_Position
             array('value' => 'top-right',       'label' => Mage::helper('catalog')->__('Top/Right')),
             array('value' => 'bottom-left',     'label' => Mage::helper('catalog')->__('Bottom/Left')),
             array('value' => 'bottom-right',    'label' => Mage::helper('catalog')->__('Bottom/Right')),
+            array('value' => 'center',          'label' => Mage::helper('catalog')->__('Center')),
         );
     }
 

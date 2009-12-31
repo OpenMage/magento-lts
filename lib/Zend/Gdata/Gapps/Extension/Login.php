@@ -475,7 +475,7 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
     public function __toString()
     {
         return "Username: " . $this->getUsername() .
-            "\nPassword: " . (is_null($this->getPassword()) ? "NOT SET" : "SET") .
+            "\nPassword: " . (($this->getPassword() === null) ? "NOT SET" : "SET") .
             "\nPassword Hash Function: " . $this->getHashFunctionName() .
             "\nAdministrator: " . ($this->getAdmin() ? "Yes" : "No") .
             "\nAgreed To Terms: " . ($this->getAgreedToTerms() ? "Yes" : "No") .

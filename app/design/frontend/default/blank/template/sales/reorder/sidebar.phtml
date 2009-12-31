@@ -1,0 +1,79 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_blank
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Last order sidebar
+ *
+ * @see Mage_Sale_Block_Reorder_Sidebar
+ */
+?>
+<?php if($_order = $this->getLastOrder()): ?>
+<div class="block block-reorder">
+    <div class="block-title">
+        <h2><?php echo $this->__('My Orders') ?> <span class="separator">|</span> <a href="<?php echo $this->getUrl('customer/account') ?>"><?php echo $this->__('View All'); ?></a></h2>
+    </div>
+    <div class="block-content">
+    <h3><?php echo $this->__('Last ordered items') ?></h3>
+    <form method="post" action="<?php echo $this->getUrl('checkout/cart/addgroup') ?>" id="reorder-validate-detail">
+    <fieldset>
+        <ol id="cart-sidebar-reorder">
+            <?php $_showAddButtonFlag = false ?>
+            <?php foreach ($_order->getItemsRandomCollection(5) as $_item): ?>
+                <?php if ($_item->getProduct() && is_null($_item->getParentItem())): ?>
+                    <li>
+                        <?php if ($this->getIsSalableItem($_item)): ?>
+                            <?php $_showAddButtonFlag = true ?>
+                            <input type="checkbox" name="order_items[]" id="reorder-item-<?php echo $_item->getId() ?>" value="<?php echo $_item->getId() ?>" class="checkbox validate-one-required-by-name" />
+                            <script type="text/javascript">
+                            //<![CDATA[
+                                $('reorder-item-<?php echo $_item->getId() ?>').advaiceContainer = 'cart-sidebar-reorder-advice-container';
+                            //]]>
+                            </script>
+                        <?php endif; ?>
+                        <span class="label"><a href="<?php echo $_item->getProduct()->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a></span>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ol>
+        <script type="text/javascript">decorateList('cart-sidebar-reorder')</script>
+        <div id="cart-sidebar-reorder-advice-container"></div>
+        <?php if ($_showAddButtonFlag): ?>
+            <div class="actions">
+                <button type="submit" class="button"><span><?php echo $this->__('Add to Cart') ?></span></button>
+            </div>
+        <?php endif; ?>
+    </fieldset>
+    </form>
+    </div>
+</div>
+<?php echo $this->getPagerHtml(); ?>
+<script type="text/javascript">
+//<![CDATA[
+    var reorderFormDetail = new VarienForm('reorder-validate-detail');
+//]]>
+</script>
+<?php endif ?>

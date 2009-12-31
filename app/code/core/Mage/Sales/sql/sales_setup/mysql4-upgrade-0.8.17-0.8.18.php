@@ -50,7 +50,6 @@ ALTER TABLE `{$installer->getTable('sales_quote')}`
     change `checkout_method` `checkout_method` varchar (255)  NULL  COLLATE utf8_general_ci ,
     change `password_hash` `password_hash` varchar (255)  NULL  COLLATE utf8_general_ci ,
     change `coupon_code` `coupon_code` varchar (255)  NULL  COLLATE utf8_general_ci ,
-    change `giftcert_code` `giftcert_code` varchar (255)  NULL  COLLATE utf8_general_ci ,
     change `base_currency_code` `base_currency_code` varchar (255)  NULL  COLLATE utf8_general_ci ,
     change `store_currency_code` `store_currency_code` varchar (255)  NULL  COLLATE utf8_general_ci ,
     change `quote_currency_code` `quote_currency_code` varchar (255)  NULL  COLLATE utf8_general_ci ,

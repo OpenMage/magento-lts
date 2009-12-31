@@ -56,7 +56,7 @@ Default layout, loads most of the pages
             </block>
         </reference>
         <reference name="right">
-            <block type="core/template" before="cart_sidebar" name="catalog.compare.sidebar" template="catalog/product/compare/sidebar.phtml"/>
+            <block type="catalog/product_compare_sidebar" before="cart_sidebar" name="catalog.compare.sidebar" template="catalog/product/compare/sidebar.phtml"/>
             <block type="core/template" name="right.permanent.callout" template="callouts/right_col.phtml"/>
         </reference>
         <reference name="footer_links">
@@ -157,7 +157,7 @@ Compare products page
     <customer_account_index>
 
         <reference name="right">
-            <action method="unsetChild"><name>catalog_compare_sidebar</name></action>
+            <action method="unsetChild"><name>catalog.compare.sidebar</name></action>
         </reference>
     </customer_account_index>
 

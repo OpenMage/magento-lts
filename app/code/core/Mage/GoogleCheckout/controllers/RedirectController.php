@@ -31,7 +31,6 @@
  */
 class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_Action
 {
-    
     /**
      *  Send request to Google Checkout and return Responce Api
      *
@@ -59,7 +58,6 @@ class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_
         $baseCurrency = $session->getQuote()->getBaseCurrencyCode();
         $currency = Mage::app()->getStore($session->getQuote()->getStoreId())->getBaseCurrency();
         $session->getQuote()
-            ->setForcedCurrency($currency)
             ->collectTotals()
             ->save();
 
@@ -71,6 +69,8 @@ class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_
             if ($api->getError()) {
                 Mage::getSingleton('checkout/session')->addError($api->getError());
             } else {
+                $oldQuote = $session->getQuote();
+                $oldQuote->setIsActive(false)->save();
                 $session->replaceQuote($storeQuote);
                 Mage::getModel('checkout/cart')->init()->save();
                 if (Mage::getStoreConfigFlag('google/checkout/hide_cart_contents')) {
@@ -134,12 +134,12 @@ class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_
         if ($quoteId = $session->getGoogleCheckoutQuoteId()) {
             $quote = Mage::getModel('sales/quote')->load($quoteId)
                 ->setIsActive(false)->save();
-            $session->unsQuoteId();
+            $session->clear();
         }
 
-//        if (Mage::getStoreConfigFlag('google/checkout/hide_cart_contents')) {
-//            $session->unsGoogleCheckoutQuoteId();
-//        }
+        if (Mage::getStoreConfigFlag('google/checkout/hide_cart_contents')) {
+            $session->setGoogleCheckoutQuoteId(null);
+        }
 
         $url = Mage::getStoreConfig('google/checkout/continue_shopping_url');
         if (empty($url)) {

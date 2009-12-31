@@ -18,32 +18,47 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Cms
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Cms
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
- * CMS page model
+ * Cms Page Model
  *
- * @category   Mage
- * @package    Mage_Cms
+ * @category    Mage
+ * @package     Mage_Cms
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 {
-
     const NOROUTE_PAGE_ID = 'no-route';
 
+    /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
     protected $_eventPrefix = 'cms_page';
 
+    /**
+     * Initialize resource model
+     *
+     */
     protected function _construct()
     {
         $this->_init('cms/page');
     }
 
+    /**
+     * Load object data
+     *
+     * @param mixed $id
+     * @param string $field
+     * @return Mage_Cms_Model_Page
+     */
     public function load($id, $field=null)
     {
         if (is_null($id)) {
@@ -52,19 +67,23 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
         return parent::load($id, $field);
     }
 
+    /**
+     * Load No-Route Page
+     *
+     * @return Mage_Cms_Model_Page
+     */
     public function noRoutePage()
     {
-        $this->setData($this->load(self::NOROUTE_PAGE_ID, $this->getIdFieldName()));
-        return $this;
+        return $this->load(self::NOROUTE_PAGE_ID, $this->getIdFieldName());
     }
 
     /**
      * Check if page identifier exist for specific store
      * return page id if page exists
      *
-     * @param   string $identifier
-     * @param   int $storeId
-     * @return  int
+     * @param string $identifier
+     * @param int $storeId
+     * @return int
      */
     public function checkIdentifier($identifier, $storeId)
     {

@@ -17,7 +17,7 @@
  * @package    Zend_Feed
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Builder.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Builder.php 15382 2009-05-07 13:28:14Z alexander $
  */
 
 
@@ -354,6 +354,9 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
                 }
             }
             $entry = new Zend_Feed_Builder_Entry($row['title'], $row['link'], $row['description']);
+            if (isset($row['author'])) {
+                $entry->setAuthor($row['author']);
+            }
             if (isset($row['guid'])) {
                 $entry->setId($row['guid']);
             }

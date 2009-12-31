@@ -33,4 +33,35 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
         $this->setCanDisplayTotalRefunded($this->getParentBlock()->getCanDisplayTotalRefunded());
         $this->setCanDisplayTotalDue($this->getParentBlock()->getCanDisplayTotalDue());
     }
+
+    /**
+     * Initialize giftcard order total
+     *
+     * @return Enterprise_GiftCardAccount_Block_Sales_Order_Giftcards
+     */
+    public function initTotals()
+    {
+        $total = new Varien_Object(array(
+            'code'      => $this->getNameInLayout(),
+            'block_name'=> $this->getNameInLayout(),
+            'area'      => $this->getDisplayArea()
+        ));
+        $this->getParentBlock()->addTotal($total);
+        return $this;
+    }
+
+    public function displayPrices($baseAmount, $amount)
+    {
+        return $this->helper('adminhtml/sales')->displayPrices($this->getOrder(), $baseAmount, $amount);
+    }
+
+    public function displayPriceAttribute($code, $strong = false, $separator = '<br/>')
+    {
+        return $this->helper('adminhtml/sales')->displayPriceAttribute($this->getSource(), $code, $strong, $separator);
+    }
+
+    public function getSource()
+    {
+        return $this->getParentBlock()->getSource();
+    }
 }

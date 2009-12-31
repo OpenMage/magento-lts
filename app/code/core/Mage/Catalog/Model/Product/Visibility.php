@@ -192,7 +192,13 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     public function getFlatColums()
     {
-        return array();
+        return array($this->getAttribute()->getAttributeCode() => array(
+            'type'      => 'tinyint',
+            'unsigned'  => true,
+            'is_null'   => true,
+            'default'   => null,
+            'extra'     => null
+        ));
     }
 
     /**
@@ -214,7 +220,8 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     public function getFlatUpdateSelect($store)
     {
-        return null;
+        return Mage::getResourceSingleton('eav/entity_attribute')
+            ->getFlatUpdateSelect($this->getAttribute(), $store);
     }
 
     /**

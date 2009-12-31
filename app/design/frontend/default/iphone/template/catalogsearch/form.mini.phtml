@@ -1,0 +1,43 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="search-form" id="topSearch" style="display:none;">
+    <div class="search-form-cont">
+        <div class="col2-set">
+            <form id="search_mini_form" name="search_mini_form" action="<?php echo $this->helper('catalogsearch')->getResultUrl() ?>" method="get">
+            <div class="col-1 search-md">
+                <div class="search-st"><div class="search-end">
+                    <input id="search" type="text" class="input-text" name="<?php echo $this->helper('catalogsearch')->getQueryParamName() ?>" value="<?php echo $this->helper('catalogsearch')->getEscapedQueryText() ?>" />
+                </div></div>
+            </div>
+            <div class="col-2">
+                <input class="search-go" type="image" src="<?php echo $this->getSkinUrl('images/search-go-but.gif') ?>" alt="<?php echo $this->__('Search') ?>" />
+                <a class="search-close" href="javascript:void(0);" onclick="$('topSearch').hide(); return false;">&nbsp;</a>
+            </div><div class="clear"></div>
+            </form>
+        </div>
+    </div>
+</div><div class="clear"></div>

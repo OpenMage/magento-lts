@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Tax>
-            <version>0.7.8</version>
+            <version>0.7.9</version>
         </Mage_Tax>
     </modules>
     <global>
@@ -79,6 +79,22 @@
                 </connection>
             </tax_read>
         </resources>
+        <fieldsets>
+            <sales_convert_quote_address>
+                <subtotal_incl_tax><to_order>*</to_order></subtotal_incl_tax>
+                <base_subtotal_incl_tax><to_order>*</to_order></base_subtotal_incl_tax>
+            </sales_convert_quote_address>
+            <sales_convert_quote_item>
+                <price_incl_tax><to_order_item>*</to_order_item></price_incl_tax>
+                <base_price_incl_tax><to_order_item>*</to_order_item></base_price_incl_tax>
+                <row_total_incl_tax><to_order_item>*</to_order_item></row_total_incl_tax>
+                <base_row_total_incl_tax><to_order_item>*</to_order_item></base_row_total_incl_tax>
+            </sales_convert_quote_item>
+            <sales_convert_order_item>
+                <price_incl_tax><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></price_incl_tax>
+                <base_price_incl_tax><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></base_price_incl_tax>
+            </sales_convert_order_item>
+        </fieldsets>
         <events>
             <sales_convert_quote_address_to_order>
                 <observers>
@@ -117,6 +133,60 @@
                 </observers>
             </catalog_product_collection_load_after>
         </events>
+        <sales>
+            <quote>
+                <totals>
+                    <tax_subtotal>
+                        <class>tax/sales_total_quote_subtotal</class>
+                        <after>shipping</after>
+                        <before>tax,discount</before>
+                    </tax_subtotal>
+                    <tax>
+                        <class>tax/sales_total_quote_tax</class>
+                        <after>subtotal,shipping</after>
+                        <before>grand_total</before>
+                        <renderer>tax/checkout_tax</renderer>
+                        <admin_renderer>adminhtml/sales_order_create_totals_tax</admin_renderer>
+                    </tax>
+                    <!--<tax_discount>
+                        <class>tax/sales_total_quote_discount</class>
+                        <after>tax,discount</after>
+                        <before>grand_total</before>
+                    </tax_discount>-->
+                    <subtotal>
+                        <renderer>tax/checkout_subtotal</renderer>
+                        <admin_renderer>adminhtml/sales_order_create_totals_subtotal</admin_renderer>
+                    </subtotal>
+                    <shipping>
+                        <renderer>tax/checkout_shipping</renderer>
+                        <admin_renderer>adminhtml/sales_order_create_totals_shipping</admin_renderer>
+                    </shipping>
+                    <discount>
+                        <renderer>tax/checkout_discount</renderer>
+                        <admin_renderer>adminhtml/sales_order_create_totals_discount</admin_renderer>
+                    </discount>
+                    <grand_total>
+                        <renderer>tax/checkout_grandtotal</renderer>
+                        <admin_renderer>adminhtml/sales_order_create_totals_grandtotal</admin_renderer>
+                    </grand_total>
+                </totals>
+            </quote>
+        </sales>
+        <pdf>
+            <totals>
+                <subtotal><model>tax/sales_pdf_subtotal</model></subtotal>
+                <shipping><model>tax/sales_pdf_shipping</model></shipping>
+                <grand_total><model>tax/sales_pdf_grandtotal</model></grand_total>
+                <tax translate="title">
+                    <title>Tax</title>
+                    <source_field>tax_amount</source_field>
+                    <model>tax/sales_pdf_tax</model>
+                    <font_size>7</font_size>
+                    <display_zero>0</display_zero>
+                    <sort_order>300</sort_order>
+                </tax>
+            </totals>
+        </pdf>
     </global>
     <adminhtml>
         <menu>
@@ -229,6 +299,7 @@
                 <shipping_tax_class></shipping_tax_class>
             </classes>
             <calculation>
+                <algorithm>TOTAL_BASE_CALCULATION</algorithm>
                 <apply_after_discount>0</apply_after_discount>
                 <discount_tax>0</discount_tax>
                 <based_on>shipping</based_on>
@@ -243,11 +314,27 @@
                 <postcode>*</postcode>
             </defaults>
             <display>
-                <column_in_summary>1</column_in_summary>
                 <type>1</type>
-                <full_summary>0</full_summary>
                 <shipping>1</shipping>
             </display>
+            <cart_display>
+                <price>1</price>
+                <subtotal>1</subtotal>
+                <shipping>1</shipping>
+                <discount>1</discount>
+                <grandtotal>0</grandtotal>
+                <full_summary>0</full_summary>
+                <zero_tax>0</zero_tax>
+            </cart_display>
+            <sales_display>
+                <price>1</price>
+                <subtotal>1</subtotal>
+                <shipping>1</shipping>
+                <discount>1</discount>
+                <grandtotal>0</grandtotal>
+                <full_summary>0</full_summary>
+                <zero_tax>0</zero_tax>
+            </sales_display>
         </tax>
     </default>
 </config>

@@ -114,7 +114,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
             $result[$itemId] = $item->toArray();
         }
 
-        return Zend_Json::encode($result);
+        return Mage::helper('core')->jsonEncode($result);
     }
 
     /**
@@ -187,7 +187,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         if($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
             $selected = explode(',', $selected);
             return join(',', $selected);
-//            return Zend_Json::encode($selected);
+//            return Mage::helper('core')->jsonEncode($selected);
         } else {
             return '';
 //            return '[]';
@@ -235,7 +235,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
 
         if(!empty($gridIds)) {
             return join(",", $gridIds);
-            //return Zend_Json::encode($gridIds);
+            //return Mage::helper('core')->jsonEncode($gridIds);
         }
         return '';
         //return '[]';

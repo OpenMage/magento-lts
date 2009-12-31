@@ -56,6 +56,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      */
     protected $_pdf;
 
+    protected $_defaultTotalModel = 'sales/order_pdf_total_default';
+
     /**
      * Retrieve PDF
      *
@@ -166,7 +168,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     protected function _formatAddress($address)
     {
         $return = array();
-        foreach (split('\|', $address) as $str) {
+        foreach (explode('|', $address) as $str) {
             foreach (Mage::helper('core/string')->str_split($str, 65, true, true) as $part) {
                 if (empty($part)) {
                     continue;
@@ -378,61 +380,59 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     {
         $totals = Mage::getConfig()->getNode('global/pdf/totals')->asArray();
         usort($totals, array($this, '_sortTotalsList'));
+        $totalModels = array();
+        foreach ($totals as $index => $totalInfo) {
+            if (!empty($totalInfo['model'])) {
+                $totalModel = Mage::getModel($totalInfo['model']);
+                if ($totalModel instanceof Mage_Sales_Model_Order_Pdf_Total_Default) {
+                    $totalInfo['model'] = $totalModel;
+                } else {
+                    Mage::throwException(
+                        Mage::helper('sales')->__('Pdf total model should extend Mage_Sales_Model_Order_Pdf_Total_Default')
+                    );
+                }
+            } else {
+                $totalModel = Mage::getModel($this->_defaultTotalModel);
+            }
+            $totalModel->setData($totalInfo);
+            $totalModels[] = $totalModel;
+        }
 
-        return $totals;
+        return $totalModels;
     }
 
     protected function insertTotals($page, $source){
         $order = $source->getOrder();
-//        $font = $this->_setFontBold($page);
-
         $totals = $this->_getTotalsList($source);
-
         $lineBlock = array(
             'lines'  => array(),
             'height' => 15
         );
         foreach ($totals as $total) {
-            $amount = $source->getDataUsingMethod($total['source_field']);
-            $displayZero = (isset($total['display_zero']) ? $total['display_zero'] : 0);
+            $total->setOrder($order)
+                ->setSource($source);
 
-            if ($amount != 0 || $displayZero) {
-                $amount = $order->formatPriceTxt($amount);
-
-                if (isset($total['amount_prefix']) && $total['amount_prefix']) {
-                    $amount = "{$total['amount_prefix']}{$amount}";
+            if ($total->canDisplay()) {
+                foreach ($total->getTotalsForDisplay() as $totalData) {
+                    $lineBlock['lines'][] = array(
+                        array(
+                            'text'      => $totalData['label'],
+                            'feed'      => 475,
+                            'align'     => 'right',
+                            'font_size' => $totalData['font_size'],
+                            'font'      => 'bold'
+                        ),
+                        array(
+                            'text'      => $totalData['amount'],
+                            'feed'      => 565,
+                            'align'     => 'right',
+                            'font_size' => $totalData['font_size'],
+                            'font'      => 'bold'
+                        ),
+                    );
                 }
-
-                $fontSize = (isset($total['font_size']) ? $total['font_size'] : 7);
-                //$page->setFont($font, $fontSize);
-
-                $label = Mage::helper('sales')->__($total['title']) . ':';
-
-                $lineBlock['lines'][] = array(
-                    array(
-                        'text'      => $label,
-                        'feed'      => 475,
-                        'align'     => 'right',
-                        'font_size' => $fontSize,
-                        'font'      => 'bold'
-                    ),
-                    array(
-                        'text'      => $amount,
-                        'feed'      => 565,
-                        'align'     => 'right',
-                        'font_size' => $fontSize,
-                        'font'      => 'bold'
-                    ),
-                );
-
-//                $page->drawText($label, 475-$this->widthForStringUsingFontSize($label, $font, $fontSize), $this->y, 'UTF-8');
-//                $page->drawText($amount, 565-$this->widthForStringUsingFontSize($amount, $font, $fontSize), $this->y, 'UTF-8');
-//                $this->y -=15;
             }
         }
-
-//        echo '<pre>';
-//        var_dump($lineBlock);
 
         $page = $this->drawLineBlocks($page, array($lineBlock));
         return $page;

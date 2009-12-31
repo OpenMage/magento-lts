@@ -39,6 +39,11 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
         parent::__construct();
     }
 
+    /**
+     * Retrieve current category instance
+     *
+     * @return Mage_Catalog_Model_Category
+     */
     public function getCategory()
     {
         return Mage::registry('category');

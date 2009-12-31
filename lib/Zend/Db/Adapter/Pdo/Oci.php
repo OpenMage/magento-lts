@@ -17,7 +17,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Oci.php 13095 2008-12-08 16:30:45Z mikaelkael $
+ * @version    $Id: Oci.php 14107 2009-02-18 21:58:36Z norm2782 $
  */
 
 
@@ -45,6 +45,13 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
      * @var string
      */
     protected $_pdoType = 'oci';
+
+    /**
+     * Default class name for a DB statement.
+     *
+     * @var string
+     */
+    protected $_defaultStmtClass = 'Zend_Db_Statement_Pdo_Oci';
 
     /**
      * Keys are UPPERCASE SQL datatypes or the constants
@@ -76,20 +83,22 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         // baseline of DSN parts
         $dsn = $this->_config;
 
-        $tns = 'dbname=(DESCRIPTION=';
         if (isset($dsn['host'])) {
-            $tns .= '(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=' . $dsn['host'] . ')';
+            $tns = 'dbname=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)' .
+                   '(HOST=' . $dsn['host'] . ')';
+
             if (isset($dsn['port'])) {
                 $tns .= '(PORT=' . $dsn['port'] . ')';
             } else {
                 $tns .= '(PORT=1521)';
             }
-            $tns .= '))';
-        }
-        $tns .= '(CONNECT_DATA=(SID=' . $dsn['dbname'] . ')))';
 
-        if (isset($dsn['charset']))
-        {
+            $tns .= '))(CONNECT_DATA=(SID=' . $dsn['dbname'] . ')))';
+        } else {
+            $tns = 'dbname=' . $dsn['dbname'];
+        }
+
+        if (isset($dsn['charset'])) {
             $tns .= ';charset=' . $dsn['charset'];
         }
 
@@ -171,7 +180,7 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
     public function describeTable($tableName, $schemaName = null)
     {
         $version = $this->getServerVersion();
-        if (is_null($version) || version_compare($version, '9.0.0', '>=')) {
+        if (($version === null) || version_compare($version, '9.0.0', '>=')) {
             $sql = "SELECT TC.TABLE_NAME, TC.OWNER, TC.COLUMN_NAME, TC.DATA_TYPE,
                     TC.DATA_DEFAULT, TC.NULLABLE, TC.COLUMN_ID, TC.DATA_LENGTH,
                     TC.DATA_SCALE, TC.DATA_PRECISION, C.CONSTRAINT_TYPE, CC.POSITION
@@ -357,12 +366,12 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
          */
         $limit_sql = "SELECT z2.*
             FROM (
-                SELECT ROWNUM AS zend_db_rownum, z1.*
+                SELECT z1.*, ROWNUM AS \"zend_db_rownum\"
                 FROM (
                     " . $sql . "
                 ) z1
             ) z2
-            WHERE z2.zend_db_rownum BETWEEN " . ($offset+1) . " AND " . ($offset+$count);
+            WHERE z2.\"zend_db_rownum\" BETWEEN " . ($offset+1) . " AND " . ($offset+$count);
         return $limit_sql;
     }
 

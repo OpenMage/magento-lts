@@ -71,13 +71,13 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
             ->addProductsFilter($productCollection)
             ->joinStockStatus($productCollection->getStoreId())
             ->load();
+        $stockItems = array();
         foreach ($items as $item) {
-            foreach($productCollection as $product){
-                if($product->getId()==$item->getProductId()){
-                    if($product instanceof Mage_Catalog_Model_Product) {
-                        $item->assignProduct($product);
-                    }
-                }
+            $stockItems[$item->getProductId()] = $item;
+        }
+        foreach ($productCollection as $product) {
+            if (isset($stockItems[$product->getId()])) {
+                $stockItems[$product->getId()]->assignProduct($product);
             }
         }
         return $this;

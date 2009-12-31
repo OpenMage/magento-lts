@@ -63,10 +63,10 @@ function bindAttributeInputType()
     switchDefaultValueField();
     checkIsConfigurableVisibility();
     if($('frontend_input') && ($('frontend_input').value=='select' || $('frontend_input').value=='multiselect' || $('frontend_input').value=='price')){
-        if($('is_filterable')){
+        if($('is_filterable') && !$('is_filterable').getAttribute('readonly')){
             $('is_filterable').disabled = false;
         }
-        if($('is_filterable_in_search')){
+        if($('is_filterable_in_search') && !$('is_filterable_in_search').getAttribute('readonly')){
             $('is_filterable_in_search').disabled = false;
         }
         if($('backend_type') && $('backend_type').options){

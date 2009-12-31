@@ -17,7 +17,7 @@
  * @subpackage View
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Slider.php 12387 2008-11-07 21:03:34Z matthew $
+ * @version    $Id: Slider.php 13657 2009-01-15 23:36:35Z matthew $
  */
 
 /** Zend_Dojo_View_Helper_Dijit */
@@ -216,7 +216,19 @@ abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
 
         $labelList = $this->_prepareLabelsList($id, $labelsParams, $labelsAttribs, $labels);
 
-        return $this->_createLayoutContainer($id, $labelList, $containerParams, $containerAttribs, $dijit);
+        $dijit = 'dijit.form.' . ucfirst($this->_sliderType) . 'Rule';
+        $containerAttribs['id'] = $id;
+        $containerAttribs = $this->_prepareDijit($containerAttribs, $containerParams, 'layout', $dijit);
+        $containerHtml = '<div' . $this->_htmlAttribs($containerAttribs) . "></div>\n";
+
+        switch ($position) {
+            case 'topDecoration':
+            case 'leftDecoration':
+                return $labelList . $containerHtml;
+            case 'bottomDecoration':
+            case 'rightDecoration':
+                return $containerHtml . $labelList;
+        }
     }
 
     /**

@@ -1,0 +1,71 @@
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/******************************************/
+/***********[ Mage_CSS_A Reset ]***********/
+/******************************************/
+
+* { margin:0; padding:0; }
+
+body        { background:#f2f2f2 url(../images/body_bg.gif) 0 0 repeat; color:#444; font:11px/1.55em arial, helvetica, sans-serif; text-align:center; }
+a           { color:#4f8100; text-decoration:none; }
+a:hover     { color:#4f8100; text-decoration:underline; }
+a img       { border:0;}
+:focus      { outline:0; }
+
+/* Heading */
+h1          { font-size:2em; line-height:1.17em; }
+h2          { margin-bottom:.4em; font-size:1.5em; line-height:1.2em; }
+h3          { margin-bottom:.4em; font-size:1.35em; line-height:1.2em; }
+h4          { margin-bottom:.4em; font-size:1.05em; line-height:1.35em; }
+h5          { margin-bottom:.4em; font-size:1.05em; line-height:1.35em; }
+h6          { margin-bottom:.1em; font-size:1em; line-height:1.35em; }
+
+
+/* Table */
+th          { vertical-align:top; font-weight:normal; text-align:left; }
+td          { vertical-align:top; }
+
+/* Paragraph */
+p           { margin-bottom:.9em; }
+address     { margin-bottom:.4em; font-style:normal; line-height:1.4em; }
+cite        { font-style:normal; font-size:10px;}
+q:before, 
+q:after     { content:'';}
+
+/* Form */
+form        { display:inline;}
+fieldset    { border:none; }
+legend      { display:none;}
+label       { color:#555;  font-weight:bold; }
+input, 
+select, 
+button      { vertical-align:middle; }
+
+/* Lists */
+dt          { display:block; font-weight:bold; }
+ul,ol       { list-style:none; }
+
+/* Size */
+small       { font-size:.85em; }
+big         { font-size:1.15em; }
+hr          { height:0; margin:8px 0; overflow:hidden; visibility:hidden; }

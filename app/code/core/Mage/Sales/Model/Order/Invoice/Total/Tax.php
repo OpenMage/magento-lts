@@ -31,7 +31,7 @@ class Mage_Sales_Model_Order_Invoice_Total_Tax extends Mage_Sales_Model_Order_In
     {
         $totalTax = 0;
         $baseTotalTax = 0;
-
+        $order = $invoice->getOrder();
         foreach ($invoice->getAllItems() as $item) {
             $orderItem = $item->getOrderItem();
             $orderItemTax       = $orderItem->getTaxAmount();
@@ -69,19 +69,24 @@ class Mage_Sales_Model_Order_Invoice_Total_Tax extends Mage_Sales_Model_Order_In
         /**
          * Check shipping amount in previus invoices
          */
-        foreach ($invoice->getOrder()->getInvoiceCollection() as $previusInvoice) {
+        foreach ($order->getInvoiceCollection() as $previusInvoice) {
             if ($previusInvoice->getShippingAmount() && !$previusInvoice->isCanceled()) {
                 $includeShippingTax = false;
             }
         }
 
         if ($includeShippingTax) {
-            $totalTax += $invoice->getOrder()->getShippingTaxAmount();
-            $baseTotalTax += $invoice->getOrder()->getBaseShippingTaxAmount();
-            $invoice->setShippingTaxAmount($invoice->getOrder()->getShippingTaxAmount());
-            $invoice->setBaseShippingTaxAmount($invoice->getOrder()->getBaseShippingTaxAmount());
+            $totalTax += $order->getShippingTaxAmount();
+            $baseTotalTax += $order->getBaseShippingTaxAmount();
+            $invoice->setShippingTaxAmount($order->getShippingTaxAmount());
+            $invoice->setBaseShippingTaxAmount($order->getBaseShippingTaxAmount());
         }
 
+        $allowedTax = $order->getTaxAmount() - $order->getTaxInvoiced();
+        $allowedBaseTax = $order->getBaseTaxAmount() - $order->getBaseTaxInvoiced();;
+
+        $totalTax = min($allowedTax, $totalTax);
+        $baseTotalTax = min($allowedBaseTax, $baseTotalTax);
 
         $invoice->setTaxAmount($totalTax);
         $invoice->setBaseTaxAmount($baseTotalTax);

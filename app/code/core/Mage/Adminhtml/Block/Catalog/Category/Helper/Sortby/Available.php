@@ -48,9 +48,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Sortby_Available
             $disabled = true;
         }
         $html = parent::getElementHtml();
-
         $htmlId = 'use_config_' . $this->getHtmlId();
-        $html .= '<input id="'.$htmlId.'" value="1"';
+        $html .= '<input id="'.$htmlId.'" name="use_config[]" value="' . $this->getId() . '"';
         $html .= ($disabled ? ' checked="checked"' : '');
 
         if ($this->getReadonly()) {

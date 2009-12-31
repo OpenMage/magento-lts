@@ -40,28 +40,11 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      */
     protected $_messages;
 
-    /**
-     * Flag which require message text escape
-     *
-     * @var bool
-     */
-    protected $_escapeMessageFlag = false;
-
     public function _prepareLayout()
     {
         $this->addMessages(Mage::getSingleton('core/session')->getMessages(true));
-        parent::_prepareLayout();
-    }
 
-    /**
-     * Set message escape flag
-     * @param bool $flag
-     * @return Mage_Core_Block_Messages
-     */
-    public function setEscapeMessageFlag($flag)
-    {
-        $this->_escapeMessageFlag = $flag;
-        return $this;
+        parent::_prepareLayout();
     }
 
     /**
@@ -76,12 +59,6 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
         return $this;
     }
 
-    /**
-     * Add messages to display
-     *
-     * @param Mage_Core_Model_Message_Collection $messages
-     * @return Mage_Core_Block_Messages
-     */
     public function addMessages(Mage_Core_Model_Message_Collection $messages)
     {
         foreach ($messages->getItems() as $message) {
@@ -184,9 +161,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     {
         $html = '<ul id="admin_messages">';
         foreach ($this->getMessages($type) as $message) {
-            $html.= '<li class="'.$message->getType().'-msg">'
-                . ($this->_escapeMessageFlag) ? $this->htmlEscape($message->getText()) : $message->getText()
-                . '</li>';
+            $html.= '<li class="'.$message->getType().'-msg">'.$message->getText().'</li>';
         }
         $html .= '</ul>';
         return $html;
@@ -217,7 +192,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
 
                 foreach ( $messages as $message ) {
                     $html.= '<li>';
-                    $html.= ($this->_escapeMessageFlag) ? $this->htmlEscape($message->getText()) : $message->getText();
+                    $html.= $message->getText();
                     $html.= '</li>';
                 }
                 $html .= '</ul>';

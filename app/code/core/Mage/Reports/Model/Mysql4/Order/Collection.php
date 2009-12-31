@@ -114,7 +114,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
                 break;
 
             case '1m':
-                $dateStart->setDay(1);
+                $dateStart->setDay(Mage::getStoreConfig('reports/dashboard/mtd_start'));
                 break;
 
             case 'custom':
@@ -123,13 +123,15 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
                 break;
 
             case '1y':
-                $dateStart->setMonth(1);
-                $dateStart->setDay(1);
-                break;
             case '2y':
-                $dateStart->setMonth(1);
-                $dateStart->setDay(1);
-                $dateStart->subYear(1);
+                $startMonthDay = explode(',', Mage::getStoreConfig('reports/dashboard/ytd_start'));
+                $startMonth = isset($startMonthDay[0]) ? (int)$startMonthDay[0] : 1;
+                $startDay = isset($startMonthDay[1]) ? (int)$startMonthDay[1] : 1;
+                $dateStart->setMonth($startMonth);
+                $dateStart->setDay($startDay);
+                if ($range == '2y') {
+                    $dateStart->subYear(1);
+                }
                 break;
         }
 

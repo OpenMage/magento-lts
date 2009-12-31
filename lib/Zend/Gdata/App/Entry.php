@@ -31,6 +31,11 @@
 #require_once 'Zend/Gdata/App/Extension/Content.php';
 
 /**
+ * @see Zend_Gdata_App_Extension_Edited
+ */
+#require_once 'Zend/Gdata/App/Extension/Edited.php';
+
+/**
  * @see Zend_Gdata_App_Extension_Published
  */
 #require_once 'Zend/Gdata/App/Extension/Published.php';
@@ -111,6 +116,13 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      */
     protected $_control = null;
 
+    /**
+     * app:edited element
+     *
+     * @var Zend_Gdata_App_Extension_Edited
+     */
+    protected $_edited = null;
+
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
         $element = parent::getDOM($doc, $majorVersion, $minorVersion);
@@ -128,6 +140,9 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
         }
         if ($this->_control != null) {
             $element->appendChild($this->_control->getDOM($element->ownerDocument));
+        }
+        if ($this->_edited != null) {
+            $element->appendChild($this->_edited->getDOM($element->ownerDocument));
         }
         return $element;
     }
@@ -160,6 +175,11 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
             $control = new Zend_Gdata_App_Extension_Control();
             $control->transferFromDOM($child);
             $this->_control = $control;
+            break;
+        case $this->lookupNamespace('app') . ':' . 'edited':
+            $edited = new Zend_Gdata_App_Extension_Edited();
+            $edited->transferFromDOM($child);
+            $this->_edited = $edited;
             break;
         default:
             parent::takeChildFromDOM($child);
@@ -221,15 +241,15 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     {
         // Get URI
         $editLink = $this->getEditLink();
-        if (is_null($uri) && $editLink != null) {
+        if (($uri === null) && $editLink != null) {
             $uri = $editLink->getHref();
         }
-        
+
         // Set classname to current class, if not otherwise set
-        if (is_null($className)) {
+        if ($className === null) {
             $className = get_class($this);
         }
-        
+
         // Append ETag, if present (Gdata v2 and above, only) and doesn't
         // conflict with existing headers
         if ($this->_etag != null
@@ -237,7 +257,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
                 && !array_key_exists('If-None-Match', $extraHeaders)) {
             $extraHeaders['If-None-Match'] = $this->_etag;
         }
-        
+
         // If an HTTP 304 status (Not Modified)is returned, then we return
         // null.
         $result = null;
@@ -247,7 +267,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
             if ($e->getResponse()->getStatus() != '304')
                 throw $e;
         }
-        
+
         return $result;
     }
 

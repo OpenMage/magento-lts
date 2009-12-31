@@ -18,6 +18,9 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
+/** Zend_Search_Lucene_Index_TermsStream_Interface */
+#require_once 'Zend/Search/Lucene/Index/TermsStream/Interface.php';
+
 
 /**
  * @category   Zend
@@ -25,7 +28,7 @@
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Zend_Search_Lucene_Interface
+interface Zend_Search_Lucene_Interface extends Zend_Search_Lucene_Index_TermsStream_Interface
 {
     /**
      * Get current generation number
@@ -375,43 +378,6 @@ interface Zend_Search_Lucene_Interface
      * @return array
      */
     public function terms();
-
-
-    /**
-     * Reset terms stream.
-     */
-    public function resetTermsStream();
-
-    /**
-     * Skip terms stream up to specified term preffix.
-     *
-     * Prefix contains fully specified field info and portion of searched term
-     *
-     * @param Zend_Search_Lucene_Index_Term $prefix
-     */
-    public function skipTo(Zend_Search_Lucene_Index_Term $prefix);
-
-    /**
-     * Scans terms dictionary and returns next term
-     *
-     * @return Zend_Search_Lucene_Index_Term|null
-     */
-    public function nextTerm();
-
-    /**
-     * Returns term in current position
-     *
-     * @return Zend_Search_Lucene_Index_Term|null
-     */
-    public function currentTerm();
-
-    /**
-     * Close terms stream
-     *
-     * Should be used for resources clean up if stream is not read up to the end
-     */
-    public function closeTermsStream();
-
 
     /**
      * Undeletes all documents currently marked as deleted in this index.

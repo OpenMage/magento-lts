@@ -16,7 +16,7 @@
  * @package   Zend_ProgressBar
  * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Adapter.php 12233 2008-11-01 00:11:01Z dasprid $
+ * @version   $Id: Adapter.php 14099 2009-02-17 15:16:15Z yoshida@zend.co.jp $
  */
 
 /**
@@ -31,7 +31,7 @@ abstract class Zend_ProgressBar_Adapter
 {
     /**
      * Option keys to skip when calling setOptions()
-     * 
+     *
      * @var array
      */
     protected $_skipOptions = array(
@@ -41,9 +41,9 @@ abstract class Zend_ProgressBar_Adapter
 
     /**
      * Create a new adapter
-     * 
+     *
      * $options may be either be an array or a Zend_Config object which
-     * specifies adapter related options. 
+     * specifies adapter related options.
      *
      * @param null|array|Zend_Config $options
      */
@@ -55,7 +55,7 @@ abstract class Zend_ProgressBar_Adapter
             $this->setConfig($options);
         }
     }
-    
+
     /**
      * Set options via a Zend_Config instance
      *
@@ -65,10 +65,10 @@ abstract class Zend_ProgressBar_Adapter
     public function setConfig(Zend_Config $config)
     {
         $this->setOptions($config->toArray());
-        
+
         return $this;
     }
-    
+
     /**
      * Set options via an array
      *
@@ -87,23 +87,23 @@ abstract class Zend_ProgressBar_Adapter
                 $this->$method($value);
             }
         }
-        
+
         return $this;
     }
-    
+
     /**
      * Notify the adapter about an update
      *
      * @param  float   $current       Current progress value
      * @param  float   $max           Max progress value
-     * @param  flaot   $percent       Current percent value
+     * @param  float   $percent       Current percent value
      * @param  integer $timeTaken     Taken time in seconds
      * @param  integer $timeRemaining Remaining time in seconds
      * @param  string  $text          Status text
      * @return void
      */
     abstract public function notify($current, $max, $percent, $timeTaken, $timeRemaining, $text);
-    
+
     /**
      * Called when the progress is explicitly finished
      *

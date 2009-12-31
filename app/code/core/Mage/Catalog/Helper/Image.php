@@ -39,6 +39,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     protected $_watermark;
     protected $_watermarkPosition;
     protected $_watermarkSize;
+    protected $_watermarkImageOpacity;
     protected $_product;
     protected $_imageFile;
     protected $_placeholder;
@@ -233,12 +234,14 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
                 if( $this->_scheduleWatermark ) {
                     $this->_getModel()
                         ->setWatermarkPosition( $this->getWatermarkPosition() )
+                        ->setWatermarkImageOpacity( $this->getWatermarkImageOpacity() )
                         ->setWatermarkSize($this->parseSize($this->getWatermarkSize()))
                         ->setWatermark($this->getWatermark(), $this->getWatermarkPosition());
                 } else {
                     if( $watermark = Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_image") ) {
                         $this->_getModel()
                             ->setWatermarkPosition( $this->getWatermarkPosition() )
+                            ->setWatermarkImageOpacity( $this->getWatermarkImageOpacity() )
                             ->setWatermarkSize($this->parseSize($this->getWatermarkSize()))
                             ->setWatermark($watermark, $this->getWatermarkPosition());
                     }
@@ -325,6 +328,26 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         }
     }
 
+    public function setWatermarkImageOpacity($imageOpacity)
+    {
+        $this->_watermarkImageOpacity = $imageOpacity;
+        return $this;
+    }
+
+    protected function getWatermarkImageOpacity()
+    {
+        if( $this->_watermarkImageOpacity ) {
+            return $this->_watermarkImageOpacity;
+        }
+
+        if ($imageOpacity = Mage::getStoreConfig("design/watermark/{$this->_getModel()->getDestinationSubdir()}_imageOpacity"))
+        {
+            return $imageOpacity; 
+        }
+        
+        return $this->_getModel()->getWatermarkImageOpacity();
+    }
+    
     protected function setProduct($product)
     {
         $this->_product = $product;

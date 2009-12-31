@@ -20,6 +20,7 @@
  *
  * @category   Mage
  * @package    Mage_Sales
+ * @deprecated after 1.3.2.2, functionality moved to tax module
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */

@@ -296,8 +296,9 @@ class Zend_XmlRpc_Client
     /**
      * Send an XML-RPC request to the service (for a specific method)
      *
-     * @param string $method Name of the method we want to call
-     * @param array $params Array of parameters for the method
+     * @param  string $method Name of the method we want to call
+     * @param  array $params Array of parameters for the method
+     * @return mixed
      * @throws Zend_XmlRpc_Client_FaultException
      */
     public function call($method, $params=array())

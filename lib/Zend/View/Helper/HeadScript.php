@@ -446,6 +446,7 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
         $escapeEnd   = ($useCdata) ? '//]]>'       : '//-->';
 
         $items = array();
+        $this->getContainer()->ksort();
         foreach ($this as $item) {
             if (!$this->_isValid($item)) {
                 continue;

@@ -325,7 +325,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
                 $data[] = $row;
             }
         } else {
-            while ($val = $this->fetchColumn($col)) {
+            while (false !== ($val = $this->fetchColumn($col))) {
                 $data[] = $val;
             }
         }
@@ -445,4 +445,14 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         return true;
     }
 
+    /**
+     * Gets the Zend_Db_Adapter_Abstract for this
+     * particular Zend_Db_Statement object.
+     *
+     * @return Zend_Db_Adapter_Abstract
+     */
+    public function getAdapter()
+    {
+        return $this->_adapter;
+    }
 }

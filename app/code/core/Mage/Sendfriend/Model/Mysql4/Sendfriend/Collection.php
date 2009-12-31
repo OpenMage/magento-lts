@@ -18,16 +18,28 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Sendfriend
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Sendfriend
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
+/**
+ * Sendfriend log resource collection
+ *
+ * @category    Mage
+ * @package     Mage_Sendfriend
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Sendfriend_Model_Mysql4_Sendfriend_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
-	protected function _construct()
-	{
-		$this->_init('sendfriend/sendfriend');
-	}
+    /**
+     * Init resource collection
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('sendfriend/sendfriend');
+    }
 }

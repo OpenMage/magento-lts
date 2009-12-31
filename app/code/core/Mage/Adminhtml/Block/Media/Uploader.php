@@ -136,7 +136,7 @@ class Mage_Adminhtml_Block_Media_Uploader extends Mage_Adminhtml_Block_Widget
      */
     public function getConfigJson()
     {
-        return Zend_Json::encode($this->getConfig()->getData());
+        return Mage::helper('core')->jsonEncode($this->getConfig()->getData());
     }
 
     /**

@@ -174,11 +174,25 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      */
     public function calcRowTotal()
     {
-        $rowTotal       = $this->getOrderItem()->getRowTotal()/$this->getOrderItem()->getQtyOrdered()*$this->getQty();
-        $baseRowTotal   = $this->getOrderItem()->getBaseRowTotal()/$this->getOrderItem()->getQtyOrdered()*$this->getQty();
+        $store          = $this->getInvoice()->getStore();
+        $orderItem      = $this->getOrderItem();
+        $orderItemQty   = $orderItem->getQtyOrdered();
 
-        $this->setRowTotal($this->getInvoice()->getStore()->roundPrice($rowTotal));
-        $this->setBaseRowTotal($this->getInvoice()->getStore()->roundPrice($baseRowTotal));
+        $rowTotal       = $orderItem->getRowTotal();
+        $baseRowTotal   = $orderItem->getBaseRowTotal();
+        $rowTotalInclTax    = $orderItem->getRowTotalInclTax();
+        $baseRowTotalInclTax= $orderItem->getBaseRowTotalInclTax();
+
+        $rowTotal       = $rowTotal/$orderItemQty*$this->getQty();
+        $baseRowTotal   = $baseRowTotal/$orderItemQty*$this->getQty();
+
+        $this->setRowTotal($store->roundPrice($rowTotal));
+        $this->setBaseRowTotal($store->roundPrice($baseRowTotal));
+
+        if ($rowTotalInclTax && $baseRowTotalInclTax) {
+            $this->setRowTotalInclTax($store->roundPrice($rowTotalInclTax/$orderItemQty*$this->getQty()));
+            $this->setBaseRowTotalInclTax($store->roundPrice($baseRowTotalInclTax/$orderItemQty*$this->getQty()));
+        }
         return $this;
     }
 

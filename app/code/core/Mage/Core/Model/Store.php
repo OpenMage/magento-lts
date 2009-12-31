@@ -385,10 +385,15 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * @param   array $params
      * @return  string
      */
-    public function getUrl($route='', $params=array())
+    public function getUrl($route = '', $params = array())
     {
+        /* @var $url Mage_Core_Model_Url */
         $url = Mage::getModel('core/url')
             ->setStore($this);
+        if (Mage::app()->getStore()->getId() != $this->getId()) {
+            $params['_store_to_url'] = true;
+        }
+
         return $url->getUrl($route, $params);
     }
 

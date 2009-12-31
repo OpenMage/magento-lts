@@ -757,16 +757,15 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
     }
 
     /**
-     * Highlight query terms
+     * Query specific matches highlighting
      *
-     * @param integer &$colorIndex
-     * @param Zend_Search_Lucene_Document_Html $doc
+     * @param Zend_Search_Lucene_Search_Highlighter_Interface $highlighter  Highlighter object (also contains doc for highlighting)
      */
-    public function highlightMatchesDOM(Zend_Search_Lucene_Document_Html $doc, &$colorIndex)
+    protected function _highlightMatches(Zend_Search_Lucene_Search_Highlighter_Interface $highlighter)
     {
         foreach ($this->_subqueries as $id => $subquery) {
             if ($this->_signs === null  ||  $this->_signs[$id] !== false) {
-                $subquery->highlightMatchesDOM($doc, $colorIndex);
+                $subquery->_highlightMatches($highlighter);
             }
         }
     }
@@ -794,10 +793,10 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
             }
 
             $query .= '(' . $subquery->__toString() . ')';
+        }
 
-            if ($subquery->getBoost() != 1) {
-                $query .= '^' . round($subquery->getBoost(), 4);
-            }
+        if ($this->getBoost() != 1) {
+            $query = '(' . $query . ')^' . round($this->getBoost(), 4);
         }
 
         return $query;

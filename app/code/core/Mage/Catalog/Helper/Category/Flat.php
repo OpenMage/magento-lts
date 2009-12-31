@@ -61,4 +61,14 @@ class Mage_Catalog_Helper_Category_Flat extends Mage_Core_Helper_Abstract
     {
         return Mage::getResourceSingleton('catalog/category_flat')->isRebuilt();
     }
+
+    /**
+     * Back Flat compatibility: check is built and enabled flat
+     *
+     * @return bool
+     */
+    public function isBuilt()
+    {
+        return $this->isEnabled(true);
+    }
 }

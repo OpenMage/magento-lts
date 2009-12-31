@@ -260,12 +260,22 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      */
     public function displayPriceAttribute($code, $strong = false, $separator = '<br />')
     {
-        return $this->displayPrices(
-            $this->getPriceDataObject()->getData('base_'.$code),
-            $this->getPriceDataObject()->getData($code),
-            $strong,
-            $separator
-        );
+        if ($code == 'tax_amount' && $this->getOrder()->getRowTaxDisplayPrecision()) {
+            return $this->displayRoundedPrices(
+                $this->getPriceDataObject()->getData('base_'.$code),
+                $this->getPriceDataObject()->getData($code),
+                $this->getOrder()->getRowTaxDisplayPrecision(),
+                $strong,
+                $separator
+            );
+        } else {
+            return $this->displayPrices(
+                $this->getPriceDataObject()->getData('base_'.$code),
+                $this->getPriceDataObject()->getData($code),
+                $strong,
+                $separator
+            );
+        }
     }
 
     /**
@@ -279,14 +289,29 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
      */
     public function displayPrices($basePrice, $price, $strong = false, $separator = '<br />')
     {
+        return $this->displayRoundedPrices($basePrice, $price, 2, $strong, $separator);
+    }
+
+    /**
+     * Display base and regular prices with specified rounding precision
+     *
+     * @param   float $basePrice
+     * @param   float $price
+     * @param   int $precision
+     * @param   bool $strong
+     * @param   string $separator
+     * @return  string
+     */
+    public function displayRoundedPrices($basePrice, $price, $precision=2, $strong = false, $separator = '<br />')
+    {
         if ($this->getOrder()->isCurrencyDifferent()) {
             $res = '';
-            $res.= $this->getOrder()->formatBasePrice($basePrice);
+            $res.= $this->getOrder()->formatBasePricePrecision($basePrice, $precision);
             $res.= $separator;
-            $res.= $this->getOrder()->formatPrice($price, true);
+            $res.= $this->getOrder()->formatPricePrecision($price, $precision, true);
         }
         else {
-            $res = $this->getOrder()->formatPrice($price);
+            $res = $this->getOrder()->formatPricePrecision($price, $precision);
             if ($strong) {
                 $res = '<strong>'.$res.'</strong>';
             }

@@ -34,11 +34,13 @@
             <allow>
                 <codes>
                     <af_ZA/><!-- Afrikaans (South Africa) -->
+                    <ar_DZ/><!-- Arabic (Algeria) -->
                     <ar_EG/><!-- Arabic (Egypt) -->
                     <ar_KW/><!-- Arabic (Kuwait) -->
                     <ar_MA/><!-- Arabic (Morocco) -->
                     <ar_SA/><!-- Arabic (Saudi Arabia) -->
                     <az_AZ/><!-- Azerbaijani (Azerbaijan) -->
+                    <be_BY/><!-- Belarusian (Belarus) -->
                     <bg_BG/><!-- Bulgarian (Bulgaria) -->
                     <bn_BD/><!-- Bengali (Bangladesh) -->
                     <bs_BA/><!-- Bosnian (Bosnia) -->

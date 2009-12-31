@@ -53,7 +53,17 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat
     }
 
     /**
-     * Set store scope for resource model
+     * Retrieve store for resource model
+     *
+     * @return int
+     */
+    public function getStoreId()
+    {
+        return $this->_storeId;
+    }
+
+    /**
+     * Set store for resource model
      *
      * @param mixed $store
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat
@@ -72,8 +82,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat
      */
     public function getFlatTableName($store = null)
     {
-        if (!is_numeric($store)) {
-            $store = Mage::app()->getStore($store)->getId();
+        if (is_null($store)) {
+            $store = $this->getStoreId();
         }
         return $this->getTable('catalog/product_flat') . '_' . $store;
     }
@@ -192,5 +202,15 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat
     {
         return Mage::getSingleton('catalog/config')
             ->getAttribute('catalog_product', $attribute);
+    }
+
+    /**
+     * Retrieve main resource table name
+     *
+     * @return string
+     */
+    public function getMainTable()
+    {
+        return $this->getFlatTableName($this->getStoreId());
     }
 }

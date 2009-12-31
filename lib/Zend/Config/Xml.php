@@ -16,7 +16,7 @@
  * @package   Zend_Config
  * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Xml.php 11427 2008-09-18 16:11:43Z doctorrock83 $
+ * @version   $Id: Xml.php 14665 2009-04-05 08:46:51Z rob $
  */
 
 /**
@@ -35,7 +35,14 @@
 class Zend_Config_Xml extends Zend_Config
 {
     /**
-     * Loads the section $section from the config file $filename for
+     * Wether to skip extends or not
+     *
+     * @var boolean
+     */
+    protected $_skipExtends = false;
+    
+    /**
+     * Loads the section $section from the config file (or string $xml for
      * access facilitated by nested object properties.
      *
      * Sections are defined in the XML as children of the root element.
@@ -47,21 +54,38 @@ class Zend_Config_Xml extends Zend_Config
      * Note that the keys in $section will override any keys of the same
      * name in the sections that have been included via "extends".
      *
-     * @param  string  $filename           File to process
+     * @param  string  $xml                XML file or string to process
      * @param  mixed   $section            Section to process
      * @param  boolean $allowModifications Wether modifiacations are allowed at runtime
-     * @throws Zend_Config_Exception When filename is not set
-     * @throws Zend_Config_Exception When section $sectionName cannot be found in $filename
+     * @throws Zend_Config_Exception When xml is not set or cannot be loaded
+     * @throws Zend_Config_Exception When section $sectionName cannot be found in $xml
      */
-    public function __construct($filename, $section = null, $allowModifications = false)
+    public function __construct($xml, $section = null, $options = false)
     {
-        if (empty($filename)) {
+        if (empty($xml)) {
             #require_once 'Zend/Config/Exception.php';
             throw new Zend_Config_Exception('Filename is not set');
         }
 
-        set_error_handler(array($this, '_loadFileErrorHandler'));
-        $config = simplexml_load_file($filename); // Warnings and errors are suppressed
+        $allowModifications = false;
+        if (is_bool($options)) {
+            $allowModifications = $options;
+        } elseif (is_array($options)) {
+            if (isset($options['allowModifications'])) {
+                $allowModifications = (bool) $options['allowModifications'];
+            }
+            if (isset($options['skipExtends'])) {
+                $this->_skipExtends = (bool) $options['skipExtends'];
+            }
+        }
+        
+        set_error_handler(array($this, '_loadFileErrorHandler')); // Warnings and errors are suppressed
+        if (strstr($xml, '<?xml')) {
+            $config = simplexml_load_string($xml);
+        } else {
+            $config = simplexml_load_file($xml);
+        }
+
         restore_error_handler();
         // Check if there was a error while loading file
         if ($this->_loadFileErrorStr !== null) {
@@ -81,7 +105,7 @@ class Zend_Config_Xml extends Zend_Config
             foreach ($section as $sectionName) {
                 if (!isset($config->$sectionName)) {
                     #require_once 'Zend/Config/Exception.php';
-                    throw new Zend_Config_Exception("Section '$sectionName' cannot be found in $filename");
+                    throw new Zend_Config_Exception("Section '$sectionName' cannot be found in $xml");
                 }
 
                 $dataArray = array_merge($this->_processExtends($config, $sectionName), $dataArray);
@@ -91,7 +115,7 @@ class Zend_Config_Xml extends Zend_Config
         } else {
             if (!isset($config->$section)) {
                 #require_once 'Zend/Config/Exception.php';
-                throw new Zend_Config_Exception("Section '$section' cannot be found in $filename");
+                throw new Zend_Config_Exception("Section '$section' cannot be found in $xml");
             }
 
             $dataArray = $this->_processExtends($config, $section);
@@ -128,7 +152,10 @@ class Zend_Config_Xml extends Zend_Config
         if (isset($thisSection['extends'])) {
             $extendedSection = (string) $thisSection['extends'];
             $this->_assertValidExtend($section, $extendedSection);
-            $config = $this->_processExtends($element, $extendedSection, $config);
+            
+            if (!$this->_skipExtends) {
+                $config = $this->_processExtends($element, $extendedSection, $config);
+            }
         }
 
         $config = $this->_arrayMergeRecursive($config, $this->_toArray($thisSection));
@@ -205,7 +232,7 @@ class Zend_Config_Xml extends Zend_Config
 
     /**
      * Merge two arrays recursively, overwriting keys of the same name
-     * in $array1 with the value in $array2.
+     * in $firstArray with the value in $secondArray.
      *
      * @param  mixed $firstArray  First array
      * @param  mixed $secondArray Second array to merge into first array
@@ -218,7 +245,11 @@ class Zend_Config_Xml extends Zend_Config
                 if (isset($firstArray[$key])) {
                     $firstArray[$key] = $this->_arrayMergeRecursive($firstArray[$key], $value);
                 } else {
-                    $firstArray[$key] = $value;
+                    if($key === 0) {
+                        $firstArray= array(0=>$this->_arrayMergeRecursive($firstArray, $value));
+                    } else {
+                        $firstArray[$key] = $value;
+                    }
                 }
             }
         } else {

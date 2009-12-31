@@ -53,74 +53,7 @@
         </tr>
     </thead>
     <tfoot>
-        <?php if ((float) $_creditmemo->getSubtotal()): ?>
-        <tr>
-            <td colspan="6" class="a-right"><?php echo $this->__('Subtotal') ?></td>
-            <td class="last a-right"><?php echo $_order->formatPrice($_creditmemo->getSubtotal()) ?></td>
-        </tr>
-        <?php endif; ?>
-        <?php if (($_creditmemo->getTaxAmount() > 0)||(Mage::helper('tax')->displayZeroTax())): ?>
-        <tr>
-            <td colspan="6" class="a-right"><?php echo $this->__('Tax') ?></td>
-            <td class="last a-right"><?php echo $_order->formatPrice($_creditmemo->getTaxAmount()) ?></td>
-        </tr>
-        <?php endif; ?>
-
-        <?php if ((float) $_creditmemo->getShippingAmount() || $_creditmemo->getShippingDescription()): ?>
-        <tr>
-            <td colspan="6" class="a-right"><?php echo $this->__('Shipping') ?></td>
-            <td class="last a-right"><?php echo $_order->formatPrice($_creditmemo->getShippingAmount()) ?></td>
-        </tr>
-        <?php endif; ?>
-        <?php if ((float) $_creditmemo->getDiscountAmount()): ?>
-        <tr>
-            <td colspan="6" class="a-right"><?php echo $this->__('Discount') ?></td>
-            <td class="last a-right"><?php echo $_order->formatPrice(-$_creditmemo->getDiscountAmount()) ?></td>
-        </tr>
-        <?php endif; ?>
-
-        <?php if ((float) $_creditmemo->getGiftcertAmount()): ?>
-        <tr>
-            <td colspan="6" class="a-right"><?php echo $this->__('Gift Certificate') ?></td>
-            <td class="last a-right"><?php echo $_order->formatPrice($_creditmemo->getGiftcertAmount()) ?></td>
-        </tr>
-        <?php endif; ?>
-
-        <?php if ((float) $_creditmemo->getAdjustmentPositive()): ?>
-        <tr>
-            <td colspan="6" class="a-right"><?php echo $this->__('Adjustment Refund') ?></td>
-            <td class="last a-right"><?php echo $_order->formatPrice($_creditmemo->getAdjustmentPositive()) ?></td>
-        </tr>
-        <?php endif; ?>
-
-        <?php if ((float) $_creditmemo->getAdjustmentNegative()): ?>
-        <tr>
-            <td colspan="6" class="a-right"><?php echo $this->__('Adjustment Fee') ?></td>
-            <td class="last a-right"><?php echo $_order->formatPrice($_creditmemo->getAdjustmentNegative()) ?></td>
-        </tr>
-        <?php endif; ?>
-         <tr>
-            <td colspan="6" class="a-right"><strong><?php echo $this->__('Grand Total') ?></strong></td>
-            <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getGrandTotal()) ?></strong></td>
-        </tr>
-        <?php if ($this->getCanDisplayTotalPaid()): ?>
-        <tr>
-            <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Paid') ?></strong></td>
-            <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalPaid()) ?></strong></td>
-        </tr>
-        <?php endif; ?>
-        <?php if ($this->getCanDisplayTotalRefunded()): ?>
-        <tr>
-            <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Refunded') ?></strong></td>
-            <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalRefunded()) ?></strong></td>
-        </tr>
-        <?php endif; ?>
-        <?php if ($this->getCanDisplayTotalDue()): ?>
-        <tr>
-            <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Due') ?></strong></td>
-            <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalDue()) ?></strong></td>
-        </tr>
-        <?php endif; ?>
+        <?php echo $this->getTotalsHtml($_creditmemo);?>
     </tfoot>
     <?php $_items = $_creditmemo->getAllItems(); ?>
     <?php $_count = count($_items) ?>

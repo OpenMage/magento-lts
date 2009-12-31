@@ -27,69 +27,100 @@
 class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
 {
     /**
-     * XML configuration paths
+     * Recipient Names
+     *
+     * @var array
      */
-    const XML_PATH_SENDFRIEND_EMAIL_TEMPLATE     = 'sendfriend/email/template';
+    protected $_names   = array();
 
-    protected $_names = array();
-    protected $_emails = array();
-    protected $_sender = array();
-    protected $_ip = 0;
-    protected $_product = null;
+    /**
+     * Recipient Emails
+     *
+     * @var array
+     */
+    protected $_emails  = array();
 
-    protected $_period = 3600; // hour
+    /**
+     * Sender data array
+     *
+     * @var array
+     */
+    protected $_sender  = array();
 
-    protected $_cookieName = 'stf';
+    /**
+     * Product Instance
+     *
+     * @var Mage_Catalog_Model_Product
+     */
+    protected $_product;
 
+    /**
+     * Initialize resource model
+     *
+     */
     protected function _construct()
     {
         $this->_init('sendfriend/sendfriend');
     }
 
+    /**
+     * Retrieve Data Helper
+     *
+     * @return Mage_Sendfriend_Helper_Data
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('sendfriend');
+    }
+
+    /**
+     * Retrieve Option Array
+     *
+     * @deprecated It Is a not Source model
+     * @return array
+     */
     public function toOptionArray()
     {
-        if(!$collection = Mage::registry('config_system_email_template')) {
-            $collection = Mage::getResourceModel('core/email_template_collection')
-                ->load();
-
-            Mage::register('config_system_email_template', $collection);
-        }
-        $options = $collection->toOptionArray();
-        array_unshift($options, array('value'=>'', 'label'=>''));
-        return $options;
+        return array();
     }
 
     public function send()
     {
-        $translate = Mage::getSingleton('core/translate');
         /* @var $translate Mage_Core_Model_Translate */
+        $translate = Mage::getSingleton('core/translate');
         $translate->setTranslateInline(false);
 
-        $errors = array();
+        /* @var $mailTemplate Mage_Core_Model_Email_Template */
+        $mailTemplate = Mage::getModel('core/email_template');
 
-        $this->_emailModel = Mage::getModel('core/email_template');
-        $message = nl2br(htmlspecialchars($this->_sender['message']));
+        $message = nl2br(htmlspecialchars($this->getSender()->getMessage()));
         $sender  = array(
-            'name' => strip_tags($this->_sender['name']),
-            'email' => strip_tags($this->_sender['email'])
-            );
+            'name'  => $this->_getHelper()->htmlEscape($this->getSender()->getName()),
+            'email' => $this->_getHelper()->htmlEscape($this->getSender()->getEmail())
+        );
 
-        foreach($this->_emails as $key => $email) {
-            $this->_emailModel->setDesignConfig(array('area'=>'frontend', 'store'=>$this->getStoreId()))
-            ->sendTransactional(
-                Mage::getStoreConfig(self::XML_PATH_SENDFRIEND_EMAIL_TEMPLATE),
+        $mailTemplate->setDesignConfig(array(
+            'area'  => 'frontend',
+            'store' => Mage::app()->getStore()->getId()
+        ));
+
+        foreach ($this->getRecipients()->getEmails() as $k => $email) {
+            $name = $this->getRecipients()->getNames($k);
+            $mailTemplate->sendTransactional(
+                $this->getTemplate(),
                 $sender,
                 $email,
-                $this->_names[$key],
+                $name,
                 array(
-                    'name'          => $this->_names[$key],
+                    'name'          => $name,
                     'email'         => $email,
-                    'product_name'  => $this->_product->getName(),
-                    'product_url'   => $this->_product->getProductUrl(),
+                    'product_name'  => $this->getProduct()->getName(),
+                    'product_url'   => $this->getProduct()->getUrlInStore(),
                     'message'       => $message,
-                    'sender_name'   => strip_tags($this->_sender['name']),
-                    'sender_email'  => strip_tags($this->_sender['email']),
-                    'product_image' => Mage::helper('catalog/image')->init($this->_product, 'small_image')->resize(75),
+                    'sender_name'   => $sender['name'],
+                    'sender_email'  => $sender['email'],
+                    'product_image' => Mage::helper('catalog/image')->init($this->getProduct(),
+                        'small_image')->resize(75),
                 )
             );
         }
@@ -99,87 +130,246 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * Validate Form data
+     *
+     * @return bool|array
+     */
     public function validate()
     {
         $errors = array();
-        $helper = Mage::helper('sendfriend');
 
-        if (empty($this->_sender['name'])) {
-            $errors[] = $helper->__('Sender name can\'t be empty');
+        $name = $this->getSender()->getName();
+        if (empty($name)) {
+            $errors[] = Mage::helper('sendfriend')->__('Sender name can\'t be empty');
         }
 
-        if (!isset($this->_sender['email']) || !Zend_Validate::is($this->_sender['email'], 'EmailAddress')) {
-            $errors[] = $helper->__('Invalid sender email');
+        $email = $this->getSender()->getEmail();
+        if (empty($email) OR !Zend_Validate::is($email, 'EmailAddress')) {
+            $errors[] = Mage::helper('sendfriend')->__('Invalid sender email');
         }
 
-        if (empty($this->_sender['message'])) {
-            $errors[] = $helper->__('Message can\'t be empty');
+        $message = $this->getSender()->getMessage();
+        if (empty($message)) {
+            $errors[] = Mage::helper('sendfriend')->__('Message can\'t be empty');
         }
 
-        foreach ($this->_emails as $email) {
+        if (!$this->getRecipients()->getEmails()) {
+            $errors[] = Mage::helper('sendfriend')->__('You have to specify at least one recipient');
+        }
+
+        // validate recipients email addresses
+        foreach ($this->getRecipients()->getEmails() as $email) {
             if (!Zend_Validate::is($email, 'EmailAddress')) {
-                $errors[] = $helper->__('You input invalid email address for recipient');
+                $errors[] = Mage::helper('sendfriend')->__('You input invalid email address for recipient');
                 break;
             }
         }
 
-        if (!$this->canEmailToFriend()) {
-            $errors[] = $helper->__('You cannot email this product to a friend');
-        }
+        switch ($this->_getHelper()->getLimitBy()) {
+            case Mage_Sendfriend_Helper_Data::CHECK_COOKIE:
+                $amount = $this->_amountByCookies();
+                break;
 
-        if ($this->_getSendToFriendCheckType()) {
-            $amount = $this->_amountByCookies();
-        } else {
-            $amount = $this->_amountByIp();
+            case Mage_Sendfriend_Helper_Data::CHECK_IP:
+                $amount = $this->_amountByIp();
+                break;
+            default:
+                $amount = 0;
+                break;
         }
 
         if ($amount >= $this->getMaxSendsToFriend()){
-            $errors[] = $helper->__('You have exceeded limit of %d sends in an hour', $this->getMaxSendsToFriend());
+            $errors[] = Mage::helper('sendfriend')->__('You have exceeded limit of %d sends in an hour', $this->getMaxSendsToFriend());
         }
 
         $maxRecipients = $this->getMaxRecipients();
-        if (count($this->_emails) > $maxRecipients) {
-            $errors[] = $helper->__('You cannot send more than %d emails at a time', $this->getMaxRecipients());
+        if (count($this->getRecipients()->getEmails()) > $maxRecipients) {
+            $errors[] = Mage::helper('sendfriend')->__('You cannot send more than %d emails at a time', $this->getMaxRecipients());
         }
-
-        if (count($this->_emails) < 1) {
-            $errors[] = $helper->__('You have to specify at least one recipient');
-        }
-
-        if (!$this->getTemplate()){
-            $errors[] = $helper->__('Email template is not specified by administrator');
-        }
-
 
         if (empty($errors)) {
             return true;
         }
+
         return $errors;
     }
 
-    public function setIp($ip)
+    /**
+     * Set cookie instance
+     *
+     * @param Mage_Core_Model_Cookie $product
+     * @return Mage_Sendfriend_Model_Sendfriend
+     */
+    public function setCookie($cookie)
     {
-        $this->_ip = $ip;
+        return $this->setData('_cookie', $cookie);
     }
 
+    /**
+     * Retrieve Cookie instance
+     *
+     * @throws Mage_Core_Exception
+     * @return Mage_Core_Model_Cookie
+     */
+    public function getCookie()
+    {
+        $cookie = $this->_getData('_cookie');
+        if (!$cookie instanceof Mage_Core_Model_Cookie) {
+            Mage::throwException(Mage::helper('sendfriend')->__('Please define correct Cookie instance'));
+        }
+        return $cookie;
+    }
+
+    /**
+     * Set Visitor Remote Address
+     *
+     * @param int $ipAddr the IP address on Long Format
+     * @return Mage_Sendfriend_Model_Sendfriend
+     */
+    public function setRemoteAddr($ipAddr)
+    {
+        Mage::log(array(__METHOD__, $ipAddr));
+        $this->setData('_remote_addr', $ipAddr);
+        return $this;
+    }
+
+    /**
+     * Retrieve Visitor Remote Address
+     *
+     * @return int
+     */
+    public function getRemoteAddr()
+    {
+        Mage::log(array(__METHOD__, $this->_getData('_remote_addr')));
+        return $this->_getData('_remote_addr');
+    }
+
+    /**
+     * Set Recipients
+     *
+     * @param array $recipients
+     * @return Mage_Sendfriend_Model_Sendfriend
+     */
     public function setRecipients($recipients)
     {
-        $this->_emails = array_unique($recipients['email']);
-        $this->_names = $recipients['name'];
+        // validate array
+        if (!is_array($recipients) OR !isset($recipients['email'])
+            OR !isset($recipients['name']) OR !is_array($recipients['email'])
+            OR !is_array($recipients['name'])) {
+            return $this;
+        }
+
+        $emails = array();
+        $names  = array();
+        foreach ($recipients['email'] as $k => $email) {
+            if (!isset($emails[$email]) && isset($recipients['name'][$k])) {
+                $emails[$email] = true;
+                $names[] = $recipients['name'][$k];
+            }
+        }
+
+        if ($emails) {
+            $emails = array_keys($emails);
+        }
+
+        return $this->setData('_recipients', new Varien_Object(array(
+            'emails' => $emails,
+            'names'  => $names
+        )));
     }
 
-    public function setProduct($product){
-        $this->_product = $product;
-    }
-
-    public function setSender($sender){
-        $this->_sender = $sender;
-    }
-
-    public function getSendCount($ip, $startTime)
+    /**
+     * Retrieve Recipients object
+     *
+     * @return Varien_Object
+     */
+    public function getRecipients()
     {
-        $count = $this->_getResource()->getSendCount($this, $ip, $startTime);
-        return $count;
+        $recipients = $this->_getData('_recipients');
+        if (!$recipients instanceof Varien_Object) {
+            $recipients =  new Varien_Object(array(
+                'emails' => array(),
+                'names'  => array()
+            ));
+            $this->setData('_recipients', $recipients);
+        }
+        return $recipients;
+    }
+
+    /**
+     * Set product instance
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Sendfriend_Model_Sendfriend
+     */
+    public function setProduct($product)
+    {
+        return $this->setData('_product', $product);
+    }
+
+    /**
+     * Retrieve Product instance
+     *
+     * @throws Mage_Core_Exception
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getProduct()
+    {
+        $product = $this->_getData('_product');
+        if (!$product instanceof Mage_Catalog_Model_Product) {
+            Mage::throwException(Mage::helper('sendfriend')->__('Please define correct Product instance'));
+        }
+        return $product;
+    }
+
+    /**
+     * Set Sender Information array
+     *
+     * @param array $sender
+     * @return Mage_Sendfriend_Model_Sendfriend
+     */
+    public function setSender($sender)
+    {
+        if (!is_array($sender)) {
+            Mage::helper('sendfriend')->__('Invalid Sender information');
+        }
+
+        return $this->setData('_sender', new Varien_Object($sender));
+    }
+
+    /**
+     * Retrieve Sender Information Object
+     *
+     * @throws Mage_Core_Exception
+     * @return Varien_Object
+     */
+    public function getSender()
+    {
+        $sender = $this->_getData('_sender');
+        if (!$sender instanceof Varien_Object) {
+            Mage::throwException(Mage::helper('sendfriend')->__('Please define correct Sender information'));
+        }
+        return $sender;
+    }
+
+    /**
+     * Retrieve Send count by IP
+     *
+     * @param int $ip
+     * @param int $startTime
+     * @return int
+     */
+    public function getSendCount($ip = null, $startTime = null)
+    {
+        if (is_null($ip)) {
+            $ip = $this->getRemoteAddr();
+        }
+        if (is_null($startTime)) {
+            $startTime = time() - $this->_getHelper()->getPeriod();
+        }
+
+        return $this->_getResource()->getSendCount($this, $ip, $startTime);
     }
 
     /**
@@ -189,17 +379,17 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      */
     public function getMaxSendsToFriend()
     {
-        return max(0, (int) Mage::getStoreConfig('sendfriend/email/max_per_hour'));
+        return $this->_getHelper()->getMaxEmailPerPeriod();
     }
 
     /**
-     * Get current "Send to friend" template
+     * Get current Email "Send to friend" template
      *
      * @return string
      */
     public function getTemplate()
     {
-        return Mage::getStoreConfig('sendfriend/email/template');
+        return $this->_getHelper()->getEmailTemplate();
     }
 
     /**
@@ -209,7 +399,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      */
     public function getMaxRecipients()
     {
-        return max(0, (int) Mage::getStoreConfig('sendfriend/email/max_recipients'));
+        return $this->_getHelper()->getMaxRecipients();
     }
 
     /**
@@ -219,84 +409,63 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      */
     public function canEmailToFriend()
     {
-        if (!Mage::getStoreConfig('sendfriend/email/enabled')) {
-            return false;
-        }
-        if (!Mage::getStoreConfig('sendfriend/email/allow_guest')
-            && !Mage::getSingleton('customer/session')->isLoggedIn()) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Get check type for "Send to Friend" function
-     *
-     * @return integer
-     */
-    private function _getSendToFriendCheckType()
-    {
-        return max(0, (int) Mage::getStoreConfig('sendfriend/email/check_by'));
+        return $this->_getHelper()->isEnabled();
     }
 
     /**
      * Retrieve amount by cookie
+     *
      * @return int
      */
-    private function _amountByCookies()
+    protected function _amountByCookies()
     {
+        $cookie   = $this->_getHelper()->getCookieName();
+        $time     = time();
         $newTimes = array();
-        $oldTimes = Mage::app()->getCookie()
-            ->get($this->_cookieName);
-        if ($oldTimes){
+        $oldTimes = $this->getCookie()->get($cookie);
+        if ($oldTimes) {
             $oldTimes = explode(',', $oldTimes);
-            foreach ($oldTimes as $time){
-                if (is_numeric($time) && $time >= time()-$this->_period){
-                    $newTimes[] = $time;
+            foreach ($oldTimes as $oldTime) {
+                $periodTime = $time - $this->_getHelper()->getPeriod();
+                if (is_numeric($oldTime) AND $oldTime >= $periodTime) {
+                    $newTimes[] = $oldTime;
                 }
             }
         }
-        $amount = count($newTimes);
 
-        $newTimes[] = time();
-        Mage::app()->getCookie()
-            ->set($this->_cookieName, implode(',', $newTimes), $this->_period);
+        $amount = count($newTimes);
+        $newTimes[] = $time;
+
+        $this->getCookie()->set($cookie, implode(',', $newTimes));
 
         return $amount;
     }
 
     /**
      * Retrieve amount by IP address
-     * 
+     *
      * @return int
      */
-    private function _amountByIp()
+    protected function _amountByIp()
     {
-        $this->_deleteLogsBefore(time() - $this->_period);
+        $time   = time();
+        $period = $this->_getHelper()->getPeriod();
+
+        // delete expired logs
+        $this->_getResource()->deleteLogsBefore($time - $period);
 
         $amount = $this->getSendCount($this->_ip, time() - $this->_period);
 
-        $this->setData(array('ip'=>$this->_ip, 'time'=>time()));
-        $this->save();
+        $this->setIp($this->getRemoteAddr())
+            ->setTime($time)
+            ->save();
 
         return $amount;
     }
 
     /**
-     * Delete Before Log
-     * 
-     * @param int $time
-     * @return Mage_Sendfriend_Model_Sendfriend
-     */
-    private function _deleteLogsBefore($time)
-    {
-        $this->_getResource()->deleteLogsBefore($time);
-        return $this;
-    }
-
-    /**
-     * Check and register object
-     * 
+     * Register self in global register with name send_to_friend_model
+     *
      * @return Mage_Sendfriend_Model_Sendfriend
      */
     public function register()

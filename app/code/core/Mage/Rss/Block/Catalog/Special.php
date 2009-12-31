@@ -141,6 +141,21 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Abstract
 
     public function addSpecialXmlCallback($args)
     {
+        /*
+         * RSS state object
+         */
+        $product = new Varien_Object();
+        //Product is allowed for RSS initially
+        $product->setAllowedInRss(true);
+        $args['product'] = $product;
+
+        Mage::dispatchEvent('rss_catalog_special_xml_callback', $args);
+
+        if (!$product->getAllowedInRss()) {
+            //Skip adding product to RSS
+            return;
+        }
+
 //echo "<pre>";
 //print_r($args['row']);
        $row = $args['row'];

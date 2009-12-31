@@ -132,16 +132,24 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 'name'  => 'sendemail',
                 'id'    => 'sendemail',
             ));
+            if (!Mage::app()->isSingleStoreMode()) {
+                $fieldset->addField('store_id', 'select', array(
+                    'label' => $this->helper('customer')->__('Send From'),
+                    'name' => 'store_id',
+                    'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm()
+                ));
+            }
         }
 
-        // make sendemail disabled, if website_id has empty value
-        if ($sendemail = $form->getElement('sendemail')) {
+        // make sendemail and store_id disabled, if website_id has empty value
+        if ($sendemail = $form->getElement('store_id')) {
             $prefix = $form->getHtmlIdPrefix();
             $sendemail->setAfterElementHtml(
                 '<script type="text/javascript">'
                 . "
                 $('{$prefix}website_id').disableSendemail = function() {
                     $('{$prefix}sendemail').disabled = ('' == this.value || '0' == this.value);
+                    $('{$prefix}store_id').disabled = ('' == this.value || '0' == this.value);
                 }.bind($('{$prefix}website_id'));
                 Event.observe('{$prefix}website_id', 'click', $('{$prefix}website_id').disableSendemail);
                 $('{$prefix}website_id').disableSendemail();

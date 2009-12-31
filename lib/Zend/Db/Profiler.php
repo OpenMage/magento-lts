@@ -17,7 +17,7 @@
  * @subpackage Profiler
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Profiler.php 9101 2008-03-30 19:54:38Z thomas $
+ * @version    $Id: Profiler.php 15403 2009-05-08 12:13:49Z yoshida@zend.co.jp $
  */
 
 
@@ -247,7 +247,7 @@ class Zend_Db_Profiler
 
         // make sure we have a query type
         if (null === $queryType) {
-            switch (strtolower(substr($queryText, 0, 6))) {
+            switch (strtolower(substr(ltrim($queryText), 0, 6))) {
                 case 'insert':
                     $queryType = self::INSERT;
                     break;

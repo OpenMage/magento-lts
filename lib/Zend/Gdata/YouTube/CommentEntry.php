@@ -44,4 +44,15 @@ class Zend_Gdata_YouTube_CommentEntry extends Zend_Gdata_Entry
      */
     protected $_entryClassName = 'Zend_Gdata_YouTube_CommentEntry';
 
+    /**
+     * Constructs a new Zend_Gdata_YouTube_CommentEntry object.
+     * @param DOMElement $element (optional) The DOMElement on which to
+     * base this object.
+     */
+    public function __construct($element = null)
+    {
+        $this->registerAllNamespaces(Zend_Gdata_YouTube::$namespaces);
+        parent::__construct($element);
+    }
+
 }

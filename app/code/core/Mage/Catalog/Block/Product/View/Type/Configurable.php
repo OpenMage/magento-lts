@@ -171,7 +171,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             'taxConfig'         => $taxConfig,
         );
 
-        return Zend_Json::encode($config);
+        return Mage::helper('core')->jsonEncode($config);
     }
 
     /**
