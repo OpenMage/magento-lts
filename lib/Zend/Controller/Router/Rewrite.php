@@ -12,10 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
+ * @category   Zend
  * @package    Zend_Controller
  * @subpackage Router
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Rewrite.php 15577 2009-05-14 12:43:34Z matthew $
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Rewrite.php 16644 2009-07-11 14:12:17Z dasprid $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +31,7 @@
  *
  * @package    Zend_Controller
  * @subpackage Router
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see        http://manuals.rubyonrails.com/read/chapter/65
  */
@@ -64,6 +65,13 @@ class Zend_Controller_Router_Rewrite extends Zend_Controller_Router_Abstract
      * @var array
      */
     protected $_globalParams = array();
+    
+    /**
+     * Separator to use with chain names
+     * 
+     * @var string
+     */
+    protected $_chainNameSeparator = '-';
     
     /**
      * Add default routes which are used to mimic basic router behaviour
@@ -235,7 +243,7 @@ class Zend_Controller_Router_Rewrite extends Zend_Controller_Router_Abstract
                 $chainRoute = $route->chain($childRoute);
             }
             
-            $chainName = $name . '-' . $childRouteName;
+            $chainName = $name . $this->_chainNameSeparator . $childRouteName;
             
             if (isset($childRouteInfo->chains)) {
                 $this->_addChainRoutesFromConfig($chainName, $chainRoute, $childRouteInfo->chains);
@@ -451,5 +459,26 @@ class Zend_Controller_Router_Rewrite extends Zend_Controller_Router_Abstract
         $this->_globalParams[$name] = $value;
     
         return $this;
+    }
+    
+    /**
+     * Set the separator to use with chain names
+     * 
+     * @param  string $separator The separator to use
+     * @return Zend_Controller_Router_Rewrite
+     */
+    public function setChainNameSeparator($separator) {
+    	$this->_chainNameSeparator = $separator;
+    	
+    	return $this;
+    }
+    
+    /**
+     * Get the separator to use for chain names
+     * 
+     * @return string
+     */
+    public function getChainNameSeparator() {
+        return $this->_chainNameSeparator;
     }
 }

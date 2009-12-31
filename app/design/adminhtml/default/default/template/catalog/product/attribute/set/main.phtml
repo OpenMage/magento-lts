@@ -161,7 +161,7 @@
                         for( i in rootNode.childNodes ) {
                             if(rootNode.childNodes[i].id) {
                                 var group = rootNode.childNodes[i];
-                                editSet.req.groups[gIterator] = new Array(group.id, group.attributes.text, (gIterator+1));
+                                editSet.req.groups[gIterator] = new Array(group.id, group.attributes.text.strip(), (gIterator+1));
                                 var iterator = 0
                                 for( j in group.childNodes ) {
                                     iterator ++;
@@ -284,7 +284,7 @@
 
                     addGroup : function() {
                         var group_name = prompt("<?php echo Mage::helper('catalog')->__('Please enter a new group name') ?>","");
-
+                        group_name = group_name.strip();
                         if( group_name == '' ) {
                             this.addGroup();
                         } else if( group_name != false && group_name != null && group_name != '' ) {
@@ -300,6 +300,9 @@
                                     allowDrag : true
                                 });
                             TreePanels.root.appendChild(newNode);
+                            newNode.addListener('beforemove', editSet.groupBeforeMove);
+                            newNode.addListener('beforeinsert', editSet.groupBeforeInsert);
+                            newNode.addListener('beforeappend', editSet.groupBeforeInsert);
                             newNode.addListener('click', editSet.register);
                         }
                     },
@@ -316,6 +319,10 @@
                     },
 
                     validateGroupName : function(name, exceptNodeId) {
+                        name = name.strip();
+                        if (name === '') {
+                            return false;
+                        }
                         for (var i=0; i < TreePanels.root.childNodes.length; i++) {
                             if (TreePanels.root.childNodes[i].text.toLowerCase() == name.toLowerCase() && TreePanels.root.childNodes[i].id != exceptNodeId) {
                                 errorText = "<?php echo Mage::helper('catalog')->__('Attribute group with the \"/name/\" name already exists') ?>";

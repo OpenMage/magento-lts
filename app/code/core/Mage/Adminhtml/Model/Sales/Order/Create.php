@@ -164,7 +164,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
         } else {
             $this->getSession()->setCustomerId(false);
         }
-        
+
         $this->getSession()->setStoreId($order->getStoreId());
 
         foreach ($order->getItemsCollection(
@@ -196,6 +196,12 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
         $this->getQuote()->getShippingAddress()->setShippingDescription($order->getShippingDescription());
 
         $this->getQuote()->getPayment()->addData($order->getPayment()->getData());
+
+
+        $orderCouponCode = $order->getCouponCode();
+        if ($orderCouponCode) {
+            $this->getQuote()->setCouponCode($orderCouponCode);
+        }
 
         if ($this->getQuote()->getCouponCode()) {
             $this->getQuote()->collectTotals();
@@ -560,7 +566,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
      */
     public function addProduct($product, $qty=1)
     {
-        $qty = (int) $qty;
+        $qty = (float)$qty;
         if (!($product instanceof Mage_Catalog_Model_Product)) {
             $productId = $product;
             $product = Mage::getModel('catalog/product')
@@ -572,6 +578,15 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
             }
         }
 
+        if($product->getStockItem()) {
+            if (!$product->getStockItem()->getIsQtyDecimal()) {
+                $qty = (int)$qty;
+            }
+            else {
+                $product->setIsQtyDecimal(1);
+            }
+        }
+        $qty = $qty > 0 ? $qty : 1;
         if ($item = $this->getQuote()->getItemByProduct($product)) {
             $item->setQty($item->getQty()+$qty);
         }
@@ -595,7 +610,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     public function addProducts(array $products)
     {
         foreach ($products as $productId => $data) {
-            $qty = isset($data['qty']) ? (int)$data['qty'] : 1;
+            $qty = isset($data['qty']) ? (float)$data['qty'] : 1;
             try {
                 $this->addProduct($productId, $qty);
             }
@@ -619,8 +634,17 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     {
         if (is_array($data)) {
             foreach ($data as $itemId => $info) {
-                $itemQty    = (int) $info['qty'];
-                $itemQty    = $itemQty>0 ? $itemQty : 1;
+                $item       = $this->getQuote()->getItemById($itemId);
+                $itemQty    = (float)$info['qty'];
+                if ($item && $item->getProduct()->getStockItem()) {
+                    if (!$item->getProduct()->getStockItem()->getIsQtyDecimal()) {
+                        $itemQty = (int)$info['qty'];
+                    }
+                    else {
+                        $item->setIsQtyDecimal(1);
+                    }
+                }
+                $itemQty    = $itemQty > 0 ? $itemQty : 1;
                 if (isset($info['custom_price'])) {
                     $itemPrice  = $this->_parseCustomPrice($info['custom_price']);
                 }
@@ -645,8 +669,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
 //                }
 
                 if (empty($info['action'])) {
-                    if ($item = $this->getQuote()->getItemById($itemId)) {
-
+                    if ($item) {
                         $item->setQty($itemQty);
                         $item->setCustomPrice($itemPrice);
                         $item->setNoDiscount($noDiscount);

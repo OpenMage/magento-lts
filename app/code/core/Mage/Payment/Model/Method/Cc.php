@@ -137,7 +137,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             $errorMsg = $this->_getHelper()->__('Credit card type is not allowed for this payment method');
         }
 
-								//validate credit card verification number
+                                //validate credit card verification number
         if ($errorMsg === false && $this->hasVerification()) {
             $verifcationRegEx = $this->getVerificationRegEx();
             $regExp = isset($verifcationRegEx[$info->getCcType()]) ? $verifcationRegEx[$info->getCcType()] : '';
@@ -154,7 +154,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         return $this;
     }
 
-				public function hasVerification()
+    public function hasVerification()
     {
         $configData = $this->getConfigData('useccv');
         if(is_null($configData)){
@@ -163,7 +163,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         return (bool) $configData;
     }
 
-				public function getVerificationRegEx()
+    public function getVerificationRegEx()
     {
         $verificationExpList = array(
             'VI' => '/^[0-9]{3}$/', // Visa
@@ -240,4 +240,14 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         return preg_match('/^\\d+$/', $ccNumber);
     }
 
+    /**
+     * Check whether there are CC types set in configuration
+     *
+     * @return bool
+     */
+    public function isAvailable($quote = null)
+    {
+        return $this->getConfigData('cctypes', ($quote ? $quote->getStoreId() : null))
+            && parent::isAvailable($quote);
+    }
 }

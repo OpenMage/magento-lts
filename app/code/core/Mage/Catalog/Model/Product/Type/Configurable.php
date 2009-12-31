@@ -159,7 +159,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         $allow = $attribute->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL
             && $attribute->getIsVisible()
             && $attribute->getIsConfigurable()
-            && $attribute->usesSource();
+            && $attribute->usesSource()
+            && $attribute->getIsUserDefined();
 
         return $allow;
     }
@@ -257,15 +258,16 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     {
         $res = array();
         foreach ($this->getConfigurableAttributes($product) as $attribute) {
-            $label = $attribute->getLabel() ? $attribute->getLabel() : $attribute->getProductAttribute()->getFrontend()->getLabel();
             $res[] = array(
-               'id'            => $attribute->getId(),
-               'label'         => $label,
-               'position'      => $attribute->getPosition(),
-               'values'        => $attribute->getPrices() ? $attribute->getPrices() : array(),
-               'attribute_id'  => $attribute->getProductAttribute()->getId(),
-               'attribute_code'=> $attribute->getProductAttribute()->getAttributeCode(),
-               'frontend_label'=> $attribute->getProductAttribute()->getFrontend()->getLabel(),
+                'id'             => $attribute->getId(),
+                'label'          => $attribute->getLabel(),
+                'use_default'    => $attribute->getUseDefault(),
+                'position'       => $attribute->getPosition(),
+                'values'         => $attribute->getPrices() ? $attribute->getPrices() : array(),
+                'attribute_id'   => $attribute->getProductAttribute()->getId(),
+                'attribute_code' => $attribute->getProductAttribute()->getAttributeCode(),
+                'frontend_label' => $attribute->getProductAttribute()->getFrontend()->getLabel(),
+                'store_label'    => $attribute->getProductAttribute()->getStoreLabel(),
             );
         }
         return $res;
@@ -354,10 +356,12 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     {
         $collection = Mage::getResourceModel('catalog/product_type_configurable_product_collection')
             ->setFlag('require_stock_items', true)
+            ->setFlag('product_children', true)
             ->setProductFilter($this->getProduct($product));
         if (!is_null($this->getStoreFilter($product))) {
             $collection->addStoreFilter($this->getStoreFilter($product));
         }
+
         return $collection;
     }
 
@@ -422,7 +426,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         if (is_array($data)) {
             $productIds = array_keys($data);
             Mage::getResourceModel('catalog/product_type_configurable')
-                ->saveProducts($this->getProduct($product)->getId(), $productIds);
+                ->saveProducts($this->getProduct($product), $productIds);
         }
         return $this;
     }

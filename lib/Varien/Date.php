@@ -52,7 +52,8 @@ class Varien_Date
         'dd'   => '%d',
         'd'    => '%e',
         'yyyy' => '%Y',
-        'yy'   => '%y'
+        'yy'   => '%y',
+        'y'    => '%Y'
     );
     private static $_convertZendToStrftimeTime = array(
         'a'  => '%p',

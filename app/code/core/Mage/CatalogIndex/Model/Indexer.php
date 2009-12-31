@@ -165,8 +165,9 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * @param   mixed $product
      * @return  Mage_CatalogIndex_Model_Indexer
      */
-    public function cleanup($product) {
-        $this->_getResource()->clear(true, true, true, true, true, $product);
+    public function cleanup($product)
+    {
+        $this->_getResource()->clear(true, true, true, true, true, $product, ($product->getNeedStoreForReindex() === true ? $this->_getStores() : null));
         return $this;
     }
 

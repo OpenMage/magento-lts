@@ -35,6 +35,11 @@
 class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 {
     /**
+     * Entity code.
+     * Can be used as part of method name for entity processing
+     */
+    const ENTITY                = 'catalog_category';
+    /**
      * Category display modes
      */
     const DM_PRODUCT            = 'PRODUCTS';
@@ -171,15 +176,66 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Move category
      *
-     * @return Mage_Catalog_Model_Category
+     * @param   int $parentId new parent category id
+     * @param   int $afterCategoryId category id after which we have put current category
+     * @return  Mage_Catalog_Model_Category
      */
-    /*
-    public function move($parentId)
+    public function move($parentId, $afterCategoryId)
     {
-        $this->getResource()->move($this, $parentId);
+        /**
+         * Validate new parent category id. (category model is used for backward
+         * compatibility in event params)
+         */
+        $parent = Mage::getModel('catalog/category')
+            ->setStoreId($this->getStoreId())
+            ->load($parentId);
+
+        if (!$parent->getId()) {
+            Mage::throwException(
+                Mage::helper('catalog')->__('Category move operation is not possible: new parent category not found.')
+            );
+        }
+
+        $eventParams = array(
+            $this->_eventObject => $this,
+            'parent'        => $parent,
+            'category_id'   => $this->getId(),
+            'prev_parent_id'=> $this->getParentId(),
+            'parent_id'     => $parentId
+        );
+        $moveComplete = false;
+
+        $this->_getResource()->beginTransaction();
+        try {
+            /**
+             * catalog_category_tree_move_before and catalog_category_tree_move_after
+             * events declared for backward compatibility
+             */
+            Mage::dispatchEvent('catalog_category_tree_move_before', $eventParams);
+            Mage::dispatchEvent($this->_eventPrefix.'_move_before', $eventParams);
+
+            $this->getResource()->changeParent($this, $parent, $afterCategoryId);
+
+            Mage::dispatchEvent($this->_eventPrefix.'_move_after', $eventParams);
+            Mage::dispatchEvent('catalog_category_tree_move_after', $eventParams);
+            $this->_getResource()->commit();
+
+            $this->setAffectedCategoryIds(array($this->getId(), $this->getParentId(), $parentId));
+            $moveComplete = true;
+        } catch (Exception $e) {
+            $this->_getResource()->rollBack();
+            throw $e;
+        }
+        if ($moveComplete) {
+            Mage::dispatchEvent('category_move', $eventParams);
+            Mage::getSingleton('index/indexer')->processEntityAction(
+                $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+            );
+            Mage::app()->cleanCache(array(self::CACHE_TAG));
+        }
+
         return $this;
     }
-    */
 
     /**
      * Retrieve default attribute set id
@@ -843,5 +899,19 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     public function validate()
     {
         return $this->_getResource()->validate($this);
+    }
+
+    /**
+     * Init indexing process after category data commit
+     *
+     * @return Mage_Catalog_Model_Category
+     */
+    protected function _afterSaveCommit()
+    {
+        parent::_afterSaveCommit();
+        Mage::getSingleton('index/indexer')->processEntityAction(
+            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+        );
+        return $this;
     }
 }

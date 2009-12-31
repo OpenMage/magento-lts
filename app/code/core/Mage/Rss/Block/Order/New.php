@@ -29,12 +29,21 @@
  *
  * @category   Mage
  * @package    Mage_Rss
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
 {
+
+    /**
+     * Cache tag constant for feed new orders
+     *
+     * @var string
+     */
+    const CACHE_TAG = 'block_html_rss_order_new';
+
     protected function _construct()
     {
+        $this->setCacheTags(array(self::CACHE_TAG));
         /*
         * setting cache to save the rss for 10 minutes
         */
@@ -64,6 +73,9 @@ class Mage_Rss_Block_Order_New extends Mage_Core_Block_Template
         ;
 
         $detailBlock = Mage::getBlockSingleton('rss/order_details');
+
+        Mage::dispatchEvent('rss_order_new_collection_select', array('collection' => $collection));
+
         Mage::getSingleton('core/resource_iterator')
             ->walk($collection->getSelect(), array(array($this, 'addNewOrderXmlCallback')), array('rssObj'=> $rssObj, 'order'=>$order , 'detailBlock' => $detailBlock));
 

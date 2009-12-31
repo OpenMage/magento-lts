@@ -81,4 +81,29 @@ class Mage_Core_Model_Mysql4_Url_Rewrite extends Mage_Core_Model_Mysql4_Abstract
 
         return $select;
     }
+
+    /**
+     * Retrieve request_path using id_path and current store's id.
+     *
+     * @param string $idPath
+     * @param int|Mage_Core_Model_Store $store
+     * @return string|false
+     */
+    public function getRequestPathByIdPath($idPath, $store)
+    {
+        if ($store instanceof Mage_Core_Model_Store) {
+            $storeId = (int)$store->getId();
+        } else {
+            $storeId = (int)$store;
+        }
+
+        $select = $this->_getReadAdapter()->select();
+        /* @var $select Zend_Db_Select */
+        $select->from(array('main_table' => $this->getMainTable()), 'request_path')
+            ->where('main_table.store_id = ?', $storeId)
+            ->where('main_table.id_path = ?', $idPath)
+            ->limit(1);
+
+        return $this->_getReadAdapter()->fetchOne($select);
+    }
 }

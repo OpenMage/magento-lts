@@ -280,6 +280,27 @@ class Varien_Db_Select extends Zend_Db_Select
     }
 
     /**
+     * Generate INSERT IGNORE query to the table from current select
+     *
+     * @param string $tableName
+     * @param array $fields
+     * @return string
+     */
+    public function insertIgnoreFromSelect($tableName, $fields = array())
+    {
+        $insertFields = '';
+        if ($fields) {
+            $quotedFields = array_map(array($this->getAdapter(), 'quoteIdentifier'), $fields);
+            $insertFields = '(' . join(',', $quotedFields) . ') ';
+        }
+        return sprintf('INSERT IGNORE %s %s%s',
+            $this->getAdapter()->quoteIdentifier($tableName),
+            $insertFields,
+            $this->assemble()
+        );
+    }
+
+    /**
      * Retrieve DELETE query from select
      *
      * @param string $table The table name or alias

@@ -53,6 +53,17 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
         }
     }
 
+    /**
+     * Retrieve form action url and set "secure" param to avoid confirm
+     * message when we submit form from secure page to unsecure
+     *
+     * @return string
+     */
+    public function getFormActionUrl()
+    {
+        return $this->getUrl('checkout/cart/addgroup', array('_secure' => true));
+    }
+
     public function getLastOrder()
     {
         foreach ($this->getOrders() as $order) {

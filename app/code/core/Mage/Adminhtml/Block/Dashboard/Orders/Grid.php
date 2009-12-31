@@ -68,8 +68,8 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
                 array('base_grand_total'));
         } else {
             $collection->addExpressionAttributeToSelect('revenue',
-                '({{base_grand_total}}/{{store_to_base_rate}})',
-                array('base_grand_total', 'store_to_base_rate'));
+                '({{base_grand_total}}*{{base_to_global_rate}})',
+                array('base_grand_total', 'base_to_global_rate'));
         }
 
         $this->setCollection($collection);

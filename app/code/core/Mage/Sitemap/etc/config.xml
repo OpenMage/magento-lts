@@ -51,20 +51,7 @@
                 <setup>
                     <module>Mage_Sitemap</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </sitemap_setup>
-            <sitemap_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </sitemap_write>
-            <sitemap_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </sitemap_read>
         </resources>
         <template>
             <email>
@@ -77,43 +64,6 @@
         </template>
     </global>
     <adminhtml>
-        <menu>
-            <catalog>
-                <children>
-                    <sitemap translate="title" module="sitemap">
-                        <title>Google Sitemap</title>
-                        <sort_order>180</sort_order>
-                        <action>adminhtml/sitemap/</action>
-                    </sitemap>
-                </children>
-            </catalog>
-        </menu>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <catalog>
-                            <children>
-                                <sitemap translate="title" modul="sitemap">
-                                    <title>Google Sitemap</title>
-                                </sitemap>
-                            </children>
-                        </catalog>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <sitemap translate="title" modul="shipping">
-                                            <title>Google Sitemap Section</title>
-                                        </sitemap>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
         <translate>
             <modules>
                 <Mage_Sitemap>

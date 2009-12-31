@@ -90,6 +90,13 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected $_dataSaveAllowed = true;
 
     /**
+     * Flag which allow detect object state: is it new object (without id) or existing one (with id)
+     *
+     * @var bool
+     */
+    protected $_isObjectNew     = null;
+
+    /**
      * Standard model initialization
      *
      * @param string $resourceModel
@@ -244,7 +251,14 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     public function save()
     {
+        /**
+         * Direct deleted items to delete method
+         */
+        if ($this->isDeleted()) {
+            return $this->delete();
+        }
         $this->_getResource()->beginTransaction();
+        $dataCommited = false;
         try {
             $this->_beforeSave();
             if ($this->_dataSaveAllowed) {
@@ -252,12 +266,47 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
                 $this->_afterSave();
             }
             $this->_getResource()->commit();
-        }
-        catch (Exception $e){
+            $dataCommited = true;
+        } catch (Exception $e) {
             $this->_getResource()->rollBack();
             throw $e;
         }
+        if ($dataCommited) {
+            $this->_afterSaveCommit();
+        }
         return $this;
+    }
+
+    /**
+     * Processing data save after main transaction commit
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _afterSaveCommit()
+    {
+        Mage::dispatchEvent('model_save_commit_after', array('object'=>$this));
+        Mage::dispatchEvent($this->_eventPrefix.'_save_commit_after', array($this->_eventObject=>$this));
+        return $this;
+    }
+
+    /**
+     * Check object state (true - if it is object without id on object just created)
+     * This method can help detect if object just created in _afterSave method
+     * problem is what in after save onject has id and we can't detect what object was
+     * created in this transaction
+     *
+     * @param bool $flag
+     * @return bool
+     */
+    public function isObjectNew($flag=null)
+    {
+        if ($flag !== null) {
+            $this->_isObjectNew = $flag;
+        }
+        if ($this->_isObjectNew !== null) {
+            return $this->_isObjectNew;
+        }
+        return !(bool)$this->getId();
     }
 
     /**
@@ -267,6 +316,9 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     protected function _beforeSave()
     {
+        if (!$this->getId()) {
+            $this->isObjectNew(true);
+        }
         Mage::dispatchEvent('model_save_before', array('object'=>$this));
         Mage::dispatchEvent($this->_eventPrefix.'_save_before', array($this->_eventObject=>$this));
         return $this;
@@ -282,8 +334,9 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if ($this->_cacheTag) {
             if ($this->_cacheTag === true) {
                 $tags = array();
-            }
-            else {
+            } elseif (is_array($this->_cacheTag)) {
+                $tags = $this->_cacheTag;
+            } else {
                 $tags = array($this->_cacheTag);
             }
             Mage::app()->cleanCache($tags);
@@ -307,6 +360,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->_afterDelete();
 
             $this->_getResource()->commit();
+            $this->_afterDeleteCommit();
         }
         catch (Exception $e){
             $this->_getResource()->rollBack();
@@ -361,6 +415,18 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         Mage::dispatchEvent('model_delete_after', array('object'=>$this));
         Mage::dispatchEvent($this->_eventPrefix.'_delete_after', array($this->_eventObject=>$this));
         return $this;
+    }
+
+    /**
+     * Processing manipulation after main transaction commit
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _afterDeleteCommit()
+    {
+        Mage::dispatchEvent('model_delete_commit_after', array('object'=>$this));
+        Mage::dispatchEvent($this->_eventPrefix.'_delete_commit_after', array($this->_eventObject=>$this));
+         return $this;
     }
 
     /**

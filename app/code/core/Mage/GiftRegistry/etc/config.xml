@@ -61,20 +61,7 @@
                 <setup>
                     <module>Mage_GiftRegistry</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </giftregistry_setup>
-            <giftregistry_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </giftregistry_write>
-            <giftregistry_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </giftregistry_read>
         </resources>
 
         <events></events>

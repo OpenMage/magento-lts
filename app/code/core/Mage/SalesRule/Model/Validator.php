@@ -167,7 +167,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     {
         $address = $this->_getAddress($item);
         $item->setFreeShipping(false);
-        
+
         foreach ($this->_getRules() as $rule) {
             /* @var $rule Mage_SalesRule_Model_Rule */
             if (!$this->_canProcessRule($rule, $address)) {
@@ -221,7 +221,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             if (!$this->_canProcessRule($rule, $address)) {
                 continue;
             }
-            
+
             if (!$rule->getActions()->validate($item)) {
                 continue;
             }
@@ -274,8 +274,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                         /**
                          * We can't use row total here because row total not include tax
                          */
-                        $discountAmount     = min($itemPrice*$qty, $quoteAmount);
-                        $baseDiscountAmount = min($baseItemPrice*$qty, $cartRules[$rule->getId()]);
+                        $discountAmount     = min($itemPrice*$qty - $item->getDiscountAmount(), $quoteAmount);
+                        $baseDiscountAmount = min($baseItemPrice*$qty - $item->getBaseDiscountAmount(), $cartRules[$rule->getId()]);
                         $cartRules[$rule->getId()] -= $baseDiscountAmount;
                     }
                     $address->setCartFixedRules($cartRules);
@@ -284,7 +284,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                 case 'buy_x_get_y':
                     $x = $rule->getDiscountStep();
                     $y = $rule->getDiscountAmount();
-                    if (!$x || $y>=$x) {
+                    if (!$x) {
                         break;
                     }
                     $buy = 0; $free = 0;
@@ -386,7 +386,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             if (!$rule->getApplyToShipping() || !$this->_canProcessRule($rule, $address)) {
                 continue;
             }
-            
+
             $discountAmount = 0;
             $baseDiscountAmount = 0;
             $rulePercent = min(100, $rule->getDiscountAmount());
@@ -417,8 +417,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                     }
                     if ($cartRules[$rule->getId()] > 0) {
                         $quoteAmount        = $quote->getStore()->convertPrice($cartRules[$rule->getId()]);
-                        $discountAmount     = min($shippingAmount, $quoteAmount);
-                        $baseDiscountAmount = min($baseShippingAmount, $cartRules[$rule->getId()]);
+                        $discountAmount     = min($shippingAmount-$address->getShippingDiscountAmount(), $quoteAmount);
+                        $baseDiscountAmount = min($baseShippingAmount-$address->getBaseShippingDiscountAmount(), $cartRules[$rule->getId()]);
                         $cartRules[$rule->getId()] -= $baseDiscountAmount;
                     }
                     $address->setCartFixedRules($cartRules);
@@ -476,7 +476,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         } elseif ($rule->getCouponCode()) {
             $label = $rule->getCouponCode();
         }
-        
+
         if (!empty($label)) {
             $description[$rule->getId()] = $label;
         }

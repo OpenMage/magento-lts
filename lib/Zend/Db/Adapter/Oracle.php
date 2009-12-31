@@ -15,8 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Oracle.php 16920 2009-07-21 13:32:28Z ralph $
  */
 
 /**
@@ -33,7 +34,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
@@ -47,13 +48,14 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
      * password => (string) Password associated with the username.
      * dbname   => Either the name of the local Oracle instance, or the
      *             name of the entry in tnsnames.ora to which you want to connect.
-     *
+     * persistent => (boolean) Set TRUE to use a persistent connection
      * @var array
      */
     protected $_config = array(
         'dbname'       => null,
         'username'     => null,
         'password'     => null,
+        'persistent'   => false
     );
 
     /**
@@ -117,7 +119,9 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
             throw new Zend_Db_Adapter_Oracle_Exception('The OCI8 extension is required for this adapter but the extension is not loaded');
         }
 
-        $this->_connection = @oci_connect(
+        $connectionFuncName = ($this->_config['persistent'] == true) ? 'oci_pconnect' : 'oci_connect';
+        
+        $this->_connection = @$connectionFuncName(
                 $this->_config['username'],
                 $this->_config['password'],
                 $this->_config['dbname'],

@@ -125,6 +125,13 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
         $address = $this->getData('customer_default_billing_address');
         if (is_null($address)) {
             $address = $this->getCustomer()->getDefaultBillingAddress();
+            if (!$address) {
+                foreach ($this->getCustomer()->getAddresses() as $address) {
+                    if($address){
+                        break;
+                    }
+                }
+            }
             $this->setData('customer_default_billing_address', $address);
         }
         return $address;

@@ -68,7 +68,6 @@ class Mage_Core_Model_Config_Options extends Varien_Object
 
     public function getDir($type)
     {
-        $this->_construct();
         $method = 'get'.ucwords($type).'Dir';
         $dir = $this->$method();
         if (!$dir) {

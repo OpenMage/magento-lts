@@ -53,6 +53,7 @@
                     <de_DE/><!-- German (Germany) -->
                     <el_GR/><!-- Greek (Greece) -->
                     <en_AU/><!-- English (Australian) -->
+                    <en_CA/><!-- English (Canadian) -->
                     <en_GB/><!-- English (United Kingdom) -->
                     <en_NZ/><!-- English (New Zealand) -->
                     <en_US/><!-- English (United States) -->
@@ -391,5 +392,11 @@
                 <export>{{var_dir}}/export</export>
             </filesystem>
         </system>
+        <general>
+            <locale>
+                <code>en_US</code>
+                <timezone>America/Los_Angeles</timezone>
+            </locale>
+        </general>
     </default>
 </config>

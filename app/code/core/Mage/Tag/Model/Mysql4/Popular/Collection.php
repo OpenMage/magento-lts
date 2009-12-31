@@ -40,20 +40,31 @@ class Mage_Tag_Model_Mysql4_Popular_Collection extends Mage_Core_Model_Mysql4_Co
         $this->_init('tag/tag');
     }
 
+    /**
+     * Replacing popularity by sum of popularity and base_popularity
+     *
+     * @param int $storeId
+     * @return Mage_Tag_Model_Mysql4_Popular_Collection
+     */
     public function joinFields($storeId = 0)
     {
         $this->getSelect()
             ->reset()
-            ->from(array('main_table' => $this->getTable('tag/summary')))
+            ->from(
+                array('main_table' => $this->getTable('tag/summary')),
+                array(
+                    'tag_id',
+                    'popularity' => '(main_table.popularity + main_table.base_popularity)'
+                )
+            )
             ->join(
-                array('tag' => $this->getTable('tag/tag')), 
+                array('tag' => $this->getTable('tag/tag')),
                 'tag.tag_id = main_table.tag_id AND tag.status = '.Mage_Tag_Model_Tag::STATUS_APPROVED)
             ->where('main_table.store_id = ?', $storeId)
             ->order('popularity desc');
-       
         return $this;
     }
-    
+
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
@@ -62,7 +73,7 @@ class Mage_Tag_Model_Mysql4_Popular_Collection extends Mage_Core_Model_Mysql4_Co
         parent::load($printQuery, $logQuery);
         return $this;
     }
-    
+
     public function limit($limit)
     {
         $this->getSelect()->limit($limit);

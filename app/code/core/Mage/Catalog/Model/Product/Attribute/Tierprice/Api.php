@@ -40,9 +40,9 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
         $this->_storeIdSessionField = 'product_store_id';
     }
 
-    public function info($productId)
+    public function info($productId, $identifierType = null)
     {
-        $product = $this->_initProduct($productId);
+        $product = $this->_initProduct($productId, $identifierType);
         $tierPrices = $product->getData(self::ATTRIBUTE_CODE);
 
         if (!is_array($tierPrices)) {
@@ -64,9 +64,9 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
         return $result;
     }
 
-    public function update($productId, $tierPrices)
+    public function update($productId, $tierPrices, $identifierType = null)
     {
-        $product = $this->_initProduct($productId);
+        $product = $this->_initProduct($productId, $identifierType);
         if (!is_array($tierPrices)) {
             $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid Tier Prices'));
         }
@@ -136,17 +136,27 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
      * @param string|int $store
      * @return Mage_Catalog_Model_Product
      */
-    protected function _initProduct($productId)
+    protected function _initProduct($productId, $identifierType = null)
     {
+        $loadByIdOnFalse = false;
+        if ($identifierType === null) {
+            $identifierType = 'sku';
+            $loadByIdOnFalse = true;
+        }
         $product = Mage::getModel('catalog/product')
                        ->setStoreId($this->_getStoreId());
 
-        $idBySku = $product->getIdBySku($productId);
-        if ($idBySku) {
-            $productId = $idBySku;
+        if ($identifierType == 'sku') {
+            $idBySku = $product->getIdBySku($productId);
+            if ($idBySku) {
+                $productId = $idBySku;
+            }
+            if ($idBySku || $loadByIdOnFalse) {
+                $product->load($productId);
+            }
+        } elseif ($identifierType == 'id') {
+            $product->load($productId);
         }
-
-        $product->load($productId);
 
         /* @var $product Mage_Catalog_Model_Product */
 

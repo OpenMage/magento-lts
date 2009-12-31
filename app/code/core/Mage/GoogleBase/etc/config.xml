@@ -62,20 +62,7 @@
                 <setup>
                     <module>Mage_GoogleBase</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </googlebase_setup>
-            <googlebase_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </googlebase_write>
-            <googlebase_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </googlebase_read>
         </resources>
         <blocks>
             <googlebase><class>Mage_GoogleBase_Block</class></googlebase>
@@ -106,7 +93,6 @@
             <catalog_product_save_after>
                 <observers>
                     <googlebase_observer>
-                        <type>singleton</type>
                         <class>googlebase/observer</class>
                         <method>saveProductItem</method>
                     </googlebase_observer>
@@ -115,7 +101,6 @@
             <catalog_product_delete_before>
                 <observers>
                     <googlebase_observer>
-                        <type>singleton</type>
                         <class>googlebase/observer</class>
                         <method>deleteProductItem</method>
                     </googlebase_observer>
@@ -129,51 +114,6 @@
                 </googlebase>
             </updates>
         </layout>
-        <menu>
-            <catalog>
-                <children>
-                    <googlebase translate="title" module="googlebase">
-                        <title>Google Base</title>
-                        <children>
-                            <types translate="title" module="googlebase">
-                                <title>Manage Attributes</title>
-                                <action>googlebase/types</action>
-                            </types>
-                            <items translate="title" module="googlebase">
-                                <title>Manage Items</title>
-                                <action>googlebase/items</action>
-                            </items>
-                        </children>
-                    </googlebase>
-                 </children>
-            </catalog>
-        </menu>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <catalog>
-                            <children>
-                                <googlebase translate="title" module="googlebase">
-                                    <title>Google Base</title>
-                                    <sort_order>500</sort_order>
-                                    <children>
-                                        <types translate="title">
-                                            <title>Manage Attributes</title>
-                                            <sort_order>0</sort_order>
-                                        </types>
-                                        <items translate="title">
-                                            <title>Manage Items</title>
-                                            <sort_order>5</sort_order>
-                                        </items>
-                                    </children>
-                                </googlebase>
-                            </children>
-                        </catalog>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
     </adminhtml>
     <frontend>
         <routers>

@@ -28,7 +28,8 @@
 class Mage_Catalog_Model_Convert_Adapter_Product
     extends Mage_Eav_Model_Convert_Adapter_Entity
 {
-    const MULTI_DELIMITER = ' , ';
+    const MULTI_DELIMITER   = ' , ';
+    const ENTITY            = 'catalog_product_import';
 
     /**
      * Product model
@@ -648,9 +649,8 @@ class Mage_Catalog_Model_Convert_Adapter_Product
                             $setValue[] = $item['value'];
                         }
                     }
-                }
-                else {
-                    $setValue = null;
+                } else {
+                    $setValue = false;
                     foreach ($options as $item) {
                         if ($item['label'] == $value) {
                             $setValue = $item['value'];
@@ -726,10 +726,19 @@ class Mage_Catalog_Model_Convert_Adapter_Product
 
     /**
      * Process after import data
+     * Init indexing process after catalog product import
      *
      */
     public function finish()
     {
+        /**
+         * Back compatibility event
+         */
         Mage::dispatchEvent('catalog_product_import_after', array());
+
+        $entity = new Varien_Object();
+        Mage::getSingleton('index/indexer')->processEntityAction(
+            $entity, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+        );
     }
 }

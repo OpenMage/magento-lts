@@ -333,12 +333,23 @@ Product.Configurable.prototype = {
 	        //var li = Builder.node('li', {className:'attribute'});
 	        var li = $(document.createElement('LI'));
 	        li.className = 'attribute';
+	            
 			li.id = this.idPrefix + '_attribute_' + index;
 			attribute.html_id = li.id;
 			if(attribute && attribute.label && attribute.label.blank()) {
 				attribute.label = '&nbsp;'
 			}
-			li.update(this.addAttributeTemplate.evaluate(attribute));
+			var label_readonly = '';
+			var use_default_checked = '';
+			if (attribute.use_default == '1') {
+			    use_default_checked = ' checked="checked"';
+			    label_readonly = ' redonly="redonly"';
+			}
+			
+			var template = this.addAttributeTemplate.evaluate(attribute);
+			template = template.replace(new RegExp(' readonly="label"', 'g'), label_readonly);
+			template = template.replace(new RegExp(' checked="use_default"', 'g'), use_default_checked);
+                        li.update(template);
 			li.attributeObject = attribute;
 
 			this.container.appendChild(li);
@@ -353,6 +364,7 @@ Product.Configurable.prototype = {
 			/* Observe label change */
 			Event.observe(li.down('.attribute-label'),'change', this.onLabelUpdate);
 			Event.observe(li.down('.attribute-label'),'keyup',  this.onLabelUpdate);
+			Event.observe(li.down('.attribute-use-default-label'), 'change', this.onLabelUpdate);
 		}.bind(this));
 		if (!this.readonly) {
 		    // Creation of sortable for attributes sorting
@@ -363,7 +375,18 @@ Product.Configurable.prototype = {
 
 	updateLabel: function (event) {
 		var li = Event.findElement(event, 'LI');
-		li.attributeObject.label = Event.element(event).value;
+		var labelEl = li.down('.attribute-label');
+		var defEl   = li.down('.attribute-use-default-label');
+		
+		li.attributeObject.label = labelEl.value;
+                if (defEl.checked) {
+                    labelEl.readOnly = true;
+                    li.attributeObject.use_default = 1;
+		} else {
+		    labelEl.readOnly = false;
+		    li.attributeObject.use_default = 0;
+		}
+		
 		this.updateSaveInput();
 	},
 	updatePositions: function(param) {
@@ -550,7 +573,7 @@ Product.Configurable.prototype = {
 			this.valueAutoIndex = 1;
 		}
 		templateVariables.set('html_id', container.id  + '_' + this.valueAutoIndex);
-		templateVariables = templateVariables.merge(value);
+		templateVariables.update(value);
 		var pricingValue = parseFloat(templateVariables.get('pricing_value'));
 		if (!isNaN(pricingValue)) {
 		    templateVariables.set('pricing_value', pricingValue);

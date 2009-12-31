@@ -242,7 +242,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
              */
             if ($useDefaults = $this->getRequest()->getPost('use_default')) {
                 foreach ($useDefaults as $attributeCode) {
-                    $category->setData($attributeCode, null);
+                    $category->setData($attributeCode, false);
                 }
             }
 
@@ -287,43 +287,34 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     }
 
     /**
-     * Move category tree node action
+     * Move category action
      */
     public function moveAction()
     {
-        $nodeId           = $this->getRequest()->getPost('id', false);
-        $parentNodeId     = $this->getRequest()->getPost('pid', false);
-        $prevNodeId       = $this->getRequest()->getPost('aid', false);
-        $prevParentNodeId = $this->getRequest()->getPost('paid', false);
+        $category = $this->_initCategory();
+        if (!$category) {
+            $this->getResponse()->setBody(Mage::helper('catalog')->__('Category move error'));
+            return;
+        }
+        /**
+         * New parent category identifier
+         */
+        $parentNodeId   = $this->getRequest()->getPost('pid', false);
+        /**
+         * Category id after which we have put our category
+         */
+        $prevNodeId     = $this->getRequest()->getPost('aid', false);
 
         try {
-            $tree = Mage::getResourceModel('catalog/category_tree')
-                ->load();
-
-            $node = $tree->getNodeById($nodeId);
-            $newParentNode  = $tree->getNodeById($parentNodeId);
-            $prevNode       = $tree->getNodeById($prevNodeId);
-
-            if (!$prevNode || !$prevNode->getId()) {
-                $prevNode = null;
-            }
-
-            $tree->move($node, $newParentNode, $prevNode);
-
-            Mage::dispatchEvent('category_move',
-                array(
-                    'category_id' => $nodeId,
-                    'prev_parent_id' => $prevParentNodeId,
-                    'parent_id' => $parentNodeId
-            ));
-
+            $category->move($parentNodeId, $prevNodeId);
             $this->getResponse()->setBody("SUCCESS");
         }
         catch (Mage_Core_Exception $e) {
             $this->getResponse()->setBody($e->getMessage());
         }
         catch (Exception $e){
-            $this->getResponse()->setBody(Mage::helper('catalog')->__('Category move error'));
+            $this->getResponse()->setBody(Mage::helper('catalog')->__('Category move error'.$e));
+            Mage::logException($e);
         }
 
     }

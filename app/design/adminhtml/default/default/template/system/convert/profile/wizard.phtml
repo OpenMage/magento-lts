@@ -143,10 +143,12 @@ function changeDirection()
 
 function updateRun(select)
 {
-    if ($(select).value=='interactive') {
-        $('file_list').show();
-    } else {
-        $('file_list').hide();
+    if ($('file_list') != null){
+        if ($(select).value=='interactive') {
+            $('file_list').show();
+        } else {
+            $('file_list').hide();
+        }
     }
 }
 

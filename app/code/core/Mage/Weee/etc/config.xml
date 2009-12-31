@@ -31,58 +31,35 @@
             <version>0.13</version>
         </Mage_Weee>
     </modules>
-
     <global>
         <models>
             <weee>
                 <class>Mage_Weee_Model</class>
                 <resourceModel>weee_mysql4</resourceModel>
             </weee>
-
             <weee_mysql4>
                 <class>Mage_Weee_Model_Mysql4</class>
                 <entities>
-                    <tax>
-                        <table>weee_tax</table>
-                    </tax>
-                    <discount>
-                        <table>weee_discount</table>
-                    </discount>
+                    <tax><table>weee_tax</table></tax>
+                    <discount><table>weee_discount</table></discount>
                 </entities>
             </weee_mysql4>
         </models>
-
         <resources>
             <weee_setup>
                 <setup>
                     <module>Mage_Weee</module>
                     <class>Mage_Weee_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </weee_setup>
-            <weee_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </weee_write>
-            <weee_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </weee_read>
         </resources>
-
         <blocks>
             <weee><class>Mage_Weee_Block</class></weee>
         </blocks>
-
         <events>
             <adminhtml_catalog_product_edit_prepare_form>
                 <observers>
                     <weee>
-                        <type>singleton</type>
                         <class>weee/observer</class>
                         <method>setWeeeRendererInForm</method>
                     </weee>
@@ -91,7 +68,6 @@
             <adminhtml_catalog_product_form_prepare_excluded_field_list>
                 <observers>
                     <weee>
-                        <type>singleton</type>
                         <class>weee/observer</class>
                         <method>updateExcludedFieldList</method>
                     </weee>
@@ -129,7 +105,6 @@
             <adminhtml_catalog_product_edit_element_types>
                 <observers>
                     <weee>
-                        <type>singleton</type>
                         <class>weee/observer</class>
                         <method>updateElementTypes</method>
                     </weee>
@@ -139,7 +114,6 @@
             <catalogrule_after_apply>
                 <observers>
                     <weee>
-                        <type>singleton</type>
                         <class>weee/observer</class>
                         <method>updateDiscountPercents</method>
                     </weee>
@@ -149,7 +123,6 @@
             <catalog_product_view_config>
                 <observers>
                     <weee>
-                        <type>singleton</type>
                         <class>weee/observer</class>
                         <method>updateCofigurableProductOptions</method>
                     </weee>
@@ -158,7 +131,6 @@
             <bundle_product_view_config>
                 <observers>
                     <weee>
-                        <type>singleton</type>
                         <class>weee/observer</class>
                         <method>updateBundleProductOptions</method>
                     </weee>
@@ -241,8 +213,8 @@
                 <totals>
                     <weee>
                         <class>weee/total_quote_weee</class>
-                        <after>subtotal,shipping,tax</after>
-                        <before>grand_total</before>
+                        <after>subtotal,tax_subtotal</after>
+                        <before>tax,discount</before>
                     </weee>
                 </totals>
             </quote>
@@ -291,9 +263,7 @@
     <frontend>
         <layout>
              <updates>
-                  <weee>
-                        <file>weee.xml</file>
-                  </weee>
+                  <weee><file>weee.xml</file></weee>
              </updates>
         </layout>
     </frontend>

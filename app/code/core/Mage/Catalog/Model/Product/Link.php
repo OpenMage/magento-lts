@@ -138,11 +138,17 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * Save grouped product relation links
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return Mage_Catalog_Model_Product_Link
+     */
     public function saveGroupedLinks($product)
     {
         $data = $product->getGroupedLinkData();
         if (!is_null($data)) {
-            $this->_getResource()->saveProductLinks($product, $data, self::LINK_TYPE_GROUPED);
+            $this->_getResource()->saveGroupedLinks($product, $data, self::LINK_TYPE_GROUPED);
         }
         return $this;
     }

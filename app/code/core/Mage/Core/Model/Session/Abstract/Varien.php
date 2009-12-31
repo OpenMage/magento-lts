@@ -45,12 +45,6 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             return $this;
         }
 
-        Varien_Profiler::start(__METHOD__.'/setOptions');
-        if (is_writable(Mage::getBaseDir('session'))) {
-            session_save_path($this->getSessionSavePath());
-        }
-        Varien_Profiler::stop(__METHOD__.'/setOptions');
-
         switch($this->getSessionSaveMethod()) {
             case 'db':
                 ini_set('session.save_handler', 'user');
@@ -62,26 +56,48 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 ini_set('session.save_handler', 'memcache');
                 session_save_path($this->getSessionSavePath());
                 break;
+            case 'eaccelerator':
+                ini_set('session.save_handler', 'eaccelerator');
+                break;
             default:
                 session_module_name('files');
+                if (is_writable(Mage::getBaseDir('session'))) {
+                    session_save_path($this->getSessionSavePath());
+                }
                 break;
         }
 
         if (Mage::app()->getStore()->isAdmin()) {
             $adminSessionLifetime = (int)Mage::getStoreConfig('admin/security/session_cookie_lifetime');
             if ($adminSessionLifetime > 60) {
-                Mage::getSingleton('core/cookie')->setLifetime($adminSessionLifetime);
+                $this->getCookie()->setLifetime($adminSessionLifetime);
             }
         }
 
-        // set session cookie params
-        session_set_cookie_params(
-            $this->getCookie()->getLifetime(),
-            $this->getCookie()->getPath(),
-            $this->getCookie()->getDomain(),
-            $this->getCookie()->isSecure(),
-            $this->getCookie()->getHttponly()
+        // session cookie params
+        $cookieParams = array(
+            'lifetime' => $this->getCookie()->getLifetime(),
+            'path'     => $this->getCookie()->getPath(),
+            'domain'   => $this->getCookie()->getConfigDomain(),
+            'secure'   => $this->getCookie()->isSecure(),
+            'httponly' => $this->getCookie()->getHttponly()
         );
+
+        if (!$cookieParams['httponly']) {
+            unset($cookieParams['httponly']);
+            if (!$cookieParams['secure']) {
+                unset($cookieParams['secure']);
+                if (!$cookieParams['domain']) {
+                    unset($cookieParams['domain']);
+                }
+            }
+        }
+
+        if (isset($cookieParams['domain'])) {
+            $cookieParams['domain'] = $this->getCookie()->getDomain();
+        }
+
+        call_user_func_array('session_set_cookie_params', $cookieParams);
 
         if (!empty($sessionName)) {
             $this->setSessionName($sessionName);

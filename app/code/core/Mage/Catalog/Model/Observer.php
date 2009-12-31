@@ -46,12 +46,19 @@ class Mage_Catalog_Model_Observer
         /* @var $store Mage_Core_Model_Store */
         if ($store->dataHasChangedFor('group_id')) {
             Mage::app()->reinitStores();
-            Mage::getModel('catalog/url')->refreshRewrites($store->getId());
-            Mage::getResourceModel('catalog/category')->refreshProductIndex(
+            /**
+             * @see Mage_Catalog_Model_Indexer_Url
+             */
+            //Mage::getModel('catalog/url')->refreshRewrites($store->getId());
+
+            /**
+             * @see Mage_Catalog_Model_Category_Indexer_Product
+             */
+            /*Mage::getResourceModel('catalog/category')->refreshProductIndex(
                 array(),
                 array(),
                 array($store->getId())
-            );
+            );*/
             if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
                 Mage::getResourceModel('catalog/category_flat')->synchronize(null, array($store->getId()));
             }
@@ -72,12 +79,19 @@ class Mage_Catalog_Model_Observer
         /* @var $store Mage_Core_Model_Store */
         Mage::app()->reinitStores();
         Mage::getConfig()->reinit();
-        Mage::getModel('catalog/url')->refreshRewrites($store->getId());
-        Mage::getResourceSingleton('catalog/category')->refreshProductIndex(
+
+        /**
+         * @see Mage_Catalog_Model_Indexer_Url
+         */
+        //Mage::getModel('catalog/url')->refreshRewrites($store->getId());
+        /**
+         * @see Mage_Catalog_Model_Category_Indexer_Product
+         */
+        /*Mage::getResourceSingleton('catalog/category')->refreshProductIndex(
             array(),
             array(),
             array($store->getId())
-        );
+        );*/
         if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
             Mage::getResourceModel('catalog/category_flat')
                 ->synchronize(null, array($store->getId()));
@@ -99,12 +113,18 @@ class Mage_Catalog_Model_Observer
         if ($group->dataHasChangedFor('root_category_id') || $group->dataHasChangedFor('website_id')) {
             Mage::app()->reinitStores();
             foreach ($group->getStores() as $store) {
-                Mage::getModel('catalog/url')->refreshRewrites($store->getId());
-                Mage::getResourceSingleton('catalog/category')->refreshProductIndex(
+                /**
+                 * @see Mage_Catalog_Model_Indexer_Url
+                 */
+                //Mage::getModel('catalog/url')->refreshRewrites($store->getId());
+                /**
+                 * @see Mage_Catalog_Model_Category_Indexer_Product
+                 */
+                /*Mage::getResourceSingleton('catalog/category')->refreshProductIndex(
                     array(),
                     array(),
                     array($store->getId())
-                );
+                );*/
                 if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
                     Mage::getResourceModel('catalog/category_flat')
                         ->synchronize(null, array($store->getId()));
@@ -140,12 +160,18 @@ class Mage_Catalog_Model_Observer
         $categoryId = $observer->getEvent()->getCategoryId();
         $prevParentId = $observer->getEvent()->getPrevParentId();
         $parentId = $observer->getEvent()->getParentId();
-        Mage::getModel('catalog/url')->refreshCategoryRewrite($categoryId);
-        Mage::getResourceSingleton('catalog/category')->refreshProductIndex(array(
+        /**
+         * @see Mage_Catalog_Model_Indexer_Url
+         */
+        //Mage::getModel('catalog/url')->refreshCategoryRewrite($categoryId);
+        /**
+         * @see Mage_Catalog_Model_Category_Indexer_Product
+         */
+        /*Mage::getResourceSingleton('catalog/category')->refreshProductIndex(array(
             $categoryId, $prevParentId, $parentId
-        ));
-        Mage::getModel('catalog/category')->load($prevParentId)->save();
-        Mage::getModel('catalog/category')->load($parentId)->save();
+        ));*/
+        //Mage::getModel('catalog/category')->load($prevParentId)->save();
+        //Mage::getModel('catalog/category')->load($parentId)->save();
         if (Mage::helper('catalog/category_flat')->isEnabled(true)) {
             Mage::getResourceModel('catalog/category_flat')
                 ->move($categoryId, $prevParentId, $parentId);

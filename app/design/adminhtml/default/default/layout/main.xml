@@ -94,13 +94,18 @@ Default layout, loads most of the pages
 
                 <action method="addItem"><type>js</type><name>mage/adminhtml/rules.js</name><params/><if/><condition>can_load_rules_js</condition></action>
 
+                <action method="addItem"><type>js</type><name>mage/adminhtml/wysiwyg/tiny_mce/setup.js</name><params/><if/><condition>can_load_tiny_mce</condition></action>
+
                 <block type="core/html_calendar" name="head.calendar" as="calendar" template="page/js/calendar.phtml"/>
             </block>
 
             <block type="adminhtml/page_notices" name="global_notices" as="global_notices" template="page/notices.phtml" />
             <block type="adminhtml/page_header" name="header" as="header"></block>
             <block type="adminhtml/page_menu" name="menu" as="menu"></block>
-            <block type="adminhtml/notification_toolbar" name="notification_toolbar" as="notification_toolbar" acl="system/adminnotification/show_toolbar" template="notification/toolbar.phtml"></block>
+            <block type="core/text_list" name="notifications" as="notifications">
+                <block type="adminhtml/notification_toolbar" name="notification_toolbar" as="notification_toolbar" acl="system/adminnotification/show_toolbar" template="notification/toolbar.phtml"></block>
+                <block type="adminhtml/notification_baseurl" name="notification_baseurl" as="notification_baseurl" template="notification/baseurl.phtml"></block>
+            </block>
             <block type="adminhtml/widget_breadcrumbs" name="breadcrumbs" as="breadcrumbs"></block>
 
             <block type="core/template" name="formkey" as="formkey" template="formkey.phtml" />

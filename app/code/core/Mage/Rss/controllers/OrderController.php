@@ -36,7 +36,6 @@ class Mage_Rss_OrderController extends Mage_Core_Controller_Front_Action
 {
     public function newAction()
     {
-        Mage::helper('rss')->authAdmin('sales/order');
         $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
         $this->loadLayout(false);
         $this->renderLayout();
@@ -69,5 +68,19 @@ class Mage_Rss_OrderController extends Mage_Core_Controller_Front_Action
             }
         }
         $this->_forward('nofeed', 'index', 'rss');
+    }
+
+    /**
+     * Controller predispatch method to change area for some specific action.
+     *
+     * @return Mage_Rss_OrderController
+     */
+    public function preDispatch()
+    {
+        if ($this->getRequest()->getActionName() == 'new') {
+            $this->_currentArea = 'adminhtml';
+            Mage::helper('rss')->authAdmin('sales/order');
+        }
+        parent::preDispatch();
     }
 }

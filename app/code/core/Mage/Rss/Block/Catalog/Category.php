@@ -63,8 +63,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Abstract
                         'link'        => $newurl,
                         'charset'     => 'UTF-8',
                         );
-//echo "<pre>";
-//print_r($data);
+
                 $rssObj->_addHeader($data);
 
                 $_collection = $category->getCollection();
@@ -81,18 +80,6 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Abstract
                 $layer->prepareProductCollection($productCollection);
                 $productCollection->addCountToCategories($_collection);
 
-                /*if ($_collection->count()) {
-                    foreach ($_collection as $_category){
-                         $data = array(
-                                    'title'         => $_category->getName(),
-                                    'link'          => $_category->getCategoryUrl(),
-                                    'description'   => $this->helper('rss')->__('Total Products: %s', $_category->getProductCount()),
-                                    );
-
-                        $rssObj->_addEntry($data);
-                    }
-                }
-                */
                 $category->getProductCollection()->setStoreId($storeId);
                 /*
                 only load latest 50 products
@@ -100,35 +87,61 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Abstract
                 $_productCollection = $currentyCateogry
                     ->getProductCollection()
                     ->addAttributeToSort('updated_at','desc')
+                    ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
                     ->setCurPage(1)
                     ->setPageSize(50)
                 ;
-//echo "<hr>".$_productCollection->getSelect();
+
                 if ($_productCollection->getSize()>0) {
+                    $args = array('rssObj' => $rssObj);
                     foreach ($_productCollection as $_product) {
-                        $final_price = $_product->getFinalPrice();
-                        $description = '<table><tr>'.
-                            '<td><a href="'.$_product->getProductUrl().'"><img src="' . $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(75, 75)
-                            .'" border="0" align="left" height="75" width="75"></a></td>'.
-                            '<td  style="text-decoration:none;">'.$_product->getDescription().
-                            '<p> Price:'.Mage::helper('core')->currency($_product->getPrice()).
-                            ($_product->getPrice() != $final_price  ? ' Special Price:'. Mage::helper('core')->currency($final_price) : '').
-                            '</p>'.
-                            '</td>'.
-                            '</tr></table>'
-                        ;
-                        $data = array(
-                                    'title'         => $_product->getName(),
-                                    'link'          => $_product->getProductUrl(),
-                                    'description'   => $description,
-                                    );
-//print_r($data);
-                        $rssObj->_addEntry($data);
+                        $args['product'] = $_product;
+                        $this->addNewItemXmlCallback($args);
                     }
                 }
             }
         }
         return $rssObj->createRssXml();
+    }
 
+    /**
+     * Preparing data and adding to rss object
+     *
+     * @param array $args
+     */
+    public function addNewItemXmlCallback($args)
+    {
+        $product = $args['product'];
+        $product->setAllowedInRss(true);
+
+        Mage::dispatchEvent('rss_catalog_category_xml_callback', $args);
+
+        if (!$product->getAllowedInRss()) {
+            return;
+        }
+
+        $description = '<table><tr>'
+            . '<td><a href="'.$product->getProductUrl().'"><img src="'
+            . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
+            . '" border="0" align="left" height="75" width="75"></a></td>'
+            . '<td  style="text-decoration:none;">' . $product->getDescription();
+
+        if ($product->getAllowedPriceInRss()) {
+            $description .= '<p> Price:'.Mage::helper('core')->currency($product->getPrice());
+            if ($product->getPrice() != $product->getFinalPrice()) {
+                $description .= ' Special Price:' . Mage::helper('core')->currency($product->getFinalPrice());
+            }
+            $description .= '</p>';
+        }
+
+        $description .= '</td></tr></table>';
+        $rssObj = $args['rssObj'];
+        $data = array(
+                'title'         => $product->getName(),
+                'link'          => $product->getProductUrl(),
+                'description'   => $description,
+            );
+
+        $rssObj->_addEntry($data);
     }
 }

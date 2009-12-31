@@ -42,20 +42,14 @@ class Mage_Payment_Model_Method_Free extends Mage_Payment_Model_Method_Abstract
     protected $_code = 'free';
 
     /**
-     * Check method is available
+     * Check whether method is available
      *
      * @param Mage_Sales_Model_Quote $quote
      * @return bool
      */
-    public function isAvailable($quote=null)
+    public function isAvailable($quote = null)
     {
-        if (is_null($quote)) {
-           return false;
-        }
-
-        if (Mage::app()->getStore()->roundPrice($quote->getGrandTotal()) == 0) {
-            return true;
-        }
-        return false;
+        return parent::isAvailable($quote) && (!empty($quote))
+            && (Mage::app()->getStore()->roundPrice($quote->getGrandTotal()) == 0);
     }
 }

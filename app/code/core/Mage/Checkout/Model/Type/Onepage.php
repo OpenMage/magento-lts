@@ -228,6 +228,11 @@ class Mage_Checkout_Model_Type_Onepage
             $this->getQuote()->setCustomerTaxvat($address->getTaxvat());
         }
 
+        // set customer gender for further usage
+        if ($address->getGender()) {
+            $this->getQuote()->setCustomerGender($address->getGender());
+        }
+
         // invoke customer model, if it is registering
         if (Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
             // set customer password hash for further usage
@@ -242,6 +247,7 @@ class Mage_Checkout_Model_Type_Onepage
                 'password'     => 'customer_password',
                 'confirmation' => 'confirm_password',
                 'taxvat'       => 'taxvat',
+                'gender'       => 'gender',
             ) as $key => $dataKey) {
                 $customer->setData($key, $address->getData($dataKey));
             }
@@ -349,10 +355,16 @@ class Mage_Checkout_Model_Type_Onepage
             );
             return $res;
         }
+        if ($this->getQuote()->isVirtual()) {
+            $this->getQuote()->getBillingAddress()->setPaymentMethod(isset($data['method']) ? $data['method'] : null);
+        }
+        else {
+            $this->getQuote()->getShippingAddress()->setPaymentMethod(isset($data['method']) ? $data['method'] : null);
+        }
+
         $payment = $this->getQuote()->getPayment();
         $payment->importData($data);
 
-        $this->getQuote()->getShippingAddress()->setPaymentMethod($payment->getMethod());
         $this->getQuote()->save();
 
         $this->getCheckout()
@@ -434,6 +446,10 @@ class Mage_Checkout_Model_Type_Onepage
 
             if ($this->getQuote()->getCustomerTaxvat() && !$billing->getCustomerTaxvat()) {
                 $billing->setCustomerTaxvat($this->getQuote()->getCustomerTaxvat());
+            }
+
+            if ($this->getQuote()->getCustomerGender() && !$billing->getCustomerGender()) {
+                $billing->setCustomerGender($this->getQuote()->getCustomerGender());
             }
 
             Mage::helper('core')->copyFieldset('checkout_onepage_billing', 'to_customer', $billing, $customer);

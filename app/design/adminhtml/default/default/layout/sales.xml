@@ -426,6 +426,7 @@
         <reference name="head">
             <action method="addJs"><file>mage/adminhtml/sales.js</file></action>
             <action method="addJs"><file>mage/adminhtml/giftmessage.js</file></action>
+            <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
         </reference>
         <reference name="js">
             <block type="adminhtml/template" template="sales/order/create/js.phtml" name="create" />
@@ -480,7 +481,7 @@
             </block>
         </reference>
     </adminhtml_sales_order_create_index>
-    
+
     <adminhtml_sales_order_edit_index>
         <update handle="adminhtml_sales_order_create_index" />
     </adminhtml_sales_order_edit_index>

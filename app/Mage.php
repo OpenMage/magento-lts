@@ -130,13 +130,32 @@ final class Mage
     static private $_isInstalled;
 
     /**
-     * Retrieve current Magento version
+     * Gets the current Magento version string
+     * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
      *
      * @return string
      */
     public static function getVersion()
     {
-        return '1.4.0.0-alpha1';
+        return '1.4.0.0-alpha2';
+    }
+
+    /**
+     * Gets the detailed Magento version information
+     * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
+     *
+     * @return array
+     */
+    public static function getVersionInfo()
+    {
+        return array(
+            'major'     => '1',
+            'minor'     => '4',
+            'revision'  => '0',
+            'patch'     => '0',
+            'stability' => 'alpha',
+            'number'    => '2',
+        );
     }
 
     /**
@@ -312,7 +331,7 @@ final class Mage
     public static function getStoreConfigFlag($path, $store = null)
     {
         $flag = strtolower(self::getStoreConfig($path, $store));
-        if (!empty($flag) && 'false'!==$flag && '0'!==$flag) {
+        if (!empty($flag) && 'false' !== $flag) {
             return true;
         } else {
             return false;
@@ -665,8 +684,11 @@ final class Mage
         if (!self::getConfig()) {
             return;
         }
-        if (!self::getStoreConfig('dev/log/active')) {
-            return;
+
+        if (!self::$_isDeveloperMode) {
+            if (!self::getStoreConfig('dev/log/active')) {
+                return;
+            }
         }
 
         static $loggers = array();
@@ -768,6 +790,9 @@ final class Mage
                 !empty($extra) ? $extra . "\n\n" : '' . $e->getMessage(),
                 $e->getTraceAsString()
             );
+            if (isset($_SERVER) && isset($_SERVER['REQUEST_URI'])) {
+                $reportData[] = $_SERVER['REQUEST_URI'];
+            }
             $reportData = serialize($reportData);
 
             file_put_contents($reportFile, $reportData);

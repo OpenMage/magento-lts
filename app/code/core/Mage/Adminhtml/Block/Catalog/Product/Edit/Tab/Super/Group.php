@@ -164,16 +164,32 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
 
     public function getGridUrl()
     {
-        return $this->_getData('grid_url') ? $this->_getData('grid_url') : $this->getUrl('*/*/superGroup', array('_current'=>true));
+        return $this->_getData('grid_url') ? $this->_getData('grid_url') : $this->getUrl('*/*/superGroupGridOnly', array('_current'=>true));
     }
 
+    /**
+     * Retrieve selected grouped products
+     *
+     * @return array
+     */
     protected function _getSelectedProducts()
     {
-        $products = $this->getRequest()->getPost('products', null);
+        $products = $this->getProductsGrouped();
         if (!is_array($products)) {
-            $products = $this->_getProduct()->getTypeInstance(true)->getAssociatedProductIds($this->_getProduct());
+            $products = $this->getSelectedGroupedProducts();
         }
         return $products;
+    }
+
+    /**
+     * Retrieve grouped products
+     *
+     * @return array
+     */
+    public function getSelectedGroupedProducts()
+    {
+        return Mage::registry('current_product')->getTypeInstance(true)
+            ->getAssociatedProductIds(Mage::registry('current_product'));
     }
 
     public function getTabLabel()

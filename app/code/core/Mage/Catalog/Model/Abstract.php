@@ -261,7 +261,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      */
     public function getAttributeDefaultValue($attributeCode)
     {
-        return isset($this->_defaultValues[$attributeCode]) ? $this->_defaultValues[$attributeCode] : null;
+        return array_key_exists($attributeCode, $this->_defaultValues) ? $this->_defaultValues[$attributeCode] : false;
     }
 
     /**

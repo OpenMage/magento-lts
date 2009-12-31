@@ -216,6 +216,23 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     }
 
     /**
+     * Checking item data
+     *
+     * @return Mage_Sales_Model_Quote_Item_Abstract
+     */
+    public function checkData()
+    {
+        $parent = parent::checkData();
+        if ($this->getProduct()->getHasError()) {
+            $this->setHasError(true);
+            $this->setMessage(Mage::helper('sales')->__('Item options declare error'));
+            $this->getQuote()->setHasError(true);
+            $this->getQuote()->addMessage($this->getProduct()->getMessage(), 'options');
+        }
+        return $parent;
+    }
+
+    /**
      * Setup product for quote item
      *
      * @param   Mage_Catalog_Model_Product $product
@@ -233,8 +250,10 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             ->setName($product->getName())
             ->setWeight($this->getProduct()->getWeight())
             ->setTaxClassId($product->getTaxClassId())
-            ->setCost($product->getCost())
-            ->setIsQtyDecimal($product->getIsQtyDecimal());
+            ->setBaseCost($product->getCost());
+            if ($product->getStockItem()) {
+                $this->setIsQtyDecimal($product->getStockItem()->getIsQtyDecimal());
+            }
 
         Mage::dispatchEvent('sales_quote_item_set_product', array(
             'product' => $product,
@@ -261,6 +280,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             $product = Mage::getModel('catalog/product')
                 ->setStoreId($this->getQuote()->getStoreId())
                 ->load($this->getProductId());
+
             $this->setProduct($product);
         }
 

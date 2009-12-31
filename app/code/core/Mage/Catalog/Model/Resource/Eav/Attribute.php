@@ -37,12 +37,114 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     const SCOPE_GLOBAL  = 1;
     const SCOPE_WEBSITE = 2;
 
+    const MODULE_NAME   = 'Mage_Catalog';
+    const ENTITY        = 'catalog_eav_attribute';
+
+    protected $_eventPrefix = 'catalog_entity_attribute';
+    protected $_eventObject = 'attribute';
+
     /**
      * Array with labels
      *
      * @var array
      */
     static protected $_labels = null;
+
+    protected function _construct()
+    {
+        $this->_init('catalog/attribute');
+    }
+
+    /**
+     * Processing object before save data
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _beforeSave()
+    {
+        $this->setData('modulePrefix', self::MODULE_NAME);
+        if (isset($this->_origData['is_global'])) {
+            if (!isset($this->_data['is_global'])) {
+                Mage::throwException('0_o');
+            }
+            if (($this->_data['is_global'] != $this->_origData['is_global'])
+                && $this->_getResource()->isUsedBySuperProducts($this)) {
+                Mage::throwException(Mage::helper('eav')->__('Scope must not be changed, because the attribute is used in configurable products.'));
+            }
+        }
+        if ($this->getFrontendInput() == 'price') {
+            if (!$this->getBackendModel()) {
+                $this->setBackendModel('catalog/product_attribute_backend_price');
+            }
+        }
+        return parent::_beforeSave();
+    }
+
+    /**
+     * Processing object after save data
+     *
+     * @return Mage_Core_Model_Abstract
+     */
+    protected function _afterSave()
+    {
+        /**
+         * Fix saving attribute in admin
+         */
+        Mage::getSingleton('eav/config')->clear();
+        return parent::_afterSave();
+    }
+
+    /**
+     * Init indexing process after attribute data commit
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     */
+    protected function _afterSaveCommit()
+    {
+        parent::_afterSaveCommit();
+
+        Mage::getSingleton('index/indexer')->processEntityAction(
+            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+        );
+
+        return $this;
+    }
+
+    /**
+     * Register indexing event before delete catalog eav attribute
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     */
+    protected function _beforeDelete()
+    {
+        Mage::getSingleton('index/indexer')->logEvent(
+            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
+        );
+        return parent::_beforeDelete();
+    }
+
+    /**
+     * Init indexing process after catalog eav attribute delete commit
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     */
+    protected function _afterDeleteCommit()
+    {
+        parent::_afterDeleteCommit();
+        Mage::getSingleton('index/indexer')->indexEvents(
+            self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
+        );
+    }
+
+    /**
+     * Return is attribute global
+     *
+     * @return integer
+     */
+    public function getIsGlobal()
+    {
+        return $this->_getData('is_global');
+    }
 
     /**
      * Retrieve attribute is global scope flag
@@ -96,6 +198,9 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     public function getApplyTo()
     {
         if ($this->getData('apply_to')) {
+            if (is_array($this->getData('apply_to'))) {
+                return $this->getData('apply_to');
+            }
             return explode(',', $this->getData('apply_to'));
         } else {
             return array();

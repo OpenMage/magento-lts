@@ -54,16 +54,7 @@
             <setup>
                <module>Mage_Admin</module>
             </setup>
-            <connection>
-               <use>core_setup</use>
-            </connection>
          </admin_setup>
-         <admin_write>
-            <connection><use>core_write</use></connection>
-         </admin_write>
-         <admin_read>
-            <connection><use>core_read</use></connection>
-         </admin_read>
       </resources>
         <blocks>
             <admin><class>Mage_Admin_Block</class></admin>

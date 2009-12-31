@@ -90,6 +90,21 @@ abstract class Mage_Core_Controller_Varien_Action
     protected $_cookieCheckActions = array();
 
     /**
+     * Currently used area
+     *
+     * @var string
+     */
+    protected $_currentArea;
+
+    /**
+     * Namespace for session.
+     * Should be defined for proper working session.
+     *
+     * @var string
+     */
+    protected $_sessionNamespace;
+
+    /**
      * Constructor
      *
      * @param Zend_Controller_Request_Abstract $request
@@ -432,14 +447,13 @@ abstract class Mage_Core_Controller_Varien_Action
         }
 
         if (!$this->getFlag('', self::FLAG_NO_START_SESSION)) {
-            $namespace   = $this->getLayout()->getArea();
             $checkCookie = in_array($this->getRequest()->getActionName(), $this->_cookieCheckActions);
             $checkCookie = $checkCookie && !$this->getRequest()->getParam('nocookie', false);
             $cookies = Mage::getSingleton('core/cookie')->get();
             if ($checkCookie && empty($cookies)) {
                 $this->setFlag('', self::FLAG_NO_COOKIES_REDIRECT, true);
             }
-            Mage::getSingleton('core/session', array('name' => $namespace))->start();
+            Mage::getSingleton('core/session', array('name' => $this->_sessionNamespace))->start();
         }
 
         Mage::app()->loadArea($this->getLayout()->getArea());
@@ -530,9 +544,19 @@ abstract class Mage_Core_Controller_Varien_Action
         $this->getRequest()->setDispatched(true);
     }
 
+    /**
+     * Throw control to different action (control and module if was specified).
+     *
+     * @param string $action
+     * @param string|null $controller
+     * @param string|null $module
+     * @param string|null $params
+     */
     protected function _forward($action, $controller = null, $module = null, array $params = null)
     {
         $request = $this->getRequest();
+
+        $request->initForward();
 
         if (!is_null($params)) {
             $request->setParams($params);
@@ -555,6 +579,9 @@ abstract class Mage_Core_Controller_Varien_Action
     {
         if ($storage = Mage::getSingleton($messagesStorage)) {
             $this->getLayout()->getMessagesBlock()->addMessages($storage->getMessages(true));
+            $this->getLayout()->getMessagesBlock()->setEscapeMessageFlag(
+                $storage->getEscapeMessages(true)
+            );
         }
         else {
             Mage::throwException(
@@ -577,7 +604,7 @@ abstract class Mage_Core_Controller_Varien_Action
     }
 
     /**
-     * Set redirect into responce
+     * Set redirect into response
      *
      * @param   string $path
      * @param   array $arguments

@@ -98,9 +98,9 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * @param array $attributes
      * @return array
      */
-    public function info($productId, $store = null, $attributes = null)
+    public function info($productId, $store = null, $attributes = null, $identifierType = null)
     {
-        $product = $this->_getProduct($productId, $store);
+        $product = $this->_getProduct($productId, $store, $identifierType);
 
         if (!$product->getId()) {
             $this->_fault('not_exists');
@@ -183,9 +183,9 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * @param string|int $store
      * @return boolean
      */
-    public function update($productId, $productData, $store = null)
+    public function update($productId, $productData, $store = null, $identifierType = null)
     {
-        $product = $this->_getProduct($productId, $store);
+        $product = $this->_getProduct($productId, $store, $identifierType);
 
         if (!$product->getId()) {
             $this->_fault('not_exists');
@@ -294,9 +294,9 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * @param int|string $productId
      * @return boolean
      */
-    public function delete($productId)
+    public function delete($productId, $identifierType = null)
     {
-        $product = $this->_getProduct($productId);
+        $product = $this->_getProduct($productId, null, $identifierType);
 
         if (!$product->getId()) {
             $this->_fault('not_exists');

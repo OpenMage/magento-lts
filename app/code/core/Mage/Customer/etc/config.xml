@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Customer>
-            <version>0.8.11</version>
+            <version>1.4.0.0.2</version>
         </Mage_Customer>
     </modules>
 
@@ -91,6 +91,7 @@
                 <confirmation><create>1</create></confirmation>
                 <dob><create>1</create><update>1</update></dob>
                 <taxvat><create>1</create><update>1</update></taxvat>
+                <gender><create>1</create><update>1</update></gender>
             </customer_account>
         </fieldsets>
 
@@ -180,6 +181,9 @@ T: {{var telephone}}
                     <customer_group>
                         <table>customer_group</table>
                     </customer_group>
+                    <eav_attribute>
+                        <table>customer_eav_attribute</table>
+                    </eav_attribute>
                 </entities>
             </customer_entity>
         </models>
@@ -189,20 +193,7 @@ T: {{var telephone}}
                     <module>Mage_Customer</module>
                     <class>Mage_Customer_Model_Entity_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </customer_setup>
-            <customer_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </customer_write>
-            <customer_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </customer_read>
         </resources>
 
         <template>
@@ -240,68 +231,6 @@ T: {{var telephone}}
                 </Mage_Customer>
             </modules>
         </translate>
-        <menu>
-            <customer translate="title" module="customer">
-                <title>Customers</title>
-                <sort_order>40</sort_order>
-                <!-- action>adminhtml/customer/</action -->
-                <children>
-                    <manage translate="title" module="customer">
-                        <title>Manage Customers</title>
-                        <action>adminhtml/customer/</action>
-                        <acl><resource>admin/customer</resource><privilege>list</privilege></acl>
-                    </manage>
-                    <group translate="title" module="customer">
-                        <title>Customer Groups</title>
-                        <action>adminhtml/customer_group/</action>
-                        <resource>admin/customer/group</resource>
-                    </group>
-                    <online translate="title" module="customer">
-                        <title>Online Customers</title>
-                        <action>adminhtml/customer_online/</action>
-                        <resource>admin/customer/online</resource>
-                    </online>
-                </children>
-             </customer>
-        </menu>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <customer translate="title" module="customer">
-                            <title>Customers</title>
-                            <sort_order>40</sort_order>
-                            <children>
-                                <group translate="title">
-                                    <title>Customer Groups</title>
-                                    <sort_order>0</sort_order>
-                                </group>
-                                <manage translate="title">
-                                    <title>Manage Customers</title>
-                                    <sort_order>10</sort_order>
-                                </manage>
-                                <online translate="title">
-                                    <title>Online Customers</title>
-                                    <sort_order>20</sort_order>
-                                </online>
-                            </children>
-                        </customer>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <customer translate="title" module="customer">
-                                            <title>Customers Section</title>
-                                            <sort_order>50</sort_order>
-                                        </customer>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
     </adminhtml>
     <frontend>
         <secure_url>
@@ -311,7 +240,6 @@ T: {{var telephone}}
             <controller_action_layout_load_before>
                 <observers>
                     <customer_is_logged_in_observer>
-                        <type>singleton</type>
                         <class>customer/observer</class>
                         <method>beforeLoadLayout</method>
                     </customer_is_logged_in_observer>
@@ -377,6 +305,7 @@ T: {{var telephone}}
                 <suffix_show></suffix_show>
                 <suffix_options></suffix_options>
                 <dob_show></dob_show>
+                <gender_show></gender_show>
             </address>
             <startup>
                 <redirect_dashboard>1</redirect_dashboard>

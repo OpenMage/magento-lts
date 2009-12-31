@@ -22,9 +22,14 @@
 </script>
 <?php endif; ?>
 
+<?php if($this->getCanLoadTinyMce()): // TinyMCE is broken when loaded through index.php ?>
+<script type="text/javascript" src="<?php echo $this->getJsUrl() ?>tiny_mce/tiny_mce.js"></script>
+<?php endif; ?>
+
 <script type="text/javascript">
     Fieldset.addToPrefix(<?php echo Mage::helper('adminhtml')->getCurrentUserId() ?>);
 </script>
 
 <?php echo $this->helper('core/js')->getTranslatorScript() ?>
-<?php echo $this->getChildHtml('calendar');
+<?php echo $this->getChildHtml('calendar'); ?>
+<?php echo $this->getChildHtml('optional_zip_countries'); ?>

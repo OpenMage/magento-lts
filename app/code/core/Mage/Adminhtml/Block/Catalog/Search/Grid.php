@@ -100,10 +100,10 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
             'type'      => 'number'
         ));
 
-        $this->addColumn('synonim_for', array(
+        $this->addColumn('synonym_for', array(
             'header'    => Mage::helper('catalog')->__('Synonym for'),
             'align'     => 'left',
-            'index'     => 'synonim_for',
+            'index'     => 'synonym_for',
             'width'     => '160px'
         ));
 

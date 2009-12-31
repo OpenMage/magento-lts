@@ -44,8 +44,42 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
         return $this;
     }
 
+    /**
+     * Prepare tag model for manipulation
+     *
+     * @return Mage_Tag_Model_Tag
+     */
+    protected function _initTag()
+    {
+        $id = $this->getRequest()->getParam('tag_id');
+        $storeId = $this->getRequest()->getParam('store');
+        $model = Mage::getModel('tag/tag');
+        if ($id) {
+            $model->load($id);
+            $model->setStoreId($storeId);
+        }
+        Mage::register('current_tag', $model);
+
+        return $model;
+    }
+
+    /**
+     * Show grid action
+     *
+     */
     public function indexAction()
     {
+        /**
+         * setting status parameter for grid filter for non-ajax request
+         *
+         */
+        if ($this->getRequest()->getParam('pending') && !$this->getRequest()->getParam('isAjax')) {
+            $this->getRequest()->setParam('filter', base64_encode('status=' . Mage_Tag_Model_Tag::STATUS_PENDING));
+        }
+        elseif (!$this->getRequest()->getParam('isAjax')) {
+            $this->getRequest()->setParam('filter', '');
+        }
+
         $this->_initAction()
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('All Tags'), Mage::helper('adminhtml')->__('All Tags'))
             ->_setActiveMenu('catalog/tag/all')
@@ -53,40 +87,77 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
             ->renderLayout();
     }
 
+    /**
+     * Action to draw grid loaded by ajax
+     *
+     */
+    public function ajaxGridAction()
+    {
+        $this->loadLayout();
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('adminhtml/tag_tag_grid')->toHtml()
+        );
+    }
+
+    /**
+     * New tag action
+     *
+     */
     public function newAction()
     {
         $this->_forward('edit');
     }
 
+    /**
+     * Edit tag action
+     *
+     */
     public function editAction()
     {
-        $id = $this->getRequest()->getParam('tag_id');
-        $model = Mage::getModel('tag/tag');
-
-        if ($id) {
-            $model->load($id);
+        if (0 === (int)$this->getRequest()->getParam('store')) {
+            $this->_redirect('*/*/*/', array('store' => Mage::app()->getAnyStoreView()->getId(), '_current' => true));
+            return;
         }
+
+        $model = $this->_initTag();
+
+        $model->addSummary($this->getRequest()->getParam('store'));
 
         // set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getTagData(true);
         if (! empty($data)) {
-            $model->setData($data);
+            $model->addData($data);
         }
 
         Mage::register('tag_tag', $model);
 
-        $this->_initAction()
-            ->_addBreadcrumb($id ? Mage::helper('adminhtml')->__('Edit Tag') : Mage::helper('adminhtml')->__('New Tag'), $id ? Mage::helper('adminhtml')->__('Edit Tag') : Mage::helper('adminhtml')->__('New Tag'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/tag_tag_edit')->setData('action', $this->getUrl('*/tag_edit/save')))
-            ->renderLayout();
+        $this->_initAction()->renderLayout();
     }
 
+    /**
+     * Save tag action
+     *
+     */
     public function saveAction()
     {
-        if ($data = $this->getRequest()->getPost()) {
-            $data['name']=trim($data['name']);
-            $model = Mage::getModel('tag/tag');
-            $model->setData($data);
+        if ($postData = $this->getRequest()->getPost()) {
+            if (isset($postData['tag_id'])) {
+                $data['tag_id'] = $postData['tag_id'];
+            }
+
+            $data['name']               = trim($postData['tag_name']);
+            $data['status']             = $postData['tag_status'];
+            $data['base_popularity']    = (isset($postData['base_popularity'])) ? $postData['base_popularity'] : 0;
+            $data['store_id']           = $postData['store_id'];
+
+            $model = $this->_initTag();
+            $model->addData($data);
+
+            if (isset($postData['tag_assigned_products'])) {
+                $productIds = Mage::helper('adminhtml/js')->decodeInput($postData['tag_assigned_products']);
+                $tagRelationModel = Mage::getModel('tag/tag_relation');
+                $tagRelationModel->addRelations($model, $productIds);
+            }
 
             switch( $this->getRequest()->getParam('ret') ) {
                 case 'all':
@@ -110,12 +181,18 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                     ));
             }
 
-            // $tag->setStoreId(Mage::app()->getStore()->getId());
             try {
                 $model->save();
                 $model->aggregate();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Tag was successfully saved'));
                 Mage::getSingleton('adminhtml/session')->setTagData(false);
+
+                if ($this->getRequest()->getParam('ret') == 'edit') {
+                    $url = $this->getUrl('*/tag/edit', array(
+                        'tag_id' => $model->getId()
+                    ));
+                }
+
                 $this->getResponse()->setRedirect($url);
                 return;
             } catch (Exception $e) {
@@ -128,6 +205,10 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
         $this->getResponse()->setRedirect($url);
     }
 
+    /**
+     * Delete tag action
+     *
+     */
     public function deleteAction()
     {
         if ($id = $this->getRequest()->getParam('tag_id')) {
@@ -155,8 +236,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
             }
 
             try {
-                $model = Mage::getModel('tag/tag');
-                $model->setId($id);
+                $model = $this->_initTag();
                 $model->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Tag was successfully deleted'));
                 $this->getResponse()->setRedirect($url);
@@ -186,18 +266,37 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
+     * Assigned products (with serializer block)
+     *
+     */
+    public function assignedAction()
+    {
+        $this->_initTag();
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+
+    /**
+     * Assigned products grid
+     *
+     */
+    public function assignedGridOnlyAction()
+    {
+        $this->_initTag();
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+
+    /**
      * Tagged products
      *
      */
     public function productAction()
     {
-        Mage::register('tagId', $this->getRequest()->getParam('tag_id'));
-
-        $this->_initAction()
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Products'), Mage::helper('adminhtml')->__('Products'))
-            ->_setActiveMenu('catalog/tag/product')
-            ->_addContent($this->getLayout()->createBlock('adminhtml/tag_product'))
-            ->renderLayout();
+        $this->_initTag();
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('adminhtml/tag_product_grid')->toHtml()
+        );
     }
 
     /**
@@ -206,15 +305,16 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
      */
     public function customerAction()
     {
-        Mage::register('tagId', $this->getRequest()->getParam('tag_id'));
-
-        $this->_initAction()
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Customers'), Mage::helper('adminhtml')->__('Customers'))
-            ->_setActiveMenu('catalog/tag/customer')
-            ->_addContent($this->getLayout()->createBlock('adminhtml/tag_customer'))
-            ->renderLayout();
+        $this->_initTag();
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('adminhtml/tag_customer_grid')->toHtml()
+        );
     }
 
+    /**
+     * Massaction for removing tags
+     *
+     */
     public function massDeleteAction()
     {
         $tagIds = $this->getRequest()->getParam('tag');
@@ -237,6 +337,10 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/'.$ret);
     }
 
+    /**
+     * Massaction for changing status of selected tags
+     *
+     */
     public function massStatusAction()
     {
         $tagIds = $this->getRequest()->getParam('tag');
@@ -263,6 +367,10 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/'.$ret);
     }
 
+    /**
+     * Check currently called action by permissions for current user
+     *
+     */
     protected function _isAllowed()
     {
         switch ($this->getRequest()->getActionName()) {

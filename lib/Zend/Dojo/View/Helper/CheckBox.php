@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: CheckBox.php 11292 2008-09-08 18:51:39Z matthew $
+ * @version    $Id: CheckBox.php 17716 2009-08-21 15:08:31Z matthew $
  */
 
 /** Zend_Dojo_View_Helper_Dijit */
@@ -29,7 +29,7 @@
  * @uses       Zend_Dojo_View_Helper_Dijit
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 class Zend_Dojo_View_Helper_CheckBox extends Zend_Dojo_View_Helper_Dijit
@@ -59,7 +59,7 @@ class Zend_Dojo_View_Helper_CheckBox extends Zend_Dojo_View_Helper_Dijit
      * @param  string $content 
      * @param  array $params  Parameters to use for dijit creation
      * @param  array $attribs HTML attributes
-     * @param  array $checkedOptions Should contain either two items, or the keys checkedValue and unCheckedValue
+     * @param  array $checkedOptions Should contain either two items, or the keys checkedValue and uncheckedValue
      * @return string
      */
     public function checkBox($id, $value = null, array $params = array(), array $attribs = array(), array $checkedOptions = null)
@@ -89,7 +89,7 @@ class Zend_Dojo_View_Helper_CheckBox extends Zend_Dojo_View_Helper_Dijit
         $html = '';
         if (!strstr($id, '[]')) {
             // hidden element for unchecked value
-            $html .= $this->_renderHiddenElement($id, $checkboxInfo['unCheckedValue']);
+            $html .= $this->_renderHiddenElement($id, $checkboxInfo['uncheckedValue']);
         }
 
         // and final element

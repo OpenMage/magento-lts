@@ -36,6 +36,8 @@ class Mage_Reports_Model_Mysql4_Quote_Collection extends Mage_Sales_Model_Mysql4
 {
     protected $_joinedFields = array();
 
+    protected $_map = array('fields' => array('store_id' => 'main_table.store_id'));
+
     public function prepareForAbandonedReport($storeIds, $filter = null)
     {
         $this->addFieldToFilter('items_count', array('neq' => '0'))
@@ -43,10 +45,21 @@ class Mage_Reports_Model_Mysql4_Quote_Collection extends Mage_Sales_Model_Mysql4
             ->addSubtotal($storeIds, $filter)
             ->addCustomerData($filter)
             ->setOrder('updated_at');
-
         if (is_array($storeIds)) {
-            $this->addFieldToFilter('main_table.store_id', array('in' => $storeIds));
+            $this->addFieldToFilter('store_id', array('in' => $storeIds));
         }
+        return $this;
+    }
+
+    /**
+     * Add store ids to filter
+     *
+     * @param array $storeIds
+     * @return Mage_Reports_Model_Mysql4_Quote_Collection
+     */
+    public function addStoreFilter($storeIds)
+    {
+        $this->addFieldToFilter('store_id', array('in' => $storeIds));
         return $this;
     }
 

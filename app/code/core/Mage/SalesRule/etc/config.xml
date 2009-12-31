@@ -57,20 +57,7 @@
                     <module>Mage_SalesRule</module>
                     <class>Mage_Sales_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </salesrule_setup>
-            <salesrule_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </salesrule_write>
-            <salesrule_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </salesrule_read>
         </resources>
         <fieldsets>
             <sales_convert_quote_address>
@@ -83,7 +70,6 @@
             <sales_order_place_after>
                 <observers>
                     <salesrule>
-                        <type>singleton</type>
                         <class>salesrule/observer</class>
                         <method>sales_order_afterPlace</method>
                     </salesrule>
@@ -108,33 +94,6 @@
         </sales>
     </global>
     <adminhtml>
-        <menu>
-             <promo>
-                <children>
-                    <quote translate="title" module="salesrule">
-                        <title>Shopping Cart Price Rules</title>
-                        <action>adminhtml/promo_quote/</action>
-                        <resource>promo/quote</resource>
-                        <depends><module>Mage_Sales</module></depends>
-                    </quote>
-                </children>
-             </promo>
-        </menu>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <promo>
-                            <children>
-                                <quote translate="title" module="salesrule">
-                                    <title>Shopping Cart Price Rules</title>
-                                </quote>
-                            </children>
-                        </promo>
-                    </children>
-                </admin>
-            </resources>
-         </acl>
         <translate>
             <modules>
                 <Mage_SalesRule>

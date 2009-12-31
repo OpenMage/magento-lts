@@ -87,7 +87,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         $config = Mage::getConfig()->loadModulesConfiguration('system.xml');
 
         $this->_sections = $config->getNode('sections');
-        
+
         $this->_tabs = $config->getNode('tabs');
     }
 

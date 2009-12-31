@@ -49,6 +49,24 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     protected $_attributes;
 
     /**
+     * Retrieve url for adding product to wishlist with params
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return string
+     */
+    public function getAddToWishlistUrl($product)
+    {
+        $continueUrl    = Mage::helper('core')->urlEncode($this->getUrl('customer/account'));
+        $urlParamName   = Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED;
+
+        $params = array(
+            $urlParamName   => $continueUrl
+        );
+
+        return $this->helper('wishlist')->getAddUrlWithParams($product, $params);
+    }
+
+    /**
      * Preparing layout
      *
      * @return Mage_Catalog_Block_Product_Compare_List

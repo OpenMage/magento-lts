@@ -246,6 +246,12 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         return $this;
     }
 
+    /**
+     * Return is attribute global
+     *
+     * @deprecated moved to catalog attribute model
+     * @return integer
+     */
     public function getIsGlobal()
     {
         return $this->_getData('is_global');

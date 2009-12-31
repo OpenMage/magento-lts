@@ -100,7 +100,8 @@ class Mage_Adminhtml_Block_Report_Review_Product_Grid extends Mage_Adminhtml_Blo
             'align'     => 'center',
             'filter'    => false,
             'sortable'  => false,
-            'renderer'  => 'adminhtml/report_grid_column_renderer_product'
+            'renderer'  => 'adminhtml/report_grid_column_renderer_product',
+            'is_system' => true
         ));
 
         $this->setFilterVisibility(false);

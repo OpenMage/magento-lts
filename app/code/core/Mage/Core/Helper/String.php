@@ -51,20 +51,20 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
             return '';
         }
 
-        $originalLength = iconv_strlen($string, self::ICONV_CHARSET);
+        $originalLength = $this->strlen($string);
         if ($originalLength > $length) {
-            $length -= iconv_strlen($etc, self::ICONV_CHARSET);
+            $length -= $this->strlen($etc);
             if ($length <= 0) {
                 return '';
             }
             $preparedString = $string;
             $preparedlength = $length;
             if (!$breakWords) {
-                $preparedString = preg_replace('/\s+?(\S+)?$/', '', iconv_substr($string, 0, $length + 1, self::ICONV_CHARSET));
-                $preparedlength = iconv_strlen($preparedString, self::ICONV_CHARSET);
+                $preparedString = preg_replace('/\s+?(\S+)?$/', '', $this->substr($string, 0, $length + 1));
+                $preparedlength = $this->strlen($preparedString);
             }
-            $remainder = iconv_substr($string, $preparedlength, $originalLength, self::ICONV_CHARSET);
-            return iconv_substr($preparedString, 0, $length, self::ICONV_CHARSET) . $etc;
+            $remainder = $this->substr($string, $preparedlength, $originalLength);
+            return $this->substr($preparedString, 0, $length) . $etc;
         }
 
         return $string;
@@ -92,7 +92,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     public function substr($str, $offset, $length = null)
     {
         if (is_null($length)) {
-            $length = iconv_strlen($str, self::ICONV_CHARSET) - $offset;
+            $length = $this->strlen($str) - $offset;
         }
         return iconv_substr($str, $offset, $length, self::ICONV_CHARSET);
     }
@@ -112,10 +112,10 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         $newStr = '';
         foreach ($str as $part) {
             if ($this->strlen($part) >= $length) {
-                $lastDelimetr = iconv_strpos(strrev($part), $needle, null, self::ICONV_CHARSET);
+                $lastDelimetr = iconv_strpos($this->strrev($part), $needle, null, self::ICONV_CHARSET);
                 $tmpNewStr = '';
-                $tmpNewStr = $this->substr(strrev($part), 0, $lastDelimetr) . $insert . $this->substr(strrev($part), $lastDelimetr);
-                $newStr .= strrev($tmpNewStr);
+                $tmpNewStr = $this->substr($this->strrev($part), 0, $lastDelimetr) . $insert . $this->substr($this->strrev($part), $lastDelimetr);
+                $newStr .= $this->strrev($tmpNewStr);
             } else {
                 $newStr .= $part;
             }
@@ -137,7 +137,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
             return $result;
         }
         for ($i = $strlen-1; $i >= 0; $i--) {
-            $result .= iconv_substr($str, $i, 1, self::ICONV_CHARSET);
+            $result .= $this->substr($str, $i, 1);
         }
         return $result;
     }
@@ -169,7 +169,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         // do a usual str_split, but safe for our encoding
         if ((!$keepWords) || ($length < 2)) {
             for ($offset = 0; $offset < $strlen; $offset += $length) {
-                $result[] = iconv_substr($str, $offset, $length, self::ICONV_CHARSET);
+                $result[] = $this->substr($str, $offset, $length);
             }
         }
         // split smartly, keeping words
@@ -194,9 +194,9 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                     $spaceLen      = 0;
                 }
                 else {
-                    $currentLength = iconv_strlen($result[$i], self::ICONV_CHARSET);
+                    $currentLength = $this->strlen($result[$i]);
                 }
-                $partLength = iconv_strlen($part, self::ICONV_CHARSET);
+                $partLength = $this->strlen($part);
                 // add part to current last element
                 if (($currentLength + $spaceLen + $partLength) <= $length) {
                     $result[$i] .= $space . $part;
@@ -217,12 +217,12 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
         // remove last element, if empty
         if ($count = count($result)) {
-            if (empty($result[$count - 1])) {
+            if ($result[$count - 1] === '') {
                 unset($result[$count - 1]);
             }
         }
         // remove first element, if empty
-        if (isset($result[0]) && empty($result[0])) {
+        if (isset($result[0]) && $result[0] === '') {
             array_shift($result);
         }
         return $result;
@@ -233,11 +233,11 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      *
      * @param string $str The source string
      * @param bool $uniqueOnly Unique words only
-     * @param int $maxWordLenght Limit words count
+     * @param int $maxWordLength Limit words count
      * @param string $wordSeparatorRegexp
      * @return array
      */
-    function splitWords($str, $uniqueOnly = false, $maxWordLenght = 0, $wordSeparatorRegexp = '\s')
+    function splitWords($str, $uniqueOnly = false, $maxWordLength = 0, $wordSeparatorRegexp = '\s')
     {
         $result = array();
         $split = preg_split('#' . $wordSeparatorRegexp . '#si', $str, null, PREG_SPLIT_NO_EMPTY);
@@ -249,8 +249,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 $result[] = $word;
             }
         }
-        if ($maxWordLenght && count($result) > $maxWordLenght) {
-            $result = array_slice($result, 0, $maxWordLenght);
+        if ($maxWordLength && count($result) > $maxWordLength) {
+            $result = array_slice($result, 0, $maxWordLength);
         }
         return $result;
     }

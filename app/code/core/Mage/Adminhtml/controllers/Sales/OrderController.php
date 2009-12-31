@@ -117,6 +117,17 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     }
 
     /**
+     * Notify user
+     */
+    public function emailAction()
+    {
+        if ($order = $this->_initOrder()) {
+            $order->sendNewOrderEmail();
+            $this->_getSession()->addSuccess(Mage::helper('sales')->__('Message was successfully sent'));
+            $this->_redirect('*/sales_order/view', array('order_id' => $order->getId()));
+        }
+    }
+    /**
      * Cancel order
      */
     public function cancelAction()

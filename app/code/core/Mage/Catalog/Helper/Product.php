@@ -31,7 +31,8 @@
  */
 class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
 {
-    const XML_PATH_PRODUCT_URL_SUFFIX   = 'catalog/seo/product_url_suffix';
+    const XML_PATH_PRODUCT_URL_SUFFIX       = 'catalog/seo/product_url_suffix';
+    const XML_PATH_PRODUCT_URL_USE_CATEGORY = 'catalog/seo/product_use_categories';
 
     /**
      * Cache for product rewrite suffix

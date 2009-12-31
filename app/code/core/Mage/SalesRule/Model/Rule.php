@@ -30,6 +30,22 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
     const FREE_SHIPPING_ITEM = 1;
     const FREE_SHIPPING_ADDRESS = 2;
 
+    /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'salesrule_rule';
+
+    /**
+     * Parameter name in event
+     *
+     * In observe method you can use $observer->getEvent()->getRule() in this case
+     *
+     * @var string
+     */
+    protected $_eventObject = 'rule';
+
     protected $_labels = array();
 
     protected function _construct()

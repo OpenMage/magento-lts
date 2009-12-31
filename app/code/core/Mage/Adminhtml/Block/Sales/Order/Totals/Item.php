@@ -23,8 +23,17 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+ /**
+  * Totals item block
+  */
 class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_Sales_Order_Totals
 {
+    /**
+     * Determine display parameters before rendering HTML
+     *
+     * @return Mage_Adminhtml_Block_Sales_Order_Totals_Item
+     */
     protected function _beforeToHtml()
     {
         parent::_beforeToHtml();
@@ -32,12 +41,14 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
         $this->setCanDisplayTotalPaid($this->getParentBlock()->getCanDisplayTotalPaid());
         $this->setCanDisplayTotalRefunded($this->getParentBlock()->getCanDisplayTotalRefunded());
         $this->setCanDisplayTotalDue($this->getParentBlock()->getCanDisplayTotalDue());
+
+        return $this;
     }
 
     /**
-     * Initialize giftcard order total
+     * Initialize totals object
      *
-     * @return Enterprise_GiftCardAccount_Block_Sales_Order_Giftcards
+     * @return Mage_Adminhtml_Block_Sales_Order_Totals_Item
      */
     public function initTotals()
     {
@@ -50,16 +61,36 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
         return $this;
     }
 
+    /**
+     * Price HTML getter
+     *
+     * @param float $baseAmount
+     * @param float $amount
+     * @return string
+     */
     public function displayPrices($baseAmount, $amount)
     {
         return $this->helper('adminhtml/sales')->displayPrices($this->getOrder(), $baseAmount, $amount);
     }
 
+    /**
+     * Price attribute HTML getter
+     *
+     * @param string $code
+     * @param bool $strong
+     * @param string $separator
+     * @return string
+     */
     public function displayPriceAttribute($code, $strong = false, $separator = '<br/>')
     {
         return $this->helper('adminhtml/sales')->displayPriceAttribute($this->getSource(), $code, $strong, $separator);
     }
 
+    /**
+     * Source order getter
+     *
+     * @return Mage_Sales_Model_Order
+     */
     public function getSource()
     {
         return $this->getParentBlock()->getSource();

@@ -84,11 +84,18 @@ class Mage_Tag_Model_Mysql4_Tag_Relation extends Mage_Core_Model_Mysql4_Abstract
     {
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable(), 'product_id')
-            ->where("tag_id=?", $model->getTagId())
-            ->where('customer_id=?', $model->getCustomerId());
+            ->where("tag_id=?", $model->getTagId());
+
+        if (is_null($model->getCustomerId())) {
+            $select->where('customer_id IS NULL');
+        } else {
+            $select->where('customer_id=?', $model->getCustomerId());
+        }
+
         if ($model->hasStoreId()) {
             $select->where('store_id = ?', $model->getStoreId());
         }
+
         return $this->_getReadAdapter()->fetchCol($select);
     }
 
@@ -105,6 +112,51 @@ class Mage_Tag_Model_Mysql4_Tag_Relation extends Mage_Core_Model_Mysql4_Abstract
         $condition.= $this->_getWriteAdapter()->quoteInto('customer_id = ?', $customerId);
         $data = array('active'=>0);
         $this->_getWriteAdapter()->update($this->getMainTable(), $data, $condition);
+        return $this;
+    }
+
+    /**
+     * Add TAG to PRODUCT relations
+     *
+     * @param Mage_Tag_Model_Tag_Relation $model
+     * @return Mage_Tag_Model_Mysql4_Tag_Relation
+     */
+    public function addRelations($model)
+    {
+        $addedIds = $model->getAddedProductIds();
+
+        $select = $this->_getWriteAdapter()->select()
+            ->from($this->getMainTable(), 'product_id')
+            ->where("tag_id = ?", $model->getTagId())
+            ->where("store_id = ?", $model->getStoreId())
+            ->where("customer_id IS NULL");
+        $oldRelationIds = $this->_getWriteAdapter()->fetchCol($select);
+
+        $insert = array_diff($addedIds, $oldRelationIds);
+        $delete = array_diff($oldRelationIds, $addedIds);
+
+        if (!empty($insert)) {
+            $insertData = array();
+            foreach ($insert as $value) {
+                $insertData[] = array(
+                    'tag_id'        => $model->getTagId(),
+                    'store_id'      => $model->getStoreId(),
+                    'product_id'    => $value,
+                    'customer_id'   => $model->getCustomerId(),
+                    'created_at'    => $this->formatDate(time())
+                );
+            }
+            $this->_getWriteAdapter()->insertMultiple($this->getMainTable(), $insertData);
+        }
+
+        if (!empty($delete)) {
+            $this->_getWriteAdapter()->delete($this->getMainTable(), array(
+                $this->_getWriteAdapter()->quoteInto('product_id IN (?)', $delete),
+                $this->_getWriteAdapter()->quoteInto('store_id = ?', $model->getStoreId()),
+                'customer_id IS NULL'
+            ));
+        }
+
         return $this;
     }
 }

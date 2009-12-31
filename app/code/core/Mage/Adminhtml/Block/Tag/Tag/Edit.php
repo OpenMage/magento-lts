@@ -27,6 +27,7 @@
 /**
  * Admin tag edit block
  *
+ * @deprecated after 1.3.2.3
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
@@ -61,6 +62,29 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
 
         $this->_updateButton('save', 'label', Mage::helper('tag')->__('Save Tag'));
         $this->_updateButton('delete', 'label', Mage::helper('tag')->__('Delete Tag'));
+    }
+
+    /**
+     * Add to layout accordion block
+     *
+     * @return Mage_Adminhtml_Block_Tag_Edit
+     */
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+        $this->setChild('accordion', $this->getLayout()->createBlock('adminhtml/tag_edit_accordion'));
+        return $this;
+    }
+
+    /**
+     * Adds to html of form html of accordion block
+     *
+     * @return string
+     */
+    public function getFormHtml()
+    {
+        $html = parent::getFormHtml();
+        return $html . $this->getChildHtml('accordion');
     }
 
     public function getHeaderText()

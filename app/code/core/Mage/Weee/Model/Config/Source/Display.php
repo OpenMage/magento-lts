@@ -28,12 +28,27 @@ class Mage_Weee_Model_Config_Source_Display
 
     public function toOptionArray()
     {
+        /**
+         * VAT is not applicable to FPT separately (we can't have FPT incl/excl VAT)
+         */
         return array(
-            array('value'=>0, 'label'=>Mage::helper('weee')->__('Including FPT only')),
-            array('value'=>1, 'label'=>Mage::helper('weee')->__('Including FPT and FPT description [excl. FPT VAT]')),
-            array('value'=>4, 'label'=>Mage::helper('weee')->__('Including FPT and FPT description [incl. FPT VAT]')),
-            array('value'=>2, 'label'=>Mage::helper('weee')->__('Excluding FPT, FPT description, final price')),
-            array('value'=>3, 'label'=>Mage::helper('weee')->__('Excluding FPT')),
+            array(
+                'value' => 0,
+                'label' => Mage::helper('weee')->__('Including FPT only')
+            ),
+            array(
+                'value' => 1,
+                'label' => Mage::helper('weee')->__('Including FPT and FPT description')
+            ),
+            //array('value'=>4, 'label'=>Mage::helper('weee')->__('Including FPT and FPT description [incl. FPT VAT]')),
+            array(
+                'value' => 2,
+                'label' => Mage::helper('weee')->__('Excluding FPT, FPT description, final price')
+            ),
+            array(
+                'value' => 3,
+                'label' => Mage::helper('weee')->__('Excluding FPT')
+            ),
         );
     }
 

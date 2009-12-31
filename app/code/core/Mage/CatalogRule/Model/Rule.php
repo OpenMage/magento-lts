@@ -27,10 +27,34 @@
 
 class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
 {
+    /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'catalogrule_rule';
+
+    /**
+     * Parameter name in event
+     *
+     * In observe method you can use $observer->getEvent()->getRule() in this case
+     *
+     * @var string
+     */
+    protected $_eventObject = 'rule';
+
+    /**
+     * Matched product ids array
+     *
+     * @var array
+     */
     protected $_productIds = array();
 
     protected $_now;
 
+    /**
+     * Init resource model and id field
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -60,6 +84,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
     {
         $this->_now = $now;
     }
+
 
     public function toString($format='')
     {
@@ -94,46 +119,23 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
 
         return $out;
     }
-    /*
-    public function processProduct(Mage_Catalog_Model_Product $product)
-    {
-        $this->validateProduct($product) && $this->updateProduct($product);
-        return $this;
-    }
 
-    public function validateProduct(Mage_Catalog_Model_Product $product)
-    {
-        if (!$this->getIsCollectionValidated()) {
-            $result = $result && $this->getIsActive()
-                && (strtotime($this->getFromDate()) <= $this->getNow())
-                && (strtotime($this->getToDate()) >= $this->getNow())
-                && ($this->getCustomerRegistered()==2 || $this->getCustomerRegistered()==$env->getCustomerRegistered())
-                && ($this->getCustomerNewBuyer()==2 || $this->getCustomerNewBuyer()==$env->getCustomerNewBuyer())
-                && $this->getConditions()->validateProduct($product);
-        } else {
-            $result = $this->getConditions()->validateProduct($product);
-        }
-
-        return $result;
-    }
-
-    public function updateProduct(Mage_Sales_Model_Product $product)
-    {
-        $this->getActions()->updateProduct($product);
-        return $this;
-    }
-    */
-    public function getResourceCollection()
-    {
-        return Mage::getResourceModel('catalogrule/rule_collection');
-    }
-
+    /**
+     * Process rule related data after rule save
+     *
+     * @return Mage_CatalogRule_Model_Rule
+     */
     protected function _afterSave()
     {
         $this->_getResource()->updateRuleProductData($this);
         parent::_afterSave();
     }
 
+    /**
+     * Get array of product ids which are matched by rule
+     *
+     * @return array
+     */
     public function getMatchingProductIds()
     {
         if (empty($this->_productIds)) {
@@ -159,6 +161,12 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
         return $this->_productIds;
     }
 
+    /**
+     * Callback function for product matching
+     *
+     * @param $args
+     * @return void
+     */
     public function callbackValidateProduct($args)
     {
         $product = $args['product']->setData($args['row']);
@@ -167,6 +175,13 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
         }
     }
 
+    /**
+     * Apply rule to product
+     *
+     * @param int|Mage_Catalog_Model_Product $product
+     * @param array $websiteIds
+     * @return void
+     */
     public function applyToProduct($product, $websiteIds=null)
     {
         if (is_numeric($product)) {
@@ -178,6 +193,11 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
         $this->getResource()->applyToProduct($this, $product, $websiteIds);
     }
 
+    /**
+     * Get array of assigned customer group ids
+     *
+     * @return array
+     */
     public function getCustomerGroupIds()
     {
         $ids = $this->getData('customer_group_ids');
@@ -192,5 +212,19 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Rule
             $this->setCustomerGroupChecked(true);
         }
         return $ids;
+    }
+
+    /**
+     * Apply all price rules and refresh price index
+     *
+     * @return Mage_CatalogRule_Model_Rule
+     */
+    public function applyAll()
+    {
+        $this->_getResource()->applyAllRulesForDateRange();
+        $indexProcess = Mage::getSingleton('index/indexer')->getProcessByCode('catalog_product_price');
+        if ($indexProcess) {
+            $indexProcess->reindexAll();
+        }
     }
 }

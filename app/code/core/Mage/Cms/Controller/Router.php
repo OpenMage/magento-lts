@@ -41,6 +41,7 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
      */
     public function initControllerRouters($observer)
     {
+        /* @var $front Mage_Core_Controller_Varien_Front */
         $front = $observer->getEvent()->getFront();
 
         $front->addRouter('cms', $this);
@@ -62,6 +63,28 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
         }
 
         $identifier = trim($request->getPathInfo(), '/');
+
+        $condition = new Varien_Object(array(
+            'identifier' => $identifier,
+            'continue'   => true
+        ));
+        Mage::dispatchEvent('cms_controller_router_match_before', array(
+            'router'    => $this,
+            'condition' => $condition
+        ));
+        $identifier = $condition->getIdentifier();
+
+        if ($condition->getRedirectUrl()) {
+            Mage::app()->getFrontController()->getResponse()
+                ->setRedirect($condition->getRedirectUrl())
+                ->sendResponse();
+            $request->setDispatched(true);
+            return true;
+        }
+
+        if (!$condition->getContinue()) {
+            return false;
+        }
 
         $page   = Mage::getModel('cms/page');
         $pageId = $page->checkIdentifier($identifier, Mage::app()->getStore()->getId());

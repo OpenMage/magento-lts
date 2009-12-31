@@ -36,6 +36,13 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
     const OPTIONS_ONLY_WITH_RESULTS = 1;
 
     /**
+     * Resource instance
+     *
+     * @var Mage_Catalog_Model_Resource_Eav_Mysql4_Layer_Filter_Attribute
+     */
+    protected $_resource;
+
+    /**
      * Construct attribute filter
      *
      */
@@ -43,6 +50,19 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
     {
         parent::__construct();
         $this->_requestVar = 'attribute';
+    }
+
+    /**
+     * Retrieve resource instance
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Layer_Filter_Attribute
+     */
+    protected function _getResource()
+    {
+        if (is_null($this->_resource)) {
+            $this->_resource = Mage::getResourceModel('catalog/layer_filter_attribute');
+        }
+        return $this->_resource;
     }
 
     /**
@@ -71,11 +91,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
         }
         $text = $this->_getOptionText($filter);
         if ($filter && $text) {
-            Mage::getSingleton('catalogindex/attribute')->applyFilterToCollection(
-                $this->getLayer()->getProductCollection(),
-                $this->getAttributeModel(),
-                $filter
-            );
+            $this->_getResource()->applyFilterToCollection($this, $filter);
             $this->getLayer()->getState()->addFilter($this->_createItem($text, $filter));
             $this->_items = array();
         }
@@ -108,10 +124,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
 
         if ($data === null) {
             $options = $attribute->getFrontend()->getSelectOptions();
-            $optionsCount = Mage::getSingleton('catalogindex/attribute')->getCount(
-                $attribute,
-                $this->_getBaseCollectionSql()
-            );
+            $optionsCount = $this->_getResource()->getCount($this);
             $data = array();
 
             foreach ($options as $option) {

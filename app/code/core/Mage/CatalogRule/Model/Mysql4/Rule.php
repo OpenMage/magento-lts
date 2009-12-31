@@ -91,8 +91,9 @@ class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
         if (empty($websiteIds)) {
             return $this;
         }
-
+        Varien_Profiler::start('__MATCH_PRODUCTS__');
         $productIds = $rule->getMatchingProductIds();
+        Varien_Profiler::stop('__MATCH_PRODUCTS__');
         $customerGroupIds = $rule->getCustomerGroupIds();
 
         $fromTime = strtotime($rule->getFromDate());
@@ -105,36 +106,31 @@ class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
         $actionStop = $rule->getStopRulesProcessing();
 
         $rows = array();
-        $header = 'replace into '.$this->getTable('catalogrule/rule_product').' (
-                rule_id,
-                from_time,
-                to_time,
-                website_id,
-                customer_group_id,
-                product_id,
-                action_operator,
-                action_amount,
-                action_stop,
-                sort_order
-            ) values ';
-
+        $queryStart = 'INSERT INTO '.$this->getTable('catalogrule/rule_product').' (
+                rule_id, from_time, to_time, website_id, customer_group_id, product_id, action_operator,
+                action_amount, action_stop, sort_order ) values ';
+        $queryEnd = ' ON DUPLICATE KEY UPDATE action_operator=VALUES(action_operator),
+            action_amount=VALUES(action_amount), action_stop=VALUES(action_stop)';
         try {
             foreach ($productIds as $productId) {
                 foreach ($websiteIds as $websiteId) {
                     foreach ($customerGroupIds as $customerGroupId) {
-                        $rows[] = "(
-                            '$ruleId',
-                            '$fromTime',
-                            '$toTime',
-                            '$websiteId',
-                            '$customerGroupId',
-                            '$productId',
-                            '$actionOperator',
-                            '$actionAmount',
-                            '$actionStop',
-                            '$sortOrder')";
-                        if (sizeof($rows)==100) {
-                            $sql = $header.join(',', $rows);
+                        $rows[] = "('" . implode("','", array(
+                            $ruleId,
+                            $fromTime,
+                            $toTime,
+                            $websiteId,
+                            $customerGroupId,
+                            $productId,
+                            $actionOperator,
+                            $actionAmount,
+                            $actionStop,
+                            $sortOrder))."')";
+                        /**
+                         * Array with 1000 rows contain about 2M data
+                         */
+                        if (sizeof($rows)==1000) {
+                            $sql = $queryStart.join(',', $rows).$queryEnd;
                             $write->query($sql);
                             $rows = array();
                         }
@@ -142,7 +138,7 @@ class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
                 }
             }
             if (!empty($rows)) {
-                $sql = $header.join(',', $rows);
+                $sql = $queryStart.join(',', $rows).$queryEnd;
                 $write->query($sql);
             }
 
@@ -434,156 +430,87 @@ class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
         }
 
         try {
-	        /**
-	         * Update products rules prices per each website separatly
-	         * because of max join limit in mysql
-	         */
-	        foreach (Mage::app()->getWebsites(false) as $website) {
-	            $productsStmt = $this->_getRuleProductsStmt(
-	               $fromDate,
-	               $toDate,
-	               $productId,
-	               $website->getId()
-	            );
+            /**
+             * Update products rules prices per each website separatly
+             * because of max join limit in mysql
+             */
+            foreach (Mage::app()->getWebsites(false) as $website) {
+                $productsStmt = $this->_getRuleProductsStmt(
+                   $fromDate,
+                   $toDate,
+                   $productId,
+                   $website->getId()
+                );
 
-	            $dayPrices  = array();
-	            $stopFlags  = array();
-	            $prevKey    = null;
+                $dayPrices  = array();
+                $stopFlags  = array();
+                $prevKey    = null;
 
-	            while ($ruleData = $productsStmt->fetch()) {
-	                $ruleProductId = $ruleData['product_id'];
-	                $productKey= $ruleProductId . '_'
-	                   . $ruleData['website_id'] . '_'
-	                   . $ruleData['customer_group_id'];
+                while ($ruleData = $productsStmt->fetch()) {
+                    $ruleProductId = $ruleData['product_id'];
+                    $productKey= $ruleProductId . '_'
+                       . $ruleData['website_id'] . '_'
+                       . $ruleData['customer_group_id'];
 
-	                if ($prevKey && ($prevKey != $productKey)) {
-	                    $stopFlags = array();
-	                }
+                    if ($prevKey && ($prevKey != $productKey)) {
+                        $stopFlags = array();
+                    }
 
-	                /**
-	                 * Build prices for each day
-	                 */
-	                for ($time=$fromDate; $time<=$toDate; $time+=self::SECONDS_IN_DAY) {
-	                    if (($ruleData['from_time']==0 || $time >= $ruleData['from_time'])
-	                        && ($ruleData['to_time']==0 || $time <=$ruleData['to_time'])) {
+                    /**
+                     * Build prices for each day
+                     */
+                    for ($time=$fromDate; $time<=$toDate; $time+=self::SECONDS_IN_DAY) {
+                        if (($ruleData['from_time']==0 || $time >= $ruleData['from_time'])
+                            && ($ruleData['to_time']==0 || $time <=$ruleData['to_time'])) {
 
-	                        $priceKey = $time . '_' . $productKey;
+                            $priceKey = $time . '_' . $productKey;
 
-	                        if (isset($stopFlags[$priceKey])) {
-	                            continue;
-	                        }
+                            if (isset($stopFlags[$priceKey])) {
+                                continue;
+                            }
 
-	                        if (!isset($dayPrices[$priceKey])) {
-	                            $dayPrices[$priceKey] = array(
-	                                'rule_date'         => $time,
-	                                'website_id'        => $ruleData['website_id'],
-	                                'customer_group_id' => $ruleData['customer_group_id'],
-	                                'product_id'        => $ruleProductId,
-	                                'rule_price'        => $this->_calcRuleProductPrice($ruleData),
-	                                'latest_start_date' => $ruleData['from_time'],
-	                                'earliest_end_date' => $ruleData['to_time'],
-	                            );
-	                        }
-	                        else {
-	                            $dayPrices[$priceKey]['rule_price'] = $this->_calcRuleProductPrice(
-	                                $ruleData,
-	                                $dayPrices[$priceKey]
-	                            );
-	                            $dayPrices[$priceKey]['latest_start_date'] = max(
-	                                $dayPrices[$priceKey]['latest_start_date'],
-	                                $ruleData['from_time']
-	                            );
-	                            $dayPrices[$priceKey]['earliest_end_date'] = min(
-	                                $dayPrices[$priceKey]['earliest_end_date'],
-	                                $ruleData['to_time']
-	                            );
-	                        }
+                            if (!isset($dayPrices[$priceKey])) {
+                                $dayPrices[$priceKey] = array(
+                                    'rule_date'         => $time,
+                                    'website_id'        => $ruleData['website_id'],
+                                    'customer_group_id' => $ruleData['customer_group_id'],
+                                    'product_id'        => $ruleProductId,
+                                    'rule_price'        => $this->_calcRuleProductPrice($ruleData),
+                                    'latest_start_date' => $ruleData['from_time'],
+                                    'earliest_end_date' => $ruleData['to_time'],
+                                );
+                            }
+                            else {
+                                $dayPrices[$priceKey]['rule_price'] = $this->_calcRuleProductPrice(
+                                    $ruleData,
+                                    $dayPrices[$priceKey]
+                                );
+                                $dayPrices[$priceKey]['latest_start_date'] = max(
+                                    $dayPrices[$priceKey]['latest_start_date'],
+                                    $ruleData['from_time']
+                                );
+                                $dayPrices[$priceKey]['earliest_end_date'] = min(
+                                    $dayPrices[$priceKey]['earliest_end_date'],
+                                    $ruleData['to_time']
+                                );
+                            }
 
-	                        if ($ruleData['action_stop']) {
-	                            $stopFlags[$priceKey] = true;
-	                        }
-	                    }
-	                }
+                            if ($ruleData['action_stop']) {
+                                $stopFlags[$priceKey] = true;
+                            }
+                        }
+                    }
 
-	                $prevKey = $productKey;
-
-	                if (count($dayPrices)>100) {
-	                    $this->_saveRuleProductPrices($dayPrices);
-	                    $dayPrices = array();
-	                }
-	            }
-	            $this->_saveRuleProductPrices($dayPrices);
-	        }
-	        $this->_saveRuleProductPrices($dayPrices);
-	        $write->commit();
-
-	        //
-//            $dayPrices  = array();
-//            $stopFlags  = array();
-//            $prevKey    = null;
-//            while ($ruleData = $productsStmt->fetch()) {
-//                $productId = $ruleData['product_id'];
-//                $productKey= $productId . '_' . $ruleData['website_id'] . '_' . $ruleData['customer_group_id'];
-//
-//                if ($prevKey && ($prevKey != $productKey)) {
-//                    $stopFlags = array();
-//                }
-//
-//                /**
-//                 * Build prices for each day
-//                 */
-//                for ($time=$fromDate; $time<=$toDate; $time+=self::SECONDS_IN_DAY) {
-//
-//                    if (($ruleData['from_time']==0 || $time >= $ruleData['from_time'])
-//                        && ($ruleData['to_time']==0 || $time <=$ruleData['to_time'])) {
-//
-//                        $priceKey = $time . '_' . $productKey;
-//
-//                        if (isset($stopFlags[$priceKey])) {
-//                            continue;
-//                        }
-//
-//                        if (!isset($dayPrices[$priceKey])) {
-//                            $dayPrices[$priceKey] = array(
-//                                'rule_date'         => $time,
-//                                'website_id'        => $ruleData['website_id'],
-//                                'customer_group_id' => $ruleData['customer_group_id'],
-//                                'product_id'        => $productId,
-//                                'rule_price'        => $this->_calcRuleProductPrice($ruleData),
-//                                'latest_start_date' => $ruleData['from_time'],
-//                                'earliest_end_date' => $ruleData['to_time'],
-//                            );
-//                        }
-//                        else {
-//                            $dayPrices[$priceKey]['rule_price'] = $this->_calcRuleProductPrice(
-//                                $ruleData,
-//                                $dayPrices[$priceKey]
-//                            );
-//                            $dayPrices[$priceKey]['latest_start_date'] = max(
-//                                $dayPrices[$priceKey]['latest_start_date'],
-//                                $ruleData['from_time']
-//                            );
-//                            $dayPrices[$priceKey]['earliest_end_date'] = min(
-//                                $dayPrices[$priceKey]['earliest_end_date'],
-//                                $ruleData['to_time']
-//                            );
-//                        }
-//
-//                        if ($ruleData['action_stop']) {
-//                            $stopFlags[$priceKey] = true;
-//                        }
-//                    }
-//                }
-//
-//                $prevKey = $productKey;
-//
-//                if (count($dayPrices)>100) {
-//                    $this->_saveRuleProductPrices($dayPrices);
-//                    $dayPrices = array();
-//                }
-//            }
-//            $this->_saveRuleProductPrices($dayPrices);
-//            $write->commit();
+                    $prevKey = $productKey;
+                    if (count($dayPrices)>1000) {
+                        $this->_saveRuleProductPrices($dayPrices);
+                        $dayPrices = array();
+                    }
+                }
+                $this->_saveRuleProductPrices($dayPrices);
+            }
+            $this->_saveRuleProductPrices($dayPrices);
+            $write->commit();
         } catch (Exception $e) {
             $write->rollback();
             throw $e;
@@ -655,13 +582,7 @@ class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
             return $this;
         }
         $header = 'replace into '.$this->getTable('catalogrule/rule_product_price').' (
-                rule_date,
-                website_id,
-                customer_group_id,
-                product_id,
-                rule_price,
-                latest_start_date,
-                earliest_end_date
+                rule_date, website_id, customer_group_id, product_id, rule_price, latest_start_date, earliest_end_date
             ) values ';
         $rows = array();
         $productIds = array();

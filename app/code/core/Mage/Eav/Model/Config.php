@@ -454,6 +454,10 @@ class Mage_Eav_Model_Config
         if (($object instanceof Varien_Object) && $object->getAttributeSetId()) {
              $attributeSetId = $object->getAttributeSetId();
         }
+        $storeId = 0;
+        if (($object instanceof Varien_Object) && $object->getStoreId()) {
+            $storeId = $object->getStoreId();
+        }
         $cacheKey = sprintf('%d-%d', $entityType->getId(), $attributeSetId);
         if (isset($this->_attributeCodes[$cacheKey])) {
             return $this->_attributeCodes[$cacheKey];
@@ -465,6 +469,7 @@ class Mage_Eav_Model_Config
                 ->setEntityTypeFilter($entityType->getId())
                 ->setAttributeSetFilter($attributeSetId)
 //                ->addSetInfo()
+                ->addStoreLabel($storeId)
                 ->getData();
             $attributes = array();
             foreach ($attributesInfo as $attributeData) {
@@ -601,8 +606,8 @@ class Mage_Eav_Model_Config
         if (empty($attributes)) {
             return $this;
         }
-
-        $attributesInfo = Mage::getResourceModel('eav/entity_attribute_collection')
+        $attributeCollection = $entityType->getEntityAttributeCollection();
+        $attributesInfo = Mage::getResourceModel($attributeCollection)
             ->useLoadDataFields()
             ->setEntityTypeFilter($entityType->getId())
             ->setCodeFilter($attributes)

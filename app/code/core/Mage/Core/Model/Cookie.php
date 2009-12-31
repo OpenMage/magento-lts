@@ -100,11 +100,21 @@ class Mage_Core_Model_Cookie
      */
     public function getDomain()
     {
-        $domain = Mage::getStoreConfig(self::XML_PATH_COOKIE_DOMAIN, $this->getStore());
+        $domain = $this->getConfigDomain();
         if (empty($domain)) {
             $domain = $this->_getRequest()->getHttpHost();
         }
         return $domain;
+    }
+
+    /**
+     * Retrieve Config Domain for cookie
+     *
+     * @return string
+     */
+    public function getConfigDomain()
+    {
+        return (string)Mage::getStoreConfig(self::XML_PATH_COOKIE_DOMAIN, $this->getStore());
     }
 
     /**
@@ -128,10 +138,9 @@ class Mage_Core_Model_Cookie
      */
     public function getLifetime()
     {
-        if (null !== $this->_lifetime) {
+        if (!is_null($this->_lifetime)) {
             $lifetime = $this->_lifetime;
-        }
-        else {
+        } else {
             $lifetime = Mage::getStoreConfig(self::XML_PATH_COOKIE_LIFETIME, $this->getStore());
         }
         if (!is_numeric($lifetime)) {

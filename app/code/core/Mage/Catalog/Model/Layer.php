@@ -122,7 +122,6 @@ class Mage_Catalog_Model_Layer extends Varien_Object
             ->addTaxPercents()
             //->addStoreFilter()
             ;
-
         Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
         $collection->addUrlRewrite($this->getCurrentCategory()->getId());
@@ -210,27 +209,25 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Get collection of all filterable attributes for layer products set
      *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Attribute_Collection
      */
     public function getFilterableAttributes()
     {
-        $entity = Mage::getSingleton('eav/config')
-            ->getEntityType('catalog_product');
+//        $entity = Mage::getSingleton('eav/config')
+//            ->getEntityType('catalog_product');
 
         $setIds = $this->_getSetIds();
         if (!$setIds) {
             return array();
         }
-
-        $collection = Mage::getModel('eav/entity_attribute')
-            ->getCollection()
+        /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Collection */
+        $collection = Mage::getResourceModel('catalog/product_attribute_collection')
             ->setItemObjectClass('catalog/resource_eav_attribute');
 
-        /* @var $collection Mage_Eav_Model_Mysql4_Entity_Attribute_Collection */
         $collection->getSelect()->distinct(true);
         $collection
-            ->setEntityTypeFilter($entity->getId())
             ->setAttributeSetFilter($setIds)
+            ->addStoreLabel(Mage::app()->getStore()->getId())
             ->setOrder('position', 'ASC');
         $collection = $this->_prepareAttributeCollection($collection);
         $collection->load();
@@ -253,8 +250,8 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     /**
      * Add filters to attribute collection
      *
-     * @param   Mage_Eav_Model_Mysql4_Entity_Attribute_Collection $collection
-     * @return  Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @param   Mage_Catalog_Model_Resource_Eav_Mysql4_Attribute_Collection $collection
+     * @return  Mage_Catalog_Model_Resource_Eav_Mysql4_Attribute_Collection
      */
     protected function _prepareAttributeCollection($collection)
     {

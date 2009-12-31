@@ -31,18 +31,18 @@
  */
 class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
 {
-    const BACKORDERS_NO     = 0;
-    const BACKORDERS_YES_NONOTIFY = 1;
-    const BACKORDERS_YES_NOTIFY   = 2;
+    const BACKORDERS_NO             = 0;
+    const BACKORDERS_YES_NONOTIFY   = 1;
+    const BACKORDERS_YES_NOTIFY     = 2;
 
     /* deprecated */
-    const BACKORDERS_BELOW  = 1;
-    const BACKORDERS_YES    = 2;
+    const BACKORDERS_BELOW          = 1;
+    const BACKORDERS_YES            = 2;
 
-    const STOCK_OUT_OF_STOCK    = 0;
-    const STOCK_IN_STOCK        = 1;
+    const STOCK_OUT_OF_STOCK        = 0;
+    const STOCK_IN_STOCK            = 1;
 
-    const DEFAULT_STOCK_ID      = 1;
+    const DEFAULT_STOCK_ID          = 1;
 
     protected function _construct()
     {

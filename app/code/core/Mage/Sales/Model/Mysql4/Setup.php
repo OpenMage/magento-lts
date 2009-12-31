@@ -420,6 +420,8 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                     'base_shipping_canceled'     => array('type'=>'static'),
                     'base_shipping_invoiced'     => array('type'=>'static'),
 
+                    'protect_code' => array('type' => 'static'),
+
                     'customer_id'       => array('type'=>'static', 'visible'=>false),
                     'customer_group_id' => array('type'=>'int', 'visible'=>false),
                     'customer_email'    => array('type'=>'varchar', 'visible'=>false),

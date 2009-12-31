@@ -14,8 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: GrayScale.php 16978 2009-07-22 19:59:40Z alexander $
  */
 
 /** Zend_Pdf_Color */
@@ -29,7 +30,7 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Color_GrayScale extends Zend_Pdf_Color
@@ -49,15 +50,10 @@ class Zend_Pdf_Color_GrayScale extends Zend_Pdf_Color
      */
     public function __construct($grayLevel)
     {
+        if ($grayLevel < 0) { $grayLevel = 0; }
+        if ($grayLevel > 1) { $grayLevel = 1; }
+
         $this->_grayLevel = new Zend_Pdf_Element_Numeric($grayLevel);
-
-        if ($this->_grayLevel->value < 0) {
-            $this->_grayLevel->value = 0;
-        }
-
-        if ($this->_grayLevel->value > 1) {
-            $this->_grayLevel->value = 1;
-        }
     }
 
     /**
@@ -71,6 +67,16 @@ class Zend_Pdf_Color_GrayScale extends Zend_Pdf_Color
     public function instructions($stroking)
     {
         return $this->_grayLevel->toString() . ($stroking? " G\n" : " g\n");
+    }
+
+    /**
+     * Get color components (color space dependent)
+     *
+     * @return array
+     */
+    public function getComponents()
+    {
+        return array($this->_grayLevel->value);
     }
 }
 

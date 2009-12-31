@@ -141,11 +141,11 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
             '<input name="%s" id="%s" value="%s" %s style="width:110px;" />'
             .' <img src="%s" alt="" class="v-middle" id="%s_trig" title="%s" style="%s" />',
             $this->getName(), $this->getHtmlId(), $this->_escape($this->getValue()), $this->serialize($this->getHtmlAttributes()),
-            $this->getImage(), $this->getHtmlId(), __('Select Date'), ($this->getDisabled() ? 'display:none;' : '')
+            $this->getImage(), $this->getHtmlId(), 'Select Date', ($this->getDisabled() ? 'display:none;' : '')
         );
         $outputFormat = $this->getFormat();
         if (empty($outputFormat)) {
-            throw new Exception(__('Output format is not specified. Please, specify "format" key in constructor, or set it using setFormat().'));
+            throw new Exception('Output format is not specified. Please, specify "format" key in constructor, or set it using setFormat().');
         }
         $displayFormat = Varien_Date::convertZendToStrFtime($outputFormat, true, (bool)$this->getTime());
 

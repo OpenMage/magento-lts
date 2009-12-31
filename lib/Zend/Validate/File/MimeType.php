@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: $
+ * @version   $Id: MimeType.php 17203 2009-07-27 19:37:18Z thomas $
  */
 
 /**
@@ -29,7 +29,7 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_File_MimeType extends Zend_Validate_Abstract
@@ -228,19 +228,27 @@ class Zend_Validate_File_MimeType extends Zend_Validate_Abstract
 
         if ($file !== null) {
             $mimefile = $this->getMagicFile();
-            if (class_exists('finfo', false) && ((!empty($mimefile)) or (defined('MAGIC')))) {
+            if (class_exists('finfo', false)) {
+                $const = defined('FILEINFO_MIME_TYPE') ? FILEINFO_MIME_TYPE : FILEINFO_MIME;
                 if (!empty($mimefile)) {
-                    $mime = new finfo(FILEINFO_MIME, $mimefile);
+                    $mime = new finfo($const, $mimefile);
                 } else {
-                    $mime = new finfo(FILEINFO_MIME);
+                    $mime = new finfo($const);
                 }
 
-                $this->_type = $mime->file($value);
+                if ($mime !== false) {
+                    $this->_type = $mime->file($value);
+                }
+
                 unset($mime);
-            } elseif (function_exists('mime_content_type') && ini_get('mime_magic.magicfile')) {
-                $this->_type = mime_content_type($value);
-            } else {
-                $this->_type = $file['type'];
+            }
+
+            if (empty($this->_type)) {
+                if (function_exists('mime_content_type') && ini_get('mime_magic.magicfile')) {
+                    $this->_type = mime_content_type($value);
+                } else {
+                    $this->_type = $file['type'];
+                }
             }
         }
 

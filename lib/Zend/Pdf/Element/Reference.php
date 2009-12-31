@@ -14,8 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Reference.php 17533 2009-08-10 19:06:27Z alexander $
  */
 
 
@@ -37,7 +38,7 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
@@ -164,10 +165,12 @@ class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
      */
     private function _dereference()
     {
-        $obj = $this->_context->getParser()->getObject(
-                       $this->_context->getRefTable()->getOffset($this->_objNum . ' ' . $this->_genNum . ' R'),
-                       $this->_context
-                                                      );
+        if (($obj = $this->_factory->fetchObject($this->_objNum . ' ' . $this->_genNum)) === null) {
+            $obj = $this->_context->getParser()->getObject(
+                           $this->_context->getRefTable()->getOffset($this->_objNum . ' ' . $this->_genNum . ' R'),
+                           $this->_context
+                                                          );
+        }
 
         if ($obj === null ) {
             $this->_ref = new Zend_Pdf_Element_Null();
@@ -179,9 +182,6 @@ class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
         }
 
         $this->_ref = $obj;
-        $this->setParentObject($obj);
-
-        $this->_factory->registerObject($this);
     }
 
     /**
@@ -196,6 +196,19 @@ class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
         $this->_ref->touch();
     }
 
+    /**
+     * Return object, which can be used to identify object and its references identity
+     *
+     * @return Zend_Pdf_Element_Object
+     */
+    public function getObject()
+    {
+        if ($this->_ref === null) {
+            $this->_dereference();
+        }
+
+        return $this->_ref;
+    }
 
     /**
      * Get handler
@@ -240,20 +253,7 @@ class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
             $this->_dereference();
         }
 
-        switch (count($args)) {
-            case 0:
-                return $this->_ref->$method();
-            case 1:
-                return $this->_ref->$method($args[0]);
-            case 2:
-                return $this->_ref->$method($args[0], $args[1]);
-            case 3:
-                return $this->_ref->$method($args[0], $args[1], $args[2]);
-            case 4:
-                return $this->_ref->$method($args[0], $args[1], $args[2], $args[3]);
-            default:
-                throw new Zend_Pdf_Exception('Unsupported number of arguments');
-        }
+        return call_user_func_array(array($this->_ref, $method), $args);
     }
 
     /**

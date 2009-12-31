@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Date.php 2498 2006-12-23 22:13:38Z thomas $
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Gettext.php 16971 2009-07-22 18:05:45Z mikaelkael $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
@@ -124,13 +124,24 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
             if ($origtemp[$count * 2 + 1] != 0) {
                 fseek($this->_file, $origtemp[$count * 2 + 2]);
                 $original = @fread($this->_file, $origtemp[$count * 2 + 1]);
+                $original = explode(chr(00), $original);
             } else {
-                $original = '';
+                $original[0] = '';
             }
 
             if ($transtemp[$count * 2 + 1] != 0) {
                 fseek($this->_file, $transtemp[$count * 2 + 2]);
-                $this->_data[$locale][$original] = fread($this->_file, $transtemp[$count * 2 + 1]);
+                $translate = fread($this->_file, $transtemp[$count * 2 + 1]);
+                $translate = explode(chr(00), $translate);
+                if ((count($original) > 1) && (count($translate) > 1)) {
+                    $this->_data[$locale][$original[0]] = $translate;
+                    array_shift($original);
+                    foreach ($original as $orig) {
+                        $this->_data[$locale][$orig] = '';
+                    }
+                } else {
+                    $this->_data[$locale][$original[0]] = $translate[0];
+                }
             }
         }
 

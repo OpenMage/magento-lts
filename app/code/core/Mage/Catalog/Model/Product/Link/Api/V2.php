@@ -42,11 +42,11 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
      * @param array $data
      * @return boolean
      */
-    public function assign($type, $productId, $linkedProductId, $data = array())
+    public function assign($type, $productId, $linkedProductId, $data = array(), $identifierType = null)
     {
         $typeId = $this->_getTypeId($type);
 
-        $product = $this->_initProduct($productId);
+        $product = $this->_initProduct($productId, $identifierType);
 
         $link = $product->getLinkInstance()
             ->setLinkTypeId($typeId);
@@ -84,11 +84,11 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
      * @param array $data
      * @return boolean
      */
-    public function update($type, $productId, $linkedProductId, $data = array())
+    public function update($type, $productId, $linkedProductId, $data = array(), $identifierType = null)
     {
         $typeId = $this->_getTypeId($type);
 
-        $product = $this->_initProduct($productId);
+        $product = $this->_initProduct($productId, $identifierType);
 
         $link = $product->getLinkInstance()
             ->setLinkTypeId($typeId);

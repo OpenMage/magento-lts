@@ -72,7 +72,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
     {
         $validators = array(
             'template_code'         => array(Zend_Filter_Input::ALLOW_EMPTY => false),
-            'template_type'         => 'Alnum',
+            'template_type'         => 'Int',
             'template_sender_email' => 'EmailAddress',
             'template_sender_name'  => array(Zend_Filter_Input::ALLOW_EMPTY => false)
         );

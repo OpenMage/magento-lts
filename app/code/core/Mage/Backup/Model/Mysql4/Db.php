@@ -324,10 +324,12 @@ class Mage_Backup_Model_Mysql4_Db
         $dbConfig = $this->_read->getConfig();
 
         $versionRow = $this->_read->fetchRow('SHOW VARIABLES LIKE \'version\'');
+        $hostName   = !empty($dbConfig['unix_socket']) ? $dbConfig['unix_socket']
+            : (!empty($dbConfig['host']) ? $dbConfig['host'] : 'localhost');
 
         $header = "-- Magento DB backup\n"
             . "--\n"
-            . "-- Host: {$dbConfig['host']}    Database: {$dbConfig['dbname']}\n"
+            . "-- Host: {$hostName}    Database: {$dbConfig['dbname']}\n"
             . "-- ------------------------------------------------------\n"
             . "-- Server version: {$versionRow['Value']}\n\n"
             . "/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;\n"

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ip.php 13104 2008-12-08 22:31:50Z tjohns $
+ * @version    $Id: Ip.php 17470 2009-08-08 22:27:09Z thomas $
  */
 
 /**
@@ -27,17 +27,19 @@
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_Ip extends Zend_Validate_Abstract
 {
+    const INVALID        = 'ipInvalid';
     const NOT_IP_ADDRESS = 'notIpAddress';
 
     /**
      * @var array
      */
     protected $_messageTemplates = array(
+        self::INVALID        => "Invalid type given, value should be a string",
         self::NOT_IP_ADDRESS => "'%value%' does not appear to be a valid IP address"
     );
 
@@ -51,16 +53,19 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
      */
     public function isValid($value)
     {
-        $valueString = (string) $value;
+        if (!is_string($value)) {
+            $this->_error(self::INVALID);
+            return false;
+        }
 
-        $this->_setValue($valueString);
+        $this->_setValue($value);
 
-        if ((ip2long($valueString) === false) || (long2ip(ip2long($valueString)) !== $valueString)) {
+        if ((ip2long($value) === false) || (long2ip(ip2long($value)) !== $value)) {
             if (!function_exists('inet_pton')) {
-                $this->_error();
+                $this->_error(self::NOT_IP_ADDRESS);
                 return false;
-            } else if ((@inet_pton($value) === false) ||(inet_ntop(@inet_pton($value)) !== $valueString)) {
-                $this->_error();
+            } else if ((@inet_pton($value) === false) ||(inet_ntop(@inet_pton($value)) !== $value)) {
+                $this->_error(self::NOT_IP_ADDRESS);
                 return false;
             }
         }

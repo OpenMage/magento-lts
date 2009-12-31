@@ -45,8 +45,9 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         $this->_removeButton('reset');
         $this->_removeButton('delete');
         $this->_updateButton('save', 'label', Mage::helper('sales')->__('Send Tracking Information'));
-        $this->_updateButton('save', 'onclick', "setLocation('".$this->getEmailUrl()."')");
-        
+        $this->_updateButton('save',
+            'onclick', "deleteConfirm('" . Mage::helper('sales')->__('Are you sure you want to send Shipment email to customer?') . "', '" . $this->getEmailUrl() . "')");
+
         if ($this->getShipment()->getId()) {
             $this->_addButton('print', array(
                 'label'     => Mage::helper('sales')->__('Print'),
@@ -101,7 +102,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
             'invoice_id' => $this->getShipment()->getId()
         ));
     }
-    
+
     public function updateBackButtonUrl($flag)
     {
         if ($flag) {

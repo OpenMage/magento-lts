@@ -404,7 +404,6 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         try {
             $payment = $this->getRequest()->getPost('payment');
             $this->_getCheckout()->setPaymentMethod($payment);
-            $this->_getCheckout()->getQuote()->getPayment()->importData($payment);
 
             $this->_getState()->setCompleteStep(
                 Mage_Checkout_Model_Type_Multishipping_State::STEP_BILLING
@@ -485,6 +484,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
 
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
+        Mage::dispatchEvent('checkout_multishipping_controller_success_action');
         $this->renderLayout();
     }
 

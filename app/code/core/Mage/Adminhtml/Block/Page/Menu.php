@@ -72,9 +72,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     public function getCacheKey()
     {
         // getting roles for current user, for now one role per user
-//        $id = Mage::getSingleton('admin/session')->getUser()->getId();
-//        return 'admin_top_nav_'.$this->getActive().'_'.$id.'_'.Mage::app()->getLocale()->getLocaleCode();
-        return 'admin_top_nav_'.$this->getActive().'_'.Mage::app()->getLocale()->getLocaleCode();
+        $id = Mage::getSingleton('admin/session')->getUser()->getId();
+        return 'admin_top_nav_'.$this->getActive().'_'.$id.'_'.Mage::app()->getLocale()->getLocaleCode();
     }
 
     /**
@@ -119,7 +118,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     protected function _buildMenuArray(Varien_Simplexml_Element $parent=null, $path='', $level=0)
     {
         if (is_null($parent)) {
-            $parent = Mage::getConfig()->getNode('adminhtml/menu');
+            $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
         }
 
         $parentArr = array();
@@ -147,7 +146,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 $menuArr['url'] = '#';
                 $menuArr['click'] = 'return false';
             }
-            #print_r($this->getActive().','.$path.$childName."<hr>");
+
             $menuArr['active'] = ($this->getActive()==$path.$childName)
                 || (strpos($this->getActive(), $path.$childName.'/')===0);
 

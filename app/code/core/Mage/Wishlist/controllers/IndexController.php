@@ -89,6 +89,16 @@ class Mage_Wishlist_IndexController extends Mage_Core_Controller_Front_Action
         if ($block = $this->getLayout()->getBlock('customer.wishlist')) {
             $block->setRefererUrl($this->_getRefererUrl());
         }
+
+        $session = Mage::getSingleton('customer/session');
+
+        /**
+         *  Get referer to avoid referring to the compare popup window
+         */
+        if ($block && $referer = $session->getAddActionReferer(true)) {
+            $block->setRefererUrl($referer);
+        }
+
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('checkout/session');
         $this->renderLayout();
@@ -129,6 +139,11 @@ class Mage_Wishlist_IndexController extends Mage_Core_Controller_Front_Action
             else {
                 $referer = $this->_getRefererUrl();
             }
+
+            /**
+             *  Set referer to avoid referring to the compare popup window
+             */
+            $session->setAddActionReferer($referer);
 
             Mage::helper('wishlist')->calculate();
 
@@ -171,6 +186,11 @@ class Mage_Wishlist_IndexController extends Mage_Core_Controller_Front_Action
                         $this->__('Can\'t save description %s', Mage::helper('core')->htmlEscape($description))
                     );
                 }
+            }
+
+            if (isset($post['save_and_share'])) {
+                $this->_redirect('*/*/share');
+                return;
             }
         }
         $this->_redirect('*');

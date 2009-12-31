@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Session
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Namespace.php 13337 2008-12-17 11:11:25Z sidhighwind $
+ * @version    $Id: Namespace.php 16210 2009-06-21 19:22:17Z thomas $
  * @since      Preview Release 0.2
  */
 
@@ -38,7 +38,7 @@
  *
  * @category   Zend
  * @package    Zend_Session
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAggregate
@@ -70,6 +70,25 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
      */
     protected static $_singleInstances = array();
 
+    /**
+     * resetSingleInstance()
+     *
+     * @param string $namespaceName
+     * @return null
+     */
+    public static function resetSingleInstance($namespaceName = null)
+    {
+        if ($namespaceName != null) {
+            if (array_key_exists($namespaceName, self::$_singleInstances)) {
+                unset(self::$_singleInstances[$namespaceName]);
+            }
+            return;
+        }
+        
+        self::$_singleInstances = array();
+        return;
+    }
+    
     /**
      * __construct() - Returns an instance object bound to a particular, isolated section
      * of the session, identified by $namespace name (defaulting to 'Default').

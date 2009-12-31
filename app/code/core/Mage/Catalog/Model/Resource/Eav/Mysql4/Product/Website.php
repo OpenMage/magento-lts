@@ -106,28 +106,32 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Website extends Mage_Core_M
 
         // Before adding of products we should remove it old rows with same ids
         $this->removeProducts($websiteIds, $productIds);
-
-        foreach ($websiteIds as $websiteId) {
-            foreach ($productIds as $productId) {
-                if (!$productId) {
-                    continue;
+        try {
+            foreach ($websiteIds as $websiteId) {
+                foreach ($productIds as $productId) {
+                    if (!$productId) {
+                        continue;
+                    }
+                    $this->_getWriteAdapter()->insert($this->getMainTable(), array(
+                        'product_id' => $productId,
+                        'website_id' => $websiteId
+                    ));
                 }
-                $this->_getWriteAdapter()->insert($this->getMainTable(), array(
-                    'product_id' => $productId,
-                    'website_id' => $websiteId
-                ));
+
+                // Refresh product enabled index
+                $storeIds = Mage::app()->getWebsite($websiteId)->getStoreIds();
+                foreach ($storeIds as $storeId) {
+                    $store = Mage::app()->getStore($storeId);
+                    $this->_getProductResource()->refreshEnabledIndex($store, $productIds);
+                }
             }
 
-            // Refresh product enabled index
-            $storeIds = Mage::app()->getWebsite($websiteId)->getStoreIds();
-            foreach ($storeIds as $storeId) {
-                $store = Mage::app()->getStore($storeId);
-                $this->_getProductResource()->refreshEnabledIndex($store, $productIds);
-            }
+            $this->_getWriteAdapter()->commit();
         }
-
-        $this->_getWriteAdapter()->commit();
-
+        catch (Exception $e) {
+            $this->_getWriteAdapter()->rollBack();
+            throw $e;
+        }
         return $this;
     }
 

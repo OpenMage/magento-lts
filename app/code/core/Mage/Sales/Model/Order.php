@@ -434,7 +434,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $this->getPayment()->place();
         return $this;
     }
-
     /**
      * Retrieve order payment model object
      *
@@ -570,7 +569,23 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function place()
     {
         Mage::dispatchEvent('sales_order_place_before', array('order'=>$this));
-        $this->_placePayment();
+        $this->setState(self::STATE_NEW, true)->save();
+        try {
+            $this->_placePayment();
+        } catch (Mage_Core_Exception $e){
+            $message = $e->getMessage();
+            Mage::logException($e);
+            $this->addStatusToHistory(
+                $this->getStatus(),
+                Mage::helper('sales')->__('Payment failed: %s', $message)
+            )->save();
+        } catch (Exception $e){
+            Mage::logException($e);
+            $this->addStatusToHistory(
+                $this->getStatus(),
+                Mage::helper('sales')->__('Payment failed')
+            )->save();
+        }
         Mage::dispatchEvent('sales_order_place_after', array('order'=>$this));
         return $this;
     }
@@ -1427,6 +1442,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 }
             }
         }
+
+        $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
 
         return $this;
     }

@@ -145,6 +145,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
      */
     public function addAdditionalButton($alias, $config)
     {
+        if (isset($config['name'])) {
+            $config['element_name'] = $config['name'];
+        }
         $this->setChild($alias . '_button',
                         $this->getLayout()->createBlock('adminhtml/widget_button')->addData($config));
         $this->_additionalButtons[$alias] = $alias . '_button';

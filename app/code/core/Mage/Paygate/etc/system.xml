@@ -316,8 +316,9 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </title>
-                        <url translate="label">
+                        <url translate="label comment">
                             <label>URL</label>
+                            <comment>Live: &lt;strong&gt;https://payflowpro.paypal.com/transaction&lt;/strong&gt;&lt;br /&gt;Test: &lt;strong&gt;https://pilot-payflowpro.paypal.com/transaction&lt;/strong&gt;</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>

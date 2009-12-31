@@ -33,7 +33,7 @@
  */
 class Mage_Review_Block_Helper extends Mage_Core_Block_Template
 {
-    private $_availableTemplates = array(
+    protected $_availableTemplates = array(
         'default' => 'review/helper/summary.phtml',
 	    'short'   => 'review/helper/summary_short.phtml'
     );

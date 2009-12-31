@@ -184,7 +184,7 @@ class Mage_Sitemap_Model_Mysql4_Catalog_Category extends Mage_Core_Model_Mysql4_
                     $this->_getWriteAdapter()->quoteInto('t1_'.$attributeCode.'.entity_id = t2_'.$attributeCode.'.entity_id AND t1_'.$attributeCode.'.attribute_id = t2_'.$attributeCode.'.attribute_id AND t2_'.$attributeCode.'.store_id=?', $storeId),
                     array()
                 )
-                ->where('IFNULL(t2_'.$attributeCode.'.value, t1_'.$attributeCode.'.value)'.$conditionRule, $value);
+                ->where('IF(t2_'.$attributeCode.'.value_id>0, t2_'.$attributeCode.'.value, t1_'.$attributeCode.'.value)'.$conditionRule, $value);
             }
         }
 

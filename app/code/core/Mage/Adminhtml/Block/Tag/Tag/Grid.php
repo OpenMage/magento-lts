@@ -40,6 +40,17 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->setId('tag_tag_grid');
         $this->setDefaultSort('name');
         $this->setDefaultDir('ASC');
+        $this->setUseAjax(true);
+    }
+
+    /*
+     * Retrieves Grid Url
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/tag/ajaxGrid');
     }
 
     protected function _prepareCollection()
@@ -97,7 +108,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'width'     => '90px',
             'index'     => 'status',
             'type'      => 'options',
-            'options'    => $this->helper('tag/data')->getStatusesArray(),
+            'options'   => $this->helper('tag/data')->getStatusesArray(),
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -110,30 +121,6 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 'store_view'=> true
             ));
         }
-
-        $this->addColumn('actions', array(
-            'header'    => Mage::helper('tag')->__('Actions'),
-            'width'     => '100px',
-            'type'      => 'action',
-            'getter'     => 'getId',
-            'sortable'  => false,
-            'filter'    => false,
-            'actions'    => array(
-                array(
-                    'caption'   => Mage::helper('tag')->__('Edit Tag'),
-                    'url'       => $this->getUrl('*/*/edit', array('ret' => 'all', 'tag_id'=>'$tag_id')),
-                ),
-                array(
-                    'caption'   => Mage::helper('tag')->__('View Products'),
-                    'url'       => $this->getUrl('*/*/product', array('ret' => 'all', 'tag_id'=>'$tag_id')),
-                ),
-
-                array(
-                    'caption'   => Mage::helper('tag')->__('View Customers'),
-                    'url'       => $this->getUrl('*/*/customer', array('ret' => 'all', 'tag_id'=>'$tag_id')),
-                )
-            ),
-        ));
 
         return parent::_prepareColumns();
     }
@@ -148,11 +135,11 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     protected function _addColumnFilterToCollection($column)
     {
-         if($column->getIndex()=='stores') {
-                $this->getCollection()->addStoreFilter($column->getFilter()->getCondition(), false);
-         } else {
-                parent::_addColumnFilterToCollection($column);
-         }
+        if($column->getIndex()=='stores') {
+            $this->getCollection()->addStoreFilter($column->getFilter()->getCondition(), false);
+        } else {
+            parent::_addColumnFilterToCollection($column);
+        }
 
          return $this;
     }

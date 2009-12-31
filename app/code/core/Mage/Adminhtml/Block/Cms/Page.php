@@ -42,8 +42,26 @@ class Mage_Adminhtml_Block_Cms_Page extends Mage_Adminhtml_Block_Widget_Grid_Con
     {
         $this->_controller = 'cms_page';
         $this->_headerText = Mage::helper('cms')->__('Manage Pages');
-        $this->_addButtonLabel = Mage::helper('cms')->__('Add New Page');
+
         parent::__construct();
+
+        if ($this->_isAllowedAction('save')) {
+            $this->_updateButton('add', 'label', Mage::helper('cms')->__('Add New Page'));
+        } else {
+            $this->_removeButton('add');
+        }
+
+    }
+
+    /**
+     * Check permission for passed action
+     *
+     * @param string $action
+     * @return bool
+     */
+    protected function _isAllowedAction($action)
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('cms/page/' . $action);
     }
 
 }

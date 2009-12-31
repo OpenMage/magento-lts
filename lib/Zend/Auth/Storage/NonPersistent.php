@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage Zend_Auth_Storage
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: NonPersistent.php 8862 2008-03-16 15:36:00Z thomas $
+ * @version    $Id: NonPersistent.php 16200 2009-06-21 18:50:06Z thomas $
  */
 
 
@@ -37,7 +37,7 @@
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage Zend_Auth_Storage
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Auth_Storage_NonPersistent implements Zend_Auth_Storage_Interface

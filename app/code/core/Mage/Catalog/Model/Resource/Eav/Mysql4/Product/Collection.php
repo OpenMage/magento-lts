@@ -107,6 +107,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
      *  visibility              array|int;
      *  website_ids             array|int;
      *  store_table             string;
+     *  use_price_index         bool;   join price index table flag
+     *  customer_group_id       int;    required for price; customer group limitation for price
+     *  website_id              int;    required for price; website limitation for price
      *
      * @var array
      */
@@ -327,9 +330,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
      */
     protected function _beforeLoad()
     {
-        if ($this->_addFinalPrice) {
-            $this->_joinPriceRules();
-        }
+//        if ($this->_addFinalPrice) {
+//            $this->_joinPriceRules();
+//        }
         Mage::dispatchEvent('catalog_product_collection_load_before', array('collection'=>$this));
 
         return parent::_beforeLoad();
@@ -346,12 +349,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
         if ($this->_addUrlRewrite) {
            $this->_addUrlRewrite($this->_urlRewriteCategory);
         }
-        if ($this->_addMinimalPrice) {
-           $this->_addMinimalPrice();
-        }
-        if ($this->_addFinalPrice) {
-           $this->_addFinalPrice();
-        }
+//        if ($this->_addFinalPrice) {
+//           $this->_addFinalPrice();
+//        }
 
         $this->_prepareUrlDataObject();
 
@@ -755,12 +755,14 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 
             if ($isAnchor) {
                 $anchorStmt = clone $select;
+                $anchorStmt->limit(); //reset limits
                 $anchorStmt->where('count_table.category_id in (?)', $isAnchor);
                 $productCounts += $this->getConnection()->fetchPairs($anchorStmt, array('category_id'=>'product_count'));
                 $anchorStmt = null;
             }
             if ($isNotAnchor) {
                 $notAnchorStmt = clone $select;
+                $notAnchorStmt->limit(); //reset limits
                 $notAnchorStmt->where('count_table.category_id in (?)', $isNotAnchor);
                 $notAnchorStmt->where('count_table.is_parent=1');
                 $productCounts += $this->getConnection()->fetchPairs($notAnchorStmt, array('category_id'=>'product_count'));
@@ -838,7 +840,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
     public function addUrlRewrite($categoryId = '')
     {
         $this->_addUrlRewrite = true;
-        $this->_urlRewriteCategory = Mage::getStoreConfig('catalog/seo/product_use_categories') ? $categoryId : 0;
+        if (Mage::getStoreConfig(Mage_Catalog_Helper_Product::XML_PATH_PRODUCT_URL_USE_CATEGORY, $this->getStoreId())) {
+            $this->_urlRewriteCategory = $categoryId;
+        } else {
+            $this->_urlRewriteCategory = 0;
+        }
         return $this;
     }
 
@@ -894,27 +900,36 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
         }
     }
 
+    /**
+     * Add minimal price data to result
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     */
     public function addMinimalPrice()
     {
-        $this->_addMinimalPrice = true;
-        return $this;
+        return $this->addPriceData();
     }
 
+    /**
+     * Add minimal price to product collection
+     *
+     * @deprecated sinse 1.3.2.2
+     * @see Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection::addPriceData
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     */
     protected function _addMinimalPrice()
     {
-        Mage::getSingleton('catalogindex/price')->addMinimalPrices($this);
         return $this;
     }
 
+    /**
+     * Add price data for calculate final price
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     */
     public function addFinalPrice()
     {
-        $this->_addFinalPrice = true;
-        $this->addAttributeToSelect('price')
-            ->addAttributeToSelect('special_price')
-            ->addAttributeToSelect('special_from_date')
-            ->addAttributeToSelect('special_to_date');
-
-        return $this;
+        return $this->addPriceData();
     }
 
     /**
@@ -1002,6 +1017,36 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
     }
 
     /**
+     * Add Price Data to result
+     *
+     * @param int $customerGroupId
+     * @param int $websiteId
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     */
+    public function addPriceData($customerGroupId = null, $websiteId = null)
+    {
+        $this->_productLimitationFilters['use_price_index'] = true;
+
+        if (!isset($this->_productLimitationFilters['customer_group_id']) && is_null($customerGroupId)) {
+            $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+        }
+        if (!isset($this->_productLimitationFilters['website_id']) && is_null($websiteId)) {
+            $websiteId       = Mage::app()->getStore($this->getStoreId())->getWebsiteId();
+        }
+
+        if (!is_null($customerGroupId)) {
+            $this->_productLimitationFilters['customer_group_id'] = $customerGroupId;
+        }
+        if (!is_null($websiteId)) {
+            $this->_productLimitationFilters['website_id'] = $websiteId;
+        }
+
+        $this->_applyProductLimitations();
+
+        return $this;
+    }
+
+    /**
      * Add attribute to filter
      *
      * @param Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
@@ -1039,7 +1084,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 
         $this->_allIdsCache = null;
         if (is_string($attribute) && $attribute == 'is_saleable') {
-            return $this->getSelect()->where($this->_getConditionSql('(IF(manage_stock, is_in_stock, 1))', $condition));
+            $this->getSelect()->where($this->_getConditionSql('(IF(manage_stock, is_in_stock, 1))', $condition));
+            return $this;
         }
         else {
             return parent::addAttributeToFilter($attribute, $condition, $joinType);
@@ -1169,43 +1215,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 
         $storeId = Mage::app()->getStore()->getId();
         if ($attribute == 'price' && $storeId != 0) {
-            $websiteId = Mage::app()->getStore()->getWebsiteId();
-            $customerGroup = Mage::getSingleton('customer/session')->getCustomerGroupId();
-
-            if ($this->isEnabledFlat()) {
-                $priceColumn = 'e.display_price_group_' . $customerGroup;
-                $this->getSelect()->order("{$priceColumn} {$dir}");
-            }
-            else {
-                $priceAttributeId = $this->getAttribute('price')->getId();
-
-                $entityCondition = '_price_order_table.entity_id = e.entity_id';
-                $storeCondition = $this->getConnection()->quoteInto(
-                    '_price_order_table.website_id = ?',
-                    $websiteId
-                );
-                $groupCondition = $this->getConnection()->quoteInto(
-                    '_price_order_table.customer_group_id = ?',
-                    $customerGroup
-                );
-                $attributeCondition = $this->getConnection()->quoteInto(
-                    '_price_order_table.attribute_id = ?',
-                    $priceAttributeId
-                );
-
-                $this->getSelect()->joinLeft(
-                    array('_price_order_table'=>$this->getTable('catalogindex/price')),
-                    "{$entityCondition} AND {$storeCondition} AND {$groupCondition} AND {$attributeCondition}",
-                    array()
-                );
-                $this->getSelect()->order('_price_order_table.value ' . $dir);
-
-                /**
-                 * Distinct we are using for remove duplicates of products which have
-                 * several rows in price index (like grouped products)
-                 */
-                $this->getSelect()->distinct(true);
-            }
+            $this->addPriceData();
+            $this->getSelect()->order("price_index.min_price {$dir}");
 
             return $this;
         }
@@ -1383,6 +1394,41 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
     }
 
     /**
+     * Join Product Price Table
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     */
+    protected function _productLimitationJoinPrice()
+    {
+        $filters = $this->_productLimitationFilters;
+        if (empty($filters['use_price_index'])) {
+            return $this;
+        }
+
+        $connection = $this->getConnection();
+
+        $joinCond = $joinCond = join(' AND ', array(
+            'price_index.entity_id = e.entity_id',
+            $connection->quoteInto('price_index.website_id = ?', $filters['website_id']),
+            $connection->quoteInto('price_index.customer_group_id = ?', $filters['customer_group_id'])
+        ));
+
+        $fromPart = $this->getSelect()->getPart(Zend_Db_Select::FROM);
+        if (!isset($fromPart['price_index'])) {
+            $this->getSelect()->joinLeft(
+                array('price_index' => $this->getTable('catalog/product_index_price')),
+                $joinCond,
+                array('price', 'final_price', 'min_price', 'max_price', 'tier_price')
+            );
+        } else {
+            $fromPart['price_index']['joinCondition'] = $joinCond;
+            $this->getSelect()->setPart(Zend_Db_Select::FROM, $fromPart);
+        }
+
+        return $this;
+    }
+
+    /**
      * Apply limitation filters to collection
      *
      * Method allow use one time category product index table (or product website table)
@@ -1396,6 +1442,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
     {
         $this->_prepareProductLimitationFilters();
         $this->_productLimitationJoinWebsite();
+        $this->_productLimitationJoinPrice();
         $filters = $this->_productLimitationFilters;
 
         if (!isset($filters['category_id']) && !isset($filters['visibility'])) {

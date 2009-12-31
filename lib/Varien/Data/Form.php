@@ -197,6 +197,17 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         return $this;
     }
 
+    public function setFieldContainerIdPrefix($prefix)
+    {
+        $this->setData('field_container_id_prefix', $prefix);
+        return $this;
+    }
+
+    public function getFieldContainerIdPrefix()
+    {
+        return $this->getData('field_container_id_prefix');
+    }
+
     public function toHtml()
     {
         Varien_Profiler::start('form/toHtml');

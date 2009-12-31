@@ -78,7 +78,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrive massaction item with id $itemId
+     * Retrieve massaction item with id $itemId
      *
      * @param string $itemId
      * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item
@@ -93,7 +93,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrive massaction items
+     * Retrieve massaction items
      *
      * @return array
      */
@@ -103,7 +103,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrive massaction items JSON
+     * Retrieve massaction items JSON
      *
      * @return string
      */
@@ -118,7 +118,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrive massaction items count
+     * Retrieve massaction items count
      *
      * @return integer
      */
@@ -138,7 +138,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrive global form field name for all massaction items
+     * Retrieve global form field name for all massaction items
      *
      * @return string
      */
@@ -148,7 +148,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrive form field name for internal use. Based on $this->getFormFieldName()
+     * Retrieve form field name for internal use. Based on $this->getFormFieldName()
      *
      * @return string
      */
@@ -158,7 +158,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrive massaction block js object name
+     * Retrieve massaction block js object name
      *
      * @return string
      */
@@ -168,7 +168,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrive grid block js object name
+     * Retrieve grid block js object name
      *
      * @return string
      */
@@ -178,7 +178,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrive JSON string of selected checkboxes
+     * Retrieve JSON string of selected checkboxes
      *
      * @return string
      */
@@ -195,7 +195,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrive array of selected checkboxes
+     * Retrieve array of selected checkboxes
      *
      * @return array
      */
@@ -210,7 +210,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrive apply button html
+     * Retrieve apply button html
      *
      * @return string
      */
@@ -246,5 +246,19 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         return $this->getParentBlock()->getHtmlId() . '_massaction';
     }
 
+    /**
+     * Remove existing massaction item by its id
+     *
+     * @param string $itemId
+     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
+     */
+    public function removeItem($itemId)
+    {
+        if (isset($this->_items[$itemId])) {
+            unset($this->_items[$itemId]);
+        }
+
+        return $this;
+    }
 }
  // Class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract End

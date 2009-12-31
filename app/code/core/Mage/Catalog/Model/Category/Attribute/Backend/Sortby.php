@@ -77,6 +77,9 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
             }
             $object->setData($attributeCode, join(',', $data));
         }
+        if (is_null($object->getData($attributeCode))) {
+            $object->setData($attributeCode, false);
+        }
         return $this;
     }
 

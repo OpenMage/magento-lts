@@ -106,7 +106,16 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
         if ( $this->getRequest()->getParam('user_roles') != "" ) {
             return $this->getRequest()->getParam('user_roles');
         }
-        $uRoles = Mage::registry('permissions_user')->getRoles();
+        /* @var $user Mage_Admin_Model_User */
+        $user = Mage::registry('permissions_user');
+        //checking if we have this data and we
+        //don't need load it through resource model
+        if ($user->hasData('roles')) {
+            $uRoles = $user->getData('roles');
+        } else {
+            $uRoles = $user->getRoles();
+        }
+
         if ($json) {
             $jsonRoles = Array();
             foreach($uRoles as $urid) $jsonRoles[$urid] = 0;

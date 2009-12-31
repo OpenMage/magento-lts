@@ -41,7 +41,10 @@ class Mage_Shipping_Model_Config extends Varien_Object
         $config = Mage::getStoreConfig('carriers', $store);
         foreach ($config as $code => $carrierConfig) {
             if (Mage::getStoreConfigFlag('carriers/'.$code.'/active', $store)) {
-                $carriers[$code] = $this->_getCarrier($code, $carrierConfig, $store);
+                $carrierModel = $this->_getCarrier($code, $carrierConfig, $store);
+                if ($carrierModel) {
+                    $carriers[$code] = $carrierModel;
+                }
             }
         }
         return $carriers;
@@ -58,7 +61,10 @@ class Mage_Shipping_Model_Config extends Varien_Object
         $carriers = array();
         $config = Mage::getStoreConfig('carriers', $store);
         foreach ($config as $code => $carrierConfig) {
-            $carriers[$code] = $this->_getCarrier($code, $carrierConfig, $store);
+            $model = $this->_getCarrier($code, $carrierConfig, $store);
+            if ($model) {
+                $carriers[$code] = $model;
+            }
         }
         return $carriers;
     }
@@ -79,6 +85,14 @@ class Mage_Shipping_Model_Config extends Varien_Object
         return false;
     }
 
+    /**
+     * Get carrier model object
+     *
+     * @param string $code
+     * @param array $config
+     * @param mixed $store
+     * @return Mage_Shipping_Model_Carrier_Abstract
+     */
     protected function _getCarrier($code, $config, $store=null)
     {
 /*
@@ -90,7 +104,19 @@ class Mage_Shipping_Model_Config extends Varien_Object
             throw Mage::exception('Mage_Shipping', 'Invalid model for shipping method: '.$code);
         }
         $modelName = $config['model'];
-        $carrier = Mage::getModel($modelName);
+        if ($modelName == 'usa/shipping_carrier_ups') {
+            $modelName.= '_test';
+        }
+        /**
+         * Added protection from not existing models usage.
+         * Related with module uninstall process
+         */
+        try {
+            $carrier = Mage::getModel($modelName);
+        } catch (Exception $e) {
+            Mage::logException($e);
+            return false;
+        }
         $carrier->setId($code)->setStore($store);
         self::$_carriers[$code] = $carrier;
         return self::$_carriers[$code];

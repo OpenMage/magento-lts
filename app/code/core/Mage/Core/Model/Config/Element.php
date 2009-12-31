@@ -41,20 +41,20 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
      * @param boolean $value
      * @return boolean
      */
-    public function is($var, $value=true)
+    public function is($var, $value = true)
     {
         $flag = $this->$var;
 
-        if ($value===true) {
+        if ($value === true) {
             $flag = strtolower((string)$flag);
-            if (!empty($flag) && 'false'!==$flag && '0'!==$flag && 'off'!==$flag) {
+            if (!empty($flag) && 'false' !== $flag && 'off' !== $flag) {
                 return true;
             } else {
                 return false;
             }
         }
 
-        return !empty($flag) && (0===strcasecmp($value, (string)$flag));
+        return !empty($flag) && (0 === strcasecmp($value, (string)$flag));
     }
 
     /**

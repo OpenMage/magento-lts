@@ -50,24 +50,25 @@
                     <module>Mage_Paypal</module>
                     <class>Mage_Paypal_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </paypal_setup>
-            <paypal_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </paypal_write>
-            <paypal_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </paypal_read>
         </resources>
         <blocks>
             <paypal><class>Mage_Paypal_Block</class></paypal>
         </blocks>
+        <sales>
+            <order>
+                <statuses>
+                    <pending_paypal translate="label"><label>Pending PayPal</label></pending_paypal>
+                </statuses>
+                <states>
+                    <pending_payment>
+                        <statuses>
+                            <pending_paypal/>
+                        </statuses>
+                    </pending_payment>
+                </states>
+            </order>
+        </sales>
     </global>
     <frontend>
         <secure_url>
@@ -110,25 +111,6 @@
                 </Mage_Paypal>
             </modules>
         </translate>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <paypal>
-                                            <title>PayPal Section</title>
-                                        </paypal>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
     </adminhtml>
 
     <default>

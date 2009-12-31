@@ -293,6 +293,7 @@ class Mage_GoogleBase_Model_Service_Item extends Mage_GoogleBase_Model_Service
             $this->_setAttribute('image_link', $object->getData('image_url'), 'url');
         }
 
+        $this->_setAttribute('condition', 'new', 'text');
         $this->_setAttribute('target_country', $targetCountry, 'text');
         $this->_setAttribute('item_language', $this->getConfig()->getCountryInfo($targetCountry, 'language'), 'text');
 

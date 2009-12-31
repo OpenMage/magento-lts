@@ -1061,8 +1061,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         }
 
         $nl   = "\n";
-        $code = 'EXCEPTION ' . $e->getMessage() . $nl
-            . 'E TRACE: ' . print_r($e->getTrace(), true) . $nl . $nl;
+        $code = 'EXCEPTION ' . $nl . $e . $nl . $nl;
         $this->_debugWriteToFile($code);
 
         throw $e;
@@ -1300,30 +1299,67 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         $cols = array_keys($row);
         $vals = array();
         $bind = array();
-
+        $insertArray = array();
         foreach ($data as $row) {
             $line = array();
             if (array_diff($cols, array_keys($row))) {
                 throw new Varien_Exception('Invalid data for insert');
             }
             foreach ($cols as $field) {
-                $value = $row[$field];
-                if ($value instanceof Zend_Db_Expr) {
-                    $line[] = $value->__toString();
-                }
-                else {
-                    $line[] = '?';
-                    $bind[] = $value;
-                }
+                $line[] = $row[$field];
             }
-            $vals[] = sprintf('(%s)', join(',', $line));
+            $insertArray[] = $line;
+        }
+        unset($row);
+
+        return $this->insertArray($table, $cols, $insertArray);
+    }
+
+    /**
+     * Insert array to table based on columns definition
+     *
+     * @param   string $table
+     * @param   array $columns
+     * @param   array $data
+     * @return  int
+     */
+    public function insertArray($table, array $columns, array $data)
+    {
+        $vals = array();
+        $bind = array();
+        $columnsCount = count($columns);
+        foreach ($data as $row) {
+            if ($columnsCount != count($row)) {
+                throw new Varien_Exception('Invalid data for insert');
+            }
+            $line = array();
+            if ($columnsCount == 1) {
+                if ($row instanceof Zend_Db_Expr) {
+                    $line = $value->__toString();
+                } else {
+                    $line = '?';
+                    $bind[] = $row;
+                }
+                $vals[] = sprintf('(%s)', $line);
+            } else {
+                foreach ($row as $value) {
+                    if ($value instanceof Zend_Db_Expr) {
+                        $line[] = $value->__toString();
+                    }
+                    else {
+                        $line[] = '?';
+                        $bind[] = $value;
+                    }
+                }
+                $vals[] = sprintf('(%s)', join(',', $line));
+            }
         }
 
         // build the statement
-        array_map(array($this, 'quoteIdentifier'), $cols);
+        array_map(array($this, 'quoteIdentifier'), $columns);
         $sql = sprintf("INSERT INTO %s (%s) VALUES%s",
             $this->quoteIdentifier($table, true),
-            implode(',', $cols), implode(', ', $vals));
+            implode(',', $columns), implode(', ', $vals));
 
         // execute the statement and return the number of affected rows
         $stmt = $this->query($sql, $bind);

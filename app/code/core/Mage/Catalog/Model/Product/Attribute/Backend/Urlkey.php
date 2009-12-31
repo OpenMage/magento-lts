@@ -39,6 +39,9 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Urlkey extends Mage_Eav_Model
         $attributeName = $this->getAttribute()->getName();
 
         $urlKey = $object->getData($attributeName);
+        if ($urlKey === false) {
+            return $this;
+        }
         if ($urlKey == '') {
             $urlKey = $object->getName();
         }
@@ -51,10 +54,13 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Urlkey extends Mage_Eav_Model
     public function afterSave($object)
     {
         /* @var $object Mage_Catalog_Model_Product */
-        if (!$object->getExcludeUrlRewrite() &&
+        /**
+         * Logic moved to Mage_Catalog_Model_Indexer_Url
+         */
+        /*if (!$object->getExcludeUrlRewrite() &&
             ($object->dataHasChangedFor('url_key') || $object->getIsChangedCategories() || $object->getIsChangedWebsites())) {
             Mage::getSingleton('catalog/url')->refreshProductRewrite($object->getId());
-        }
+        }*/
         return $this;
     }
 }

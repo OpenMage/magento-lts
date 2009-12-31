@@ -16,12 +16,18 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
- * @version    $Id: Socket.php 13013 2008-12-04 12:04:24Z yoshida@zend.co.jp $
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Socket.php 17124 2009-07-26 09:46:42Z shahar $
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
+/**
+ * @see Zend_Uri_Http
+ */
 #require_once 'Zend/Uri/Http.php';
+/**
+ * @see Zend_Http_Client_Adapter_Interface
+ */
 #require_once 'Zend/Http/Client/Adapter/Interface.php';
 
 /**
@@ -31,7 +37,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interface
@@ -70,6 +76,13 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
     protected $method = null;
 
     /**
+     * Stream context
+     *
+     * @var resource
+     */
+    protected $_context = null;
+
+    /**
      * Adapter constructor, currently empty. Config is set using setConfig()
      *
      */
@@ -80,14 +93,18 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
     /**
      * Set the configuration array for the adapter
      *
-     * @param array $config
+     * @param Zend_Config | array $config
      */
     public function setConfig($config = array())
     {
-        if (! is_array($config)) {
+        if ($config instanceof Zend_Config) {
+            $config = $config->toArray();
+
+        } elseif (! is_array($config)) {
             #require_once 'Zend/Http/Client/Adapter/Exception.php';
             throw new Zend_Http_Client_Adapter_Exception(
-                '$concig expects an array, ' . gettype($config) . ' recieved.');
+                'Array or Zend_Config object expected, got ' . gettype($config)
+            );
         }
 
         foreach ($config as $k => $v) {
@@ -96,12 +113,59 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
     }
 
     /**
+     * Set the stream context for the TCP connection to the server
+     *
+     * Can accept either a pre-existing stream context resource, or an array
+     * of stream options, similar to the options array passed to the
+     * stream_context_create() PHP function. In such case a new stream context
+     * will be created using the passed options.
+     *
+     * @since  Zend Framework 1.9
+     *
+     * @param  mixed $context Stream context or array of context options
+     * @return Zend_Http_Client_Adapter_Socket
+     */
+    public function setStreamContext($context)
+    {
+        if (is_resource($context) && get_resource_type($context) == 'stream-context') {
+            $this->_context = $context;
+
+        } elseif (is_array($context)) {
+            $this->_context = stream_context_create($context);
+
+        } else {
+            // Invalid parameter
+            #require_once 'Zend/Http/Client/Adapter/Exception.php';
+            throw new Zend_Http_Client_Adapter_Exception(
+                "Expecting either a stream context resource or array, got " . gettype($context)
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the stream context for the TCP connection to the server.
+     *
+     * If no stream context is set, will create a default one.
+     *
+     * @return resource
+     */
+    public function getStreamContext()
+    {
+        if (! $this->_context) {
+            $this->_context = stream_context_create();
+        }
+
+        return $this->_context;
+    }
+
+    /**
      * Connect to the remote server
      *
      * @param string  $host
      * @param int     $port
      * @param boolean $secure
-     * @param int     $timeout
      */
     public function connect($host, $port = 80, $secure = false)
     {
@@ -115,7 +179,7 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
 
         // Now, if we are not connected, connect
         if (! is_resource($this->socket) || ! $this->config['keepalive']) {
-            $context = stream_context_create();
+            $context = $this->getStreamContext();
             if ($secure) {
                 if ($this->config['sslcert'] !== null) {
                     if (! stream_context_set_option($context, 'ssl', 'local_cert',
@@ -142,6 +206,7 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
                                                   (int) $this->config['timeout'],
                                                   $flags,
                                                   $context);
+
             if (! $this->socket) {
                 $this->close();
                 #require_once 'Zend/Http/Client/Adapter/Exception.php';
@@ -219,6 +284,7 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
         // First, read headers only
         $response = '';
         $gotStatus = false;
+
         while (($line = @fgets($this->socket)) !== false) {
             $gotStatus = $gotStatus || (strpos($line, 'HTTP') !== false);
             if ($gotStatus) {
@@ -227,26 +293,39 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
             }
         }
 
+        $this->_checkSocketReadTimeout();
+
         $statusCode = Zend_Http_Response::extractCode($response);
 
         // Handle 100 and 101 responses internally by restarting the read again
         if ($statusCode == 100 || $statusCode == 101) return $this->read();
+
+        // Check headers to see what kind of connection / transfer encoding we have
+        $headers = Zend_Http_Response::extractHeaders($response);
 
         /**
          * Responses to HEAD requests and 204 or 304 responses are not expected
          * to have a body - stop reading here
          */
         if ($statusCode == 304 || $statusCode == 204 ||
-            $this->method == Zend_Http_Client::HEAD) return $response;
+            $this->method == Zend_Http_Client::HEAD) {
 
-        // Check headers to see what kind of connection / transfer encoding we have
-        $headers = Zend_Http_Response::extractHeaders($response);
+            // Close the connection if requested to do so by the server
+            if (isset($headers['connection']) && $headers['connection'] == 'close') {
+                $this->close();
+            }
+            return $response;
+        }
 
         // If we got a 'transfer-encoding: chunked' header
         if (isset($headers['transfer-encoding'])) {
-            if ($headers['transfer-encoding'] == 'chunked') {
+
+            if (strtolower($headers['transfer-encoding']) == 'chunked') {
+
                 do {
                     $line  = @fgets($this->socket);
+                    $this->_checkSocketReadTimeout();
+
                     $chunk = $line;
 
                     // Figure out the next chunk size
@@ -261,44 +340,52 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
                     // Convert the hexadecimal value to plain integer
                     $chunksize = hexdec($chunksize);
 
-                    // Read chunk
-                    $left_to_read = $chunksize;
-                    while ($left_to_read > 0) {
-                        $line = @fread($this->socket, $left_to_read);
-                        if ($line === false || strlen($line) === 0)
-                        {
+                    // Read next chunk
+                    $read_to = ftell($this->socket) + $chunksize;
+
+                    do {
+                        $current_pos = ftell($this->socket);
+                        if ($current_pos >= $read_to) break;
+
+                        $line = @fread($this->socket, $read_to - $current_pos);
+                        if ($line === false || strlen($line) === 0) {
+                            $this->_checkSocketReadTimeout();
                             break;
                         } else {
                             $chunk .= $line;
-                            $left_to_read -= strlen($line);
                         }
 
-                        // Break if the connection ended prematurely
-                        if (feof($this->socket)) break;
-                    }
+                    } while (! feof($this->socket));
 
                     $chunk .= @fgets($this->socket);
+                    $this->_checkSocketReadTimeout();
+
                     $response .= $chunk;
                 } while ($chunksize > 0);
 
             } else {
+                $this->close();
                 throw new Zend_Http_Client_Adapter_Exception('Cannot handle "' .
                     $headers['transfer-encoding'] . '" transfer encoding');
             }
 
         // Else, if we got the content-length header, read this number of bytes
         } elseif (isset($headers['content-length'])) {
-            $left_to_read = $headers['content-length'];
+
+            $current_pos = ftell($this->socket);
             $chunk = '';
-            while ($left_to_read > 0) {
-                $chunk = @fread($this->socket, $left_to_read);
-                if ($chunk === false || strlen($chunk) === 0)
-                {
+
+            for ($read_to = $current_pos + $headers['content-length'];
+                 $read_to > $current_pos;
+                 $current_pos = ftell($this->socket)) {
+
+                $chunk = @fread($this->socket, $read_to - $current_pos);
+                if ($chunk === false || strlen($chunk) === 0) {
+                    $this->_checkSocketReadTimeout();
                     break;
-                } else {
-                    $left_to_read -= strlen($chunk);
-                    $response .= $chunk;
                 }
+
+                $response .= $chunk;
 
                 // Break if the connection ended prematurely
                 if (feof($this->socket)) break;
@@ -306,15 +393,17 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
 
         // Fallback: just read the response until EOF
         } else {
-        	do {
-        		$buff = @fread($this->socket, 8192);
-        		if ($buff === false || strlen($buff) === 0)
-        		{
-        			break;
-        		} else {
+
+            do {
+                $buff = @fread($this->socket, 8192);
+                if ($buff === false || strlen($buff) === 0) {
+                    $this->_checkSocketReadTimeout();
+                    break;
+                } else {
                     $response .= $buff;
-        		}
-        	} while (feof($this->socket) === false);
+                }
+
+            } while (feof($this->socket) === false);
 
             $this->close();
         }
@@ -336,6 +425,28 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
         if (is_resource($this->socket)) @fclose($this->socket);
         $this->socket = null;
         $this->connected_to = array(null, null);
+    }
+
+    /**
+     * Check if the socket has timed out - if so close connection and throw
+     * an exception
+     *
+     * @throws Zend_Http_Client_Adapter_Exception with READ_TIMEOUT code
+     */
+    protected function _checkSocketReadTimeout()
+    {
+        if ($this->socket) {
+            $info = stream_get_meta_data($this->socket);
+            $timedout = $info['timed_out'];
+            if ($timedout) {
+                $this->close();
+                #require_once 'Zend/Http/Client/Adapter/Exception.php';
+                throw new Zend_Http_Client_Adapter_Exception(
+                    "Read timed out after {$this->config['timeout']} seconds",
+                    Zend_Http_Client_Adapter_Exception::READ_TIMEOUT
+                );
+            }
+        }
     }
 
     /**

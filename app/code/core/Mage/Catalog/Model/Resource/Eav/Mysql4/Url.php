@@ -152,6 +152,29 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Url extends Mage_Core_Model_Mysql4_
     }
 
     /**
+     * Validate array of request paths. Return first not used path in case if validations passed
+     *
+     * @param   array $paths
+     * @param   int $storeId
+     * @return  false | string
+     */
+    public function checkRequestPaths($paths, $storeId)
+    {
+        $select = $this->_getWriteAdapter()->select()
+            ->from($this->getMainTable(), 'request_path')
+            ->where('store_id=?', $storeId)
+            ->where('request_path IN (?)', $paths);
+        $data = $this->_getWriteAdapter()->fetchCol($select);
+        $paths = array_diff($paths, $data);
+        if (empty($paths)) {
+            return false;
+        } else {
+            reset($paths);
+            return current($paths);
+        }
+    }
+
+    /**
      * Prepare rewrites for condition
      *
      * @param int $storeId
@@ -336,7 +359,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Url extends Mage_Core_Model_Mysql4_
                 ->where('entity_id IN(?)', $categoryIds);
         } else {
             $select = $this->_getWriteAdapter()->select()
-                ->from(array('t1'=>$attributeTable), array('entity_id', 'IFNULL(t2.value, t1.value) as value'))
+                ->from(array('t1'=>$attributeTable), array('entity_id', 'IF(t2.value_id>0, t2.value, t1.value) as value'))
                 ->joinLeft(
                     array('t2'=>$attributeTable),
                     $this->_getWriteAdapter()->quoteInto('t1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id=?', $storeId),
@@ -470,7 +493,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Url extends Mage_Core_Model_Mysql4_
         }
         else {
             $select = $this->_getWriteAdapter()->select()
-                ->from(array('t1'=>$attributeTable), array('entity_id', 'IFNULL(t2.value, t1.value) as value'))
+                ->from(array('t1'=>$attributeTable), array('entity_id', 'IF(t2.value_id>0, t2.value, t1.value) as value'))
                 ->joinLeft(
                     array('t2'=>$attributeTable),
                     $this->_getWriteAdapter()->quoteInto('t1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id=?', $storeId),
@@ -555,7 +578,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Url extends Mage_Core_Model_Mysql4_
      */
     protected function _getCategories($categoryIds, $storeId = null, $path = null)
     {
-        $isActiveAttribute = Mage::getModel('eav/entity_attribute')->loadByCode('catalog_category', 'is_active');
+        //$isActiveAttribute = Mage::getModel('eav/entity_attribute')->loadByCode('catalog_category', 'is_active');
+        $isActiveAttribute = Mage::getSingleton('eav/config')->getAttribute('catalog_category', 'is_active');
         $categories = array();
 
         if (!is_array($categoryIds)) {
@@ -563,7 +587,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Url extends Mage_Core_Model_Mysql4_
         }
 
         $select = $this->_getWriteAdapter()->select()
-            ->from(array('main_table'=>$this->getTable('catalog/category')), array('main_table.entity_id', 'main_table.parent_id', 'is_active'=>'IFNULL(c.value, d.value)', 'main_table.path'));
+            ->from(array('main_table'=>$this->getTable('catalog/category')), array('main_table.entity_id', 'main_table.parent_id', 'is_active'=>'IF(c.value_id>0, c.value, d.value)', 'main_table.path'));
 
         if (is_null($path)) {
             $select->where('main_table.entity_id IN(?)', $categoryIds);
@@ -880,13 +904,33 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Url extends Mage_Core_Model_Mysql4_
      */
     public function deleteCategoryProductRewrites($categoryId, $productIds)
     {
-        $condition = $this->_getWriteAdapter()->quoteInto('category_id=?', $categoryId);
-        $condition = $this->_getWriteAdapter()->quoteInto(
-            $condition.' AND product_id IN (?)',
-            $productIds
-        );
+        $this->deleteCatagoryProductStoreRewrites($categoryId, $productIds);
+        return $this;
+    }
+
+    /**
+     * Delete URL rewrites for category products of specific store \
+     *
+     * @param int $categoryId
+     * @param array|int|null $productIds
+     * @param null|int $storeId
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Url
+     */
+    public function deleteCategoryProductStoreRewrites($categoryId, $productIds=null, $storeId=null)
+    {
+        $adapter = $this->_getWriteAdapter();
+        $condition = $adapter->quoteInto('category_id=?', $categoryId);
+        if (empty($productIds)) {
+            $condition.= ' AND product_id IS NOT NULL';
+        } else {
+            $condition.= $adapter->quoteInto(' AND product_id IN (?)', $productIds);
+        }
+        if ($storeId !== null) {
+            $condition.= $adapter->quoteInto(' AND store_id IN(?)', $storeId);
+        }
         $this->_getWriteAdapter()->delete($this->getMainTable(), $condition);
         return $this;
+
     }
 
     /**

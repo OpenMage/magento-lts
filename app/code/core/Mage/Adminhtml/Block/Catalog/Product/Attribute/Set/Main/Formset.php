@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
             ->load($this->getRequest()->getParam('id'));
 
         $form = new Varien_Data_Form();
-        $fieldset = $form->addFieldset('set_name', array('legend'=>__('Edit Set Name')));
+        $fieldset = $form->addFieldset('set_name', array('legend'=> Mage::helper('catalog')->__('Edit Set Name')));
         $fieldset->addField('attribute_set_name', 'text',
             array(
                 'label' => Mage::helper('catalog')->__('Name<br/>(For internal use)'),

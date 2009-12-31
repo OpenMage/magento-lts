@@ -49,14 +49,13 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Specify select columns which are used for load arrtibute values
+     * Return array of fields to load attribute values
      *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @return array
      */
-    public function useLoadDataFields()
+    protected function _getLoadDataFields()
     {
-        $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
-        $this->getSelect()->columns(array(
+        $fields = array(
             'attribute_id',
             'entity_type_id',
             'attribute_code',
@@ -66,8 +65,19 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
             'backend_table',
             'frontend_input',
             'source_model',
-            'is_global'
-        ));
+        );
+        return $fields;
+    }
+
+    /**
+     * Specify select columns which are used for load arrtibute values
+     *
+     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     */
+    public function useLoadDataFields()
+    {
+        $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
+        $this->getSelect()->columns($this->_getLoadDataFields());
         return $this;
     }
 
@@ -80,6 +90,12 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     public function setEntityTypeFilter($typeId)
     {
         $this->getSelect()->where('main_table.entity_type_id=?', $typeId);
+        if ($additionalTable = $this->getResource()->getAdditionalAttributeTable($typeId)) {
+            $this->getSelect()->join(
+                array('additional_table' => $this->getTable($additionalTable)),
+                'additional_table.attribute_id=main_table.attribute_id'
+            );
+        }
         return $this;
     }
 
@@ -194,39 +210,6 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Specify filter by "is_visible" field
-     *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
-     */
-    public function addVisibleFilter()
-    {
-        $this->getSelect()->where('main_table.is_visible=?', 1);
-        return $this;
-    }
-
-    /**
-     * Specify "is_filterable" filter
-     *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
-     */
-    public function addIsFilterableFilter()
-    {
-        $this->getSelect()->where('main_table.is_filterable>0');
-        return $this;
-    }
-
-    /**
-     * Add filterable in search filter
-     *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
-     */
-    public function addIsFilterableInSearchFilter()
-    {
-        $this->getSelect()->where('main_table.is_filterable_in_search>0');
-        return $this;
-    }
-
-    /**
      * Specify "is_unique" filter as true
      *
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
@@ -249,17 +232,6 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Specify "is_searchable" filter
-     *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
-     */
-    public function addIsSearchableFilter()
-    {
-        $this->getSelect()->where('main_table.is_searchable=1');
-        return $this;
-    }
-
-    /**
      * Specify filter to select just attributes with options
      *
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
@@ -272,18 +244,6 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
             )
             ->group('main_table.attribute_id')
             ->where('(main_table.frontend_input = ? and option_id > 0) or (main_table.frontend_input <> ?) or (main_table.is_user_defined = 0)', 'select', 'select');
-
-        return $this;
-    }
-
-    /**
-     * Specify "is_visible_in_advanced_search" filter
-     *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
-     */
-    public function addDisplayInAdvancedSearchFilter(){
-        $this->getSelect()
-            ->where('main_table.is_visible_in_advanced_search = ?', 1);
 
         return $this;
     }
@@ -400,6 +360,22 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
         	$code = array($code);
         }
         $this->getSelect()->where('main_table.attribute_code IN(?)', $code);
+        return $this;
+    }
+
+    /**
+     * Add store label to attribute by specified store id
+     *
+     * @param integer $storeId
+     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     */
+    public function addStoreLabel($storeId)
+    {
+        $this->getSelect()->joinLeft(
+            array('al' => $this->getTable('eav/attribute_label')),
+            'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int) $storeId,
+            array('store_label' => new Zend_Db_Expr('IFNULL(al.value, main_table.frontend_label)'))
+        );
         return $this;
     }
 }

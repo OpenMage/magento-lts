@@ -98,8 +98,9 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             }
 
             $this->save();
+        } else {
+            $this->getQuote()->collectTotals();
         }
-        $this->getQuote()->collectTotals();
         return $this;
     }
 

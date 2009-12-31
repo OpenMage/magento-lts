@@ -14,8 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Rgb.php 16978 2009-07-22 19:59:40Z alexander $
  */
 
 /** Zend_Pdf_Color */
@@ -29,7 +30,7 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Color_Rgb extends Zend_Pdf_Color
@@ -96,6 +97,16 @@ class Zend_Pdf_Color_Rgb extends Zend_Pdf_Color
         return $this->_r->toString() . ' '
              . $this->_g->toString() . ' '
              . $this->_b->toString() .     ($stroking? " RG\n" : " rg\n");
+    }
+
+    /**
+     * Get color components (color space dependent)
+     *
+     * @return array
+     */
+    public function getComponents()
+    {
+        return array($this->_r->value, $this->_g->value, $this->_b->value);
     }
 }
 

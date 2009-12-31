@@ -34,25 +34,31 @@
 <li id="<?php echo $_code ?>_cc_type_ss_div">
     <div class="input-box">
         <label for="<?php echo $_code ?>_issue"><?php echo $this->__('Switch/Solo Only') ?> <span class="required">*</span></label><br/>
-        <ul style="margin:5px 0;">
-        <li><?php echo $this->__('Issue Number') ?>:
-        <input type="text" title="<?php echo $this->__('Issue Number') ?>" class="input-text validate-cc-ukss" id="<?php echo $_code ?>_cc_issue" name="payment[cc_ss_issue]" style="width:3em;" value="" /></li>
-        <li><?php echo $this->__('Start Date') ?>:
-         <select id="<?php echo $_code ?>_start_month" style="width:140px;" name="payment[cc_ss_start_month]" class="validate-cc-ukss">
-         <?php foreach ($this->getCcMonths() as $k=>$v): ?>
-            <option value="<?php echo $k?$k:'' ?>"<?php if($k==$this->getInfoData('cc_ss_start_month')): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
-         <?php endforeach ?>
-         </select>
-         <select id="<?php echo $_code ?>_start_year" style="width:103px;" name="payment[cc_ss_start_year]" class="validate-cc-ukss">
-         <?php foreach ($this->getSsStartYears() as $k=>$v): ?>
-            <option value="<?php echo $k?$k:'' ?>"<?php if($k==$this->getInfoData('cc_ss_start_year')): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
-         <?php endforeach ?>
-         </select>
+        <ul class="inner-form" style="margin:0;">
+        <li>
+            <label for="<?php echo $_code ?>_cc_issue"><?php echo $this->__('Issue Number') ?>:</label><br />
+            <input type="text" title="<?php echo $this->__('Issue Number') ?>" class="input-text validate-cc-ukss" id="<?php echo $_code ?>_cc_issue" name="payment[cc_ss_issue]" style="width:3em;" value="" /></li>
+        <li>
+            <label for="<?php echo $_code ?>_start_month"><?php echo $this->__('Start Date') ?>:</label><br />
+            <div class="v-fix">
+                <select id="<?php echo $_code ?>_start_month" name="payment[cc_ss_start_month]" class="month validate-cc-ukss">
+                <?php foreach ($this->getCcMonths() as $k=>$v): ?>
+                    <option value="<?php echo $k?$k:'' ?>"<?php if($k==$this->getInfoData('cc_ss_start_month')): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                <?php endforeach ?>
+                </select>
+            </div>
+            <div class="v-fix">
+                <select id="<?php echo $_code ?>_start_year" name="payment[cc_ss_start_year]" class="year validate-cc-ukss">
+                <?php foreach ($this->getSsStartYears() as $k=>$v): ?>
+                    <option value="<?php echo $k?$k:'' ?>"<?php if($k==$this->getInfoData('cc_ss_start_year')): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                <?php endforeach ?>
+                </select>
+            </div>
         </li>
         <li class="adv-container"></li>
        </ul>
     </div>
-</li>
+
 <script type="text/javascript">
 //<![CDATA[
 var SSChecked<?php echo $_code ?> = function() {
@@ -114,4 +120,6 @@ Validation.addAllThese([
 ]);
 //]]>
 </script>
+</li>
+
 <?php endif; ?>

@@ -15,8 +15,9 @@
  * @category   Zend
  * @package    Zend_Soap
  * @subpackage Client
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Client.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /** Zend_Soap_Server */
@@ -34,7 +35,7 @@
  * @category   Zend
  * @package    Zend_Soap
  * @subpackage Client
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Soap_Client
@@ -814,6 +815,8 @@ class Zend_Soap_Client
     public function setSoapFeatures($feature)
     {
         $this->_features = $feature;
+
+        $this->_soapClient = null;
         return $this;
     }
 
@@ -1048,14 +1051,12 @@ class Zend_Soap_Client
      */
     public function __call($name, $arguments)
     {
-        if ($this->_soapClient == null) {
-            $this->_initSoapClientObject();
-        }
+        $soapClient = $this->getSoapClient();
 
         $this->_lastMethod = $name;
 
         $soapHeaders = array_merge($this->_permanentSoapInputHeaders, $this->_soapInputHeaders);
-        $result = $this->_soapClient->__soapCall($name,
+        $result = $soapClient->__soapCall($name,
                                                  $this->_preProcessArguments($arguments),
                                                  null, /* Options are already set to the SOAP client object */
                                                  (count($soapHeaders) > 0)? $soapHeaders : null,
@@ -1081,11 +1082,8 @@ class Zend_Soap_Client
             throw new Zend_Soap_Client_Exception('\'getFunctions\' method is available only in WSDL mode.');
         }
 
-        if ($this->_soapClient == null) {
-            $this->_initSoapClientObject();
-        }
-
-        return $this->_soapClient->__getFunctions();
+        $soapClient = $this->getSoapClient();
+        return $soapClient->__getFunctions();
     }
 
 
@@ -1108,10 +1106,41 @@ class Zend_Soap_Client
             throw new Zend_Soap_Client_Exception('\'getTypes\' method is available only in WSDL mode.');
         }
 
+        $soapClient = $this->getSoapClient();
+
+        return $soapClient->__getTypes();
+    }
+
+    /**
+     * @param SoapClient $soapClient
+     * @return Zend_Soap_Client
+     */
+    public function setSoapClient(SoapClient $soapClient)
+    {
+        $this->_soapClient = $soapClient;
+        return $this;
+    }
+
+    /**
+     * @return SoapClient
+     */
+    public function getSoapClient()
+    {
         if ($this->_soapClient == null) {
             $this->_initSoapClientObject();
         }
+        return $this->_soapClient;
+    }
 
-        return $this->_soapClient->__getTypes();
+    /**
+     * @param string $name
+     * @param string $value
+     * @return Zend_Soap_Client
+     */
+    public function setCookie($cookieName, $cookieValue=null)
+    {
+        $soapClient = $this->getSoapClient();
+        $soapClient->__setCookie($cookieName, $cookieValue);
+        return $this;
     }
 }

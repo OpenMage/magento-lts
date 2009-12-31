@@ -20,13 +20,34 @@
 
 class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
 {
+    /**
+     * Including FPT only
+     */
+    const DISPLAY_INCL              = 0;
+    /**
+     * Including FPT and FPT description
+     */
+    const DISPLAY_INCL_DESCR        = 1;
+    /**
+     * Excluding FPT, FPT description, final price
+     */
+    const DISPLAY_EXCL_DESCR_INCL   = 2;
+    /**
+     * Excluding FPT
+     */
+    const DISPLAY_EXCL              = 3;
+
     protected $_allAttributes = null;
     protected $_productDiscounts = array();
 
+    /**
+     * Initialize resource
+     */
     protected function _construct()
     {
         $this->_init('weee/tax', 'weee/tax');
     }
+
 
     public function getWeeeAmount($product, $shipping = null, $billing = null, $website = null, $calculateTax = false, $ignoreDiscount = false)
     {
@@ -66,14 +87,20 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         $websiteId = Mage::app()->getWebsite($website)->getId();
         $store = Mage::app()->getWebsite($website)->getDefaultGroup()->getDefaultStore();
 
+        $customer = null;
         if ($shipping) {
             $customerTaxClass = $shipping->getQuote()->getCustomerTaxClassId();
+            $customer = $shipping->getQuote()->getCustomer();
         } else {
             $customerTaxClass = null;
         }
 
-        $rateRequest = Mage::getModel('tax/calculation')->getRateRequest($shipping, $billing, $customerTaxClass, $store);
-        $defaultRateRequest = Mage::getModel('tax/calculation')->getRateRequest(false, false, false, $store);
+        $calculator = Mage::getModel('tax/calculation');
+        if ($customer) {
+            $calculator->setCustomer($customer);
+        }
+        $rateRequest = $calculator->getRateRequest($shipping, $billing, $customerTaxClass, $store);
+        $defaultRateRequest = $calculator->getRateRequest(false, false, false, $store);
 
         $discountPercent = 0;
         if (!$ignoreDiscount && Mage::helper('weee')->isDiscounted($store)) {
@@ -115,14 +142,16 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
 
                     $taxAmount = $amount = 0;
                     $amount = $value;
-
-                    if ($calculateTax && Mage::helper('weee')->isTaxable($store)) {
-                        $defaultPercent = Mage::getModel('tax/calculation')->getRate($defaultRateRequest->setProductClassId($product->getTaxClassId()));
-                        $currentPercent = $product->getTaxPercent();
-
-                        $taxAmount = Mage::app()->getStore()->roundPrice($value/(100+$defaultPercent)*$currentPercent);
-                        $amount = $value - $taxAmount;
-                    }
+                    /**
+                     * We can't use FPT imcluding/excluding tax
+                     */
+//                    if ($calculateTax && Mage::helper('weee')->isTaxable($store)) {
+//                        $defaultPercent = Mage::getModel('tax/calculation')->getRate($defaultRateRequest->setProductClassId($product->getTaxClassId()));
+//                        $currentPercent = $product->getTaxPercent();
+//
+//                        $taxAmount = Mage::app()->getStore()->roundPrice($value/(100+$defaultPercent)*$currentPercent);
+//                        $amount = $value - $taxAmount;
+//                    }
 
                     $one = new Varien_Object();
                     $one->setName(Mage::helper('catalog')->__($attribute->getFrontend()->getLabel()))
@@ -152,9 +181,26 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         }
     }
 
+    /**
+     * Update discounts for FPT amounts of all products
+     *
+     * @return Mage_Weee_Model_Tax
+     */
     public function updateDiscountPercents()
     {
         $this->getResource()->updateDiscountPercents();
+        return $this;
+    }
+
+    /**
+     * Update discounts for FPT amounts base on products condiotion
+     *
+     * @param  mixed $products
+     * @return Mage_Weee_Model_Tax
+     */
+    public function updateProductsDiscountPercent($products)
+    {
+        $this->getResource()->updateProductsDiscountPercent($products);
         return $this;
     }
 }

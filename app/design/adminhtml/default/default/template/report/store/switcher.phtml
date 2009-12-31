@@ -24,6 +24,11 @@
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+/**
+ * @see Mage_Adminhtml_Block_Store_Switcher
+ */
+?>
 <?php if ($this->isShow()): ?>
 <p class="switcher"><label for="store_switcher"><?php echo $this->__('Show Report for') ?>:</label>
 <select name="store_switcher" id="store_switcher" class="left-col-block" onchange="return switchStore(this);">

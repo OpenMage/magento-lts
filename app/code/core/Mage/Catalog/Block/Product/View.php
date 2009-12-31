@@ -34,21 +34,29 @@
  */
 class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstract
 {
+    /**
+     * Add meta information from product to head block
+     *
+     * @return Mage_Catalog_Block_Product_View
+     */
     protected function _prepareLayout()
     {
         $this->getLayout()->createBlock('catalog/breadcrumbs');
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
-            if ($title = $this->getProduct()->getMetaTitle()) {
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
+            $title = $this->getProduct()->getMetaTitle();
+            if ($title) {
                 $headBlock->setTitle($title);
             }
-
-            if ($keyword = $this->getProduct()->getMetaKeyword()) {
+            $keyword = $this->getProduct()->getMetaKeyword();
+            $currentCategory = Mage::registry('current_category');
+            if ($keyword) {
                 $headBlock->setKeywords($keyword);
-            } elseif( $currentCategory = Mage::registry('current_category') ) {
+            } elseif($currentCategory) {
                 $headBlock->setKeywords($this->getProduct()->getName());
             }
-
-            if ($description = $this->getProduct()->getMetaDescription()) {
+            $description = $this->getProduct()->getMetaDescription();
+            if ($description) {
                 $headBlock->setDescription( ($description) );
             } else {
                 $headBlock->setDescription( $this->getProduct()->getDescription() );
@@ -72,6 +80,11 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         return Mage::registry('product');
     }
 
+    /**
+     * Check if product can be emailed to friend
+     *
+     * @return bool
+     */
     public function canEmailToFriend()
     {
         $sendToFriendModel = Mage::registry('send_to_friend_model');
@@ -87,8 +100,6 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      */
     public function getAddToCartUrl($product, $additional = array())
     {
-        $additional = array();
-
         if ($this->getRequest()->getParam('wishlist_next')){
             $additional['wishlist_next'] = 1;
         }
@@ -96,9 +107,18 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         return $this->helper('checkout/cart')->getAddUrl($product, $additional);
     }
 
+    /**
+     * Get JSON encripted configuration array which can be used for JS dynamic
+     * price calculation depending on product options
+     *
+     * @return string
+     */
     public function getJsonConfig()
     {
         $config = array();
+        if (!$this->hasOptions()) {
+            return Mage::helper('core')->jsonEncode($config);
+        }
 
         $_request = Mage::getSingleton('tax/calculation')->getRateRequest(false, false, false);
         $_request->setProductClassId($this->getProduct()->getTaxClassId());
@@ -113,11 +133,6 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         $_priceInclTax = Mage::helper('tax')->getPrice($this->getProduct(), $_finalPrice, true);
         $_priceExclTax = Mage::helper('tax')->getPrice($this->getProduct(), $_finalPrice);
 
-        $idSuffix = '__none__';
-        if ($this->hasOptions()) {
-            $idSuffix = '_clone';
-        }
-
         $config = array(
             'productId'           => $this->getProduct()->getId(),
             'priceFormat'         => Mage::app()->getLocale()->getJsPriceFormat(),
@@ -129,20 +144,20 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             'skipCalculate'       => ($_priceExclTax != $_priceInclTax ? 0 : 1),
             'defaultTax'          => $defaultTax,
             'currentTax'          => $currentTax,
-            'idSuffix'            => $idSuffix,
+            'idSuffix'            => '_clone',
             'oldPlusDisposition'  => 0,
             'plusDisposition'     => 0,
             'oldMinusDisposition' => 0,
             'minusDisposition'    => 0,
         );
 
-		$responseObject = new Varien_Object();
-		Mage::dispatchEvent('catalog_product_view_config', array('response_object'=>$responseObject));
-		if (is_array($responseObject->getAdditionalOptions())) {
-			foreach ($responseObject->getAdditionalOptions() as $option=>$value) {
-				$config[$option] = $value;
-			}
-		}
+        $responseObject = new Varien_Object();
+        Mage::dispatchEvent('catalog_product_view_config', array('response_object'=>$responseObject));
+        if (is_array($responseObject->getAdditionalOptions())) {
+            foreach ($responseObject->getAdditionalOptions() as $option=>$value) {
+                $config[$option] = $value;
+            }
+        }
 
         return Mage::helper('core')->jsonEncode($config);
     }

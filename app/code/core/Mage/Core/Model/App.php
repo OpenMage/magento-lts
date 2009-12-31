@@ -1197,10 +1197,10 @@ class Mage_Core_Model_App
                 $observers = array();
                 foreach ($eventConfig->observers->children() as $obsName=>$obsConfig) {
                     $observers[$obsName] = array(
-                        'type' => $obsConfig->type ? (string)$obsConfig->type : 'singleton',
+                        'type'  => (string)$obsConfig->type,
                         'model' => $obsConfig->class ? (string)$obsConfig->class : $obsConfig->getClassName(),
-                        'method' => (string)$obsConfig->method,
-                        'args' => (array)$obsConfig->args,
+                        'method'=> (string)$obsConfig->method,
+                        'args'  => (array)$obsConfig->args,
                     );
                 }
                 $events[$eventName]['observers'] = $observers;
@@ -1218,17 +1218,16 @@ class Mage_Core_Model_App
                 $observer->setData(array('event'=>$event));
                 Varien_Profiler::start('OBSERVER: '.$obsName);
                 switch ($obs['type']) {
-                    case 'singleton':
-                        $method = $obs['method'];
-                        $observer->addData($args);
-                        $object = Mage::getSingleton($obs['model']);
-                        $object->$method($observer);
-                        break;
-
                     case 'object': case 'model':
                         $method = $obs['method'];
                         $observer->addData($args);
                         $object = Mage::getModel($obs['model']);
+                        $object->$method($observer);
+                        break;
+                    default:
+                        $method = $obs['method'];
+                        $observer->addData($args);
+                        $object = Mage::getSingleton($obs['model']);
                         $object->$method($observer);
                         break;
                 }

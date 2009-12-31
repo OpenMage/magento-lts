@@ -89,7 +89,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract extends Mage_Ea
                     $joinCondition,
                     array(
                         'store_value' => 'value',
-                        'value' => new Zend_Db_Expr('IFNULL(store.value, default.value)')
+                        'value' => new Zend_Db_Expr('IF(store.value_id>0, store.value, default.value)')
                     )
                 )
                 ->where('default.entity_type_id=?', $this->getEntity()->getTypeId())
@@ -167,7 +167,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Collection_Abstract extends Mage_Ea
             );
 
             $method = 'joinLeft';
-            $fieldAlias = new Zend_Db_Expr("IFNULL($fieldAlias, $defFieldAlias)");
+            $fieldAlias = new Zend_Db_Expr("IF($tableAlias.value_id>0, $fieldAlias, $defFieldAlias)");
             $this->_joinAttributes[$fieldCode]['condition_alias'] = $fieldAlias;
             $this->_joinAttributes[$fieldCode]['attribute']       = $attribute;
         }

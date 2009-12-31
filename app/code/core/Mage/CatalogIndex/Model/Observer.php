@@ -164,6 +164,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     public function processAfterDeleteEvent(Varien_Event_Observer $observer)
     {
         $eventProduct = $observer->getEvent()->getProduct();
+        $eventProduct->setNeedStoreForReindex(true);
         $this->_getIndexer()->cleanup($eventProduct);
         $parentProductIds = $eventProduct->getParentProductIds();
 

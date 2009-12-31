@@ -73,20 +73,15 @@ class Mage_Sales_Model_Mysql4_Order_Collection extends Mage_Eav_Model_Entity_Col
     }
 
     /**
-     * Retrive all ids for collection
+     * Reset left join
      *
-     * @return array
+     * @return Mage_Eav_Model_Entity_Collection_Abstract
      */
-    public function getAllIds($limit=null, $offset=null)
+    protected function _getAllIdsSelect($limit=null, $offset=null)
     {
-        $idsSelect = clone $this->getSelect();
-        $idsSelect->reset(Zend_Db_Select::ORDER);
-        $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
-        $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $idsSelect->reset(Zend_Db_Select::COLUMNS);
-        $idsSelect->from(null, 'e.'.$this->getEntity()->getIdFieldName());
-        $idsSelect->limit($limit, $offset);
+        $idsSelect = parent::_getAllIdsSelect($limit, $offset);
         $idsSelect->resetJoinLeft();
-        return $this->getConnection()->fetchCol($idsSelect, $this->_bindParams);
+        return $idsSelect;
     }
+
 }

@@ -56,9 +56,53 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     protected static $_showTemplateHints;
     protected static $_showTemplateHintsBlocks;
 
+    /**
+     * Path to template file in theme.
+     *
+     * @var string
+     */
+    protected $_template;
+
+    /**
+     * Internal constructor, that is called from real constructor
+     *
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+
+        /*
+         * In case template was passed through constructor
+         * we assign it to block's property _template
+         * Mainly for those cases when block created
+         * not via Mage_Core_Model_Layout::addBlock()
+         */
+        if ($this->hasData('template')) {
+            $this->setTemplate($this->getData('template'));
+        }
+    }
+
+    /**
+     * Retrieve path to template used for generating block's output.
+     *
+     * @return string
+     */
     public function getTemplate()
     {
-        return $this->_getData('template');
+        return $this->_template;
+    }
+
+    /**
+     * Set path to template used for generating block's output.
+     *
+     * @param string $template
+     * @return Mage_Core_Block_Template
+     */
+    public function setTemplate($template)
+    {
+        $this->_template = $template;
+
+        return $this;
     }
 
     public function getArea()

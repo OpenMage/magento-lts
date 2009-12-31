@@ -218,6 +218,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
         $collection = $this->getProduct($product)->getLinkInstance()->useGroupedLinks()
             ->getProductCollection()
             ->setFlag('require_stock_items', true)
+            ->setFlag('product_children', true)
             ->setIsStrongMode();
         $collection->setProduct($this->getProduct($product));
         return $collection;

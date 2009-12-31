@@ -207,6 +207,13 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             $payment->setAnetTransType(self::REQUEST_TYPE_CREDIT);
             $request = $this->_buildRequest($payment);
             $request->setXTransId($payment->getRefundTransactionId());
+
+            /**
+             * need to send last 4 digit credit card number to authorize.net
+             * otherwise it will give an error
+             */
+            $request->setXCardNum($payment->getCcLast4());
+
             $result = $this->_postRequest($request);
 
             if ($result->getResponseCode()==self::RESPONSE_CODE_APPROVED) {

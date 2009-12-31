@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sales>
-            <version>0.9.40</version>
+            <version>0.9.44</version>
         </Mage_Sales>
     </modules>
     <global>
@@ -73,6 +73,7 @@
             </sales_copy_order_shipping_address>
             <sales_convert_quote>
                 <remote_ip><to_order>*</to_order></remote_ip>
+                <x_forwarded_for><to_order>*</to_order></x_forwarded_for>
 
                 <customer_id><to_order>*</to_order></customer_id>
                 <customer_email><to_order>*</to_order></customer_email>
@@ -190,6 +191,7 @@
                 <discount_percent><to_order_item_discount>*</to_order_item_discount></discount_percent>
                 <discount_amount><to_order_item_discount>*</to_order_item_discount></discount_amount>
                 <base_discount_amount><to_order_item_discount>*</to_order_item_discount></base_discount_amount>
+                <base_cost><to_order_item>*</to_order_item></base_cost>
             </sales_convert_quote_item>
 
             <sales_convert_order>
@@ -294,7 +296,7 @@
                 <base_row_total><to_quote_item>*</to_quote_item></base_row_total>
 
                 <base_price><to_invoice_item>base_price</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></base_price>
-                <cost><to_invoice_item>cost</to_invoice_item><to_cm_item>*</to_cm_item></cost>
+                <base_cost><to_invoice_item>*</to_invoice_item><to_cm_item>*</to_cm_item><to_quote_item>*</to_quote_item></base_cost>
             </sales_convert_order_item>
 
             <customer_account>
@@ -465,14 +467,7 @@
                     <module>Mage_Sales</module>
                     <class>Mage_Sales_Model_Mysql4_Setup</class>
                 </setup>
-                <connection><use>core_setup</use></connection>
             </sales_setup>
-            <sales_write>
-                <connection><use>core_write</use></connection>
-            </sales_write>
-            <sales_read>
-                <connection><use>core_read</use></connection>
-            </sales_read>
         </resources>
         <blocks>
             <sales><class>Mage_Sales_Block</class></sales>
@@ -520,13 +515,13 @@
                         <special_from_date/>
                         <special_to_date/>
                         <special_price/>
+                        <cost/>
                     </product_attributes>
                 </item>
             </quote>
             <order>
                 <statuses>
                     <pending translate="label"><label>Pending</label></pending>
-                    <pending_paypal translate="label"><label>Pending PayPal</label></pending_paypal>
                     <processing translate="label"><label>Processing</label></processing>
                     <holded translate="label"><label>On Hold</label></holded>
                     <complete translate="label"><label>Complete</label></complete>
@@ -537,48 +532,46 @@
                     <new translate="label">
                         <label>New</label>
                         <statuses>
-                            <pending/>
+                            <pending default=""/>
                         </statuses>
                         <visible_on_front/>
                     </new>
                     <pending_payment translate="label">
                         <label>Pending Payment</label>
-                        <statuses>
-                            <pending_paypal/>
-                        </statuses>
+                        <statuses/>
                     </pending_payment>
                     <processing translate="label">
                         <label>Processing</label>
                         <statuses>
-                            <processing/>
+                            <processing default=""/>
                         </statuses>
                         <visible_on_front/>
                     </processing>
                     <complete translate="label">
                         <label>Complete</label>
                         <statuses>
-                            <complete/>
+                            <complete default=""/>
                         </statuses>
                         <visible_on_front/>
                     </complete>
                     <closed translate="label">
                         <label>Closed</label>
                         <statuses>
-                            <closed/>
+                            <closed default=""/>
                         </statuses>
                         <visible_on_front/>
                     </closed>
                     <canceled translate="label">
                         <label>Canceled</label>
                         <statuses>
-                            <canceled/>
+                            <canceled default=""/>
                         </statuses>
                         <visible_on_front/>
                     </canceled>
                     <holded translate="label">
                         <label>On Hold</label>
                         <statuses>
-                            <holded/>
+                            <holded default=""/>
                         </statuses>
                         <visible_on_front/>
                     </holded>
@@ -601,6 +594,9 @@
                     <grand_total>
                         <class>sales/order_invoice_total_grand</class>
                     </grand_total>
+                    <cost_total>
+                        <class>sales/order_invoice_total_cost</class>
+                    </cost_total>
                 </totals>
             </order_invoice>
             <order_creditmemo>
@@ -620,6 +616,9 @@
                     <grand_total>
                         <class>sales/order_creditmemo_total_grand</class>
                     </grand_total>
+                    <cost_total>
+                        <class>sales/order_creditmemo_total_cost</class>
+                    </cost_total>
                 </totals>
             </order_creditmemo>
         </sales>
@@ -714,104 +713,6 @@
         </layout>
     </frontend>
     <adminhtml>
-        <menu>
-             <sales translate="title" module="sales">
-                <title>Sales</title>
-                <sort_order>20</sort_order>
-                <depends><module>Mage_Sales</module></depends>
-                <children>
-                    <order translate="title" module="sales">
-                        <title>Orders</title>
-                        <action>adminhtml/sales_order</action>
-                        <sort_order>10</sort_order>
-                    </order>
-                    <invoice translate="title" module="sales">
-                        <title>Invoices</title>
-                        <action>adminhtml/sales_invoice</action>
-                        <sort_order>20</sort_order>
-                    </invoice>
-                    <shipment translate="title" module="sales">
-                        <title>Shipments</title>
-                        <action>adminhtml/sales_shipment</action>
-                        <sort_order>30</sort_order>
-                    </shipment>
-                    <creditmemo translate="title" module="sales">
-                        <title>Credit Memos</title>
-                        <action>adminhtml/sales_creditmemo</action>
-                        <sort_order>40</sort_order>
-                    </creditmemo>
-                </children>
-             </sales>
-        </menu>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <sales translate="title" module="sales">
-                            <title>Sales</title>
-                            <children>
-                                <order translate="title">
-                                    <title>Orders</title>
-                                    <children>
-                                        <actions translate="title">
-                                            <title>Actions</title>
-                                            <children>
-                                                <create translate="title"><title>Create</title></create>
-                                                <view translate="title"><title>View</title></view>
-                                                <reorder translate="title"><title>Reorder</title></reorder>
-                                                <edit translate="title"><title>Edit</title></edit>
-                                                <cancel translate="title"><title>Cancel</title></cancel>
-                                                <capture translate="title"><title>Capture</title></capture>
-                                                <invoice translate="title"><title>Invoice</title></invoice>
-                                                <creditmemo translate="title"><title>Creditmemo</title></creditmemo>
-                                                <hold translate="title"><title>Hold</title></hold>
-                                                <unhold translate="title"><title>Unhold</title></unhold>
-                                                <ship translate="title"><title>Ship</title></ship>
-                                                <comment translate="title"><title>Comment</title></comment>
-                                                <reorder translate="title"><title>Reorder</title></reorder>
-                                            </children>
-                                        </actions>
-                                    </children>
-                                    <sort_order>10</sort_order>
-                                </order>
-                                <invoice translate="title">
-                                    <title>Invoices</title>
-                                    <sort_order>20</sort_order>
-                                </invoice>
-                                <shipment translate="title">
-                                    <title>Shipments</title>
-                                    <sort_order>30</sort_order>
-                                </shipment>
-                                <creditmemo translate="title">
-                                    <title>Credit Memos</title>
-                                    <sort_order>40</sort_order>
-                                </creditmemo>
-                            </children>
-                        </sales>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <sales translate="title">
-                                            <title>Sales Section</title>
-                                            <sort_order>60</sort_order>
-                                        </sales>
-                                        <sales_email translate="title">
-                                            <title>Sales Emails Section</title>
-                                            <sort_order>65</sort_order>
-                                        </sales_email>
-                                        <sales_pdf translate="title">
-                                            <title>PDF Print-outs</title>
-                                            <sort_order>66</sort_order>
-                                        </sales_pdf>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
         <translate>
             <modules>
                 <Mage_Sales>
@@ -832,7 +733,6 @@
             <catalog_product_delete_before>
                 <observers>
                     <sales_quote_observer>
-                        <type>singleton</type>
                         <class>sales/observer</class>
                         <method>substractQtyFromQuotes</method>
                     </sales_quote_observer>
@@ -841,7 +741,6 @@
             <catalogrule_before_apply>
                 <observers>
                     <sales_quote_observer>
-                        <type>singleton</type>
                         <class>sales/observer</class>
                         <method>markQuotesRecollectOnCatalogRules</method>
                     </sales_quote_observer>
@@ -850,7 +749,6 @@
             <catalogrule_after_apply>
                 <observers>
                     <sales_quote_observer>
-                        <type>singleton</type>
                         <class>sales/observer</class>
                         <method>markQuotesRecollectOnCatalogRules</method>
                     </sales_quote_observer>
@@ -859,7 +757,6 @@
             <catalog_product_save_after>
                 <observers>
                     <sales_quote>
-                        <type>singleton</type>
                         <class>sales/observer</class>
                         <method>catalogProductSaveAfter</method>
                     </sales_quote>
@@ -868,7 +765,6 @@
             <catalog_product_status_update>
                 <observers>
                     <sales_quote>
-                        <type>singleton</type>
                         <class>sales/observer</class>
                         <method>catalogProductStatusUpdate</method>
                     </sales_quote>

@@ -34,6 +34,26 @@
 class Mage_Customer_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
 {
 
+    /**
+     * Prepare customer attribute values to save
+     *
+     * @param array $attr
+     * @return array
+     */
+    protected function _prepareValues($attr)
+    {
+        $data = parent::_prepareValues($attr);
+        $data = array_merge($data, array(
+            'is_visible'                => $this->_getValue($attr, 'visible', 1),
+            'is_visible_on_front'       => $this->_getValue($attr, 'visible_on_front', 0),
+            'input_filter'              => $this->_getValue($attr, 'input_filter', ''),
+            'lines_to_divide_multiline' => $this->_getValue($attr, 'lines_to_divide', 0),
+            'min_text_length'           => $this->_getValue($attr, 'min_text_length', 0),
+            'max_text_length'           => $this->_getValue($attr, 'max_text_length', 0)
+        ));
+        return $data;
+    }
+
     public function getDefaultEntities()
     {
         return array(
@@ -42,6 +62,8 @@ class Mage_Customer_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
                 'table'                 => 'customer/entity',
                 'increment_model'       => 'eav/entity_increment_numeric',
                 'increment_per_store'   => false,
+                'additional_attribute_table' => 'customer/eav_attribute',
+                'entity_attribute_collection' => 'customer/eav_attribute',
                 'attributes' => array(
 //                    'entity_id'         => array('type'=>'static'),
 //                    'entity_type_id'    => array('type'=>'static'),
@@ -105,7 +127,7 @@ class Mage_Customer_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
                     'group_id' => array(
                         'type'          => 'static',
                         'input'         => 'select',
-                        'label'         => 'Customer Group',
+                        'label'         => 'Group',
                         'source'        => 'customer/customer_attribute_source_group',
                         'sort_order'    => 70,
                     ),
@@ -138,7 +160,6 @@ class Mage_Customer_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
                         'label'         => 'Tax/VAT number',
                         'visible'       => true,
                         'required'      => false,
-                        'position'      => 1,
                     ),
                     'confirmation' => array(
                         'label'         => 'Is confirmed',
@@ -151,6 +172,8 @@ class Mage_Customer_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
             'customer_address'=>array(
                 'entity_model'  =>'customer/customer_address',
                 'table' => 'customer/address_entity',
+                'additional_attribute_table' => 'customer/eav_attribute',
+                'entity_attribute_collection' => 'customer/eav_attribute',
                 'attributes' => array(
 //                    'entity_id'         => array('type'=>'static'),
 //                    'entity_type_id'    => array('type'=>'static'),
@@ -220,6 +243,7 @@ class Mage_Customer_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
                         'source'        => 'customer_entity/address_attribute_source_region',
                         'required'      => 'false',
                         'sort_order'    => 80,
+                        'label'         => 'State/Province'
                     ),
                     'postcode' => array(
                         'label'         => 'Zip/Postal Code',

@@ -227,11 +227,19 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection ext
                 $attributeIds = $this->_getAttributeIdsBySetIds($setIds);
 
                 $select = $this->getConnection()->select()
-                    ->from($this->getTable('eav/attribute'))
-                    ->where('is_comparable=?', 1)
-                    ->where('attribute_id IN(?)', $attributeIds);
+                    ->from(array('main_table' => $this->getTable('eav/attribute')))
+                    ->join(
+                        array('additional_table' => $this->getTable('catalog/eav_attribute')),
+                        'additional_table.attribute_id=main_table.attribute_id'
+                    )
+                    ->joinLeft(
+                        array('al' => $this->getTable('eav/attribute_label')),
+                        'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int) $this->getStoreId(),
+                        array('store_label' => new Zend_Db_Expr('IFNULL(al.value, main_table.frontend_label)'))
+                    )
+                    ->where('additional_table.is_comparable=?', 1)
+                    ->where('main_table.attribute_id IN(?)', $attributeIds);
                 $attributesData = $this->getConnection()->fetchAll($select);
-
                 if ($attributesData) {
                     $entityType = 'catalog_product';
                     Mage::getSingleton('eav/config')

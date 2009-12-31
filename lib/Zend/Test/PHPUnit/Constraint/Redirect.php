@@ -1,15 +1,35 @@
 <?php
+/**
+ * Zend Framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://framework.zend.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@zend.com so we can send you a copy immediately.
+ *
+ * @category   Zend
+ * @package    Zend_Test
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Redirect.php 16874 2009-07-20 12:46:00Z mikaelkael $
+ */
+
 /** PHPUnit_Framework_Constraint */
 #require_once 'PHPUnit/Framework/Constraint.php';
 
 /**
  * Redirection constraints
- * 
+ *
  * @uses       PHPUnit_Framework_Constraint
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (C) 2008 - Present, Zend Technologies, Inc.
- * @license    New BSD {@link http://framework.zend.com/license/new-bsd}
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
 {
@@ -51,7 +71,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
 
     /**
      * Constructor; setup constraint state
-     * 
+     *
      * @return void
      */
     public function __construct()
@@ -60,8 +80,8 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
 
     /**
      * Indicate negative match
-     * 
-     * @param  bool $flag 
+     *
+     * @param  bool $flag
      * @return void
      */
     public function setNegate($flag = true)
@@ -71,7 +91,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
 
     /**
      * Evaluate an object to see if it fits the constraints
-     * 
+     *
      * @param  string $other String to examine
      * @param  null|string Assertion type
      * @return bool
@@ -126,11 +146,11 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
 
     /**
      * Report Failure
-     * 
+     *
      * @see    PHPUnit_Framework_Constraint for implementation details
-     * @param  mixed $other 
+     * @param  mixed $other
      * @param  string $description Additional message to display
-     * @param  bool $not 
+     * @param  bool $not
      * @return void
      * @throws PHPUnit_Framework_ExpectationFailedException
      */
@@ -170,7 +190,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
 
     /**
      * Complete implementation
-     * 
+     *
      * @return string
      */
     public function toString()
@@ -180,7 +200,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
 
     /**
      * Check to see if content is matched in selected nodes
-     * 
+     *
      * @param  Zend_Controller_Response_HttpTestCase $response
      * @param  string $match Content to match
      * @return bool
@@ -200,9 +220,9 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
 
     /**
      * Check to see if content is NOT matched in selected nodes
-     * 
+     *
      * @param  Zend_Controller_Response_HttpTestCase $response
-     * @param  string $match 
+     * @param  string $match
      * @return bool
      */
     protected function _notMatch($response, $match)
@@ -220,7 +240,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
 
     /**
      * Check to see if content is matched by regex in selected nodes
-     * 
+     *
      * @param  Zend_Controller_Response_HttpTestCase $response
      * @param  string $pattern
      * @return bool
@@ -240,7 +260,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
 
     /**
      * Check to see if content is NOT matched by regex in selected nodes
-     * 
+     *
      * @param  Zend_Controller_Response_HttpTestCase $response
      * @param  string $pattern
      * @return bool

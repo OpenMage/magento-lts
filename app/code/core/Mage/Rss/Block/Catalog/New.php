@@ -77,19 +77,24 @@ getFinalPrice() - used in shopping cart calculations
             ->addAttributeToSelect(array('special_price', 'special_from_date', 'special_to_date'), 'left')
         ;
 
-        Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($products);
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($products);
-//echo $products->getSelect();
+        $products->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
+
         /*
         using resource iterator to load the data one by one
         instead of loading all at the same time. loading all data at the same time can cause the big memory allocation.
         */
+
         Mage::getSingleton('core/resource_iterator')
             ->walk($products->getSelect(), array(array($this, 'addNewItemXmlCallback')), array('rssObj'=> $rssObj, 'product'=>$product));
 
         return $rssObj->createRssXml();
     }
 
+    /**
+     * Preparing data and adding to rss object
+     *
+     * @param array $args
+     */
     public function addNewItemXmlCallback($args)
     {
         $product = $args['product'];
@@ -102,24 +107,31 @@ getFinalPrice() - used in shopping cart calculations
             return;
         }
 
+        $allowedPriceInRss = $product->getAllowedPriceInRss();
+
         //$product->unsetData()->load($args['row']['entity_id']);
         $product->setData($args['row']);
-        $final_price = $product->getFinalPrice();
         $description = '<table><tr>'.
             '<td><a href="'.$product->getProductUrl().'"><img src="'. $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75) .'" border="0" align="left" height="75" width="75"></a></td>'.
-            '<td  style="text-decoration:none;">'.$product->getDescription().
-            '<p> Price:'.Mage::helper('core')->currency($product->getPrice()).
-            ($product->getPrice() != $final_price  ? ' Special Price:'. Mage::helper('core')->currency($final_price) : '').
-            '</p>'.
-            '</td>'.
+            '<td  style="text-decoration:none;">'.$product->getDescription();
+
+        if ($allowedPriceInRss) {
+            $description .= '<p> Price:' . Mage::helper('core')->currency($product->getPrice());
+            if ($product->getPrice() != $product->getFinalPrice()){
+                $description .= ' Special Price:' . Mage::helper('core')->currency($product->getFinalPrice());
+            }
+            $description .= '</p>';
+        }
+
+        $description .= '</td>'.
             '</tr></table>';
+
         $rssObj = $args['rssObj'];
         $data = array(
                 'title'         => $product->getName(),
                 'link'          => $product->getProductUrl(),
                 'description'   => $description,
-
-                );
+            );
         $rssObj->_addEntry($data);
     }
 }

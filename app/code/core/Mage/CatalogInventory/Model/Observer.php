@@ -484,4 +484,22 @@ class Mage_CatalogInventory_Model_Observer
 
         return $this;
     }
+
+    /**
+     * Add stock status limitation to catalog product price index select object
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_CatalogInventory_Model_Observer
+     */
+    public function prepareCatalogProductIndexSelect(Varien_Event_Observer $observer)
+    {
+        $select     = $observer->getEvent()->getSelect();
+        $entity     = $observer->getEvent()->getEntityField();
+        $website    = $observer->getEvent()->getWebsiteField();
+
+        Mage::getSingleton('cataloginventory/stock_status')
+            ->prepareCatalogProductIndexSelect($select, $entity, $website);
+
+        return $this;
+    }
 }

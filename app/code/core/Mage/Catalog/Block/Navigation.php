@@ -36,6 +36,13 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
 {
     protected $_categoryInstance = null;
 
+    /**
+     * Array of level position counters
+     *
+     * @var array
+     */
+    protected $_itemLevelPositions = array();
+
     protected function _construct()
     {
         $this->addData(array(
@@ -137,6 +144,33 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     }
 
     /**
+     * Return item position representation in menu tree
+     *
+     * @param int $level
+     * @return string
+     */
+    protected function _getItemPosition($level)
+    {
+        if ($level == 0) {
+            $zeroLevelPosition = isset($this->_itemLevelPositions[$level]) ? $this->_itemLevelPositions[$level] + 1 : 1;
+            $this->_itemLevelPositions = array();
+            $this->_itemLevelPositions[$level] = $zeroLevelPosition;
+        } elseif (isset($this->_itemLevelPositions[$level])) {
+            $this->_itemLevelPositions[$level]++;
+        } else {
+            $this->_itemLevelPositions[$level] = 1;
+        }
+
+        $position = array();
+        for($i = 0; $i <= $level; $i++) {
+            if (isset($this->_itemLevelPositions[$i])) {
+                $position[] = $this->_itemLevelPositions[$i];
+            }
+        }
+        return implode('-', $position);
+    }
+
+    /**
      * Enter description here...
      *
      * @param Mage_Catalog_Model_Category $category
@@ -164,7 +198,8 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         }
 
         $html.= ' class="level'.$level;
-        $html.= ' nav-'.str_replace('/', '-', Mage::helper('catalog/category')->getCategoryUrlPath($category->getRequestPath()));
+        //$html.= ' nav-'.str_replace('/', '-', Mage::helper('catalog/category')->getCategoryUrlPath($category->getRequestPath()));
+        $html.= ' nav-' . $this->_getItemPosition($level);
         if ($this->isCategoryActive($category)) {
             $html.= ' active';
         }

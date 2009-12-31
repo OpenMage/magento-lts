@@ -12,14 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
+ * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Element.php 16978 2009-07-22 19:59:40Z alexander $
  */
 
-
-/** Zend_Pdf_Element */
-#require_once 'Zend/Pdf/Element.php';
 
 /** Zend_Pdf_Element_Object */
 #require_once 'Zend/Pdf/Element/Object.php';
@@ -29,7 +28,7 @@
  * PDF file element implementation
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_Element
@@ -75,9 +74,9 @@ abstract class Zend_Pdf_Element
      *
      * @param Zend_Pdf_Element_Object $parent
      */
-    public function setParentObject(Zend_Pdf_Element_Object &$parent)
+    public function setParentObject(Zend_Pdf_Element_Object $parent)
     {
-        $this->_parentObject = &$parent;
+        $this->_parentObject = $parent;
     }
 
 

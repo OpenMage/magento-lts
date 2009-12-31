@@ -14,11 +14,14 @@
  *
  * @category  Zend
  * @package   Zend_File_Transfer
- * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: $
+ * @version   $Id: Http.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
+/**
+ * @see Zend_File_Transfer_Adapter_Abstract
+ */
 #require_once 'Zend/File/Transfer/Adapter/Abstract.php';
 
 /**
@@ -160,8 +163,16 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
                 $filename = $directory . $content['name'];
                 $rename   = $this->getFilter('Rename');
                 if ($rename !== null) {
-                    $filename = $rename->getNewName($content['tmp_name']);
-                    $key      = array_search(get_class($rename), $this->_files[$file]['filters']);
+                    $tmp = $rename->getNewName($content['tmp_name']);
+                    if ($tmp != $content['tmp_name']) {
+                        $filename = $tmp;
+                    }
+
+                    if (dirname($filename) == '.') {
+                        $filename = $directory . $filename;
+                    }
+
+                    $key = array_search(get_class($rename), $this->_files[$file]['filters']);
                     unset($this->_files[$file]['filters'][$key]);
                 }
 

@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Filter_Inv
         return array(
             array(
                 'value' =>  '',
-                'label' =>  Mage::helper('catalog')->__('')
+                'label' =>  ''
             ),
             array(
                 'value' =>  1,

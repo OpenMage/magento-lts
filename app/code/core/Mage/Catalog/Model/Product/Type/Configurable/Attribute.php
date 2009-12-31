@@ -26,7 +26,7 @@
 
 
 /**
- * Catalog super product attribute model
+ * Catalog Configurable Product Attribute Model
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -61,27 +61,20 @@ class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_M
     }
 
     /**
-     * Retrieve label
+     * Retrieve attribute label
      *
      * @return string
      */
     public function getLabel()
     {
-        if (is_null($this->getData('label')) && $this->getProductAttribute()) {
-            // If no attribute label seted
-            $this->setData('label', $this->getProductAttribute()->getFrontend()->getLabel());
+        if ($this->getData('use_default') && $this->getProductAttribute()) {
+            return $this->getProductAttribute()->getStoreLabel();
+        } else if (is_null($this->getData('label')) && $this->getProductAttribute()) {
+            $this->setData('label', $this->getProductAttribute()->getStoreLabel());
         }
 
         return $this->getData('label');
     }
-
-    /*protected function _afterLoad()
-    {
-        parent::_afterLoad();
-        $this->_getResource()->loadLabel($this);
-        $this->_getResource()->loadPrices($this);
-        return $this;
-    }*/
 
     /**
      * After save process

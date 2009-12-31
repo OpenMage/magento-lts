@@ -343,7 +343,7 @@ class Mage_Bundle_Model_Mysql4_Price_Index extends Mage_Core_Model_Mysql4_Abstra
                     'e.entity_id=t1_status.entity_id'
                         . ' AND t1_status.attribute_id=' . $status->getAttributeId()
                         . ' AND t1_status.store_id=0',
-                    array('status' => 'IFNULL(t2_status.value, t1_status.value)'))
+                    array('status' => 'IF(t2_status.value_id > 0, t2_status.value, t1_status.value)'))
                 ->joinLeft(
                     array('t2_status' => $statusTable),
                     't1_status.entity_id = t2_status.entity_id'
@@ -461,7 +461,7 @@ class Mage_Bundle_Model_Mysql4_Price_Index extends Mage_Core_Model_Mysql4_Abstra
                     'e.entity_id='.$tableGlobal.'.entity_id'
                         . ' AND '.$tableGlobal.'.attribute_id=' . $attribute->getAttributeId()
                         . ' AND '.$tableGlobal.'.store_id=0',
-                    array($attribute->getAttributeCode() => 'IFNULL('.$tableStore.'.value, '.$tableGlobal.'.value)'))
+                    array($attribute->getAttributeCode() => 'IF('.$tableStore.'.value_id > 0, '.$tableStore.'.value, '.$tableGlobal.'.value)'))
                 ->joinLeft(
                     array($tableStore => $tableName),
                     $tableGlobal.'.entity_id = '.$tableStore.'.entity_id'

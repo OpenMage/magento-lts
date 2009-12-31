@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Acl
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Acl.php 9417 2008-05-08 16:28:31Z darby $
+ * @version    $Id: Acl.php 17515 2009-08-10 13:48:44Z ralph $
  */
 
 
@@ -41,7 +41,7 @@
 /**
  * @category   Zend
  * @package    Zend_Acl
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Acl
@@ -81,6 +81,16 @@ class Zend_Acl
     protected $_resources = array();
 
     /**
+     * @var Zend_Acl_Role_Interface
+     */
+    protected $_isAllowedRole     = null;
+    
+    /**
+     * @var Zend_Acl_Resource_Interface
+     */
+    protected $_isAllowedResource = null;
+    
+    /**
      * ACL rules; whitelist (deny everything to all) by default
      *
      * @var array
@@ -118,8 +128,18 @@ class Zend_Acl
      * @uses   Zend_Acl_Role_Registry::add()
      * @return Zend_Acl Provides a fluent interface
      */
-    public function addRole(Zend_Acl_Role_Interface $role, $parents = null)
+    public function addRole($role, $parents = null)
     {
+        if (is_string($role)) {
+            $role = new Zend_Acl_Role($role);
+        }
+        
+        if (!$role instanceof Zend_Acl_Role_Interface) {
+            #require_once 'Zend/Acl/Exception.php';
+            throw new Zend_Acl_Exception('addRole() expects $role to be of type Zend_Acl_Role_Interface');
+        }
+    	
+    	
         $this->_getRoleRegistry()->add($role, $parents);
 
         return $this;
@@ -236,13 +256,22 @@ class Zend_Acl
      * The $parent parameter may be a reference to, or the string identifier for,
      * the existing Resource from which the newly added Resource will inherit.
      *
-     * @param  Zend_Acl_Resource_Interface        $resource
+     * @param  Zend_Acl_Resource_Interface|string $resource
      * @param  Zend_Acl_Resource_Interface|string $parent
      * @throws Zend_Acl_Exception
      * @return Zend_Acl Provides a fluent interface
      */
-    public function add(Zend_Acl_Resource_Interface $resource, $parent = null)
+    public function addResource($resource, $parent = null)
     {
+    	if (is_string($resource)) {
+    		$resource = new Zend_Acl_Resource($resource);
+    	}
+    	
+    	if (!$resource instanceof Zend_Acl_Resource_Interface) {
+            #require_once 'Zend/Acl/Exception.php';
+            throw new Zend_Acl_Exception('addResource() expects $resource to be of type Zend_Acl_Resource_Interface');
+    	}
+    	
         $resourceId = $resource->getResourceId();
 
         if ($this->has($resourceId)) {
@@ -273,6 +302,25 @@ class Zend_Acl
             );
 
         return $this;
+    }
+    
+    /**
+     * Adds a Resource having an identifier unique to the ACL
+     *
+     * The $parent parameter may be a reference to, or the string identifier for,
+     * the existing Resource from which the newly added Resource will inherit.
+     *
+     * @deprecated in version 1.9.1 and will be available till 2.0.  New code
+     *             should use addResource() instead.
+     * 
+     * @param  Zend_Acl_Resource_Interface        $resource
+     * @param  Zend_Acl_Resource_Interface|string $parent
+     * @throws Zend_Acl_Exception
+     * @return Zend_Acl Provides a fluent interface
+     */
+    public function add(Zend_Acl_Resource_Interface $resource, $parent = null)
+    {
+        return $this->addResource($resource, $parent);
     }
 
     /**
@@ -683,12 +731,25 @@ class Zend_Acl
      */
     public function isAllowed($role = null, $resource = null, $privilege = null)
     {
+    	// reset role & resource to null
+    	$this->_isAllowedRole = $this->_isAllowedResource = null;
+    	
         if (null !== $role) {
+        	// keep track of originally called role
+        	$this->_isAllowedRole = $role;
             $role = $this->_getRoleRegistry()->get($role);
+            if (!$this->_isAllowedRole instanceof Zend_Acl_Role_Interface) {
+            	$this->_isAllowedRole = $role;
+            }
         }
 
         if (null !== $resource) {
+        	// keep track of originally called resource
+        	$this->_isAllowedResource = $resource;
             $resource = $this->get($resource);
+            if (!$this->_isAllowedResource instanceof Zend_Acl_Resource_Interface) {
+            	$this->_isAllowedResource = $resource;
+            }
         }
 
         if (null === $privilege) {
@@ -964,8 +1025,18 @@ class Zend_Acl
             $rule = $rules['byPrivilegeId'][$privilege];
         }
 
-        // check assertion if necessary
-        if (null === $rule['assert'] || $rule['assert']->assert($this, $role, $resource, $privilege)) {
+        // check assertion first
+        if ($rule['assert']) {
+            $assertion = $rule['assert'];
+            $assertionValue = $assertion->assert(
+                $this,
+                ($this->_isAllowedRole instanceof Zend_Acl_Role_Interface) ? $this->_isAllowedRole : $role,
+                ($this->_isAllowedResource instanceof Zend_Acl_Resource_Interface) ? $this->_isAllowedResource : $resource,
+                $privilege
+                );
+        } 
+        
+        if (null === $rule['assert'] || $assertionValue) {
             return $rule['type'];
         } else if (null !== $resource || null !== $role || null !== $privilege) {
             return null;

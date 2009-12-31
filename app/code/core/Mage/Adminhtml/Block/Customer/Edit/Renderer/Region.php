@@ -31,7 +31,12 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
-
+    /**
+     * Output the region element and javasctipt that makes it dependent from country element
+     *
+     * @param Varien_Data_Form_Element_Abstract $element
+     * @return string
+     */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         if ($country = $element->getForm()->getElement('country_id')) {
@@ -42,7 +47,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region extends Mage_Adminhtml_
         }
 
         $regionId = $element->getForm()->getElement('region_id')->getValue();
-        $postcode = $element->getForm()->getElement('postcode');
 
         $html = '<tr>';
         $element->setClass('input-text');
@@ -54,27 +58,12 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region extends Mage_Adminhtml_
         $html.= '<select id="'.$selectId.'" name="'.$selectName.'" class="select required-entry" style="display:none">';
         $html.= '<option value="">'.Mage::helper('customer')->__('Please select').'</option>';
         $html.= '</select>';
-        $html.= '<script type="text/javascript">
-        Event.observe(window, "load", function() {
-            if ($("'.$country->getHtmlId().'") != undefined) {
-                var zipOptions = {};
-                zipOptions.input_el = "'.$postcode->getHtmlId().'";
-                zipOptions.label_el = $("'.$country->getHtmlId().'").up(1).next(1).down("label > span.required");
-                zipOptions.optional_countries = '.$this->helper('directory')->getCountriesWithOptionalZipJson($this->getStoreId()).';
-                new regionUpdater(
-                    "'.$country->getHtmlId().'",
-                    "'.$element->getHtmlId().'",
-                    "'.$selectId.'",
-                    '.$this->helper('directory')->getRegionJson().',
-                    undefined,
-                    undefined,
-                    zipOptions
-                );
-            }
-        });
-        </script>';
+
+        $html.= '<script type="text/javascript">'."\n";
+        $html.= 'new regionUpdater("'.$country->getHtmlId().'", "'.$element->getHtmlId().'", "'.$selectId.'", '.$this->helper('directory')->getRegionJson().');'."\n";
+        $html.= '</script>'."\n";
+
         $html.= '</td></tr>'."\n";
         return $html;
     }
-
 }

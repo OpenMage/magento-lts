@@ -181,7 +181,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     public function getNoResultText()
     {
         if (Mage::helper('catalogsearch')->isMinQueryLength()) {
-            return Mage::helper('catalogsearch')->__('Minimum Search query length is %s', $this->_getQuery()->getMinQueryLenght());
+            return Mage::helper('catalogsearch')->__('Minimum Search query length is %s', $this->_getQuery()->getMinQueryLength());
         }
         return $this->_getData('no_result_text');
     }

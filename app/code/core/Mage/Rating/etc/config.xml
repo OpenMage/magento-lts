@@ -72,20 +72,7 @@
                 <setup>
                     <module>Mage_Rating</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </rating_setup>
-            <rating_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </rating_write>
-            <rating_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </rating_read>
         </resources>
         <blocks>
                 <rating>
@@ -106,25 +93,6 @@
     </frontend>
 
     <adminhtml>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <catalog>
-                            <children>
-                                <reviews_ratings>
-                                    <children>
-                                        <ratings translate="title" module="rating">
-                                            <title>Manage Ratings</title>
-                                        </ratings>
-                                     </children>
-                                </reviews_ratings>
-                            </children>
-                        </catalog>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
         <translate>
             <modules>
                 <Mage_Rating>

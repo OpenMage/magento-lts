@@ -35,6 +35,10 @@
 class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
 
+    /**
+     * Add and update buttons
+     *
+     */
     public function __construct()
     {
         $this->_objectId = 'tag_id';
@@ -44,16 +48,102 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
 
         $this->_updateButton('save', 'label', Mage::helper('tag')->__('Save Tag'));
         $this->_updateButton('delete', 'label', Mage::helper('tag')->__('Delete Tag'));
+
+        $this->addButton('save_and_edit_button', array(
+            'label'     => Mage::helper('tag')->__('Save And Continue Edit'),
+            'onclick'   => 'saveAndContinueEdit(\''.$this->getSaveAndContinueUrl().'\')',
+            'class'     => 'save'
+        ), 1);
     }
 
+    /**
+     * Add child HTML to layout
+     *
+     * @return Mage_Adminhtml_Block_Tag_Edit
+     */
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+
+        $this->setChild('store_switcher', $this->getLayout()->createBlock('adminhtml/tag_store_switcher'));
+
+        $this->setChild('tag_assign_accordion', $this->getLayout()->createBlock('adminhtml/tag_edit_assigned'));
+
+        $this->setChild('accordion', $this->getLayout()->createBlock('adminhtml/tag_edit_accordion'));
+
+        return $this;
+    }
+
+    /**
+     * Retrieve Header text
+     *
+     * @return string
+     */
     public function getHeaderText()
     {
-        if (Mage::registry('tag_tag')->getId()) {
-            return Mage::helper('tag')->__("Edit Tag '%s'", $this->htmlEscape(Mage::registry('tag_tag')->getName()));
+        if (Mage::registry('current_tag')->getId()) {
+            return Mage::helper('tag')->__("Edit Tag '%s'", $this->htmlEscape(Mage::registry('current_tag')->getName()));
         }
-        else {
-            return Mage::helper('tag')->__('New Tag');
-        }
+        return Mage::helper('tag')->__('New Tag');
     }
 
+    /**
+     * Retrieve Accordions HTML
+     *
+     * @return string
+     */
+    public function getAcordionsHtml()
+    {
+        return $this->getChildHtml('accordion');
+    }
+
+    /**
+     * Retrieve Assigned Tags Accordion HTML
+     *
+     * @return string
+     */
+    public function getTagAssignAccordionHtml()
+    {
+        return $this->getChildHtml('tag_assign_accordion');
+    }
+
+    /**
+     * Retrieve Store Switcher HTML
+     *
+     * @return string
+     */
+    public function getStoreSwitcherHtml()
+    {
+        return $this->getChildHtml('store_switcher');
+    }
+
+    /**
+     * Check whether it is single store mode
+     *
+     * @return bool
+     */
+    public function isSingleStoreMode()
+    {
+        return Mage::app()->isSingleStoreMode();
+    }
+
+    /**
+     * Retrieve Tag Save URL
+     *
+     * @return string
+     */
+    public function getSaveUrl()
+    {
+        return $this->getUrl('*/*/save', array('_current'=>true));
+    }
+
+    /**
+     * Retrieve Tag SaveAndContinue URL
+     *
+     * @return string
+     */
+    public function getSaveAndContinueUrl()
+    {
+        return $this->getUrl('*/*/save', array('_current' => true, 'ret' => 'edit'));
+    }
 }

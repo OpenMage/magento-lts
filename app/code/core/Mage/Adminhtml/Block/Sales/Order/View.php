@@ -78,6 +78,13 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             ));
         }
 
+        $this->addButton('send_notification', array(
+            'label'     => Mage::helper('sales')->__('Send Order Email'),
+            'onclick'   => 'confirmSetLocation(\'' . Mage::helper('sales')->__(
+                'Are you sure you want to send Order email to customer?'
+            ) . '\', \'' . $this->getEmailUrl() . '\')'
+        ));
+
         if ($this->_isAllowedAction('creditmemo') && $this->getOrder()->canCreditmemo()) {
             $this->_addButton('order_creditmemo', array(
                 'label'     => Mage::helper('sales')->__('Credit Memo'),
@@ -167,6 +174,11 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     public function getEditUrl()
     {
         return $this->getUrl('*/sales_order_edit/start');
+    }
+
+    public function getEmailUrl()
+    {
+        return $this->getUrl('*/*/email');
     }
 
     public function getCancelUrl()

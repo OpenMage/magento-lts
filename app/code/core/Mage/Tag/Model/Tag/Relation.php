@@ -101,4 +101,21 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
         $this->_getResource()->deactivate($this->getTagId(),  $this->getCustomerId());
         return $this;
     }
+
+    /**
+     * Add TAG to PRODUCT relations
+     *
+     * @param Mage_Tag_Model_Tag $model
+     * @param array $productIds
+     * @return Mage_Tag_Model_Tag_Relation
+     */
+    public function addRelations(Mage_Tag_Model_Tag $model, $productIds = array())
+    {
+        $this->setAddedProductIds($productIds);
+        $this->setTagId($model->getTagId());
+        $this->setCustomerId(null);
+        $this->setStoreId($model->getStoreId());
+        $this->_getResource()->addRelations($this);
+        return $this;
+    }
 }

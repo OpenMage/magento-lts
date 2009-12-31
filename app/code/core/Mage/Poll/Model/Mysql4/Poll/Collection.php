@@ -63,7 +63,7 @@ class Mage_Poll_Model_Mysql4_Poll_Collection extends Mage_Core_Model_Mysql4_Coll
      */
     public function addStoresFilter($store)
     {
-        return $this->addStoresFilter($store);
+        return $this->addStoreFilter($store);
     }
 
     /**

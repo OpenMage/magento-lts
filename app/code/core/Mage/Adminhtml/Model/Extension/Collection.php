@@ -52,6 +52,8 @@ class Mage_Adminhtml_Model_Extension_Collection extends Varien_Data_Collection_F
     public function __construct()
     {
         $this->_baseDir = Mage::getBaseDir('var') . DS . 'pear';
+        $io = new Varien_Io_File();
+        $io->setAllowCreateFolders(true)->createDestinationDir($this->_baseDir);
         $this->addTargetDir($this->_baseDir);
     }
 

@@ -497,4 +497,23 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
         $this->_getResource()->addStockStatusToSelect($select, $website);
         return $this;
     }
+
+    /**
+     * Add stock status limitation to catalog product price index select object
+     *
+     * @param Varien_Db_Select $select
+     * @param string|Zend_Db_Expr $entityField
+     * @param string|Zend_Db_Expr $websiteField
+     * @return Mage_CatalogInventory_Model_Stock_Status
+     */
+    public function prepareCatalogProductIndexSelect(Varien_Db_Select $select, $entityField, $websiteField)
+    {
+        if (Mage::helper('cataloginventory')->isShowOutOfStock()) {
+            return $this;
+        }
+
+        $this->_getResource()->prepareCatalogProductIndexSelect($select, $entityField, $websiteField);
+
+        return $this;
+    }
 }

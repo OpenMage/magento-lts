@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Tag_Tag extends Mage_Adminhtml_Block_Widget_Grid_Cont
     public function __construct()
     {
         $this->_controller = 'tag_tag';
-        $this->_headerText = Mage::helper('tag')->__('All Tags');
+        $this->_headerText = Mage::helper('tag')->__('Manage Tags');
         $this->_addButtonLabel = Mage::helper('tag')->__('Add New Tag');
         parent::__construct();
     }

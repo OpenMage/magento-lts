@@ -55,6 +55,7 @@ abstract class Varien_Image_Adapter_Abstract
     protected $_watermarkWidth = null;
     protected $_watermarkHeigth = null;
     protected $_watermarkImageOpacity = null;
+    protected $_quality = null;
 
     protected $_keepAspectRatio;
     protected $_keepFrame;
@@ -210,6 +211,20 @@ abstract class Varien_Image_Adapter_Abstract
             $this->_constrainOnly = (bool)$value;
         }
         return $this->_constrainOnly;
+    }
+
+    /**
+     * Get/set quality, values in percentage from 0 to 100
+     *
+     * @param int $value
+     * @return int
+     */
+    public function quality($value = null)
+    {
+        if (null !== $value) {
+            $this->_quality = (int)$value;
+        }
+        return $this->_quality;
     }
 
     /**

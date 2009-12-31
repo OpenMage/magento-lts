@@ -368,7 +368,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                     $args[$arg] = Mage::helper((string)$node['module'])->__($args[$arg]);
                 }
                 else {
-                    $args[$arg] = __($args[$arg]);
+                    $args[$arg] = Mage::helper('core')->__($args[$arg]);
                 }
             }
         }

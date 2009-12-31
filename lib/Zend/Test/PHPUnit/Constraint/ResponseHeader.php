@@ -1,15 +1,35 @@
 <?php
+/**
+ * Zend Framework
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://framework.zend.com/license/new-bsd
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@zend.com so we can send you a copy immediately.
+ *
+ * @category   Zend
+ * @package    Zend_Test
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: ResponseHeader.php 16874 2009-07-20 12:46:00Z mikaelkael $
+ */
+
 /** PHPUnit_Framework_Constraint */
 #require_once 'PHPUnit/Framework/Constraint.php';
 
 /**
  * Response header PHPUnit Constraint
- * 
+ *
  * @uses       PHPUnit_Framework_Constraint
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (C) 2008 - Present, Zend Technologies, Inc.
- * @license    New BSD {@link http://framework.zend.com/license/new-bsd}
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Constraint
 {
@@ -62,7 +82,7 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Constructor; setup constraint state
-     * 
+     *
      * @return void
      */
     public function __construct()
@@ -71,8 +91,8 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Indicate negative match
-     * 
-     * @param  bool $flag 
+     *
+     * @param  bool $flag
      * @return void
      */
     public function setNegate($flag = true)
@@ -82,7 +102,7 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Evaluate an object to see if it fits the constraints
-     * 
+     *
      * @param  Zend_Controller_Response_Abstract $other String to examine
      * @param  null|string Assertion type
      * @return bool
@@ -157,11 +177,11 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Report Failure
-     * 
+     *
      * @see    PHPUnit_Framework_Constraint for implementation details
-     * @param  mixed $other 
+     * @param  mixed $other
      * @param  string $description Additional message to display
-     * @param  bool $not 
+     * @param  bool $not
      * @return void
      * @throws PHPUnit_Framework_ExpectationFailedException
      */
@@ -210,7 +230,7 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Complete implementation
-     * 
+     *
      * @return string
      */
     public function toString()
@@ -220,9 +240,9 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Compare response code for positive match
-     * 
-     * @param  Zend_Controller_Response_Abstract $response 
-     * @param  int $code 
+     *
+     * @param  Zend_Controller_Response_Abstract $response
+     * @param  int $code
      * @return bool
      */
     protected function _code(Zend_Controller_Response_Abstract $response, $code)
@@ -233,9 +253,9 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Compare response code for negative match
-     * 
-     * @param  Zend_Controller_Response_Abstract $response 
-     * @param  int $code 
+     *
+     * @param  Zend_Controller_Response_Abstract $response
+     * @param  int $code
      * @return bool
      */
     protected function _notCode(Zend_Controller_Response_Abstract $response, $code)
@@ -246,8 +266,8 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Retrieve response code
-     * 
-     * @param  Zend_Controller_Response_Abstract $response 
+     *
+     * @param  Zend_Controller_Response_Abstract $response
      * @return int
      */
     protected function _getCode(Zend_Controller_Response_Abstract $response)
@@ -261,9 +281,9 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Positive check for response header presence
-     * 
-     * @param  Zend_Controller_Response_Abstract $response 
-     * @param  string $header 
+     *
+     * @param  Zend_Controller_Response_Abstract $response
+     * @param  string $header
      * @return bool
      */
     protected function _header(Zend_Controller_Response_Abstract $response, $header)
@@ -273,9 +293,9 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Negative check for response header presence
-     * 
-     * @param  Zend_Controller_Response_Abstract $response 
-     * @param  string $header 
+     *
+     * @param  Zend_Controller_Response_Abstract $response
+     * @param  string $header
      * @return bool
      */
     protected function _notHeader(Zend_Controller_Response_Abstract $response, $header)
@@ -285,9 +305,9 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Retrieve response header
-     * 
-     * @param  Zend_Controller_Response_Abstract $response 
-     * @param  string $header 
+     *
+     * @param  Zend_Controller_Response_Abstract $response
+     * @param  string $header
      * @return string|null
      */
     protected function _getHeader(Zend_Controller_Response_Abstract $response, $header)
@@ -302,10 +322,10 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Positive check for header contents matching pattern
-     * 
-     * @param  Zend_Controller_Response_Abstract $response 
-     * @param  string $header 
-     * @param  string $match 
+     *
+     * @param  Zend_Controller_Response_Abstract $response
+     * @param  string $header
+     * @param  string $match
      * @return bool
      */
     protected function _headerContains(Zend_Controller_Response_Abstract $response, $header, $match)
@@ -321,10 +341,10 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Negative check for header contents matching pattern
-     * 
-     * @param  Zend_Controller_Response_Abstract $response 
-     * @param  string $header 
-     * @param  string $match 
+     *
+     * @param  Zend_Controller_Response_Abstract $response
+     * @param  string $header
+     * @param  string $match
      * @return bool
      */
     protected function _notHeaderContains(Zend_Controller_Response_Abstract $response, $header, $match)
@@ -340,10 +360,10 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Positive check for header contents matching regex
-     * 
-     * @param  Zend_Controller_Response_Abstract $response 
-     * @param  string $header 
-     * @param  string $pattern 
+     *
+     * @param  Zend_Controller_Response_Abstract $response
+     * @param  string $header
+     * @param  string $pattern
      * @return bool
      */
     protected function _headerRegex(Zend_Controller_Response_Abstract $response, $header, $pattern)
@@ -359,10 +379,10 @@ class Zend_Test_PHPUnit_Constraint_ResponseHeader extends PHPUnit_Framework_Cons
 
     /**
      * Negative check for header contents matching regex
-     * 
-     * @param  Zend_Controller_Response_Abstract $response 
-     * @param  string $header 
-     * @param  string $pattern 
+     *
+     * @param  Zend_Controller_Response_Abstract $response
+     * @param  string $header
+     * @param  string $pattern
      * @return bool
      */
     protected function _notHeaderRegex(Zend_Controller_Response_Abstract $response, $header, $pattern)

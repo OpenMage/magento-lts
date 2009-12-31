@@ -56,9 +56,8 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
      */
     public function indexAction()
     {
-        $this->_initAction()
-            ->_addContent($this->getLayout()->createBlock('adminhtml/cms_page'))
-            ->renderLayout();
+        $this->_initAction();
+        $this->renderLayout();
     }
 
     /**
@@ -81,14 +80,14 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
         // 2. Initial checking
         if ($id) {
-            $model->load($id);/*die('<br>#stop');*/
+            $model->load($id);
             if (! $model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cms')->__('This page no longer exists'));
                 $this->_redirect('*/*/');
                 return;
             }
         }
-//print '<pre>';var_dump($model->getData());
+
         // 3. Set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
         if (! empty($data)) {
@@ -100,14 +99,8 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
 
         // 5. Build edit form
         $this->_initAction()
-            ->_addBreadcrumb($id ? Mage::helper('cms')->__('Edit Page') : Mage::helper('cms')->__('New Page'), $id ? Mage::helper('cms')->__('Edit Page') : Mage::helper('cms')->__('New Page'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/cms_page_edit')->setData('action', $this->getUrl('*/cms_page/save')))
-            ->_addLeft($this->getLayout()->createBlock('adminhtml/cms_page_edit_tabs'));
+            ->_addBreadcrumb($id ? Mage::helper('cms')->__('Edit Page') : Mage::helper('cms')->__('New Page'), $id ? Mage::helper('cms')->__('Edit Page') : Mage::helper('cms')->__('New Page'));
 
-        if (Mage::app()->getConfig()->getModuleConfig('Mage_GoogleOptimizer')->is('active', true)
-            && Mage::helper('googleoptimizer')->isOptimizerActiveForCms()) {
-            $this->_addJs($this->getLayout()->createBlock('googleoptimizer/js')->setTemplate('googleoptimizer/js.phtml'));
-        }
         $this->renderLayout();
     }
 
@@ -118,7 +111,8 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     {
         // check if data sent
         if ($data = $this->getRequest()->getPost()) {
-            // init model and set data
+            $data = $this->_filterPostData($data);
+            //init model and set data
             $model = Mage::getModel('cms/page');
 
 //            if ($id = $this->getRequest()->getParam('page_id')) {
@@ -153,15 +147,24 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 $this->_redirect('*/*/');
                 return;
 
-            } catch (Exception $e) {
-                // display error message
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                // save data in session
-                Mage::getSingleton('adminhtml/session')->setFormData($data);
-                // redirect to edit form
-                $this->_redirect('*/*/edit', array('page_id' => $this->getRequest()->getParam('page_id')));
-                return;
+            } catch (Mage_Core_Exception $e) {
+                $this->_getSession()->addError($e->getMessage());
             }
+            catch (Exception $e) {
+                $this->_getSession()->addException($e, Mage::helper('cms')->__('Error while saving Page. Please try again later.'));
+//                $this->_getSession()->setFormData($data);
+//                // display error message
+//                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+//                // save data in session
+//                Mage::getSingleton('adminhtml/session')->setFormData($data);
+//                // redirect to edit form
+//                $this->_redirect('*/*/edit', array('page_id' => $this->getRequest()->getParam('page_id')));
+//                return;
+            }
+
+            $this->_getSession()->setFormData($data);
+            $this->_redirect('*/*/edit', array('page_id' => $this->getRequest()->getParam('page_id')));
+            return;
         }
         $this->_redirect('*/*/');
     }
@@ -209,6 +212,46 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
      */
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('cms/page');
+        switch ($this->getRequest()->getActionName()) {
+            case 'new':
+            case 'save':
+                return Mage::getSingleton('admin/session')->isAllowed('cms/page/save');
+                break;
+            case 'delete':
+                return Mage::getSingleton('admin/session')->isAllowed('cms/page/delete');
+                break;
+            default:
+                return Mage::getSingleton('admin/session')->isAllowed('cms/page');
+                break;
+        }
+    }
+
+    /**
+     * Filtering posted data. Converting localized data if needed
+     *
+     * @param array
+     * @return array
+     */
+    protected function _filterPostData($data)
+    {
+        $filterInput = new Zend_Filter_LocalizedToNormalized(array(
+                'date_format' => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
+            ));
+
+        $filterInternal = new Zend_Filter_NormalizedToLocalized(array(
+                'date_format' => Varien_Date::DATE_INTERNAL_FORMAT
+            ));
+
+        if (isset($data['custom_theme_from']) && $data['custom_theme_from']) {
+            $data['custom_theme_from'] = $filterInput->filter($data['custom_theme_from']);
+            $data['custom_theme_from'] = $filterInternal->filter($data['custom_theme_from']);
+        }
+
+        if (isset($data['custom_theme_to']) && $data['custom_theme_to']) {
+            $data['custom_theme_to'] = $filterInput->filter($data['custom_theme_to']);
+            $data['custom_theme_to'] = $filterInternal->filter($data['custom_theme_to']);
+        }
+
+        return $data;
     }
 }

@@ -72,7 +72,8 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
     public function editAction()
     {
         $id = $this->getRequest()->getParam('attribute_id');
-        $model = Mage::getModel('catalog/entity_attribute');
+        $model = Mage::getModel('catalog/resource_eav_attribute')
+            ->setEntityTypeId($this->_entityTypeId);
 
         if ($id) {
             $model->load($id);
@@ -118,7 +119,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
 
         $attributeCode  = $this->getRequest()->getParam('attribute_code');
         $attributeId    = $this->getRequest()->getParam('attribute_id');
-        $attribute = Mage::getModel('catalog/entity_attribute')
+        $attribute = Mage::getModel('catalog/resource_eav_attribute')
             ->loadByCode($this->_entityTypeId, $attributeCode);
 
         if ($attribute->getId() && !$attributeId) {
@@ -135,7 +136,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
     {
         if ($data = $this->getRequest()->getPost()) {
             $redirectBack   = $this->getRequest()->getParam('back', false);
-            $model = Mage::getModel('catalog/entity_attribute');
+            $model = Mage::getModel('catalog/resource_eav_attribute');
             /* @var $model Mage_Catalog_Model_Entity_Attribute */
 
             if ($id = $this->getRequest()->getParam('attribute_id')) {
@@ -234,7 +235,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
     public function deleteAction()
     {
         if ($id = $this->getRequest()->getParam('attribute_id')) {
-            $model = Mage::getModel('catalog/entity_attribute');
+            $model = Mage::getModel('catalog/resource_eav_attribute');
 
             // entity type check
             $model->load($id);

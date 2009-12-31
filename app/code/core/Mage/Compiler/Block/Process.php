@@ -98,7 +98,7 @@ class Mage_Compiler_Block_Process extends Mage_Adminhtml_Block_Template
      */
     protected function getHeader()
     {
-        return Mage::helper('compiler')->__('Compilation (Beta)');
+        return Mage::helper('compiler')->__('Compilation');
     }
 
     public function getChangeStatusButtonHtml()

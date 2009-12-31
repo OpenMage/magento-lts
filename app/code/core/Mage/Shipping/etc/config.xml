@@ -51,20 +51,7 @@
                 <setup>
                     <module>Mage_Shipping</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </shipping_setup>
-            <shipping_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </shipping_write>
-            <shipping_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </shipping_read>
         </resources>
         <sales>
             <shipping>
@@ -102,30 +89,6 @@
         </sales>
     </global>
     <adminhtml>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <shipping translate="title" modul="shipping">
-                                            <title>Shipping Settings Section</title>
-                                            <sort_order>0</sort_order>
-                                        </shipping>
-                                        <carriers translate="title" modul="shipping">
-                                            <title>Shipping Methods Section</title>
-                                            <sort_order>0</sort_order>
-                                        </carriers>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
         <translate>
             <modules>
                 <Mage_Shipping>

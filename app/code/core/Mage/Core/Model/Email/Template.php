@@ -54,7 +54,8 @@ class Mage_Core_Model_Email_Template extends Varien_Object
      * Configuration path for default email templates
      *
      */
-    const XML_PATH_TEMPLATE_EMAIL = 'global/template/email';
+    const XML_PATH_TEMPLATE_EMAIL          = 'global/template/email';
+    const XML_PATH_SENDING_SET_RETURN_PATH = 'system/smtp/set_return_path';
 
     protected $_templateFilter;
     protected $_preprocessFlag = false;
@@ -315,9 +316,9 @@ class Mage_Core_Model_Email_Template extends Varien_Object
      * @param   array       $variables    template variables
      * @return  boolean
      **/
-    public function send($email, $name=null, array $variables = array())
+    public function send($email, $name = null, array $variables = array())
     {
-        if(!$this->isValidForSend()) {
+        if (!$this->isValidForSend()) {
             return false;
         }
 
@@ -332,6 +333,11 @@ class Mage_Core_Model_Email_Template extends Varien_Object
         ini_set('smtp_port', Mage::getStoreConfig('system/smtp/port'));
 
         $mail = $this->getMail();
+
+        if (Mage::getStoreConfigFlag(self::XML_PATH_SENDING_SET_RETURN_PATH)) {
+            $mail->setReturnPath($this->getSenderEmail());
+        }
+
         if (is_array($email)) {
             foreach ($email as $emailOne) {
                 $mail->addTo($emailOne, $name);

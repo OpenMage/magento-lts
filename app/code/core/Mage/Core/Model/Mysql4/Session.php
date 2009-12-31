@@ -62,6 +62,14 @@ class Mage_Core_Model_Mysql4_Session implements Zend_Session_SaveHandler_Interfa
      */
     protected $_write;
 
+    /**
+     * Automatic cleaning factor of expired sessions
+     *
+     * value zero means no automatic cleaning, one means automatic cleaning each time a session is closed, and x>1 means
+     * cleaning once in x calls
+     */
+    protected $_automaticCleaningFactor = 50;
+    
     public function __construct()
     {
         $this->_sessionTable = Mage::getSingleton('core/resource')->getTableName('core/session');
@@ -211,7 +219,12 @@ class Mage_Core_Model_Mysql4_Session implements Zend_Session_SaveHandler_Interfa
      */
     public function gc($sessMaxLifeTime)
     {
-        $this->_write->query("DELETE FROM `{$this->_sessionTable}` WHERE `session_expires` < ?", array(time()));
+        if ($this->_automaticCleaningFactor > 0) {
+            if ($this->_automaticCleaningFactor == 1 ||
+                rand(1, $this->_automaticCleaningFactor)==1) {
+                $this->_write->query("DELETE FROM `{$this->_sessionTable}` WHERE `session_expires` < ?", array(time()));
+            }
+        }
         return true;
     }
 }

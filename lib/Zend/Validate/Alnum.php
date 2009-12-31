@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Alnum.php 14560 2009-03-31 14:41:22Z thomas $
+ * @version    $Id: Alnum.php 17467 2009-08-08 18:06:55Z thomas $
  */
 
 /**
@@ -27,19 +27,13 @@
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_Alnum extends Zend_Validate_Abstract
 {
-    /**
-     * Validation failure message key for when the value contains non-alphabetic or non-digit characters
-     */
-    const NOT_ALNUM = 'notAlnum';
-
-    /**
-     * Validation failure message key for when the value is an empty string
-     */
+    const INVALID      = 'alnumInvalid';
+    const NOT_ALNUM    = 'notAlnum';
     const STRING_EMPTY = 'stringEmpty';
 
     /**
@@ -63,6 +57,7 @@ class Zend_Validate_Alnum extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
+        self::INVALID      => "Invalid type given, value should be float, string, or integer",
         self::NOT_ALNUM    => "'%value%' has not only alphabetic and digit characters",
         self::STRING_EMPTY => "'%value%' is an empty string"
     );
@@ -110,11 +105,14 @@ class Zend_Validate_Alnum extends Zend_Validate_Abstract
      */
     public function isValid($value)
     {
-        $valueString = (string) $value;
+        if (!is_string($value) && !is_int($value) && !is_float($value)) {
+            $this->_error(self::INVALID);
+            return false;
+        }
 
-        $this->_setValue($valueString);
+        $this->_setValue($value);
 
-        if ('' === $valueString) {
+        if ('' === $value) {
             $this->_error(self::STRING_EMPTY);
             return false;
         }
@@ -129,7 +127,7 @@ class Zend_Validate_Alnum extends Zend_Validate_Abstract
 
         self::$_filter->allowWhiteSpace = $this->allowWhiteSpace;
 
-        if ($valueString !== self::$_filter->filter($valueString)) {
+        if ($value != self::$_filter->filter($value)) {
             $this->_error(self::NOT_ALNUM);
             return false;
         }
