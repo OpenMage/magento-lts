@@ -71,7 +71,9 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
             ->addAttributeToSelect('name', 'inner')
             ->setDateOrder();
 
-         Mage::getSingleton('core/resource_iterator')
+        Mage::dispatchEvent('rss_catalog_review_collection_select', array('collection' => $collection));
+
+        Mage::getSingleton('core/resource_iterator')
             ->walk($collection->getSelect(), array(array($this, 'addReviewItemXmlCallback')), array('rssObj'=> $rssObj, 'reviewModel'=> $reviewModel));
         return $rssObj->createRssXml();
     }
@@ -82,9 +84,11 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
         $reviewModel = $args['reviewModel'];
         $row = $args['row'];
 
-        $productUrl = Mage::getUrl('catalog/product/view',array('id'=>$row['entity_id']));
-        $reviewUrl = Mage::helper('adminhtml')->getUrl('adminhtml/catalog_product_review/edit/', array('id'=>$row['review_id'],'_secure' => true,'_nosecret' => true));
-        $storeName = Mage::app()->getStore($row['store_id'])->getName();
+        $store = Mage::app()->getStore($row['store_id']);
+        $urlModel = Mage::getModel('core/url')->setStore($store);
+        $productUrl = $urlModel->getUrl('catalog/product/view', array('id'=>$row['entity_id']));
+        $reviewUrl = Mage::helper('adminhtml')->getUrl('adminhtml/catalog_product_review/edit/', array('id'=>$row['review_id'], '_secure' => true, '_nosecret'=>true));
+        $storeName = $store->getName();
 
         $description = '<p>'.
         $this->__('Product: <a href="%s">%s</a> <br/>',$productUrl,$row['name']).

@@ -92,15 +92,18 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
     public function deleteAction()
     {
         $rid = $this->getRequest()->getParam('rid', false);
+
         $currentUser = Mage::getModel('admin/user')->setId(Mage::getSingleton('admin/session')->getUser()->getId());
-        if ( in_array($rid, $currentUser->getRoles()) ) {
+
+        if (in_array($rid, $currentUser->getRoles()) ) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('You can not delete self assigned roles.'));
             $this->_redirect('*/*/editrole', array('rid' => $rid));
             return;
         }
 
         try {
-            Mage::getModel("admin/roles")->setId($rid)->delete();
+            $role = $this->_initRole()->delete();
+
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Role successfully deleted.'));
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('Error while deleting this role. Please try again later.'));
@@ -121,12 +124,17 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         if ($isAll)
             $resource = array("all");
 
+        $role = $this->_initRole('role_id');
+        if (!$role->getId() && $rid) {
+            Mage::getSingleton('adminhtml/session')->addError($this->__('This Role no longer exists'));
+            $this->_redirect('*/*/');
+            return;
+        }
+
         try {
-            $role = Mage::getModel("admin/roles")
-                    ->setId($rid)
-                    ->setName($this->getRequest()->getParam('rolename', false))
-                    ->setPid($this->getRequest()->getParam('parent_id', false))
-                    ->setRoleType('G');
+            $role->setName($this->getRequest()->getParam('rolename', false))
+                 ->setPid($this->getRequest()->getParam('parent_id', false))
+                 ->setRoleType('G');
             Mage::dispatchEvent('admin_permissions_role_prepare_save', array('object' => $role, 'request' => $this->getRequest()));
             $role->save();
 

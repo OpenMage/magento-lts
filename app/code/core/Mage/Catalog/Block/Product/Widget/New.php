@@ -33,7 +33,7 @@
  */
 class Mage_Catalog_Block_Product_Widget_New
     extends Mage_Catalog_Block_Product_New
-    implements Mage_Cms_Block_Widget_Interface
+    implements Mage_Widget_Block_Interface
 {
     /**
      * Internal contructor

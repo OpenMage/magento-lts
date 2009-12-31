@@ -79,7 +79,8 @@ Customer account home dashboard layout
 All tags page
 -->
 
-    <tag_list_index>
+    <tag_list_index translate="label">
+        <label>Tags List (All Available)</label>
         <!-- Mage_Tag -->
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
@@ -89,7 +90,8 @@ All tags page
         </reference>
     </tag_list_index>
 
-    <tag_product_list>
+    <tag_product_list translate="label">
+        <label>Tagged Products List</label>
         <!-- Mage_Tag -->
         <reference name="content">
             <block type="tag/product_result" name="tag_products" template="catalogsearch/result.phtml">
@@ -101,7 +103,8 @@ All tags page
         </reference>
     </tag_product_list>
 
-    <tag_customer_index>
+    <tag_customer_index translate="label">
+        <label>Customer My Account My Tags List</label>
         <update handle="customer_account"/>
         <reference name="root">
             <action method="setHeaderTitle" translate="title" module="customer"><title>My Account</title></action>
@@ -111,7 +114,8 @@ All tags page
         </reference>
     </tag_customer_index>
 
-    <tag_customer_view>
+    <tag_customer_view translate="label">
+        <label>Customer My Account Tag View</label>
         <update handle="customer_account"/>
         <reference name="root">
             <action method="setHeaderTitle" translate="title" module="customer"><title>My Account</title></action>

@@ -789,6 +789,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Url extends Mage_Core_Model_Mysql4_
             $product = new Varien_Object($row);
             $product->setIdFieldName('entity_id');
             $product->setCategoryIds(array());
+            $product->setStoreId($storeId);
             $products[$product->getId()] = $product;
             $lastEntityId = $product->getId();
         }

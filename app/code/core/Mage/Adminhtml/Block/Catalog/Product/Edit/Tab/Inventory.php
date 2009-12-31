@@ -52,6 +52,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
         return Mage::getSingleton('cataloginventory/source_stock')->toOptionArray();
     }
 
+    /**
+     * Return current product instance
+     *
+     * @return Mage_Catalog_Model_Product
+     */
     public function getProduct()
     {
         return Mage::registry('product');
@@ -118,5 +123,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
     public function getFieldSuffix()
     {
         return 'product';
+    }
+
+    /**
+     * Check Whether product type can have fractional quantity or not
+     *
+     * @return bool
+     */
+    public function canUseQtyDecimals()
+    {
+        return $this->getProduct()->getTypeInstance()->canUseQtyDecimals();
     }
 }

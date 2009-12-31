@@ -175,7 +175,9 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                         if (($acl = (string)$attributes->acl) && Mage::getSingleton('admin/session')->isAllowed($acl)) {
                             continue;
                         }
-                        $block->addAttribute('ignore', true);
+                        if (!isset($block->attributes()->ignore)) {
+                            $block->addAttribute('ignore', true);
+                        }
                     }
                 }
             }
@@ -588,6 +590,35 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             return false;
         }
         return $helper->setLayout($this);
+    }
+
+    /**
+     * Lookup module name for translation from current specified layout node
+     *
+     * Priorities:
+     * 1) "module" attribute in the element
+     * 2) "module" attribute in any ancestor element
+     * 3) layout handle name - first 1 or 2 parts (namespace is determined automatically)
+     *
+     * @param Varien_Simplexml_Element $node
+     * @return string
+     */
+    public static function findTranslationModuleName(Varien_Simplexml_Element $node)
+    {
+        if ($result = $node->getAttribute('module')) {
+            return (string)$result;
+        }
+        foreach (array_reverse($node->xpath('ancestor::*[@module]')) as $element) {
+            if ($result = $element->getAttribute('module')) {
+                return (string)$result;
+            }
+        }
+        foreach ($node->xpath('ancestor-or-self::*[last()-1]') as $handle) {
+            if ($name = Mage::getConfig()->determineOmittedNamespace($handle->getName())) {
+                return $name;
+            }
+        }
+        return 'core';
     }
 
     /*public function setBlockCache($frontend='Core', $backend='File',

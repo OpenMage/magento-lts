@@ -33,7 +33,7 @@ $_misc = $this->getRssMiscFeeds();
 ?>
     <?php if($_misc): ?>
     <table cellspacing="0" class="data-table" id="rss-table-misc">
-        <thead><tr><th>Miscellaneous Feeds</th></tr></thead>
+        <thead><tr><th><?php echo $this->__('Miscellaneous Feeds') ?></th></tr></thead>
         <tbody>
     <?php foreach ($_misc as $_feed): ?>
             <tr>

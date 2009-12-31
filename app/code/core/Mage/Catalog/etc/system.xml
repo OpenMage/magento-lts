@@ -121,7 +121,7 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </flat_catalog_product>
-                        
+
                         <default_sort_by translate="label comment">
                             <label>Product listing sort by</label>
                             <frontend_type>select</frontend_type>

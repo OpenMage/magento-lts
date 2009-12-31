@@ -281,10 +281,6 @@ Billing.prototype = {
 
         var validator = new Validation(this.form);
         if (validator.validate()) {
-            if (checkout.method=='register' && $('billing:customer_password').value != $('billing:confirm_password').value) {
-                alert(Translator.translate('Error: Passwords do not match'));
-                return;
-            }
             checkout.setLoadWaiting('billing');
 
 //            if ($('billing:use_for_shipping') && $('billing:use_for_shipping').checked) {
@@ -627,6 +623,7 @@ Payment.prototype = {
             } else {
                 elements[i].disabled = true;
             }
+            elements[i].setAttribute('autocomplete','off');
         }
         if (method) this.switchMethod(method);
     },

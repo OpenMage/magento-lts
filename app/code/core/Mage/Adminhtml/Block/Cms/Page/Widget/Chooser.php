@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
         $uniqId = Mage::helper('core')->uniqHash($element->getId());
         $sourceUrl = $this->getUrl('*/cms_page_widget/chooser', array('uniq_id' => $uniqId));
 
-        $chooser = $this->getLayout()->createBlock('adminhtml/cms_widget_chooser')
+        $chooser = $this->getLayout()->createBlock('widget/adminhtml_widget_chooser')
             ->setElement($element)
             ->setTranslationHelper($this->getTranslationHelper())
             ->setConfig($this->getConfig())
@@ -88,8 +88,8 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
         $js = '
             function (grid, event) {
                 var trElement = Event.findElement(event, "tr");
-                var pageTitle = trElement.down("td").innerHTML;
-                var pageId = trElement.down("td").next().innerHTML;
+                var pageTitle = trElement.down("td").next().innerHTML;
+                var pageId = trElement.down("td").innerHTML;
                 '.$chooserJsObject.'.setElementValue(pageId);
                 '.$chooserJsObject.'.setElementLabel(pageTitle);
                 '.$chooserJsObject.'.close();
@@ -120,6 +120,13 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
      */
     protected function _prepareColumns()
     {
+        $this->addColumn('chooser_id', array(
+            'header'    => Mage::helper('cms')->__('ID'),
+            'align'     => 'right',
+            'index'     => 'page_id',
+            'width'     => 50
+        ));
+
         $this->addColumn('chooser_title', array(
             'header'    => Mage::helper('cms')->__('Title'),
             'align'     => 'left',

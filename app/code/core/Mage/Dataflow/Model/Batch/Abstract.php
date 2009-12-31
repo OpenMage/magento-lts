@@ -43,17 +43,14 @@ abstract class Mage_Dataflow_Model_Batch_Abstract extends Mage_Core_Model_Abstra
      */
     public function setBatchData($data)
     {
-        /**
-        * need prepare valid utf-8 data
-        * related with php bug #42588
-        */
-        foreach ($data as $key=>$value) {
-            $str = @iconv("utf-8", "utf-8//IGNORE", $value);
-            if ($str) {
-                $data[$key] = $str;
-            }    
+        if ('"libiconv"' == ICONV_IMPL) {
+            foreach ($data as $key => &$value) {
+                $value = iconv('utf-8', 'utf-8//IGNORE', $value);
+            }
         }
+
         $this->setData('batch_data', serialize($data));
+        
         return $this;
     }
 

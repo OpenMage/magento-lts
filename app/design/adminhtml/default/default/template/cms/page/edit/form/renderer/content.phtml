@@ -27,7 +27,6 @@
 <?php $_element = $this->getElement() ?>
 <?php if (!$_element->getNoDisplay()): ?>
 <tr>
-    <td colspan="2" class="value"><?php echo trim($_element->getElementHtml()) ?></td>
-    <td<?php if ($_element->getNote()): ?> class="note"<?php endif ?> id="note_<?php echo $_element->getId()?>"><small><?php echo $_element->getNote()?$_element->getNote():'&nbsp;' ?></small></td>
+    <td colspan="3" class="value"><?php echo trim($_element->getElementHtml()) ?></td>
 </tr>
 <?php endif; ?>

@@ -298,9 +298,9 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @param  string
      * @return string
      */
-    public function xmlentities($value='')
+    public function xmlentities($value = null)
     {
-        if (empty($value)) {
+        if (is_null($value)) {
             $value = $this;
         }
         $value = (string)$value;

@@ -33,11 +33,15 @@ $_class   = $_element->getFieldsetHtmlClass();
 <?php if (!$_element->getNoDisplay()): ?>
 <tr<?php if($_trId): ?> id="<?php echo $_trId ?>"<?php endif; ?>>
     <?php if ($_element->getType()=='hidden'): ?>
-    <td colspan="3" class="hidden"><?php echo trim($_element->getElementHtml()) ?></td>
+    <td colspan="2" class="hidden"><?php echo trim($_element->getElementHtml()) ?></td>
     <?php else: ?>
     <td class="label<?php echo $_class ? " {$_class}-label" : ''?>"><?php echo trim($_element->getLabelHtml()) ?></td>
-    <td class="<?php echo $_element->hasValueClass() ? $_element->getValueClass() : 'value' ?><?php echo $_class ? " {$_class}-value" : ''?>"><?php echo trim($_element->getElementHtml()) ?></td>
-    <td<?php if ($_note): ?> class="note<?php echo $_class ? " {$_class}-note" : ''?>"<?php endif ?> id="note_<?php echo $_element->getId()?>"><small><?php echo $_note ? $_note : '&nbsp;' ?></small></td>
+    <td class="<?php echo $_element->hasValueClass() ? $_element->getValueClass() : 'value' ?><?php echo $_class ? " {$_class}-value" : ''?>">
+        <?php echo trim($_element->getElementHtml()) ?>
+        <?php if ($_note): ?>
+            <p class="note<?php echo $_class ? " {$_class}-note" : ''?>" id="note_<?php echo $_element->getId()?>"><span><?php echo $_note ?></span></p>
+        <?php endif ?>
+    </td>
     <?php endif; ?>
 </tr>
 <?php endif; ?>

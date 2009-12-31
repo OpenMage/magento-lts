@@ -162,4 +162,20 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
 
         return $this;
     }
+
+    /**
+     * Retrieve information from payment configuration.
+     * Rewrited because of custom node for checkout settings
+     *
+     * @param   string $field
+     * @return  mixed
+     */
+    public function getConfigData($field, $storeId = null)
+    {
+        if (null === $storeId) {
+            $storeId = $this->getStore();
+        }
+        $path = 'google/checkout/'.$field;
+        return Mage::getStoreConfig($path, $storeId);
+    }
 }

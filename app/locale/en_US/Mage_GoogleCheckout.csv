@@ -46,7 +46,7 @@
 "Google Refund:","Google Refund:"
 "Google Risk Information:","Google Risk Information:"
 "Google order status change:","Google order status change:"
-"Hide Cart Contents During Checkout","Hide Cart Contents During Checkout"
+"Hide Cart Contents","Hide Cart Contents"
 "IP Address: %s","IP Address: %s"
 "If enabled, cart contents will be hidden after clicking on the Google Checkout button in the shopping cart, and restored if ""Edit Cart"" link was activated.","If enabled, cart contents will be hidden after clicking on the Google Checkout button in the shopping cart, and restored if ""Edit Cart"" link was activated."
 "Invoice auto-created: %s","Invoice auto-created: %s"

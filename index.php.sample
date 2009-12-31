@@ -29,6 +29,19 @@ if (version_compare(phpversion(), '5.2.0', '<')===true) {
     exit;
 }
 
+/**
+ * Error reporting
+ */
+error_reporting(E_ALL | E_STRICT);
+
+/**
+ * Compilation includes configuration file
+ */
+$compilerConfig = 'includes/config.php';
+if (file_exists($compilerConfig)) {
+    include $compilerConfig;
+}
+
 $mageFilename = 'app/Mage.php';
 
 if (!file_exists($mageFilename)) {
@@ -44,9 +57,15 @@ require_once $mageFilename;
 
 #Varien_Profiler::enable();
 
-#Mage::setIsDeveloperMode(true);
+if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
+    Mage::setIsDeveloperMode(true);
+}
 
 #ini_set('display_errors', 1);
 
 umask(0);
-Mage::run('default');
+
+$mageRunCode = isset($_SERVER['MAGE_RUN_CODE']) ? $_SERVER['MAGE_RUN_CODE'] : '';
+$mageRunType = isset($_SERVER['MAGE_RUN_TYPE']) ? $_SERVER['MAGE_RUN_TYPE'] : 'store';
+
+Mage::run($mageRunCode, $mageRunType);

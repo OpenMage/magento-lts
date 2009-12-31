@@ -82,7 +82,13 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost()) {
-            $model = Mage::getModel('api/user');
+            $id = $this->getRequest()->getPost('user_id', false);
+            $model = Mage::getModel('api/user')->load($id);
+            if (!$model->getId() && $id) {
+                Mage::getSingleton('adminhtml/session')->addError($this->__('This User no longer exists'));
+                $this->_redirect('*/*/');
+                return;
+            }
             $model->setData($data);
             try {
                 $model->save();
@@ -120,8 +126,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
         if ($id = $this->getRequest()->getParam('user_id')) {
 
             try {
-                $model = Mage::getModel('api/user');
-                $model->setId($id);
+                $model = Mage::getModel('api/user')->load($id);
                 $model->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('User was successfully deleted'));
                 $this->_redirect('*/*/');

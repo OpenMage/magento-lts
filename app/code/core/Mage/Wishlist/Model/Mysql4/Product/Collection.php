@@ -84,7 +84,8 @@ class Mage_Wishlist_Model_Mysql4_Product_Collection
                 'wishlist_item_id'          => 'wishlist_item_id',
             ),
             array(
-                'wishlist_id'               => $wishlist->getId()
+                'wishlist_id'               => $wishlist->getId(),
+                'store_id'                  => array('in' => $wishlist->getSharedStoreIds())
             )
         );
 

@@ -127,7 +127,7 @@
         </div>
 
         <div class="button-set">
-            <button class="form-button right" type="submit"><span><?php echo $this->__('Send email') ?></span></button>
+            <button class="form-button right<?php if (!$this->canSend()):?> disabled<?php endif ?>" type="submit"<?php if (!$this->canSend()):?> disabled="disabled"<?php endif ?>><span><?php echo $this->__('Send email') ?></span></button>
         </div>
     </div>
 </div>

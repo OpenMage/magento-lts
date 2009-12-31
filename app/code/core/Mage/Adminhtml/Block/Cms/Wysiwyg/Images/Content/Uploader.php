@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Uploader extends Mage_Admi
     {
         parent::__construct();
         $params = $this->getConfig()->getParams();
-        $type = $this->getRequest()->getParam('type');
+        $type = $this->_getMediaType();
         $allowed = Mage::getSingleton('cms/wysiwyg_images_storage')->getAllowedExtensions($type);
         $labels = array();
         $files = array();
@@ -55,5 +55,17 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Uploader extends Mage_Admi
                     'files' => $files
                 )
             ));
+    }
+
+    /**
+     * Return current media type based on request or data
+     * @return string
+     */
+    protected function _getMediaType()
+    {
+        if ($this->hasData('media_type')) {
+            return $this->_getData('media_type');
+        }
+        return $this->getRequest()->getParam('type');
     }
 }

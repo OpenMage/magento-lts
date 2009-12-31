@@ -121,6 +121,9 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main
                 '0' => Mage::helper('salesrule')->__('Inactive'),
             ),
         ));
+        if (!$model->getId()) {
+            $model->setData('is_active', '1');
+        }
 
 
         if (!Mage::app()->isSingleStoreMode()) {

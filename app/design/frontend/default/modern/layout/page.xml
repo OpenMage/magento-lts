@@ -30,7 +30,8 @@
 Default layout, loads most of the pages
 -->
 
-    <default>
+    <default translate="label" module="page">
+        <label>All Pages</label>
         <block type="page/html" name="root" output="toHtml" template="page/2columns-left.phtml">
 
             <block type="page/html_head" name="head" as="head">
@@ -66,20 +67,33 @@ Default layout, loads most of the pages
             <block type="page/switch" name="store_language" as="store_language" template="page/switch/languages.phtml"/>
             <block type="page/html_header" name="header" as="header">
                 <block type="core/text_list" name="top.menu" as="topMenu"/>
+                <block type="core/text_list" name="top.container" as="topContainer" translate="label">
+                    <label>Page Header</label>
+                </block>
             </block>
 
             <block type="page/template_links" name="top.links" as="topLinks"/>
 
             <block type="page/html_breadcrumbs" name="breadcrumbs" as="breadcrumbs"/>
 
-            <block type="core/text_list" name="left" as="left"/>
+            <block type="core/text_list" name="left" as="left" translate="label">
+                <label>Left Column</label>
+            </block>
 
             <block type="core/messages" name="global_messages" as="global_messages"/>
             <block type="core/messages" name="messages" as="messages"/>
 
-            <block type="core/text_list" name="content" as="content"/>
+            <block type="core/text_list" name="content" as="content" translate="label">
+                <label>Main Content Area</label>
+            </block>
 
-            <block type="core/text_list" name="right" as="right"/>
+            <block type="core/text_list" name="right" as="right" translate="label">
+                <label>Right Column</label>
+            </block>
+
+            <block type="core/text_list" name="footer.before" as="footer_before" translate="label">
+                <label>Page Footer</label>
+            </block>
 
             <block type="page/html_footer" name="footer" as="footer" template="page/html/footer.phtml">
                 <block type="page/switch" name="store_switcher" as="store_switcher" template="page/switch/stores.phtml"/>
@@ -92,7 +106,8 @@ Default layout, loads most of the pages
         <block type="core/profiler" output="toHtml"/>
     </default>
 
-    <print>
+    <print translate="label" module="page">
+        <label>All Pages (Print Version)</label>
         <!-- Mage_Page -->
         <block type="page/html" name="root" output="toHtml" template="page/print.phtml">
 
@@ -116,13 +131,16 @@ Default layout, loads most of the pages
                 <action method="addCss"><stylesheet>css/print.css</stylesheet><params>media="print"</params></action>
             </block>
 
-            <block type="core/text_list" name="content" as="content"/>
+            <block type="core/text_list" name="content" as="content" translate="label">
+                <label>Main Content Area</label>
+            </block>
 
         </block>
     </print>
     
-    <!-- Custom page layout handles -->
-    <page_empty>
+     <!-- Custom page layout handles -->
+    <page_empty translate="label">
+        <label>All Empty Layout Pages</label>
         <reference name="root">
             <action method="setTemplate"><template>page/one-column.phtml</template></action>
             <!-- Mark root page block that template is applied -->
@@ -130,7 +148,8 @@ Default layout, loads most of the pages
         </reference>
     </page_empty>
     
-    <page_one_column>
+    <page_one_column translate="label">
+        <label>All One-Column Layout Pages</label>
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
             <!-- Mark root page block that template is applied -->
@@ -138,7 +157,8 @@ Default layout, loads most of the pages
         </reference>
     </page_one_column>
     
-    <page_two_columns_left>
+    <page_two_columns_left translate="label">
+        <label>All Two-Column Layout Pages (Left Column)</label>
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
             <!-- Mark root page block that template is applied -->
@@ -146,7 +166,8 @@ Default layout, loads most of the pages
         </reference>
     </page_two_columns_left>
     
-    <page_two_columns_right>
+    <page_two_columns_right translate="label">
+        <label>All Two-Column Layout Pages (Right Column)</label>
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
             <!-- Mark root page block that template is applied -->
@@ -154,7 +175,8 @@ Default layout, loads most of the pages
         </reference>
     </page_two_columns_right>
     
-    <page_three_columns>
+    <page_three_columns translate="label">
+        <label>All Three-Column Layout Pages</label>
         <reference name="root">
             <action method="setTemplate"><template>page/3columns.phtml</template></action>
             <!-- Mark root page block that template is applied -->

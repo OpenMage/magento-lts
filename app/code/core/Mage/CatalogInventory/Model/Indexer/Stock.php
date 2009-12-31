@@ -117,30 +117,45 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
+        $data       = $event->getNewData();
+        $resultKey  = 'cataloginventory_stock_match_result';
+        if (isset($data[$resultKey])) {
+            return $data[$resultKey];
+        }
+
+        $result = null;
         $entity = $event->getEntity();
         if ($entity == Mage_Core_Model_Store::ENTITY) {
             /* @var $store Mage_Core_Model_Store */
             $store = $event->getDataObject();
             if ($store->isObjectNew()) {
-                return true;
+                $result = true;
+            } else {
+                $result = false;
             }
-            return false;
         } else if ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             /* @var $storeGroup Mage_Core_Model_Store_Group */
             $storeGroup = $event->getDataObject();
             if ($storeGroup->dataHasChangedFor('website_id')) {
-                return true;
+                $result = true;
+            } else {
+                $result = false;
             }
-            return false;
         } else if ($entity == Mage_Core_Model_Config_Data::ENTITY) {
             $configData = $event->getDataObject();
             $path = $configData->getPath();
             if (in_array($path, $this->_relatedConfigSettings)) {
-                return $configData->isValueChanged();
+                $result = $configData->isValueChanged();
+            } else {
+                $result = false;
             }
-            return false;
+        } else {
+            $result = parent::matchEvent($event);
         }
-        return parent::matchEvent($event);
+
+        $event->addNewData($resultKey, $result);
+
+        return $result;
     }
 
     /**

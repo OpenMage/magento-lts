@@ -42,11 +42,17 @@ Default layout, loads most of the pages
         </reference>
     </default>
     
-    <cms_page>
+    <cms_page translate="label">
+        <label>CMS Pages (All)</label>
         <reference name="content">
+            <block type="core/template" name="page_content_heading" template="cms/content_heading.phtml"/>
             <block type="cms/page" name="cms_page"/>
         </reference>
     </cms_page>
+
+    <cms_index_index translate="label">
+        <label>CMS Home Page</label>
+    </cms_index_index>
 
     <cms_index_defaultindex>
         <remove name="left"/>
@@ -58,6 +64,10 @@ Default layout, loads most of the pages
             <block type="core/template" name="default_home_page" template="cms/default/home.phtml"/>
         </reference>
     </cms_index_defaultindex>
+
+    <cms_index_noroute translate="label">
+        <label>CMS No-Route Page</label>
+    </cms_index_noroute>
 
     <cms_index_defaultnoroute>
         <remove name="left"/>

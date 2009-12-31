@@ -42,6 +42,7 @@ class Mage_Adminhtml_Block_Report_Sales_Shipping_Grid extends Mage_Adminhtml_Blo
 
     protected function _prepareCollection()
     {
+        $this->setSubReportSize(null);
         parent::_prepareCollection();
         $this->getCollection()->initReport('reports/shipping_collection');
     }

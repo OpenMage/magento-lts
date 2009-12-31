@@ -312,4 +312,38 @@ class Mage_Review_Model_Mysql4_Review extends Mage_Core_Model_Mysql4_Abstract
     {
         $this->_aggregateRatings($this->_loadVotedRatingIds($reviewId), $entityPkValue);
     }
+
+    /**
+     * Get review entity type id by code
+     *
+     * @param string $entityCode
+     * @return int|bool
+     */
+    public function getEntityIdByCode($entityCode)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->_reviewEntityTable, array('entity_id'))
+            ->where('entity_code = ?', $entityCode);
+        return $this->_getReadAdapter()->fetchOne($select);
+    }
+
+    /**
+     * Delete reviews by product id.
+     * Better to call this method in transaction, because operation performed on two separated tables
+     *
+     * @param int $productId
+     * @return Mage_Review_Model_Mysql4_Review
+     */
+    public function deleteReviewsByProductId($productId)
+    {
+        $this->_getWriteAdapter()->delete($this->_reviewTable, array(
+            'entity_pk_value=?' => $productId,
+            'entity_id=?' => $this->getEntityIdByCode(Mage_Review_Model_Review::ENTITY_PRODUCT_CODE)
+        ));
+        $this->_getWriteAdapter()->delete($this->getTable('review/review_aggregate'), array(
+            'entity_pk_value=?' => $productId,
+            'entity_type=?' => $this->getEntityIdByCode(Mage_Review_Model_Review::ENTITY_PRODUCT_CODE)
+        ));
+        return $this;
+    }
 }

@@ -212,6 +212,22 @@ class Varien_Io_File extends Varien_Io_Abstract
     }
 
     /**
+     * Format line as CSV and write to file pointer
+     *
+     * @param array $row
+     * @param string $delimiter
+     * @param string $enclosure
+     * @return bool|int
+     */
+    public function streamWriteCsv(array $row, $delimiter = ',', $enclosure = '"')
+    {
+        if (!$this->_streamHandler) {
+            return false;
+        }
+        return @fputcsv($this->_streamHandler, $row, $delimiter, $enclosure);
+    }
+
+    /**
      * Close an open file pointer
      * Set chmod on a file
      *

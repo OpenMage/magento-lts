@@ -112,17 +112,31 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
             'value'     => $model->getTemplateSenderEmail(),
         ));
 
+
+        $widgetFilters = array('is_email_compatible' => 1);
+        $wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(array('widget_filters' => $widgetFilters));
+        if ($model->isPlain()) {
+            $wysiwygConfig->setEnabled(false);
+        }
         $fieldset->addField('text', 'editor', array(
             'name'      => 'text',
-            'wysiwyg'   => false, //(!$model->isPlain()),
             'label'     => Mage::helper('newsletter')->__('Template Content'),
             'title'     => Mage::helper('newsletter')->__('Template Content'),
-            'theme'     => 'advanced',
             'required'  => true,
             'state'     => 'html',
             'style'     => 'height:36em;',
             'value'     => $model->getTemplateText(),
+            'config'    => $wysiwygConfig
         ));
+
+        if (!$model->isPlain()) {
+            $fieldset->addField('template_styles', 'textarea', array(
+                'name'          =>'styles',
+                'label'         => Mage::helper('newsletter')->__('Template Styles'),
+                'container_id'  => 'field_template_styles',
+                'value'         => $model->getTemplateStyles()
+            ));
+        }
 
         $form->setAction($this->getUrl('*/*/save'));
         $form->setUseContainer(true);

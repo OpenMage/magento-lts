@@ -65,7 +65,7 @@
                 <li style="marin:0;padding:0;">
                     <div class="col2-alt-set">
                         <div class="col-1">
-                            <input type="radio" name="checkout_method" id="login:guest" value="guest"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Sales_Model_Quote::CHECKOUT_METHOD_GUEST): ?> checked="checked"<?php endif ?> />
+                            <input type="radio" name="checkout_method" id="login:guest" value="guest"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Checkout_Model_Type_Onepage::METHOD_GUEST): ?> checked="checked"<?php endif ?> />
                         </div>
                         <div class="col-2" style="padding-top:5px;">
                             <label for="login:guest"><?php echo $this->__('Checkout as Guest') ?></label>
@@ -76,7 +76,7 @@
                 <li style="marin:0;padding:0;">
                     <div class="col2-alt-set">
                         <div class="col-1">
-                            <input type="radio" name="checkout_method" id="login:register" value="register"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER || !$this->getQuote()->isAllowedGuestCheckout()): ?> checked="checked"<?php endif ?> />
+                            <input type="radio" name="checkout_method" id="login:register" value="register"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER || !$this->getQuote()->isAllowedGuestCheckout()): ?> checked="checked"<?php endif ?> />
                         </div>
                         <div class="col-2" style="padding-top:5px;">
                             <label for="login:register"><?php echo $this->__('Register') ?></label>

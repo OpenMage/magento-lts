@@ -62,7 +62,7 @@ class Mage_CatalogIndex_Model_Mysql4_Attribute extends Mage_CatalogIndex_Model_M
 
         $fields = array('count'=>'COUNT(index.entity_id)', 'index.value');
 
-        $select->from('', $fields)
+        $select->columns($fields)
             ->join(array('index'=>$this->getMainTable()), 'index.entity_id=e.entity_id', array())
             ->where('index.store_id = ?', $this->getStoreId())
             ->where('index.attribute_id = ?', $attribute->getId())

@@ -67,7 +67,7 @@ class Mage_Reports_Model_Mysql4_Review_Customer_Collection extends Mage_Review_M
 
         $this->getSelect()->joinInner(array('_table_customer_lastname' => $lastnameTable),
             '_table_customer_lastname.entity_id=detail.customer_id'.$attrCondition, array())
-            ->from("", array(
+            ->columns(array(
                         'customer_name' => "CONCAT(_table_customer_firstname.{$firstnameField}, ' ', _table_customer_lastname.{$lastnameField})",
                         'review_cnt' => "COUNT(main_table.review_id)"))
             ->group('detail.customer_id');

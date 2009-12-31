@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<layout version="0.1.0">
+    <default>
+        <reference name="footer_links">
+            <action method="addLink" translate="label title" module="rss" ifconfig="rss/config/active"><label>RSS</label><url>rss</url><title>RSS</title><prepare>true</prepare><urlParams/><position/><li/><a>class="link-rss"</a></action>
+        </reference>
+    </default>
+<!--
+Default layout, loads most of the pages
+-->
+    <rss_index_index translate="label">
+        <label>RSS Feeds List</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+        <reference name="content">
+              <block type="rss/list" name="rss.list" template="rss/list.phtml"/>
+        </reference>
+    </rss_index_index>
+
+    <rss_index_nofeed>
+        <block type="core/template" name="root" output="toHtml" template="rss/nofeed.phtml"/>
+    </rss_index_nofeed>
+
+    <rss_index_wishlist>
+        <block type="rss/wishlist" name="rss.wishlist" output="toHtml"/>
+    </rss_index_wishlist>
+<!--
+Catalog layout
+-->
+    <rss_catalog_new>
+        <block type="rss/catalog_new" output="toHtml" name="rss.catalog.new"/>
+    </rss_catalog_new>
+
+    <rss_catalog_special>
+        <block type="rss/catalog_special" output="toHtml" name="rss.catalog.special"/>
+    </rss_catalog_special>
+
+    <rss_catalog_salesrule>
+        <block type="rss/catalog_salesrule" output="toHtml" name="rss.catalog.salesrule"/>
+    </rss_catalog_salesrule>
+
+    <rss_catalog_tag>
+        <block type="rss/catalog_tag" output="toHtml" name="rss.catalog.tag" />
+    </rss_catalog_tag>
+
+    <rss_catalog_notifystock>
+        <block type="rss/catalog_notifyStock" output="toHtml" name="rss.catalog.notifystock" />
+    </rss_catalog_notifystock>
+
+    <rss_catalog_review>
+        <block type="rss/catalog_review" output="toHtml" name="rss.catalog.review" />
+    </rss_catalog_review>
+
+    <rss_catalog_category>
+        <block type="rss/catalog_category" output="toHtml" name="rss.catalog.category" />
+    </rss_catalog_category>
+<!--
+Order layout
+-->
+    <rss_order_new>
+        <block type="rss/order_new" output="toHtml" name="rss.order.new"/>
+    </rss_order_new>
+    <rss_order_status>
+        <block type="rss/order_status" output="toHtml" name="rss.order.status"/>
+    </rss_order_status>
+</layout>

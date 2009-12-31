@@ -121,7 +121,7 @@
         <div class="clear"></div>
     </fieldset>
     <div class="button-set">
-        <input type="image" src="<?php echo $this->getSkinUrl('images/btn_send_email.gif') ?>" alt="<?php echo $this->__('Send email') ?>"/>
+        <input type="image" src="<?php echo $this->getSkinUrl('images/btn_send_email.gif') ?>" alt="<?php echo $this->__('Send email') ?>"<?php if (!$this->canSend()):?> disabled="disabled"<?php endif ?>/>
     </div>
 </form>
 <script type="text/javascript">

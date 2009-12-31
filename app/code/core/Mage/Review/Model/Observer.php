@@ -48,4 +48,19 @@ class Mage_Review_Model_Observer
 
         return $this;
     }
+
+    /**
+     * Cleanup product reviews after product delete
+     *
+     * @param   Varien_Event_Observer $observer
+     * @return  Mage_CatalogIndex_Model_Observer
+     */
+    public function processProductAfterDeleteEvent(Varien_Event_Observer $observer)
+    {
+        $eventProduct = $observer->getEvent()->getProduct();
+        if ($eventProduct && $eventProduct->getId()) {
+            Mage::getResourceSingleton('review/review')->deleteReviewsByProductId($eventProduct->getId());
+        }
+        return $this;
+    }
 }

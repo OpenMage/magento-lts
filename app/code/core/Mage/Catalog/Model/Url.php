@@ -560,7 +560,7 @@ class Mage_Catalog_Model_Url
             /**
              * Check if existing request past can be used
              */
-            if (strpos($existingRequestPath, $requestPath) !== false) {
+            if (!empty($requestPath) && strpos($existingRequestPath, $requestPath) !== false) {
                 $existingRequestPath = str_replace($requestPath, '', $existingRequestPath);
                 if (preg_match('#^-([0-9]+)$#i', $existingRequestPath)) {
                     return $this->_rewrites[$idPath]->getRequestPath();

@@ -60,7 +60,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
     {
         $fileName   = 'sales.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_sales_sales_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -72,7 +72,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
     {
         $fileName   = 'sales.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_sales_sales_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -93,7 +93,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
     {
         $fileName   = 'tax.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_sales_tax_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -105,7 +105,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
     {
         $fileName   = 'tax.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_sales_tax_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -126,7 +126,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
     {
         $fileName   = 'invoiced.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_sales_invoiced_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -138,7 +138,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
     {
         $fileName   = 'invoiced.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_sales_invoiced_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -159,7 +159,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
     {
         $fileName   = 'refunded.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_sales_refunded_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -171,7 +171,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
     {
         $fileName   = 'refunded.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_sales_refunded_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -192,7 +192,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
     {
         $fileName   = 'coupons.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_sales_coupons_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -204,7 +204,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
     {
         $fileName   = 'coupons.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_sales_coupons_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -225,7 +225,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
     {
         $fileName   = 'shipping.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_sales_shipping_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -237,7 +237,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Ac
     {
         $fileName   = 'shipping.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_sales_shipping_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }

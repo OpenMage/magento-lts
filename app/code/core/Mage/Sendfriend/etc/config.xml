@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Sendfriend>
-            <version>0.7.3</version>
+            <version>0.7.4</version>
         </Mage_Sendfriend>
     </modules>
     <global>

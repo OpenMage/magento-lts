@@ -31,6 +31,7 @@
 <?php $_readonly    = $this->getElement()->getReadonly() ?>
 <?php $_showWebsite = $this->isShowWebsiteColumn(); ?>
 <?php $_editWebsite = $this->isAllowChangeWebsite(); ?>
+<?php $_priceValueValidation = $this->getPriceValidation('validate-greater-than-zero'); ?>
 
 
 <?php $_showWebsite = $this->isShowWebsiteColumn(); ?>
@@ -65,25 +66,26 @@
     </table>
 
 <script type="text/javascript">
+//<![CDATA[
 var tierPriceRowTemplate = '<tr>'
     + '<td<?php if (!$_showWebsite): ?> style="display:none"<?php endif; ?>>'
     + '<select class="<?php echo $_htmlClass ?> required-entry" name="<?php echo $_htmlName ?>[{{index}}][website_id]" id="tier_price_row_{{index}}_website">'
     <?php foreach ($this->getWebsites() as $_websiteId => $_info): ?>
-    + '<option value="<?php echo $_websiteId ?>"><?php echo $this->htmlEscape($_info['name']) ?><?php if (!empty($_info['currency'])): ?> [<?php echo $this->htmlEscape($_info['currency']) ?>]<?php endif; ?><'+'/option>'
+    + '<option value="<?php echo $_websiteId ?>"><?php echo $this->htmlEscape($_info['name']) ?><?php if (!empty($_info['currency'])): ?> [<?php echo $this->htmlEscape($_info['currency']) ?>]<?php endif; ?></option>'
     <?php endforeach ?>
-    + '<'+'/select><'+'/td>'
+    + '</select></td>'
     + '<td><select class="<?php echo $_htmlClass ?> custgroup required-entry" name="<?php echo $_htmlName ?>[{{index}}][cust_group]" id="tier_price_row_{{index}}_cust_group">'
     <?php foreach ($this->getCustomerGroups() as $_groupId=>$_groupName): ?>
-    + '<option value="<?php echo $_groupId ?>"><?php echo $this->htmlEscape($_groupName)?><'+'/option>'
+    + '<option value="<?php echo $_groupId ?>"><?php echo $this->htmlEscape($_groupName)?></option>'
     <?php endforeach ?>
-    + '<'+'/select><'+'/td>'
+    + '</select></td>'
     + '<td class="nobr"><input class="<?php echo $_htmlClass ?> qty required-entry validate-greater-than-zero" type="text" name="<?php echo $_htmlName ?>[{{index}}][price_qty]" value="{{qty}}" id="tier_price_row_{{index}}_qty" />'
-    + ' <small class="nobr"><?php echo Mage::helper("catalog")->__("and above")?><'+'/small><'+'/td>'
-    + '<td><input class="<?php echo $_htmlClass ?> required-entry validate-greater-than-zero" type="text" name="<?php echo $_htmlName ?>[{{index}}][price]" value="{{price}}" id="tier_price_row_{{index}}_price" /><'+'/td>'
+    + ' <small class="nobr"><?php echo Mage::helper("catalog")->__("and above")?></small></td>'
+    + '<td><input class="<?php echo $_htmlClass ?> required-entry <?php echo $_priceValueValidation ?>" type="text" name="<?php echo $_htmlName ?>[{{index}}][price]" value="{{price}}" id="tier_price_row_{{index}}_price" /></td>'
     + '<td class="last"><input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][delete]" class="delete" value="" id="tier_price_row_{{index}}_delete" />'
     + '<button title="<?php echo Mage::helper("catalog")->__("Delete Tier") ?>" class="scalable delete icon-btn delete-product-option" id="tier_price_row_{{index}}_delete_button" onclick="return tierPriceControl.deleteItem(event);">'
-    + '<span><?php echo Mage::helper("catalog")->__("Delete") ?><'+'/span><'+'/button><'+'/td>'
-    + '<'+'/tr>';
+    + '<span><?php echo Mage::helper("catalog")->__("Delete") ?></span></button></td>'
+    + '</tr>';
 
 var tierPriceControl = {
     template: new Template(tierPriceRowTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
@@ -124,7 +126,7 @@ var tierPriceControl = {
         var wss = $('tier_price_row_' + data.index + '_website');
         var txt = wss.options[wss.selectedIndex].text;
 
-        wss.insert({after:'<span class="website-name">' + txt + '<'+'/span>'});
+        wss.insert({after:'<span class="website-name">' + txt + '</span>'});
         wss.hide();
         <?php endif;?>
 

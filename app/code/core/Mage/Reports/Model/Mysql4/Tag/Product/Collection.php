@@ -37,7 +37,7 @@ class Mage_Reports_Model_Mysql4_Tag_Product_Collection extends Mage_Tag_Model_My
     public function addUniqueTagedCount()
     {
         $this->getSelect()
-            ->from('', array('utaged' => 'count(DISTINCT(relation.tag_id))'));
+            ->columns(array('utaged' => 'count(DISTINCT(relation.tag_id))'));
             //->order('taged desc');
         return $this;
     }
@@ -45,7 +45,7 @@ class Mage_Reports_Model_Mysql4_Tag_Product_Collection extends Mage_Tag_Model_My
     public function addAllTagedCount()
     {
         $this->getSelect()
-            ->from('', array('taged' => 'count(relation.tag_id)'));
+            ->columns(array('taged' => 'count(relation.tag_id)'));
             //->order('taged desc');
         return $this;
     }
@@ -53,7 +53,7 @@ class Mage_Reports_Model_Mysql4_Tag_Product_Collection extends Mage_Tag_Model_My
     public function addTagedCount()
     {
         $this->getSelect()
-            ->from('', array('taged' => 'count(relation.tag_relation_id)'));
+            ->columns(array('taged' => 'count(relation.tag_relation_id)'));
             //->order('taged desc');
         return $this;
     }

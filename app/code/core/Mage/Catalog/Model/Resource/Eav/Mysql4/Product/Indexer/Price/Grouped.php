@@ -73,9 +73,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Grouped
 
         $select = $write->select()
             ->from(array('e' => $this->getTable('catalog/product')), 'entity_id')
-            ->join(
+            ->joinLeft(
                 array('l' => $this->getTable('catalog/product_link')),
-                'e.entity_id = l.product_id',
+                'e.entity_id = l.product_id AND l.link_type_id=' . Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED,
                 array())
             ->join(
                 array('cg' => $this->getTable('customer/customer_group')),
@@ -84,21 +84,24 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Grouped
         $this->_addWebsiteJoinToSelect($select, true);
         $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'e.entity_id');
         $select->columns('website_id', 'cw')
-            ->join(
+            ->joinLeft(
+                array('le' => $this->getTable('catalog/product')),
+                'le.entity_id = l.linked_product_id',
+                array())
+            ->joinLeft(
                 array('i' => $table),
                 'i.entity_id = l.linked_product_id AND i.website_id = cw.website_id'
                     . ' AND i.customer_group_id = cg.customer_group_id',
                 array(
-                    'tax_class_id',
+                    'tax_class_id'=> new Zend_Db_Expr('IFNULL(i.tax_class_id, 0)'),
                     'price'       => new Zend_Db_Expr('NULL'),
                     'final_price' => new Zend_Db_Expr('NULL'),
-                    'min_price'   => new Zend_Db_Expr('MIN(i.min_price)'),
-                    'max_price'   => new Zend_Db_Expr('MAX(i.max_price)'),
+                    'min_price'   => new Zend_Db_Expr('MIN(IF(le.required_options = 0, i.min_price, 0))'),
+                    'max_price'   => new Zend_Db_Expr('MAX(IF(le.required_options = 0, i.max_price, 0))'),
                     'tier_price'  => new Zend_Db_Expr('NULL')
                 ))
-            ->group(array('e.entity_id', 'i.customer_group_id', 'i.website_id'))
-            ->where('e.type_id=?', $this->getTypeId())
-            ->where('l.link_type_id=?', Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED);
+            ->group(array('e.entity_id', 'cg.customer_group_id', 'cw.website_id'))
+            ->where('e.type_id=?', $this->getTypeId());
 
         if (!is_null($entityIds)) {
             $select->where('l.product_id IN(?)', $entityIds);
@@ -107,7 +110,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Grouped
         /**
          * Add additional external limitation
          */
-        Mage::dispatchEvent('prepare_catalog_product_price_index_select', array(
+        Mage::dispatchEvent('catalog_product_prepare_index_select', array(
             'select'        => $select,
             'entity_field'  => new Zend_Db_Expr('e.entity_id'),
             'website_field' => new Zend_Db_Expr('cw.website_id'),

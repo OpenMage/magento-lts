@@ -209,7 +209,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
             '14_origCountry' => $r->getOrigCountry(),
             '15_origPostal'  => $r->getOrigPostal(),
             'origCity'       => $r->getOrigCity(),
-            '19_destPostal'  => substr($r->getDestPostal(), 0, 5),
+            '19_destPostal'  => 'US' == $r->getDestCountry() ? substr($r->getDestPostal(), 0, 5) : $r->getDestPostal(), // UPS returns error for zip+4 US codes
             '22_destCountry' => $r->getDestCountry(),
             '23_weight'      => $r->getWeight(),
             '47_rate_chart'  => $r->getPickup(),
@@ -512,7 +512,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
             '15_origPostal'  => $r->getOrigPostal(),
             'origCity'       => $r->getOrigCity(),
             'origRegionCode' => $r->getOrigRegionCode(),
-            '19_destPostal'  => substr($r->getDestPostal(), 0, 5),
+            '19_destPostal'  => 'US' == $r->getDestCountry() ? substr($r->getDestPostal(), 0, 5) : $r->getDestPostal(), // UPS returns error for zip+4 US codes
             '22_destCountry' => $r->getDestCountry(),
             'destRegionCode' => $r->getDestRegionCode(),
             '23_weight'      => $r->getWeight(),
@@ -601,6 +601,7 @@ $xmlRequest .= <<< XMLRequest
 </RatingServiceSelectionRequest>
 XMLRequest;
 
+
         try {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -609,6 +610,7 @@ XMLRequest;
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $xmlRequest);
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, (boolean)$this->getConfigFlag('mode_xml'));
             $xmlResponse = curl_exec ($ch);
         } catch (Exception $e) {
             $xmlResponse = '';
@@ -624,7 +626,7 @@ XMLRequest;
             $xml = new Varien_Simplexml_Config();
             $xml->loadString($xmlResponse);
             $arr = $xml->getXpath("//RatingServiceSelectionResponse/Response/ResponseStatusCode/text()");
-            $success = (int)$arr[0][0];
+            $success = (int)$arr[0];
             if($success===1){
                 $arr = $xml->getXpath("//RatingServiceSelectionResponse/RatedShipment");
                 $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));

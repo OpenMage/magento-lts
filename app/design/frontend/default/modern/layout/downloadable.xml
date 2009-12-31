@@ -34,7 +34,8 @@
         </reference>
     </customer_account>
 
-    <downloadable_customer_products>
+    <downloadable_customer_products translate="label">
+        <label>Customer My Account Downloadable Items</label>
         <update handle="customer_account"/>
         <reference name="content">
             <block type="downloadable/customer_products_list" name="downloadable_customer_products_list" template="downloadable/customer/products/list.phtml" />
@@ -152,7 +153,8 @@ Emails
         </reference>
     </sales_email_order_creditmemo_items>
 
-    <PRODUCT_TYPE_downloadable>
+    <PRODUCT_TYPE_downloadable translate="label" module="downloadable">
+        <label>Catalog Product View (Downloadable)</label>
         <reference name="product.info">
             <block type="downloadable/catalog_product_view_type" name="product.info.downloadable" as="product_type_data" template="downloadable/catalog/product/type.phtml">
                  <block type="downloadable/catalog_product_samples" name="product.info.downloadable.samples" as="samples" template="downloadable/catalog/product/samples.phtml"/>

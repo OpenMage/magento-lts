@@ -96,28 +96,43 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
             return false;
         }
 
+        $data       = $event->getNewData();
+        $resultKey = 'catalog_category_flat_match_result';
+        if (isset($data[$resultKey])) {
+            return $data[$resultKey];
+        }
+
+        $result = null;
         $entity = $event->getEntity();
         if ($entity == Mage_Core_Model_Store::ENTITY) {
             if ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
-                return true;
+                $result = true;
             } else if ($event->getType() == Mage_Index_Model_Event::TYPE_SAVE) {
                 /* @var $store Mage_Core_Model_Store */
                 $store = $event->getDataObject();
                 if ($store->isObjectNew() || $store->dataHasChangedFor('group_id')) {
-                    return true;
+                    $result = true;
+                } else {
+                    $result = false;
                 }
-                return false;
+            } else {
+                $result = false;
             }
         } else if ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             /* @var $storeGroup Mage_Core_Model_Store_Group */
             $storeGroup = $event->getDataObject();
             if ($storeGroup->dataHasChangedFor('website_id')) {
-                return true;
+                $result = true;
+            } else {
+                $result = false;
             }
-            return false;
+        } else {
+            $result = parent::matchEvent($event);
         }
 
-        return parent::matchEvent($event);
+        $event->addNewData($resultKey, $result);
+
+        return $result;
     }
 
     /**

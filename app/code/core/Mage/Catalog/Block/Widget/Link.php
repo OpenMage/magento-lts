@@ -34,7 +34,7 @@
 
 class Mage_Catalog_Block_Widget_Link
     extends Mage_Core_Block_Html_Link
-    implements Mage_Cms_Block_Widget_Interface
+    implements Mage_Widget_Block_Interface
 {
     /**
      * Entity model name which must be used to retrieve entity specific data.

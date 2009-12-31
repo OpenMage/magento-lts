@@ -130,7 +130,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
                 ->getProductCollection();
 
             Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSearchFilterToCollection($this->_productCollection);
+                ->addVisibleInSiteFilterToCollection($this->_productCollection);
         }
         return $this->_productCollection;
     }

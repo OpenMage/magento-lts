@@ -52,4 +52,17 @@ class Mage_Index_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Temp
     {
         return $this->getUrl('adminhtml/process/list');
     }
+
+    /**
+     * ACL validation before html generation
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        if (Mage::getSingleton('admin/session')->isAllowed('system/index')) {
+            return parent::_toHtml();
+        }
+        return '';
+    }
 }

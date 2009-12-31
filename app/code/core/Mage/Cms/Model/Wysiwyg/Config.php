@@ -59,6 +59,7 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
     public function getConfig($data = array())
     {
         $config = new Varien_Object();
+
         $config->setData(array(
             'enabled'                       => $this->isEnabled(),
             'hidden'                        => $this->isHidden(),
@@ -66,12 +67,14 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'no_display'                    => false,
             'translator'                    => Mage::helper('cms'),
             'files_browser_window_url'      => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg_images/index'),
-            'files_browser_window_width'    => Mage::getStoreConfig('cms/wysiwyg/browser_window_width'),
-            'files_browser_window_height'   => Mage::getStoreConfig('cms/wysiwyg/browser_window_height'),
+            'files_browser_window_width'    => (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_width'),
+            'files_browser_window_height'   => (int) Mage::getConfig()->getNode('adminhtml/cms/browser/window_height'),
             'encode_directives'             => true,
             'directives_url'                => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg/directive'),
             'popup_css'                     => Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/dialog.css',
             'content_css'                   => Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/content.css',
+            'width'                         => '100%',
+            'plugins'                       => array()
         ));
 
         $config->setData('directives_url_quoted', preg_quote($config->getData('directives_url')));

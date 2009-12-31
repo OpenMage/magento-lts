@@ -155,7 +155,7 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Core_Model
     public function addSubscriberTypeField()
     {
         $this->getSelect()
-            ->from(null, array('type'=>new Zend_Db_Expr('IF(main_table.customer_id = 0, 1, 2)')));
+            ->columns(array('type'=>new Zend_Db_Expr('IF(main_table.customer_id = 0, 1, 2)')));
         return $this;
     }
 

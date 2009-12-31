@@ -55,7 +55,8 @@ Customer account pages, rendered for all tabs in dashboard
     <customer_account_index>
     </customer_account_index>
 
-    <newsletter_manage_index>
+    <newsletter_manage_index translate="label">
+        <label>Customer My Account Newsletter Subscriptions</label>
         <update handle="customer_account"/>
         <reference name="content">
             <block type="customer/newsletter" name="customer_newsletter"/>

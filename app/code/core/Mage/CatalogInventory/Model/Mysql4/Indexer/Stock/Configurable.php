@@ -85,6 +85,10 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Configurable
                 array('l' => $this->getTable('catalog/product_super_link')),
                 'l.parent_id = e.entity_id',
                 array())
+            ->join(
+                array('le' => $this->getTable('catalog/product')),
+                'le.entity_id = l.product_id',
+                array())
             ->joinLeft(
                 array('i' => $this->getIdxTable()),
                 'i.product_id = l.product_id AND cw.website_id = i.website_id AND cis.stock_id = i.stock_id',
@@ -94,9 +98,8 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Configurable
             ->where('e.type_id = ?', $this->getTypeId())
             ->group(array('e.entity_id', 'cw.website_id', 'cis.stock_id'));
 
-        // add limitation of status
-        $condition = $write->quoteInto('=?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
-        $this->_addAttributeToSelect($select, 'status', 'e.entity_id', 'cs.store_id', $condition);
+        $psExpr = $this->_addAttributeToSelect($select, 'status', 'e.entity_id', 'cs.store_id');
+        $psCond = $write->quoteInto($psExpr . '=?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
 
         if ($this->_isManageStock()) {
             $statusExpr = new Zend_Db_Expr('IF(cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0,'
@@ -106,7 +109,12 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Configurable
                 . 'cisi.is_in_stock, 1)');
         }
 
-        $select->columns(array('status' => new Zend_Db_Expr("LEAST(MAX(i.stock_status), {$statusExpr})")));
+        $stockStatusExpr = new Zend_Db_Expr("LEAST(MAX(IF({$psCond} AND le.required_options = 0, i.stock_status, 0))"
+            . ", {$statusExpr})");
+
+        $select->columns(array(
+            'status' => $stockStatusExpr
+        ));
 
         if (!is_null($entityIds)) {
             $select->where('e.entity_id IN(?)', $entityIds);

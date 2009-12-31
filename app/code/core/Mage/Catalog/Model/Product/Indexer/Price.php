@@ -42,6 +42,9 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
         ),
         Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => array(
             Mage_Index_Model_Event::TYPE_SAVE
+        ),
+        Mage_Customer_Model_Group::ENTITY => array(
+            Mage_Index_Model_Event::TYPE_SAVE
         )
     );
 
@@ -92,6 +95,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
             'special_to_date',
             'tax_class_id',
             'status',
+            'required_options'
         );
     }
 
@@ -104,15 +108,29 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
+        $data       = $event->getNewData();
+        $resultKey = 'catalog_product_price_match_result';
+        if (isset($data[$resultKey])) {
+            return $data[$resultKey];
+        }
+
+        $result = null;
         if ($event->getEntity() == Mage_Core_Model_Config_Data::ENTITY) {
             $data = $event->getDataObject();
             if (in_array($data->getPath(), $this->_relatedConfigSettings)) {
-                return $data->isValueChanged();
+                $result = $data->isValueChanged();
             } else {
-                return false;
+                $result = false;
             }
+        } elseif ($event->getEntity() == Mage_Customer_Model_Group::ENTITY) {
+            $result = $event->getDataObject()->isObjectNew();
+        } else {
+            $result = parent::matchEvent($event);
         }
-        return parent::matchEvent($event);
+
+        $event->addNewData($resultKey, $result);
+
+        return $result;
     }
 
     /**
@@ -142,7 +160,8 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
         $product      = $event->getDataObject();
         $attributes   = $this->_getDependentAttributes();
         $reindexPrice = $product->getIsRelationsChanged() || $product->getIsCustomOptionChanged()
-            || $product->dataHasChangedFor('tier_price_changed');
+            || $product->dataHasChangedFor('tier_price_changed')
+            || $product->getIsChangedWebsites();
 
         foreach ($attributes as $attributeCode) {
             $reindexPrice = $reindexPrice || $product->dataHasChangedFor($attributeCode);
@@ -192,7 +211,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
     {
         $entity = $event->getEntity();
 
-        if ($entity == Mage_Core_Model_Config_Data::ENTITY) {
+        if ($entity == Mage_Core_Model_Config_Data::ENTITY || $entity == Mage_Customer_Model_Group::ENTITY) {
             $process = $event->getProcess();
             $process->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
         } else if ($entity == Mage_Catalog_Model_Convert_Adapter_Product::ENTITY) {

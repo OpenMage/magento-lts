@@ -69,7 +69,9 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 
     public function delete()
     {
+        $this->_beforeDelete();
         $this->_getResource()->delete($this);
+        $this->_afterDelete();
         return $this;
     }
 

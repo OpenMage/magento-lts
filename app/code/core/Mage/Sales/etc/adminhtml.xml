@@ -81,6 +81,7 @@
                                             <ship translate="title"><title>Ship</title></ship>
                                             <comment translate="title"><title>Comment</title></comment>
                                             <reorder translate="title"><title>Reorder</title></reorder>
+                                            <emails translate="title"><title>Send Sales Emails</title></emails>
                                         </children>
                                     </actions>
                                 </children>

@@ -73,12 +73,43 @@ class Mage_Shipping_Model_Carrier_Tablerate
             }
         }
 
+        // Free shipping by qty
+        $freeQty = 0;
+        if ($request->getAllItems()) {
+            foreach ($request->getAllItems() as $item) {
+                if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
+                    continue;
+                }
+
+                if ($item->getHasChildren() && $item->isShipSeparately()) {
+                    foreach ($item->getChildren() as $child) {
+                        if ($child->getFreeShipping() && !$child->getProduct()->isVirtual()) {
+                            $freeQty += $item->getQty() * ($child->getQty() - (is_numeric($child->getFreeShipping()) ? $child->getFreeShipping() : 0));
+                        }
+                    }
+                } elseif ($item->getFreeShipping()) {
+                    $freeQty += ($item->getQty() - (is_numeric($item->getFreeShipping()) ? $item->getFreeShipping() : 0));
+                }
+            }
+        }
+
         if (!$request->getConditionName()) {
             $request->setConditionName($this->getConfigData('condition_name') ? $this->getConfigData('condition_name') : $this->_default_condition_name);
         }
 
+         // Package weight and qty free shipping
+        $oldWeight = $request->getPackageWeight();
+        $oldQty = $request->getPackageQty();
+
+        $request->setPackageWeight($request->getFreeMethodWeight());
+        $request->setPackageQty($oldQty - $freeQty);
+
         $result = Mage::getModel('shipping/rate_result');
         $rate = $this->getRate($request);
+
+        $request->setPackageWeight($oldWeight);
+        $request->setPackageQty($oldQty);
+
         if (!empty($rate) && $rate['price'] >= 0) {
             $method = Mage::getModel('shipping/rate_result_method');
 

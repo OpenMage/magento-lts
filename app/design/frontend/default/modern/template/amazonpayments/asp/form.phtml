@@ -29,7 +29,7 @@
     $_code=$this->getMethodCode() ?>
     <ul id="payment_form_<?php echo $_code ?>" style="display:none">
         <li>
-            <?php echo $this->__('Your billing address will be ignored and you will be redirected to Amazon Simple Pay website.') ?>
+            <?php echo $this->getDescriptionMessage() ?>
         </li>
     </ul>
 </fieldset>

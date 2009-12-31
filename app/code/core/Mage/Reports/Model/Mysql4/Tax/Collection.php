@@ -60,7 +60,7 @@ class Mage_Reports_Model_Mysql4_Tax_Collection extends Mage_Sales_Model_Entity_O
         if (count($storeIds) >= 1 && $vals[0] != '') {
             $this->getSelect()
                 ->where('e.store_id in (?)', (array)$storeIds)
-                ->from('', array('tax'=>'SUM(tax_table.base_real_amount)'));
+                ->columns(array('tax'=>'SUM(tax_table.base_real_amount)'));
         } else {
             $this->addExpressionAttributeToSelect(
                     'tax',
@@ -80,7 +80,7 @@ class Mage_Reports_Model_Mysql4_Tax_Collection extends Mage_Sales_Model_Entity_O
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->from("", "count(DISTINCT e.entity_id)");
+        $countSelect->columns("count(DISTINCT e.entity_id)");
         $sql = $countSelect->__toString();
         return $sql;
     }

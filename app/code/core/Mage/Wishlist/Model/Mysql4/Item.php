@@ -34,27 +34,40 @@
  */
 class Mage_Wishlist_Model_Mysql4_Item extends Mage_Core_Model_Mysql4_Abstract
 {
-
-    protected $_productIdFieldName = 'product_id';
-
+    /**
+     * Initialize connection and define main table
+     *
+     */
     protected function _construct()
     {
         $this->_init('wishlist/item', 'wishlist_item_id');
     }
 
-    public function loadByProductWishlist(Mage_Wishlist_Model_Item $item, $wishlistId, $productId, array $sharedStores)
+    /**
+     * Load item by wishlist, product and shared stores
+     *
+     * @param Mage_Wishlist_Model_Item $object
+     * @param int $wishlistId
+     * @param int $productId
+     * @param array $sharedStores
+     * @return Mage_Wishlist_Model_Mysql4_Item
+     */
+    public function loadByProductWishlist($object, $wishlistId, $productId, $sharedStores)
     {
-        $select = $this->_getReadAdapter()->select()
-            ->from(array('main_table'=>$this->getTable('item')))
-            ->where('main_table.wishlist_id = ?',  $wishlistId)
-            ->where('main_table.product_id = ?',  $productId)
-            ->where('main_table.store_id in (?)',  $sharedStores);
+        $adapter = $this->_getReadAdapter();
+        $select  = $adapter->select()
+            ->from($this->getMainTable())
+            ->where('wishlist_id=?', $wishlistId)
+            ->where('product_id=?', $productId)
+            ->where('store_id IN(?)', $sharedStores);
 
-        if($_data = $this->_getReadAdapter()->fetchRow($select)) {
-            $item->setData($_data);
+        $data = $adapter->fetchRow($select);
+        if ($data) {
+            $object->setData($data);
         }
 
-        return $item;
-    }
+        $this->_afterLoad($object);
 
+        return $this;
+    }
 }

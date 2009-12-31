@@ -66,8 +66,8 @@ Product reviews page (?)
 Product reviews page
 -->
 
-    <review_product_list>
-        <!-- Mage_Review -->
+    <review_product_list translate="label">
+        <label>Catalog Product Reviews List</label>
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
         </reference>
@@ -92,7 +92,8 @@ Product reviews page
         </reference>
     </review_product_list>
 
-    <review_product_view>
+    <review_product_view translate="label">
+        <label>Catalog Product Review View</label>
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
         </reference>
@@ -101,14 +102,16 @@ Product reviews page
         </reference>
     </review_product_view>
 
-    <review_customer_index>
+    <review_customer_index translate="label">
+        <label>Customer My Account Product Reviews</label>
         <update handle="customer_account"/>
         <reference name="content">
             <block type="review/customer_list" name="review_customer_list" template="review/customer/list.phtml"/>
         </reference>
     </review_customer_index>
 
-    <review_customer_view>
+    <review_customer_view translate="label">
+        <label>Customer My Account Review Details</label>
         <update handle="customer_account"/>
         <reference name="content">
             <block type="review/customer_view" name="customers_review"/>

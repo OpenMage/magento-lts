@@ -62,7 +62,7 @@ Default layout, loads most of the pages
         <reference name="footer_links">
             <action method="addLink" translate="label title" module="catalog" ifconfig="catalog/seo/site_map"><label>Site Map</label><url helper="catalog/map/getCategoryUrl" /><title>Site Map</title></action>
         </reference>
-
+        <block type="catalog/product_price_template" name="catalog_product_price_template" />
     </default>
 
 
@@ -78,6 +78,7 @@ Category default layout
             <block type="catalog/category_view" name="category.products" template="catalog/category/view.phtml">
                 <block type="catalog/product_list" name="product_list" template="catalog/product/list.phtml">
                     <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                        <block type="catalog/product_list_toolbar_pager" name="product_list_toolbar_pager"/>
                         <!-- The following code shows how to set your own pager increments -->
                         <!--
                             <action method="setDefaultListPerPage"><limit>4</limit></action>
@@ -108,6 +109,7 @@ Category layered navigation layout
             <block type="catalog/category_view" name="category.products" template="catalog/category/view.phtml">
                 <block type="catalog/product_list" name="product_list" template="catalog/product/list.phtml">
                     <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                        <block type="catalog/product_list_toolbar_pager" name="product_list_toolbar_pager"/>
                         <!-- The following code shows how to set your own pager increments -->
                         <!--
                             <action method="setDefaultListPerPage"><limit>4</limit></action>

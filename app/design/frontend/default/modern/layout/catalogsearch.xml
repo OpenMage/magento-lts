@@ -38,7 +38,8 @@
         </reference>
     </default>
 
-    <catalogsearch_result_index>
+    <catalogsearch_result_index translate="label">
+        <label>Quick Search Form</label>
         <remove name="right.newsletter" />
         <remove name="right.reports.product.viewed" />
         <reference name="root">
@@ -59,7 +60,8 @@
         </reference>
     </catalogsearch_result_index>
 
-    <catalogsearch_advanced_index>
+    <catalogsearch_advanced_index translate="label">
+        <label>Advanced Search Form</label>
         <!-- Mage_Catalogsearch -->
         <reference name="root">
             <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
@@ -96,7 +98,8 @@ Advanced search results
         </reference>
     </catalogsearch_advanced_result>
 
-    <catalogsearch_term_popular>
+    <catalogsearch_term_popular translate="label">
+        <label>Popular Search Terms</label>
         <remove name="left"/>
 
         <reference name="root">

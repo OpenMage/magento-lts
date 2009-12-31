@@ -34,6 +34,13 @@
  */
 class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
 {
+    /**
+     * XML instance for a cell data
+     *
+     * @var SimpleXMLElement
+     */
+    protected $_xmlElement;
+
     public function parse()
     {
         $this->validateDataString();
@@ -139,5 +146,83 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
         $this->setData($xml);
 
         return $this;
+    }
+
+    /**
+     * Retrieve Excel 2003 XML Document header XML fragment
+     *
+     * @param string $sheetName the Worksheet name
+     * @return string
+     */
+    public function getHeaderXml($sheetName = '')
+    {
+        if (empty($sheetName)) {
+            $sheetName = 'Sheet 1';
+        }
+        $sheetName = htmlspecialchars($sheetName);
+        $xml = '<'.'?xml version="1.0"?'.'><'.'?mso-application progid="Excel.Sheet"?'
+            . '><Workbook'
+            . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
+            . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
+            . ' xmlns:x="urn:schemas-microsoft-com:office:excel"'
+            . ' xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml"'
+            . ' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"'
+            . ' xmlns:o="urn:schemas-microsoft-com:office:office"'
+            . ' xmlns:html="http://www.w3.org/TR/REC-html40"'
+            . ' xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet">'
+            . '<OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">'
+            . '</OfficeDocumentSettings>'
+            . '<ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">'
+            . '</ExcelWorkbook>'
+            . '<Worksheet ss:Name="' . $sheetName . '">'
+            . '<Table>';
+        return $xml;
+    }
+
+    /**
+     * Retrieve Excel 2003 XML Document footer XML fragment
+     *
+     * @return string
+     */
+    public function getFooterXml()
+    {
+        return '</Table></Worksheet></Workbook>';
+    }
+
+    /**
+     * Convert an array to Excel 2003 XML Document a Row XML fragment
+     *
+     * @param array $row
+     * @return string
+     */
+    public function getRowXml(array $row)
+    {
+        $xmlHeader = '<'.'?xml version="1.0"?'.'>' . "\n";
+        $xmlRegexp = '/^<cell><row>(.*)?<\/row><\/cell>\s?$/ms';
+
+        if (is_null($this->_xmlElement)) {
+            $xmlString = $xmlHeader . '<cell><row></row></cell>';
+            $this->_xmlElement = new SimpleXMLElement($xmlString, LIBXML_NOBLANKS);
+        }
+
+        $xmlData = array();
+        $xmlData[] = '<Row>';
+        foreach ($row as $value) {
+            $this->_xmlElement->row = htmlspecialchars($value);
+            $value = str_replace($xmlHeader, '', $this->_xmlElement->asXML());
+            $value = preg_replace($xmlRegexp, '\\1', $value);
+            $dataType = "String";
+            if (is_numeric($value)) {
+                $dataType = "Number";
+            }
+            $value = str_replace("\r\n", '&#10;', $value);
+            $value = str_replace("\r", '&#10;', $value);
+            $value = str_replace("\n", '&#10;', $value);
+
+            $xmlData[] = '<Cell><Data ss:Type="'.$dataType.'">'.$value.'</Data></Cell>';
+        }
+        $xmlData[] = '</Row>';
+
+        return join('', $xmlData);
     }
 }

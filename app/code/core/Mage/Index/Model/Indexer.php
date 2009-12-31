@@ -62,6 +62,22 @@ class Mage_Index_Model_Indexer
     }
 
     /**
+     * Get index process by specific id
+     *
+     * @param int $processId
+     * @return Mage_Index_Model_Process | false
+     */
+    public function getProcessById($processId)
+    {
+        foreach ($this->_processesCollection as $process) {
+            if ($process->getId() == $processId) {
+                return $process;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Get index process by specific code
      *
      * @param string $code
@@ -119,9 +135,7 @@ class Mage_Index_Model_Indexer
             return $this;
         }
 
-        foreach ($this->_processesCollection as $process) {
-            $process->indexEvents($entity, $type);
-        }
+        $this->_runAll('indexEvents', array($entity, $type));
         return $this;
     }
 
@@ -137,9 +151,7 @@ class Mage_Index_Model_Indexer
             return $this;
         }
 
-        foreach ($this->_processesCollection as $process) {
-            $process->processEvent($event);
-        }
+        $this->_runAll('processEvent', array($event));
         return $this;
     }
 
@@ -154,9 +166,7 @@ class Mage_Index_Model_Indexer
             return $this;
         }
 
-        foreach ($this->_processesCollection as $process) {
-            $process->register($event);
-        }
+        $this->_runAll('register', array($event));
         return $this;
     }
 
@@ -210,5 +220,38 @@ class Mage_Index_Model_Indexer
             $event->save();
         }
         return $this;
+    }
+
+    /**
+     * Run all processes method with parameters
+     * Run by depends priority
+     * Not recursive call is not implement
+     *
+     * @param string $method
+     * @param array $args
+     * @return Mage_Index_Model_Indexer
+     */
+    protected function _runAll($method, $args)
+    {
+        $pid = 'runed_' . $method;
+
+        foreach ($this->_processesCollection as $process) {
+            /* @var $process Mage_Index_Model_Process */
+            if ($process->getData($pid)) {
+                continue;
+            }
+            if ($process->getDepends()) {
+                foreach ($process->getDepends() as $processCode) {
+                    $dependProcess = $this->getProcessByCode($processCode);
+                    if ($dependProcess && !$dependProcess->getData($pid)) {
+                        call_user_func_array(array($dependProcess, $method), $args);
+                        $dependProcess->setData($pid, true);
+                    }
+                }
+            }
+
+            call_user_func_array(array($process, $method), $args);
+            $process->setData($pid);
+        }
     }
 }

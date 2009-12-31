@@ -160,10 +160,9 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         if (!$type || !$set || !$sku) {
             $this->_fault('data_invalid');
         }
-        $store = null;
         $product = Mage::getModel('catalog/product');
         /* @var $product Mage_Catalog_Model_Product */
-        $product->setStoreId($this->_getStoreId($store))
+        $product->setStoreId($this->_getStoreId())
             ->setAttributeSetId($set)
             ->setTypeId($type)
             ->setSku($sku);

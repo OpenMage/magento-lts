@@ -109,7 +109,7 @@
                             <show_in_store>0</show_in_store>
                         </secret_key_out>
                         <ogone_gateway translate="label comment">
-                            <label>Gate Way url</label>
+                            <label>Gateway URL</label>
                             <frontend_type>text</frontend_type>
                             <comment>For production, replace "test" with "prod" Example: https://secure.ogone.com/ncol/prod/orderstandard.asp</comment>
                             <sort_order>7</sort_order>

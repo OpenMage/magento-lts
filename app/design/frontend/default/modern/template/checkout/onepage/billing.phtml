@@ -102,7 +102,7 @@
                 <input type="password" name="billing[customer_password]" id="billing:customer_password" title="<?php echo $this->__('Password') ?>" class="required-entry validate-password input-text"/></div>
                 <div class="input-box">
                 <label for="billing:confirm_password"><?php echo $this->__('Confirm Password') ?> <span class="required">*</span></label><br/>
-                <input type="password" name="billing[confirm_password]" title="<?php echo $this->__('Confirm Password') ?>" id="billing:confirm_password" class="required-entry validate-password input-text"/></div></li>
+                <input type="password" name="billing[confirm_password]" title="<?php echo $this->__('Confirm Password') ?>" id="billing:confirm_password" class="required-entry validate-cpassword input-text"/></div></li>
             <?php endif ?>
             <?php if ($this->isCustomerLoggedIn() && $this->customerHasAddresses()):?>
                 <li><input type="checkbox" name="billing[save_in_address_book]" value="1" title="<?php echo $this->__('Save in address book') ?>" id="billing:save_in_address_book" onchange="shipping.setSameAsBilling(false);"<?php if ($this->getAddress()->getSaveInAddressBook()):?> checked="checked"<?php endif;?> /> <label for="billing:save_in_address_book"><?php echo $this->__('Save in address book') ?></label></li>

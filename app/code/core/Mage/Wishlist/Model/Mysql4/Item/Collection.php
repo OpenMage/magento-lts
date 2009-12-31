@@ -32,66 +32,51 @@
  * @package    Mage_Wishlist
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Wishlist_Model_Mysql4_Item_Collection extends Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+class Mage_Wishlist_Model_Mysql4_Item_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
-
+    /**
+     * Initialize resource model for collection
+     *
+     */
     public function _construct()
     {
-        $this->_init('wishlist/item', 'catalog/product');
+        $this->_init('wishlist/item');
     }
 
-    public function useProductItem()
+    /**
+     * Add filter by wishlist object
+     *
+     * @param Mage_Wishlist_Model_Wishlist $wishlist
+     * @return Mage_Wishlist_Model_Mysql4_Item_Collection
+     */
+    public function addWishlistFilter(Mage_Wishlist_Model_Wishlist $wishlist)
     {
-        $this->setObject(Mage::getModel('catalog/product'));
-        return $this;
-    }
-
-    public function addWishlistFilter(Mage_Wishlist_Model_Wishlist    $wishlist)
-    {
-        $this->_joinFields['e_id'] = array('table'=>'e','field'=>'entity_id');
-        $this->joinTable('wishlist/item',
-            'product_id=e_id',
-            array(
-                'wishlist_item_id'  => 'wishlist_item_id',
-                'product_id'        => 'product_id',
-                'store_id'          => 'store_id',
-                'wishlist_id'       => 'wishlist_id',
-                'added_at'          => 'added_at',
-                'description'       => 'description'
-            ),
-            array('wishlist_id'=>$wishlist->getId())
-        );
+        $this->addFieldToFilter('wishlist_id', $wishlist->getId());
 
         return $this;
     }
 
+    /**
+     * Add filter by shared stores
+     *
+     * @param int|array $store
+     * @return Mage_Wishlist_Model_Mysql4_Item_Collection
+     */
+    public function addStoreFilter($store)
+    {
+        $this->addFieldToFilter('store_id', array('in' => $store));
+
+        return $this;
+    }
+
+    /**
+     * This method will be not supported anymore
+     *
+     * @deprecated since 1.4.0.0
+     * @return Mage_Wishlist_Model_Mysql4_Item_Collection
+     */
     public function addStoreData()
     {
-        if(!isset($this->_joinFields['e_id'])) {
-            return $this;
-        }
-
-        $dayTable = $this->_getAttributeTableAlias('days_in_wishlist');
-        $this->joinField('store_name', 'core/store', 'name', 'store_id=store_id')
-            ->joinField('days_in_wishlist',
-                'wishlist/item',
-                "(TO_DAYS('" . Mage::getSingleton('core/date')->date() . "') - TO_DAYS(DATE_ADD(".$dayTable.".added_at, INTERVAL " .(int) Mage::getSingleton('core/date')->getGmtOffset() . " SECOND)))",
-                'wishlist_item_id=wishlist_item_id');
-
         return $this;
     }
-
-    protected function _getAttributeFieldName($attributeCode)
-    {
-        if($attributeCode == 'days_in_wishlist') {
-            return $this->_joinFields[$attributeCode]['field'];
-        }
-        return parent::_getAttributeFieldName($attributeCode);
-    }
-
-    public function load($p=false, $l=false)
-    {
-        return parent::load($p, $l);
-    }
-
 }

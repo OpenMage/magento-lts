@@ -96,6 +96,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
             . ' `min_price` DECIMAL(12,4) DEFAULT NULL,'
             . ' `max_price` DECIMAL(12,4) DEFAULT NULL,'
             . ' `tier_price` DECIMAL(12,4) DEFAULT NULL,'
+            . ' `base_tier` DECIMAL(12,4) DEFAULT NULL,'
             . ' PRIMARY KEY (`entity_id`,`customer_group_id`,`website_id`)'
             . ') ENGINE=MYISAM DEFAULT CHARSET=utf8',
             $write->quoteIdentifier($table));
@@ -111,7 +112,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
      */
     protected function _getBundleSelectionTable()
     {
-        return $this->getMainTable() . '_bundle_selection';
+        return $this->getMainTable() . '_bndl_sel';
     }
 
     /**
@@ -121,7 +122,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
      */
     protected function _getBundleOptionTable()
     {
-        return $this->getMainTable() . '_bundle_option';
+        return $this->getMainTable() . '_bndl_opt';
     }
 
     /**
@@ -243,7 +244,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
             $finalPrice  = new Zend_Db_Expr("IF({$specialExpr} > 0,"
                 . " ROUND($price * ({$specialExpr} / 100), 4), {$price})");
             $tierPrice      = new Zend_Db_Expr("IF({$tierExpr} IS NOT NULL,"
-                . " ROUND({$price} * ({$tierExpr} / 100), 4), NULL)");
+                . " ROUND({$price} - ({$price} * ({$tierExpr} / 100)), 4), NULL)");
         } else {
             $finalPrice     = new Zend_Db_Expr("0");
             $tierPrice      = new Zend_Db_Expr("IF({$tierExpr} IS NOT NULL, 0, NULL)");
@@ -253,11 +254,12 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
             'price_type'    => new Zend_Db_Expr($priceType),
             'special_price' => $specialExpr,
             'tier_percent'  => $tierExpr,
-            'price'         => $finalPrice,
             'orig_price'    => new Zend_Db_Expr("IF({$price} IS NULL, 0, {$price})"),
+            'price'         => $finalPrice,
             'min_price'     => $finalPrice,
             'max_price'     => $finalPrice,
-            'tier_price'    => $tierPrice
+            'tier_price'    => $tierPrice,
+            'base_tier'     => $tierPrice,
         ));
 
         if (!is_null($entityIds)) {
@@ -267,7 +269,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
         /**
          * Add additional external limitation
          */
-        Mage::dispatchEvent('prepare_catalog_product_index_select', array(
+        Mage::dispatchEvent('catalog_product_prepare_index_select', array(
             'select'        => $select,
             'entity_field'  => new Zend_Db_Expr('e.entity_id'),
             'website_field' => new Zend_Db_Expr('cw.website_id'),
@@ -333,7 +335,8 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
                 'price'         => 'i.price',
                 'min_price'     => $minPrice,
                 'max_price'     => $maxPrice,
-                'tier_price'    => $tierPrice
+                'tier_price'    => $tierPrice,
+                'base_tier'     => 'i.base_tier'
             ));
 
         $query = $select->insertFromSelect($this->_getDefaultFinalPriceTable());
@@ -357,14 +360,14 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
                 . "ROUND(i.price * (bs.selection_price_value / 100), 4), IF(i.special_price > 0, "
                 . "ROUND(bs.selection_price_value * (i.special_price / 100), 4), bs.selection_price_value)) "
                 . "* bs.selection_qty");
-            $tierExpr = new Zend_Db_Expr("IF(i.tier_price IS NOT NULL, IF(bs.selection_price_type = 1, "
-                . "ROUND(i.tier_price * (bs.selection_price_value / 100), 4), IF(i.tier_percent > 0, "
-                . "ROUND(bs.selection_price_value * (i.tier_percent / 100), 4), bs.selection_price_value)) "
-                . "* bs.selection_qty, NULL)");
+            $tierExpr = new Zend_Db_Expr("IF(i.base_tier IS NOT NULL, IF(bs.selection_price_type = 1, "
+                . "ROUND(i.base_tier - (i.base_tier * (bs.selection_price_value / 100)), 4), IF(i.tier_percent > 0, "
+                . "ROUND(bs.selection_price_value - (bs.selection_price_value * (i.tier_percent / 100)), 4), "
+                . "bs.selection_price_value)) * bs.selection_qty, NULL)");
         } else {
             $priceExpr = new Zend_Db_Expr("IF(i.special_price > 0, ROUND(idx.min_price * (i.special_price / 100), 4), "
                 . "idx.min_price) * bs.selection_qty");
-            $tierExpr = new Zend_Db_Expr("IF(i.tier_price IS NOT NULL, ROUND(idx.min_price * (i.tier_price / 100), 4) "
+            $tierExpr = new Zend_Db_Expr("IF(i.base_tier IS NOT NULL, ROUND(idx.min_price * (i.base_tier / 100), 4) "
                 . "* bs.selection_qty, NULL)");
         }
 
@@ -384,6 +387,10 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
                 array('idx' => $this->getIdxTable()),
                 'bs.product_id = idx.entity_id AND i.customer_group_id = idx.customer_group_id'
                     . ' AND i.website_id = idx.website_id',
+                array())
+            ->join(
+                array('e' => $this->getTable('catalog/product')),
+                'bs.product_id = e.entity_id AND e.required_options=0',
                 array())
             ->where('i.price_type=?', $priceType)
             ->columns(array(
@@ -407,7 +414,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
      */
     protected function _prepareBundlePrice($entityIds = null)
     {
-        $this->_prepareWebsiteDateTable();
+        $this->_prepareTierPriceIndex($entityIds);
         $this->_prepareBundlePriceTable();
         $this->_prepareBundlePriceByType(Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED, $entityIds);
         $this->_prepareBundlePriceByType(Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC, $entityIds);
@@ -420,7 +427,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
                 'i.website_id = wd.website_id',
                 array());
         Mage::dispatchEvent('prepare_catalog_product_price_index_table', array(
-            'index_table'       => array('i' => $this->_getDefaultFinalPriceTable()),
+            'index_table'       => array('i' => $this->_getBundlePriceTable()),
             'select'            => $select,
             'entity_id'         => 'i.entity_id',
             'customer_group_id' => 'i.customer_group_id',
@@ -431,7 +438,71 @@ class Mage_Bundle_Model_Mysql4_Indexer_Price
 
         $this->_calculateBundleOptionPrice();
         $this->_applyCustomOption();
+
         $this->_movePriceDataToIndexTable();
+
+        return $this;
+    }
+
+    /**
+     * Retrieve table name for product tier price index
+     *
+     * @return string
+     */
+    protected function _getTierPriceIndexTable()
+    {
+        return $this->getIdxTable($this->getValueTable('catalog/product', 'tier_price'));
+    }
+
+    /**
+     * Prepare percentage tier price for bundle products
+     *
+     * @see Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price::_prepareTierPriceIndex
+     * @param int|array $entityIds
+     * @return Mage_Bundle_Model_Mysql4_Indexer_Price
+     */
+    protected function _prepareTierPriceIndex($entityIds = null)
+    {
+        $adapter = $this->_getWriteAdapter();
+
+        // remove index by bundle products
+        $select  = $adapter->select()
+            ->from(array('i' => $this->_getTierPriceIndexTable()), null)
+            ->join(
+                array('e' => $this->getTable('catalog/product')),
+                'i.entity_id=e.entity_id',
+                array())
+            ->where('e.type_id=?', $this->getTypeId());
+        $query   = $select->deleteFromSelect('i');
+        $adapter->query($query);
+
+        $select  = $adapter->select()
+            ->from(
+                array('tp' => $this->getValueTable('catalog/product', 'tier_price')),
+                array('entity_id'))
+            ->join(
+                array('e' => $this->getTable('catalog/product')),
+                'tp.entity_id=e.entity_id',
+                array())
+            ->join(
+                array('cg' => $this->getTable('customer/customer_group')),
+                'tp.all_groups = 1 OR (tp.all_groups = 0 AND tp.customer_group_id = cg.customer_group_id)',
+                array('customer_group_id'))
+            ->join(
+                array('cw' => $this->getTable('core/website')),
+                'tp.website_id = 0 OR tp.website_id = cw.website_id',
+                array('website_id'))
+            ->where('cw.website_id != 0')
+            ->where('e.type_id=?', $this->getTypeId())
+            ->columns(new Zend_Db_Expr('MIN(tp.value)'))
+            ->group(array('tp.entity_id', 'cg.customer_group_id', 'cw.website_id'));
+
+        if (!empty($entityIds)) {
+            $select->where('tp.entity_id IN(?)', $entityIds);
+        }
+
+        $query   = $select->insertFromSelect($this->_getTierPriceIndexTable());
+        $adapter->query($query);
 
         return $this;
     }

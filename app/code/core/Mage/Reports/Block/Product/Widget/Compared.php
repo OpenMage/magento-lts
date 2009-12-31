@@ -33,7 +33,7 @@
  */
 class Mage_Reports_Block_Product_Widget_Compared
     extends Mage_Reports_Block_Product_Compared
-    implements Mage_Cms_Block_Widget_Interface
+    implements Mage_Widget_Block_Interface
 {
     /**
      * Internal constructor

@@ -31,14 +31,6 @@
 <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
     <fieldset class="content">
             <legend><?php echo $this->__('Newsletter') ?></legend>
-            <!--
-            <?php if( $message = $this->getErrorMessage() ): ?>
-                <p class="error"><?php echo $message ?></p>
-            <?php endif; ?>
-            <?php if( $message = $this->getSuccessMessage() ): ?>
-                <p class="success"><?php echo $message ?></p>
-            <?php endif; ?>
-            -->
             <label for="newsletter"><?php echo $this->__('Sign up for our newsletter:') ?></label>
             <input name="email" type="text" id="newsletter" class="required-entry validate-email input-text" />
             <button type="submit" class="form-button-alt"><span><?php echo $this->__('Subscribe') ?></span></button>

@@ -26,12 +26,6 @@
 ?>
 <?php $_code=$this->getMethodCode() ?>
 <ul id="payment_form_<?php echo $_code ?>" style="display:none">
-    <!--li>
-        <div class="input-box">
-            <label for="<?php echo $_code ?>_cc_owner"><?php echo Mage::helper('payment')->__('Name on Card') ?> <span class="required">*</span></label><br/>
-            <input type="text" title="<?php echo Mage::helper('payment')->__('Name on Card') ?>" class="required-entry input-text" id="<?php echo $_code ?>_cc_owner" name="payment[cc_owner]" value="<?php echo $this->getInfoData('cc_owner') ?>"/>
-        </div>
-    </li-->
     <li>
         <div class="input-box">
             <label for="<?php echo $_code ?>_cc_type"><?php echo Mage::helper('payment')->__('Credit Card Type') ?> <span class="required">*</span></label><br/>

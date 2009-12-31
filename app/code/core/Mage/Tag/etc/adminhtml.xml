@@ -42,7 +42,7 @@
                         </all>
                         <pending translate="title" module="tag">
                             <title>Pending Tags</title>
-                            <action>adminhtml/tag/index/pending/true</action>
+                            <action>adminhtml/tag/pending</action>
                         </pending>
                     </children>
                     <sort_order>60</sort_order>

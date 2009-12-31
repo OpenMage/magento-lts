@@ -46,6 +46,14 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     protected $_roundingDeltas = array();
     protected $_baseRoundingDeltas = array();
 
+    /**
+     * Defines if method Mage_SalesRule_Model_Validator::process() was already called
+     * Used for clearing applied rule ids in Quote and in Address
+     *
+     * @var bool
+     */
+    protected $_isFirstTimeProcessRun = false;
+
     protected function _construct()
     {
         parent::_construct();
@@ -207,6 +215,14 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         $item->setDiscountPercent(0);
         $quote      = $item->getQuote();
         $address    = $this->_getAddress($item);
+
+        //Clearing applied rule ids for quote and address
+        if ($this->_isFirstTimeProcessRun !== true){
+            $this->_isFirstTimeProcessRun = true;
+            $quote->setAppliedRuleIds('');
+            $address->setAppliedRuleIds('');
+        }
+
         $itemPrice  = $item->getDiscountCalculationPrice();
         if ($itemPrice !== null) {
             $baseItemPrice = $item->getBaseDiscountCalculationPrice();
@@ -284,7 +300,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                 case 'buy_x_get_y':
                     $x = $rule->getDiscountStep();
                     $y = $rule->getDiscountAmount();
-                    if (!$x) {
+                    if (!$x || $y>=$x) {
                         break;
                     }
                     $buy = 0; $free = 0;

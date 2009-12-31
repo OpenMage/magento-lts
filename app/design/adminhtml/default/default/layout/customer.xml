@@ -47,4 +47,9 @@
             <block type="adminhtml/template" template="customer/edit/js.phtml" name="customer.edit.js" as="customer_edit_js"></block>
         </reference>
     </adminhtml_customer_edit>
+    <adminhtml_customer_group_index>
+        <reference name="content">
+            <block type="adminhtml/customer_group" name="customer_group"></block>
+        </reference>
+    </adminhtml_customer_group_index>
 </layout>

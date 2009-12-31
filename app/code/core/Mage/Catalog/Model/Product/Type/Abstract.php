@@ -70,6 +70,13 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     protected $_isComposite = false;
 
     /**
+     * Whether product quantity is fractional number or not
+     *
+     * @var bool
+     */
+    protected $_canUseQtyDecimals  = true;
+
+    /**
      * @deprecated
      *
      * @var int
@@ -470,6 +477,17 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
+     * Check if product qty is fractional number
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return bool
+     */
+    public function canUseQtyDecimals()
+    {
+        return $this->_canUseQtyDecimals;
+    }
+
+    /**
      * Default action to get sku of product
      *
      * @param Mage_Catalog_Model_Product $product
@@ -639,6 +657,11 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if (isset($config['composite'])) {
             $this->_isComposite = (bool) $config['composite'];
         }
+
+        if (isset($config['can_use_qty_decimals'])) {
+            $this->_canUseQtyDecimals = (bool) $config['can_use_qty_decimals'];
+        }
+
         return $this;
     }
 

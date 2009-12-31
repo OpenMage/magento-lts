@@ -26,7 +26,9 @@
 
 /**
  * Customer's tags edit block
+ * This functionality was removed
  *
+ * @deprecated  after 1.3.2.3
  * @category    Mage
  * @package     Mage_Tag
  * @author      Magento Core Team <core@magentocommerce.com>

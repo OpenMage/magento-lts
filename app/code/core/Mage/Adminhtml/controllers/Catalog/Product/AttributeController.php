@@ -95,7 +95,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
         // set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getAttributeData(true);
         if (! empty($data)) {
-            $model->setData($data);
+            $model->addData($data);
         }
 
         Mage::register('entity_attribute', $model);

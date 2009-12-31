@@ -112,6 +112,7 @@
                         <price_type />
                         <shipment_type />
                         <weight_type />
+                        <sku_type />
                     </product_attributes>
                 </item>
             </quote>
@@ -188,14 +189,6 @@
                     </bundle_observer>
                 </observers>
             </catalog_product_collection_load_after>
-            <catalog_product_load_after>
-                <observers>
-                    <bundle_observer>
-                        <class>bundle/observer</class>
-                        <method>catalogProductLoadAfter</method>
-                    </bundle_observer>
-                </observers>
-            </catalog_product_load_after>
         </events>
     </frontend>
     <admin>

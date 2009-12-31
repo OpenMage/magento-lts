@@ -65,7 +65,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Stock extends Mage_CatalogInventory_Model
      */
     protected function _getBundleOptionTable()
     {
-        return $this->getMainTable() . '_bundle_option';
+        return $this->getMainTable() . '_bndl_opt';
     }
 
     /**
@@ -114,7 +114,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Stock extends Mage_CatalogInventory_Model
                 array('cis' => $this->getTable('cataloginventory/stock')),
                 '',
                 array('stock_id'))
-            ->join(
+            ->joinLeft(
                 array('bs' => $this->getTable('bundle/selection')),
                 'bs.option_id = bo.option_id',
                 array())
@@ -122,12 +122,16 @@ class Mage_Bundle_Model_Mysql4_Indexer_Stock extends Mage_CatalogInventory_Model
                 array('i' => $this->getIdxTable()),
                 'i.product_id = bs.product_id AND i.website_id = cw.website_id AND i.stock_id = cis.stock_id',
                 array())
+            ->joinLeft(
+                array('e' => $this->getTable('catalog/product')),
+                'e.entity_id = bs.product_id',
+                array())
             ->where('cw.website_id != 0')
             ->where('bo.required = ?', 1)
             ->group(array('bo.parent_id', 'cw.website_id', 'cis.stock_id', 'bo.option_id'))
             ->columns(array(
                 'option_id' => 'bo.option_id',
-                'status'    => new Zend_Db_Expr("MAX(i.stock_status)")
+                'status'    => new Zend_Db_Expr("MAX(IF(e.required_options = 0, i.stock_status, 0))")
             ));
 
         if (!is_null($entityIds)) {
@@ -185,7 +189,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Stock extends Mage_CatalogInventory_Model
                 . 'cisi.is_in_stock, 1)');
         }
 
-        $select->columns(array('status' => new Zend_Db_Expr("LEAST(MAX(o.stock_status), {$statusExpr})")));
+        $select->columns(array('status' => new Zend_Db_Expr("LEAST(MIN(o.stock_status), {$statusExpr})")));
 
         if (!is_null($entityIds)) {
             $select->where('e.entity_id IN(?)', $entityIds);

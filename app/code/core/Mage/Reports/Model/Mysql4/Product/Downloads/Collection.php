@@ -48,8 +48,8 @@ class Mage_Reports_Model_Mysql4_Product_Downloads_Collection extends Mage_Catalo
                 array('d' => $this->getTable('downloadable/link_purchased_item')),
                 'e.entity_id=d.product_id',
                 array(
-                    'purchases' => 'd.number_of_downloads_bought',
-                    'downloads' => 'd.number_of_downloads_used'
+                    'purchases' => new Zend_Db_Expr('SUM(d.number_of_downloads_bought)'),
+                    'downloads' => new Zend_Db_Expr('SUM(d.number_of_downloads_used)')
                 )
             )
             ->joinInner(

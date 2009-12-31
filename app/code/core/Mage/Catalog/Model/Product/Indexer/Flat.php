@@ -95,6 +95,13 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
             return false;
         }
 
+        $data       = $event->getNewData();
+        $resultKey = 'catalog_product_flat_match_result';
+        if (isset($data[$resultKey])) {
+            return $data[$resultKey];
+        }
+
+        $result = null;
         $entity = $event->getEntity();
         if ($entity == Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY) {
             /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
@@ -112,34 +119,43 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                 || ($attribute->getData('used_for_sort_by') == 1);
 
             if ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
-                return $enableBefore;
+                $result = $enableBefore;
             } else if ($event->getType() == Mage_Index_Model_Event::TYPE_SAVE) {
                 if ($enableAfter || $enableBefore) {
-                    return true;
+                    $result = true;
+                } else {
+                    $result = false;
                 }
-                return false;
+            } else {
+                $result = false;
             }
         } else if ($entity == Mage_Core_Model_Store::ENTITY) {
             if ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
-                return true;
+                $result = true;
+            } else {
+                /* @var $store Mage_Core_Model_Store */
+                $store = $event->getDataObject();
+                if ($store->isObjectNew()) {
+                    $result = true;
+                } else {
+                    $result = false;
+                }
             }
-
-            /* @var $store Mage_Core_Model_Store */
-            $store = $event->getDataObject();
-            if ($store->isObjectNew()) {
-                return true;
-            }
-            return false;
         } else if ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             /* @var $storeGroup Mage_Core_Model_Store_Group */
             $storeGroup = $event->getDataObject();
             if ($storeGroup->dataHasChangedFor('website_id')) {
-                return true;
+                $result = true;
+            } else {
+                $result = false;
             }
-            return false;
+        } else {
+            $result = parent::matchEvent($event);
         }
 
-        return parent::matchEvent($event);
+        $event->addNewData($resultKey, $result);
+
+        return $result;
     }
 
     /**

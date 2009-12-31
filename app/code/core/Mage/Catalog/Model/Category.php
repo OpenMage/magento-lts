@@ -906,9 +906,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      *
      * @return Mage_Catalog_Model_Category
      */
-    protected function _afterSaveCommit()
+    public function afterCommitCallback()
     {
-        parent::_afterSaveCommit();
+        parent::afterCommitCallback();
         Mage::getSingleton('index/indexer')->processEntityAction(
             $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );

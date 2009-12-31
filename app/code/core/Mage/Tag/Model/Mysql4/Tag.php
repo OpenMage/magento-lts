@@ -63,7 +63,7 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
     public function loadByName($model, $name)
     {
         if( $name ) {
-            $read = $this->_getWriteAdapter();
+            $read = $this->_getReadAdapter();
             $select = $read->select();
             if (Mage::helper('core/string')->strlen($name) > 255) {
                 $name = Mage::helper('core/string')->substr($name, 0, 255);
@@ -104,7 +104,7 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
      */
     protected function _getExistingBasePopularity($tagId)
     {
-        $selectSummary = $this->_getWriteAdapter()->select()
+        $selectSummary = $this->_getReadAdapter()->select()
             ->from(
                 array('main' => $this->getTable('summary')),
                 array('store_id', 'base_popularity')
@@ -112,7 +112,7 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
             ->where('main.tag_id = ?', $tagId)
             ->where('main.store_id != 0');
 
-        return $this->_getWriteAdapter()->fetchAssoc($selectSummary);
+        return $this->_getReadAdapter()->fetchAssoc($selectSummary);
     }
 
 
@@ -124,7 +124,8 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
      */
     protected function _getAggregationPerStoreView($tagId)
     {
-        $selectLocal = $this->_getWriteAdapter()->select()
+        $readAdapter = $this->_getReadAdapter();
+        $selectLocal = $readAdapter->select()
             ->from(
                 array('main'  => $this->getTable('relation')),
                 array(
@@ -146,9 +147,9 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
             ->where('main.active')
             ->group('main.store_id');
 
-        $selectLocalResult = $this->_getWriteAdapter()->fetchAll($selectLocal);
+        $selectLocalResult = $readAdapter->fetchAll($selectLocal);
 
-        $selectHistorical = $this->_getWriteAdapter()->select()
+        $selectHistorical = $readAdapter->select()
             ->from(
                 array('main'=>$this->getTable('relation')),
                 array('historical_uses'=>'COUNT(main.tag_relation_id)',
@@ -165,7 +166,7 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
             ->group('main.store_id')
             ->where('main.tag_id = ?', $tagId);
 
-        $selectHistoricalResult = $this->_getWriteAdapter()->fetchAll($selectHistorical);
+        $selectHistoricalResult = $readAdapter->fetchAll($selectHistorical);
 
         foreach ($selectHistoricalResult as $historical) {
             foreach ($selectLocalResult as $key => $local) {
@@ -187,8 +188,9 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
      */
     protected function _getGlobalAggregation($tagId)
     {
+        $readAdapter = $this->_getReadAdapter();
         // customers and products stats
-        $selectGlobal = $this->_getWriteAdapter()->select()
+        $selectGlobal = $readAdapter->select()
             ->from(
                 array('main'=>$this->getTable('relation')),
                 array(
@@ -208,13 +210,13 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
             )
             ->where('main.tag_id = ?', $tagId)
             ->where('main.active');
-        $result = $this->_getWriteAdapter()->fetchRow($selectGlobal);
+        $result = $readAdapter->fetchRow($selectGlobal);
         if (!$result) {
             return array();
         }
 
         // historical uses stats
-        $selectHistoricalGlobal = $this->_getWriteAdapter()->select()
+        $selectHistoricalGlobal = $readAdapter->select()
             ->from(
                 array('main'=>$this->getTable('relation')),
                 array('historical_uses'=>'COUNT(main.tag_relation_id)')
@@ -228,7 +230,7 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
                 array()
             )
             ->where('main.tag_id = ?', $tagId);
-        $result['historical_uses'] = (int)$this->_getWriteAdapter()->fetchOne($selectHistoricalGlobal);
+        $result['historical_uses'] = (int) $readAdapter->fetchOne($selectHistoricalGlobal);
 
         return $result;
     }
@@ -288,6 +290,20 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
     }
 
     /**
+     * Decrementing tag products quantity as action for product delete
+     *
+     * @param  array $tagsId
+     * @return int The number of affected rows
+     */
+    public function decrementProducts(array $tagsId)
+    {
+        $writeAdapter = $this->_getWriteAdapter();
+        $whereCond    = $writeAdapter->quoteInto('`tag_id` IN (?)', $tagsId, Zend_Db::INT_TYPE);
+
+        return $writeAdapter->update($this->getTable('summary'), array('products' => new Zend_Db_Expr('products - 1')), $whereCond);
+    }
+
+    /**
      * Add summary data
      *
      * @param Mage_Tag_Model_Tag $object
@@ -295,13 +311,13 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
      */
     public function addSummary($object)
     {
-        $select = $this->_getWriteAdapter()->select()
+        $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('summary'))
             ->where('tag_id = ?', (int)$object->getId())
             ->where('store_id = ?', (int)$object->getStoreId())
             ->limit(1);
 
-        $row = $this->_getWriteAdapter()->fetchRow($select);
+        $row = $this->_getReadAdapter()->fetchRow($select);
         if ($row) {
             $object->addData($row);
         }
@@ -315,10 +331,10 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
-        $select = $this->_getWriteAdapter()->select()
+        $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('tag/summary'), array('store_id'))
             ->where('tag_id = ?', $object->getId());
-        $storeIds = $this->_getWriteAdapter()->fetchCol($select);
+        $storeIds = $this->_getReadAdapter()->fetchCol($select);
 
         $object->setVisibleInStoreIds($storeIds);
 

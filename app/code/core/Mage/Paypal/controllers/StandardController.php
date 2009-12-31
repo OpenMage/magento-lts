@@ -52,6 +52,10 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
         return $this->_order;
     }
 
+    /**
+     * Send expire header to ajax response
+     *
+     */
     protected function _expireAjax()
     {
         if (!Mage::getSingleton('checkout/session')->getQuote()->hasItems()) {
@@ -87,6 +91,8 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
      */
     public function cancelAction()
     {
+        // TODO: this code is deprecated. The registerCancellation() order method should be called instead
+
         $session = Mage::getSingleton('checkout/session');
         $session->setQuoteId($session->getPaypalStandardQuoteId(true));
 
@@ -129,27 +135,11 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * when paypal returns via ipn
-     * cannot have any output here
-     * validate IPN data
-     * if data is valid need to update the database that the user has
+     * @deprecated after 1.4.0.0-alpha3
+     * @see Mage_Paypal_IpnController
      */
     public function ipnAction()
     {
-        if (!$this->getRequest()->isPost()) {
-            $this->_redirect('');
-            return;
-        }
-
-        if($this->getStandard()->getDebug()){
-            $debug = Mage::getModel('paypal/api_debug')
-                ->setApiEndpoint($this->getStandard()->getPaypalUrl())
-                ->setRequestBody(print_r($this->getRequest()->getPost(),1))
-                ->save();
-        }
-
-        $this->getStandard()->setIpnFormData($this->getRequest()->getPost());
-        $this->getStandard()->ipnPostSubmit();
+        $this->_forward('standard', 'ipn');
     }
-
 }

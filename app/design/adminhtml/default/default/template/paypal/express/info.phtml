@@ -26,3 +26,20 @@
 ?>
 <p><?php echo $this->getMethod()->getTitle() ?><br/>
 <strong><?php echo $this->__('PayPal Email') ?>:</strong> <span class="nowrap"><?php echo $this->getEmail() ?></span></p>
+<?php if ($this->getInfo()->getCcTransId()): ?>
+    <?php echo $this->__('Transaction Id');?>: <strong><?php echo $this->getInfo()->getCcTransId();?></strong><br/>
+<?php elseif ($this->getInfo()->getLastTransId()): ?>
+    <?php echo $this->__('Transaction Id');?>: <strong><?php echo $this->getInfo()->getLastTransId();?></strong><br/>
+<?php endif;?>
+
+<?php if ($this->getInfo()->getAccountStatus()): ?>
+    <?php echo $this->__('Customer account status'); ?> : <strong><?php echo $this->getInfo()->getAccountStatus();?></strong><br/>
+<?php endif;?>
+
+<?php if ($this->getInfo()->getProtectionEligibility()): ?>
+    <?php echo $this->__('Seller protection eligibility'); ?> : <strong><?php echo $this->getInfo()->getProtectionEligibility();?></strong><br/>
+<?php endif;?>
+
+<?php if ($this->getInfo()->getAddressStatus()): ?>
+    <?php echo $this->__('Shipping address status'); ?> : <strong><?php echo $this->getInfo()->getAddressStatus();?></strong><br/>
+<?php endif;?>

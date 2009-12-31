@@ -41,11 +41,6 @@
                     <action>adminhtml/cms_block</action>
                     <sort_order>10</sort_order>
                 </block>
-                <poll translate="title" module="cms">
-                    <title>Polls</title>
-                    <action>adminhtml/poll</action>
-                    <sort_order>20</sort_order>
-                </poll>
             </children>
          </cms>
     </menu>
@@ -75,10 +70,6 @@
                                     </delete>
                                 </children>
                             </page>
-                            <poll translate="title">
-                                <title>Polls</title>
-                                <sort_order>20</sort_order>
-                            </poll>
                         </children>
                     </cms>
                     <system>

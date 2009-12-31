@@ -190,6 +190,19 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     }
 
     /**
+     * WYSIWYG editor action for ajax request
+     *
+     */
+    public function wysiwygAction()
+    {
+        $elementId = $this->getRequest()->getParam('element_id', md5(microtime()));
+        $content = $this->getLayout()->createBlock('adminhtml/catalog_helper_form_wysiwyg_content', '', array(
+            'editor_element_id' => $elementId
+        ));
+        $this->getResponse()->setBody($content->toHtml());
+    }
+
+    /**
      * Get tree node (Ajax version)
      */
     public function categoriesJsonAction()
@@ -222,6 +235,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         }
 
         $storeId = $this->getRequest()->getParam('store');
+        $refreshTree = 'false';
         if ($data = $this->getRequest()->getPost()) {
             $category->addData($data['general']);
             if (!$category->getId()) {

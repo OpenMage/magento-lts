@@ -96,7 +96,7 @@ class Mage_Reports_Model_Mysql4_Invoiced_Collection extends Mage_Sales_Model_Ent
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->from("", "count(*)");
+        $countSelect->columns("count(*)");
         $sql = $countSelect->__toString();
         return $sql;
     }

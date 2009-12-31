@@ -171,7 +171,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'rates.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/tax_rate_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -183,7 +183,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'rates.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/tax_rate_grid')
-            ->getXml();
+            ->getExcelFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -352,36 +352,50 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
      */
     public function exportPostAction()
     {
-        /** get rate types */
-        $stores = array();
-        $storeCollection = Mage::getModel('core/store')->getCollection()->setLoadDefault(false);
-        foreach ($storeCollection as $store) {
-            $stores[$store->getId()] = $store->getCode();
-        }
+        $storeTaxTitleTemplate       = array();
+        $taxCalculationRateTitleDict = array();
 
         /** start csv content and set template */
-        $content    = '"'.Mage::helper('tax')->__('Code').'","'.Mage::helper('tax')->__('Country').'","'.Mage::helper('tax')->__('State').'","'.Mage::helper('tax')->__('Zip/Post Code').'","'.Mage::helper('tax')->__('Rate').'"';
-        $template   = '"{{code}}","{{country_name}}","{{region_name}}","{{tax_postcode}}","{{rate}}"';
-        foreach ($stores as $id => $name) {
-            $content   .= ',"'.$name.'"';
-            $template  .= ',"{{title_'.$id.'}}"';
+        $content = '"'.Mage::helper('tax')->__('Code') . '","' . Mage::helper('tax')->__('Country') . '","'
+                 . Mage::helper('tax')->__('State') . '","' . Mage::helper('tax')->__('Zip/Post Code') . '","'
+                 . Mage::helper('tax')->__('Rate') . '"';
+
+        $template = '"{{code}}","{{country_name}}","{{region_name}}","{{tax_postcode}}","{{rate}}"';
+
+        foreach (Mage::getModel('core/store')->getCollection()->setLoadDefault(false) as $store) {
+            $storeTitle = 'title_' . $store->getId();
+            $content   .= ',"' . $store->getCode() . '"';
+            $template  .= ',"{{' . $storeTitle . '}}"';
+            $storeTaxTitleTemplate[$storeTitle] = null;
         }
+
         $content .= "\n";
 
-        $rateCollection = Mage::getModel('tax/calculation_rate')->getCollection()
-            ->joinStoreTitles()
-            ->joinCountryTable()
-            ->joinRegionTable();
-        foreach ($rateCollection as $rate) {
+        foreach (Mage::getModel('tax/calculation_rate_title')->getCollection() as $title) {
+            $rateId = $title->getTaxCalculationRateId();
+
+            if (! array_key_exists($rateId, $taxCalculationRateTitleDict)) {
+                $taxCalculationRateTitleDict[$rateId] = $storeTaxTitleTemplate;
+            }
+
+            $taxCalculationRateTitleDict[$rateId]['title_' . $title->getStoreId()] = $title->getValue();
+        }
+
+        foreach (Mage::getModel('tax/calculation_rate')->getCollection()->joinCountryTable()->joinRegionTable() as $rate) {
             if ($rate->getTaxRegionId() == 0) {
                 $rate->setRegionName('*');
             }
-            $content .= $rate->toString($template)."\n";
+
+            if (array_key_exists($rate->getId(), $taxCalculationRateTitleDict)) {
+                $rate->addData($taxCalculationRateTitleDict[$rate->getId()]);
+            } else {
+                $rate->addData($storeTaxTitleTemplate);
+            }
+
+            $content .= $rate->toString($template) . "\n";
         }
 
-        $fileName = 'tax_rates.csv';
-
-        $this->_prepareDownloadResponse($fileName, $content);
+        $this->_prepareDownloadResponse('tax_rates.csv', $content);
     }
 
     protected function _isAllowed()

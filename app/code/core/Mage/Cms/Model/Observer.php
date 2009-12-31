@@ -74,18 +74,4 @@ class Mage_Cms_Model_Observer
         return $this;
     }
 
-    /**
-     * Add additional settings to wysiwyg config for Widgets Insertion Plugin
-     *
-     * @param Varien_Event_Observer $observer
-     * @return Mage_Cms_Model_Observer
-     */
-    public function prepareWidgetsPluginConfig(Varien_Event_Observer $observer)
-    {
-        $config = $observer->getEvent()->getConfig();
-        $settings = Mage::getModel('cms/widget_config')->getPluginSettings($config);
-        $config->addData($settings);
-        return $this;
-    }
-
 }

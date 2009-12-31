@@ -100,9 +100,15 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             $quoteId = $this->getQuote()->getId();
             if ($quoteId) {
                 $this->setQuoteId($quoteId);
-            }
-            else {
+            } else {
                 $this->_dataSaveAllowed = false;
+            }
+            $this->setCustomerId($this->getQuote()->getCustomerId());
+            /**
+             * Init customer address id if customer address is assigned
+             */
+            if ($this->getCustomerAddress()) {
+                $this->setCustomerAddressId($this->getCustomerAddress()->getId());
             }
         }
         return $this;
@@ -157,7 +163,16 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     public function importCustomerAddress(Mage_Customer_Model_Address $address)
     {
         Mage::helper('core')->copyFieldset('customer_address', 'to_quote_address', $address, $this);
-        $this->setEmail($address->hasEmail() ? $address->getEmail() : $address->getCustomer()->getEmail());
+        $email = null;
+        if ($address->hasEmail()) {
+            $email =  $address->getEmail();
+        }
+        elseif ($address->getCustomer()) {
+            $email = $address->getCustomer()->getEmail();
+        }
+        if ($email) {
+            $this->setEmail($email);
+        }
         return $this;
     }
 
@@ -199,7 +214,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function toArray(array $arrAttributes = array())
     {
-        $arr = parent::toArray();
+        $arr = parent::toArray($arrAttributes);
         $arr['rates'] = $this->getShippingRatesCollection()->toArray($arrAttributes);
         $arr['items'] = $this->getItemsCollection()->toArray($arrAttributes);
         foreach ($this->getTotals() as $k=>$total) {
@@ -605,32 +620,8 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         $request->setDestStreet($this->getStreet(-1));
         $request->setDestCity($this->getCity());
         $request->setDestPostcode($this->getPostcode());
-
-        /**
-         * Count total amount and total discount for shipping. Only not virtual quote items.
-         * Fix bug #15971
-         */
-        $quoteItems = $this->getAllItems();
-        $subtotal = 0;
-        $discountAmount = 0;
-        foreach ($quoteItems as $quoteItem) {
-            if (!$quoteItem->getParentItem() && !$quoteItem->getProduct()->isVirtual()) {
-                $subtotal += $quoteItem->getRowTotal();
-                $discountAmount += $quoteItem->getDiscountAmount();
-                if ($quoteItem->getHasChildren()) {
-                    foreach ($quoteItem->getChildren() as $child) {
-                        $discountAmount += $child->getDiscountAmount();
-                    }
-                }
-            }
-        }
-
-        $request->setPackageValue($subtotal);
-        $request->setPackageValueWithDiscount($subtotal - $discountAmount);
-        /**
-         * End fix
-         */
-
+        $request->setPackageValue($this->getBaseSubtotal());
+        $request->setPackageValueWithDiscount($this->getBaseSubtotalWithDiscount());
         $request->setPackageWeight($this->getWeight());
         $request->setPackageQty($this->getItemQty());
 

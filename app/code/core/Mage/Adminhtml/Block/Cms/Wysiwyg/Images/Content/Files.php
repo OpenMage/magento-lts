@@ -34,56 +34,122 @@
 class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Files extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Prepare Files collection
+     * Files collection object
+     *
+     * @var Varien_Data_Collection_Filesystem
+     */
+    protected $_filesCollection;
+
+    /**
+     * Prepared Files collection for current directory
      *
      * @return Varien_Data_Collection_Filesystem
      */
-    public function getContentsCollection()
+    public function getFiles()
     {
-        $helper = Mage::helper('cms/wysiwyg_images');
-        $type = $this->getRequest()->getParam('type');
-        $collection = $helper->getStorage()->getFilesCollection($helper->getCurrentPath(), $type);
-        foreach ($collection as $item) {
-            $item->setId(Mage::helper('core')->urlEncode($item->getBasename()));
-            $item->setName($this->getShortFilename($item->getBasename()));
-            $item->setUrl($helper->getCurrentUrl() . $item->getBasename());
-            $item->setEncodedPath(Mage::helper('core')->urlEncode($item->getFilename()));
+        if (! $this->_filesCollection) {
+            $this->_filesCollection = Mage::getSingleton('cms/wysiwyg_images_storage')->getFilesCollection(Mage::helper('cms/wysiwyg_images')->getCurrentPath(), $this->_getMediaType());
 
-            if(is_file($helper->getCurrentPath() . DS . '.thumbs' . DS . $item->getBasename())) {
-                $item->setThumbUrl($helper->getCurrentUrl() . '.thumbs/' . $item->getBasename());
-            }
-
-            $size = @getimagesize($item->getFilename());
-            if (is_array($size)) {
-                $item->setWidth($size[0]);
-                $item->setHeight($size[1]);
-            }
         }
-        return $collection;
+
+        return $this->_filesCollection;
+    }
+
+    /**
+     * Files collection count getter
+     *
+     * @return int
+     */
+    public function getFilesCount()
+    {
+        return $this->getFiles()->count();
+    }
+
+    /**
+     * File idetifier getter
+     *
+     * @param  Varien_Object $file
+     * @return string
+     */
+    public function getFileId(Varien_Object $file)
+    {
+        return $file->getId();
+    }
+
+    /**
+     * File thumb URL getter
+     *
+     * @param  Varien_Object $file
+     * @return string
+     */
+    public function getFileThumbUrl(Varien_Object $file)
+    {
+        return $file->getThumbUrl();
+    }
+
+    /**
+     * File name URL getter
+     *
+     * @param  Varien_Object $file
+     * @return string
+     */
+    public function getFileName(Varien_Object $file)
+    {
+        return $file->getName();
+    }
+
+    /**
+     * Image file width getter
+     *
+     * @param  Varien_Object $file
+     * @return string
+     */
+    public function getFileWidth(Varien_Object $file)
+    {
+        return $file->getWidth();
+    }
+
+    /**
+     * Image file height getter
+     *
+     * @param  Varien_Object $file
+     * @return string
+     */
+    public function getFileHeight(Varien_Object $file)
+    {
+        return $file->getHeight();
+    }
+
+    /**
+     * File short name getter
+     *
+     * @param  Varien_Object $file
+     * @return string
+     */
+    public function getFileShortName(Varien_Object $file)
+    {
+        return $file->getShortName();
     }
 
     public function getImagesWidth()
     {
-        return Mage::getSingleton('cms/wysiwyg_images_storage')->getConfigData('browser_resize_width');
+        return Mage::getSingleton('cms/wysiwyg_images_storage')->getConfigData('resize_width');
     }
 
     public function getImagesHeight()
     {
-        return Mage::getSingleton('cms/wysiwyg_images_storage')->getConfigData('browser_resize_height');
+        return Mage::getSingleton('cms/wysiwyg_images_storage')->getConfigData('resize_height');
     }
 
     /**
-     * Reduce filename by replacing some characters with dots
-     *
-     * @param string $filename
-     * @param int $maxLength Maximum filename
-     * @return string Truncated filename
+     * Return current media type based on request or data
+     * @return string
      */
-    public function getShortFilename($filename, $maxLength = 15)
+    protected function _getMediaType()
     {
-        if (strlen($filename) <= $maxLength) {
-            return $filename;
+        if ($this->hasData('media_type')) {
+            return $this->_getData('media_type');
         }
-        return preg_replace('/^(.{1,'.($maxLength - 3).'})(.*)(\.[a-z0-9]+)$/i', '$1..$3', $filename);
+        return $this->getRequest()->getParam('type');
     }
 }

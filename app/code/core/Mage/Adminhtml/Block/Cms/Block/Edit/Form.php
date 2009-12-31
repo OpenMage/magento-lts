@@ -117,6 +117,9 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
                 '0' => Mage::helper('cms')->__('Disabled'),
             ),
         ));
+        if (!$model->getId()) {
+            $model->setData('is_active', '1');
+        }
 
         $fieldset->addField('content', 'editor', array(
             'name'      => 'content',

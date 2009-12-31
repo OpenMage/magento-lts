@@ -98,6 +98,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
         $model  = Mage::getModel('sendfriend/sendfriend');
         $model->setRemoteAddr(Mage::helper('core/http')->getRemoteAddr(true));
         $model->setCookie(Mage::app()->getCookie());
+        $model->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
 
         Mage::register('send_to_friend_model', $model);
 

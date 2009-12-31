@@ -76,7 +76,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
         $parent = $this->getParentBlock();
         $this->_order   = $parent->getOrder();
         $this->_source  = $parent->getSource();
-        
+
         $store = $this->getStore();
         $allowTax = ($this->_source->getTaxAmount() > 0) || ($this->_config->displaySalesZeroTax($store));
         $grandTotal = (float) $this->_source->getGrandTotal();
@@ -90,7 +90,13 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
         $this->_initGrandTotal();
         return $this;
     }
-    
+
+    /**
+     * Add tax total string
+     *
+     * @param string $after
+     * @return Mage_Tax_Block_Sales_Order_Tax
+     */
     protected function _addTax($after='discount')
     {
         $taxTotal = new Varien_Object(array(
@@ -101,6 +107,11 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * Get order store object
+     *
+     * @return Mage_Core_Model_Store
+     */
     public function getStore()
     {
         return $this->_order->getStore();
@@ -115,10 +126,10 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
             return $this;
         }
         if ($this->_config->displaySalesSubtotalBoth($store)) {
-            $subtotal       = $this->_source->getSubtotal();
-            $baseSubtotal   = $this->_source->getBaseSubtotal();
-            $subtotalIncl   = $this->_source->getSubtotalInclTax();
-            $baseSubtotalIncl= $this->_source->getBaseSubtotalInclTax();
+            $subtotal       = (float) $this->_source->getSubtotal();
+            $baseSubtotal   = (float) $this->_source->getBaseSubtotal();
+            $subtotalIncl   = (float) $this->_source->getSubtotalInclTax();
+            $baseSubtotalIncl= (float) $this->_source->getBaseSubtotalInclTax();
 
             if (!$subtotalIncl) {
                 $subtotalIncl = $subtotal+ $this->_source->getTaxAmount()
@@ -128,7 +139,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
                 $baseSubtotalIncl = $baseSubtotal + $this->_source->getBaseTaxAmount()
                     - $this->_source->getBaseShippingTaxAmount();
             }
-            
+
             $totalExcl = new Varien_Object(array(
                 'code'      => 'subtotal_excl',
                 'value'     => $subtotal,
@@ -177,10 +188,10 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
         }
 
         if ($this->_config->displaySalesShippingBoth($store)) {
-            $shipping       = $this->_source->getShippingAmount();
-            $baseShipping   = $this->_source->getBaseShippingAmount();
-            $shippingIncl   = $shipping + $this->_source->getShippingTaxAmount();
-            $baseShippingIncl = $baseShipping + $this->_source->getBaseShippingTaxAmount();
+            $shipping       = (float) $this->_source->getShippingAmount();
+            $baseShipping   = (float) $this->_source->getBaseShippingAmount();
+            $shippingIncl   = $shipping + (float) $this->_source->getShippingTaxAmount();
+            $baseShippingIncl = $baseShipping + (float) $this->_source->getBaseShippingTaxAmount();
 
             $totalExcl = new Varien_Object(array(
                 'code'      => 'shipping',
@@ -196,7 +207,6 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
             ));
             $parent->addTotal($totalExcl, 'shipping');
             $parent->addTotal($totalIncl, 'shipping');
-            $parent->removeTotal('shipping');
         } elseif ($this->_config->displaySalesShippingInclTax($store)) {
             $shippingIncl = $this->_source->getShippingAmount()
                 + $this->_source->getShippingTaxAmount();
@@ -255,7 +265,6 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
             $parent->addTotal($totalExcl, 'grand_total');
             $this->_addTax('grand_total');
             $parent->addTotal($totalIncl, 'tax');
-            $parent->removeTotal('grand_total');
         }
         return $this;
     }

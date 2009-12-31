@@ -36,7 +36,7 @@
         <td style="padding-right:5px;" valign="top">
             <p class="product-image"><a href="<?php echo $_link->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_link, 'small_image')->resize(90) ?>" width="90" height="90" alt="<?php echo $this->htmlEscape($_link->getName()) ?>" title="<?php echo $this->htmlEscape($_link->getName()) ?>" /></a></p>
             <h5><a href="<?php echo $_link->getProductUrl() ?>"><?php echo $this->htmlEscape($_link->getName()) ?></a></h5>
-            <?php echo $this->getPriceHtml($_link, true) ?>
+            <?php echo $this->getPriceHtml($_link, true, '-upsell') ?>
         </td>
         <?php else: ?>
         <td class="empty-product">&nbsp;</td>

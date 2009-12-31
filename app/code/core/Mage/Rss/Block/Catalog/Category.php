@@ -31,7 +31,7 @@
  * @package    Mage_Rss
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Abstract
+class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
 {
     protected function _construct()
     {
@@ -113,6 +113,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Abstract
     {
         $product = $args['product'];
         $product->setAllowedInRss(true);
+        $product->setAllowedPriceInRss(true);
 
         Mage::dispatchEvent('rss_catalog_category_xml_callback', $args);
 
@@ -121,17 +122,13 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Abstract
         }
 
         $description = '<table><tr>'
-            . '<td><a href="'.$product->getProductUrl().'"><img src="'
-            . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
-            . '" border="0" align="left" height="75" width="75"></a></td>'
-            . '<td  style="text-decoration:none;">' . $product->getDescription();
+                     . '<td><a href="'.$product->getProductUrl().'"><img src="'
+                     . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
+                     . '" border="0" align="left" height="75" width="75"></a></td>'
+                     . '<td  style="text-decoration:none;">' . $product->getDescription();
 
         if ($product->getAllowedPriceInRss()) {
-            $description .= '<p> Price:'.Mage::helper('core')->currency($product->getPrice());
-            if ($product->getPrice() != $product->getFinalPrice()) {
-                $description .= ' Special Price:' . Mage::helper('core')->currency($product->getFinalPrice());
-            }
-            $description .= '</p>';
+            $description.= $this->getPriceHtml($product,true);
         }
 
         $description .= '</td></tr></table>';

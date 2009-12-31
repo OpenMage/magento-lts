@@ -84,6 +84,9 @@ Adding custom product price block
         <reference name="wishlist_sidebar">
             <action method="addPriceBlockType"><type>bundle</type><block>bundle/catalog_product_price</block><template>bundle/catalog/product/price.phtml</template></action>
         </reference>
+        <reference name="catalog_product_price_template">
+            <action method="addPriceBlockType"><type>bundle</type><block>bundle/catalog_product_price</block><template>bundle/catalog/product/price.phtml</template></action>
+        </reference>
     </default>
 
     <wishlist_index_index>

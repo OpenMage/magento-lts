@@ -59,6 +59,26 @@
         <div class="col-1">
             <h4><?php echo $this->__('Shipping Method') ?></h4>
              <?php echo $_order->getShippingDescription() ?>
+             <?php if (count($_order->getTracksCollection()) > 0): ?>
+                <table class="data-table">
+                    <col />
+                    <col />
+                    <thead>
+                        <tr>
+                            <th><?php echo Mage::helper('sales')->__('Title')?></th>
+                            <th><?php echo Mage::helper('sales')->__('Number')?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($_order->getTracksCollection() as $track): ?>
+                            <tr>
+                                <td><?php echo $track->getTitle() ?></td>
+                                <td><?php echo $track->getNumber() ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
         </div>
         <div class="col-2">
             <h4><?php echo $this->__('Payment Method') ?></h4>

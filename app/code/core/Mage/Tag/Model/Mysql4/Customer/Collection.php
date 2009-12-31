@@ -184,7 +184,7 @@ class Mage_Tag_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_Enti
         if ($this->_allowDisableGrouping) {
             $countSelect->reset(Zend_Db_Select::COLUMNS);
             $countSelect->reset(Zend_Db_Select::GROUP);
-            $countSelect->from('', 'COUNT(DISTINCT ' . $this->getCountAttribute() . ')');
+            $countSelect->columns('COUNT(DISTINCT ' . $this->getCountAttribute() . ')');
         }
         return $countSelect;
     }

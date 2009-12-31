@@ -31,7 +31,7 @@
  * @package    Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Paypal_Block_Express_Review_Details extends Mage_Core_Block_Template
+class Mage_Paypal_Block_Express_Review_Details extends Mage_Checkout_Block_Cart_Totals
 {
     protected $_address;
 
@@ -45,6 +45,11 @@ class Mage_Paypal_Block_Express_Review_Details extends Mage_Core_Block_Template
         return Mage::getSingleton('paypal/express_review');
     }
 
+    /**
+     * Return review shipping address
+     *
+     * @return Mage_Sales_Model_Order_Address
+     */
     public function getAddress()
     {
         if (empty($this->_address)) {
@@ -53,23 +58,23 @@ class Mage_Paypal_Block_Express_Review_Details extends Mage_Core_Block_Template
         return $this->_address;
     }
 
+    /**
+     * Return review quote items
+     *
+     * @return Mage_Sales_Model_Quote
+     */
     public function getItems()
     {
-//		$priceFilter = Mage::app()->getStore()->getPriceFilter();
-//        $itemsFilter = new Varien_Filter_Object_Grid();
-//        $itemsFilter->addFilter(new Varien_Filter_Sprintf('%d'), 'qty');
-//        $itemsFilter->addFilter($priceFilter, 'price');
-//        $itemsFilter->addFilter($priceFilter, 'row_total');
-//        return $itemsFilter->filter($this->getAddress()->getAllItems());
         return $this->getReview()->getQuote()->getAllItems();
     }
 
+    /**
+     * Return review quote totals
+     *
+     * @return array
+     */
     public function getTotals()
     {
-//        $totals = $this->getAddress()->getTotals();
-//        $totalsFilter = new Varien_Filter_Object_Grid();
-//        $totalsFilter->addFilter(Mage::app()->getStore()->getPriceFilter(), 'value');
-//        return $totalsFilter->filter($totals);
         return $this->getReview()->getQuote()->getTotals();
     }
 }

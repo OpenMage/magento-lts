@@ -33,6 +33,14 @@
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Collection extends Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
 {
+    /**
+     * Resource model initialization
+     */
+    public function _construct()
+    {
+        $this->_init('catalog/resource_eav_attribute', 'eav/entity_attribute');
+    }
+
     protected function _initSelect()
     {
         $this->getSelect()->from(array('main_table' => $this->getResource()->getMainTable()))

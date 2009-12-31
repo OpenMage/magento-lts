@@ -55,10 +55,14 @@ class Mage_Adminhtml_Catalog_Product_WidgetController extends Mage_Adminhtml_Con
         if (!$this->getRequest()->getParam('products_grid')) {
             $categoriesTree = $this->getLayout()->createBlock('adminhtml/catalog_category_widget_chooser', '', array(
                 'id'                  => $uniqId.'Tree',
-                'node_click_listener' => $productsGrid->getCategoryClickListenerJs()
+                'node_click_listener' => $productsGrid->getCategoryClickListenerJs(),
+                'with_empty_node'     => true
             ));
 
-            $html = $categoriesTree->toHtml() . $html;
+            $html = $this->getLayout()->createBlock('adminhtml/catalog_product_widget_chooser_container')
+                ->setTreeHtml($categoriesTree->toHtml())
+                ->setGridHtml($html)
+                ->toHtml();
         }
 
         $this->getResponse()->setBody($html);

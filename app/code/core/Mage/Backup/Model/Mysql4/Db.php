@@ -58,10 +58,18 @@ class Mage_Backup_Model_Mysql4_Db
     }
 
     /**
+     * @deprecated after 1.4.0.0-alpha2
+     */
+    public function crear()
+    {
+        $this->clear();
+    }
+
+    /**
      * Clear data
      *
      */
-    public function crear()
+    public function clear()
     {
         $this->_foreignKeys = array();
     }

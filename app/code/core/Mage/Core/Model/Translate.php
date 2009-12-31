@@ -281,7 +281,7 @@ class Mage_Core_Model_Translate
      */
     protected function _loadDbTranslation($forceReload = false)
     {
-        $arr = $this->getResource()->getTranslationArray();
+        $arr = $this->getResource()->getTranslationArray(null, $this->getLocale());
         $this->_addData($arr, $this->getConfig(self::CONFIG_KEY_STORE), $forceReload);
         return $this;
     }

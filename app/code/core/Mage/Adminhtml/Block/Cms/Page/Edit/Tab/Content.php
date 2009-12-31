@@ -72,9 +72,16 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content
             array('tab_id' => $this->getTabId())
         );
 
+        $fieldset->addField('content_heading', 'text', array(
+            'name'      => 'content_heading',
+            'label'     => Mage::helper('cms')->__('Content Heading'),
+            'title'     => Mage::helper('cms')->__('Content Heading'),
+            'disabled'  => $isElementDisabled
+        ));
+
         $contentField = $fieldset->addField('content', 'editor', array(
             'name'      => 'content',
-            'style'     => 'width:99.15% !important; height:36em;',
+            'style'     => 'height:36em;',
             'required'  => true,
             'disabled'  => $isElementDisabled,
             'config'    => $wysiwygConfig

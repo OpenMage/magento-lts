@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Catalog>
-            <version>1.4.0.0.11</version>
+            <version>1.4.0.0.15</version>
         </Mage_Catalog>
     </modules>
 
@@ -191,6 +191,7 @@
                     <eav_attribute><table>catalog_eav_attribute</table></eav_attribute>
                     <product_relation><table>catalog_product_relation</table></product_relation>
                     <product_index_eav><table>catalog_product_index_eav</table></product_index_eav>
+                    <product_index_eav_decimal><table>catalog_product_index_eav_decimal</table></product_index_eav_decimal>
                     <product_index_price><table>catalog_product_index_price</table></product_index_price>
                 </entities>
             </catalog_resource_eav_mysql4>
@@ -663,7 +664,7 @@
 -->
         </catalog>
     </default>
-    
+
     <crontab>
         <jobs>
             <catalog_product_index_price_reindex_all>

@@ -42,6 +42,10 @@ to app/etc/local.xml manually.
                         <host><![CDATA[]]></host>
                         <port><![CDATA[]]></port>
                         <persistent><![CDATA[]]></persistent>
+                        <weight><![CDATA[]]></weight>
+                        <timeout><![CDATA[]]></timeout>
+                        <retry_interval><![CDATA[]]></retry_interval>
+                        <status><![CDATA[]]></status>
                     </server>
                 </servers>
                 <compression><![CDATA[0]]></compression>

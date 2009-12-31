@@ -30,6 +30,12 @@
 class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
 {
     /**
+     * Whether block should render its content if there are no children (no)
+     * @var bool
+     */
+    protected $_dependsOnChildren = true;
+
+    /**
      * Render the wrapper element html
      * Supports different optional parameters, set in data by keys:
      * - element_tag_name (div by default)
@@ -43,6 +49,9 @@ class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
      */
     protected function _toHtml()
     {
+        if ($this->_dependsOnChildren && empty($this->_children)) {
+            return '';
+        }
         $id          = $this->hasElementId() ? sprintf(' id="%s"', $this->getElementId()) : '';
         $class       = $this->hasElementClass() ? sprintf(' class="%s"', $this->getElementClass()) : '';
         $otherParams = $this->hasOtherParams() ? ' ' . $this->getOtherParams() : '';
@@ -59,5 +68,16 @@ class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
     {
         $tagName = $this->_getData('html_tag_name');
         return $tagName ? $tagName : 'div';
+    }
+
+    /**
+     * Setter whether this block depends on children
+     * @param $depends
+     * @return Mage_Page_Block_Html_Wrapper
+     */
+    public function dependsOnChildren($depends = '0')
+    {
+        $this->_dependsOnChildren = (bool)(int)$depends;
+        return $this;
     }
 }

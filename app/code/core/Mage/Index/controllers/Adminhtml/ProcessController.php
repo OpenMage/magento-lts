@@ -28,7 +28,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
     /**
      * Initialize process object by request
      *
-     * @return false | Mage_Index_Model_Process
+     * @return Mage_Index_Model_Process|false
      */
     protected function _initProcess()
     {
@@ -112,7 +112,8 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
         if ($process) {
             try {
                 Varien_Profiler::start('__INDEX_PROCESS_REINDEX_ALL__');
-                $process->reindexAll();
+
+                $process->reindexEverything();
                 Varien_Profiler::stop('__INDEX_PROCESS_REINDEX_ALL__');
                 $this->_getSession()->addSuccess(
                     Mage::helper('index')->__('%s index was rebuilt successfully.', $process->getIndexer()->getName())
@@ -155,6 +156,8 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      */
     public function massReindexAction()
     {
+        /* @var $indexer Mage_Index_Model_Indexer */
+        $indexer    = Mage::getSingleton('index/indexer');
         $processIds = $this->getRequest()->getParam('process');
         if (empty($processIds) || !is_array($processIds)) {
             $this->_getSession()->addError(Mage::helper('index')->__('Please select Indexes'));
@@ -162,9 +165,9 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
             try {
                 foreach ($processIds as $processId) {
                     /* @var $process Mage_Index_Model_Process */
-                    $process = Mage::getModel('index/process')->load($processId);
-                    if ($process->getId()) {
-                        $process->reindexAll();
+                    $process = $indexer->getProcessById($processId);
+                    if ($process) {
+                        $process->reindexEverything();
                     }
                 }
                 $count = count($processIds);
@@ -213,5 +216,15 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
         }
 
         $this->_redirect('*/*/list');
+    }
+
+    /**
+     * Check ACL permissins
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('system/index');
     }
 }

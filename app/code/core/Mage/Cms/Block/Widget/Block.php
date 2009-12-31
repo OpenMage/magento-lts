@@ -32,7 +32,7 @@
  * @package    Mage_Cms
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Mage_Cms_Block_Widget_Interface
+class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Mage_Widget_Block_Interface
 {
     /**
      * Prepare block text and determine whether block output enabled or not

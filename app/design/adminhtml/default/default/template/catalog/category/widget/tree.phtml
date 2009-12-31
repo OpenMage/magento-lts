@@ -73,6 +73,8 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
 
 Ext.onReady(function()
 {
+    var emptyNodeAdded = <?php echo ($this->getWithEmptyNode() ? 'false' : 'true') ?>;
+
     var categoryLoader = new Ext.tree.TreeLoader({
        dataUrl: '<?php echo $this->getLoadTreeUrl() ?>'
     });
@@ -81,6 +83,7 @@ Ext.onReady(function()
     {
         if (!config) return null;
 
+
         if (parent && config && config.length){
             for (var i = 0; i < config.length; i++) {
                 var node;
@@ -88,6 +91,19 @@ Ext.onReady(function()
                     config[i].uiProvider = Ext.tree.CheckboxNodeUI;
                 }
                 var _node = Object.clone(config[i]);
+
+                // Add empty node to reset category filter
+                if(!emptyNodeAdded) {
+                    var empty = Object.clone(_node);
+                    empty.text = '<?php echo $this->__('None') ?>';
+                    empty.children = [];
+                    empty.id = 'none';
+                    empty.path = '1/none';
+                    empty.cls = 'leaf';
+                    parent.appendChild(new Ext.tree.TreeNode(empty));
+                    emptyNodeAdded = true;
+                }
+
                 if (_node.children && !_node.children.length) {
                     delete(_node.children);
                     node = new Ext.tree.AsyncTreeNode(_node);

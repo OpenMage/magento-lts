@@ -39,26 +39,7 @@ tinyMCE.addI18n({en:{
          */
         init : function(ed, url) {
             ed.addCommand('mceMagentowidget', function() {
-                //openEditorPopup(ed.settings.magentowidget_url, 'widget_window' + ed.settings.elements, 'width=1024,height=800,scrollbars=yes');
-                //var head = w.document.getElementsByTagName("head")[0];
-                //var popup_css_node = w.document.createElement('link');
-                //popup_css_node.type = 'text/css';
-                //popup_css_node.rel = 'stylesheet';
-                //popup_css_node.href = ed.settings.custom_popup_css;
-                //console.log(head.innerHTML);
-                //head.appendChild(popup_css_node);
-                //console.log(head.innerHTML);
-
-                ed.windowManager.open({
-                    file : ed.settings.magentowidget_url,
-                    name : 'widget_window' + ed.settings.elements,
-                    width : 1024,
-                    height : 800,
-                    popup_css : ed.settings.custom_popup_css,
-                    scrollbars : 'yes'
-                }, {
-                    plugin_url : url
-                });
+                widgetTools.openDialog(ed.settings.magentowidget_url + 'widget_target_id/' + ed.getElement().id + '/');
             });
 
             // Register Widget plugin button
@@ -70,17 +51,23 @@ tinyMCE.addI18n({en:{
 
             // Add a node change handler, selects the button in the UI when a image is selected
             ed.onNodeChange.add(function(ed, cm, n) {
-                if (n.className == 'widget' && n.nodeName == 'IMG') {
-                    cm.setActive('magentowidget', true);
-                } else {
-                    cm.setActive('magentowidget', false);
+                cm.setActive('magentowidget', false);
+                if (n.id && n.nodeName == 'IMG') {
+                    var widgetCode = Base64.idDecode(n.id);
+                    if (widgetCode.indexOf('{{widget') != -1) {
+                        cm.setActive('magentowidget', true);
+                    }
                 }
             });
 
             // Add a widget placeholder image double click callback
             ed.onDblClick.add(function(ed, e) {
-                if (e.target.className == 'widget' && e.target.nodeName == 'IMG') {
-                    ed.execCommand('mceMagentowidget');
+                var n = e.target;
+                if (n.id && n.nodeName == 'IMG') {
+                    var widgetCode = Base64.idDecode(n.id);
+                    if (widgetCode.indexOf('{{widget') != -1) {
+                        ed.execCommand('mceMagentowidget');
+                    }
                 }
             });
         },

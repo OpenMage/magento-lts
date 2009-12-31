@@ -17,7 +17,7 @@
  * @subpackage Bootstrap
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BootstrapAbstract.php 17825 2009-08-26 12:50:42Z matthew $
+ * @version    $Id: BootstrapAbstract.php 18455 2009-10-01 17:49:38Z doctorrock83 $
  */
 
 /**
@@ -661,7 +661,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
             $method = $classResources[$resourceName];
             $return = $this->$method();
             unset($this->_started[$resourceName]);
-            $this->_markRun($resource);
+            $this->_markRun($resourceName);
 
             if (null !== $return) {
                 $this->getContainer()->{$resourceName} = $return;

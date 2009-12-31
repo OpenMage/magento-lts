@@ -248,11 +248,8 @@ var linkItems = {
             downloadsElm.disabled = true;
         }
         Event.observe(isUnlimitedElm, 'click', function(event){
-            if (isUnlimitedElm.checked == true) {
-                downloadsElm.disabled = true;
-            } else {
-                downloadsElm.disabled = false;
-            }
+            elm = Event.element(event);
+            elm.up('td').down('input[type="text"].downloads').disabled = elm.checked;
         });
 
         if (data.is_shareable) {

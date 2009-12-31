@@ -27,9 +27,15 @@
 
 class Mage_Paypal_Block_Express_Form extends Mage_Payment_Block_Form
 {
+    /**
+     * Init Express pay form
+     *
+     * @return Mage_Paypal_Block_Express_Form
+     */
     protected function _construct()
     {
         $this->setTemplate('paypal/express/form.phtml');
         parent::_construct();
+        return $this;
     }
 }

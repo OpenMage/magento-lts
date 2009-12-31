@@ -170,7 +170,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         $this->unsMessage();
 
         $qty = $this->_getData('qty');
-        
+
         try {
             $this->setQty($qty);
         } catch (Mage_Core_Exception $e){
@@ -338,6 +338,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      */
     public function setCustomPrice($value)
     {
+        $this->setCalculationPrice(null);
+        $this->setBaseCalculationPrice(null);
         return $this->setData('custom_price', $value);
     }
 
@@ -518,7 +520,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function getBaseTaxAmount()
     {
         return $this->_getData('base_tax_amount');
-        
+
         $priceType = $this->getProduct()->getPriceType();
         if ($this->getHasChildren() && (null !== $priceType) && (int)$priceType === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
             $baseAmount = 0;

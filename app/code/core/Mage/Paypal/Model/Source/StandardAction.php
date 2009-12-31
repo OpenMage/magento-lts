@@ -25,13 +25,14 @@
  */
 
 /**
- *
- * PayPal Payment Action Dropdown source
- *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * PayPal Payment standard payment method source
  */
 class Mage_Paypal_Model_Source_StandardAction
 {
+    /**
+     * Get available PayPal Standard Actions as option array
+     * @return array
+     */
     public function toOptionArray()
     {
         return array(

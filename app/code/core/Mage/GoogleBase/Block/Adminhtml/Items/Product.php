@@ -95,6 +95,15 @@ class Mage_GoogleBase_Block_Adminhtml_Items_Product extends Mage_Adminhtml_Block
             ->load()
             ->toOptionHash();
 
+        $this->addColumn('type',
+            array(
+                'header'=> Mage::helper('catalog')->__('Type'),
+                'width' => '60px',
+                'index' => 'type_id',
+                'type'  => 'options',
+                'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+        ));
+
         $this->addColumn('set_name',
             array(
                 'header'=> Mage::helper('catalog')->__('Attrib. Set Name'),

@@ -37,6 +37,11 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
     protected $_locale = null;
     protected $_stores = null;
 
+    /**
+     * Retrieve stores configured in system.
+     *
+     * @return array
+     */
     public function getStores()
     {
         if(!$this->_stores) {
@@ -46,11 +51,21 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
         return $this->_stores;
     }
 
+    /**
+     * Retrieve number of loaded stores
+     *
+     * @return int
+     */
     public function countStores()
     {
         return sizeof($this->_stores->getItems());
     }
 
+    /**
+     * Prepare array with periods for dashboard graphs
+     *
+     * @return array
+     */
     public function getDatePeriods()
     {
         return array(
@@ -60,5 +75,18 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
             '1y'=>$this->__('YTD'),
             '2y'=>$this->__('2YTD')
         );
+    }
+
+    /**
+     * Create data hash to ensure that we got valid
+     * data and it is not changed by some one else.
+     *
+     * @param string $data
+     * @return string
+     */
+    public function getChartDataHash($data)
+    {
+        $secret = (string)Mage::getConfig()->getNode(Mage_Core_Model_App::XML_PATH_INSTALL_DATE);
+        return md5($data . $secret);
     }
 }

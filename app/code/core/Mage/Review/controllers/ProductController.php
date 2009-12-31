@@ -168,7 +168,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             $validate = $review->validate();
             if ($validate === true) {
                 try {
-                    $review->setEntityId(Mage_Review_Model_Review::ENTITY_PRODUCT)
+                    $review->setEntityId($review->getEntityIdByCode(Mage_Review_Model_Review::ENTITY_PRODUCT_CODE))
                         ->setEntityPkValue($product->getId())
                         ->setStatusId(Mage_Review_Model_Review::STATUS_PENDING)
                         ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId())

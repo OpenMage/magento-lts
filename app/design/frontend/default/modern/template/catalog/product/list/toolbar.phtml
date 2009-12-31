@@ -41,28 +41,9 @@
                 <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
             <?php endif; ?>
             </td>
-            <?php if($this->getLastPageNum()>1): ?>
+            <?php if($_pagerHtml = $this->getPagerHtml()): ?>
             <td class="pages">
-                <strong><?php echo $this->__('Page:') ?></strong>
-                <ol>
-                <?php if (!$this->isFirstPage()): ?>
-                    <li>
-                        <a href="<?php echo $this->getPreviousPageUrl() ?>"><img src="<?php echo $this->getSkinUrl('images/pager_arrow_left.gif') ?>" alt="<?php echo $this->__('Previous') ?>" /></a>
-                    </li>
-                <?php endif ?>
-                <?php foreach ($this->getPages() as $_page): ?>
-                    <?php if ($this->isPageCurrent($_page)): ?>
-                        <li><span class="on"><?php echo $_page ?></span></li>
-                    <?php else: ?>
-                        <li><a href="<?php echo $this->getPageUrl($_page) ?>"><?php echo $_page ?></a></li>
-                    <?php endif ?>
-                <?php endforeach;; ?>
-                <?php if (!$this->isLastPage()): ?>
-                    <li>
-                        <a href="<?php echo $this->getNextPageUrl() ?>"><img src="<?php echo $this->getSkinUrl('images/pager_arrow_right.gif') ?>" alt="<?php echo $this->__('Next') ?>" /></a>
-                    </li>
-                <?php endif ?>
-                </ol>
+                <?php echo $_pagerHtml ?>
             </td>
             <?php endif; ?>
             <td class="a-right">
@@ -95,7 +76,7 @@
             </td>
             <?php endif; ?>
             <td class="sort-by">
-                <strong><?php echo $this->__('Sort by') ?>:</strong> 
+                <strong><?php echo $this->__('Sort by') ?>:</strong>
                     <?php $count = 1; ?>
                 <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
                     <a href="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> class="active"<?php endif; ?>><?php echo $_order ?></a><?php if($count!=sizeof($this->getAvailableOrders())):?><span class="pipe">|</span><?php endif?>

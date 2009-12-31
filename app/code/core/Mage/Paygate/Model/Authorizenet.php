@@ -93,10 +93,25 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      */
     public function canUseForCurrency($currencyCode)
     {
-        if (!in_array($currencyCode, $this->_allowCurrencyCode)) {
+        if (!in_array($currencyCode, $this->getAcceptedCurrencyCodes())) {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Return array of currency codes supplied by Payment Gateway
+     *
+     * @return array
+     */
+    public function getAcceptedCurrencyCodes()
+    {
+        if (!$this->hasData('_accepted_currency')) {
+            $acceptedCurrencyCodes = $this->_allowCurrencyCode;
+            $acceptedCurrencyCodes[] = $this->getConfigData('currency');
+            $this->setData('_accepted_currency', $acceptedCurrencyCodes);
+        }
+        return $this->_getData('_accepted_currency');
     }
 
     /**
@@ -409,7 +424,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 ->setCustomerId($r[12])
                 ->setMd5Hash($r[37])
                 ->setCardCodeResponseCode($r[38])
-                ->setCAVVResponseCode($r[39]);
+                ->setCAVVResponseCode( (isset($r[39])) ? $r[39] : null);
         } else {
              Mage::throwException(
                 Mage::helper('paygate')->__('Error in payment gateway')

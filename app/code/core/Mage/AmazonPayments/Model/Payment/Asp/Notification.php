@@ -100,7 +100,6 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
                 $this->_processSystemError($request, $order);
                 break;
         }
-        $order->save();
     }
 
     /**
@@ -108,11 +107,11 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
      */
     protected function _processCancel($request, $order)
     {
-        if ($order->getState() == Mage_Sales_Model_Order::STATE_CANCELED) {
+        if ($order->isCanceled()) {
             $order->addStatusToHistory(
                $order->getStatus(),
                Mage::helper('amazonpayments')->__('Amazon Simple Pay service confirmed cancelation.')
-            );
+            )->save();
             return true;
         }
 
@@ -120,7 +119,7 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
             $order->addStatusToHistory(
                $order->getStatus(),
                Mage::helper('amazonpayments')->__('Amazon Simple Pay service confirmed cancelation.')
-            )->cancel();
+            )->cancel()->save();
             return true;
         }
 
@@ -143,7 +142,7 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
             'pending_amazon_asp',
             Mage::helper('amazonpayments')->__('Amazon Simple Pay service confirmed amount authorization.'),
             $notified = false
-        );
+        )->save();
 
         return true;
     }
@@ -163,7 +162,7 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
             'pending_amazon_asp',
             Mage::helper('amazonpayments')->__('Amazon Simple Pay service confirmed capture initiation.'),
             $notified = false
-        );
+        )->save();
 
         return true;
     }
@@ -175,11 +174,10 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
     {
         if ($order->getState() != Mage_Sales_Model_Order::STATE_NEW &&
             $order->getState() != Mage_Sales_Model_Order::STATE_PENDING_PAYMENT &&
-            $order->getState() != Mage_Sales_Model_Order::STATE_PROCESSING) {
+            $order->getState() != Mage_Sales_Model_Order::STATE_PROCESSING &&
+            $order->getState() != Mage_Sales_Model_Order::STATE_COMPLETE) {
             $this->_errorViolationSequenceStates($request, $order);
         }
-
-        $msg = '';
 
         if (!$invoice = $this->_getOrderInvoice($order)) {
 
@@ -198,12 +196,18 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
             $invoice->addComment(Mage::helper('amazonpayments')->__('Amazon Simple Pay service confirmed payment capture. Invoice created automatically.'));
             $invoice->setTransactionId($request->getTransactionId());
 
+            $order->getPayment()->setLastTransId($request->getTransactionId());
+            $order->setState(
+                Mage_Sales_Model_Order::STATE_PROCESSING,
+                true,
+                Mage::helper('amazonpayments')->__('Amazon Simple Pay service confirmed payment capture. Invoice %s was automatically created after confirmation.', $invoice->getIncrementId()),
+                $notified = true
+            );
+
             $transactionSave = Mage::getModel('core/resource_transaction')
                 ->addObject($invoice)
                 ->addObject($invoice->getOrder())
                 ->save();
-
-            $msg = $msg . Mage::helper('amazonpayments')->__('Amazon Simple Pay service confirmed payment capture. Invoice %s was automatically created after confirmation.', $invoice->getIncrementId());
 
         } else {
 
@@ -225,11 +229,13 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
                 );
             }
 
+            $msg = '';
+
             switch ($invoice->getState())
             {
                 case Mage_Sales_Model_Order_Invoice::STATE_OPEN:
                     $invoice->addComment(Mage::helper('amazonpayments')->__('Amazon Simple Pay service capture confirmation. Invoice was captured automatically.'));
-                    $invoice->setState(Mage_Sales_Model_Order_Invoice::STATE_PAID)->save();
+                    $invoice->setState(Mage_Sales_Model_Order_Invoice::STATE_PAID);
                     $msg = $msg . Mage::helper('amazonpayments')->__('Amazon Simple Pay service confirmed capture for invoice %s. Invoice automatically captured.', $invoice->getIncrementId());
                     break;
 
@@ -239,16 +245,20 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
                     break;
             }
 
-        }
+            $order->getPayment()->setLastTransId($request->getTransactionId());
+            $order->setState(
+                Mage_Sales_Model_Order::STATE_PROCESSING,
+                true,
+                $msg,
+                $notified = true
+            );
 
-        $order->getPayment()->getLastTransId($request->getTransactionId());
-        $order->addStatusToHistory($order->getStatus(), $msg);
-        $order->setState(
-            Mage_Sales_Model_Order::STATE_PROCESSING,
-            true,
-            Mage::helper('amazonpayments')->__('Payment was authorized and captured successfully'),
-            $notified = true
-        );
+            $transactionSave = Mage::getModel('core/resource_transaction')
+                ->addObject($invoice)
+                ->addObject($order)
+                ->save();
+
+        }
 
         return true;
     }
@@ -268,7 +278,7 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
             true,
             Mage::helper('amazonpayments')->__('Amazon Simple Pay service payment confirmation failed'),
             $notified = false
-        );
+        )->save();
 
         return true;
     }
@@ -283,8 +293,6 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
             $order->getState() != Mage_Sales_Model_Order::STATE_COMPLETE) {
             $this->_errorViolationSequenceStates($request, $order);
         }
-
-        $msg = '';
 
         if (!$creditmemo = $this->_getOrderCreditmemo($order)) {
 
@@ -309,9 +317,13 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
                 if ($creditmemo->getInvoice()) {
                     $transactionSave->addObject($creditmemo->getInvoice());
                 }
-                $transactionSave->save();
 
-               $msg = $msg . Mage::helper('amazonpayments')->__('Amazon Simple Pay service confirmed payment refund. Credit memo created automatically.', $creditmemo->getIncrementId());
+                $order->addStatusToHistory(
+                    $order->getStatus(), 
+                    Mage::helper('amazonpayments')->__('Amazon Simple Pay service confirmed payment refund. Credit memo created automatically.', $creditmemo->getIncrementId())
+                );
+
+                $transactionSave->save();
             }
 
         } else {
@@ -334,11 +346,13 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
                 );
             }
 
+            $msg = '';
+
             switch ($creditmemo->getState())
             {
                 case Mage_Sales_Model_Order_Creditmemo::STATE_OPEN:
                     $creditmemo->addComment(Mage::helper('amazonpayments')->__('Amazon Simple Pay service confirmed refund. Creditmemo processed automatically.'));
-                    $creditmemo->setState(Mage_Sales_Model_Order_Creditmemo::STATE_REFUNDED)->save();
+                    $creditmemo->setState(Mage_Sales_Model_Order_Creditmemo::STATE_REFUNDED);
                     $msg = $msg . Mage::helper('amazonpayments')->__('Amazon Simple Pay service confirmed refunded creditmemo %s. Creditmemo processed automatically.', $creditmemo->getIncrementId());
                     break;
 
@@ -348,9 +362,17 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
                     break;
             }
 
-        }
+            $order->addStatusToHistory(
+                 $order->getStatus(), 
+                 Mage::helper('amazonpayments')->__('Amazon Simple Pay service confirmed payment refund. Credit memo created automatically.', $creditmemo->getIncrementId())
+            );
 
-        $order->addStatusToHistory($order->getStatus(), $msg);
+            $transactionSave = Mage::getModel('core/resource_transaction')
+                ->addObject($creditmemo)
+                ->addObject($order)
+                ->save();
+
+        }
 
         return true;
     }
@@ -363,7 +385,7 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
         $order->addStatusToHistory(
             $order->getStatus(), 
             Mage::helper('amazonpayments')->__('Amazon Simple Pay service payment confirmation failed')
-        );
+        )->save();
         return true;
     }
 
@@ -377,7 +399,7 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
             true,
             Mage::helper('amazonpayments')->__('Amazon Simple Pay service is not available. Payment was not processed.'),
             $notified = false
-        );
+        )->save();
 
         return true;
     }
@@ -428,7 +450,7 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
         foreach ($order->getInvoiceCollection() as $orderInvoice) {
             if ($orderInvoice->getState() == Mage_Sales_Model_Order_Invoice::STATE_PAID ||
                 $orderInvoice->getState() == Mage_Sales_Model_Order_Invoice::STATE_OPEN) {
-                return $orderInvoice;
+                return $orderInvoice->load($orderInvoice->getId());
             }
         }
 
@@ -477,7 +499,7 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
         foreach ($order->getCreditmemosCollection() as $orderCreditmemo) {
             if ($orderCreditmemo->getState() == Mage_Sales_Model_Order_Creditmemo::STATE_REFUNDED ||
                 $orderCreditmemo->getState() == Mage_Sales_Model_Order_Creditmemo::STATE_OPEN) {
-                return $orderCreditmemo;
+                return $orderCreditmemo->load($orderCreditmemo->getId());
             }
         }
 

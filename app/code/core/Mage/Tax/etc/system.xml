@@ -80,7 +80,8 @@
                             <show_in_store>0</show_in_store>
                         </based_on>
                         <price_includes_tax translate="label comment">
-                            <label>Catalog prices</label>
+                            <label>Catalog Prices</label>
+                            <comment>Whether Catalog Prices entered by Admin include Tax</comment>
                             <frontend_type>select</frontend_type>
                             <backend_model>tax/config_price_include</backend_model>
                             <source_model>tax/system_config_source_priceType</source_model>
@@ -90,7 +91,8 @@
                             <show_in_store>0</show_in_store>
                         </price_includes_tax>
                         <shipping_includes_tax translate="label comment">
-                            <label>Shipping prices</label>
+                            <label>Shipping Prices</label>
+                            <comment>Whether Shipping Amounts entered by Admin or obtained from Gateways include Tax</comment>
                             <frontend_type>select</frontend_type>
                             <backend_model>tax/config_price_include</backend_model>
                             <source_model>tax/system_config_source_priceType</source_model>

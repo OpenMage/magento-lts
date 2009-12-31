@@ -454,7 +454,7 @@ class Mage_Cybersource_Model_Soap extends Mage_Payment_Model_Method_Cc
     public function processBeforeVoid($invoice, $payment)
     {
         parent::processBeforeVoid($invoice, $payment);
-        $payment->setVoidTransactionId($document->getTransactionId());
+        $payment->setVoidTransactionId($invoice->getTransactionId());
         $payment->setVoidCybersourceToken($invoice->getCybersourceToken());
         return $this;
     }

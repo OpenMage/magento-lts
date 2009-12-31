@@ -32,6 +32,7 @@
     </table>
 </div>
 <div class="entry-edit">
+    <?php if (!$this->getIsReadonly()): ?>
     <div class="box-left">
         <form id="import_form" action="<?php echo $this->getUrl('*/*/importPost') ?>" method="post" enctype="multipart/form-data">
             <?php echo $this->getBlockHtml('formkey')?>
@@ -48,7 +49,8 @@
             var importForm = new varienForm('import_form');
         </script>
     </div>
-    <div class="box-right">
+    <?php endif; ?>
+    <div class="<?php if ($this->getIsReadonly()): ?>box-left<?php else: ?>box-right<?php endif; ?>">
         <form id="export_form" action="<?php echo $this->getUrl('*/*/exportPost') ?>" method="post" enctype="multipart/form-data">
             <?php echo $this->getBlockHtml('formkey')?>
             <div class="entry-edit-head">

@@ -189,8 +189,10 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
                 } else if ($v['website_id'] == 0 && !isset($data[$key])) {
                     $data[$key] = $v;
                     $data[$key]['website_id'] = $websiteId;
-                    $data[$key]['price'] = $v['price'] * $rates[$websiteId]['rate'];
-                    $data[$key]['website_price'] = $v['price'] * $rates[$websiteId]['rate'];
+                    if ($object->getPriceModel()->isTierPriceFixed()) {
+                        $data[$key]['price'] = $v['price'] * $rates[$websiteId]['rate'];
+                        $data[$key]['website_price'] = $v['price'] * $rates[$websiteId]['rate'];
+                    }
                 }
             }
         }
@@ -231,6 +233,9 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
 
         // prepare original data for compare
         $origTierPrices = $object->getOrigData($this->getAttribute()->getName());
+        if (!is_array($origTierPrices)) {
+            $origTierPrices = array();
+        }
         foreach ($origTierPrices as $data) {
             if ($data['website_id'] > 0 || ($data['website_id'] == '0' && $isGlobal)) {
                 $key = join('-', array($data['website_id'], $data['cust_group'], $data['price_qty'] * 1));

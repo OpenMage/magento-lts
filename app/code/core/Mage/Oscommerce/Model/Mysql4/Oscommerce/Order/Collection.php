@@ -39,7 +39,7 @@ class Mage_Oscommerce_Model_Mysql4_Oscommerce_Order_Collection extends Mage_Core
     public function addOrderTotalField()
     {
         $this->_select
-            ->from(null, array('orders_total'=>new Zend_Db_Expr('FORMAT(main_table.orders_total,2)')));
+            ->columns(array('orders_total'=>new Zend_Db_Expr('FORMAT(main_table.orders_total,2)')));
         return $this;
     }    
     

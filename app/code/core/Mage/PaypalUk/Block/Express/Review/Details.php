@@ -31,7 +31,7 @@
  * @package    Mage_PaypalUk
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_PaypalUk_Block_Express_Review_Details extends Mage_Core_Block_Template
+class Mage_PaypalUk_Block_Express_Review_Details extends Mage_Checkout_Block_Cart_Totals
 {
     protected $_address;
 
@@ -40,11 +40,21 @@ class Mage_PaypalUk_Block_Express_Review_Details extends Mage_Core_Block_Templat
      *
      * @return Mage_Paypal_Model_Express_Review
      */
+    /**
+     * Get PayPalUk Express Review Information
+     *
+     * @return Mage_PaypalUk_Model_Express_Review
+     */
     public function getReview()
     {
         return Mage::getSingleton('paypaluk/express_review');
     }
 
+    /**
+     * Return review shipping address
+     *
+     * @return Mage_Sales_Model_Order_address
+     */
     public function getAddress()
     {
         if (empty($this->_address)) {
@@ -53,23 +63,22 @@ class Mage_PaypalUk_Block_Express_Review_Details extends Mage_Core_Block_Templat
         return $this->_address;
     }
 
+    /**
+     * Return review quote items
+     *
+     * @return Mage_Sales_Model_Mysql4_Order_Item_Collection
+     */
     public function getItems()
     {
-//		$priceFilter = Mage::app()->getStore()->getPriceFilter();
-//        $itemsFilter = new Varien_Filter_Object_Grid();
-//        $itemsFilter->addFilter(new Varien_Filter_Sprintf('%d'), 'qty');
-//        $itemsFilter->addFilter($priceFilter, 'price');
-//        $itemsFilter->addFilter($priceFilter, 'row_total');
-//        return $itemsFilter->filter($this->getAddress()->getAllItems());
         return $this->getReview()->getQuote()->getAllItems();
     }
 
+    /**
+     * Return review quote totals
+     * @return array
+     */
     public function getTotals()
     {
-//        $totals = $this->getAddress()->getTotals();
-//        $totalsFilter = new Varien_Filter_Object_Grid();
-//        $totalsFilter->addFilter(Mage::app()->getStore()->getPriceFilter(), 'value');
-//        return $totalsFilter->filter($totals);
         return $this->getReview()->getQuote()->getTotals();
     }
 }

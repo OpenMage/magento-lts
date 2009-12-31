@@ -97,10 +97,18 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
             $action->getLayout()->helper('page/layout')->applyHandle($handle);
         }
 
+
+        Mage::dispatchEvent('cms_page_render', array('page' => $page, 'controller_action' => $action));
+
         $action->loadLayoutUpdates();
         $layoutUpdate = ($page->getCustomLayoutUpdateXml() && $inRange) ? $page->getCustomLayoutUpdateXml() : $page->getLayoutUpdateXml();
         $action->getLayout()->getUpdate()->addUpdate($layoutUpdate);
         $action->generateLayoutXml()->generateLayoutBlocks();
+
+        $contentHeadingBlock = $action->getLayout()->getBlock('page_content_heading');
+        if ($contentHeadingBlock) {
+            $contentHeadingBlock->setContentHeading($page->getContentHeading());
+        }
 
         if ($page->getRootTemplate()) {
             $action->getLayout()->helper('page/layout')
@@ -144,7 +152,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      */
     public function getPageUrl($pageId = null)
     {
-        $page = Mage::getSingleton('cms/page');
+        $page = Mage::getModel('cms/page');
         if (!is_null($pageId) && $pageId !== $page->getId()) {
             $page->setStoreId(Mage::app()->getStore()->getId());
             if (!$page->load($pageId)) {

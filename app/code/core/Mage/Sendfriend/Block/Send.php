@@ -161,4 +161,24 @@ class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
             'cat_id' => $this->getCategoryId()
         ));
     }
+
+    /**
+     * Return send friend model
+     *
+     * @return Mage_Sendfriend_Model_Sendfriend
+     */
+    protected function _getSendfriendModel()
+    {
+        return Mage::registry('send_to_friend_model');
+    }
+
+    /**
+     * Check if user is allowed to send
+     *
+     * @return boolean
+     */
+    public function canSend()
+    {
+        return !$this->_getSendfriendModel()->isExceedLimit();
+    }
 }

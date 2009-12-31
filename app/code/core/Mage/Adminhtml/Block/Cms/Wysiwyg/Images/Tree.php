@@ -47,7 +47,7 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Tree extends Mage_Adminhtml_Block_
         $jsonArray = array();
         foreach ($collection as $item) {
             $jsonArray[] = array(
-                'text'  => $item->getBasename(),
+                'text'  => $helper->getShortFilename($item->getBasename(), 20),
                 'id'    => $helper->convertPathToId($item->getFilename()),
                 'cls'   => 'folder'
             );
@@ -84,12 +84,13 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Tree extends Mage_Adminhtml_Block_
     {
         $treePath = '/root';
         if ($path = Mage::registry('storage')->getSession()->getCurrentPath()) {
-            $path = str_replace(Mage::helper('cms/wysiwyg_images')->getStorageRoot(), '', $path);
+            $helper = Mage::helper('cms/wysiwyg_images');
+            $path = str_replace($helper->getStorageRoot(), '', $path);
             $relative = '';
             foreach (explode(DS, $path) as $dirName) {
                 if ($dirName) {
                     $relative .= DS . $dirName;
-                    $treePath .= '/' . Mage::helper('core')->urlEncode($relative);
+                    $treePath .= '/' . $helper->idEncode($relative);
                 }
             }
         }

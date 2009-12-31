@@ -63,6 +63,12 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     protected $_eventPrefix = 'sales_order_invoice';
     protected $_eventObject = 'invoice';
 
+    /**
+     * Whether the pay() was called
+     * @var bool
+     */
+    protected $_wasPayCalled = false;
+
     public function __destruct()
     {
         if ($this->_saveBeforeDestruct) {
@@ -181,12 +187,9 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      */
     public function canCapture()
     {
-        if ($this->getState() != self::STATE_CANCELED &&
-            $this->getState() != self::STATE_PAID &&
-            $this->getOrder()->getPayment()->canCapture()) {
-            return true;
-        }
-        return false;
+        return $this->getState() != self::STATE_CANCELED
+            && $this->getState() != self::STATE_PAID
+            && $this->getOrder()->getPayment()->canCapture();
     }
 
     /**
@@ -245,6 +248,11 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      */
     public function pay()
     {
+        if ($this->_wasPayCalled) {
+            return $this;
+        }
+        $this->_wasPayCalled = true;
+
         $invoiceState = self::STATE_PAID;
         if ($this->getOrder()->getPayment()->hasForcedState()) {
             $invoiceState = $this->getOrder()->getPayment()->getForcedState();
@@ -421,9 +429,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     public function register()
     {
         if ($this->getId()) {
-            Mage::throwException(
-                Mage::helper('sales')->__('Can not register existing invoice')
-            );
+            Mage::throwException(Mage::helper('sales')->__('Cannot register existing invoice'));
         }
 
         foreach ($this->getAllItems() as $item) {
@@ -435,6 +441,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             }
         }
 
+        $order = $this->getOrder();
         if ($this->canCapture()) {
             if ($captureCase = $this->getRequestedCaptureCase()) {
                 if ($captureCase == self::CAPTURE_ONLINE) {
@@ -446,47 +453,25 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
                 }
             }
         }
-        elseif(!$this->getOrder()->getPayment()->getMethodInstance()->isGateway()) {
+        elseif(!$order->getPayment()->getMethodInstance()->isGateway()) {
             $this->pay();
         }
 
-        $this->getOrder()->setTotalInvoiced(
-            $this->getOrder()->getTotalInvoiced()+$this->getGrandTotal()
-        );
-        $this->getOrder()->setBaseTotalInvoiced(
-            $this->getOrder()->getBaseTotalInvoiced()+$this->getBaseGrandTotal()
-        );
+        $order->setTotalInvoiced($order->getTotalInvoiced() + $this->getGrandTotal());
+        $order->setBaseTotalInvoiced($order->getBaseTotalInvoiced() + $this->getBaseGrandTotal());
 
-        $this->getOrder()->setSubtotalInvoiced(
-            $this->getOrder()->getSubtotalInvoiced()+$this->getSubtotal()
-        );
-        $this->getOrder()->setBaseSubtotalInvoiced(
-            $this->getOrder()->getBaseSubtotalInvoiced()+$this->getBaseSubtotal()
-        );
+        $order->setSubtotalInvoiced($order->getSubtotalInvoiced() + $this->getSubtotal());
+        $order->setBaseSubtotalInvoiced($order->getBaseSubtotalInvoiced() + $this->getBaseSubtotal());
 
-        $this->getOrder()->setTaxInvoiced(
-            $this->getOrder()->getTaxInvoiced()+$this->getTaxAmount()
-        );
-        $this->getOrder()->setBaseTaxInvoiced(
-            $this->getOrder()->getBaseTaxInvoiced()+$this->getBaseTaxAmount()
-        );
+        $order->setTaxInvoiced($order->getTaxInvoiced() + $this->getTaxAmount());
+        $order->setBaseTaxInvoiced($order->getBaseTaxInvoiced() + $this->getBaseTaxAmount());
 
-        $this->getOrder()->setShippingInvoiced(
-            $this->getOrder()->getShippingInvoiced()+$this->getShippingAmount()
-        );
-        $this->getOrder()->setBaseShippingInvoiced(
-            $this->getOrder()->getBaseShippingInvoiced()+$this->getBaseShippingAmount()
-        );
+        $order->setShippingInvoiced($order->getShippingInvoiced() + $this->getShippingAmount());
+        $order->setBaseShippingInvoiced($order->getBaseShippingInvoiced() + $this->getBaseShippingAmount());
 
-        $this->getOrder()->setDiscountInvoiced(
-            $this->getOrder()->getDiscountInvoiced()+$this->getDiscountAmount()
-        );
-        $this->getOrder()->setBaseDiscountInvoiced(
-            $this->getOrder()->getBaseDiscountInvoiced()+$this->getBaseDiscountAmount()
-        );
-        $this->getOrder()->setBaseTotalInvoicedCost(
-            $this->getOrder()->getBaseTotalInvoicedCost()+$this->getBaseCost()
-        );
+        $order->setDiscountInvoiced($order->getDiscountInvoiced() + $this->getDiscountAmount());
+        $order->setBaseDiscountInvoiced($order->getBaseDiscountInvoiced() + $this->getBaseDiscountAmount());
+        $order->setBaseTotalInvoicedCost($order->getBaseTotalInvoicedCost() + $this->getBaseCost());
 
         $state = $this->getState();
         if (is_null($state)) {

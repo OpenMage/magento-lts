@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+-->
+<layout version="0.1.0">
+
+<!--
+Shopping cart
+-->
+
+    <checkout_cart_index>
+        <!-- Mage_Paypal -->
+        <reference name="checkout.cart.top_methods">
+            <block type="paypal/link_shortcut" name="checkout.cart.methods.paypal_express" template="paypal/link.phtml"/>
+        </reference>
+
+        <reference name="checkout.cart.methods">
+            <block type="paypal/link_shortcut" name="checkout.cart.methods.paypal_express" template="paypal/link.phtml"/>
+        </reference>
+    </checkout_cart_index>
+
+<!--
+PayPal Express Review page after shortcut link invocation
+-->
+
+    <paypal_express_review translate="label">
+        <label>PayPal Express Order Review Form</label>
+        <!-- Mage_Paypal -->
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="paypal/express_review" name="paypal_express_review" template="paypal/express/review.phtml">
+                <block type="paypal/express_review_details" name="paypal_express_review_details" as="details" template="paypal/express/review/details.phtml"/>
+            </block>
+        </reference>
+    </paypal_express_review>
+
+<!--
+PayPal Express Review details block
+-->
+
+    <paypal_express_review_details>
+        <!-- Mage_Paypal -->
+        <block type="paypal/express_review_details" name="root" output="toHtml" template="paypal/express/review/details.phtml"/>
+    </paypal_express_review_details>
+    
+    <paypal_express_bank>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name='content'>
+            <block type="core/template" name="express_bank_page" template="paypal/express/bank.phtml"/>
+        </reference>
+    </paypal_express_bank>
+
+    <paypal_direct_validate>
+        <block type="paypal/direct_validate" name="root" output="toHtml" template="paypal/direct/validate.phtml"/>
+    </paypal_direct_validate>
+
+    <paypal_direct_finalizevalidate>
+        <block type="paypal/direct_finalize" name="root" output="toHtml" template="paypal/direct/finalize.phtml"/>
+    </paypal_direct_finalizevalidate>
+
+    <paypal_direct_termvalidate>
+        <block type="paypal/direct_finalize" name="root" output="toHtml" template="paypal/direct/finalize.phtml"/>
+    </paypal_direct_termvalidate>
+
+</layout>

@@ -26,21 +26,21 @@
 
 /**
  * Fields:
- * - orig: 
- *   - country_id: 223
+ * - orig:
+ *   - country_id: UK
  *   - region_id: 1
  *   - postcode: 90034
- * - dest: 
- *   - country_id: 223
+ * - dest:
+ *   - country_id: UK
  *   - region_id: 2
  *   - postcode: 01005
- * - package: 
+ * - package:
  *   - value: $100
  *   - weight: 1.5 lb
  *   - height: 10"
  *   - width: 10"
  *   - depth: 10"
- * - order: 
+ * - order:
  *   - total_qty: 10
  *   - subtotal: $100
  * - option

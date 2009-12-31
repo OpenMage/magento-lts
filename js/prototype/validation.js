@@ -101,7 +101,11 @@ Validation.prototype = {
                 if (input.tagName.toLowerCase() == 'select') {
                     Event.observe(input, 'blur', this.onChange.bindAsEventListener(this));
                 }
-                Event.observe(input, 'change', this.onChange.bindAsEventListener(this));
+                if (input.type.toLowerCase() == 'radio' || input.type.toLowerCase() == 'checkbox') {
+                    Event.observe(input, 'click', this.onChange.bindAsEventListener(this));
+                } else {
+                    Event.observe(input, 'change', this.onChange.bindAsEventListener(this));
+                }
             }, this);
         }
     },
@@ -403,6 +407,7 @@ Object.extend(Validation, {
 Validation.add('IsEmpty', '', function(v) {
     return  (v == '' || (v == null) || (v.length == 0) || /^\s+$/.test(v)); // || /^\s+$/.test(v));
 });
+
 Validation.addAllThese([
     ['validate-select', 'Please select an option.', function(v) {
                 return ((v != "none") && (v != null) && (v.length != 0));
@@ -464,13 +469,21 @@ Validation.addAllThese([
                 return !(pass.length < 7);
             }],
     ['validate-cpassword', 'Please make sure your passwords match.', function(v) {
-                if ($('password')) {
-                    var pass = $('password');
-                }
-                else {
-                    var pass = $$('.validate-password').length ? $$('.validate-password')[0] : $$('.validate-admin-password')[0];
-                }
                 var conf = $('confirmation') ? $('confirmation') : $$('.validate-cpassword')[0];
+                var pass = false;
+                if ($('password')) {
+                    pass = $('password');
+                }
+                var passwordElements = $$('.validate-password');
+                for (var i = 0; i < passwordElements.size(); i++) {
+                    var passwordElement = passwordElements[i];
+                    if (passwordElement.up('form').id == conf.up('form').id) {
+                        pass = passwordElement;
+                    }
+                }
+                if ($$('.validate-admin-password').size()) {
+                    pass = $$('.validate-admin-password')[0];
+                }
                 return (pass.value == conf.value);
             }],
     ['validate-url', 'Please enter a valid URL. http:// is required', function (v) {
@@ -679,9 +692,10 @@ Validation.addAllThese([
                         }
                     });
                 return result;
-            }]
-]);
+            }],
+     ['validate-percents', 'Please enter a number lower than 100', {max:100}]
 
+]);
 
 // Credit Card Validation Javascript
 // copyright 12th May 2003, by Stephen Chapman, Felgall Pty Ltd
@@ -756,3 +770,5 @@ Validation.creditCartTypes = $H({
     'SS': [new RegExp('^((6759[0-9]{12})|(49[013][1356][0-9]{13})|(633[34][0-9]{12})|(633110[0-9]{10})|(564182[0-9]{10}))([0-9]{2,3})?$'), new RegExp('^([0-9]{3}|[0-9]{4})?$'), true],
     'OT': [false, new RegExp('^([0-9]{3}|[0-9]{4})?$'), false]
 });
+
+

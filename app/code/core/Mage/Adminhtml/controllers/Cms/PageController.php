@@ -115,15 +115,15 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             //init model and set data
             $model = Mage::getModel('cms/page');
 
-//            if ($id = $this->getRequest()->getParam('page_id')) {
-//                $model->load($id);
+            if ($id = $this->getRequest()->getParam('page_id')) {
+                $model->load($id);
 //                if ($id != $model->getId()) {
 //                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cms')->__('The page you are trying to save no longer exists'));
 //                    Mage::getSingleton('adminhtml/session')->setFormData($data);
 //                    $this->_redirect('*/*/edit', array('page_id' => $this->getRequest()->getParam('page_id')));
 //                    return;
 //                }
-//            }
+            }
 
             $model->setData($data);
 

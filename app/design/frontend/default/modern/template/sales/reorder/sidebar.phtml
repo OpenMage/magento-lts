@@ -43,24 +43,22 @@
         <ol id="cart-sidebar-reorder" class="options-list">
             <?php $_showAddButtonFlag = false ?>
             <?php foreach ($_order->getItemsRandomCollection(5) as $_item): ?>
-                <?php if ($_item->getProduct() && is_null($_item->getParentItem())): ?>
-                    <li class="item">
-                        <div class="product-checkbox">
-                            <?php if ($_item->getProduct()->getStockItem()->getIsInStock()): ?>
-                                <?php $_showAddButtonFlag = true ?>
-                                <input type="checkbox" name="order_items[]" id="reorder-item-<?php echo $_item->getId() ?>" value="<?php echo $_item->getId() ?>" class="checkbox validate-one-required-by-name" />
-                                <script type="text/javascript">
-                                //<![CDATA[
-                                    $('reorder-item-<?php echo $_item->getId() ?>').advaiceContainer = 'cart-sidebar-reorder-advice-container';
-                                //]]>
-                                </script>
-                            <?php endif; ?>
-                        </div>
-                        <div class="product-names">
-                            <a href="<?php echo $_item->getProduct()->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
-                        </div>
-                    </li>
+            <li class="item">
+                <div class="product-checkbox">
+                <?php if ($this->isItemAvailableForReorder($_item)): ?>
+                    <?php $_showAddButtonFlag = true ?>
+                    <input type="checkbox" name="order_items[]" id="reorder-item-<?php echo $_item->getId() ?>" value="<?php echo $_item->getId() ?>" class="checkbox validate-one-required-by-name" />
+                    <script type="text/javascript">
+                    //<![CDATA[
+                        $('reorder-item-<?php echo $_item->getId() ?>').advaiceContainer = 'cart-sidebar-reorder-advice-container';
+                    //]]>
+                    </script>
                 <?php endif; ?>
+                </div>
+                <div class="product-names">
+                    <a href="<?php echo $_item->getProduct()->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
+                </div>
+            </li>
             <?php endforeach; ?>
         </ol>
         <script type="text/javascript">decorateList('cart-sidebar-reorder')</script>

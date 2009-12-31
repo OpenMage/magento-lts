@@ -26,11 +26,8 @@
 
 
 /**
- * Enter description here...
  *
- * @category   Mage
- * @package    Mage_Paypal
- *
+ * PayPal Setup Resource class
  */
 class Mage_Paypal_Model_Mysql4_Setup extends Mage_Sales_Model_Mysql4_Setup
 {

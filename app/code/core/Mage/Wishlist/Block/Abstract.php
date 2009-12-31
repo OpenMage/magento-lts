@@ -119,7 +119,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
                 ->addUrlRewrite();
 
             Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSearchFilterToCollection($this->_collection);
+                ->addVisibleInSiteFilterToCollection($this->_collection);
 
             $this->_prepareCollection($this->_collection);
         }

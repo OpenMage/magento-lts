@@ -49,18 +49,14 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
      */
     protected function _beforeSave()
     {
-        $zipIsRange = null;
-        $zipFrom = null;
-        $zipTo   = null;
-        if (preg_match('/(\d+)\s*-\s*(\d+)/m', $this->getTaxPostcode(), $matchArr)) {
-            list(, $zipFrom, $zipTo) = $matchArr;
-            $this->setTaxPostcode("{$zipFrom}-{$zipTo}");
-            $zipIsRange = 1;
+        if ($this->getZipIsRange()) {
+            $this->setTaxPostcode("{$this->getZipFrom()}-{$this->getZipTo()}");
         }
-        $this
-            ->setZipFrom($zipFrom)
-            ->setZipTo($zipTo)
-            ->setZipIsRange($zipIsRange);
+        else {
+            $this
+                ->setZipFrom(null)
+                ->setZipTo(null);
+        }
 
         parent::_beforeSave();
         $country = $this->getTaxCountryId();

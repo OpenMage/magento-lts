@@ -72,6 +72,11 @@ abstract class Mage_Paypal_Model_Abstract extends Mage_Payment_Model_Method_Abst
         return $this->getCheckout()->getQuote();
     }
 
+    /**
+     * Return Api redirect url
+     *
+     * @return string
+     */
     public function getRedirectUrl()
     {
         return $this->getApi()->getRedirectUrl();

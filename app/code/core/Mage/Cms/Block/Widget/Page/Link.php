@@ -34,7 +34,7 @@
 
 class Mage_Cms_Block_Widget_Page_Link
     extends Mage_Core_Block_Html_Link
-    implements Mage_Cms_Block_Widget_Interface
+    implements Mage_Widget_Block_Interface
 {
     /**
      * Prepared href attribute
@@ -70,8 +70,7 @@ class Mage_Cms_Block_Widget_Page_Link
             if ($this->getData('href')) {
                 $this->_href = $this->getData('href');
             } else if ($this->getData('page_id')) {
-                $href = Mage::getResourceSingleton('cms/page')->getCmsPageIdentifierById($this->getData('page_id'));
-                $this->_href = Mage::app()->getStore()->getUrl('', array('_direct' => $href));
+                $this->_href = Mage::helper('cms/page')->getPageUrl($this->getData('page_id'));
             }
         }
 

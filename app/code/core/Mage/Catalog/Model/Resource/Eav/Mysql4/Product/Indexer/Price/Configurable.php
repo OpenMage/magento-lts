@@ -182,6 +182,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Configurable
                 'a.product_super_attribute_id = apw.product_super_attribute_id'
                     . ' AND apw.website_id = i.website_id AND cp.value = apw.value_index',
                 array())
+            ->join(
+                array('le' => $this->getTable('catalog/product')),
+                'le.entity_id = l.product_id',
+                array())
             ->columns(new Zend_Db_Expr("SUM(IF((@price:=IF(apw.value_id, apw.pricing_value, apd.pricing_value))"
                 . " IS NULL, 0, IF(IF(apw.value_id, apw.is_percent, apd.is_percent) = 1, "
                 . "ROUND(i.price * (@price / 100), 4), @price)))"))
@@ -189,6 +193,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Configurable
                 . "IF(apw.value_id, apw.pricing_value, apd.pricing_value)) IS NULL, 0, IF("
                 . "IF(apw.value_id, apw.is_percent, apd.is_percent) = 1, "
                 . "ROUND(i.price * (@tier_price / 100), 4), @tier_price))), NULL)"))
+            ->where('le.required_options=0')
             ->group(array('l.parent_id', 'i.customer_group_id', 'i.website_id', 'l.product_id'));
 
         $query = $select->insertFromSelect($coaTable);

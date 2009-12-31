@@ -102,10 +102,10 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
             $model->addData($values);
         }
 
-        $content = $this->getLayout()
-            ->createBlock('adminhtml/newsletter_template_edit', 'template_edit')
-            ->setEditMode($model->getId() > 0);
-        $this->_addContent($content);
+        if ($editBlock = $this->getLayout()->getBlock('template_edit')) {
+            $editBlock->setEditMode($model->getId() > 0);
+        }
+
         $this->renderLayout();
     }
 
@@ -132,6 +132,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
                 ->setTemplateSenderEmail($request->getParam('sender_email'))
                 ->setTemplateSenderName($request->getParam('sender_name'))
                 ->setTemplateText($request->getParam('text'))
+                ->setTemplateStyles($request->getParam('styles'))
                 ->setModifiedAt(Mage::getSingleton('core/date')->gmtDate());
 
             if (!$template->getId()) {
@@ -139,6 +140,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
             }
             if ($this->getRequest()->getParam('_change_type_flag')) {
                 $template->setTemplateType(Mage_Newsletter_Model_Template::TYPE_TEXT);
+                $template->setTemplateStyles('');
             }
             if ($this->getRequest()->getParam('_save_as_flag')) {
                 $template->setId(null);

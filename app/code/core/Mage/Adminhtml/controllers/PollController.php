@@ -171,6 +171,8 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
 
                 $pollModel->save();
 
+                Mage::register('current_poll_model', $pollModel);
+
                 $answersDelete = $this->getRequest()->getParam('deleteAnswer');
                 if( is_array($answersDelete) ) {
                     foreach( $answersDelete as $answer ) {

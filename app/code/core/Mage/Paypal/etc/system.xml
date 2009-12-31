@@ -29,7 +29,7 @@
    <sections>
         <payment>
             <groups>
-                <paypal_direct translate="label" module="paypal">
+                <paypal_direct translate="label comment" module="paypal">
                     <label>PayPal Website Payments Pro - Direct Payments</label>
                     <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal" target="_blank">Sign up for PayPal Merchant Account now!</a>]]></comment>
                     <frontend_type>text</frontend_type>
@@ -47,32 +47,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </active>
-                        <order_status translate="label">
-                            <label>New order status</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_order_status_processing</source_model>
-                            <sort_order>2</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </order_status>
-                        <payment_action translate="label">
-                            <label>Payment Action</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>paypal/source_paymentAction</source_model>
-                            <sort_order>2</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </payment_action>
-                        <sort_order translate="label">
-                            <label>Sort order</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>100</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </sort_order>
                         <title translate="label">
                             <label>Title</label>
                             <frontend_type>text</frontend_type>
@@ -81,6 +55,114 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </title>
+                        <order_status translate="label">
+                            <label>New order status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_order_status_processing</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </order_status>
+                        <payment_action translate="label">
+                            <label>Payment Action</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paypal/source_paymentAction</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </payment_action>
+                        <fraud_filter translate="label">
+                            <label>Fraud Management Filters</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </fraud_filter>
+                        <line_item translate="label">
+                            <label>Line Item Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </line_item>
+                        <centinel translate="label">
+                            <label>Centinel 3D Secure Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </centinel>
+                        <centinel_processor_id translate="label">
+                            <label>Centinel Processor Id</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><centinel>1</centinel></depends>
+                        </centinel_processor_id>
+                        <centinel_merchant_id translate="label">
+                            <label>Centinel Merchant Id</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><centinel>1</centinel></depends>
+                        </centinel_merchant_id>
+                        <centinel_password translate="label">
+                            <label>Centinel Password</label>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><centinel>1</centinel></depends>
+                        </centinel_password>
+                        <centinel_maps_url translate="label">
+                            <label>Centinel Map Url</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><centinel>1</centinel></depends>
+                        </centinel_maps_url>
+                        <centinel_timeout_connect translate="label">
+                            <label>Centinel Timeout Connection</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><centinel>1</centinel></depends>
+                        </centinel_timeout_connect>
+                        <centinel_timeout_read translate="label">
+                            <label>Centinel Timeout Read</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><centinel>1</centinel></depends>
+                        </centinel_timeout_read>
+                        <sort_order translate="label">
+                            <label>Sort order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sort_order>
                         <cctypes translate="label">
                             <label>Credit Card Types</label>
                             <frontend_type>multiselect</frontend_type>
@@ -110,7 +192,7 @@
                         </specificcountry>
                     </fields>
                 </paypal_direct>
-                <paypal_express translate="label" module="paypal">
+                <paypal_express translate="label comment" module="paypal">
                     <label>PayPal Express Checkout</label>
                     <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal" target="_blank">Sign up for PayPal Merchant Account now!</a>]]></comment>
                     <frontend_type>text</frontend_type>
@@ -163,6 +245,33 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </payment_action>
+                        <fraud_filter translate="label">
+                            <label>Fraud Management Filters</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </fraud_filter>
+                        <solution_type translate="label">
+                            <label>Type of checkout flow</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paypal/source_solutionType</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </solution_type>
+                        <line_item translate="label">
+                            <label>Line Item Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>6</sort_order>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </line_item>
                         <allowspecific translate="label">
                             <label>Payment from applicable countries</label>
                             <frontend_type>allowspecific</frontend_type>
@@ -189,12 +298,18 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </sort_order>
-                        
-                        
-                         
+                        <invoice_email_copy translate="label">
+                            <label>Email Copy of Invoice</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </invoice_email_copy>
                     </fields>
                 </paypal_express>
-                <paypal_standard translate="label" module="paypal">
+                <paypal_standard translate="label comment" module="paypal">
                     <label>PayPal Website Payments Standard</label>
                     <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal" target="_blank">Sign up for PayPal Merchant Account now!</a>]]></comment>
                     <frontend_type>text</frontend_type>
@@ -220,7 +335,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </title>
-                         <payment_action translate="label">
+                        <payment_action translate="label">
                             <label>Payment Action</label>
                             <frontend_type>select</frontend_type>
                             <source_model>paypal/source_standardAction</source_model>
@@ -256,7 +371,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </transaction_type>
-                         <sort_order translate="label">
+                        <sort_order translate="label">
                             <label>Sort order</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
@@ -264,7 +379,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </sort_order>
-                         <allowspecific translate="label">
+                        <allowspecific translate="label">
                             <label>Payment from applicable countries</label>
                             <frontend_type>allowspecific</frontend_type>
                             <sort_order>50</sort_order>
@@ -295,15 +410,105 @@
             <show_in_website>1</show_in_website>
             <show_in_store>0</show_in_store>
             <groups>
-                <wpp translate="label">
-                    <label>Website Payments Pro and Express Checkout (API Signature)</label>
-                    <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal" target="_blank">Sign up for PayPal Merchant Account now!</a>]]></comment>
+                <style translate="label">
+                    <label>PayPal Style Configuration</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
+                        <page_style translate="label comment">
+                            <label>Page Style</label>
+                            <comment>Sets the Custom Payment Page Style for Payment Pages Associated With this Button/link. This Value Corresponds to the HTML Variable page_style for Pustomizing Payment Pages. The Value is the Same as the Page Style Name You Chose when Adding or Editing the Page Style from the Profile Subtab of the My Account tab of Your PayPal Account.Character Length and Limitations: 30 single-byte Alphabetic Characters.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </page_style>
+                        <paypal_hdrimg translate='label comment'>
+                            <label>Paypage Image</label>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>PayPal Express and PayPal Express Payflow Edition Only. URL for the Image You Want to Appear at the Top Left of the Payment Page. The Image has a Maximum Size of 750 Pixels Wide by 90 Pixels High. Image Should Be Stored on a Secure Server (https).></comment>
+                        </paypal_hdrimg>
+                        <paypal_hdrbordercolor translate="label comment">
+                            <label>Paypage Border Color</label>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[PayPal Express and PayPal Express Payflow Edition Only. Sets the Border Color Around the Header of the Payment Page. The Border is a 2-pixel Perimeter Around the Header Space, Which is 750 Pixels Wide by 90 Pixels High. The PayPal Default Color is White.<br />Six Character HTML Hexadecimal Color Code in ASCII]]></comment>
+                        </paypal_hdrbordercolor>
+                        <paypal_hdrbackcolor translate="label comment">
+                            <label>Paypage Header Background Color</label>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[PayPal Express and PayPal Express Payflow Edition Only. Sets the Background Color For the Header of the Payment Page. By Default, the Color is White.<br />Six Character HTML Hexadecimal Color Code in ASCII]]></comment>
+                        </paypal_hdrbackcolor>
+                        <paypal_payflowcolor translate="label comment">
+                            <label>Paypage Background Color</label>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[PayPal Express and PayPal Express Payflow Edition Only. Sets the Background Color for the Payment Page. By Default, the Color is White.<br />Six Character HTML Hexadecimal Color Code in ASCII]]></comment>
+                        </paypal_payflowcolor>
+                        <button_flavor translate="label comment">
+                            <label>Express Checkout Button Flavors</label>
+                            <sort_order>19</sort_order>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paypal/source_buttonFlavor</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Dynamic Image, PayPal Express Only.</comment>
+                        </button_flavor>
+                        <button_type translate="label comment">
+                            <label>Dynamic Button Type</label>
+                            <sort_order>20</sort_order>
+                            <frontend_type>select</frontend_type>
+                            <source_model>paypal/source_buttonType</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Dynamic Image, PayPal Express Only.</comment>
+                        </button_type>
+                        <logo_url translate="label comment">
+                            <label>PayPal Standard Logo Image URL</label>
+                            <comment>Maximum image size is 750x90 px.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </logo_url>
+                    </fields>
+                </style>
+                <wpp translate="label comment">
+                    <label>Website Payments Pro and Express Checkout (API Signature)</label>
+                    <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal" target="_blank">Sign up for PayPal Merchant Account now!</a><br />
+                    <a href="http://www.paypal.com/en_US/m/demo/18077_ec.html" target="_blank">See Demo</a>]]></comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <business_account translate="label">
+                            <label>Business Account</label>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </business_account>
                         <api_password translate="label">
                             <label>API Password</label>
                             <frontend_type>obscure</frontend_type>
@@ -331,14 +536,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </api_username>
-                        <page_style translate="label">
-                            <label>Page Style</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>4</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </page_style>
                         <proxy_host translate="label">
                             <label>Proxy Host</label>
                             <frontend_type>text</frontend_type>
@@ -383,16 +580,16 @@
                             <show_in_store>0</show_in_store>
                         </use_proxy>
                         <paypal_url translate="label comment">
-                            <label>Paypal URL</label>
+                            <label>PayPal URL</label>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment><![CDATA[Example: <b>https://www.paypal.com/au/cgi-bin/webscr?cmd=_express-checkout&useraction=<user_action>&amp;token=</b> Where &lt;user_action&gt; is 'commit' or 'continue', depending on your preference of commit button text.]]></comment>
+                            <comment><![CDATA[Example: <b> https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&useraction=<user_action>&amp;token=</b> Where &lt;user_action&gt; is 'commit' or 'continue', depending on your preference of commit button text.]]></comment>
                         </paypal_url>
                     </fields>
                 </wpp>
-                <wps translate="label">
+                <wps translate="label comment">
                     <label>Website Payments Standard</label>
                     <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal" target="_blank">Sign up for PayPal Merchant Account now!</a>]]></comment>
                     <frontend_type>text</frontend_type>
@@ -405,7 +602,7 @@
                             <label>Business Account</label>
                             <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                            <sort_order>2</sort_order>
+                            <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -418,16 +615,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </business_name>
-                         <logo_url translate="label comment">
-                            <label>Paypal Logo Image URL</label>
-                            <comment>Maximum image size is 750x90 px.</comment>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>3</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </logo_url>
-
                         <sandbox_flag translate="label">
                             <label>Sandbox Flag</label>
                             <frontend_type>select</frontend_type>

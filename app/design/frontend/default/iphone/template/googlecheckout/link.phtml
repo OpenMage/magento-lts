@@ -31,7 +31,7 @@
     <form method="post" action="<?php echo $this->getCheckoutUrl();?>"<?php if($this->getIsActiveAanalytics()):?> onsubmit="setUrchinInputCode(pageTracker)"<?php endif;?>>
         <fieldset>
             <input type="hidden" name="analyticsdata" value="" />
-            <input type="image" src="<?php echo $this->getImageUrl()?>" alt="<?php echo Mage::helper('googlecheckout')->__('Fast checkout through Google');?>" />
+            <input type="image" src="<?php echo $this->htmlEscape($this->getImageUrl())?>" alt="<?php echo Mage::helper('googlecheckout')->__('Fast checkout through Google');?>" />
         </fieldset>
     </form>
     <?php endif; ?>

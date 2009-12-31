@@ -181,17 +181,16 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
             return 0;
         }
 
-        $cacheKey = $request->getProductClassId() . '|' . $request->getCustomerClassId() . '|'
-            . $request->getCountryId() . '|' . $request->getRegionId() . '|' . $request->getPostcode();
-
+        $cacheKey = $this->_getRequestCacheKey($request);
         if (!isset($this->_rateCache[$cacheKey])) {
             $this->unsRateValue();
             $this->unsCalculationProcess();
             $this->unsEventModuleId();
             Mage::dispatchEvent('tax_rate_data_fetch', array('request'=>$this));
             if (!$this->hasRateValue()) {
-                $this->setCalculationProcess($this->_getResource()->getCalculationProcess($request));
-                $this->setRateValue($this->_getResource()->getRate($request));
+                $rateInfo = $this->_getResource()->getRateInfo($request);
+                $this->setCalculationProcess($rateInfo['process']);
+                $this->setRateValue($rateInfo['value']);
             } else {
                 $this->setCalculationProcess($this->_formCalculationProcess());
             }
@@ -199,6 +198,20 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
             $this->_rateCalculationProcess[$cacheKey] = $this->getCalculationProcess();
         }
         return $this->_rateCache[$cacheKey];
+    }
+
+    /**
+     * Get cache key value for specific tax rate request
+     *
+     * @param   $request
+     * @return  string
+     */
+    protected function _getRequestCacheKey($request)
+    {
+        $key = $request->getStore() ? $request->getStore()->getId() . '|' : '';
+        $key.= $request->getProductClassId() . '|' . $request->getCustomerClassId() . '|'
+            . $request->getCountryId() . '|'. $request->getRegionId() . '|' . $request->getPostcode();
+        return $key;
     }
 
     /**
@@ -323,9 +336,23 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     public function compareRequests($first, $second)
     {
-        if ($first->getCountryId() == $second->getCountryId() && $first->getRegionId() == $second->getRegionId()
-            && $first->getPostcode() == $second->getPostcode()
-            && $first->getCustomerClassId() == $second->getCustomerClassId()) {
+//        var_dump($first->getCountryId() , $second->getCountryId()); echo '<br>';
+//        var_dump($first->getRegionId(), $second->getRegionId());echo '<br>';
+        $country = $first->getCountryId() == $second->getCountryId();
+        /**
+         * "0" support for admin dropdown with --please select--
+         */
+        $region  = (int)$first->getRegionId() == (int)$second->getRegionId()
+            || $first->getRegionId() == '*'
+            || $second->getRegionId() == '*'
+            || $first->getRegionId() == '0'
+            || $second->getRegionId() == '0';
+            $postcode= $first->getPostcode() == $second->getPostcode()
+            || $first->getPostcode() == '*'
+            || $second->getPostcode() == '*';
+        $taxClass= $first->getCustomerClassId() == $second->getCustomerClassId();
+
+        if ($country && $region && $postcode && $taxClass) {
             return true;
         }
         return false;
@@ -362,10 +389,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     public function getAppliedRates($request)
     {
-        $cacheKey = $request->getStore()->getId() . '|' . $request->getProductClassId() . '|'
-            . $request->getCustomerClassId() . '|' . $request->getCountryId() . '|'
-            . $request->getRegionId() . '|' . $request->getPostcode();
-
+        $cacheKey = $this->_getRequestCacheKey($request);
         if (!isset($this->_rateCalculationProcess[$cacheKey])) {
             $this->_rateCalculationProcess[$cacheKey] = $this->_getResource()->getCalculationProcess($request);
         }

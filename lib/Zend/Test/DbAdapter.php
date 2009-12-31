@@ -17,7 +17,7 @@
  * @subpackage PHPUnit
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DbAdapter.php 17853 2009-08-27 21:05:21Z beberlei $
+ * @version    $Id: DbAdapter.php 18391 2009-09-24 18:11:51Z beberlei $
  */
 
 /**
@@ -29,6 +29,11 @@
  * @see Zend_Test_DbStatement
  */
 #require_once "Zend/Test/DbStatement.php";
+
+/**
+ * @see Zend_Db_Profiler
+ */
+#require_once 'Zend/Db/Profiler.php';
 
 /**
  * Testing Database Adapter which acts as a stack for SQL Results
@@ -72,7 +77,9 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
      */
     public function __construct()
     {
-        $this->setProfiler(false);
+        $profiler = new Zend_Db_Profiler();
+        $profiler->setEnabled(true);
+        $this->setProfiler($profiler);
     }
 
     /**
@@ -215,11 +222,20 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
      */
     public function prepare($sql)
     {
+        $queryId = $this->getProfiler()->queryStart($sql);
+
         if(count($this->_statementStack)) {
-            return array_pop($this->_statementStack);
+            $stmt = array_pop($this->_statementStack);
         } else {
-            return new Zend_Test_DbStatement();
+            $stmt = new Zend_Test_DbStatement();
         }
+        
+        if($this->getProfiler()->getEnabled() == true) {
+            $qp = $this->getProfiler()->getQueryProfile($queryId);
+            $stmt->setQueryProfile($qp);
+        }
+
+        return $stmt;
     }
 
     /**

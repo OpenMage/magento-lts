@@ -61,7 +61,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
     {
         $fileName   = 'tag_customer.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_tag_customer_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -73,7 +73,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
     {
         $fileName   = 'tag_customer.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_tag_customer_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -94,7 +94,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
     {
         $fileName   = 'tag_product.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_tag_product_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -106,7 +106,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
     {
         $fileName   = 'tag_product.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_tag_product_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -128,7 +128,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
     {
         $fileName   = 'tag_popular.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_tag_popular_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -140,7 +140,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
     {
         $fileName   = 'tag_popular.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_tag_popular_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -162,7 +162,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
     {
         $fileName   = 'tag_customer_detail.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_tag_customer_detail_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -174,7 +174,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
     {
         $fileName   = 'tag_customer_detail.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_tag_customer_detail_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -196,7 +196,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
     {
         $fileName   = 'tag_product_detail.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_tag_product_detail_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -208,7 +208,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
     {
         $fileName   = 'tag_product_detail.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_tag_product_detail_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -230,7 +230,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
     {
         $fileName   = 'tag_detail.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_tag_popular_detail_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -242,7 +242,7 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
     {
         $fileName   = 'tag_detail.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_tag_popular_detail_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }

@@ -71,7 +71,7 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
                             $value = $this->htmlEscape($value);
                         }
                         $data[$attribute->getAttributeCode()] = array(
-                           'label' => $attribute->getFrontend()->getLabel(),
+                           'label' => $attribute->getStoreLabel(),
                            'value' => $value,
                            'code'  => $attribute->getAttributeCode()
                         );

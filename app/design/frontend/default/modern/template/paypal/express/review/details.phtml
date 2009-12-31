@@ -23,6 +23,10 @@
  * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * @see Mage_Paypal_Block_Express_Review_Details
+ */
 ?>
 <table cellspacing="0" id="details-table" class="data-table nested-data-table">
     <col/>
@@ -37,14 +41,23 @@
             <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
         </tr>
     </thead>
+    <?php if ($this->getTotals()): ?>
     <tfoot>
-    <?php foreach ($this->getTotals() as $_total): ?>
+        <?php $_colspan = $this->helper('tax')->displayCartBothPrices() ? 5 : 3; ?>
+        <?php echo $this->renderTotals(null, $_colspan); ?>
+        <?php echo $this->renderTotals('footer', $_colspan); ?>
+        <?php if ($this->needDisplayBaseGrandtotal()):?>
         <tr>
-            <td colspan="3" class="a-right"><?php echo $_total->getTitle() ?></td>
-            <td class="a-right"><?php echo $this->helper('checkout')->formatPrice($_total->getValue()) ?></td>
+            <td class="a-right" colspan="<?php echo $_colspan; ?>">
+                <small><?php echo $this->helper('sales')->__('Your credit card will be charged for') ?></small>
+            </td>
+            <td class="a-right">
+                <small><?php echo $this->displayBaseGrandtotal() ?></small>
+            </td>
         </tr>
-    <?php endforeach; ?>
+        <?php endif?>
     </tfoot>
+    <?php endif; ?>
     <tbody>
     <?php foreach ($this->getItems() as $_item): ?>
         <?php if ($_item->getParentItem()) continue ?>

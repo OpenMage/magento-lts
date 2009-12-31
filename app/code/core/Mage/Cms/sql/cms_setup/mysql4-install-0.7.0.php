@@ -44,7 +44,7 @@ CREATE TABLE {$this->getTable('cms_block')} (
   PRIMARY KEY  (`block_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='CMS Blocks';
 
-insert into {$this->getTable('cms_block')}(`block_id`,`title`,`identifier`,`content`,`creation_time`,`update_time`,`is_active`,`store_id`) values (5,'Footer Links','footer_links','<ul>\r\n<li><a href=\"{{store url=\"\"}}about-magento-demo-store\">About Us</a></li>\r\n<li class=\"last\"><a href=\"{{store url=\"\"}}customer-service\">Customer Service</a></li>\r\n</ul>',NOW(),NOW(),1,0);
+insert into {$this->getTable('cms_block')}(`block_id`,`title`,`identifier`,`content`,`creation_time`,`update_time`,`is_active`,`store_id`) values (5,'Footer Links','footer_links','<ul>\r\n<li><a href=\"{{store direct_url=\"about-magento-demo-store\"}}\">About Us</a></li>\r\n<li class=\"last\"><a href=\"{{store direct_url=\"customer-service\"}}\">Customer Service</a></li>\r\n</ul>',NOW(),NOW(),1,0);
 
 -- DROP TABLE IF EXISTS {$this->getTable('cms_page')};
 CREATE TABLE {$this->getTable('cms_page')} (

@@ -53,6 +53,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         if ($taxRuleId) {
             $ruleModel->load($taxRuleId);
             if (!$ruleModel->getId()) {
+                Mage::getSingleton('adminhtml/session')->unsRuleData();
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('This rule no longer exists'));
                 $this->_redirect('*/*/');
                 return;

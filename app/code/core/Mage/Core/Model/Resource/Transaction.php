@@ -35,39 +35,28 @@
  */
 class Mage_Core_Model_Resource_Transaction
 {
-
     /**
-     * Enter description here...
+     * Objects which will be involved to transaction
      *
      * @var array
      */
     protected $_objects = array();
 
     /**
-     * Enter description here...
+     * Transaction objects array with alias key
      *
      * @var array
      */
     protected $_objectsByAlias = array();
 
     /**
-     * Enter description here...
+     * Callbacks array.
      *
      * @var array
      */
-    protected $_resources = array();
-
+    protected $_beforeCommitCallbacks = array();
     /**
-     * Enter description here...
-     *
-     */
-    public function __construct()
-    {
-
-    }
-
-    /**
-     * Enter description here...
+     * Begin transaction for all involved object resources
      *
      * @return Mage_Core_Model_Resource_Transaction
      */
@@ -80,7 +69,7 @@ class Mage_Core_Model_Resource_Transaction
     }
 
     /**
-     * Enter description here...
+     * Commit transaction for all resources
      *
      * @return Mage_Core_Model_Resource_Transaction
      */
@@ -93,7 +82,7 @@ class Mage_Core_Model_Resource_Transaction
     }
 
     /**
-     * Enter description here...
+     * Rollback transaction
      *
      * @return Mage_Core_Model_Resource_Transaction
      */
@@ -101,6 +90,19 @@ class Mage_Core_Model_Resource_Transaction
     {
         foreach ($this->_objects as $object) {
             $object->getResource()->rollBack();
+        }
+        return $this;
+    }
+
+    /**
+     * Run all configured object callbacks
+     *
+     * @return Mage_Core_Model_Resource_Transaction
+     */
+    protected function _runCallbacks()
+    {
+        foreach ($this->_beforeCommitCallbacks as $callback) {
+            call_user_func($callback);
         }
         return $this;
     }
@@ -122,6 +124,18 @@ class Mage_Core_Model_Resource_Transaction
     }
 
     /**
+     * Add callback funtion which will be called befor commit transactions
+     *
+     * @param   callback $callback
+     * @return  Mage_Core_Model_Resource_Transaction
+     */
+    public function addCommitCallback($callback)
+    {
+        $this->_beforeCommitCallbacks[] = $callback;
+        return $this;
+    }
+
+    /**
      * Initialize objects save transaction
      *
      * @return Mage_Core_Model_Resource_Transaction
@@ -129,37 +143,31 @@ class Mage_Core_Model_Resource_Transaction
     public function save()
     {
         $this->_startTransaction();
-        $commit = true;
-        $errors = array();
+        $error     = false;
 
-        foreach ($this->_objects as $object) {
-            try {
+        try {
+            foreach ($this->_objects as $object) {
                 $object->save();
             }
-            catch (Exception $e) {
-                $commit = false;
-                $errors[] = $e->getMessage();
+        } catch (Exception $e) {
+            $error = $e;
+        }
+
+        if ($error === false) {
+            try {
+                $this->_runCallbacks();
+            } catch (Exception $e) {
+                $error = $e;
             }
         }
 
-        if ($commit) {
+        if ($error) {
+            $this->_rollbackTransaction();
+            throw $error;
+        } else {
             $this->_commitTransaction();
         }
-        else {
-            $this->_rollbackTransaction();
-            Mage::throwException(join("\n", $errors));
-        }
 
-//        try {
-//            foreach ($this->_objects as $object) {
-//                $object->save();
-//            }
-//            $this->_commitTransaction();
-//        }
-//        catch (Exception $e) {
-//            $this->_rollbackTransaction();
-//            throw $e;
-//        }
         return $this;
     }
 
@@ -171,15 +179,29 @@ class Mage_Core_Model_Resource_Transaction
     public function delete()
     {
         $this->_startTransaction();
+        $error     = false;
+
         try {
             foreach ($this->_objects as $object) {
                 $object->delete();
             }
-            $this->_commitTransaction();
+        } catch (Exception $e) {
+            $error = $e;
         }
-        catch (Exception $e) {
+
+        if ($error === false) {
+            try {
+                $this->_runCallbacks();
+            } catch (Exception $e) {
+                $error = $e;
+            }
+        }
+
+        if ($error) {
             $this->_rollbackTransaction();
-            throw $e;
+            throw $error;
+        } else {
+            $this->_commitTransaction();
         }
         return $this;
     }

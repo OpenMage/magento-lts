@@ -33,19 +33,72 @@
  */
 class Mage_Paypal_Block_Link_Shortcut extends Mage_Core_Block_Template
 {
+    protected $_method = null;
+
+    /**
+     * Return checkout url as click action to button
+     *
+     * @return string
+     */
     public function getCheckoutUrl()
     {
         return $this->getUrl('paypal/express/shortcut', array('_secure'=>true));
     }
 
+
+    /**
+     * Return payment model object
+     *
+     * @return Mage_Paypal_Model_Express
+     */
+    public function getPayment()
+    {
+        if (empty($this->_method)) {
+            $this->_method = Mage::getModel('paypal/express');
+        }
+        return $this->_method;
+    }
+
+    /**
+     * Return image url based on configuration data
+     *
+     * @return string
+     */
     public function getImageUrl()
     {
         $locale = Mage::app()->getLocale()->getLocaleCode();
-        if (strpos('en_GB', $locale)===false) {
-            $locale = 'en_US';
-        }
+        $quote = Mage::getSingleton('checkout/session')->getQuote();
 
-        return 'https://www.paypal.com/'.$locale.'/i/btn/btn_xpressCheckout.gif';
+
+        if ($this->getPayment()->getApi()->getStyleConfigData('button_flavor') == Mage_Paypal_Model_Api_Abstract::BUTTON_FLAVOR_DYNAMIC) {
+            if ($this->getPayment()->getApi()->getSandboxFlag()) {
+                $url = 'https://fpdbs.sandbox.paypal.com/dynamicimageweb?cmd=_dynamic-image&locale=' . $locale;
+            } else {
+                $url = 'https://fpdbs.paypal.com/dynamicimageweb?cmd=_dynamic-image&locale=' . $locale;
+            }
+
+            $orderTotal = $quote->getGrandTotal();
+            if ($orderTotal) {
+                $url .= '&ordertotal=' . $orderTotal;
+            }
+
+            $pal = $this->getPayment()->getPalDetails();
+            if ($pal) {
+                $url .= '&pal=' . $pal;
+            }
+
+            $buttonType = $this->getPayment()->getApi()->getStyleConfigData('button_type');
+            if ($buttonType) {
+                $url .= '&buttontype=' . $buttonType;
+            }
+
+            return $url;
+        } else {
+            if (strpos('en_GB', $locale)===false) {
+                $locale = 'en_US';
+            }
+            return 'https://www.paypal.com/'.$locale.'/i/btn/btn_xpressCheckout.gif';
+        }
     }
 
     /**

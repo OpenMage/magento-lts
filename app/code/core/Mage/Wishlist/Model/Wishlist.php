@@ -100,6 +100,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         if(!$this->getShared()) {
             $this->setId(null);
         }
+
         return $this;
     }
 
@@ -120,9 +121,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      */
     public function getItemCollection()
     {
-        if(is_null($this->_itemCollection)) {
+        if (is_null($this->_itemCollection)) {
             $this->_itemCollection =  Mage::getResourceModel('wishlist/item_collection')
-                ->setStoreId($this->getStore()->getId())
                 ->addWishlistFilter($this);
         }
 
@@ -286,5 +286,16 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             }
         }
         return false;
+    }
+
+    /**
+     * Check customer is owner this wishlist
+     *
+     * @param int $customerId
+     * @return bool
+     */
+    public function isOwner($customerId)
+    {
+        return $customerId == $this->getCustomerId();
     }
 }

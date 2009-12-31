@@ -27,7 +27,6 @@
 /***********[ Mage_CSS_B Common Elements ]***********/
 /****************************************************/
 
-
 /********************** Columns */
 
 /* All */
@@ -101,7 +100,6 @@ input.checkbox            { margin-right:3px; }
 .group-select li .input-box .input-text,
 .group-select li .input-box textarea{ width:250px; }
 .group-select li .input-box select  { width:256px; }
-
 
 
 /* Form Messages */

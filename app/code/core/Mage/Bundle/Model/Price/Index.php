@@ -28,9 +28,11 @@
 /**
  * Bundle Product Price Index
  *
- * @category   Mage
- * @package    Mage_Bundle
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_Bundle
+ * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated  since 1.4.0.0
+ * @see         Mage_Bundle_Model_Mysql4_Indexer_Price
  */
 class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
 {

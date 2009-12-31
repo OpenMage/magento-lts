@@ -44,6 +44,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     protected $_backgroundColor  = array(255, 255, 255);
 
     protected $_baseFile;
+    protected $_isBaseFilePlaceholder;
     protected $_newFile;
     protected $_processor;
     protected $_destinationSubdir;
@@ -175,7 +176,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 //        print '$this->_getMemoryUsage() = '.$this->_getMemoryUsage();
 //        print '$this->_getNeedMemoryForBaseFile() = '.$this->_getNeedMemoryForBaseFile();
 
-        return $this->_getMemoryLimit() > ($this->_getMemoryUsage() + $this->_getNeedMemoryForFile($file));
+        return $this->_getMemoryLimit() > ($this->_getMemoryUsage() + $this->_getNeedMemoryForFile($file)) || $this->_getMemoryLimit() == -1;
     }
 
     protected function _getMemoryLimit()
@@ -255,6 +256,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     public function setBaseFile($file)
     {
+        $this->_isBaseFilePlaceholder = false;
+
         if (($file) && (0 !== strpos($file, '/', 0))) {
             $file = '/' . $file;
         }
@@ -287,6 +290,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
                     $baseDir = Mage::getDesign()->getSkinBaseDir(array('_theme' => 'default'));
                 }
             }
+            $this->_isBaseFilePlaceholder = true;
         }
 
         $baseFile = $baseDir . $file;
@@ -294,6 +298,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         if ((!$file) || (!file_exists($baseFile))) {
             throw new Exception(Mage::helper('catalog')->__('Image file not found'));
         }
+
         $this->_baseFile = $baseFile;
 
         // build new filename (most important params)
@@ -425,6 +430,11 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     public function setWatermark($file, $position=null, $size=null, $width=null, $heigth=null, $imageOpacity=null)
     {
+        if ($this->_isBaseFilePlaceholder)
+        {
+            return $this;
+        }
+
         if ($file) {
             $this->setWatermarkFile($file);
         } else {

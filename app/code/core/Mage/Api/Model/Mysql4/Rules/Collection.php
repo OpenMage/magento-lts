@@ -39,7 +39,7 @@ class Mage_Api_Model_Mysql4_Rules_Collection extends Mage_Core_Model_Mysql4_Coll
 
     public function addSortByLength()
     {
-        $this->getSelect()->from('', array('length' => 'LENGTH(resource_id)'))
+        $this->getSelect()->columns(array('length' => 'LENGTH(resource_id)'))
             ->order('length desc');
         return $this;
     }

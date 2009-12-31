@@ -246,12 +246,12 @@ class Mage_Tag_Model_Mysql4_Tag_Collection extends Mage_Core_Model_Mysql4_Collec
     {
         if (!$this->getFlag('store_filter')) {
 
-            $this->getSelect()->join(
+            $this->getSelect()->joinLeft(
                 array('summary_store'=>$this->getTable('summary')),
-                'main_table.tag_id = summary_store.tag_id' . $this->getConnection()->quoteInto(
-                    ' AND summary.store_id IN (?)', $storeId
-                )
+                'main_table.tag_id = summary_store.tag_id'
             );
+
+            $this->getSelect()->where('summary_store.store_id IN (?)', $storeId);
 
             $this->getSelect()->group('summary_store.tag_id');
 

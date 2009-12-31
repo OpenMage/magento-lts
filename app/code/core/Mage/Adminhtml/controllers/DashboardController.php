@@ -70,19 +70,23 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
     public function tunnelAction()
     {
         $httpClient = new Varien_Http_Client();
+        $gaData = $this->getRequest()->getParam('ga');
+        $gaHash = $this->getRequest()->getParam('h');
+        if ($gaData && $gaHash) {
+            $newHash = Mage::helper('adminhtml/dashboard_data')->getChartDataHash($gaData);
+            if ($newHash == $gaHash) {
+                if ($params = unserialize(base64_decode(urldecode($gaData)))) {
+                    $response = $httpClient->setUri(Mage_Adminhtml_Block_Dashboard_Graph::API_URL)
+                            ->setParameterGet($params)
+                            ->setConfig(array('timeout' => 5))
+                            ->request('GET');
 
-        if ($ga = $this->getRequest()->getParam('ga')) {
-            if ($params = unserialize(base64_decode(urldecode($ga)))) {
-                $response = $httpClient->setUri(Mage_Adminhtml_Block_Dashboard_Graph::API_URL)
-                        ->setParameterGet($params)
-                        ->setConfig(array('timeout' => 15))
-                        ->request('GET');
+                    $headers = $response->getHeaders();
 
-                $headers = $response->getHeaders();
-
-                $this->getResponse()
-                    ->setHeader('Content-type', $headers['Content-type'])
-                    ->setBody($response->getBody());
+                    $this->getResponse()
+                        ->setHeader('Content-type', $headers['Content-type'])
+                        ->setBody($response->getBody());
+                }
             }
         }
     }

@@ -31,7 +31,7 @@
  * @package    Mage_CatalogSearch
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_CatalogSearch_Model_Advanced extends Varien_Object
+class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
 {
     /**
      * User friendly search criteria list
@@ -40,6 +40,30 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
      */
     private $_searchCriterias = array();
 
+    /**
+     * Initialize resource model
+     *
+     */
+    protected function _construct()
+    {
+        $this->_init('catalogsearch/advanced');
+    }
+
+    /**
+     * Retrieve resource instance wrapper
+     *
+     * @return Mage_CatalogSearch_Model_Mysql4_Advanced
+     */
+    protected function _getResource()
+    {
+        return parent::_getResource();
+    }
+
+    /**
+     * Retrieve array of attributes used in advanced search
+     *
+     * @return array
+     */
     public function getAttributes()
     {
         /* @var $attributes Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Collection */
@@ -62,6 +86,38 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
     }
 
     /**
+     * Prepare search condition for attribute
+     *
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param string|array $value
+     * @return mixed
+     */
+    protected function _prepareCondition($attribute, $value)
+    {
+        $condition = false;
+
+        if (is_array($value)) {
+            if (!empty($value['from']) || !empty($value['to'])) { // range
+                $condition = $value;
+            } else if ($attribute->getBackendType() == 'varchar') { // multiselect
+                $condition = array('in_set' => $value);
+            } else if (!isset($value['from']) && !isset($value['to'])) { // select
+                $condition = array('in' => $value);
+            }
+        } else {
+            if (strlen($value) > 0) {
+                if (in_array($attribute->getBackendType(), array('varchar', 'text', 'static'))) {
+                    $condition = array('like' => '%' . $value . '%'); // text search
+                } else {
+                    $condition = $value;
+                }
+            }
+        }
+
+        return $condition;
+    }
+
+    /**
      * Add advanced search filters to product collection
      *
      * @param   array $values
@@ -69,85 +125,48 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
      */
     public function addFilters($values)
     {
-        $attributes = $this->getAttributes();
-        $allConditions = array();
-        $filteredAttributes = array();
-        $indexFilters = Mage::getModel('catalogindex/indexer')->buildEntityFilter(
-            $attributes,
-            $values,
-            $filteredAttributes,
-            $this->getProductCollection()
-        );
-
-        foreach ($indexFilters as $filter) {
-            $this->getProductCollection()->addFieldToFilter('entity_id', array('in'=>new Zend_Db_Expr($filter)));
-        }
-
-        $priceFilters = Mage::getModel('catalogindex/indexer')->buildEntityPriceFilter(
-            $attributes,
-            $values,
-            $filteredAttributes,
-            $this->getProductCollection()
-        );
-
-        foreach ($priceFilters as $code=>$filter) {
-            $this->getProductCollection()->getSelect()->joinInner(
-                array("_price_filter_{$code}"=>$filter),
-                "`_price_filter_{$code}`.`entity_id` = `e`.`entity_id`",
-                array()
-            );
-        }
+        $attributes     = $this->getAttributes();
+        $hasConditions  = false;
+        $allConditions  = array();
 
         foreach ($attributes as $attribute) {
-            $code      = $attribute->getAttributeCode();
-            $condition = false;
-
-            if (isset($values[$code])) {
-                $value = $values[$code];
-
-                if (is_array($value)) {
-                    if ((isset($value['from']) && strlen($value['from']) > 0)
-                        || (isset($value['to']) && strlen($value['to']) > 0)) {
-                        $condition = $value;
-                    }
-                    elseif ($attribute->getBackend()->getType() == 'varchar') {
-                        $condition = array('in_set'=>$value);
-                    }
-                    elseif (!isset($value['from']) && !isset($value['to'])) {
-                        $condition = array('in'=>$value);
-                    }
-                } else {
-                    if (strlen($value)>0) {
-                        if (in_array($attribute->getBackend()->getType(), array('varchar', 'text'))) {
-                            $condition = array('like'=>'%'.$value.'%');
-                        } elseif ($attribute->getFrontendInput() == 'boolean') {
-                            $condition = array('in' => array('0','1'));
-                        } else {
-                            $condition = $value;
-                        }
-                    }
-                }
+            /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+            if (!isset($values[$attribute->getAttributeCode()])) {
+                continue;
             }
+            $value = $values[$attribute->getAttributeCode()];
 
-            if (false !== $condition) {
+            if ($attribute->getAttributeCode() == 'price') {
+                if ($this->_getResource()->addPriceFilter($this, $attribute, $value)) {
+                    $hasConditions = true;
+                    $this->_addSearchCriteria($attribute, $value);
+                }
+            } else if ($attribute->isIndexable()) {
+                if ($this->_getResource()->addIndexableAttributeFilter($this, $attribute, $value)) {
+                    $hasConditions = true;
+                    $this->_addSearchCriteria($attribute, $value);
+                }
+            } else {
+                $condition = $this->_prepareCondition($attribute, $value);
+                if ($condition === false) {
+                    continue;
+                }
+
                 $this->_addSearchCriteria($attribute, $value);
 
-                if (in_array($code, $filteredAttributes))
-                    continue;
-
-                $table = $attribute->getBackend()->getTable();
-                $attributeId = $attribute->getId();
+                $table       = $attribute->getBackend()->getTable();
                 if ($attribute->getBackendType() == 'static'){
                     $attributeId = $attribute->getAttributeCode();
-                    $condition = array('like'=>"%{$condition}%");
+                } else {
+                    $attributeId = $attribute->getId();
                 }
-
                 $allConditions[$table][$attributeId] = $condition;
             }
         }
+
         if ($allConditions) {
             $this->getProductCollection()->addFieldsToFilter($allConditions);
-        } else if (!count($filteredAttributes)) {
+        } else if (!$hasConditions) {
             Mage::throwException(Mage::helper('catalogsearch')->__('You have to specify at least one search term'));
         }
 
@@ -213,6 +232,11 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
         return $this->_searchCriterias;
     }
 
+    /**
+     * Retrieve advanced search product collection
+     *
+     * @return Mage_CatalogSearch_Model_Mysql4_Advanced_Collection
+     */
     public function getProductCollection(){
         if (is_null($this->_productCollection)) {
             $this->_productCollection = Mage::getResourceModel('catalogsearch/advanced_collection')

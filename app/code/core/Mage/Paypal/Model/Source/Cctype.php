@@ -33,8 +33,12 @@
  */
 class Mage_Paypal_Model_Source_Cctype extends Mage_Payment_Model_Source_Cctype
 {
+    /**
+     * Get available credit cards as option array
+     * @return array
+     */
     public function getAllowedTypes()
     {
-        return array('VI', 'MC', 'AE', 'DI', 'OT');
+        return array('VI', 'MC', 'AE', 'DI', 'SS', 'OT');
     }
 }

@@ -55,7 +55,14 @@ class Mage_Index_Model_Mysql4_Setup extends Mage_Core_Model_Resource_Setup
             $connection->delete($table, $connection->quoteInto('indexer_code IN (?)', $delete));
         }
         if (!empty($insert)) {
-            $connection->insertArray($table, array('indexer_code'), $insert);
+            $inserData = array();
+            foreach ($insert as $code) {
+                $inserData[] = array(
+                    'indexer_code' => $code,
+                    'status' => Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX
+                );
+            }
+            $connection->insertArray($table, array('indexer_code', 'status'), $inserData);
         }
     }
 }

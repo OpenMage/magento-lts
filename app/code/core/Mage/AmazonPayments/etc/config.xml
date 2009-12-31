@@ -77,11 +77,11 @@
         </sales>
         <template>
             <email>
-                <payment_amazonpayments_asp translate="label" module="amazonpayments">
+                <payment_amazonpayments_asp_email_template_notification_error translate="label" module="amazonpayments">
                     <label>Amazon Simple Pay notification error</label>
                     <file>amazonpayments_asp_notification_error.html</file>
                     <type>html</type>
-                </payment_amazonpayments_asp>
+                </payment_amazonpayments_asp_email_template_notification_error>
             </email>
         </template>
     </global>
@@ -212,7 +212,7 @@ Something like this is to be added to resolve bug #4890
                 <fps_service_url_sandbox>https://fps.sandbox.amazonaws.com/</fps_service_url_sandbox>
 
                 <email_sender_identity>general</email_sender_identity>
-                <email_template_notofication_error>payment_amazonpayments_asp</email_template_notofication_error>
+                <email_template_notification_error>payment_amazonpayments_asp_email_template_notification_error</email_template_notification_error>
                 <report_error_to_email>0</report_error_to_email>
 
                 <error_log>0</error_log>

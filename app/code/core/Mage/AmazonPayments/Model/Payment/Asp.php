@@ -280,7 +280,7 @@ class Mage_AmazonPayments_Model_Payment_Asp extends Mage_Payment_Model_Method_Ab
      * process Amazon Simple Pay notification request
      *
      * @param   array $requestParams
-     * @return Mage_AmazonPayments_Model_Payment_Asp
+     * @return bool
      */
     public function processNotification($requestParams)
     {
@@ -299,11 +299,13 @@ class Mage_AmazonPayments_Model_Payment_Asp extends Mage_Payment_Model_Method_Ab
                 $variables = array();
                 $variables['request'] = print_r($requestParams, 1);
                 $variables['error'] = $e->getMessage();
-                $this->_mail('email_template_notofication_error', $variables);
+                $this->_mail('email_template_notification_error', $variables);
             }
+
+            return false;
         }
 
-        return $this;
+        return true;
     }
 
     /**
@@ -353,7 +355,7 @@ class Mage_AmazonPayments_Model_Payment_Asp extends Mage_Payment_Model_Method_Ab
                 $payment->getOrder()->addStatusToHistory(
                   $payment->getOrder()->getStatus(),
                   Mage::helper('amazonpayments')->__('Payment was captured online with Amazon Simple Pay service. Invoice was created. Waiting for capture confirmation from payment service.')
-                )->save();
+                );
 
             }
         }
@@ -394,7 +396,7 @@ class Mage_AmazonPayments_Model_Payment_Asp extends Mage_Payment_Model_Method_Ab
                 $payment->getOrder()->addStatusToHistory(
                   $payment->getOrder()->getStatus(),
                   Mage::helper('amazonpayments')->__('Payment refunded online with Amazon Simple Pay service. Creditmemo was created. Waiting for refund confirmation from Amazon Simple Pay service.')
-                )->save();
+                );
             }
         }
         return $this;
@@ -425,7 +427,7 @@ class Mage_AmazonPayments_Model_Payment_Asp extends Mage_Payment_Model_Method_Ab
                     true,
                     Mage::helper('amazonpayments')->__('Payment authorization cancelled with Amazon Simple Pay service.'),
                     $notified = false
-                )->save();
+                );
             }
         }
         return $this;

@@ -24,7 +24,9 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Order status history comments
+ */
 class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 {
     /**
@@ -35,6 +37,12 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     protected $_order;
 
     /**
+     * Whether setting order again is required (for example when setting non-saved yet order)
+     * @var bool
+     */
+    private $_shouldSetOrderBeforeSave = false;
+
+    /**
      * Initialize resource model
      */
     protected function _construct()
@@ -43,7 +51,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * declare order instance
+     * Set order object and grab some metadata from it
      *
      * @param   Mage_Sales_Model_Order $order
      * @return  Mage_Sales_Model_Order_Status_History
@@ -51,7 +59,11 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     public function setOrder(Mage_Sales_Model_Order $order)
     {
         $this->_order = $order;
-        return $this;
+        $id = $order->getId();
+        if (!$id) {
+            $this->_shouldSetOrderBeforeSave = true;
+        }
+        return $this->setParentId($id)->setStoreId($order->getStoreId());
     }
 
     /**
@@ -87,5 +99,17 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
             return $this->getOrder()->getStore();
         }
         return Mage::app()->getStore();
+    }
+
+    /**
+     * Set order again if required
+     * @return Mage_Sales_Model_Order_Status_History
+     */
+    protected function _beforeSave()
+    {
+        if ($this->_shouldSetOrderBeforeSave) {
+            $this->setOrder($this->_order);
+        }
+        return parent::_beforeSave();
     }
 }

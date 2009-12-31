@@ -1,0 +1,105 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php $_order = $this->getOrder() ?>
+<h1><?php echo $this->__('Order #%s', $_order->getRealOrderId()) ?></h1>
+<p class="order-date"><?php echo $this->__('Order Date: %s', $this->formatDate($_order->getCreatedAtStoreDate(), 'long')) ?></p>
+<?php if (!$_order->getIsVirtual()): ?>
+<?php $_shipment = $this->getShipment() ?>
+<?php if($_shipment): ?>
+    <?php $_shipments = array($_shipment); ?>
+<?php else: ?>
+    <?php $_shipments = $_order->getShipmentsCollection() ?>
+<?php endif; ?>
+<?php foreach ($_shipments as $_shipment): ?>
+    <h2 class="h2"><?php echo $this->__('Shipment #%s', $_shipment->getIncrementId()) ?></h2>
+    <div class="col2-set">
+        <div class="col-1">
+            <h3><?php echo $this->__('Shipping Address') ?></h3>
+            <?php $_shipping = $_shipment->getShippingAddress() ?>
+            <address><?php echo $_shipping->format('html') ?></address>
+        </div>
+        <div class="col-2">
+            <h3><?php echo $this->__('Billing Address') ?></h3>
+            <?php $_billing = $_shipment->getbillingAddress() ?>
+            <address><?php echo $_order->getBillingAddress()->format('html') ?></address>
+        </div>
+    </div>
+    <div class="col2-set">
+        <div class="col-1">
+            <h3><?php echo $this->__('Shipping Method') ?></h3>
+             <?php echo $_order->getShippingDescription() ?>
+             <?php if (count($_order->getTracksCollection()) > 0): ?>
+                <table class="data-table">
+                    <col />
+                    <col />
+                    <thead>
+                        <tr>
+                            <th><?php echo Mage::helper('sales')->__('Title')?></th>
+                            <th><?php echo Mage::helper('sales')->__('Number')?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($_order->getTracksCollection() as $track): ?>
+                            <tr>
+                                <td><?php echo $track->getTitle() ?></td>
+                                <td><?php echo $track->getNumber() ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </div>
+        <div class="col-2">
+            <h3><?php echo $this->__('Payment Method') ?></h3>
+            <?php echo $this->getPaymentInfoHtml() ?>
+        </div>
+    </div>
+    <h3><?php echo $this->__('Items Shipped') ?></h3>
+    <table class="data-table" id="my-shipment-table-<?php echo $_shipment->getId(); ?>">
+        <col />
+        <col width="1" />
+        <col width="1" />
+        <thead>
+            <tr>
+                <th><?php echo $this->__('Product Name') ?></th>
+                <th><?php echo $this->__('SKU') ?></th>
+                <th class="a-center"><span class="nobr"><?php echo $this->__('Qty Shipped') ?></span></th>
+            </tr>
+        </thead>
+        <?php $_items = $_shipment->getItemsCollection(); ?>
+        <?php $_count = count($_items) ?>
+        <?php foreach ($_items as $_item): ?>
+        <?php if ($_item->getOrderItem()->getParentItem()) continue; ?>
+        <tbody>
+            <?php echo $this->getItemHtml($_item) ?>
+        </tbody>
+        <?php endforeach; ?>
+    </table>
+    <script type="text/javascript">decorateTable('my-shipment-table-<?php echo $_shipment->getId(); ?>', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
+<?php endforeach; ?>
+<?php endif; ?>
+<script type="text/javascript">window.print();</script>

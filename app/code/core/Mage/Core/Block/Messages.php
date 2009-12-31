@@ -41,6 +41,20 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     protected $_messages;
 
     /**
+     * Store first level html tag name for messages html output
+     *
+     * @var string
+     */
+    protected $_messagesFirstLevelTagName = 'ul';
+
+    /**
+     * Store second level html tag name for messages html output
+     *
+     * @var string
+     */
+    protected $_messagesSecondLevelTagName = 'li';
+
+    /**
      * Flag which require message text escape
      *
      * @var bool
@@ -182,13 +196,13 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      */
     public function getHtml($type=null)
     {
-        $html = '<ul id="admin_messages">';
+        $html = '<' . $this->_messagesFirstLevelTagName . ' id="admin_messages">';
         foreach ($this->getMessages($type) as $message) {
-            $html.= '<li class="'.$message->getType().'-msg">'
+            $html.= '<' . $this->_messagesSecondLevelTagName . ' class="'.$message->getType().'-msg">'
                 . ($this->_escapeMessageFlag) ? $this->htmlEscape($message->getText()) : $message->getText()
-                . '</li>';
+                . '</' . $this->_messagesSecondLevelTagName . '>';
         }
-        $html .= '</ul>';
+        $html .= '</' . $this->_messagesFirstLevelTagName . '>';
         return $html;
     }
 
@@ -210,22 +224,22 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
         foreach ($types as $type) {
             if ( $messages = $this->getMessages($type) ) {
                 if ( !$html ) {
-                    $html .= '<ul class="messages">';
+                    $html .= '<' . $this->_messagesFirstLevelTagName . ' class="messages">';
                 }
-                $html .= '<li class="' . $type . '-msg">';
-                $html .= '<ul>';
+                $html .= '<' . $this->_messagesSecondLevelTagName . ' class="' . $type . '-msg">';
+                $html .= '<' . $this->_messagesFirstLevelTagName . '>';
 
                 foreach ( $messages as $message ) {
-                    $html.= '<li>';
+                    $html.= '<' . $this->_messagesSecondLevelTagName . '>';
                     $html.= ($this->_escapeMessageFlag) ? $this->htmlEscape($message->getText()) : $message->getText();
-                    $html.= '</li>';
+                    $html.= '</' . $this->_messagesSecondLevelTagName . '>';
                 }
-                $html .= '</ul>';
-                $html .= '</li>';
+                $html .= '</' . $this->_messagesFirstLevelTagName . '>';
+                $html .= '</' . $this->_messagesSecondLevelTagName . '>';
             }
         }
         if ( $html) {
-            $html .= '</ul>';
+            $html .= '</' . $this->_messagesFirstLevelTagName . '>';
         }
         return $html;
     }
@@ -233,5 +247,25 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         return $this->getGroupedHtml();
+    }
+
+    /**
+     * Set messages first level html tag name for output messages as html
+     *
+     * @param string $tagName
+     */
+    public function setMessagesFirstLevelTagName($tagName)
+    {
+        $this->_messagesFirstLevelTagName = $tagName;
+    }
+
+    /**
+     * Set messages first level html tag name for output messages as html
+     *
+     * @param string $tagName
+     */
+    public function setMessagesSecondLevelTagName($tagName)
+    {
+        $this->_messagesSecondLevelTagName = $tagName;
     }
 }

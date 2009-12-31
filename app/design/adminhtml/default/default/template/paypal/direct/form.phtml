@@ -1,0 +1,61 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php if($this->getMethod()->get3DSecureEnabled()): ?>
+    <iframe id="<?php echo $this->getCentinelIframeId();?>" name="<?php echo $this->getCentinelIframeId();?>" src="" frameborder=0 style="display: none; width:600px; height:400px; float:right; z-index:600; position:absolute; top:25%; left:25%; margin:-34px 0 0 -90px; border:5px solid #f3b66f; font-size:12px; color:#f18200; font-weight:bold; background:#fff; position:fixed; padding:20px; white-space:nowrap;" class='please-wait'></iframe>
+    <div id="<?php echo $this->getCentinelIframeId();?>_close_btn" onclick='<?php echo $this->getCentinelJsObjectName();?>.close()' style='cursor:pointer; display: none; float:right; z-index:600; position:absolute; top:25%; left:25%; margin:-24px 0 0 534px; font-size:12px; color:#f18200; font-weight:bold; background:#fff; position:fixed; white-space:nowrap;'>
+        <img src='<?php echo $this->getSkinUrl('images/cancel_icon.gif');?>'>
+    </div>
+    <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/centinel.js') ?>"></script>
+    <script type="text/javascript">
+    //<![CDATA[
+    var <?php echo $this->getCentinelJsObjectName();?> = new CentinelValidate('<?php echo $this->getCentinelIframeId();?>', null, '<?php echo $this->getValidateUrl();?>');
+
+    function <?php echo $this->getCentinelJsObjectName();?>RedeclareSave(){
+       payment.<?php echo $this->getMethod()->getCode();?> = <?php echo $this->getCentinelJsObjectName(); ?>.centinelLookUp.bind(<?php echo $this->getCentinelJsObjectName();?>);
+       editForm.submit= function (url) {
+           this.errorSections = $H({});
+           this.canShowError = true;
+           this.submitUrl = this.action;
+           if (this.validator && this.validator.validate()) {
+               if(this.validationUrl) {
+                   this._validate();
+               } else {
+                   try {
+                       eval('payment.' + order.paymentMethod + '(editForm.formId)');
+                   } catch(e) {
+                       this._submit();
+                   }
+               }
+               return true;
+           }
+           return false;
+       };
+    }
+    Event.observe(window, 'load', <?php echo $this->getCentinelJsObjectName();?>RedeclareSave);
+    </script>
+<?php endif; ?>

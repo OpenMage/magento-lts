@@ -47,7 +47,7 @@
             <?php endif; ?>
             <div class="product-details">
                     <a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
-                    <?php echo $this->getPriceHtml($_item, true) ?>
+                    <?php echo $this->getPriceHtml($_item, true, '-related') ?>
                     <?php if ($this->helper('wishlist')->isAllow()) : ?>
                         <a href="<?php echo $this->getAddToWishlistUrl($_item) ?>" class="link-base"><?php echo $this->__('Add to Wishlist') ?></a>
                     <?php endif; ?>

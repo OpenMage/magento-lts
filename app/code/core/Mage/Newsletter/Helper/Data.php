@@ -34,6 +34,8 @@
  */
 class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    const XML_PATH_TEMPLATE_FILTER = 'global/newsletter/tempate_filter';
+
     /**
      * Retrieve subsription confirmation url
      *
@@ -66,5 +68,16 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
                 'code'   => $subscriber->getCode(),
                 '_nosid' => true
             ));
+    }
+
+    /**
+     * Retrieve Template processor for Newsletter template
+     *
+     * @return Varien_Filter_Template
+     */
+    public function getTemplateProcessor()
+    {
+        $model = (string)Mage::getConfig()->getNode(self::XML_PATH_TEMPLATE_FILTER);
+        return Mage::getModel($model);
     }
 }

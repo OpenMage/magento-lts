@@ -26,7 +26,7 @@
 ?>
 <html>
     <body>
-        <?php echo($this->__('You will be redirected to Amazon Simple Pay in a few seconds.')); ?>
+        <?php echo($this->getRedirectMessage()); ?>
         <form id="amazonpayments_asp_checkout" method="POST" action="<?php echo($this->getRedirectUrl()); ?>">
             <?php foreach ($this->getRedirectParams() as $name => $value) { ?>
                 <input type="hidden" name="<?php echo($name); ?>" value="<?php echo($value); ?>"/>

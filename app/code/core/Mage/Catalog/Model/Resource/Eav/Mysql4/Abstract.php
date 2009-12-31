@@ -182,7 +182,7 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
             /**
              * Update attribute value for store
              */
-            $write->insertOnDuplicate($table, $bind, array('value'));
+            $this->_attributeValuesToSave[$table][] = $bind;
         } else if ($attribute->isScopeWebsite() && $storeId != $this->getDefaultStoreId()) {
             /**
              * Update attribute value for website
@@ -190,14 +190,14 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
             $storeIds = $object->getWebsiteStoreIds();
             foreach ($storeIds as $storeId) {
                 $bind['store_id'] = $storeId;
-                $write->insertOnDuplicate($table, $bind, array('value'));
+                $this->_attributeValuesToSave[$table][] = $bind;
             }
         } else {
             /**
              * Update global attribute value
              */
             $bind['store_id'] = $this->getDefaultStoreId();
-            $write->insertOnDuplicate($table, $bind, array('value'));
+            $this->_attributeValuesToSave[$table][] = $bind;
         }
 
         return $this;
@@ -550,7 +550,7 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
                 ->where('default_value.' . $this->getEntityIdField() . ' = ?', $entityId);
 
             if ($isStatic) {
-                $select->from('', $attrField);
+                $select->columns($attrField);
             } else {
                 $select->where('default_value.attribute_id = ?', $attribute->getId())
                     ->where('default_value.store_id = 0');

@@ -93,6 +93,61 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
 
         $this->_refreshAnchorRelations($allCategoryIds, $productId);
         $this->_refreshDirectRelations($categoryIds, $productId);
+        $this->_refreshRootRelations($productId);
+        return $this;
+    }
+
+    /**
+     * Process Catalog Product mass action
+     *
+     * @param Mage_Index_Model_Event $event
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product
+     */
+    public function catalogProductMassAction(Mage_Index_Model_Event $event)
+    {
+        $data = $event->getNewData();
+
+        /**
+         * check is product ids were updated
+         */
+        if (!isset($data['product_ids'])) {
+            return $this;
+        }
+        $productIds     = $data['product_ids'];
+        $categoryIds    = array();
+        $allCategoryIds = array();
+
+        /**
+         * Select relations to categories
+         */
+        $adapter = $this->_getWriteAdapter();
+        $select  = $adapter->select()
+            ->distinct(true)
+            ->from(array('cp' => $this->_categoryProductTable), array('category_id'))
+            ->join(
+                array('ce' => $this->_categoryTable),
+                'ce.entity_id=cp.category_id',
+                array('path'))
+            ->where('cp.product_id IN(?)', $productIds);
+        $pairs   = $adapter->fetchPairs($select);
+        foreach ($pairs as $categoryId => $categoryPath) {
+            $categoryIds[] = $categoryId;
+            $allCategoryIds = array_merge($allCategoryIds, explode('/', $categoryPath));
+        }
+
+        $allCategoryIds = array_unique($allCategoryIds);
+        $allCategoryIds = array_diff($allCategoryIds, $categoryIds);
+
+        /**
+         * Delete previous index data
+         */
+        $this->_getWriteAdapter()->delete(
+            $this->getMainTable(), $this->_getWriteAdapter()->quoteInto('product_id IN(?)', $productIds)
+        );
+
+        $this->_refreshAnchorRelations($allCategoryIds, $productIds);
+        $this->_refreshDirectRelations($categoryIds, $productIds);
+        $this->_refreshRootRelations($productIds);
         return $this;
     }
 
@@ -262,9 +317,61 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
             $select->where('ce.entity_id IN (?)', $categoryIds);
         }
         if ($productIds) {
-            $select->where('pw.product_id=?', $productIds);
+            $select->where('pw.product_id IN(?)', $productIds);
         }
 
+        $sql = $select->insertFromSelect($this->getMainTable());
+        $this->_getWriteAdapter()->query($sql);
+        return $this;
+    }
+
+    /**
+     * Add product association with root store category for products which are not assigned to any another category
+     *
+     * @param   int | array $productIds
+     * @return  Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product
+     */
+    protected function _refreshRootRelations($productIds)
+    {
+        $visibilityInfo = $this->_getVisibilityAttributeInfo();
+        $statusInfo     = $this->_getStatusAttributeInfo();
+
+        /**
+         * Insert anchor categories relations
+         */
+        $isParent = new Zend_Db_Expr('0');
+        $position = new Zend_Db_Expr('0');
+        $select = $this->_getReadAdapter()->select()
+            ->distinct(true)
+            ->from(array('pw'  => $this->_productWebsiteTable), array())
+            ->joinInner(array('g'   => $this->_groupTable), 'g.website_id=pw.website_id', array())
+            ->joinInner(array('s'   => $this->_storeTable), 's.group_id=g.group_id', array())
+            ->joinInner(array('rc'  => $this->_categoryTable), 'rc.entity_id=g.root_category_id',
+                array('entity_id'))
+            ->joinLeft(array('cp'   => $this->_categoryProductTable), 'cp.product_id=pw.product_id',
+                array('pw.product_id', $position, $isParent, 's.store_id'))
+            ->joinLeft(
+                array('dv'=>$visibilityInfo['table']),
+                "dv.entity_id=pw.product_id AND dv.attribute_id={$visibilityInfo['id']} AND dv.store_id=0",
+                array())
+            ->joinLeft(
+                array('sv'=>$visibilityInfo['table']),
+                "sv.entity_id=pw.product_id AND sv.attribute_id={$visibilityInfo['id']} AND sv.store_id=s.store_id",
+                array('visibility' => 'IF(sv.value_id, sv.value, dv.value)'))
+            ->joinLeft(
+                array('ds'=>$statusInfo['table']),
+                "ds.entity_id=pw.product_id AND ds.attribute_id={$statusInfo['id']} AND ds.store_id=0",
+                array())
+            ->joinLeft(
+                array('ss'=>$statusInfo['table']),
+                "ss.entity_id=pw.product_id AND ss.attribute_id={$statusInfo['id']} AND ss.store_id=s.store_id",
+                array())
+            /**
+             * Condition for anchor or root category (all products should be assigned to root)
+             */
+            ->where('cp.product_id IS NULL')
+            ->where('IF(ss.value_id, ss.value, ds.value)=?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
+            ->where('pw.product_id IN(?)', $productIds);
         $sql = $select->insertFromSelect($this->getMainTable());
         $this->_getWriteAdapter()->query($sql);
         return $this;
@@ -333,9 +440,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
          * Build index for each store
          */
         foreach ($stores as $storeData) {
-            $storeId = $storeData['store_id'];
-            $websiteId = $storeData['website_id'];
-            $rootPath = $storeData['root_path'];
+            $storeId    = $storeData['store_id'];
+            $websiteId  = $storeData['website_id'];
+            $rootPath   = $storeData['root_path'];
+            $rootId     = $storeData['root_id'];
             /**
              * Prepare visibility for all enabled store products
              */
@@ -356,6 +464,18 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
                     LEFT JOIN {$anchorTable} AS ac ON ac.category_id=cp.category_id
                 WHERE
                     ac.category_id IS NULL";
+            $idxAdapter->query($sql);
+            /**
+             * Assign products not associated to any category to root category in index
+             */
+            $sql = "INSERT INTO {$idxTable}
+                SELECT
+                    {$rootId}, pv.product_id, 0, 1, {$storeId}, pv.visibility
+                FROM
+                    {$enabledTable} AS pv
+                    LEFT JOIN {$this->_categoryProductTable} AS cp ON pv.product_id=cp.product_id
+                WHERE
+                    cp.product_id IS NULL";
             $idxAdapter->query($sql);
             /**
              * Prepare anchor categories products
@@ -413,7 +533,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
     {
         $stores = $this->_getReadAdapter()->fetchAll("
             SELECT
-                s.store_id, s.website_id, c.path AS root_path
+                s.store_id, s.website_id, c.path AS root_path, c.entity_id AS root_id
             FROM
                 {$this->getTable('core/store')} AS s,
                 {$this->getTable('core/store_group')} AS sg,

@@ -61,7 +61,7 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
     {
         $fileName   = 'review_customer.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_review_customer_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -73,7 +73,7 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
     {
         $fileName   = 'review_customer.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_review_customer_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -94,7 +94,7 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
     {
         $fileName   = 'review_product.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_review_product_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -106,7 +106,7 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
     {
         $fileName   = 'review_product.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_review_product_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -128,7 +128,7 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
     {
         $fileName   = 'review_product_detail.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_review_detail_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -140,7 +140,7 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
     {
         $fileName   = 'review_product_detail.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_review_detail_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }

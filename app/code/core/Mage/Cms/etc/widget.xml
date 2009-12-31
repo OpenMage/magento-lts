@@ -29,8 +29,9 @@
     <cms_page_link type="cms/widget_page_link" translate="name description" module="cms">
         <name>CMS Page Link</name>
         <description>Link to a CMS Page</description>
+        <is_email_compatible>1</is_email_compatible>
         <parameters>
-            <href type="complex" translate="label">
+            <page_id type="complex" translate="label">
                 <visible>1</visible>
                 <required>1</required>
                 <label>CMS Page</label>
@@ -44,7 +45,7 @@
                     </data>
                 </helper_block>
                 <sort_order>10</sort_order>
-            </href>
+            </page_id>
             <anchor_text translate="label description">
                 <visible>1</visible>
                 <label>Anchor Custom Text</label>

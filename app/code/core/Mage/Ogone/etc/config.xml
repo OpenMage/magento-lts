@@ -45,11 +45,24 @@
             </ogone_mysql4>
         </models>
         <resources>
-            <ogone_setup>
+           <ogone_setup>
                 <setup>
                     <module>Mage_Ogone</module>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </ogone_setup>
+            <ogone_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </ogone_write>
+            <ogone_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </ogone_read>
         </resources>
         <blocks>
             <ogone>
@@ -66,6 +79,18 @@
                     <processed_ogone translate="label"><label>Processed Ogone Payment</label></processed_ogone>
                     <waiting_authorozation translate="label"><label>Waiting Authorization</label></waiting_authorozation>
                 </statuses>
+                <states>
+                    <pending_payment>
+                        <statuses>
+                            <pending_ogone/>
+                        </statuses>
+                    </pending_payment>
+                    <processing>
+                        <statuses>
+                            <processed_ogone />
+                        </statuses>
+                    </processing>
+                </states>
             </order>
         </sales>
     </global>

@@ -54,6 +54,17 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
     }
 
     /**
+     * Check item product availability for reorder
+     *
+     * @param  Mage_Sales_Model_Order_Item $orderItem
+     * @return boolean
+     */
+    public function isItemAvailableForReorder(Mage_Sales_Model_Order_Item $orderItem)
+    {
+        return $orderItem->getProduct()->getStockItem()->getIsInStock();
+    }
+
+    /**
      * Retrieve form action url and set "secure" param to avoid confirm
      * message when we submit form from secure page to unsecure
      *
@@ -64,6 +75,11 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
         return $this->getUrl('checkout/cart/addgroup', array('_secure' => true));
     }
 
+    /**
+     * Last order getter
+     *
+     * @return Mage_Sales_Model_Order | false
+     */
     public function getLastOrder()
     {
         foreach ($this->getOrders() as $order) {

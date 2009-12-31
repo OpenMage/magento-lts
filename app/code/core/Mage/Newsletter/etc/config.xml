@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Newsletter>
-            <version>0.8.1</version>
+            <version>0.8.2</version>
         </Mage_Newsletter>
     </modules>
     <global>
@@ -90,6 +90,9 @@
                 </newsletter_subscription_un_email_template>
             </email>
         </template>
+        <newsletter>
+            <tempate_filter>newsletter/template_filter</tempate_filter>
+        </newsletter>
     </global>
     <adminhtml>
         <events>
@@ -119,6 +122,13 @@
                 </Mage_Newsletter>
             </modules>
         </translate>
+        <layout>
+              <updates>
+                  <newsletter>
+                      <file>newsletter.xml</file>
+                  </newsletter>
+              </updates>
+        </layout>
     </adminhtml>
     <frontend>
         <events>

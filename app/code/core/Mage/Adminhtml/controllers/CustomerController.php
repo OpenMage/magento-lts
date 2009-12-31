@@ -257,7 +257,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'customers.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/customer_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -269,7 +269,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'customers.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/customer_grid')
-            ->getXml();
+            ->getExcelFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }

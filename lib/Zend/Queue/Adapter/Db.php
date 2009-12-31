@@ -17,7 +17,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db.php 17217 2009-07-28 02:02:37Z matthew $
+ * @version    $Id: Db.php 18384 2009-09-23 10:50:12Z yoshida@zend.co.jp $
  */
 
 /**
@@ -173,7 +173,7 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
         $queue->timeout = ($timeout === null) ? self::CREATE_TIMEOUT_DEFAULT : (int)$timeout;
 
         try {
-            if ($id = $queue->save()) {
+            if ($queue->save()) {
                 return true;
             }
         } catch (Exception $e) {
@@ -349,7 +349,7 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
             $db->beginTransaction();
 
             $query = $db->select();
-            if ($this->_config['options'][Zend_Db_Select::FOR_UPDATE]) {
+            if ($this->_options['options'][Zend_Db_Select::FOR_UPDATE]) {
                 // turn on forUpdate
                 $query->forUpdate();
             }

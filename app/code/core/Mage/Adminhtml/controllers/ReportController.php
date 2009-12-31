@@ -58,7 +58,7 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'wishlist.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_wishlist_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -70,7 +70,7 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'wishlist.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_wishlist_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -93,7 +93,7 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'search.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_search_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -105,7 +105,7 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'search.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_search_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }

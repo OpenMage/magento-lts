@@ -38,7 +38,7 @@ class Mage_Core_Model_Mysql4_Translate extends Mage_Core_Model_Mysql4_Abstract
         $this->_init('core/translate', 'key_id');
     }
 
-    public function getTranslationArray($storeId=null)
+    public function getTranslationArray($storeId=null, $locale=null)
     {
         if(!Mage::isInstalled()) {
             return array();
@@ -68,6 +68,7 @@ class Mage_Core_Model_Mysql4_Translate extends Mage_Core_Model_Mysql4_Abstract
         $select = $read->select()
             ->from($this->getMainTable())
             ->where('store_id in (?)', array(0, $storeId))
+            ->where('locale=?', $locale)
             ->order('store_id');
 
         $result = array();

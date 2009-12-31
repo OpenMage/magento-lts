@@ -132,7 +132,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
             'email' => array(
                 'order' => 2,
                 'class' => 'validate-email',
-                'required' => false
+                'required' => true
             ),
         );
 

@@ -28,7 +28,7 @@
 $installer = $this;
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
-$table = $installer->getTable('cms/widget');
+$table = $installer->getTable('cms_widget');
 
 $installer->run('
 CREATE TABLE IF NOT EXISTS `' . $table . '` (

@@ -41,7 +41,19 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      */
     protected $_eventPrefix = 'review';
 
+    /**
+     * @deprecated after 1.3.2.4
+     *
+     */
     const ENTITY_PRODUCT = 1;
+
+    /**
+     * Review entity codes
+     *
+     */
+    const ENTITY_PRODUCT_CODE   = 'product';
+    const ENTITY_CUSTOMER_CODE  = 'customer';
+    const ENTITY_CATEGORY_CODE  = 'category';
 
     const STATUS_APPROVED       = 1;
     const STATUS_PENDING        = 2;
@@ -180,5 +192,16 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
         }
 
         return false;
+    }
+
+    /**
+     * Get review entity type id by code
+     *
+     * @param string $entityCode
+     * @return int|bool
+     */
+    public function getEntityIdByCode($entityCode)
+    {
+        return $this->getResource()->getEntityIdByCode($entityCode);
     }
 }

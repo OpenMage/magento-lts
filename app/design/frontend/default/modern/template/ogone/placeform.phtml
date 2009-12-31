@@ -25,7 +25,7 @@
  */
 ?>
 
-<b><?php echo Mage::helper('ogone')->__('Please, wait a moment. This page will transfer you data to ogone payment in few seconds.'); ?></b>
+<b><?php echo Mage::helper('ogone')->__('Please, wait a moment. This page will transfer your data to Ogone payment gateway in a few seconds.'); ?></b>
 <form name='ogone' id='ogone_review_form' action='<?php echo $this->getFormAction();?>' method='POST' accept-charset="ISO-8859-1">
 <?php if (is_array($this->getFormData())): ?>
     <?php foreach ($this->getFormData() as $name => $value) { ?>

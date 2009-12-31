@@ -159,7 +159,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Abstract
 
        if ($product->getAllowedPriceInRss()) {
            $specialPrice = $row['special_price'];
-           $rule_price = $row['rule_price'];
+           $rulePrice = $row['rule_price'];
            if (!$rulePrice || ($rulePrice && $specialPrice && $specialPrice<=$rulePrice)) {
                $row['start_date'] = $row['special_from_date'];
                $row['use_special'] = true;

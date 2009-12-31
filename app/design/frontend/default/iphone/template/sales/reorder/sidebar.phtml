@@ -31,10 +31,7 @@
  * @see Mage_Sales_Block_Reorder_Sidebar
  */
 ?>
-
-
 <?php if($_order = $this->getLastOrder()): ?>
-
 <div class="box base-mini mini-compare-products">
 <form method="post" action="<?php echo $this->getFormActionUrl() ?>" id="reorder-validate-detail">
     <div class="head">
@@ -42,16 +39,13 @@
         <a href="<?php echo $this->getUrl('customer/account') ?>"><?php echo $this->__('View All'); ?></a><br /><br />
         <h5><?php echo $this->__('Last ordered items') ?></h5>
     </div>
-<ol id="cart-sidebar-reorder">
-
-     <?php $_showAddButtonFlag = false ?>
-     <?php foreach ($this->getRandomItemCollection($_order) as $_item): ?>
-     <?php if ($this->getIsShowItem($_item)): ?>
+    <ol id="cart-sidebar-reorder">
+    <?php $_showAddButtonFlag = false; ?>
+    <?php foreach ($_order->getItemsRandomCollection(5) as $_item): ?>
         <li class="field-row">
-
             <div class="product-checkbox">
-                <?php if ($_item->getProduct()->getStockItem()->getIsInStock()): ?>
-                <?php $_showAddButtonFlag = true ?>
+                <?php if ($this->isItemAvailableForReorder($_item)): ?>
+                    <?php $_showAddButtonFlag = true; ?>
                     <input type="checkbox" name="products[]" value="<?php echo $_item->getProductId() ?>" class="validate-one-required-by-name" />
                 <?php endif; ?>
             </div>
@@ -59,7 +53,6 @@
                 <a href="<?php echo $this->getItemProductUrl($_item) ?>"><?php echo $this->getItemProductName($_item) ?></a>
             </div>
         </li>
-        <?php endif; ?>
     <?php endforeach; ?>
     </ol>
     <?php if ($_showAddButtonFlag): ?>
@@ -70,11 +63,9 @@
 </form>
 </div>
 <?php echo $this->getPagerHtml(); ?>
-
 <script type="text/javascript">
 <!--
  var reorderFormDetail = new VarienForm('reorder-validate-detail');
 //-->
-
 </script>
 <?php endif ?>

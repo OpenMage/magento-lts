@@ -24,15 +24,28 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Display PayPal Express payment form
+ */
 
 class Mage_Paypal_Block_Express_Info extends Mage_Payment_Block_Info
 {
+    /**
+     * Setup PayPal Express payment form template url
+     *
+     * @return $this;
+     */
     protected function _construct()
     {
         parent::_construct();
         $this->setTemplate('paypal/express/info.phtml');
+        return $this;
     }
 
+    /**
+     * Customer email address getter
+     * @return string
+     */
     public function getEmail()
     {
         $p = $this->getInfo();
@@ -52,6 +65,11 @@ class Mage_Paypal_Block_Express_Info extends Mage_Payment_Block_Info
         return $email;
     }
 
+    /**
+     * Return PayPal Express payment information as formated pdf block
+     *
+     * @return string
+     */
     public function toPdf()
     {
         $this->setTemplate('paypal/express/pdf/info.phtml');

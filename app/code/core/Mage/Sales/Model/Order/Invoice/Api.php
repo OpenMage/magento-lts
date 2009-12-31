@@ -202,7 +202,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
 
         try {
             $invoice->addComment($comment, $email);
-            $invoice->sendUpdateEmail($email, ($includeInEmail ? $comment : ''));
+            $invoice->sendUpdateEmail($email, ($includeComment ? $comment : ''));
             $invoice->save();
         } catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());

@@ -29,7 +29,7 @@
         <tr>
             <td style="width:50%;"><h3 class="icon-head head-tax"><?php echo $header ?></h3></td>
             <td class="form-buttons">
-                <button class="scalable add" onclick="window.location='<?php echo $createUrl ?>'"><span><?php echo Mage::helper('tax')->__('Add New Tax Rate') ?></span></button>
+                <?php echo $this->getChildHtml('addButton') ?>
             </td>
         </tr>
     </table>

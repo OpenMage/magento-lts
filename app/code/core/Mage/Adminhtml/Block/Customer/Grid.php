@@ -40,6 +40,7 @@ class Mage_Adminhtml_Block_Customer_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $this->setId('customerGrid');
         $this->setUseAjax(true);
         $this->setDefaultSort('entity_id');
+        $this->setSaveParametersInSession(true);
     }
 
     protected function _prepareCollection()

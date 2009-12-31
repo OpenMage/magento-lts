@@ -27,8 +27,8 @@
 /**
  * Abstract resource model
  *
- * @category   Mage
- * @package    Mage_Core
+ * @category    Mage
+ * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Model_Resource_Abstract
@@ -37,6 +37,13 @@ abstract class Mage_Core_Model_Resource_Abstract
     {
         $this->_construct();
     }
+
+    /**
+     * Array of callbacks subscribed to commit transaction commit
+     *
+     * @var array
+     */
+    static protected $_commitCallbacks = array();
 
     /**
      * Resource initialization
@@ -65,6 +72,19 @@ abstract class Mage_Core_Model_Resource_Abstract
     }
 
     /**
+     * Subscribe some callback to transaction commit
+     *
+     * @param callback $callback
+     * @return Mage_Core_Model_Resource_Abstract
+     */
+    public function addCommitCallback($callback)
+    {
+        $adapterKey = spl_object_hash($this->_getWriteAdapter());
+        self::$_commitCallbacks[$adapterKey][] = $callback;
+        return $this;
+    }
+
+    /**
      * Commit resource transaction
      *
      * @return Mage_Core_Model_Resource_Abstract
@@ -72,6 +92,18 @@ abstract class Mage_Core_Model_Resource_Abstract
     public function commit()
     {
         $this->_getWriteAdapter()->commit();
+        /**
+         * Process after commit callbacks
+         */
+        if ($this->_getWriteAdapter()->getTransactionLevel() === 0) {
+            $adapterKey = spl_object_hash($this->_getWriteAdapter());
+            if (isset(self::$_commitCallbacks[$adapterKey])) {
+                foreach (self::$_commitCallbacks[$adapterKey] as $index => $callback) {
+                    unset(self::$_commitCallbacks[$adapterKey][$index]);
+                    call_user_func($callback);
+                }
+            }
+        }
         return $this;
     }
 

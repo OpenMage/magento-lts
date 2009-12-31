@@ -25,14 +25,6 @@
  */
 ?>
 <div class="entry-edit">
-    <?php echo $this->getFormHtml() ?>
-<?php /*if( $form->getUseContainer() === true ): ?>
-<form id="<?php echo $form->getFormId() ?>" method="<?php echo ( $form->getFormMethod() ) ? $form->getFormMethod() : 'post' ; ?>" action="<?php echo $form->getFormAction() ?>" <?php echo ( $form->getFormEnctype() ) ? 'enctype="' . $this->getForm()->getFormEnctype() . '"' : '' ?> >
-<?php endif; ?>
-    <?php foreach ($form->getElements() as $_element): ?>
-    <?php echo $this->drawElement($_element) ?>
-    <?php endforeach; ?>
-<?php if( $form->getUseContainer() === true ): ?>
-</form>
-<?php endif;*/ ?>
+    <?php echo $this->getFormHtml();?>
 </div>
+<?php echo $this->getChildHtml('form_after');?>

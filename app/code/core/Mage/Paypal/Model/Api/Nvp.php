@@ -26,8 +26,6 @@
 
 /**
  * NVP API wrappers model
- *
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 {
@@ -36,16 +34,25 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array('ACCT', 'EXPDATE', 'CVV2',
-                                                    'CARDISSUE', 'CARDSTART',
-                                                    'CREDITCARDTYPE', 'USER',
-                                                    'PWD', 'SIGNATURE');
+    protected $_debugReplacePrivateDataKeys = array(
+        'ACCT', 'EXPDATE', 'CVV2', 'CARDISSUE', 'CARDSTART', 'CREDITCARDTYPE', 'USER', 'PWD', 'SIGNATURE'
+    );
 
+    /**
+     * Return page style for given paymethod
+     *
+     * @return string
+     */
     public function getPageStyle()
     {
-        return $this->getConfigData('page_style');
+        return $this->getStyleConfigData('page_style');
     }
 
+    /**
+     * Return Api endpoint url. used for direct paypal requests
+     *
+     * @return string
+     */
     public function getApiEndpoint()
     {
         if (!$this->getData('api_endpoint')) {
@@ -59,6 +66,12 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         return $this->getData('api_endpoint');
     }
 
+    /**
+     * return paypal sandbox url, depending of sendbox flag.
+     * used for redirect to paypal, express method
+     *
+     * @return string
+     */
     public function getPaypalUrl()
     {
         if (!$this->hasPaypalUrl()) {
@@ -76,11 +89,35 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         return $url . $this->getToken();
     }
 
+    /**
+     * Return Paypal Api version
+     *
+     * @return string
+     */
     public function getVersion()
     {
-        return '3.0';
+        return '60.0';
     }
 
+    /**
+     * Set redirect requered valie in session
+     *
+     * @return Mage_Paypal_Model_Api_Nvp
+     */
+    public function setRedirectRequered($value)
+    {
+        $this->getSession()->setData('redirect_requered',$value);
+        return $this;
+    }
+
+    /**
+     *
+     * Return redirect_requesred element from session
+     */
+    public function getRedirectRequered()
+    {
+        return $this->getSession()->getData('redirect_requered');
+    }
     /**
      * SetExpressCheckout API call
      *
@@ -98,17 +135,39 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
         $nvpArr = array(
             'PAYMENTACTION' => $this->getPaymentType(),
-            'AMT'           => $this->getAmount(),
+            'AMT'           => (float) $this->getAmount(),
             'CURRENCYCODE'  => $this->getCurrencyCode(),
             'RETURNURL'     => $this->getReturnUrl(),
             'CANCELURL'     => $this->getCancelUrl(),
-            'INVNUM'        => $this->getInvNum()
+            'INVNUM'        => $this->getInvNum(),
+            'HDRIMG'        => $this->getStyleConfigData('paypal_hdrimg'),
+            'HDRBORDERCOLOR' => $this->getStyleConfigData('paypal_hdrbordercolor'),
+            'HDRBACKCOLOR'   => $this->getStyleConfigData('paypal_hdrbackcolor'),
+            'PAYFLOWCOLOR'   => $this->getStyleConfigData('paypal_payflowcolor'),
+            'LOCALECODE'     => Mage::app()->getLocale()->getLocaleCode()
         );
 
         if ($this->getPageStyle()) {
             $nvpArr = array_merge($nvpArr, array(
                 'PAGESTYLE' => $this->getPageStyle()
             ));
+        }
+
+        $nvpArr = array_merge($nvpArr, array(
+            'GIROPAYCANCELURL'      => $this->getGiropayCancelUrl(),
+            'GIROPAYSUCCESSURL'     => $this->getGiropaySuccessUrl(),
+            'BANKTXNPENDINGURL'     => $this->getGiropayBankTxnPendingUrl(),
+        ));
+
+        if ($this->getSolutionType()) {
+            $nvpArr = array_merge($nvpArr, array(
+                'SOLUTIONTYPE'      => $this->getSolutionType(),
+            ));
+        }
+
+        if ($lineItems = $this->getLineItems()) {
+            $lineItemArray = $this->_prepareLineItem($lineItems, $this->getItemAmount(), $this->getItemTaxAmount(), $this->getShippingAmount(), $this->getDiscountAmount());
+            $nvpArr = array_merge($nvpArr, $lineItemArray);
         }
 
         $this->setUserAction(self::USER_ACTION_CONTINUE);
@@ -185,22 +244,39 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             return false;
         }
 
-        $this->setPayerId($resArr['PAYERID']);
+        if (!empty($resArr['PAYERID'])) {
+            $this->setPayerId($resArr['PAYERID']);
+        }
+        if (!empty($resArr['PAYERSTATUS'])) {
+            $this->setAccountStatus($resArr['PAYERSTATUS']);
+        }
+
         $this->setCorrelationId($resArr['CORRELATIONID']);
-        $this->setPayerStatus($resArr['PAYERSTATUS']);
+        if (!empty($resArr['PAYERSTATUS'])) {
+            $this->setPayerStatus($resArr['PAYERSTATUS']);
+        }
         if (isset($resArr['ADDRESSID'])) {
             $this->setAddressId($resArr['ADDRESSID']);
         }
+
         $this->setAddressStatus($resArr['ADDRESSSTATUS']);
         $this->setPaypalPayerEmail($resArr['EMAIL']);
 
         if (!$this->getShippingAddress()) {
             $this->setShippingAddress(Mage::getModel('customer/address'));
         }
+
         $a = $this->getShippingAddress();
         $a->setEmail($resArr['EMAIL']);
-        $a->setFirstname($resArr['FIRSTNAME']);
-        $a->setLastname($resArr['LASTNAME']);
+        if (isset($resArr['SHIPTONAME']) && $resArr['SHIPTONAME']) {
+            $data = explode(' ', $resArr['SHIPTONAME']);
+            $a->setFirstname($data[0]);
+            $a->setLastname(isset($data[1]) ? $data[1] : $resArr['LASTNAME']);
+        } else {
+            $a->setFirstname($resArr['FIRSTNAME']);
+            $a->setLastname($resArr['LASTNAME']);
+        }
+
         $street = array($resArr['SHIPTOSTREET']);
         if (isset($resArr['SHIPTOSTREET2'])) {
             $street[] = $resArr['SHIPTOSTREET2'];
@@ -211,6 +287,11 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $a->setPostcode($resArr['SHIPTOZIP']);
         $a->setCountry($resArr['SHIPTOCOUNTRYCODE']);
         $a->setTelephone(Mage::helper('paypal')->__('N/A'));
+        if (!empty($resArr['REDIRECTREQUIRED']) && $resArr['REDIRECTREQUIRED']==true) {
+            $this->setRedirectRequered(true);
+        } else {
+            $this->setRedirectRequered(false);
+        }
 
         return $resArr;
     }
@@ -238,23 +319,42 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             'CURRENCYCODE'  => $this->getCurrencyCode(),
             'IPADDRESS'     => $this->getServerName(),
             'BUTTONSOURCE'  => $this->getButtonSourceEc(),
+            'NOTIFYURL'     => $this->getNotifyUrl($this->getInvNum()),
         );
 
-         /* Make the call to PayPal to finalize payment
+        if ($lineItems = $this->getLineItems()) {
+            $lineItemArray = $this->_prepareLineItem($lineItems, $this->getItemAmount(), $this->getItemTaxAmount(), $this->getShippingAmount(), $this->getDiscountAmount());
+            $nvpArr = array_merge($nvpArr, $lineItemArray);
+        }
+        if ($this->getReturnFmfDetailes()) {
+            $nvpArr['RETURNFMFDETAILS '] = 1;
+        }
+
+        /* Make the call to PayPal to finalize payment
             If an error occured, show the resulting errors
-            */
+        */
         $resArr = $this->call('DoExpressCheckoutPayment', $nvpArr);
 
         if (false===$resArr) {
             return false;
         }
-
         $this->setTransactionId($resArr['TRANSACTIONID']);
+        if (!empty($resArr['PROTECTIONELIGIBILITY'])) {
+            $this->setProtectionEligibility($resArr['PROTECTIONELIGIBILITY']);
+        }
         $this->setAmount($resArr['AMT']);
-
+        if (!empty($resArr['REDIRECTREQUIRED']) && $resArr['REDIRECTREQUIRED']==true) {
+            $this->setRedirectRequered(true);
+        }else{
+            $this->setRedirectRequered(false);
+        }
         return $resArr;
     }
 
+    /**
+     * Process a credit card payment.
+     *
+     */
     public function callDoDirectPayment()
     {
         $p = $this->getPayment();
@@ -271,7 +371,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             'CURRENCYCODE'   => $this->getCurrencyCode(),
             'BUTTONSOURCE'   => $this->getButtonSourceDp(),
             'INVNUM'         => $this->getInvNum(),
-
             'CREDITCARDTYPE' => $this->getCcTypeName($p->getCcType()),
             'ACCT'           => $p->getCcNumber(),
             'EXPDATE'        => sprintf('%02d%02d', $p->getCcExpMonth(), $p->getCcExpYear()),
@@ -293,9 +392,25 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             'SHIPTOSTATE'    => ($s->getRegionCode() ? $s->getRegionCode() : $s->getRegion()),
             'SHIPTOZIP'      => $s->getPostcode(),
             'SHIPTOCOUNTRYCODE' => $s->getCountry(),
+            'NOTIFYURL'      => $this->getNotifyUrl($this->getInvNum(), 'direct'),
         );
 
-#echo "<pre>".print_r($nvpArr,1)."</pre>"; die;
+        if ($this->getMpiVendor()) {
+            $nvpArr['AUTHSTATUS3D'] = $this->getAuthStatus();
+            $nvpArr['MPIVENDOR3DS'] = $this->getMpiVendor();
+            $nvpArr['CAVV']         = $this->getCavv();
+            $nvpArr['ECI3DS']       = $this->getEci3d();
+            $nvpArr['XID']          = $this->getXid();
+        }
+        if ($this->getReturnFmfDetails()) {
+            $nvpArr['RETURNFMFDETAILS '] = 1;
+        }
+
+        if ($lineItems = $this->getLineItems()) {
+            $lineItemArray = $this->_prepareLineItem($lineItems, $this->getItemAmount(), $this->getItemTaxAmount(), $this->getShippingAmount(), $this->getDiscountAmount());
+            $nvpArr = array_merge($nvpArr, $lineItemArray);
+        }
+
         $resArr = $this->call('DoDirectPayment', $nvpArr);
 
         if (false===$resArr) {
@@ -310,6 +425,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         return $resArr;
     }
 
+    /**
+     * Made additional request to paypal to get autharization id
+     *
+     */
     public function callDoReauthorization()
     {
         $nvpArr = array(
@@ -324,11 +443,18 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             return false;
         }
 
+        if (!empty($resArr['PROTECTIONELIGIBILITY'])) {
+            $this->setProtectionEligibility($resArr['PROTECTIONELIGIBILITY']);
+        }
         $this->setAuthorizationId($resArr['AUTHORIZATIONID']);
 
         return $resArr;
     }
 
+    /**
+     * Capture an authorized payment
+     *
+     */
     public function callDoCapture()
     {
         $nvpArr = array(
@@ -346,6 +472,12 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             return false;
         }
 
+        if (!empty($resArr['PAYERSTATUS'])) {
+            $this->setAccountStatus($resArr['PAYERSTATUS']);
+        }
+        if (!empty($resArr['PROTECTIONELIGIBILITY'])) {
+            $this->setProtectionEligibility($resArr['PROTECTIONELIGIBILITY']);
+        }
         $this->setAuthorizationId($resArr['AUTHORIZATIONID']);
         $this->setTransactionId($resArr['TRANSACTIONID']);
         $this->setPaymentStatus($resArr['PAYMENTSTATUS']);
@@ -355,6 +487,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         return $resArr;
     }
 
+    /**
+     * Void an order or an authorization.
+     *
+     */
     public function callDoVoid()
     {
         $nvpArr = array(
@@ -373,6 +509,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         return $resArr;
     }
 
+    /**
+     * Obtain information about a specific transaction.
+     *
+     */
     public function callGetTransactionDetails()
     {
         $nvpArr = array(
@@ -385,6 +525,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             return false;
         }
 
+        $this->setRedirectRequered($resArr['REDIRECTREQUIRED']);
         $this->setPayerEmail($resArr['RECEIVEREMAIL']);
         $this->setPayerId($resArr['PAYERID']);
         $this->setFirstname($resArr['FIRSTNAME']);
@@ -393,11 +534,21 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $this->setParentTransactionId($resArr['PARENTTRANSACTIONID']);
         $this->setCurrencyCode($resArr['CURRENCYCODE']);
         $this->setAmount($resArr['AMT']);
-        $this->setPaymentStatus($resArr['PAYERSTATUS']);
+        if (!empty($resArr['PAYERSTATUS'])) {
+            $this->setPaymentStatus($resArr['PAYERSTATUS']);
+            $this->setAccountStatus($resArr['PAYERSTATUS']);
+        }
+        if (!empty($resArr['PROTECTIONELIGIBILITY'])) {
+            $this->setProtectionEligibility($resArr['PROTECTIONELIGIBILITY']);
+        }
 
         return $resArr;
     }
 
+    /**
+     * Issue a refund to the PayPal account holder associatedwith a transaction.
+     *
+     */
     public function callRefundTransaction()
     {
         $nvpArr = array(
@@ -420,6 +571,47 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $this->setAmount($resArr['GROSSREFUNDAMT']);
 
         return $resArr;
+    }
+
+    /**
+     * Manage transaction by changing staus to decline or accept.
+     * User for fraud check transaction
+     *
+     * @return array
+     */
+    public function callManagePendingTransactionStatus()
+    {
+        $nvpArr = array(
+            'TRANSACTIONID' => $this->getTransactionId(),
+            'ACTION'        => $this->getAction(),
+        );
+
+        $resArr = $this->call('ManagePendingTransactionStatus', $nvpArr);
+
+        if (false===$resArr) {
+            return false;
+        }
+
+        $this->setTransactionId($resArr['TRANSACTIONID']);
+        return $resArr;
+    }
+
+    /**
+     * Get Pal Detailes for dynamic buttons using
+     *
+     * @return array
+     */
+    public function callPalDetails()
+    {
+        $nvpArr = array();
+
+        $resArr = $this->call('getPalDetails', $nvpArr);
+
+        if (false===$resArr) {
+            return false;
+        }
+        $this->setPal($resArr['PAL']);
+        return $this;
     }
 
     /**
@@ -451,6 +643,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
                 $nvpReqDebug .= urlencode($v);
             }
         }
+
         $nvpReq = substr($nvpReq, 1);
         if ($this->getDebug()) {
             $debug = Mage::getModel('paypal/api_debug')
@@ -458,7 +651,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
                 ->setRequestBody($nvpReqDebug)
                 ->save();
         }
-
         $http = new Varien_Http_Adapter_Curl();
         $config = array('timeout' => 30);
         if ($this->getUseProxy()) {
@@ -494,11 +686,17 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $this->getSession()
             ->setLastCallMethod($methodName)
             ->setResHash($nvpResArray);
-
         $ack = strtoupper($nvpResArray['ACK']);
-
         if ($ack == 'SUCCESS' || $ack=='SUCCESSWITHWARNING') {
             $this->unsError();
+            if ($ack=='SUCCESSWITHWARNING') {
+                //fraud checking
+                for ($i=0; isset($nvpResArray['L_SHORTMESSAGE'.$i]); $i++) {
+                    if ($nvpResArray['L_ERRORCODE'.$i] == self::FRAUD_ERROR_CODE) {
+                        $this->setIsFraud(true);
+                    }
+                }
+            }
             return $nvpResArray;
         }
 
@@ -553,4 +751,71 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         return $nvpArray;
     }
 
+    /**
+     * Prepare Line item array to move in paypal, canculate all fields
+     *
+     * @param $items Mage_Sales_Model_Entity_Quote_Item_Collection
+     * @param $shippingAmount float
+     * @param $discountAmount float
+     *
+     * @return array
+     */
+    protected function _prepareLineItem($lineItems, $itemAmount, $itemTaxAmount, $shippingAmount, $discountAmount)
+    {
+        $nvpArr = array();
+        $itemAmt = 0;
+        $taxItemAmt = 0;
+        foreach($lineItems as $index => $item) {
+            if ($item->getName() && $item->getBaseRowTotal()) {
+                $nvpArr['L_NAME' . $index]      = $item->getName();
+                $nvpArr['L_NUMBER' . $index]    = $item->getProductId();
+                if ($item->getBaseCalculationPrice()) {
+                    $nvpArr['L_AMT' . $index]       = (float)$item->getBaseCalculationPrice();
+                } else {
+                    $nvpArr['L_AMT' . $index]       = (float)$item->getBasePrice();
+                }
+                if ($item->getTotalQty()) {
+                    $nvpArr['L_QTY' . $index]       = $item->getTotalQty();
+                    $nvpArr['L_TAXAMT' . $index]    = (float)($item->getBaseTaxAmount() / $item->getTotalQty());
+                } else {
+                    $nvpArr['L_QTY' . $index]       = (int) $item->getQtyOrdered();
+                    $nvpArr['L_TAXAMT' . $index]    = (float)($item->getBaseTaxAmount() / $item->getQtyOrdered());
+                }
+            }
+        }
+
+        if ($discountAmount > 0) {
+            $index++;
+            $nvpArr['L_NAME' . $index]      = Mage::helper('paypal')->__('Discount');
+            $nvpArr['L_NUMBER' . $index]    = 0;
+            $nvpArr['L_AMT' . $index]       = (float) $discountAmount;
+            $nvpArr['L_QTY' . $index]       = 1;
+            $nvpArr['L_DESC' . $index]      = Mage::helper('paypal')->__('Discount');
+            $nvpArr['L_TAXAMT' . $index]    = 0;
+        }
+
+        $nvpArr['TAXAMT'] = (float) round($itemTaxAmount,2);
+        $nvpArr['ITEMAMT']= (float) ($itemAmount + $discountAmount);
+        $nvpArr['SHIPPINGAMT'] = (float) $shippingAmount;
+        return $nvpArr;
+    }
+
+    /**
+     * Error message NVP getter
+     * @return string
+     */
+    public function getErrorMessage($addErrorCode = false)
+    {
+        $e = $this->getError();
+        $shortMessage = '';
+        if (!isset($e['short_message'])) {
+            if (isset($e['code'])) {
+                $shortMessage = Mage::helper('paypal')->__('Unknown API error #%s', $e['code']);
+            }
+        } else {
+            $shortMessage = $e['short_message'];
+        }
+        $message = (isset($e['long_message']) ? sprintf('%s: %s', $shortMessage, $e['long_message']) : $shortMessage);
+        return ($e['code'] ? sprintf('(#%s) ', $e['code']) : '' ) . $message;
+    }
 }

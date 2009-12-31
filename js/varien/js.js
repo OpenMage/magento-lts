@@ -468,6 +468,17 @@ Event.observe(window, 'load', function(){
    truncateOptions();
 });
 
+Element.addMethods({
+    getInnerText: function(element)
+    {
+        element = $(element);
+        if(element.innerText && !Prototype.Browser.Opera) {
+            return element.innerText
+        }
+        return element.innerHTML.stripScripts().unescapeHTML().replace(/[\n\r\s]+/g, ' ');
+    }
+});
+
 if (!("console" in window) || !("firebug" in console))
 {
     var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml",

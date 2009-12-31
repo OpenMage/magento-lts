@@ -113,44 +113,59 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
+        $data       = $event->getNewData();
+        $resultKey  = 'catalogsearch_fulltext_match_result';
+        if (isset($data[$resultKey])) {
+            return $data[$resultKey];
+        }
+
+        $result = null;
         $entity = $event->getEntity();
         if ($entity == Mage_Catalog_Model_Resource_Eav_Attribute::ENTITY) {
             /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
             $attribute      = $event->getDataObject();
 
             if ($event->getType() == Mage_Index_Model_Event::TYPE_SAVE) {
-                return $attribute->dataHasChangedFor('is_searchable');
+                $result = $attribute->dataHasChangedFor('is_searchable');
             } else if ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
-                return $attribute->getIsSearchable();
+                $result = $attribute->getIsSearchable();
+            } else {
+                $result = false;
             }
         } else if ($entity == Mage_Core_Model_Store::ENTITY) {
             if ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
-                return true;
+                $result = true;
+            } else {
+                /* @var $store Mage_Core_Model_Store */
+                $store = $event->getDataObject();
+                if ($store->isObjectNew()) {
+                    $result = true;
+                } else {
+                    $result = false;
+                }
             }
-
-            /* @var $store Mage_Core_Model_Store */
-            $store = $event->getDataObject();
-            if ($store->isObjectNew()) {
-                return true;
-            }
-            return false;
         } else if ($entity == Mage_Core_Model_Store_Group::ENTITY) {
             /* @var $storeGroup Mage_Core_Model_Store_Group */
             $storeGroup = $event->getDataObject();
             if ($storeGroup->dataHasChangedFor('website_id')) {
-                return true;
+                $result = true;
+            } else {
+                $result = false;
             }
-            return false;
         } else if ($entity == Mage_Core_Model_Config_Data::ENTITY) {
             $data = $event->getDataObject();
             if (in_array($data->getPath(), $this->_relatedConfigSettings)) {
-                return $data->isValueChanged();
+                $result = $data->isValueChanged();
             } else {
-                return false;
+                $result = false;
             }
+        } else {
+            $result = parent::matchEvent($event);
         }
 
-        return parent::matchEvent($event);
+        $event->addNewData($resultKey, $result);
+
+        return $result;
     }
 
     /**

@@ -28,7 +28,7 @@
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <table cellspacing="0" width="100%">
     <tr>
-        <td style="width:50%;"><h3>Primary</h3>
+        <td style="width:50%;"><h3>Default</h3>
             <table width="100%" cellspacing="0">
             <?php if(!empty($primaryAddresses)): ?>
                 <?php foreach($primaryAddresses as $_address): ?>
@@ -46,7 +46,7 @@
             <?php else: ?>
                 <tr>
                     <td>
-                        <p><?php echo $this->__('You have no primary entries in your address book.') ?></p>
+                        <p><?php echo $this->__('You have no default entries in your address book.') ?></p>
                     </td>
                 </tr>
             <?php endif ?>

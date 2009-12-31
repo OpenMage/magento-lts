@@ -227,6 +227,19 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
+     * Get array of objects transfered to default events processing
+     *
+     * @return array
+     */
+    protected function _getEventData()
+    {
+        return array(
+            'data_object'       => $this,
+            $this->_eventObject => $this,
+        );
+    }
+
+    /**
      * Processing object after load data
      *
      * @return Mage_Core_Model_Abstract
@@ -234,14 +247,20 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected function _afterLoad()
     {
         Mage::dispatchEvent('model_load_after', array('object'=>$this));
-        Mage::dispatchEvent($this->_eventPrefix.'_load_after', array($this->_eventObject=>$this));
+        Mage::dispatchEvent($this->_eventPrefix.'_load_after', $this->_getEventData());
         return $this;
     }
 
+    /**
+     * Object after load processing. Implemented as public interface for supporting objects after load in collections
+     *
+     * @return Mage_Core_Model_Abstract
+     */
     public function afterLoad()
     {
         $this->getResource()->afterLoad($this);
         $this->_afterLoad();
+        return $this;
     }
 
     /**
@@ -265,7 +284,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
                 $this->_getResource()->save($this);
                 $this->_afterSave();
             }
-            $this->_getResource()->commit();
+            $this->_getResource()->addCommitCallback(array($this, 'afterCommitCallback'))
+                ->commit();
             $dataCommited = true;
         } catch (Exception $e) {
             $this->_getResource()->rollBack();
@@ -278,14 +298,26 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * Processing data save after main transaction commit
+     * Callback function which called after transaction commit in resource model
      *
+     * @return Mage_Core_Model_Abstract
+     */
+    public function afterCommitCallback()
+    {
+        Mage::dispatchEvent('model_save_commit_after', array('object'=>$this));
+        Mage::dispatchEvent($this->_eventPrefix.'_save_commit_after', $this->_getEventData());
+        return $this;
+    }
+
+    /**
+     * Processing data save after transaction commit.
+     * When method is called we don't have garantee what transaction was really commited
+     *
+     * @deprecated after 1.4.0.0 - please use afterCommitCallback instead
      * @return Mage_Core_Model_Abstract
      */
     protected function _afterSaveCommit()
     {
-        Mage::dispatchEvent('model_save_commit_after', array('object'=>$this));
-        Mage::dispatchEvent($this->_eventPrefix.'_save_commit_after', array($this->_eventObject=>$this));
         return $this;
     }
 
@@ -320,7 +352,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->isObjectNew(true);
         }
         Mage::dispatchEvent('model_save_before', array('object'=>$this));
-        Mage::dispatchEvent($this->_eventPrefix.'_save_before', array($this->_eventObject=>$this));
+        Mage::dispatchEvent($this->_eventPrefix.'_save_before', $this->_getEventData());
         return $this;
     }
 
@@ -342,7 +374,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             Mage::app()->cleanCache($tags);
         }
         Mage::dispatchEvent('model_save_after', array('object'=>$this));
-        Mage::dispatchEvent($this->_eventPrefix.'_save_after', array($this->_eventObject=>$this));
+        Mage::dispatchEvent($this->_eventPrefix.'_save_after', $this->_getEventData());
         return $this;
     }
 
@@ -377,7 +409,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected function _beforeDelete()
     {
         Mage::dispatchEvent('model_delete_before', array('object'=>$this));
-        Mage::dispatchEvent($this->_eventPrefix.'_delete_before', array($this->_eventObject=>$this));
+        Mage::dispatchEvent($this->_eventPrefix.'_delete_before', $this->_getEventData());
         return $this;
     }
 
@@ -413,7 +445,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             Mage::app()->cleanCache($tags);
         }
         Mage::dispatchEvent('model_delete_after', array('object'=>$this));
-        Mage::dispatchEvent($this->_eventPrefix.'_delete_after', array($this->_eventObject=>$this));
+        Mage::dispatchEvent($this->_eventPrefix.'_delete_after', $this->_getEventData());
         return $this;
     }
 
@@ -425,7 +457,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected function _afterDeleteCommit()
     {
         Mage::dispatchEvent('model_delete_commit_after', array('object'=>$this));
-        Mage::dispatchEvent($this->_eventPrefix.'_delete_commit_after', array($this->_eventObject=>$this));
+        Mage::dispatchEvent($this->_eventPrefix.'_delete_commit_after', $this->_getEventData());
          return $this;
     }
 

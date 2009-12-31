@@ -85,37 +85,57 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
 
     }
 
+    /**
+     * Save search query
+     *
+     */
     public function saveAction()
     {
-        if ($data = $this->getRequest()->getPost()) {
+        $hasError   = false;
+        $data       = $this->getRequest()->getPost();
+        $queryId    = $this->getRequest()->getPost('query_id', null);
+        if ($this->getRequest()->isPost() && $data) {
+            /* @var $model Mage_CatalogSearch_Model_Query */
             $model = Mage::getModel('catalogsearch/query');
+            // validate query
+            $queryText  = $this->getRequest()->getPost('query_text', false);
+            $storeId    = $this->getRequest()->getPost('store_id', false);
 
-            if ($queryText = $this->getRequest()->getParam('query_text')) {
-                $model->load($queryText);
-                if ($model->getId() && $this->getRequest()->getParam('query_id') != $model->getId()) {
-                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('Search Term with such search query already exist.'));
-                    Mage::getSingleton('adminhtml/session')->setPageData($data);
-                    $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('query_id')));
-                    return;
-                }
-            }
-
-            $model->addData($data);
-            Mage::getSingleton('adminhtml/session')->setPageData($model->getData());
             try {
+                if ($queryText) {
+                    $model->setStoreId($storeId);
+                    $model->loadByQueryText($queryText);
+                    if ($model->getId() && $model->getId() != $queryId) {
+                        Mage::throwException(
+                            Mage::helper('catalog')->__('Search Term with such search query already exist.')
+                        );
+                    } else if (!$model->getId() && $queryId) {
+                        $model->load($queryId);
+                    }
+                } else if ($queryId) {
+                    $model->load($queryId);
+                }
+
+                $model->addData($data);
+                $model->setIsProcessed(0);
                 $model->save();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('Search Term was successfully saved'));
-                Mage::getSingleton('adminhtml/session')->setPageData(false);
-                $this->_redirect('*/*/');
-                return;
+            } catch (Mage_Core_Exception $e) {
+                $this->_getSession()->addError($e->getMessage());
+                $hasError = true;
             } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                Mage::getSingleton('adminhtml/session')->setPageData($data);
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
-                return;
+                $this->_getSession()->addException($e,
+                    Mage::helper('catalog')->__('Error while saving search query. Please try again later.')
+                );
+                $hasError = true;
             }
         }
-        $this->_redirect('*/*/');
+
+        if ($hasError) {
+            $this->_getSession()->setPageData($data);
+            $this->_redirect('*/*/edit', array('id' => $queryId));
+        } else {
+            $this->_redirect('*/*');
+        }
     }
 
     public function deleteAction()

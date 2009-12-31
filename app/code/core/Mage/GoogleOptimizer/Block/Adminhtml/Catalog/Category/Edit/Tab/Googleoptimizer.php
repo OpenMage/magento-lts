@@ -173,7 +173,9 @@ class Mage_GoogleOptimizer_Block_Adminhtml_Catalog_Category_Edit_Tab_Googleoptim
 
         $fakeEntityAttribute = Mage::getModel('catalog/resource_eav_attribute');
 
+        $readonly = $this->getCategory()->getOptimizationReadonly();
         foreach ($fieldset->getElements() as $element) {
+            $element->setDisabled($readonly);
             if ($element->getId() != 'store_flag') {
                 $element->setEntityAttribute($fakeEntityAttribute);
             }

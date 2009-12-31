@@ -31,7 +31,7 @@
  * @package    Mage_Rss
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Abstract
+class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
 {
     protected function _construct()
     {
@@ -99,7 +99,7 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Abstract
         '<td  style="text-decoration:none;">'.$product->getDescription();
 
         if ($allowedPriceInRss) {
-            $description .= '<p> Price:'.Mage::helper('core')->currency($product->getFinalPrice()).'</p>';
+            $description .= $this->getPriceHtml($product,true);
         }
 
         $description .='</td></tr></table>';

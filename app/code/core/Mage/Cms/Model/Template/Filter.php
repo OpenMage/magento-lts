@@ -42,43 +42,6 @@ class Mage_Cms_Model_Template_Filter extends Mage_Core_Model_Email_Template_Filt
     protected $_useSessionInUrl = null;
 
     /**
-     * Generate widget
-     *
-     * @param array $construction
-     * @return string
-     */
-    public function widgetDirective($construction)
-    {
-        $params = $this->_getIncludeParameters($construction[2]);
-
-        // Determine what name block should have in layout
-        $name = null;
-        if (isset($params['name'])) {
-            $name = $params['name'];
-        }
-
-        // validate required parameter type or id
-        if (!empty($params['type'])) {
-            $type = $params['type'];
-        } elseif (!empty($params['id'])) {
-            $preconfigured = Mage::getResourceSingleton('cms/widget')
-                ->loadPreconfiguredWidget($params['id']);
-            $type = $preconfigured['type'];
-            $params = $preconfigured['parameters'];
-        } else {
-            return '';
-        }
-
-        // define widget block and check the type is instance of Widget Interface
-        $widget = Mage::app()->getLayout()->createBlock($type, $name, $params);
-        if (!$widget instanceof Mage_Cms_Block_Widget_Interface) {
-            return '';
-        }
-
-        return $widget->toHtml();
-    }
-
-    /**
      * Setter whether SID is allowed in store directive
      *
      * @param bool $flag

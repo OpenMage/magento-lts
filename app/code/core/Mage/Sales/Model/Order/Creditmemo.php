@@ -376,7 +376,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     {
         if ($this->getId()) {
             Mage::throwException(
-                Mage::helper('sales')->__('Can not register existing creditmemo')
+                Mage::helper('sales')->__('Cannot register existing creditmemo')
             );
         }
 

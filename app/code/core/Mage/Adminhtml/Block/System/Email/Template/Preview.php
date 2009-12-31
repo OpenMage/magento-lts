@@ -42,6 +42,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Preview extends Mage_Adminhtml_
         } else {
             $template->setTemplateType($this->getRequest()->getParam('type'));
             $template->setTemplateText($this->getRequest()->getParam('text'));
+            $template->setTemplateStyles($this->getRequest()->getParam('styles'));
         }
 
         Varien_Profiler::start("email_template_proccessing");

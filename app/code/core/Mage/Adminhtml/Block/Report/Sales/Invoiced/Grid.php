@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Report_Sales_Invoiced_Grid extends Mage_Adminhtml_Blo
         ));
 
         $this->addColumn('orders_invoiced', array(
-            'header'    =>Mage::helper('reports')->__('Number of Ivoiced Orders'),
+            'header'    =>Mage::helper('reports')->__('Number of Invoiced Orders'),
             'index'     =>'orders_invoiced',
             'total'     =>'sum',
             'type'      =>'number'

@@ -151,9 +151,10 @@ class Mage_Ogone_ApiController extends Mage_Core_Controller_Front_Action
     {
         if (!$this->_validateOgoneData()) {
             $this->getResponse()->setHeader("Status", "404 Not Found");
+            return false;
         }
 
-        $this->_offlineProcess();
+        $this->_ogoneProcess();
     }
 
     /**
@@ -164,14 +165,15 @@ class Mage_Ogone_ApiController extends Mage_Core_Controller_Front_Action
     {
         if (!$this->_validateOgoneData()) {
             $this->getResponse()->setHeader("Status","404 Not Found");
+            return false;
         }
-        $this->_offlineProcess();
+        $this->_ogoneProcess();
     }
 
     /**
      * Made offline ogone data processing, depending of incoming statuses
      */
-    protected function _offlineProcess()
+    protected function _ogoneProcess()
     {
         $status = $this->getRequest()->getParam('STATUS');
         switch ($status) {
@@ -190,7 +192,8 @@ class Mage_Ogone_ApiController extends Mage_Core_Controller_Front_Action
                 $this->_exceptionProcess();
                 break;
             default:
-                $this->_cancelProcess();
+                //all unknown transaction will accept as exceptional
+                $this->_exceptionProcess();
         }
     }
 
@@ -206,7 +209,7 @@ class Mage_Ogone_ApiController extends Mage_Core_Controller_Front_Action
             $this->_redirect('checkout/cart');
             return;
         }
-        $this->_acceptProcess();
+        $this->_ogoneProcess();
     }
 
     /**
@@ -217,7 +220,7 @@ class Mage_Ogone_ApiController extends Mage_Core_Controller_Front_Action
         $params = $this->getRequest()->getParams();
         $order = $this->_getOrder();
 
-        $this->_getCheckout()->setLastSuccessQuoteId($this->_getCheckout()->getOgoneLastSuccessQuoteId());
+        $this->_getCheckout()->setLastSuccessQuoteId($order->getQuoteId());
 
         $this->_prepareCCInfo($order, $params);
         $order->getPayment()->setLastTransId($params['PAYID']);
@@ -292,8 +295,11 @@ class Mage_Ogone_ApiController extends Mage_Core_Controller_Front_Action
             if ($status ==  Mage_Ogone_Model_Api::OGONE_AUTH_PROCESSING) {
                 $order->setState(Mage_Sales_Model_Order::STATE_NEW, Mage_Ogone_Model_Api::WAITING_AUTHORIZATION, Mage::helper('ogone')->__('Authorization Waiting from Ogone'));
             } else {
+                //to send new order email only when state is pending payment
+                if ($order->getState()==Mage_Sales_Model_Order::STATE_PENDING_PAYMENT) {
+                    $order->sendNewOrderEmail();
+                }
                 $order->setState(Mage_Sales_Model_Order::STATE_NEW, Mage_Ogone_Model_Api::PROCESSED_OGONE_STATUS, Mage::helper('ogone')->__('Processed by Ogone'));
-                $order->sendNewOrderEmail();
             }
             $order->save();
             $this->_redirect('checkout/onepage/success');
@@ -354,19 +360,25 @@ class Mage_Ogone_ApiController extends Mage_Core_Controller_Front_Action
                 $exception = Mage::helper('ogone')->__('Payment uncertain: A technical problem arose during payment process, giving unpredictable result');
                 break;
             case Mage_Ogone_Model_Api::OGONE_AUTH_UKNKOWN_STATUS :
-                $exception = Mage::helper('ogone')->__('Authorisation not known: A technical problem arose during authorisation process, giving unpredictable result');
+                $exception = Mage::helper('ogone')->__('Authorization not known: A technical problem arose during authorization process, giving unpredictable result');
                 break;
             default:
-                $exception = '';
+                $exception = Mage::helper('ogone')->__('Unknown exception');
         }
 
         if (!empty($exception)) {
             try{
+                $this->_getCheckout()->setLastSuccessQuoteId($order->getQuoteId());
                 $this->_prepareCCInfo($order, $params);
                 $order->getPayment()->setLastTransId($params['PAYID']);
-                $order->addStatusToHistory(Mage_Ogone_Model_Api::PROCESSING_OGONE_STATUS, $exception);
+                //to send new order email only when state is pending payment
+                if ($order->getState()==Mage_Sales_Model_Order::STATE_PENDING_PAYMENT) {
+                    $order->sendNewOrderEmail();
+                    $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, Mage_Ogone_Model_Api::PROCESSING_OGONE_STATUS, $exception);
+                } else {
+                    $order->addStatusToHistory(Mage_Ogone_Model_Api::PROCESSING_OGONE_STATUS, $exception);
+                }
                 $order->save();
-                $this->_getCheckout()->addError($exception);
             }catch(Exception $e) {
                 $this->_getCheckout()->addError(Mage::helper('ogone')->__('Order can not be save for system reason'));
             }
@@ -375,7 +387,6 @@ class Mage_Ogone_ApiController extends Mage_Core_Controller_Front_Action
         }
 
         $this->_redirect('checkout/onepage/success');
-        return;
     }
 
     /**

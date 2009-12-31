@@ -78,6 +78,26 @@ class Mage_CatalogSearch_Model_Mysql4_Query extends Mage_Core_Model_Mysql4_Abstr
         return $this;
     }
 
+    /**
+     * Custom load model only by query text (skip synonym for)
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @param string $value
+     * @return Mage_CatalogSearch_Model_Mysql4_Query
+     */
+    public function loadByQueryText(Mage_Core_Model_Abstract $object, $value)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getMainTable())
+            ->where('query_text = ?', $value)
+            ->where('store_id = ?', $object->getStoreId());
+        if ($data = $this->_getReadAdapter()->fetchRow($select)) {
+            $object->setData($data);
+            $this->_afterLoad($object);
+        }
+        return $this;
+    }
+
     public function load(Mage_Core_Model_Abstract $object, $value, $field=null)
     {
         if (is_numeric($value)) {

@@ -44,11 +44,11 @@ class Mage_Bundle_Model_Mysql4_Option_Collection extends Mage_Core_Model_Mysql4_
         $this->getSelect()->joinLeft(array('option_value_default' => $this->getTable('bundle/option_value')),
                 '`main_table`.`option_id` = `option_value_default`.`option_id` and `option_value_default`.`store_id` = "0"',
                 array())
-            ->from('', array('default_title' => 'option_value_default.title'));
+            ->columns(array('default_title' => 'option_value_default.title'));
 
         if ($storeId !== null) {
             $this->getSelect()
-                ->from('', array('title' => 'IFNULL(`option_value`.`title`, `option_value_default`.`title`)'))
+                ->columns(array('title' => 'IFNULL(`option_value`.`title`, `option_value_default`.`title`)'))
                 ->joinLeft(array('option_value' => $this->getTable('bundle/option_value')),
                     '`main_table`.`option_id` = `option_value`.`option_id` and `option_value`.`store_id` = "' . $storeId . '"',
                     array());

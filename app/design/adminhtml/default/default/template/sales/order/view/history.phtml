@@ -54,20 +54,20 @@
     <div class="divider"></div>
     <?php endif;?>
     <ul class="note-list">
-    <?php foreach ($this->getOrder()->getStatusHistoryCollection(true) as $_history): ?>
+    <?php foreach ($this->getOrder()->getStatusHistoryCollection(true) as $_item): ?>
         <li>
-            <strong><?php echo $this->helper('core')->formatDate($_history->getCreatedAtDate(), 'medium') ?></strong>
-            <?php echo $this->helper('core')->formatTime($_history->getCreatedAtDate(), 'medium') ?><span class="separator">|</span><strong><?php echo $_history->getStatusLabel() ?></strong><br/><small><?php echo $this->helper('sales')->__('Customer') ?>
+            <strong><?php echo $this->helper('core')->formatDate($_item->getCreatedAtDate(), 'medium') ?></strong>
+            <?php echo $this->helper('core')->formatTime($_item->getCreatedAtDate(), 'medium') ?><span class="separator">|</span><strong><?php echo $_item->getStatusLabel() ?></strong><br/><small><?php echo $this->helper('sales')->__('Customer') ?>
             <strong class="subdue">
-                <?php if ($_history->getIsCustomerNotified()): ?>
+                <?php if ($_item->getIsCustomerNotified()): ?>
                 <?php echo $this->helper('sales')->__('Notified') ?>
                 <img src="<?php echo $this->getSkinUrl('images/ico_success.gif') ?>" width="16" height="16" alt="" />
                 <?php else: ?>
                 <?php echo $this->helper('sales')->__('Not Notified') ?>
                 <?php endif; ?>
             </strong></small>
-            <?php if ($_history->getComment()): ?>
-                <br/><?php echo $this->htmlEscape($_history->getComment(), array('b','br','strong','i','u')) ?>
+            <?php if ($_item->getComment()): ?>
+                <br/><?php echo $this->htmlEscape($_item->getComment(), array('b','br','strong','i','u')) ?>
             <?php endif; ?>
         </li>
     <?php endforeach; ?>

@@ -103,10 +103,10 @@
             <?php foreach ($primaryTypes as $code=>$type): ?>
                 <li>
                 <?php if ($address->isPrimary($type['address_type_id'])): ?>
-                    <?php echo $this->__("This is My Primary %s Address", ucfirst($type['name'])) ?>
+                    <?php echo $this->__("This is My Default %s Address", ucfirst($type['name'])) ?>
                 <?php else: ?>
                     <input type="checkbox" id="primary_<?php echo $code ?>" name="primary_types[]" value="<?php echo $type['address_type_id'] ?>" />&nbsp;
-                    <label for="primary_<?php echo $code ?>"><?php echo $this->__("Use as My Primary %s Address", ucfirst($type['name'])) ?></label>
+                    <label for="primary_<?php echo $code ?>"><?php echo $this->__("Use as My Default %s Address", ucfirst($type['name'])) ?></label>
                 <?php endif ?>
                 </li>
             <?php endforeach ?>

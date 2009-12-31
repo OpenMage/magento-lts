@@ -57,7 +57,11 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
             'block_name'=> $this->getNameInLayout(),
             'area'      => $this->getDisplayArea()
         ));
-        $this->getParentBlock()->addTotal($total);
+        if ($this->getBeforeCondition()) {
+            $this->getParentBlock()->addTotalBefore($total, $this->getBeforeCondition());
+        } else {
+            $this->getParentBlock()->addTotal($total, $this->getAfterCondition());
+        }
         return $this;
     }
 

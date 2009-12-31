@@ -82,7 +82,14 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost()) {
-            $model = Mage::getModel('admin/user');
+
+            $id = $this->getRequest()->getParam('user_id');
+            $model = Mage::getModel('admin/user')->load($id);
+            if (!$model->getId() && $id) {
+                Mage::getSingleton('adminhtml/session')->addError($this->__('This User no longer exists'));
+                $this->_redirect('*/*/');
+                return;
+            }
             $model->setData($data);
 
             /*

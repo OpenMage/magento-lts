@@ -154,8 +154,8 @@ final class Mage
             'minor'     => '4',
             'revision'  => '0',
             'patch'     => '0',
-            'stability' => 'alpha',
-            'number'    => '3',
+            'stability' => 'beta',
+            'number'    => '1',
         );
     }
 
@@ -551,7 +551,7 @@ final class Mage
     }
 
     /**
-     * Initialize and retrieve application
+     * Get initialized application object.
      *
      * @param string $code
      * @param string $type
@@ -561,22 +561,14 @@ final class Mage
     public static function app($code = '', $type = 'store', $options = array())
     {
         if (null === self::$_app) {
-            Varien_Profiler::start('self::app::construct');
             self::$_app = new Mage_Core_Model_App();
-            Varien_Profiler::stop('self::app::construct');
-
             self::setRoot();
             self::$_events = new Varien_Event_Collection();
-
-
-            Varien_Profiler::start('self::app::register_config');
             self::$_config = new Mage_Core_Model_Config();
-            Varien_Profiler::stop('self::app::register_config');
 
             Varien_Profiler::start('self::app::init');
             self::$_app->init($code, $type, $options);
             Varien_Profiler::stop('self::app::init');
-
             self::$_app->loadAreaPart(Mage_Core_Model_App_Area::AREA_GLOBAL, Mage_Core_Model_App_Area::PART_EVENTS);
         }
         return self::$_app;
@@ -593,33 +585,30 @@ final class Mage
     {
         try {
             Varien_Profiler::start('mage');
-
-            Varien_Profiler::start('self::app');
-            self::app($code, $type, $options);
-            Varien_Profiler::stop('self::app');
-
-            Varien_Profiler::start('self::dispatch');
-            self::app()->getFrontController()->dispatch();
-            Varien_Profiler::stop('self::dispatch');
-
+            self::setRoot();
+            self::$_app = new Mage_Core_Model_App();
+            self::$_events = new Varien_Event_Collection();
+            self::$_config = new Mage_Core_Model_Config();
+            self::$_app->run(array(
+                'scope_code' => $code,
+                'scope_type' => $type,
+                'options'    => $options,
+            ));
             Varien_Profiler::stop('mage');
-        }
-        catch (Mage_Core_Model_Session_Exception $e) {
+        } catch (Mage_Core_Model_Session_Exception $e) {
             header('Location: ' . self::getBaseUrl());
             die();
-        }
-        catch (Mage_Core_Model_Store_Exception $e) {
-            $baseUrl = self::getScriptSystemUrl('404');
+        } catch (Mage_Core_Model_Store_Exception $e) {
+            $baseUrl = rtrim(self::getScriptSystemUrl('404'), '/') . '/404/';
             if (!headers_sent()) {
-                header('Location: ' . rtrim($baseUrl, '/').'/404/');
+                header('Location: ' . $baseUrl);
             } else {
                 print '<script type="text/javascript">';
                 print "window.location.href = '{$baseUrl}';";
                 print '</script>';
             }
             die();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             if (self::isInstalled() || self::$_isDownloader) {
                 self::printException($e);
                 exit();
@@ -631,8 +620,7 @@ final class Mage
                 } else {
                     self::printException($e);
                 }
-            }
-            catch (Exception $ne) {
+            } catch (Exception $ne) {
                 self::printException($ne, $e->getMessage());
             }
         }
@@ -650,9 +638,7 @@ final class Mage
             self::setRoot();
 
             if (is_string($options)) {
-                $options = array(
-                    'etc_dir' => $options
-                );
+                $options = array('etc_dir' => $options);
             }
             $etcDir = 'etc';
             if (!empty($options['etc_dir'])) {

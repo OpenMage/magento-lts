@@ -16,7 +16,7 @@
  * @package    Zend_Locale
  * @subpackage Format
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Format.php 17080 2009-07-25 21:14:29Z thomas $
+ * @version    $Id: Format.php 18526 2009-10-12 19:01:49Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -319,6 +319,9 @@ class Zend_Locale_Format
             }
         } else {
             // seperate negative format pattern when available
+            // @todo: The below conditional is a repeat of logic in the 
+            // previous conditional; it should be refactored to a protected
+            // method to prevent code duplication.
             if (iconv_strpos($format, ';') !== false) {
                 if (call_user_func(Zend_Locale_Math::$comp, $value, 0, $options['precision']) < 0) {
                     $tmpformat = iconv_substr($format, iconv_strpos($format, ';') + 1);
@@ -335,6 +338,9 @@ class Zend_Locale_Format
             if (strpos($format, '.')) {
                 if (is_numeric($options['precision'])) {
                     $value = Zend_Locale_Math::round($value, $options['precision']);
+                    // Need to "floatalize" the number; when precision > 4
+                    // and bcmath disabled, round() returns scientific notation
+                    $value = self::_floatalize($value);
                 } else {
                     if (substr($format, iconv_strpos($format, '.') + 1, 3) == '###') {
                         $options['precision'] = null;
@@ -347,6 +353,9 @@ class Zend_Locale_Format
                 }
             } else {
                 $value = Zend_Locale_Math::round($value, 0);
+                // Need to "floatalize" the number; when precision > 4
+                // and bcmath disabled, round() returns scientific notation
+                $value = self::_floatalize($value);
                 $options['precision'] = 0;
             }
             $value = Zend_Locale_Math::normalize($value);

@@ -43,6 +43,21 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
         $this->_init('tag/tag');
     }
 
+    /**
+     * Product event tags collection getter
+     *
+     * @param  Varien_Event_Observer $observer
+     * @return Mage_Tag_Model_Mysql4_Tag_Collection
+     */
+    protected function _getProductEventTagsCollection(Varien_Event_Observer $observer)
+    {
+        return $this->getResourceCollection()
+                        ->joinRel()
+                        ->addProductFilter($observer->getEvent()->getProduct()->getId())
+                        ->addTagGroup()
+                        ->load();
+    }
+
     public function getPopularity()
     {
         return $this->_getData('popularity');
@@ -83,17 +98,19 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
 
     public function productEventAggregate($observer)
     {
-        $product = $observer->getEvent()->getProduct();
-        $collection = $this->getResourceCollection()
-            ->joinRel()
-            ->addProductFilter($product->getId())
-            ->addTagGroup()
-            ->load();
+        $this->_getProductEventTagsCollection($observer)->walk('aggregate');
+        return $this;
+    }
 
-
-        $collection->walk('aggregate');
-
-
+    /**
+     * Product delete event action
+     *
+     * @param  Varien_Event_Observer $observer
+     * @return Mage_Tag_Model_Tag
+     */
+    public function productDeleteEventAction($observer)
+    {
+        $this->_getResource()->decrementProducts($this->_getProductEventTagsCollection($observer)->getAllIds());
         return $this;
     }
 

@@ -142,6 +142,32 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Reindex all data what this process responsible is
+     * Check and using depends processes
+     *
+     * @return Mage_Index_Model_Process
+     */
+    public function reindexEverything()
+    {
+        if ($this->getData('runed_reindexall')) {
+            return $this;
+        }
+
+        if ($this->getDepends()) {
+            $indexer = Mage::getSingleton('index/indexer');
+            foreach ($this->getDepends() as $code) {
+                $process = $indexer->getProcessByCode($code);
+                if ($process) {
+                    $process->reindexEverything();
+                }
+            }
+        }
+
+        $this->setData('runed_reindexall', true);
+        return $this->reindexAll();
+    }
+
+    /**
      * Process event with assigned indexer object
      *
      * @param Mage_Index_Model_Event $event
@@ -386,5 +412,30 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             self::STATUS_RUNNING            => Mage::helper('index')->__('Processing'),
             self::STATUS_REQUIRE_REINDEX    => Mage::helper('index')->__('Reindex Required'),
         );
+    }
+
+    /**
+     * Retrieve depend indexer codes
+     *
+     * @return array
+     */
+    public function getDepends()
+    {
+        $depends = $this->getData('depends');
+        if (is_null($depends)) {
+            $depends = array();
+            $path = self::XML_PATH_INDEXER_DATA . '/' . $this->getIndexerCode();
+            $node = Mage::getConfig()->getNode($path);
+            if ($node) {
+                $data = $node->asArray();
+                if (isset($data['depends']) && is_array($data['depends'])) {
+                    $depends = array_keys($data['depends']);
+                }
+            }
+
+            $this->setData('depends', $depends);
+        }
+
+        return $depends;
     }
 }

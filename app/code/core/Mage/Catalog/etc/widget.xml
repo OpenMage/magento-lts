@@ -29,6 +29,7 @@
     <new_products type="catalog/product_widget_new" translate="name description" module="catalog">
         <name>Catalog New Products List</name>
         <description>List of Products that are set as New</description>
+        <is_email_compatible>1</is_email_compatible>
         <parameters>
             <products_count translate="label">
                 <required>1</required>
@@ -66,6 +67,7 @@
     <catalog_product_link type="catalog/product_widget_link" translate="name description" module="catalog">
         <name>Catalog Product Link</name>
         <description>Link to a Specified Product</description>
+        <is_email_compatible>1</is_email_compatible>
         <parameters>
             <id_path translate="label">
                 <visible>1</visible>
@@ -115,6 +117,7 @@
     <catalog_category_link type="catalog/category_widget_link" translate="name description" module="catalog">
         <name>Catalog Category Link</name>
         <description>Link to a Specified Category</description>
+        <is_email_compatible>1</is_email_compatible>
         <parameters>
             <id_path translate="label">
                 <visible>1</visible>

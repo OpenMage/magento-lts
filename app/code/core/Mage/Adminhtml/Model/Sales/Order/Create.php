@@ -672,6 +672,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                     if ($item) {
                         $item->setQty($itemQty);
                         $item->setCustomPrice($itemPrice);
+                        $item->setOriginalCustomPrice($itemPrice);
                         $item->setNoDiscount($noDiscount);
                         $item->getProduct()->setIsSuperMode(true);
 
@@ -1030,10 +1031,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
         if (!$this->getQuote()->getCustomerIsGuest()) {
             $this->_putCustomerIntoQuote();
         }
-
+        /*^ @var Mage_Sales_Model_Convert_Quote */
         $quoteConvert = Mage::getModel('sales/convert_quote');
-
-        /* @var $quoteConvert Mage_Sales_Model_Convert_Quote */
 
         $quote = $this->getQuote();
         if (!$this->getSession()->getOrder()->getId()) {
@@ -1197,40 +1196,25 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     protected function _putCustomerIntoQuote()
     {
         if (!$this->getSession()->getCustomer()->getId()) {
+            /** @var Mage_Customer_Model_Customer*/
             $customer = Mage::getModel('customer/customer');
-            /* @var $customer Mage_Customer_Model_Customer*/
 
-            $billingAddress = $this->getBillingAddress()->exportCustomerAddress();
-
-            $customer->addData($billingAddress->getData())
-                ->addData($this->getData('account'))
-                ->setPassword($customer->generatePassword())
-                ->setWebsiteId($this->getSession()->getStore()->getWebsiteId())
-                ->setStoreId($this->getSession()->getStore()->getId())
-                ->addAddress($billingAddress);
-
-            if (!$this->getShippingAddress()->getSameAsBilling()) {
-                $shippingAddress = $this->getShippingAddress()->exportCustomerAddress();
-                $customer->addAddress($shippingAddress);
-            }
-            else {
-                $shippingAddress = $billingAddress;
-            }
-
-            $customer->setEmail($this->_getNewCustomerEmail($customer))
-                ->setDefaultBilling($billingAddress->getId())
-                ->setDefaultShipping($shippingAddress->getId());
-        }
-        elseif (($customer = $this->getSession()->getCustomer())        	&& $customer->getId()
-            && !$this->getSession()->getCustomer(true,true)->getId())
-            {
+            $customer->addData($this->getBillingAddress()->exportCustomerAddress()->getData())
+                     ->addData($this->getData('account'))
+                     ->setPassword($customer->generatePassword())
+                     ->setWebsiteId($this->getSession()->getStore()->getWebsiteId())
+                     ->setStoreId($this->getSession()->getStore()->getId())
+                     ->setEmail($this->_getNewCustomerEmail($customer));
+        } elseif (($customer = $this->getSession()->getCustomer())
+                && $customer->getId()
+                && !$this->getSession()->getCustomer(true,true)->getId()) {
             $customer = clone $customer;
             $customer->setStore($this->getSession()->getStore())
                 ->save();
             $this->getSession()->setCustomer($customer);
             $customer->addData($this->getData('account'));
-        }
-        else {            $customer = $this->getSession()->getCustomer();
+        } else {
+            $customer = $this->getSession()->getCustomer();
             $customer->addData($this->getData('account'));
         }
         $this->getQuote()->setCustomer($customer);
@@ -1245,14 +1229,29 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     protected function _saveCustomerAfterOrder($order)
     {
         if ($this->_customer) {
-            if (!$this->_customer->getId()) {
+            if (! $this->_customer->getId()) {
+                $billing          = $this->getBillingAddress();
+                $customerBilling  = $billing->exportCustomerAddress();
+                $shipping         = $this->getShippingAddress();
+                $customerShipping = $shipping->exportCustomerAddress();
+
+                $this->_customer->addAddress($customerBilling);
+
+                if (! $shipping->getSameAsBilling()) {
+                    $this->_customer->addAddress($customerShipping);
+                }
+                // preliminary save to find addresses id
                 $this->_customer->save();
+                // setting default addresses id
+                $this->_customer->setDefaultBilling($customerBilling->getId())
+                                ->setDefaultShipping($shipping->getSameAsBilling() ? $customerBilling->getId() : $customerShipping->getId())
+                                ->save();
+
                 $order->setCustomerId($this->_customer->getId());
-                $this->getBillingAddress()->setCustomerId($this->_customer->getId());
-                $this->getShippingAddress()->setCustomerId($this->_customer->getId());
+                $billing->setCustomerId($this->_customer->getId());
+                $shipping->setCustomerId($this->_customer->getId());
                 $this->_customer->sendNewAccountEmail();
-            }
-            else {
+            } else {
                 $saveCusstomerAddress = false;
 
                 if ($this->getBillingAddress()->getSaveInAddressBook()) {

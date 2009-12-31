@@ -108,9 +108,9 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
      *
      * @return Mage_Customer_Model_Group
      */
-    protected function _afterSaveCommit()
+    public function afterCommitCallback()
     {
-        parent::_afterSaveCommit();
+        parent::afterCommitCallback();
         Mage::getSingleton('index/indexer')->processEntityAction(
             $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );
