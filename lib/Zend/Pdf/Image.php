@@ -169,7 +169,7 @@ abstract class Zend_Pdf_Image
          */
         $dataSource = null;
 
-        if (! is_null($image)) {
+        if ($image !== null) {
             return $image;
 
         } else {

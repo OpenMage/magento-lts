@@ -673,7 +673,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
     /**
      * Join a table
      *
-     * @param string $table
+     * @param string|array $table
      * @param string $bind
      * @param string|array $fields
      * @param null|array $cond
@@ -682,11 +682,21 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
      */
     public function joinTable($table, $bind, $fields=null, $cond=null, $joinType='inner')
     {
-        // validate table
-        if (strpos($table, '/')!==false) {
-            $table = Mage::getSingleton('core/resource')->getTableName($table);
+        $tableAlias = null;
+        if (is_array($table)) {
+            list($tableAlias, $tableName) = each($table);
         }
-        $tableAlias = $table;
+        else {
+            $tableName = $table;
+        }
+
+        // validate table
+        if (strpos($tableName, '/') !== false) {
+            $tableName = Mage::getSingleton('core/resource')->getTableName($tableName);
+        }
+        if (empty($tableAlias)) {
+            $tableAlias = $tableName;
+        }
 
         // validate fields and aliases
         if (!$fields) {
@@ -697,14 +707,14 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Joined field with this alias (%s) is already declared', $alias));
             }
             $this->_joinFields[$alias] = array(
-                'table'=>$tableAlias,
-                'field'=>$field,
+                'table' => $tableAlias,
+                'field' => $field,
             );
         }
 
         // validate bind
         list($pk, $fk) = explode('=', $bind);
-        $bindCond = $tableAlias.'.'.$pk.'='.$this->_getAttributeFieldName($fk);
+        $bindCond = $tableAlias . '.' . $pk . '=' . $this->_getAttributeFieldName($fk);
 
         // process join type
         switch ($joinType) {
@@ -730,7 +740,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
         $cond = '('.join(') AND (', $condArr).')';
 
 // join table
-        $this->getSelect()->$joinMethod(array($tableAlias=>$table), $cond, $fields);
+        $this->getSelect()->$joinMethod(array($tableAlias => $tableName), $cond, $fields);
 
         return $this;
     }

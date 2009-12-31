@@ -104,7 +104,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity
             if ($type == 'dateFromTo' || $type == 'datetimeFromTo') {
                 foreach ($filters as $k => $v) {
                     if (strpos($k, $key . '/') === 0) {
-                        $split = split('/', $k);
+                        $split = explode('/', $k);
                         $filters[$key][$split[1]] = $v;
                     }
                 }

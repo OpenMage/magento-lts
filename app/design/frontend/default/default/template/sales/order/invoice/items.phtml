@@ -49,32 +49,7 @@
         </tr>
     </thead>
     <tfoot>
-        <tr>
-            <td colspan="4" class="a-right"><?php echo $this->__('Order Subtotal') ?></td>
-            <td class="last a-right"><?php echo $_order->formatPrice($_invoice->getSubtotal()) ?></td>
-        </tr>
-        <?php if ($_invoice->getDiscountAmount() > 0): ?>
-            <tr>
-                <td colspan="4" class="a-right"><?php echo $this->__('Discount :') ?></td>
-                <td class="last a-right"><?php echo $_order->formatPrice(0.00 - $_invoice->getDiscountAmount()) ?></td>
-            </tr>
-        <?php endif; ?>
-          <?php if (($_invoice->getTaxAmount() > 0)||(Mage::helper('tax')->displayZeroTax())): ?>
-            <tr>
-                <td colspan="4" class="a-right"><?php echo $this->__('Tax') ?></td>
-                <td class="last a-right"><?php echo $_order->formatPrice($_invoice->getTaxAmount()) ?></td>
-            </tr>
-        <?php endif; ?>
-        <?php if ($_invoice->getShippingAmount() || $_invoice->getShippingDescription()): ?>
-            <tr>
-                <td colspan="4" class="a-right"><?php echo $this->__('Shipping & Handling') ?></td>
-                <td class="last a-right"><?php echo $_order->formatPrice($_invoice->getShippingAmount()) ?></td>
-            </tr>
-        <?php endif; ?>
-        <tr>
-            <td colspan="4" class="a-right"><?php echo $this->__('Grand Total') ?></td>
-            <td class="last a-right"><?php echo $_order->formatPrice($_invoice->getGrandTotal()) ?></td>
-        </tr>
+        <?php echo $this->getInvoiceTotalsHtml($_invoice)?>
     </tfoot>
     <?php $_items = $_invoice->getAllItems(); ?>
     <?php $_count = count($_items) ?>

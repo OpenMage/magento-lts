@@ -82,7 +82,7 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
         ));
 
         $this->addColumn('sku', array(
-            'header'    =>Mage::helper('reports')->__('Product Sku'),
+            'header'    =>Mage::helper('reports')->__('Product SKU'),
             'sortable'  =>false,
             'index'     =>'sku'
         ));

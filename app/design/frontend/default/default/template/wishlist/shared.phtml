@@ -23,12 +23,13 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+/* @var $this Mage_Wishlist_Block_Share_Wishlist */
 ?>
 <div class="page-head">
     <h3><?php echo $this->htmlEscape($this->getHeader()) ?></h3>
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-<?php if($this->getWishlist()->getSize()): ?>
+<?php if ($this->hasWishlistItems()): ?>
 <form action="<?php echo $this->getUrl('*/*/update') ?>" method="post">
     <table cellspacing="0" width="100%" class="data-table box-table" id="wishlist-table">
     <col width="130" />
@@ -42,23 +43,23 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach($this->getWishlist() as $item): ?>
+        <?php foreach($this->getWishlistItems() as $item): ?>
         <tr>
             <td>
                 <div>
-                    <a href="<?php echo $item->getProductUrl() ?>">
+                    <a href="<?php echo $this->getProductUrl($item) ?>">
                         <img src="<?php echo $this->helper('catalog/image')->init($item, 'small_image')->resize(113); ?>" alt="<?php echo $this->htmlEscape($item->getName()) ?>" width="113" />
                     </a>
                 </div>
-                <div><a href="<?php echo $item->getProductUrl() ?>" title="<?php echo $this->htmlEscape($item->getName()) ?>"><?php echo $this->htmlEscape($item->getName()) ?></a></div>
+                <div><a href="<?php echo $this->getProductUrl($item) ?>" title="<?php echo $this->htmlEscape($item->getName()) ?>"><?php echo $this->htmlEscape($item->getName()) ?></a></div>
                 <?php echo $this->getPriceHtml($item) ?>
             </td>
             <td class="align-center"><?php echo $this->getEscapedDescription($item) ?></td>
             <td class="align-center">
-                <?php if($item->isSaleable()): ?>
-                <a href="#" onclick="setLocation('<?php echo $this->helper('checkout/cart')->getAddUrl($item) ?>');return false;" class="link-cart"><?php echo $this->__('Add to Cart') ?></a><br/>
+                <?php if ($item->isSaleable()): ?>
+                <a href="#" onclick="setLocation('<?php echo $this->getAddToCartUrl($item) ?>');return false;" class="link-cart"><?php echo $this->__('Add to Cart') ?></a><br/>
                 <?php endif;?>
-                <a href="#" onclick="setLocation('<?php echo $this->helper('wishlist')->getAddUrl($item) ?>');return false;" class="link-cart"><?php echo $this->__('Add to Wishlist') ?></a>
+                <a href="#" onclick="setLocation('<?php echo $this->getAddToWishlistUrl($item) ?>');return false;" class="link-cart"><?php echo $this->__('Add to Wishlist') ?></a>
             </td>
         </tr>
         <?php endforeach ?>

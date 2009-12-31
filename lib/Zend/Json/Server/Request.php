@@ -50,7 +50,7 @@ class Zend_Json_Server_Request
      * Regex for method
      * @var string
      */
-    protected $_methodRegex = '/^[a-z][a-z0-9_]*$/i';
+    protected $_methodRegex = '/^[a-z][a-z0-9_.]*$/i';
 
     /**
      * Request parameters 

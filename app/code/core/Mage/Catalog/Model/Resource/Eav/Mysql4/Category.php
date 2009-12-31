@@ -267,10 +267,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
 
         /**
          * new category-product relationships
+         *
          */
         $products = $category->getPostedProducts();
+
         /**
          * Example re-save category
+         *
          */
         if (is_null($products)) {
             return $this;
@@ -278,38 +281,35 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
 
         /**
          * old category-product relationships
+         *
          */
         $oldProducts = $category->getProductsPosition();
 
         $insert = array_diff_key($products, $oldProducts);
         $delete = array_diff_key($oldProducts, $products);
+
         /**
          * Find product ids which are presented in both arrays
+         *
          */
         $update = array_intersect_key($products, $oldProducts);
+
         /**
          * Use for update just products with changed position
+         *
          */
         $update = array_diff_assoc($update, $oldProducts);
-
-        $productTable = $this->getTable('catalog/product');
-        $productUpdateSql = sprintf('UPDATE `%s` AS `e` SET `category_ids`=(SELECT
-            GROUP_CONCAT(`category_id`) FROM `%s` AS `cp` WHERE `cp`.`product_id`=`e`.`entity_id`)
-            WHERE `e`.`entity_id` IN(?)', $productTable, $this->_categoryProductTable);
 
         /**
          * Delete products from category
          *
          */
         if (!empty($delete)) {
-            $deleteIds = array_keys($delete);
-            $this->_getWriteAdapter()->delete($this->_categoryProductTable,
-                $this->_getWriteAdapter()->quoteInto('product_id in(?)', $deleteIds) .
-                $this->_getWriteAdapter()->quoteInto(' AND category_id=?', $category->getId())
-            );
-
-            $sql = $this->_getWriteAdapter()->quoteInto($productUpdateSql, $deleteIds);
-            $this->_getWriteAdapter()->query($sql);
+            $cond = join(' AND ', array(
+                $this->_getWriteAdapter()->quoteInto('product_id IN(?)', array_keys($delete)),
+                $this->_getWriteAdapter()->quoteInto('category_id=?', $category->getId())
+            ));
+            $this->_getWriteAdapter()->delete($this->_categoryProductTable, $cond);
         }
 
         /**
@@ -317,20 +317,17 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
          *
          */
         if (!empty($insert)) {
-            $insertSql = array();
-            foreach ($insert as $k => $v) {
-                $insertSql[] = '('.(int)$category->getId().','.(int)$k.','.(int)$v.')';
+            $data = array();
+            foreach ($insert as $productId => $position) {
+                $data[] = array(
+                    'category_id' => $category->getId(),
+                    'product_id'  => (int)$productId,
+                    'position'    => (int)$position
+                );
             }
-            $sql = sprintf(
-                'INSERT INTO `%s` (`category_id`,`product_id`,`position`) VALUES%s',
-                $this->_categoryProductTable,
-                join(',', $insertSql)
-            );
-            $this->_getWriteAdapter()->query($sql);
 
-            $insertIds = array_keys($insert);
-            $sql = $this->_getWriteAdapter()->quoteInto($productUpdateSql, $insertIds);
-            $this->_getWriteAdapter()->query($sql);
+            $this->_getWriteAdapter()
+                ->insertMultiple($this->_categoryProductTable, $data);
         }
 
         /**
@@ -338,14 +335,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
          *
          */
         if (!empty($update)) {
-            foreach ($update as $k => $v) {
-                $cond   = array(
+            foreach ($update as $productId => $position) {
+                $where  = join(' AND ', array(
                     $this->_getWriteAdapter()->quoteInto('category_id=?', (int)$category->getId()),
-                    $this->_getWriteAdapter()->quoteInto('product_id=?', (int)$k)
-                );
-                $where  = join(' AND ', $cond);
+                    $this->_getWriteAdapter()->quoteInto('product_id=?', (int)$productId)
+                ));
                 $bind   = array(
-                    'position' => (int)$v
+                    'position' => (int)$position
                 );
                 $this->_getWriteAdapter()->update($this->_categoryProductTable, $bind, $where);
             }
@@ -371,6 +367,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
     /**
      * Get store identifiers where category is presented
      *
+     * @deprecated after 1.3.2.2 moved to model
      * @param   Mage_Catalog_Model_Category $category
      * @return  array
      */
@@ -380,13 +377,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category extends Mage_Catalog_Model
             return array();
         }
 
-        $nodePath = $this->_getTree()
-            ->getNodeById($category->getId())
-                ->getPath();
-
         $nodes = array();
-        foreach ($nodePath as $node) {
-            $nodes[] = $node->getId();
+        foreach ($category->getPathIds() as $id) {
+            $nodes[] = $id;
         }
 
         $stores = array();

@@ -85,7 +85,11 @@ Customer account home dashboard layout
                 <block type="sales/order_items" name="order_items" template="sales/order/items.phtml">
                     <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
                     <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
-                    <block type="sales/order_tax" name="tax" template="sales/order/tax.phtml" />
+                    <block type="sales/order_totals" name="order_totals" template="sales/order/totals.phtml">
+                        <action method="setLabelProperties"><value>colspan="4" class="a-right"</value></action>
+                        <action method="setValueProperties"><value>class="last a-right"</value></action>
+                        <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml" />
+                    </block>
                 </block>
             </block>
         </reference>
@@ -105,6 +109,11 @@ Customer account home dashboard layout
                 <block type="sales/order_invoice_items" name="invoice_items" template="sales/order/invoice/items.phtml">
                     <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/invoice/items/renderer/default.phtml</template></action>
                     <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/invoice/items/renderer/default.phtml</template></action>
+                    <block type="sales/order_invoice_totals" name="invoice_totals" template="sales/order/totals.phtml">
+                        <action method="setLabelProperties"><value>colspan="4" class="a-right"</value></action>
+                        <action method="setValueProperties"><value>class="last a-right"</value></action>
+                        <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml" />
+                    </block>
                 </block>
             </block>
         </reference>
@@ -142,6 +151,11 @@ Customer account home dashboard layout
                 <block type="sales/order_creditmemo_items" name="creditmemo_items" template="sales/order/creditmemo/items.phtml">
                     <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
                     <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
+                    <block type="sales/order_creditmemo_totals" name="creditmemo_totals" template="sales/order/totals.phtml">
+                        <action method="setLabelProperties"><value>colspan="6" align="right" style="padding:3px 9px"</value></action>
+                        <action method="setValueProperties"><value>align="right" style="padding:3px 9px"</value></action>
+                        <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
+                    </block>
                 </block>
             </block>
         </reference>
@@ -165,7 +179,13 @@ Customer account home dashboard layout
             <block type="sales/order_print" name="sales.order.print" template="sales/order/print.phtml">
                 <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
                 <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
-                <block type="sales/order_tax" name="tax" template="sales/order/print/tax.phtml" />
+                <block type="sales/order_totals" name="order_totals" template="sales/order/totals.phtml">
+                    <action method="setLabelProperties"><value>colspan="4" class="a-right"</value></action>
+                    <action method="setValueProperties"><value>class="last a-right"</value></action>
+                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml">
+                        <action method="setIsPlaneMode"><value>1</value></action>
+                    </block>
+                </block>
             </block>
         </reference>
     </sales_order_print>
@@ -175,6 +195,11 @@ Customer account home dashboard layout
             <block type="sales/order_print_invoice" name="sales.order.print.invoice" template="sales/order/print/invoice.phtml">
                 <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/invoice/items/renderer/default.phtml</template></action>
                 <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/invoice/items/renderer/default.phtml</template></action>
+                <block type="sales/order_invoice_totals" name="invoice_totals" template="sales/order/totals.phtml">
+                    <action method="setLabelProperties"><value>colspan="4" class="a-right"</value></action>
+                    <action method="setValueProperties"><value>class="last a-right"</value></action>
+                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml" />
+                </block>
             </block>
         </reference>
     </sales_order_printinvoice>
@@ -192,6 +217,11 @@ Customer account home dashboard layout
             <block type="sales/order_print_creditmemo" name="sales.order.print.creditmemo" template="sales/order/print/creditmemo.phtml">
                 <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
                 <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/creditmemo/items/renderer/default.phtml</template></action>
+                <block type="sales/order_creditmemo_totals" name="creditmemo_totals" template="sales/order/totals.phtml">
+                    <action method="setLabelProperties"><value>colspan="6" align="right" style="padding:3px 9px"</value></action>
+                    <action method="setValueProperties"><value>align="right" style="padding:3px 9px"</value></action>
+                    <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
+                </block>
             </block>
         </reference>
     </sales_order_printcreditmemo>
@@ -203,13 +233,25 @@ Email layouts section
         <block type="sales/order_email_items" name="items" template="email/order/items.phtml">
             <action method="addItemRender"><type>default</type><block>sales/order_email_items_order_default</block><template>email/order/items/order/default.phtml</template></action>
             <action method="addItemRender"><type>grouped</type><block>sales/order_email_items_order_grouped</block><template>email/order/items/order/default.phtml</template></action>
+            <block type="sales/order_totals" name="order_totals" template="sales/order/totals.phtml">
+                <action method="setLabelProperties"><value>colspan="3" align="right" style="padding:3px 9px"</value></action>
+                <action method="setValueProperties"><value>align="right" style="padding:3px 9px"</value></action>
+                <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml">
+                    <action method="setIsPlaneMode"><value>1</value></action>
+                </block>
+            </block>
         </block>
     </sales_email_order_items>
 
     <sales_email_order_invoice_items>
         <block type="sales/order_email_invoice_items" name="items" template="email/order/invoice/items.phtml">
             <action method="addItemRender"><type>default</type><block>sales/order_email_items_default</block><template>email/order/items/invoice/default.phtml</template></action>
-            <action method="addItemRender"><type>grouped</type><block>sales/order_email_items_grouped</block><template>email/order/items/invoice/default.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>sales/order_email_items_order_grouped</block><template>email/order/items/invoice/default.phtml</template></action>
+            <block type="sales/order_invoice_totals" name="invoice_totals" template="sales/order/totals.phtml">
+                <action method="setLabelProperties"><value>colspan="3" align="right" style="padding:3px 9px"</value></action>
+                <action method="setValueProperties"><value>align="right" style="padding:3px 9px"</value></action>
+                <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
+            </block>
         </block>
     </sales_email_order_invoice_items>
 
@@ -222,7 +264,12 @@ Email layouts section
     <sales_email_order_creditmemo_items>
         <block type="sales/order_email_creditmemo_items" name="items" template="email/order/creditmemo/items.phtml">
             <action method="addItemRender"><type>default</type><block>sales/order_email_items_default</block><template>email/order/items/creditmemo/default.phtml</template></action>
-            <action method="addItemRender"><type>grouped</type><block>sales/order_email_items_grouped</block><template>email/order/items/creditmemo/default.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>sales/order_email_items_order_grouped</block><template>email/order/items/creditmemo/default.phtml</template></action>
+            <block type="sales/order_creditmemo_totals" name="creditmemo_totals" template="sales/order/totals.phtml">
+                <action method="setLabelProperties"><value>colspan="3" align="right" style="padding:3px 9px"</value></action>
+                <action method="setValueProperties"><value>align="right" style="padding:3px 9px"</value></action>
+                <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml"/>
+            </block>
         </block>
     </sales_email_order_creditmemo_items>
 

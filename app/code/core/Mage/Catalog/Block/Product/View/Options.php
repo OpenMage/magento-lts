@@ -155,7 +155,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
             $config[$option->getId()] = $priceValue;
         }
 
-        return Zend_Json::encode($config);
+        return Mage::helper('core')->jsonEncode($config);
     }
 
     /**

@@ -55,7 +55,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * Date format for 'since' strings
      * @var string
      */
-    protected $_dateFormat = 'D, d M Y H:i:s e';
+    protected $_dateFormat = 'D, d M Y H:i:s T';
 
     /**
      * Username
@@ -251,7 +251,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      *
      * $params may include one or more of the following keys
      * - id: ID of a friend whose timeline you wish to receive
+     * - count: how many statuses to return
      * - since: return results only after the date specified
+     * - since_id: return results only after the specific tweet
      * - page: return page X of results
      *
      * @param  array $params
@@ -261,20 +263,33 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     {
         $this->_init();
         $path = '/statuses/friends_timeline';
+        $_params = array();
         foreach ($params as $key => $value) {
             switch (strtolower($key)) {
+                case 'count':
+                    $count = (int) $value;
+                    if (0 >= $count) {
+                        $count = 1;
+                    } elseif (200 < $count) {
+                        $count = 200;
+                    }
+                    $_params['count'] = (int) $count;
+                    break;
+                case 'since_id':
+                    $_params['since_id'] = (int) $value;
+                    break;
                 case 'since':
                     $this->_setDate($value);
                     break;
                 case 'page':
-                    $this->page = (int) $value;
+                    $_params['page'] = (int) $value;
                     break;
                 default:
                     break;
             }
         }
         $path    .= '.xml';
-        $response = $this->restGet($path);
+        $response = $this->restGet($path, $_params);
         return new Zend_Rest_Client_Result($response->getBody());
     }
 
@@ -349,7 +364,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     {
         $this->_init();
         $path = '/statuses/update.xml';
-        $len  = strlen($status);
+        $len  = iconv_strlen($status, 'UTF-8');
         if ($len > 140) {
             include_once 'Zend/Service/Twitter/Exception.php';
             throw new Zend_Service_Twitter_Exception('Status must be no more than 140 characters in length');
@@ -516,22 +531,23 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     {
         $this->_init();
         $path = '/direct_messages.xml';
+        $_params = array();
         foreach ($params as $key => $value) {
             switch (strtolower($key)) {
                 case 'since':
                     $this->_setDate($value);
                     break;
                 case 'since_id':
-                    $this->since_id = (int) $value;
+                    $_params['since_id'] = (int) $value;
                     break;
                 case 'page':
-                    $this->page = (int) $value;
+                    $_params['page'] = (int) $value;
                     break;
                 default:
                     break;
             }
         }
-        $response = $this->restGet($path);
+        $response = $this->restGet($path, $_params);
         return new Zend_Rest_Client_Result($response->getBody());
     }
 
@@ -550,22 +566,23 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     {
         $this->_init();
         $path = '/direct_messages/sent.xml';
+        $_params = array();
         foreach ($params as $key => $value) {
             switch (strtolower($key)) {
                 case 'since':
                     $this->_setDate($value);
                     break;
                 case 'since_id':
-                    $this->since_id = (int) $value;
+                    $_params['since_id'] = (int) $value;
                     break;
                 case 'page':
-                    $this->page = (int) $value;
+                    $_params['page'] = (int) $value;
                     break;
                 default:
                     break;
             }
         }
-        $response = $this->restGet($path);
+        $response = $this->restGet($path, $_params);
         return new Zend_Rest_Client_Result($response->getBody());
     }
 
@@ -582,7 +599,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         $this->_init();
         $path = '/direct_messages/new.xml';
 
-        $len = strlen($text);
+        $len = iconv_strlen($text, 'UTF-8');
         if (0 == $len) {
             throw new Zend_Service_Twitter_Exception('Direct message must contain at least one character');
         } elseif (140 < $len) {
@@ -713,20 +730,21 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     {
         $this->_init();
         $path = '/favorites';
+        $_params = array();
         foreach ($params as $key => $value) {
             switch (strtolower($key)) {
                 case 'id':
                     $path .= '/' . $value;
                     break;
                 case 'page':
-                    $this->page = (int) $value;
+                    $_params['page'] = (int) $value;
                     break;
                 default:
                     break;
             }
         }
         $path .= '.xml';
-        $response = $this->restGet($path);
+        $response = $this->restGet($path, $_params);
         return new Zend_Rest_Client_Result($response->getBody());
     }
 

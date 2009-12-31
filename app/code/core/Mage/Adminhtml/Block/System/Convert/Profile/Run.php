@@ -156,7 +156,7 @@ var countOfUpdated = 0;
 var countOfError = 0;
 var importData = [];
 var totalRecords = ' . $countItems . ';
-var config= '.Zend_Json::encode($batchConfig).';
+var config= '.Mage::helper('core')->jsonEncode($batchConfig).';
 </script>
 <script type="text/javascript">
 function addImportData(data) {
@@ -266,7 +266,7 @@ function addProfileRow(data) {
                             'batch_id'   => $batchModel->getId(),
                             'rows[]'     => $ids
                         );
-                        echo '<script type="text/javascript">addImportData('.Zend_Json::encode($data).')</script>';
+                        echo '<script type="text/javascript">addImportData('.Mage::helper('core')->jsonEncode($data).')</script>';
                     }
                     echo '<script type="text/javascript">execImportData()</script>';
                     //print $this->getUrl('*/*/batchFinish', array('id' => $batchModel->getId()));

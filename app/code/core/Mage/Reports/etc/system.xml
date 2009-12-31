@@ -66,5 +66,45 @@
                 </recently_products>
             </groups>
         </catalog>
+        <reports translate="label" module="reports">
+            <label>Reports</label>
+            <tab>general</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <dashboard translate="label">
+                    <label>Dashboard</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <ytd_start translate="label">
+                            <label>Year-To-Date Starts</label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>adminhtml/report_config_form_field_ytdStart</frontend_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </ytd_start>
+                        <mtd_start translate="label comment">
+                            <label>Month-To-Date Starts</label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>adminhtml/report_config_form_field_mtdStart</frontend_model>
+                            <comment>Select day of the month</comment>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </mtd_start>
+                    </fields>
+                </dashboard>
+            </groups>
+        </reports>
     </sections>
 </config>

@@ -117,5 +117,5 @@
     var dataForm = new VarienForm('form-validate', true);
     //dataForm.setElementsRelation('country', 'state', '<?php echo $this->getUrl('directory/json/childRegion') ?>');
 
-    new RegionUpdater('country', 'region', 'region_id', countryRegions);
+    new RegionUpdater('country', 'region', 'region_id', countryRegions, undefined, <?php echo $this->helper('directory')->getCountriesWithOptionalZipJson() ?>);
 </script>

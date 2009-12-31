@@ -36,6 +36,11 @@ class Mage_Tax_Model_Mysql4_Calculation extends Mage_Core_Model_Mysql4_Abstract
         $this->_setMainTable('tax/tax_calculation');
     }
 
+    /**
+     * Delete calculation settings by rule id
+     *
+     * @param   int $ruleId
+     */
     public function deleteByRuleId($ruleId)
     {
         $conn = $this->_getWriteAdapter();
@@ -46,7 +51,8 @@ class Mage_Tax_Model_Mysql4_Calculation extends Mage_Core_Model_Mysql4_Abstract
     public function getDistinct($field, $ruleId)
     {
         $select = $this->_getReadAdapter()->select();
-        $select->from($this->getMainTable(), $field)->where('tax_calculation_rule_id = ?', $ruleId);
+        $select->from($this->getMainTable(), $field)
+            ->where('tax_calculation_rule_id = ?', $ruleId);
         return $this->_getReadAdapter()->fetchCol($select);
     }
 
@@ -239,5 +245,4 @@ class Mage_Tax_Model_Mysql4_Calculation extends Mage_Core_Model_Mysql4_Abstract
 
         return $result;
     }
-
 }

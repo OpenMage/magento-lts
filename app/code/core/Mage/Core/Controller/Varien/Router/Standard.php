@@ -222,7 +222,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                 }
 
                 // instantiate controller class
-                $controllerInstance = new $controllerClassName($request, $front->getResponse());
+                $controllerInstance = Mage::getControllerInstance($request, $front->getResponse());
 
                 if (!$controllerInstance->hasAction($action)) {
                     return false;

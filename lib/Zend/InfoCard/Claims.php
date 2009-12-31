@@ -16,7 +16,7 @@
  * @package    Zend_InfoCard
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Claims.php 13213 2008-12-14 11:05:07Z thomas $
+ * @version    $Id: Claims.php 13522 2009-01-06 16:35:55Z thomas $
  */
 
 /**
@@ -113,13 +113,10 @@ class Zend_InfoCard_Claims
      */
     public function getDefaultNamespace()
     {
-
-        if(is_null($this->_defaultNamespace)) {
-
+        if($this->_defaultNamespace === null) {
             $namespaces = array();
             $leader = '';
             foreach($this->_claims as $claim) {
-
                 if(!isset($namespaces[$claim['namespace']])) {
                     $namespaces[$claim['namespace']] = 1;
                 } else {
@@ -206,7 +203,7 @@ class Zend_InfoCard_Claims
      */
     public function setClaims(Array $claims)
     {
-        if(!is_null($this->_claims)) {
+        if($this->_claims !== null) {
             #require_once 'Zend/InfoCard/Exception.php';
             throw new Zend_InfoCard_Exception("Claim objects are read-only");
         }

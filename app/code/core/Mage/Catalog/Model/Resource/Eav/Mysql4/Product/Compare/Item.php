@@ -57,14 +57,17 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item extends Mage_C
             $productId = $product->getId();
         }
         else {
-            $productId = (int) $product;
+            $productId = (int)$product;
         }
 
         $select = $read->select()->from($this->getMainTable())
-            ->where('product_id=?',  $productId)
-            ->where('visitor_id=?',  $object->getVisitorId());
+            ->where('product_id=?',  $productId);
+
         if ($object->getCustomerId()) {
             $select->where('customer_id=?', $object->getCustomerId());
+        }
+        else {
+            $select->where('visitor_id=?', $object->getVisitorId());
         }
 
         $data = $read->fetchRow($select);
@@ -99,21 +102,20 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item extends Mage_C
     /**
      * Clean compare table
      *
-     * @param Mage_Catalog_Model_Product_Compare_Item $object
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item
      */
-    public function clean(Mage_Catalog_Model_Product_Compare_Item $object)
+    public function clean()
     {
         while (true) {
             $select = $this->_getReadAdapter()->select()
                 ->from(array('compare_table' => $this->getMainTable()), array('catalog_compare_item_id'))
                 ->joinLeft(
                     array('visitor_table' => $this->getTable('log/visitor')),
-                    '`visitor_table`.`visitor_id`=`compare_table`.`visitor_id`',
+                    '`visitor_table`.`visitor_id`=`compare_table`.`visitor_id` AND `compare_table`.`customer_id` IS NULL',
                     array())
-                ->where('compare_table.visitor_id>?',0)
+                ->where('compare_table.visitor_id>?', 0)
                 ->where('`visitor_table`.`visitor_id` IS NULL')
-                ->limit(1000);
+                ->limit(100);
             $itemIds = $this->_getReadAdapter()->fetchCol($select);
 
             if (!$itemIds) {
@@ -124,6 +126,97 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item extends Mage_C
                 $this->getMainTable(),
                 $this->_getWriteAdapter()->quoteInto('catalog_compare_item_id IN(?)', $itemIds)
             );
+        }
+
+        return $this;
+    }
+
+    /**
+     * Purge visitor data after customer logout
+     *
+     * @param Mage_Catalog_Model_Product_Compare_Item $object
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item
+     */
+    public function purgeVisitorByCustomer($object)
+    {
+        if (!$object->getCustomerId()) {
+            return $this;
+        }
+
+        $where  = $this->_getWriteAdapter()->quoteInto('customer_id=?', $object->getCustomerId());
+        $bind   = array(
+            'visitor_id' => 0,
+        );
+
+        $this->_getWriteAdapter()->update($this->getMainTable(), $bind, $where);
+
+        return $this;
+    }
+
+    /**
+     * Update (Merge) customer data from visitor
+     *
+     * After Login process
+     *
+     * @param Mage_Catalog_Model_Product_Compare_Item $object
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item
+     */
+    public function updateCustomerFromVisitor($object)
+    {
+        if (!$object->getCustomerId()) {
+            return $this;
+        }
+
+        // collect visitor compared items
+        $select = $this->_getWriteAdapter()->select()
+            ->from($this->getMainTable())
+            ->where('visitor_id=?', $object->getVisitorId());
+        $visitor = $this->_getWriteAdapter()->fetchAll($select);
+
+        // collect customer compared items
+        $select = $this->_getWriteAdapter()->select()
+            ->from($this->getMainTable())
+            ->where('customer_id=?', $object->getCustomerId())
+            ->where('visitor_id<>?', $object->getVisitorId());
+        $customer = $this->_getWriteAdapter()->fetchAll($select);
+
+        $products   = array();
+        $delete     = array();
+        $update     = array();
+        foreach ($visitor as $row) {
+            $products[$row['product_id']] = array(
+                'store_id'      => $row['store_id'],
+                'customer_id'   => $object->getCustomerId(),
+                'visitor_id'    => $object->getVisitorId(),
+                'product_id'    => $row['product_id']
+            );
+            $update[$row[$this->getIdFieldName()]] = $row['product_id'];
+        }
+
+        foreach ($customer as $row) {
+            if (isset($products[$row['product_id']])) {
+                $delete[] = $row[$this->getIdFieldName()];
+            }
+            else {
+                $products[$row['product_id']] = array(
+                    'store_id'      => $row['store_id'],
+                    'customer_id'   => $object->getCustomerId(),
+                    'visitor_id'    => $object->getVisitorId(),
+                    'product_id'    => $row['product_id']
+                );
+            }
+        }
+
+        if ($delete) {
+            $this->_getWriteAdapter()->delete($this->getMainTable(),
+                $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . ' IN(?)', $delete));
+        }
+        if ($update) {
+            foreach ($update as $itemId => $productId) {
+                $bind = $products[$productId];
+                $this->_getWriteAdapter()->update($this->getMainTable(), $bind,
+                    $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $itemId));
+            }
         }
 
         return $this;

@@ -32,9 +32,6 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Grand extends Mage_Sales_Model_Ord
         $grandTotal     = $creditmemo->getGrandTotal();
         $baseGrandTotal = $creditmemo->getBaseGrandTotal();
 
-        $grandTotal+= $creditmemo->getShippingAmount();
-        $baseGrandTotal+= $creditmemo->getBaseShippingAmount();
-
         $grandTotal+= $creditmemo->getAdjustmentPositive();
         $baseGrandTotal+= $creditmemo->getBaseAdjustmentPositive();
 

@@ -68,7 +68,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      *
      * @return Mage_Catalog_Model_Product
      */
-	protected function _initProduct()
+    protected function _initProduct()
     {
         Mage::dispatchEvent('review_controller_product_init_before', array('controller_action'=>$this));
         $categoryId = (int) $this->getRequest()->getParam('category', false);
@@ -195,6 +195,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
     {
         $this->loadLayout();
         $this->_initLayoutMessages('review/session');
+        $this->_initLayoutMessages('catalog/session');
         $this->renderLayout();
     }
 

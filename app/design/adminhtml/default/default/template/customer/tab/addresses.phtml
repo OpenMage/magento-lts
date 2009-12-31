@@ -145,6 +145,7 @@ addressesModel.prototype = {
 
         this.loader = new varienLoader(true);
         this.regionsUrl = '<?php echo $this->getRegionsUrl() ?>';
+        this.zipOptionalCountries = <?php echo $this->getCountriesWithOptionalZipJson() ?>;
 
         this.reloadItemList(1);
 
@@ -184,6 +185,10 @@ addressesModel.prototype = {
             Element.hide($('form_'+item.id));
             $('form_'+item.id).statusBar = item;
             $('form_'+item.id).addressItem = item;
+
+            // set Zip optional/required
+            var countryElement = $('id' + item.id.replace(/address_item_/, '') + 'country_id');
+            this.setZipOptional(countryElement);
         }
     },
 
@@ -448,6 +453,19 @@ addressesModel.prototype = {
                 var url = this.regionsUrl+'parent/'+countryElement.value;
                 this.loader.load(url, {}, this.refreshRegionField.bind(this));
             }
+            // set Zip optional/required
+            this.setZipOptional(countryElement);
+        }
+    },
+
+    setZipOptional : function (countryElement){
+        var zipElement = $(countryElement.id.replace(/country_id/, 'postcode'))
+        if (zipElement && this.zipOptionalCountries.indexOf(countryElement.value) != -1) {
+            zipElement.removeClassName('required-entry').removeClassName('required-entry');
+            zipElement.up(1).down('label > span.required').hide();
+        } else {
+            zipElement.addClassName('required-entry');
+            zipElement.up(1).down('label > span.required').show();
         }
     },
 

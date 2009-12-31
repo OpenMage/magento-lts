@@ -18,7 +18,7 @@
  * @subpackage Zend_OpenId_Consumer
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php 12969 2008-12-01 12:54:06Z dmitry $
+ * @version    $Id: File.php 13522 2009-01-06 16:35:55Z thomas $
  */
 
 /**
@@ -53,7 +53,7 @@ class Zend_OpenId_Consumer_Storage_File extends Zend_OpenId_Consumer_Storage
      */
     public function __construct($dir = null)
     {
-        if (is_null($dir)) {
+        if ($dir === null) {
             $tmp = getenv('TMP');
             if (empty($tmp)) {
                 $tmp = getenv('TEMP');
@@ -155,7 +155,7 @@ class Zend_OpenId_Consumer_Storage_File extends Zend_OpenId_Consumer_Storage
             @unlink($name1);
             $ret = true;
         } else {
-        	$ret = false;
+            $ret = false;
         }
         fclose($f);
         fclose($lock);

@@ -74,6 +74,13 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions extends Mage_Adminhtml_B
             'label' => Mage::helper('salesrule')->__('Discount Qty Step (Buy X)'),
         ));
 
+        $fieldset->addField('apply_to_shipping', 'select', array(
+            'label'     => Mage::helper('salesrule')->__('Apply to Shipping Amount'),
+            'title'     => Mage::helper('salesrule')->__('Apply to Shipping Amount'),
+            'name'      => 'apply_to_shipping',
+            'values'    => Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray(),
+        ));
+
         $fieldset->addField('simple_free_shipping', 'select', array(
             'label'     => Mage::helper('salesrule')->__('Free shipping'),
             'title'     => Mage::helper('salesrule')->__('Free shipping'),

@@ -17,7 +17,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Pgsql.php 9101 2008-03-30 19:54:38Z thomas $
+ * @version    $Id: Pgsql.php 14953 2009-04-17 00:56:16Z norm2782 $
  */
 
 
@@ -71,6 +71,26 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
         'NUMERIC'            => Zend_Db::FLOAT_TYPE,
         'REAL'               => Zend_Db::FLOAT_TYPE
     );
+
+    /**
+     * Creates a PDO object and connects to the database.
+     *
+     * @return void
+     * @throws Zend_Db_Adapter_Exception
+     */
+    protected function _connect()
+    {
+        if ($this->_connection) {
+            return;
+        }
+
+    	parent::_connect();
+
+        if (!empty($this->_config['charset'])) {
+            $sql = "SET NAMES '" . $this->_config['charset'] . "'";
+            $this->_connection->exec($sql);
+        }
+    }
 
     /**
      * Returns a list of the tables in the database.

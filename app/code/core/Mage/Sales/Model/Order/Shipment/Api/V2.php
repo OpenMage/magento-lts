@@ -128,48 +128,28 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
              $this->_fault('data_invalid', Mage::helper('sales')->__('Can not do shipment for order.'));
         }
 
-        $convertor   = Mage::getModel('sales/convert_order');
         $shipment    = $convertor->toShipment($order);
          /* @var $shipment Mage_Sales_Model_Order_Shipment */
-
-        foreach ($order->getAllItems() as $orderItem) {
-            if (!$orderItem->getQtyToShip()) {
-                continue;
+        $shipment = $order->prepareShipment($itemsQty);
+        if ($shipment) {
+            $shipment->register();
+            $shipment->addComment($comment, $email && $includeComment);
+            if ($email) {
+                $shipment->setEmailSent(true);
             }
-            if ($orderItem->getIsVirtual()) {
-                continue;
+            $shipment->getOrder()->setIsInProcess(true);
+            try {
+                $transactionSave = Mage::getModel('core/resource_transaction')
+                    ->addObject($shipment)
+                    ->addObject($shipment->getOrder())
+                    ->save();
+                $shipment->sendEmail($email, ($includeComment ? $comment : ''));
+            } catch (Mage_Core_Exception $e) {
+                $this->_fault('data_invalid', $e->getMessage());
             }
-            $item = $convertor->itemToShipmentItem($orderItem);
-            if (isset($itemsQty[$orderItem->getId()])) {
-                $qty = $itemsQty[$orderItem->getId()];
-            }
-            else {
-                $qty = $orderItem->getQtyToShip();
-            }
-            $item->setQty($qty);
-            $shipment->addItem($item);
+            return $shipment->getIncrementId();
         }
-        $shipment->register();
-        $shipment->addComment($comment, $email && $includeComment);
-
-        if ($email) {
-            $shipment->setEmailSent(true);
-        }
-
-        $shipment->getOrder()->setIsInProcess(true);
-
-        try {
-            $transactionSave = Mage::getModel('core/resource_transaction')
-                ->addObject($shipment)
-                ->addObject($shipment->getOrder())
-                ->save();
-
-            $shipment->sendEmail($email, ($includeComment ? $comment : ''));
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
-        }
-
-        return $shipment->getIncrementId();
+        return null;
     }
 
     /**

@@ -111,7 +111,7 @@ var linkTemplate = '<tr>'+
     '</td>'+
     '<td class="input-price">'+
         '<input type="text" class="input-text validate-number link-prices" name="downloadable[link][{{id}}][price]" value="{{price}}" /> '+
-        '<label>[<?php echo Mage::app()->getBaseCurrencyCode() ?>]</label>'+
+        '<label>[<?php echo Mage::app()->getStore($_product->getStoreId())->getBaseCurrencyCode() ?>]</label>'+
         '<?php echo $_product->getStoreId() && $this->getIsPriceWebsiteScope()?'<br /><input type="checkbox" id="downloadable_link_{{id}}_price" name="downloadable[link][{{id}}][use_default_price]" value="1" /> <label for="downloadable_link_{{id}}_price">Use Default Value</label>':'' ?>'+
     '</td>'+
     '<td><input type="text" id="downloadable_link_{{id}}_downloads" name="downloadable[link][{{id}}][number_of_downloads]" class="input-text downloads" value="{{number_of_downloads}}" />'+

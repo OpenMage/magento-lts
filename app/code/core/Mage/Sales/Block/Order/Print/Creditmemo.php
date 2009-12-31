@@ -34,12 +34,6 @@
 
 class Mage_Sales_Block_Order_Print_Creditmemo extends Mage_Sales_Block_Items_Abstract
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -79,8 +73,23 @@ class Mage_Sales_Block_Order_Print_Creditmemo extends Mage_Sales_Block_Items_Abs
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
     {
         $renderer->setPrintStatus(true);
-
         return parent::_prepareItem($renderer);
     }
-}
 
+    /**
+     * Get Creditmemo totals block html gor specific creditmemo
+     *
+     * @param   Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @return  string
+     */
+    public function getTotalsHtml($creditmemo)
+    {
+        $totals = $this->getChild('creditmemo_totals');
+        $html = '';
+        if ($totals) {
+            $totals->setCreditmemo($creditmemo);
+            $html = $totals->toHtml();
+        }
+        return $html;
+    }
+}

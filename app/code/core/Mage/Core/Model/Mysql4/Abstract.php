@@ -93,6 +93,13 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
      */
     protected $_isPkAutoIncrement = true;
 
+    /**
+     * Fields List for update in forsedSave
+     *
+     * @var array
+     */
+    protected $_fieldsForUpdate = array();
+
     protected $_mainTableFields;
 
     /**
@@ -367,6 +374,32 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
             }
         } else {
             $this->_getWriteAdapter()->insert($this->getMainTable(), $this->_prepareDataForSave($object));
+            $object->setId($this->_getWriteAdapter()->lastInsertId($this->getMainTable()));
+        }
+
+        $this->_afterSave($object);
+
+        return $this;
+    }
+
+    /**
+     * Forsed save object data
+     * forsed update If duplicate unique key data
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @return Mage_Core_Model_Mysql4_Abstract
+     */
+    public function forsedSave(Mage_Core_Model_Abstract $object)
+    {
+        $this->_beforeSave($object);
+
+        // update
+        if (!is_null($object->getId()) && $this->_isPkAutoIncrement) {
+            $condition = $this->_getWriteAdapter()->quoteInto($this->getIdFieldName().'=?', $object->getId());
+            $this->_getWriteAdapter()->update($this->getMainTable(), $this->_prepareDataForSave($object), $condition);
+        }
+        else {
+            $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), $this->_prepareDataForSave($object), $this->_fieldsForUpdate);
             $object->setId($this->_getWriteAdapter()->lastInsertId($this->getMainTable()));
         }
 

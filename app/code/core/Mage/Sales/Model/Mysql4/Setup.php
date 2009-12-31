@@ -343,7 +343,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
 
                     'coupon_code'       => array(),
                     'applied_rule_ids'  => array(),
-                    'giftcert_code'     => array(),
 
                     'global_currency_code'   => array(),
                     'base_currency_code'    => array(),
@@ -364,7 +363,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                     'shipping_amount'   => array('type'=>'static'),
                     'shipping_tax_amount'   => array('type'=>'static'),
                     'discount_amount'   => array('type'=>'static'),
-                    'giftcert_amount'   => array('type'=>'decimal'),
 
                     'subtotal'          => array('type'=>'static'),
                     'grand_total'       => array('type'=>'static'),
@@ -383,7 +381,6 @@ class Mage_Sales_Model_Mysql4_Setup extends Mage_Eav_Model_Entity_Setup
                     'base_shipping_amount'   => array('type'=>'static'),
                     'base_shipping_tax_amount'   => array('type'=>'static'),
                     'base_discount_amount'   => array('type'=>'static'),
-                    'base_giftcert_amount'   => array('type'=>'decimal'),
 
                     'base_subtotal'          => array('type'=>'static'),
                     'base_grand_total'       => array('type'=>'static'),

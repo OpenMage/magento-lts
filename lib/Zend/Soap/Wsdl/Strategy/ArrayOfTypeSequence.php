@@ -19,6 +19,8 @@
  * @version    $Id$
  */
 
+#require_once "Abstract.php";
+
 class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strategy_Abstract
 {
     /**
@@ -41,7 +43,7 @@ class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strateg
                 $this->_addElementFromWsdlAndChildTypes($complexTypeName, $childTypeName);
             }
             // adding the PHP type which is resolved to a nested XSD type. therefore add only once.
-            $this->getContext()->addType($type);
+            $this->getContext()->addType($complexTypeName);
 
             return "tns:$complexTypeName";
         } else {

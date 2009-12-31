@@ -116,6 +116,9 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
     public function saveAction ()
     {
         $request = $this->getRequest();
+        if (!$request->isPost()) {
+            $this->getResponse()->setRedirect($this->getUrl('*/newsletter_template'));
+        }
         $template = Mage::getModel('newsletter/template');
 
         if ($id = (int)$request->getParam('id')) {

@@ -45,7 +45,7 @@ class Zend_ProgressBar_Adapter_JsPull extends Zend_ProgressBar_Adapter
      * @var boolean
      */
     protected $_exitAfterSend = true;
-    
+
     /**
      * Set wether to exit after json data send or not
      *
@@ -56,13 +56,13 @@ class Zend_ProgressBar_Adapter_JsPull extends Zend_ProgressBar_Adapter
     {
         $this->_exitAfterSend = $exitAfterSend;
     }
-    
+
     /**
      * Defined by Zend_ProgressBar_Adapter_Interface
      *
      * @param  float   $current       Current progress value
      * @param  float   $max           Max progress value
-     * @param  flaot   $percent       Current percent value
+     * @param  float   $percent       Current percent value
      * @param  integer $timeTaken     Taken time in seconds
      * @param  integer $timeRemaining Remaining time in seconds
      * @param  string  $text          Status text
@@ -77,15 +77,15 @@ class Zend_ProgressBar_Adapter_JsPull extends Zend_ProgressBar_Adapter
             'timeTaken'     => $timeTaken,
             'timeRemaining' => $timeRemaining,
             'text'          => $text,
-            'finished'      => false            
+            'finished'      => false
         );
-        
+
         $data = Zend_Json::encode($arguments);
 
         // Output the data
         $this->_outputData($data);
     }
-    
+
     /**
      * Defined by Zend_ProgressBar_Adapter_Interface
      *
@@ -94,13 +94,13 @@ class Zend_ProgressBar_Adapter_JsPull extends Zend_ProgressBar_Adapter
     public function finish()
     {
         $data = Zend_Json::encode(array('finished' => true));
-              
+
         $this->_outputData($data);
     }
-    
+
     /**
      * Outputs given data the user agent.
-     * 
+     *
      * This split-off is required for unit-testing.
      *
      * @param  string $data
@@ -108,7 +108,7 @@ class Zend_ProgressBar_Adapter_JsPull extends Zend_ProgressBar_Adapter
      */
     protected function _outputData($data)
     {
-        echo $data;   
+        echo $data;
 
         if ($this->_exitAfterSend) {
             exit;

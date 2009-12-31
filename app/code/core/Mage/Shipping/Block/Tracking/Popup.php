@@ -161,31 +161,46 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         return $shipTrack;
     }
 
-    /*
-    * change date format to mm/dd/Y hh:mm AM/PM
-    */
-    public function formatDeliveryDateTime($date,$time)
+    /**
+     * Format given date and time in current locale without changing timezone
+     *
+     * @param string $date
+     * @param string $time
+     * @return string
+     */
+    public function formatDeliveryDateTime($date, $time)
     {
-        return Mage::app()->getLocale()->date(strtotime($date.' '.$time),Zend_Date::TIMESTAMP, null, false)->toString('MM/dd/YYYY hh:mm a');
+        return $this->formatDeliveryDate($date) . ' ' . $this->formatDeliveryTime($time);
     }
 
-    /*
-    * change date format to mm/dd/Y
-    */
+    /**
+     * Format given date in current locale without changing timezone
+     *
+     * @param string $date
+     * @return string
+     */
     public function formatDeliveryDate($date)
     {
-        return Mage::app()->getLocale()->date(strtotime($date),Zend_Date::TIMESTAMP, null, false)->toString('MM/dd/YYYY');
+        $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
+        return Mage::app()->getLocale()->date(strtotime($date), Zend_Date::TIMESTAMP, null, false)
+            ->toString($format);
     }
 
-    /*
-    * change date format to mm/dd/Y
-    */
+    /**
+     * Format given time [+ date] in current locale without changing timezone
+     *
+     * @param string $time
+     * @param string $date
+     * @return string
+     */
     public function formatDeliveryTime($time, $date = null)
     {
         if (!empty($date)) {
-            $time = $date.' '.$time;
+            $time = $date . ' ' . $time;
         }
-        return Mage::app()->getLocale()->date(strtotime($time),Zend_Date::TIMESTAMP, null, false)->toString('hh:mm a');
+        $format = Mage::app()->getLocale()->getTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+        return Mage::app()->getLocale()->date(strtotime($time), Zend_Date::TIMESTAMP, null, false)
+            ->toString($format);
     }
 
     public function getStoreSupportEmail()

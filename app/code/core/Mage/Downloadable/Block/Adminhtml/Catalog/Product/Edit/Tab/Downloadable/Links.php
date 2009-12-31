@@ -276,7 +276,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
         $this->getConfig()->setReplaceBrowseWithRemove(true);
         $this->getConfig()->setWidth('32');
         $this->getConfig()->setHideUploadButton(true);
-        return Zend_Json::encode($this->getConfig()->getData());
+        return Mage::helper('core')->jsonEncode($this->getConfig()->getData());
     }
 
     /**

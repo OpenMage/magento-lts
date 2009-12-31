@@ -42,6 +42,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region extends Mage_Adminhtml_
         }
 
         $regionId = $element->getForm()->getElement('region_id')->getValue();
+        $postcode = $element->getForm()->getElement('postcode');
 
         $html = '<tr>';
         $element->setClass('input-text');
@@ -54,9 +55,23 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region extends Mage_Adminhtml_
         $html.= '<option value="">'.Mage::helper('customer')->__('Please select').'</option>';
         $html.= '</select>';
         $html.= '<script type="text/javascript">
-        if ($("'.$country->getHtmlId().'") != undefined) {
-            new regionUpdater("'.$country->getHtmlId().'", "'.$element->getHtmlId().'", "'.$selectId.'", '.$this->helper('directory')->getRegionJson().');
-        }
+        Event.observe(window, "load", function() {
+            if ($("'.$country->getHtmlId().'") != undefined) {
+                var zipOptions = {};
+                zipOptions.input_el = "'.$postcode->getHtmlId().'";
+                zipOptions.label_el = $("'.$country->getHtmlId().'").up(1).next(1).down("label > span.required");
+                zipOptions.optional_countries = '.$this->helper('directory')->getCountriesWithOptionalZipJson($this->getStoreId()).';
+                new regionUpdater(
+                    "'.$country->getHtmlId().'",
+                    "'.$element->getHtmlId().'",
+                    "'.$selectId.'",
+                    '.$this->helper('directory')->getRegionJson().',
+                    undefined,
+                    undefined,
+                    zipOptions
+                );
+            }
+        });
         </script>';
         $html.= '</td></tr>'."\n";
         return $html;

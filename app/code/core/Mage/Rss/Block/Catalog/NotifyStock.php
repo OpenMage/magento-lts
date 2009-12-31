@@ -58,7 +58,7 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         $_configManageStock = (int)Mage::getStoreConfigFlag(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK);
         $stockItemWhere = "({{table}}.low_stock_date is not null) "
             . " and ({{table}}.low_stock_date>'0000-00-00') "
-            . " and IF({{table}}.use_config_manage_stock=1," . $_configManageStock . ",{{table}}.manage_stock)=1";
+            . " and IF({{table}}.use_config_manage_stock=1," . $_configManageStock . ",{{table}}.manage_stock) <= 1";
 
         $product = Mage::getModel('catalog/product');
         $collection = $product->getCollection()

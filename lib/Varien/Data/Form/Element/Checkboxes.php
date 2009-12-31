@@ -155,7 +155,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                     $disabled[$k] = strval($v);
                 }
             }
-            if (array_search(strval($value), $disabled)) {
+            if (array_search(strval($value), $disabled) !== false) {
                 return 'disabled';
             }
         }

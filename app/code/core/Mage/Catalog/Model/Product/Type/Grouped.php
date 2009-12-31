@@ -265,6 +265,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      */
     public function prepareForCart(Varien_Object $buyRequest, $product = null)
     {
+        $product = $this->getProduct($product);
         $productsInfo = $buyRequest->getSuperGroup();
         if (!empty($productsInfo) && is_array($productsInfo)) {
             $products = array();
@@ -286,12 +287,12 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                             }
 
                             $_result[0]->setCartQty($qty);
-                            $_result[0]->addCustomOption('product_type', self::TYPE_CODE, $this->getProduct($product));
+                            $_result[0]->addCustomOption('product_type', self::TYPE_CODE, $product);
                             $_result[0]->addCustomOption('info_buyRequest',
                                 serialize(array(
                                     'super_product_config' => array(
                                         'product_type'  => self::TYPE_CODE,
-                                        'product_id'    => $this->getProduct($product)->getId()
+                                        'product_id'    => $product->getId()
                                     )
                                 ))
                             );

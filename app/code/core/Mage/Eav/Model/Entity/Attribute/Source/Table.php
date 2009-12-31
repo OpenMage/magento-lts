@@ -146,14 +146,16 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     public function getFlatColums()
     {
         $columns = array();
+        $isMulti = $this->getAttribute()->getFrontend()->getInputType() == 'multiselect';
         $columns[$this->getAttribute()->getAttributeCode()] = array(
-            'type'      => 'int',
+            'type'      => $isMulti ? 'varchar(255)' : 'int',
             'unsigned'  => false,
             'is_null'   => true,
             'default'   => null,
             'extra'     => null
         );
-        if ($this->getAttribute()->getFrontend()->getInputType() != 'multiselect') {
+
+        if (!$isMulti) {
             $columns[$this->getAttribute()->getAttributeCode() . '_value'] = array(
                 'type'      => 'varchar(255)',
                 'unsigned'  => false,

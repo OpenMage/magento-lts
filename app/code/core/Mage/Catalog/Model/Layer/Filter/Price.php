@@ -133,10 +133,11 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         $key = $this->getLayer()->getStateKey()
             . '_PRICES_GRP_' . Mage::getSingleton('customer/session')->getCustomerGroupId()
             . '_CURR_' . Mage::app()->getStore()->getCurrentCurrencyCode()
+            . '_ATTR_' . $this->getAttributeModel()->getAttributeCode()
             . '_LOC_'
             ;
         $taxReq = Mage::getSingleton('tax/calculation')->getRateRequest(false, false, false);
-        $key.= $taxReq->__toString(array(), '_');
+        $key.= implode('_', $taxReq->getData());
         return $key;
     }
 

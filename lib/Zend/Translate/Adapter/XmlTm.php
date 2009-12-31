@@ -40,6 +40,7 @@ class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
     private $_lang        = null;
     private $_content     = null;
     private $_tag         = null;
+    private $_data        = array();
 
     /**
      * Generates the xmltm adapter
@@ -64,22 +65,18 @@ class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
      * @param  string  $filename  XMLTM file to add, full path must be given for access
      * @param  array   $option    OPTIONAL Options to use
      * @throws Zend_Translation_Exception
+     * @return array
      */
     protected function _loadTranslationData($filename, $locale, array $options = array())
     {
-        $options = $options + $this->_options;
+        $this->_data = array();
         $this->_lang = $locale;
-
-        if ($options['clear']  ||  !isset($this->_translate[$locale])) {
-            $this->_translate[$locale] = array();
-        }
-
         if (!is_readable($filename)) {
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Translation file \'' . $filename . '\' is not readable.');
         }
 
-        $encoding = $this->_findEncoding($filename);
+        $encoding    = $this->_findEncoding($filename);
         $this->_file = xml_parser_create($encoding);
         xml_set_object($this->_file, $this);
         xml_parser_set_option($this->_file, XML_OPTION_CASE_FOLDING, 0);
@@ -94,6 +91,8 @@ class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception($ex);
         }
+
+        return $this->_data;
     }
 
     private function _startElement($file, $name, $attrib)
@@ -113,8 +112,8 @@ class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
         switch (strtolower($name)) {
             case 'tm:tu':
                 if (!empty($this->_tag) and !empty($this->_content) or
-                    (isset($this->_translate[$this->_lang][$this->_tag]) === false)) {
-                    $this->_translate[$this->_lang][$this->_tag] = $this->_content;
+                    (isset($this->_data[$this->_lang][$this->_tag]) === false)) {
+                    $this->_data[$this->_lang][$this->_tag] = $this->_content;
                 }
                 $this->_tag     = null;
                 $this->_content = null;

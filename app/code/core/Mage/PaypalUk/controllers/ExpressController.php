@@ -71,6 +71,11 @@ class Mage_PaypalUk_ExpressController extends Mage_Core_Controller_Front_Action
         $this->getResponse()->setRedirect($this->getExpress()->getRedirectUrl());
     }
 
+    public function editAction()
+    {
+        $this->getResponse()->setRedirect($this->getExpress()->getApi()->getPaypalUrl());
+    }
+
     /*
     * when a user click on cancel on paypal need to redirect them to shopping cart
     */

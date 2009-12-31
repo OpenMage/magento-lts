@@ -16,7 +16,7 @@
  * @package    Zend_Locale
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Math.php 8584 2008-03-06 18:36:46Z thomas $
+ * @version    $Id: Math.php 14041 2009-02-10 21:49:38Z thomas $
  */
 
 
@@ -37,14 +37,14 @@ class Zend_Locale_Math
     // support unit testing without using bcmath functions
     public static $_bcmathDisabled = false;
 
-    public static $add   = 'bcadd';
-    public static $sub   = 'bcsub';
-    public static $pow   = 'bcpow';
-    public static $mul   = 'bcmul';
-    public static $div   = 'bcdiv';
-    public static $comp  = 'bccomp';
-    public static $sqrt  = 'bcsqrt';
-    public static $mod   = 'bcmod';
+    public static $add   = array('Zend_Locale_Math', 'Add');
+    public static $sub   = array('Zend_Locale_Math', 'Sub');
+    public static $pow   = array('Zend_Locale_Math', 'Pow');
+    public static $mul   = array('Zend_Locale_Math', 'Mul');
+    public static $div   = array('Zend_Locale_Math', 'Div');
+    public static $comp  = array('Zend_Locale_Math', 'Comp');
+    public static $sqrt  = array('Zend_Locale_Math', 'Sqrt');
+    public static $mod   = array('Zend_Locale_Math', 'Mod');
     public static $scale = 'bcscale';
 
     public static function isBcmathDisabled()
@@ -127,6 +127,7 @@ class Zend_Locale_Math
             $value = str_replace($convert['negative_sign'], "", $value);
             $value = "-" . $value;
         }
+
         return $value;
     }
 
@@ -146,13 +147,153 @@ class Zend_Locale_Math
         }
         return $value;
     }
+
+    /**
+     * Changes exponential numbers to plain string numbers
+     * Fixes a problem of BCMath with numbers containing exponents
+     *
+     * @param integer $value Value to erase the exponent
+     * @param integer $scale (Optional) Scale to use
+     * @return string
+     */
+    public static function exponent($value, $scale = null)
+    {
+        if (!extension_loaded('bcmath')) {
+            return $value;
+        }
+
+        $split = explode('e', $value);
+        if (count($split) == 1) {
+            $split = explode('E', $value);
+        }
+
+        if (count($split) > 1) {
+            $value = bcmul($split[0], bcpow(10, $split[1], $scale), $scale);
+        }
+
+        return $value;
+    }
+
+    /**
+     * BCAdd - fixes a problem of BCMath and exponential numbers
+     *
+     * @param  string  $op1
+     * @param  string  $op2
+     * @param  integer $scale
+     * @return string
+     */
+    public static function Add($op1, $op2, $scale = null)
+    {
+        $op1 = self::exponent($op1, $scale);
+        $op2 = self::exponent($op2, $scale);
+        return bcadd($op1, $op2, $scale);
+    }
+
+    /**
+     * BCSub - fixes a problem of BCMath and exponential numbers
+     *
+     * @param  string  $op1
+     * @param  string  $op2
+     * @param  integer $scale
+     * @return string
+     */
+    public static function Sub($op1, $op2, $scale = null)
+    {
+        $op1 = self::exponent($op1, $scale);
+        $op2 = self::exponent($op2, $scale);
+        return bcsub($op1, $op2, $scale);
+    }
+
+    /**
+     * BCPow - fixes a problem of BCMath and exponential numbers
+     *
+     * @param  string  $op1
+     * @param  string  $op2
+     * @param  integer $scale
+     * @return string
+     */
+    public static function Pow($op1, $op2, $scale = null)
+    {
+        $op1 = self::exponent($op1, $scale);
+        $op2 = self::exponent($op2, $scale);
+        return bcpow($op1, $op2, $scale);
+    }
+
+    /**
+     * BCMul - fixes a problem of BCMath and exponential numbers
+     *
+     * @param  string  $op1
+     * @param  string  $op2
+     * @param  integer $scale
+     * @return string
+     */
+    public static function Mul($op1, $op2, $scale = null)
+    {
+        $op1 = self::exponent($op1, $scale);
+        $op2 = self::exponent($op2, $scale);
+        return bcmul($op1, $op2, $scale);
+    }
+
+    /**
+     * BCDiv - fixes a problem of BCMath and exponential numbers
+     *
+     * @param  string  $op1
+     * @param  string  $op2
+     * @param  integer $scale
+     * @return string
+     */
+    public static function Div($op1, $op2, $scale = null)
+    {
+        $op1 = self::exponent($op1, $scale);
+        $op2 = self::exponent($op2, $scale);
+        return bcdiv($op1, $op2, $scale);
+    }
+
+    /**
+     * BCSqrt - fixes a problem of BCMath and exponential numbers
+     *
+     * @param  string  $op1
+     * @param  integer $scale
+     * @return string
+     */
+    public static function Sqrt($op1, $scale = null)
+    {
+        $op1 = self::exponent($op1, $scale);
+        return bcsqrt($op1, $scale);
+    }
+
+    /**
+     * BCMod - fixes a problem of BCMath and exponential numbers
+     *
+     * @param  string  $op1
+     * @param  string  $op2
+     * @return string
+     */
+    public static function Mod($op1, $op2)
+    {
+        $op1 = self::exponent($op1);
+        $op2 = self::exponent($op2);
+        return bcmod($op1, $op2);
+    }
+
+    /**
+     * BCComp - fixes a problem of BCMath and exponential numbers
+     *
+     * @param  string  $op1
+     * @param  string  $op2
+     * @param  integer $scale
+     * @return string
+     */
+    public static function Comp($op1, $op2, $scale = null)
+    {
+        $op1 = self::exponent($op1, $scale);
+        $op2 = self::exponent($op2, $scale);
+        return bccomp($op1, $op2, $scale);
+    }
 }
 
 if ((defined('TESTS_ZEND_LOCALE_BCMATH_ENABLED') && !TESTS_ZEND_LOCALE_BCMATH_ENABLED)
     || !extension_loaded('bcmath')) {
-    if (defined('COMPILER_INCLUDE_PATH')) {
-        require_once 'Zend_Locale_Math_PhpMath.php';
-    } else {
-        require_once 'Zend/Locale/Math/PhpMath.php';
-    }
+    require_once 'Zend/Locale/Math/PhpMath.php';
+    Zend_Locale_Math_PhpMath::disable();
 }

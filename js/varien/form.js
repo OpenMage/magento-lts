@@ -160,7 +160,7 @@ VarienForm.prototype = {
 
 RegionUpdater = Class.create();
 RegionUpdater.prototype = {
-    initialize: function (countryEl, regionTextEl, regionSelectEl, regions, disableAction)
+    initialize: function (countryEl, regionTextEl, regionSelectEl, regions, disableAction, zipOptions)
     {
         this.countryEl = $(countryEl);
         this.regionTextEl = $(regionTextEl);
@@ -168,6 +168,7 @@ RegionUpdater.prototype = {
         this.regions = regions;
 
         this.disableAction = (typeof disableAction=='undefined') ? 'hide' : disableAction;
+        this.zipOptions = (typeof zipOptions=='undefined') ? false : zipOptions;
 
         if (this.regionSelectEl.options.length<=1) {
             this.update();
@@ -241,16 +242,72 @@ RegionUpdater.prototype = {
             }
             this.setMarkDisplay(this.regionSelectEl, false);
         }
+        this.setZipOptional();
     },
 
     setMarkDisplay: function(elem, display){
         elem = $(elem);
-        var labelElement = elem.up(1).down('label > span.required') || 
+        var labelElement = elem.up(1).down('label > span.required') ||
                            elem.up(2).down('label > span.required') ||
                            elem.up(1).down('label.required > em') ||
                            elem.up(2).down('label.required > em');
         if(labelElement) {
-            display ? labelElement.show() : labelElement.hide();
+            inputElement = labelElement.up().next('input');
+            if (display) {
+                labelElement.show();
+                if (inputElement) {
+                    inputElement.addClassName('required-entry');
+                }
+            } else {
+                labelElement.hide();
+                if (inputElement) {
+                    inputElement.removeClassName('required-entry');
+                }
+            }
+        }
+    },
+
+    setZipOptional: function(){
+        if (!this.zipOptions) {
+            return;
+        }
+        var elem = this.countryEl;
+        var labelElement, inputElement, optionalZipCountries;
+
+        // find required mark (*) for zip
+        if (this.zipOptions.label_el) {
+            labelElement = $(this.zipOptions.label_el);
+        } else {
+            labelElement = elem.up(1).down('label > span.required') ||
+                               elem.up(2).down('label > span.required') ||
+                               elem.up(1).down('label.required > em') ||
+                               elem.up(2).down('label.required > em');
+        }
+
+        // find input field for zip
+        if (this.zipOptions.input_el) {
+            inputElement = $(this.zipOptions.input_el);
+        } else {
+            inputElement = elem.up(1).down('input');
+        }
+
+        // find countries which have optional zip code
+        if (this.zipOptions.optional_countries) {
+            optionalZipCountries = this.zipOptions.optional_countries;
+        } else {
+            optionalZipCountries = this.zipOptions;
+        }
+
+        if (!labelElement || !inputElement) {
+            return;
+        }
+
+        if (optionalZipCountries.indexOf(this.countryEl.value) != -1) {
+            labelElement.hide();
+            inputElement.removeClassName('required-entry');
+        } else {
+            labelElement.show();
+            inputElement.addClassName('required-entry');
         }
     }
 }

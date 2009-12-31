@@ -307,6 +307,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
                 : $this->getIndent();
 
         $items = array();
+        $this->getContainer()->ksort();
         foreach ($this as $item) {
             $items[] = $this->itemToString($item);
         }

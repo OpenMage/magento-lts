@@ -82,7 +82,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
         // Fixed for tax_class_id and custom_design
         if (sizeof($options) > 0) foreach($options as $option) {
             if (isset($option['value']) && $option['value'] == $value) {
-                return $option;
+                return isset($option['label']) ? $option['label'] : $option['value'];
             }
         } // End
         if (isset($options[$value])) {

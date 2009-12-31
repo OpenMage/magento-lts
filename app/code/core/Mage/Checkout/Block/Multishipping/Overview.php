@@ -215,9 +215,13 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
 
-    public function renderTotals($totals)
+    public function renderTotals($totals, $colspan=null)
     {
-        $colspan = $this->helper('tax')->displayCartBothPrices() ? 5 : 3;
-        return $this->getChild('totals')->setTotals($totals)->renderTotals(-1, $colspan);
+        if ($colspan === null) {
+            $colspan = $this->helper('tax')->displayCartBothPrices() ? 5 : 3;
+        }
+        $totals = $this->getChild('totals')->setTotals($totals)->renderTotals('', $colspan)
+            . $this->getChild('totals')->setTotals($totals)->renderTotals('footer', $colspan);
+        return $totals;
     }
 }

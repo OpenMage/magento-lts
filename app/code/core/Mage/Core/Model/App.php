@@ -136,13 +136,6 @@ class Mage_Core_Model_App
     protected $_cache;
 
     /**
-     * Helpers array
-     *
-     * @var array
-     */
-    protected $_helpers = array();
-
-    /**
     * Use Cache
     *
     * @var array
@@ -843,19 +836,12 @@ class Mage_Core_Model_App
     /**
      * Retrieve helper object
      *
-     * @param   helper name $name
-     * @return  Mage_Core_Helper_Abstract
+     * @param string $name
+     * @return Mage_Core_Helper_Abstract
      */
     public function getHelper($name)
     {
-        if (strpos($name, '/') === false) {
-            $name .= '/data';
-        }
-        if (!isset($this->_helpers[$name])) {
-            $class = Mage::getConfig()->getHelperClassName($name);
-            $this->_helpers[$name] = new $class();
-        }
-        return $this->_helpers[$name];
+        return Mage::helper($name);
     }
 
     /**

@@ -110,8 +110,8 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
 
 
         if ($customer = $address->getCustomer()) {
-            $result['is_default_billing']  = $customer->getDefaultBillingAddress() == $address->getId();
-            $result['is_default_shipping'] = $customer->getDefaultShippingAddress() == $address->getId();
+            $result['is_default_billing']  = $customer->getDefaultBilling() == $address->getId();
+            $result['is_default_shipping'] = $customer->getDefaultShipping() == $address->getId();
         }
 
         return $result;

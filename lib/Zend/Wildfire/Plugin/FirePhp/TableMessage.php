@@ -90,9 +90,75 @@ class Zend_Wildfire_Plugin_FirePhp_TableMessage extends Zend_Wildfire_Plugin_Fir
     public function getMessage()
     {
         $table = $this->_rows;
-        array_unshift($table,$this->_header);
+        if($this->_header) {
+            array_unshift($table,$this->_header);
+        }
         return $table;
     }
 
-}
+    /**
+     * Returns the row at the given index
+     *
+     * @param integer $index The index of the row
+     * @return array Returns the row
+     * @throws Zend_Wildfire_Exception
+     */
+    public function getRowAt($index)
+    {
+        $count = $this->getRowCount();
+        
+        if($index < 0 || $index > $count-1) {
+            #require_once 'Zend/Wildfire/Exception.php';
+            throw new Zend_Wildfire_Exception('Row index('.$index.') out of bounds('.$count.')!');
+        }
+      
+        return $this->_rows[$index];
+    }
 
+    /**
+     * Sets the row on the given index to a new row
+     *
+     * @param integer $index The index of the row
+     * @param array $row The new data for the row
+     * @throws Zend_Wildfire_Exception
+     */
+    public function setRowAt($index, $row)
+    {
+        $count = $this->getRowCount();
+        
+        if($index < 0 || $index > $count-1) {
+            #require_once 'Zend/Wildfire/Exception.php';
+            throw new Zend_Wildfire_Exception('Row index('.$index.') out of bounds('.$count.')!');
+        }
+      
+        $this->_rows[$index] = $row;
+    }
+
+    /**
+     * Returns the number of rows
+     *
+     * @return integer
+     */
+    public function getRowCount()
+    {
+        return count($this->_rows);
+    }
+
+    /**
+     * Returns the last row of the table
+     *
+     * @return array Returns the last row
+     * @throws Zend_Wildfire_Exception
+     */
+    public function getLastRow()
+    {
+        $count = $this->getRowCount();
+        
+        if($count==0) {
+            #require_once 'Zend/Wildfire/Exception.php';
+            throw new Zend_Wildfire_Exception('Cannot get last row as no rows exist!');
+        }
+
+        return $this->_rows[$count-1];
+    }
+}

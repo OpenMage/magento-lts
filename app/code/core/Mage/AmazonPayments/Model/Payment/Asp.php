@@ -183,7 +183,27 @@ class Mage_AmazonPayments_Model_Payment_Asp extends Mage_Payment_Model_Method_Ab
     {
         return $this->getApi()->getPayUrl();
     }
+    
+    /**
+     * Return choice method description 
+     *
+     * @return string
+     */
+    public function getChoiceMethodDescription()
+    {
+        return $this->getConfig('choice_method_description');
+    }
 
+    /**
+     * Return redirect message 
+     *
+     * @return string
+     */
+    public function getRedirectMessage()
+    {
+        return $this->getConfig('redirect_message');
+    }
+    
     /**
      * Return pay params for current order
      *

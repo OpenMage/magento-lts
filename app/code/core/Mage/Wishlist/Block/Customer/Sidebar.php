@@ -20,70 +20,79 @@
  *
  * @category   Mage
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Wishlist sidebar block
  *
  * @category   Mage
  * @package    Mage_Wishlist
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
-class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Catalog_Block_Product_Abstract
+class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
 {
-    protected  $_wishlist = null;
-
-    public function getWishlistItems()
+    /**
+     * Add sidebar conditions to collection
+     *
+     * @param Mage_Wishlist_Model_Mysql4_Product_Collection $collection
+     * @return Mage_Wishlist_Block_Customer_Wishlist
+     */
+    protected function _prepareCollection($collection)
     {
-        return $this->getWishlist()->getProductCollection();
+        $collection->setPage(1, 3);
+        $collection->addAttributeToSort('added_at', 'desc');
+
+        return $this;
     }
 
-    public function getWishlist()
-    {
-        if(is_null($this->_wishlist)) {
-            $this->_wishlist = Mage::getModel('wishlist/wishlist')
-                ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer());
-
-            $collection = $this->_wishlist->getProductCollection()
-                ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-                //->addAttributeToFilter('store_id', array('in'=>$this->_wishlist->getSharedStoreIds()))
-                ->addStoreFilter()
-                ->addAttributeToSort('added_at', 'desc')
-                ->setCurPage(1)
-                ->setPageSize(3)
-                ->addUrlRewrite();
-
-            Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($collection);
-            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($collection);
-        }
-
-        return $this->_wishlist;
-    }
-
+    /**
+     * Prepare before to html
+     *
+     * @return string
+     */
     protected function _toHtml()
     {
-        if( sizeof($this->getWishlistItems()->getItems()) > 0 ){
+        if ($this->_getHelper()->hasItems()) {
             return parent::_toHtml();
-        } else {
-            return '';
         }
+
+        return '';
     }
 
+    /**
+     * Can Display wishlist
+     *
+     * @return bool
+     */
     public function getCanDisplayWishlist()
     {
-        return Mage::getSingleton('customer/session')->isLoggedIn();
+        return $this->_getCustomerSession()->isLoggedIn();
     }
 
+    /**
+     * Retrieve URL for removing item from wishlist
+     *
+     * @deprecated back compatibility alias for getItemRemoveUrl
+     * @param Mage_Wishlist_Model_Item $item
+     * @return string
+     */
     public function getRemoveItemUrl($item)
     {
-        return $this->getUrl('wishlist/index/remove',array('item'=>$item->getWishlistItemId()));
+        return $this->getItemRemoveUrl($item);
     }
 
-    public function getAddToCartItemUrl($item)
+    /**
+     * Retrieve URL for adding product to shopping cart and remove item from wishlist
+     *
+     * @deprecated
+     * @param Mage_Catalog_Model_Product $product
+     * @return string
+     */
+    public function getAddToCartItemUrl($product)
     {
-        return Mage::helper('wishlist')->getAddToCartUrlBase64($item);
+        return $this->getItemAddToCartUrl($product);
     }
 }

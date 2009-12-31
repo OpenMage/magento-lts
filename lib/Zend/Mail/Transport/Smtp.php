@@ -17,14 +17,9 @@
  * @subpackage Transport
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Smtp.php 12519 2008-11-10 18:41:24Z alexander $
+ * @version    $Id: Smtp.php 15577 2009-05-14 12:43:34Z matthew $
  */
 
-
-/**
- * @see Zend_Loader
- */
-#require_once 'Zend/Loader.php';
 
 /**
  * @see Zend_Mime
@@ -192,7 +187,10 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
             if ($this->_auth) {
                 $connectionClass .= '_Auth_' . ucwords($this->_auth);
             }
-            #Zend_Loader::loadClass($connectionClass);
+            if (!class_exists($connectionClass)) {
+                #require_once 'Zend/Loader.php';
+                Zend_Loader::loadClass($connectionClass);
+            }
             $this->setConnection(new $connectionClass($this->_host, $this->_port, $this->_config));
             $this->_connection->connect();
             $this->_connection->helo($this->_name);

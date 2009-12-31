@@ -17,7 +17,7 @@
  * @subpackage SlideShare
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SlideShare.php 13220 2008-12-14 11:16:42Z thomas $
+ * @version    $Id: SlideShare.php 13522 2009-01-06 16:35:55Z thomas $
  */
 
 /**
@@ -520,11 +520,11 @@ class Zend_Service_SlideShare
                         'hash' => sha1($this->getSharedSecret().$timestamp),
                         $key => $value);
 
-        if(!is_null($offset)) {
+        if($offset !== null) {
             $params['offset'] = (int)$offset;
         }
 
-        if(!is_null($limit)) {
+        if($limit !== null) {
             $params['limit'] = (int)$limit;
         }
 

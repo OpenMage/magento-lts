@@ -44,7 +44,7 @@ abstract class Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract exte
     protected function _getAllowedCurrencies()
     {
         if ($this->getData('groups/options/fields/allow/inherit')) {
-            return split(',', Mage::getConfig()->getNode('currency/options/allow', $this->getScope(), $this->getScopeId()));
+            return explode(',', Mage::getConfig()->getNode('currency/options/allow', $this->getScope(), $this->getScopeId()));
         }
         return $this->getData('groups/options/fields/allow/value');
     }
@@ -56,7 +56,7 @@ abstract class Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract exte
      */
     protected function _getInstalledCurrencies()
     {
-        return split(',', Mage::getStoreConfig('system/currency/installed'));
+        return explode(',', Mage::getStoreConfig('system/currency/installed'));
     }
 
     /**

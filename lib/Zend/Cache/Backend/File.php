@@ -116,7 +116,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
     public function __construct(array $options = array())
     {
         parent::__construct($options);
-        if (!is_null($this->_options['cache_dir'])) { // particular case for this option
+        if ($this->_options['cache_dir'] !== null) { // particular case for this option
             $this->setCacheDir($this->_options['cache_dir']);
         } else {
             $this->setCacheDir(self::getTmpDir() . DIRECTORY_SEPARATOR, false);
@@ -284,17 +284,17 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
         clearstatcache();
         return $this->_clean($this->_options['cache_dir'], $mode, $tags);
     }
-    
+
     /**
      * Return an array of stored cache ids
-     * 
+     *
      * @return array array of stored cache ids (string)
      */
     public function getIds()
     {
         return $this->_get($this->_options['cache_dir'], 'ids', array());
     }
-    
+
     /**
      * Return an array of stored tags
      *
@@ -304,10 +304,10 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
     {
         return $this->_get($this->_options['cache_dir'], 'tags', array());
     }
-    
+
     /**
      * Return an array of stored cache ids which match given tags
-     * 
+     *
      * In case of multiple tags, a logical AND is made between tags
      *
      * @param array $tags array of tags
@@ -317,23 +317,23 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
     {
         return $this->_get($this->_options['cache_dir'], 'matching', $tags);
     }
-    
+
     /**
      * Return an array of stored cache ids which don't match given tags
-     * 
+     *
      * In case of multiple tags, a logical OR is made between tags
      *
      * @param array $tags array of tags
      * @return array array of not matching cache ids (string)
-     */    
+     */
     public function getIdsNotMatchingTags($tags = array())
     {
         return $this->_get($this->_options['cache_dir'], 'notMatching', $tags);
     }
-    
+
     /**
      * Return an array of stored cache ids which match any given tags
-     * 
+     *
      * In case of multiple tags, a logical AND is made between tags
      *
      * @param array $tags array of tags
@@ -343,7 +343,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
     {
         return $this->_get($this->_options['cache_dir'], 'matchingAny', $tags);
     }
-    
+
     /**
      * Return the filling percentage of the backend storage
      *
@@ -363,7 +363,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
             return ((int) (100. * ($total - $free) / $total));
         }
     }
-    
+
     /**
      * Return an array of metadatas for the given cache id
      *
@@ -371,7 +371,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * - expire : the expire timestamp
      * - tags : a string array of tags
      * - mtime : timestamp of last modification time
-     * 
+     *
      * @param string $id cache id
      * @return array array of metadatas (false if the cache id is not found)
      */
@@ -390,7 +390,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
             'mtime' => $metadatas['mtime']
         );
     }
-    
+
     /**
      * Give (if possible) an extra lifetime to the given cache id
      *
@@ -419,10 +419,10 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
         }
         return true;
     }
-    
+
     /**
      * Return an associative array of capabilities (booleans) of the backend
-     * 
+     *
      * The array must include these keys :
      * - automatic_cleaning (is automating cleaning necessary)
      * - tags (are tags supported)
@@ -431,7 +431,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * - priority does the backend deal with priority when saving
      * - infinite_lifetime (is infinite lifetime can work with this backend)
      * - get_list (is it possible to get the list of cache ids and the complete list of tags)
-     * 
+     *
      * @return array associative of with capabilities
      */
     public function getCapabilities()
@@ -726,7 +726,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
         }
         return $result;
     }
-    
+
     private function _get($dir, $mode, $tags = array())
     {
         if (!is_dir($dir)) {
@@ -812,7 +812,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      */
     private function _expireTime($lifetime)
     {
-        if (is_null($lifetime)) {
+        if ($lifetime === null) {
             return 9999999999;
         }
         return time() + $lifetime;
@@ -893,10 +893,10 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
             return $root;
         }
     }
-    
+
     /**
      * Make the directory strucuture for the given id
-     * 
+     *
      * @param string $id cache id
      * @return boolean true
      */
@@ -907,14 +907,14 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
         }
         $partsArray = $this->_path($id, true);
         foreach ($partsArray as $part) {
-        	if (!is_dir($part)) {
-            	@mkdir($part, $this->_options['hashed_directory_umask']);
-        	    @chmod($part, $this->_options['hashed_directory_umask']); // see #ZF-320 (this line is required in some configurations)         
-        	}
+            if (!is_dir($part)) {
+                @mkdir($part, $this->_options['hashed_directory_umask']);
+                @chmod($part, $this->_options['hashed_directory_umask']); // see #ZF-320 (this line is required in some configurations)
+            }
         }
         return true;
     }
-   
+
     /**
      * Test if the given cache id is available (and still valid as a cache record)
      *

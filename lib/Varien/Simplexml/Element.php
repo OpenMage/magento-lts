@@ -189,10 +189,10 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     public function asArray()
     {
         $r = array();
-
-        $attributes = $this->attributes();
-        foreach($attributes as $k=>$v) {
-            if ($v) $r['@'][$k] = (string) $v;
+        foreach($this->attributes() as $k=>$v) {
+            if ($v) {
+                $r['@'][$k] = (string) $v;
+            }
         }
 
         if (!($children = $this->children())) {
@@ -202,6 +202,11 @@ class Varien_Simplexml_Element extends SimpleXMLElement
 
         foreach($children as $childName=>$child) {
             $r[$childName] = array();
+            foreach($child->attributes() as $attrName => $attrValue) {
+                if ($attrValue) {
+                    $r[$childName]['@'][$attrName] = (string) $attrValue;
+                }
+            }
             foreach ($child as $index=>$element) {
                 $r[$childName][$index] = $element->asArray();
             }

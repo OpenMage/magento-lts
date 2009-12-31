@@ -101,11 +101,12 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
     public function saveAction()
     {
-        if ($data = $this->getRequest()->getPost()) {
+        $data = $this->getRequest()->getPost();
+        if ($data) {
             try {
                 $model = Mage::getModel('salesrule/rule');
-
-                if ($id = $this->getRequest()->getParam('rule_id')) {
+                $id = $this->getRequest()->getParam('rule_id');
+                if ($id) {
                     $model->load($id);
                     if ($id != $model->getId()) {
                         Mage::throwException(Mage::helper('salesrule')->__('Wrong rule specified.'));
@@ -121,14 +122,14 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                     $data['actions'] = $data['rule']['actions'];
                 }
                 unset($data['rule']);
-
                 $model->loadPost($data);
 
-                Mage::getSingleton('adminhtml/session')->setPageData($model->getData());
+                $session = Mage::getSingleton('adminhtml/session');
+                $session->setPageData($model->getData());
 
                 $model->save();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('salesrule')->__('Rule was successfully saved'));
-                Mage::getSingleton('adminhtml/session')->setPageData(false);
+                $session->addSuccess(Mage::helper('salesrule')->__('Rule was successfully saved'));
+                $session->setPageData(false);
                 $this->_redirect('*/*/');
                 return;
             } catch (Exception $e) {

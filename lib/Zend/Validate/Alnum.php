@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -17,15 +16,13 @@
  * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Alnum.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Alnum.php 14560 2009-03-31 14:41:22Z thomas $
  */
-
 
 /**
  * @see Zend_Validate_Abstract
  */
 #require_once 'Zend/Validate/Abstract.php';
-
 
 /**
  * @category   Zend
@@ -49,6 +46,7 @@ class Zend_Validate_Alnum extends Zend_Validate_Abstract
      * Whether to allow white space characters; off by default
      *
      * @var boolean
+     * @depreciated
      */
     public $allowWhiteSpace;
 
@@ -78,6 +76,28 @@ class Zend_Validate_Alnum extends Zend_Validate_Abstract
     public function __construct($allowWhiteSpace = false)
     {
         $this->allowWhiteSpace = (boolean) $allowWhiteSpace;
+    }
+
+    /**
+     * Returns the allowWhiteSpace option
+     *
+     * @return boolean
+     */
+    public function getAllowWhiteSpace()
+    {
+        return $this->allowWhiteSpace;
+    }
+
+    /**
+     * Sets the allowWhiteSpace option
+     *
+     * @param boolean $allowWhiteSpace
+     * @return Zend_Filter_Alnum Provides a fluent interface
+     */
+    public function setAllowWhiteSpace($allowWhiteSpace)
+    {
+        $this->allowWhiteSpace = (boolean) $allowWhiteSpace;
+        return $this;
     }
 
     /**

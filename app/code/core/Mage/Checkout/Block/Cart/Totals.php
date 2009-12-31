@@ -28,7 +28,6 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
 {
     protected $_totalRenderers;
     protected $_defaultRenderer = 'checkout/total_default';
-
     protected $_totals = null;
 
     public function getTotals()
@@ -47,16 +46,22 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
 
     protected function _getTotalRenderer($code)
     {
-        if (!isset($this->_totalRenderers[$code])) {
-            $this->_totalRenderers[$code] = $this->_defaultRenderer;
+        $blockName = $code.'_total_renderer';
+        $block = $this->getLayout()->getBlock($blockName);
+        if (!$block) {
+            $block = $this->_defaultRenderer;
             $config = Mage::getConfig()->getNode("global/sales/quote/totals/{$code}/renderer");
-            if ($config)
-                $this->_totalRenderers[$code] = (string) $config;
+            if ($config) {
+                $block = (string) $config;
+            }
 
-            $this->_totalRenderers[$code] = $this->getLayout()->createBlock($this->_totalRenderers[$code], "{$code}_total_renderer");
+            $block = $this->getLayout()->createBlock($block, $blockName);
         }
-
-        return $this->_totalRenderers[$code];
+        /**
+         * Transfer totals to renderer
+         */
+        $block->setTotals($this->getTotals());
+        return $block;
     }
 
     public function renderTotal($total, $area = null, $colspan = 1)
@@ -72,18 +77,51 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
             ->toHtml();
     }
 
+    /**
+     * Render totals html for specific totals area (footer, body)
+     *
+     * @param   null|string $area
+     * @param   int $colspan
+     * @return  string
+     */
     public function renderTotals($area = null, $colspan = 1)
     {
         $html = '';
-
         foreach($this->getTotals() as $total) {
             if ($total->getArea() != $area && $area != -1) {
                 continue;
             }
-
             $html .= $this->renderTotal($total, $area, $colspan);
         }
-
         return $html;
+    }
+
+    /**
+     * Check if we have display grand total in base currency
+     *
+     * @return bool
+     */
+    public function needDisplayBaseGrandtotal()
+    {
+        $quote  = $this->getQuote();
+        if ($quote->getBaseCurrencyCode() != $quote->getQuoteCurrencyCode()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Get formated in base currency base grand total value
+     *
+     * @return string
+     */
+    public function displayBaseGrandtotal()
+    {
+        $firstTotal = reset($this->_totals);
+        if ($firstTotal) {
+            $total = $firstTotal->getAddress()->getBaseGrandTotal();
+            return Mage::app()->getStore()->getBaseCurrency()->format($total, array(), true);
+        }
+        return '-';
     }
 }

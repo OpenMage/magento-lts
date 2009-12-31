@@ -114,7 +114,7 @@ class Zend_Gdata_Entry extends Zend_Gdata_App_MediaEntry
             // ETags are special, since they can be conveyed by either the
             // HTTP ETag header or as an XML attribute.
             $etag = $attribute->nodeValue;
-            if (is_null($this->_etag)) {
+            if ($this->_etag === null) {
                 $this->_etag = $etag;
             }
             elseif ($this->_etag != $etag) {

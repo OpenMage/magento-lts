@@ -205,10 +205,35 @@ class Mage_Install_Model_Installer extends Varien_Object
     }
 
     /**
-     * Create admin user
+     * Prepare admin user data in model and validate it.
+     * Returns TRUE or array of error messages.
      *
      * @param array $data
-     * @return Mage_Install_Model_Installer
+     * @return mixed
+     */
+    public function validateAndPrepareAdministrator($data)
+    {
+        $user = Mage::getModel('admin/user')
+            ->load($data['username'], 'username');
+        $user->addData($data);
+
+        $result = $user->validate();
+        if (is_array($result)) {
+            foreach ($result as $error) {
+                $this->getDataModel()->addError($error);
+            }
+            return $result;
+        }
+        return $user;
+    }
+
+    /**
+     * Create admin user.
+     * Paramater can be prepared user model or array of data.
+     * Returns TRUE or throws exception.
+     *
+     * @param mixed $data
+     * @return bool
      */
     public function createAdministrator($data)
     {
@@ -218,17 +243,53 @@ class Mage_Install_Model_Installer extends Varien_Object
             $user->delete();
         }
 
-        $user = Mage::getModel('admin/user')
-            ->load($data['username'], 'username');
-        $user->addData($data)->save();
-        $user->setRoleIds(array(1))->saveRelations();
+        //to support old logic checking if real data was passed
+        if (is_array($data)) {
+            $data = $this->validateAndPrepareAdministrator($data);
+            if (is_array(data)) {
+                throw new Exception(Mage::helper('install')->__('Please correct user data and try again.'));
+            }
+        }
+
+        //run time flag to force saving entered password
+        $data->setForceNewPassword(true);
+
+        $data->save();
+        $data->setRoleIds(array(1))->saveRelations();
 
         /*Mage::getModel("permissions/user")->setRoleId(1)
             ->setUserId($user->getId())
             ->setFirstname($user->getFirstname())
             ->add();*/
 
-        return $this;
+        return true;
+    }
+
+    /**
+     * Validating encryption key.
+     * Returns TRUE or array of error messages.
+     *
+     * @param $key
+     * @return unknown_type
+     */
+    public function validateEncryptionKey($key)
+    {
+        $errors = array();
+
+        try {
+            if ($key) {
+                Mage::helper('core')->validateKey($key);
+            }
+        } catch (Exception $e) {
+            $errors[] = $e->getMessage();
+            $this->getDataModel()->addError($e->getMessage());
+        }
+
+        if (!empty($errors)) {
+            return $errors;
+        }
+
+        return true;
     }
 
     /**

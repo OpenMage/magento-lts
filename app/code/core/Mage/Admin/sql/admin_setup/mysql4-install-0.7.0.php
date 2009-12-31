@@ -88,9 +88,6 @@ CREATE TABLE {$this->getTable('admin_user')} (
   `is_active` tinyint(1) NOT NULL default '1',
   PRIMARY KEY  (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Users';
-
-insert  into {$this->getTable('admin_user')}(`user_id`,`firstname`,`lastname`,`email`,`username`,`password`,`created`,`modified`,`logdate`,`lognum`,`reload_acl_flag`,`is_active`) values (1,'admin','admin','admin@your_domain.com','admin','4297f44b13955235245b2497399d7a93',NOW(),NOW(),NOW(),1,0,1);
-
-    ");
+");
 
 $installer->endSetup();

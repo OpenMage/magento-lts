@@ -9,7 +9,6 @@
         billing_address_id
         converted_at
         coupon_code
-        giftcert_code
         custbalance_amount
         global_currency_code
         base_currency_code

@@ -15,7 +15,7 @@
  * @package    Zend_Controller
  * @subpackage Router
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Regex.php 12525 2008-11-10 20:18:32Z ralph $
+ * @version    $Id: Regex.php 15461 2009-05-09 15:54:21Z dasprid $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -53,10 +53,10 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
 
     public function __construct($route, $defaults = array(), $map = array(), $reverse = null)
     {
-        $this->_regex = '#^' . $route . '$#i';
+        $this->_regex    = $route;
         $this->_defaults = (array) $defaults;
-        $this->_map = (array) $map;
-        $this->_reverse = $reverse;
+        $this->_map      = (array) $map;
+        $this->_reverse  = $reverse;
     }
 
     public function getVersion() {
@@ -67,15 +67,27 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
      * Matches a user submitted path with a previously defined route.
      * Assigns and returns an array of defaults on a successful match.
      *
-     * @param string $path Path used to match against this routing map
-     * @return array|false An array of assigned values or a false on a mismatch
+     * @param  string $path Path used to match against this routing map
+     * @return array|false  An array of assigned values or a false on a mismatch
      */
-    public function match($path)
+    public function match($path, $partial = false)
     {
-        $path = trim(urldecode($path), '/');
-        $res = preg_match($this->_regex, $path, $values);
-
-        if ($res === 0) return false;
+        if (!$partial) {
+            $path = trim(urldecode($path), '/');
+            $regex = '#^' . $this->_regex . '$#i';
+        } else {
+            $regex = '#^' . $this->_regex . '#i';
+        }
+        
+        $res = preg_match($regex, $path, $values);
+        
+        if ($res === 0) {
+            return false;
+        }
+        
+        if ($partial) {
+            $this->setMatchedPath($values[0]);
+        }
 
         // array_filter_key()? Why isn't this in a standard PHP function set yet? :)
         foreach ($values as $i => $value) {
@@ -86,10 +98,9 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
 
         $this->_values = $values;
 
-        $values = $this->_getMappedValues($values);
+        $values   = $this->_getMappedValues($values);
         $defaults = $this->_getMappedValues($this->_defaults, false, true);
-
-        $return = $values + $defaults;
+        $return   = $values + $defaults;
 
         return $return;
     }
@@ -103,10 +114,10 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
      * indexed numerically then every associative key will be stripped. Vice versa if reversed
      * is set to true.
      *
-     * @param array $values Indexed or associative array of values to map
-     * @param boolean $reversed False means translation of index to association. True means reverse.
-     * @param boolean $preserve Should wrong type of keys be preserved or stripped.
-     * @return array An array of mapped values
+     * @param  array   $values Indexed or associative array of values to map
+     * @param  boolean $reversed False means translation of index to association. True means reverse.
+     * @param  boolean $preserve Should wrong type of keys be preserved or stripped.
+     * @return array   An array of mapped values
      */
     protected function _getMappedValues($values, $reversed = false, $preserve = false)
     {
@@ -140,10 +151,10 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
     /**
      * Assembles a URL path defined by this route
      *
-     * @param array $data An array of name (or index) and value pairs used as parameters
+     * @param  array $data An array of name (or index) and value pairs used as parameters
      * @return string Route path with user submitted parameters
      */
-    public function assemble($data = array(), $reset = false, $encode = false)
+    public function assemble($data = array(), $reset = false, $encode = false, $partial = false)
     {
         if ($this->_reverse === null) {
             #require_once 'Zend/Controller/Router/Exception.php';
@@ -207,6 +218,26 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
      */
     public function getDefaults() {
         return $this->_defaults;
+    }
+    
+    /**
+     * Get all variables which are used by the route
+     *
+     * @return array
+     */
+    public function getVariables()
+    {
+        $variables = array();
+        
+        foreach ($this->_map as $key => $value) {
+            if (is_numeric($key)) {
+                $variables[] = $value;
+            } else {
+                $variables[] = $key;
+            }
+        }
+        
+        return $variables;
     }
 
     /**

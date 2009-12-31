@@ -80,7 +80,7 @@ class Zend_Db_Statement_Pdo_Ibm extends Zend_Db_Statement_Pdo
     public function _bindParam($parameter, &$variable, $type = null, $length = null, $options = null)
     {
         try {
-            if ( is_null($type) && is_null($length) && is_null($options) ) {
+            if (($type === null) && ($length === null) && ($options === null)) {
                 return $this->_stmt->bindParam($parameter, $variable);
             } else {
                 return $this->_stmt->bindParam($parameter, $variable, $type, $length, $options);

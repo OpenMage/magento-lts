@@ -371,7 +371,10 @@ Event.observe(window, 'load', function(){
                 <div id="map_template_<?php echo $_entityType ?>" style="display:none">
                     <span class="field-row">
                         <?php echo $this->__("In Database:") ?> <select name="gui_data[map][<?php echo $_entityType ?>][db][]" onchange="setMapFileField(this)">
-                            <?php foreach ($this->getAttributes($_entityType) as $_value=>$_label): ?>
+                            <?php
+                                $fieldMappingInDatabase = $this->getAttributes($_entityType);
+                                asort($fieldMappingInDatabase);
+                                foreach ($fieldMappingInDatabase as $_value=>$_label): ?>
                                 <option value="<?php echo $_value ?>"><?php echo $_label ?></option>
                             <?php endforeach ?>
                         </select>

@@ -55,6 +55,24 @@ class Mage_Shipping_Model_Carrier_Tablerate
             return false;
         }
 
+        // exclude Virtual products price from Package value if pre-configured
+        if (!$this->getConfigFlag('include_virtual_price') && $request->getAllItems()) {
+            foreach ($request->getAllItems() as $item) {
+                if ($item->getParentItem()) {
+                    continue;
+                }
+                if ($item->getHasChildren() && $item->isShipSeparately()) {
+                    foreach ($item->getChildren() as $child) {
+                        if ($child->getProduct()->isVirtual()) {
+                            $request->setPackageValue($request->getPackageValue() - $child->getBaseRowTotal());
+                        }
+                    }
+                } elseif ($item->getProduct()->isVirtual()) {
+                    $request->setPackageValue($request->getPackageValue() - $item->getBaseRowTotal());
+                }
+            }
+        }
+
         if (!$request->getConditionName()) {
             $request->setConditionName($this->getConfigData('condition_name') ? $this->getConfigData('condition_name') : $this->_default_condition_name);
         }

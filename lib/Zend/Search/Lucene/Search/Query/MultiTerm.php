@@ -103,10 +103,15 @@ class Zend_Search_Lucene_Search_Query_MultiTerm extends Zend_Search_Lucene_Searc
      *
      * @param array $terms    Array of Zend_Search_Lucene_Index_Term objects
      * @param array $signs    Array of signs.  Sign is boolean|null.
+     * @throws Zend_Search_Lucene_Exception
      */
     public function __construct($terms = null, $signs = null)
     {
         if (is_array($terms)) {
+            if (count($terms) > Zend_Search_Lucene::getTermsPerQueryLimit()) {
+                throw new Zend_Search_Lucene_Exception('Terms per query limit is reached.');
+            }
+
             $this->_terms = $terms;
 
             $this->_signs = null;
@@ -594,12 +599,11 @@ class Zend_Search_Lucene_Search_Query_MultiTerm extends Zend_Search_Lucene_Searc
     }
 
     /**
-     * Highlight query terms
+     * Query specific matches highlighting
      *
-     * @param integer &$colorIndex
-     * @param Zend_Search_Lucene_Document_Html $doc
+     * @param Zend_Search_Lucene_Search_Highlighter_Interface $highlighter  Highlighter object (also contains doc for highlighting)
      */
-    public function highlightMatchesDOM(Zend_Search_Lucene_Document_Html $doc, &$colorIndex)
+    protected function _highlightMatches(Zend_Search_Lucene_Search_Highlighter_Interface $highlighter)
     {
         $words = array();
 
@@ -615,7 +619,7 @@ class Zend_Search_Lucene_Search_Query_MultiTerm extends Zend_Search_Lucene_Searc
             }
         }
 
-        $doc->highlight($words, $this->_getHighlightColor($colorIndex));
+        $highlighter->highlight($words);
     }
 
     /**
@@ -647,7 +651,7 @@ class Zend_Search_Lucene_Search_Query_MultiTerm extends Zend_Search_Lucene_Searc
         }
 
         if ($this->getBoost() != 1) {
-            $query = '(' . $query . ')^' . $this->getBoost();
+            $query = '(' . $query . ')^' . round($this->getBoost(), 4);
         }
 
         return $query;

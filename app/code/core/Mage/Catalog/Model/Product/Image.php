@@ -50,6 +50,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     protected $_watermarkPosition;
     protected $_watermarkWidth;
     protected $_watermarkHeigth;
+    protected $_watermarkImageOpacity = 70;
 
     /**
      * @return Mage_Catalog_Model_Product_Image
@@ -375,7 +376,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     /**
      * @return Mage_Catalog_Model_Product_Image
      */
-    public function setWatermark($file, $position=null, $size=null, $width=null, $heigth=null)
+    public function setWatermark($file, $position=null, $size=null, $width=null, $heigth=null, $imageOpacity=null)
     {
         $filename = false;
 
@@ -399,10 +400,11 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
                 $filename = $baseDir . $file;
             }
         }
-
+        
         if( $filename ) {
             $this->getImageProcessor()
                 ->setWatermarkPosition( ($position) ? $position : $this->getWatermarkPosition() )
+                ->setWatermarkImageOpacity( ($imageOpacity) ? $imageOpacity : $this->getWatermarkImageOpacity() )
                 ->setWatermarkWidth( ($width) ? $width : $this->getWatermarkWidth() )
                 ->setWatermarkHeigth( ($heigth) ? $heigth : $this->getWatermarkHeigth() )
                 ->watermark($filename);
@@ -469,6 +471,17 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function getWatermarkPosition()
     {
         return $this->_watermarkPosition;
+    }
+
+    public function setWatermarkImageOpacity($imageOpacity)
+    {
+        $this->_watermarkImageOpacity = $imageOpacity;
+        return $this;
+    }
+
+    public function getWatermarkImageOpacity()
+    {
+        return $this->_watermarkImageOpacity;
     }
 
     /**

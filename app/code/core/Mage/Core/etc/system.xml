@@ -586,15 +586,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </default>
-                        <default translate="label">
-                            <label>Default country</label>
-                            <frontend_type>select</frontend_type>
+                        <optional_zip_countries translate="label">
+                            <label>Make Zip Code optional for Specific countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>3</sort_order>
                             <source_model>adminhtml/system_config_source_country</source_model>
-                            <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </default>
+                            <show_in_store>0</show_in_store>
+                        </optional_zip_countries>
                     </fields>
                 </country>
                 <locale translate="label">

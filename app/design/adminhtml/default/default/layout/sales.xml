@@ -46,17 +46,15 @@
                     <block type="adminhtml/sales_order_view_history" name="order_history" template="sales/order/view/history.phtml"></block>
                     <block type="adminhtml/sales_order_view_giftmessage" name="order_giftmessage" template="sales/order/view/giftmessage.phtml"></block>
                     <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml">
-                        <block type="adminhtml/sales_order_totals_item" name="footer" template="sales/order/totals/footer.phtml">
+                        <block type="adminhtml/sales_order_totals_tax" name="tax" template="sales/order/totals/tax.phtml" />
+                        <!--<block type="adminhtml/sales_order_totals_item" name="footer" template="sales/order/totals/footer.phtml">
                             <block type="adminhtml/sales_order_totals_item" name="grand" template="sales/order/totals/grand.phtml" />
                             <block type="adminhtml/sales_order_totals_item" name="paid" template="sales/order/totals/paid.phtml" />
                             <block type="adminhtml/sales_order_totals_item" name="refunded" template="sales/order/totals/refunded.phtml" />
                             <block type="adminhtml/sales_order_totals_item" name="due" template="sales/order/totals/due.phtml" />
                         </block>
                         <block type="adminhtml/sales_order_totals_item" name="sales.order.view.totals.main" as="main" template="sales/order/totals/main.phtml">
-                            <block type="adminhtml/sales_order_totals_item" name="subtotal" template="sales/order/totals/item.phtml">
-                                <action method="setSourceField"><value>subtotal</value></action>
-                                <action method="setLabel"><value>Subtotal</value></action>
-                            </block>
+                            <block type="adminhtml/sales_order_totals_subtotal" name="subtotal" template="sales/order/totals/subtotal.phtml" />
                             <block type="adminhtml/sales_order_totals_tax" name="tax" template="sales/order/totals/tax.phtml" />
                             <block type="adminhtml/sales_order_totals_item" name="shipping" template="sales/order/totals/shipping.phtml" />
                             <block type="adminhtml/sales_order_totals_item" name="discount" template="sales/order/totals/discount.phtml" />
@@ -72,7 +70,7 @@
                                 <action method="setSourceField"><value>adjustment_negative</value></action>
                                 <action method="setLabel"><value>Adjustment Fee</value></action>
                             </block>
-                        </block>
+                        </block>-->
                     </block>
                 </block>
                 <action method="addTab"><name>order_info</name><block>order_tab_info</block></action>
@@ -103,18 +101,16 @@
                         <block type="adminhtml/sales_order_totalbar" name="order_totalbar" template="sales/order/totalbar.phtml"></block>
 
 
-                        <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml">
-                            <block type="adminhtml/sales_order_totals_item" name="footer" template="sales/order/totals/footer.phtml">
+                        <block type="adminhtml/sales_order_invoice_totals" name="invoice_totals" template="sales/order/totals.phtml">
+                            <block type="adminhtml/sales_order_totals_tax" name="tax" template="sales/order/totals/tax.phtml" />
+                            <!--<block type="adminhtml/sales_order_totals_item" name="footer" template="sales/order/totals/footer.phtml">
                                 <block type="adminhtml/sales_order_totals_item" name="grand" template="sales/order/totals/grand.phtml" />
                                 <block type="adminhtml/sales_order_totals_item" name="paid" template="sales/order/totals/paid.phtml" />
                                 <block type="adminhtml/sales_order_totals_item" name="refunded" template="sales/order/totals/refunded.phtml" />
                                 <block type="adminhtml/sales_order_totals_item" name="due" template="sales/order/totals/due.phtml" />
                             </block>
                             <block type="adminhtml/sales_order_totals_item" name="sales.order.view.totals.main" as="main" template="sales/order/totals/main.phtml">
-                                <block type="adminhtml/sales_order_totals_item" name="subtotal" template="sales/order/totals/item.phtml">
-                                    <action method="setSourceField"><value>subtotal</value></action>
-                                    <action method="setLabel"><value>Subtotal</value></action>
-                                </block>
+                                <block type="adminhtml/sales_order_totals_subtotal" name="subtotal" template="sales/order/totals/subtotal.phtml" />
                                 <block type="adminhtml/sales_order_totals_item" name="tax" template="sales/order/totals/item.phtml">
                                     <action method="setSourceField"><value>tax_amount</value></action>
                                     <action method="setLabel"><value>Tax</value></action>
@@ -133,7 +129,7 @@
                                     <action method="setSourceField"><value>adjustment_negative</value></action>
                                     <action method="setLabel"><value>Adjustment Fee</value></action>
                                 </block>
-                            </block>
+                            </block>-->
                         </block>
                     </block>
                 </block>
@@ -149,18 +145,16 @@
             <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name_grouped</block><template>sales/items/column/name.phtml</template><type>grouped</type></action>
 
             <block type="adminhtml/sales_order_totalbar" name="order_totalbar" template="sales/order/totalbar.phtml"></block>
-            <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml">
-                <block type="adminhtml/sales_order_totals_item" name="footer" template="sales/order/totals/footer.phtml">
+            <block type="adminhtml/sales_order_invoice_totals" name="invoice_totals" template="sales/order/totals.phtml">
+                <block type="adminhtml/sales_order_totals_tax" name="tax" template="sales/order/totals/tax.phtml" />
+                <!--<block type="adminhtml/sales_order_totals_item" name="footer" template="sales/order/totals/footer.phtml">
                     <block type="adminhtml/sales_order_totals_item" name="grand" template="sales/order/totals/grand.phtml" />
                     <block type="adminhtml/sales_order_totals_item" name="paid" template="sales/order/totals/paid.phtml" />
                     <block type="adminhtml/sales_order_totals_item" name="refunded" template="sales/order/totals/refunded.phtml" />
                     <block type="adminhtml/sales_order_totals_item" name="due" template="sales/order/totals/due.phtml" />
                 </block>
                 <block type="adminhtml/sales_order_totals_item" name="sales.order.view.totals.main" as="main" template="sales/order/totals/main.phtml">
-                    <block type="adminhtml/sales_order_totals_item" name="subtotal" template="sales/order/totals/item.phtml">
-                        <action method="setSourceField"><value>subtotal</value></action>
-                        <action method="setLabel"><value>Subtotal</value></action>
-                    </block>
+                    <block type="adminhtml/sales_order_totals_subtotal" name="subtotal" template="sales/order/totals/subtotal.phtml" />
                     <block type="adminhtml/sales_order_totals_item" name="tax" template="sales/order/totals/item.phtml">
                         <action method="setSourceField"><value>tax_amount</value></action>
                         <action method="setLabel"><value>Tax</value></action>
@@ -179,7 +173,7 @@
                         <action method="setSourceField"><value>adjustment_negative</value></action>
                         <action method="setLabel"><value>Adjustment Fee</value></action>
                     </block>
-                </block>
+                </block>-->
             </block>
         </block>
     </adminhtml_sales_order_invoice_updateqty>
@@ -206,19 +200,17 @@
                     <block type="adminhtml/sales_order_comments_view" name="order_comments" template="sales/order/comments/view.phtml">
                         <action method="setParentType"><type>invoice</type></action>
                     </block>
-                    <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml">
-                        <block type="adminhtml/sales_order_totals_item" name="footer" template="sales/order/totals/footer.phtml">
+                    <block type="adminhtml/sales_order_invoice_totals" name="invoice_totals" template="sales/order/totals.phtml">
+                        <block type="adminhtml/sales_order_totals_tax" name="tax" template="sales/order/totals/tax.phtml" />
+                        <!--<block type="adminhtml/sales_order_totals_item" name="footer" template="sales/order/totals/footer.phtml">
                             <block type="adminhtml/sales_order_totals_item" name="grand" template="sales/order/totals/grand.phtml" />
                             <block type="adminhtml/sales_order_totals_item" name="paid" template="sales/order/totals/paid.phtml" />
                             <block type="adminhtml/sales_order_totals_item" name="refunded" template="sales/order/totals/refunded.phtml" />
                             <block type="adminhtml/sales_order_totals_item" name="due" template="sales/order/totals/due.phtml" />
                         </block>
                         <block type="adminhtml/sales_order_totals_item" name="sales.order.view.totals.main" as="main" template="sales/order/totals/main.phtml">
-                            <block type="adminhtml/sales_order_totals_item" name="subtotal" template="sales/order/totals/item.phtml">
-                                <action method="setSourceField"><value>subtotal</value></action>
-                                <action method="setLabel"><value>Subtotal</value></action>
-                            </block>
-                            <block type="adminhtml/sales_order_totals_item" name="subtotal" template="sales/order/totals/item.phtml">
+                            <block type="adminhtml/sales_order_totals_subtotal" name="subtotal" template="sales/order/totals/subtotal.phtml" />
+                            <block type="adminhtml/sales_order_totals_item" name="tax" template="sales/order/totals/item.phtml">
                                 <action method="setSourceField"><value>tax_amount</value></action>
                                 <action method="setLabel"><value>Tax</value></action>
                             </block>
@@ -236,7 +228,7 @@
                                 <action method="setSourceField"><value>adjustment_negative</value></action>
                                 <action method="setLabel"><value>Adjustment Fee</value></action>
                             </block>
-                        </block>
+                        </block>-->
                     </block>
                 </block>
             </block>
@@ -308,17 +300,16 @@
                         <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name_grouped</block><template>sales/items/column/name.phtml</template><type>grouped</type></action>
                         <block type="adminhtml/sales_order_totalbar" name="order_totalbar" template="sales/order/totalbar.phtml"></block>
 
-                        <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml">
-                            <block type="adminhtml/sales_order_totals_item" name="footer" template="sales/order/totals/footer.phtml">
+                        <block type="adminhtml/sales_order_creditmemo_totals" name="creditmemo_totals" template="sales/order/totals.phtml">
+                            <block type="adminhtml/sales_order_creditmemo_create_adjustments" name="adjustments" template="sales/order/creditmemo/create/totals/adjustments.phtml" />
+                            <block type="adminhtml/sales_order_totals_tax" name="tax" template="sales/order/totals/tax.phtml" />
+                            <!--<block type="adminhtml/sales_order_totals_item" name="footer" template="sales/order/totals/footer.phtml">
                                 <block type="adminhtml/sales_order_totals_item" name="grand" template="sales/order/totals/grand.phtml">
                                     <action method="setGrandTotalTitle"><title>Total Refund</title></action>
                                 </block>
                             </block>
                             <block type="adminhtml/sales_order_totals_item" name="sales.order.view.totals.main" as="main" template="sales/order/totals/main.phtml">
-                                <block type="adminhtml/sales_order_totals_item" name="subtotal" template="sales/order/totals/item.phtml">
-                                    <action method="setSourceField"><value>subtotal</value></action>
-                                    <action method="setLabel"><value>Subtotal</value></action>
-                                </block>
+                                <block type="adminhtml/sales_order_totals_subtotal" name="subtotal" template="sales/order/totals/subtotal.phtml" />
                                 <block type="adminhtml/sales_order_totals_item" name="tax" template="sales/order/totals/item.phtml">
                                     <action method="setSourceField"><value>tax_amount</value></action>
                                     <action method="setLabel"><value>Tax</value></action>
@@ -328,7 +319,7 @@
                                     <action method="setLabel"><value>Discount</value></action>
                                 </block>
                                 <block type="adminhtml/sales_order_totals_item" name="adjustments" template="sales/order/creditmemo/create/totals/adjustments.phtml" />
-                            </block>
+                            </block>-->
                         </block>
                         <block type="core/text_list" name="submit_before" />
                         <block type="core/text_list" name="submit_after" />
@@ -346,17 +337,17 @@
             <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name_grouped</block><template>sales/items/column/name.phtml</template><type>grouped</type></action>
             <block type="adminhtml/sales_order_totalbar" name="order_totalbar" template="sales/order/totalbar.phtml"></block>
 
-            <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml">
+            <block type="adminhtml/sales_order_creditmemo_totals" name="creditmemo_totals" template="sales/order/totals.phtml">
+                <block type="adminhtml/sales_order_creditmemo_create_adjustments" name="adjustments" template="sales/order/creditmemo/create/totals/adjustments.phtml" />
+                <block type="adminhtml/sales_order_totals_tax" name="tax" template="sales/order/totals/tax.phtml" />
+            <!--<block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml">
                 <block type="adminhtml/sales_order_totals_item" name="footer" template="sales/order/totals/footer.phtml">
                     <block type="adminhtml/sales_order_totals_item" name="grand" template="sales/order/totals/grand.phtml">
                         <action method="setGrandTotalTitle"><title>Total Refund</title></action>
                     </block>
                 </block>
                 <block type="adminhtml/sales_order_totals_item" name="sales.order.view.totals.main" as="main" template="sales/order/totals/main.phtml">
-                    <block type="adminhtml/sales_order_totals_item" name="subtotal" template="sales/order/totals/item.phtml">
-                        <action method="setSourceField"><value>subtotal</value></action>
-                        <action method="setLabel"><value>Subtotal</value></action>
-                    </block>
+                    <block type="adminhtml/sales_order_totals_subtotal" name="subtotal" template="sales/order/totals/subtotal.phtml" />
                     <block type="adminhtml/sales_order_totals_item" name="tax" template="sales/order/totals/item.phtml">
                         <action method="setSourceField"><value>tax_amount</value></action>
                         <action method="setLabel"><value>Tax</value></action>
@@ -366,7 +357,7 @@
                         <action method="setLabel"><value>Discount</value></action>
                     </block>
                     <block type="adminhtml/sales_order_totals_item" name="adjustments" template="sales/order/creditmemo/create/totals/adjustments.phtml" />
-                </block>
+                </block>-->
             </block>
 
             <block type="core/text_list" name="submit_before" />
@@ -396,18 +387,16 @@
                         <action method="setParentType"><type>creditmemo</type></action>
                     </block>
 
-                    <block type="adminhtml/sales_order_totals" name="order_totals" template="sales/order/totals.phtml">
-                        <block type="adminhtml/sales_order_totals_item" name="footer" template="sales/order/totals/footer.phtml">
+                    <block type="adminhtml/sales_order_creditmemo_totals" name="creditmemo_totals" template="sales/order/totals.phtml">
+                        <block type="adminhtml/sales_order_totals_tax" name="tax" template="sales/order/totals/tax.phtml" />
+                        <!--<block type="adminhtml/sales_order_totals_item" name="footer" template="sales/order/totals/footer.phtml">
                             <block type="adminhtml/sales_order_totals_item" name="grand" template="sales/order/totals/grand.phtml" />
                             <block type="adminhtml/sales_order_totals_item" name="paid" template="sales/order/totals/paid.phtml" />
                             <block type="adminhtml/sales_order_totals_item" name="refunded" template="sales/order/totals/refunded.phtml" />
                             <block type="adminhtml/sales_order_totals_item" name="due" template="sales/order/totals/due.phtml" />
                         </block>
                         <block type="adminhtml/sales_order_totals_item" name="sales.order.view.totals.main" as="main" template="sales/order/totals/main.phtml">
-                            <block type="adminhtml/sales_order_totals_item" name="subtotal" template="sales/order/totals/item.phtml">
-                                <action method="setSourceField"><value>subtotal</value></action>
-                                <action method="setLabel"><value>Subtotal</value></action>
-                            </block>
+                            <block type="adminhtml/sales_order_totals_subtotal" name="subtotal" template="sales/order/totals/subtotal.phtml" />
                             <block type="adminhtml/sales_order_totals_tax" name="tax" template="sales/order/totals/tax.phtml" />
                             <block type="adminhtml/sales_order_totals_item" name="shipping" template="sales/order/totals/shipping.phtml" />
                             <block type="adminhtml/sales_order_totals_item" name="discount" template="sales/order/totals/discount.phtml" />
@@ -423,7 +412,7 @@
                                 <action method="setSourceField"><value>adjustment_negative</value></action>
                                 <action method="setLabel"><value>Adjustment Fee</value></action>
                             </block>
-                        </block>
+                        </block>-->
                     </block>
                 </block>
             </block>

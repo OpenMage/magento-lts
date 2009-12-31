@@ -329,8 +329,14 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
                 : $this->getIndent();
 
         $items = array();
-        foreach ($this as $item) {
+        $this->getContainer()->ksort();
+        try {
+            foreach ($this as $item) {
             $items[] = $this->itemToString($item);
+            }
+        } catch (Zend_View_Exception $e) {
+            trigger_error($e->getMessage(), E_USER_WARNING);
+            return '';
         }
         return $indent . implode($this->_escape($this->getSeparator()) . $indent, $items);
     }

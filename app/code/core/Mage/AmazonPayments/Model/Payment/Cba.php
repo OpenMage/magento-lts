@@ -446,6 +446,8 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
                 ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
         }
 
+        $order->save();
+        
         $quote->setIsActive(false);
         $quote->save();
 

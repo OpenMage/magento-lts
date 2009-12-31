@@ -94,7 +94,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_W
                 'label' => Mage::helper('adminhtml')->__('New Api Key'),
                 'id'    => 'new_pass',
                 'title' => Mage::helper('adminhtml')->__('New Api Key'),
-                'class' => 'input-text validate-password',
+                'class' => 'input-text validate-admin-password',
             ));
 
             $fieldset->addField('confirmation', 'password', array(
@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Api_User_Edit_Tab_Main extends Mage_Adminhtml_Block_W
                 'label' => Mage::helper('adminhtml')->__('Api Key'),
                 'id'    => 'customer_pass',
                 'title' => Mage::helper('adminhtml')->__('Api Key'),
-                'class' => 'input-text required-entry validate-password',
+                'class' => 'input-text required-entry validate-admin-password',
                 'required' => true,
             ));
            $fieldset->addField('confirmation', 'password', array(

@@ -14,7 +14,7 @@
  * @package    Zend_ProgressBar
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: JsPush.php 12233 2008-11-01 00:11:01Z dasprid $
+ * @version    $Id: JsPush.php 14099 2009-02-17 15:16:15Z yoshida@zend.co.jp $
  */
 
 /**
@@ -45,14 +45,14 @@ class Zend_ProgressBar_Adapter_JsPush extends Zend_ProgressBar_Adapter
      * @var string
      */
     protected $_updateMethodName = 'Zend_ProgressBar_Update';
-    
+
     /**
      * Name of the JavaScript method to call on finish
      *
      * @var string
      */
     protected $_finishMethodName;
-    
+
     /**
      * Set the update method name
      *
@@ -75,16 +75,16 @@ class Zend_ProgressBar_Adapter_JsPush extends Zend_ProgressBar_Adapter
     public function setFinishMethodName($methodName)
     {
         $this->_finishMethodName = $methodName;
-        
+
         return $this;
     }
-    
+
     /**
      * Defined by Zend_ProgressBar_Adapter_Interface
      *
      * @param  float   $current       Current progress value
      * @param  float   $max           Max progress value
-     * @param  flaot   $percent       Current percent value
+     * @param  float   $percent       Current percent value
      * @param  integer $timeTaken     Taken time in seconds
      * @param  integer $timeRemaining Remaining time in seconds
      * @param  string  $text          Status text
@@ -98,17 +98,17 @@ class Zend_ProgressBar_Adapter_JsPush extends Zend_ProgressBar_Adapter
             'percent'       => ($percent * 100),
             'timeTaken'     => $timeTaken,
             'timeRemaining' => $timeRemaining,
-            'text'          => $text            
+            'text'          => $text
         );
-        
-        $data = '<script type="text/javascript">' 
+
+        $data = '<script type="text/javascript">'
               . 'parent.' . $this->_updateMethodName . '(' . Zend_Json::encode($arguments) . ');'
               . '</script>';
 
         // Output the data
         $this->_outputData($data);
     }
-    
+
     /**
      * Defined by Zend_ProgressBar_Adapter_Interface
      *
@@ -119,17 +119,17 @@ class Zend_ProgressBar_Adapter_JsPush extends Zend_ProgressBar_Adapter
         if ($this->_finishMethodName === null) {
             return;
         }
-        
-        $data = '<script type="text/javascript">' 
+
+        $data = '<script type="text/javascript">'
               . 'parent.' . $this->_finishMethodName . '();'
               . '</script>';
-              
+
         $this->_outputData($data);
     }
-    
+
     /**
      * Outputs given data the user agent.
-     * 
+     *
      * This split-off is required for unit-testing.
      *
      * @param  string $data
@@ -141,8 +141,8 @@ class Zend_ProgressBar_Adapter_JsPush extends Zend_ProgressBar_Adapter
         // for Internet Explorer. The <br /> is required so Safari actually
         // executes the <script />
         echo str_pad($data . '<br />', 1024, ' ', STR_PAD_RIGHT) . "\n";
-        
+
         flush();
-        ob_flush();            
+        ob_flush();
     }
 }

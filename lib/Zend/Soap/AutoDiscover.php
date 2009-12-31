@@ -14,9 +14,10 @@
  *
  * @category   Zend
  * @package    Zend_Soap
+ * @subpackage AutoDiscover
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: AutoDiscover.php 13216 2008-12-14 11:09:01Z thomas $
+ * @version    $Id: AutoDiscover.php 14918 2009-04-15 16:07:53Z beberlei $
  */
 
 #require_once 'Zend/Server/Interface.php';
@@ -30,6 +31,7 @@
  *
  * @category   Zend
  * @package    Zend_Soap
+ * @subpackage AutoDiscover
  */
 class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
     /**
@@ -74,13 +76,6 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
     protected $_bindingStyle = array('style' => 'rpc', 'transport' => 'http://schemas.xmlsoap.org/soap/http');
 
     /**
-     * To enable compability with class generators for Java and DotNet framework SOAP Clients.
-     *
-     * @var boolean
-     */
-    protected $_responseMessageReturnNameCompability = false;
-
-    /**
      * Constructor
      *
      * @param boolean|string|Zend_Soap_Wsdl_Strategy_Interface $strategy
@@ -106,9 +101,7 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
      */
     public function setUri($uri)
     {
-        if(is_string($uri)) {
-            $uri = Zend_Uri::factory($uri);
-        } else if(!($uri instanceof Zend_Uri)) {
+        if(!is_string($uri) && !($uri instanceof Zend_Uri)) {
             #require_once "Zend/Soap/AutoDiscover/Exception.php";
             throw new Zend_Soap_AutoDiscover_Exception("No uri given to Zend_Soap_AutoDiscover::setUri as string or Zend_Uri instance.");
         }
@@ -129,7 +122,7 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
      */
     public function getUri()
     {
-        if($this->_uri instanceof Zend_Uri) {
+        if($this->_uri !== null) {
             $uri = $this->_uri;
         } else {
             $schema     = $this->getSchema();
@@ -177,21 +170,6 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
         if(isset($bindingStyle['transport'])) {
             $this->_bindingStyle['transport'] = $bindingStyle['transport'];
         }
-        return $this;
-    }
-
-    /**
-     * Enable/Disable naming of "return" only for response message parts.
-     *
-     * Some Clients only work when the response message part is explicilty called "return".
-     * This affects .NET and Java clients.
-     *
-     * @param  boolean $flag
-     * @return Zend_Soap_AutoDiscover
-     */
-    public function setResponseMessageReturnNameCompability($flag)
-    {
-        $this->_responseMessageReturnNameCompability = $flag;
         return $this;
     }
 
@@ -314,17 +292,13 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
                     //$wsdl->addDocumentation($message, $desc);
                 }
                 if ($prototype->getReturnType() != "void") {
-                    if($this->_responseMessageReturnNameCompability === true) {
-                        $returnName = 'return';
-                    } else {
-                        $returnName = $method->getName() . 'Return';
-                    }
+                    $returnName = 'return';
                     $message = $wsdl->addMessage($method->getName() . 'Response', array($returnName => $wsdl->getType($prototype->getReturnType())));
                 }
 
                 /* <wsdl:binding>'s */
                 $operation = $wsdl->addBindingOperation($binding, $method->getName(),  $this->_operationBodyStyle, $this->_operationBodyStyle);
-                $wsdl->addSoapOperation($operation, $uri->getUri() . '#' .$method->getName());
+                $wsdl->addSoapOperation($operation, $uri . '#' .$method->getName());
                 /* </wsdl:binding>'s */
             }
         }
@@ -375,13 +349,8 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
                 if (strlen($desc) > 0) {
                     //$wsdl->addDocumentation($message, $desc);
                 }
-                if ($prototype->getReturnType() != "void") {
-                    if($this->_responseMessageReturnNameCompability === true) {
-                        $returnName = "return";
-                    } else {
-                        $returnName = $method->getName() . 'Return';
-                    }
-
+                if($prototype->getReturnType() != "void") {
+                    $returnName = "return";
                     $message = $wsdl->addMessage($method->getName() . 'Response', array($returnName => $wsdl->getType($prototype->getReturnType())));
                 }
                  /* <wsdl:portType>'s */
@@ -393,7 +362,7 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
 
                 /* <wsdl:binding>'s */
                 $operation = $wsdl->addBindingOperation($binding, $method->getName(), $this->_operationBodyStyle, $this->_operationBodyStyle);
-                $wsdl->addSoapOperation($operation, $uri->getUri() . '#' .$method->getName());
+                $wsdl->addSoapOperation($operation, $uri . '#' .$method->getName());
                 /* </wsdl:binding>'s */
 
                 $this->_functions[] = $method->getName();
@@ -428,6 +397,40 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
             header('Content-Type: text/xml');
         }
         $this->_wsdl->dump();
+    }
+
+    /**
+     * Proxy to WSDL dump function
+     *
+     * @param string $filename
+     */
+    public function dump($filename)
+    {
+        if($this->_wsdl !== null) {
+            return $this->_wsdl->dump($filename);
+        } else {
+            /**
+             * @see Zend_Soap_AutoDiscover_Exception
+             */
+            #require_once "Zend/Soap/AutoDiscover/Exception.php";
+            throw new Zend_Soap_AutoDiscover_Exception("Cannot dump autodiscovered contents, WSDL file has not been generated yet.");
+        }
+    }
+
+    /**
+     * Proxy to WSDL toXml() function
+     */
+    public function toXml()
+    {
+        if($this->_wsdl !== null) {
+            return $this->_wsdl->toXml();
+        } else {
+            /**
+             * @see Zend_Soap_AutoDiscover_Exception
+             */
+            #require_once "Zend/Soap/AutoDiscover/Exception.php";
+            throw new Zend_Soap_AutoDiscover_Exception("Cannot return autodiscovered contents, WSDL file has not been generated yet.");
+        }
     }
 
     /**

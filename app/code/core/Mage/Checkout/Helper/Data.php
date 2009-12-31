@@ -93,43 +93,40 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         return true;
     }
 
+    /**
+     * Get sales item (quote item, order item etc) price including tax based on row total and tax amount
+     *
+     * @param   Varien_Object $item
+     * @return  float
+     */
     public function getPriceInclTax($item)
     {
-        //$price = ($item->getCalculationPrice() ? $item->getCalculationPrice() : $item->getPrice());
+        if ($item->getPriceInclTax()) {
+            return $item->getPriceInclTax();
+        }
         $qty = ($item->getQty() ? $item->getQty() : ($item->getQtyOrdered() ? $item->getQtyOrdered() : 1));
-        //$tax = ($item->getTaxBeforeDiscount() ? $item->getTaxBeforeDiscount() : $item->getTaxAmount());
-        //$price = Mage::app()->getStore()->roundPrice($price+($tax/$qty));
         $price = Mage::app()->getStore()->roundPrice(($item->getRowTotal()+$item->getTaxAmount())/$qty);
         return $price;
     }
 
+    /**
+     * Get sales item (quote item, order item etc) row total price including tax 
+     *
+     * @param   Varien_Object $item
+     * @return  float
+     */
     public function getSubtotalInclTax($item)
     {
-        if ($item instanceof Mage_Sales_Model_Order_Item) {
-            $store = $item->getOrder()->getStore();
-        } elseif($item instanceof Mage_Sales_Model_Order_Invoice_Item) {
-            $store = $item->getInvoice()->getOrder()->getStore();
-        } elseif($item instanceof Mage_Sales_Model_Order_Shipment_Item) {
-            $store = $item->getShipment()->getOrder()->getStore();
-        } elseif($item instanceof Mage_Sales_Model_Order_Creditmemo_Item) {
-            $store = $item->getCreditmemo()->getOrder()->getStore();
-        } else {
-            $store = $item->getQuote()->getStore();
+        if ($item->getRowTotalInclTax()) {
+            return $item->getRowTotalInclTax();
         }
-        if (!Mage::helper('tax')->applyTaxAfterDiscount($store) and $item->getTaxBeforeDiscount()) {
-            $tax = $item->getTaxBeforeDiscount();
-        } else {
-            $tax = $item->getTaxAmount();
-        }
+        $tax = $item->getTaxAmount();
         return $item->getRowTotal() + $tax;
     }
 
     public function getBasePriceInclTax($item)
     {
-        //$price = ($item->getCalculationPrice() ? $item->getCalculationPrice() : $item->getPrice());
         $qty = ($item->getQty() ? $item->getQty() : ($item->getQtyOrdered() ? $item->getQtyOrdered() : 1));
-        //$tax = ($item->getTaxBeforeDiscount() ? $item->getTaxBeforeDiscount() : $item->getTaxAmount());
-        //$price = Mage::app()->getStore()->roundPrice($price+($tax/$qty));
         $price = Mage::app()->getStore()->roundPrice(($item->getBaseRowTotal()+$item->getBaseTaxAmount())/$qty);
         return $price;
     }

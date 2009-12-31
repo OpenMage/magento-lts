@@ -35,7 +35,7 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext_Collection
      */
     protected function _getQuery()
     {
-        return Mage::helper('catalogSearch')->getQuery();
+        return Mage::helper('catalogsearch')->getQuery();
     }
 
     /**

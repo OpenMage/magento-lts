@@ -18,9 +18,11 @@
  * @subpackage Simpy
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Simpy.php 10478 2008-07-26 17:29:07Z elazar $
+ * @version    $Id: Simpy.php 15893 2009-06-04 23:12:54Z elazar $
  */
 
+
+#require_once 'Zend/Http/Client.php';
 
 /**
  * @category   Zend
@@ -37,14 +39,14 @@ class Zend_Service_Simpy
      *
      * @var string
      */
-    protected $_baseUri = 'http://simpy.com';
+    protected $_baseUri = 'http://simpy.com/simpy/api/rest/';
 
     /**
-     * Zend_Service_Rest object
+     * HTTP client for use in making web service calls 
      *
-     * @var Zend_Service_Rest
+     * @var Zend_Http_Client 
      */
-    protected $_rest;
+    protected $_http;
 
     /**
      * Constructs a new Simpy (free) REST API Client
@@ -59,17 +61,27 @@ class Zend_Service_Simpy
          * @see Zend_Service_Rest
          */
         #require_once 'Zend/Rest/Client.php';
-        $this->_rest = new Zend_Rest_Client($this->_baseUri);
-        $this->_rest->getHttpClient()
-            ->setAuth($username, $password);
+        $this->_http = new Zend_Http_Client;
+        $this->_http->setAuth($username, $password);
+    }
+
+    /**
+     * Returns the HTTP client currently in use by this class for REST API 
+     * calls, intended mainly for testing.
+     *
+     * @return Zend_Http_Client
+     */
+    public function getHttpClient()
+    {
+        return $this->_http;
     }
 
     /**
      * Sends a request to the REST API service and does initial processing
      * on the response.
      *
-     * @param  string       $op    Name of the operation for the request
-     * @param  string|array $query Query data for the request (optional)
+     * @param  string $op    Name of the operation for the request
+     * @param  array  $query Query data for the request (optional)
      * @throws Zend_Service_Exception
      * @return DOMDocument Parsed XML response
      */
@@ -77,9 +89,11 @@ class Zend_Service_Simpy
     {
         if ($query != null) {
             $query = array_diff($query, array_filter($query, 'is_null'));
+            $query = '?' . http_build_query($query);
         }
 
-        $response = $this->_rest->restGet('/simpy/api/rest/' . $op . '.do', $query);
+        $this->_http->setUri($this->_baseUri . $op . '.do' . $query);
+        $response = $this->_http->request('GET');
 
         if ($response->isSuccessful()) {
             $doc = new DOMDocument();
@@ -108,7 +122,7 @@ class Zend_Service_Simpy
          * @see Zend_Service_Exception
          */
         #require_once 'Zend/Service/Exception.php';
-        throw new Zend_Service_Exception('HTTP ' . $response->getStatus());
+        throw new Zend_Service_Exception($response->getMessage(), $response->getStatus());
     }
 
     /**

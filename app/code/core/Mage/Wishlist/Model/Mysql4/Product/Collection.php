@@ -43,33 +43,34 @@ class Mage_Wishlist_Model_Mysql4_Product_Collection
      */
     public function addWishlistFilter(Mage_Wishlist_Model_Wishlist $wishlist)
     {
-        $this->_joinFields['e_id'] = array(
-            'table' => 'e',
-            'field' => 'entity_id'
-        );
-
-        $this->joinTable('wishlist/item',
-            'product_id=e_id',
+        $this->joinTable(
+            array('t_wi' => 'wishlist/item'),
+            'product_id=entity_id',
             array(
-                'product_id' => 'product_id',
+                'product_id'                => 'product_id',
                 'wishlist_item_description' => 'description',
-                'store_id' => 'store_id',
-                'added_at' => 'added_at',
-                'wishlist_id' => 'wishlist_id',
-                'wishlist_item_id' => 'wishlist_item_id',
+                'item_store_id'             => 'store_id',
+                'added_at'                  => 'added_at',
+                'wishlist_id'               => 'wishlist_id',
+                'wishlist_item_id'          => 'wishlist_item_id',
             ),
             array(
-                'wishlist_id' => $wishlist->getId(),
-                'store_id'    => array('in' => $wishlist->getSharedStoreIds())
+                'wishlist_id'               => $wishlist->getId()
             )
         );
+
+        $this->_productLimitationFilters['store_table']  = 't_wi';
+
+        $this->setFlag('url_data_object', true);
+        $this->setFlag('do_not_use_category_id', true);
+
         return $this;
     }
 
     /**
      * Add wishlist sort order
      *
-     * @param string $att
+     * @param string $attribute
      * @param string $dir
      * @return Mage_Wishlist_Model_Mysql4_Product_Collection
      */

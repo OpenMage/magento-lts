@@ -72,7 +72,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Selector extends Mage_Core_Block_Template
      */
     public function getSelectorLabel()
     {
-        return Mage::helper('adminhtml')->__('Create Urlrewrite:');
+        return Mage::helper('adminhtml')->__('Create URL Rewrite:');
     }
 
     /**

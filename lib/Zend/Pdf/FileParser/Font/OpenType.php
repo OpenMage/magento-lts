@@ -326,7 +326,7 @@ abstract class Zend_Pdf_FileParser_Font_OpenType extends Zend_Pdf_FileParser_Fon
             $nameOffset = $this->readUInt(2);
 
             $languageCode = $this->_languageCodeForPlatform($platformID, $languageID);
-            if (is_null($languageCode)) {
+            if ($languageCode === null) {
                 $this->_debugLog('Skipping languageID: 0x%x; platformID %d', $languageID, $platformID);
                 continue;    // Not a supported language. Move on.
             }
@@ -471,7 +471,7 @@ abstract class Zend_Pdf_FileParser_Font_OpenType extends Zend_Pdf_FileParser_Fon
          */
         $this->numGlyphs = $this->readUInt(2);
         $this->_debugLog('number of glyphs: %d', $this->numGlyphs);
-        
+
         // Skip other maxp table entries (if presented with table version 1.0)...
     }
 
@@ -646,10 +646,10 @@ abstract class Zend_Pdf_FileParser_Font_OpenType extends Zend_Pdf_FileParser_Fon
          * even any of the extended latin characters, it is considered symbolic
          * to PDF and must be described differently in the Font Descriptor.
          */
-        /** 
+        /**
          * @todo Font is recognized as Adobe Latin subset font if it only contains
          * Basic Latin characters (only bit 0 of Unicode range bits is set).
-         * Actually, other Unicode subranges like General Punctuation (bit 31) also 
+         * Actually, other Unicode subranges like General Punctuation (bit 31) also
          * fall into Adobe Latin characters. So this code has to be modified.
          */
         $this->isAdobeLatinSubset = (($unicodeRange1 == 1) && ($unicodeRange2 == 0) &&

@@ -133,4 +133,30 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
             Mage::getSingleton('checkout/session')->setNoCartRedirect(true);
         }
     }
+
+    /**
+     * Customer login processing
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Wishlist_Model_Observer
+     */
+    public function customerLogin(Varien_Event_Observer $observer)
+    {
+        Mage::helper('wishlist')->calculate();
+
+        return $this;
+    }
+
+/**
+     * Customer logout processing
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Mage_Wishlist_Model_Observer
+     */
+    public function customerLogout(Varien_Event_Observer $observer)
+    {
+        Mage::getSingleton('customer/session')->setWishlistItemCount(0);
+
+        return $this;
+    }
 }

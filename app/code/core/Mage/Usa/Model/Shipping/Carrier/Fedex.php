@@ -426,30 +426,34 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     {
         $costArr = array();
         $priceArr = array();
-        $errorTitle = 'Unable to retrieve quotes';
+
         if (strlen(trim($response))>0) {
-            if (strpos(trim($response), '<?xml')===0) {
-                $xml = simplexml_load_string($response);
-                if (is_object($xml)) {
-                    if (is_object($xml->Error) && is_object($xml->Error->Message)) {
-                        $errorTitle = (string)$xml->Error->Message;
-                    } elseif (is_object($xml->SoftError) && is_object($xml->SoftError->Message)) {
-                        $errorTitle = (string)$xml->SoftError->Message;
-                    } else {
-                        $errorTitle = 'Unknown error';
-                    }
-                    $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));
-                    foreach ($xml->Entry as $entry) {
-                        if (in_array((string)$entry->Service, $allowedMethods)) {
-                            $costArr[(string)$entry->Service] = (string)$entry->EstimatedCharges->DiscountedCharges->NetCharge;
-                            $priceArr[(string)$entry->Service] = $this->getMethodPrice((string)$entry->EstimatedCharges->DiscountedCharges->NetCharge, (string)$entry->Service);
-                        }
-                    }
-                    asort($priceArr);
-                }
-            } else {
-                $errorTitle = 'Response is in the wrong format';
-            }
+           if ($xml = $this->_parseXml($response)) {
+               
+               if (is_object($xml->Error) && is_object($xml->Error->Message)) {
+                   $errorTitle = (string)$xml->Error->Message;
+               } elseif (is_object($xml->SoftError) && is_object($xml->SoftError->Message)) {
+                   $errorTitle = (string)$xml->SoftError->Message;
+               } else {
+                   $errorTitle = 'Unknown error';
+               }
+                
+               $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));
+                
+               foreach ($xml->Entry as $entry) {
+                   if (in_array((string)$entry->Service, $allowedMethods)) {
+                       $costArr[(string)$entry->Service] = (string)$entry->EstimatedCharges->DiscountedCharges->NetCharge;
+                           $priceArr[(string)$entry->Service] = $this->getMethodPrice((string)$entry->EstimatedCharges->DiscountedCharges->NetCharge, (string)$entry->Service);
+                   }
+               }
+
+               asort($priceArr);
+
+           } else {
+               $errorTitle = 'Response is in the wrong format.';
+           }
+        } else {
+            $errorTitle = 'Unable to retrieve tracking';
         }
 
         $result = Mage::getModel('shipping/rate_result');
@@ -474,6 +478,21 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
             }
         }
         return $result;
+    }
+
+    public function _parseXml($xmlContent)
+    {
+        try {
+            try {
+                $xml = simplexml_load_string($xmlContent);
+                return $xml; 
+            } catch (Exception $e) {
+                throw new Exception('Invalid XML document "' . $xmlContent . '"');
+            }
+        } catch (Exception $e) {
+            Mage::logException($e);
+            return false;
+        }
     }
 
 /*
@@ -646,19 +665,15 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     {
          $resultArr=array();
          if (strlen(trim($response))>0) {
-              if (strpos(trim($response), '<?xml')===0) {
-                  $xml = simplexml_load_string($response);
-                  if (is_object($xml)) {
-                    if (is_object($xml->Error) && is_object($xml->Error->Message)) {
-                        $errorTitle = (string)$xml->Error->Message;
-                    } elseif (is_object($xml->SoftError) && is_object($xml->SoftError->Message)) {
-                        $errorTitle = (string)$xml->SoftError->Message;
-                    }
-                  }else{
-                      $errorTitle = 'Error in loading response';
-                  }
+            if ($xml = $this->_parseXml($response)) {
+                  
+                 if (is_object($xml->Error) && is_object($xml->Error->Message)) {
+                    $errorTitle = (string)$xml->Error->Message;
+                 } elseif (is_object($xml->SoftError) && is_object($xml->SoftError->Message)) {
+                    $errorTitle = (string)$xml->SoftError->Message;
+                 }
 
-                  if (!isset($errorTitle)) {
+                 if (!isset($errorTitle)) {
                       $resultArr['status'] = (string)$xml->Package->StatusDescription;
                       $resultArr['service'] = (string)$xml->Package->Service;
                       $resultArr['deliverydate'] = (string)$xml->Package->DeliveredDate;

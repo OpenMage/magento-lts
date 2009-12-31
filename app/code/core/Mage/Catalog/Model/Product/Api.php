@@ -183,7 +183,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * @param string|int $store
      * @return boolean
      */
-    public function update($productId, $productData = array(), $store = null)
+    public function update($productId, $productData, $store = null)
     {
         $product = $this->_getProduct($productId, $store);
 
@@ -246,6 +246,10 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                 }
             }
             $product->setWebsiteIds($productData['websites']);
+        }
+
+        if (Mage::app()->isSingleStoreMode()) {
+            $product->setWebsiteIds(array(Mage::app()->getStore(true)->getWebsite()->getId()));
         }
 
         if (isset($productData['stock_data']) && is_array($productData['stock_data'])) {

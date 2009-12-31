@@ -169,8 +169,16 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
                 }
 
                 $block->setDataUsingMethod($k, $v);
-                $layout->addOutputBlock($blockName);
             }
+        }
+
+        /**
+         * Add output method for first block
+         */
+        $allBlocks = $layout->getAllBlocks();
+        $firstBlock = reset($allBlocks);
+        if ($firstBlock) {
+            $layout->addOutputBlock($firstBlock->getNameInLayout());
         }
 
         $layout->setDirectOutput(false);
@@ -372,5 +380,39 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
                 return rawurlencode($value);
         }
         return $value;
+    }
+
+    /**
+     * HTTP Protocol directive
+     *
+     * Using:
+     * {{protocol}} - current protocol http or https
+     * {{protocol url="www.domain.com/"}} domain URL with current protocol
+     * {{protocol http="http://url" https="https://url"}
+     * also allow additional parameter "store"
+     *
+     * @param array $construction
+     * @return string
+     */
+    public function protocolDirective($construction)
+    {
+        $params = $this->_getIncludeParameters($construction[2]);
+        $store = null;
+        if (isset($params['store'])) {
+            $store = Mage::app()->getSafeStore($params['store']);
+        }
+        $isSecure = Mage::app()->getStore($store)->isCurrentlySecure();
+        $protocol = $isSecure ? 'https' : 'http';
+        if (isset($params['url'])) {
+            return $protocol . '://' . $params['url'];
+        }
+        elseif (isset($params['http']) && isset($params['https'])) {
+            if ($isSecure) {
+                return $params['https'];
+            }
+            return $params['http'];
+        }
+
+        return $protocol;
     }
 }

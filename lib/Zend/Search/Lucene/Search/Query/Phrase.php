@@ -26,7 +26,7 @@
 #require_once 'Zend/Search/Lucene/Search/Query.php';
 
 /**
- * Zend_Search_Lucene_Search_Weight_MultiTerm
+ * Zend_Search_Lucene_Search_Weight_Phrase
  */
 #require_once 'Zend/Search/Lucene/Search/Weight/Phrase.php';
 
@@ -517,19 +517,18 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
     }
 
     /**
-     * Highlight query terms
+     * Query specific matches highlighting
      *
-     * @param integer &$colorIndex
-     * @param Zend_Search_Lucene_Document_Html $doc
+     * @param Zend_Search_Lucene_Search_Highlighter_Interface $highlighter  Highlighter object (also contains doc for highlighting)
      */
-    public function highlightMatchesDOM(Zend_Search_Lucene_Document_Html $doc, &$colorIndex)
+    protected function _highlightMatches(Zend_Search_Lucene_Search_Highlighter_Interface $highlighter)
     {
         $words = array();
         foreach ($this->_terms as $term) {
             $words[] = $term->text;
         }
 
-        $doc->highlight($words, $this->_getHighlightColor($colorIndex));
+        $highlighter->highlight($words);
     }
 
     /**
@@ -540,11 +539,10 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
     public function __toString()
     {
         // It's used only for query visualisation, so we don't care about characters escaping
-
-        $query = '';
-
         if (isset($this->_terms[0]) && $this->_terms[0]->field !== null) {
-            $query .= $this->_terms[0]->field . ':';
+            $query = $this->_terms[0]->field . ':';
+        } else {
+        	$query = '';
         }
 
         $query .= '"';
@@ -560,6 +558,10 @@ class Zend_Search_Lucene_Search_Query_Phrase extends Zend_Search_Lucene_Search_Q
 
         if ($this->_slop != 0) {
             $query .= '~' . $this->_slop;
+        }
+
+        if ($this->getBoost() != 1) {
+            $query .= '^' . round($this->getBoost(), 4);
         }
 
         return $query;

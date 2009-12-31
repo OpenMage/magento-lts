@@ -56,7 +56,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     public function prepareProductCollection($collection)
     {
         $collection->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->addSearchFilter(Mage::helper('catalogSearch')->getEscapedQueryText())
+            ->addSearchFilter(Mage::helper('catalogsearch')->getEscapedQueryText())
             ->setStore(Mage::app()->getStore())
             ->addMinimalPrice()
             ->addFinalPrice()
@@ -77,7 +77,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
     public function getStateKey()
     {
         if ($this->_stateKey === null) {
-            $this->_stateKey = 'Q_'.Mage::helper('catalogSearch')->getQuery()->getId()
+            $this->_stateKey = 'Q_'.Mage::helper('catalogsearch')->getQuery()->getId()
                 .'_'.parent::getStateKey();
         }
         return $this->_stateKey;

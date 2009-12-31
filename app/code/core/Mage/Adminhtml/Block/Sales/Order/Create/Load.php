@@ -24,6 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Adminhtml sales order create newsletter block
  *
@@ -31,19 +32,18 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Create_Load extends Mage_Core_Block_Template
 {
-	protected function _toHtml()
-	{
+    protected function _toHtml()
+    {
         $result = array();
-		foreach ($this->getSortedChildren() as $name) {
-			if (!$block = $this->getChild($name)) {
-				$result[$name] = Mage::helper('sales')->__('Invalid block: %s', $name);
-			} else {
+        foreach ($this->getSortedChildren() as $name) {
+            if (!$block = $this->getChild($name)) {
+                $result[$name] = Mage::helper('sales')->__('Invalid block: %s', $name);
+            } else {
                 $result[$name] = $block->toHtml();
             }
-		}
-	    return Zend_Json::encode($result);
-	}
+        }
+        return Mage::helper('core')->jsonEncode($result);
+    }
 }

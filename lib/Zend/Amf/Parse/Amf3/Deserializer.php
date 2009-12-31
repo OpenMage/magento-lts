@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage Parse_Amf3
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@
  * @todo       Class could be implmented as Factory Class with each data type it's own class.
  * @package    Zend_Amf
  * @subpackage Parse_Amf3
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Parse_Amf3_Deserializer extends Zend_Amf_Parse_Deserializer
@@ -152,7 +152,7 @@ class Zend_Amf_Parse_Amf3_Deserializer extends Zend_Amf_Parse_Deserializer
             // Check if the integer should be negative
             if (($result & 0x10000000) != 0) {
                 //and extend the sign bit
-                $result |= 0xe0000000;
+                $result |= ~0xFFFFFFF;
             }
         }
         return $result;
@@ -250,7 +250,7 @@ class Zend_Amf_Parse_Amf3_Deserializer extends Zend_Amf_Parse_Deserializer
 
         // Create a holder for the array in the reference list
         $data = array();
-        $this->_referenceObjects[] &= $data;
+        $this->_referenceObjects[] =& $data;
         $key = $this->readString();
 
         // Iterating for string based keys.
@@ -273,7 +273,7 @@ class Zend_Amf_Parse_Amf3_Deserializer extends Zend_Amf_Parse_Deserializer
      * Read an object from the AMF stream and convert it into a PHP object
      *
      * @todo   Rather than using an array of traitsInfo create Zend_Amf_Value_TraitsInfo
-     * @return object
+     * @return object|array
      */
     public function readObject()
     {
@@ -331,6 +331,7 @@ class Zend_Amf_Parse_Amf3_Deserializer extends Zend_Amf_Parse_Deserializer
             // Add the Object ot the reference table
             $this->_referenceObjects[] = $returnObject;
 
+            $properties = array(); // clear value
             // Check encoding types for additional processing.
             switch ($encoding) {
                 case (Zend_Amf_Constants::ET_EXTERNAL):
@@ -354,7 +355,6 @@ class Zend_Amf_Parse_Amf3_Deserializer extends Zend_Amf_Parse_Deserializer
                         );
                     }
                     // not a refrence object read name value properties from byte stream
-                    $properties = array(); // clear value
                     do {
                         $property = $this->readString();
                         if ($property != "") {
@@ -377,7 +377,6 @@ class Zend_Amf_Parse_Amf3_Deserializer extends Zend_Amf_Parse_Deserializer
                             'propertyNames' => $propertyNames,
                         );
                     }
-                    $properties = array(); // clear value
                     foreach ($propertyNames as $property) {
                         $properties[$property] = $this->readTypeMarker();
                     }
@@ -390,7 +389,18 @@ class Zend_Amf_Parse_Amf3_Deserializer extends Zend_Amf_Parse_Deserializer
                     $returnObject->$key = $value;
                 }
             }
+			
+		  
         }
+		
+	   if($returnObject instanceof Zend_Amf_Value_Messaging_ArrayCollection) {
+		if(isset($returnObject->externalizedData)) {
+			$returnObject = $returnObject->externalizedData;
+		} else {
+			$returnObject = get_object_vars($returnObject);
+		}
+	   }
+	   
         return $returnObject;
     }
 

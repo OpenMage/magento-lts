@@ -59,6 +59,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
     protected $_inactiveCategoryIds = null;
 
     /**
+     * store id
+     *
+     * @var integer
+     */
+    protected $_storeId = null;
+
+    /**
      * Enter description here...
      *
      */
@@ -76,6 +83,31 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
                 Varien_Data_Tree_Dbp::LEVEL_FIELD    => 'level',
             )
         );
+    }
+
+    /**
+     * Set store id
+     *
+     * @param integer $storeId
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree
+     */
+    public function setStoreId($storeId)
+    {
+        $this->_storeId = (int) $storeId;
+        return $this;
+    }
+
+    /**
+     * Return store id
+     *
+     * @return integer
+     */
+    public function getStoreId()
+    {
+        if ($this->_storeId === null) {
+            $this->_storeId = Mage::app()->getStore()->getId();
+        }
+        return $this->_storeId;
     }
 
     /**
@@ -506,13 +538,21 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
             $attribute = Mage::getResourceSingleton('catalog/category')->getAttribute($attributeCode);
             // join non-static attribute table
             if (!$attribute->getBackend()->isStatic()) {
-                $tableAs   = "_$attributeCode";
+                $defaultTableAs   = "default_$attributeCode";
+                $storeTableAs   = "store_$attributeCode";
                 $select->joinLeft(
-                    array($tableAs => $attribute->getBackend()->getTable()),
+                    array($defaultTableAs => $attribute->getBackend()->getTable()),
                     sprintf('`%1$s`.entity_id=e.entity_id AND `%1$s`.attribute_id=%2$d AND `%1$s`.entity_type_id=e.entity_type_id AND `%1$s`.store_id=%3$d',
-                        $tableAs, $attribute->getData('attribute_id'), Mage_Core_Model_App::ADMIN_STORE_ID
+                        $defaultTableAs, $attribute->getData('attribute_id'), Mage_Core_Model_App::ADMIN_STORE_ID
                     ),
                     array($attributeCode => 'value')
+                )
+                ->joinLeft(
+                    array($storeTableAs => $attribute->getBackend()->getTable()),
+                    sprintf('`%1$s`.entity_id=e.entity_id AND `%1$s`.attribute_id=%2$d AND `%1$s`.entity_type_id=e.entity_type_id AND `%1$s`.store_id=%3$d',
+                        $storeTableAs, $attribute->getData('attribute_id'), $this->getStoreId()
+                    ),
+                    array($attributeCode => new Zend_Db_Expr("IFNULL(`{$storeTableAs}`.value, `$defaultTableAs`.value)"))
                 );
             }
         }

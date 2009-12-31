@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Reports>
-            <version>0.7.7</version>
+            <version>0.7.8</version>
         </Mage_Reports>
     </modules>
     <global>
@@ -46,6 +46,12 @@
                     <event_type>
                         <table>report_event_types</table>
                     </event_type>
+                    <compared_product_index>
+                        <table>report_compared_product_index</table>
+                    </compared_product_index>
+                    <viewed_product_index>
+                        <table>report_viewed_product_index</table>
+                    </viewed_product_index>
                 </entities>
             </reports_mysql4>
         </models>
@@ -70,80 +76,7 @@
                 </connection>
             </reports_read>
         </resources>
-
         <events>
-            <catalog_product_compare_remove_product>
-                <observers>
-                    <reports>
-                        <type>singleton</type>
-                        <class>reports/event_observer</class>
-                        <method>catalogProductCompareRemoveProduct</method>
-                    </reports>
-                </observers>
-            </catalog_product_compare_remove_product>
-            <customer_login>
-                <observers>
-                    <reports>
-                        <type>singleton</type>
-                        <class>reports/event_observer</class>
-                        <method>customerLogin</method>
-                    </reports>
-                </observers>
-            </customer_login>
-            <catalog_controller_product_view>
-                <observers>
-                    <reports>
-                        <type>singleton</type>
-                        <class>reports/event_observer</class>
-                        <method>catalogProductView</method>
-                    </reports>
-                </observers>
-            </catalog_controller_product_view>
-            <sendfriend_product>
-                <observers>
-                    <reports>
-                        <type>singleton</type>
-                        <class>reports/event_observer</class>
-                        <method>sendfriendProduct</method>
-                    </reports>
-                </observers>
-            </sendfriend_product>
-            <catalog_product_compare_add_product>
-                <observers>
-                    <reports>
-                        <type>singleton</type>
-                        <class>reports/event_observer</class>
-                        <method>catalogProductCompareAddProduct</method>
-                    </reports>
-                </observers>
-            </catalog_product_compare_add_product>
-            <sales_quote_item_save_before>
-                <observers>
-                    <reports>
-                        <type>singleton</type>
-                        <class>reports/event_observer</class>
-                        <method>checkoutCartAddProduct</method>
-                    </reports>
-                </observers>
-            </sales_quote_item_save_before>
-            <wishlist_add_product>
-                <observers>
-                    <reports>
-                        <type>singleton</type>
-                        <class>reports/event_observer</class>
-                        <method>wishlistAddProduct</method>
-                    </reports>
-                </observers>
-            </wishlist_add_product>
-            <wishlist_share>
-                <observers>
-                    <reports>
-                        <type>singleton</type>
-                        <class>reports/event_observer</class>
-                        <method>wishlistShare</method>
-                    </reports>
-                </observers>
-            </wishlist_share>
             <log_log_clean_after>
                 <observers>
                     <reports>
@@ -423,6 +356,17 @@
                                 </search>
                             </children>
                         </report>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <reports translate="title" module="reports">
+                                            <title>Reports</title>
+                                        </reports>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
                     </children>
                 </admin>
             </resources>
@@ -445,9 +389,101 @@
                 </reports>
             </updates>
         </layout>
+        <events>
+            <catalog_product_compare_remove_product>
+                <observers>
+                    <reports>
+                        <type>singleton</type>
+                        <class>reports/event_observer</class>
+                        <method>catalogProductCompareRemoveProduct</method>
+                    </reports>
+                </observers>
+            </catalog_product_compare_remove_product>
+            <customer_login>
+                <observers>
+                    <reports>
+                        <type>singleton</type>
+                        <class>reports/event_observer</class>
+                        <method>customerLogin</method>
+                    </reports>
+                </observers>
+            </customer_login>
+            <customer_logout>
+                <observers>
+                    <reports>
+                        <type>singleton</type>
+                        <class>reports/event_observer</class>
+                        <method>customerLogout</method>
+                    </reports>
+                </observers>
+            </customer_logout>
+            <catalog_controller_product_view>
+                <observers>
+                    <reports>
+                        <type>singleton</type>
+                        <class>reports/event_observer</class>
+                        <method>catalogProductView</method>
+                    </reports>
+                </observers>
+            </catalog_controller_product_view>
+            <sendfriend_product>
+                <observers>
+                    <reports>
+                        <type>singleton</type>
+                        <class>reports/event_observer</class>
+                        <method>sendfriendProduct</method>
+                    </reports>
+                </observers>
+            </sendfriend_product>
+            <catalog_product_compare_add_product>
+                <observers>
+                    <reports>
+                        <type>singleton</type>
+                        <class>reports/event_observer</class>
+                        <method>catalogProductCompareAddProduct</method>
+                    </reports>
+                </observers>
+            </catalog_product_compare_add_product>
+            <catalog_product_compare_item_collection_clear>
+                <observers>
+                    <reports>
+                        <type>singleton</type>
+                        <class>reports/event_observer</class>
+                        <method>catalogProductCompareClear</method>
+                    </reports>
+                </observers>
+            </catalog_product_compare_item_collection_clear>
+            <sales_quote_item_save_before>
+                <observers>
+                    <reports>
+                        <type>singleton</type>
+                        <class>reports/event_observer</class>
+                        <method>checkoutCartAddProduct</method>
+                    </reports>
+                </observers>
+            </sales_quote_item_save_before>
+            <wishlist_add_product>
+                <observers>
+                    <reports>
+                        <type>singleton</type>
+                        <class>reports/event_observer</class>
+                        <method>wishlistAddProduct</method>
+                    </reports>
+                </observers>
+            </wishlist_add_product>
+            <wishlist_share>
+                <observers>
+                    <reports>
+                        <type>singleton</type>
+                        <class>reports/event_observer</class>
+                        <method>wishlistShare</method>
+                    </reports>
+                </observers>
+            </wishlist_share>
+        </events>
     </frontend>
 
-     <default>
+    <default>
         <catalog>
             <recently_products>
                 <scope>website</scope>
@@ -455,5 +491,11 @@
                 <compared_count>5</compared_count>
             </recently_products>
         </catalog>
+        <reports>
+            <dashboard>
+                <ytd_start>1,1</ytd_start>
+                <mtd_start>1</mtd_start>
+            </dashboard>
+        </reports>
     </default>
 </config>

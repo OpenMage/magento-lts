@@ -17,7 +17,7 @@
  * @package    Zend_Feed
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Rss.php 11654 2008-10-03 16:03:35Z yoshida@zend.co.jp $
+ * @version    $Id: Rss.php 15382 2009-05-07 13:28:14Z alexander $
  */
 
 
@@ -80,9 +80,14 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
         parent::__wakeup();
 
         // Find the base channel element and create an alias to it.
-        $this->_element = $this->_element->getElementsByTagName('channel')->item(0);
+        $rdfTags = $this->_element->getElementsByTagNameNS('http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'RDF');
+        if ($rdfTags->length != 0) {
+        	$this->_element = $rdfTags->item(0);
+        } else  {
+            $this->_element = $this->_element->getElementsByTagName('channel')->item(0);
+        }
         if (!$this->_element) {
-            /** 
+            /**
              * @see Zend_Feed_Exception
              */
             #require_once 'Zend/Feed/Exception.php';
@@ -147,6 +152,7 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
 
         if (isset($array->published)) {
             $lastBuildDate = $this->_element->createElement('lastBuildDate', gmdate('r', $array->published));
+            $channel->appendChild($lastBuildDate);
         }
 
         $editor = '';
@@ -169,11 +175,17 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
             $channel->appendChild($copyright);
         }
 
+        if (isset($array->category)) {
+            $category = $this->_element->createElement('category', $array->category);
+            $channel->appendChild($category);
+        }
+
         if (!empty($array->image)) {
             $image = $this->_element->createElement('image');
             $url = $this->_element->createElement('url', $array->image);
             $image->appendChild($url);
-            $imagetitle = $this->_element->createElement('title', $array->title);
+            $imagetitle = $this->_element->createElement('title');
+            $imagetitle->appendChild($this->_element->createCDATASection($array->title));
             $image->appendChild($imagetitle);
             $imagelink = $this->_element->createElement('link', $array->link);
             $image->appendChild($imagelink);
@@ -201,6 +213,11 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
             $cloud->setAttribute('registerProcedure', $array->cloud['procedure']);
             $cloud->setAttribute('protocol', $array->cloud['protocol']);
             $channel->appendChild($cloud);
+        }
+
+        if (isset($array->ttl)) {
+            $ttl = $this->_element->createElement('ttl', $array->ttl);
+            $channel->appendChild($ttl);
         }
 
         if (isset($array->rating)) {
@@ -384,6 +401,11 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
             $title->appendChild($this->_element->createCDATASection($dataentry->title));
             $item->appendChild($title);
 
+            if (isset($dataentry->author)) {
+                $author = $this->_element->createElement('author', $dataentry->author);
+                $item->appendChild($author);
+            }
+
             $link = $this->_element->createElement('link', $dataentry->link);
             $item->appendChild($link);
 
@@ -489,7 +511,7 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
     public function send()
     {
         if (headers_sent()) {
-            /** 
+            /**
              * @see Zend_Feed_Exception
              */
             #require_once 'Zend/Feed/Exception.php';

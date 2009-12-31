@@ -152,17 +152,20 @@ abstract class Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract extends Mage_Eav_
             'value'         => $this->_prepareValueForSave($value, $attribute),
             'store_id'      => $this->getDefaultStoreId()
         );
+
         $fields = array();
-        $values = array();
+        $bind = array();
         foreach ($row as $k => $v) {
-            $fields[] = $this->_getWriteAdapter()->quoteIdentifier('?', $k);
-            $values[] = $this->_getWriteAdapter()->quoteInto('?', $v);
+            $fields[] = $this->_getWriteAdapter()->quoteIdentifier($k);
+            $bind[':' . $k] = $v;
         }
+
         $sql = sprintf('INSERT IGNORE INTO %s (%s) VALUES(%s)',
             $this->_getWriteAdapter()->quoteIdentifier($attribute->getBackend()->getTable()),
-            join(',', array_keys($row)),
-            join(',', $values));
-        $this->_getWriteAdapter()->query($sql);
+            implode(',', $fields),
+            implode(',', array_keys($bind)));
+
+        $this->_getWriteAdapter()->query($sql, $bind);
         if (!$lastId = $this->_getWriteAdapter()->lastInsertId()) {
             $select = $this->_getReadAdapter()->select()
                 ->from($attribute->getBackend()->getTable(), 'value_id')

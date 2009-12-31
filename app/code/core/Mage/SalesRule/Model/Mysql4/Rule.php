@@ -65,4 +65,66 @@ class Mage_SalesRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
             ->where('customer_id=?', $customerId);
         return $read->fetchOne($select);
     }
+
+    /**
+     * Save rule labels for different store views
+     *
+     * @param   int $ruleId
+     * @param   array $labels
+     * @return  Mage_SalesRule_Model_Mysql4_Rule
+     */
+    public function saveStoreLabels($ruleId, $labels)
+    {
+        $delete = array();
+        $save = array();
+        $table = $this->getTable('salesrule/label');
+        $adapter = $this->_getWriteAdapter();
+        
+        foreach ($labels as $storeId => $label) {
+            if (Mage::helper('core/string')->strlen($label)) {
+                $data = array('rule_id' => $ruleId, 'store_id' => $storeId, 'label' => $label);
+                $adapter->insertOnDuplicate($table, $data, array('label'));
+            } else {
+                $delete[] = $storeId;
+            }
+        }
+
+        if (!empty($delete)) {
+            $adapter->delete($table,
+                $adapter->quoteInto('rule_id=? AND ', $ruleId) . $adapter->quoteInto('store_id IN (?)', $delete)
+            );
+        }
+        return $this;
+    }
+
+    /**
+     * Get all existing rule labels
+     *
+     * @param   int $ruleId
+     * @return  array
+     */
+    public function getStoreLabels($ruleId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getTable('salesrule/label'), array('store_id', 'label'))
+            ->where('rule_id=?', $ruleId);
+        return $this->_getReadAdapter()->fetchPairs($select);
+    }
+
+    /**
+     * Get rule label by specific store id
+     *
+     * @param   int $ruleId
+     * @param   int $storeId
+     * @return  string
+     */
+    public function getStoreLabel($ruleId, $storeId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getTable('salesrule/label'), 'label')
+            ->where('rule_id=?', $ruleId)
+            ->where('store_id IN(?)', array($storeId, 0))
+            ->order('store_id DESC');
+        return $this->_getReadAdapter()->fetchOne($select);
+    }
 }

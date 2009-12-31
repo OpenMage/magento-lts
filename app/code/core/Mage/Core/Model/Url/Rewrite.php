@@ -196,7 +196,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract
          */
         if (!$this->getId() && isset($_GET['___from_store'])) {
             try {
-                $fromStoreId = Mage::app()->getStore($_GET['___from_store']);
+                $fromStoreId = Mage::app()->getStore($_GET['___from_store'])->getId();
             }
             catch (Exception $e) {
                 return false;

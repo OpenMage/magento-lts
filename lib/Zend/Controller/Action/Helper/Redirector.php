@@ -65,6 +65,12 @@ class Zend_Controller_Action_Helper_Redirector extends Zend_Controller_Action_He
     protected $_useAbsoluteUri = false;
 
     /**
+     * Whether or not to close the session before exiting
+     * @var boolean
+     */
+    protected $_closeSessionOnExit = true;
+
+    /**
      * Retrieve HTTP status code to emit on {@link _redirect()} call
      *
      * @return int
@@ -85,7 +91,7 @@ class Zend_Controller_Action_Helper_Redirector extends Zend_Controller_Action_He
     {
         $code = (int)$code;
         if ((300 > $code) || (307 < $code) || (304 == $code) || (306 == $code)) {
-            #require_once 'Zend/Controller/Exception.php';
+            #require_once 'Zend/Controller/Action/Exception.php';
             throw new Zend_Controller_Action_Exception('Invalid redirect HTTP status code (' . $code  . ')');
         }
 
@@ -147,6 +153,29 @@ class Zend_Controller_Action_Helper_Redirector extends Zend_Controller_Action_He
     public function setPrependBase($flag)
     {
         $this->_prependBase = ($flag) ? true : false;
+        return $this;
+    }
+
+    /**
+     * Retrieve flag for whether or not {@link redirectAndExit()} shall close the session before
+     * exiting.
+     *
+     * @return boolean
+     */
+    public function getCloseSessionOnExit()
+    {
+        return $this->_closeSessionOnExit;
+    }
+
+    /**
+     * Set flag for whether or not {@link redirectAndExit()} shall close the session before exiting.
+     *
+     * @param  boolean $flag
+     * @return Zend_Controller_Action_Helper_Redirector Provides a fluent interface
+     */
+    public function setCloseSessionOnExit($flag)
+    {
+        $this->_closeSessionOnExit = ($flag) ? true : false;
         return $this;
     }
 
@@ -317,9 +346,6 @@ class Zend_Controller_Action_Helper_Redirector extends Zend_Controller_Action_He
         // prevent header injections
         $url = str_replace(array("\n", "\r"), '', $url);
 
-        $exit        = $this->getExit();
-        $prependBase = $this->getPrependBase();
-        $code        = $this->getCode();
         if (null !== $options) {
             if (isset($options['exit'])) {
                 $this->setExit(($options['exit']) ? true : false);
@@ -447,11 +473,13 @@ class Zend_Controller_Action_Helper_Redirector extends Zend_Controller_Action_He
      */
     public function redirectAndExit()
     {
-        // Close session, if started
-        if (class_exists('Zend_Session', false) && Zend_Session::isStarted()) {
-            Zend_Session::writeClose();
-        } elseif (isset($_SESSION)) {
-            session_write_close();
+        if ($this->getCloseSessionOnExit()) {
+            // Close session, if started
+            if (class_exists('Zend_Session', false) && Zend_Session::isStarted()) {
+                Zend_Session::writeClose();
+            } elseif (isset($_SESSION)) {
+                session_write_close();
+            }
         }
 
         $this->getResponse()->sendHeaders();

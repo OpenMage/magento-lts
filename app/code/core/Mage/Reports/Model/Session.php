@@ -20,20 +20,24 @@
  *
  * @category   Mage
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
- * Auth session model
- * 
+ * Reports Session Model
+ *
  * @category   Mage
  * @package    Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Reports_Model_Session extends Mage_Core_Model_Session_Abstract 
+class Mage_Reports_Model_Session extends Mage_Core_Model_Session_Abstract
 {
+    /**
+     * Initialize session name space
+     *
+     */
     public function __construct()
     {
         $this->init('reports');

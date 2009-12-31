@@ -23,11 +23,11 @@
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
+/* @var $this Mage_Sendfriend_Block_Send */
 /**
  * Send to friend form
  *
- * @see Mage_Sendfriend_Block_Index
+ * @see Mage_Sendfriend_Block_Send
  */
 ?>
 <script type="text/javascript">
@@ -35,7 +35,7 @@
     i=0;
     var recipCount  = 1;
     var maxRecip    = <?php echo $this->getMaxRecipients() ?>;
-    function remove_recipient(i){
+    function remove_recipient(i) {
         $('recipients_name'+i).up(2).remove();
         recipCount--;
         if(recipCount<maxRecip && maxRecip != 0) {
@@ -65,10 +65,12 @@
 </script>
 
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
 <div class="page-head">
     <h3><?php echo $this->__('Email to a Friend') ?></h3>
 </div>
-<form action="<?php echo $this->getUrl('*/*/sendmail', array('id'=>$this->getProductId(), 'cat_id'=>$this->getCategoryId())) ?>" method="post" id="product_sendtofriend_form">
+<form action="<?php echo $this->getSendUrl() ?>" method="post" id="product_sendtofriend_form">
+<?php echo $this->getBlockHtml('formkey')?>
 <div class="col-1 login-box">
     <div class="col-1 registered-users">
         <div class="content ">
@@ -87,7 +89,7 @@
                         </li>
                         <li>
                             <label for="sender_message"><?php echo $this->__('Message:') ?> <span class="required">*</span></label><br/>
-                            <textarea name="sender[message]" class="input-text required-entry" id="sender_message" cols="3" rows="3" style="width:100%;height:100px"><?php echo $this->htmlEscape($this->getFormData()->getData('sender/message'))?></textarea>
+                            <textarea name="sender[message]" class="input-text required-entry" id="sender_message" cols="3" rows="3" style="width:100%;height:100px"><?php echo $this->htmlEscape($this->getMessage())?></textarea>
                         </li>
 
                  </ul>
@@ -126,6 +128,7 @@
         </div>
 
         <div class="button-set">
+        	<button class="form-button left" type="button" onclick="history.back()"><span><?php echo $this->__('Back') ?></span></button>
             <button class="form-button right" type="submit"><span><?php echo $this->__('Send email') ?></span></button>
         </div>
     </div>

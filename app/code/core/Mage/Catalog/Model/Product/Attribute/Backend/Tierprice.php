@@ -225,6 +225,16 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
                 continue;
             }
 
+            if (intval($tierPrice['website_id']) > 0 &&
+                (!is_array($object->getWebsiteIds()) || !in_array($tierPrice['website_id'], $object->getWebsiteIds()))) {
+                continue;
+            }
+
+            if ($object->getStoreId() &&
+                Mage::app()->getStore($object->getStoreId())->getWebsiteId() != $tierPrice['website_id']) {
+                continue;
+            }
+
             $useForAllGroups = $tierPrice['cust_group'] == Mage_Customer_Model_Group::CUST_GROUP_ALL;
             $customerGroupId = !$useForAllGroups ? $tierPrice['cust_group'] : 0;
             $priceKey = join('-', array(

@@ -16,7 +16,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client
- * @version    $Id: Client.php 12504 2008-11-10 16:28:46Z matthew $
+ * @version    $Id: Client.php 15577 2009-05-14 12:43:34Z matthew $
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -240,8 +240,12 @@ class Zend_Http_Client
      */
     public function __construct($uri = null, $config = null)
     {
-        if ($uri !== null) $this->setUri($uri);
-        if ($config !== null) $this->setConfig($config);
+        if ($uri !== null) {
+            $this->setUri($uri);
+        }
+        if ($config !== null) {
+            $this->setConfig($config);
+        }
     }
 
     /**
@@ -374,8 +378,9 @@ class Zend_Http_Client
             }
         } else {
             // Check if $name needs to be split
-            if ($value === null && (strpos($name, ':') > 0))
+            if ($value === null && (strpos($name, ':') > 0)) {
                 list($name, $value) = explode(':', $name, 2);
+            }
 
             // Make sure the name is valid if we are in strict mode
             if ($this->config['strict'] && (! preg_match('/^[a-zA-Z0-9-]+$/', $name))) {
@@ -393,7 +398,9 @@ class Zend_Http_Client
             // Else, set the header
             } else {
                 // Header names are storred lowercase internally.
-                if (is_string($value)) $value = trim($value);
+                if (is_string($value)) {
+                    $value = trim($value);
+                }
                 $this->headers[$normalized_name] = array($name, $value);
             }
         }
@@ -556,8 +563,9 @@ class Zend_Http_Client
      */
     public function setCookieJar($cookiejar = true)
     {
-        if (! class_exists('Zend_Http_CookieJar'))
+        if (! class_exists('Zend_Http_CookieJar')) {
             #require_once 'Zend/Http/CookieJar.php';
+        }
 
         if ($cookiejar instanceof Zend_Http_CookieJar) {
             $this->cookiejar = $cookiejar;
@@ -595,8 +603,9 @@ class Zend_Http_Client
      */
     public function setCookie($cookie, $value = null)
     {
-        if (! class_exists('Zend_Http_Cookie'))
+        if (! class_exists('Zend_Http_Cookie')) {
             #require_once 'Zend/Http/Cookie.php';
+        }
 
         if (is_array($cookie)) {
             foreach ($cookie as $c => $v) {
@@ -610,7 +619,9 @@ class Zend_Http_Client
             return $this;
         }
 
-        if ($value !== null) $value = urlencode($value);
+        if ($value !== null) {
+            $value = urlencode($value);
+        }
 
         if (isset($this->cookiejar)) {
             if ($cookie instanceof Zend_Http_Cookie) {
@@ -634,7 +645,9 @@ class Zend_Http_Client
 
             $value = addslashes($value);
 
-            if (! isset($this->headers['cookie'])) $this->headers['cookie'] = array('Cookie', '');
+            if (! isset($this->headers['cookie'])) {
+                $this->headers['cookie'] = array('Cookie', '');
+            }
             $this->headers['cookie'][1] .= $cookie . '=' . $value . '; ';
         }
 
@@ -670,7 +683,9 @@ class Zend_Http_Client
                 throw new Zend_Http_Client_Exception("Unable to read file '{$filename}' for upload");
             }
 
-            if (! $ctype) $ctype = $this->_detectFileMimeType($filename);
+            if (! $ctype) {
+                $ctype = $this->_detectFileMimeType($filename);
+            }
         }
 
         // Force enctype to multipart/form-data
@@ -731,10 +746,12 @@ class Zend_Http_Client
         $this->raw_post_data = null;
 
         // Clear outdated headers
-        if (isset($this->headers[strtolower(self::CONTENT_TYPE)]))
+        if (isset($this->headers[strtolower(self::CONTENT_TYPE)])) {
             unset($this->headers[strtolower(self::CONTENT_TYPE)]);
-        if (isset($this->headers[strtolower(self::CONTENT_LENGTH)]))
+        }
+        if (isset($this->headers[strtolower(self::CONTENT_LENGTH)])) {
             unset($this->headers[strtolower(self::CONTENT_LENGTH)]);
+        }
 
         return $this;
     }
@@ -775,12 +792,15 @@ class Zend_Http_Client
     public function setAdapter($adapter)
     {
         if (is_string($adapter)) {
-            try {
-                #Zend_Loader::loadClass($adapter);
-            } catch (Zend_Exception $e) {
-                /** @see Zend_Http_Client_Exception */
-                #require_once 'Zend/Http/Client/Exception.php';
-                throw new Zend_Http_Client_Exception("Unable to load adapter '$adapter': {$e->getMessage()}");
+            if (!class_exists($adapter)) {
+                try {
+                    #require_once 'Zend/Loader.php';
+                    Zend_Loader::loadClass($adapter);
+                } catch (Zend_Exception $e) {
+                    /** @see Zend_Http_Client_Exception */
+                    #require_once 'Zend/Http/Client/Exception.php';
+                    throw new Zend_Http_Client_Exception("Unable to load adapter '$adapter': {$e->getMessage()}");
+                }
             }
 
             $adapter = new $adapter;
@@ -813,12 +833,16 @@ class Zend_Http_Client
             throw new Zend_Http_Client_Exception('No valid URI has been passed to the client');
         }
 
-        if ($method) $this->setMethod($method);
+        if ($method) {
+            $this->setMethod($method);
+        }
         $this->redirectCounter = 0;
         $response = null;
 
         // Make sure the adapter is loaded
-        if ($this->adapter == null) $this->setAdapter($this->config['adapter']);
+        if ($this->adapter == null) {
+            $this->setAdapter($this->config['adapter']);
+        }
 
         // Send the first request. If redirected, continue.
         do {
@@ -826,7 +850,9 @@ class Zend_Http_Client
             $uri = clone $this->uri;
             if (! empty($this->paramsGet)) {
                 $query = $uri->getQuery();
-                   if (! empty($query)) $query .= '&';
+                   if (! empty($query)) {
+                       $query .= '&';
+                   }
                 $query .= http_build_query($this->paramsGet, null, '&');
 
                 $uri->setQuery($query);
@@ -850,10 +876,14 @@ class Zend_Http_Client
             }
 
             $response = Zend_Http_Response::fromString($response);
-            if ($this->config['storeresponse']) $this->last_response = $response;
+            if ($this->config['storeresponse']) {
+                $this->last_response = $response;
+            }
 
             // Load cookies into cookie jar
-            if (isset($this->cookiejar)) $this->cookiejar->addCookiesFromResponse($response, $uri);
+            if (isset($this->cookiejar)) {
+                $this->cookiejar->addCookiesFromResponse($response, $uri);
+            }
 
             // If we got redirected, look for the Location header
             if ($response->isRedirect() && ($location = $response->getHeader('location'))) {
@@ -931,7 +961,9 @@ class Zend_Http_Client
 
         // Set the connection header
         if (! isset($this->headers['connection'])) {
-            if (! $this->config['keepalive']) $headers[] = "Connection: close";
+            if (! $this->config['keepalive']) {
+                $headers[] = "Connection: close";
+            }
         }
 
         // Set the Accept-encoding header if not set - depending on whether
@@ -967,14 +999,17 @@ class Zend_Http_Client
             $cookstr = $this->cookiejar->getMatchingCookies($this->uri,
                 true, Zend_Http_CookieJar::COOKIE_STRING_CONCAT);
 
-            if ($cookstr) $headers[] = "Cookie: {$cookstr}";
+            if ($cookstr) {
+                $headers[] = "Cookie: {$cookstr}";
+            }
         }
 
         // Add all other user defined headers
         foreach ($this->headers as $header) {
             list($name, $value) = $header;
-            if (is_array($value))
+            if (is_array($value)) {
                 $value = implode(', ', $value);
+            }
 
             $headers[] = "$name: $value";
         }
@@ -1004,7 +1039,9 @@ class Zend_Http_Client
         $body = '';
 
         // If we have files to upload, force enctype to multipart/form-data
-        if (count ($this->files) > 0) $this->setEncType(self::ENC_FORMDATA);
+        if (count ($this->files) > 0) {
+            $this->setEncType(self::ENC_FORMDATA);
+        }
 
         // If we have POST parameters or files, encode and add them to the body
         if (count($this->paramsPost) > 0 || count($this->files) > 0) {
@@ -1066,21 +1103,29 @@ class Zend_Http_Client
      */
     protected function _getParametersRecursive($parray, $urlencode = false)
     {
-        if (! is_array($parray)) return $parray;
+        if (! is_array($parray)) {
+            return $parray;
+        }
         $parameters = array();
 
         foreach ($parray as $name => $value) {
-            if ($urlencode) $name = urlencode($name);
+            if ($urlencode) {
+                $name = urlencode($name);
+            }
 
             // If $value is an array, iterate over it
             if (is_array($value)) {
                 $name .= ($urlencode ? '%5B%5D' : '[]');
                 foreach ($value as $subval) {
-                    if ($urlencode) $subval = urlencode($subval);
+                    if ($urlencode) {
+                        $subval = urlencode($subval);
+                    }
                     $parameters[] = array($name, $subval);
                 }
             } else {
-                if ($urlencode) $value = urlencode($value);
+                if ($urlencode) {
+                    $value = urlencode($value);
+                }
                 $parameters[] = array($name, $value);
             }
         }
@@ -1142,7 +1187,9 @@ class Zend_Http_Client
         $ret = "--{$boundary}\r\n" .
             'Content-Disposition: form-data; name="' . $name .'"';
 
-        if ($filename) $ret .= '; filename="' . $filename . '"';
+        if ($filename) {
+            $ret .= '; filename="' . $filename . '"';
+        }
         $ret .= "\r\n";
 
         foreach ($headers as $hname => $hvalue) {

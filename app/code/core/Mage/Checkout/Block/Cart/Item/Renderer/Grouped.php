@@ -43,7 +43,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
      */
     public function getGroupedProduct()
     {
-        if ($option = $this->getItem()->getOptionByCode('product_type')) {
+        $option = $this->getItem()->getOptionByCode('product_type');
+        if ($option) {
             return $option->getProduct();
         }
         return $this->getProduct();
@@ -66,16 +67,6 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
     }
 
     /**
-     * Get url to item product
-     *
-     * @return string
-     */
-    public function getProductUrl()
-    {
-        return $this->getGroupedProduct()->getProductUrl();
-    }
-
-    /**
      * Prepare item html
      *
      * This method uses renderer for real product type
@@ -86,12 +77,11 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
     {
         $renderer = $this->getRenderedBlock()->getItemRenderer($this->getItem()->getRealProductType());
         $renderer->setItem($this->getItem());
-        $renderer->overrideProductUrl($this->getProductUrl());
+//        $renderer->overrideProductUrl($this->getProductUrl());
         $renderer->overrideProductThumbnail($this->getProductThumbnail());
         $rendererHtml = $renderer->toHtml();
-        $renderer->overrideProductUrl(null);
+//        $renderer->overrideProductUrl(null);
         $renderer->overrideProductThumbnail(null);
         return $rendererHtml;
     }
-
 }

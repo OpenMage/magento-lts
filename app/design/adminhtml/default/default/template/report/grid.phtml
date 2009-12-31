@@ -206,6 +206,29 @@ $numColumns = sizeof($this->getColumns());
         }
     }
     <?php endif;?>
+	/* Overwrite function from switcher.phtml widget*/
+    function switchStore(obj){
+        if (obj.options[obj.selectedIndex].getAttribute('website') == 'true') {
+            var selectionType = 'website';
+        } else if (obj.options[obj.selectedIndex].getAttribute('group') == 'true') {
+            var selectionType = 'group';
+        } else {
+            var selectionType = 'store';
+        }
+        var storeParam = obj.value ? selectionType + '/' + obj.value + '/' : '';
+        if(obj.switchParams){
+            storeParam+= obj.switchParams;
+        }
+        var formParam = new Array('period_date_from', 'period_date_to', 'report_period');
+        var paramURL = '';
+        var switchURL = '<?php echo $this->getGridUrl(); ?>'.replace(/(store|group|website)\/\d+\//,'');
+        for(var i=0;i<formParam.length;i++){
+        	if ($(formParam[i]).value && $(formParam[i]).name) {
+        		paramURL+= $(formParam[i]).name + '=' + escape($(formParam[i]).value) + '&';
+            }
+        }
+        setLocation(switchURL + storeParam + '?' + paramURL);
+    }
 //]]>
 </script>
 <?php endif; ?>

@@ -131,7 +131,7 @@ abstract class Zend_Pdf_Font
      * Type 0 composite font.
      */
     const TYPE_TYPE_0 = 4;
-    
+
     /**
      * CID font containing a PostScript Type 1 font.
      * These fonts are used only to construct Type 0 composite fonts and can't be used directly
@@ -143,7 +143,7 @@ abstract class Zend_Pdf_Font
      * These fonts are used only to construct Type 0 composite fonts and can't be used directly
      */
     const TYPE_CIDFONT_TYPE_2 = 6;
-    
+
 
   /* Names of the Standard 14 PDF Fonts */
 
@@ -672,7 +672,7 @@ abstract class Zend_Pdf_Font
         }
 
 
-        if (is_null($font)) {
+        if ($font === null) {
             /* There was no match for the file extension or the extension was
              * wrong. Attempt to detect the type of font by actually parsing it.
              * We'll do the checks in order of most likely format to try to
@@ -682,7 +682,7 @@ abstract class Zend_Pdf_Font
             // OpenType
 
             // TrueType
-            if ((is_null($font)) && ($fileExtension != 'ttf')) {
+            if (($font === null) && ($fileExtension != 'ttf')) {
                 $font = Zend_Pdf_Font::_extractTrueTypeFont($dataSource, $embeddingOptions);
             }
 
@@ -698,7 +698,7 @@ abstract class Zend_Pdf_Font
          */
         $dataSource = null;
 
-        if (! is_null($font)) {
+        if ($font !== null) {
             /* Parsing was successful. Add this font instance to the cache arrays
              * and return it for use.
              */
@@ -743,7 +743,7 @@ abstract class Zend_Pdf_Font
     {
         try {
             $fontParser = new Zend_Pdf_FileParser_Font_OpenType_TrueType($dataSource);
-            
+
             $fontParser->parse();
             if ($fontParser->isAdobeLatinSubset) {
                 $font = new Zend_Pdf_Resource_Font_Simple_Parsed_TrueType($fontParser, $embeddingOptions);

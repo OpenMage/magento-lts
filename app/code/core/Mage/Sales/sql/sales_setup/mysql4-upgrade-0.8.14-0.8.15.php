@@ -63,7 +63,6 @@ CREATE TABLE `{$installer->getTable('sales_quote')}` (
     `checkout_method` varchar(255) NOT NULL default '',
     `password_hash` varchar(255) NOT NULL default '',
     `coupon_code` varchar(255) NOT NULL default '',
-    `giftcert_code` varchar(255) NOT NULL default '',
     `base_currency_code` varchar(255) NOT NULL default '',
     `store_currency_code` varchar(255) NOT NULL default '',
     `quote_currency_code` varchar(255) NOT NULL default '',

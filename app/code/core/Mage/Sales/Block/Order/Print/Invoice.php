@@ -34,12 +34,6 @@
 
 class Mage_Sales_Block_Order_Print_Invoice extends Mage_Sales_Block_Items_Abstract
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -79,8 +73,25 @@ class Mage_Sales_Block_Order_Print_Invoice extends Mage_Sales_Block_Items_Abstra
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
     {
         $renderer->setPrintStatus(true);
-
         return parent::_prepareItem($renderer);
     }
+
+    /**
+     * Get html of invoice totlas block
+     *
+     * @param   Mage_Sales_Model_Order_Invoice $invoice
+     * @return  string
+     */
+    public function getInvoiceTotalsHtml($invoice)
+    {
+        $html = '';
+        $totals = $this->getChild('invoice_totals');
+        if ($totals) {
+            $totals->setInvoice($invoice);
+            $html = $totals->toHtml();
+        }
+        return $html;
+    }
+
 }
 

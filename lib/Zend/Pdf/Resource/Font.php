@@ -231,13 +231,13 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
         }
         /* If the preferred language could not be found, use whatever is first.
          */
-        if (is_null($name)) {
+        if ($name === null) {
             $names = $this->_fontNames[$nameType];
             $name  = reset($names);
         }
         /* Convert the character set if requested.
          */
-        if ((! is_null($characterSet)) && ($characterSet != 'UTF-16BE') && PHP_OS != 'AIX') { // AIX knows not this charset
+        if (($characterSet !== null) && ($characterSet != 'UTF-16BE') && PHP_OS != 'AIX') { // AIX knows not this charset
             $name = iconv('UTF-16BE', $characterSet, $name);
         }
         return $name;

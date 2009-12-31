@@ -75,7 +75,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
         }
 
         $fieldset = $form->addFieldset('base_fieldset', array(
-            'legend'    => Mage::helper('adminhtml')->__('Urlrewrite Information')
+            'legend'    => Mage::helper('adminhtml')->__('URL Rewrite Information')
         ));
 
         $fieldset->addField('is_system', 'select', array(

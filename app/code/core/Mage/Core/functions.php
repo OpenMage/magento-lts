@@ -174,6 +174,9 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
     if (!defined('E_RECOVERABLE_ERROR')) {
         define('E_RECOVERABLE_ERROR', 4096);
     }
+    if (!defined('E_DEPRECATED')) {
+        define('E_DEPRECATED', 8192);
+    }
 
     // PEAR specific message handling
     if (stripos($errfile.$errstr, 'pear') !== false) {
@@ -228,6 +231,9 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
             break;
         case E_RECOVERABLE_ERROR:
             $errorMessage .= "Recoverable Error";
+            break;
+        case E_DEPRECATED:
+            $errorMessage .= "Deprecated functionality";
             break;
         default:
             $errorMessage .= "Unknown error ($errno)";

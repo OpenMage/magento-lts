@@ -125,7 +125,21 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
      */
     public function getRowField(Varien_Object $row)
     {
-        return $this->getRenderer()->render($row);
+        $renderedValue = $this->getRenderer()->render($row);
+
+        /*
+         * if column has determined callback for framing call
+         * it before give away rendered value
+         *
+         * callback_function($renderedValue, $row, $column, $isExport)
+         * should return new version of rendered value
+         */
+        $frameCallback = $this->getFrameCallback();
+        if (is_array($frameCallback)) {
+            $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, false);
+        }
+
+        return $renderedValue;
     }
 
     /**
@@ -136,7 +150,21 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
      */
     public function getRowFieldExport(Varien_Object $row)
     {
-        return $this->getRenderer()->renderExport($row);
+        $renderedValue = $this->getRenderer()->renderExport($row);
+
+        /*
+         * if column has determined callback for framing call
+         * it before give away rendered value
+         *
+         * callback_function($renderedValue, $row, $column, $isExport)
+         * should return new version of rendered value
+         */
+        $frameCallback = $this->getFrameCallback();
+        if (is_array($frameCallback)) {
+            $renderedValue = call_user_func($frameCallback, $renderedValue, $row, $this, true);
+        }
+
+        return $renderedValue;
     }
 
     public function setRenderer($renderer)

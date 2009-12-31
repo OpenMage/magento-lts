@@ -17,7 +17,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ibm.php 12958 2008-11-30 09:14:05Z mikaelkael $
+ * @version    $Id: Ibm.php 13522 2009-01-06 16:35:55Z thomas $
  */
 
 
@@ -260,7 +260,7 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
         $newbind = array();
         if (is_array($bind)) {
             foreach ($bind as $name => $value) {
-                if(!is_null($value)) {
+                if($value !== null) {
                     $newbind[$name] = $value;
                 }
             }

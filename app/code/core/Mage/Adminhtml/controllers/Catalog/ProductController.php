@@ -515,10 +515,10 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
          * Initialize data for configurable product
          */
         if (($data = $this->getRequest()->getPost('configurable_products_data')) && !$product->getConfigurableReadonly()) {
-            $product->setConfigurableProductsData(Zend_Json::decode($data));
+            $product->setConfigurableProductsData(Mage::helper('core')->jsonDecode($data));
         }
         if (($data = $this->getRequest()->getPost('configurable_attributes_data')) && !$product->getConfigurableReadonly()) {
-            $product->setConfigurableAttributesData(Zend_Json::decode($data));
+            $product->setConfigurableAttributesData(Mage::helper('core')->jsonDecode($data));
         }
 
         $product->setCanSaveConfigurableAttributes((bool)$this->getRequest()->getPost('affect_configurable_product_attributes') && !$product->getConfigurableReadonly());
@@ -893,7 +893,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
              );
         }
 
-        $this->getResponse()->setBody(Zend_Json::encode($result));
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
     protected function _isAllowed()

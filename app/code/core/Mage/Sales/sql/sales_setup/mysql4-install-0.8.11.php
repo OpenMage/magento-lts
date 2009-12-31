@@ -64,15 +64,6 @@ CREATE TABLE `{$installer->getTable('sales_discount_coupon')}` (
   PRIMARY KEY  (`coupon_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- DROP TABLE IF EXISTS `{$installer->getTable('sales_giftcert')}`;
-CREATE TABLE `{$installer->getTable('sales_giftcert')}` (
-  `giftcert_id` int(10) unsigned NOT NULL auto_increment,
-  `giftcert_code` varchar(50) NOT NULL default '',
-  `balance_amount` decimal(12,4) NOT NULL default '0.0000',
-  PRIMARY KEY  (`giftcert_id`),
-  UNIQUE KEY `gift_code` (`giftcert_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- DROP TABLE IF EXISTS `{$installer->getTable('sales_order_entity')}`;
 CREATE TABLE `{$installer->getTable('sales_order_entity')}` (
   `entity_id` int(10) unsigned NOT NULL auto_increment,

@@ -26,6 +26,22 @@
                     <element name="is_in_stock" type="xsd:int" minOccurs="0" />
                     <element name="manage_stock" type="xsd:int" minOccurs="0" />
                     <element name="use_config_manage_stock" type="xsd:int" minOccurs="0" />
+                    <element name="min_qty" type="xsd:int" minOccurs="0" />
+                    <element name="use_config_min_qty" type="xsd:int" minOccurs="0" />
+                    <element name="min_sale_qty" type="xsd:int" minOccurs="0" />
+                    <element name="use_config_min_sale_qty" type="xsd:int" minOccurs="0" />
+                    <element name="max_sale_qty" type="xsd:int" minOccurs="0" />
+                    <element name="use_config_max_sale_qty" type="xsd:int" minOccurs="0" />
+                    <element name="is_qty_decimal" type="xsd:int" minOccurs="0" />
+                    <element name="backorders" type="xsd:int" minOccurs="0" />
+                    <element name="use_config_backorders" type="xsd:int" minOccurs="0" />
+                    <element name="notify_stock_qty" type="xsd:int" minOccurs="0" />
+                    <element name="use_config_notify_stock_qty" type="xsd:int" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="catalogProductCreateEntity">
+                <all>
+                    <element name="stock_data" type="typens:catalogInventoryStockItemUpdateEntity" minOccurs="0" />
                 </all>
             </complexType>
         </schema>

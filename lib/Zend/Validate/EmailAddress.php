@@ -16,7 +16,7 @@
  * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: EmailAddress.php 13252 2008-12-14 20:27:04Z thomas $
+ * @version    $Id: EmailAddress.php 14560 2009-03-31 14:41:22Z thomas $
  */
 
 /**
@@ -70,6 +70,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      * Local object for validating the hostname part of an email address
      *
      * @var Zend_Validate_Hostname
+     * @depreciated
      */
     public $hostnameValidator;
 
@@ -106,6 +107,16 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
     {
         $this->setValidateMx($validateMx);
         $this->setHostnameValidator($hostnameValidator, $allow);
+    }
+
+    /**
+     * Returns the set hostname validator
+     *
+     * @return Zend_Validate_Hostname
+     */
+    public function getHostnameValidator()
+    {
+        return $this->hostnameValidator;
     }
 
     /**
@@ -215,8 +226,8 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
 
         // Dot-atom characters are: 1*atext *("." 1*atext)
         // atext: ALPHA / DIGIT / and "!", "#", "$", "%", "&", "'", "*",
-        //        "-", "/", "=", "?", "^", "_", "`", "{", "|", "}", "~"
-        $atext = 'a-zA-Z0-9\x21\x23\x24\x25\x26\x27\x2a\x2b\x2d\x2f\x3d\x3f\x5e\x5f\x60\x7b\x7c\x7d';
+        //        "+", "-", "/", "=", "?", "^", "_", "`", "{", "|", "}", "~"
+        $atext = 'a-zA-Z0-9\x21\x23\x24\x25\x26\x27\x2a\x2b\x2d\x2f\x3d\x3f\x5e\x5f\x60\x7b\x7c\x7d\x7e';
         if (preg_match('/^[' . $atext . ']+(\x2e+[' . $atext . ']+)*$/', $this->_localPart)) {
             $localResult = true;
         } else {

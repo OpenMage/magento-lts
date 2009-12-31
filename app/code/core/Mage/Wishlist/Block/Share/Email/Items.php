@@ -32,54 +32,42 @@
  * @package    Mage_Wishlist
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Wishlist_Block_Share_Email_Items extends Mage_Core_Block_Template
+class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
 {
-
-    protected $_wishlistLoaded = false;
-
+    /**
+     * Initialize template
+     *
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('wishlist/email/items.phtml');
     }
 
-    public function getWishlist()
+    /**
+     * Retrieve Product View URL
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param array $additional
+     * @return string
+     */
+    public function getProductUrl($product, $additional = array())
     {
-        if(!$this->_wishlistLoaded) {
-            Mage::registry('wishlist')
-                ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer());
-            Mage::registry('wishlist')->getProductCollection()
-                ->addAttributeToSelect('url_key')
-                ->addAttributeToSelect('name')
-                ->addAttributeToSelect('price')
-                ->addAttributeToSelect('image')
-                ->addAttributeToSelect('small_image')
-                //->addAttributeToFilter('store_id', array('in'=>Mage::registry('wishlist')->getSharedStoreIds()))
-                ->addStoreFilter();
-            Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSiteFilterToCollection(Mage::registry('wishlist')->getProductCollection());
-            Mage::registry('wishlist')->getProductCollection()
-                ->load();
-
-            $this->_wishlistLoaded = true;
-        }
-
-        return Mage::registry('wishlist')->getProductCollection();
+        $additional['_store_to_url'] = true;
+        return parent::getProductUrl($product, $additional);
     }
 
-    public function getEscapedDescription(Varien_Object $item)
+    /**
+     * Retrieve URL for add product to shopping cart
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param array $additional
+     * @return string
+     */
+    public function getAddToCartUrl($product, $additional = array())
     {
-        return nl2br($this->htmlEscape($item->getWishlistItemDescription()));
+        $additional['nocookie'] = 1;
+        $additional['_store_to_url'] = true;
+        return parent::getAddToCartUrl($product, $additional);
     }
-
-    public function hasDescription(Varien_Object $item)
-    {
-        return trim($item->getWishlistItemDescription())!='';
-    }
-
-    public function getFormatedDate($date)
-    {
-        return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
-    }
-
 }

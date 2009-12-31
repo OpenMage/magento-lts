@@ -94,13 +94,35 @@ class Mage_Downloadable_Model_Mysql4_Link extends Mage_Core_Model_Mysql4_Abstrac
             }
         } else {
             if (!$linkObject->getUseDefaultPrice()) {
-                $this->_getWriteAdapter()->insert(
-                    $this->getTable('downloadable/link_price'),
-                    array(
-                        'link_id' => $linkObject->getId(),
-                        'website_id' => $linkObject->getWebsiteId(),
-                        'price' => $linkObject->getPrice()
-                    ));
+                $dataToInsert[] = array(
+                    'link_id' => $linkObject->getId(),
+                    'website_id' => $linkObject->getWebsiteId(),
+                    'price' => $linkObject->getPrice()
+                );
+                $_isNew = $linkObject->getOrigData('link_id') != $linkObject->getLinkId();
+                if ($linkObject->getWebsiteId() == 0 && $_isNew && !Mage::helper('catalog')->isPriceGlobal()) {
+                    $websiteIds = $linkObject->getProductWebsiteIds();
+                    foreach ($websiteIds as $websiteId) {
+                        $baseCurrency = Mage::app()->getBaseCurrencyCode();
+                        $websiteCurrency = Mage::app()->getWebsite($websiteId)->getBaseCurrencyCode();
+                        if ($websiteCurrency == $baseCurrency) {
+                            continue;
+                        }
+                        $rate = Mage::getModel('directory/currency')->load($baseCurrency)->getRate($websiteCurrency);
+                        if (!$rate) {
+                            $rate = 1;
+                        }
+                        $newPrice = $linkObject->getPrice() * $rate;
+                        $dataToInsert[] = array(
+                            'link_id' => $linkObject->getId(),
+                            'website_id' => $websiteId,
+                            'price' => $newPrice
+                        );
+                    }
+                }
+                foreach ($dataToInsert as $_data) {
+                    $this->_getWriteAdapter()->insert($this->getTable('downloadable/link_price'), $_data);
+                }
             }
         }
         return $this;

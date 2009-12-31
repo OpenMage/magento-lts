@@ -349,6 +349,5 @@ DROP TABLE IF EXISTS {$this->getTable('sales_quote_rule')};
 
 DROP TABLE IF EXISTS {$this->getTable('sales_counter')};
 DROP TABLE IF EXISTS {$this->getTable('sales_discount_coupon')};
-DROP TABLE IF EXISTS {$this->getTable('sales_giftcert')};
 ");
 $installer->endSetup();

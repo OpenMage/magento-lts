@@ -307,8 +307,8 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             Mage::throwException(Mage::helper('checkout')->__('Payment method is not defined'));
         }
         $this->getQuote()->getPayment()
-            ->importData($payment)
-            ->save();
+            ->importData($payment);
+        $this->getQuote()->save();
         return $this;
     }
 

@@ -29,9 +29,9 @@
 <tr class="border">
     <td><?php echo $this->getColumnHtml($_item, 'configurable_name') ?></td>
     <td class="a-right">
-        <?php if ($this->helper('tax')->displayCartBothPrices() || $this->helper('tax')->displayCartPriceExclTax()): ?>
+        <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceExclTax()): ?>
             <span class="price-excl-tax">
-                <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                <?php if ($this->helper('tax')->displaySalesBothPrices()): ?>
                     <span class="label"><?php echo $this->__('Excl. Tax'); ?>:</span>
                 <?php endif; ?>
             
@@ -82,9 +82,9 @@
             </span>
             <br />
         <?php endif; ?>
-        <?php if ($this->helper('tax')->displayCartBothPrices() || $this->helper('tax')->displayCartPriceInclTax()): ?>
+        <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceInclTax()): ?>
             <span class="price-incl-tax">
-                <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                <?php if ($this->helper('tax')->displaySalesBothPrices()): ?>
                     <span class="label"><?php echo $this->__('Incl. Tax'); ?>:</span>
                 <?php endif; ?>
                 <?php $_incl = $this->helper('checkout')->getPriceInclTax($_item); ?>
@@ -134,9 +134,9 @@
     <?php endif; ?>
     </td>
     <td class="a-right">
-        <?php if ($this->helper('tax')->displayCartBothPrices() || $this->helper('tax')->displayCartPriceExclTax()): ?>
+        <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceExclTax()): ?>
             <span class="price-excl-tax">
-                <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                <?php if ($this->helper('tax')->displaySalesBothPrices()): ?>
                     <span class="label"><?php echo $this->__('Excl. Tax'); ?>:</span>
                 <?php endif; ?>
            
@@ -186,9 +186,9 @@
             </span>
             <br />
         <?php endif; ?>
-        <?php if ($this->helper('tax')->displayCartBothPrices() || $this->helper('tax')->displayCartPriceInclTax()): ?>
+        <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceInclTax()): ?>
             <span class="price-incl-tax">
-                <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                <?php if ($this->helper('tax')->displaySalesBothPrices()): ?>
                     <span class="label"><?php echo $this->__('Incl. Tax'); ?>:</span>
                 <?php endif; ?>
                 <?php $_incl = $this->helper('checkout')->getSubtotalInclTax($_item); ?>

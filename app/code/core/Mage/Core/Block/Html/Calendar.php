@@ -41,32 +41,32 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
         // get days names
         $days = Zend_Locale_Data::getList($localeCode, 'days');
         $this->assign('days', array(
-            'wide'        => Zend_Json::encode(array_values($days['format']['wide'])),
-            'abbreviated' => Zend_Json::encode(array_values($days['format']['abbreviated']))
+            'wide'        => Mage::helper('core')->jsonEncode(array_values($days['format']['wide'])),
+            'abbreviated' => Mage::helper('core')->jsonEncode(array_values($days['format']['abbreviated']))
         ));
 
         // get months names
         $months = Zend_Locale_Data::getList($localeCode, 'months');
         $this->assign('months', array(
-            'wide'        => Zend_Json::encode(array_values($months['format']['wide'])),
-            'abbreviated' => Zend_Json::encode(array_values($months['format']['abbreviated']))
+            'wide'        => Mage::helper('core')->jsonEncode(array_values($months['format']['wide'])),
+            'abbreviated' => Mage::helper('core')->jsonEncode(array_values($months['format']['abbreviated']))
         ));
 
         // get "today" and "week" words
-        $this->assign('today', Zend_Json::encode(Zend_Locale_Data::getContent($localeCode, 'relative', 0)));
-        $this->assign('week', Zend_Json::encode(Zend_Locale_Data::getContent($localeCode, 'field', 'week')));
+        $this->assign('today', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'relative', 0)));
+        $this->assign('week', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'field', 'week')));
 
         // get "am" & "pm" words
-        $this->assign('am', Zend_Json::encode(Zend_Locale_Data::getContent($localeCode, 'am')));
-        $this->assign('pm', Zend_Json::encode(Zend_Locale_Data::getContent($localeCode, 'pm')));
+        $this->assign('am', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'am')));
+        $this->assign('pm', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'pm')));
 
         // get first day of week and weekend days
         $this->assign('firstDay',    (int)Mage::getStoreConfig('general/locale/firstday'));
-        $this->assign('weekendDays', Zend_Json::encode((string)Mage::getStoreConfig('general/locale/weekend')));
+        $this->assign('weekendDays', Mage::helper('core')->jsonEncode((string)Mage::getStoreConfig('general/locale/weekend')));
 
         // define default format and tooltip format
-        $this->assign('defaultFormat', Zend_Json::encode(Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM)));
-        $this->assign('toolTipFormat', Zend_Json::encode(Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_LONG)));
+        $this->assign('defaultFormat', Mage::helper('core')->jsonEncode(Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM)));
+        $this->assign('toolTipFormat', Mage::helper('core')->jsonEncode(Mage::app()->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_LONG)));
 
         // get days and months for en_US locale - calendar will parse exactly in this locale
         $days = Zend_Locale_Data::getList('en_US', 'days');
@@ -75,7 +75,7 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
         $enUS->m = new stdClass();
         $enUS->m->wide = array_values($months['format']['wide']);
         $enUS->m->abbr = array_values($months['format']['abbreviated']);
-        $this->assign('enUS', Zend_Json::encode($enUS));
+        $this->assign('enUS', Mage::helper('core')->jsonEncode($enUS));
 
         return parent::_toHtml();
     }

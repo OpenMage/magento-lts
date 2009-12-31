@@ -420,8 +420,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
                     $product->unsSkipCheckRequiredOption();
                     $newItem->checkData();
                     $newItem->setQty($qty);
-                    $this->getQuote()->collectTotals()
-                        ->save();
                     break;
                 case 'cart':
                     if (($cart = $this->getCustomerCart()) && is_null($item->getOptionByCode('additional_options'))) {
@@ -1123,7 +1121,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     {
         $customerId = $this->getSession()->getCustomerId();
         if (is_null($customerId)) {
-            Mage::throwException(Mage::helper('adminhtml')->__('Please select a custmer'));
+            Mage::throwException(Mage::helper('adminhtml')->__('Please select a customer'));
         }
 
         if (!$this->getSession()->getStore()->getId()) {

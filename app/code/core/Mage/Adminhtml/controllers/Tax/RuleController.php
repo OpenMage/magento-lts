@@ -95,7 +95,9 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
             Mage::getSingleton('adminhtml/session')->setRuleData($postData);
             $this->_redirectReferer();
+            return;
         }
+        $this->getResponse()->setRedirect($this->getUrl('*/tax_rule'));
     }
 
     public function deleteAction()

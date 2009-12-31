@@ -109,7 +109,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
                 }
                 $line[] = array(
                     'text'  => $text,
-                    'feed'  => 240
+                    'feed'  => 255
                 );
             }
 

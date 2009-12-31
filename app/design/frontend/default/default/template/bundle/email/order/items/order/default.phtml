@@ -68,8 +68,8 @@
     </td>
     <td align="right" valign="top" style="padding:3px 9px">
     <?php if (!$_item->getParentItem()): ?>
-        <?php if ($this->helper('tax')->displayCartPriceExclTax($_order->getStore()) || $this->helper('tax')->displayCartBothPrices($_order->getStore())): ?>
-            <?php if ($this->helper('tax')->displayCartBothPrices($_order->getStore())): ?>
+        <?php if ($this->helper('tax')->displaySalesPriceExclTax($_order->getStore()) || $this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
+            <?php if ($this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
                 <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax'); ?>:</span>
             <?php endif; ?>
             <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'email', $_order->getStore())): ?>
@@ -107,8 +107,8 @@
         <?php endif; ?>
     
     
-        <?php if ($this->helper('tax')->displayCartPriceInclTax($_order->getStore()) || $this->helper('tax')->displayCartBothPrices($_order->getStore())): ?>
-            <?php if ($this->helper('tax')->displayCartBothPrices($_order->getStore())): ?>
+        <?php if ($this->helper('tax')->displaySalesPriceInclTax($_order->getStore()) || $this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
+            <?php if ($this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
                 <br /><span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax'); ?>:</span>
             <?php endif; ?>
             <?php $_incl = $this->helper('checkout')->getSubtotalInclTax($_item); ?>

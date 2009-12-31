@@ -40,6 +40,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * @var string
      */
     protected $_code;
+    protected $_address = null;
 
     /**
      * Set total code code name
@@ -64,13 +65,19 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     }
 
     /**
-     * Collect totals process
+     * Collect totals process.
      *
      * @param Mage_Sales_Model_Quote_Address $address
      * @return Mage_Sales_Model_Quote_Address_Total_Abstract
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
+        $this->_setAddress($address);
+        /**
+         * Reset amounts
+         */
+        $this->_setAmount(0);
+        $this->_setBaseAmount(0);
         return $this;
     }
 
@@ -82,6 +89,102 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
+        $this->_setAddress($address);
         return array();
+    }
+
+    /**
+     * Set address shich can be used inside totals calculation
+     *
+     * @param   Mage_Sales_Model_Quote_Address $address
+     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     */
+    protected function _setAddress(Mage_Sales_Model_Quote_Address $address)
+    {
+        $this->_address = $address;
+        return $this;
+    }
+
+    /**
+     * Get quote address object
+     *
+     * @throw   Mage_Core_Exception if address not declared
+     * @return  Mage_Sales_Model_Quote_Address
+     */
+    protected function _getAddress()
+    {
+        if ($this->_address === null) {
+            Mage::throwException(
+                Mage::helper('sales')->__('Address model is not defined')
+            );
+        }
+        return $this->_address;
+    }
+
+    /**
+     * Set total model amount value to address
+     *
+     * @param   float $amount
+     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     */
+    protected function _setAmount($amount)
+    {
+        $this->_getAddress()->setTotalAmount($this->getCode(), $amount);
+        return $this;
+    }
+
+    /**
+     * Set total model base amount value to address
+     *
+     * @param   float $amount
+     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     */
+    protected function _setBaseAmount($baseAmount)
+    {
+        $this->_getAddress()->setBaseTotalAmount($this->getCode(), $baseAmount);
+        return $this;
+    }
+
+    /**
+     * Add total model amount value to address
+     *
+     * @param   float $amount
+     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     */
+    protected function _addAmount($amount)
+    {
+        $this->_getAddress()->setTotalAmount(
+            $this->getCode(),
+            $this->_getAddress()->getTotalAmount($this->getCode())+$amount
+        );
+        return $this;
+    }
+
+    /**
+     * Add total model base amount value to address
+     *
+     * @param   float $amount
+     * @return  Mage_Sales_Model_Quote_Address_Total_Abstract
+     */
+    protected function _addBaseAmount($baseAmount)
+    {
+        $this->_getAddress()->setBaseTotalAmount(
+            $this->getCode(),
+            $this->_getAddress()->getBaseTotalAmount($this->getCode())+$baseAmount
+        );
+        return $this;
+    }
+
+    /**
+     * Process model configuration array.
+     * This method can be used for changing models apply sort order
+     *
+     * @param   array $config
+     * @param   store $store
+     * @return  array
+     */
+    public function processConfigArray($config, $store)
+    {
+        return $config;
     }
 }

@@ -403,6 +403,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
                 'websites'      => '',
                 'attribute_set' => $this->getAttributeSetName($product->getEntityTypeId(), $product->getAttributeSetId()),
                 'type'          => $product->getTypeId(),
+                'category_ids'  => join(',', $product->getCategoryIds())
             );
 
             if ($this->getStore()->getCode() == Mage_Core_Model_Store::ADMIN_CODE) {

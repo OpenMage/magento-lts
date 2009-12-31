@@ -72,11 +72,19 @@ class Zend_Controller_Router_Route_Static extends Zend_Controller_Router_Route_A
      * @param string $path Path used to match against this routing map
      * @return array|false An array of assigned values or a false on a mismatch
      */
-    public function match($path)
+    public function match($path, $partial = false)
     {
-        if (trim($path, '/') == $this->_route) {
-            return $this->_defaults;
+        if ($partial) {
+            if (substr($path, 0, strlen($this->_route)) === $this->_route) {
+                $this->setMatchedPath($this->_route);
+                return $this->_defaults;
+            }
+        } else {
+            if (trim($path, '/') == $this->_route) {
+                return $this->_defaults;
+            }
         }
+        
         return false;
     }
 
@@ -86,7 +94,7 @@ class Zend_Controller_Router_Route_Static extends Zend_Controller_Router_Route_A
      * @param array $data An array of variable and value pairs used as parameters
      * @return string Route path with user submitted parameters
      */
-    public function assemble($data = array(), $reset = false, $encode = false)
+    public function assemble($data = array(), $reset = false, $encode = false, $partial = false)
     {
         return $this->_route;
     }

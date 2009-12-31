@@ -94,7 +94,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                                 ->setCustomerId($customerId)
                                 ->setProductId($productId)
                                 ->setStoreId(Mage::app()->getStore()->getId())
-                                ->setCreatedAt( now() )
+                                ->setCreatedAt( $tagRelationModel->getResource()->formatDate(time()) )
                                 ->setActive(1)
                                 ->save();
                             $tagModel->aggregate();

@@ -51,7 +51,7 @@ class Mage_GoogleOptimizer_IndexController extends Mage_Adminhtml_Controller_Act
                     $result[$id] = $code;
                 }
             }
-            $this->getResponse()->setBody( Zend_Json::encode($result) );
+            $this->getResponse()->setBody( Mage::helper('core')->jsonEncode($result) );
         }
     }
 }

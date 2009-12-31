@@ -22,11 +22,11 @@
 /** Zend_Search_Lucene_Index_DictionaryLoader */
 #require_once 'Zend/Search/Lucene/Index/DictionaryLoader.php';
 
-/** Zend_Search_Lucene_LockManager */
-#require_once 'Zend/Search/Lucene/LockManager.php';
-
 /** Zend_Search_Lucene_Index_DocsFilter */
 #require_once 'Zend/Search/Lucene/Index/DocsFilter.php';
+
+/** Zend_Search_Lucene_Index_TermsStream_Interface */
+#require_once 'Zend/Search/Lucene/Index/TermsStream/Interface.php';
 
 /**
  * @category   Zend
@@ -35,7 +35,7 @@
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Search_Lucene_Index_SegmentInfo
+class Zend_Search_Lucene_Index_SegmentInfo implements Zend_Search_Lucene_Index_TermsStream_Interface
 {
     /**
      * "Full scan vs fetch" boundary.
@@ -317,111 +317,165 @@ class Zend_Search_Lucene_Index_SegmentInfo
         $this->_fieldsDicPositions = array_flip($fieldNums);
 
         if ($this->_delGen == -2) {
-            $this->_detectLatestDelGen();
+        	// SegmentInfo constructor is invoked from index writer
+        	// Autodetect current delete file generation number
+            $this->_delGen = $this->_detectLatestDelGen();
         }
 
+        // Load deletions
+        $this->_deleted = $this->_loadDelFile();
+    }
+
+    /**
+     * Load detetions file
+     *
+     * Returns bitset or an array depending on bitset extension availability
+     *
+     * @return mixed
+     * @throws Zend_Search_Lucene_Exception
+     */
+    private function _loadDelFile()
+    {
         if ($this->_delGen == -1) {
             // There is no delete file for this segment
-            // Do nothing
+            return null;
         } else if ($this->_delGen == 0) {
             // It's a segment with pre-2.1 format delete file
-            // Try to find delete file
-            #require_once 'Zend/Search/Lucene/Exception.php';
-            try {
-                // '.del' files always stored in a separate file
-                // Segment compound is not used
-                $delFile = $this->_directory->getFileObject($this->_name . '.del');
-
-                $byteCount = $delFile->readInt();
-                $byteCount = ceil($byteCount/8);
-                $bitCount  = $delFile->readInt();
-
-                if ($bitCount == 0) {
-                    $delBytes = '';
-                } else {
-                    $delBytes = $delFile->readBytes($byteCount);
-                }
-
-                if (extension_loaded('bitset')) {
-                    $this->_deleted = $delBytes;
-                } else {
-                    $this->_deleted = array();
-                    for ($count = 0; $count < $byteCount; $count++) {
-                        $byte = ord($delBytes[$count]);
-                        for ($bit = 0; $bit < 8; $bit++) {
-                            if ($byte & (1<<$bit)) {
-                                $this->_deleted[$count*8 + $bit] = 1;
-                            }
-                        }
-                    }
-                }
-            } catch(Zend_Search_Exception $e) {
-                if (strpos($e->getMessage(), 'is not readable') === false ) {
-                    throw $e;
-                }
-                // There is no delete file
-                // Do nothing
-            }
+            // Try to load deletions file
+            return $this->_loadPre21DelFile();
         } else {
-            // It's 2.1+ format delete file
-            $delFile = $this->_directory->getFileObject($this->_name . '_' . base_convert($this->_delGen, 10, 36) . '.del');
+            // It's 2.1+ format deleteions file
+            return $this->_load21DelFile();
+        }
+    }
 
-            $format = $delFile->readInt();
+    /**
+     * Load pre-2.1 detetions file
+     *
+     * Returns bitset or an array depending on bitset extension availability
+     *
+     * @return mixed
+     * @throws Zend_Search_Lucene_Exception
+     */
+    private function _loadPre21DelFile()
+    {
+        #require_once 'Zend/Search/Lucene/Exception.php';
+        try {
+            // '.del' files always stored in a separate file
+            // Segment compound is not used
+            $delFile = $this->_directory->getFileObject($this->_name . '.del');
 
-            if ($format == (int)0xFFFFFFFF) {
-                if (extension_loaded('bitset')) {
-                    $this->_deleted = bitset_empty();
-                } else {
-                    $this->_deleted = array();
-                }
+            $byteCount = $delFile->readInt();
+            $byteCount = ceil($byteCount/8);
+            $bitCount  = $delFile->readInt();
 
-                $byteCount = $delFile->readInt();
-                $bitCount  = $delFile->readInt();
-
-                $delFileSize = $this->_directory->fileLength($this->_name . '_' . base_convert($this->_delGen, 10, 36) . '.del');
-                $byteNum = 0;
-
-                do {
-                    $dgap = $delFile->readVInt();
-                    $nonZeroByte = $delFile->readByte();
-
-                    $byteNum += $dgap;
-
-                    for ($bit = 0; $bit < 8; $bit++) {
-                        if ($nonZeroByte & (1<<$bit)) {
-                            if (extension_loaded('bitset')) {
-                                bitset_incl($this->_deleted, $byteNum*8 + $bit);
-                            } else {
-                                $this->_deleted[$byteNum*8 + $bit] = 1;
-                            }
-                        }
-                    }
-                } while ($delFile->tell() < $delFileSize);
-
+            if ($bitCount == 0) {
+                $delBytes = '';
             } else {
-                // $format is actually byte count
-                $byteCount = ceil($format/8);
-                $bitCount  = $delFile->readInt();
+                $delBytes = $delFile->readBytes($byteCount);
+            }
 
-                if ($bitCount == 0) {
-                    $delBytes = '';
-                } else {
-                    $delBytes = $delFile->readBytes($byteCount);
-                }
-
-                if (extension_loaded('bitset')) {
-                    $this->_deleted = $delBytes;
-                } else {
-                    $this->_deleted = array();
-                    for ($count = 0; $count < $byteCount; $count++) {
-                        $byte = ord($delBytes[$count]);
-                        for ($bit = 0; $bit < 8; $bit++) {
-                            if ($byte & (1<<$bit)) {
-                                $this->_deleted[$count*8 + $bit] = 1;
-                            }
+            if (extension_loaded('bitset')) {
+                return $delBytes;
+            } else {
+                $deletions = array();
+                for ($count = 0; $count < $byteCount; $count++) {
+                    $byte = ord($delBytes[$count]);
+                    for ($bit = 0; $bit < 8; $bit++) {
+                        if ($byte & (1<<$bit)) {
+                            $deletions[$count*8 + $bit] = 1;
                         }
                     }
                 }
+
+                return $deletions;
+            }
+        } catch(Zend_Search_Lucene_Exception $e) {
+            if (strpos($e->getMessage(), 'is not readable') === false) {
+                throw $e;
+            }
+            // There is no deletion file
+            $this->_delGen = -1;
+
+            return null;
+        }
+    }
+
+    /**
+     * Load 2.1+ format detetions file
+     *
+     * Returns bitset or an array depending on bitset extension availability
+     *
+     * @return mixed
+     */
+    private function _load21DelFile()
+    {
+        $delFile = $this->_directory->getFileObject($this->_name . '_' . base_convert($this->_delGen, 10, 36) . '.del');
+
+        $format = $delFile->readInt();
+
+        if ($format == (int)0xFFFFFFFF) {
+            if (extension_loaded('bitset')) {
+                $deletions = bitset_empty();
+            } else {
+                $deletions = array();
+            }
+
+            $byteCount = $delFile->readInt();
+            $bitCount  = $delFile->readInt();
+
+            $delFileSize = $this->_directory->fileLength($this->_name . '_' . base_convert($this->_delGen, 10, 36) . '.del');
+            $byteNum = 0;
+
+            do {
+                $dgap = $delFile->readVInt();
+                $nonZeroByte = $delFile->readByte();
+
+                $byteNum += $dgap;
+
+
+                if (extension_loaded('bitset')) {
+	                for ($bit = 0; $bit < 8; $bit++) {
+	                    if ($nonZeroByte & (1<<$bit)) {
+                            bitset_incl($deletions, $byteNum*8 + $bit);
+	                    }
+	                }
+                    return $deletions;
+                } else {
+	                for ($bit = 0; $bit < 8; $bit++) {
+	                    if ($nonZeroByte & (1<<$bit)) {
+                            $deletions[$byteNum*8 + $bit] = 1;
+	                    }
+	                }
+                    return (count($deletions) > 0) ? $deletions : null;
+                }
+
+            } while ($delFile->tell() < $delFileSize);
+        } else {
+            // $format is actually byte count
+            $byteCount = ceil($format/8);
+            $bitCount  = $delFile->readInt();
+
+            if ($bitCount == 0) {
+                $delBytes = '';
+            } else {
+                $delBytes = $delFile->readBytes($byteCount);
+            }
+
+            if (extension_loaded('bitset')) {
+                return $delBytes;
+            } else {
+                $deletions = array();
+                for ($count = 0; $count < $byteCount; $count++) {
+                    $byte = ord($delBytes[$count]);
+                    for ($bit = 0; $bit < 8; $bit++) {
+                        if ($byte & (1<<$bit)) {
+                            $deletions[$count*8 + $bit] = 1;
+                        }
+                    }
+                }
+
+                return (count($deletions) > 0) ? $deletions : null;
             }
         }
     }
@@ -1446,13 +1500,14 @@ class Zend_Search_Lucene_Index_SegmentInfo
         }
     }
 
-
     /**
      * Detect latest delete generation
      *
      * Is actualy used from writeChanges() method or from the constructor if it's invoked from
      * Index writer. In both cases index write lock is already obtained, so we shouldn't care
      * about it
+     *
+     * @return integer
      */
     private function _detectLatestDelGen()
     {
@@ -1469,12 +1524,12 @@ class Zend_Search_Lucene_Index_SegmentInfo
 
         if (count($delFileList) == 0) {
             // There is no deletions file for current segment in the directory
-            // Set detetions file generation number to 1
-            $this->_delGen = -1;
+            // Set deletions file generation number to 1
+            return -1;
         } else {
             // There are some deletions files for current segment in the directory
             // Set deletions file generation number to the highest nuber
-            $this->_delGen = max($delFileList);
+            return max($delFileList);
         }
     }
 
@@ -1485,11 +1540,43 @@ class Zend_Search_Lucene_Index_SegmentInfo
      * so index Write lock has to be already obtained.
      *
      * @internal
+     * @throws Zend_Search_Lucene_Exceptions
      */
     public function writeChanges()
     {
+        // Get new generation number
+        $latestDelGen = $this->_detectLatestDelGen();
+
         if (!$this->_deletedDirty) {
-            return;
+        	// There was no deletions by current process
+
+            if ($latestDelGen == $this->_delGen) {
+            	// Delete file hasn't been updated by any concurrent process
+            	return;
+            } else if ($latestDelGen > $this->_delGen) {
+            	// Delete file has been updated by some concurrent process
+            	// Reload deletions file
+            	$this->_delGen  = $latestDelGen;
+            	$this->_deleted = $this->_loadDelFile();
+
+            	return;
+            } else {
+            	#require_once 'Zend/Search/Lucene/Exception.php';
+            	throw new Zend_Search_Lucene_Exception('Delete file processing workflow is corrupted for the segment \'' . $this->_name . '\'.');
+            }
+        }
+
+        if ($latestDelGen > $this->_delGen) {
+        	// Merge current deletions with latest deletions file
+        	$this->_delGen = $latestDelGen;
+
+        	$latestDelete = $this->_loadDelFile();
+
+        	if (extension_loaded('bitset')) {
+        		$this->_deleted = bitset_union($this->_deleted, $latestDelete);
+        	} else {
+        		$this->_deleted += $latestDelete;
+        	}
         }
 
         if (extension_loaded('bitset')) {
@@ -1510,10 +1597,6 @@ class Zend_Search_Lucene_Index_SegmentInfo
             $bitCount = count($this->_deleted);
         }
 
-
-        // Get new generation number
-        $this->_detectLatestDelGen();
-
         if ($this->_delGen == -1) {
             // Set delete file generation number to 1
             $this->_delGen = 1;
@@ -1529,7 +1612,6 @@ class Zend_Search_Lucene_Index_SegmentInfo
 
         $this->_deletedDirty = false;
     }
-
 
 
     /**
@@ -1671,8 +1753,28 @@ class Zend_Search_Lucene_Index_SegmentInfo
      * @throws Zend_Search_Lucene_Exception
      * @return integer
      */
-    public function reset($startId = 0, $mode = self::SM_TERMS_ONLY)
+    public function resetTermsStream(/** $startId = 0, $mode = self::SM_TERMS_ONLY */)
     {
+    	/**
+    	 * SegmentInfo->resetTermsStream() method actually takes two optional parameters:
+    	 *   $startId (default value is 0)
+    	 *   $mode (default value is self::SM_TERMS_ONLY)
+    	 */
+    	$argList = func_get_args();
+    	if (count($argList) > 2) {
+            #require_once 'Zend/Search/Lucene/Exception.php';
+            throw new Zend_Search_Lucene_Exception('Wrong number of arguments');
+    	} else if (count($argList) == 2) {
+    		$startId = $argList[0];
+    		$mode    = $argList[1];
+    	} else if (count($argList) == 1) {
+            $startId = $argList[0];
+            $mode    = self::SM_TERMS_ONLY;
+        } else {
+            $startId = 0;
+            $mode    = self::SM_TERMS_ONLY;
+        }
+
         if ($this->_tisFile !== null) {
             $this->_tisFile = null;
         }

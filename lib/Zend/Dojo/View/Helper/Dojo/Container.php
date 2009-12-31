@@ -16,7 +16,7 @@
  * @package    Zend_Dojo
  * @subpackage View
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Container.php 11991 2008-10-16 15:12:15Z matthew $
+ * @version    $Id: Container.php 14165 2009-02-25 17:56:01Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -577,6 +577,20 @@ class Zend_Dojo_View_Helper_Dojo_Container
     }
 
     /**
+     * Prepend an onLoad event to the list of onLoad actions
+     * 
+     * @param  string $callback Lambda
+     * @return Zend_Dojo_View_Helper_Dojo_Container
+     */
+    public function prependOnLoad($callback)
+    {
+        if (!in_array($callback, $this->_onLoadActions, true)) {
+            array_unshift($this->_onLoadActions, $callback);
+        }
+        return $this;
+    }
+
+    /**
      * Retrieve all registered onLoad actions
      * 
      * @return array
@@ -776,7 +790,7 @@ function() {
 }
 EOJ;
             $this->requireModule('dojo.parser');
-            $this->addOnLoad($js);
+            $this->prependOnLoad($js);
             $this->addJavascript('var zendDijits = ' . $this->dijitsToJson() . ';');
             $this->_dijitLoaderRegistered = true;
         }

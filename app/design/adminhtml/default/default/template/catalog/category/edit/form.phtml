@@ -74,6 +74,53 @@
         return false;
     };
 
+    categoryForm.refreshPath = function () {
+
+        categoryId = this.getCategoryId();
+
+        if (!categoryId) {
+            return false;
+        }
+
+        var refreshPathSuccess = function(transport) {
+            if (transport.responseText.isJSON()) {
+                response = transport.responseText.evalJSON()
+                if (response.error) {
+                    alert(response.message);
+                } else {
+                    if (categoryForm.getCategoryId() == response['id']) {
+                        categoryForm.setCategoryPath(response['path']);
+                    }
+                }
+            }
+        };
+        
+        new Ajax.Request(
+                '<?php echo $this->getRefreshPathUrl() ?>', 
+                {
+                    method:     'POST',
+                    evalScripts: true,
+                    onSuccess: refreshPathSuccess
+                }
+        );
+
+    };
+
+    categoryForm.getCategoryId = function () {
+        collection = $(this.formId).getInputs('hidden','general[id]');
+        if (collection.size() > 0) {
+            return collection.first().value; 
+        } 
+        return false;
+    };
+
+    categoryForm.setCategoryPath = function (path) {
+        collection = $(this.formId).getInputs('hidden','general[path]');
+        if (collection.size() > 0) {
+            return collection.first().value = path; 
+        } 
+    };
+
     function categorySubmit(url) {
         var activeTab = $('active_tab_id');
         if (activeTab) {

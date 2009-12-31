@@ -200,4 +200,19 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
     {
         return Mage::getUrl('googlecheckout/api', array('_forced_secure'=>Mage::getStoreConfig('google/checkout/use_secure_callback_url', $this->getStoreId())));
     }
+
+    /**
+     * Recalculate amount to store currency
+     *
+     * @param float $amount
+     * @param Mage_Sales_Model_Quote $quote
+     * @return float
+     */
+    protected function _reCalculateToStoreCurrency($amount, $quote)
+    {
+        if ($quote->getQuoteCurrencyCode() != $quote->getBaseCurrencyCode()) {
+            $amount = $amount * $quote->getStoreToQuoteRate();
+        }
+        return $amount;
+    }
 }

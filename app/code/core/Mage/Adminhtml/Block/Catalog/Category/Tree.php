@@ -174,7 +174,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     public function getTreeJson($parenNodeCategory=null)
     {
         $rootArray = $this->_getNodeJson($this->getRoot($parenNodeCategory));
-        $json = Zend_Json::encode(isset($rootArray['children']) ? $rootArray['children'] : array());
+        $json = Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : array());
         return $json;
     }
 
@@ -190,7 +190,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         if (empty($path)) {
             return '';
         }
-        $categories = Mage::getResourceSingleton('catalog/category_tree')->loadBreadcrumbsArray($path);
+
+        $categories = Mage::getResourceSingleton('catalog/category_tree')
+            ->setStoreId($this->getStore()->getId())->loadBreadcrumbsArray($path);
         if (empty($categories)) {
             return '';
         }
@@ -199,7 +201,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         }
         return
             '<script type="text/javascript">'
-            . $javascriptVarName . ' = ' . Zend_Json::encode($categories) . ';'
+            . $javascriptVarName . ' = ' . Mage::helper('core')->jsonEncode($categories) . ';'
             . '</script>';
     }
 

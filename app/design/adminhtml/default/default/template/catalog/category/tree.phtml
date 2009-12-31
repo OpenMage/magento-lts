@@ -438,15 +438,19 @@ function categoryMove(obj)
 
     var success = function(o) {
         try {
-            if(o.responseText && o.responseText!=='SUCCESS'){
-                alert(o.responseText);
-                location.reload();
+            if(o.responseText){
+                if(o.responseText==='SUCCESS'){
+                    categoryForm.refreshPath();
+                } else {
+                    alert(o.responseText);
+                    location.reload();
+                }
             }
         }
         catch(e) {
-
         }
     };
+
     var failure = function(o) {
         try {
             console.log(o.statusText);

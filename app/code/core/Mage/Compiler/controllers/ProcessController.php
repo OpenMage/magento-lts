@@ -81,8 +81,11 @@ class Mage_Compiler_ProcessController extends Mage_Adminhtml_Controller_Action
 
     public function recompileAction()
     {
-        $this->_getCompiler()->clear();
+        /**
+         * Add redirect heades before clear compiled sources
+         */
         $this->_redirect('*/*/run');
+        $this->_getCompiler()->clear();
     }
 
     public function disableAction()

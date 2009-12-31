@@ -1116,7 +1116,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Retrieve order currency model instance
+     * Get currency model instance. Will be used currency with which order placed
      *
      * @return Mage_Directory_Model_Currency
      */
@@ -1129,7 +1129,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Retrieve formated price value includeing order rate
+     * Get formated price value including order currency rate to order website currency
      *
      * @param   float $price
      * @param   bool  $addBrackets
@@ -1137,7 +1137,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function formatPrice($price, $addBrackets = false)
     {
-        return $this->getOrderCurrency()->format($price, array(), true, $addBrackets);
+        return $this->formatPricePrecision($price, 2, $addBrackets);
+    }
+
+    public function formatPricePrecision($price, $precision, $addBrackets = false)
+    {
+        return $this->getOrderCurrency()->formatPrecision($price, $precision, array(), true, $addBrackets);
     }
 
     /**
@@ -1166,7 +1171,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Retrieve order website currency for working with base prices
-     * Deprecated method, please use getBaseCurrency instead.
+     * @deprecated  please use getBaseCurrency instead.
      *
      * @return Mage_Directory_Model_Currency
      */
@@ -1177,7 +1182,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     public function formatBasePrice($price)
     {
-        return $this->getBaseCurrency()->format($price);
+        return $this->formatBasePricePrecision($price, 2);
+    }
+
+    public function formatBasePricePrecision($price, $precision)
+    {
+        return $this->getBaseCurrency()->formatPrecision($price, $precision);
     }
 
     public function isCurrencyDifferent()
@@ -1518,8 +1528,10 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = $qtys[$orderItem->getId()];
-                } else {
+                } elseif (!count($qtys)) {
                     $qty = $orderItem->getQtyToInvoice();
+                } else {
+                    continue;
                 }
             }
 
@@ -1554,8 +1566,10 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = $qtys[$orderItem->getId()];
-                } else {
+                } elseif (!count($qtys)) {
                     $qty = $orderItem->getQtyToShip();
+                } else {
+                    continue;
                 }
             }
 

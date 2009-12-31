@@ -16,7 +16,7 @@
  * @package    Zend_Registry
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Registry.php 12065 2008-10-21 20:56:32Z doctorrock83 $
+ * @version    $Id: Registry.php 15577 2009-05-14 12:43:34Z matthew $
  */
 
 /**
@@ -109,8 +109,10 @@ class Zend_Registry extends ArrayObject
         /**
          * @see Zend_Loader
          */
-        #require_once 'Zend/Loader.php';
-        #Zend_Loader::loadClass($registryClassName);
+        if (!class_exists($registryClassName)) {
+            #require_once 'Zend/Loader.php';
+            Zend_Loader::loadClass($registryClassName);
+        }
 
         self::$_registryClassName = $registryClassName;
     }

@@ -189,6 +189,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
 
     /**
      * Creates a PDO object and connects to the database.
+     *
      */
     protected function _connect()
     {
@@ -203,7 +204,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         if (strpos($this->_config['host'], '/')!==false) {
             $this->_config['unix_socket'] = $this->_config['host'];
             unset($this->_config['host']);
-        } elseif (strpos($this->_config['host'], ':')!==false) {
+        } else if (strpos($this->_config['host'], ':')!==false) {
             list($this->_config['host'], $this->_config['port']) = explode(':', $this->_config['host']);
         }
 
@@ -221,6 +222,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         }
     }
 
+    /**
+     * Run RAW Query
+     *
+     * @param string $sql
+     * @return Zend_Db_Statement_Interface
+     */
     public function raw_query($sql)
     {
         do {
@@ -241,6 +248,13 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         return $result;
     }
 
+    /**
+     * Run RAW query and Fetch First row
+     *
+     * @param string $sql
+     * @param string|int $field
+     * @return mixed
+     */
     public function raw_fetchRow($sql, $field=null)
     {
         if (!$result = $this->raw_query($sql)) {
@@ -273,10 +287,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
             if (strpos($sql, ':') !== false || strpos($sql, '?') !== false) {
                 $this->_bindParams = $bind;
                 $sql = preg_replace_callback('#(([\'"])((\\2)|((.*?[^\\\\])\\2)))#', array($this, 'proccessBindCallback'), $sql);
+                Varien_Exception::processPcreError();
                 $bind = $this->_bindParams;
             }
-
-
 
             $result = parent::query($sql, $bind);
         }
@@ -288,6 +301,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
         return $result;
     }
 
+    /**
+     * Callback function for prepare Query Bind RegExp
+     *
+     * @param array $matches
+     * @return string
+     */
     public function proccessBindCallback($matches)
     {
         if (isset($matches[6]) && (
@@ -369,7 +388,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
             if (($part==="'" || $part==='"') && ($i===0 || $parts[$i-1]!=='\\')) {
                 if ($q===false) {
                     $q = $part;
-                } elseif ($q===$part) {
+                } else if ($q===$part) {
                     $q = false;
                 }
             }
@@ -377,14 +396,14 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
             // single line comments
             if (($part==='//' || $part==='--') && ($i===0 || $parts[$i-1]==="\n")) {
                 $c = $part;
-            } elseif ($part==="\n" && ($c==='//' || $c==='--')) {
+            } else if ($part==="\n" && ($c==='//' || $c==='--')) {
                 $c = false;
             }
 
             // multi line comments
             if ($part==='/*' && $c===false) {
                 $c = '/*';
-            } elseif ($part==='*/' && $c==='/*') {
+            } else if ($part==='*/' && $c==='/*') {
                 $c = false;
             }
 
@@ -420,9 +439,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
             $sql = sprintf('ALTER TABLE %s DROP FOREIGN KEY %s',
                 $this->quoteIdentifier($this->_getTableName($tableName, $schemaName)),
                 $this->quoteIdentifier($foreignKeys[strtoupper($foreignKey)]['FK_NAME']));
-//            echo '<pre>';
-//            var_dump($tableName, $schemaName, $foreignKey, $foreignKeys, $sql);
-//            echo '</pre>';
 
             $this->resetDdlCache($tableName, $schemaName);
 
@@ -482,7 +498,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
                 . " WHERE `r`.`{$refColumnName}` IS NULL";
             $this->raw_query($sql);
         }
-        elseif (strtoupper($onDelete) == 'SET NULL') {
+        else if (strtoupper($onDelete) == 'SET NULL') {
             $sql = "UPDATE `{$tableName}` AS `p`"
                 . " LEFT JOIN `{$refTableName}` AS `r`"
                 . " ON `p`.`{$columnName}` = `r`.`{$refColumnName}`"
@@ -814,22 +830,23 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
                 if ($row[$fieldKeyName] == 'PRIMARY') {
                     $indexType  = 'primary';
                 }
-                elseif ($row[$fieldNonUnique] == 0) {
+                else if ($row[$fieldNonUnique] == 0) {
                     $indexType  = 'unique';
                 }
-                elseif ($row[$fieldIndexType] == 'FULLTEXT') {
+                else if ($row[$fieldIndexType] == 'FULLTEXT') {
                     $indexType  = 'fulltext';
                 }
                 else {
                     $indexType  = 'index';
                 }
 
-                if (isset($indexList[$row[$fieldKeyName]])) {
-                    $indexList[$row[$fieldKeyName]]['fields'][] = $row[$fieldColumn]; // for compatible
-                    $indexList[$row[$fieldKeyName]]['COLUMNS_LIST'][] = $row[$fieldColumn];
+                $upperKeyName = strtoupper($row[$fieldKeyName]);
+                if (isset($indexList[$upperKeyName])) {
+                    $indexList[$upperKeyName]['fields'][] = $row[$fieldColumn]; // for compatible
+                    $indexList[$upperKeyName]['COLUMNS_LIST'][] = $row[$fieldColumn];
                 }
                 else {
-                    $indexList[strtoupper($row[$fieldKeyName])] = array(
+                    $indexList[$upperKeyName] = array(
                         'SCHEMA_NAME'   => $schemaName,
                         'TABLE_NAME'    => $tableName,
                         'KEY_NAME'      => $row[$fieldKeyName],
@@ -985,8 +1002,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
     }
 
     /**
-     * Start debug timer
+     * Logging debug information
      *
+     * @param int $type
+     * @param string $sql
+     * @param array $bind
+     * @param Zend_Db_Statement_Pdo $result
      * @return Varien_Db_Adapter_Pdo_Mysql
      */
     protected function _debugStat($type, $sql, $bind = array(), $result = null)
@@ -1183,7 +1204,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
      *
      * @param string $tableName
      * @param string $engine
-     * @param string $type
+     * @param string $schemaName
      * @return mixed
      */
     public function changeTableEngine($tableName, $engine, $schemaName = null)
@@ -1192,5 +1213,121 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql
             $this->quoteIdentifier($this->_getTableName($tableName, $schemaName)),
             $engine);
         return $this->raw_query($sql);
+    }
+
+    /**
+     * Inserts a table row with specified data.
+     *
+     * @param mixed $table The table to insert data into.
+     * @param array $bind Column-value pairs.
+     * @param arrat $fields update fields pairs or values
+     * @return int The number of affected rows.
+     */
+    public function insertOnDuplicate($table, array $bind, array $fields = array())
+    {
+        // extract and quote col names from the array keys
+        $cols = array();
+        $vals = array();
+        foreach ($bind as $col => $val) {
+            $cols[] = $this->quoteIdentifier($col, true);
+            if ($val instanceof Zend_Db_Expr) {
+                $vals[] = $val->__toString();
+                unset($bind[$col]);
+            } else {
+                $vals[] = '?';
+            }
+        }
+
+        $updateFields = array();
+        if (empty($fields)) {
+            $fields = array_keys($bind);
+        }
+        foreach ($fields as $k => $v) {
+            $field = $value = null;
+            if (!is_numeric($k)) {
+                $field = $this->quoteIdentifier($k);
+                if ($v instanceof Zend_Db_Expr) {
+                    $value = $v->__toString();
+                }
+                else if (is_string($v)) {
+                    $value = 'VALUES('.$this->quoteIdentifier($v).')';
+                }
+                else if (is_numeric($v)) {
+                    $value = $this->quoteInto('?', $v);
+                }
+            }
+            else if (is_string($v)) {
+                $field = $this->quoteIdentifier($v);
+                $value = 'VALUES('.$field.')';
+            }
+
+            if ($field && $value) {
+                $updateFields[] = "{$field}={$value}";
+            }
+        }
+
+        // build the statement
+        $sql = "INSERT INTO "
+             . $this->quoteIdentifier($table, true)
+             . ' (' . implode(', ', $cols) . ') '
+             . 'VALUES (' . implode(', ', $vals) . ')';
+         if ($updateFields) {
+             $sql .= " ON DUPLICATE KEY UPDATE " . join(', ', $updateFields);
+         }
+
+        // execute the statement and return the number of affected rows
+        $stmt = $this->query($sql, array_values($bind));
+        $result = $stmt->rowCount();
+        return $result;
+    }
+
+    /**
+     * Inserts a table multiply rows with specified data.
+     *
+     * @param mixed $table The table to insert data into.
+     * @param array $data Column-value pairs or array of Column-value pairs.
+     * @return int The number of affected rows.
+     */
+    public function insertMultiple($table, array $data)
+    {
+        $row = reset($data);
+        // support insert syntaxes
+        if (!is_array($row)) {
+            return $this->insert($table, $data);
+        }
+
+        // validate data array
+        $cols = array_keys($row);
+        $vals = array();
+        $bind = array();
+
+        foreach ($data as $row) {
+            $line = array();
+            if (array_diff($cols, array_keys($row))) {
+                throw new Varien_Exception('Invalid data for insert');
+            }
+            foreach ($cols as $field) {
+                $value = $row[$field];
+                if ($value instanceof Zend_Db_Expr) {
+                    $line[] = $value->__toString();
+                }
+                else {
+                    $line[] = '?';
+                    $bind[] = $value;
+                }
+            }
+            $vals[] = sprintf('(%s)', join(',', $line));
+        }
+
+        // build the statement
+        array_map(array($this, 'quoteIdentifier'), $cols);
+        $sql = sprintf("INSERT INTO %s (%s) VALUES%s",
+            $this->quoteIdentifier($table, true),
+            implode(',', $cols), implode(', ', $vals));
+
+        // execute the statement and return the number of affected rows
+        $stmt = $this->query($sql, $bind);
+        $result = $stmt->rowCount();
+        return $result;
     }
 }

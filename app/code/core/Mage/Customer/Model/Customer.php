@@ -450,7 +450,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @return Mage_Customer_Model_Customer
      */
-    public function sendNewAccountEmail($type = 'registered', $backUrl = '')
+    public function sendNewAccountEmail($type = 'registered', $backUrl = '', $store_id = '0')
     {
         $types = array(
             'registered'   => self::XML_PATH_REGISTER_EMAIL_TEMPLATE,  // welcome email, when confirmation is disabled
@@ -465,7 +465,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         /* @var $translate Mage_Core_Model_Translate */
         $translate->setTranslateInline(false);
 
-        $storeId = $this->getStoreId();
+        $storeId = ($store_id == '0')?$this->getStoreId():$store_id;
         if ($this->getWebsiteId() != '0' && $storeId == '0') {
             $storeIds = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
             reset($storeIds);
@@ -475,8 +475,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         Mage::getModel('core/email_template')
             ->setDesignConfig(array('area'=>'frontend', 'store'=>$storeId))
             ->sendTransactional(
-                Mage::getStoreConfig($types[$type]),
-                Mage::getStoreConfig(self::XML_PATH_REGISTER_EMAIL_IDENTITY),
+                Mage::getStoreConfig($types[$type], $storeId),
+                Mage::getStoreConfig(self::XML_PATH_REGISTER_EMAIL_IDENTITY, $storeId),
                 $this->getEmail(),
                 $this->getName(),
                 array('customer' => $this, 'back_url' => $backUrl));
@@ -1042,7 +1042,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         return $this->getId() && $this->hasSkipConfirmationIfEmail()
             && strtolower($this->getSkipConfirmationIfEmail()) === strtolower($this->getEmail());
     }
-    
+
 	public function __clone()
     {
     	$newAddressCollection = $this->getPrimaryAddresses();

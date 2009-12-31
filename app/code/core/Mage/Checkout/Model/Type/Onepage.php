@@ -353,7 +353,7 @@ class Mage_Checkout_Model_Type_Onepage
         $payment->importData($data);
 
         $this->getQuote()->getShippingAddress()->setPaymentMethod($payment->getMethod());
-        $this->getQuote()->collectTotals()->save();
+        $this->getQuote()->save();
 
         $this->getCheckout()
             ->setStepData('payment', 'complete', true)

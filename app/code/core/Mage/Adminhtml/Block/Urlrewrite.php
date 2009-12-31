@@ -46,8 +46,8 @@ class Mage_Adminhtml_Block_Urlrewrite extends Mage_Adminhtml_Block_Widget_Grid_C
      */
     public function __construct()
     {
-        $this->_headerText = Mage::helper('adminhtml')->__('Url Rewrite Management');
-        $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add Urlrewrite');
+        $this->_headerText = Mage::helper('adminhtml')->__('URL Rewrite Management');
+        $this->_addButtonLabel = Mage::helper('adminhtml')->__('Add URL Rewrite');
         parent::__construct();
     }
 

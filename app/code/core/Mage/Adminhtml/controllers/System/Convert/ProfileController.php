@@ -256,7 +256,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                 'savedRows' => $saved,
                 'errors'    => $errors
             );
-            $this->getResponse()->setBody(Zend_Json::encode($result));
+            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
 
@@ -278,7 +278,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                     $result['error'] = Mage::helper('adminhtml')->__('Error while finished process. Please refresh cache');
                 }
                 $batchModel->delete();
-                $this->getResponse()->setBody(Zend_Json::encode($result));
+                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
             }
         }
     }

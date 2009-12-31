@@ -135,6 +135,6 @@ class Mage_GoogleBase_Block_Adminhtml_Types_Edit_Attributes extends Mage_Adminht
 
     protected function _toJson($data)
     {
-        return Zend_Json::encode($data);
+        return Mage::helper('core')->jsonEncode($data);
     }
 }

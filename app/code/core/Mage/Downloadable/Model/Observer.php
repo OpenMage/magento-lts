@@ -164,11 +164,12 @@ class Mage_Downloadable_Model_Observer
         } elseif ($order->getState() == Mage_Sales_Model_Order::STATE_PENDING_PAYMENT) {
             $status = Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING_PAYMENT;
         } else {
+            $availableStatuses = array($orderItemStatusToEnable, Mage_Sales_Model_Order_Item::STATUS_INVOICED);
             foreach ($order->getAllItems() as $item) {
                 if ($item->getProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
                     || $item->getRealProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE)
                 {
-                    if ($item->getStatusId() == $orderItemStatusToEnable) {
+                    if (in_array($item->getStatusId(), $availableStatuses)) {
                         $orderItemsIds[] = $item->getId();
                     }
                 }

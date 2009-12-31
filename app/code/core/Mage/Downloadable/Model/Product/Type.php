@@ -171,7 +171,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                         $sampleModel = Mage::getModel('downloadable/sample');
                         $files = array();
                         if (isset($sampleItem['file'])) {
-                            $files = Zend_Json::decode($sampleItem['file']);
+                            $files = Mage::helper('core')->jsonDecode($sampleItem['file']);
                             unset($sampleItem['file']);
                         }
 
@@ -209,7 +209,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                         }
                         $files = array();
                         if (isset($linkItem['file'])) {
-                            $files = Zend_Json::decode($linkItem['file']);
+                            $files = Mage::helper('core')->jsonDecode($linkItem['file']);
                             unset($linkItem['file']);
                         }
                         $sample = array();
@@ -222,7 +222,8 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                             ->setLinkType($linkItem['type'])
                             ->setProductId($product->getId())
                             ->setStoreId($product->getStoreId())
-                            ->setWebsiteId($product->getStore()->getWebsiteId());
+                            ->setWebsiteId($product->getStore()->getWebsiteId())
+                            ->setProductWebsiteIds($product->getWebsiteIds());
                         if (null === $linkModel->getPrice()) {
                             $linkModel->setPrice(0);
                         }
@@ -235,7 +236,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                                 $linkModel->setSampleUrl($sample['url']);
                             }
                             $linkModel->setSampleType($sample['type']);
-                            $sampleFile = Zend_Json::decode($sample['file']);
+                            $sampleFile = Mage::helper('core')->jsonDecode($sample['file']);
                         }
                         if ($linkModel->getLinkType() == Mage_Downloadable_Helper_Download::LINK_TYPE_FILE) {
                             $linkFileName = Mage::helper('downloadable/file')->moveFileFromTmp(

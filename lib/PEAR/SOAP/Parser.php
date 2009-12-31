@@ -378,7 +378,7 @@ class SOAP_Parser extends SOAP_Base
                 $this->message[$pos]['arrayType'] = $vqn->name;
 
             } elseif ($kqn->name == 'offset') {
-                $this->message[$pos]['arrayOffset'] = split(',', substr($value, 1, strlen($value) - 2));
+                $this->message[$pos]['arrayOffset'] = explode(',', substr($value, 1, strlen($value) - 2));
 
             } elseif ($kqn->name == 'id') {
                 // Save id to reference array.

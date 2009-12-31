@@ -17,7 +17,7 @@
  * @subpackage Writer
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Db.php 14336 2009-03-16 21:12:38Z wil $
  */
 
 /** Zend_Log_Writer_Abstract */
@@ -29,7 +29,7 @@
  * @subpackage Writer
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Db.php 14336 2009-03-16 21:12:38Z wil $
  */
 class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
 {
@@ -71,6 +71,7 @@ class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
      */
     public function setFormatter($formatter)
     {
+        #require_once 'Zend/Log/Exception.php';
         throw new Zend_Log_Exception(get_class() . ' does not support formatting');
     }
 
@@ -93,7 +94,8 @@ class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
     protected function _write($event)
     {
         if ($this->_db === null) {
-            throw new Zend_Log_Exception('Database adapter instance has been removed by shutdown');
+            #require_once 'Zend/Log/Exception.php';
+            throw new Zend_Log_Exception('Database adapter is null');
         }
 
         if ($this->_columnMap === null) {

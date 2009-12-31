@@ -35,12 +35,12 @@
  */
 class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
     // Internal variables
-    private $_file        = false;
-    private $_cleared     = array();
-    private $_tu          = null;
-    private $_tuv         = null;
-    private $_seg         = null;
-    private $_content     = null;
+    private $_file    = false;
+    private $_tu      = null;
+    private $_tuv     = null;
+    private $_seg     = null;
+    private $_content = null;
+    private $_data    = array();
 
     /**
      * Generates the tmx adapter
@@ -65,15 +65,11 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
      *                            the source file
      * @param  array   $option    OPTIONAL Options to use
      * @throws Zend_Translation_Exception
+     * @return array
      */
     protected function _loadTranslationData($filename, $locale, array $options = array())
     {
-        $options = $this->_options + $options;
-
-        if ($options['clear']) {
-            $this->_translate = array();
-        }
-
+        $this->_data = array();
         if (!is_readable($filename)) {
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Translation file \'' . $filename . '\' is not readable.');
@@ -94,6 +90,8 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception($ex);
         }
+
+        return $this->_data;
     }
 
     private function _startElement($file, $name, $attrib)
@@ -114,8 +112,8 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
                 case 'tuv':
                     if (isset($attrib['xml:lang']) === true) {
                         $this->_tuv = $attrib['xml:lang'];
-                        if (isset($this->_translate[$this->_tuv]) === false) {
-                            $this->_translate[$this->_tuv] = array();
+                        if (isset($this->_data[$this->_tuv]) === false) {
+                            $this->_data[$this->_tuv] = array();
                         }
                     }
                     break;
@@ -143,8 +141,8 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
                     break;
                 case 'seg':
                     $this->_seg = null;
-                    if (!empty($this->_content) or (isset($this->_translate[$this->_tuv][$this->_tu]) === false)) {
-                        $this->_translate[$this->_tuv][$this->_tu] = $this->_content;
+                    if (!empty($this->_content) or (!isset($this->_data[$this->_tuv][$this->_tu]))) {
+                        $this->_data[$this->_tuv][$this->_tu] = $this->_content;
                     }
                     break;
                 default:

@@ -17,7 +17,7 @@
  * @package    Zend_OpenId
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Extension.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Extension.php 13522 2009-01-06 16:35:55Z thomas $
  */
 
 /**
@@ -41,7 +41,7 @@ abstract class Zend_OpenId_Extension
      */
     static public function forAll($extensions, $func, &$params)
     {
-        if (!is_null($extensions)) {
+        if ($extensions !== null) {
             if (is_array($extensions)) {
                 foreach ($extensions as $ext) {
                     if ($ext instanceof Zend_OpenId_Extension) {

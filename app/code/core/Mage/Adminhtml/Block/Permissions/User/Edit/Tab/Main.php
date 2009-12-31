@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Main extends Mage_Adminhtml
                 'label' => Mage::helper('adminhtml')->__('Password'),
                 'id'    => 'customer_pass',
                 'title' => Mage::helper('adminhtml')->__('Password'),
-                'class' => 'input-text required-entry validate-password',
+                'class' => 'input-text required-entry validate-admin-password',
                 'required' => true,
             ));
            $fieldset->addField('confirmation', 'password', array(

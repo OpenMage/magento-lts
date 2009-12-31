@@ -30,7 +30,7 @@
  * @subpackage Element
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Multi.php 12527 2008-11-10 21:00:57Z thomas $
+ * @version    $Id: Multi.php 16137 2009-06-18 18:38:25Z matthew $
  */
 abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
 {
@@ -278,7 +278,7 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
     protected function _translateOption($option, $value)
     {
         if ($this->translatorIsDisabled()) {
-            return true;
+            return false;
         }
 
         if (!isset($this->_translated[$option]) && !empty($value)) {

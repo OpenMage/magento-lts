@@ -53,7 +53,7 @@
  * @package    Zend_Server
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 12616 2008-11-13 15:01:26Z alexander $
+ * @version    $Id: Abstract.php 14322 2009-03-15 11:23:37Z matthew $
  */
 abstract class Zend_Server_Abstract implements Zend_Server_Interface
 {
@@ -174,7 +174,7 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
 
         foreach ($reflection->getPrototypes() as $proto) {
             $prototype = new Zend_Server_Method_Prototype();
-            $prototype->setReturnType($this->_fixType($prototype->getReturnType()));
+            $prototype->setReturnType($this->_fixType($proto->getReturnType()));
             foreach ($proto->getParameters() as $parameter) {
                 $param = new Zend_Server_Method_Parameter(array(
                     'type'     => $this->_fixType($parameter->getType()),
