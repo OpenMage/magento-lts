@@ -44,6 +44,13 @@ class Mage_Sales_Model_Service_Quote
     protected $_convertor;
 
     /**
+     * List of additional order attributes which will beadded to order befire save
+     *
+     * @var array
+     */
+    protected $_orderData = array();
+
+    /**
      * Class constructor
      *
      * @param Mage_Sales_Model_Quote $quote
@@ -77,6 +84,18 @@ class Mage_Sales_Model_Service_Quote
     }
 
     /**
+     * Specify additional order data
+     *
+     * @param array $data
+     * @return Mage_Sales_Model_Service_Quote
+     */
+    public function setOrderData(array $data)
+    {
+        $this->_orderData = $data;
+        return $this;
+    }
+
+    /**
      * Submit the quote. Quote submit process will create the order based on quote data
      *
      * @return Mage_Sales_Model_Order
@@ -104,6 +123,10 @@ class Mage_Sales_Model_Service_Quote
             $order->setShippingAddress($this->_convertor->addressToOrderAddress($quote->getShippingAddress()));
         }
         $order->setPayment($this->_convertor->paymentToOrderPayment($quote->getPayment()));
+
+        foreach ($this->_orderData as $key => $value) {
+            $order->setData($key, $value);
+        }
 
         foreach ($quote->getAllItems() as $item) {
             $orderItem = $this->_convertor->itemToOrderItem($item);
@@ -140,7 +163,9 @@ class Mage_Sales_Model_Service_Quote
             $address = $this->getQuote()->getShippingAddress();
             $addressValidation = $address->validate();
             if ($addressValidation !== true) {
-                Mage::throwException($helper->__('Please check shipping address information.'));
+                Mage::throwException(
+                    $helper->__('Please check shipping address information. %s', implode(' ', $addressValidation))
+                );
             }
             $method= $address->getShippingMethod();
             $rate  = $address->getShippingRateByCode($method);
@@ -151,7 +176,9 @@ class Mage_Sales_Model_Service_Quote
 
         $addressValidation = $this->getQuote()->getBillingAddress()->validate();
         if ($addressValidation !== true) {
-            Mage::throwException($helper->__('Please check billing address information.'));
+            Mage::throwException(
+                $helper->__('Please check billing address information. %s', implode(' ', $addressValidation))
+            );
         }
 
         if (!($this->getQuote()->getPayment()->getMethod())) {

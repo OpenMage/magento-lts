@@ -46,7 +46,8 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
 
     protected function _prepareCollection()
     {
-        //TODO: add full name logic
+        // TODO: add full name logic
+        // TODO: encapsulate this logic into collection
         $collection = Mage::getResourceModel('sales/order_collection')
             ->addAttributeToSelect('*')
             ->joinAttribute('billing_firstname', 'order_address/firstname', 'billing_address_id', null, 'left')
@@ -57,7 +58,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
                 'CONCAT({{billing_firstname}}, " ", {{billing_lastname}})',
                 array('billing_firstname', 'billing_lastname'))
             ->addExpressionAttributeToSelect('shipping_name',
-                'CONCAT({{shipping_firstname}}, " ", {{shipping_lastname}})',
+                'CONCAT({{shipping_firstname}},  IFNULL(CONCAT(\' \', {{shipping_lastname}}), \'\'))',
                 array('shipping_firstname', 'shipping_lastname'));
         $this->setCollection($collection);
         return parent::_prepareCollection();

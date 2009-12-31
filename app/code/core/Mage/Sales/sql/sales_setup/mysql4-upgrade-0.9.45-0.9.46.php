@@ -100,3 +100,4 @@ $installer->run("
 ");
 
 $this->endSetup();
+

@@ -17,7 +17,7 @@
  * @subpackage Twitter
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Twitter.php 18506 2009-10-10 01:27:54Z sidhighwind $
+ * @version    $Id: Twitter.php 19096 2009-11-20 15:33:15Z sidhighwind $
  */
 /**
  * @see Zend_Rest_Client
@@ -36,7 +36,7 @@
  */
 class Zend_Service_Twitter extends Zend_Rest_Client
 {
-    
+
     /**
      * 246 is the current limit for a status message, 140 characters are displayed
      * initially, with the remainder linked from the web UI or client. The limit is
@@ -46,7 +46,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * This should be reviewed in the future...
      */
     const STATUS_MAX_CHARACTERS = 246;
-    
+
     /**
      * Whether or not authorization has been initialized for the current user.
      * @var bool
@@ -81,7 +81,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * @var array
      */
     protected $_methodTypes = array('status', 'user', 'directMessage', 'friendship', 'account', 'favorite', 'block');
-    
+
     /**
      * Local HTTP Client cloned from statically set client
      * @var Zend_Http_Client
@@ -95,7 +95,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * @param  string $password
      * @return void
      */
-    public function __construct($username, $password = null)
+    public function __construct($username = null, $password = null)
     {
         $this->setLocalHttpClient(clone self::getHttpClient());
         if (is_array($username) && is_null($password)) {
@@ -106,7 +106,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
                 $this->setUsername($username[0]);
                 $this->setPassword($username[1]);
             }
-        } else {
+        } else if (!is_null($username)) {
             $this->setUsername($username);
             $this->setPassword($password);
         }
@@ -214,7 +214,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
             include_once 'Zend/Service/Twitter/Exception.php';
             throw new Zend_Service_Twitter_Exception('Invalid method "' . $test . '"');
         }
-        
+
         return call_user_func_array(array($this, $test), $params);
     }
 
@@ -233,7 +233,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         } else {
             $client->setCookieJar($this->_cookieJar);
         }
-        if (!$this->_authInitialized) {
+        if (!$this->_authInitialized && $this->getUsername() !== null) {
             $client->setAuth($this->getUsername(), $this->getPassword());
             $this->_authInitialized = true;
         }
@@ -396,7 +396,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
      * @throws Zend_Service_Twitter_Exception if message is too short or too long
      */
-    public function statusUpdate($status, $in_reply_to_status_id = null)
+    public function statusUpdate($status, $inReplyToStatusId = null)
     {
         $this->_init();
         $path = '/statuses/update.xml';
@@ -409,8 +409,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
             throw new Zend_Service_Twitter_Exception('Status must contain at least one character');
         }
         $data = array('status' => $status);
-        if (is_numeric($in_reply_to_status_id) && !empty($in_reply_to_status_id)) {
-            $data['in_reply_to_status_id'] = $in_reply_to_status_id;
+        if (is_numeric($inReplyToStatusId) && !empty($inReplyToStatusId)) {
+            $data['in_reply_to_status_id'] = $inReplyToStatusId;
         }
         //$this->status = $status;
         $response = $this->_post($path, $data);
@@ -475,7 +475,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         $this->_init();
         $path = '/statuses/friends';
         $_params = array();
-        
+
         foreach ($params as $key => $value) {
             switch (strtolower($key)) {
                 case 'id':
@@ -489,7 +489,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
             }
         }
         $path .= '.xml';
-        
+
         $response = $this->_get($path, $_params);
         return new Zend_Rest_Client_Result($response->getBody());
     }
@@ -795,8 +795,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Blocks the user specified in the ID parameter as the authenticating user.
      * Destroys a friendship to the blocked user if it exists.
-     * 
-     * @param integer|string $id       The ID or screen name of a user to block. 
+     *
+     * @param integer|string $id       The ID or screen name of a user to block.
      * @return Zend_Rest_Client_Result
      */
     public function blockCreate($id)
@@ -809,8 +809,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
 
     /**
      * Un-blocks the user specified in the ID parameter for the authenticating user
-     * 
-     * @param integer|string $id       The ID or screen_name of the user to un-block. 
+     *
+     * @param integer|string $id       The ID or screen_name of the user to un-block.
      * @return Zend_Rest_Client_Result
      */
     public function blockDestroy($id)
@@ -822,9 +822,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     }
 
     /**
-     * Returns if the authenticating user is blocking a target user. 
-     * 
-     * @param string|integer $id    The ID or screen_name of the potentially blocked user.    
+     * Returns if the authenticating user is blocking a target user.
+     *
+     * @param string|integer $id    The ID or screen_name of the potentially blocked user.
      * @param boolean $returnResult Instead of returning a boolean return the rest response from twitter
      * @return Boolean|Zend_Rest_Client_Result
      */
@@ -833,23 +833,23 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         $this->_init();
         $path = '/blocks/exists/' . $id . '.xml';
         $response = $this->_get($path);
-        
+
         $cr = new Zend_Rest_Client_Result($response->getBody());
-        
+
         if ($returnResult === true)
             return $cr;
-        
+
         if (!empty($cr->request)) {
             return false;
         }
-        
+
         return true;
     }
 
     /**
      * Returns an array of user objects that the authenticating user is blocking
-     * 
-     * @param integer $page         Optional. Specifies the page number of the results beginning at 1. A single page contains 20 ids. 
+     *
+     * @param integer $page         Optional. Specifies the page number of the results beginning at 1. A single page contains 20 ids.
      * @param boolean $returnUserIds  Optional. Returns only the userid's instead of the whole user object
      * @return Zend_Rest_Client_Result
      */
@@ -909,15 +909,15 @@ class Zend_Service_Twitter extends Zend_Rest_Client
             #require_once 'Zend/Rest/Client/Exception.php';
             throw new Zend_Rest_Client_Exception('URI object must be set before performing call');
         }
-        
+
         $uri = $this->_uri->getUri();
-        
+
         if ($path[0] != '/' && $uri[strlen($uri) - 1] != '/') {
             $path = '/' . $path;
         }
-        
+
         $this->_uri->setPath($path);
-        
+
         /**
          * Get the HTTP client and configure it for the endpoint URI.  Do this each time
          * because the Zend_Http_Client instance is shared among all Zend_Service_Abstract subclasses.

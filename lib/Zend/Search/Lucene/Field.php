@@ -17,7 +17,7 @@
  * @subpackage Document
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Field.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Field.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 
@@ -46,41 +46,41 @@ class Zend_Search_Lucene_Field
 
     /**
      * Field value
-     * 
+     *
      * @var boolean
      */
     public $value;
-    
+
     /**
      * Field is to be stored in the index for return with search hits.
-     * 
+     *
      * @var boolean
      */
     public $isStored    = false;
-    
+
     /**
      * Field is to be indexed, so that it may be searched on.
-     * 
+     *
      * @var boolean
      */
     public $isIndexed   = true;
 
     /**
      * Field should be tokenized as text prior to indexing.
-     * 
+     *
      * @var boolean
      */
     public $isTokenized = true;
     /**
      * Field is stored as binary.
-     * 
+     *
      * @var boolean
      */
     public $isBinary    = false;
 
     /**
      * Field are stored as a term vector
-     * 
+     *
      * @var boolean
      */
     public $storeTermVector = false;
@@ -218,7 +218,7 @@ class Zend_Search_Lucene_Field
             strcasecmp($this->encoding, 'utf-8') == 0 ) {
                 return $this->value;
         } else {
-            
+
             return (PHP_OS != 'AIX') ? iconv($this->encoding, 'UTF-8', $this->value) : iconv('ISO8859-1', 'UTF-8', $this->value);
         }
     }

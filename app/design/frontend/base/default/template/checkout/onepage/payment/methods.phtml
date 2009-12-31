@@ -39,13 +39,18 @@
     <?php else: ?>
         <span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" class="radio" /></span>
     <?php endif; ?>
-        <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?></label>
+        <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
     </dt>
-    <?php if($html = $this->getChildHtml('payment.method.'.$_code)) : ?>
+    <?php if ($html = $this->getPaymentMethodFormHtml($_method)): ?>
     <dd>
         <?php echo $html; ?>
     </dd>
     <?php endif; ?>
 <?php endforeach; ?>
 </dl>
-<script type="text/javascript">payment.init();</script>
+<script type="text/javascript">
+//<![CDATA[
+<?php echo $this->getChildChildHtml('scripts'); ?>
+payment.init();
+//]]>
+</script>

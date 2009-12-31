@@ -920,11 +920,14 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
         return $this;
     }
 
+    /**
+     * Collect shipping dates for wuote shipping address
+     */
     public function collectShippingRates()
     {
-        $this->collectRates();
         $this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
         $this->getQuote()->getShippingAddress()->collectShippingRates();
+        $this->collectRates();
         return $this;
     }
 
@@ -1020,6 +1023,88 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     }
 
     /**
+     * Prepare quote customer
+     */
+    public function _prepareCustomer()
+    {
+        $quote = $this->getQuote();
+        if ($quote->getCustomerIsGuest()) {
+            return $this;
+        }
+
+        $customer   = $this->getSession()->getCustomer();
+        $store      = $this->getSession()->getStore();
+
+        if ($customer->getId()) {
+            if ($customer->isInStore($store)) {
+                $customer->addData($this->getData('account'));
+            } else {
+                $customer->setId(null);
+                $customer->setStore($this->getSession()->getStore());
+                $customer->addData($this->getData('account'));
+            }
+            if ($this->getBillingAddress()->getSaveInAddressBook()) {
+                $billingAddress = $this->getBillingAddress()->exportCustomerAddress();
+                if ($this->getBillingAddress()->getCustomerAddressId()) {
+                    $billingAddress->setId($this->getBillingAddress()->getCustomerAddressId());
+                }
+                $customer->addAddress($billingAddress);
+            }
+            if ($this->getShippingAddress()->getSaveInAddressBook()) {
+                $shippingAddress = $this->getShippingAddress()->exportCustomerAddress();
+                if ($this->getShippingAddress()->getCustomerAddressId()) {
+                    $shippingAddress->setId($this->getShippingAddress()->getCustomerAddressId());
+                }
+                $customer->addAddress($shippingAddress);
+            }
+        } else {
+            $customer->addData($this->getBillingAddress()->exportCustomerAddress()->getData())
+                ->addData($this->getData('account'))
+                ->setPassword($customer->generatePassword())
+                ->setWebsiteId($store->getWebsiteId())
+                ->setStoreId($store->getId())
+                ->setEmail($this->_getNewCustomerEmail($customer));
+
+            $customerBilling = $this->getBillingAddress()->exportCustomerAddress();
+            $customerBilling->setIsDefaultBilling(true);
+            $customer->addAddress($customerBilling);
+
+            $shipping = $this->getShippingAddress();
+            if (!$shipping->getSameAsBilling()) {
+                $customerShipping = $shipping->exportCustomerAddress();
+                $customerShipping->setIsDefaultShipping(true);
+                $customer->addAddress($customerShipping);
+            }
+        }
+        $quote->setCustomer($customer);
+        if (!$customer->getId()) {
+            $quote->setCustomerId(true);
+        }
+        return $this;
+    }
+
+    /**
+     * Prepare item otions
+     */
+    protected function _prepareQuoteItems()
+    {
+        foreach ($this->getQuote()->getAllItems() as $item) {
+            $options = array();
+            $productOptions = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct());
+            if ($productOptions) {
+                $productOptions['info_buyRequest']['options'] = $this->_prepareOptionsForRequest($item);
+                $options = $productOptions;
+            }
+            $addOptions = $item->getOptionByCode('additional_options');
+            if ($addOptions) {
+                $options['additional_options'] = unserialize($addOptions->getValue());
+            }
+            $item->setProductOrderOptions($options);
+        }
+        return $this;
+    }
+
+    /**
      * Create new order
      *
      * @return Mage_Sales_Model_Order
@@ -1027,95 +1112,25 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     public function createOrder()
     {
         $this->_validate();
-
-        if (!$this->getQuote()->getCustomerIsGuest()) {
-            $this->_putCustomerIntoQuote();
-        }
-        /*^ @var Mage_Sales_Model_Convert_Quote */
-        $quoteConvert = Mage::getModel('sales/convert_quote');
-
         $quote = $this->getQuote();
-        if (!$this->getSession()->getOrder()->getId()) {
-            $quote->reserveOrderId();
-        }
+        $this->_prepareCustomer();
+        $this->_prepareQuoteItems();
 
-        if ($this->getQuote()->getIsVirtual()) {
-            $order = $quoteConvert->addressToOrder($quote->getBillingAddress());
-        }
-        else {
-            $order = $quoteConvert->addressToOrder($quote->getShippingAddress());
-        }
-        $order->setBillingAddress($quoteConvert->addressToOrderAddress($quote->getBillingAddress()))
-            ->setPayment($quoteConvert->paymentToOrderPayment($quote->getPayment()));
-        if (!$this->getQuote()->getIsVirtual()) {
-            $order->setShippingAddress($quoteConvert->addressToOrderAddress($quote->getShippingAddress()));
-        }
-
-        if (!$this->getQuote()->getIsVirtual()) {
-            foreach ($quote->getShippingAddress()->getAllItems() as $item) {
-                /* @var $item Mage_Sales_Model_Quote_Item */
-                $orderItem = $quoteConvert->itemToOrderItem($item);
-                $options = array();
-                if ($productOptions = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct())) {
-                    $productOptions['info_buyRequest']['options'] = $this->_prepareOptionsForRequest($item);
-                    $options = $productOptions;
-                }
-                if ($addOptions = $item->getOptionByCode('additional_options')) {
-                    $options['additional_options'] = unserialize($addOptions->getValue());
-                }
-                if ($options) {
-                    $orderItem->setProductOptions($options);
-                }
-
-                if ($item->getParentItem()) {
-                    $orderItem->setParentItem($order->getItemByQuoteItemId($item->getParentItem()->getId()));
-                }
-
-                $order->addItem($orderItem);
-            }
-        }
-        if ($this->getQuote()->hasVirtualItems()) {
-            foreach ($quote->getBillingAddress()->getAllItems() as $item) {
-                /* @var $item Mage_Sales_Model_Quote_Item */
-                $orderItem = $quoteConvert->itemToOrderItem($item);
-                $options = array();
-                if ($productOptions = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct())) {
-                    $productOptions['info_buyRequest']['options'] = $this->_prepareOptionsForRequest($item);
-                    $options = $productOptions;
-                }
-                if ($addOptions = $item->getOptionByCode('additional_options')) {
-                    $options['additional_options'] = unserialize($addOptions->getValue());
-                }
-                if ($options) {
-                    $orderItem->setProductOptions($options);
-                }
-
-                if ($item->getParentItem()) {
-                    $orderItem->setParentItem($order->getItemByQuoteItemId($item->getParentItem()->getId()));
-                }
-
-                $order->addItem($orderItem);
-            }
-        }
-
-        if ($this->getSendConfirmation()) {
-            $order->setEmailSent(true);
-        }
-
+        $service = Mage::getModel('sales/service_quote', $quote);
         if ($this->getSession()->getOrder()->getId()) {
             $oldOrder = $this->getSession()->getOrder();
-
             $originalId = $oldOrder->getOriginalIncrementId() ? $oldOrder->getOriginalIncrementId() : $oldOrder->getIncrementId();
-            $order->setOriginalIncrementId($originalId);
-            $order->setRelationParentId($oldOrder->getId());
-            $order->setRelationParentRealId($oldOrder->getIncrementId());
-            $order->setEditIncrement($oldOrder->getEditIncrement()+1);
-            $order->setIncrementId($originalId.'-'.$order->getEditIncrement());
+            $orderData = array(
+                'original_increment_id'     => $originalId,
+                'relation_parent_id'        => $oldOrder->getId(),
+                'relation_parent_real_id'   => $oldOrder->getIncrementId(),
+                'edit_increment'            => $oldOrder->getEditIncrement()+1,
+                'increment_id'              => $originalId.'-'.($oldOrder->getEditIncrement()+1)
+            );
+            $quote->setReservedOrderId($orderData['increment_id']);
+            $service->setOrderData($orderData);
         }
-
-        $order->place();
-        $this->_saveCustomerAfterOrder($order);
-        $order->save();
+        $order = $service->submit();
 
         if ($this->getSession()->getOrder()->getId()) {
             $oldOrder = $this->getSession()->getOrder();
@@ -1125,6 +1140,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
             $this->getSession()->getOrder()->cancel()
                 ->save();
             $order->save();
+        }
+
+        if ($quote->getCustomerId()) {
+            $quote->getCustomer()->sendNewAccountEmail();
         }
 
         if ($this->getSendConfirmation()) {
@@ -1191,7 +1210,33 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     }
 
     /**
+     * Retrieve new customer email
+     *
+     * @param   Mage_Customer_Model_Customer $customer
+     * @return  string
+     */
+    protected function _getNewCustomerEmail($customer)
+    {
+        $email = $this->getData('account/email');
+        if (empty($email)) {
+            $host = $this->getSession()->getStore()->getConfig(Mage_Customer_Model_Customer::XML_PATH_DEFAULT_EMAIL_DOMAIN);
+            $account = $customer->getIncrementId() ? $customer->getIncrementId() : time();
+            $email = $account.'@'. $host;
+        }
+        return $email;
+    }
+
+
+
+
+
+
+
+
+
+    /**
      * Create customer model and assign it to quote
+     * @deprecated after 1.4.0.0.
      */
     protected function _putCustomerIntoQuote()
     {
@@ -1224,6 +1269,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     /**
      * Save customer
      *
+     * @deprecated after 1.4.0.0.
      * @param Mage_Customer_Model_Customer $order
      */
     protected function _saveCustomerAfterOrder($order)
@@ -1278,8 +1324,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
     }
 
     /**
-     * Deprecated since 1.1.7
-     *
+     * @deprecated after 1.1.7
      * @return unknown
      */
     protected function _saveCustomer()
@@ -1350,22 +1395,5 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object
         }
         $this->getQuote()->setCustomer($customer);
         return $this;
-    }
-
-    /**
-     * Retrieve new customer email
-     *
-     * @param   Mage_Customer_Model_Customer $customer
-     * @return  string
-     */
-    protected function _getNewCustomerEmail($customer)
-    {
-        $email = $this->getData('account/email');
-        if (empty($email)) {
-            $host = $this->getSession()->getStore()->getConfig(Mage_Customer_Model_Customer::XML_PATH_DEFAULT_EMAIL_DOMAIN);
-            $account = $customer->getIncrementId() ? $customer->getIncrementId() : time();
-            $email = $account.'@'. $host;
-        }
-        return $email;
     }
 }

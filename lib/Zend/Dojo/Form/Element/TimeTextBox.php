@@ -24,13 +24,13 @@
 
 /**
  * TimeTextBox dijit
- * 
+ *
  * @uses       Zend_Dojo_Form_Element_DateTextBox
  * @package    Zend_Dojo
  * @subpackage Form_Element
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TimeTextBox.php 16204 2009-06-21 18:58:29Z thomas $
+ * @version    $Id: TimeTextBox.php 18951 2009-11-12 16:26:19Z alexander $
  */
 class Zend_Dojo_Form_Element_TimeTextBox extends Zend_Dojo_Form_Element_DateTextBox
 {
@@ -42,8 +42,8 @@ class Zend_Dojo_Form_Element_TimeTextBox extends Zend_Dojo_Form_Element_DateText
 
     /**
      * Validate ISO 8601 time format
-     * 
-     * @param  string $format 
+     *
+     * @param  string $format
      * @return true
      * @throws Zend_Form_Element_Exception
      */

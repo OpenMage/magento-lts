@@ -152,6 +152,7 @@ class Mage_Shipping_Model_Shipping
     public function collectRatesByAddress(Varien_Object $address, $limitCarrier=null)
     {
         $request = Mage::getModel('shipping/rate_request');
+        $request->setAllItems($address->getAllItems());
         $request->setDestCountryId($address->getCountryId());
         $request->setDestRegionId($address->getRegionId());
         $request->setDestPostcode($address->getPostcode());
@@ -163,7 +164,6 @@ class Mage_Shipping_Model_Shipping
         $request->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
         $request->setBaseCurrency(Mage::app()->getStore()->getBaseCurrency());
         $request->setPackageCurrency(Mage::app()->getStore()->getCurrentCurrency());
-
         $request->setLimitCarrier($limitCarrier);
 
         return $this->collectRates($request);

@@ -16,13 +16,12 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Flate.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Flate.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
 
 /** Zend_Pdf_Filter_Compression */
 #require_once 'Zend/Pdf/Filter/Compression.php';
-
 
 /**
  * Flate stream filter
@@ -53,11 +52,13 @@ class Zend_Pdf_Filter_Compression_Flate extends Zend_Pdf_Filter_Compression
 
             if (($output = @gzcompress($data)) === false) {
                 ini_set('track_errors', $trackErrors);
+                #require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception($php_errormsg);
             }
 
             ini_set('track_errors', $trackErrors);
         } else {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Not implemented yet. You have to use zlib extension.');
         }
 
@@ -82,11 +83,13 @@ class Zend_Pdf_Filter_Compression_Flate extends Zend_Pdf_Filter_Compression
 
             if (($output = @gzuncompress($data)) === false) {
                 ini_set('track_errors', $trackErrors);
+                #require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception($php_errormsg);
             }
 
             ini_set('track_errors', $trackErrors);
         } else {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Not implemented yet');
         }
 

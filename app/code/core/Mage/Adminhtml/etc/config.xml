@@ -107,12 +107,15 @@
         <global_search>
             <products>
                 <class>adminhtml/search_catalog</class>
+                <acl>catalog</acl>
             </products>
             <customers>
                 <class>adminhtml/search_customer</class>
+                <acl>customer</acl>
             </customers>
             <sales>
                 <class>adminhtml/search_order</class>
+                <acl>sales</acl>
             </sales>
         </global_search>
         <translate>

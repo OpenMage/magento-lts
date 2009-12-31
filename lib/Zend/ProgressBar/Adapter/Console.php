@@ -14,7 +14,7 @@
  * @package    Zend_ProgressBar
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Console.php 16215 2009-06-21 19:36:07Z thomas $
+ * @version    $Id: Console.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -145,7 +145,7 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
      * @var boolean
      */
     protected $_outputStarted = false;
-    
+
     /**
      * Charset of text element
      *
@@ -197,10 +197,10 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
        if ($this->_outputStream !== null) {
            fclose($this->_outputStream);
        }
-       
+
        $this->_outputStream = $stream;
     }
-    
+
     /**
      * Get the current output stream
      *
@@ -210,15 +210,15 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
     {
         if ($this->_outputStream === null) {
             if (!defined('STDOUT')) {
-                $this->_outputStream = fopen('php://stdout', 'w');    
+                $this->_outputStream = fopen('php://stdout', 'w');
             } else {
                 return STDOUT;
             }
         }
-        
+
         return $this->_outputStream;
     }
-    
+
     /**
      * Set the width of the progressbar
      *
@@ -355,7 +355,7 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
     {
         $this->_charset = $charset;
     }
-    
+
     /**
      * Set the finish action
      *

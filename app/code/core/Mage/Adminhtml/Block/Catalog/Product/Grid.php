@@ -258,10 +258,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
              )
         ));
 
-        $this->getMassactionBlock()->addItem('attributes', array(
-            'label' => Mage::helper('catalog')->__('Update attributes'),
-            'url'   => $this->getUrl('*/catalog_product_action_attribute/edit', array('_current'=>true))
-        ));
+        if (Mage::getSingleton('admin/session')->isAllowed('catalog/update_attributes')){
+            $this->getMassactionBlock()->addItem('attributes', array(
+                'label' => Mage::helper('catalog')->__('Update attributes'),
+                'url'   => $this->getUrl('*/catalog_product_action_attribute/edit', array('_current'=>true))
+            ));
+        }
 
         return $this;
     }

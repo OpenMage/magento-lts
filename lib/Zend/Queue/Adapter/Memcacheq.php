@@ -17,7 +17,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Memcacheq.php 17241 2009-07-28 13:01:20Z matthew $
+ * @version    $Id: Memcacheq.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -54,6 +54,11 @@ class Zend_Queue_Adapter_Memcacheq extends Zend_Queue_Adapter_AdapterAbstract
      * @var integer
      */
     protected $_port = null;
+
+    /**
+     * @var resource
+     */
+    protected $_socket = null;
 
     /********************************************************************
     * Constructor / Destructor
@@ -107,6 +112,11 @@ class Zend_Queue_Adapter_Memcacheq extends Zend_Queue_Adapter_AdapterAbstract
         if ($this->_cache instanceof Memcache) {
             $this->_cache->close();
         }
+        if (is_resource($this->_socket)) {
+            $cmd = 'quit' . self::EOL;
+            fwrite($this->_socket, $cmd);
+            fclose($this->_socket);
+        }
     }
 
     /********************************************************************
@@ -126,7 +136,11 @@ class Zend_Queue_Adapter_Memcacheq extends Zend_Queue_Adapter_AdapterAbstract
      */
     public function isExists($name)
     {
-        return in_array($name, $this->getQueues());
+        if (empty($this->_queues)) {
+            $this->getQueues();
+        }
+
+        return in_array($name, $this->_queues);
     }
 
     /**
@@ -158,6 +172,8 @@ class Zend_Queue_Adapter_Memcacheq extends Zend_Queue_Adapter_AdapterAbstract
         $result = $this->_cache->set($name, 'creating queue', 0, 15);
         $result = $this->_cache->get($name);
 
+        $this->_queues[] = $name;
+
         return true;
     }
 
@@ -175,6 +191,11 @@ class Zend_Queue_Adapter_Memcacheq extends Zend_Queue_Adapter_AdapterAbstract
         $response = $this->_sendCommand('delete ' . $name, array('DELETED', 'NOT_FOUND'), true);
 
         if (in_array('DELETED', $response)) {
+            $key = array_search($name, $this->_queues);
+
+            if ($key !== false) {
+                unset($this->_queues[$key]);
+            }
             return true;
         }
 
@@ -192,14 +213,15 @@ class Zend_Queue_Adapter_Memcacheq extends Zend_Queue_Adapter_AdapterAbstract
      */
     public function getQueues()
     {
+        $this->_queues = array();
+
         $response = $this->_sendCommand('stats queue', array('END'));
-        $list     = array();
 
         foreach ($response as $i => $line) {
-            $list[] = str_replace('STAT ', '', $line);
+            $this->_queues[] = str_replace('STAT ', '', $line);
         }
 
-        return $list;
+        return $this->_queues;
     }
 
     /**
@@ -279,6 +301,7 @@ class Zend_Queue_Adapter_Memcacheq extends Zend_Queue_Adapter_AdapterAbstract
         if ($maxMessages === null) {
             $maxMessages = 1;
         }
+
         if ($timeout === null) {
             $timeout = self::RECEIVE_TIMEOUT_DEFAULT;
         }
@@ -287,13 +310,15 @@ class Zend_Queue_Adapter_Memcacheq extends Zend_Queue_Adapter_AdapterAbstract
         }
 
         $msgs = array();
-        for ($i = 0; $i < $maxMessages; $i++) {
-            $data = array(
-                'handle' => md5(uniqid(rand(), true)),
-                'body'   => $this->_cache->get($queue->getName()),
-            );
+        if ($maxMessages > 0 ) {
+            for ($i = 0; $i < $maxMessages; $i++) {
+                $data = array(
+                    'handle' => md5(uniqid(rand(), true)),
+                    'body'   => $this->_cache->get($queue->getName()),
+                );
 
-            $msgs[] = $data;
+                $msgs[] = $data;
+            }
         }
 
         $options = array(
@@ -372,8 +397,10 @@ class Zend_Queue_Adapter_Memcacheq extends Zend_Queue_Adapter_AdapterAbstract
      */
     protected function _sendCommand($command, array $terminator, $include_term=false)
     {
-        $fp = fsockopen($this->_host, $this->_port, $errno, $errstr, 10);
-        if ($fp === false) {
+        if (!is_resource($this->_socket)) {
+            $this->_socket = fsockopen($this->_host, $this->_port, $errno, $errstr, 10);
+        }
+        if ($this->_socket === false) {
             #require_once 'Zend/Queue/Exception.php';
             throw new Zend_Queue_Exception("Could not open a connection to $this->_host:$this->_port errno=$errno : $errstr");
         }
@@ -381,11 +408,11 @@ class Zend_Queue_Adapter_Memcacheq extends Zend_Queue_Adapter_AdapterAbstract
         $response = array();
 
         $cmd = $command . self::EOL;
-        fwrite($fp, $cmd);
+        fwrite($this->_socket, $cmd);
 
         $continue_reading = true;
-        while (!feof($fp) && $continue_reading) {
-            $resp = trim(fgets($fp, 1024));
+        while (!feof($this->_socket) && $continue_reading) {
+            $resp = trim(fgets($this->_socket, 1024));
             if (in_array($resp, $terminator)) {
                 if ($include_term) {
                     $response[] = $resp;
@@ -395,10 +422,6 @@ class Zend_Queue_Adapter_Memcacheq extends Zend_Queue_Adapter_AdapterAbstract
                 $response[] = $resp;
             }
         }
-
-        $cmd = 'quit' . self::EOL;
-        fwrite($fp, $cmd);
-        fclose($fp);
 
         return $response;
     }

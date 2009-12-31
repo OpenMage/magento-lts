@@ -17,7 +17,7 @@
  * @subpackage Parse
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: OutputStream.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: OutputStream.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /** Zend_Amf_Util_BinaryStream */
@@ -26,7 +26,7 @@
 /**
  * Iterate at a binary level through the AMF response
  *
- * OutputStream extends BinaryStream as eventually BinaryStream could be placed 
+ * OutputStream extends BinaryStream as eventually BinaryStream could be placed
  * outside of Zend_Amf in order to allow other packages to use the class.
  *
  * @uses       Zend_Amf_Util_BinaryStream
@@ -39,7 +39,7 @@ class Zend_Amf_Parse_OutputStream extends Zend_Amf_Util_BinaryStream
 {
     /**
      * Constructor
-     * 
+     *
      * @return void
      */
     public function __construct()

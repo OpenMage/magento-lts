@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Wishlist>
-            <version>0.7.5</version>
+            <version>0.7.7</version>
         </Mage_Wishlist>
     </modules>
     <global>
@@ -133,6 +133,9 @@
                 </observers>
             </customer_logout>
         </events>
+        <secure_url>
+            <wishlist>/wishlist/</wishlist>
+        </secure_url>
     </frontend>
     <adminhtml>
         <translate>

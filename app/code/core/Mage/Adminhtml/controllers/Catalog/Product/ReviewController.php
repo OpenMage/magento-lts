@@ -181,7 +181,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
             }
         }
 
-        $this->_redirect('*/*/pending');
+        $this->_redirect('*/*/' . $this->getRequest()->getParam('ret', 'index'));
     }
 
     public function massUpdateStatusAction()
@@ -212,7 +212,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
             }
         }
 
-        $this->_redirect('*/*/pending');
+        $this->_redirect('*/*/' . $this->getRequest()->getParam('ret', 'index'));
     }
 
     public function massVisibleInAction()

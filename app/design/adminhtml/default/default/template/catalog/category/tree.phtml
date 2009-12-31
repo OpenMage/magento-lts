@@ -171,7 +171,10 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
 
     categoryClick : function(node, e)
     {
-        var url = '<?php echo $this->getEditUrl() ?>'+(this.storeId?'store/'+this.storeId+'/':'')+'id/'+node.id+'/';
+        var baseUrl = '<?php echo $this->getEditUrl() ?>';
+        var urlExt = (this.storeId?'store/'+this.storeId+'/':'')+'id/'+node.id+'/';
+        var url = parseSidUrl(baseUrl, urlExt);
+
         this.currentNodeId = node.id;
         this.addNodeTo = false;
         if (!this.useAjax) {

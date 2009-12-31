@@ -17,7 +17,7 @@
  * @subpackage PHPUnit
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DbStatement.php 18391 2009-09-24 18:11:51Z beberlei $
+ * @version    $Id: DbStatement.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 #require_once "Zend/Db/Statement/Interface.php";
@@ -55,7 +55,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
 
     /**
      * Create a Select statement which returns the given array of rows.
-     * 
+     *
      * @param array $rows
      * @return Zend_Test_DbStatement
      */
@@ -70,7 +70,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
 
     /**
      * Create an Insert Statement
-     * 
+     *
      * @param  int $affectedRows
      * @return Zend_Test_DbStatement
      */

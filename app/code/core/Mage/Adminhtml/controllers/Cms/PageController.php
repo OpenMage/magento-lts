@@ -234,24 +234,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
      */
     protected function _filterPostData($data)
     {
-        $filterInput = new Zend_Filter_LocalizedToNormalized(array(
-                'date_format' => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
-            ));
-
-        $filterInternal = new Zend_Filter_NormalizedToLocalized(array(
-                'date_format' => Varien_Date::DATE_INTERNAL_FORMAT
-            ));
-
-        if (isset($data['custom_theme_from']) && $data['custom_theme_from']) {
-            $data['custom_theme_from'] = $filterInput->filter($data['custom_theme_from']);
-            $data['custom_theme_from'] = $filterInternal->filter($data['custom_theme_from']);
-        }
-
-        if (isset($data['custom_theme_to']) && $data['custom_theme_to']) {
-            $data['custom_theme_to'] = $filterInput->filter($data['custom_theme_to']);
-            $data['custom_theme_to'] = $filterInternal->filter($data['custom_theme_to']);
-        }
-
+        $data = $this->_filterDates($data, array('custom_theme_from', 'custom_theme_to'));
         return $data;
     }
 }

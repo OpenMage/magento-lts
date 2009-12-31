@@ -88,9 +88,9 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
             }
         }
 
+        // beta cache enabler (?)
         $beta = $this->getRequest()->getPost('beta');
         $betaCache = array_keys(Mage::helper('core')->getCacheBetaTypes());
-
         foreach ($betaCache as $type) {
             if (empty($beta[$type])) {
                 $clean[] = $type;
@@ -99,15 +99,28 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
             }
         }
 
+        // clean all requested system cache and update cache usage
         if (!empty($clean)) {
             Mage::app()->cleanCache($clean);
         }
         Mage::app()->saveUseCache($enable);
 
+        // clean javascript/css cache
+        if ($this->getRequest()->getPost('jscss_action')) {
+            if (Mage::getDesign()->cleanMergedJsCss()) {
+                $this->_getSession()->addSuccess(
+                    Mage::helper('adminhtml')->__('JavaScript/CSS cache has been cleared successfully.')
+                );
+            } else {
+                $this->_getSession()->addError(Mage::helper('adminhtml')->__('Failed to clear JavaScript/CSS cache.'));
+            }
+        }
+
         /**
          * Run catalog actions
          */
         if ($catalogAction = $this->getRequest()->getPost('catalog_action')) {
+
             switch ($catalogAction) {
                 case 'refresh_catalog_rewrites':
                     try {

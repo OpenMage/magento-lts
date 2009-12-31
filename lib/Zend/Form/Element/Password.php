@@ -24,13 +24,13 @@
 
 /**
  * Password form element
- * 
+ *
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Password.php 16218 2009-06-21 19:44:04Z thomas $
+ * @version    $Id: Password.php 18951 2009-11-12 16:26:19Z alexander $
  */
 class Zend_Form_Element_Password extends Zend_Form_Element_Xhtml
 {
@@ -48,7 +48,7 @@ class Zend_Form_Element_Password extends Zend_Form_Element_Xhtml
 
     /**
      * Set flag indicating whether or not to render the password
-     * @param  bool $flag 
+     * @param  bool $flag
      * @return Zend_Form_Element_Password
      */
     public function setRenderPassword($flag)
@@ -59,7 +59,7 @@ class Zend_Form_Element_Password extends Zend_Form_Element_Xhtml
 
     /**
      * Get value of renderPassword flag
-     * 
+     *
      * @return bool
      */
     public function renderPassword()
@@ -71,9 +71,9 @@ class Zend_Form_Element_Password extends Zend_Form_Element_Xhtml
      * Override isValid()
      *
      * Ensure that validation error messages mask password value.
-     * 
-     * @param  string $value 
-     * @param  mixed $context 
+     *
+     * @param  string $value
+     * @param  mixed $context
      * @return bool
      */
     public function isValid($value, $context = null)

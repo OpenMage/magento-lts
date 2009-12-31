@@ -33,19 +33,18 @@
 ?>
 <div class="categories-side-col">
     <div class="tree-actions">
-        <a href="#" onclick="tree.collapseAll(); return false;"><?php echo $this->helper('cms')->__('Collapse All'); ?></a>
+        <a href="#" id="tree_action_collapse"><?php echo $this->helper('cms')->__('Collapse All'); ?></a>
         <span class="separator">|</span>
-        <a href="#" onclick="tree.expandAll(); return false;"><?php echo $this->helper('cms')->__('Expand All'); ?></a>
+        <a href="#" id="tree_action_expand"><?php echo $this->helper('cms')->__('Expand All'); ?></a>
     </div>
 </div>
 
 <div id="tree" style="width:100%; overflow:auto;"></div>
 
 <script type="text/javascript">
-var tree;
 Ext.onReady(function(){
     var Tree = Ext.tree;
-    tree = new Tree.TreePanel('tree', {
+    var tree = new Tree.TreePanel('tree', {
         animate:true,
         loader: new Tree.TreeLoader({
             dataUrl:'<?php echo $this->getTreeLoaderUrl() ?>'
@@ -65,6 +64,14 @@ Ext.onReady(function(){
     // render the tree
     tree.render();
     root.expand();
+
+    Event.observe($('tree_action_collapse'), 'click', function(){
+        tree.collapseAll();
+    });
+
+    Event.observe($('tree_action_expand'), 'click', function(){
+        tree.expandAll();
+    });
 
     MediabrowserInstance.setTree(tree);
     tree.addListener('click', MediabrowserInstance.selectFolder.bind(MediabrowserInstance));

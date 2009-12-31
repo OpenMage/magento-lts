@@ -81,8 +81,6 @@ class Mage_Cron_Model_Observer
                     Mage::throwException(Mage::helper('cron')->__('Too late for the schedule'));
                 }
 
-                $schedule->setExecutedAt(strftime('%Y-%m-%d %H:%M:%S', time()));
-
                 if ($runConfig->model) {
                     if (!preg_match(self::REGEX_RUN_MODEL, (string)$runConfig->model, $run)) {
                         Mage::throwException(Mage::helper('cron')->__('Invalid model/method definition, expecting "model/class::method".'));
@@ -97,7 +95,11 @@ class Mage_Cron_Model_Observer
                     Mage::throwException(Mage::helper('cron')->__('No callbacks found'));
                 }
 
-                $schedule->setStatus(Mage_Cron_Model_Schedule::STATUS_RUNNING)
+                if (!$schedule->tryLockJob()) {
+                    // another cron started this job intermittently, so skip it
+                    continue;
+                }
+                $schedule->setExecutedAt(strftime('%Y-%m-%d %H:%M:%S', time()))
                     ->save();
 
                 call_user_func_array($callback, $arguments);

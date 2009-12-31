@@ -16,7 +16,7 @@
  * @package    Zend_Tool
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Interface.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Interface.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -27,7 +27,7 @@
  */
 interface Zend_Tool_Framework_Registry_Interface
 {
-    
+
 
     /**
      * setClient()
@@ -36,29 +36,29 @@ interface Zend_Tool_Framework_Registry_Interface
      * @return Zend_Tool_Framework_Registry
      */
     public function setClient(Zend_Tool_Framework_Client_Abstract $client);
-    
+
     /**
      * getClient() return the client in the registry
      *
      * @return Zend_Tool_Framework_Client_Abstract
      */
     public function getClient();
-    
+
     /**
-     * setLoader() 
+     * setLoader()
      *
      * @param Zend_Tool_Framework_Loader_Abstract $loader
      * @return Zend_Tool_Framework_Registry
      */
     public function setLoader(Zend_Tool_Framework_Loader_Abstract $loader);
-    
+
     /**
      * getLoader()
      *
      * @return Zend_Tool_Framework_Loader_Abstract
      */
     public function getLoader();
-    
+
     /**
      * setActionRepository()
      *
@@ -66,14 +66,14 @@ interface Zend_Tool_Framework_Registry_Interface
      * @return Zend_Tool_Framework_Registry
      */
     public function setActionRepository(Zend_Tool_Framework_Action_Repository $actionRepository);
-    
+
     /**
      * getActionRepository()
      *
      * @return Zend_Tool_Framework_Action_Repository
      */
     public function getActionRepository();
-    
+
     /**
      * setProviderRepository()
      *
@@ -81,14 +81,14 @@ interface Zend_Tool_Framework_Registry_Interface
      * @return Zend_Tool_Framework_Registry
      */
     public function setProviderRepository(Zend_Tool_Framework_Provider_Repository $providerRepository);
-    
+
     /**
      * getProviderRepository()
      *
      * @return Zend_Tool_Framework_Provider_Repository
      */
     public function getProviderRepository();
-    
+
     /**
      * setManifestRepository()
      *
@@ -96,14 +96,14 @@ interface Zend_Tool_Framework_Registry_Interface
      * @return Zend_Tool_Framework_Registry
      */
     public function setManifestRepository(Zend_Tool_Framework_Manifest_Repository $manifestRepository);
-    
+
     /**
      * getManifestRepository()
      *
      * @return Zend_Tool_Framework_Manifest_Repository
      */
     public function getManifestRepository();
-    
+
     /**
      * setRequest()
      *
@@ -111,14 +111,14 @@ interface Zend_Tool_Framework_Registry_Interface
      * @return Zend_Tool_Framework_Registry
      */
     public function setRequest(Zend_Tool_Framework_Client_Request $request);
-    
+
     /**
      * getRequest()
      *
      * @return Zend_Tool_Framework_Client_Request
      */
     public function getRequest();
-    
+
     /**
      * setResponse()
      *
@@ -133,5 +133,5 @@ interface Zend_Tool_Framework_Registry_Interface
      * @return Zend_Tool_Framework_Client_Response
      */
     public function getResponse();
-    
+
 }

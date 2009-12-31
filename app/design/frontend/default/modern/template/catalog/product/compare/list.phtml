@@ -57,7 +57,7 @@
                     <a href="#" onclick="setPLocation('<?php echo $this->getProductUrl($_item) ?>', true)" title="<?php echo $this->htmlEscape($_item->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->htmlEscape($_item->getName()) ?>"/></a>
                     <h5><a href="#" onclick="setPLocation('<?php echo $this->getProductUrl($_item) ?>', true)" title="<?php echo $this->htmlEscape($_item->getName()) ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a></h5>
                     <?php echo $this->getReviewsSummaryHtml($_item, 'short') ?>
-                    <?php echo $this->getPriceHtml($_item, true) ?>
+                    <?php echo $this->getPriceHtml($_item, true, '-compare-list-top') ?>
                     <?php if($_item->isSaleable()): ?>
                     <a href="#" onclick="setPLocation('<?php echo $this->getAddToCartUrl($_item) ?>', true)"><img src="<?php echo $this->getSkinUrl('images/btn_add_to_cart.gif') ?>" alt="<?php echo $this->__('Add to Cart') ?>"/></a><br/>
                     <?php else: ?>
@@ -81,7 +81,7 @@
                 <td>
                     <?php switch ($_attribute->getAttributeCode()) {
                         case "price": ?>
-                            <?php echo $this->getPriceHtml($_item, true) ?>
+                            <?php echo $this->getPriceHtml($_item, true, '-compare-list-' . $_attribute->getCode()) ?>
                             <?php break;
                         case "small_image": ?>
                             <img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->htmlEscape($_item->getName()) ?>"/>
@@ -103,7 +103,7 @@
                  <td class="label">&nbsp;</td>
                 <?php endif; ?>
                 <td>
-                    <?php echo $this->getPriceHtml($_item, true) ?>
+                    <?php echo $this->getPriceHtml($_item, true, '-compare-list-bottom') ?>
                     <?php if($_item->isSaleable()): ?>
                     <a href="#" onclick="setPLocation('<?php echo $this->getAddToCartUrl($_item) ?>', true)"><img src="<?php echo $this->getSkinUrl('images/btn_add_to_cart.gif') ?>" alt="<?php echo $this->__('Add to Cart') ?>"/></a><br/>
                     <?php else: ?>

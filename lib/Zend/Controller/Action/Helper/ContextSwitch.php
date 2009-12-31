@@ -17,7 +17,7 @@
  * @subpackage Zend_Controller_Action_Helper
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ContextSwitch.php 16202 2009-06-21 18:53:49Z thomas $
+ * @version    $Id: ContextSwitch.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -157,9 +157,9 @@ class Zend_Controller_Action_Helper_ContextSwitch extends Zend_Controller_Action
     /**
      * Initialize at start of action controller
      *
-     * Reset the view script suffix to the original state, or store the 
+     * Reset the view script suffix to the original state, or store the
      * original state.
-     * 
+     *
      * @return void
      */
     public function init()

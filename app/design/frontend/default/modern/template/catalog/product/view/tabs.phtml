@@ -62,7 +62,7 @@ Varien.Tabs.prototype = {
 
   showContent: function(a) {
     var li = $(a.parentNode), ul = $(li.parentNode);
-    ul.getElementsBySelector('li', 'ol').each(function(el){
+    ul.select('li', 'ol').each(function(el){
       var contents = $(el.id+'_contents');
       if (el==li) {
         el.addClassName('active');

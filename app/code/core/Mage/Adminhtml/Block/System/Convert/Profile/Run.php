@@ -108,19 +108,19 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                 echo "</li>";
             }
 
+            if($profile->getEntityType() == 'product' && $profile->getDirection() == 'import') {
+                echo '<li id="liBeforeFinish" style="background-color:#FFD; display:none;">';
+                echo '<img src="'.Mage::getDesign()->getSkinUrl('images/fam_bullet_error.gif').'" class="v-middle" style="margin-right:5px"/>';
+                echo $this->__("Please wait while we are refreshing indexes.");
+                echo '<img id="before-finish-wait-img" src="'.Mage::getDesign()->getSkinUrl('images/rule-ajax-loader.gif').'" class="v-middle" style="margin-right:5px"/>';
+                echo '</li>';
+            }
+
             echo '<li id="liFinished" style="display:none;">';
             echo '<img src="'.Mage::getDesign()->getSkinUrl('images/note_msg_icon.gif').'" class="v-middle" style="margin-right:5px"/>';
             echo $this->__("Finished profile execution.");
-
-            if($profile->getEntityType() == 'product' && $profile->getDirection() == 'import') {
-                echo $this->__(" Please wait while we are refreshing indexes.");
-            }
-
             echo '</li>';
-
-
             echo "</ul>";
-
 
             $showFinished = true;
             $batchModel = Mage::getSingleton('dataflow/batch');
@@ -178,6 +178,12 @@ function execImportData() {
             text: config.tplSccTxt.evaluate({updated:(countOfUpdated-countOfError)}),
             id: "updatedFinish"
         })});
+
+        if ($("liBeforeFinish")) {
+            Element.insert($("liFinished"), {before: $("liBeforeFinish")});
+            $("liBeforeFinish").show();
+        }
+
         new Ajax.Request("' . $this->getUrl('*/*/batchFinish', array('id' => $batchModel->getId())) .'", {
             method: "post",
             parameters: {form_key: FORM_KEY},
@@ -192,6 +198,10 @@ function execImportData() {
                             id: "error-finish"
                         })});
                     }
+                }
+
+                if ($("before-finish-wait-img")) {
+                    $("before-finish-wait-img").hide();
                 }
 
                 $(\'liFinished\').show();

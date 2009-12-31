@@ -17,7 +17,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Activemq.php 17241 2009-07-28 13:01:20Z matthew $
+ * @version    $Id: Activemq.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -95,7 +95,7 @@ class Zend_Queue_Adapter_Activemq extends Zend_Queue_Adapter_AdapterAbstract
 
         $response = $this->_client->send($connect)->receive();
 
-        if ((false !== $response) 
+        if ((false !== $response)
             && ($response->getCommand() != 'CONNECTED')
         ) {
             #require_once 'Zend/Queue/Exception.php';
@@ -196,6 +196,9 @@ class Zend_Queue_Adapter_Activemq extends Zend_Queue_Adapter_AdapterAbstract
             $queue = $this->_queue;
         }
 
+        // read
+        $data = array();
+
         // signal that we are reading
         $frame = $this->_client->createFrame();
         $frame->setCommand('SUBSCRIBE');
@@ -203,26 +206,26 @@ class Zend_Queue_Adapter_Activemq extends Zend_Queue_Adapter_AdapterAbstract
         $frame->setHeader('ack','client');
         $this->_client->send($frame);
 
-        // read
-        $data = array();
-        if ($this->_client->canRead()) {
-            for ($i = 0; $i < $maxMessages; $i++) {
-                $response = $this->_client->receive();
+        if ($maxMessages > 0) {
+            if ($this->_client->canRead()) {
+                for ($i = 0; $i < $maxMessages; $i++) {
+                    $response = $this->_client->receive();
 
-                switch ($response->getCommand()) {
-                    case 'MESSAGE':
-                        $datum = array(
-                            'message_id' => $response->getHeader('message-id'),
-                            'handle'     => $response->getHeader('message-id'),
-                            'body'       => $response->getBody(),
-                            'md5'        => md5($response->getBody())
-                        );
-                        $data[] = $datum;
-                        break;
-                    default:
-                        $block = print_r($response, true);
-                        #require_once 'Zend/Queue/Exception.php';
-                        throw new Zend_Queue_Exception('Invalid response received: ' . $block);
+                    switch ($response->getCommand()) {
+                        case 'MESSAGE':
+                            $datum = array(
+                                'message_id' => $response->getHeader('message-id'),
+                                'handle'     => $response->getHeader('message-id'),
+                                'body'       => $response->getBody(),
+                                'md5'        => md5($response->getBody())
+                            );
+                            $data[] = $datum;
+                            break;
+                        default:
+                            $block = print_r($response, true);
+                            #require_once 'Zend/Queue/Exception.php';
+                            throw new Zend_Queue_Exception('Invalid response received: ' . $block);
+                    }
                 }
             }
         }

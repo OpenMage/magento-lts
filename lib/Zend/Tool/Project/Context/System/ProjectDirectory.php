@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ProjectDirectory.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: ProjectDirectory.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -45,24 +45,24 @@
  *
  * A profile is a hierarchical set of resources that keep track of
  * items within a specific project.
- * 
+ *
  * @category   Zend
  * @package    Zend_Tool
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Project_Context_System_ProjectDirectory 
+class Zend_Tool_Project_Context_System_ProjectDirectory
     extends Zend_Tool_Project_Context_Filesystem_Directory
     implements Zend_Tool_Project_Context_System_Interface,
                Zend_Tool_Project_Context_System_NotOverwritable,
-               Zend_Tool_Project_Context_System_TopLevelRestrictable 
+               Zend_Tool_Project_Context_System_TopLevelRestrictable
 {
-    
+
     /**
      * @var string
      */
     protected $_filesystemName = null;
-    
+
     /**
      * getName()
      *
@@ -72,7 +72,7 @@ class Zend_Tool_Project_Context_System_ProjectDirectory
     {
         return 'ProjectDirectory';
     }
-    
+
     /**
      * init()
      *
@@ -82,22 +82,22 @@ class Zend_Tool_Project_Context_System_ProjectDirectory
     {
         // get base path from attributes (would be in path attribute)
         $projectDirectory = $this->_resource->getAttribute('path');
-        
+
         // if not, get from profile
         if ($projectDirectory == null) {
             $projectDirectory = $this->_resource->getProfile()->getAttribute('projectDirectory');
         }
-        
+
         // if not, exception.
         if ($projectDirectory == null) {
             #require_once 'Zend/Tool/Project/Exception.php';
             throw new Zend_Tool_Project_Exception('projectDirectory cannot find the directory for this project.');
         }
-        
+
         $this->_baseDirectory = rtrim($projectDirectory, '\\/');
         return $this;
     }
-    
+
     /**
      * create()
      *
@@ -120,9 +120,9 @@ class Zend_Tool_Project_Context_System_ProjectDirectory
             }
             */
         }
-        
+
         parent::create();
         return $this;
     }
-    
+
 }

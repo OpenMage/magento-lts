@@ -331,9 +331,17 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
         $baseTax = ($item->getTaxBeforeDiscount() ? $item->getTaxBeforeDiscount() : ($item->getTaxAmount() ? $item->getTaxAmount() : 0));
         $tax = ($item->getBaseTaxBeforeDiscount() ? $item->getBaseTaxBeforeDiscount() : ($item->getBaseTaxAmount() ? $item->getBaseTaxAmount() : 0));
 
+        $basePriceTax = 0;
+        $priceTax = 0;
+
+        if (floatval($qty)) {
+            $basePriceTax = $item->getBasePrice()+$baseTax/$qty;
+            $priceTax = $item->getPrice()+$tax/$qty;
+        }
+
         return $this->displayPrices(
-            $this->getOrder()->getStore()->roundPrice($item->getBasePrice()+$baseTax/$qty),
-            $this->getOrder()->getStore()->roundPrice($item->getPrice()+$tax/$qty)
+            $this->getOrder()->getStore()->roundPrice($basePriceTax),
+            $this->getOrder()->getStore()->roundPrice($priceTax)
         );
     }
 

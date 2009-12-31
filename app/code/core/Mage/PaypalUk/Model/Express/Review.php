@@ -24,9 +24,7 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- * Payflow Pro express review session
- */
+
 class Mage_PaypalUk_Model_Express_Review
 {
     /**
@@ -76,7 +74,7 @@ class Mage_PaypalUk_Model_Express_Review
         if (empty($shippingMethod)) {
             $res = array(
                 'error' => -1,
-                'message' => Mage::helper('paypal')->__('Invalid data')
+                'message' => Mage::helper('paypalUk')->__('Invalid data')
             );
             return $res;
         }

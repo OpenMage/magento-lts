@@ -17,12 +17,12 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SearchConstraints.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: SearchConstraints.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
  * This class is an iterator that will iterate only over enabled resources
- * 
+ *
  * @category   Zend
  * @package    Zend_Tool
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
@@ -30,12 +30,12 @@
  */
 class Zend_Tool_Project_Profile_Resource_SearchConstraints
 {
-    
+
     /**
      * @var array
      */
     protected $_constraints = array();
-    
+
     /**
      * __construct()
      *
@@ -49,7 +49,7 @@ class Zend_Tool_Project_Profile_Resource_SearchConstraints
             $this->setOptions($options);
         }
     }
-    
+
     /**
      * setOptions()
      *
@@ -68,7 +68,7 @@ class Zend_Tool_Project_Profile_Resource_SearchConstraints
 
         return $this;
     }
-    
+
     /**
      * addConstraint()
      *
@@ -84,13 +84,13 @@ class Zend_Tool_Project_Profile_Resource_SearchConstraints
             $name   = $constraint['name'];
             $params = $constraint['params'];
         }
-        
+
         $constraint = $this->_makeConstraint($name, $params);
-        
+
         array_push($this->_constraints, $constraint);
         return $this;
     }
-    
+
     /**
      * getConstraint()
      *
@@ -113,5 +113,5 @@ class Zend_Tool_Project_Profile_Resource_SearchConstraints
         $value = array('name' => $name, 'params' => $params);
         return new ArrayObject($value, ArrayObject::ARRAY_AS_PROPS);
     }
-    
+
 }

@@ -18,7 +18,7 @@
  * @subpackage Amazon
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Amazon.php 17146 2009-07-26 13:25:34Z beberlei $
+ * @version    $Id: Amazon.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -44,7 +44,7 @@ class Zend_Service_Amazon
 
     /**
      * @var string
-     */ 
+     */
     protected $_secretKey = null;
 
     /**

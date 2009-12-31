@@ -58,26 +58,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-//<![CDATA[
-if(!window.toogleRequired) {
-    var toogleRequired = function (source, objects)
-    {
-        if(!$(source).value.blank()) {
-            objects.each(function(item) {
-               $(item).addClassName('required-entry');
-            });
-        } else {
-            objects.each(function(item) {
-                if(editForm && editForm.validator) {
-                   editForm.validator.reset(item);
-                }
-                $(item).removeClassName('required-entry');
-            });
-        }
-    }
-}
-order.giftmessageFieldsBind('order-giftmessage');
-//]]>
-</script>
 <?php endif; ?>

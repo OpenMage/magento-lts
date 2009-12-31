@@ -110,7 +110,7 @@
                 </extensions>
                 <cache translate="title">
                     <title>Cache Management</title>
-                    <action>adminhtml/system_cache</action>
+                    <action>adminhtml/cache</action>
                     <sort_order>90</sort_order>
                 </cache>
                 <store translate="title" module="core">

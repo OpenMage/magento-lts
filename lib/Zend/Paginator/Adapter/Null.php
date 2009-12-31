@@ -16,7 +16,7 @@
  * @package    Zend_Paginator
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Null.php 16215 2009-06-21 19:36:07Z thomas $
+ * @version    $Id: Null.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -38,10 +38,10 @@ class Zend_Paginator_Adapter_Null implements Zend_Paginator_Adapter_Interface
      * @var integer
      */
     protected $_count = null;
-    
+
     /**
      * Constructor.
-     * 
+     *
      * @param array $count Total item count
      */
     public function __construct($count = 0)

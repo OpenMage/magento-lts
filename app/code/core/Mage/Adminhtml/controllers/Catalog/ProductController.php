@@ -395,9 +395,8 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     public function reviewsAction()
     {
         $this->_initProduct();
-
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/review_grid', 'admin.product.reviews')
+            $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_reviews', 'admin.product.reviews')
                 ->setProductId(Mage::registry('product')->getId())
                 ->setUseAjax(true)
                 ->toHtml()

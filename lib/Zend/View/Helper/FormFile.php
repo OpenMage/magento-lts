@@ -17,7 +17,7 @@
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormFile.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: FormFile.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 
@@ -60,7 +60,7 @@ class Zend_View_Helper_FormFile extends Zend_View_Helper_FormElement
         $disabled = '';
         if ($disable) {
             $disabled = ' disabled="disabled"';
-        } 
+        }
 
         // XHTML or HTML end tag?
         $endTag = ' />';
@@ -73,7 +73,7 @@ class Zend_View_Helper_FormFile extends Zend_View_Helper_FormElement
                 . ' name="' . $this->view->escape($name) . '"'
                 . ' id="' . $this->view->escape($id) . '"'
                 . $disabled
-                . $this->_htmlAttribs($attribs) 
+                . $this->_htmlAttribs($attribs)
                 . $endTag;
 
         return $xhtml;

@@ -17,7 +17,7 @@
  * @subpackage Index
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Interface.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Interface.php 18946 2009-11-12 11:48:58Z alexander $
  */
 
 /**
@@ -32,7 +32,7 @@ interface Zend_Search_Lucene_Index_TermsStream_Interface
     /**
      * Reset terms stream.
      */
-	public function resetTermsStream();
+    public function resetTermsStream();
 
     /**
      * Skip terms stream up to specified term preffix.

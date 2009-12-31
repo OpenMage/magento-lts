@@ -348,6 +348,11 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 $category->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('catalog')->__('Category deleted'));
             }
+            catch (Mage_Core_Exception $e){
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('_current'=>true)));
+                return;
+            }
             catch (Exception $e){
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('Category delete error'));
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('_current'=>true)));

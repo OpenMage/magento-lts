@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Manifest.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Manifest.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -36,32 +36,32 @@
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_System_Provider_Manifest 
+class Zend_Tool_Framework_System_Provider_Manifest
     implements Zend_Tool_Framework_Provider_Interface, Zend_Tool_Framework_Registry_EnabledInterface
 {
-    
+
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry)
     {
         $this->_registry = $registry;
     }
-    
+
     public function getName()
     {
         return 'Manifest';
     }
-    
+
     public function show()
     {
-        
+
         $manifestRepository = $this->_registry->getManifestRepository();
         $response           = $this->_registry->getResponse();
-        
+
         $metadataTree = array();
-        
+
         $longestAttrNameLen = 50;
-        
+
         foreach ($manifestRepository as $metadata) {
-            
+
             $metadataType  = $metadata->getType();
             $metadataName  = $metadata->getName();
             $metadataAttrs = $metadata->getAttributes('attributesParent');
@@ -69,33 +69,33 @@ class Zend_Tool_Framework_System_Provider_Manifest
             if (!$metadataAttrs) {
                 $metadataAttrs = '(None)';
             } else {
-                $metadataAttrs = urldecode(http_build_query($metadataAttrs, null, ', ')); 
+                $metadataAttrs = urldecode(http_build_query($metadataAttrs, null, ', '));
             }
-            
+
             if (!array_key_exists($metadataType, $metadataTree)) {
                 $metadataTree[$metadataType] = array();
             }
-            
+
             if (!array_key_exists($metadataName, $metadataTree[$metadataType])) {
                 $metadataTree[$metadataType][$metadataName] = array();
             }
-            
+
             if (!array_key_exists($metadataAttrs, $metadataTree[$metadataType][$metadataName])) {
                 $metadataTree[$metadataType][$metadataName][$metadataAttrs] = array();
             }
-            
+
             $longestAttrNameLen = (strlen($metadataAttrs) > $longestAttrNameLen) ? strlen($metadataAttrs) : $longestAttrNameLen;
-            
+
             $metadataValue = $metadata->getValue();
             if (is_array($metadataValue) && count($metadataValue) > 0) {
                 $metadataValue = urldecode(http_build_query($metadataValue, null, ', '));
             } elseif (is_array($metadataValue)) {
                 $metadataValue = '(empty array)';
             }
-            
+
             $metadataTree[$metadataType][$metadataName][$metadataAttrs][] = $metadataValue;
         }
-        
+
         foreach ($metadataTree as $metadataType => $metadatasByName) {
             $response->appendContent($metadataType);
             foreach ($metadatasByName as $metadataName => $metadatasByAttributes) {
@@ -109,6 +109,6 @@ class Zend_Tool_Framework_System_Provider_Manifest
                 }
             }
         }
-        
+
     }
 }

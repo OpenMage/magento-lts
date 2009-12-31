@@ -24,8 +24,19 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php echo Mage::helper('payment')->__('Name on the Card: %s', $this->htmlEscape($this->getInfo()->getCcOwner())) ?>
-    {{pdf_row_separator}}
-<?php echo Mage::helper('payment')->__('Credit Card Type: %s', $this->htmlEscape($this->getCcTypeName())) ?>
-    {{pdf_row_separator}}
-<?php echo Mage::helper('payment')->__('Credit Card Number: xxxx-%s', $this->htmlEscape($this->getInfo()->getCcLast4())) ?>
+<?php
+/**
+ * @see Mage_Payment_Block_Info_Cc
+ */
+?>
+<?php if($_info = $this->getInfo()): ?>
+    <?php echo Mage::helper('payment')->__('Credit Card Type: %s', $this->getCcTypeName()) ?>
+        {{pdf_row_separator}}
+    <?php echo Mage::helper('payment')->__('Credit Card Number: xxxx-%s', $this->getInfo()->getCcLast4()) ?>
+    <?php if ($this->getInfo()->getCcSsIssue()): ?>
+        {{pdf_row_separator}}<?php echo Mage::helper('payment')->__('Switch/Solo card issue number: %s', $this->getInfo()->getCcSsIssue()) ?>
+    <?php endif; ?>
+    <?php if($this->getInfo()->getCcSsStartYear()): ?>
+        {{pdf_row_separator}}<?php echo Mage::helper('payment')->__('Switch/Solo card start Date: %s/%s', $this->getInfo()->getCcStartMonth(), $this->getInfo()->getCcSsStartYear()) ?>
+    <?php endif; ?>
+<?php endif; ?>

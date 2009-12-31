@@ -16,7 +16,7 @@
  * @package    Zend_Reflection
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Extension.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Extension.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -59,7 +59,7 @@ class Zend_Reflection_Extension extends ReflectionExtension
         unset($phpReflections);
         return $zendReflections;
     }
-    
+
     /**
      * Get extension class reflection objects
      *

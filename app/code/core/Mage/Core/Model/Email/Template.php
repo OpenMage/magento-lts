@@ -335,6 +335,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Abstract
     public function send($email, $name = null, array $variables = array())
     {
         if (!$this->isValidForSend()) {
+            Mage::logException(new Exception('This letter cannot be sent.')); // translation is intentionally omitted
             return false;
         }
 
@@ -388,7 +389,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Abstract
         $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
 
         try {
-            $mail->send(); // Zend_Mail warning..
+            $mail->send();
             $this->_mail = null;
         }
         catch (Exception $e) {

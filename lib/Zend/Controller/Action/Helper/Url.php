@@ -17,7 +17,7 @@
  * @subpackage Zend_Controller_Action_Helper
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Url.php 16202 2009-06-21 18:53:49Z thomas $
+ * @version    $Id: Url.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -62,9 +62,9 @@ class Zend_Controller_Action_Helper_Url extends Zend_Controller_Action_Helper_Ab
         if ($module != $this->getFrontController()->getDispatcher()->getDefaultModule()) {
             $url = $module . '/' . $url;
         }
-        
+
         if ('' !== ($baseUrl = $this->getFrontController()->getBaseUrl())) {
-        	$url = $baseUrl . '/' . $url;
+            $url = $baseUrl . '/' . $url;
         }
 
         if (null !== $params) {
@@ -98,7 +98,7 @@ class Zend_Controller_Action_Helper_Url extends Zend_Controller_Action_Helper_Ab
         $router = $this->getFrontController()->getRouter();
         return $router->assemble($urlOptions, $name, $reset, $encode);
     }
-    
+
     /**
      * Perform helper when called as $this->_helper->url() from an action controller
      *

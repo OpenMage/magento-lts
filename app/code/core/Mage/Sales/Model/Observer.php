@@ -118,4 +118,69 @@ class Mage_Sales_Model_Observer
 
         return $this;
     }
+
+    /**
+     * Refresh sales order report statistics for last day
+     *
+     * @param Mage_Cron_Model_Schedule $schedule
+     * @return Mage_Sales_Model_Observer
+     */
+    public function aggregateSalesReportOrderData($schedule)
+    {
+        Mage::app()->getLocale()->emulate(0);
+        $currentDate = Mage::app()->getLocale()->date();
+        $date = $currentDate->subHour(25);
+        Mage::getResourceModel('sales/order')->aggregate($date);
+        Mage::app()->getLocale()->revert();
+        return $this;
+    }
+
+    /**
+     * Refresh sales shipment report statistics for last day
+     *
+     * @param Mage_Cron_Model_Schedule $schedule
+     * @return Mage_Sales_Model_Observer
+     */
+    public function aggregateSalesReportShipmentData($schedule)
+    {
+        Mage::app()->getLocale()->emulate(0);
+        $currentDate = Mage::app()->getLocale()->date();
+        $date = $currentDate->subHour(25);
+        Mage::getResourceModel('sales/report_shipping')->aggregate($date);
+        Mage::app()->getLocale()->revert();
+        return $this;
+    }
+
+    /**
+     * Refresh sales invoiced report statistics for last day
+     *
+     * @param Mage_Cron_Model_Schedule $schedule
+     * @return Mage_Sales_Model_Observer
+     */
+    public function aggregateSalesReportInvoicedData($schedule)
+    {
+        Mage::app()->getLocale()->emulate(0);
+        $currentDate = Mage::app()->getLocale()->date();
+        $date = $currentDate->subHour(25);
+        Mage::getResourceModel('sales/report_invoiced')->aggregate($date);
+        Mage::app()->getLocale()->revert();
+        return $this;
+    }
+
+    /**
+     * Refresh sales refunded report statistics for last day
+     *
+     * @param Mage_Cron_Model_Schedule $schedule
+     * @return Mage_Sales_Model_Observer
+     */
+    public function aggregateSalesReportRefundedData($schedule)
+    {
+        Mage::app()->getLocale()->emulate(0);
+        $currentDate = Mage::app()->getLocale()->date();
+        $date = $currentDate->subHour(25);
+        Mage::getResourceModel('sales/report_refunded')->aggregate($date);
+        Mage::app()->getLocale()->revert();
+        return $this;
+    }
 }
+

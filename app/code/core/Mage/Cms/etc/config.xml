@@ -97,11 +97,13 @@
             <browser>
                 <dirs>
                     <exclude>
-                        <catalog_dir regexp="0">catalog</catalog_dir>
+                        <catalog_dir regexp="0">catalog</catalog_dir><!-- use regexp="0" or "1" to override -->
                         <downloadable>downloadable</downloadable>
                         <flex_dir>flex</flex_dir>
                         <import>import</import>
                         <tmp>tmp</tmp>
+                        <js>js</js>
+                        <css>css</css>
                     </exclude>
                     <include></include>
                 </dirs>

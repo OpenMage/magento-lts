@@ -24,16 +24,8 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- *
- * PayPalUk Payment Action Dropdown source
- */
 class Mage_PaypalUk_Model_Source_Cctype extends Mage_Payment_Model_Source_Cctype
 {
-    /**
-     * Get Credit card types as Optional array
-     * @return array
-     */
     public function getAllowedTypes()
     {
         return array('VI', 'MC', 'AE', 'DI', 'SS', 'OT');

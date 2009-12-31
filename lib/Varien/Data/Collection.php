@@ -215,7 +215,10 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     public function getSize()
     {
         $this->load();
-        return $this->_totalRecords;
+        if (is_null($this->_totalRecords)) {
+            $this->_totalRecords = count($this->getItems());
+        }
+        return intval($this->_totalRecords);
     }
 
     /**
@@ -327,21 +330,41 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     public function addItem(Varien_Object $item)
     {
         $itemId = $this->_getItemId($item);
+
         if (!is_null($itemId)) {
             if (isset($this->_items[$itemId])) {
                 throw new Exception('Item ('.get_class($item).') with the same id "'.$item->getId().'" already exist');
             }
             $this->_items[$itemId] = $item;
-        }
-        else {
+        } else {
             $this->_items[] = $item;
         }
         return $this;
     }
 
+    /**
+     * Retrieve item id
+     *
+     * @param Varien_Object $item
+     * @return mixed
+     */
     protected function _getItemId(Varien_Object $item)
     {
         return $item->getId();
+    }
+
+    /**
+     * Retrieve ids of all tems
+     *
+     * @return array
+     */
+    public function getAllIds()
+    {
+        $ids = array();
+        foreach ($this->getItems() as $item) {
+            $ids[] = $this->_getItemId($item);
+        }
+        return $ids;
     }
 
     /**

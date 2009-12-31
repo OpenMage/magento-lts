@@ -201,6 +201,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                     $shipment->setEmailSent(true);
                 }
 
+                $shipment->getOrder()->setCustomerNoteNotify(!empty($data['send_email']));
                 $this->_saveShipment($shipment);
                 $shipment->sendEmail(!empty($data['send_email']), $comment);
                 $this->_getSession()->addSuccess($this->__('Shipment was successfully created.'));

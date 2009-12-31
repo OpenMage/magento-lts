@@ -43,4 +43,17 @@ class Mage_Sales_Model_Mysql4_Order_Payment_Collection extends Mage_Eav_Model_En
         $this->addAttributeToFilter('parent_id', $orderId);
         return $this;
     }
+
+    /**
+     * Unserialize additional_information in each item
+     * @return Mage_Sales_Model_Mysql4_Order_Payment_Collection
+     */
+    protected function _afterLoad()
+    {
+        foreach ($this->_items as $item) {
+            $this->getResource()->unserializeFields($item);
+        }
+        return parent::_afterLoad();
+    }
+
 }

@@ -64,9 +64,9 @@
                                 <dd>
                                     <ul>
                                     <?php foreach ($_rates as $_rate): ?>
-                                        <li>
+                                        <li<?php if ($_rate->getErrorMessage()) echo ' class="error-msg"' ?>>
                                            <?php if ($_rate->getErrorMessage()): ?>
-                                                <strong><?php echo $_rate->getCarrierTitle() ?>: <?php echo $_rate->getErrorMessage() ?></strong>
+                                                <?php echo $_rate->getCarrierTitle() ?>: <?php echo $_rate->getErrorMessage() ?>
                                            <?php else: ?>
                                                 <input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $this->htmlEscape($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod($_address)) echo ' checked="checked"' ?> class="radio" />
                                                 <label for="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"><?php echo $_rate->getMethodTitle() ?>

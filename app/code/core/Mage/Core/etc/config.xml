@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Core>
-             <version>0.8.22</version>
+             <version>0.8.24</version>
         </Mage_Core>
     </modules>
 
@@ -73,11 +73,31 @@
         </template>
         <cache>
             <types>
-                <config translate="label" module="core"><label>Configuration</label></config>
-                <layout translate="label" module="core"><label>Layouts</label></layout>
-                <block_html translate="label" module="core"><label>Blocks HTML output</label></block_html>
-                <translate translate="label" module="core"><label>Translations</label></translate>
-                <collections translate="label" module="core"><label>Collections Data</label></collections>
+                <config translate="label,description" module="core">
+                    <label>Configuration</label>
+                    <description>System(config.xml, local.xml) and modules configuration files(config.xml).</description>
+                    <tags>CONFIG</tags>
+                </config>
+                <layout translate="label,description" module="core">
+                    <label>Layouts</label>
+                    <description>Layout building instructions.</description>
+                    <tags>LAYOUT_GENERAL_CACHE_TAG</tags>
+                </layout>
+                <block_html translate="label,description" module="core">
+                    <label>Blocks HTML output</label>
+                    <description>Page blocks HTML.</description>
+                    <tags>BLOCK_HTML</tags>
+                </block_html>
+                <translate translate="label,description" module="core">
+                    <label>Translations</label>
+                    <description>Translation files.</description>
+                    <tags>TRANSLATE</tags>
+                </translate>
+                <collections translate="label,description" module="core">
+                    <label>Collections Data</label>
+                    <description>Collection data files.</description>
+                    <tags>COLLECTION_DATA</tags>
+                </collections>
             </types>
         </cache>
         <session>

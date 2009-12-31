@@ -37,4 +37,28 @@ class Mage_Cron_Model_Mysql4_Schedule extends Mage_Core_Model_Mysql4_Abstract
     {
         $this->_init('cron/schedule', 'schedule_id');
     }
+
+    /**
+     * If job is currently in $currentStatus, set it to $newStatus
+     * and return true. Otherwise, return false and do not change the job.
+     *
+     * This method is used to implement locking for cron jobs.
+     *
+     * @param String $newStatus
+     * @param String $currentStatus
+     */
+    public function trySetJobStatusAtomic($scheduleId, $newStatus, $currentStatus)
+    {
+        $write = $this->_getWriteAdapter();
+        $sql = 'UPDATE ' . $this->getTable('cron/schedule')
+                . ' SET status = ' . $write->quote($newStatus)
+                . ' WHERE schedule_id =' . $write->quote($scheduleId)
+                . ' AND status =  ' . $write->quote($currentStatus);
+        $result = $write->query($sql);
+
+        if ($result->rowCount() == 1) {
+            return true;
+        }
+        return false;
+    }
 }

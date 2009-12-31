@@ -148,7 +148,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/special';
         if((bool)Mage::getStoreConfig($path)){
-            $this->addRssFeed($path, $this->__('Special/Discount Products'),array(),true);
+            $this->addRssFeed($path, $this->__('Special Products'),array(),true);
         }
     }
 

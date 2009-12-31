@@ -17,18 +17,12 @@
  * @subpackage Search
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BooleanExpressionRecognizer.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: BooleanExpressionRecognizer.php 18954 2009-11-12 20:01:33Z alexander $
  */
 
 
 /** Zend_Search_Lucene_FSM */
 #require_once 'Zend/Search/Lucene/FSM.php';
-
-/** Zend_Search_Lucene_Search_QueryToken */
-#require_once 'Zend/Search/Lucene/Search/QueryToken.php';
-
-/** Zend_Search_Lucene_Search_QueryParser */
-#require_once 'Zend/Search/Lucene/Search/QueryParser.php';
 
 /**
  * @category   Zend
@@ -220,6 +214,9 @@ class Zend_Search_Lucene_Search_BooleanExpressionRecognizer extends Zend_Search_
      */
     public function emptyOperatorAction()
     {
+        /** Zend_Search_Lucene_Search_QueryParser */
+        #require_once 'Zend/Search/Lucene/Search/QueryParser.php';
+
         if (Zend_Search_Lucene_Search_QueryParser::getDefaultOperator() == Zend_Search_Lucene_Search_QueryParser::B_AND) {
             // Do nothing
         } else {
@@ -235,6 +232,9 @@ class Zend_Search_Lucene_Search_BooleanExpressionRecognizer extends Zend_Search_
      */
     public function emptyNotOperatorAction()
     {
+        /** Zend_Search_Lucene_Search_QueryParser */
+        #require_once 'Zend/Search/Lucene/Search/QueryParser.php';
+
         if (Zend_Search_Lucene_Search_QueryParser::getDefaultOperator() == Zend_Search_Lucene_Search_QueryParser::B_AND) {
             // Do nothing
         } else {

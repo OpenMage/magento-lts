@@ -17,7 +17,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Array.php 16881 2009-07-20 13:24:19Z mikaelkael $
+ * @version    $Id: Array.php 18701 2009-10-26 13:03:47Z matthew $
  */
 
 /**
@@ -223,22 +223,26 @@ class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
         }
 
         $data       = array();
-        $start_time = microtime(true);
+        if ($maxMessages > 0) {
+            $start_time = microtime(true);
 
-        $count = 0;
-        $temp = &$this->_data[$queue->getName()];
-        foreach ($temp as $key=>&$msg) {
-            if (($msg['handle'] === null) 
-                || ($msg['timeout'] + $timeout < $start_time)
-            ) {
-                $msg['handle']  = md5(uniqid(rand(), true));
-                $msg['timeout'] = microtime(true);
-                $data[] = $msg;
-                $count++;
-            }
+            $count = 0;
+            $temp = &$this->_data[$queue->getName()];
+            foreach ($temp as $key=>&$msg) {
+                // count check has to be first, as someone can ask for 0 messages
+                // ZF-7650
+                if ($count >= $maxMessages) {
+                    break;
+                }
 
-            if ($count >= $maxMessages) {
-                break;
+                if (($msg['handle'] === null)
+                    || ($msg['timeout'] + $timeout < $start_time)
+                ) {
+                    $msg['handle']  = md5(uniqid(rand(), true));
+                    $msg['timeout'] = microtime(true);
+                    $data[] = $msg;
+                    $count++;
+                }
             }
         }
 

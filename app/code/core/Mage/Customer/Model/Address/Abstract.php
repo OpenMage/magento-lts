@@ -361,7 +361,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
             $errors[] = $helper->__('Please enter state/province.');
         }
 
-        if (empty($errors)) {
+        if (empty($errors) || $this->getShouldIgnoreValidation()) {
             return true;
         }
         return $errors;

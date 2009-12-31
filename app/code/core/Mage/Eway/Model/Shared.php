@@ -146,7 +146,7 @@ class Mage_Eway_Model_Shared extends Mage_Payment_Model_Method_Abstract
         $fieldsArr['ewayCustomerPostcode'] = $billing->getPostcode();
 //        $fieldsArr['ewayCustomerInvoiceRef'] = '';
         $fieldsArr['ewayCustomerInvoiceDescription'] = $invoiceDesc;
-        $fieldsArr['eWAYSiteTitle '] = Mage::app()->getStore()->getName();
+        $fieldsArr['eWAYSiteTitle '] = Mage::app()->getStore()->getFrontendName();
         $fieldsArr['eWAYAutoRedirect'] = 1;
         $fieldsArr['ewayURL'] = Mage::getUrl('eway/' . $this->_paymentMethod . '/success', array('_secure' => true));
         $fieldsArr['eWAYTrxnNumber'] = $paymentInfo->getOrder()->getRealOrderId();

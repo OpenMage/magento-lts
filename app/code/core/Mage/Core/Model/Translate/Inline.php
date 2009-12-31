@@ -346,7 +346,7 @@ class Mage_Core_Model_Translate_Inline
                             $start = $tagMatch[0][1]+$m[0][1];
                             $len = strlen($m[0][0]);
                         } else {
-                            $start = $tagMatch[3][1];
+                            $start = $tagMatch[2][1];
                             $len = 0;
                         }
 
@@ -375,16 +375,23 @@ class Mage_Core_Model_Translate_Inline
 
         $next = 0;
         $m    = array();
-        while (preg_match('#('.$this->_tokenRegex.')#', $this->_content, $m, PREG_OFFSET_CAPTURE, $next)) {
-            $tr = '{shown:\''.$this->_escape($m[2][0]).'\','
-                .'translated:\''.$this->_escape($m[3][0]).'\','
-                .'original:\''.$this->_escape($m[4][0]).'\','
-                .'location:\'Text\','
-                .'scope:\''.$this->_escape($m[5][0]).'\'}';
+        while (preg_match('#(>|title=\")*('.$this->_tokenRegex.')#', $this->_content, $m, PREG_OFFSET_CAPTURE, $next)) {
+            if(-1 == $m[1][1])//title was not found - this is not an attribute
+            {
 
-            $spanHtml = '<span translate='.$quoteHtml.'['.$tr.']'.$quoteHtml.'>'.$m[2][0].'</span>';
-
-            $this->_content = substr_replace($this->_content, $spanHtml, $m[0][1], strlen($m[0][0]));
+                $tr = '{shown:\''.$this->_escape($m[3][0]).'\','
+                    .'translated:\''.$this->_escape($m[4][0]).'\','
+                    .'original:\''.$this->_escape($m[5][0]).'\','
+                    .'location:\'Text\','
+                    .'scope:\''.$this->_escape($m[6][0]).'\'}';
+                $spanHtml = '<span translate='.$quoteHtml.'['.$tr.']'.$quoteHtml.'>'.$m[3][0].'</span>';
+            }
+            else
+            {
+                $spanHtml = $m[3][0];
+            }
+                $spanHtml = $m[3][0];
+            $this->_content = substr_replace($this->_content, $spanHtml, $m[2][1], strlen($m[2][0]) );
             $next = $m[0][1];
         }
 

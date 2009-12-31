@@ -17,7 +17,7 @@
  * @subpackage View
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HorizontalSlider.php 16204 2009-06-21 18:58:29Z thomas $
+ * @version    $Id: HorizontalSlider.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /** Zend_Dojo_View_Helper_Slider */
@@ -25,7 +25,7 @@
 
 /**
  * Dojo HorizontalSlider dijit
- * 
+ *
  * @uses       Zend_Dojo_View_Helper_Slider
  * @package    Zend_Dojo
  * @subpackage View
@@ -48,9 +48,9 @@ class Zend_Dojo_View_Helper_HorizontalSlider extends Zend_Dojo_View_Helper_Slide
 
     /**
      * dijit.form.HorizontalSlider
-     * 
-     * @param  int $id 
-     * @param  mixed $value 
+     *
+     * @param  int $id
+     * @param  mixed $value
      * @param  array $params  Parameters to use for dijit creation
      * @param  array $attribs HTML attributes
      * @return string

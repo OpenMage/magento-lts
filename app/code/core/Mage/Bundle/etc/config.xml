@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Bundle>
-            <version>0.1.10</version>
+            <version>0.1.11</version>
         </Mage_Bundle>
     </modules>
     <global>
@@ -52,6 +52,9 @@
                     <price_index>
                         <table>catalog_product_bundle_price_index</table>
                     </price_index>
+                    <stock_index>
+                        <table>catalog_product_bundle_stock_index</table>
+                    </stock_index>
                 </entities>
             </bundle_mysql4>
         </models>

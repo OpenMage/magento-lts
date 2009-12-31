@@ -60,7 +60,7 @@
             <div class="input-box">
                 <label for="<?php echo $_code ?>_expiration"><?php echo $this->__('Expiration Date') ?> <span class="required">*</span></label><br />
                 <div class="v-fix">
-                    <select id="<?php echo $_code ?>_expiration" name="payment[cc_exp_month]" class="month required-entry">
+                    <select id="<?php echo $_code ?>_expiration" name="payment[cc_exp_month]" class="month validate-cc-exp required-entry">
                     <?php $_ccExpMonth = $this->getInfoData('cc_exp_month') ?>
                     <?php foreach ($this->getCcMonths() as $k=>$v): ?>
                         <option value="<?php echo $k?$k:'' ?>" <?php if($k==$_ccExpMonth): ?>selected="selected"<?php endif ?>><?php echo $v ?></option>

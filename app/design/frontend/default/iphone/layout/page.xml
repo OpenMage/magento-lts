@@ -76,7 +76,7 @@ Default layout, loads most of the pages
             <block type="core/text_list" name="before_body_end" as="before_body_end"/>
         </block>
 
-        <block type="core/profiler" output="toHtml"/>
+        <block type="core/profiler" output="toHtml" name="core_profiler"/>
     </default>
 
     <print>

@@ -23,14 +23,13 @@
  * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
+?>
+<?php
 /**
  * @see Mage_PayPalUk_Block_Direct_Info
  */
-
 ?>
 <?php if($_info = $this->getInfo()): ?>
-    <!--<?php echo $this->__('Name on the Card: %s', $this->getInfo()->getCcOwner()) ?><br />-->
     <?php echo $this->__('Credit Card Type: %s', $this->getCcTypeName()) ?><br />
     <?php echo $this->__('Credit Card Number: xxxx-%s', $this->getInfo()->getCcLast4()) ?><br />
     <?php if($this->getInfo()->getCcSsIssue()): ?>

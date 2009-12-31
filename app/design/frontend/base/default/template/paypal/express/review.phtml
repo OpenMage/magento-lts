@@ -28,10 +28,12 @@
     <h1><?php echo $this->__('Review Order') ?></h1>
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<?php if ($this->getShippingAddress()): ?>
 <div class="col2-set">
     <h2><?php echo $this->__('Shipping Information') ?></h2>
     <div class="col-1">
-        <h3><?php echo $this->__('Shipping Address') ?><span class="separator"> | </span><a href="<?php echo $this->getUrl('paypal/express/edit') ?>"><?php echo $this->__('Change Shipping Address') ?></a></h3>
+        <h3><?php echo $this->__('Shipping Address') ?><span class="separator"><?php if ($this->getCanEditShippingAddress()):?> | </span><a href="<?php echo $this->getUrl('paypal/express/edit') ?>"><?php echo $this->__('Change Shipping Address') ?></a><?php endif;?></h3>
         <address>
             <?php echo $this->getShippingAddress()->getFormated(true) ?>
         </address>
@@ -45,8 +47,9 @@
                 <p><strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong></p>
             <?php else: ?>
 
-            <form method="post" action="<?php echo $this->getUrl('paypal/express/saveShippingMethod') ?>">
-                <select name="shipping_method" id="shipping_method" style="width:250px;" onchange="saveShippingMethod(this.value)">
+            <form method="post" id="shipping_method_form" action="<?php echo $this->getUrl('paypal/express/saveShippingMethod') ?>">
+                <div>
+                <select name="shipping_method" id="shipping_method" style="width:250px;" class="required-entry">
                 <?php if(!$this->getAddressShippingMethod()): ?>
                     <option value=""><?php echo $this->__('Please select a shipping method...') ?></option>
                 <?php endif ?>
@@ -74,11 +77,11 @@
                     </optgroup>
                 <?php endforeach; ?>
                 </select>
+                </div>
                 <p class="actions">
-                    <button id="update_shipping_method" class="button" type="submit"><span><span><?php echo $this->__('Update Shipping Method') ?></span></span></button>
+                    <button id="update_shipping_method_submit" type="submit" class="button"><span><span><?php echo $this->__('Update Shipping Method') ?></span></span></button>
                 </p>
             </form>
-
             <?php endif; ?>
         <?php endif; ?>
 
@@ -86,64 +89,51 @@
 </div>
 
 <br />
+<?php endif; ?>
 
 <h2><?php echo $this->__('Billing Information') ?></h2>
-<h2><?php echo $this->__('Payment Method') ?><span class="separator"> | </span><a href="<?php echo $this->getUrl('paypal/express/edit') ?>"><?php echo $this->__('Change Payment Method') ?></a></h2>
-<p><?php echo $this->__('PayPal Account') ?></p>
-<address><?php echo $this->getBillingAddress()->getEmail() ?></address>
+<h3><?php echo $this->__('Payment Method') ?><span class="separator"> | </span><a href="<?php echo $this->getUrl('paypal/express/edit') ?>"><?php echo $this->__('Change Payment Method') ?></a></h3>
+<h3><?php echo $this->__('Billing Address') ?></h3>
+<address>
+<?php echo $this->getBillingAddress()->getFormated(true) ?>
+<?php echo $this->__('Payer Email: %s', $this->getBillingAddress()->getEmail()) ?>
+</address>
 
 <h2><?php echo $this->__('Items in Your Shopping Cart') ?><span class="separator"> | </span><a href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Edit Shopping Cart') ?></a></h2>
 
 <div id="details-reload">
     <?php echo $this->getChildHtml('details') ?>
 </div>
-<script type="text/javascript">decorateTable('details-table')</script>
 
 <br />
 
-<form method="post" action="<?php echo $this->getUrl('paypal/express/saveOrder') ?>">
+<form method="post" id="order_review_form" action="<?php echo $this->getUrl('paypal/express/placeOrder') ?>">
     <fieldset>
         <span id="review-buttons-container">
-            <button type="submit" class="button" id="review-button" onclick="return saveOrder();" value="<?php echo $this->__('Place an Order') ?>"><span><span><?php echo $this->__('Place an Order') ?></span></span></button>
+            <button class="button" id="review_button" value="<?php echo $this->__('Place an Order') ?>"><span><span><?php echo $this->__('Place an Order') ?></span></span></button>
+            <button class="button" id="review_submit" type="submit" value="<?php echo $this->__('Place an Order') ?>"><span><span><?php echo $this->__('Place an Order') ?></span></span></button>
         </span>
         <span class="please-wait" id="review-please-wait" style="display:none;">
             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Submitting order information...') ?>" title="<?php echo $this->__('Submitting order information...') ?>" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
         </span>
-    </fieldset>
+        </fieldset>
 </form>
 <script type="text/javascript">
 //<![CDATA[
-    if ($('update_shipping_method')) {
-        $('update_shipping_method') && $('update_shipping_method').hide();
-    }
-    var submitted = false;
+// submit buttons are not needed when submitting with ajax
+$('review_submit').hide();
+if ($('update_shipping_method_submit')) {
+    $('update_shipping_method_submit').hide();
+}
 
-    function saveShippingMethod(value)
-    {
-        new Ajax.Updater('details-reload', '<?php echo $this->getUrl('paypal/express/saveShippingMethod') ?>', {
-            parameters: { ajax:true, shipping_method:value },
-            onComplete: function(){decorateTable('details-table')}
-        });
-    }
+PayPalExpressAjax = new OrderReviewController($('order_review_form'), $('review_button'),
+    $('shipping_method'), $('shipping_method_form'), 'details-reload'
+);
+PayPalExpressAjax.addPleaseWait($('review-please-wait'));
 
-    function saveOrder()
-    {
-        if (submitted) {
-            return false;
-        }
-        if ($('shipping_method') && $('shipping_method').value=='') {
-            alert('Please select a valid shipping method before submitting the order.');
-            return false;
-        }
-        submitted = true;
-        showLoader();
-        return true;
-    }
-
-    function showLoader()
-    {
-        Element.show('review-please-wait');
-        Element.setStyle('review-buttons-container', {opacity:.5});
-    }
+PayPalExpressAjax.onSubmitShippingSuccess = function() {
+    decorateTable('details-table');
+};
+decorateTable('details-table');
 //]]>
 </script>

@@ -58,12 +58,13 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
         $addedItems = array();
         $notSalable = array();
         $hasOptions = array();
+        $isGrouped  = array();
 
         $cart       = Mage::getSingleton('checkout/cart');
         $collection = $wishlist->getItemCollection();
 
         foreach ($collection as $item) {
-            /* @var $item Mage_Wishlist_Model_Item */
+            /** @var Mage_Wishlist_Model_Item */
             try {
                 if ($item->addToCart($cart, $isOwner)) {
                     $addedItems[] = $item->getProduct();
@@ -74,6 +75,8 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
                     $notSalable[] = $item;
                 } else if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
                     $hasOptions[] = $item;
+                } else if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_IS_GROUPED_PRODUCT) {
+                    $isGrouped[] = $item;
                 } else {
                     $messages[] = $e->getMessage();
                 }
@@ -96,63 +99,63 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             $redirectUrl = $indexUrl;
         }
 
-        if (!empty($notSalable)) {
+        if ($notSalable) {
             $products = array();
             foreach ($notSalable as $item) {
-                $products[] = Mage::helper('wishlist')->__('"%s"', $item->getProduct()->getName());
+                $products[] = '"' . $item->getProduct()->getName() . '"';
             }
-            $products = join(', ', $products);
-
-            Mage::getSingleton('wishlist/session')->addError(
-                Mage::helper('wishlist')->__('Unable to add the following product(s) to shopping cart: %s.', $products)
-            );
-
-            $redirectUrl = $indexUrl;
+            $messages[] = Mage::helper('wishlist')->__('Unable to add the following product(s) to shopping cart: %s.', join(', ', $products));
         }
 
-        if (!empty($hasOptions)) {
-            if (empty($messages) && empty($notSalable) && count($hasOptions) == 1) {
+        if ($isGrouped) {
+            $products = array();
+            foreach ($isGrouped as $item) {
+                $products[] = '"' . $item->getProduct()->getName() . '"';
+            }
+            $messages[] = Mage::helper('wishlist')->__('Product(s) %s grouped. Each of them can be added to cart separately only.', join(', ', $products));
+        }
+
+        if ($hasOptions) {
+            $products = array();
+            foreach ($hasOptions as $item) {
+                $products[] = '"' . $item->getProduct()->getName() . '"';
+            }
+            $messages[] = Mage::helper('wishlist')->__('Product(s) %s have required options. Each of them can be added to cart separately only.', join(', ', $products));
+        }
+
+        if ($messages) {
+            $isMessageSole = (count($messages) == 1);
+            if ($isMessageSole && count($hasOptions) == 1) {
                 $item = $hasOptions[0];
                 if ($isOwner) {
                     $item->delete();
                 }
                 $redirectUrl = $item->getProductUrl();
-            } else {
-                $products = array();
-                foreach ($hasOptions as $item) {
-                    $products[] = Mage::helper('wishlist')->__('"%s"', $item->getProduct()->getName());
+            } elseif ($isMessageSole && count($isGrouped) == 1) {
+                $item = $isGrouped[0];
+                if ($isOwner) {
+                    $item->delete();
                 }
-                $products = join(', ', $products);
-
-                Mage::getSingleton('wishlist/session')->addError(
-                    Mage::helper('wishlist')->__('Product(s) %s have required options. Each of them can be added to cart separately only.', $products)
-                );
-
+                $redirectUrl = $item->getProductUrl();
+            } else {
+                $wishlistSession = Mage::getSingleton('wishlist/session');
+                foreach ($messages as $message) {
+                    $wishlistSession->addError($message);
+                }
                 $redirectUrl = $indexUrl;
             }
         }
 
-        if (!empty($addedItems)) {
+        if ($addedItems) {
             $products = array();
             foreach ($addedItems as $product) {
-                $products[] = Mage::helper('wishlist')->__('"%s"', $product->getName());
+                $products[] = '"' . $item->getProduct()->getName() . '"';
             }
-            $products = join(', ', $products);
-            $qty = count($addedItems);
 
             Mage::getSingleton('checkout/session')->addSuccess(
-                Mage::helper('wishlist')->__('%d product(s) have been added to shopping cart: %s.', $qty, $products)
+                Mage::helper('wishlist')->__('%d product(s) have been added to shopping cart: %s.', count($addedItems), join(', ', $products))
             );
         }
-
-        if (!empty($messages)) {
-            foreach ($messages as $message) {
-                Mage::getSingleton('wishlist/session')->addError($message);
-            }
-
-            $redirectUrl = $indexUrl;
-        }
-
         // save cart and collect totals
         $cart->save()->getQuote()->collectTotals();
 

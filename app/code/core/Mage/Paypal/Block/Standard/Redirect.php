@@ -30,7 +30,7 @@ class Mage_Paypal_Block_Standard_Redirect extends Mage_Core_Block_Abstract
         $standard = Mage::getModel('paypal/standard');
 
         $form = new Varien_Data_Form();
-        $form->setAction($standard->getPaypalUrl())
+        $form->setAction($standard->getConfig()->getPaypalUrl())
             ->setId('paypal_standard_checkout')
             ->setName('paypal_standard_checkout')
             ->setMethod('POST')

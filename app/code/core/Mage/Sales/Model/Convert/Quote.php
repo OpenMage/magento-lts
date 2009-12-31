@@ -130,10 +130,12 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
             ->setQuoteParentItemId($item->getParentItemId())
             ->setProductId($item->getProductId())
             ->setProductType($item->getProductType())
-            ->setProductOptions($item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct()))
-            ->setQtyBackordered($item->getBackorders())
-            ;
-
+            ->setQtyBackordered($item->getBackorders());
+        $options = $item->getProductOrderOptions();
+        if (!$options) {
+            $options = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct());
+        }
+        $orderItem->setProductOptions($options);
         Mage::helper('core')->copyFieldset('sales_convert_quote_item', 'to_order_item', $item, $orderItem);
 
         if ($item->getParentItem()) {

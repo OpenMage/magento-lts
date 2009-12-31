@@ -40,11 +40,11 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
         $baseAllowedAmount  = $order->getBaseShippingAmount()-$order->getBaseShippingRefunded();
 
         /**
-         * Check if shipping amount was specified (from invoice or another source)
+         * Check if shipping amount was specified (from invoice or another source).
+         * Using has magic method to allow setting 0 as shipping amount.
          */
-        $baseShippingAmount = $creditmemo->getBaseShippingAmount();
-        if ($baseShippingAmount) {
-            $baseShippingAmount = Mage::app()->getStore()->roundPrice($baseShippingAmount);
+        if ($creditmemo->hasBaseShippingAmount()) {
+            $baseShippingAmount = Mage::app()->getStore()->roundPrice($creditmemo->getBaseShippingAmount());
             if ($baseShippingAmount<$baseAllowedAmount) {
                 $shippingAmount = $allowedAmount*$baseShippingAmount/$baseAllowedAmount;
                 $shippingAmount = Mage::app()->getStore()->roundPrice($shippingAmount);

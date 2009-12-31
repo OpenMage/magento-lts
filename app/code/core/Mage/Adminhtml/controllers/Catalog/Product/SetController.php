@@ -130,7 +130,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
 
         if ($isNewSet) {
             if ($hasError) {
-                $this->_redirect('*/*/new');
+                $this->_redirect('*/*/add');
             } else {
                 $this->_redirect('*/*/edit', array('id' => $model->getId()));
             }

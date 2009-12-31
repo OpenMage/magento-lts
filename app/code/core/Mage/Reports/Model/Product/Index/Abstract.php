@@ -160,22 +160,14 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
      */
     public function calculate()
     {
-        if (!$this->_getSession()->hasData($this->_countCacheKey)) {
-            $count = 0;
-        }
-        else {
-            $collection = $this->getCollection()
-                ->addIndexFilter()
-                ->excludeProductIds($this->getExcludeProductIds());
+        $collection = $this->getCollection()
+            ->addIndexFilter();
 
-            Mage::getSingleton('catalog/product_visibility')
-                ->addVisibleInSiteFilterToCollection($collection);
+        Mage::getSingleton('catalog/product_visibility')
+            ->addVisibleInSiteFilterToCollection($collection);
 
-            $count = $collection->getSize();
-        }
-
+        $count = $collection->getSize();
         $this->_getSession()->setData($this->_countCacheKey, $count);
-
         return $this;
     }
 

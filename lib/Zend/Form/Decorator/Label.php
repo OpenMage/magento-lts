@@ -41,7 +41,7 @@
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Label.php 16218 2009-06-21 19:44:04Z thomas $
+ * @version    $Id: Label.php 19050 2009-11-19 18:22:31Z matthew $
  */
 class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
 {
@@ -103,6 +103,9 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
         } else {
             $this->_tag = (string) $tag;
         }
+
+        $this->removeOption('tag');
+
         return $this;
     }
 

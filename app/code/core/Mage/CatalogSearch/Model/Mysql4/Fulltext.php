@@ -188,14 +188,13 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
      */
     protected function _getSearchableProducts($storeId, array $staticFields, $productIds = null, $lastProductId = 0, $limit = 100)
     {
-        $entityType = $this->getEavConfig()->getEntityType('catalog_product');
-        $store      = Mage::app()->getStore($storeId);
-
+        $store  = Mage::app()->getStore($storeId);
         $select = $this->_getWriteAdapter()->select()
+            ->useStraightJoin(true)
             ->from(
                 array('e' => $this->getTable('catalog/product')),
                 array_merge(array('entity_id', 'type_id'), $staticFields))
-            ->joinInner(
+            ->join(
                 array('website' => $this->getTable('catalog/product_website')),
                 $this->_getWriteAdapter()->quoteInto('website.product_id=e.entity_id AND website.website_id=?', $store->getWebsiteId()),
                 array()
@@ -303,10 +302,11 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
                 $separateCond = ' OR ';
             }
 
-            $sql = sprintf("REPLACE INTO `{$this->getTable('catalogsearch/result')}` "
+            $sql = sprintf("INSERT INTO `{$this->getTable('catalogsearch/result')}` "
                 . "(SELECT '%d', `s`.`product_id`, MATCH (`s`.`data_index`) AGAINST (:query IN BOOLEAN MODE) "
                 . "FROM `{$this->getMainTable()}` AS `s` INNER JOIN `{$this->getTable('catalog/product')}` AS `e`"
-                . "ON `e`.`entity_id`=`s`.`product_id` WHERE (%s%s%s) AND `s`.`store_id`='%d')",
+                . "ON `e`.`entity_id`=`s`.`product_id` WHERE (%s%s%s) AND `s`.`store_id`='%d')"
+                . " ON DUPLICATE KEY UPDATE `relevance`=VALUES(`relevance`)",
                 $query->getId(),
                 $fulltextCond,
                 $separateCond,
@@ -598,21 +598,19 @@ class Mage_CatalogSearch_Model_Mysql4_Fulltext extends Mage_Core_Model_Mysql4_Ab
      */
     protected function _saveProductIndexes($storeId, $productIndexes)
     {
-        $values = array();
-        $bind   = array();
+        $adapter = $this->_getWriteAdapter();
+        $data    = array();
+        $storeId = (int)$storeId;
         foreach ($productIndexes as $productId => &$index) {
-            $values[] = sprintf('(%s,%s,%s)',
-                $this->_getWriteAdapter()->quoteInto('?', $productId),
-                $this->_getWriteAdapter()->quoteInto('?', $storeId),
-                '?'
+            $data[] = array(
+                'product_id'    => (int)$productId,
+                'store_id'      => $storeId,
+                'data_index'    => $index
             );
-            $bind[] = $index;
         }
 
-        if ($values) {
-            $sql = "REPLACE INTO `{$this->getMainTable()}` VALUES"
-                . join(',', $values);
-            $this->_getWriteAdapter()->query($sql, $bind);
+        if ($data) {
+            $adapter->insertOnDuplicate($this->getMainTable(), $data, array('data_index'));
         }
 
         return $this;

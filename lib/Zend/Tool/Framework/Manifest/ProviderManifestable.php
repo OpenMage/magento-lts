@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ProviderManifestable.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: ProviderManifestable.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -36,12 +36,12 @@ interface Zend_Tool_Framework_Manifest_ProviderManifestable extends Zend_Tool_Fr
 
     /**
      * getProviders()
-     * 
+     *
      * Should either return a single provider or an array
      * of providers
-     * 
+     *
      * @return array|string|Zend_Tool_Framework_Provider_Interface
      */
     public function getProviders();
-    
+
 }

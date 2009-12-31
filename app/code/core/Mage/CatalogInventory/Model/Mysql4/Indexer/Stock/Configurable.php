@@ -54,21 +54,22 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Configurable
      */
     public function reindexEntity($entityIds)
     {
-        $this->_prepareIndexTable($entityIds);
+        $this->_updateIndex($entityIds);
         return $this;
     }
 
     /**
-     * Prepare stock status data in temporary index table
+     * Get the select object for get stock status by product ids
      *
-     * @param int|array $entityIds  the product limitation
-     * @return Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Configurable
+     * @param int|array $entityIds
+     * @param bool $usePrimaryTable use primary or temporary index table
+     * @return Varien_Db_Select
      */
-    protected function _prepareIndexTable($entityIds = null)
+    protected function _getStockStatusSelect($entityIds = null, $usePrimaryTable = false)
     {
-        $write  = $this->_getWriteAdapter();
-
-        $select = $write->select()
+        $adapter  = $this->_getWriteAdapter();
+        $idxTable = $usePrimaryTable ? $this->getMainTable() : $this->getIdxTable();
+        $select  = $adapter->select()
             ->from(array('e' => $this->getTable('catalog/product')), array('entity_id'));
         $this->_addWebsiteJoinToSelect($select, true);
         $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'e.entity_id');
@@ -90,7 +91,7 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Configurable
                 'le.entity_id = l.product_id',
                 array())
             ->joinLeft(
-                array('i' => $this->getIdxTable()),
+                array('i' => $idxTable),
                 'i.product_id = l.product_id AND cw.website_id = i.website_id AND cis.stock_id = i.stock_id',
                 array())
             ->columns(array('qty' => new Zend_Db_Expr('0')))
@@ -99,7 +100,7 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Configurable
             ->group(array('e.entity_id', 'cw.website_id', 'cis.stock_id'));
 
         $psExpr = $this->_addAttributeToSelect($select, 'status', 'e.entity_id', 'cs.store_id');
-        $psCond = $write->quoteInto($psExpr . '=?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+        $psCond = $adapter->quoteInto($psExpr . '=?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
 
         if ($this->_isManageStock()) {
             $statusExpr = new Zend_Db_Expr('IF(cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0,'
@@ -120,9 +121,6 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Configurable
             $select->where('e.entity_id IN(?)', $entityIds);
         }
 
-        $query = $select->insertFromSelect($this->getIdxTable());
-        $write->query($query);
-
-        return $this;
+        return $select;
     }
 }

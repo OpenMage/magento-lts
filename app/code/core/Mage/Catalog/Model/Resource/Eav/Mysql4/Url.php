@@ -771,6 +771,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Url extends Mage_Core_Model_Mysql4_
             }
         }
         $select = $this->_getWriteAdapter()->select()
+            ->useStraightJoin(true)
             ->from(array('e' => $this->getTable('catalog/product')), array('entity_id'))
             ->join(
                 array('w' => $this->getTable('catalog/product_website')),

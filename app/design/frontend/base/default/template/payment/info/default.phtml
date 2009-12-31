@@ -24,4 +24,22 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+/**
+ * @see Mage_Payment_Block_Info
+ */
+?>
 <p><?php echo $this->htmlEscape($this->getMethod()->getTitle()) ?></p>
+
+<?php if ($_specificInfo = $this->getSpecificInformation()):?>
+<table>
+<?php foreach ($_specificInfo as $_label => $_value):?>
+    <tr>
+        <td><?php echo $this->htmlEscape($_label)?>:</td>
+        <td><?php echo nl2br(implode($this->getValueAsArray($_value, true), "\n"))?></td>
+    </tr>
+<?php endforeach; ?>
+</table>
+<?php endif;?>
+
+<?php echo $this->getChildHtml()?>

@@ -43,6 +43,9 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/shipment_comment/copy_method';
     const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/shipment_comment/enabled';
 
+    const REPORT_DATE_TYPE_ORDER_CREATED        = 'order_created';
+    const REPORT_DATE_TYPE_SHIPMENT_CREATED     = 'shipment_created';
+
     protected $_items;
     protected $_tracks;
     protected $_order;

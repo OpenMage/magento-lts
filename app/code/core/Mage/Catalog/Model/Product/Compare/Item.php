@@ -34,6 +34,23 @@
  */
 class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
 {
+
+    /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'catalog_compare_item';
+
+    /**
+     * Parameter name in event
+     *
+     * In observe method you can use $observer->getEvent()->getItem() in this case
+     *
+     * @var string
+     */
+    protected $_eventObject = 'item';
+
     /**
      * Initialize resourse model
      *

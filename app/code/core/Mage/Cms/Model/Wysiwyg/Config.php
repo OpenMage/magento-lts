@@ -64,6 +64,8 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'enabled'                       => $this->isEnabled(),
             'hidden'                        => $this->isHidden(),
             'use_container'                 => false,
+            'add_variables'                 => true,
+            'add_widgets'                   => true,
             'no_display'                    => false,
             'translator'                    => Mage::helper('cms'),
             'files_browser_window_url'      => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg_images/index'),

@@ -17,21 +17,21 @@
  * @subpackage Server
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Server.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Server.php 18545 2009-10-15 11:06:03Z yoshida@zend.co.jp $
  */
 
 /**
- * Zend_Server_Interface
+ * @see Zend_Server_Interface
  */
 #require_once 'Zend/Server/Interface.php';
 
 /**
- * Zend_Server_Reflection
+ * @see Zend_Server_Reflection
  */
 #require_once 'Zend/Server/Reflection.php';
 
 /**
- * Zend_Server_Abstract
+ * @see Zend_Server_Abstract
  */
 #require_once 'Zend/Server/Abstract.php';
 
@@ -592,9 +592,11 @@ class Zend_Rest_Server implements Zend_Server_Interface
                 $object = $this->_functions[$this->_method]->getDeclaringClass()->newInstance();
             }
         } catch (Exception $e) {
-            echo $e->getMessage();
             #require_once 'Zend/Rest/Server/Exception.php';
-            throw new Zend_Rest_Server_Exception('Error instantiating class ' . $class . ' to invoke method ' . $this->_functions[$this->_method]->getName(), 500);
+            throw new Zend_Rest_Server_Exception('Error instantiating class ' . $class .
+                                                 ' to invoke method ' . $this->_functions[$this->_method]->getName() .
+                                                 ' (' . $e->getMessage() . ') ',
+                                                 500);
         }
 
         try {

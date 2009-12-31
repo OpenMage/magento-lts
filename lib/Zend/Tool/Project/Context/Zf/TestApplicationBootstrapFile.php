@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TestApplicationBootstrapFile.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: TestApplicationBootstrapFile.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -30,7 +30,7 @@
  *
  * A profile is a hierarchical set of resources that keep track of
  * items within a specific project.
- * 
+ *
  * @category   Zend
  * @package    Zend_Tool
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
@@ -38,12 +38,12 @@
  */
 class Zend_Tool_Project_Context_Zf_TestApplicationBootstrapFile extends Zend_Tool_Project_Context_Filesystem_File
 {
-    
+
     /**
      * @var string
      */
     protected $_filesystemName = 'bootstrap.php';
-    
+
     /**
      * getName()
      *
@@ -53,5 +53,5 @@ class Zend_Tool_Project_Context_Zf_TestApplicationBootstrapFile extends Zend_Too
     {
         return 'TestApplicationBootstrapFile';
     }
-    
+
 }

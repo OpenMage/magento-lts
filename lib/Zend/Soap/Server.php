@@ -33,7 +33,7 @@
  * @uses       Zend_Server_Interface
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Server.php 16210 2009-06-21 19:22:17Z thomas $
+ * @version    $Id: Server.php 18951 2009-11-12 16:26:19Z alexander $
  */
 class Zend_Soap_Server implements Zend_Server_Interface
 {
@@ -463,7 +463,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
 
     /**
      * Return current SOAP Features options
-     * 
+     *
      * @return int
      */
     public function getSoapFeatures()

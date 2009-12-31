@@ -17,35 +17,35 @@
  * @subpackage Fonts
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: CidFont.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: CidFont.php 18993 2009-11-15 17:09:16Z alexander $
  */
+
+/** Internally used classes */
+#require_once 'Zend/Pdf/Element/Array.php';
+#require_once 'Zend/Pdf/Element/Dictionary.php';
+#require_once 'Zend/Pdf/Element/Name.php';
+#require_once 'Zend/Pdf/Element/Numeric.php';
+#require_once 'Zend/Pdf/Element/String.php';
+
 
 /** Zend_Pdf_Resource_Font */
 #require_once 'Zend/Pdf/Resource/Font.php';
 
-/** Zend_Pdf_FileParser_Font_OpenType */
-#require_once 'Zend/Pdf/FileParser/Font/OpenType.php';
-
-/** Zend_Pdf_Cmap */
-#require_once 'Zend/Pdf/Cmap.php';
-
-
-
 /**
  * Adobe PDF CIDFont font object implementation
- * 
+ *
  * A CIDFont program contains glyph descriptions that are accessed using a CID as
  * the character selector. There are two types of CIDFont. A Type 0 CIDFont contains
  * glyph descriptions based on Adobe’s Type 1 font format, whereas those in a
  * Type 2 CIDFont are based on the TrueType font format.
  *
- * A CIDFont dictionary is a PDF object that contains information about a CIDFont program. 
- * Although its Type value is Font, a CIDFont is not actually a font. It does not have an Encoding 
- * entry, it cannot be listed in the Font subdictionary of a resource dictionary, and it cannot be 
- * used as the operand of the Tf operator. It is used only as a descendant of a Type 0 font. 
- * The CMap in the Type 0 font is what defines the encoding that maps character codes to CIDs 
- * in the CIDFont. 
- * 
+ * A CIDFont dictionary is a PDF object that contains information about a CIDFont program.
+ * Although its Type value is Font, a CIDFont is not actually a font. It does not have an Encoding
+ * entry, it cannot be listed in the Font subdictionary of a resource dictionary, and it cannot be
+ * used as the operand of the Tf operator. It is used only as a descendant of a Type 0 font.
+ * The CMap in the Type 0 font is what defines the encoding that maps character codes to CIDs
+ * in the CIDFont.
+ *
  * Font objects should be normally be obtained from the factory methods
  * {@link Zend_Pdf_Font::fontWithName} and {@link Zend_Pdf_Font::fontWithPath}.
  *
@@ -71,11 +71,11 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
 
     /**
      * Width for characters missed in the font
-     * 
+     *
      * @var integer
      */
     protected $_missingCharWidth = 0;
-    
+
 
     /**
      * Object constructor
@@ -90,7 +90,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
         parent::__construct();
 
         $fontParser->parse();
-        
+
 
         /* Object properties */
 
@@ -132,7 +132,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
             $charWidths[$charCode] = $glyphWidths[$glyph];
         }
         $this->_charWidths       = $charWidths;
-        $this->_missingCharWidth = $glyphWidths[0];  
+        $this->_missingCharWidth = $glyphWidths[0];
 
         /* Width array optimization. Step1: extract default value */
         $widthFrequencies = array_count_values($charWidths);
@@ -147,12 +147,12 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
 
         // Store default value in the font dictionary
         $this->_resource->DW = new Zend_Pdf_Element_Numeric($this->toEmSpace($defaultWidth));
-        
+
         // Remove characters which corresponds to default width from the widths array
         $defWidthChars = array_keys($charWidths, $defaultWidth);
         foreach ($defWidthChars as $charCode) {
             unset($charWidths[$charCode]);
-        } 
+        }
 
         // Order cheracter widths aray by character codes
         ksort($charWidths, SORT_NUMERIC);
@@ -166,7 +166,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
                 $sequenceStartCode = $charCode;
             } else if ($charCode != $lastCharCode + 1) {
                 // New chracters sequence detected
-                $widthsSequences[$sequenceStartCode] = $charCodesSequense; 
+                $widthsSequences[$sequenceStartCode] = $charCodesSequense;
                 $charCodesSequense = array();
                 $sequenceStartCode = $charCode;
             }
@@ -176,7 +176,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
         // Save last sequence, if widths array is not empty (it may happens for monospaced fonts)
         if (count($charWidths) != 0) {
             $widthsSequences[$sequenceStartCode] = $charCodesSequense;
-        } 
+        }
 
         $pdfCharsWidths = array();
         foreach ($widthsSequences as $startCode => $widthsSequence) {
@@ -191,7 +191,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
                         // Previous width value was a part of the widths sequence. Save it as 'c_1st c_last w'.
                         $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($startCode);                         // First character code
                         $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($startCode + $widthsInSequence - 1); // Last character code
-                        $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($this->toEmSpace($lastWidth));       // Width 
+                        $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($this->toEmSpace($lastWidth));       // Width
 
                         // Reset widths sequence
                         $startCode = $startCode + $widthsInSequence;
@@ -205,13 +205,13 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
                 } else {
                     // Width is equal to previous
                     if (count($pdfWidths) != 0) {
-                        // We already have some widths collected 
+                        // We already have some widths collected
                         // So, we've just detected new widths sequence
-                        
+
                         // Remove last element from widths list, since it's a part of widths sequence
                         array_pop($pdfWidths);
 
-                        // and write the rest if it's not empty 
+                        // and write the rest if it's not empty
                         if (count($pdfWidths) != 0) {
                             // Save it as 'c_1st [w1 w2 ... wn]'.
                             $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($startCode); // First character code
@@ -241,7 +241,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
                 // Save it as 'c_1st c_last w'.
                 $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($startCode);                         // First character code
                 $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($startCode + $widthsInSequence - 1); // Last character code
-                $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($this->toEmSpace($lastWidth));       // Width 
+                $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($this->toEmSpace($lastWidth));       // Width
             }
         }
 
@@ -252,7 +252,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
         $widthsObject = $this->_objectFactory->newObject($widthsArrayElement);
         $this->_resource->W = $widthsObject;
 
-        
+
         /* CIDSystemInfo dictionary */
         $cidSystemInfo = new Zend_Pdf_Element_Dictionary();
         $cidSystemInfo->Registry   = new Zend_Pdf_Element_String('Adobe');
@@ -262,8 +262,8 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
         $this->_resource->CIDSystemInfo = $cidSystemInfoObject;
     }
 
-    
-    
+
+
     /**
      * Returns an array of glyph numbers corresponding to the Unicode characters.
      *
@@ -278,12 +278,13 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
     public function glyphNumbersForCharacters($characterCodes)
     {
         /**
-         * CIDFont object is not actually a font. It does not have an Encoding entry, 
-         * it cannot be listed in the Font subdictionary of a resource dictionary, and 
+         * CIDFont object is not actually a font. It does not have an Encoding entry,
+         * it cannot be listed in the Font subdictionary of a resource dictionary, and
          * it cannot be used as the operand of the Tf operator.
-         * 
+         *
          * Throw an exception.
          */
+        #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('CIDFont PDF objects could not be used as the operand of the text drawing operators');
     }
 
@@ -302,12 +303,13 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
     public function glyphNumberForCharacter($characterCode)
     {
         /**
-         * CIDFont object is not actually a font. It does not have an Encoding entry, 
-         * it cannot be listed in the Font subdictionary of a resource dictionary, and 
+         * CIDFont object is not actually a font. It does not have an Encoding entry,
+         * it cannot be listed in the Font subdictionary of a resource dictionary, and
          * it cannot be used as the operand of the Tf operator.
-         * 
+         *
          * Throw an exception.
          */
+        #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('CIDFont PDF objects could not be used as the operand of the text drawing operators');
     }
 
@@ -401,7 +403,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
         }
         return $this->_charWidths[$charCode];
     }
-    
+
     /**
      * Returns the widths of the glyphs.
      *
@@ -412,12 +414,13 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
     public function widthsForGlyphs($glyphNumbers)
     {
         /**
-         * CIDFont object is not actually a font. It does not have an Encoding entry, 
-         * it cannot be listed in the Font subdictionary of a resource dictionary, and 
+         * CIDFont object is not actually a font. It does not have an Encoding entry,
+         * it cannot be listed in the Font subdictionary of a resource dictionary, and
          * it cannot be used as the operand of the Tf operator.
-         * 
+         *
          * Throw an exception.
          */
+        #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('CIDFont PDF objects could not be used as the operand of the text drawing operators');
     }
 
@@ -433,12 +436,13 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
     public function widthForGlyph($glyphNumber)
     {
         /**
-         * CIDFont object is not actually a font. It does not have an Encoding entry, 
-         * it cannot be listed in the Font subdictionary of a resource dictionary, and 
+         * CIDFont object is not actually a font. It does not have an Encoding entry,
+         * it cannot be listed in the Font subdictionary of a resource dictionary, and
          * it cannot be used as the operand of the Tf operator.
-         * 
+         *
          * Throw an exception.
          */
+        #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('CIDFont PDF objects could not be used as the operand of the text drawing operators');
     }
 
@@ -453,12 +457,13 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
     public function encodeString($string, $charEncoding)
     {
         /**
-         * CIDFont object is not actually a font. It does not have an Encoding entry, 
-         * it cannot be listed in the Font subdictionary of a resource dictionary, and 
+         * CIDFont object is not actually a font. It does not have an Encoding entry,
+         * it cannot be listed in the Font subdictionary of a resource dictionary, and
          * it cannot be used as the operand of the Tf operator.
-         * 
+         *
          * Throw an exception.
          */
+        #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('CIDFont PDF objects could not be used as the operand of the text drawing operators');
     }
 
@@ -473,12 +478,13 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
     public function decodeString($string, $charEncoding)
     {
         /**
-         * CIDFont object is not actually a font. It does not have an Encoding entry, 
-         * it cannot be listed in the Font subdictionary of a resource dictionary, and 
+         * CIDFont object is not actually a font. It does not have an Encoding entry,
+         * it cannot be listed in the Font subdictionary of a resource dictionary, and
          * it cannot be used as the operand of the Tf operator.
-         * 
+         *
          * Throw an exception.
          */
+        #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('CIDFont PDF objects could not be used as the operand of the text drawing operators');
     }
 }

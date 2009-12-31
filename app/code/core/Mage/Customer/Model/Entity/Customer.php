@@ -260,4 +260,33 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
         }
         return false;
     }
+
+    /**
+     * Get customer website id
+     *
+     * @param int $customerId
+     * @return int
+     */
+    public function getWebsiteId($customerId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getTable('customer/entity'), 'website_id')
+            ->where('entity_id=?', $customerId);
+        return $this->_getReadAdapter()->fetchOne($select);
+    }
+
+    /**
+     * Custom setter of increment ID if its needed
+     *
+     * @param Varien_Object $object
+     * @return Mage_Customer_Model_Entity_Customer
+     */
+    public function setNewIncrementId(Varien_Object $object)
+    {
+        if (Mage::getStoreConfig(Mage_Customer_Model_Customer::XML_PATH_GENERATE_HUMAN_FRIENDLY_ID)) {
+            parent::setNewIncrementId($object);
+        }
+        return $this;
+    }
 }
+

@@ -38,6 +38,13 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     const STATUS_PENDING = 0;
     const STATUS_APPROVED = 1;
 
+    /**
+     * Event prefix for observer
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'tag';
+
     protected function _construct()
     {
         $this->_init('tag/tag');

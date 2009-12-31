@@ -20,8 +20,8 @@
  * @version    $Id: Action.php 16978 2009-07-22 19:59:40Z alexander $
  */
 
-/** Zend_Pdf_ElementFactory */
-#require_once 'Zend/Pdf/ElementFactory.php';
+/** Internally used classes */
+#require_once 'Zend/Pdf/Element.php';
 
 
 /**

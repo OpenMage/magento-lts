@@ -16,22 +16,16 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Reference.php 17533 2009-08-10 19:06:27Z alexander $
+ * @version    $Id: Reference.php 18993 2009-11-15 17:09:16Z alexander $
  */
+
+
+/** Internally used classes */
+#require_once 'Zend/Pdf/Element/Null.php';
 
 
 /** Zend_Pdf_Element */
 #require_once 'Zend/Pdf/Element.php';
-
-/** Zend_Pdf_Element_Reference_Context */
-#require_once 'Zend/Pdf/Element/Reference/Context.php';
-
-/** Zend_Pdf_Element_Reference_Table */
-#require_once 'Zend/Pdf/Element/Reference/Table.php';
-
-/** Zend_Pdf_ElementFactory */
-#require_once 'Zend/Pdf/ElementFactory.php';
-
 
 /**
  * PDF file 'reference' element implementation
@@ -97,9 +91,11 @@ class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
     public function __construct($objNum, $genNum = 0, Zend_Pdf_Element_Reference_Context $context, Zend_Pdf_ElementFactory $factory)
     {
         if ( !(is_integer($objNum) && $objNum > 0) ) {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Object number must be positive integer');
         }
         if ( !(is_integer($genNum) && $genNum >= 0) ) {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Generation number must be non-negative integer');
         }
 
@@ -178,6 +174,7 @@ class Zend_Pdf_Element_Reference extends Zend_Pdf_Element
         }
 
         if ($obj->toString() != $this->_objNum . ' ' . $this->_genNum . ' R') {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Incorrect reference to the object');
         }
 

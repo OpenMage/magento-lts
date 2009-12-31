@@ -33,4 +33,8 @@
             <block type="adminhtml/newsletter_template_edit" name="template_edit" template="newsletter/template/edit.phtml"/>
         </reference>
     </adminhtml_newsletter_template_edit>
+
+    <adminhtml_newsletter_queue_edit>
+        <update handle="editor"/>
+    </adminhtml_newsletter_queue_edit>
 </layout>

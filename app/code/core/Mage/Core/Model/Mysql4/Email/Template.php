@@ -54,7 +54,7 @@ class Mage_Core_Model_Mysql4_Email_Template extends Mage_Core_Model_Mysql4_Abstr
      * Initialize email template resource model
      *
      */
-    public function _construct()
+    protected function _construct()
     {
         $this->_init('core/email_template', 'template_id');
         $this->_templateTable = $this->getTable('core/email_template');

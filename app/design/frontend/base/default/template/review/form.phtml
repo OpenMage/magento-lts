@@ -93,14 +93,14 @@
     Validation.addAllThese(
     [
            ['validate-rating', '<?php echo $this->__('Please select one of each of the ratings above') ?>', function(v) {
-                var trs = $('product-review-table').getElementsBySelector('tr');
+                var trs = $('product-review-table').select('tr');
                 var inputs;
                 var error = 1;
 
                 for( var j=0; j < trs.length; j++ ) {
                     var tr = trs[j];
                     if( j > 0 ) {
-                        inputs = tr.getElementsBySelector('input');
+                        inputs = tr.select('input');
 
                         for( i in inputs ) {
                             if( inputs[i].checked == true ) {

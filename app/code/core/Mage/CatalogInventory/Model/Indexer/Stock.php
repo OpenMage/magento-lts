@@ -42,6 +42,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
             Mage_Index_Model_Event::TYPE_SAVE
         ),
         Mage_Catalog_Model_Product::ENTITY => array(
+            Mage_Index_Model_Event::TYPE_SAVE,
             Mage_Index_Model_Event::TYPE_MASS_ACTION,
             Mage_Index_Model_Event::TYPE_DELETE
         ),
@@ -206,6 +207,12 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
     protected function _registerCatalogProductEvent(Mage_Index_Model_Event $event)
     {
         switch ($event->getType()) {
+            case Mage_Index_Model_Event::TYPE_SAVE:
+                $product = $event->getDataObject();
+                if ($product && $product->getStockData()) {
+                    $product->setForceReindexRequired(true);
+                }
+                break;
             case Mage_Index_Model_Event::TYPE_MASS_ACTION:
                 $this->_registerCatalogProductMassActionEvent($event);
                 break;

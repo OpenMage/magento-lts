@@ -17,7 +17,7 @@
  * @subpackage Twitter
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Search.php 18173 2009-09-17 15:35:05Z padraic $
+ * @version    $Id: Search.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -147,7 +147,7 @@ class Zend_Service_Twitter_Search extends Zend_Http_Client
             switch($key) {
                 case 'geocode':
                 case 'lang':
-				case 'since_id':
+                case 'since_id':
                     $_query[$key] = $param;
                     break;
                 case 'rpp':

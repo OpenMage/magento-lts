@@ -17,7 +17,7 @@
  * @subpackage Message
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Iterator.php 17189 2009-07-27 17:41:34Z matthew $
+ * @version    $Id: Iterator.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -226,8 +226,8 @@ class Zend_Queue_Message_Iterator implements Iterator, Countable
      */
     public function current()
     {
-        return (($this->valid() === false) 
-            ? null 
+        return (($this->valid() === false)
+            ? null
             : $this->_data[$this->_pointer]); // return the messages object
     }
 

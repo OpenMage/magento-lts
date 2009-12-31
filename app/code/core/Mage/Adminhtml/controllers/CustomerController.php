@@ -230,7 +230,9 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 }
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Customer was successfully saved'));
-                Mage::dispatchEvent('adminhtml_customer_save_after', array('customer' => $customer));
+                Mage::dispatchEvent('adminhtml_customer_save_after',
+                    array('customer' => $customer, 'request' => $this->getRequest())
+                );
 
                 if ($redirectBack) {
                     $this->_redirect('*/*/edit', array(
@@ -407,7 +409,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     {
         $this->_initCustomer();
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/review_grid', 'admin.customer.reviews')
+            $this->getLayout()->createBlock('adminhtml/customer_edit_tab_reviews', 'admin.customer.reviews')
                 ->setCustomerId(Mage::registry('current_customer')->getId())
                 ->setUseAjax(true)
                 ->toHtml()

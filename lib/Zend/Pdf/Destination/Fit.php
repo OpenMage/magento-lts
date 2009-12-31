@@ -17,12 +17,18 @@
  * @subpackage Destination
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Fit.php 17182 2009-07-27 13:54:11Z alexander $
+ * @version    $Id: Fit.php 18993 2009-11-15 17:09:16Z alexander $
  */
+
+
+/** Internally used classes */
+#require_once 'Zend/Pdf/Element/Array.php';
+#require_once 'Zend/Pdf/Element/Name.php';
+#require_once 'Zend/Pdf/Element/Numeric.php';
+
 
 /** Zend_Pdf_Destination_Explicit */
 #require_once 'Zend/Pdf/Destination/Explicit.php';
-
 
 /**
  * Zend_Pdf_Destination_Fit explicit detination

@@ -196,7 +196,7 @@
                 <country>
                     <fields>
                         <optional_zip_countries translate="label">
-                            <label>Postal Code is Optional for</label>
+                            <label>Postal Code is Optional for the following countries</label>
                             <frontend_type>multiselect</frontend_type>
                             <sort_order>3</sort_order>
                             <source_model>adminhtml/system_config_source_country</source_model>

@@ -233,25 +233,24 @@ class Mage_Index_Model_Indexer
      */
     protected function _runAll($method, $args)
     {
-        $pid = 'runed_' . $method;
-
+        $processed = array();
         foreach ($this->_processesCollection as $process) {
-            /* @var $process Mage_Index_Model_Process */
-            if ($process->getData($pid)) {
+            $code = $process->getIndexerCode();
+            if (in_array($code, $processed)) {
                 continue;
             }
             if ($process->getDepends()) {
                 foreach ($process->getDepends() as $processCode) {
                     $dependProcess = $this->getProcessByCode($processCode);
-                    if ($dependProcess && !$dependProcess->getData($pid)) {
+                    if ($dependProcess && !in_array($processCode, $processed)) {
                         call_user_func_array(array($dependProcess, $method), $args);
-                        $dependProcess->setData($pid, true);
+                        $processed[] = $processCode;
                     }
                 }
             }
 
             call_user_func_array(array($process, $method), $args);
-            $process->setData($pid);
+            $processed[] = $code;
         }
     }
 }

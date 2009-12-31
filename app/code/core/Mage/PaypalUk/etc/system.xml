@@ -29,7 +29,7 @@
     <sections>
        <payment>
             <groups>
-                <paypaluk_direct translate="label comment" module="paypaluk">
+                <paypaluk_direct translate="label" module="paypaluk">
                     <label>PayPal Website Payments Pro (Payflow Edition) - Direct Payments</label>
                     <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal" target="_blank">Sign up for PayPal Merchant Account now!</a>]]></comment>
                     <frontend_type>text</frontend_type>
@@ -81,79 +81,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </title>
-                        <line_item translate="label">
-                            <label>Line Item Enabled</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>18</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </line_item>
-                        <centinel translate="label">
-                            <label>Centinel 3D Secure Enabled</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>20</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </centinel>
-                        <centinel_processor_id translate="label">
-                            <label>Centinel Processor Id</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>22</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><centinel>1</centinel></depends>
-                        </centinel_processor_id>
-                        <centinel_merchant_id translate="label">
-                            <label>Centinel Merchant Id</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>24</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><centinel>1</centinel></depends>
-                        </centinel_merchant_id>
-                        <centinel_password translate="label">
-                            <label>Centinel Password</label>
-                            <frontend_type>obscure</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
-                            <sort_order>26</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><centinel>1</centinel></depends>
-                        </centinel_password>
-                        <centinel_maps_url translate="label">
-                            <label>Centinel Map Url</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>28</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><centinel>1</centinel></depends>
-                        </centinel_maps_url>
-                        <centinel_timeout_connect translate="label">
-                            <label>Centinel Timeout Connection</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>30</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><centinel>1</centinel></depends>
-                        </centinel_timeout_connect>
-                        <centinel_timeout_read translate="label">
-                            <label>Centinel Timeout Read</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>32</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><centinel>1</centinel></depends>
-                        </centinel_timeout_read>
                         <cctypes translate="label">
                             <label>Credit Card Types</label>
                             <frontend_type>multiselect</frontend_type>
@@ -183,7 +110,7 @@
                         </specificcountry>
                     </fields>
                 </paypaluk_direct>
-                <paypaluk_express translate="label comment" module="paypal">
+                <paypaluk_express translate="label" module="paypal">
                     <label>PayPal Website Payments Pro (Payflow Edition) - Express Checkout</label>
                     <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal" target="_blank">Sign up for PayPal Merchant Account now!</a>]]></comment>
                     <frontend_type>text</frontend_type>
@@ -236,15 +163,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </order_status>
-                        <line_item translate="label">
-                            <label>Line Item Enabled</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>10</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </line_item>
                         <allowspecific translate="label">
                             <label>Payment from applicable countries</label>
                             <frontend_type>allowspecific</frontend_type>
@@ -277,7 +195,7 @@
         </payment>
         <paypal translate="label" module="paypal">
             <groups>
-                <wpuk translate="label comment">
+                <wpuk translate="label">
                     <label>Website Payments Pro (Payflow Edition)</label>
                     <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal" target="_blank">Sign up for PayPal Merchant Account now!</a>]]></comment>
                     <frontend_type>text</frontend_type>

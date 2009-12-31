@@ -39,8 +39,10 @@
         </ignoredModules>
         <cache>
             <types>
-                <config_api translate="label" module="api">
+                <config_api translate="label,description" module="api">
                     <label>Web Services Configuration</label>
+                    <description>Web Services definition files (api.xml).</description>
+                    <tags>CONFIG_API</tags>
                 </config_api>
             </types>
         </cache>

@@ -186,4 +186,20 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
         return false;
     }
+
+    /**
+     * Sets a job to STATUS_RUNNING only if it is currently in STATUS_PENDING.
+     * Returns true if status was changed and false otherwise.
+     *
+     * This is used to implement locking for cron jobs.
+     *
+     * @return boolean
+     */
+    public function tryLockJob()
+    {
+        return ($this->_getResource()->trySetJobStatusAtomic(
+                $this->getId(),
+                self::STATUS_RUNNING,
+                self::STATUS_PENDING));
+    }
 }

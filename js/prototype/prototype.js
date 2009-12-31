@@ -2085,6 +2085,8 @@ Element.Methods = {
   getOffsetParent: function(element) {
     if (element.offsetParent) return $(element.offsetParent);
     if (element == document.body) return $(element);
+    if(element.tagName.toUpperCase()=='HTML') //for IE6,7
+        return $(document.body);                //
 
     while ((element = element.parentNode) && element != document.body)
       if (Element.getStyle(element, 'position') != 'static')

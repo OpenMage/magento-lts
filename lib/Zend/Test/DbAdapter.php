@@ -17,7 +17,7 @@
  * @subpackage PHPUnit
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DbAdapter.php 18391 2009-09-24 18:11:51Z beberlei $
+ * @version    $Id: DbAdapter.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -96,7 +96,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
 
     /**
      * Append a new Insert Id to the {@see lastInsertId}.
-     * 
+     *
      * @param  int|string $id
      * @return Zend_Test_DbAdapter
      */
@@ -229,7 +229,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
         } else {
             $stmt = new Zend_Test_DbStatement();
         }
-        
+
         if($this->getProfiler()->getEnabled() == true) {
             $qp = $this->getProfiler()->getQueryProfile($queryId);
             $stmt->setQueryProfile($qp);

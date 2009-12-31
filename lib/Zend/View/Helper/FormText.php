@@ -17,7 +17,7 @@
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormText.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: FormText.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 
@@ -64,7 +64,7 @@ class Zend_View_Helper_FormText extends Zend_View_Helper_FormElement
             // disabled
             $disabled = ' disabled="disabled"';
         }
-        
+
         // XHTML or HTML end tag?
         $endTag = ' />';
         if (($this->view instanceof Zend_View_Abstract) && !$this->view->doctype()->isXhtml()) {

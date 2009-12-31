@@ -17,14 +17,13 @@
  * @subpackage Destination
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Destination.php 17182 2009-07-27 13:54:11Z alexander $
+ * @version    $Id: Destination.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
-/** Zend_Pdf_ElementFactory */
-#require_once 'Zend/Pdf/ElementFactory.php';
 
-/** Zend_Pdf_Page */
-#require_once 'Zend/Pdf/Page.php';
+/** Internally used classes */
+#require_once 'Zend/Pdf/Element.php';
+
 
 /** Zend_Pdf_Target */
 #require_once 'Zend/Pdf/Target.php';
@@ -49,6 +48,7 @@ abstract class Zend_Pdf_Destination extends Zend_Pdf_Target
      */
     public static function load(Zend_Pdf_Element $resource)
     {
+        #require_once 'Zend/Pdf/Element.php';
         if ($resource->getType() == Zend_Pdf_Element::TYPE_NAME  ||  $resource->getType() == Zend_Pdf_Element::TYPE_STRING) {
             #require_once 'Zend/Pdf/Destination/Named.php';
             return new Zend_Pdf_Destination_Named($resource);

@@ -17,7 +17,7 @@
  * @subpackage PHPUnit
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DbRowset.php 16607 2009-07-09 21:51:46Z beberlei $
+ * @version    $Id: DbRowset.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -41,7 +41,7 @@ class Zend_Test_PHPUnit_Db_DataSet_DbRowset extends PHPUnit_Extensions_Database_
 {
     /**
      * Construct Table object from a Zend_Db_Table_Rowset
-     * 
+     *
      * @param Zend_Db_Table_Rowset_Abstract $rowset
      * @param string $tableName
      */

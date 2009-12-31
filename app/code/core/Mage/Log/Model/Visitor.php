@@ -31,9 +31,22 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     const VISITOR_TYPE_CUSTOMER = 'c';
     const VISITOR_TYPE_VISITOR  = 'v';
 
+    protected $_skipRequestLogging = false;
+
+    /**
+     * Onject initialization
+     */
     protected function _construct()
     {
         $this->_init('log/visitor');
+        $userAgent = Mage::helper('core/http')->getHttpUserAgent();
+        $ignoreAgents = Mage::getConfig()->getNode('global/ignore_user_agents');
+        if ($ignoreAgents) {
+            $ignoreAgents = $ignoreAgents->asArray();
+            if (in_array($userAgent, $ignoreAgents)) {
+                $this->_skipRequestLogging = true;
+            }
+        }
     }
 
     /**
@@ -44,16 +57,6 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     protected function _getSession()
     {
         return Mage::getSingleton('core/session');
-    }
-
-    /**
-     * Retrieve visitor resource model
-     *
-     * @return mixed
-     */
-    public function getResource()
-    {
-        return Mage::getResourceSingleton('log/visitor');
     }
 
     /**
@@ -123,19 +126,6 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         return $this->getData('last_visit_at');
     }
 
-    public function isModuleIgnored($observer)
-    {
-        $ignores = Mage::getConfig()->getNode('global/ignoredModules/entities')->asArray();
-
-        if( is_array($ignores) && $observer) {
-            $curModule = $observer->getEvent()->getControllerAction()->getRequest()->getRouteName();
-            if (isset($ignores[$curModule])) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     /**
      * Initialization visitor information by request
      *
@@ -146,7 +136,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     public function initByRequest($observer)
     {
-        if ($this->isModuleIgnored($observer)) {
+        if ($this->_skipRequestLogging || $this->isModuleIgnored($observer)) {
             return $this;
         }
 
@@ -171,17 +161,15 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
      */
     public function saveByRequest($observer)
     {
-        if ($this->isModuleIgnored($observer)) {
+        if ($this->_skipRequestLogging || $this->isModuleIgnored($observer)) {
             return $this;
         }
 
         try {
             $this->setLastVisitAt(now());
             $this->save();
-
             $this->_getSession()->setVisitorData($this->getData());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::logException($e);
         }
         return $this;
@@ -273,5 +261,18 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         }
         $data->setQuoteData(Mage::getModel('sales/quote')->load($quoteId));
         return $this;
+    }
+
+    public function isModuleIgnored($observer)
+    {
+        $ignores = Mage::getConfig()->getNode('global/ignoredModules/entities')->asArray();
+
+        if( is_array($ignores) && $observer) {
+            $curModule = $observer->getEvent()->getControllerAction()->getRequest()->getRouteName();
+            if (isset($ignores[$curModule])) {
+                return true;
+            }
+        }
+        return false;
     }
 }

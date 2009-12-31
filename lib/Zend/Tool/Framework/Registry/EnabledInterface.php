@@ -17,16 +17,16 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: EnabledInterface.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: EnabledInterface.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
  * This is a convenience class.
- * 
+ *
  * At current it will return the request and response from the client registry
  * as they are the more common things that will be needed by providers
  *
- * 
+ *
  * @category   Zend
  * @package    Zend_Tool
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
@@ -34,7 +34,7 @@
  */
 interface Zend_Tool_Framework_Registry_EnabledInterface
 {
-    
+
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry);
-    
+
 }

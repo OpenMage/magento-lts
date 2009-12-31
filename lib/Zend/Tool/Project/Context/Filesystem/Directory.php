@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Directory.php 16972 2009-07-22 18:44:24Z ralph $
+ * @version    $Id: Directory.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -30,15 +30,15 @@
  *
  * A profile is a hierarchical set of resources that keep track of
  * items within a specific project.
- * 
+ *
  * @category   Zend
  * @package    Zend_Tool
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Tool_Project_Context_Filesystem_Directory extends Zend_Tool_Project_Context_Filesystem_Abstract 
+abstract class Zend_Tool_Project_Context_Filesystem_Directory extends Zend_Tool_Project_Context_Filesystem_Abstract
 {
-    
+
     /**
      * create()
      *
@@ -53,7 +53,7 @@ abstract class Zend_Tool_Project_Context_Filesystem_Directory extends Zend_Tool_
                 $parentResource->create();
             }
         }
-        
+
         if (!file_exists($this->getPath())) {
             mkdir($this->getPath());
         }
@@ -70,8 +70,8 @@ abstract class Zend_Tool_Project_Context_Filesystem_Directory extends Zend_Tool_
     {
         $this->_resource->setDeleted(true);
         rmdir($this->getPath());
-        
+
         return $this;
     }
-    
+
 }

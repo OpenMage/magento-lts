@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @subpackage Router
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Regex.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Regex.php 18951 2009-11-12 16:26:19Z alexander $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -63,7 +63,7 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
     public function getVersion() {
         return 1;
     }
-    
+
     /**
      * Matches a user submitted path with a previously defined route.
      * Assigns and returns an array of defaults on a successful match.
@@ -79,13 +79,13 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
         } else {
             $regex = '#^' . $this->_regex . '#i';
         }
-        
+
         $res = preg_match($regex, $path, $values);
-        
+
         if ($res === 0) {
             return false;
         }
-        
+
         if ($partial) {
             $this->setMatchedPath($values[0]);
         }
@@ -185,7 +185,7 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
             foreach ($mergedData as $key => &$value) {
                 $value = urlencode($value);
             }
-        }	
+        }
 
         ksort($mergedData);
 
@@ -220,7 +220,7 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
     public function getDefaults() {
         return $this->_defaults;
     }
-    
+
     /**
      * Get all variables which are used by the route
      *
@@ -229,7 +229,7 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
     public function getVariables()
     {
         $variables = array();
-        
+
         foreach ($this->_map as $key => $value) {
             if (is_numeric($key)) {
                 $variables[] = $value;
@@ -237,7 +237,7 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
                 $variables[] = $key;
             }
         }
-        
+
         return $variables;
     }
 

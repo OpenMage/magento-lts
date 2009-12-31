@@ -484,7 +484,7 @@ class Varien_Simplexml_Config
      * Imports XML file
      *
      * @param string $filePath
-     * @return Varien_Simplexml_Element
+     * @return boolean
      */
     public function loadFile($filePath)
     {
@@ -501,23 +501,21 @@ class Varien_Simplexml_Config
     /**
      * Imports XML string
      *
-     * @param string $string
-     * @return Varien_Simplexml_Element
+     * @param  string $string
+     * @return boolean
      */
     public function loadString($string)
     {
-        if (!empty($string)) {
+        if (is_string($string)) {
             $xml = simplexml_load_string($string, $this->_elementClass);
-        }
-        else {
-            throw new Exception('"$string" parameter for simplexml_load_string is empty');
-        }
 
-        if ($xml instanceof Varien_Simplexml_Element) {
-            $this->_xml = $xml;
-            return true;
+            if ($xml instanceof Varien_Simplexml_Element) {
+                $this->_xml = $xml;
+                return true;
+            }
+        } else {
+            Mage::logException(new Exception('"$string" parameter for simplexml_load_string is not a string'));
         }
-
         return false;
     }
 

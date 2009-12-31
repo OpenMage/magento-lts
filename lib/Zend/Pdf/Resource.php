@@ -16,18 +16,8 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Resource.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: Resource.php 18993 2009-11-15 17:09:16Z alexander $
  */
-
-
-/** Zend_Pdf_ElementFactory */
-#require_once 'Zend/Pdf/ElementFactory.php';
-
-/** Zend_Pdf_Element_Object */
-#require_once 'Zend/Pdf/Element/Object.php';
-
-/** Zend_Pdf_Element_Dictionary */
-#require_once 'Zend/Pdf/Element/Dictionary.php';
 
 
 /**
@@ -76,6 +66,8 @@ abstract class Zend_Pdf_Resource
      */
     public function __construct($resource)
     {
+        #require_once 'Zend/Pdf/ElementFactory.php';
+
         $this->_objectFactory     = Zend_Pdf_ElementFactory::createFactory(1);
         if ($resource instanceof Zend_Pdf_Element) {
             $this->_resource      = $this->_objectFactory->newObject($resource);
@@ -107,4 +99,3 @@ abstract class Zend_Pdf_Resource
         return $this->_objectFactory;
     }
 }
-

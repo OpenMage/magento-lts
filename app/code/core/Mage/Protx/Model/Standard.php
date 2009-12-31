@@ -199,7 +199,7 @@ class Mage_Protx_Model_Standard extends Mage_Payment_Model_Method_Abstract
         // Up to 100 chars of free format description
         $description = $this->getConfig()->getDescription() != ''
                        ? $this->getConfig()->getDescription()
-                       : Mage::app()->getStore()->getName() . ' ' . ' payment';
+                       : Mage::app()->getStore()->getFrontendName() . ' ' . ' payment';
         $queryPairs['Description'] = $description;
 
         $queryPairs['SuccessURL'] = $this->getSuccessURL();

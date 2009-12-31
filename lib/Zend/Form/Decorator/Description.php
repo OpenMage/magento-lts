@@ -33,13 +33,13 @@
  * - escape: whether or not to escape description (true by default)
  *
  * Any other options passed will be used as HTML attributes of the HTML tag used.
- * 
+ *
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Description.php 16218 2009-06-21 19:44:04Z thomas $
+ * @version    $Id: Description.php 18951 2009-11-12 16:26:19Z alexander $
  */
 class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
 {
@@ -63,8 +63,8 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
 
     /**
      * Set HTML tag with which to surround description
-     * 
-     * @param  string $tag 
+     *
+     * @param  string $tag
      * @return Zend_Form_Decorator_Description
      */
     public function setTag($tag)
@@ -75,7 +75,7 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
 
     /**
      * Get HTML tag, if any, with which to surround description
-     * 
+     *
      * @return string
      */
     public function getTag()
@@ -99,7 +99,7 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
      * Get class with which to define description
      *
      * Defaults to 'hint'
-     * 
+     *
      * @return string
      */
     public function getClass()
@@ -115,8 +115,8 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
 
     /**
      * Set whether or not to escape description
-     * 
-     * @param  bool $flag 
+     *
+     * @param  bool $flag
      * @return Zend_Form_Decorator_Description
      */
     public function setEscape($flag)
@@ -127,7 +127,7 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
 
     /**
      * Get escape flag
-     * 
+     *
      * @return true
      */
     public function getEscape()
@@ -146,8 +146,8 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
 
     /**
      * Render a description
-     * 
-     * @param  string $content 
+     *
+     * @param  string $content
      * @return string
      */
     public function render($content)

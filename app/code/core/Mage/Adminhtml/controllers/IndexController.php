@@ -101,7 +101,13 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 $limit = $this->getRequest()->getParam('limit', 10);
                 $query = $this->getRequest()->getParam('query', '');
                 foreach ($searchModules->children() as $searchConfig) {
+
+                    if ($searchConfig->acl && !Mage::getSingleton('admin/session')->isAllowed($searchConfig->acl)){
+                        continue;
+                    }
+
                     $className = $searchConfig->getClassName();
+
                     if (empty($className)) {
                         continue;
                     }

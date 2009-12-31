@@ -42,6 +42,12 @@ class Mage_Sales_Model_Mysql4_Order_Payment_Transaction_Collection extends Mage_
     protected $_parentId = null;
 
     /**
+     * Filter by transaction type
+     * @var array
+     */
+    protected $_txnTypes = null;
+
+    /**
      * Initialize collection items factory class
      */
     protected function _construct()
@@ -78,6 +84,20 @@ class Mage_Sales_Model_Mysql4_Order_Payment_Transaction_Collection extends Mage_
     }
 
     /**
+     * Transaction type filter setter
+     * @param array|string $txnType
+     * @return Mage_Sales_Model_Mysql4_Order_Payment_Transaction_Collection
+     */
+    public function addTxnTypeFilter($txnType)
+    {
+        if (!is_array($txnType)) {
+            $txnType = array($txnType);
+        }
+        $this->_txnTypes = $txnType;
+        return $this;
+    }
+
+    /**
      * Prepare filters and load the collection
      * @param bool $printQuery
      * @param bool $logQuery
@@ -89,14 +109,15 @@ class Mage_Sales_Model_Mysql4_Order_Payment_Transaction_Collection extends Mage_
             return $this;
         }
 
-        // payment_id filter
+        // filters
         if ($this->_paymentId) {
             $this->getSelect()->where('payment_id = ?', $this->_paymentId);
         }
-
-        // parent_id filter
         if ($this->_parentId) {
             $this->getSelect()->where('parent_id = ?', $this->_parentId);
+        }
+        if ($this->_txnTypes) {
+            $this->getSelect()->where('txn_type IN(?)', $this->_txnTypes);
         }
 
         return parent::load($printQuery, $logQuery);

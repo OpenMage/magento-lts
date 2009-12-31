@@ -17,7 +17,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Pgsql.php 16732 2009-07-15 12:44:36Z yoshida@zend.co.jp $
+ * @version    $Id: Pgsql.php 19051 2009-11-19 18:27:53Z mikaelkael $
  */
 
 
@@ -99,19 +99,14 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
      */
     public function listTables()
     {
-        // @todo use a better query with joins instead of subqueries
-        $sql = "SELECT c.relname AS table_name "
-             . "FROM pg_class c, pg_user u "
-             . "WHERE c.relowner = u.usesysid AND c.relkind = 'r' "
-             . "AND NOT EXISTS (SELECT 1 FROM pg_views WHERE viewname = c.relname) "
-             . "AND c.relname !~ '^(pg_|sql_)' "
-             . "UNION "
-             . "SELECT c.relname AS table_name "
-             . "FROM pg_class c "
-             . "WHERE c.relkind = 'r' "
-             . "AND NOT EXISTS (SELECT 1 FROM pg_views WHERE viewname = c.relname) "
-             . "AND NOT EXISTS (SELECT 1 FROM pg_user WHERE usesysid = c.relowner) "
-             . "AND c.relname !~ '^pg_'";
+        $sql = "SELECT c.relname  AS table_name "
+              . "FROM pg_catalog.pg_class c "
+              . "JOIN pg_catalog.pg_roles r ON r.oid = c.relowner "
+              . "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace "
+              . "WHERE n.nspname <> 'pg_catalog' "
+              . "AND n.nspname !~ '^pg_toast' "
+              . "AND pg_catalog.pg_table_is_visible(c.oid) "
+              . "AND c.relkind = 'r' ";
 
         return $this->fetchCol($sql);
     }
@@ -194,6 +189,7 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
 
         $desc = array();
         foreach ($result as $key => $row) {
+            $defaultValue = $row[$default_value];
             if ($row[$type] == 'varchar') {
                 if (preg_match('/character varying(?:\((\d+)\))?/', $row[$complete_type], $matches)) {
                     if (isset($matches[1])) {
@@ -201,6 +197,9 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
                     } else {
                         $row[$length] = null; // unlimited
                     }
+                }
+                if (preg_match("/^'(.*?)'::character varying$/", $defaultValue, $matches)) {
+                    $defaultValue = $matches[1];
                 }
             }
             list($primary, $primaryPosition, $identity) = array(false, null, false);
@@ -215,7 +214,7 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
                 'COLUMN_NAME'      => $this->foldCase($row[$colname]),
                 'COLUMN_POSITION'  => $row[$attnum],
                 'DATA_TYPE'        => $row[$type],
-                'DEFAULT'          => $row[$default_value],
+                'DEFAULT'          => $defaultValue,
                 'NULLABLE'         => (bool) ($row[$notnull] != 't'),
                 'LENGTH'           => $row[$length],
                 'SCALE'            => null, // @todo

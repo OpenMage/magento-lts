@@ -43,6 +43,7 @@ if (file_exists($compilerConfig)) {
 }
 
 $mageFilename = 'app/Mage.php';
+$maintenanceFile = 'maintenance.flag';
 
 if (!file_exists($mageFilename)) {
     if (is_dir('downloader')) {
@@ -50,6 +51,12 @@ if (!file_exists($mageFilename)) {
     } else {
         echo $mageFilename." was not found";
     }
+    exit;
+}
+
+if (file_exists($maintenanceFile)) {
+    $baseUrl = dirname($_SERVER['PHP_SELF']);
+    include_once dirname(__FILE__) . '/errors/503.php';
     exit;
 }
 

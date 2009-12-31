@@ -27,6 +27,7 @@
 
 abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Collection_Db
 {
+    const CACHE_TAG = 'COLLECTION_DATA';
     /**
      * Model name
      *
@@ -267,6 +268,7 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
     {
         $tags = parent::_getCacheTags();
         $tags[] = Mage_Core_Model_App::CACHE_TAG;
+        $tags[] = self::CACHE_TAG;
         return $tags;
     }
 }

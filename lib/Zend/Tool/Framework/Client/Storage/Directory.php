@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Directory.php 16972 2009-07-22 18:44:24Z ralph $
+ * @version    $Id: Directory.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -32,11 +32,11 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Framework_Client_Storage_Directory
-    implements Zend_Tool_Framework_Client_Storage_AdapterInterface 
+    implements Zend_Tool_Framework_Client_Storage_AdapterInterface
 {
-    
+
     protected $_directoryPath = null;
-    
+
     public function __construct($directoryPath)
     {
         if (!file_exists($directoryPath)) {
@@ -44,30 +44,30 @@ class Zend_Tool_Framework_Client_Storage_Directory
         }
         $this->_directoryPath = $directoryPath;
     }
-    
+
     public function put($name, $value)
     {
         return file_put_contents($this->_directoryPath . DIRECTORY_SEPARATOR . $name, $value);
     }
-    
+
     public function get($name)
     {
         return file_get_contents($this->_directoryPath . DIRECTORY_SEPARATOR . $name);
     }
-    
+
     public function has($name)
     {
         return file_exists($this->_directoryPath . DIRECTORY_SEPARATOR . $name);
     }
-    
+
     public function remove($name)
     {
         return unlink($this->_directoryPath . DIRECTORY_SEPARATOR . $name);
     }
-    
+
     public function getStreamUri($name)
     {
         return $this->_directoryPath . DIRECTORY_SEPARATOR . $name;
     }
-    
+
 }

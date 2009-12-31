@@ -17,7 +17,7 @@
  * @subpackage Amazon
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Abstract.php 18926 2009-11-10 19:16:03Z sidhighwind $
  */
 
 #require_once 'Zend/Service/Abstract.php';

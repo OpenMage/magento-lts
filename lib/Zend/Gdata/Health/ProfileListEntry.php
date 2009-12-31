@@ -18,7 +18,7 @@
  * @subpackage Health
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ProfileListEntry.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: ProfileListEntry.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -80,16 +80,16 @@ class Zend_Gdata_Health_ProfileListEntry extends Zend_Gdata_Entry
     {
         parent::takeChildFromDOM($child);
     }
-        
-    /** 
+
+    /**
      * Retrieves the profile ID for the entry, which is contained in <atom:content>
      * @return string The profile id
      */
     public function getProfileID() {
         return $this->getContent()->text;
     }
-    
-    /** 
+
+    /**
      * Retrieves the profile's title, which is contained in <atom:title>
      * @return string The profile name
      */

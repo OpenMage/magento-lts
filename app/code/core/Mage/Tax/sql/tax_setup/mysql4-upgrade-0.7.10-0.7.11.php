@@ -48,3 +48,4 @@ $installer->run("
 ");
 
 $installer->endSetup();
+

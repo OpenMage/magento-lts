@@ -272,6 +272,9 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             } else if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
                 $redirectUrl = $item->getProductUrl();
                 $item->delete();
+            } else if ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_IS_GROUPED_PRODUCT) {
+                $redirectUrl = $item->getProductUrl();
+                $item->delete();
             } else {
                 $session->addError($e->getMessage());
             }

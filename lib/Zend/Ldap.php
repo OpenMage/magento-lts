@@ -17,7 +17,7 @@
  * @package    Zend_Ldap
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ldap.php 18250 2009-09-18 15:53:49Z sgehrig $
+ * @version    $Id: Ldap.php 18881 2009-11-06 10:55:19Z sgehrig $
  */
 
 /**
@@ -1415,7 +1415,7 @@ class Zend_Ldap
      * Returns the specified DN as a Zend_Ldap_Node
      *
      * @param  string|Zend_Ldap_Dn $dn
-     * @return Zend_Ldap_Node
+     * @return Zend_Ldap_Node|null
      * @throws Zend_Ldap_Exception
      */
     public function getNode($dn)

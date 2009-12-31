@@ -32,12 +32,6 @@
  */
 class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
 {
-    public function outputBody()
-    {
-        Mage::getSingleton('core/translate_inline')->processResponseBody($this->_body);
-        parent::outputBody();
-    }
-
     /**
      * Fixes CGI only one Status header allowed bug
      *

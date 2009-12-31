@@ -56,14 +56,17 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
             ->toOptionArray();
         unset($countries[0]);
 
-        $countryId = $rateObject->getTaxCountryId();
-        if (!$countryId) {
-            $countryId = Mage::getStoreConfig('general/country/default');
+        if (!$rateObject->hasTaxCountryId()) {
+            $rateObject->setTaxCountryId(Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_COUNTRY));
+        }
+
+        if (!$rateObject->hasTaxRegionId()) {
+            $rateObject->setTaxRegionId(Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_REGION));
         }
 
         $regionCollection = Mage::getModel('directory/region')
             ->getCollection()
-            ->addCountryFilter($countryId);
+            ->addCountryFilter($rateObject->getTaxCountryId());
 
         $regions = $regionCollection->toOptionArray();
 
@@ -101,8 +104,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
                 'label' => Mage::helper('tax')->__('Country'),
                 'title' => Mage::helper('tax')->__('Please select Country'),
                 'required' => true,
-                'values' => $countries,
-                'value' => $countryId,
+                'values' => $countries
             )
         );
 
@@ -111,8 +113,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
                 'name' => 'tax_region_id',
                 'label' => Mage::helper('tax')->__('State'),
                 'title' => Mage::helper('tax')->__('Please select State'),
-                'values' => $regions,
-                'value' => $rateObject->getTaxRegionId()
+                'values' => $regions
             )
         );
 
@@ -142,10 +143,8 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
                 )
         ));
 
-        $postcode = $rateObject->getTaxPostcode();
-
-        if (!$postcode) {
-            $postcode = '*';
+        if (!$rateObject->hasTaxPostcode()) {
+            $rateObject->setTaxPostcode(Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_POSTCODE));
         }
 
         $fieldset->addField('tax_postcode', 'text',
@@ -153,7 +152,6 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
                 'name' => 'tax_postcode',
                 'label' => Mage::helper('tax')->__('Zip/Post Code'),
                 'note' => Mage::helper('tax')->__("'*' - matches any; 'xyz*' - matches any that begins on 'xyz' and not longer than %d.", Mage::helper('tax')->getPostCodeSubStringLength()),
-                'value' => $postcode
             )
         );
 

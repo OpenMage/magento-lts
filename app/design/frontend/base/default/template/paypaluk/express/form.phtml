@@ -32,11 +32,6 @@
 <?php $_code=$this->getMethodCode() ?>
 <ul class="form-list" id="payment_form_<?php echo $_code ?>" style="display:none;">
     <li>
-        <!-- PayPal Logo -->
-        <p>
-            <a href="#" onclick="javascript:window.open('https://www.paypal.com/<?php echo Mage::helper('paypal')->getLanguage()?>/cgi-bin/webscr?cmd=xpt/Marketing/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=500'); return false;"><img  src="<?php echo Mage::helper('paypal')->getLogo() ?>" alt="PayPal-Logo" /></a>
-        </p>
-        <!-- PayPal Logo -->
         <?php echo $this->__('Your billing address will be ignored and you will be redirected to PayPal UK website') ?>
     </li>
 </ul>

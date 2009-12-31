@@ -39,13 +39,18 @@ var widgetTools = {
     },
 
     openDialog: function(widgetUrl) {
+        if ($('widget_window') && typeof(Windows) != 'undefined') {
+            Windows.focus('widget_window');
+            return;
+        }
         Dialog.info(null, {
             draggable:true,
             resizable:false,
             closable:true,
             className:'magento',
             title:'Insert widget...',
-            width:1024,
+            top:50,
+            width:950,
             height:800,
             zIndex:1000,
             recenterAuto:false,
@@ -149,8 +154,9 @@ WysiwygWidget.Widget.prototype = {
             return;
         }
 
-        if ($(this.getOptionsContainerId()) != undefined) {
-            this.switchOptionsContainer(this.getOptionsContainerId());
+        var optionsContainerId = this.getOptionsContainerId();
+        if ($(optionsContainerId) != undefined) {
+            this.switchOptionsContainer(optionsContainerId);
             return;
         }
 
@@ -164,7 +170,11 @@ WysiwygWidget.Widget.prototype = {
                     try {
                         widgetTools.onAjaxSuccess(transport);
                         this.switchOptionsContainer();
-                        this.widgetOptionsEl.insert({bottom: widgetTools.getDivHtml(this.getOptionsContainerId(), transport.responseText)});
+                        if ($(optionsContainerId) == undefined) {
+                            this.widgetOptionsEl.insert({bottom: widgetTools.getDivHtml(optionsContainerId, transport.responseText)});
+                        } else {
+                            this.switchOptionsContainer(optionsContainerId);
+                        }
                     } catch(e) {
                         alert(e.message);
                     }

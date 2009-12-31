@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * Retrive default value for giftmessage sender
+     * Retrieve default value for giftmessage sender
      *
      * @return string
      */
@@ -100,7 +100,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * Retrive default value for giftmessage recipient
+     * Retrieve default value for giftmessage recipient
      *
      * @return string
      */
@@ -149,14 +149,14 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
             array(
                 'name'  =>  $this->_getFieldName('sender'),
                 'label' =>  Mage::helper('sales')->__('From'),
-                'class' =>  $this->getMessage()->getMessage() ? 'required-entry' : ''
+                'required' =>  $this->getMessage()->getMessage() ? true : false
             )
         );
         $fieldset->addField('recipient','text',
             array(
                 'name'  =>  $this->_getFieldName('recipient'),
                 'label' =>  Mage::helper('sales')->__('To'),
-                'class' =>  $this->getMessage()->getMessage() ? 'required-entry' : ''
+                'required' =>  $this->getMessage()->getMessage() ? true : false
             )
         );
 
@@ -166,7 +166,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
                 'label'     =>  Mage::helper('sales')->__('Message'),
                 'rows'      =>  '5',
                 'cols'      =>  '20',
-                'onchange'  =>  'toogleRequired(\'' . $this->_getFieldId('message')
+                'onchange'  =>  'giftMessagesController.toogleRequired(\'' . $this->_getFieldId('message')
                              .  '\', [\'' . $this->_getFieldId('sender')
                              .  '\', \'' . $this->_getFieldId('recipient') . '\']);'
             )

@@ -24,28 +24,15 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/*
- * Display PaypalUk Express payment block on order review page in admin scope
- */
+
 class Mage_PaypalUk_Block_Express_Info extends Mage_Payment_Block_Info
 {
-    /*
-     * Setup template for info block
-     *
-     * @return Mage_PaypalUk_Block_Express_Info
-     */
     protected function _construct()
     {
         parent::_construct();
         $this->setTemplate('paypaluk/express/info.phtml');
-        return $this;
     }
 
-    /**
-     * Return customer email
-     *
-     * @return string
-     */
     public function getEmail()
     {
         $p = $this->getInfo();

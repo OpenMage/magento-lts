@@ -16,12 +16,8 @@
  * @package    Zend_Pdf
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ImageFactory.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: ImageFactory.php 18993 2009-11-15 17:09:16Z alexander $
  */
-
-
-/** Zend_Pdf */
-#require_once 'Zend/Pdf.php';
 
 
 /**
@@ -38,6 +34,7 @@ class Zend_Pdf_Resource_ImageFactory
 {
     public static function factory($filename) {
         if(!is_file($filename)) {
+            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception("Cannot create image resource. File not found.");
         }
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
@@ -49,9 +46,11 @@ class Zend_Pdf_Resource_ImageFactory
             case 'tif':
                 //Fall through to next case;
             case 'tiff':
+                #require_once 'Zend/Pdf/Resource/Image/Tiff.php';
                 return new Zend_Pdf_Resource_Image_Tiff($filename);
                 break;
             case 'png':
+                #require_once 'Zend/Pdf/Resource/Image/Png.php';
                 return new Zend_Pdf_Resource_Image_Png($filename);
                 break;
             case 'jpg':
@@ -59,9 +58,11 @@ class Zend_Pdf_Resource_ImageFactory
             case 'jpe':
                 //Fall through to next case;
             case 'jpeg':
+                #require_once 'Zend/Pdf/Resource/Image/Jpeg.php';
                 return new Zend_Pdf_Resource_Image_Jpeg($filename);
                 break;
             default:
+                #require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception("Cannot create image resource. File extension not known or unsupported type.");
                 break;
         }

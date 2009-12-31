@@ -17,7 +17,7 @@
  * @subpackage Zend_InfoCard_Cipher
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Aes128cbc.php 16214 2009-06-21 19:34:03Z thomas $
+ * @version    $Id: Aes128cbc.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -27,14 +27,14 @@
 
 /**
  * Implements AES128 with CBC encryption implemented using the mCrypt extension
- * 
+ *
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Cipher
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_InfoCard_Cipher_Symmetric_Adapter_Aes128cbc 
-    extends Zend_InfoCard_Cipher_Symmetric_Adapter_Aes256cbc 
+class Zend_InfoCard_Cipher_Symmetric_Adapter_Aes128cbc
+    extends Zend_InfoCard_Cipher_Symmetric_Adapter_Aes256cbc
 {
 }

@@ -20,12 +20,13 @@
  * @version    $Id: Destination.php 16978 2009-07-22 19:59:40Z alexander $
  */
 
-/** Zend_Pdf_Page */
-#require_once 'Zend/Pdf/Page.php';
+
+/** Internally used classes */
+#require_once 'Zend/Pdf/Element.php';
+
 
 /** Zend_Pdf_Destination */
 #require_once 'Zend/Pdf/Destination.php';
-
 
 /**
  * Abstract PDF explicit destination representation class

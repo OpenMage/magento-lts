@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: AdapterInterface.php 16972 2009-07-22 18:44:24Z ralph $
+ * @version    $Id: AdapterInterface.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -28,15 +28,15 @@
  */
 interface Zend_Tool_Framework_Client_Storage_AdapterInterface
 {
-    
+
     public function put($name, $value);
-    
+
     public function get($name);
-    
+
     public function has($name);
-    
+
     public function remove($name);
-    
+
     public function getStreamUri($name);
-    
+
 }

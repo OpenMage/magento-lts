@@ -34,7 +34,7 @@
         formAction : '',
         formElements : {},
         upload : function(element){
-            this.formElements = this.productForm.getElementsBySelector('input', 'select', 'textarea', 'button');
+            this.formElements = this.productForm.select('input', 'select', 'textarea', 'button');
             this.removeRequire(element.readAttribute('id').sub('option_', ''));
 
             template = '<iframe id="upload_target" name="upload_target" style="width:0; height:0; border:0 solid #fff;"><\/iframe>';
@@ -42,7 +42,11 @@
             Element.insert($('option_'+element.readAttribute('id').sub('option_', '')+'_uploaded_file'), {after: template});
 
             this.formAction = this.productForm.action;
-            this.productForm.action = '<?php echo $this->getUrl('*/product/upload') ?>option_id/'+element.readAttribute('id').sub('option_', '');
+
+            var baseUrl = '<?php echo $this->getUrl('*/product/upload') ?>';
+            var urlExt = 'option_id/'+element.readAttribute('id').sub('option_', '');
+
+            this.productForm.action = parseSidUrl(baseUrl, urlExt);
             this.productForm.target = 'upload_target';
             this.productForm.submit();
             this.productForm.target = '';

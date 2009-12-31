@@ -239,4 +239,12 @@
             </sales_display>
         </tax>
     </default>
+    <crontab>
+        <jobs>
+            <aggregate_sales_report_tax_data>
+                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
+                <run><model>tax/observer::aggregateSalesReportTaxData</model></run>
+            </aggregate_sales_report_tax_data>
+        </jobs>
+    </crontab>
 </config>

@@ -1,4 +1,4 @@
-<!--@subject {{var order.getStoreGroupName()}}: Invoice # {{var invoice.increment_id}} update @-->
+<!--@subject {{var store.getFrontendName()}}: Invoice # {{var invoice.increment_id}} update @-->
 <!--@vars
 {"store url=\"\"":"Store Url",
 "skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
@@ -7,7 +7,7 @@
 "var order.getStatusLabel()":"Order Status",
 "store url=\"customer/account/\"":"Customer Account Url",
 "var comment":"Invoice Comment",
-"var order.getStoreGroupName()":"Store Name"}
+"var store.getFrontendName()":"Store Name"}
 @-->
 <!--@styles
 body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
@@ -40,7 +40,7 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                     <a href="mailto:magento@varien.com" style="color:#1E7EC8;">dummyemail@magentocommerce.com</a>
                     or by phone at (555) 555-0123.
                 </p>
-                <p>Thank you again,<br/><strong>{{var order.getStoreGroupName()}}</strong></p>
+                <p>Thank you again,<br/><strong>{{var store.getFrontendName()}}</strong></p>
             </td>
         </tr>
         </table>

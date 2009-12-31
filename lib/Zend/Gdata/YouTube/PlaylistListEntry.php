@@ -18,7 +18,7 @@
  * @subpackage YouTube
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: PlaylistListEntry.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: PlaylistListEntry.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -86,7 +86,7 @@ class Zend_Gdata_YouTube_PlaylistListEntry extends Zend_Gdata_Entry
      * @var Zend_Gdata_YouTube_Extension_PlaylistId
      */
     protected $_playlistId = null;
-    
+
     /**
      * CountHint for this playlist.
      *
@@ -193,7 +193,7 @@ class Zend_Gdata_YouTube_PlaylistListEntry extends Zend_Gdata_Entry
     /**
      * Returns the description relating to the video.
      *
-     * @return Zend_Gdata_YouTube_Extension_Description  The description 
+     * @return Zend_Gdata_YouTube_Extension_Description  The description
      *         relating to the video
      */
     public function getDescription()
@@ -209,7 +209,7 @@ class Zend_Gdata_YouTube_PlaylistListEntry extends Zend_Gdata_Entry
      * Returns the countHint relating to the playlist.
      *
      * The countHint is the number of videos on a playlist.
-     * 
+     *
      * @throws Zend_Gdata_App_VersionException
      * @return Zend_Gdata_YouTube_Extension_CountHint  The count of videos on
      *         a playlist.
@@ -219,7 +219,7 @@ class Zend_Gdata_YouTube_PlaylistListEntry extends Zend_Gdata_Entry
         if (($this->getMajorProtocolVersion() == null) ||
             ($this->getMajorProtocolVersion() == 1)) {
             #require_once 'Zend/Gdata/App/VersionException.php';
-            throw new Zend_Gdata_App_VersionException('The yt:countHint ' . 
+            throw new Zend_Gdata_App_VersionException('The yt:countHint ' .
                 'element is not supported in versions earlier than 2.');
         } else {
             return $this->_countHint;
@@ -228,7 +228,7 @@ class Zend_Gdata_YouTube_PlaylistListEntry extends Zend_Gdata_Entry
 
     /**
      * Returns the Id relating to the playlist.
-     * 
+     *
      * @throws Zend_Gdata_App_VersionException
      * @return Zend_Gdata_YouTube_Extension_PlaylistId  The id of this playlist.
      */
@@ -237,7 +237,7 @@ class Zend_Gdata_YouTube_PlaylistListEntry extends Zend_Gdata_Entry
         if (($this->getMajorProtocolVersion() == null) ||
             ($this->getMajorProtocolVersion() == 1)) {
             #require_once 'Zend/Gdata/App/VersionException.php';
-            throw new Zend_Gdata_App_VersionException('The yt:playlistId ' . 
+            throw new Zend_Gdata_App_VersionException('The yt:playlistId ' .
                 'element is not supported in versions earlier than 2.');
         } else {
             return $this->_playlistId;

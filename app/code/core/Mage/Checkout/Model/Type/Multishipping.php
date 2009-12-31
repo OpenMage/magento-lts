@@ -472,6 +472,8 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
         }
 
         Mage::getSingleton('core/session')->setOrderIds($orderIds);
+        Mage::getSingleton('checkout/session')->setLastQuoteId($this->getQuote()->getId());
+
         $this->getQuote()
             ->setIsActive(false)
             ->save();

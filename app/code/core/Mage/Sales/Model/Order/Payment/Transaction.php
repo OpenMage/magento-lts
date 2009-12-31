@@ -74,6 +74,13 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     protected $_transactionsAutoLinking = true;
 
     /**
+     * Whether to throw exceptions on different operations
+     *
+     * @var bool
+     */
+    protected $_isFailsafe = false;
+
+    /**
      * Whether transaction has children
      * @var bool
      */
@@ -420,8 +427,10 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     public function close($shouldSave = true)
     {
-        $this->_verifyThisTransactionExists();
-        if (1 == $this->getIsClosed()) {
+        if (!$this->_isFailsafe) {
+            $this->_verifyThisTransactionExists();
+        }
+        if (1 == $this->getIsClosed() && $this->_isFailsafe) {
             Mage::throwException(Mage::helper('sales')->__('The transaction "%s" (%s) is already closed.', $this->getTxnId(), $this->getTxnType()));
         }
         $this->setIsClosed(1);
@@ -429,9 +438,15 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             $this->save();
         }
         if ($this->_transactionsAutoLinking && self::TYPE_AUTH === $this->getTxnType()) {
-            $paymentTransaction = $this->getParentTransaction();
-            if ($paymentTransaction) {
-                $paymentTransaction->close($shouldSave);
+            try {
+                $paymentTransaction = $this->getParentTransaction();
+                if ($paymentTransaction) {
+                    $paymentTransaction->close($shouldSave);
+                }
+            } catch (Exception $e) {
+                if (!$this->_isFailsafe) {
+                    throw $e;
+                }
             }
         }
         return $this;
@@ -474,6 +489,20 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     }
 
     /**
+     * Setter/Getter whether transaction is supposed to prevent exceptions on saving
+     *
+     * @param bool $failsafe
+     */
+    public function isFailsafe($setFailsafe = null)
+    {
+        if (null === $setFailsafe) {
+            return $this->_isFailsafe;
+        }
+        $this->_isFailsafe = (bool)$setFailsafe;
+        return $this;
+    }
+
+    /**
      * Verify data required for saving
      * @return Mage_Sales_Model_Order_Payment_Transaction
      * @throws Mage_Core_Exception
@@ -485,22 +514,6 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         $this->setPaymentId($this->_paymentObject->getId())
             ->setOrderId($this->getOrderId());
         return parent::_beforeSave();
-    }
-
-    /**
-     * Perform automatic actions with transactions hierarchy, if required
-     * @return Mage_Sales_Model_Order_Payment_Transaction
-     */
-    protected function _afterSave()
-    {
-        if ($this->_transactionsAutoLinking) {
-            $txnType = $this->getTxnType();
-            // auto close authorizations after void
-            if (self::TYPE_VOID === $txnType) {
-                $this->closeAuthorization();
-            }
-        }
-        return parent::_afterSave();
     }
 
     /**

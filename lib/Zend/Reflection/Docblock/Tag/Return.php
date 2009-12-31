@@ -16,7 +16,7 @@
  * @package    Zend_Reflection
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Return.php 18160 2009-09-17 12:03:29Z carlton $
+ * @version    $Id: Return.php 19062 2009-11-19 21:04:08Z beberlei $
  */
 
 /** Zend_Reflection_Docblock_Tag */
@@ -34,7 +34,7 @@ class Zend_Reflection_Docblock_Tag_Return extends Zend_Reflection_Docblock_Tag
      * @var string
      */
     protected $_type = null;
-    
+
     /**
      * Constructor
      *
@@ -43,23 +43,23 @@ class Zend_Reflection_Docblock_Tag_Return extends Zend_Reflection_Docblock_Tag
      */
     public function __construct($tagDocblockLine)
     {
-        if (!preg_match('#^@(\w+)\s+(\w+)(?:\s+(.*))?#', $tagDocblockLine, $matches)) {
+        if (!preg_match('#^@(\w+)\s+([\w|\\\]+)(?:\s+(.*))?#', $tagDocblockLine, $matches)) {
             #require_once 'Zend/Reflection/Exception.php';
             throw new Zend_Reflection_Exception('Provided docblock line is does not contain a valid tag');
         }
-        
+
         if ($matches[1] != 'return') {
             #require_once 'Zend/Reflection/Exception.php';
             throw new Zend_Reflection_Exception('Provided docblock line is does not contain a valid @return tag');
         }
-        
+
         $this->_name = 'return';
         $this->_type = $matches[2];
         if (isset($matches[3])) {
             $this->_description = $matches[3];
         }
     }
-    
+
     /**
      * Get return variable type
      *

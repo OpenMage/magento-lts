@@ -57,6 +57,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     protected function _initInvoice($update = false)
     {
         $invoice = false;
+        $itemsToInvoice = 0;
+
         if ($invoiceId = $this->getRequest()->getParam('invoice_id')) {
             $invoice = Mage::getModel('sales/order_invoice')->load($invoiceId);
         }
@@ -107,9 +109,16 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                         $qty = $orderItem->getQtyToInvoice();
                     }
                 }
+                $itemsToInvoice += floatval($qty);
                 $item->setQty($qty);
                 $invoice->addItem($item);
             }
+
+            if ($itemsToInvoice <= 0){
+                Mage::throwException($this->__('Invoice without products could not be created.'));
+                return false;
+            }
+
             $invoice->collectTotals();
         }
 
@@ -308,6 +317,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                     $invoice->setEmailSent(true);
                 }
 
+                $invoice->getOrder()->setCustomerNoteNotify(!empty($data['send_email']));
                 $invoice->getOrder()->setIsInProcess(true);
 
                 $transactionSave = Mage::getModel('core/resource_transaction')
@@ -352,7 +362,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 $this->_redirect('*/sales_order/view', array('order_id' => $orderId));
             }
             else {
-                $this->_forward('noRoute');
+                $this->_redirect('*/*/new', array('order_id' => $orderId));
             }
             return;
         }

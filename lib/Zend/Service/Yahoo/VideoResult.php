@@ -18,7 +18,7 @@
  * @subpackage Yahoo
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: VideoResult.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: VideoResult.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 
@@ -87,7 +87,7 @@ class Zend_Service_Yahoo_VideoResult extends Zend_Service_Yahoo_Result
     public $Duration;
 
     /**
-     * The number of audio channels in the video 
+     * The number of audio channels in the video
      *
      * @var string
      */

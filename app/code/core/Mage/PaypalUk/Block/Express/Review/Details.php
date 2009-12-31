@@ -40,21 +40,11 @@ class Mage_PaypalUk_Block_Express_Review_Details extends Mage_Checkout_Block_Car
      *
      * @return Mage_Paypal_Model_Express_Review
      */
-    /**
-     * Get PayPalUk Express Review Information
-     *
-     * @return Mage_PaypalUk_Model_Express_Review
-     */
     public function getReview()
     {
         return Mage::getSingleton('paypaluk/express_review');
     }
 
-    /**
-     * Return review shipping address
-     *
-     * @return Mage_Sales_Model_Order_address
-     */
     public function getAddress()
     {
         if (empty($this->_address)) {
@@ -63,20 +53,11 @@ class Mage_PaypalUk_Block_Express_Review_Details extends Mage_Checkout_Block_Car
         return $this->_address;
     }
 
-    /**
-     * Return review quote items
-     *
-     * @return Mage_Sales_Model_Mysql4_Order_Item_Collection
-     */
     public function getItems()
     {
         return $this->getReview()->getQuote()->getAllItems();
     }
 
-    /**
-     * Return review quote totals
-     * @return array
-     */
     public function getTotals()
     {
         return $this->getReview()->getQuote()->getTotals();

@@ -17,17 +17,12 @@
  * @subpackage Index
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SegmentMerger.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: SegmentMerger.php 18954 2009-11-12 20:01:33Z alexander $
  */
 
 /** Zend_Search_Lucene_Index_SegmentInfo */
 #require_once 'Zend/Search/Lucene/Index/SegmentInfo.php';
 
-/** Zend_Search_Lucene_Index_SegmentWriter_StreamWriter */
-#require_once 'Zend/Search/Lucene/Index/SegmentWriter/StreamWriter.php';
-
-/** Zend_Search_Lucene_Index_TermsPriorityQueue */
-#require_once 'Zend/Search/Lucene/Index/TermsPriorityQueue.php';
 
 /**
  * @category   Zend
@@ -87,6 +82,8 @@ class Zend_Search_Lucene_Index_SegmentMerger
      */
     public function __construct($directory, $name)
     {
+        /** Zend_Search_Lucene_Index_SegmentWriter_StreamWriter */
+        #require_once 'Zend/Search/Lucene/Index/SegmentWriter/StreamWriter.php';
         $this->_writer = new Zend_Search_Lucene_Index_SegmentWriter_StreamWriter($directory, $name);
     }
 
@@ -226,6 +223,9 @@ class Zend_Search_Lucene_Index_SegmentMerger
      */
     private function _mergeTerms()
     {
+        /** Zend_Search_Lucene_Index_TermsPriorityQueue */
+        #require_once 'Zend/Search/Lucene/Index/TermsPriorityQueue.php';
+
         $segmentInfoQueue = new Zend_Search_Lucene_Index_TermsPriorityQueue();
 
         $segmentStartId = 0;

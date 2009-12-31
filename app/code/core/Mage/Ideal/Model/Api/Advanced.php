@@ -72,7 +72,7 @@ class Mage_Ideal_Model_Api_Advanced extends Varien_Object
         }
 
         if (!($description = $this->getConfigData('description'))) {
-            $description = Mage::app()->getStore()->getName() . ' payment';
+            $description = Mage::app()->getStore()->getFrontendName() . ' payment';
         }
 
         $this->_conf = array(

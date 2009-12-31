@@ -20,13 +20,13 @@
 
 /**
  * Zend_Form_Decorator_Interface
- * 
+ *
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Interface.php 16218 2009-06-21 19:44:04Z thomas $
+ * @version    $Id: Interface.php 18951 2009-11-12 16:26:19Z alexander $
  */
 interface Zend_Form_Decorator_Interface
 {
@@ -34,8 +34,8 @@ interface Zend_Form_Decorator_Interface
      * Constructor
      *
      * Accept options during initialization.
-     * 
-     * @param  array|Zend_Config $options 
+     *
+     * @param  array|Zend_Config $options
      * @return void
      */
     public function __construct($options = null);
@@ -43,79 +43,79 @@ interface Zend_Form_Decorator_Interface
     /**
      * Set an element to decorate
      *
-     * While the name is "setElement", a form decorator could decorate either 
+     * While the name is "setElement", a form decorator could decorate either
      * an element or a form object.
-     * 
-     * @param  mixed $element 
+     *
+     * @param  mixed $element
      * @return Zend_Form_Decorator_Interface
      */
     public function setElement($element);
 
     /**
      * Retrieve current element
-     * 
+     *
      * @return mixed
      */
     public function getElement();
 
     /**
      * Set decorator options from an array
-     * 
-     * @param  array $options 
+     *
+     * @param  array $options
      * @return Zend_Form_Decorator_Interface
      */
     public function setOptions(array $options);
 
     /**
      * Set decorator options from a config object
-     * 
-     * @param  Zend_Config $config 
+     *
+     * @param  Zend_Config $config
      * @return Zend_Form_Decorator_Interface
      */
     public function setConfig(Zend_Config $config);
 
     /**
      * Set a single option
-     * 
-     * @param  string $key 
-     * @param  mixed $value 
+     *
+     * @param  string $key
+     * @param  mixed $value
      * @return Zend_Form_Decorator_Interface
      */
     public function setOption($key, $value);
 
     /**
      * Retrieve a single option
-     * 
-     * @param  string $key 
+     *
+     * @param  string $key
      * @return mixed
      */
     public function getOption($key);
 
     /**
      * Retrieve decorator options
-     * 
+     *
      * @return array
      */
     public function getOptions();
 
     /**
      * Delete a single option
-     * 
-     * @param  string $key 
+     *
+     * @param  string $key
      * @return bool
      */
     public function removeOption($key);
 
     /**
      * Clear all options
-     * 
+     *
      * @return Zend_Form_Decorator_Interface
      */
     public function clearOptions();
 
     /**
      * Render the element
-     * 
+     *
      * @param  string $content Content to decorate
      * @return string
      */

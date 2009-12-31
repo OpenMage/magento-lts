@@ -71,9 +71,9 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock
         if (empty($data['product_id'])) {
             return $this;
         }
-        $write = $this->_getWriteAdapter();
+        $adapter = $this->_getWriteAdapter();
+
         $productId = $data['product_id'];
-        $this->cloneIndexTable(true);
 
         $parentIds = $this->getRelationsByChild($productId);
         if ($parentIds) {
@@ -81,30 +81,41 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock
         } else {
             $processIds = array($productId);
         }
-        $this->_copyRelationIndexData($processIds, array($productId));
 
         // retrieve product types by processIds
-        $select = $write->select()
+        $select = $adapter->select()
             ->from($this->getTable('catalog/product'), array('entity_id', 'type_id'))
             ->where('entity_id IN(?)', $processIds);
-        $pairs  = $write->fetchPairs($select);
+        $pairs  = $adapter->fetchPairs($select);
 
         $byType = array();
         foreach ($pairs as $productId => $typeId) {
             $byType[$typeId][$productId] = $productId;
         }
 
-        $indexers = $this->_getTypeIndexers();
-        foreach ($indexers as $indexer) {
-            if (isset($byType[$indexer->getTypeId()])) {
-                $indexer->reindexEntity($byType[$indexer->getTypeId()]);
+        $adapter->beginTransaction();
+        try {
+            $indexers = $this->_getTypeIndexers();
+            foreach ($indexers as $indexer) {
+                if (isset($byType[$indexer->getTypeId()])) {
+                    $indexer->reindexEntity($byType[$indexer->getTypeId()]);
+                }
             }
+        } catch (Exception $e) {
+            $adapter->rollback();
+            throw $e;
         }
+        $adapter->commit();
 
-        $this->_copyIndexDataToMainTable($processIds);
         return $this;
     }
 
+    /**
+     * Processing parent products after child product deleted
+     *
+     * @param Mage_Index_Model_Event $event
+     * @return Mage_CatalogInventory_Model_Mysql4_Indexer_Stock
+     */
     public function catalogProductDelete(Mage_Index_Model_Event $event)
     {
         $data = $event->getNewData();
@@ -112,20 +123,24 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock
             return $this;
         }
 
-        $this->cloneIndexTable(true);
+        $adapter = $this->_getWriteAdapter();
 
-        $processIds = array_keys($data['reindex_stock_parent_ids']);
         $parentIds  = array();
         foreach ($data['reindex_stock_parent_ids'] as $parentId => $parentType) {
             $parentIds[$parentType][$parentId] = $parentId;
         }
 
-        $this->_copyRelationIndexData($processIds);
-        foreach ($parentIds as $parentType => $entityIds) {
-            $this->_getIndexer($parentType)->reindexEntity($entityIds);
+        $adapter->beginTransaction();
+        try {
+            foreach ($parentIds as $parentType => $entityIds) {
+                $this->_getIndexer($parentType)->reindexEntity($entityIds);
+            }
+        } catch (Exception $e) {
+            $adapter->rollback();
+            throw $e;
         }
 
-        $this->_copyIndexDataToMainTable($parentIds);
+        $adapter->commit();
 
         return $this;
     }
@@ -143,12 +158,11 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock
             return $this;
         }
 
+        $adapter = $this->_getWriteAdapter();
         $processIds = $data['reindex_stock_product_ids'];
-
-        $write  = $this->_getWriteAdapter();
-        $select = $write->select()
+        $select = $adapter->select()
             ->from($this->getTable('catalog/product'), 'COUNT(*)');
-        $pCount = $write->fetchOne($select);
+        $pCount = $adapter->fetchOne($select);
 
         // if affected more 30% of all products - run reindex all products
         if ($pCount * 0.3 < count($processIds)) {
@@ -156,76 +170,50 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock
         }
 
         // calculate relations
-        $select = $write->select()
+        $select = $adapter->select()
             ->from($this->getTable('catalog/product_relation'), 'COUNT(DISTINCT parent_id)')
             ->where('child_id IN(?)', $processIds);
-        $aCount = $write->fetchOne($select);
-        $select = $write->select()
+        $aCount = $adapter->fetchOne($select);
+        $select = $adapter->select()
             ->from($this->getTable('catalog/product_relation'), 'COUNT(DISTINCT child_id)')
             ->where('parent_id IN(?)', $processIds);
-        $bCount = $write->fetchOne($select);
+        $bCount = $adapter->fetchOne($select);
 
         // if affected with relations more 30% of all products - run reindex all products
         if ($pCount * 0.3 < count($processIds) + $aCount + $bCount) {
             return $this->reindexAll();
         }
 
-        $this->cloneIndexTable(true);
+
+        // retrieve affected parent relation products
+        $parentIds = $this->getRelationsByChild($processIds);
+        if ($parentIds) {
+            $processIds = array_merge($processIds, $parentIds);
+        }
 
         // retrieve products types
-        $select = $write->select()
+        $select = $adapter->select()
             ->from($this->getTable('catalog/product'), array('entity_id', 'type_id'))
             ->where('entity_id IN(?)', $processIds);
-        $pairs  = $write->fetchPairs($select);
+        $query  = $select->query(Zend_Db::FETCH_ASSOC);
         $byType = array();
-        foreach ($pairs as $productId => $productType) {
-            $byType[$productType][$productId] = $productId;
+        while ($row = $query->fetch()) {
+            $byType[$row['type_id']][] = $row['entity_id'];
         }
 
-        $compositeIds    = array();
-        $notCompositeIds = array();
-
-        foreach ($byType as $productType => $entityIds) {
-            $indexer = $this->_getIndexer($productType);
-            if ($indexer->getIsComposite()) {
-                $compositeIds += $entityIds;
-            } else {
-                $notCompositeIds += $entityIds;
-            }
-        }
-
-        if (!empty($notCompositeIds)) {
-            $select = $write->select()
-                ->from(
-                    array('l' => $this->getTable('catalog/product_relation')),
-                    'parent_id')
-                ->join(
-                    array('e' => $this->getTable('catalog/product')),
-                    'e.entity_id = l.parent_id',
-                    array('type_id'))
-                ->where('l.child_id IN(?)', $notCompositeIds);
-            $pairs  = $write->fetchPairs($select);
-            foreach ($pairs as $productId => $productType) {
-                if (!in_array($productId, $processIds)) {
-                    $processIds[] = $productId;
-                    $byType[$productType][$productId] = $productId;
-                    $compositeIds[$productId] = $productId;
+        $adapter->beginTransaction();
+        try {
+            $indexers = $this->_getTypeIndexers();
+            foreach ($indexers as $indexer) {
+                if (!empty($byType[$indexer->getTypeId()])) {
+                    $indexer->reindexEntity($byType[$indexer->getTypeId()]);
                 }
             }
+        } catch (Exception $e) {
+            $adapter->rollback();
+            throw $e;
         }
-
-        if (!empty($compositeIds)) {
-            $this->_copyRelationIndexData($compositeIds, $notCompositeIds);
-        }
-
-        $indexers = $this->_getTypeIndexers();
-        foreach ($indexers as $indexer) {
-            if (!empty($byType[$indexer->getTypeId()])) {
-                $indexer->reindexEntity($byType[$indexer->getTypeId()]);
-            }
-        }
-
-        $this->_copyIndexDataToMainTable($processIds);
+        $adapter->commit();
 
         return $this;
     }
@@ -278,7 +266,7 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock
      * Retrieve Stock indexer by Product Type
      *
      * @param string $productTypeId
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Interface
+     * @return Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Interface
      */
     protected function _getIndexer($productTypeId)
     {
@@ -313,6 +301,7 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock
     /**
      * Copy relations product index from primary index to temporary index table by parent entity
      *
+     * @deprecated since 1.4.0
      * @param array|int $parentIds
      * @package array|int $excludeIds
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price
@@ -343,6 +332,7 @@ class Mage_CatalogInventory_Model_Mysql4_Indexer_Stock
     /**
      * Copy data from temporary index table to main table by defined ids
      *
+     * @deprecated since 1.4.0
      * @param array $processIds
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price
      */

@@ -237,6 +237,16 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
             ->toString($format);
     }
 
+    /**
+     * Is 'contact us' option enabled?
+     *
+     * @return boolean
+     */
+    public function getContactUsEnabled()
+    {
+        return (bool) Mage::getStoreConfig('contacts/contacts/enabled');
+    }
+
     public function getStoreSupportEmail()
     {
         return Mage::getStoreConfig('trans_email/ident_support/email');

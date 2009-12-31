@@ -17,7 +17,7 @@
  * @subpackage PHPUnit
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Truncate.php 18470 2009-10-03 10:10:54Z beberlei $
+ * @version    $Id: Truncate.php 19106 2009-11-20 17:15:30Z beberlei $
  */
 
 #require_once "PHPUnit/Extensions/Database/Operation/IDatabaseOperation.php";
@@ -70,7 +70,7 @@ class Zend_Test_PHPUnit_Db_Operation_Truncate implements PHPUnit_Extensions_Data
 
     /**
      * Truncate a given table.
-     * 
+     *
      * @param Zend_Db_Adapter_Abstract $db
      * @param string $tableName
      * @return void
@@ -81,16 +81,20 @@ class Zend_Test_PHPUnit_Db_Operation_Truncate implements PHPUnit_Extensions_Data
         if($db instanceof Zend_Db_Adapter_Pdo_Sqlite) {
             $db->query('DELETE FROM '.$tableName);
         } else if($db instanceof Zend_Db_Adapter_Db2) {
-            if(strstr(PHP_OS, "WIN")) {
+            /*if(strstr(PHP_OS, "WIN")) {
                 $file = tempnam(sys_get_temp_dir(), "zendtestdbibm_");
                 file_put_contents($file, "");
                 $db->query('IMPORT FROM '.$file.' OF DEL REPLACE INTO '.$tableName);
                 unlink($file);
             } else {
                 $db->query('IMPORT FROM /dev/null OF DEL REPLACE INTO '.$tableName);
-            }
+            }*/
+            #require_once "Zend/Exception.php";
+            throw Zend_Exception("IBM Db2 TRUNCATE not supported.");
         } else if($this->_isMssqlOrOracle($db)) {
             $db->query('TRUNCATE TABLE '.$tableName);
+        } else if($db instanceof Zend_Db_Adapter_Pdo_Pgsql) {
+            $db->query('TRUNCATE '.$tableName.' CASCADE');
         } else {
             $db->query('TRUNCATE '.$tableName);
         }
@@ -98,7 +102,7 @@ class Zend_Test_PHPUnit_Db_Operation_Truncate implements PHPUnit_Extensions_Data
 
     /**
      * Detect if an adapter is for Mssql or Oracle Databases.
-     * 
+     *
      * @param  Zend_Db_Adapter_Abstract $db
      * @return bool
      */

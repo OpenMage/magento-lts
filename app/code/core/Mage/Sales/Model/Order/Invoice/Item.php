@@ -204,7 +204,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      */
     public function isLast()
     {
-        if ($this->getQty() == $this->getOrderItem()->getQtyToInvoice()) {
+        if ((string)(float)$this->getQty() == (string)(float)$this->getOrderItem()->getQtyToInvoice()) {
             return true;
         }
         return false;

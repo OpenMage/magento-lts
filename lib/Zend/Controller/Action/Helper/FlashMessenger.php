@@ -38,7 +38,7 @@
  * @subpackage Zend_Controller_Action_Helper
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FlashMessenger.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: FlashMessenger.php 18951 2009-11-12 16:26:19Z alexander $
  */
 class Zend_Controller_Action_Helper_FlashMessenger extends Zend_Controller_Action_Helper_Abstract implements IteratorAggregate, Countable
 {
@@ -221,10 +221,10 @@ class Zend_Controller_Action_Helper_FlashMessenger extends Zend_Controller_Actio
             unset(self::$_session->{$this->_namespace});
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * getIterator() - complete the IteratorAggregate interface, for iterating
      *
@@ -255,8 +255,8 @@ class Zend_Controller_Action_Helper_FlashMessenger extends Zend_Controller_Actio
 
     /**
      * Strategy pattern: proxy to addMessage()
-     * 
-     * @param  string $message 
+     *
+     * @param  string $message
      * @return void
      */
     public function direct($message)

@@ -52,6 +52,9 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/invoice_comment/copy_method';
     const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/invoice_comment/enabled';
 
+    const REPORT_DATE_TYPE_ORDER_CREATED        = 'order_created';
+    const REPORT_DATE_TYPE_INVOICE_CREATED      = 'invoice_created';
+
     protected static $_states;
 
     protected $_items;
@@ -269,6 +272,15 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         );
         Mage::dispatchEvent('sales_order_invoice_pay', array($this->_eventObject=>$this));
         return $this;
+    }
+
+    /**
+     * Whether pay() method was called (whether order and payment totals were updated)
+     * @return bool
+     */
+    public function wasPayCalled()
+    {
+        return $this->_wasPayCalled;
     }
 
     /**

@@ -109,7 +109,7 @@ class Mage_Paypal_Model_Ipn
         if ($this->_config->debugFlag) {
             Mage::getModel('paypal/api_debug')
                 ->setApiEndpoint($this->_config->getPaypalUrl())
-                ->setRequestBody(print_r($this->_ipnFormData, 1))
+                ->setRequestBody(var_export($this->_ipnFormData, 1))
                 ->save();
         }
 
@@ -137,7 +137,7 @@ class Mage_Paypal_Model_Ipn
         }
 
         if ($error = $http->getError()) {
-            $this->_notifyAdmin(Mage::helper('paypal')->__('PayPal IPN postback HTTP error: %s', $http->getError()));
+            $this->_notifyAdmin(Mage::helper('paypal')->__('PayPal IPN postback HTTP error: %s', $error));
             return;
         }
 
@@ -185,8 +185,14 @@ class Mage_Paypal_Model_Ipn
     {
         // verify merchant email intended to receive notification
         $merchantEmail = $this->_config->businessAccount;
-        if ($merchantEmail && $merchantEmail != $this->getIpnFormData('receiver_email')) {
-            Mage::throwException(Mage::helper('paypal')->__('Requested %s and configured %s merchant emails do not match.', $this->getIpnFormData('receiver_email'), $merchantEmail));
+        if ($merchantEmail) {
+            $receiverEmail = $this->getIpnFormData('business');
+            if (!$receiverEmail) {
+                $receiverEmail = $this->getIpnFormData('receiver_email');
+            }
+            if ($merchantEmail != $receiverEmail) {
+                Mage::throwException(Mage::helper('paypal')->__('Requested %s and configured %s merchant emails do not match.', $receiverEmail, $merchantEmail));
+            }
         }
     }
 
@@ -197,10 +203,11 @@ class Mage_Paypal_Model_Ipn
      */
     public function processIpnVerified()
     {
+        $wasPaymentInformationChanged = false;
         try {
             try {
                 $order = $this->_getOrder();
-                $shouldNotifyAdmin = false;
+                $wasPaymentInformationChanged = $this->_importPaymentInformation($order->getPayment());
                 $paymentStatus = $this->getIpnFormData('payment_status');
                 switch ($paymentStatus) {
                     // paid with german bank
@@ -267,6 +274,9 @@ class Mage_Paypal_Model_Ipn
         } catch (Exception $e) {
             Mage::logException($e);
         }
+        if ($wasPaymentInformationChanged) {
+            $order->getPayment()->save();
+        }
     }
 
     /**
@@ -285,6 +295,7 @@ class Mage_Paypal_Model_Ipn
         $payment->setTransactionId($this->getIpnFormData('txn_id'))
             ->setPreparedMessage($this->_createIpnComment('', false))
             ->setParentTransactionId($this->getIpnFormData('parent_txn_id'))
+            ->setShouldCloseParentTransaction(self::AUTH_STATUS_COMPLETED === $this->getIpnFormData('auth_status'))
             ->setIsTransactionClosed(0)
             ->registerCaptureNotification($this->getIpnFormData('mc_gross'));
         $order->save();
@@ -296,12 +307,6 @@ class Mage_Paypal_Model_Ipn
                 )
                 ->setIsCustomerNotified(true)
                 ->save();
-        }
-
-        // mark authorization as closed, if any
-        $authStatus = $this->getIpnFormData('auth_status');
-        if (self::AUTH_STATUS_COMPLETED === $authStatus && $transaction = $payment->getCreatedTransaction()) {
-            $transaction->closeAuthorization();
         }
     }
 
@@ -353,7 +358,7 @@ class Mage_Paypal_Model_Ipn
         $order = $this->_getOrder();
         $message = null;
         switch ($this->getIpnFormData('pending_reason')) {
-            case 'address':
+            case 'address': // for some reason PayPal gives "address" reason, when Fraud Management Filter triggered
                 $message = Mage::helper('paypal')->__('Customer used non-confirmed address.');
                 break;
             case 'echeck':
@@ -388,7 +393,8 @@ class Mage_Paypal_Model_Ipn
                 break;
         }
         if ($message) {
-            $this->_createIpnComment($message);
+            $history = $this->_createIpnComment($message);
+            $history->save();
         }
     }
 
@@ -418,18 +424,10 @@ class Mage_Paypal_Model_Ipn
     {
         $order = $this->_getOrder();
 
-        $txnId = $this->getIpnFormData('txn_id');
-        $parentTxnId = $this->getIpnFormData('parent_txn_id');
-        // workaround for receiving a dupe of txn_id without parent_txn_id
-        if (!$parentTxnId) {
-            $parentTxnId = $txnId;
-            $txnId .= '-VOID-WORKAROUND';
-        }
-
+        $txnId = $this->getIpnFormData('txn_id'); // this is the authorization transaction ID
         $order->getPayment()
             ->setPreparedMessage($this->_createIpnComment($explanationMessage, false))
-            ->setTransactionId($txnId)
-            ->setParentTransactionId($parentTxnId)
+            ->setParentTransactionId($txnId)
             ->registerVoidNotification();
         $order->save();
     }
@@ -512,5 +510,46 @@ class Mage_Paypal_Model_Ipn
                 break;
         }
         return $this->_createIpnComment(Mage::helper('paypal')->__('Explanation: %s.', $message), $addToHistory);
+    }
+
+    /**
+     * Map payment information from IPN to payment object
+     * Returns true if there were changes in information
+     *
+     * @param Mage_Payment_Model_Info $payment
+     * @return bool
+     */
+    protected function _importPaymentInformation(Mage_Payment_Model_Info $payment)
+    {
+        $was = $payment->getAdditionalInformation();
+
+        $from = array();
+        foreach (array(
+            Mage_Paypal_Model_Info::PAYER_ID,
+            'payer_email' => Mage_Paypal_Model_Info::PAYER_EMAIL,
+            Mage_Paypal_Model_Info::PAYER_STATUS,
+            Mage_Paypal_Model_Info::ADDRESS_STATUS,
+            Mage_Paypal_Model_Info::PROTECTION_EL,
+        ) as $privateKey => $publicKey) {
+            if (is_int($privateKey)) {
+                $privateKey = $publicKey;
+            }
+            $value = $this->getIpnFormData($privateKey);
+            if ($value) {
+                $from[$publicKey] = $value;
+            }
+        }
+
+        // collect fraud filters
+        $fraudFilters = array();
+        for ($i = 1; $value = $this->getIpnFormData("fraud_management_pending_filters_{$i}"); $i++) {
+            $fraudFilters[] = $value;
+        }
+        if ($fraudFilters) {
+            $from[Mage_Paypal_Model_Info::FRAUD_FILTERS] = $fraudFilters;
+        }
+
+        Mage::getSingleton('paypal/info')->importToPayment($from, $payment);
+        return $was != $payment->getAdditionalInformation();
     }
 }

@@ -17,7 +17,7 @@
  * @subpackage Select
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Select.php 18511 2009-10-12 14:33:35Z ralph $
+ * @version    $Id: Select.php 19155 2009-11-21 09:48:02Z mikaelkael $
  */
 
 
@@ -173,7 +173,7 @@ class Zend_Db_Select
      */
     public function getBind()
     {
-    	return $this->_bind;
+        return $this->_bind;
     }
 
     /**
@@ -184,9 +184,9 @@ class Zend_Db_Select
      */
     public function bind($bind)
     {
-    	$this->_bind = $bind;
+        $this->_bind = $bind;
 
-    	return $this;
+        return $this;
     }
 
     /**
@@ -1246,8 +1246,7 @@ class Zend_Db_Select
 
         if (!empty($this->_parts[self::LIMIT_OFFSET])) {
             $offset = (int) $this->_parts[self::LIMIT_OFFSET];
-            // This should reduce to the max integer PHP can support
-            $count = intval(9223372036854775807);
+            $count = PHP_INT_MAX;
         }
 
         if (!empty($this->_parts[self::LIMIT_COUNT])) {

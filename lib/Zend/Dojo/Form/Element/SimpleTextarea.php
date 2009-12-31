@@ -24,14 +24,14 @@
 
 /**
  * dijit.form.SimpleTextArea
- * 
+ *
  * @uses       Zend_Dojo_Form_Element_Dijit
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form_Element
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SimpleTextarea.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: SimpleTextarea.php 18951 2009-11-12 16:26:19Z alexander $
  */
 class Zend_Dojo_Form_Element_SimpleTextarea extends Zend_Dojo_Form_Element_Dijit
 {

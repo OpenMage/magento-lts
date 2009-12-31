@@ -110,3 +110,4 @@ $installer->run("
 ");
 
 $this->endSetup();
+

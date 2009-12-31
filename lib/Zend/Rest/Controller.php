@@ -15,7 +15,7 @@
  * @package    Zend_Rest
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Controller.php 16595 2009-07-09 20:26:25Z matthew $
+ * @version    $Id: Controller.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /** Zend_Controller_Action */
@@ -24,45 +24,45 @@
 /**
  * An abstract class to guide implementation of action controllers for use with
  * Zend_Rest_Route.
- * 
+ *
  * @package Zend_Rest
  * @see Zend_Rest_Route
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License 
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Rest_Controller extends Zend_Controller_Action
 {
     /**
      * The index action handles index/list requests; it should respond with a
      * list of the requested resources.
-     */  
+     */
     abstract public function indexAction();
 
     /**
-     * The get action handles GET requests and receives an 'id' parameter; it 
+     * The get action handles GET requests and receives an 'id' parameter; it
      * should respond with the server resource state of the resource identified
      * by the 'id' value.
-     */  
+     */
     abstract public function getAction();
-    
+
     /**
      * The post action handles POST requests; it should accept and digest a
      * POSTed resource representation and persist the resource state.
-     */  
+     */
     abstract public function postAction();
-    
+
     /**
-     * The put action handles PUT requests and receives an 'id' parameter; it 
-     * should update the server resource state of the resource identified by 
+     * The put action handles PUT requests and receives an 'id' parameter; it
+     * should update the server resource state of the resource identified by
      * the 'id' value.
-     */  
+     */
     abstract public function putAction();
-    
+
     /**
-     * The delete action handles DELETE requests and receives an 'id' 
+     * The delete action handles DELETE requests and receives an 'id'
      * parameter; it should update the server resource state of the resource
      * identified by the 'id' value.
-     */  
+     */
     abstract public function deleteAction();
-    
+
 }

@@ -134,11 +134,25 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected $_countTotals = false;
 
     /**
+     * Count subtotals
+     *
+     * @var boolean
+     */
+    protected $_countSubTotals = false;
+
+    /**
      * Totals
      *
      * @var Varien_Object
      */
     protected $_varTotals;
+
+    /**
+     * SubTotals
+     *
+     * @var array
+     */
+    protected $_subtotals = array();
 
     /**
      * Grid export types
@@ -174,6 +188,20 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * @var array
      */
     protected $_columnsOrder = array();
+
+    /**
+     * Columns to group by
+     *
+     * @var array
+     */
+    protected $_groupedColumn = array();
+
+    /**
+     * Label for empty cell
+     *
+     * @var string
+     */
+    protected $_emptyCellLabel = '';
 
     public function __construct($attributes=array())
     {
@@ -809,12 +837,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $row = array();
         foreach ($this->_columns as $column) {
-            Mage::log($column->getExportHeader());
             if (!$column->getIsSystem()) {
                 $row[] = $column->getExportHeader();
             }
         }
-        Mage::log($row);
         return $row;
     }
 
@@ -928,15 +954,51 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         );
     }
 
-    /**
+     /**
      * Retrieve Grid data as CSV
      *
      * @return string
      */
     public function getCsv()
     {
-        $fileData = $this->getCsvFile();
-        return $this->_getFileContainerContent($fileData);
+        $csv = '';
+        $this->_isExport = true;
+        $this->_prepareGrid();
+        $this->getCollection()->getSelect()->limit();
+        $this->getCollection()->setPageSize(0);
+        $this->getCollection()->load();
+        $this->_afterLoadCollection();
+
+        $data = array();
+        foreach ($this->_columns as $column) {
+            if (!$column->getIsSystem()) {
+                $data[] = '"'.$column->getExportHeader().'"';
+            }
+        }
+        $csv.= implode(',', $data)."\n";
+
+        foreach ($this->getCollection() as $item) {
+            $data = array();
+            foreach ($this->_columns as $column) {
+                if (!$column->getIsSystem()) {
+                    $data[] = '"'.str_replace(array('"', '\\'), array('""', '\\\\'), $column->getRowFieldExport($item)).'"';
+                }
+            }
+            $csv.= implode(',', $data)."\n";
+        }
+
+        if ($this->getCountTotals())
+        {
+            $data = array();
+            foreach ($this->_columns as $column) {
+                if (!$column->getIsSystem()) {
+                    $data[] = '"'.str_replace(array('"', '\\'), array('""', '\\\\'), $column->getRowFieldExport($this->getTotals())).'"';
+                }
+            }
+            $csv.= implode(',', $data)."\n";
+        }
+
+        return $csv;
     }
 
     public function getXml()
@@ -1040,8 +1102,48 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     public function getExcel($filename = '')
     {
-        $fileData = $this->getExcelFile($filename);
-        return $this->_getFileContainerContent($fileData);
+        $this->_isExport = true;
+        $this->_prepareGrid();
+        $this->getCollection()->getSelect()->limit();
+        $this->getCollection()->setPageSize(0);
+        $this->getCollection()->load();
+        $this->_afterLoadCollection();
+        $headers = array();
+        $data = array();
+        foreach ($this->_columns as $column) {
+            if (!$column->getIsSystem()) {
+                $headers[] = $column->getHeader();
+            }
+        }
+        $data[] = $headers;
+
+        foreach ($this->getCollection() as $item) {
+            $row = array();
+            foreach ($this->_columns as $column) {
+                if (!$column->getIsSystem()) {
+                    $row[] = $column->getRowField($item);
+                }
+            }
+            $data[] = $row;
+        }
+
+        if ($this->getCountTotals())
+        {
+            $row = array();
+            foreach ($this->_columns as $column) {
+                if (!$column->getIsSystem()) {
+                    $row[] = $column->getRowField($this->getTotals());
+                }
+            }
+            $data[] = $row;
+        }
+
+        $xmlObj = new Varien_Convert_Parser_Xml_Excel();
+        $xmlObj->setVar('single_sheet', $filename);
+        $xmlObj->setData($data);
+        $xmlObj->unparse();
+
+        return $xmlObj->getData();
     }
 
     public function canDisplayContainer()
@@ -1207,12 +1309,12 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Set empty text CSS class
      *
-     * @param string $text
+     * @param string $cssClass
      * @return Mage_Adminhtml_Block_Widget_Grid
      */
     public function setEmptyTextClass($cssClass)
     {
-        $this->_emptyTextCss = $text;
+        $this->_emptyTextCss = $cssClass;
         return $this;
     }
 
@@ -1257,13 +1359,216 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Return count totals
+     * Retrieve totals
      *
-     * @return boolean
+     * @return Varien_Object
      */
     public function getTotals()
     {
         return $this->_varTotals;
     }
 
+    /**
+     * Set subtotals
+     *
+     * @param boolean $flag
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
+    public function setCountSubTotals($flag = true)
+    {
+        $this->_countSubTotals = $flag;
+        return $this;
+    }
+
+    /**
+     * Return count subtotals
+     *
+     * @return boolean
+     */
+    public function getCountSubTotals()
+    {
+        return $this->_countSubTotals;
+    }
+
+    /**
+     * Set subtotal items
+     *
+     * @param array $items
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
+    public function setSubTotals(array $items)
+    {
+        $this->_subtotals = $items;
+        return $this;
+    }
+
+    /**
+     * Retrieve subtotal item
+     *
+     * @param Varien_Object $item
+     * @return Varien_Object
+     */
+    public function getSubTotalItem($item)
+    {
+        foreach ($this->_subtotals as $subtotalItem) {
+            foreach ($this->_groupedColumn as $groupedColumn) {
+                if ($subtotalItem->getData($groupedColumn) == $item->getData($groupedColumn)) {
+                    return $subtotalItem;
+                }
+            }
+        }
+        return '';
+    }
+
+    /**
+     * Retrieve subtotal items
+     *
+     * @return array
+     */
+    public function getSubTotals()
+    {
+        return $this->_subtotals;
+    }
+
+    /**
+     * Check whether subtotal should be rendered
+     *
+     * @param Varien_Object $item
+     * @return boolean
+     */
+    public function shouldRenderSubTotal($item) {
+        return ($this->_countSubTotals && count($this->_subtotals) > 0 && count($this->getMultipleRows($item)) > 0);
+    }
+
+    /**
+     * Retrieve columns to render
+     *
+     * @return unknown
+     */
+    public function getSubTotalColumns() {
+        return $this->getColumns();
+    }
+
+    /**
+     * Retrieve rowspan number
+     *
+     * @param Varien_Object $item
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return integer|boolean
+     */
+    public function getRowspan($item, $column)
+    {
+        if ($this->isColumnGrouped($column)) {
+            return count($this->getMultipleRows($item)) + count($this->_groupedColumn);
+        }
+        return false;
+    }
+
+    /**
+     * Enter description here...
+     *
+     * @param string|object $column
+     * @param string $value
+     * @return boolean|Mage_Adminhtml_Block_Widget_Grid
+     */
+    public function isColumnGrouped($column, $value = null)
+    {
+        if (null === $value) {
+            if (is_object($column)) {
+                return in_array($column->getIndex(), $this->_groupedColumn);
+            }
+            return in_array($column, $this->_groupedColumn);
+        }
+        $this->_groupedColumn[] = $column;
+        return $this;
+    }
+
+    /**
+     * Get children of specified item
+     *
+     * @param Varien_Object $item
+     * @return array
+     */
+    public function getMultipleRows($item)
+    {
+        return $item->getChildren();
+    }
+
+    /**
+     * Retrieve columns for multiple rows
+     *
+     * @param Varien_Object $item
+     * @return array
+     */
+    public function getMultipleRowColumns()
+    {
+        $columns = $this->getColumns();
+        foreach ($this->_groupedColumn as $column) {
+            unset($columns[$column]);
+        }
+        return $columns;
+    }
+
+    /**
+     * Check whether should render cell
+     *
+     * @param Varien_Object $item
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return boolean
+     */
+    public function shouldRenderCell($item, $column)
+    {
+        if ($this->isColumnGrouped($column) && $item->getIsEmpty()) {
+            return true;
+        }
+        if (!$item->getIsEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check whether should render empty cell
+     *
+     * @param Varien_Object $item
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return boolean
+     */
+    public function shouldRenderEmptyCell($item, $column)
+    {
+        return ($item->getIsEmpty() && in_array($column['index'], $this->_groupedColumn));
+    }
+
+    /**
+     * Retrieve colspan for empty cell
+     *
+     * @param Varien_Object $item
+     * @return integer
+     */
+    public function getEmptyCellColspan()
+    {
+        return $this->getColumnCount() - count($this->_groupedColumn);
+    }
+
+    /**
+     * Retrieve label for empty cell
+     *
+     * @return string
+     */
+    public function getEmptyCellLabel()
+    {
+        return $this->_emptyCellLabel;
+    }
+
+    /**
+     * Set label for empty cell
+     *
+     * @param string $label
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
+    public function setEmptyCellLabel($label)
+    {
+        $this->_emptyCellLabel = $label;
+        return $this;
+    }
 }

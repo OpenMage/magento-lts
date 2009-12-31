@@ -70,14 +70,16 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         }
 
         $regExp = $conditions['reg_exp'] ? ('~' . implode('|', array_keys($conditions['reg_exp'])) . '~i') : null;
-
         $collection = $this->getCollection($path)
             ->setCollectDirs(true)
             ->setCollectFiles(false)
             ->setCollectRecursively(false);
+        $storageRootLength = strlen($this->getHelper()->getStorageRoot());
 
         foreach ($collection as $key => $value) {
-            if (array_key_exists($value->getBasename(), $conditions['plain'])
+            $rootChildParts = explode(DIRECTORY_SEPARATOR, substr($value->getFilename(), $storageRootLength));
+
+            if (array_key_exists($rootChildParts[0], $conditions['plain'])
                 || ($regExp && preg_match($regExp, $value->getFilename()))) {
                 $collection->removeItemByKey($key);
             }
@@ -307,7 +309,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $thumbSuffix = self::THUMBS_DIRECTORY_NAME . DS . substr($filePath, strlen($mediaRootDir));
 
             if (! $checkFile || is_readable($mediaRootDir . $thumbSuffix)) {
-                return str_replace('\\', '/', $this->getHelper()->getBaseUrl() . $thumbSuffix);
+                $randomIndex = '?rand=' . time();
+                return str_replace('\\', '/', $this->getHelper()->getBaseUrl() . $thumbSuffix) . $randomIndex;
             }
         }
 

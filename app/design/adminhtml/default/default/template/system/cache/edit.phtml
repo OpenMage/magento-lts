@@ -42,14 +42,18 @@
 </div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="config_edit_form" enctype="multipart/form-data">
     <?php echo $this->getBlockHtml('formkey')?>
+
     <script type="text/javascript">
-    function cacheCatalogAction(button)
+    function setCacheAction(id, button)
     {
-        $('catalog_action').value = button.id;
+        $(id).value = button.id;
         configForm.submit();
     }
     </script>
+
     <input type="hidden" id="catalog_action" name="catalog_action" value="" />
+    <input type="hidden" id="jscss_action" name="jscss_action" value="" />
+
     <?php echo $this->getChildHtml('form') ?>
     <div class="entry-edit">
         <div class="entry-edit-head">
@@ -65,7 +69,7 @@
                         <td class="label"><label><?php echo $_item['label'] ?></label></td>
                         <td class="value">
                             <?php foreach ($_item['buttons'] as $_button): ?>
-                                <?php $clickAction = 'cacheCatalogAction(this)'; ?>
+                                <?php $clickAction = "setCacheAction('catalog_action',this)"; ?>
                                 <?php if (isset($_button['warning']) && $_button['warning']): ?>
                                     <?php $clickAction = "if (confirm('".addslashes($_button['warning'])."')) {{$clickAction}}"; ?>
                                 <?php endif; ?>
@@ -76,6 +80,25 @@
                         <td><small>&nbsp;</small></td>
                     </tr>
                     <?php endforeach; ?>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('JavaScript/CSS') ?></h4>
+        </div>
+
+        <fieldset id="jscss">
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                    <tr>
+                        <td class="label"><label><?php echo $this->__('JavaScript/CSS Cache') ?></label></td>
+                        <td class="value">
+                            <button onclick="setCacheAction('jscss_action', this)" id='jscss_action' type="button" class="scalable"><span><?php echo $this->__('Clear') ?></span></button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </fieldset>

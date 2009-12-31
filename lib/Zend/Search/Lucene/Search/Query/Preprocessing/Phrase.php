@@ -17,28 +17,12 @@
  * @subpackage Search
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Phrase.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Phrase.php 18954 2009-11-12 20:01:33Z alexander $
  */
 
 
 /** Zend_Search_Lucene_Search_Query_Processing */
 #require_once 'Zend/Search/Lucene/Search/Query/Preprocessing.php';
-
-/** Zend_Search_Lucene_Search_Query_Phrase */
-#require_once 'Zend/Search/Lucene/Search/Query/Phrase.php';
-
-/** Zend_Search_Lucene_Search_Query_Insignificant */
-#require_once 'Zend/Search/Lucene/Search/Query/Insignificant.php';
-
-/** Zend_Search_Lucene_Search_Query_Empty */
-#require_once 'Zend/Search/Lucene/Search/Query/Empty.php';
-
-/** Zend_Search_Lucene_Search_Query_Term */
-#require_once 'Zend/Search/Lucene/Search/Query/Term.php';
-
-/** Zend_Search_Lucene_Index_Term */
-#require_once 'Zend/Search/Lucene/Index/Term.php';
-
 
 /**
  * It's an internal abstract class intended to finalize ase a query processing after query parsing.
@@ -103,9 +87,9 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
      */
     public function __construct($phrase, $phraseEncoding, $fieldName)
     {
-    	$this->_phrase         = $phrase;
-    	$this->_phraseEncoding = $phraseEncoding;
-    	$this->_field          = $fieldName;
+        $this->_phrase         = $phrase;
+        $this->_phraseEncoding = $phraseEncoding;
+        $this->_field          = $fieldName;
     }
 
     /**
@@ -145,11 +129,13 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
 //            throw new Zend_Search_Lucene_Search_QueryParserException('Wildcards are only allowed in a single terms.');
 //        }
 
-    	// Split query into subqueries if field name is not specified
-    	if ($this->_field === null) {
-    		$query = new Zend_Search_Lucene_Search_Query_Boolean();
+        // Split query into subqueries if field name is not specified
+        if ($this->_field === null) {
+            #require_once 'Zend/Search/Lucene/Search/Query/Boolean.php';
+            $query = new Zend_Search_Lucene_Search_Query_Boolean();
             $query->setBoost($this->getBoost());
 
+            #require_once 'Zend/Search/Lucene.php';
             if (Zend_Search_Lucene::getDefaultSearchField() === null) {
                 $searchFields = $index->getFieldNames(true);
             } else {
@@ -167,30 +153,36 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
 
             $this->_matches = $query->getQueryTerms();
             return $query;
-    	}
+        }
 
-    	// Recognize exact term matching (it corresponds to Keyword fields stored in the index)
-    	// encoding is not used since we expect binary matching
-    	$term = new Zend_Search_Lucene_Index_Term($this->_phrase, $this->_field);
-    	if ($index->hasTerm($term)) {
+        // Recognize exact term matching (it corresponds to Keyword fields stored in the index)
+        // encoding is not used since we expect binary matching
+        #require_once 'Zend/Search/Lucene/Index/Term.php';
+        $term = new Zend_Search_Lucene_Index_Term($this->_phrase, $this->_field);
+        if ($index->hasTerm($term)) {
+            #require_once 'Zend/Search/Lucene/Search/Query/Term.php';
             $query = new Zend_Search_Lucene_Search_Query_Term($term);
-    		$query->setBoost($this->getBoost());
+            $query->setBoost($this->getBoost());
 
-    		$this->_matches = $query->getQueryTerms();
-    		return $query;
-    	}
+            $this->_matches = $query->getQueryTerms();
+            return $query;
+        }
 
 
-    	// tokenize phrase using current analyzer and process it as a phrase query
+        // tokenize phrase using current analyzer and process it as a phrase query
+        #require_once 'Zend/Search/Lucene/Analysis/Analyzer.php';
         $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($this->_phrase, $this->_phraseEncoding);
 
         if (count($tokens) == 0) {
-        	$this->_matches = array();
+            $this->_matches = array();
+            #require_once 'Zend/Search/Lucene/Search/Query/Insignificant.php';
             return new Zend_Search_Lucene_Search_Query_Insignificant();
         }
 
         if (count($tokens) == 1) {
+            #require_once 'Zend/Search/Lucene/Index/Term.php';
             $term  = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
+            #require_once 'Zend/Search/Lucene/Search/Query/Term.php';
             $query = new Zend_Search_Lucene_Search_Query_Term($term);
             $query->setBoost($this->getBoost());
 
@@ -200,7 +192,9 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
 
         //It's non-trivial phrase query
         $position = -1;
+        #require_once 'Zend/Search/Lucene/Search/Query/Phrase.php';
         $query = new Zend_Search_Lucene_Search_Query_Phrase();
+        #require_once 'Zend/Search/Lucene/Index/Term.php';
         foreach ($tokens as $token) {
             $position += $token->getPositionIncrement();
             $term = new Zend_Search_Lucene_Index_Term($token->getTermText(), $this->_field);
@@ -218,13 +212,15 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
      */
     protected function _highlightMatches(Zend_Search_Lucene_Search_Highlighter_Interface $highlighter)
     {
-    	/** Skip fields detection. We don't need it, since we expect all fields presented in the HTML body and don't differentiate them */
+        /** Skip fields detection. We don't need it, since we expect all fields presented in the HTML body and don't differentiate them */
 
         /** Skip exact term matching recognition, keyword fields highlighting is not supported */
 
         /** Skip wildcard queries recognition. Supported wildcards are removed by text analyzer */
 
+
         // tokenize phrase using current analyzer and process it as a phrase query
+        #require_once 'Zend/Search/Lucene/Analysis/Analyzer.php';
         $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($this->_phrase, $this->_phraseEncoding);
 
         if (count($tokens) == 0) {
@@ -256,7 +252,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Phrase extends Zend_Search_L
         if ($this->_field !== null) {
             $query = $this->_field . ':';
         } else {
-        	$query = '';
+            $query = '';
         }
 
         $query .= '"' . $this->_phrase . '"';

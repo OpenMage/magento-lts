@@ -24,27 +24,15 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- * display payment information on view order page in admin scope
- */
+
 class Mage_PaypalUk_Block_Direct_Info extends Mage_Payment_Block_Info_Cc
 {
-    /**
-     *Setup template for info page
-     * @return Mage_PaypalUk_Block_Direct_Info
-     */
     protected function _construct()
     {
         parent::_construct();
         $this->setTemplate('paypaluk/direct/info.phtml');
     }
 
-    /**
-     * Return payment instance for paypal uk direct method
-     *
-     * @return Mage_PayPalUk_Model_Direct
-     *
-     */
     protected function _getDirect()
     {
         return Mage::getSingleton('paypaluk/direct');
@@ -77,54 +65,10 @@ class Mage_PaypalUk_Block_Direct_Info extends Mage_Payment_Block_Info_Cc
         }
         return $month;
     }
-
+    
     public function toPdf()
     {
         $this->setTemplate('paypaluk/direct/pdf/info.phtml');
         return $this->toHtml();
-    }
-
-    /**
-     * Get Avs checking detailed description
-     *
-     * @return string
-     */
-    public function getAvsDetail()
-    {
-        if ($this->getInfo()) {
-            $avs = $this->getInfo()->getCcAvsStatus();
-            return $this->getMethod()->getApi()->getAvsDetail($avs);
-        } else {
-            return '';
-        }
-    }
-
-    /**
-     * Get cvv checking detailed description
-     *
-     * @return string
-     */
-    public function getCvvVerified()
-    {
-        if ($this->getInfo()) {
-            $cvv = $this->getInfo()->getCcCidStatus();
-            return $this->getMethod()->getApi()->getCvvDetail($cvv);
-        } else {
-            return '';
-        }
-    }
-
-    /**
-     * Get 3D secure validation description
-     *
-     * @return bool
-     */
-    public function getIs3DSecureVerified()
-    {
-        if ($this->getInfo()) {
-            return $this->getInfo()->getCcCidStatus();
-        } else {
-            return false;
-        }
     }
 }

@@ -181,12 +181,14 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         $buttonsHtml = '';
 
         // Button to widget insertion window
-        $buttonsHtml .= $this->_getButtonHtml(array(
-            'title'     => $this->translate('Insert Widget...'),
-            'onclick'   => "widgetTools.openDialog('" . $this->getConfig('widget_window_url') . "widget_target_id/" . $this->getHtmlId() . "')",
-            'class'     => 'add-widget plugin',
-            'style'     => $visible ? '' : 'display:none',
-        ));
+        if ($this->getConfig('add_widgets')) {
+            $buttonsHtml .= $this->_getButtonHtml(array(
+                'title'     => $this->translate('Insert Widget...'),
+                'onclick'   => "widgetTools.openDialog('" . $this->getConfig('widget_window_url') . "widget_target_id/" . $this->getHtmlId() . "')",
+                'class'     => 'add-widget plugin',
+                'style'     => $visible ? '' : 'display:none',
+            ));
+        }
 
         // Button to media images insertion window
         $buttonsHtml .= $this->_getButtonHtml(array(

@@ -46,6 +46,14 @@ class Mage_Paypal_IpnController extends Mage_Core_Controller_Front_Action
     }
 
     /**
+     * Process IPN for PayPal Direct
+     */
+    public function directAction()
+    {
+        return $this->_ipnAction(Mage_Paypal_Model_Config::METHOD_WPP_DIRECT);
+    }
+
+    /**
      * Actually process the IPN
      * @param string $method
      */

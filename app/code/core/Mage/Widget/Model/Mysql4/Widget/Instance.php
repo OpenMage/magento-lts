@@ -44,51 +44,6 @@ class Mage_Widget_Model_Mysql4_Widget_Instance extends Mage_Core_Model_Mysql4_Ab
     }
 
     /**
-     * Reset handles to clean in cache
-     *
-     * @return Mage_Widget_Model_Mysql4_Widget_Instance
-     */
-    public function resetHandlesToCleanCache()
-    {
-        $this->_handlesToCleanCache = array();
-        return $this;
-    }
-
-    /**
-     * Setter
-     *
-     * @param array $handles
-     * @return Mage_Widget_Model_Mysql4_Widget_Instance
-     */
-    public function setHandlesToCleanCache($handles)
-    {
-        $this->_handlesToCleanCache = $handles;
-        return $this;
-    }
-
-    /**
-     * Add handle to clean in cache
-     *
-     * @param string $handle
-     * @return Mage_Widget_Model_Mysql4_Widget_Instance
-     */
-    public function addHandleToCleanCache($handle)
-    {
-        $this->_handlesToCleanCache[] = $handle;
-        return $this;
-    }
-
-    /**
-     * Getter
-     *
-     * @return array
-     */
-    public function getHandlesToCleanCache()
-    {
-        return $this->_handlesToCleanCache;
-    }
-
-    /**
      * Perform actions after object load
      *
      * @param Mage_Widget_Model_Widget_Instance $object
@@ -111,8 +66,6 @@ class Mage_Widget_Model_Mysql4_Widget_Instance extends Mage_Core_Model_Mysql4_Ab
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
-        $this->resetHandlesToCleanCache();
-
         $pageTable = $this->getTable('widget/widget_instance_page');
         $pageLayoutTable = $this->getTable('widget/widget_instance_page_layout');
         $layoutUpdateTable = $this->getTable('core/layout_update');
@@ -130,11 +83,6 @@ class Mage_Widget_Model_Mysql4_Widget_Instance extends Mage_Core_Model_Mysql4_Ab
             ->from($pageLayoutTable, array('layout_update_id'))
             ->where('page_id in (?)', $pageIds);
         $removeLayoutUpdateIds = $write->fetchCol($select);
-
-        $select = $write->select()
-            ->from($layoutUpdateTable, array('handle'))
-            ->where('layout_update_id in (?)', $removeLayoutUpdateIds);
-        $this->setHandlesToCleanCache($write->fetchCol($select));
 
         $this->_deleteWidgetInstancePages($removePageIds);
         $write->delete($pageLayoutTable, $write->quoteInto('page_id in (?)', $pageIds));
@@ -168,9 +116,6 @@ class Mage_Widget_Model_Mysql4_Widget_Instance extends Mage_Core_Model_Mysql4_Ab
             }
         }
 
-        $this->_cleanLayoutCache()
-            ->_cleanBlocksOutputCache();
-
         return parent::_afterSave($object);
     }
 
@@ -196,12 +141,12 @@ class Mage_Widget_Model_Mysql4_Widget_Instance extends Mage_Core_Model_Mysql4_Ab
                     'sort_order' => $widgetInstance->getSortOrder()
             ));
             $layoutUpdateId = $this->_getWriteAdapter()->lastInsertId();
-            $this->addHandleToCleanCache($handle);
             $pageLayoutUpdateIds[] = $layoutUpdateId;
             foreach ($storeIds as $storeId) {
                 $this->_getWriteAdapter()->insert(
                     $this->getTable('core/layout_link'), array(
                         'store_id'         => $storeId,
+                        'area'             => $widgetInstance->getArea(),
                         'package'          => $widgetInstance->getPackage(),
                         'theme'            => $widgetInstance->getTheme(),
                         'layout_update_id' => $layoutUpdateId
@@ -249,25 +194,13 @@ class Mage_Widget_Model_Mysql4_Widget_Instance extends Mage_Core_Model_Mysql4_Ab
     /**
      * Perform actions after object delete.
      * Delete layout updates by layout update ids collected in _beforeSave
-     * and clean cache
      *
      * @param Mage_Widget_Model_Widget_Instance $object
      * @return Mage_Widget_Model_Mysql4_Widget_Instance
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
-        $this->resetHandlesToCleanCache();
-
-        $select = $this->_getWriteAdapter()->select()
-            ->from($this->getTable('core/layout_update'), array('handle'))
-            ->where('layout_update_id in (?)', $object->getLayoutUpdateIdsToDelete());
-        $this->setHandlesToCleanCache($this->_getWriteAdapter()->fetchCol($select));
-
         $this->_deleteLayoutUpdates($object->getLayoutUpdateIdsToDelete());
-
-        $this->_cleanLayoutCache()
-            ->_cleanBlocksOutputCache();
-
         return parent::_afterDelete($object);
     }
 
@@ -310,8 +243,33 @@ class Mage_Widget_Model_Mysql4_Widget_Instance extends Mage_Core_Model_Mysql4_Ab
     }
 
     /**
-     * Clean cache by handles
+     * Get store ids to which specified item is assigned
      *
+     * @param int $id
+     * @return array
+     */
+    public function lookupStoreIds($id)
+    {
+        $storeIds = $this->_getReadAdapter()->fetchOne($this->_getReadAdapter()->select()
+            ->from($this->getMainTable(), 'store_ids')
+            ->where("{$this->getIdFieldName()} = ?", $id)
+        );
+        return $storeIds ? explode(',', $storeIds) : array();
+    }
+
+
+
+
+
+
+    /**
+     * Cache related methods are deprecated after 1.4.0.0-rc1
+     * Added cache invalidation on model level
+     */
+
+    /**
+     * Clean cache by handles
+     * @deprecated
      * @return Mage_Widget_Model_Mysql4_Widget_Instance
      */
     protected function _cleanLayoutCache()
@@ -325,7 +283,7 @@ class Mage_Widget_Model_Mysql4_Widget_Instance extends Mage_Core_Model_Mysql4_Ab
 
     /**
      * Clean blocks HTML otput cache
-     *
+     * @deprecated
      * @return Mage_Widget_Model_Mysql4_Widget_Instance
      */
     protected function _cleanBlocksOutputCache()
@@ -337,17 +295,47 @@ class Mage_Widget_Model_Mysql4_Widget_Instance extends Mage_Core_Model_Mysql4_Ab
     }
 
     /**
-     * Get store ids to which specified item is assigned
-     *
-     * @param int $id
+     * Reset handles to clean in cache
+     * @deprecated
+     * @return Mage_Widget_Model_Mysql4_Widget_Instance
+     */
+    public function resetHandlesToCleanCache()
+    {
+        $this->_handlesToCleanCache = array();
+        return $this;
+    }
+
+    /**
+     * Setter
+     * @deprecated
+     * @param array $handles
+     * @return Mage_Widget_Model_Mysql4_Widget_Instance
+     */
+    public function setHandlesToCleanCache($handles)
+    {
+        $this->_handlesToCleanCache = $handles;
+        return $this;
+    }
+
+    /**
+     * Add handle to clean in cache
+     * @deprecated
+     * @param string $handle
+     * @return Mage_Widget_Model_Mysql4_Widget_Instance
+     */
+    public function addHandleToCleanCache($handle)
+    {
+        $this->_handlesToCleanCache[] = $handle;
+        return $this;
+    }
+
+    /**
+     * Getter
+     * @deprecated
      * @return array
      */
-    public function lookupStoreIds($id)
+    public function getHandlesToCleanCache()
     {
-        $storeIds = $this->_getReadAdapter()->fetchOne($this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), 'store_ids')
-            ->where("{$this->getIdFieldName()} = ?", $id)
-        );
-        return $storeIds ? explode(',', $storeIds) : array();
+        return $this->_handlesToCleanCache;
     }
 }

@@ -37,7 +37,7 @@
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
 {
-
+    const CACHE_GROUP = 'block_html';
     /**
      * Block name in layout
      *
@@ -121,6 +121,18 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * @var Mage_Core_Block_Abstract
      */
     protected $_parentBlock;
+
+    /**
+     * Block html frame open tag
+     * @var string
+     */
+    protected $_frameOpenTag;
+
+    /**
+     * Block html frame close tag
+     * @var string
+     */
+    protected $_frameCloseTag;
 
     protected static $_urlModel;
 
@@ -619,6 +631,24 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
+     * Specify block output frame tags
+     *
+     * @param $openTag
+     * @param $closeTag
+     * @return Mage_Core_Block_Abstract
+     */
+    public function setFrameTags($openTag, $closeTag=null)
+    {
+        $this->_frameOpenTag = $openTag;
+        if ($closeTag) {
+            $this->_frameCloseTag = $closeTag;
+        } else {
+            $this->_frameCloseTag = '/'.$openTag;
+        }
+        return $this;
+    }
+
+    /**
      * Produce and return block's html output
      *
      * It is a final method, but you can override _toHmtl() method in descendants if needed
@@ -648,10 +678,15 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 $translate->setTranslateInline(true);
             }
         }
-
         $html = $this->_afterToHtml($html);
         Mage::dispatchEvent('core_block_abstract_to_html_after', array('block' => $this));
 
+        /**
+         * Check framing options
+         */
+        if ($this->_frameOpenTag) {
+            $html = '<'.$this->_frameOpenTag.'>'.$html.'<'.$this->_frameCloseTag.'>';
+        }
         return $html;
     }
 
@@ -875,7 +910,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         } else {
             $tags = $this->getData('cache_tags');
         }
-        $tags[] = 'block_html';
+        $tags[] = self::CACHE_GROUP;
         return $tags;
     }
 
@@ -899,7 +934,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _loadCache()
     {
-        if (is_null($this->getCacheLifetime()) || !Mage::app()->useCache('block_html')) {
+        if (is_null($this->getCacheLifetime()) || !Mage::app()->useCache(self::CACHE_GROUP)) {
             return false;
         }
         return Mage::app()->loadCache($this->getCacheKey());
@@ -913,7 +948,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _saveCache($data)
     {
-        if (is_null($this->getCacheLifetime()) || !Mage::app()->useCache('block_html')) {
+        if (is_null($this->getCacheLifetime()) || !Mage::app()->useCache(self::CACHE_GROUP)) {
             return false;
         }
         Mage::app()->saveCache($data, $this->getCacheKey(), $this->getCacheTags(), $this->getCacheLifetime());
@@ -977,7 +1012,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _beforeCacheUrl()
     {
-        if (Mage::app()->useCache('block_html')) {
+        if (Mage::app()->useCache(self::CACHE_GROUP)) {
             Mage::app()->setUseSessionVar(true);
         }
         return $this;
@@ -991,7 +1026,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _afterCacheUrl($html)
     {
-        if (Mage::app()->useCache('block_html')) {
+        if (Mage::app()->useCache(self::CACHE_GROUP)) {
             Mage::app()->setUseSessionVar(false);
             Varien_Profiler::start('CACHE_URL');
             $html = Mage::getSingleton('core/url')->sessionUrlVar($html);

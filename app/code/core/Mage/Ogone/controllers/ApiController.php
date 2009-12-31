@@ -293,13 +293,13 @@ class Mage_Ogone_ApiController extends Mage_Core_Controller_Front_Action
         $status = $this->getRequest()->getParam('STATUS');
         try {
             if ($status ==  Mage_Ogone_Model_Api::OGONE_AUTH_PROCESSING) {
-                $order->setState(Mage_Sales_Model_Order::STATE_NEW, Mage_Ogone_Model_Api::WAITING_AUTHORIZATION, Mage::helper('ogone')->__('Authorization Waiting from Ogone'));
+                $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, Mage_Ogone_Model_Api::WAITING_AUTHORIZATION, Mage::helper('ogone')->__('Authorization Waiting from Ogone'));
             } else {
                 //to send new order email only when state is pending payment
                 if ($order->getState()==Mage_Sales_Model_Order::STATE_PENDING_PAYMENT) {
                     $order->sendNewOrderEmail();
                 }
-                $order->setState(Mage_Sales_Model_Order::STATE_NEW, Mage_Ogone_Model_Api::PROCESSED_OGONE_STATUS, Mage::helper('ogone')->__('Processed by Ogone'));
+                $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, Mage_Ogone_Model_Api::PROCESSED_OGONE_STATUS, Mage::helper('ogone')->__('Processed by Ogone'));
             }
             $order->save();
             $this->_redirect('checkout/onepage/success');

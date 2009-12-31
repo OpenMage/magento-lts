@@ -27,6 +27,7 @@ var Variables = {
     textareaElementId: null,
     variablesContent: null,
     dialogWindow: null,
+    dialogWindowId: 'variables-chooser',
     overlayShowEffectOptions: null,
     overlayHideEffectOptions: null,
     insertFunction: 'Variables.insertVariable',
@@ -65,6 +66,11 @@ var Variables = {
         }
     },
     openDialogWindow: function(variablesContent) {
+        if ($(this.dialogWindowId) && typeof(Windows) != 'undefined') {
+            Windows.focus(this.dialogWindowId);
+            return;
+        }
+
         this.overlayShowEffectOptions = Windows.overlayShowEffectOptions;
         this.overlayHideEffectOptions = Windows.overlayHideEffectOptions;
         Windows.overlayShowEffectOptions = {duration:0};
@@ -82,7 +88,7 @@ var Variables = {
             recenterAuto:false,
             hideEffect:Element.hide,
             showEffect:Element.show,
-            id:"variables-chooser",
+            id:this.dialogWindowId,
             onClose: this.closeDialogWindow.bind(this)
         });
         variablesContent.evalScripts.bind(variablesContent).defer();

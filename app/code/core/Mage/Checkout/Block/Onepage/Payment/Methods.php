@@ -64,4 +64,24 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
         }
         return false;
     }
+
+    /**
+     * Payment method form html getter
+     * @param Mage_Payment_Model_Method_Abstract $method
+     */
+    public function getPaymentMethodFormHtml(Mage_Payment_Model_Method_Abstract $method)
+    {
+         return $this->getChildHtml('payment.method.' . $method->getCode());
+    }
+
+    /**
+     * Payment method additional label part getter
+     * @param Mage_Payment_Model_Method_Abstract $method
+     */
+    public function getMethodLabelAfterHtml(Mage_Payment_Model_Method_Abstract $method)
+    {
+        if ($form = $this->getChild('payment.method.' . $method->getCode())) {
+            return $form->getMethodLabelAfterHtml();
+        }
+    }
 }

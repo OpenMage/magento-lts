@@ -83,7 +83,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Abstract
         $specials->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
 
         $newurl = Mage::getUrl('rss/catalog/new');
-        $title = Mage::helper('rss')->__('%s - Special Discounts', Mage::app()->getStore()->getName());
+        $title = Mage::helper('rss')->__('%s - Special Discounts', Mage::app()->getStore()->getFrontendName());
         $lang = Mage::getStoreConfig('general/locale/code');
 
         $rssObj = Mage::getModel('rss/rss');
@@ -169,6 +169,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Abstract
            }
            $row['allowed_price_in_rss'] = true;
        } else {
+           $row['start_date'] = null;
            $row['allowed_price_in_rss'] = false;
        }
        $args['results'][] = $row;

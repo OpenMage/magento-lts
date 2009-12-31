@@ -17,7 +17,7 @@
  * @subpackage Message
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Message.php 16586 2009-07-09 19:20:27Z matthew $
+ * @version    $Id: Message.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -81,8 +81,8 @@ class Zend_Queue_Message
 
                 #require_once 'Zend/Queue/Exception.php';
                 throw new Zend_Queue_Exception(
-                    '$options[\'queue\'] = ' 
-                    . $result 
+                    '$options[\'queue\'] = '
+                    . $result
                     . ': must be instanceof Zend_Queue'
                 );
             }

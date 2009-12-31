@@ -37,7 +37,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Stock extends Mage_CatalogInventory_Model
 /**
      * Reindex temporary (price result data) for all products
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Interface
+     * @return Mage_Bundle_Model_Mysql4_Indexer_Stock
      */
     public function reindexAll()
     {
@@ -49,11 +49,11 @@ class Mage_Bundle_Model_Mysql4_Indexer_Stock extends Mage_CatalogInventory_Model
      * Reindex temporary (price result data) for defined product(s)
      *
      * @param int|array $entityIds
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Indexer_Price_Interface
+     * @return Mage_Bundle_Model_Mysql4_Indexer_Stock
      */
     public function reindexEntity($entityIds)
     {
-        $this->_prepareIndexTable($entityIds);
+        $this->_updateIndex($entityIds);
 
         return $this;
     }
@@ -65,48 +65,22 @@ class Mage_Bundle_Model_Mysql4_Indexer_Stock extends Mage_CatalogInventory_Model
      */
     protected function _getBundleOptionTable()
     {
-        return $this->getMainTable() . '_bndl_opt';
-    }
-
-    /**
-     * Prepare table structure for temporary bundle option stock index
-     *
-     * @return Mage_Bundle_Model_Mysql4_Indexer_Price
-     */
-    protected function _prepareBundleOptionTable()
-    {
-        $write = $this->_getWriteAdapter();
-        $table = $this->_getBundleOptionTable();
-
-        $query = sprintf('DROP TABLE IF EXISTS %s', $write->quoteIdentifier($table));
-        $write->query($query);
-
-        $query = sprintf('CREATE TABLE %s ('
-            . ' `entity_id` INT(10) UNSIGNED NOT NULL,'
-            . ' `website_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `stock_id` SMALLINT(5) UNSIGNED NOT NULL,'
-            . ' `option_id` INT(10) UNSIGNED DEFAULT \'0\','
-            . ' `stock_status` TINYINT(1) DEFAULT 0,'
-            . ' PRIMARY KEY (`entity_id`,`stock_id`,`website_id`, `option_id`)'
-            . ') ENGINE=MYISAM DEFAULT CHARSET=utf8',
-            $write->quoteIdentifier($table));
-        $write->query($query);
-
-        return $this;
+        return $this->getTable('bundle/stock_index');
     }
 
     /**
      * Prepare stock status per Bundle options, website and stock
      *
      * @param int|array $entityIds
+     * @param bool $usePrimaryTable use primary or temporary index table
      * @return Mage_Bundle_Model_Mysql4_Indexer_Stock
      */
-    protected function _prepareBundleOptionStockData($entityIds = null)
+    protected function _prepareBundleOptionStockData($entityIds = null, $usePrimaryTable = false)
     {
-        $write = $this->_getWriteAdapter();
-        $this->_prepareBundleOptionTable();
-
-        $select = $write->select()
+        $this->_cleanBundleOptionStockData();
+        $idxTable = $usePrimaryTable ? $this->getMainTable() : $this->getIdxTable();
+        $adapter  = $this->_getWriteAdapter();
+        $select   = $adapter->select()
             ->from(array('bo' => $this->getTable('bundle/option')), array('parent_id'));
         $this->_addWebsiteJoinToSelect($select, false);
         $select->columns('website_id', 'cw')
@@ -119,7 +93,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Stock extends Mage_CatalogInventory_Model
                 'bs.option_id = bo.option_id',
                 array())
             ->joinLeft(
-                array('i' => $this->getIdxTable()),
+                array('i' => $idxTable),
                 'i.product_id = bs.product_id AND i.website_id = cw.website_id AND i.stock_id = cis.stock_id',
                 array())
             ->joinLeft(
@@ -139,23 +113,24 @@ class Mage_Bundle_Model_Mysql4_Indexer_Stock extends Mage_CatalogInventory_Model
         }
 
         $query = $select->insertFromSelect($this->_getBundleOptionTable());
-        $write->query($query);
+        $adapter->query($query);
 
         return $this;
     }
 
     /**
-     * Prepare stock status data in temporary index table
+     * Get the select object for get stock status by product ids
      *
-     * @param int|array $entityIds  the product limitation
-     * @return Mage_CatalogInventory_Model_Mysql4_Indexer_Stock_Configurable
+     * @param int|array $entityIds
+     * @param bool $usePrimaryTable use primary or temporary index table
+     * @return Varien_Db_Select
      */
-    protected function _prepareIndexTable($entityIds = null)
+    protected function _getStockStatusSelect($entityIds = null, $usePrimaryTable = false)
     {
-        $this->_prepareBundleOptionStockData($entityIds);
-        $write  = $this->_getWriteAdapter();
+        $this->_prepareBundleOptionStockData($entityIds, $usePrimaryTable);
 
-        $select = $write->select()
+        $adapter = $this->_getWriteAdapter();
+        $select  = $adapter->select()
             ->from(array('e' => $this->getTable('catalog/product')), array('entity_id'));
         $this->_addWebsiteJoinToSelect($select, true);
         $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'e.entity_id');
@@ -178,7 +153,7 @@ class Mage_Bundle_Model_Mysql4_Indexer_Stock extends Mage_CatalogInventory_Model
             ->group(array('e.entity_id', 'cw.website_id', 'cis.stock_id'));
 
         // add limitation of status
-        $condition = $write->quoteInto('=?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+        $condition = $adapter->quoteInto('=?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
         $this->_addAttributeToSelect($select, 'status', 'e.entity_id', 'cs.store_id', $condition);
 
         if ($this->_isManageStock()) {
@@ -195,9 +170,45 @@ class Mage_Bundle_Model_Mysql4_Indexer_Stock extends Mage_CatalogInventory_Model
             $select->where('e.entity_id IN(?)', $entityIds);
         }
 
-        $query = $select->insertFromSelect($this->getIdxTable());
-        $write->query($query);
+        return $select;
+    }
 
+    /**
+     * Prepare stock status data in temporary index table
+     *
+     * @param int|array $entityIds  the product limitation
+     * @return Mage_Bundle_Model_Mysql4_Indexer_Stock
+     */
+    protected function _prepareIndexTable($entityIds = null)
+    {
+        parent::_prepareIndexTable($entityIds);
+        $this->_cleanBundleOptionStockData();
+
+        return $this;
+    }
+
+    /**
+     * Update Stock status index by product ids
+     *
+     * @param array|int $entityIds
+     * @return Mage_Bundle_Model_Mysql4_Indexer_Stock
+     */
+    protected function _updateIndex($entityIds)
+    {
+        parent::_updateIndex($entityIds);
+        $this->_cleanBundleOptionStockData();
+
+        return $this;
+    }
+
+    /**
+     * Clean temporary bundle options stock data
+     *
+     * @return Mage_Bundle_Model_Mysql4_Indexer_Stock
+     */
+    protected function _cleanBundleOptionStockData()
+    {
+        $this->_getWriteAdapter()->delete($this->_getBundleOptionTable());
         return $this;
     }
 }

@@ -95,16 +95,26 @@ class Mage_Sales_Model_Mysql4_Order_Payment_Transaction extends Mage_Core_Model_
     protected function _beforeSave(Mage_Core_Model_Abstract $transaction)
     {
         $parentTxnId = $transaction->getData('parent_txn_id');
+        $txnId = $transaction->getData('txn_id');
+        $orderId = $transaction->getData('order_id');
+        $paymentId = $transaction->getData('payment_id');
+        $idFieldName = $this->getIdFieldName();
+
         if ($parentTxnId) {
-            $txnId = $transaction->getData('txn_id');
-            $orderId = $transaction->getData('order_id');
-            $paymentId = $transaction->getData('payment_id');
             if (!$txnId || !$orderId || !$paymentId) {
                 Mage::throwException(Mage::helper('sales')->__('Not enough valid data to save parent transaction ID.'));
             }
-            $parentId = (int)$this->_lookupByTxnId($orderId, $paymentId, $parentTxnId, $this->getIdFieldName());
+            $parentId = (int)$this->_lookupByTxnId($orderId, $paymentId, $parentTxnId, $idFieldName);
             if ($parentId) {
                 $transaction->setData('parent_id', $parentId);
+            }
+        }
+
+        // make sure unique key won't cause trouble
+        if ($transaction->isFailsafe()) {
+            $autoincrementId = (int)$this->_lookupByTxnId($orderId, $paymentId, $txnId, $idFieldName);
+            if ($autoincrementId) {
+                $transaction->setData($idFieldName, $autoincrementId);
             }
         }
 

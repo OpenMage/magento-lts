@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
 
 
         if ($element->getValue()) {
-            $page = Mage::getModel('cms/page')->load($element->getValue());
+            $page = Mage::getModel('cms/page')->load((int)$element->getValue());
             if ($page->getId()) {
                 $chooser->setLabel($page->getTitle());
             }
@@ -89,7 +89,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
             function (grid, event) {
                 var trElement = Event.findElement(event, "tr");
                 var pageTitle = trElement.down("td").next().innerHTML;
-                var pageId = trElement.down("td").innerHTML;
+                var pageId = trElement.down("td").innerHTML.replace(/^\s+|\s+$/g,"");
                 '.$chooserJsObject.'.setElementValue(pageId);
                 '.$chooserJsObject.'.setElementLabel(pageTitle);
                 '.$chooserJsObject.'.close();

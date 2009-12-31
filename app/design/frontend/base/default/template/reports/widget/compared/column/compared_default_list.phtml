@@ -33,7 +33,7 @@
         <div class="block-content">
             <?php $suffix = $this->getNameInLayout(); ?>
             <ol class="mini-products-list" id="widget-compared-<?php echo $suffix; ?>">
-            <?php $i=0; foreach ($_products as $_product): ?>
+            <?php foreach ($_products as $_product): ?>
                 <li class="item">
                     <a class="product-image" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(50) ?>" width="50" height="50" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" /></a>
                     <div class="product-details">

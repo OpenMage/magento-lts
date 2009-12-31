@@ -152,6 +152,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             }
             catch (Exception $e) {
                 $this->_getSession()->addError($this->__('Order was not cancelled.'));
+                Mage::logException($e);
             }
             $this->_redirect('*/sales_order/view', array('order_id' => $order->getId()));
         }
@@ -525,6 +526,29 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             }
         }
         $this->_redirect('*/*/');
+    }
+
+    /**
+     * Atempt to void the order payment
+     */
+    public function voidPaymentAction()
+    {
+        if (!$order = $this->_initOrder()) {
+            return;
+        }
+        try {
+            $order->getPayment()->void(
+                new Varien_Object() // workaround for backwards compatibility
+            );
+            $order->save();
+            $this->_getSession()->addSuccess($this->__('Payment has been voided successfully.'));
+        } catch (Mage_Core_Exception $e) {
+            $this->_getSession()->addError($e->getMessage());
+        } catch (Exception $e) {
+            $this->_getSession()->addError($this->__('Failed to void the payment.'));
+            Mage::logException($e);
+        }
+        $this->_redirect('*/*/view', array('order_id' => $order->getId()));
     }
 
     protected function _isAllowed()

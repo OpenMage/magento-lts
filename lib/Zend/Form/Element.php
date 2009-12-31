@@ -32,7 +32,7 @@
  * @subpackage Element
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Element.php 18190 2009-09-17 20:29:52Z matthew $
+ * @version    $Id: Element.php 19130 2009-11-20 19:28:00Z matthew $
  */
 class Zend_Form_Element implements Zend_Validate_Interface
 {
@@ -96,6 +96,13 @@ class Zend_Form_Element implements Zend_Validate_Interface
      * @var array
      */
     protected $_errors = array();
+
+    /**
+     * Separator to use when concatenating aggregate error messages (for
+     * elements having array values)
+     * @var string
+     */
+    protected $_errorMessageSeparator = '; ';
 
     /**
      * Element filters
@@ -202,6 +209,16 @@ class Zend_Form_Element implements Zend_Validate_Interface
      * @var Zend_View_Interface
      */
     protected $_view;
+
+    /**
+     * Is a specific decorator being rendered via the magic renderDecorator()?
+     * 
+     * This is to allow execution of logic inside the render() methods of child
+     * elements during the magic call while skipping the parent render() method.
+     * 
+     * @var bool
+     */
+    protected $_isPartialRendering = false;
 
     /**
      * Constructor
@@ -906,6 +923,9 @@ class Zend_Form_Element implements Zend_Validate_Interface
     public function __call($method, $args)
     {
         if ('render' == substr($method, 0, 6)) {
+            $this->_isPartialRendering = true;
+            $this->render();
+            $this->_isPartialRendering = false;
             $decoratorName = substr($method, 6);
             if (false !== ($decorator = $this->getDecorator($decoratorName))) {
                 $decorator->setElement($this);
@@ -1413,6 +1433,28 @@ class Zend_Form_Element implements Zend_Validate_Interface
     }
 
     /**
+     * Get errorMessageSeparator
+     *
+     * @return string
+     */
+    public function getErrorMessageSeparator()
+    {
+        return $this->_errorMessageSeparator;
+    }
+
+    /**
+     * Set errorMessageSeparator
+     *
+     * @param  string $separator
+     * @return Zend_Form_Element
+     */
+    public function setErrorMessageSeparator($separator)
+    {
+        $this->_errorMessageSeparator = $separator;
+        return $this;
+    }
+
+    /**
      * Mark the element as being in a failed validation state
      *
      * @return Zend_Form_Element
@@ -1915,6 +1957,10 @@ class Zend_Form_Element implements Zend_Validate_Interface
      */
     public function render(Zend_View_Interface $view = null)
     {
+        if ($this->_isPartialRendering) {
+            return '';
+        }
+
         if (null !== $view) {
             $this->setView($view);
         }
@@ -2111,12 +2157,14 @@ class Zend_Form_Element implements Zend_Validate_Interface
             if (null !== $translator) {
                 $message = $translator->translate($message);
             }
-            if ($this->isArray() || is_array($value)) {
+            if (($this->isArray() || is_array($value))
+                && !empty($value)
+            ) {
                 $aggregateMessages = array();
                 foreach ($value as $val) {
                     $aggregateMessages[] = str_replace('%value%', $val, $message);
                 }
-                $messages[$key] = $aggregateMessages;
+                $messages[$key] = implode($this->getErrorMessageSeparator(), $aggregateMessages);
             } else {
                 $messages[$key] = str_replace('%value%', $value, $message);
             }

@@ -16,7 +16,7 @@
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: HeadStyle.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: HeadStyle.php 18572 2009-10-16 13:37:08Z sgehrig $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -324,6 +324,7 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
                         $media_types = explode(',', $value);
                         $value = '';
                         foreach($media_types as $type) {
+                            $type = trim($type);
                             if (!in_array($type, $this->_mediaTypes)) {
                                 continue;
                             }

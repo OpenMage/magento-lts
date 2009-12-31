@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Separator.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Separator.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -31,15 +31,15 @@
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_Client_Response_ContentDecorator_Separator 
-    implements Zend_Tool_Framework_Client_Response_ContentDecorator_Interface  
+class Zend_Tool_Framework_Client_Response_ContentDecorator_Separator
+    implements Zend_Tool_Framework_Client_Response_ContentDecorator_Interface
 {
-    
+
     /**
      * @var string
      */
     protected $_separator = PHP_EOL;
-    
+
     /**
      * getName() - name of the decorator
      *
@@ -61,7 +61,7 @@ class Zend_Tool_Framework_Client_Response_ContentDecorator_Separator
         $this->_separator = $separator;
         return $this;
     }
-    
+
     /**
      * getSeparator()
      *
@@ -71,23 +71,23 @@ class Zend_Tool_Framework_Client_Response_ContentDecorator_Separator
     {
         return $this->_separator;
     }
-    
+
     public function decorate($content, $decoratorValue)
     {
         $run = 1;
         if (is_bool($decoratorValue) && $decoratorValue === false) {
             return $content;
         }
-        
+
         if (is_int($decoratorValue)) {
             $run = $decoratorValue;
         }
-        
+
         for ($i = 0; $i < $run; $i++) {
             $content .= $this->_separator;
         }
-        
+
         return $content;
     }
-    
+
 }

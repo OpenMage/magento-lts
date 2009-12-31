@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Tag>
-            <version>0.7.3</version>
+            <version>0.7.4</version>
         </Mage_Tag>
     </modules>
     <global>
@@ -96,6 +96,9 @@
                   </tag>
               </updates>
           </layout>
+        <secure_url>
+            <tag_customer>/tag/customer/</tag_customer>
+        </secure_url>
     </frontend>
     <adminhtml>
         <events>

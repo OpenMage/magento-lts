@@ -168,7 +168,7 @@ class Mage_Ideal_Model_Basic extends Mage_Payment_Model_Method_Abstract
 
         $description = $this->getConfigData('description');
         if ($description == '') {
-            $description = Mage::app()->getStore()->getName() . ' ' . 'payment';
+            $description = Mage::app()->getStore()->getFrontendName() . ' ' . 'payment';
         }
 
         $fields = array_merge($fields, array(

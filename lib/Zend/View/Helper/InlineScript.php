@@ -16,7 +16,7 @@
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: InlineScript.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: InlineScript.php 18951 2009-11-12 16:26:19Z alexander $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,7 +24,7 @@
 #require_once 'Zend/View/Helper/HeadScript.php';
 
 /**
- * Helper for setting and retrieving script elements for inclusion in HTML body 
+ * Helper for setting and retrieving script elements for inclusion in HTML body
  * section
  *
  * @uses       Zend_View_Helper_Head_Script
@@ -44,7 +44,7 @@ class Zend_View_Helper_InlineScript extends Zend_View_Helper_HeadScript
     /**
      * Return InlineScript object
      *
-     * Returns InlineScript helper object; optionally, allows specifying a 
+     * Returns InlineScript helper object; optionally, allows specifying a
      * script or script file to include.
      *
      * @param  string $mode Script or file

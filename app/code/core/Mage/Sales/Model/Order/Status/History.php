@@ -29,6 +29,8 @@
  */
 class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 {
+    const CUSTOMER_NOTIFICATION_NOT_APPLICABLE = 2;
+
     /**
      * Order instance
      *
@@ -64,6 +66,31 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
             $this->_shouldSetOrderBeforeSave = true;
         }
         return $this->setParentId($id)->setStoreId($order->getStoreId());
+    }
+
+    /**
+     * Notification flag
+     *
+     * @param  mixed $flag OPTIONAL (notification is not applicable by default)
+     * @return Mage_Sales_Model_Order_Status_History
+     */
+    public function setIsCustomerNotified($flag = null)
+    {
+        if (is_null($flag)) {
+            $flag = self::CUSTOMER_NOTIFICATION_NOT_APPLICABLE;
+        }
+
+        return $this->setData('is_customer_notified', $flag);
+    }
+
+    /**
+     * Customer Notification Applicable check method
+     *
+     * @return boolean
+     */
+    public function isCustomerNotificationNotApplicable()
+    {
+        return $this->getIsCustomerNotified() == self::CUSTOMER_NOTIFICATION_NOT_APPLICABLE;
     }
 
     /**

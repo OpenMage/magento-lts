@@ -140,7 +140,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
         /* @var $product Mage_Catalog_Model_Product */
         $product    = $event->getDataObject();
         $attributes = $product->getAttributes();
-        $reindexEav = false;
+        $reindexEav = $product->getForceReindexRequired();
         foreach ($attributes as $attribute) {
             $attributeCode = $attribute->getAttributeCode();
             if ($this->_attributeIsIndexable($attribute) && $product->dataHasChangedFor($attributeCode)) {

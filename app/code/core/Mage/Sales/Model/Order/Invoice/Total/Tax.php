@@ -85,8 +85,14 @@ class Mage_Sales_Model_Order_Invoice_Total_Tax extends Mage_Sales_Model_Order_In
         $allowedTax = $order->getTaxAmount() - $order->getTaxInvoiced();
         $allowedBaseTax = $order->getBaseTaxAmount() - $order->getBaseTaxInvoiced();;
 
-        $totalTax = min($allowedTax, $totalTax);
-        $baseTotalTax = min($allowedBaseTax, $baseTotalTax);
+        if ($invoice->isLast()) {
+            $totalTax = $allowedTax;
+            $baseTotalTax = $allowedBaseTax;
+        }
+        else {
+            $totalTax = min($allowedTax, $totalTax);
+            $baseTotalTax = min($allowedBaseTax, $baseTotalTax);
+        }
 
         $invoice->setTaxAmount($totalTax);
         $invoice->setBaseTaxAmount($baseTotalTax);

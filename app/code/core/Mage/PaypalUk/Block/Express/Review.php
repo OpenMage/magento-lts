@@ -34,7 +34,6 @@
 class Mage_PaypalUk_Block_Express_Review extends Mage_Core_Block_Template
 {
     protected $_method='express';
-
     /**
      * Get PayPal Express Review Information
      *
@@ -45,31 +44,16 @@ class Mage_PaypalUk_Block_Express_Review extends Mage_Core_Block_Template
         return Mage::getSingleton('paypaluk/express_review');
     }
 
-    /**
-     * Return billing address object
-     *
-     * @return Mage_Sales_Order_Address
-     */
     public function getBillingAddress()
     {
         return $this->getReview()->getQuote()->getBillingAddress();
     }
 
-    /**
-     * Return shipping address object
-     *
-     * @return Mage_Sales_Order_Address
-     */
     public function getShippingAddress()
     {
         return $this->getReview()->getQuote()->getShippingAddress();
     }
 
-    /**
-     * Return shipping address object
-     *
-     * @return Mage_Sales_Order_Address
-     */
     public function getAddress()
     {
         if (empty($this->_address)) {
@@ -78,11 +62,6 @@ class Mage_PaypalUk_Block_Express_Review extends Mage_Core_Block_Template
         return $this->_address;
     }
 
-    /**
-     * Return all shipping rates
-     *
-     * @return array
-     */
     public function getShippingRates()
     {
         if (empty($this->_rates)) {
@@ -102,11 +81,6 @@ class Mage_PaypalUk_Block_Express_Review extends Mage_Core_Block_Template
         return $this->_rates;
     }
 
-    /**
-     * Return carrier name from config
-     *
-     * @return string
-     */
     public function getCarrierName($carrierCode)
     {
         if ($name = Mage::getStoreConfig('carriers/'.$carrierCode.'/title')) {
@@ -115,47 +89,26 @@ class Mage_PaypalUk_Block_Express_Review extends Mage_Core_Block_Template
         return $carrierCode;
     }
 
-    /**
-     * Return shipping method for give shipping address
-     *
-     * @return string
-     */
     public function getAddressShippingMethod()
     {
         return $this->getAddress()->getShippingMethod();
     }
 
-    /**
-     * Set shipping method
-     */
     public function setMethod($varName)
     {
         $this->_method=$varName;
     }
 
-    /**
-     * Return shipping price
-     *
-     * @return string
-     */
     public function getShippingPrice($price, $flag)
     {
         return $this->formatPrice($this->helper('tax')->getShippingPrice($price, $flag, $this->getAddress()));
     }
 
-    /**
-     * Format price to shipping using
-     * @return string
-     */
     public function formatPrice($price)
     {
         return $this->getReview()->getQuote()->getStore()->convertPrice($price, true);
     }
 
-    /**
-     * Check if items in cart is virtual
-     * @return bool
-     */
     public function isVirtual()
     {
         return $this->getReview()->getQuote()->getIsVirtual();

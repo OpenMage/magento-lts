@@ -24,10 +24,18 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+/**
+ * @see Mage_Payment_Block_Info_Cc
+ */
+?>
 <?php if($_info = $this->getInfo()): ?>
-    <!--<?php echo $this->__('Name on the Card: %s', $this->htmlEscape($this->getInfo()->getCcOwner())) ?><br />-->
-    <?php echo $this->__('Credit Card Type: %s', $this->htmlEscape($this->getCcTypeName())) ?><br />
-    <?php echo $this->__('Credit Card Number: xxxx-%s', $this->htmlEscape($this->getInfo()->getCcLast4())) ?>
-<?php else: ?>
-
+    <?php echo Mage::helper('payment')->__('Credit Card Type: %s', $this->htmlEscape($this->getCcTypeName())) ?><br/>
+    <?php echo Mage::helper('payment')->__('Credit Card Number: xxxx-%s', $this->htmlEscape($this->getInfo()->getCcLast4())) ?><br/>
+    <?php if ($this->getInfo()->getCcSsIssue()): ?>
+        <?php echo $this->htmlEscape(Mage::helper('payment')->__('Switch/Solo card issue number: %s', $this->getInfo()->getCcSsIssue())) ?><br/>
+    <?php endif; ?>
+    <?php if($this->getInfo()->getCcSsStartYear()): ?>
+        <?php echo $this->htmlEscape(Mage::helper('payment')->__('Switch/Solo card start Date: %s/%s', $this->getInfo()->getCcStartMonth(), $this->getInfo()->getCcSsStartYear())) ?>
+    <?php endif; ?>
 <?php endif; ?>

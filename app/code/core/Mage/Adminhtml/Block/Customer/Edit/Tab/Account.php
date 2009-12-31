@@ -151,7 +151,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                     $('{$prefix}sendemail').disabled = ('' == this.value || '0' == this.value);
                     $('{$prefix}sendemail_store_id').disabled = ('' == this.value || '0' == this.value);
                 }.bind($('{$prefix}website_id'));
-                Event.observe('{$prefix}website_id', 'click', $('{$prefix}website_id').disableSendemail);
+                Event.observe('{$prefix}website_id', 'change', $('{$prefix}website_id').disableSendemail);
                 $('{$prefix}website_id').disableSendemail();
                 "
                 . '</script>'

@@ -16,7 +16,7 @@
  * @package   Zend_Navigation
  * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Page.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Page.php 19027 2009-11-19 11:19:51Z yoshida@zend.co.jp $
  */
 
 /**
@@ -237,7 +237,7 @@ abstract class Zend_Navigation_Page extends Zend_Navigation_Container
         if (is_array($options)) {
             $this->setOptions($options);
         } elseif ($options instanceof Zend_Config) {
-            $this->setConfig($config);
+            $this->setConfig($options);
         }
 
         // do custom initialization

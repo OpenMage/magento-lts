@@ -17,10 +17,10 @@
  * @subpackage Index
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TermsPriorityQueue.php 16541 2009-07-07 06:59:03Z bkarwin $
+ * @version    $Id: TermsPriorityQueue.php 18947 2009-11-12 11:57:17Z alexander $
  */
 
-/** Zend_Search_Lucene */
+/** Zend_Search_Lucene_PriorityQueue */
 #require_once 'Zend/Search/Lucene/PriorityQueue.php';
 
 /**

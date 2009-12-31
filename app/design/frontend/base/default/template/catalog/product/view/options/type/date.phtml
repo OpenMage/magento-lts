@@ -51,10 +51,10 @@
     &nbsp;&nbsp;<?php echo $this->getTimeHtml() ?>
 <?php endif; ?>
 
-<?php if ($_option->getIsRequire()): ?>
     <input type="hidden" name="validate_datetime_<?php echo $_optionId ?>" class="validate-datetime-<?php echo $_optionId ?>" value="" />
     <script type="text/javascript">
     //<![CDATA[
+<?php if ($_option->getIsRequire()): ?>
         Validation.addAllThese(
         [
                ['validate-datetime-<?php echo $_optionId ?>', '<?php echo $this->jsQuoteEscape( Mage::helper('catalog')->__('This is a required option') )?>', function(v) {
@@ -66,7 +66,27 @@
                 }]
         ]
         );
+<?php else: ?>
+        Validation.add(
+            'validate-datetime-<?php echo $_optionId ?>',
+            '<?php echo $this->jsQuoteEscape( Mage::helper('catalog')->__('Field is not complete') )?>',
+            function(v) {
+                var dateTimeParts = $$('.datetime-picker[id^="options_<?php echo $_optionId ?>"]');
+                var hasWithValue = false, hasWithNoValue = false;
+                var pattern = /day_part$/i;
+                for (var i=0; i < dateTimeParts.length; i++) {
+                   if (! pattern.test(dateTimeParts[i].id)) {
+                       if (dateTimeParts[i].value === "") {
+                           hasWithValue = true;
+                       } else {
+                           hasWithNoValue = true;
+                       }
+                   }
+                }
+                return hasWithValue ^ hasWithNoValue;
+            }
+        );
+<?php endif; ?>
     //]]>
     </script>
-<?php endif; ?>
 </dd>

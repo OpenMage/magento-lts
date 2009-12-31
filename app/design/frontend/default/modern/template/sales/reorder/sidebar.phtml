@@ -31,7 +31,8 @@
  * @see Mage_Sale_Block_Reorder_Sidebar
  */
 ?>
-<?php if($_order = $this->getLastOrder()): ?>
+<?php $_items = $this->getItems()?>
+<?php if($_items): ?>
 <div class="box base-mini mini-reorder">
 <form method="post" action="<?php echo $this->getFormActionUrl() ?>" id="reorder-validate-detail">
     <div class="head">
@@ -42,7 +43,7 @@
         <h5><?php echo $this->__('Last ordered items') ?></h5>
         <ol id="cart-sidebar-reorder" class="options-list">
             <?php $_showAddButtonFlag = false ?>
-            <?php foreach ($_order->getItemsRandomCollection(5) as $_item): ?>
+            <?php foreach ($_items as $_item): ?>
             <li class="item">
                 <div class="product-checkbox">
                 <?php if ($this->isItemAvailableForReorder($_item)): ?>

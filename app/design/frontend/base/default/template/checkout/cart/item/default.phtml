@@ -29,11 +29,12 @@
     <td class="a-center"><a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo $this->__('Remove item')?>" class="btn-remove2"><?php echo $this->__('Remove item')?></a></td>
     <td><?php if ($this->hasProductUrl()):?><a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getProductName()) ?>"><?php endif;?><img src="<?php echo $this->getProductThumbnail()->resize(75); ?>" width="75" height="75" alt="<?php echo $this->htmlEscape($this->getProductName()) ?>" /><?php if ($this->hasProductUrl()):?></a><?php endif;?></td>
     <td>
-        <h2 class="product-name"><?php if ($this->hasProductUrl()):?>
+        <h2 class="product-name">
+        <?php if ($this->hasProductUrl()):?>
             <a href="<?php echo $this->getProductUrl() ?>"><?php echo $this->getProductName() ?></a>
-            <?php else: ?>
+        <?php else: ?>
             <?php echo $this->getProductName() ?>
-            <?php endif; ?>
+        <?php endif; ?>
         </h2>
         <?php if ($_options = $this->getOptionList()):?>
         <dl class="item-options">

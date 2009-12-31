@@ -24,18 +24,24 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-class Mage_Paypal_Block_Express_Form extends Mage_Payment_Block_Form
+/**
+ * PayPal Standard payment "form"
+ */
+class Mage_Paypal_Block_Express_Form extends Mage_Paypal_Block_Standard_Form
 {
     /**
-     * Init Express pay form
-     *
-     * @return Mage_Paypal_Block_Express_Form
+     * Payment method code
+     * @var string
+     */
+    protected $_methodCode = Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS;
+
+    /**
+     * Set template and redirect message
      */
     protected function _construct()
     {
-        $this->setTemplate('paypal/express/form.phtml');
-        parent::_construct();
-        return $this;
+        $result = parent::_construct();
+        $this->setRedirectMessage(Mage::helper('paypal')->__('Your billing address will be ignored and you will be redirected to PayPal website.'));
+        return $result;
     }
 }

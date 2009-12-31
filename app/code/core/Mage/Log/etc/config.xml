@@ -39,6 +39,11 @@
                 <admin />
             </entities>
         </ignoredModules>
+        <ignore_user_agents>
+            <google1>Googlebot/1.0 (googlebot@googlebot.com http://googlebot.com/)</google1>
+            <google2>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</google2>
+            <google3>Googlebot/2.1 (+http://www.googlebot.com/bot.html)</google3>
+        </ignore_user_agents>
         <models>
             <log>
                 <class>Mage_Log_Model</class>
@@ -47,33 +52,15 @@
             <log_mysql4>
                 <class>Mage_Log_Model_Mysql4</class>
                 <entities>
-                    <customer>
-                        <table>log_customer</table>
-                    </customer>
-                    <visitor>
-                        <table>log_visitor</table>
-                    </visitor>
-                    <visitor_info>
-                        <table>log_visitor_info</table>
-                    </visitor_info>
-                    <url_table>
-                        <table>log_url</table>
-                    </url_table>
-                    <url_info_table>
-                        <table>log_url_info</table>
-                    </url_info_table>
-                    <summary_table>
-                        <table>log_summary</table>
-                    </summary_table>
-                    <summary_type_table>
-                        <table>log_summary_type</table>
-                    </summary_type_table>
-                    <quote_table>
-                        <table>log_quote</table>
-                    </quote_table>
-                    <visitor_online>
-                        <table>log_visitor_online</table>
-                    </visitor_online>
+                    <customer><table>log_customer</table></customer>
+                    <visitor><table>log_visitor</table></visitor>
+                    <visitor_info><table>log_visitor_info</table></visitor_info>
+                    <url_table><table>log_url</table></url_table>
+                    <url_info_table><table>log_url_info</table></url_info_table>
+                    <summary_table><table>log_summary</table></summary_table>
+                    <summary_type_table><table>log_summary_type</table></summary_type_table>
+                    <quote_table><table>log_quote</table></quote_table>
+                    <visitor_online><table>log_visitor_online</table></visitor_online>
                 </entities>
             </log_mysql4>
         </models>

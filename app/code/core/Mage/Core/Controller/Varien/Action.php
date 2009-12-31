@@ -105,6 +105,30 @@ abstract class Mage_Core_Controller_Varien_Action
     protected $_sessionNamespace;
 
     /**
+     * Whether layout is loaded
+     *
+     * @see self::loadLayout()
+     * @var bool
+     */
+    protected $_isLayoutLoaded = false;
+
+    /**
+     * Title parts to be rendered in the page head title
+     *
+     * @see self::_title()
+     * @var array
+     */
+    protected $_titles = array();
+
+    /**
+     * Whether the default title should be removed
+     *
+     * @see self::_title()
+     * @var bool
+     */
+    protected $_removeDefaultTitle = false;
+
+    /**
      * Constructor
      *
      * @param Zend_Controller_Request_Abstract $request
@@ -244,6 +268,7 @@ abstract class Mage_Core_Controller_Varien_Action
             return $this;
         }
         $this->generateLayoutBlocks();
+        $this->_isLayoutLoaded = true;
 
         return $this;
     }
@@ -346,6 +371,8 @@ abstract class Mage_Core_Controller_Varien_Action
             return;
         }
 
+        $this->_renderTitles();
+
         Varien_Profiler::start("$_profilerKey::layout_render");
 
 
@@ -360,7 +387,7 @@ abstract class Mage_Core_Controller_Varien_Action
         $this->getLayout()->setDirectOutput(false);
 
         $output = $this->getLayout()->getOutput();
-
+        Mage::getSingleton('core/translate_inline')->processResponseBody($output);
         $this->getResponse()->appendBody($output);
         Varien_Profiler::stop("$_profilerKey::layout_render");
 
@@ -802,5 +829,68 @@ abstract class Mage_Core_Controller_Varien_Action
             return false;
         }
         return true;
+    }
+
+    /**
+     * Add an extra title to the end or one from the end, or remove all
+     *
+     * Usage examples:
+     * $this->_title('foo')->_title('bar');
+     * => bar / foo / <default title>
+     *
+     * $this->_title()->_title('foo')->_title('bar');
+     * => bar / foo
+     *
+     * $this->_title('foo')->_title(false)->_title('bar');
+     * bar / <default title>
+     *
+     * @see self::_renderTitles()
+     * @param string|false|-1|null $text
+     * @return Mage_Core_Controller_Varien_Action
+     */
+    protected function _title($text = null, $resetIfExists = true)
+    {
+        if (is_string($text)) {
+            $this->_titles[] = $text;
+        } elseif (-1 === $text) {
+            if (empty($this->_titles)) {
+                $this->_removeDefaultTitle = true;
+            } else {
+                array_pop($this->_titles);
+            }
+        } elseif (empty($this->_titles) || $resetIfExists) {
+            if (false === $text) {
+                $this->_removeDefaultTitle = false;
+                $this->_titles = array();
+            } elseif (null === $text) {
+                $this->_removeDefaultTitle = true;
+                $this->_titles = array();
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Prepare titles in the 'head' layout block
+     * Supposed to work only in actions where layout is rendered
+     * Falls back to the default logic if there are no titles eventually
+     *
+     * @see self::loadLayout()
+     * @see self::renderLayout()
+     */
+    protected function _renderTitles()
+    {
+        if ($this->_isLayoutLoaded && $this->_titles) {
+            $titleBlock = $this->getLayout()->getBlock('head');
+            if ($titleBlock) {
+                if (!$this->_removeDefaultTitle) {
+                    $title = trim($titleBlock->getTitle());
+                    if ($title) {
+                        array_unshift($this->_titles, $title);
+                    }
+                }
+                $titleBlock->setTitle(implode(' / ', array_reverse($this->_titles)));
+            }
+        }
     }
 }

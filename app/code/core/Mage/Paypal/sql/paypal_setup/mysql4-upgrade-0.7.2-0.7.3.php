@@ -26,14 +26,8 @@
 $installer = $this;
 /* @var $installer Mage_Paypal_Model_Mysql4_Setup */
 $installer->startSetup();
-$installer->addAttribute('quote_payment', 'account_status', array());
-$installer->addAttribute('quote_payment', 'address_status', array());
-$installer->addAttribute('quote_payment', 'protection_eligibility', array());
 
 $installer->addAttribute('order_payment', 'cc_secure_verify', array());
-$installer->addAttribute('order_payment', 'account_status', array());
-$installer->addAttribute('order_payment', 'protection_eligibility', array());
-$installer->addAttribute('order_payment', 'address_status', array());
 
 // move paypal style settings to new paths
 foreach (array(

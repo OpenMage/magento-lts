@@ -32,8 +32,23 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Discount extends Mage_Sales_Model_
         $creditmemo->setDiscountAmount(0);
         $creditmemo->setBaseDiscountAmount(0);
 
+        $order = $creditmemo->getOrder();
+
         $totalDiscountAmount = 0;
         $baseTotalDiscountAmount = 0;
+
+        /**
+         * Calculate how much shipping discount should be applied
+         * basing on how much shipping should be refunded.
+         */
+        $baseShippingAmount = $creditmemo->getBaseShippingAmount();
+        if ($baseShippingAmount) {
+            $baseShippingDiscount = $baseShippingAmount * $order->getBaseShippingDiscountAmount() / $order->getBaseShippingAmount();
+            $shippingDiscount = $order->getShippingAmount() * $baseShippingDiscount / $order->getBaseShippingAmount();
+            $totalDiscountAmount = $totalDiscountAmount + $shippingDiscount;
+            $baseTotalDiscountAmount = $baseTotalDiscountAmount + $baseShippingDiscount;
+        }
+
         foreach ($creditmemo->getAllItems() as $item) {
             if ($item->getOrderItem()->isDummy()) {
                 continue;

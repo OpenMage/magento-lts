@@ -180,14 +180,33 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
             $allCategoryIds = array_merge($allCategoryIds, explode('/', $path));
         }
         $allCategoryIds = array_unique($allCategoryIds);
+
+        /**
+         * retrieve anchor category id
+         */
+        $anchorInfo     = $this->_getAnchorAttributeInfo();
+        $select = $this->_getReadAdapter()->select()
+            ->distinct(true)
+            ->from(array('ce' => $this->_categoryTable), array('entity_id'))
+            ->joinInner(
+                array('dca'=>$anchorInfo['table']),
+                "dca.entity_id=ce.entity_id AND dca.attribute_id={$anchorInfo['id']} AND dca.store_id=0",
+                array())
+             ->where('dca.value=1')
+             ->where('ce.entity_id IN (?)', $allCategoryIds);
+        $anchorIds = $this->_getWriteAdapter()->fetchCol($select);
+        /**
+         * delete only anchor id and category ids
+         */
+        $deleteCategoryIds = array_merge($anchorIds,$categoryIds);
+
         $this->_getWriteAdapter()->delete(
             $this->getMainTable(),
-            $this->_getWriteAdapter()->quoteInto('category_id IN(?)', $allCategoryIds)
+            $this->_getWriteAdapter()->quoteInto('category_id IN(?)', $deleteCategoryIds)
         );
 
-        $allCategoryIds = array_diff($allCategoryIds, $categoryIds);
-
-        $this->_refreshAnchorRelations($allCategoryIds);
+        $anchorIds = array_diff($anchorIds, $categoryIds);
+        $this->_refreshAnchorRelations($anchorIds);
         $this->_refreshDirectRelations($categoryIds);
     }
 
@@ -200,6 +219,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
      */
     protected function _refreshDirectRelations($categoryIds=null, $productIds=null)
     {
+        if (!$categoryIds && !$productIds) {
+            return $this;
+        }
+
         $visibilityInfo = $this->_getVisibilityAttributeInfo();
         $statusInfo     = $this->_getStatusAttributeInfo();
 
@@ -261,6 +284,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Indexer_Product extends Ma
      */
     protected function _refreshAnchorRelations($categoryIds=null, $productIds=null)
     {
+        if (!$categoryIds && !$productIds) {
+            return $this;
+        }
+
         $anchorInfo     = $this->_getAnchorAttributeInfo();
         $visibilityInfo = $this->_getVisibilityAttributeInfo();
         $statusInfo     = $this->_getStatusAttributeInfo();

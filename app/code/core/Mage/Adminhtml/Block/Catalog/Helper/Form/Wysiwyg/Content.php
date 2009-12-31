@@ -43,12 +43,16 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg_Content
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(array('id' => 'wysiwyg_edit_form', 'action' => $this->getData('action'), 'method' => 'post'));
+
+        $config['add_variables'] = false;
+        $config['add_widgets'] = false;
+
         $form->addField($this->getData('editor_element_id'), 'editor', array(
             'name'      => 'content',
             'style'     => 'width:725px;height:460px',
             'required'  => true,
             'force_load' => true,
-            'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig()
+            'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig($config)
         ));
         $this->setForm($form);
         return parent::_prepareForm();

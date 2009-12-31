@@ -33,14 +33,14 @@
                 <?php echo $this->getToPlainButtonHtml(); ?>
                 <?php echo $this->getToHtmlButtonHtml(); ?>
                 <?php endif ?>
-                <?php echo $this->getSaveButtonHtml(); ?>
-                <?php if($this->getEditMode()): ?>
-                <?php echo $this->getSaveAsButtonHtml(); ?>
-                <?php endif ?>
-                <?php echo $this->getPreviewButtonHtml(); ?>
                 <?php if($this->getEditMode()): ?>
                 <?php echo $this->getDeleteButtonHtml(); ?>
                 <?php endif ?>
+                <?php echo $this->getPreviewButtonHtml(); ?>
+                <?php if($this->getEditMode()): ?>
+                <?php echo $this->getSaveAsButtonHtml(); ?>
+                <?php endif ?>
+                <?php echo $this->getSaveButtonHtml(); ?>
     </p>
 </div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="newsletter_template_edit_form">

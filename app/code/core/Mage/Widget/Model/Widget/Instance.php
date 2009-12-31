@@ -44,6 +44,8 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     const NOTANCHOR_CATEGORY_LAYOUT_HANDLE = 'catalog_category_default';
     const SINGLE_CATEGORY_LAYOUT_HANDLE    = 'CATEGORY_{{ID}}';
 
+    const XML_NODE_RELATED_CACHE = 'global/widget/related_cache_types';
+
     protected $_layoutHandles = array();
 
     protected $_specificEntitiesLayoutHandles = array();
@@ -485,4 +487,40 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         return $xml;
     }
 
+    /**
+     * Invalidate related cache types
+     *
+     * @return Mage_Widget_Model_Widget_Instance
+     */
+    protected function _invalidateCache()
+    {
+        $types = Mage::getConfig()->getNode(self::XML_NODE_RELATED_CACHE);
+        if ($types) {
+            $types = $types->asArray();
+            Mage::app()->getCacheInstance()->invalidateType(array_keys($types));
+        }
+        return $this;
+    }
+
+    /**
+     * Invalidate related cache if instance contain layout updates
+     */
+    protected function _afterSave()
+    {
+        if ($this->dataHasChangedFor('page_groups')) {
+            $this->_invalidateCache();
+        }
+        return parent::_afterSave();
+    }
+
+    /**
+     * Invalidate related cache if instance contain layout updates
+     */
+    protected function _beforeDelete()
+    {
+        if ($this->getPageGroups()) {
+            $this->_invalidateCache();
+        }
+        return parent::_beforeDelete();
+    }
 }

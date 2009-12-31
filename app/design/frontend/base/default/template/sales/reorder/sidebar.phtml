@@ -31,7 +31,8 @@
  * @see Mage_Sale_Block_Reorder_Sidebar
  */
 ?>
-<?php if($_order = $this->getLastOrder()): ?>
+<?php $_items = $this->getItems()?>
+<?php if($_items): ?>
 <div class="block block-reorder">
     <div class="block-title">
         <strong><span><?php echo $this->__('My Orders') ?></span></strong>
@@ -41,11 +42,11 @@
             <p class="block-subtitle"><?php echo $this->__('Last ordered items') ?></p>
             <ol id="cart-sidebar-reorder">
             <?php $_showAddButtonFlag = false ?>
-            <?php foreach ($_order->getItemsRandomCollection(5) as $_item): ?>
+            <?php foreach ($_items as $_item): ?>
                 <li class="item">
                     <?php if ($this->isItemAvailableForReorder($_item)): ?>
                         <?php $_showAddButtonFlag = true ?>
-                        <input type="checkbox" name="order_items[]" id="reorder-item-<?php echo $_item->getId() ?>" value="<?php echo $_item->getId() ?>" class="checkbox validate-one-required-by-name" />
+                        <input type="checkbox" name="order_items[]" id="reorder-item-<?php echo $_item->getId() ?>" value="<?php echo $_item->getId() ?>" title="<?php echo $this->__('Add to Cart') ?>" class="checkbox validate-one-required-by-name" />
                         <script type="text/javascript">
                         //<![CDATA[
                             $('reorder-item-<?php echo $_item->getId() ?>').advaiceContainer = 'cart-sidebar-reorder-advice-container';
@@ -58,12 +59,12 @@
             </ol>
             <script type="text/javascript">decorateList('cart-sidebar-reorder')</script>
             <div id="cart-sidebar-reorder-advice-container"></div>
-            <?php if ($_showAddButtonFlag): ?>
                 <div class="actions">
-                    <button type="submit" title="<?php echo $this->__('Add to Cart') ?>" class="button"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                    <?php if ($_showAddButtonFlag): ?>
+                        <button type="submit" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                    <?php endif; ?>
                     <a href="<?php echo $this->getUrl('customer/account') ?>"><?php echo $this->__('View All'); ?></a>
                 </div>
-            <?php endif; ?>
         </div>
     </form>
 </div>

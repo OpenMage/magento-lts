@@ -33,19 +33,11 @@
  */
 class Mage_PaypalUk_Block_Link_Shortcut extends Mage_Core_Block_Template
 {
-    /**
-     * Return checkout url, on click to checkout now button
-     *
-     */
     public function getCheckoutUrl()
     {
         return $this->getUrl('paypaluk/express/shortcut', array('_secure'=>true));
     }
 
-    /**
-     * Checkout now button image
-     * @return string
-     */
     public function getImageUrl()
     {
         $locale = Mage::app()->getLocale()->getLocaleCode();

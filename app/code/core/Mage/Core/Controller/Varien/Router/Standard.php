@@ -414,6 +414,10 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     protected function _getCurrentSecureUrl($request)
     {
+        if ($alias = $request->getAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS)) {
+            return Mage::getBaseUrl('link', true).ltrim($alias, '/');
+        }
+
         return Mage::getBaseUrl('link', true).ltrim($request->getPathInfo(), '/');
     }
 

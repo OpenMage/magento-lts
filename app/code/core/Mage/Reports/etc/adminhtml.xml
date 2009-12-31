@@ -58,6 +58,10 @@
                             <title>Coupons</title>
                             <action>adminhtml/report_sales/coupons</action>
                         </coupons>
+                        <refresh_statistics translate="title" module="reports">
+                            <title>Refresh Statistics</title>
+                            <action>adminhtml/report_sales/refreshstatistics</action>
+                        </refresh_statistics>
                     </children>
                 </salesroot>
                 <shopcart translate="title" module="reports">

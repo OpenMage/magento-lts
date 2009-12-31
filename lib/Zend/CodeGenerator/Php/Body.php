@@ -17,7 +17,7 @@
  * @subpackage PHP
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Body.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Body.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -33,12 +33,12 @@
  */
 class Zend_CodeGenerator_Php_Body extends Zend_CodeGenerator_Abstract
 {
-    
+
     /**
      * @var string
      */
     protected $_content = null;
-    
+
     /**
      * setContent()
      *
@@ -50,7 +50,7 @@ class Zend_CodeGenerator_Php_Body extends Zend_CodeGenerator_Abstract
         $this->_content = $content;
         return $this;
     }
-    
+
     /**
      * getContent()
      *
@@ -60,7 +60,7 @@ class Zend_CodeGenerator_Php_Body extends Zend_CodeGenerator_Abstract
     {
         return (string) $this->_content;
     }
-    
+
     /**
      * generate()
      *

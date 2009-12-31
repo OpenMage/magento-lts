@@ -62,7 +62,8 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
             'name'     => 'code',
             'label'    => Mage::helper('adminhtml')->__('Variable Code'),
             'title'    => Mage::helper('adminhtml')->__('Variable Code'),
-            'required' => true
+            'required' => true,
+            'class'    => 'validate-xml-identifier'
         ));
 
         $fieldset->addField('name', 'text', array(

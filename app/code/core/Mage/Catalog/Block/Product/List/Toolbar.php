@@ -653,7 +653,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         $perPageValues = (string)Mage::getStoreConfig($perPageConfigKey);
         $perPageValues = explode(',', $perPageValues);
         $perPageValues = array_combine($perPageValues, $perPageValues);
-        if (Mage::getStoreConfigFlag('design/pagination/list_allow_all')) {
+        if (Mage::getStoreConfigFlag('catalog/frontend/list_allow_all')) {
             return ($perPageValues + array('all'=>$this->__('All')));
         } else {
             return $perPageValues;

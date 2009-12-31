@@ -156,4 +156,21 @@ class Mage_Tax_Model_Observer
         }
         return $this;
     }
+
+    /**
+     * Refresh sales tax report statistics for last day
+     *
+     * @param Mage_Cron_Model_Schedule $schedule
+     * @return Mage_Tax_Model_Observer
+     */
+    public function aggregateSalesReportTaxData($schedule)
+    {
+        Mage::app()->getLocale()->emulate(0);
+        $currentDate = Mage::app()->getLocale()->date();
+        $date = $currentDate->subHour(25);
+        Mage::getResourceModel('tax/tax')->aggregate($date);
+        Mage::app()->getLocale()->revert();
+        return $this;
+    }
 }
+

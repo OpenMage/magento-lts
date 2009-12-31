@@ -17,27 +17,12 @@
  * @subpackage Search
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Fuzzy.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Fuzzy.php 18954 2009-11-12 20:01:33Z alexander $
  */
 
 
 /** Zend_Search_Lucene_Search_Query_Processing */
 #require_once 'Zend/Search/Lucene/Search/Query/Preprocessing.php';
-
-/** Zend_Search_Lucene_Search_Query_Phrase */
-#require_once 'Zend/Search/Lucene/Search/Query/Phrase.php';
-
-/** Zend_Search_Lucene_Search_Query_Insignificant */
-#require_once 'Zend/Search/Lucene/Search/Query/Insignificant.php';
-
-/** Zend_Search_Lucene_Search_Query_Empty */
-#require_once 'Zend/Search/Lucene/Search/Query/Empty.php';
-
-/** Zend_Search_Lucene_Search_Query_Term */
-#require_once 'Zend/Search/Lucene/Search/Query/Term.php';
-
-/** Zend_Search_Lucene_Index_Term */
-#require_once 'Zend/Search/Lucene/Index/Term.php';
 
 
 /**
@@ -111,16 +96,19 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
     public function rewrite(Zend_Search_Lucene_Interface $index)
     {
         if ($this->_field === null) {
+            #require_once 'Zend/Search/Lucene/Search/Query/Boolean.php';
             $query = new Zend_Search_Lucene_Search_Query_Boolean();
 
             $hasInsignificantSubqueries = false;
 
+            #require_once 'Zend/Search/Lucene.php';
             if (Zend_Search_Lucene::getDefaultSearchField() === null) {
                 $searchFields = $index->getFieldNames(true);
             } else {
                 $searchFields = array(Zend_Search_Lucene::getDefaultSearchField());
             }
 
+            #require_once 'Zend/Search/Lucene/Search/Query/Preprocessing/Fuzzy.php';
             foreach ($searchFields as $fieldName) {
                 $subquery = new Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy($this->_word,
                                                                                     $this->_encoding,
@@ -135,23 +123,25 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
                 }
 
                 if ($rewrittenSubquery instanceof Zend_Search_Lucene_Search_Query_Insignificant) {
-                	$hasInsignificantSubqueries = true;
+                    $hasInsignificantSubqueries = true;
                 }
             }
 
             $subqueries = $query->getSubqueries();
 
             if (count($subqueries) == 0) {
-            	$this->_matches = array();
+                $this->_matches = array();
                 if ($hasInsignificantSubqueries) {
+                    #require_once 'Zend/Search/Lucene/Search/Query/Insignificant.php';
                     return new Zend_Search_Lucene_Search_Query_Insignificant();
                 } else {
+                    #require_once 'Zend/Search/Lucene/Search/Query/Empty.php';
                     return new Zend_Search_Lucene_Search_Query_Empty();
                 }
             }
 
             if (count($subqueries) == 1) {
-            	$query = reset($subqueries);
+                $query = reset($subqueries);
             }
 
             $query->setBoost($this->getBoost());
@@ -163,8 +153,10 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
         // -------------------------------------
         // Recognize exact term matching (it corresponds to Keyword fields stored in the index)
         // encoding is not used since we expect binary matching
+        #require_once 'Zend/Search/Lucene/Index/Term.php';
         $term = new Zend_Search_Lucene_Index_Term($this->_word, $this->_field);
         if ($index->hasTerm($term)) {
+            #require_once 'Zend/Search/Lucene/Search/Query/Fuzzy.php';
             $query = new Zend_Search_Lucene_Search_Query_Fuzzy($term, $this->_minimumSimilarity);
             $query->setBoost($this->getBoost());
 
@@ -181,9 +173,9 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
 
         /** @todo check for PCRE unicode support may be performed through Zend_Environment in some future */
         if (@preg_match('/\pL/u', 'a') == 1) {
-        	$subPatterns = preg_split('/[*?]/u', iconv($this->_encoding, 'UTF-8', $this->_word));
+            $subPatterns = preg_split('/[*?]/u', iconv($this->_encoding, 'UTF-8', $this->_word));
         } else {
-        	$subPatterns = preg_split('/[*?]/', $this->_word);
+            $subPatterns = preg_split('/[*?]/', $this->_word);
         }
         if (count($subPatterns) > 1) {
             #require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
@@ -193,15 +185,19 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
 
         // -------------------------------------
         // Recognize one-term multi-term and "insignificant" queries
+        #require_once 'Zend/Search/Lucene/Analysis/Analyzer.php';
         $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($this->_word, $this->_encoding);
 
         if (count($tokens) == 0) {
-        	$this->_matches = array();
+            $this->_matches = array();
+            #require_once 'Zend/Search/Lucene/Search/Query/Insignificant.php';
             return new Zend_Search_Lucene_Search_Query_Insignificant();
         }
 
         if (count($tokens) == 1) {
+            #require_once 'Zend/Search/Lucene/Index/Term.php';
             $term  = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
+            #require_once 'Zend/Search/Lucene/Search/Query/Fuzzy.php';
             $query = new Zend_Search_Lucene_Search_Query_Fuzzy($term, $this->_minimumSimilarity);
             $query->setBoost($this->getBoost());
 
@@ -224,9 +220,9 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
      */
     protected function _highlightMatches(Zend_Search_Lucene_Search_Highlighter_Interface $highlighter)
     {
-    	/** Skip fields detection. We don't need it, since we expect all fields presented in the HTML body and don't differentiate them */
+        /** Skip fields detection. We don't need it, since we expect all fields presented in the HTML body and don't differentiate them */
 
-    	/** Skip exact term matching recognition, keyword fields highlighting is not supported */
+        /** Skip exact term matching recognition, keyword fields highlighting is not supported */
 
         // -------------------------------------
         // Recognize wildcard queries
@@ -242,15 +238,19 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
             return;
         }
 
+
         // -------------------------------------
         // Recognize one-term multi-term and "insignificant" queries
+        #require_once 'Zend/Search/Lucene/Analysis/Analyzer.php';
         $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($this->_word, $this->_encoding);
         if (count($tokens) == 0) {
             // Do nothing
             return;
         }
         if (count($tokens) == 1) {
+            #require_once 'Zend/Search/Lucene/Index/Term.php';
             $term  = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
+            #require_once 'Zend/Search/Lucene/Search/Query/Fuzzy.php';
             $query = new Zend_Search_Lucene_Search_Query_Fuzzy($term, $this->_minimumSimilarity);
 
             $query->_highlightMatches($highlighter);

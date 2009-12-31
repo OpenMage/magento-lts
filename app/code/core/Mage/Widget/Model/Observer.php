@@ -42,8 +42,11 @@ class Mage_Widget_Model_Observer
     public function prepareWidgetsPluginConfig(Varien_Event_Observer $observer)
     {
         $config = $observer->getEvent()->getConfig();
-        $settings = Mage::getModel('widget/widget_config')->getPluginSettings($config);
-        $config->addData($settings);
+
+        if ($config->getData('add_widgets')) {
+            $settings = Mage::getModel('widget/widget_config')->getPluginSettings($config);
+            $config->addData($settings);
+        }
         return $this;
     }
 

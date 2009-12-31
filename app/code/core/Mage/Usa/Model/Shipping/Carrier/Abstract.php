@@ -82,9 +82,15 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      */
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
+        //Skip by item validation if there is no items in request
+        if(!count($request->getAllItems())) {
+            return $this;
+        }
+
         $maxAllowedWeight = (float) $this->getConfigData('max_package_weight');
         $error = null;
         $showMethod = $this->getConfigData('showmethod');
+
         foreach ($request->getAllItems() as $item) {
             if ($item->getProduct() && $item->getProduct()->getId()) {
                 if ($item->getProduct()->getWeight() > $maxAllowedWeight) {
