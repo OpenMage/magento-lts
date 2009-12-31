@@ -187,8 +187,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             $item['allowDrop']  = true;
             $item['allowDrag']  = true;
 
-            $nodeChildren = Mage::getModel('eav/entity_attribute')
-                ->getResourceCollection()
+            $nodeChildren = Mage::getResourceModel('catalog/product_attribute_collection')
                 ->setAttributeGroupFilter($node->getId())
                 ->addVisibleFilter()
                 ->checkConfigurableProducts()
@@ -207,7 +206,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
                         'leaf'              => true,
                         'is_user_defined'   => $child->getIsUserDefined(),
                         'is_configurable'   => (int)in_array($child->getAttributeId(), $configurable),
-                        'entity_id'         => $child->getEntityId()
+                        'entity_id'         => $child->getEntityAttributeId()
                     );
 
                     $item['children'][] = $attr;
@@ -230,8 +229,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
         $items = array();
         $setId = $this->_getSetId();
 
-        $collection = Mage::getModel('eav/entity_attribute')
-            ->getResourceCollection()
+        $collection = Mage::getResourceModel('catalog/product_attribute_collection')
             ->setAttributeSetFilter($setId)
             ->load();
 
@@ -241,9 +239,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             $attributesIds[] = $item->getAttributeId();
         }
 
-        $attributes = Mage::getModel('eav/entity_attribute')
-            ->getResourceCollection()
-            ->setEntityTypeFilter(Mage::registry('entityType'))
+        $attributes = Mage::getResourceModel('catalog/product_attribute_collection')
             ->setAttributesExcludeFilter($attributesIds)
             ->addVisibleFilter()
             ->load();

@@ -57,9 +57,21 @@ class Mage_Core_Model_Mysql4_Store_Collection extends Mage_Core_Model_Mysql4_Col
         return $this;
     }
 
+    /**
+     * Add filter by group id.
+     * Group id can be passed as one single value or array of values.
+     *
+     * @param int|array $groupId
+     * @return Mage_Core_Model_Mysql4_Store_Collection
+     */
     public function addGroupFilter($groupId)
     {
-        $condition = $this->getConnection()->quoteInto("main_table.group_id=?", $groupId);
+        if (is_array($groupId)) {
+            $condition = $this->getConnection()->quoteInto("main_table.group_id IN (?)", $groupId);
+        } else {
+            $condition = $this->getConnection()->quoteInto("main_table.group_id = ?",$groupId);
+        }
+
         $this->addFilter('group_id', $condition, 'string');
         return $this;
     }

@@ -12,9 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
+ * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: ElementFactory.php 17533 2009-08-10 19:06:27Z alexander $
  */
 
 
@@ -69,7 +71,7 @@
  * Responsibility is to log PDF changes
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
@@ -89,9 +91,9 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      *
      * Array: ojbectNumber => Zend_Pdf_Element_Object
      *
-     * @var array
+     * @var SplObjectStorage
      */
-    private $_removedObjects = array();
+    private $_removedObjects;
 
     /**
      * List of registered objects.
@@ -151,8 +153,9 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      */
     public function __construct($objCount)
     {
-        $this->_objectCount       = (int)$objCount;
-        $this->_factoryId         = self::$_identity++;
+        $this->_objectCount    = (int)$objCount;
+        $this->_factoryId      = self::$_identity++;
+        $this->_removedObjects = new SplObjectStorage();
     }
 
 
@@ -255,7 +258,6 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
     /**
      * Calculate object enumeration shift.
      *
-     * @internal
      * @param Zend_Pdf_ElementFactory_Interface $factory
      * @return integer
      */
@@ -285,6 +287,22 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
 
         $this->_shiftCalculationCache[$factory->_factoryId] = -1;
         return -1;
+    }
+
+    /**
+     * Clean enumeration shift cache.
+     * Has to be used after PDF render operation to let followed updates be correct.
+     *
+     * @param Zend_Pdf_ElementFactory_Interface $factory
+     * @return integer
+     */
+    public function cleanEnumerationShiftCache()
+    {
+        $this->_shiftCalculationCache = array();
+
+        foreach ($this->_attachedFactories as $attached) {
+            $attached->cleanEnumerationShiftCache();
+        }
     }
 
     /**
@@ -332,7 +350,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
         }
 
         $this->_modifiedObjects[$obj->getObjNum()] = $obj;
-        $this-> _removedObjects[$obj->getObjNum()] = $obj;
+        $this->_removedObjects->attach($obj);
     }
 
 
@@ -387,8 +405,8 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
 
         $result = array();
         foreach ($this->_modifiedObjects as $objNum => $obj) {
-            if (key_exists($objNum, $this->_removedObjects)) {
-                $result[$objNum+$shift] = new Zend_Pdf_UpdateInfoContainer($objNum + $shift,
+            if ($this->_removedObjects->contains($obj)) {
+        	                $result[$objNum+$shift] = new Zend_Pdf_UpdateInfoContainer($objNum + $shift,
                                                                            $obj->getGenNum()+1,
                                                                            true);
             } else {
@@ -411,12 +429,28 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      *
      * It's used to clear "parent object" referencies when factory is closed and clean up resources
      *
+     * @param string $refString
      * @param Zend_Pdf_Element_Object $obj
      */
-    public function registerObject($obj)
+    public function registerObject(Zend_Pdf_Element_Object $obj, $refString)
     {
-        $this->_registeredObjects[] = $obj;
+        $this->_registeredObjects[$refString] = $obj;
     }
+
+    /**
+     * Fetch object specified by reference
+     *
+     * @param string $refString
+     * @return Zend_Pdf_Element_Object|null
+     */
+    public function fetchObject($refString)
+    {
+        if (!isset($this->_registeredObjects[$refString])) {
+            return null;
+        }
+        return $this->_registeredObjects[$refString];
+    }
+
 
     /**
      * Check if PDF file was modified

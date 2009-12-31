@@ -34,7 +34,7 @@
 <form action="<?php echo $this->getPostActionUrl() ?>" method="post">
 <div class="page-title title-buttons">
     <h2><?php echo $this->__('Ship to Multiple Addresses') ?></h2>
-    <button type="submit" class="button" onclick="$('add_new_address_flag').value=1"><span><?php echo $this->__('Enter a New Address') ?></span></button>
+    <button type="submit" class="button" onclick="$('add_new_address_flag').value=1"><span><span><?php echo $this->__('Enter a New Address') ?></span></span></button>
 </div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <fieldset class="multiple-checkout">
@@ -56,7 +56,7 @@
         </thead>
         <tfoot>
             <tr>
-                <td colspan="100" class="a-right"><button type="submit" class="button" onclick="$('can_continue_flag').value=0"><span><?php echo $this->__('Update Qty &amp; Addresses') ?></span></button></td>
+                <td colspan="100" class="a-right"><button type="submit" class="button" onclick="$('can_continue_flag').value=0"><span><span><?php echo $this->__('Update Qty &amp; Addresses') ?></span></span></button></td>
             </tr>
         </tfoot>
         <tbody>
@@ -73,7 +73,7 @@
     <script type="text/javascript">decorateTable('multiship-addresses-table')</script>
     <div class="buttons-set">
         <a href="<?php echo $this->getBackUrl() ?>" class="back-link">&laquo; <?php echo $this->__('Back to Shopping Cart') ?></a>
-        <button type="submit" class="button<?php if ($this->isContinueDisabled()):?> disabled<?php endif; ?>" onclick="$('can_continue_flag').value=1"<?php if ($this->isContinueDisabled()):?> disabled="disabled"<?php endif; ?>><span><?php echo $this->__('Continue to Shipping Information') ?></span></button>
+        <button type="submit" class="button<?php if ($this->isContinueDisabled()):?> disabled<?php endif; ?>" onclick="$('can_continue_flag').value=1"<?php if ($this->isContinueDisabled()):?> disabled="disabled"<?php endif; ?>><span><span><?php echo $this->__('Continue to Shipping Information') ?></span></span></button>
     </div>
 </fieldset>
 </form>

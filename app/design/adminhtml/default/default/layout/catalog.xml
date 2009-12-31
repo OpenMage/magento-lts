@@ -62,6 +62,71 @@
         </reference>
     </adminhtml_catalog_product_edit>
 
+    <adminhtml_catalog_product_related>
+        <block type="core/text_list" name="root">
+            <block type="adminhtml/catalog_product_edit_tab_related" name="catalog.product.edit.tab.related"/>
+            <block type="adminhtml/widget_grid_serializer" name="related_grid_serializer">
+                <reference name="related_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>catalog.product.edit.tab.related</grid_block_name>
+                        <data_callback>getSelectedRelatedProducts</data_callback>
+                        <hidden_input_name>links[related]</hidden_input_name>
+                        <reload_param_name>products_related</reload_param_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_catalog_product_related>
+
+    <adminhtml_catalog_product_relatedgrid>
+        <block type="core/text_list" name="root">
+            <block type="adminhtml/catalog_product_edit_tab_related" name="catalog.product.edit.tab.related"/>
+        </block>
+    </adminhtml_catalog_product_relatedgrid>
+
+    <adminhtml_catalog_product_upsell>
+        <block type="core/text_list" name="root">
+            <block type="adminhtml/catalog_product_edit_tab_upsell" name="catalog.product.edit.tab.upsell"/>
+            <block type="adminhtml/widget_grid_serializer" name="upsell_grid_serializer">
+                <reference name="upsell_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>catalog.product.edit.tab.upsell</grid_block_name>
+                        <data_callback>getSelectedUpsellProducts</data_callback>
+                        <hidden_input_name>links[upsell]</hidden_input_name>
+                        <reload_param_name>products_upsell</reload_param_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_catalog_product_upsell>
+
+    <adminhtml_catalog_product_upsellgrid>
+        <block type="core/text_list" name="root">
+            <block type="adminhtml/catalog_product_edit_tab_upsell" name="catalog.product.edit.tab.upsell"/>
+        </block>
+    </adminhtml_catalog_product_upsellgrid>
+
+    <adminhtml_catalog_product_crosssell>
+        <block type="core/text_list" name="root">
+            <block type="adminhtml/catalog_product_edit_tab_crosssell" name="catalog.product.edit.tab.crosssell"/>
+            <block type="adminhtml/widget_grid_serializer" name="crosssell_grid_serializer">
+                <reference name="crosssell_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>catalog.product.edit.tab.crosssell</grid_block_name>
+                        <data_callback>getSelectedCrossSellProducts</data_callback>
+                        <hidden_input_name>links[crosssell]</hidden_input_name>
+                        <reload_param_name>products_crosssell</reload_param_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_catalog_product_crosssell>
+
+    <adminhtml_catalog_product_crosssellgrid>
+        <block type="core/text_list" name="root">
+            <block type="adminhtml/catalog_product_edit_tab_crosssell" name="catalog.product.edit.tab.crosssell"/>
+        </block>
+    </adminhtml_catalog_product_crosssellgrid>
 <!--
 Layout handle for simple products
 -->
@@ -71,13 +136,33 @@ Layout handle for simple products
 <!--
 Layout handle for grouped products
 -->
-
     <adminhtml_catalog_product_grouped>
         <reference name="product_tabs">
             <action method="addTab"><name>super</name><block>adminhtml/catalog_product_edit_tab_super_group</block></action>
         </reference>
     </adminhtml_catalog_product_grouped>
-
+ 
+    <adminhtml_catalog_product_supergroup>
+        <block type="core/text_list" name="root">
+            <block type="adminhtml/catalog_product_edit_tab_super_group" name="catalog.product.edit.tab.super.group" />
+            <block type="adminhtml/widget_grid_serializer" name="grouped_grid_serializer">
+                <reference name="grouped_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>catalog.product.edit.tab.super.group</grid_block_name>
+                        <data_callback>getSelectedGroupedProducts</data_callback>
+                        <hidden_input_name>links[grouped]</hidden_input_name>
+                        <reload_param_name>products_grouped</reload_param_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_catalog_product_supergroup>
+    
+    <adminhtml_catalog_product_supergroupgridonly>
+        <block type="core/text_list" name="root">
+            <block type="adminhtml/catalog_product_edit_tab_super_group" name="catalog.product.edit.tab.super.group" />
+        </block>
+    </adminhtml_catalog_product_supergroupgridonly>
 <!--
 Layout handle for configurable products
 -->

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,9 +30,9 @@
  * @uses       Zend_Dojo_Form_Element_Dijit
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: CheckBox.php 10001 2008-07-08 21:26:09Z matthew $
+ * @version    $Id: CheckBox.php 17716 2009-08-21 15:08:31Z matthew $
  */
 class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
 {
@@ -47,6 +47,15 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
      * @var string
      */
     public $helper = 'CheckBox';
+
+    /**
+     * Options that will be passed to the view helper
+     * @var array
+     */
+    public $options = array(
+        'checkedValue'   => '1',
+        'uncheckedValue' => '0',
+    );
 
     /**
      * Value when checked
@@ -130,6 +139,7 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
     public function setCheckedValue($value)
     {
         $this->_checkedValue = (string) $value;
+        $this->options['checkedValue'] = $value;
         return $this;
     }
 
@@ -152,6 +162,7 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
     public function setUncheckedValue($value)
     {
         $this->_uncheckedValue = (string) $value;
+        $this->options['uncheckedValue'] = $value;
         return $this;
     }
 
@@ -191,22 +202,4 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
     {
         return $this->checked;
     }
-
-    /**
-     * Render
-     *
-     * Ensure that options property is set when rendering.
-     * 
-     * @param  Zend_View_Interface $view 
-     * @return string
-     */
-    public function render(Zend_View_Interface $view = null)
-    {
-        $this->options = array(
-            'checked'   => $this->getCheckedValue(),
-            'unChecked' => $this->getUncheckedValue(),
-        );
-        return parent::render($view);
-    }
 }
-

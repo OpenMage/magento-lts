@@ -16,8 +16,11 @@
  * @package    Zend_Reflection
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Tag.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
+
+/** Zend_Loader */
+#require_once 'Zend/Loader.php';
 
 /**
  * @category   Zend
@@ -64,7 +67,6 @@ class Zend_Reflection_Docblock_Tag implements Reflector
         if (array_key_exists($tagName, self::$_tagClasses)) {
             $tagClass = self::$_tagClasses[$tagName];
             if (!class_exists($tagClass)) {
-                #require_once 'Zend/Loader.php';
                 Zend_Loader::loadClass($tagClass);
             }
             return new $tagClass($tagDocblockLine);

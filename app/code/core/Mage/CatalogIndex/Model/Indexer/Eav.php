@@ -77,7 +77,7 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
 
     protected function _getIndexableAttributeConditions()
     {
-        $conditions = "frontend_input IN ('select', 'multiselect') AND (is_filterable IN (1, 2) OR is_visible_in_advanced_search = 1)";
+        $conditions = "main_table.frontend_input IN ('select', 'multiselect') AND (additional_table.is_filterable IN (1, 2) OR additional_table.is_visible_in_advanced_search = 1)";
         return $conditions;
 
         $conditions = array();

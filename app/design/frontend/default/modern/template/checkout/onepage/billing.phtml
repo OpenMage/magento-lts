@@ -89,6 +89,13 @@
                                 ->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
                         </li>
             <?php endif ?>
+            <?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
+            <?php if ($_gender->isEnabled()): ?>
+                        <li>
+                            <?php echo $_gender->setGender($this->getQuote()->getCustomerGender())
+                                ->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
+                        </li>
+            <?php endif ?>
                 <li id="register-customer-password">
                 <div class="input-box">
                 <label for="billing:customer_password"><?php echo $this->__('Password') ?> <span class="required">*</span></label><br/>
@@ -130,6 +137,6 @@
     //billingForm.setElementsRelation('billing:country_id', 'billing:region', '<?php echo $this->getUrl('directory/json/childRegion') ?>', '<?php echo $this->__('Select State/Province...') ?>');
     $('billing-address-select') && billing.newAddress(!$('billing-address-select').value);
 
-    var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', countryRegions, undefined, <?php echo $this->helper('directory')->getCountriesWithOptionalZipJson() ?>);
+    var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', countryRegions, undefined, 'billing:postcode');
 //-->
 </script>

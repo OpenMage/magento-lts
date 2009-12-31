@@ -50,20 +50,7 @@
                     <module>Mage_Cybermut</module>
                     <class>Mage_Cybermut_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </cybermut_setup>
-            <cybermut_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </cybermut_write>
-            <cybermut_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </cybermut_read>
         </resources>
         <blocks>
             <cybermut><class>Mage_Cybermut_Block</class></cybermut>

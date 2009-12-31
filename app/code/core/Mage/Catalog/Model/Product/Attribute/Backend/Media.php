@@ -123,7 +123,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $attrData = $object->getData($mediaAttrCode);
 
             if (in_array($attrData, $clearImages)) {
-                $object->setData($mediaAttrCode, null);
+                $object->setData($mediaAttrCode, false);
             }
 
             if (in_array($attrData, array_keys($newImages))) {

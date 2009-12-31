@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+
+<layout>
+    <adminhtml_cms_page_index>
+        <reference name="content">
+            <block type="adminhtml/cms_page" name="cms_page"></block>
+        </reference>
+    </adminhtml_cms_page_index>
+
+    <adminhtml_cms_page_new>
+        <update handle="adminhtml_cms_page_edit" />
+    </adminhtml_cms_page_new>
+
+    <adminhtml_cms_page_edit>
+        <reference name="content">
+            <block type="adminhtml/cms_page_edit" name="cms_page_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="adminhtml/cms_page_edit_tabs" name="cms_page_edit_tabs">
+                <block type="adminhtml/cms_page_edit_tab_main" name="cms_page_edit_tab_main" />
+                <block type="adminhtml/cms_page_edit_tab_content" name="cms_page_edit_tab_content" />
+                <block type="adminhtml/cms_page_edit_tab_design" name="cms_page_edit_tab_design" />
+                <block type="adminhtml/cms_page_edit_tab_meta" name="cms_page_edit_tab_meta" />
+                <action method="addTab"><name>main_section</name><block>cms_page_edit_tab_main</block></action>
+                <action method="addTab"><name>content_section</name><block>cms_page_edit_tab_content</block></action>
+                <action method="addTab"><name>design_section</name><block>cms_page_edit_tab_design</block></action>
+                <action method="addTab"><name>meta_section</name><block>cms_page_edit_tab_meta</block></action>
+            </block>
+        </reference>
+    </adminhtml_cms_page_edit>
+
+    <adminhtml_cms_block_index>
+        <reference name="content">
+            <block type="adminhtml/cms_block" name="cms_block"></block>
+        </reference>
+    </adminhtml_cms_block_index>
+
+    <adminhtml_cms_block_new>
+        <update handle="adminhtml_cms_block_edit" />
+    </adminhtml_cms_block_new>
+
+    <adminhtml_cms_block_edit>
+        <reference name="content">
+            <block type="adminhtml/cms_block_edit" name="cms_block_edit"></block>
+        </reference>
+    </adminhtml_cms_block_edit>
+
+    <adminhtml_cms_wysiwyg_images_index>
+        <remove name="footer" />
+        <reference name="left">
+            <block name="wysiwyg_images.tree" type="adminhtml/cms_wysiwyg_images_tree" template="cms//wysiwyg/tree.phtml" />
+        </reference>
+        <reference name="content">
+            <block name="wysiwyg_images.content"  type="adminhtml/cms_wysiwyg_images_content" template="cms/wysiwyg/content.phtml">
+                <block name="wysiwyg_images.js" type="adminhtml/cms_wysiwyg_images_content" template="cms/wysiwyg/js.phtml" />
+                <block name="wysiwyg_images.uploader" type="adminhtml/cms_wysiwyg_images_content_uploader" template="cms/wysiwyg/content/uploader.phtml" />
+                <block name="wysiwyg_images.newfolder" type="adminhtml/cms_wysiwyg_images_content_newfolder" template="cms/wysiwyg/content/newfolder.phtml" />
+            </block>
+        </reference>
+    </adminhtml_cms_wysiwyg_images_index>
+
+    <adminhtml_cms_wysiwyg_images_contents>
+        <block name="wysiwyg_images.files" type="adminhtml/cms_wysiwyg_images_content_files" template="cms/wysiwyg/content/files.phtml" output="toHtml" />
+    </adminhtml_cms_wysiwyg_images_contents>
+
+    <adminhtml_cms_widget_index>
+        <remove name="left" />
+        <remove name="footer" />
+        <reference name="content">
+            <block name="wysiwyg_widget" type="adminhtml/cms_widget" />
+        </reference>
+        <reference name="head">
+            <action method="addJs"><script>mage/adminhtml/wysiwyg/widget.js</script></action>
+        </reference>
+    </adminhtml_cms_widget_index>
+
+    <adminhtml_cms_widget_loadoptions>
+        <block name="wysiwyg_widget.options" type="adminhtml/cms_widget_options" output="toHtml" />
+    </adminhtml_cms_widget_loadoptions>
+</layout>

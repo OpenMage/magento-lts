@@ -97,7 +97,7 @@ Validation.prototype = {
         }, options || {});
         if(this.options.onSubmit) Event.observe(this.form,'submit',this.onSubmit.bind(this),false);
         if(this.options.immediate) {
-            Form.getElements(this.form).each(function(input) { // Thanks Mike!                
+            Form.getElements(this.form).each(function(input) { // Thanks Mike!
                 if (input.tagName.toLowerCase() == 'select') {
                     Event.observe(input, 'blur', this.onChange.bindAsEventListener(this));
                 }
@@ -108,10 +108,10 @@ Validation.prototype = {
     onChange : function (ev) {
         Validation.isOnChange = true;
         Validation.validate(Event.element(ev),{
-                useTitle : this.options.useTitles, 
+                useTitle : this.options.useTitles,
                 onElementValidate : this.options.onElementValidate
         });
-        Validation.isOnChange = false; 
+        Validation.isOnChange = false;
     },
     onSubmit :  function(ev){
         if(!this.validate()) Event.stop(ev);
@@ -122,9 +122,19 @@ Validation.prototype = {
         var callback = this.options.onElementValidate;
         try {
             if(this.options.stopOnFirst) {
-                result = Form.getElements(this.form).all(function(elm) { return Validation.validate(elm,{useTitle : useTitles, onElementValidate : callback}); });
+                result = Form.getElements(this.form).all(function(elm) {
+                    if (elm.hasClassName('local-validation') && !this.isElementInForm(elm, this.form)) {
+                        return true;
+                    }
+                    return Validation.validate(elm,{useTitle : useTitles, onElementValidate : callback});
+                }, this);
             } else {
-                result = Form.getElements(this.form).collect(function(elm) { return Validation.validate(elm,{useTitle : useTitles, onElementValidate : callback}); }).all();
+                result = Form.getElements(this.form).collect(function(elm) {
+                    if (elm.hasClassName('local-validation') && !this.isElementInForm(elm, this.form)) {
+                        return true;
+                    }
+                    return Validation.validate(elm,{useTitle : useTitles, onElementValidate : callback});
+                }, this).all();
             }
         } catch (e) {
 
@@ -142,6 +152,13 @@ Validation.prototype = {
     },
     reset : function() {
         Form.getElements(this.form).each(Validation.reset);
+    },
+    isElementInForm : function(elm, form) {
+        var domForm = elm.up('form');
+        if (domForm == form) {
+            return true;
+        }
+        return false;
     }
 }
 
@@ -244,7 +261,7 @@ Object.extend(Validation, {
         if (elm.type == 'radio' || elm.type == 'checkbox') {
             return elm.hasClassName('change-container-classname');
         }
-        
+
         return true;
     },
     test : function(name, elm, useTitle) {
@@ -264,8 +281,8 @@ Object.extend(Validation, {
             if (!elm.advaiceContainer) {
                 elm.removeClassName('validation-passed');
                 elm.addClassName('validation-failed');
-            } 
-            
+            }
+
            if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
                 var container = elm.up(Validation.defaultOptions.containerClassName);
                 if (container && this.allowContainerClassName(elm)) {
@@ -284,7 +301,7 @@ Object.extend(Validation, {
             if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
                 var container = elm.up(Validation.defaultOptions.containerClassName);
                 if (container && !container.down('.validation-failed') && this.allowContainerClassName(elm)) {
-                    if (!Validation.get('IsEmpty').test(elm.value) || !this.isVisible(elm)) { 
+                    if (!Validation.get('IsEmpty').test(elm.value) || !this.isVisible(elm)) {
                         container.addClassName('validation-passed');
                     } else {
                         container.removeClassName('validation-passed');
@@ -503,13 +520,13 @@ Validation.addAllThese([
             }],
     ['validate-one-required-by-name', 'Please select one of the options.', function (v,elm) {
                 var inputs = $$('input[name="' + elm.name.replace(/([\\"])/g, '\\$1') + '"]');
-                
+
                 var error = 1;
                 for(var i=0;i<inputs.length;i++) {
                     if((inputs[i].type == 'checkbox' || inputs[i].type == 'radio') && inputs[i].checked == true) {
                         error = 0;
                     }
-                    
+
                     if(Validation.isOnChange && (inputs[i].type == 'checkbox' || inputs[i].type == 'radio')) {
                         Validation.reset(inputs[i]);
                     }
@@ -592,7 +609,7 @@ Validation.addAllThese([
                 if(ccMatchedType != ccType) {
                     return false;
                 }
-                
+
                 if (ccTypeContainer.hasClassName('validation-failed') && Validation.isOnChange) {
                     Validation.validate(ccTypeContainer);
                 }

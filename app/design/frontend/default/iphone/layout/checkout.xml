@@ -44,6 +44,9 @@ Default layout, loads most of the pages
         <reference name="right">
             <block type="checkout/cart_sidebar" name="cart_sidebar" before="-" template="checkout/cart/sidebar.phtml"/>
         </reference>
+        <reference name="head">
+            <block type="core/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
+        </reference>
 
     </default>
 

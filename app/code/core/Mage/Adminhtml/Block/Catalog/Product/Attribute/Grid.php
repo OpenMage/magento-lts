@@ -29,54 +29,34 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Adminhtml_Block_Widget_Grid
+class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setId('attributeGrid');
-        $this->setDefaultSort('attribute_code');
-        $this->setDefaultDir('ASC');
-    }
-
+    /**
+     * Prepare product attributes grid collection object
+     *
+     * @return Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid
+     */
     protected function _prepareCollection()
     {
-        $collection = Mage::getResourceModel('eav/entity_attribute_collection')
-            ->setEntityTypeFilter( Mage::getModel('eav/entity')->setType('catalog_product')->getTypeId() )
+        $collection = Mage::getResourceModel('catalog/product_attribute_collection')
             ->addVisibleFilter();
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
     }
 
+    /**
+     * Prepare product attributes grid columns
+     *
+     * @return Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid
+     */
     protected function _prepareColumns()
     {
-        /*
-        $this->addColumn('attribute_id', array(
-            'header'=>Mage::helper('catalog')->__('ID'),
-            'align'=>'right',
-            'sortable'=>true,
-            'width' => '50px',
-            'index'=>'attribute_id'
-        ));
-        */
+        parent::_prepareColumns();
 
-        $this->addColumn('attribute_code', array(
-            'header'=>Mage::helper('catalog')->__('Attribute Code'),
-            'sortable'=>true,
-            'index'=>'attribute_code'
-        ));
-
-        $this->addColumn('frontend_label', array(
-            'header'=>Mage::helper('catalog')->__('Attribute Label'),
-            'sortable'=>true,
-            'index'=>'frontend_label'
-        ));
-
-        $this->addColumn('is_visible', array(
+        $this->addColumnAfter('is_visible', array(
             'header'=>Mage::helper('catalog')->__('Visible'),
             'sortable'=>true,
             'index'=>'is_visible_on_front',
@@ -86,9 +66,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Adminhtml
                 '0' => Mage::helper('catalog')->__('No'),
             ),
             'align' => 'center',
-        ));
+        ), 'frontend_label');
 
-        $this->addColumn('is_global', array(
+        $this->addColumnAfter('is_global', array(
             'header'=>Mage::helper('catalog')->__('Scope'),
             'sortable'=>true,
             'index'=>'is_global',
@@ -99,31 +79,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Adminhtml
                 Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL =>Mage::helper('catalog')->__('Global'),
             ),
             'align' => 'center',
-        ));
-
-        $this->addColumn('is_required', array(
-            'header'=>Mage::helper('catalog')->__('Required'),
-            'sortable'=>true,
-            'index'=>'is_required',
-            'type' => 'options',
-            'options' => array(
-                '1' => Mage::helper('catalog')->__('Yes'),
-                '0' => Mage::helper('catalog')->__('No'),
-            ),
-            'align' => 'center',
-        ));
-
-        $this->addColumn('is_user_defined', array(
-            'header'=>Mage::helper('catalog')->__('System'),
-            'sortable'=>true,
-            'index'=>'is_user_defined',
-            'type' => 'options',
-            'align' => 'center',
-            'options' => array(
-                '0' => Mage::helper('catalog')->__('Yes'),   // intended reverted use
-                '1' => Mage::helper('catalog')->__('No'),    // intended reverted use
-            ),
-        ));
+        ), 'is_visible');
 
         $this->addColumn('is_searchable', array(
             'header'=>Mage::helper('catalog')->__('Searchable'),
@@ -135,9 +91,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Adminhtml
                 '0' => Mage::helper('catalog')->__('No'),
             ),
             'align' => 'center',
-        ));
+        ), 'is_user_defined');
 
-        $this->addColumn('is_filterable', array(
+        $this->addColumnAfter('is_filterable', array(
             'header'=>Mage::helper('catalog')->__('Use In Layered Navigation'),
             'sortable'=>true,
             'index'=>'is_filterable',
@@ -148,9 +104,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Adminhtml
                 '0' => Mage::helper('catalog')->__('No'),
             ),
             'align' => 'center',
-        ));
+        ), 'is_searchable');
 
-        $this->addColumn('is_comparable', array(
+        $this->addColumnAfter('is_comparable', array(
             'header'=>Mage::helper('catalog')->__('Comparable'),
             'sortable'=>true,
             'index'=>'is_comparable',
@@ -160,14 +116,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Grid extends Mage_Adminhtml
                 '0' => Mage::helper('catalog')->__('No'),
             ),
             'align' => 'center',
-        ));
+        ), 'is_filterable');
 
-        return parent::_prepareColumns();
+        return $this;
     }
-
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', array('attribute_id' => $row->getAttributeId()));
-    }
-
 }

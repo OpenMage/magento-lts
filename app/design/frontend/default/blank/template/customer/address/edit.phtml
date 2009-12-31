@@ -126,12 +126,12 @@
     <p class="required"><?php echo $this->__('* Required Fields') ?></p>
     <div class="buttons-set">
         <a href="<?php echo $this->getBackUrl() ?>" class="back-link">&laquo; <?php echo $this->__('Back') ?></a>
-        <button type="submit" class="button"><span><?php echo $this->__('Save Address') ?></span></button>
+        <button type="submit" class="button"><span><span><?php echo $this->__('Save Address') ?></span></span></button>
     </div>
 </form>
 <script type="text/javascript">
 //<![CDATA[
     var dataForm = new VarienForm('form-validate', true);
-    new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, <?php echo $this->helper('directory')->getCountriesWithOptionalZipJson() ?>);
+    new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
 //]]>
 </script>

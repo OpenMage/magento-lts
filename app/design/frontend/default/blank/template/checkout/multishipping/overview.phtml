@@ -214,7 +214,7 @@
     <p class="grand-total"><big><?php echo $this->__('Grand Total:') ?></big> <?php echo $this->helper('checkout')->formatPrice($this->getTotal()) ?></p>
     <div class="buttons-set" id="review-buttons-container">
         <a href="<?php echo $this->getBackUrl() ?>" class="back-link">&laquo; <?php echo $this->__('Back to Billing Information') ?></a>
-        <button type="submit" class="button" id="review-button"><span><?php echo $this->__('Place Order') ?></span></button>
+        <button type="submit" class="button" id="review-button"><span><span><?php echo $this->__('Place Order') ?></span></span></button>
         <span id="review-please-wait" class="please-wait" style="display:none;">
             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
         </span>

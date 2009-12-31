@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Bootstrap
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BootstrapAbstract.php 15556 2009-05-12 14:45:23Z matthew $
+ * @version    $Id: BootstrapAbstract.php 17802 2009-08-24 21:15:12Z matthew $
  */
 
 /**
@@ -28,7 +28,7 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Bootstrap
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Application_Bootstrap_BootstrapAbstract
@@ -56,7 +56,14 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     protected $_environment;
 
     /**
-     * @var array 
+     * Flattened (lowercase) option keys used for lookups
+     * 
+     * @var array
+     */
+    protected $_optionKeys = array();
+
+    /**
+     * @var array
      */
     protected $_options = array();
 
@@ -105,7 +112,11 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      */
     public function setOptions(array $options)
     {
+        $this->_options = $this->mergeOptions($this->_options, $options);
+
         $options = array_change_key_case($options, CASE_LOWER);
+        $this->_optionKeys = array_keys($options);
+
         $methods = get_class_methods($this);
         foreach ($methods as $key => $method) {
             $methods[$key] = strtolower($method);
@@ -117,7 +128,6 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
             foreach ($options['pluginpaths'] as $prefix => $path) {
                 $pluginLoader->addPrefixPath($prefix, $path);
             }
-            
             unset($options['pluginpaths']);
         }
 
@@ -132,7 +142,6 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
                 }
             }
         }
-        $this->_options = $this->mergeOptions($this->_options, $options);
         return $this;
     }
 
@@ -154,7 +163,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      */
     public function hasOption($key)
     {
-        return array_key_exists($key, $this->_options);
+        return in_array($key, $this->_optionKeys);
     }
 
     /**
@@ -166,7 +175,9 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     public function getOption($key)
     {
         if ($this->hasOption($key)) {
-            return $this->_options[$key];
+            $options = $this->getOptions();
+            $options = array_change_key_case($options, CASE_LOWER);
+            return $options[strtolower($key)];
         }
         return null;
     }
@@ -249,13 +260,6 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      */
     public function registerPluginResource($resource, $options = null)
     {
-        /*
-        if (is_string($resource) && class_exists($resource)) {
-            $options = (array) $options;
-            $options['bootstrap'] = $this;
-            $resource = new $resource($options);
-        }
-         */
         if ($resource instanceof Zend_Application_Resource_Resource) {
             $resource->setBootstrap($this);
             $pluginName = $this->_resolvePluginResourceName($resource);
@@ -267,7 +271,6 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
             throw new Zend_Application_Bootstrap_Exception('Invalid resource provided to ' . __METHOD__);
         }
 
-        // $resource = strtolower($resource);
         $this->_pluginResources[$resource] = $options;
         return $this;
     }
@@ -341,7 +344,6 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
                 }
                 continue;
             }
-
 
             if (false !== $pluginName = $this->_loadPluginResource($plugin, $spec)) {
                 if (0 === strcasecmp($resource, $pluginName)) {
@@ -535,6 +537,30 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     }
 
     /**
+     * Implement PHP's magic to retrieve a ressource
+     * in the bootstrap
+     *
+     * @param string $prop
+     * @return null|mixed
+     */
+    public function __get($prop)
+    {
+        return $this->getResource($prop);
+    }
+
+    /**
+     * Implement PHP's magic to ask for the
+     * existence of a ressource in the bootstrap
+     * 
+     * @param string $prop
+     * @return bool
+     */
+    public function __isset($prop)
+    {
+        return $this->hasResource($prop);
+    }
+
+    /**
      * Bootstrap individual, all, or multiple resources
      *
      * Marked as final to prevent issues when subclassing and naming the
@@ -619,40 +645,40 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      */
     protected function _executeResource($resource)
     {
-        $resource = strtolower($resource);
+        $resourceName = strtolower($resource);
 
-        if (in_array($resource, $this->_run)) {
+        if (in_array($resourceName, $this->_run)) {
             return;
         }
 
-        if (isset($this->_started[$resource]) && $this->_started[$resource]) {
+        if (isset($this->_started[$resourceName]) && $this->_started[$resourceName]) {
             throw new Zend_Application_Bootstrap_Exception('Circular resource dependency detected');
         }
 
         $classResources = $this->getClassResources();
-        if (array_key_exists($resource, $classResources)) {
-            $this->_started[$resource] = true;
-            $method = $classResources[$resource];
+        if (array_key_exists($resourceName, $classResources)) {
+            $this->_started[$resourceName] = true;
+            $method = $classResources[$resourceName];
             $return = $this->$method();
-            unset($this->_started[$resource]);
+            unset($this->_started[$resourceName]);
             $this->_markRun($resource);
 
             if (null !== $return) {
-                $this->getContainer()->{$resource} = $return;
+                $this->getContainer()->{$resourceName} = $return;
             }
 
             return;
         }
 
         if ($this->hasPluginResource($resource)) {
-            $this->_started[$resource] = true;
+            $this->_started[$resourceName] = true;
             $plugin = $this->getPluginResource($resource);
             $return = $plugin->init();
-            unset($this->_started[$resource]);
-            $this->_markRun($resource);
+            unset($this->_started[$resourceName]);
+            $this->_markRun($resourceName);
 
             if (null !== $return) {
-                $this->getContainer()->{$resource} = $return;
+                $this->getContainer()->{$resourceName} = $return;
             }
 
             return;

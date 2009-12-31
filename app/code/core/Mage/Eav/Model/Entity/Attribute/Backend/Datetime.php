@@ -28,15 +28,16 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
 {
     public function beforeSave($object)
     {
-        $_formated = $object->getData($this->getAttribute()->getName() . '_is_formated');
-        if (!$_formated) {
+        $attributeName = $this->getAttribute()->getName();
+        $_formated = $object->getData($attributeName . '_is_formated');
+        if (!$_formated && $object->hasData($attributeName)) {
             try {
-                $value = $this->formatDate($object->getData($this->getAttribute()->getName()));
+                $value = $this->formatDate($object->getData($attributeName));
             } catch (Exception $e) {
                 throw new Exception("Invalid date.");
             }
-            $object->setData($this->getAttribute()->getName(), $value);
-            $object->setData($this->getAttribute()->getName() . '_is_formated', true);
+            $object->setData($attributeName, $value);
+            $object->setData($attributeName . '_is_formated', true);
         }
     }
 

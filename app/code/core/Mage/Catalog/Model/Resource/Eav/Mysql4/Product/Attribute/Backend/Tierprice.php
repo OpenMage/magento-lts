@@ -35,9 +35,93 @@
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Tierprice
     extends Mage_Core_Model_Mysql4_Abstract
 {
+    /**
+     * Initialize connection and define main table
+     *
+     */
     protected function _construct()
     {
         $this->_init('catalog/product_attribute_tier_price', 'value_id');
+    }
+
+    /**
+     * Load Tier Prices for product
+     *
+     * @param int $productId
+     * @param int $websiteId
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Tierprice
+     */
+    public function loadPriceData($productId, $websiteId = null)
+    {
+        $adapter = $this->_getReadAdapter();
+        $columns = array(
+            'price_id'      => $this->getIdFieldName(),
+            'website_id'    => 'website_id',
+            'all_groups'    => 'all_groups',
+            'cust_group'    => 'customer_group_id',
+            'price_qty'     => 'qty',
+            'price'         => 'value',
+        );
+        $select  = $adapter->select()
+            ->from($this->getMainTable(), $columns)
+            ->where('entity_id=?', $productId)
+            ->order('qty');
+        if (!is_null($websiteId)) {
+            if ($websiteId == '0') {
+                $select->where('website_id=?', $websiteId);
+            } else {
+                $select->where('website_id IN(?)', array('0', $websiteId));
+            }
+        }
+
+        return $adapter->fetchAll($select);
+    }
+
+    /**
+     * Delete Tier Prices for product
+     *
+     * @param int $productId
+     * @param int $websiteId
+     * @param int $priceId
+     * @return int The number of affected rows
+     */
+    public function deletePriceData($productId, $websiteId = null, $priceId = null)
+    {
+        $adapter = $this->_getWriteAdapter();
+        $conds   = array(
+            $adapter->quoteInto('entity_id=?', $productId)
+        );
+        if (!is_null($websiteId)) {
+            $where[] = $adapter->quoteInto('website_id=?', $websiteId);
+        }
+        if (!is_null($priceId)) {
+            $where[] = $adapter->quoteInto($this->getIdFieldName() . '=?', $priceId);
+        }
+        $where = join(' AND ', $conds);
+
+        return $adapter->delete($this->getMainTable(), $where);
+    }
+
+    /**
+     * Save tier price object
+     *
+     * @param Varien_Object $priceObject
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Tierprice
+     */
+    public function savePriceData(Varien_Object $priceObject)
+    {
+        $adapter = $this->_getWriteAdapter();
+        Mage::log($priceObject->debug());
+        $data    = $this->_prepareDataForTable($priceObject, $this->getMainTable());
+        Mage::log($data);
+        if (!empty($data[$this->getIdFieldName()])) {
+            $where = $adapter->quoteInto($this->getIdFieldName() . '=?', $data[$this->getIdFieldName()]);
+            unset($data[$this->getIdFieldName()]);
+            $adapter->update($this->getMainTable(), $data, $where);
+        } else {
+            $adapter->insert($this->getMainTable(), $data);
+        }
+        return $this;
     }
 
     /**
@@ -45,48 +129,57 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Tierprice
      *
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @deprecated since 1.3.2.3
      * @return array
      */
     public function loadProductPrices($product, $attribute)
     {
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), array(
-                'website_id', 'all_groups', 'cust_group' => 'customer_group_id',
-                'price_qty' => 'qty', 'price' => 'value'
-            ))
-            ->where('entity_id=?', $product->getId())
-            ->order('qty');
+        $websiteId = null;
         if ($attribute->isScopeGlobal()) {
-            $select->where('website_id=?', 0);
+            $websiteId = 0;
+        } else if ($product->getStoreId()) {
+            $websiteId = Mage::app()->getStore($product->getStoreId())->getWebsiteId();
         }
-        else {
-            if ($storeId = $product->getStoreId()) {
-                $select->where('website_id IN (?)', array(0, Mage::app()->getStore($storeId)->getWebsiteId()));
-            }
-        }
-        return $this->_getReadAdapter()->fetchAll($select);
+
+        return $this->loadPriceData($product->getId(), $websiteId);
     }
 
+    /**
+     * Delete product tier price data from storage
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @deprecated since 1.3.2.3
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Tierprice
+     */
     public function deleteProductPrices($product, $attribute)
     {
-        $condition = array();
-
+        $websiteId = null;
         if (!$attribute->isScopeGlobal()) {
-            if ($storeId = $product->getStoreId()) {
-                $condition[] = $this->_getWriteAdapter()->quoteInto('website_id IN (?)', array(0, Mage::app()->getStore($storeId)->getWebsiteId()));
+            $storeId = $product->getProductId();
+            if ($storeId) {
+                $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
             }
         }
 
-        $condition[] = $this->_getWriteAdapter()->quoteInto('entity_id=?', $product->getId());
+        $this->deletePriceData($product->getId(), $websiteId);
 
-        $this->_getWriteAdapter()->delete($this->getMainTable(), implode(' AND ', $condition));
         return $this;
     }
 
+    /**
+     * Insert product Tier Price to storage
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param array $data
+     * @deprecated since 1.3.2.3
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Tierprice
+     */
     public function insertProductPrice($product, $data)
     {
-        $data['entity_id'] = $product->getId();
-        $this->_getWriteAdapter()->insert($this->getMainTable(), $data);
-        return $this;
+        $priceObject = new Varien_Object($data);
+        $priceObject->setEntityId($product->getId());
+
+        return $this->savePriceData($priceObject);
     }
 }

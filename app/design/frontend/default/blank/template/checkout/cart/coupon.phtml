@@ -30,13 +30,10 @@
         <fieldset>
             <label for="coupon_code"><?php echo $this->__('Enter your coupon code if you have one.') ?></label><br />
             <input type="hidden" name="remove" id="remove-coupone" value="0" />
-            <?php if(!strlen($this->getCouponCode())): ?>
             <input class="input-text" id="coupon_code" name="coupon_code" value="<?php echo $this->htmlEscape($this->getCouponCode()) ?>" />
-            <button class="button" onclick="discountForm.submit(false)" type="button" value="<?php echo $this->__('Apply Coupon') ?>"><span><?php echo $this->__('Apply Coupon') ?></span></button>
-            <?php else: ?>
-            <input class="input-text" id="coupon_code" name="coupon_code" value="<?php echo $this->htmlEscape($this->getCouponCode()) ?>" />
-            <button type="button" class="button" onclick="discountForm.submit(false)" value="<?php echo $this->__('Apply Coupon') ?>"><span><?php echo $this->__('Apply Coupon') ?></span></button>
-            <button  type="button" class="button" onclick="discountForm.submit(true)" value="<?php echo $this->__('Cancel Coupon') ?>"><span><?php echo $this->__('Cancel Coupon') ?></span></button>
+            <button class="button" onclick="discountForm.submit(false)" type="button" value="<?php echo $this->__('Apply Coupon') ?>"><span><span><?php echo $this->__('Apply Coupon') ?></span></span></button>
+            <?php if(strlen($this->getCouponCode())): ?>
+                &nbsp; <button  type="button" class="button" onclick="discountForm.submit(true)" value="<?php echo $this->__('Cancel Coupon') ?>"><span><span><?php echo $this->__('Cancel Coupon') ?></span></span></button>
             <?php endif;?>
         </fieldset>
     </form>

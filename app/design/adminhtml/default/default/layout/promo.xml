@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design
+ * @package    default_default
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+
+<layout>
+    <!-- Catalog Price Rule -->
+    <adminhtml_promo_catalog_index>
+        <reference name="content">
+            <block type="adminhtml/promo_catalog" name="promo_catalog"/>
+        </reference>
+    </adminhtml_promo_catalog_index>
+    <adminhtml_promo_catalog_edit>
+        <reference name="head">
+            <action method="setCanLoadExtJs"><flag>1</flag></action>
+            <action method="setCanLoadRulesJs"><flag>1</flag></action>
+        </reference>
+        <reference name="left">
+            <block type="adminhtml/promo_catalog_edit_tabs" name="promo_catalog_edit_tabs">
+                <block type="adminhtml/promo_catalog_edit_tab_main" name="promo_catalog_edit_tab_main"/>
+                <block type="adminhtml/promo_catalog_edit_tab_conditions" name="promo_catalog_edit_tab_conditions"/>
+                <block type="adminhtml/promo_catalog_edit_tab_actions" name="promo_catalog_edit_tab_actions"/>
+                <action method="addTab"><name>main_section</name><block>promo_catalog_edit_tab_main</block></action>
+                <action method="addTab"><name>conditions_section</name><block>promo_catalog_edit_tab_conditions</block></action>
+                <action method="addTab"><name>actions_section</name><block>promo_catalog_edit_tab_actions</block></action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/promo_catalog_edit" name="promo_catalog_edit"/>
+        </reference>
+    </adminhtml_promo_catalog_edit>
+
+    <!-- Shopping Cart Price Rule -->
+    <adminhtml_promo_quote_index>
+        <reference name="content">
+            <block type="adminhtml/promo_quote" name="promo_quote"></block>
+        </reference>
+    </adminhtml_promo_quote_index>
+    <adminhtml_promo_quote_edit>
+        <reference name="head">
+            <action method="setCanLoadExtJs"><flag>1</flag></action>
+            <action method="setCanLoadRulesJs"><flag>1</flag></action>
+        </reference>
+        <reference name="left">
+            <block type="adminhtml/promo_quote_edit_tabs" name="promo_quote_edit_tabs">
+                <block type="adminhtml/promo_quote_edit_tab_main" name="promo_quote_edit_tab_main" />
+                <block type="adminhtml/promo_quote_edit_tab_conditions" name="promo_quote_edit_tab_conditions"/>
+                <block type="adminhtml/promo_quote_edit_tab_actions" name="promo_quote_edit_tab_actions"/>
+                <block type="adminhtml/promo_quote_edit_tab_labels" name="promo_quote_edit_tab_labels"/>
+                <action method="addTab"><name>main_section</name><block>promo_quote_edit_tab_main</block></action>
+                <action method="addTab"><name>conditions_section</name><block>promo_quote_edit_tab_conditions</block></action>
+                <action method="addTab"><name>actions_section</name><block>promo_quote_edit_tab_actions</block></action>
+                <action method="addTab"><name>labels_section</name><block>promo_quote_edit_tab_labels</block></action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/promo_quote_edit" name="promo_quote_edit"></block>
+        </reference>
+    </adminhtml_promo_quote_edit>
+    <adminhtml_promo_quote_grid>
+        <remove name="root" />
+        <block type="adminhtml/promo_quote_edit_tab_product" name="promo_quote_grid" output="toHtml" />
+    </adminhtml_promo_quote_grid>
+</layout>

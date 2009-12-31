@@ -31,9 +31,7 @@
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
     <p>
         <strong><?php echo $this->__('Tag Name: %s', $this->htmlEscape($this->getTagInfo()->getName())) ?></strong>
-        ( <a href="<?php echo $this->getTagInfo()->getEditTagUrl(); ?>"><?php echo $this->__('Edit Tag') ?></a>
-        <span class="separator">|</span>
-        <a href="<?php echo $this->getTagInfo()->getRemoveTagUrl(); ?>" onclick="return confirm('<?php echo $this->__('Are you sure you want to delete this tag?') ?>');"><?php echo $this->__('Delete Tag') ?></a> )
+        <button type="button" class="button" onclick="if(confirm('<?php echo $this->__('Are you sure you want to delete this tag?') ?>')) window.location='<?php echo $this->getTagInfo()->getRemoveTagUrl(); ?>';"><span><span><?php echo $this->__('Delete') ?></span></span></button>
     </p>
     <?php echo $this->getToolbarHtml() ?>
     <table class="data-table box-table" id="my-tags-table" cellspacing="0">

@@ -56,7 +56,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
         if (is_null($collection)) {
             $collection = Mage::getResourceModel('catalogsearch/search_collection');
 
-            $text = $this->getSynonimFor();
+            $text = $this->getSynonymFor();
             if (!$text) {
                 $text = $this->getQueryText();
             }
@@ -145,6 +145,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Retrieve minimum query length
      *
+     * @deprecated after 1.3.2.3 use getMinQueryLength() instead
      * @return int
      */
     public function getMinQueryLenght()
@@ -153,13 +154,33 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Retrieve minimum query length
+     *
+     * @return int
+     */
+    public function getMinQueryLength(){
+        return $this->getMinQueryLenght();
+    }
+
+    /**
      * Retrieve maximum query length
      *
+     * @deprecated after 1.3.2.3 use getMaxQueryLength() instead
      * @return int
      */
     public function getMaxQueryLenght()
     {
         return Mage::getStoreConfig(self::XML_PATH_MAX_QUERY_LENGTH, $this->getStoreId());
+    }
+
+    /**
+     * Retrieve maximum query length
+     *
+     * @return int
+     */
+    public function getMaxQueryLength()
+    {
+        return $this->getMaxQueryLenght();
     }
 
     /**

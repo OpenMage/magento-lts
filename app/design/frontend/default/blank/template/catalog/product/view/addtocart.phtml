@@ -34,6 +34,6 @@
         <label for="qty"><?php echo $this->__('Qty') ?>:</label>
         <input type="text" class="input-text qty" name="qty" id="qty" maxlength="12" value="<?php echo $this->getMinimalQty($_product) ?>" />
         <?php endif; ?>
-        <button type="button" class="button" onclick="productAddToCartForm.submit()"><span><?php echo $this->__('Add to Cart') ?></span></button>
+        <button type="button" class="button" onclick="productAddToCartForm.submit()"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
     </fieldset>
 <?php endif; ?>

@@ -180,13 +180,13 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
 
     // PEAR specific message handling
     if (stripos($errfile.$errstr, 'pear') !== false) {
-         // ignore strict notices
-        if ($errno == E_STRICT) {
-            return false;
+         // ignore strict and deprecated notices
+        if (($errno == E_STRICT) || ($errno == E_DEPRECATED)) {
+            return true;
         }
         // ignore attempts to read system files when open_basedir is set
         if ($errno == E_WARNING && stripos($errstr, 'open_basedir') !== false) {
-            return false;
+            return true;
         }
     }
 

@@ -35,6 +35,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_regionCollection;
     protected $_regionJson;
     protected $_currencyCache = array();
+    protected $_optionalZipCountries = null;
 
     public function getRegionCollection()
     {
@@ -115,24 +116,30 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return ISO2 country codes, which have optional Zip/Postal pre-configured
      *
-     * @param mixed $storeId Store
+     * @param bool $asJson
      * @return array
      */
-    public function getCountriesWithOptionalZip($storeId = null)
+    public function getCountriesWithOptionalZip($asJson = false)
     {
-        $value = Mage::getStoreConfig('general/country/optional_zip_countries', $storeId);
-        return preg_split('/\,/', $value, 0, PREG_SPLIT_NO_EMPTY);
+        if (null === $this->_optionalZipCountries) {
+            $this->_optionalZipCountries = preg_split('/\,/', Mage::getStoreConfig('general/country/optional_zip_countries'),
+                0, PREG_SPLIT_NO_EMPTY
+            );
+        }
+        if ($asJson) {
+            return Mage::helper('core')->jsonEncode($this->_optionalZipCountries);
+        }
+        return $this->_optionalZipCountries;
     }
 
     /**
-     * Same as getCountriesWithOptionalZip() but result is json-encoded
+     * Check whether zip code is optional for specified country code
      *
-     * @see getCountriesWithOptionalZip
-     * @param mixed $storeId Store
-     * @return string
+     * @param string $countryCode
      */
-    public function getCountriesWithOptionalZipJson($storeId = null)
+    public function isZipCodeOptional($countryCode)
     {
-        return Mage::helper('core')->jsonEncode($this->getCountriesWithOptionalZip($storeId));
+        $this->getCountriesWithOptionalZip();
+        return in_array($countryCode, $this->_optionalZipCountries);
     }
 }

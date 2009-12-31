@@ -199,7 +199,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
      *
      * @return array
      */
-    public function getCustomerGoups()
+    public function getCustomerGroups()
     {
         if (is_null($this->_customerGroups)) {
             $this->_customerGroups = array();
@@ -213,7 +213,15 @@ class Mage_Customer_Model_Convert_Adapter_Customer
         return $this->_customerGroups;
     }
 
-
+    /**
+     * Alias at getCustomerGroups()
+     *
+     * @return array
+     */
+    public function getCustomerGoups()
+    {
+        return $this->getCustomerGroups();
+    }
 
     public function __construct()
     {
@@ -433,7 +441,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
         $customer->setWebsiteId($website->getId())
             ->loadByEmail($importData['email']);
         if (!$customer->getId()) {
-            $customerGroups = $this->getCustomerGoups();
+            $customerGroups = $this->getCustomerGroups();
             /**
              * Check customer group
              */
@@ -465,7 +473,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
             }
         }
         elseif (!empty($importData['group_id'])) {
-            $customerGroups = $this->getCustomerGoups();
+            $customerGroups = $this->getCustomerGroups();
             /**
              * Check customer group
              */

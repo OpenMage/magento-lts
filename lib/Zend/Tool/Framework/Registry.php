@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Registry.php 16972 2009-07-22 18:44:24Z ralph $
  */
 
 /**
@@ -42,6 +42,16 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
      * @var Zend_Tool_Framework_Client_Abstract
      */
     protected $_client = null;
+    
+    /**
+     * @var Zend_Tool_Framework_Client_Config
+     */
+    protected $_config = null;
+    
+    /**
+     * @var Zend_Tool_Framework_Client_Storage
+     */
+    protected $_storage = null;
     
     /**
      * @var Zend_Tool_Framework_Action_Repository
@@ -110,6 +120,60 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
     public function getClient()
     {
         return $this->_client;
+    }
+    
+    /**
+     * setConfig() 
+     *
+     * @param Zend_Tool_Framework_Client_Config $config
+     * @return Zend_Tool_Framework_Registry
+     */
+    public function setConfig(Zend_Tool_Framework_Client_Config $config)
+    {
+        $this->_config = $config;
+        return $this;
+    }
+    
+    /**
+     * getConfig()
+     *
+     * @return Zend_Tool_Framework_Client_Config
+     */
+    public function getConfig()
+    {
+        if ($this->_config === null) {
+            #require_once 'Zend/Tool/Framework/Client/Config.php';
+            $this->setConfig(new Zend_Tool_Framework_Client_Config());
+        }
+        
+        return $this->_config;
+    }
+    
+    /**
+     * setStorage() 
+     *
+     * @param Zend_Tool_Framework_Client_Storage $storage
+     * @return Zend_Tool_Framework_Registry
+     */
+    public function setStorage(Zend_Tool_Framework_Client_Storage $storage)
+    {
+        $this->_storage = $storage;
+        return $this;
+    }
+    
+    /**
+     * getConfig()
+     *
+     * @return Zend_Tool_Framework_Client_Storage
+     */
+    public function getStorage()
+    {
+        if ($this->_storage === null) {
+            #require_once 'Zend/Tool/Framework/Client/Storage.php';
+            $this->setStorage(new Zend_Tool_Framework_Client_Storage());
+        }
+        
+        return $this->_storage;
     }
     
     /**

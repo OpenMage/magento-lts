@@ -894,6 +894,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function collectTotals()
     {
+        /**
+         * Protect double totals collection
+         */
+        if ($this->getTotalsCollectedFlag()) {
+            return $this;
+        }
         Mage::dispatchEvent(
             $this->_eventPrefix . '_collect_totals_before',
             array(
@@ -966,6 +972,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             )
         );
 
+        $this->setTotalsCollectedFlag(true);
         return $this;
     }
 
@@ -984,14 +991,25 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($this->isVirtual()) {
             return $this->getBillingAddress()->getTotals();
         }
-        
-        $totals = $this->getShippingAddress()->getTotals();
-        foreach ($this->getBillingAddress()->getTotals() as $code => $total) {
-            if (isset($totals[$code])) {
-                $totals[$code]->setValue($totals[$code]->getValue()+$total->getValue());
+
+        $totals = null;
+        // Going through all quote addresses and sum their totals
+        foreach ($this->getAddressesCollection() as $address) {
+            if ($address->isDeleted()) {
+                continue;
             }
-            else {
-                $totals[$code] = $total;
+            if (!$totals) {
+                $totals = $address->getTotals();
+            } else {
+                foreach ($address->getTotals() as $code => $total) {
+                    if (isset($totals[$code])) {
+                        $totals[$code]->setValue($totals[$code]->getValue()+$total->getValue());
+                        $totals[$code]->setValueExclTax($totals[$code]->getValueExclTax()+$total->getValueExclTax());
+                        $totals[$code]->setValueInclTax($totals[$code]->getValueInclTax()+$total->getValueInclTax());
+                    } else {
+                        $totals[$code] = $total;
+                    }
+                }
             }
         }
 

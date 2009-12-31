@@ -12,9 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
+ * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Page.php 17532 2009-08-10 19:04:14Z alexander $
  */
 
 /** Zend_Pdf_Resource_Font */
@@ -44,11 +46,14 @@
 /** Zend_Pdf_Color_Cmyk */
 #require_once 'Zend/Pdf/Color/Cmyk.php';
 
+/** Zend_Pdf_Annotation */
+#require_once 'Zend/Pdf/Annotation.php';
+
 /**
  * PDF Page
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Page
@@ -120,9 +125,9 @@ class Zend_Pdf_Page
 
 
     /**
-     * Reference to the object with page dictionary.
+     * Page dictionary (refers to an inderect Zend_Pdf_Element_Dictionary object).
      *
-     * @var Zend_Pdf_Element_Reference
+     * @var Zend_Pdf_Element_Reference|Zend_Pdf_Element_Object
      */
     protected $_pageDictionary;
 
@@ -142,7 +147,7 @@ class Zend_Pdf_Page
     protected $_attached;
 
     /**
-     * Stream of the drawing instractions.
+     * Stream of the drawing instructions.
      *
      * @var string
      */
@@ -412,6 +417,7 @@ class Zend_Pdf_Page
     /**
      * Retrive PDF file reference to the page
      *
+     * @internal
      * @return Zend_Pdf_Element_Dictionary
      */
     public function getPageDictionary()
@@ -723,6 +729,7 @@ class Zend_Pdf_Page
      * returns array of Zend_Pdf_Resource_Font_Extracted objects
      *
      * @return array
+     * @throws Zend_Pdf_Exception
      */
     public function extractFonts()
     {
@@ -740,21 +747,21 @@ class Zend_Pdf_Page
 
             if (! ($fontDictionary instanceof Zend_Pdf_Element_Reference  ||
                    $fontDictionary instanceof Zend_Pdf_Element_Object) ) {
-                // Font dictionary has to be an indirect object or object reference
-                continue;
+                #require_once 'Zend/Pdf/Exception.php';
+                throw new Zend_Pdf_Exception('Font dictionary has to be an indirect object or object reference.');
             }
 
-            $fontResourcesUnique[$fontDictionary->toString($this->_objFactory)] = $fontDictionary;
+            $fontResourcesUnique[spl_object_hash($fontDictionary->getObject())] = $fontDictionary;
         }
 
         $fonts = array();
         #require_once 'Zend/Pdf/Exception.php';
-        foreach ($fontResourcesUnique as $resourceReference => $fontDictionary) {
+        foreach ($fontResourcesUnique as $resourceId => $fontDictionary) {
             try {
                 // Try to extract font
                 $extractedFont = new Zend_Pdf_Resource_Font_Extracted($fontDictionary);
 
-                $fonts[$resourceReference] = $extractedFont;
+                $fonts[$resourceId] = $extractedFont;
             } catch (Zend_Pdf_Exception $e) {
                 if ($e->getMessage() != 'Unsupported font type.') {
                     throw $e;
@@ -771,6 +778,7 @@ class Zend_Pdf_Page
      * $fontName should be specified in UTF-8 encoding
      *
      * @return Zend_Pdf_Resource_Font_Extracted|null
+     * @throws Zend_Pdf_Exception
      */
     public function extractFont($fontName)
     {
@@ -781,14 +789,24 @@ class Zend_Pdf_Page
 
         $fontResources = $this->_pageDictionary->Resources->Font;
 
+        $fontResourcesUnique = array();
+
         #require_once 'Zend/Pdf/Exception.php';
         foreach ($fontResources->getKeys() as $fontResourceName) {
             $fontDictionary = $fontResources->$fontResourceName;
 
             if (! ($fontDictionary instanceof Zend_Pdf_Element_Reference  ||
                    $fontDictionary instanceof Zend_Pdf_Element_Object) ) {
-                // Font dictionary has to be an indirect object or object reference
+                #require_once 'Zend/Pdf/Exception.php';
+                throw new Zend_Pdf_Exception('Font dictionary has to be an indirect object or object reference.');
+            }
+
+            $resourceId = spl_object_hash($fontDictionary->getObject());
+            if (isset($fontResourcesUnique[$resourceId])) {
                 continue;
+            } else {
+                // Mark resource as processed
+                $fontResourcesUnique[$resourceId] = 1;
             }
 
             if ($fontDictionary->BaseFont->value != $fontName) {
@@ -1419,6 +1437,34 @@ class Zend_Pdf_Page
                          .  $xObj->toString() . ' ' . $yObj->toString() . " Td\n"
                          .  $textObj->toString() . " Tj\n"
                          .  "ET\n";
+
+        return $this;
+    }
+
+    /**
+     *
+     * @param Zend_Pdf_Annotation $annotation
+     * @return Zend_Pdf_Page
+     */
+    public function attachAnnotation(Zend_Pdf_Annotation $annotation)
+    {
+        $annotationDictionary = $annotation->getResource();
+        if (!$annotationDictionary instanceof Zend_Pdf_Element_Object  &&
+            !$annotationDictionary instanceof Zend_Pdf_Element_Reference) {
+            $annotationDictionary = $this->_objFactory->newObject($annotationDictionary);
+        }
+
+        if ($this->_pageDictionary->Annots === null) {
+            $this->_pageDictionary->touch();
+            $this->_pageDictionary->Annots = new Zend_Pdf_Element_Array();
+        } else {
+            $this->_pageDictionary->Annots->touch();
+        }
+
+        $this->_pageDictionary->Annots->items[] = $annotationDictionary;
+
+        $annotationDictionary->touch();
+        $annotationDictionary->P = $this->_pageDictionary;
 
         return $this;
     }

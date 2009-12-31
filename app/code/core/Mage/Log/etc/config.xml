@@ -82,20 +82,7 @@
                 <setup>
                     <module>Mage_Log</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </log_setup>
-            <log_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </log_write>
-            <log_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </log_read>
         </resources>
         <template>
             <email>
@@ -112,7 +99,6 @@
             <controller_action_predispatch>
                 <observers>
                     <log>
-                        <type>singleton</type>
                         <class>log/visitor</class>
                         <method>initByRequest</method>
                     </log>
@@ -121,7 +107,6 @@
             <controller_action_postdispatch>
                 <observers>
                     <log>
-                        <type>singleton</type>
                         <class>log/visitor</class>
                         <method>saveByRequest</method>
                     </log>
@@ -130,7 +115,6 @@
             <customer_login>
                 <observers>
                     <log>
-                        <type>singleton</type>
                         <class>log/visitor</class>
                         <method>bindCustomerLogin</method>
                     </log>
@@ -139,7 +123,6 @@
             <customer_logout>
                 <observers>
                     <log>
-                        <type>singleton</type>
                         <class>log/visitor</class>
                         <method>bindCustomerLogout</method>
                     </log>
@@ -148,7 +131,6 @@
             <sales_quote_save_after>
                 <observers>
                     <log>
-                        <type>singleton</type>
                         <class>log/visitor</class>
                         <method>bindQuoteCreate</method>
                     </log>
@@ -157,7 +139,6 @@
             <checkout_quote_destroy>
                 <observers>
                     <log>
-                        <type>singleton</type>
                         <class>log/visitor</class>
                         <method>bindQuoteDestroy</method>
                     </log>

@@ -35,7 +35,7 @@
                     <sort_order>250</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
-                    <show_in_store>0</show_in_store>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <allow_price translate="label">
                             <label>Allow alert when product price changes</label>
@@ -63,7 +63,7 @@
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </email_price_template>
                         <email_stock_template translate="label">
                             <label>Stock alert Email Template</label>
@@ -72,7 +72,7 @@
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </email_stock_template>
                         <email_identity translate="label">
                             <label>Alert Email Sender</label>
@@ -81,7 +81,7 @@
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
                         </email_identity>
                     </fields>
                 </productalert>

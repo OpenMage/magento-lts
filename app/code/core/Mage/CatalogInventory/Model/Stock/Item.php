@@ -46,7 +46,23 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     const XML_PATH_NOTIFY_STOCK_QTY = 'cataloginventory/item_options/notify_stock_qty';
     const XML_PATH_MANAGE_STOCK     = 'cataloginventory/item_options/manage_stock';
 
-    // cataloginventory/cart_options/...
+    const ENTITY                    = 'cataloginventory_stock_item';
+
+    /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'cataloginventory_stock_item';
+
+    /**
+     * Parameter name in event
+     *
+     * In observe method you can use $observer->getEvent()->getItem() in this case
+     *
+     * @var string
+     */
+    protected $_eventObject = 'item';
 
     /**
      * Initialize resource model
@@ -298,6 +314,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     public function checkQuoteItemQty($qty, $summaryQty, $origQty = 0)
     {
+
         $result = new Varien_Object();
         $result->setHasError(false);
 
@@ -454,7 +471,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $this->setQty(0);
         }
 
-        Mage::dispatchEvent('cataloginventory_stock_item_save_before', array('item' => $this));
         return $this;
     }
 
@@ -466,8 +482,22 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     protected function _afterSave()
     {
         parent::_afterSave();
-        Mage::getSingleton('cataloginventory/stock_status')
-            ->changeItemStatus($this);
+//        Mage::getSingleton('cataloginventory/stock_status')
+//            ->changeItemStatus($this);
+        return $this;
+    }
+
+    /**
+     * Init indexing process after stock item data commit
+     *
+     * @return Mage_CatalogInventory_Model_Stock_Item
+     */
+    protected function _afterSaveCommit()
+    {
+        parent::_afterSaveCommit();
+        Mage::getSingleton('index/indexer')->processEntityAction(
+            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+        );
         return $this;
     }
 

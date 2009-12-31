@@ -31,9 +31,12 @@
  */
 class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_DEFAULT_ID = 'customer/create_account/default_group';
-    const NOT_LOGGED_IN_ID  = 0;
-    const CUST_GROUP_ALL    = 32000;
+    const XML_PATH_DEFAULT_ID       = 'customer/create_account/default_group';
+
+    const NOT_LOGGED_IN_ID          = 0;
+    const CUST_GROUP_ALL            = 32000;
+
+    const ENTITY                    = 'customer_group';
 
     /**
      * Prefix of model events names
@@ -98,5 +101,19 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
             return true;
         }
         return false;
+    }
+
+    /**
+     * Processing data save after transaction commit
+     *
+     * @return Mage_Customer_Model_Group
+     */
+    protected function _afterSaveCommit()
+    {
+        parent::_afterSaveCommit();
+        Mage::getSingleton('index/indexer')->processEntityAction(
+            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+        );
+        return $this;
     }
 }

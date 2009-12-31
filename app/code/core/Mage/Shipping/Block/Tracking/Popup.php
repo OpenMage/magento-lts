@@ -26,51 +26,77 @@
 
 class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 {
-
+    /**
+     * @deprecated after 1.3.2.3
+     */
     protected $_track_id;
+    /**
+     * @deprecated after 1.3.2.3
+     */
     protected $_order_id;
+    /**
+     * @deprecated after 1.3.2.3
+     */
     protected $_ship_id;
 
+    /**
+     * @deprecated after 1.3.2.3
+     */
     public function setOrderId($oid)
     {
-        $this->_order_id=$oid;
+        return $this->setData('order_id', $oid);
     }
 
+    /**
+     * @deprecated after 1.3.2.3
+     */
     public function getOrderId()
     {
-        return $this->_order_id;
+        return $this->_getData('order_id');
     }
 
+    /**
+     * @deprecated after 1.3.2.3
+     */
     public function setShipId($oid)
     {
-        $this->_ship_id=$oid;
+        return $this->setData('ship_id', $oid);
     }
 
+    /**
+     * @deprecated after 1.3.2.3
+     */
     public function getShipId()
     {
-        return $this->_ship_id;
+        return $this->_getData('ship_id');
     }
 
+    /**
+     * @deprecated after 1.3.2.3
+     */
     public function setTrackId($tid='')
     {
-        $this->_track_id=$tid;
+        return $this->setData('track_id', $tid);
     }
 
+    /**
+     * @deprecated after 1.3.2.3
+     */
     public function getTrackId()
     {
-        return $this->_track_id;
+        return $this->_getData('track_id');
     }
 
      /**
-     * Initialize order model instance
-     *
-     * @return Mage_Sales_Model_Order || false
-     */
+      * Initialize order model instance
+      *
+      * @return Mage_Sales_Model_Order || false
+      */
     protected function _initOrder()
     {
-        $order = Mage::getModel('sales/order')->load($this->_order_id);
+        $order = Mage::getModel('sales/order')->load($this->getOrderId());
 
-        if (!$order->getId()) {
+        if (!$order->getId() || $this->getProtectCode() != $order->getProtectCode()) {
             return false;
         }
 
@@ -84,9 +110,9 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      */
     protected function _initShipment()
     {
-        $ship = Mage::getModel('sales/order_shipment')->load($this->_ship_id);
+        $ship = Mage::getModel('sales/order_shipment')->load($this->getShipId());
 
-        if (!$ship->getEntityId()) {
+        if (!$ship->getEntityId() || $this->getProtectCode() != $ship->getProtectCode()) {
             return false;
         }
 
@@ -96,9 +122,11 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 
     public function getTrackingInfo()
     {
-        $this->setOrderId($this->getRequest()->getParam('order_id'));
-        $this->setTrackId($this->getRequest()->getParam('track_id'));
-        $this->setShipId($this->getRequest()->getParam('ship_id'));
+        $hash = Mage::helper('shipping')->decodeTrackingHash($this->getRequest()->getParam('hash'));
+        if (!empty($hash)) {
+            $this->setData($hash['key'], $hash['id']);
+            $this->setProtectCode($hash['hash']);
+        }
 
         if ($this->getOrderId()>0) {
             return $this->getTrackingInfoByOrder();
@@ -109,9 +137,11 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         }
     }
 
-    /*
-    * retrieve all tracking by orders id
-    */
+    /**
+     * Retrieve all tracking by orders id
+     *
+     * @return array
+     */
     public function getTrackingInfoByOrder()
     {
         $shipTrack = array();
@@ -131,9 +161,11 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         return $shipTrack;
     }
 
-    /*
-    * retrieve all tracking by ship id
-    */
+    /**
+     * Retrieve all tracking by ship id
+     *
+     * @return array
+     */
     public function getTrackingInfoByShip()
     {
         $shipTrack = array();
@@ -151,14 +183,18 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         return $shipTrack;
     }
 
-    /*
-    * retrieve tracking by tracking entity id
-    */
+    /**
+     * Retrieve tracking by tracking entity id
+     *
+     * @return array
+     */
     public function getTrackingInfoByTrackId()
     {
-        $shipTrack[] = array(Mage::getModel('sales/order_shipment_track')->load($this->getTrackId())
-                       ->getNumberDetail());
-        return $shipTrack;
+        $track = Mage::getModel('sales/order_shipment_track')->load($this->getTrackId());
+        if ($this->getProtectCode() == $track->getProtectCode()) {
+            return array(array($track->getNumberDetail()));
+        }
+        return array(array());
     }
 
     /**

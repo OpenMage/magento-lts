@@ -80,20 +80,7 @@
                 <setup>
                     <module>Mage_Oscommerce</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </oscommerce_setup>
-            <oscommerce_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </oscommerce_write>
-            <oscommerce_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </oscommerce_read>
             <oscommerce_foreign>
                 <connection>
                     <type>pdo_mysql</type>
@@ -115,62 +102,10 @@
         </routers>
     </admin>
     <adminhtml>
-        <menu>
-            <system>
-                <children>
-                    <convert>
-                        <children>
-                            <oscimport translate="title" module="oscommerce">
-                                <title>osCommerce</title>
-                                <action>oscommerce/adminhtml_import</action>
-                            </oscimport>
-                        </children>
-                    </convert>
-                </children>
-            </system>
-            <sales>
-                <children>
-                    <oscorder translate="title" module="oscommerce">
-                        <title>osCommerce Orders</title>
-                        <action>oscommerce/adminhtml_order</action>
-                        <sort_order>100</sort_order>
-                    </oscorder>
-                </children>
-            </sales>
-        </menu>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <sales>
-                            <children>
-                                <oscorder translate="title" module="oscommerce">
-                                    <title>osCommerce Orders</title>
-                                    <sort_order>100</sort_order>
-                                </oscorder>
-                            </children>
-                        </sales>
-                        <system>
-                            <children>
-                                <convert>
-                                    <children>
-                                        <oscimport translate="title" module="oscommerce">
-                                            <title>osCommerce</title>
-                                            <sort_order>100</sort_order>
-                                        </oscimport>
-                                    </children>
-                                </convert>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
         <events>
             <controller_action_predispatch_oscommerce>
                 <observers>
                     <auth>
-                        <type>singleton</type>
                         <class>admin/observer</class>
                         <method>actionPreDispatchAdmin</method>
                     </auth>

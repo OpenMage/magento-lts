@@ -77,7 +77,31 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         if ($isAlpha) {
             $this->_fillBackgroundColor($this->_imageHandler);
         }
-        call_user_func($this->_getCallback('output'), $this->_imageHandler, $fileName);
+        
+        $functionParameters = array();
+        $functionParameters[] = $this->_imageHandler;
+        $functionParameters[] = $fileName;
+        
+        // set quality param for JPG file type
+        if (!is_null($this->quality()) && $this->_fileType == IMAGETYPE_JPEG)
+        {
+            $functionParameters[] = $this->quality();
+        }
+
+        // set quality param for PNG file type
+        if (!is_null($this->quality()) && $this->_fileType == IMAGETYPE_PNG)
+        {
+            $quality = round(($this->quality() / 100) * 10);
+            if ($quality < 1) {
+                $quality = 1;
+            } elseif ($quality > 10) {
+                $quality = 10;
+            }
+            $quality = 10 - $quality;
+            $functionParameters[] = $quality;
+        }
+
+        call_user_func_array($this->_getCallback('output'), $functionParameters);
     }
 
     public function display()

@@ -82,4 +82,19 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Group extends Mage_Core_Model_Mysql
         $maxOrder = $read->fetchOne($select);
         return $maxOrder;
     }
+
+    /**
+     * Set any group default if old one was removed
+     *
+     * @param integer $attributeSetId
+     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Group
+     */
+    public function updateDefaultGroup($attributeSetId)
+    {
+        $this->_getWriteAdapter()->query(
+            "UPDATE `{$this->getMainTable()}` SET default_id = 1 WHERE attribute_set_id = :attribute_set_id ORDER BY default_id DESC LIMIT 1",
+            array('attribute_set_id' => $attributeSetId)
+        );
+        return $this;
+    }
 }

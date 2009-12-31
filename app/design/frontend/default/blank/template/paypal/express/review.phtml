@@ -75,7 +75,7 @@
                 <?php endforeach; ?>
                 </select>
                 <p class="actions">
-                    <button id="update_shipping_method" class="button" type="submit"><span><?php echo $this->__('Update Shipping Method') ?></span></button>
+                    <button id="update_shipping_method" class="button" type="submit"><span><span><?php echo $this->__('Update Shipping Method') ?></span></span></button>
                 </p>
             </form>
 
@@ -104,7 +104,7 @@
 <form method="post" action="<?php echo $this->getUrl('paypal/express/saveOrder') ?>">
     <fieldset>
         <span id="review-buttons-container">
-            <button type="submit" class="button" id="review-button" onclick="return saveOrder();" value="<?php echo $this->__('Place an Order') ?>"><span><?php echo $this->__('Place an Order') ?></span></button>
+            <button type="submit" class="button" id="review-button" onclick="return saveOrder();" value="<?php echo $this->__('Place an Order') ?>"><span><span><?php echo $this->__('Place an Order') ?></span></span></button>
         </span>
         <span id="review-please-wait" class="please-wait" style="display:none;">
             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>

@@ -16,7 +16,7 @@
  * @package    Zend_Reflection
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Method.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /**
@@ -119,23 +119,6 @@ class Zend_Reflection_Method extends ReflectionMethod
         }
         unset($phpReflections);
         return $zendReflections;
-    }
-    
-    /**
-     * Get return type tag
-     *
-     * @return Zend_Reflection_Docblock_Tag_Return
-     */
-    public function getReturn()
-    {
-        $docblock = $this->getDocblock();
-        if (!$docblock->hasTag('return')) {
-            #require_once 'Zend/Reflection/Exception.php';
-            throw new Zend_Reflection_Exception('Function does not specify an @return annotation tag; cannot determine return type');
-        }
-        $tag    = $docblock->getTag('return');
-        $return = Zend_Reflection_Docblock_Tag::factory('@return ' . $tag->getDescription());
-        return $return;
     }
     
     /**

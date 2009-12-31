@@ -71,7 +71,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
      */
     public function getAttributeLabel($attribute)
     {
-        return Mage::helper('catalog')->__($attribute->getFrontend()->getLabel());
+        return $attribute->getStoreLabel();
     }
 
     /**
@@ -262,7 +262,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
 
         return $this->_getDateBlock()
             ->setName($name)
-            ->setId($attribute->getAttributeCode() . '_' . $part)
+            ->setId($attribute->getAttributeCode() . ($part == 'from' ? '' : '_' . $part))
             ->setTitle($this->getAttributeLabel($attribute))
             ->setValue($value)
             ->setImage($this->getSkinUrl('images/calendar.gif'))

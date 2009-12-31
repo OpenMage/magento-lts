@@ -65,6 +65,10 @@
             <?php if ($_taxvat->isEnabled()): ?>
                 <li><?php echo $_taxvat->setTaxvat($this->getFormData()->getTaxvat())->toHtml() ?></li>
             <?php endif ?>
+            <?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
+            <?php if ($_gender->isEnabled()): ?>
+                <li><?php echo $_gender->setGender($this->getFormData()->getGender())->toHtml() ?></li>
+            <?php endif ?>
             </ul>
         </fieldset>
     <?php if($this->getShowAddressFields()): ?>
@@ -140,14 +144,14 @@
         <p class="required"><?php echo $this->__('* Required Fields') ?></p>
         <div class="buttons-set">
             <a href="<?php echo $this->getBackUrl() ?>" class="back-link">&laquo; <?php echo $this->__('Back') ?></a>
-            <button class="button" type="submit"><span><?php echo $this->__('Submit') ?></span></button>
+            <button class="button" type="submit"><span><span><?php echo $this->__('Submit') ?></span></span></button>
         </div>
     </form>
     <script type="text/javascript">
     //<![CDATA[
         var dataForm = new VarienForm('form-validate', true);
         <?php if($this->getShowAddressFields()): ?>
-        new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, <?php echo $this->helper('directory')->getCountriesWithOptionalZipJson() ?>);
+        new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
         <?php endif; ?>
     //]]>
     </script>

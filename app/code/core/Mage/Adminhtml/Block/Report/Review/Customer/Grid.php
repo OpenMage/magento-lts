@@ -73,7 +73,8 @@ class Mage_Adminhtml_Block_Report_Review_Customer_Grid extends Mage_Adminhtml_Bl
             'align'     => 'center',
             'filter'    => false,
             'sortable'  => false,
-            'renderer'  => 'adminhtml/report_grid_column_renderer_customer'
+            'renderer'  => 'adminhtml/report_grid_column_renderer_customer',
+            'is_system' => true
         ));
 
         $this->setFilterVisibility(false);

@@ -55,20 +55,7 @@
                     <module>Mage_AmazonPayments</module>
                     <class>Mage_AmazonPayments_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </amazonpayments_setup>
-            <amazonpayments_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </amazonpayments_write>
-            <amazonpayments_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </amazonpayments_read>
         </resources>
         <blocks>
             <amazonpayments><class>Mage_AmazonPayments_Block</class></amazonpayments>

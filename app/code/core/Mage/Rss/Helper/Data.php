@@ -66,7 +66,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
         }
         list($username, $password) = $this->authValidate();
         Mage::getSingleton('adminhtml/url')->setNoSecret(true);
-        $adminSession = Mage::getModel('admin/session');
+        $adminSession = Mage::getSingleton('admin/session');
         $user = $adminSession->login($username, $password);
         //$user = Mage::getModel('admin/user')->login($username, $password);
         if($user && $user->getId() && $user->getIsActive() == '1' && $adminSession->isAllowed($path)){

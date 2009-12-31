@@ -14,8 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Abstract.php 17708 2009-08-21 13:43:39Z matthew $
  */
 
 /**
@@ -25,7 +26,7 @@
  *
  * @package Zend_Controller
  * @subpackage Response
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Controller_Response_Abstract
@@ -542,9 +543,8 @@ abstract class Zend_Controller_Response_Abstract
      */
     public function outputBody()
     {
-        foreach ($this->_body as $content) {
-            echo $content;
-        }
+        $body = implode('', $this->_body);
+        echo $body;
     }
 
     /**

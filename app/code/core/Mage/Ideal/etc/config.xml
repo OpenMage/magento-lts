@@ -50,20 +50,7 @@
                     <module>Mage_Ideal</module>
                     <class>Mage_Ideal_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </ideal_setup>
-            <ideal_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </ideal_write>
-            <ideal_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </ideal_read>
         </resources>
         <blocks>
             <ideal><class>Mage_Ideal_Block</class></ideal>
@@ -103,7 +90,6 @@
             <sales_convert_quote_payment_to_order_payment>
                 <observers>
                     <ideal_advanced_observer>
-                        <type>singleton</type>
                         <class>ideal/observer</class>
                         <method>convertPayment</method>
                     </ideal_advanced_observer>

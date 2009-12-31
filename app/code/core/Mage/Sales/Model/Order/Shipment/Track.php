@@ -72,6 +72,16 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
     }
 
     /**
+     * Retrieve hash code of current order
+     *
+     * @return string
+     */
+    public function getProtectCode()
+    {
+        return (string)$this->getShipment()->getProtectCode();
+    }
+
+    /**
      * Retrieve detail for shipment track
      *
      * @return string

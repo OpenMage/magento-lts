@@ -82,8 +82,13 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
                 $ruleModel->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('Tax rule was successfully saved'));
-                $this->_redirect('*/*/');
 
+                if ($this->getRequest()->getParam('back')) {
+                    $this->_redirect('*/*/edit', array('rule' => $ruleModel->getId()));
+                    return;
+                }
+
+                $this->_redirect('*/*/');
                 return;
             }
             catch (Mage_Core_Exception $e) {

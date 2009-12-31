@@ -145,7 +145,6 @@ addressesModel.prototype = {
 
         this.loader = new varienLoader(true);
         this.regionsUrl = '<?php echo $this->getRegionsUrl() ?>';
-        this.zipOptionalCountries = <?php echo $this->getCountriesWithOptionalZipJson() ?>;
 
         this.reloadItemList(1);
 
@@ -188,7 +187,7 @@ addressesModel.prototype = {
 
             // set Zip optional/required
             var countryElement = $('id' + item.id.replace(/address_item_/, '') + 'country_id');
-            this.setZipOptional(countryElement);
+            varienGlobalEvents.fireEvent("address_country_changed", countryElement);
         }
     },
 
@@ -430,7 +429,13 @@ addressesModel.prototype = {
 
     bindCountryRegionRelation : function(parentId){
         //alert('OK');
-        var countryElements = $$('.countries');
+        if(parentId){
+            var countryElements = $(parentId).getElementsByClassName('countries');
+        }
+        else{
+            var countryElements = $$('.countries');
+        }
+
         for(var i=0;i<=countryElements.length;i++){
             if(countryElements[i]){
                 if(!countryElements[i].bindRegions || !countryElements[i].parentBindId || countryElements[i].parentBindId!=parentId){
@@ -454,18 +459,7 @@ addressesModel.prototype = {
                 this.loader.load(url, {}, this.refreshRegionField.bind(this));
             }
             // set Zip optional/required
-            this.setZipOptional(countryElement);
-        }
-    },
-
-    setZipOptional : function (countryElement){
-        var zipElement = $(countryElement.id.replace(/country_id/, 'postcode'))
-        if (zipElement && this.zipOptionalCountries.indexOf(countryElement.value) != -1) {
-            zipElement.removeClassName('required-entry').removeClassName('required-entry');
-            zipElement.up(1).down('label > span.required').hide();
-        } else {
-            zipElement.addClassName('required-entry');
-            zipElement.up(1).down('label > span.required').show();
+            varienGlobalEvents.fireEvent("address_country_changed", countryElement);
         }
     },
 

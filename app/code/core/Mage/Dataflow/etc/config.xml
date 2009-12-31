@@ -69,20 +69,7 @@
                 <setup>
                     <module>Mage_Dataflow</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </dataflow_setup>
-            <dataflow_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </dataflow_write>
-            <dataflow_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </dataflow_read>
         </resources>
     </global>
 </config>

@@ -44,7 +44,11 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
      */
     protected $_isReadonly = false;
 
-
+    /**
+     * Init resoirce
+     *
+     * @return unknown_type
+     */
     protected function _construct()
     {
         $this->_init('rule/rule');

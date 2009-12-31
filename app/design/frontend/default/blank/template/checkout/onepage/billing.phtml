@@ -102,6 +102,14 @@
                 </li>
     <?php endif ?>
 
+    <?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
+    <?php if ($_gender->isEnabled()): ?>
+                <li>
+                    <?php echo $_gender->setGender($this->getQuote()->getCustomerGender())
+                        ->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?>
+                </li>
+    <?php endif ?>
+
                 <li id="register-customer-password">
                     <div class="input-box">
                         <label for="billing:customer_password"><?php echo $this->__('Password') ?> <span class="required">*</span></label><br />
@@ -132,7 +140,7 @@
     <?php endif; ?>
     <p class="required"><?php echo $this->__('* Required Fields') ?></p>
     <div class="buttons-set" id="billing-buttons-container">
-        <button type="button" class="button" onclick="billing.save()"><span><?php echo $this->__('Continue') ?></span></button>
+        <button type="button" class="button" onclick="billing.save()"><span><span><?php echo $this->__('Continue') ?></span></span></button>
         <span id="billing-please-wait" class="please-wait" style="display:none;">
             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="" class="v-middle" /> <?php echo $this->__('Loading next step...') ?>
         </span>
@@ -147,6 +155,6 @@
     //billingForm.setElementsRelation('billing:country_id', 'billing:region', '<?php echo $this->getUrl('directory/json/childRegion') ?>', '<?php echo $this->__('Select State/Province...') ?>');
     $('billing-address-select') && billing.newAddress(!$('billing-address-select').value);
 
-    var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', countryRegions, undefined, <?php echo $this->helper('directory')->getCountriesWithOptionalZipJson() ?>);
+    var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', countryRegions, undefined, 'billing:postcode');
 //]]>
 </script>

@@ -38,7 +38,7 @@
             <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
             <?php echo $this->getPriceHtml($_product, true, '-new') ?>
             <?php if($_product->isSaleable()): ?>
-            <button type="button" class="button" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><?php echo $this->__('Add to Cart') ?></span></button>
+            <button type="button" class="button" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
             <?php else: ?>
             <p class="availability"><span class="out-of-stock"><?php echo $this->__('Out of stock') ?></span></p>
             <?php endif; ?>

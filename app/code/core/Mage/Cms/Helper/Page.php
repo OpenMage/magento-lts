@@ -39,7 +39,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     const XML_PATH_HOME_PAGE            = 'web/default/cms_home_page';
 
     /**
-    * Renders CMS page
+    * Renders CMS page on front end
     *
     * Call from controller action
     *
@@ -48,6 +48,19 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     * @return boolean
     */
     public function renderPage(Mage_Core_Controller_Front_Action $action, $pageId = null)
+    {
+        return $this->_renderPage($action, $pageId);
+    }
+
+   /**
+    * Renders CMS page
+    *
+    * @param Mage_Core_Controller_Front_Action $action
+    * @param integer $pageId
+    * @param bool $renderLayout
+    * @return boolean
+    */
+    protected function _renderPage(Mage_Core_Controller_Varien_Action  $action, $pageId = null, $renderLayout = true)
     {
         $page = Mage::getSingleton('cms/page');
         if (!is_null($pageId) && $pageId!==$page->getId()) {
@@ -61,8 +74,10 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
             return false;
         }
 
+        $inRange = Mage::app()->getLocale()->IsStoreDateInInterval(null, $page->getCustomThemeFrom(), $page->getCustomThemeTo());
+
         if ($page->getCustomTheme()) {
-            if (Mage::app()->getLocale()->IsStoreDateInInterval(null, $page->getCustomThemeFrom(), $page->getCustomThemeTo())) {
+            if ($inRange) {
                 list($package, $theme) = explode('/', $page->getCustomTheme());
                 Mage::getSingleton('core/design_package')
                     ->setPackageName($package)
@@ -76,12 +91,15 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 
         $action->addActionLayoutHandles();
         if ($page->getRootTemplate()) {
-            $action->getLayout()->helper('page/layout')
-                ->applyHandle($page->getRootTemplate());
+            $handle = ($page->getCustomRootTemplate()
+                        && $page->getCustomRootTemplate() != 'empty'
+                        && $inRange) ? $page->getCustomRootTemplate() : $page->getRootTemplate();
+            $action->getLayout()->helper('page/layout')->applyHandle($handle);
         }
 
         $action->loadLayoutUpdates();
-        $action->getLayout()->getUpdate()->addUpdate($page->getLayoutUpdateXml());
+        $layoutUpdate = ($page->getCustomLayoutUpdateXml() && $inRange) ? $page->getCustomLayoutUpdateXml() : $page->getLayoutUpdateXml();
+        $action->getLayout()->getUpdate()->addUpdate($layoutUpdate);
         $action->generateLayoutXml()->generateLayoutBlocks();
 
         if ($page->getRootTemplate()) {
@@ -89,17 +107,33 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
                 ->applyTemplate($page->getRootTemplate());
         }
 
-        if ($storage = Mage::getSingleton('catalog/session')) {
-            $action->getLayout()->getMessagesBlock()->addMessages($storage->getMessages(true));
+        foreach (array('catalog/session', 'checkout/session') as $class_name) {
+            $storage = Mage::getSingleton($class_name);
+            if ($storage) {
+                $action->getLayout()->getMessagesBlock()->addMessages($storage->getMessages(true));
+            }
         }
 
-        if ($storage = Mage::getSingleton('checkout/session')) {
-            $action->getLayout()->getMessagesBlock()->addMessages($storage->getMessages(true));
+        if ($renderLayout) {
+            $action->renderLayout();
         }
-
-        $action->renderLayout();
 
         return true;
+    }
+
+    /**
+     * Renders CMS Page with more flexibility then original renderPage function.
+     * Allows to use also backend action as first parameter.
+     * Also takes third parameter which allows not run renderLayout method.
+     *
+     * @param Mage_Core_Controller_Varien_Action $action
+     * @param $pageId
+     * @param $renderLayout
+     * @return bool
+     */
+    public function renderPageExtended(Mage_Core_Controller_Varien_Action $action, $pageId = null, $renderLayout = true)
+    {
+        return $this->_renderPage($action, $pageId, $renderLayout);
     }
 
     /**

@@ -63,7 +63,7 @@ class Mage_Page_Model_Source_Layout
      *
      * @return array
      */
-    public function toOptionArray()
+    public function toOptionArray($withEmpty = false)
     {
         $options = array();
 
@@ -72,6 +72,10 @@ class Mage_Page_Model_Source_Layout
                 'label' => $label,
                 'value'  => $value
             );
+        }
+
+        if ($withEmpty) {
+            array_unshift($options, array('value'=>'', 'label'=>Mage::helper('page')->__('-- Please Select --')));
         }
 
         return $options;

@@ -115,8 +115,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
             return true;
         }
         else {
-            if ($this->getItem()->hasUrlDataObject()) {
-                $data = $this->getItem()->getUrlDataObject();
+            if ($product->hasUrlDataObject()) {
+                $data = $product->getUrlDataObject();
                 if (in_array($data->getVisibility(), $product->getVisibleInSiteVisibilities())) {
                     return true;
                 }

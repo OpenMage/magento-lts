@@ -75,7 +75,7 @@
     </table>
 <script type="text/javascript">decorateTable('wishlist-table')</script>
     <div class="button-set">
-        <button onclick="setLocation('<?php echo $this->getUrl('*/*/share') ?>')" class="form-button-alt" type="button"><span><?php echo $this->__('Share Wishlist') ?></span></button>&nbsp;
+        <button type="submit" class="form-button-alt" name="save_and_share"><span><?php echo $this->__('Share Wishlist') ?></span></button>&nbsp;
         <?php if ($this->isSaleable()):?>
         <button onclick="setLocation('<?php echo $this->getUrl('*/*/allcart') ?>')" class="form-button-alt"  type="button"><span><?php echo $this->__('Add All to Cart') ?></span></button>&nbsp;
         <?php endif;?>

@@ -92,6 +92,17 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         return $this;
     }
 
+
+    /**
+     * Retrieve hash code of current order
+     *
+     * @return string
+     */
+    public function getProtectCode()
+    {
+        return (string)$this->getOrder()->getProtectCode();
+    }
+
     /**
      * Retrieve the order the shipment for created for
      *

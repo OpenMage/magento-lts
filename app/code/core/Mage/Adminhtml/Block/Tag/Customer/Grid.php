@@ -37,18 +37,30 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
     public function __construct()
     {
         parent::__construct();
-        $this->setId('tag_grid' . Mage::registry('tagId'));
+        $this->setId('tag_customer_grid' . Mage::registry('current_tag')->getId());
         $this->setDefaultSort('name');
         $this->setDefaultDir('ASC');
+        $this->setUseAjax(true);
+    }
+    /*
+     * Retrieves Grid Url
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/customer', array('_current' => true));
     }
 
     protected function _prepareCollection()
     {
-        $tagId = Mage::registry('tagId');
+        $tagId = Mage::registry('current_tag')->getId();
+        $storeId = Mage::registry('current_tag')->getStoreId();
         $collection = Mage::getModel('tag/tag')
             ->getCustomerCollection()
             ->addTagFilter($tagId)
             ->setCountAttribute('tr.tag_relation_id')
+            ->addStoreFilter($storeId)
             ->addGroupByCustomerProduct();
 
         $this->setCollection($collection);
@@ -65,7 +77,7 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
     {
         $this->addColumn('customer_id', array(
             'header'        => Mage::helper('tag')->__('ID'),
-            'width'         => '50px',
+            'width'         => 50,
             'align'         => 'right',
             'index'         => 'entity_id',
         ));
@@ -80,15 +92,6 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
             'index'     => 'lastname',
         ));
 
-        if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
-                'header'    => Mage::helper('tag')->__('Tagged in'),
-                'index'     => 'store_id',
-                'type'      => 'store',
-                'store_view' => true,
-            ));
-        }
-
         $this->addColumn('product', array(
             'header'    => Mage::helper('tag')->__('Product Name'),
             'filter'    => false,
@@ -100,19 +103,12 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
             'header'    => Mage::helper('tag')->__('Product SKU'),
             'filter'    => false,
             'sortable'  => false,
-            'width'     => '50px',
+            'width'     => 50,
             'align'     => 'right',
             'index'     => 'product_sku',
         ));
 
-        $this->addColumn('product_sku', array(
-            'header'    => Mage::helper('tag')->__('Product SKU'),
-            'filter'    => false,
-            'sortable'  => false,
-            'width'     => '50px',
-            'align'     => 'right',
-            'index'     => 'product_sku',
-        ));
+
 
         return parent::_prepareColumns();
     }

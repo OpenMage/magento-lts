@@ -46,7 +46,7 @@ class Mage_Dataflow_Model_Mysql4_Profile_Collection extends Mage_Core_Model_Mysq
      */
     public function addStoreFilter($storeIds)
     {
-        $this->getSelect()->where('main_table.store_id IN (?)', $storeIds);
+        $this->getSelect()->where('main_table.store_id IN (?)', array(0, $storeIds));
         return $this;
     }
 }

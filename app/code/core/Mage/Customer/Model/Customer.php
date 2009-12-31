@@ -450,7 +450,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @return Mage_Customer_Model_Customer
      */
-    public function sendNewAccountEmail($type = 'registered', $backUrl = '', $store_id = '0')
+    public function sendNewAccountEmail($type = 'registered', $backUrl = '', $storeId = '0')
     {
         $types = array(
             'registered'   => self::XML_PATH_REGISTER_EMAIL_TEMPLATE,  // welcome email, when confirmation is disabled
@@ -465,7 +465,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         /* @var $translate Mage_Core_Model_Translate */
         $translate->setTranslateInline(false);
 
-        $storeId = ($store_id == '0')?$this->getStoreId():$store_id;
+        $storeId = ($storeId == '0')?$this->getSendemailStoreId():$storeId;
         if ($this->getWebsiteId() != '0' && $storeId == '0') {
             $storeIds = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
             reset($storeIds);
@@ -694,6 +694,10 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (('req' === Mage::helper('customer/address')->getConfig('taxvat_show'))
             && '' == trim($this->getTaxvat())) {
             $errors[] = Mage::helper('customer')->__('TAX/VAT number is required.');
+        }
+        if (('req' === Mage::helper('customer/address')->getConfig('gender_show'))
+            && '' == trim($this->getGender())) {
+            $errors[] = Mage::helper('customer')->__('Gender is required.');
         }
 
         if (empty($errors)) {

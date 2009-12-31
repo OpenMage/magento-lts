@@ -33,13 +33,13 @@
 <?php endif; ?>
 <?php switch ($this->getType()): ?>
 <?php case 'item': ?>
-    <button class="button listen-for-click" type="button"><span>
+    <button class="button listen-for-click" type="button"><span><span>
         <?php if($this->hasGiftMessage()): ?>
         <?php echo $this->__('Edit') ?>
         <?php else: ?>
         <?php echo $this->__('Add') ?>
         <?php endif; ?>
-    </span></button>
+    </span></span></button>
     <?php break; ?>
 <?php case 'main': ?>
     <a href="#" class="listen-for-click">
@@ -60,13 +60,13 @@
     </a>
     <?php break; ?>
 <?php case 'address_item': ?>
-    <button class="button listen-for-click" type="button"><span>
+    <button class="button listen-for-click" type="button"><span><span>
         <?php if($this->hasGiftMessage()): ?>
         <?php echo $this->__('Edit') ?>
         <?php else: ?>
         <?php echo $this->__('Add') ?>
         <?php endif; ?>
-    </span></button>
+    </span></span></button>
     <?php break; ?>
 <?php endswitch ?>
 <?php if($this->getCanDisplayContainer()): ?>

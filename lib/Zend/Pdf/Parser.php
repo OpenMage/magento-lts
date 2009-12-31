@@ -12,9 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
+ * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Parser.php 17530 2009-08-10 18:47:29Z alexander $
  */
 
 /** Zend_Pdf_Element */
@@ -65,21 +67,15 @@
 /** Zend_Pdf_ElementFactory_Interface */
 #require_once 'Zend/Pdf/ElementFactory/Interface.php';
 
-/** Zend_Pdf_PhpArray */
-#require_once 'Zend/Pdf/PhpArray.php';
-
 /** Zend_Pdf_StringParser */
 #require_once 'Zend/Pdf/StringParser.php';
-
-/** Zend_Pdf_Parser_Stream */
-#require_once 'Zend/Pdf/Parser/Stream.php';
 
 
 /**
  * PDF file parser
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Parser
@@ -97,6 +93,13 @@ class Zend_Pdf_Parser
      * @var Zend_Pdf_Trailer_Keeper
      */
     private $_trailer;
+
+    /**
+     * PDF version specified in the file header
+     *
+     * @var string
+     */
+    private $_pdfVersion;
 
 
     /**
@@ -117,6 +120,16 @@ class Zend_Pdf_Parser
     public function getPDFString()
     {
         return $this->_stringParser->data;
+    }
+
+    /**
+     * PDF version specified in the file header
+     *
+     * @return string
+     */
+    public function getPDFVersion()
+    {
+        return $this->_pdfVersion;
     }
 
     /**
@@ -398,8 +411,10 @@ class Zend_Pdf_Parser
             throw new Zend_Pdf_Exception('File is not a PDF.');
         }
 
-        $pdfVersion = (float)substr($pdfVersionComment, 5);
-        if ($pdfVersion < 0.9 || $pdfVersion >= 1.61) {
+        $pdfVersion = substr($pdfVersionComment, 5);
+        if (version_compare($pdfVersion, '0.9',  '<')  ||
+            version_compare($pdfVersion, '1.61', '>=')
+           ) {
             /**
              * @todo
              * To support PDF versions 1.5 (Acrobat 6) and PDF version 1.7 (Acrobat 7)
@@ -408,6 +423,7 @@ class Zend_Pdf_Parser
              */
             throw new Zend_Pdf_Exception(sprintf('Unsupported PDF version. Zend_Pdf supports PDF 1.0-1.4. Current version - \'%f\'', $pdfVersion));
         }
+        $this->_pdfVersion = $pdfVersion;
 
         $this->_stringParser->offset = strrpos($this->_stringParser->data, '%%EOF');
         if ($this->_stringParser->offset === false ||

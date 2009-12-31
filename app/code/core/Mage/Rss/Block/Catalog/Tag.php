@@ -64,6 +64,8 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Abstract
             ->addTagFilter($tagModel->getId())
             ->addStoreFilter($storeId);
 
+        $_collection->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
+
         $product = Mage::getModel('catalog/product');
 
         Mage::getSingleton('core/resource_iterator')
@@ -72,6 +74,11 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Abstract
         return $rssObj->createRssXml();
     }
 
+    /**
+     * Preparing data and adding to rss object
+     *
+     * @param array $args
+     */
     public function addTaggedItemXml($args)
     {
         $product = $args['product'];
@@ -84,20 +91,25 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Abstract
             return;
         }
 
+        $allowedPriceInRss = $product->getAllowedPriceInRss();
+
         $product->unsetData()->load($args['row']['entity_id']);
         $description = '<table><tr>'.
         '<td><a href="'.$product->getProductUrl().'"><img src="'. $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75) .'" border="0" align="left" height="75" width="75"></a></td>'.
-        '<td  style="text-decoration:none;">'.$product->getDescription().
-        '<p> Price:'.Mage::helper('core')->currency($product->getFinalPrice()).'</p>'.
-        '</td>'.
-        '</tr></table>';
+        '<td  style="text-decoration:none;">'.$product->getDescription();
+
+        if ($allowedPriceInRss) {
+            $description .= '<p> Price:'.Mage::helper('core')->currency($product->getFinalPrice()).'</p>';
+        }
+
+        $description .='</td></tr></table>';
+
         $rssObj = $args['rssObj'];
         $data = array(
                 'title'         => $product->getName(),
                 'link'          => $product->getProductUrl(),
                 'description'   => $description,
-
-                );
+            );
         $rssObj->_addEntry($data);
     }
 }

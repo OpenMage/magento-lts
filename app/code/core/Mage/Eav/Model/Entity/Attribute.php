@@ -101,17 +101,6 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             Mage::throwException(Mage::helper('eav')->__('The attribute code \'%s\' is reserved by system. Please, try another attribute code.', $this->_data['attribute_code']));
         }
 
-        // prevent changing attribute scope, if used in configurable products
-        if (isset($this->_origData['is_global'])) {
-            if (!isset($this->_data['is_global'])) {
-                Mage::throwException('0_o');
-            }
-            if (($this->_data['is_global'] != $this->_origData['is_global'])
-                && $this->_getResource()->isUsedBySuperProducts($this)) {
-                Mage::throwException(Mage::helper('eav')->__('Scope must not be changed, because the attribute is used in configurable products.'));
-            }
-        }
-
         if ($this->getBackendType() == 'datetime') {
             if (!$this->getBackendModel()) {
                 $this->setBackendModel('eav/entity_attribute_backend_datetime');
@@ -136,12 +125,6 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         if ($this->getBackendType() == 'gallery') {
             if (!$this->getBackendModel()) {
                 $this->setBackendModel('eav/entity_attribute_backend_media');
-            }
-        }
-
-        if ($this->getFrontendInput() == 'price') {
-            if (!$this->getBackendModel()) {
-                $this->setBackendModel('catalog/product_attribute_backend_price');
             }
         }
 
@@ -251,5 +234,28 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     public function getAttributeCodesByFrontendType($type)
     {
         return $this->getResource()->getAttributeCodesByFrontendType($type);
+    }
+
+    /**
+     * Return array of labels of stores
+     *
+     * @return array
+     */
+    public function getStoreLabels()
+    {
+        if (!$this->getData('store_labels')) {
+            $this->setData('store_labels', $this->getResource()->getStoreLabelsByAttributeId($this->getId()));
+        }
+        return $this->getData('store_labels');
+    }
+
+    /**
+     * Return store label of attribute
+     *
+     * @return string
+     */
+    public function getStoreLabel()
+    {
+        return $this->getData('store_label');
     }
 }

@@ -45,4 +45,15 @@ class Mage_Newsletter_Block_Subscribe extends Mage_Core_Block_Template
         $message = Mage::getSingleton('newsletter/session')->getError();
         return $message;
     }
+
+    /**
+     * Retrieve form action url and set "secure" param to avoid confirm
+     * message when we submit form from secure page to unsecure
+     *
+     * @return string
+     */
+    public function getFormActionUrl()
+    {
+        return $this->getUrl('newsletter/subscriber/new', array('_secure' => true));
+    }
 }

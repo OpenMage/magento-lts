@@ -33,6 +33,22 @@
  */
 class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
 {
+    const ENTITY = 'core_config_data';
+    /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'core_config_data';
+
+    /**
+     * Parameter name in event
+     *
+     * In observe method you can use $observer->getEvent()->getObject() in this case
+     *
+     * @var string
+     */
+    protected $_eventObject = 'config_data';
 
     /**
      * Varien model constructor

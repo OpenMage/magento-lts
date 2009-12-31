@@ -17,7 +17,7 @@
  * @subpackage PHP
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Method.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /**
@@ -188,19 +188,26 @@ class Zend_CodeGenerator_Php_Method extends Zend_CodeGenerator_Php_Member_Abstra
      */
     public function generate()
     {
-        $output = '    ';
+        $output = '';
         
-        if (null !== ($docblock = $this->getDocblock())) {
-            $docblock->setIndentation('    ');
+        $indent = $this->getIndentation();
+        
+        if (($docblock = $this->getDocblock()) !== null) {
+            $docblock->setIndentation($indent);
             $output .= $docblock->generate();
-            $output .= '    ';
         }
+        
+        $output .= $indent;
         
         if ($this->isAbstract()) {
             $output .= 'abstract ';
+        } else {
+            $output .= (($this->isFinal()) ? 'final ' : '');
         }
                 
-        $output .= $this->getVisibility() . ' function ' . $this->getName() . '(';
+        $output .= $this->getVisibility()
+            . (($this->isStatic()) ? ' static' : '')
+            . ' function ' . $this->getName() . '(';
 
         $parameters = $this->getParameters();
         if (!empty($parameters)) {
@@ -211,15 +218,15 @@ class Zend_CodeGenerator_Php_Method extends Zend_CodeGenerator_Php_Member_Abstra
             $output .= implode(', ', $parameterOuput);
         }
         
-        $output .= ')' . PHP_EOL . '    {' . PHP_EOL;
+        $output .= ')' . self::LINE_FEED . $indent . '{' . self::LINE_FEED;
 
         if ($this->_body) {
             $output .= '        ' 
-                    .  str_replace(PHP_EOL, PHP_EOL . '        ', trim($this->_body)) 
-                    .  PHP_EOL;
+                    .  str_replace(self::LINE_FEED, self::LINE_FEED . $indent . $indent, trim($this->_body)) 
+                    .  self::LINE_FEED;
         }
         
-        $output .= '    }' . PHP_EOL;
+        $output .= $indent . '}' . self::LINE_FEED;
         
         return $output;
     }

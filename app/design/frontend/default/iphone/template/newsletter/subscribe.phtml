@@ -28,7 +28,7 @@
     <div class="head">
         <h4><?php echo $this->__('Newsletter') ?><a name="newsletter-box"></a></h4>
     </div>
-<form action="<?php echo $this->getUrl('newsletter/subscriber/new') ?>" method="post" id="newsletter-validate-detail">
+<form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
     <fieldset class="content">
             <legend><?php echo $this->__('Newsletter') ?></legend>
             <!--

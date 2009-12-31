@@ -160,11 +160,12 @@ VarienForm.prototype = {
 
 RegionUpdater = Class.create();
 RegionUpdater.prototype = {
-    initialize: function (countryEl, regionTextEl, regionSelectEl, regions, disableAction, zipOptions)
+    initialize: function (countryEl, regionTextEl, regionSelectEl, regions, disableAction, zipEl)
     {
         this.countryEl = $(countryEl);
         this.regionTextEl = $(regionTextEl);
         this.regionSelectEl = $(regionSelectEl);
+        this.zipEl = $(zipEl);
         this.regions = regions;
 
         this.disableAction = (typeof disableAction=='undefined') ? 'hide' : disableAction;
@@ -242,7 +243,10 @@ RegionUpdater.prototype = {
             }
             this.setMarkDisplay(this.regionSelectEl, false);
         }
-        this.setZipOptional();
+
+        // Make Zip and its label required/optional
+        var zipUpdater = new ZipUpdater(this.countryEl.value, this.zipEl);
+        zipUpdater.update();
     },
 
     setMarkDisplay: function(elem, display){
@@ -265,49 +269,58 @@ RegionUpdater.prototype = {
                 }
             }
         }
+    }
+}
+
+ZipUpdater = Class.create();
+ZipUpdater.prototype = {
+    initialize: function(country, zipElement)
+    {
+        this.country = country;
+        this.zipElement = $(zipElement);
     },
 
-    setZipOptional: function(){
-        if (!this.zipOptions) {
-            return;
+    update: function()
+    {
+        // Country ISO 2-letter codes must be pre-defined
+        if (typeof optionalZipCountries == 'undefined') {
+            return false;
         }
-        var elem = this.countryEl;
-        var labelElement, inputElement, optionalZipCountries;
 
-        // find required mark (*) for zip
-        if (this.zipOptions.label_el) {
-            labelElement = $(this.zipOptions.label_el);
+        // Ajax-request and normal content load compatibility
+        if (this.zipElement != undefined) {
+            this._setPostcodeOptional();
         } else {
-            labelElement = elem.up(1).down('label > span.required') ||
-                               elem.up(2).down('label > span.required') ||
-                               elem.up(1).down('label.required > em') ||
-                               elem.up(2).down('label.required > em');
+            Event.observe(window, "load", this._setPostcodeOptional.bind(this));
+        }
+    },
+
+    _setPostcodeOptional: function()
+    {
+        this.zipElement = $(this.zipElement);
+        if (this.zipElement == undefined) {
+            return false;
         }
 
-        // find input field for zip
-        if (this.zipOptions.input_el) {
-            inputElement = $(this.zipOptions.input_el);
+        // find label
+        var label = $$('label[for="' + this.zipElement.id + '"]')[0];
+        if (label != undefined) {
+            var wildCard = label.down('em') || label.down('span.required');
+        }
+
+        // Make Zip and its label required/optional
+        if (optionalZipCountries.indexOf(this.country) != -1) {
+            while (this.zipElement.hasClassName('required-entry')) {
+                this.zipElement.removeClassName('required-entry');
+            }
+            if (wildCard != undefined) {
+                wildCard.hide();
+            }
         } else {
-            inputElement = elem.up(1).down('input');
-        }
-
-        // find countries which have optional zip code
-        if (this.zipOptions.optional_countries) {
-            optionalZipCountries = this.zipOptions.optional_countries;
-        } else {
-            optionalZipCountries = this.zipOptions;
-        }
-
-        if (!labelElement || !inputElement) {
-            return;
-        }
-
-        if (optionalZipCountries.indexOf(this.countryEl.value) != -1) {
-            labelElement.hide();
-            inputElement.removeClassName('required-entry');
-        } else {
-            labelElement.show();
-            inputElement.addClassName('required-entry');
+            this.zipElement.addClassName('required-entry');
+            if (wildCard != undefined) {
+                wildCard.show();
+            }
         }
     }
 }

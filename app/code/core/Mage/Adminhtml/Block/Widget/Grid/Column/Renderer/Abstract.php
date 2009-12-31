@@ -86,7 +86,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
 
     public function _getInputValueElement(Varien_Object $row)
     {
-        return '<input type="text" class="input-text ' . $this->getColumn()->getValidateClass() . '" name="'.( $this->getColumn()->getName() ? $this->getColumn()->getName() : $this->getColumn()->getId() ).'" value="'.$this->_getInputValue($row).'"/>';
+        return '<input type="text" class="input-text ' . $this->getColumn()->getValidateClass() . '" name="' . $this->getColumn()->getId() . '" value="' . $this->_getInputValue($row) . '"/>';
     }
 
     protected function _getInputValue(Varien_Object $row)

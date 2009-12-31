@@ -26,7 +26,7 @@
 
 
 /**
- * Catalog super product attribute collection
+ * Catalog Configurable Product Attribute Collection
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -173,17 +173,17 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
             $select = $this->getConnection()->select()
                 ->from(array('default'=>$this->_labelTable))
                 ->joinLeft(
-                    array('store'=>$this->_labelTable),
+                    array('store' => $this->_labelTable),
                     'store.product_super_attribute_id=default.product_super_attribute_id AND store.store_id='.$this->getStoreId(),
                     array(
-                        'store_lebel'=>'value',
+                        'use_default' => new Zend_Db_Expr('IFNULL(store.use_default, default.use_default)'),
                         'label' => new Zend_Db_Expr('IFNULL(store.value, default.value)')
-                    )
-                )
+                    ))
                 ->where('default.product_super_attribute_id IN (?)', array_keys($this->_items))
                 ->where('default.store_id=0');
                 foreach ($this->getConnection()->fetchAll($select) as $data) {
-                	$this->getItemById($data['product_super_attribute_id'])->setLabel($data['label']);
+                    $this->getItemById($data['product_super_attribute_id'])->setLabel($data['label']);
+                    $this->getItemById($data['product_super_attribute_id'])->setUseDefault($data['use_default']);
                 }
         }
         return $this;

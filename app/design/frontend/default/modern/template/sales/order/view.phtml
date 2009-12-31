@@ -62,7 +62,7 @@ function giftMessageToogle(giftMessageIdentifier)
 
 <?php  if ($_order->getTracksCollection()->count()) : ?>
 <span class="separator">|</span>
-<a href="#" id="linkId" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopUpUrlByOrderId($_order->getId()) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?php echo $this->__('Track your order') ?>"><?php echo $this->__('Track your order') ?></a>
+<a href="#" id="linkId" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopUpUrlByOrderId($_order) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?php echo $this->__('Track your order') ?>"><?php echo $this->__('Track your order') ?></a>
 <?php endif; ?>
 </h4>
 

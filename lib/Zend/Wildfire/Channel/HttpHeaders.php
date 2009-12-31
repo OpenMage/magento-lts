@@ -15,8 +15,9 @@
  * @category   Zend
  * @package    Zend_Wildfire
  * @subpackage Channel
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: HttpHeaders.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /** Zend_Wildfire_Channel_Interface */
@@ -43,7 +44,7 @@
  * @category   Zend
  * @package    Zend_Wildfire
  * @subpackage Channel
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Wildfire_Channel_HttpHeaders extends Zend_Controller_Plugin_Abstract implements Zend_Wildfire_Channel_Interface
@@ -264,14 +265,18 @@ class Zend_Wildfire_Channel_HttpHeaders extends Zend_Controller_Plugin_Abstract 
     {
         if (!$forceCheckRequest
             && !$this->_request
-            && !$this->_response) {
-        
+            && !$this->_response
+        ) {
             return true;
         }
 
-        return ($this->getResponse()->canSendHeaders() &&
-                preg_match_all('/\s?FirePHP\/([\.|\d]*)\s?/si',
-                               $this->getRequest()->getHeader('User-Agent'),$m));
+        return ($this->getResponse()->canSendHeaders() 
+                && preg_match_all(
+                    '/\s?FirePHP\/([\.|\d]*)\s?/si',
+                    $this->getRequest()->getHeader('User-Agent'),
+                    $m
+                )
+        );
     }
 
 

@@ -156,6 +156,8 @@
         preview: function() {
             if (this.typeChange) {
                 $('preview_type').value = 1;
+            } else {
+                $('preview_type').value = 2;
             }
             if (typeof tinyMCE == 'undefined' || !tinyMCE.getInstanceById('template_text')) {
                 $('preview_text').value = $('template_text').value;

@@ -36,10 +36,10 @@ class Mage_Oscommerce_Block_Adminhtml_Order_View extends Mage_Adminhtml_Block_Te
     {
         parent::__construct();
         $this->setTemplate('oscommerce/order/view.phtml');
-        
+
 
     }
-       
+
     protected function _prepareLayout()
     {
         $this->setChild('backButton',
@@ -48,10 +48,11 @@ class Mage_Oscommerce_Block_Adminhtml_Order_View extends Mage_Adminhtml_Block_Te
                     'label'  => Mage::helper('oscommerce')->__('Back'),
                     'id'     => 'back_button',
                     'name'   => 'back_button',
+                    'element_name' => 'back_button',
                     'class'  => 'scalable back',
                     'onclick'=> "setLocation('".$this->getBackUrl()."')",
                 ))
-         );        
+         );
     }
     /**
      * Retrieve order model object
@@ -92,8 +93,8 @@ class Mage_Oscommerce_Block_Adminhtml_Order_View extends Mage_Adminhtml_Block_Te
     public function getBackButtonHtml()
     {
         return $this->getChildHtml('backButton');
-    }    
-    
+    }
+
     public function getBackUrl()
     {
         return $this->getUrl("*/*/");

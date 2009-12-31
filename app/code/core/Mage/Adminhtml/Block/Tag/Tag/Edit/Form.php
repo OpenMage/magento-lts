@@ -27,6 +27,7 @@
 /**
  * Adminhtml tag edit form
  *
+ * @deprecated after 1.3.2.3
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
@@ -54,19 +55,19 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget
         $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('tag')->__('General Information')));
 
         if ($model->getTagId()) {
-        	$fieldset->addField('tag_id', 'hidden', array(
+            $fieldset->addField('tag_id', 'hidden', array(
                 'name' => 'tag_id',
             ));
         }
 
-    	$fieldset->addField('name', 'text', array(
+        $fieldset->addField('name', 'text', array(
             'name' => 'name',
             'label' => Mage::helper('tag')->__('Tag Name'),
             'title' => Mage::helper('tag')->__('Tag Name'),
             'required' => true,
         ));
 
-    	$fieldset->addField('status', 'select', array(
+        $fieldset->addField('status', 'select', array(
             'label' => Mage::helper('tag')->__('Status'),
             'title' => Mage::helper('tag')->__('Status'),
             'name' => 'status',

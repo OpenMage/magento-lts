@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Tax>
-            <version>0.7.9</version>
+            <version>0.7.10</version>
         </Mage_Tax>
     </modules>
     <global>
@@ -64,20 +64,7 @@
                     <module>Mage_Tax</module>
                     <class>Mage_Tax_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </tax_setup>
-            <tax_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </tax_write>
-            <tax_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </tax_read>
         </resources>
         <fieldsets>
             <sales_convert_quote_address>
@@ -99,7 +86,6 @@
             <sales_convert_quote_address_to_order>
                 <observers>
                     <tax>
-                        <type>singleton</type>
                         <class>tax/observer</class>
                         <method>salesEventConvertQuoteAddressToOrder</method>
                     </tax>
@@ -108,7 +94,6 @@
             <sales_order_save_after>
                 <observers>
                     <tax>
-                        <type>singleton</type>
                         <class>tax/observer</class>
                         <method>salesEventOrderAfterSave</method>
                     </tax>
@@ -117,7 +102,6 @@
             <catalogindex_prepare_price_select>
                 <observers>
                     <tax>
-                        <type>singleton</type>
                         <class>tax/observer</class>
                         <method>prepareCatalogIndexPriceSelect</method>
                     </tax>
@@ -126,7 +110,6 @@
             <catalog_product_collection_load_after>
                 <observers>
                     <tax>
-                        <type>singleton</type>
                         <class>tax/observer</class>
                         <method>addTaxPercentToProductCollection</method>
                     </tax>
@@ -189,88 +172,6 @@
         </pdf>
     </global>
     <adminhtml>
-        <menu>
-            <sales>
-                <children>
-                    <tax translate="title" module="tax">
-                        <title>Tax</title>
-                        <sort_order>500</sort_order>
-                        <children>
-                            <rules translate="title" module="tax">
-                                <title>Manage Tax Rules</title>
-                                <action>adminhtml/tax_rule</action>
-                            </rules>
-                            <rates translate="title" module="tax">
-                                <title>Manage Tax Zones &amp; Rates</title>
-                                <action>adminhtml/tax_rate</action>
-                            </rates>
-                            <import_export translate="title" module="tax">
-                                <title>Import / Export Tax Rates</title>
-                                <action>adminhtml/tax_rate/importExport</action>
-                            </import_export>
-                            <classes_customer translate="title" module="tax">
-                                <title>Customer Tax Classes</title>
-                                <action>adminhtml/tax_class_customer</action>
-                            </classes_customer>
-                            <classes_product translate="title" module="tax">
-                                <title>Product Tax Classes</title>
-                                <action>adminhtml/tax_class_product</action>
-                            </classes_product>
-                        </children>
-                    </tax>
-                </children>
-            </sales>
-        </menu>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <sales>
-                            <children>
-                                <tax translate="title" module="tax">
-                                    <title>Tax</title>
-                                    <sort_order>500</sort_order>
-                                    <children>
-                                        <classes_customer translate="title">
-                                            <title>Customer Tax Classes</title>
-                                            <sort_order>0</sort_order>
-                                        </classes_customer>
-                                        <classes_product translate="title">
-                                            <title>Product Tax Classes</title>
-                                            <sort_order>10</sort_order>
-                                        </classes_product>
-                                        <import_export translate="title">
-                                            <title>Import / Export Tax Rates</title>
-                                            <sort_order>20</sort_order>
-                                        </import_export>
-                                        <rates translate="title">
-                                            <title>Manage Tax Zones &amp; Rates</title>
-                                            <sort_order>30</sort_order>
-                                        </rates>
-                                        <rules translate="title">
-                                            <title>Manage Tax Rules</title>
-                                            <sort_order>40</sort_order>
-                                        </rules>
-                                    </children>
-                                </tax>
-                            </children>
-                        </sales>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <tax translate="title">
-                                            <title>Tax Section</title>
-                                            <sort_order>55</sort_order>
-                                        </tax>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
         <translate>
             <modules>
                 <Mage_Tax>

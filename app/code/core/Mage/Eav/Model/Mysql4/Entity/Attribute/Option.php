@@ -86,7 +86,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Option extends Mage_Core_Model_Mysq
             $joinCondition .= " AND `e`.`child_id`=`t1`.`entity_id`";
         }
 
-        $valueExpr = new Zend_Db_Expr("IFNULL(t2.value, t1.value)");
+        $valueExpr = new Zend_Db_Expr("IF(t2.value_id>0, t2.value, t1.value)");
         $select = $this->_getReadAdapter()->select()
             ->joinLeft(
                 array('t1' => $attributeTable),

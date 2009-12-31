@@ -29,37 +29,36 @@
     <div class="page-title">
         <h2><?php echo $this->__('Review Details') ?></h2>
     </div>
-        <div>
-            <a class="product-image" href="<?php echo $this->getProductData()->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProductData(), 'small_image')->resize(125, 125); ?>" alt="<?php echo $this->htmlEscape($this->getProductData()->getName()) ?>" height="125" width="125" /></a>
-            <?php if( $this->getRating() && $this->getRating()->getSize()): ?>
-            <p><?php echo $this->__('Average Customer Rating:') ?></p>
-            <?php echo $this->getReviewsSummaryHtml($this->getProductData()) ?>
-            <?php endif; ?>
-        </div>
-        <div class="product-details">
-            <h3 class="product-name"><?php echo $this->htmlEscape($this->getProductData()->getName()) ?></h3>
-            <?php if( $this->getRating() && $this->getRating()->getSize()): ?>
-            <strong><?php echo $this->__('Your Rating:') ?></strong>
-            <table class="data-table">
-            <?php foreach ($this->getRating() as $_rating): ?>
-            <?php if($_rating->getPercent()): ?>
-                <tr>
-                    <td class="label"><?php echo $_rating->getRatingCode() ?></td>
-                    <td class="value">
-                        <div class="rating-box">
-                            <div class="rating" style="width:<?php echo ceil($_rating->getPercent()) ?>%;"></div>
-                        </div></td>
-                </tr>
-            <?php endif; ?>
-            <?php endforeach; ?>
-            </table>
-            <?php endif; ?>
-            <?php echo $this->__('Your Review (submitted on %s):', $this->dateFormat($this->getReviewData()->getCreatedAt())) ?>
-            <p><?php echo nl2br($this->htmlEscape($this->getReviewData()->getDetail())) ?></p>
-        </div>
-        <div class="buttons-set">
-            <a href="<?php echo $this->getBackUrl() ?>" class="back-link">&laquo; <?php echo $this->__('Back to My Reviews') ?></a>
-        </div>
+    <div>
+        <a class="product-image" href="<?php echo $this->getProductData()->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProductData(), 'small_image')->resize(125, 125); ?>" alt="<?php echo $this->htmlEscape($this->getProductData()->getName()) ?>" height="125" width="125" /></a>
+        <?php if( $this->getRating() && $this->getRating()->getSize()): ?>
+        <p><?php echo $this->__('Average Customer Rating:') ?></p>
+        <?php echo $this->getReviewsSummaryHtml($this->getProductData()) ?>
+        <?php endif; ?>
+    </div>
+    <div class="product-details">
+        <h3 class="product-name"><?php echo $this->htmlEscape($this->getProductData()->getName()) ?></h3>
+        <?php if( $this->getRating() && $this->getRating()->getSize()): ?>
+        <strong><?php echo $this->__('Your Rating:') ?></strong>
+        <table class="data-table">
+        <?php foreach ($this->getRating() as $_rating): ?>
+        <?php if($_rating->getPercent()): ?>
+            <tr>
+                <td class="label"><?php echo $_rating->getRatingCode() ?></td>
+                <td class="value">
+                    <div class="rating-box">
+                        <div class="rating" style="width:<?php echo ceil($_rating->getPercent()) ?>%;"></div>
+                    </div></td>
+            </tr>
+        <?php endif; ?>
+        <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+        <?php echo $this->__('Your Review (submitted on %s):', $this->dateFormat($this->getReviewData()->getCreatedAt())) ?>
+        <p><?php echo nl2br($this->htmlEscape($this->getReviewData()->getDetail())) ?></p>
+    </div>
+    <div class="buttons-set">
+        <a href="<?php echo $this->getBackUrl() ?>" class="back-link">&laquo; <?php echo $this->__('Back to My Reviews') ?></a>
     </div>
 </div>
 <?php endif; ?>

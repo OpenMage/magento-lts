@@ -229,7 +229,7 @@ class Mage_Core_Model_Locale
     {
         $options    = array();
         $locales    = $this->getLocale()->getLocaleList();
-        $languages  = $this->getLocale()->getLanguageTranslationList($this->getLocale());
+        $languages  = $this->getLocale()->getTranslationList('language', $this->getLocale());
         $countries  = $this->getCountryTranslationList();
 
         $allowed    = $this->getAllowLocales();
@@ -243,8 +243,8 @@ class Mage_Core_Model_Locale
                     continue;
                 }
                 if ($translatedName) {
-                    $label = ucwords($this->getLocale()->getLanguageTranslation($data[0], $code))
-                        . ' (' . $this->getLocale()->getCountryTranslation($data[1], $code)  . ') / '
+                    $label = ucwords($this->getLocale()->getTranslation($data[0], 'language', $code))
+                        . ' (' . $this->getLocale()->getTranslation($data[1], 'country', $code) . ') / '
                         . $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
                 } else {
                     $label = $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
@@ -512,6 +512,25 @@ class Mage_Core_Model_Locale
     }
 
     /**
+     * Create Zend_Date object with date converted from store's timezone
+     * to UTC time zone. Date can be passed in format of store's locale
+     * or in format which was passed as parameter.
+     *
+     * @param mixed $store Information about store
+     * @param string|integer|Zend_Date|array|null $date date in store's timezone
+     * @param boolean $includeTime flag for including time to date
+     * @param null|string $format
+     * @return Zend_Date
+     */
+    public function utcDate($store=null, $date, $includeTime = false, $format = null)
+    {
+        $dateObj = $this->storeDate($store, $date, $includeTime);
+        $dateObj->set($date, $format);
+        $dateObj->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
+        return $dateObj;
+    }
+
+    /**
      * Get store timestamp
      * Timstamp will be builded with store timezone settings
      *
@@ -529,19 +548,19 @@ class Mage_Core_Model_Locale
     }
 
     /**
-     * Create Mage_Core_Model_Locale_Currency object for current locale
+     * Create Zend_Currency object for current locale
      *
      * @param   string $currency
-     * @return  Mage_Core_Model_Locale_Currency
+     * @return  Zend_Currency
      */
     public function currency($currency)
     {
         Varien_Profiler::start('locale/currency');
         if (!isset(self::$_currencyCache[$this->getLocaleCode()][$currency])) {
             try {
-                $currencyObject = new Mage_Core_Model_Locale_Currency($currency, $this->getLocale());
+                $currencyObject = new Zend_Currency($currency, $this->getLocale());
             } catch (Exception $e) {
-                $currencyObject = new Mage_Core_Model_Locale_Currency($this->getCurrency(), $this->getLocale());
+                $currencyObject = new Zend_Currency($this->getCurrency(), $this->getLocale());
                 $options = array(
                         'name'      => $currency,
                         'currency'  => $currency,
@@ -724,7 +743,7 @@ class Mage_Core_Model_Locale
      */
     public function getCountryTranslation($value)
     {
-        return $this->getLocale()->getCountryTranslation($value, $this->getLocale());
+        return $this->getLocale()->getTranslation($value, 'country', $this->getLocale());
     }
 
     /**
@@ -734,7 +753,7 @@ class Mage_Core_Model_Locale
      */
     public function getCountryTranslationList()
     {
-        return $this->getLocale()->getCountryTranslationList($this->getLocale());
+        return $this->getLocale()->getTranslationList('territory', $this->getLocale(), 2);
     }
 
     /**

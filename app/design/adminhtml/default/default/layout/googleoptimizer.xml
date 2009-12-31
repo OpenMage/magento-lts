@@ -29,7 +29,7 @@
 <layout>
 
 <!--
-Layout handle for budle products
+Layout handle for products
 -->
 
     <adminhtml_catalog_product_edit>
@@ -51,5 +51,32 @@ Layout handle for budle products
             <block type="googleoptimizer/js" template="googleoptimizer/js.phtml" name="googleoptimizer_js"></block>
         </reference>
     </adminhtml_catalog_product_new>
+
+<!--
+Layout handle for cms page
+-->
+
+    <adminhtml_cms_page_edit>
+        <reference name="content">
+            <block type="googleoptimizer/adminhtml_cms_page_edit_enable" name="googleoptimizer_enable">
+                <action method="ifGoogleOptimizerEnabled">
+                    <name>cms_page_edit_tabs</name>
+                    <method>addTab</method>
+                    <params>
+                        <name>googleoptimizer_section</name>
+                        <block>googleoptimizer/adminhtml_cms_page_edit_tab_googleoptimizer</block>
+                    </params>
+                </action>
+                <action method="ifGoogleOptimizerEnabledAppend">
+                    <container>js</container>
+                    <name>googleoptimizer_js</name>
+                    <type>googleoptimizer/js</type>
+                    <attributes>
+                        <template>googleoptimizer/js.phtml</template>
+                    </attributes>
+                </action>
+            </block>
+        </reference>
+    </adminhtml_cms_page_edit>
 
 </layout>

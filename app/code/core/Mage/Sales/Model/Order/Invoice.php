@@ -484,6 +484,9 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $this->getOrder()->setBaseDiscountInvoiced(
             $this->getOrder()->getBaseDiscountInvoiced()+$this->getBaseDiscountAmount()
         );
+        $this->getOrder()->setBaseTotalInvoicedCost(
+            $this->getOrder()->getBaseTotalInvoicedCost()+$this->getBaseCost()
+        );
 
         $state = $this->getState();
         if (is_null($state)) {

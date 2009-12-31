@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HorizontalSlider.php 9965 2008-07-06 14:46:20Z matthew $
+ * @version    $Id: HorizontalSlider.php 16204 2009-06-21 18:58:29Z thomas $
  */
 
 /** Zend_Dojo_View_Helper_Slider */
@@ -29,7 +29,7 @@
  * @uses       Zend_Dojo_View_Helper_Slider
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 class Zend_Dojo_View_Helper_HorizontalSlider extends Zend_Dojo_View_Helper_Slider

@@ -66,27 +66,24 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found
         $true = (bool)$this->getValue();
         $found = false;
         foreach ($object->getAllItems() as $item) {
-            $found = $all ? true : false;
+            $found = $all;
             foreach ($this->getConditions() as $cond) {
                 $validated = $cond->validate($item);
-                if ($all && !$validated) {
-                    $found = false;
+                if (($all && !$validated) || (!$all && $validated)) {
+                    $found = $validated;
                     break;
-                } elseif (!$all && $validated) {
-                    $found = true;
-                    break 2;
                 }
             }
-            if ($found && $true) {
+            if (($found && $true) || (!$true && $found)) {
                 break;
             }
         }
+        // found an item and we're looking for existing one
         if ($found && $true) {
-            // found an item and we're looking for existing one
-
             return true;
-        } elseif (!$found && !$true) {
-            // not found and we're making sure it doesn't exist
+        }
+        // not found and we're making sure it doesn't exist
+        elseif (!$found && !$true) {
             return true;
         }
         return false;

@@ -60,7 +60,7 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
     {
         $output   = '';
         $blockTab = $this->getRequest()->getParam('block');
-        if (in_array($blockTab, array('tab_orders', 'tab_amounts'))) {
+        if (in_array($blockTab, array('tab_orders', 'tab_amounts', 'totals'))) {
             $output = $this->getLayout()->createBlock('adminhtml/dashboard_' . $blockTab)->toHtml();
         }
         $this->getResponse()->setBody($output);

@@ -137,6 +137,6 @@
 </form>
 <script type="text/javascript">
     var dataForm = new VarienForm('form-validate', true);
-    new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, <?php echo $this->helper('directory')->getCountriesWithOptionalZipJson() ?>);
+    new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
 </script>
 </div>

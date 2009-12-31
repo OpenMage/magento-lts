@@ -35,6 +35,13 @@
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
+     * Default sort field
+     *
+     * @var string
+     */
+
+    protected $_defaultSort = 'added_at';
+    /**
      * Parent template name
      *
      * @var string
@@ -76,9 +83,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
         $collection = $wishlist->loadByCustomer($this->_getCustomer())
             ->setSharedStoreIds($wishlist->getSharedStoreIds(false))
             ->getProductCollection()
+                ->resetSortOrder()
                 ->addAttributeToSelect('name')
                 ->addAttributeToSelect('price')
                 ->addAttributeToSelect('small_image')
+                ->setDaysInWishlist(true)
                 ->addStoreData();
 
         $this->setCollection($collection);
@@ -108,7 +117,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
 
         $this->addColumn('description', array(
             'header'    => Mage::helper('customer')->__('User description'),
-            'index'     => 'description',
+            'index'     => 'wishlist_item_description',
             'renderer'  => 'adminhtml/customer_edit_tab_wishlist_grid_renderer_description'
         ));
 
@@ -122,7 +131,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
 
         $this->addColumn('visible_in', array(
             'header'    => Mage::helper('customer')->__('Visible In'),
-            'index'     => 'store_id',
+            'index'     => 'item_store_id',
             'type'      => 'store'
         ));
 
@@ -176,7 +185,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     protected function _addColumnFilterToCollection($column)
     {
         if($column->getId()=='store') {
-            $this->getCollection()->addFieldToFilter('store_id', $column->getFilter()->getCondition());
+            $this->getCollection()->addFieldToFilter('item_store_id', $column->getFilter()->getCondition());
             return $this;
         }
 

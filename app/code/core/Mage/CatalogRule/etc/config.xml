@@ -45,18 +45,10 @@
             <catalogrule_mysql4>
                 <class>Mage_CatalogRule_Model_Mysql4</class>
                 <entities>
-                    <rule>
-                        <table>catalogrule</table>
-                    </rule>
-                    <rule_product>
-                        <table>catalogrule_product</table>
-                    </rule_product>
-                    <rule_product_price>
-                        <table>catalogrule_product_price</table>
-                    </rule_product_price>
-                    <affected_product>
-                        <table>catalogrule_affected_product</table>
-                    </affected_product>
+                    <rule><table>catalogrule</table></rule>
+                    <rule_product><table>catalogrule_product</table></rule_product>
+                    <rule_product_price><table>catalogrule_product_price</table></rule_product_price>
+                    <affected_product><table>catalogrule_affected_product</table></affected_product>
                 </entities>
             </catalogrule_mysql4>
         </models>
@@ -65,28 +57,24 @@
                 <setup>
                     <module>Mage_CatalogRule</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </catalogrule_setup>
-            <catalogrule_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </catalogrule_write>
-            <catalogrule_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </catalogrule_read>
         </resources>
+        <events>
+            <prepare_catalog_product_price_index_table>
+                <observers>
+                    <catalogrule>
+                        <class>catalogrule/observer</class>
+                        <method>prepareCatalogProductPriceIndexTable</method>
+                    </catalogrule>
+                </observers>
+            </prepare_catalog_product_price_index_table>
+        </events>
     </global>
     <frontend>
         <events>
             <catalog_product_get_final_price>
                 <observers>
                     <catalogrule>
-                        <type>singleton</type>
                         <class>catalogrule/observer</class>
                         <method>processFrontFinalPrice</method>
                     </catalogrule>
@@ -118,7 +106,6 @@
             <catalog_product_get_final_price>
                 <observers>
                     <catalogrule>
-                        <type>singleton</type>
                         <class>catalogrule/observer</class>
                         <method>processAdminFinalPrice</method>
                     </catalogrule>
@@ -127,7 +114,6 @@
             <catalog_product_save_after>
                 <observers>
                     <catalogrule>
-                        <type>singleton</type>
                         <class>catalogrule/observer</class>
                         <method>applyAllRulesOnProduct</method>
                     </catalogrule>
@@ -136,44 +122,12 @@
             <catalog_product_import_after>
                 <observers>
                     <catalogrule>
-                        <type>singleton</type>
                         <class>catalogrule/observer</class>
                         <method>applyAllRules</method>
                     </catalogrule>
                 </observers>
             </catalog_product_import_after>
         </events>
-        <menu>
-             <promo translate="title" module="catalogrule">
-                <title>Promotions</title>
-                <sort_order>50</sort_order>
-                <children>
-                    <catalog translate="title" module="catalogrule">
-                        <title>Catalog Price Rules</title>
-                        <action>adminhtml/promo_catalog/</action>
-                        <resource>promo/catalog</resource>
-                        <depends><module>Mage_Catalog</module></depends>
-                    </catalog>
-                </children>
-             </promo>
-         </menu>
-         <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <promo translate="title" module="catalogrule">
-                            <title>Promotions</title>
-                            <sort_order>50</sort_order>
-                            <children>
-                                <catalog translate="title">
-                                    <title>Catalog Price Rules</title>
-                                </catalog>
-                            </children>
-                        </promo>
-                    </children>
-                </admin>
-            </resources>
-         </acl>
     </adminhtml>
 
     <crontab>
@@ -187,7 +141,6 @@
             <catalog_product_get_final_price>
                 <observers>
                     <catalogrule>
-                        <type>singleton</type>
                         <class>catalogrule/observer</class>
                         <method>processAdminFinalPrice</method>
                     </catalogrule>

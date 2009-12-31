@@ -19,27 +19,23 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category   Mage
- * @package    Mage_Sales
+ * @package    Mage_Shipping
  * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Sales orders controller
- *
- * @category   Mage
- * @package    Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated after 1.3.2.3 - this controller is not used anywhere
  */
-
 class Mage_Shipping_ShippingController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * @deprecated after 1.3.2.3
+     */
     public function viewAction()
     {
         $params = $this->getRequest()->getPost();
-        var_dump($params);
         $this->loadLayout();
         $this->renderLayout();
     }
-
 }

@@ -29,6 +29,8 @@
  */
 class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    const XML_PATH_SHOW_OUT_OF_STOCK    = 'cataloginventory/options/show_out_of_stock';
+
     /**
      * All product types registry in scope of quantity availability
      *
@@ -93,5 +95,15 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
             'notify_stock_qty',
             'manage_stock'
         );
+    }
+
+    /**
+     * Display out of stock products option
+     *
+     * @return bool
+     */
+    public function isShowOutOfStock()
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_SHOW_OUT_OF_STOCK);
     }
 }

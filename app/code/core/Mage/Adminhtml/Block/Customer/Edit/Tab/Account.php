@@ -133,23 +133,23 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 'id'    => 'sendemail',
             ));
             if (!Mage::app()->isSingleStoreMode()) {
-                $fieldset->addField('store_id', 'select', array(
+                $fieldset->addField('sendemail_store_id', 'select', array(
                     'label' => $this->helper('customer')->__('Send From'),
-                    'name' => 'store_id',
+                    'name' => 'sendemail_store_id',
                     'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm()
                 ));
             }
         }
 
-        // make sendemail and store_id disabled, if website_id has empty value
-        if ($sendemail = $form->getElement('store_id')) {
+        // make sendemail and sendmail_store_id disabled, if website_id has empty value
+        if ($sendemail = $form->getElement('sendemail_store_id')) {
             $prefix = $form->getHtmlIdPrefix();
             $sendemail->setAfterElementHtml(
                 '<script type="text/javascript">'
                 . "
                 $('{$prefix}website_id').disableSendemail = function() {
                     $('{$prefix}sendemail').disabled = ('' == this.value || '0' == this.value);
-                    $('{$prefix}store_id').disabled = ('' == this.value || '0' == this.value);
+                    $('{$prefix}sendemail_store_id').disabled = ('' == this.value || '0' == this.value);
                 }.bind($('{$prefix}website_id'));
                 Event.observe('{$prefix}website_id', 'click', $('{$prefix}website_id').disableSendemail);
                 $('{$prefix}website_id').disableSendemail();

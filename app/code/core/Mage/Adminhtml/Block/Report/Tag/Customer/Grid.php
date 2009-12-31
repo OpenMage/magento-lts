@@ -95,6 +95,7 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
                         'field'   => 'id'
                     )
                 ),
+                'is_system' => true,
                 'filter'    => false,
                 'sortable'  => false,
                 'index'     => 'stores',

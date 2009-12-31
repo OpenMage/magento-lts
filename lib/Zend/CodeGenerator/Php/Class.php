@@ -17,7 +17,7 @@
  * @subpackage PHP
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Class.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /**
@@ -327,6 +327,17 @@ class Zend_CodeGenerator_Php_Class extends Zend_CodeGenerator_Php_Abstract
     }
     
     /**
+     * hasProperty()
+     *
+     * @param string $propertyName
+     * @return bool
+     */
+    public function hasProperty($propertyName)
+    {
+        return isset($this->_properties[$propertyName]);
+    }
+    
+    /**
      * setMethods()
      *
      * @param array $methods
@@ -463,23 +474,23 @@ class Zend_CodeGenerator_Php_Class extends Zend_CodeGenerator_Php_Abstract
             $output .= ' implements ' . implode(', ', $implemented);
         }
         
-        $output .= PHP_EOL . '{' . PHP_EOL . PHP_EOL;
+        $output .= self::LINE_FEED . '{' . self::LINE_FEED . self::LINE_FEED;
         
         $properties = $this->getProperties();
         if (!empty($properties)) {
             foreach ($properties as $property) {
-                $output .= $property->generate() . PHP_EOL . PHP_EOL;
+                $output .= $property->generate() . self::LINE_FEED . self::LINE_FEED;
             }
         }
         
         $methods = $this->getMethods();
         if (!empty($methods)) {
             foreach ($methods as $method) {
-                $output .= $method->generate() . PHP_EOL;
+                $output .= $method->generate() . self::LINE_FEED;
             }
         }
         
-        $output .= PHP_EOL . '}' . PHP_EOL;
+        $output .= self::LINE_FEED . '}' . self::LINE_FEED;
         
         return $output;
     }

@@ -42,15 +42,16 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
 
     public function getAttributes()
     {
+        /* @var $attributes Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Collection */
         $attributes = $this->getData('attributes');
         if (is_null($attributes)) {
             $product = Mage::getModel('catalog/product');
-            $attributes = Mage::getResourceModel('eav/entity_attribute_collection')
-                ->setEntityTypeFilter($product->getResource()->getTypeId())
+            $attributes = Mage::getResourceModel('catalog/product_attribute_collection')
                 //->addIsSearchableFilter()
                 ->addHasOptionsFilter()
                 ->addDisplayInAdvancedSearchFilter()
-                ->setOrder('attribute_id', 'asc')
+                ->addStoreLabel(Mage::app()->getStore()->getId())
+                ->setOrder('main_table.attribute_id', 'asc')
                 ->load();
             foreach ($attributes as $attribute) {
                 $attribute->setEntity($product->getResource());
@@ -162,7 +163,7 @@ class Mage_CatalogSearch_Model_Advanced extends Varien_Object
      */
     protected function _addSearchCriteria($attribute, $value)
     {
-        $name = $attribute->getFrontend()->getLabel();
+        $name = $attribute->getStoreLabel();
 
         if (is_array($value) && (isset($value['from']) || isset($value['to']))){
             if (isset($value['currency'])) {

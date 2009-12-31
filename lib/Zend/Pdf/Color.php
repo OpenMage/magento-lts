@@ -12,9 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
+ * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Color.php 16978 2009-07-22 19:59:40Z alexander $
  */
 
 
@@ -26,7 +28,7 @@
  * others don't do it. That is defined in a subclasses.
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_Color
@@ -40,5 +42,12 @@ abstract class Zend_Pdf_Color
      * @return string
      */
     abstract public function instructions($stroking);
+
+    /**
+     * Get color components (color space dependent)
+     *
+     * @return array
+     */
+    abstract public function getComponents();
 }
 

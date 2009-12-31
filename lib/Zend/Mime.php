@@ -14,8 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Mime
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Mime.php 16541 2009-07-07 06:59:03Z bkarwin $
  */
 
 
@@ -24,7 +25,7 @@
  *
  * @category   Zend
  * @package    Zend_Mime
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mime
@@ -206,8 +207,7 @@ class Zend_Mime
             $str         = substr($str, strlen($token));
 
             $tmp .= $token;
-            if( (strlen($token) == 1 && strpbrk($token, '!%,.:;<>'))
-                || in_array($token, array("=3F", "=20", "=5F")) ) {
+            if($token == '=20') {
                 // only if we have a single char token or space, we can append the
                 // tempstring it to the current line or start a new line if necessary.
                 if(strlen($lines[$currentLine].$tmp) > $lineLength) {

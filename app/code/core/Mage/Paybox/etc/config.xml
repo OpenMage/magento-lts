@@ -51,20 +51,7 @@
                     <module>Mage_Paybox</module>
                     <class>Mage_Paybox_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </paybox_setup>
-            <paybox_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </paybox_write>
-            <paybox_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </paybox_read>
         </resources>
         <blocks>
             <paybox><class>Mage_Paybox_Block</class></paybox>

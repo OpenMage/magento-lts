@@ -183,7 +183,6 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                             $prices[] = $value->getPrice();
                         }
                         if (count($prices)) {
-                            var_dump($prices);
                             if ($customOption->getIsRequire()) {
                                 $minimalPrice += min($prices);
                             }

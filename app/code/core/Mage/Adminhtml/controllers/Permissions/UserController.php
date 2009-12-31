@@ -85,6 +85,16 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
             $model = Mage::getModel('admin/user');
             $model->setData($data);
 
+            /*
+             * Unsetting new password and password confirmation if they are blank
+             */
+            if ($model->hasNewPassword() && $model->getNewPassword() === '') {
+                $model->unsNewPassword();
+            }
+            if ($model->hasPasswordConfirmation() && $model->getPasswordConfirmation() === '') {
+                $model->unsPasswordConfirmation();
+            }
+
             $result = $model->validate();
             if (is_array($result)) {
                 Mage::getSingleton('adminhtml/session')->setUserData($data);

@@ -38,9 +38,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
 
     protected $_productInstance;
 
-    protected $_name = 'product[options]';
-    protected $_id = 'product_option';
-
     protected $_values;
 
     protected $_itemCount = 1;
@@ -86,14 +83,24 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
         return $this;
     }
 
+    /**
+     * Retrieve options field name prefix
+     *
+     * @return string
+     */
     public function getFieldName()
     {
-        return $this->_name;
+        return 'product[options]';
     }
 
+    /**
+     * Retrieve options field id prefix
+     *
+     * @return string
+     */
     public function getFieldId()
     {
-        return $this->_id;
+        return 'product_option';
     }
 
     /**

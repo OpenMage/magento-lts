@@ -50,20 +50,7 @@
                     <module>Mage_Chronopay</module>
                     <class>Mage_Chronopay_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </chronopay_setup>
-            <chronopay_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </chronopay_write>
-            <chronopay_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </chronopay_read>
         </resources>
         <blocks>
             <chronopay><class>Mage_Chronopay_Block</class></chronopay>

@@ -46,7 +46,7 @@ Checkout.prototype = {
     },
 
     reloadProgressBlock: function(){
-        var updater = new Ajax.Updater($$('.col-right')[0], this.progressUrl, {method: 'get', onFailure: this.ajaxFailure.bind(this)});
+        var updater = new Ajax.Updater('col-right-opcheckout', this.progressUrl, {method: 'get', onFailure: this.ajaxFailure.bind(this)});
     },
 
     reloadReviewBlock: function(){
@@ -645,8 +645,8 @@ Payment.prototype = {
             form.style.display = '';
             var elements = form.select('input', 'select', 'textarea');
             for (var i=0; i<elements.length; i++) elements[i].disabled = false;
-            this.currentMethod = method;
         }
+        this.currentMethod = method;
     },
 
     validate: function() {

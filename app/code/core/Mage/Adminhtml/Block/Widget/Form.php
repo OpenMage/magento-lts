@@ -45,9 +45,9 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      * Class constructor
      *
      */
-    public function __construct()
+    protected function _construct()
     {
-        parent::__construct();
+        parent::_construct();
         $this->setTemplate('widget/form.phtml');
         $this->setDestElementId('edit_form');
         $this->setShowGlobalIcon(false);
@@ -164,7 +164,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
         $this->_addElementTypes($fieldset);
         foreach ($attributes as $attribute) {
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
-            if (!$attribute || !$attribute->getIsVisible()) {
+            if (!$attribute || ($attribute->hasIsVisible() && !$attribute->getIsVisible())) {
                 continue;
             }
             if ( ($inputType = $attribute->getFrontend()->getInputType())
@@ -182,7 +182,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
                 $element = $fieldset->addField($attribute->getAttributeCode(), $fieldType,
                     array(
                         'name'      => $attribute->getAttributeCode(),
-                        'label'     => __($attribute->getFrontend()->getLabel()),
+                        'label'     => $attribute->getFrontend()->getLabel(),
                         'class'     => $attribute->getFrontend()->getClass(),
                         'required'  => $attribute->getIsRequired(),
                         'note'      => $attribute->getNote(),

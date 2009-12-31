@@ -58,20 +58,7 @@
                    <module>Mage_GiftMessage</module>
                    <class>Mage_GiftMessage_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </giftmessage_setup>
-            <giftmessage_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </giftmessage_write>
-            <giftmessage_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </giftmessage_read>
         </resources>
     </global>
 

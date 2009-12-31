@@ -43,12 +43,25 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Prepare location settings before save rate
+     * Prepare location settings and tax postcode before save rate
      *
      * @return Mage_Tax_Model_Calculation_Rate
      */
     protected function _beforeSave()
     {
+        $zipIsRange = null;
+        $zipFrom = null;
+        $zipTo   = null;
+        if (preg_match('/(\d+)\s*-\s*(\d+)/m', $this->getTaxPostcode(), $matchArr)) {
+            list(, $zipFrom, $zipTo) = $matchArr;
+            $this->setTaxPostcode("{$zipFrom}-{$zipTo}");
+            $zipIsRange = 1;
+        }
+        $this
+            ->setZipFrom($zipFrom)
+            ->setZipTo($zipTo)
+            ->setZipIsRange($zipIsRange);
+
         parent::_beforeSave();
         $country = $this->getTaxCountryId();
         $region = $this->getTaxRegionId();
@@ -129,8 +142,8 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Load rate model by code 
-     * 
+     * Load rate model by code
+     *
      * @param  string $code
      * @return Mage_Tax_Model_Calculation_Rate
      */
@@ -139,5 +152,5 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
         $this->load($code, 'code');
         return $this;
     }
-    
+
 }

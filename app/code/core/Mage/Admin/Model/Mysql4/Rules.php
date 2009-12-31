@@ -30,38 +30,47 @@ class Mage_Admin_Model_Mysql4_Rules extends Mage_Core_Model_Mysql4_Abstract
         $this->_init('admin/rule', 'rule_id');
     }
 
-    public function saveRel(Mage_Admin_Model_Rules $rule) {
-        $this->_getWriteAdapter()->beginTransaction();
-
+    /**
+     * Save ACL resources
+     *
+     * @param Mage_Admin_Model_Rules $rule
+     */
+    public function saveRel(Mage_Admin_Model_Rules $rule)
+    {
         try {
+            $this->_getWriteAdapter()->beginTransaction();
             $roleId = $rule->getRoleId();
             $this->_getWriteAdapter()->delete($this->getMainTable(), "role_id = {$roleId}");
-            $masterResources = Mage::getModel('admin/roles')->getResourcesList2D();
-            $masterAdmin = false;
-            if ( $postedResources = $rule->getResources() ) {
-                foreach ($masterResources as $index => $resName) {
-                    if ( !$masterAdmin ) {
-                        $permission = ( in_array($resName, $postedResources) )? 'allow' : 'deny';
-                        $this->_getWriteAdapter()->insert($this->getMainTable(), array(
-                            'role_type' 	=> 'G',
-                            'resource_id' 	=> trim($resName, '/'),
-                            'privileges' 	=> '', # FIXME !!!
-                            'assert_id' 	=> 0,
-                            'role_id' 		=> $roleId,
-                            'permission'	=> $permission
-                            ));
-                    }
-                    if ( $resName == 'all' && $permission == 'allow' ) {
-                        $masterAdmin = true;
+            $postedResources = $rule->getResources();
+            if ($postedResources) {
+                $row = array(
+                    'role_type'   => 'G',
+                    'resource_id' => 'all',
+                    'privileges'  => '', // not used yet
+                    'assert_id'   => 0,
+                    'role_id'     => $roleId,
+                    'permission'  => 'allow'
+                );
+
+                // If all was selected save it only and nothing else.
+                if ($postedResources === array('all')) {
+                    $this->_getWriteAdapter()->insert($this->getMainTable(), $row);
+                } else {
+                    foreach (Mage::getModel('admin/roles')->getResourcesList2D() as $index => $resName) {
+                        $row['permission']  = (in_array($resName, $postedResources) ? 'allow' : 'deny');
+                        $row['resource_id'] = trim($resName, '/');
+                        $this->_getWriteAdapter()->insert($this->getMainTable(), $row);
                     }
                 }
             }
 
             $this->_getWriteAdapter()->commit();
         } catch (Mage_Core_Exception $e) {
+            $this->_getWriteAdapter()->rollBack();
             throw $e;
         } catch (Exception $e){
             $this->_getWriteAdapter()->rollBack();
+            Mage::logException($e);
         }
     }
 }

@@ -65,7 +65,7 @@
                     <?php echo $this->getReviewsSummaryHtml($_item, 'short') ?>
                     <?php echo $this->getPriceHtml($_item, true) ?>
                     <?php if($_item->isSaleable()): ?>
-                        <p><button type="button" class="button" onclick="setPLocation('<?php echo $this->getAddToCartUrl($_item) ?>', true)"><span><?php echo $this->__('Add to Cart') ?></span></button></p>
+                        <p><button type="button" class="button" onclick="setPLocation('<?php echo $this->getAddToCartUrl($_item) ?>', true)"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
                     <?php else: ?>
                         <p class="availability"><span class="out-of-stock"><?php echo $this->__('Out of stock') ?></span></p>
                     <?php endif; ?>
@@ -82,7 +82,7 @@
                 <?php $_i=0 ?>
                 <?php foreach($this->getItems() as $_item): ?>
                 <?php if($_i++%10==0): ?>
-                <th class="label"><span class="nobr"><?php echo $this->__($_attribute->getFrontendLabel()) ?></span></th>
+                <th class="label"><span class="nobr"><?php echo $_attribute->getStoreLabel() ?></span></th>
                 <?php endif; ?>
                 <td>
                     <?php switch ($_attribute->getAttributeCode()) {
@@ -111,7 +111,7 @@
                 <td class="data">
                     <?php echo $this->getPriceHtml($_item) ?>
                     <?php if($_item->isSaleable()): ?>
-                        <p><button type="button" class="button" onclick="setPLocation('<?php echo $this->getAddToCartUrl($_item) ?>', true)"><span><?php echo $this->__('Add to Cart') ?></span></button></p>
+                        <p><button type="button" class="button" onclick="setPLocation('<?php echo $this->getAddToCartUrl($_item) ?>', true)"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
                     <?php else: ?>
                         <p class="availability"><span class="out-of-stock"><?php echo $this->__('Out of stock') ?></span></p>
                     <?php endif; ?>
@@ -124,7 +124,7 @@
         </tbody>
     </table>
     <div class="buttons-set">
-        <button type="button" class="button" onclick="window.close();"><span><?php echo $this->__('Close Window') ?></span></button>
+        <button type="button" class="button" onclick="window.close();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
     </div>
     <script type="text/javascript">decorateTable('product_comparison');</script>
 <?php else: ?>

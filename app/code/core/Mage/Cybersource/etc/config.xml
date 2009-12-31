@@ -50,20 +50,7 @@
                     <module>Mage_Cybersource</module>
                     <class>Mage_Cybersource_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </cybersource_setup>
-            <cybersource_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </cybersource_write>
-            <cybersource_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </cybersource_read>
         </resources>
         <blocks>
             <cybersource><class>Mage_Cybersource_Block</class></cybersource>

@@ -27,7 +27,7 @@
 <?php  $_order = $this->getOrder() ?>
 <p class="a-right">
     <?php  if ($_order->getTracksCollection()->count()) : ?>
-        <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopUpUrlByOrderId($_order->getId()) ?>','trackorder','width=800,height=600,left=50,top=50,resizable=yes,scrollbars=yes'); return false;" title="<?php echo $this->__('Track all shipment(s)') ?>"><?php echo $this->__('Track all shipments') ?></a> <span class="separator">|</span>
+        <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopUpUrlByOrderId($_order) ?>','trackorder','width=800,height=600,left=50,top=50,resizable=yes,scrollbars=yes'); return false;" title="<?php echo $this->__('Track all shipment(s)') ?>"><?php echo $this->__('Track all shipments') ?></a> <span class="separator">|</span>
     <?php endif; ?>
     <a href="<?php echo $this->getPrintAllShipmentsUrl($_order) ?>" onclick="this.target='_blank'"><?php echo $this->__('Print All Shipments') ?></a>
 </p>
@@ -39,7 +39,7 @@
 <table class="data-table">
     <tr>
         <td colspan="2">
-            <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopUpUrlByShipId($_shipment->getId()) ?>','trackshipment','width=800,height=600,resizable=yes,scrollbars=yes'); return false;" title="<?php echo $this->__('Track this shipment') ?>"><?php echo $this->__('Track this shipment') ?></a>
+            <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopUpUrlByShipId($_shipment) ?>','trackshipment','width=800,height=600,resizable=yes,scrollbars=yes'); return false;" title="<?php echo $this->__('Track this shipment') ?>"><?php echo $this->__('Track this shipment') ?></a>
         </td>
     </tr>
     <tr>
@@ -52,7 +52,7 @@
         <?php if($track->isCustom()): ?>
             <?php echo $track->getNumber() ?>
         <?php else: ?>
-            <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopUpUrlByTrackID($track->getEntityId()) ?>','trackorder','width=800,height=600,left=50,top=50,resizable=yes,scrollbars=yes')" ><?php echo $track->getNumber() ?></a>
+            <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopUpUrlByTrackId($track) ?>','trackorder','width=800,height=600,left=50,top=50,resizable=yes,scrollbars=yes')" ><?php echo $track->getNumber() ?></a>
         <?php endif; ?>
         <?php if($i!=$_size): ?>, <?php endif; ?>
         <?php $i++;

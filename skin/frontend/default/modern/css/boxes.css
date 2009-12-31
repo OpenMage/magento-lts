@@ -83,6 +83,7 @@ input.checkbox            { margin-right:3px; }
     }
 .button-top-set { margin-top:0; border-top:0; padding-top:0; padding-bottom:8px; }
 
+
 /* Form lists */
 .form-list                          { margin-bottom:10px; }
 .form-list li                       { margin-bottom:6px; }
@@ -834,6 +835,15 @@ select.address-select {width:630px}
 .shipment-methods dd { margin-bottom:13px; }
 .payment-methods dt { margin-bottom:5px; }
 .payment-methods dd { padding:5px 20px; }
+
+.payment-methods li select.month  { width:145px; margin-right:6px; }
+.payment-methods li select.year  { width:105px; }
+
+.payment-methods .inner-form  { padding-top:5px; }
+.payment-methods .inner-form  br { display:none; }
+.payment-methods .inner-form label  { float:left; width:75px; padding:0 5px 0 0; font-weight:normal; }
+.payment-methods .inner-form .v-fix  .month { width:110px; }
+.payment-methods .inner-form .v-fix  .year { width:60px; }
 
 
 /* Shopping Cart */

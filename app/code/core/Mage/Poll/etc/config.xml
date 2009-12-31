@@ -100,20 +100,7 @@
                 <setup>
                     <module>Mage_Poll</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </poll_setup>
-            <poll_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </poll_write>
-            <poll_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </poll_read>
         </resources>
         <blocks>
             <poll>

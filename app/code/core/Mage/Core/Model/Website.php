@@ -34,6 +34,7 @@
 
 class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 {
+    const ENTITY    = 'core_website';
     const CACHE_TAG = 'website';
     protected $_cacheTag = true;
 

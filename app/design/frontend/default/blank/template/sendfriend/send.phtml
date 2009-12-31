@@ -103,7 +103,7 @@
             </li>
         </ul>
         <div class="buttons-set">
-            <button type="submit" class="button"><span><?php echo $this->__('Send email') ?></span></button>
+            <button type="submit" class="button"><span><span><?php echo $this->__('Send email') ?></span></span></button>
             <div id="max_recipient_message" style="display:none;">
                 <?php if ($this->getMaxRecipients()): ?>
                   <p><?php echo $this->__('Maximum %d email addresses allowed.', $this->getMaxRecipients()) ?></p>
@@ -111,7 +111,7 @@
             </div>
             <?php if (1 < $this->getMaxRecipients()): ?>
                 <p id="add_recipient_button">
-                    <button type="button" onclick="add_recipient();" class="button f-left"><span><?php echo $this->__('Add Recipient') ?></span></button>
+                    <button type="button" onclick="add_recipient();" class="button f-left"><span><span><?php echo $this->__('Add Recipient') ?></span></span></button>
                 </p>
             <?php endif; ?>
         </div>

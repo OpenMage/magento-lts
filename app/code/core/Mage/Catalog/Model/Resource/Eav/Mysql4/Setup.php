@@ -36,6 +36,38 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
 {
 
     /**
+     * Prepare catalog attribute values to save
+     *
+     * @param array $attr
+     * @return array
+     */
+    protected function _prepareValues($attr)
+    {
+        $data = parent::_prepareValues($attr);
+        $data = array_merge($data, array(
+            'frontend_input_renderer'   => $this->_getValue($attr, 'input_renderer', ''),
+            'source_model'              => $this->_getValue($attr, 'source', ''),
+            'is_global'                 => $this->_getValue($attr, 'global', 1),
+            'is_visible'                => $this->_getValue($attr, 'visible', 1),
+            'is_searchable'             => $this->_getValue($attr, 'searchable', 0),
+            'is_filterable'             => $this->_getValue($attr, 'filterable', 0),
+            'is_comparable'             => $this->_getValue($attr, 'comparable', 0),
+            'is_visible_on_front'       => $this->_getValue($attr, 'visible_on_front', 0),
+            'is_html_allowed_on_front'  => $this->_getValue($attr, 'is_html_allowed_on_front', 0),
+            'is_visible_in_advanced_search'
+                                        => $this->_getValue($attr, 'visible_in_advanced_search', 0),
+            'is_used_for_price_rules'   => $this->_getValue($attr, 'used_for_price_rules', 1),
+            'is_filterable_in_search'   => $this->_getValue($attr, 'filterable_in_search', 0),
+            'used_in_product_listing'   => $this->_getValue($attr, 'used_in_product_listing', 0),
+            'used_for_sort_by'          => $this->_getValue($attr, 'used_for_sort_by', 0),
+            'apply_to'                  => $this->_getValue($attr, 'apply_to', ''),
+            'position'                  => $this->_getValue($attr, 'position', 0),
+            'is_configurable'           => $this->_getValue($attr, 'is_configurable', 1)
+        ));
+        return $data;
+    }
+
+    /**
      * Enter description here...
      *
      * @return array
@@ -47,6 +79,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                 'entity_model'      => 'catalog/category',
                 'attribute_model'   => 'catalog/resource_eav_attribute',
                 'table'             => 'catalog/category',
+                'additional_attribute_table' => 'catalog/eav_attribute',
+                'entity_attribute_collection' => 'catalog/category_attribute_collection',
                 'attributes'        => array(
                     'name' => array(
                         'type'              => 'varchar',
@@ -77,7 +111,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'source'            => 'eav/entity_attribute_source_boolean',
                         'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'visible'           => true,
-                        'required'          => false,
+                        'required'          => true,
                         'user_defined'      => false,
                         'default'           => '',
                         'searchable'        => false,
@@ -517,13 +551,36 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'comparable'        => false,
                         'visible_on_front'  => false,
                         'unique'            => false,
-                    )
+                    ),
+                    'available_sort_by' => array(
+                        'input'         => 'multiselect',
+                        'type'          => 'text',
+                        'label'         => 'Available Product Listing Sort by',
+                        'source'        => 'catalog/category_attribute_source_sortby',
+                        'backend'       => 'catalog/category_attribute_backend_sortby',
+                        'required'      => true,
+                        'global'        => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+                        'visible'       => true,
+                        'input_renderer'=> 'adminhtml/catalog_category_helper_sortby_available',
+                    ),
+                    'default_sort_by' => array(
+                        'input'         => 'select',
+                        'label'         => 'Default Product Listing Sort by',
+                        'source'        => 'catalog/category_attribute_source_sortby',
+                        'backend'       => 'catalog/category_attribute_backend_sortby',
+                        'required'      => true,
+                        'global'        => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+                        'visible'       => true,
+                        'input_renderer'=> 'adminhtml/catalog_category_helper_sortby_default',
+                    ),
                 ),
             ),
             'catalog_product' => array(
                 'entity_model'      => 'catalog/product',
                 'attribute_model'   => 'catalog/resource_eav_attribute',
                 'table'             => 'catalog/product',
+                'additional_attribute_table' => 'catalog/eav_attribute',
+                'entity_attribute_collection' => 'catalog/product_attribute_collection',
                 'attributes'        => array(
                     'name' => array(
                         'type'              => 'varchar',
@@ -543,6 +600,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'comparable'        => false,
                         'visible_on_front'  => false,
                         'visible_in_advanced_search' => true,
+                        'used_in_product_listing' => true,
+                        'used_for_sort_by' => true,
                         'unique'            => false,
                     ),
                     'description' => array(
@@ -583,6 +642,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'comparable'        => true,
                         'visible_on_front'  => false,
                         'visible_in_advanced_search' => true,
+                        'used_in_product_listing' => true,
                         'unique'            => false,
                     ),
                     'sku' => array(
@@ -624,6 +684,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'comparable'        => false,
                         'visible_on_front'  => false,
                         'visible_in_advanced_search' => true,
+                        'used_in_product_listing' => true,
+                        'used_for_sort_by' => true,
                         'unique'            => false,
                         'apply_to'          => 'simple,configurable,virtual',
                     ),
@@ -645,6 +707,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'filterable'        => false,
                         'comparable'        => false,
                         'visible_on_front'  => false,
+                        'used_in_product_listing' => true,
                         'unique'            => false,
                         'apply_to'          => 'simple,configurable,virtual',
                     ),
@@ -666,6 +729,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'filterable'        => false,
                         'comparable'        => false,
                         'visible_on_front'  => false,
+                        'used_in_product_listing' => true,
                         'unique'            => false,
                         'apply_to'          => 'simple,configurable,virtual',
                     ),
@@ -687,6 +751,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'filterable'        => false,
                         'comparable'        => false,
                         'visible_on_front'  => false,
+                        'used_in_product_listing' => true,
                         'unique'            => false,
                         'apply_to'          => 'simple,configurable,virtual',
                     ),
@@ -709,7 +774,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'comparable'        => false,
                         'visible_on_front'  => false,
                         'unique'            => false,
-                        'apply_to'          => 'simple,configurable,virtual',
+                        'apply_to'          => 'simple,virtual',
                     ),
                     'weight' => array(
                         'type'              => 'decimal',
@@ -851,6 +916,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'filterable'        => false,
                         'comparable'        => false,
                         'visible_on_front'  => false,
+                        'used_in_product_listing' => true,
                         'unique'            => false,
                     ),
                     'thumbnail' => array(
@@ -871,6 +937,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'filterable'        => false,
                         'comparable'        => false,
                         'visible_on_front'  => false,
+                        'used_in_product_listing' => true,
                         'unique'            => false,
                     ),
                     'media_gallery' =>  array(
@@ -882,7 +949,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'source'            => '',
                         'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
                         'visible'           => true,
-                        'required'          => true,
+                        'required'          => false,
                         'user_defined'      => false,
                         'default'           => '',
                         'searchable'        => false,
@@ -927,6 +994,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'filterable'        => false,
                         'comparable'        => false,
                         'visible_on_front'  => false,
+                        'used_for_price_rules' => false,
                         'unique'            => false,
                         'apply_to'          => 'simple,configurable,virtual',
                     ),
@@ -969,6 +1037,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'filterable'        => false,
                         'comparable'        => false,
                         'visible_on_front'  => false,
+                        'used_in_product_listing' => true,
                         'unique'            => false,
                     ),
                      'news_to_date' => array(
@@ -989,6 +1058,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'filterable'        => false,
                         'comparable'        => false,
                         'visible_on_front'  => false,
+                        'used_in_product_listing' => true,
                         'unique'            => false,
                     ),
                     'gallery' => array(
@@ -1030,6 +1100,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'comparable'        => false,
                         'visible_on_front'  => false,
                         'visible_in_advanced_search' => false,
+                        'used_in_product_listing' => true,
                         'unique'            => false,
                     ),
                     'tax_class_id' => array(
@@ -1051,56 +1122,15 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'comparable'        => false,
                         'visible_on_front'  => false,
                         'visible_in_advanced_search' => true,
+                        'used_in_product_listing' => true,
                         'unique'            => false,
                         'apply_to'          => 'simple,configurable,virtual',
-                    ),
-//                    'price_includes_tax' => array(
-//                        'group'             => 'Prices',
-//                        'type'              => 'int',
-//                        'backend'           => '',
-//                        'frontend'          => '',
-//                        'label'             => 'Price Includes Tax',
-//                        'input'             => 'select',
-//                        'class'             => '',
-//                        'source'            => 'tax/price_source_includes',
-//                        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
-//                        'visible'           => true,
-//                        'required'          => false,
-//                        'user_defined'      => false,
-//                        'default'           => '',
-//                        'searchable'        => true,
-//                        'filterable'        => false,
-//                        'comparable'        => false,
-//                        'visible_on_front'  => false,
-//                        'visible_in_advanced_search' => true,
-//                        'unique'            => false,
-//                    ),
-                    'price' => array(
-                        'group'             => 'Prices',
-                        'type'              => 'decimal',
-                        'backend'           => 'catalog/product_attribute_backend_price',
-                        'frontend'          => '',
-                        'label'             => 'Price',
-                        'input'             => 'price',
-                        'class'             => 'validate-number',
-                        'source'            => '',
-                        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
-                        'visible'           => true,
-                        'required'          => true,
-                        'user_defined'      => false,
-                        'default'           => '',
-                        'searchable'        => true,
-                        'filterable'        => true,
-                        'comparable'        => false,
-                        'visible_on_front'  => false,
-                        'visible_in_advanced_search' => true,
-                        'unique'            => false,
-                        'apply_to'          => 'simple,configurable',
                     ),
                     'url_key' => array(
                         'label'             => 'URL key',
                         'backend'           => 'catalog/product_attribute_backend_urlkey',
                         'required'          => false,
+                        'used_in_product_listing' => true,
                     ),
                     'url_path' => array(
                         'type'              => 'varchar',
@@ -1140,7 +1170,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'comparable'        => false,
                         'visible_on_front'  => false,
                         'unique'            => false,
-                        'apply_to'          => 'simple,configurable',
+                        'apply_to'          => 'simple,configurable,virtual',
                     ),
                     'visibility' => array(
                         'group'             => 'General',
@@ -1305,6 +1335,57 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Setup extends Mage_Eav_Model_Entity
                         'visible_on_front'  => false,
                         'visible_in_advanced_search' => false,
                         'unique'            => false,
+                    ),
+                    'required_options' => array(
+                        'type'    => 'static',
+                        'visible'                 => false,
+                        'default'                 => false,
+                        'used_in_product_listing' => true,
+                    ),
+                    'has_options' => array(
+                        'type'    => 'static',
+                        'visible' =>false,
+                        'default' => false,
+                    ),
+                    'image_label' => array(
+                        'type'              => 'varchar',
+                        'label'             => 'Image Label',
+                        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+                        'visible'           => false,
+                        'required'          => false,
+                        'searchable'        => false,
+                        'is_configurable'   => false,
+                        'used_in_product_listing' => true,
+                    ),
+                    'small_image_label' => array(
+                        'type'              => 'varchar',
+                        'label'             => 'Small Image Label',
+                        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+                        'visible'           => false,
+                        'required'          => false,
+                        'searchable'        => false,
+                        'is_configurable'   => false,
+                        'used_in_product_listing' => true,
+                    ),
+                    'thumbnail_label' => array(
+                        'type'              => 'varchar',
+                        'label'             => 'Thumbnail Label',
+                        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+                        'visible'           => false,
+                        'required'          => false,
+                        'searchable'        => false,
+                        'is_configurable'   => false,
+                        'used_in_product_listing' => true,
+                    ),
+                    'created_at' => array(
+                        'type'      => 'static',
+                        'backend'   => 'eav/entity_attribute_backend_time_created',
+                        'visible'   => false,
+                    ),
+                    'updated_at' => array(
+                        'type'      => 'static',
+                        'backend'   => 'eav/entity_attribute_backend_time_updated',
+                        'visible'   => false,
                     )
                 ),
             ),

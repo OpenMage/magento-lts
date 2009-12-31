@@ -167,7 +167,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             'basePrice'         => $this->_registerJsPrice($this->_convertPrice($this->getProduct()->getFinalPrice())),
             'oldPrice'          => $this->_registerJsPrice($this->_convertPrice($this->getProduct()->getPrice())),
             'productId'         => $this->getProduct()->getId(),
-            'chooseText'        => Mage::helper('catalog')->__('Choose option...'),
+            'chooseText'        => Mage::helper('catalog')->__('Choose an Option...'),
             'taxConfig'         => $taxConfig,
         );
 

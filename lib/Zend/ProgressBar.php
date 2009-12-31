@@ -12,9 +12,9 @@
  *
  * @category   Zend
  * @package    Zend_ProgressBar
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ProgressBar.php 14519 2009-03-27 20:45:32Z dasprid $
+ * @version    $Id: ProgressBar.php 16207 2009-06-21 19:17:51Z thomas $
  */
 
 /**
@@ -22,7 +22,7 @@
  *
  * @category  Zend
  * @package   Zend_ProgressBar
- * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_ProgressBar

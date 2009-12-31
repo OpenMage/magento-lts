@@ -24,15 +24,21 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
- * Cms page content
+ * Cms page content block
  *
  * @category   Mage
  * @package    Mage_Cms
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 {
+    /**
+     * Retrieve Page instance
+     *
+     * @return Mage_Cms_Model_Page
+     */
     public function getPage()
     {
         if (!$this->hasData('page')) {
@@ -48,6 +54,11 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         return $this->getData('page');
     }
 
+    /**
+     * Prepare global layout
+     *
+     * @return Mage_Cms_Block_Page
+     */
     protected function _prepareLayout()
     {
         $page = $this->getPage();
@@ -61,20 +72,31 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
                 $breadcrumbs->addCrumb('cms_page', array('label'=>$page->getTitle(), 'title'=>$page->getTitle()));
         }
 
-        if ($root = $this->getLayout()->getBlock('root')) {
+        $root = $this->getLayout()->getBlock('root');
+        if ($root) {
             $root->addBodyClass('cms-'.$page->getIdentifier());
         }
 
-        if ($head = $this->getLayout()->getBlock('head')) {
+        $head = $this->getLayout()->getBlock('head');
+        if ($head) {
             $head->setTitle($page->getTitle());
             $head->setKeywords($page->getMetaKeywords());
             $head->setDescription($page->getMetaDescription());
         }
+
+        return parent::_prepareLayout();
     }
 
+    /**
+     * Prepare HTML content
+     *
+     * @return string
+     */
     protected function _toHtml()
     {
-        $processor = Mage::getModel('core/email_template_filter');
+        /* @var $helper Mage_Cms_Helper_Data */
+        $helper = Mage::helper('cms');
+        $processor = $helper->getPageTemplateProcessor();
         $html = $processor->filter($this->getPage()->getContent());
         $html = $this->getMessagesBlock()->getGroupedHtml() . $html;
         return $html;

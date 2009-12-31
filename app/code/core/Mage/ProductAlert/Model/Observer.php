@@ -150,9 +150,12 @@ class Mage_ProductAlert_Model_Observer
                     }
                     $product->setCustomerGroupId($customer->getGroupId());
                     if ($alert->getPrice() > $product->getFinalPrice()) {
+                        $productPrice = $product->getFinalPrice();
+                        $product->setFinalPrice(Mage::helper('tax')->getPrice($product, $productPrice));
+                        $product->setPrice(Mage::helper('tax')->getPrice($product, $product->getPrice()));
                         $email->addPriceProduct($product);
 
-                        $alert->setPrice($product->getFinalPrice());
+                        $alert->setPrice($productPrice);
                         $alert->setLastSendDate(Mage::getModel('core/date')->gmtDate());
                         $alert->setSendCount($alert->getSendCount() + 1);
                         $alert->setStatus(1);

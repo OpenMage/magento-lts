@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Module
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Bootstrap.php 15553 2009-05-12 13:52:41Z matthew $
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Bootstrap.php 17802 2009-08-24 21:15:12Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@
  * @uses       Zend_Application_Bootstrap_Bootstrap
  * @package    Zend_Application
  * @subpackage Module
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Application_Module_Bootstrap 
@@ -77,8 +77,8 @@ abstract class Zend_Application_Module_Bootstrap
         }
 
         // ZF-6545: prevent recursive registration of modules
-        if ($this->hasPluginResource('Modules')) {
-            $this->unregisterPluginResource('Modules');
+        if ($this->hasPluginResource('modules')) {
+            $this->unregisterPluginResource('modules');
         }
     }
 

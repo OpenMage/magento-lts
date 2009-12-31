@@ -16,8 +16,8 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client
- * @version    $Id: Client.php 15577 2009-05-14 12:43:34Z matthew $
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Client.php 17374 2009-08-04 12:43:04Z shahar $
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -55,7 +55,7 @@
  * @package    Zend_Http
  * @subpackage Client
  * @throws     Zend_Http_Client_Exception
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Http_Client
@@ -223,14 +223,14 @@ class Zend_Http_Client
 
     /**
      * Fileinfo magic database resource
-     * 
+     *
      * This varaiable is populated the first time _detectFileMimeType is called
      * and is then reused on every call to this method
      *
      * @var resource
      */
     static protected $_fileInfoDb = null;
-    
+
     /**
      * Contructor method. Will create a new HTTP client. Accepts the target
      * URL and optionally configuration array.
@@ -295,26 +295,30 @@ class Zend_Http_Client
     /**
      * Set configuration parameters for this HTTP client
      *
-     * @param array $config
+     * @param  Zend_Config | array $config
      * @return Zend_Http_Client
      * @throws Zend_Http_Client_Exception
      */
     public function setConfig($config = array())
     {
-        if (! is_array($config)) {
+        if ($config instanceof Zend_Config) {
+            $config = $config->toArray();
+
+        } elseif (! is_array($config)) {
             /** @see Zend_Http_Client_Exception */
             #require_once 'Zend/Http/Client/Exception.php';
-            throw new Zend_Http_Client_Exception('Expected array parameter, given ' . gettype($config));
+            throw new Zend_Http_Client_Exception('Array or Zend_Config object expected, got ' . gettype($config));
         }
 
-        foreach ($config as $k => $v)
+        foreach ($config as $k => $v) {
             $this->config[strtolower($k)] = $v;
+        }
 
         // Pass configuration options to the adapter if it exists
         if ($this->adapter instanceof Zend_Http_Client_Adapter_Interface) {
             $this->adapter->setConfig($config);
         }
-        
+
         return $this;
     }
 
@@ -331,15 +335,15 @@ class Zend_Http_Client
      */
     public function setMethod($method = self::GET)
     {
-        $regex = '/^[^\x00-\x1f\x7f-\xff\(\)<>@,;:\\\\"\/\[\]\?={}\s]+$/';
-        if (! preg_match($regex, $method)) {
+        if (! preg_match('/^[^\x00-\x1f\x7f-\xff\(\)<>@,;:\\\\"\/\[\]\?={}\s]+$/', $method)) {
             /** @see Zend_Http_Client_Exception */
             #require_once 'Zend/Http/Client/Exception.php';
             throw new Zend_Http_Client_Exception("'{$method}' is not a valid HTTP request method.");
         }
 
-        if ($method == self::POST && $this->enctype === null)
+        if ($method == self::POST && $this->enctype === null) {
             $this->setEncType(self::ENC_URLENCODED);
+        }
 
         $this->method = $method;
 
@@ -388,7 +392,7 @@ class Zend_Http_Client
                 #require_once 'Zend/Http/Client/Exception.php';
                 throw new Zend_Http_Client_Exception("{$name} is not a valid HTTP header name");
             }
-            
+
             $normalized_name = strtolower($name);
 
             // If $value is null or false, unset the header
@@ -397,7 +401,7 @@ class Zend_Http_Client
 
             // Else, set the header
             } else {
-                // Header names are storred lowercase internally.
+                // Header names are stored lowercase internally.
                 if (is_string($value)) {
                     $value = trim($value);
                 }
@@ -691,7 +695,12 @@ class Zend_Http_Client
         // Force enctype to multipart/form-data
         $this->setEncType(self::ENC_FORMDATA);
 
-        $this->files[$formname] = array(basename($filename), $ctype, $data);
+        $this->files[] = array(
+            'formname' => $formname,
+            'filename' => basename($filename),
+            'ctype'    => $ctype,
+            'data'     => $data
+        );
 
         return $this;
     }
@@ -975,14 +984,14 @@ class Zend_Http_Client
                 $headers[] = 'Accept-encoding: identity';
             }
         }
-        
+
         // Set the Content-Type header
         if ($this->method == self::POST &&
            (! isset($this->headers[strtolower(self::CONTENT_TYPE)]) && isset($this->enctype))) {
 
             $headers[] = self::CONTENT_TYPE . ': ' . $this->enctype;
         }
-        
+
         // Set the user agent header
         if (! isset($this->headers['user-agent']) && isset($this->config['useragent'])) {
             $headers[] = "User-Agent: {$this->config['useragent']}";
@@ -1030,9 +1039,22 @@ class Zend_Http_Client
             return '';
         }
 
+        // If mbstring overloads substr and strlen functions, we have to
+        // override it's internal encoding
+        if (function_exists('mb_internal_encoding') &&
+           ((int) ini_get('mbstring.func_overload')) & 2) {
+
+            $mbIntEnc = mb_internal_encoding();
+            mb_internal_encoding('ASCII');
+        }
+
         // If we have raw_post_data set, just use it as the body.
         if (isset($this->raw_post_data)) {
             $this->setHeaders(self::CONTENT_LENGTH, strlen($this->raw_post_data));
+            if (isset($mbIntEnc)) {
+                mb_internal_encoding($mbIntEnc);
+            }
+
             return $this->raw_post_data;
         }
 
@@ -1052,15 +1074,15 @@ class Zend_Http_Client
                     $this->setHeaders(self::CONTENT_TYPE, self::ENC_FORMDATA . "; boundary={$boundary}");
 
                     // Get POST parameters and encode them
-                    $params = $this->_getParametersRecursive($this->paramsPost);
+                    $params = self::_flattenParametersArray($this->paramsPost);
                     foreach ($params as $pp) {
                         $body .= self::encodeFormData($boundary, $pp[0], $pp[1]);
                     }
 
                     // Encode files
-                    foreach ($this->files as $name => $file) {
-                        $fhead = array(self::CONTENT_TYPE => $file[1]);
-                        $body .= self::encodeFormData($boundary, $name, $file[2], $file[0], $fhead);
+                    foreach ($this->files as $file) {
+                        $fhead = array(self::CONTENT_TYPE => $file['ctype']);
+                        $body .= self::encodeFormData($boundary, $file['formname'], $file['data'], $file['filename'], $fhead);
                     }
 
                     $body .= "--{$boundary}--\r\n";
@@ -1073,6 +1095,10 @@ class Zend_Http_Client
                     break;
 
                 default:
+                    if (isset($mbIntEnc)) {
+                        mb_internal_encoding($mbIntEnc);
+                    }
+
                     /** @see Zend_Http_Client_Exception */
                     #require_once 'Zend/Http/Client/Exception.php';
                     throw new Zend_Http_Client_Exception("Cannot handle content type '{$this->enctype}' automatically." .
@@ -1080,10 +1106,14 @@ class Zend_Http_Client
                     break;
             }
         }
-        
+
         // Set the Content-Length if we have a body or if request is POST/PUT
         if ($body || $this->method == self::POST || $this->method == self::PUT) {
             $this->setHeaders(self::CONTENT_LENGTH, strlen($body));
+        }
+
+        if (isset($mbIntEnc)) {
+            mb_internal_encoding($mbIntEnc);
         }
 
         return $body;
@@ -1097,12 +1127,21 @@ class Zend_Http_Client
      * necessarily unique. If one of the parameters in as array, it will also
      * add a [] suffix to the key.
      *
-     * @param array $parray The parameters array
-     * @param bool $urlencode Whether to urlencode the name and value
+     * This method is deprecated since Zend Framework 1.9 in favour of
+     * self::_flattenParametersArray() and will be dropped in 2.0
+     *
+     * @deprecated since 1.9
+     *
+     * @param  array $parray    The parameters array
+     * @param  bool  $urlencode Whether to urlencode the name and value
      * @return array
      */
     protected function _getParametersRecursive($parray, $urlencode = false)
     {
+        // Issue a deprecated notice
+        trigger_error("The " .  __METHOD__ . " method is deprecated and will be dropped in 2.0.",
+            E_USER_NOTICE);
+
         if (! is_array($parray)) {
             return $parray;
         }
@@ -1132,15 +1171,15 @@ class Zend_Http_Client
 
         return $parameters;
     }
-    
+
     /**
      * Attempt to detect the MIME type of a file using available extensions
-     * 
+     *
      * This method will try to detect the MIME type of a file. If the fileinfo
-     * extension is available, it will be used. If not, the mime_magic 
+     * extension is available, it will be used. If not, the mime_magic
      * extension which is deprected but is still available in many PHP setups
-     * will be tried. 
-     * 
+     * will be tried.
+     *
      * If neither extension is available, the default application/octet-stream
      * MIME type will be returned
      *
@@ -1150,26 +1189,26 @@ class Zend_Http_Client
     protected function _detectFileMimeType($file)
     {
         $type = null;
-        
+
         // First try with fileinfo functions
         if (function_exists('finfo_open')) {
             if (self::$_fileInfoDb === null) {
                 self::$_fileInfoDb = @finfo_open(FILEINFO_MIME);
             }
-            
-            if (self::$_fileInfoDb) { 
+
+            if (self::$_fileInfoDb) {
                 $type = finfo_file(self::$_fileInfoDb, $file);
             }
-            
+
         } elseif (function_exists('mime_content_type')) {
             $type = mime_content_type($file);
         }
-        
+
         // Fallback to the default application/octet-stream
         if (! $type) {
             $type = 'application/octet-stream';
         }
-        
+
         return $type;
     }
 
@@ -1243,4 +1282,51 @@ class Zend_Http_Client
 
         return $authHeader;
     }
+
+    /**
+     * Convert an array of parameters into a flat array of (key, value) pairs
+     *
+     * Will flatten a potentially multi-dimentional array of parameters (such
+     * as POST parameters) into a flat array of (key, value) paris. In case
+     * of multi-dimentional arrays, square brackets ([]) will be added to the
+     * key to indicate an array.
+     *
+     * @since  1.9
+     *
+     * @param  array  $parray
+     * @param  string $prefix
+     * @return array
+     */
+    static protected function _flattenParametersArray($parray, $prefix = null)
+    {
+        if (! is_array($parray)) {
+            return $parray;
+        }
+
+        $parameters = array();
+
+        foreach($parray as $name => $value) {
+
+            // Calculate array key
+            if ($prefix) {
+                if (is_int($name)) {
+                    $key = $prefix . '[]';
+                } else {
+                    $key = $prefix . "[$name]";
+                }
+            } else {
+                $key = $name;
+            }
+
+            if (is_array($value)) {
+                $parameters = array_merge($parameters, self::_flattenParametersArray($value, $key));
+
+            } else {
+                $parameters[] = array($key, $value);
+            }
+        }
+
+        return $parameters;
+    }
+
 }

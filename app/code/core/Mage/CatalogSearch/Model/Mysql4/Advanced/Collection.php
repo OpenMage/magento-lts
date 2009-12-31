@@ -89,10 +89,10 @@ class Mage_CatalogSearch_Model_Mysql4_Advanced_Collection extends Mage_Catalog_M
 
                         foreach ($conditionData as $data) {
                             if (is_array($data)) {
-                                $select->where('IFNULL(t2.value, t1.value) ' . $data[0], $data[1]);
+                                $select->where('IF(t2.value_id>0, t2.value, t1.value) ' . $data[0], $data[1]);
                             }
                             else {
-                                $select->where('IFNULL(t2.value, t1.value) ' . $data);
+                                $select->where('IF(t2.value_id>0, t2.value, t1.value) ' . $data);
                             }
                         }
                     }

@@ -360,13 +360,10 @@ class Mage_AmazonPayments_Model_Payment_Asp_Notification extends Varien_Object
      */
     protected function _processRefundFailed($request, $order)
     {
-        $order->setState(
-            $order->getState(),
-            true,
-            Mage::helper('amazonpayments')->__('Amazon Simple Pay service payment confirmation failed'),
-            $notified = false
+        $order->addStatusToHistory(
+            $order->getStatus(), 
+            Mage::helper('amazonpayments')->__('Amazon Simple Pay service payment confirmation failed')
         );
-
         return true;
     }
 

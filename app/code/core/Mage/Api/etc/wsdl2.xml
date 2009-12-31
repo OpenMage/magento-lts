@@ -154,12 +154,12 @@
             <output message="typens:resourcesResponse" />
         </operation>
         <operation name="globalFaults">
-            <documentation>List of resource faults</documentation>
+            <documentation>List of global faults</documentation>
             <input message="typens:globalFaults" />
             <output message="typens:globalFaultsResponse" />
         </operation>
         <operation name="resourceFaults">
-            <documentation>List of global faults</documentation>
+            <documentation>List of resource faults</documentation>
             <input message="typens:resourceFaults" />
             <output message="typens:resourceFaultsResponse" />
         </operation>

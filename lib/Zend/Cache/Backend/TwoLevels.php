@@ -15,8 +15,9 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: TwoLevels.php 17741 2009-08-22 02:58:33Z yoshida@zend.co.jp $
  */
 
 
@@ -34,7 +35,7 @@
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -227,8 +228,9 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
      */
     public function remove($id)
     {
-        $this->_fastBackend->remove($id);
-        return $this->_slowBackend->remove($id);
+        $boolFast = $this->_fastBackend->remove($id);
+        $boolSlow = $this->_slowBackend->remove($id);
+        return $boolFast && $boolSlow;
     }
 
     /**
@@ -263,7 +265,8 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
                 $ids = $this->_slowBackend->getIdsMatchingTags($tags);
                 $res = true;
                 foreach ($ids as $id) {
-                    $res = $res && $this->_slowBackend->remove($id) && $this->_fastBackend->remove($id);
+                    $bool = $this->remove($id);
+                    $res = $res && $bool;
                 }
                 return $res;
                 break;
@@ -271,7 +274,8 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
                 $ids = $this->_slowBackend->getIdsNotMatchingTags($tags);
                 $res = true;
                 foreach ($ids as $id) {
-                    $res = $res && $this->_slowBackend->remove($id) && $this->_fastBackend->remove($id);
+                    $bool = $this->remove($id);
+                    $res = $res && $bool;
                 }
                 return $res;
                 break;
@@ -279,7 +283,8 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
                 $ids = $this->_slowBackend->getIdsMatchingAnyTags($tags);
                 $res = true;
                 foreach ($ids as $id) {
-                    $res = $res && $this->_slowBackend->remove($id) && $this->_fastBackend->remove($id);
+                    $bool = $this->remove($id);
+                    $res = $res && $bool;
                 }
                 return $res;
                 break;

@@ -44,9 +44,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Input extends Mage_Adminh
     public function render(Varien_Object $row)
     {
         $html = '<input type="text" ';
-        $html.= 'name="'.($this->getColumn()->getName() ? $this->getColumn()->getName() : $this->getColumn()->getId()).'" ';
-        $html.= 'value="'.$row->getData($this->getColumn()->getIndex()).'"';
-        $html.= 'class="input-text '.$this->getColumn()->getInlineCss().'"/>'.$this->getColumn()->getName();
+        $html .= 'name="' . $this->getColumn()->getId() . '" ';
+        $html .= 'value="' . $row->getData($this->getColumn()->getIndex()) . '"';
+        $html .= 'class="input-text ' . $this->getColumn()->getInlineCss() . '"/>';
         return $html;
     }
 }

@@ -310,7 +310,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $disableLocalModules = false;
         }
 
-        if ($disableLocalModules) {
+        if ($disableLocalModules && !defined('COMPILER_INCLUDE_PATH')) {
             set_include_path(
                 // excluded '/app/code/local'
                 BP . DS . 'app' . DS . 'code' . DS . 'community' . PS .
@@ -1141,10 +1141,12 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $config = $this->getResourceConfig($name);
         if ($config) {
             $conn = $config->connection;
-            if (!empty($conn->use)) {
-                return $this->getResourceConnectionConfig((string)$conn->use);
-            } else {
-                return $conn;
+            if ($conn) {
+                if (!empty($conn->use)) {
+                    return $this->getResourceConnectionConfig((string)$conn->use);
+                } else {
+                    return $conn;
+                }
             }
         }
         return false;

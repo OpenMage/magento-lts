@@ -63,6 +63,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Set extends Mage_Core_Model_Mysql4_
                 /* @var $group Mage_Eav_Model_Entity_Attribute_Group */
                 $group->delete();
             }
+            Mage::getResourceModel('eav/entity_attribute_group')->updateDefaultGroup($object->getId());
         }
         if ($object->getRemoveAttributes()) {
             foreach ($object->getRemoveAttributes() as $attribute) {

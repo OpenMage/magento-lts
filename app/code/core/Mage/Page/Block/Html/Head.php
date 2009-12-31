@@ -24,44 +24,107 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
  * Html page block
  *
  * @category   Mage
  * @package    Mage_Page
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
 {
+    /**
+     * Initialize template
+     *
+     */
     protected function _construct()
     {
         $this->setTemplate('page/html/head.phtml');
     }
 
-    public function addCss($name, $params="")
+    /**
+     * Add CSS file to HEAD entity
+     *
+     * @param string $name
+     * @param string $params
+     * @return Mage_Page_Block_Html_Head
+     */
+    public function addCss($name, $params = "")
     {
         $this->addItem('skin_css', $name, $params);
         return $this;
     }
 
-    public function addJs($name, $params="")
+    /**
+     * Add JavaScript file to HEAD entity
+     *
+     * @param string $name
+     * @param string $params
+     * @return Mage_Page_Block_Html_Head
+     */
+    public function addJs($name, $params = "")
     {
         $this->addItem('js', $name, $params);
         return $this;
     }
 
-    public function addCssIe($name, $params="")
+    /**
+     * Add CSS file for Internet Explorer only to HEAD entity
+     *
+     * @param string $name
+     * @param string $params
+     * @return Mage_Page_Block_Html_Head
+     */
+    public function addCssIe($name, $params = "")
     {
         $this->addItem('skin_css', $name, $params, 'IE');
         return $this;
     }
 
-    public function addJsIe($name, $params="")
+    /**
+     * Add JavaScript file for Internet Explorer only to HEAD entity
+     *
+     * @param string $name
+     * @param string $params
+     * @return Mage_Page_Block_Html_Head
+     */
+    public function addJsIe($name, $params = "")
     {
         $this->addItem('js', $name, $params, 'IE');
         return $this;
     }
 
+    /**
+     * Add Link element to HEAD entity
+     *
+     * @param string $rel forward link types
+     * @param string $href URI for linked resource
+     * @return Mage_Page_Block_Html_Head
+     */
+    public function addLinkRel($rel, $href)
+    {
+        $this->addItem('link_rel', $rel, $href);
+        return $this;
+    }
+
+    /**
+     * Add HEAD Item
+     *
+     * Allowed types:
+     *  - js
+     *  - js_css
+     *  - skin_js
+     *  - skin_css
+     *  - rss
+     *
+     * @param string $type
+     * @param string $name
+     * @param string $params
+     * @param string $if
+     * @param string $cond
+     * @return Mage_Page_Block_Html_Head
+     */
     public function addItem($type, $name, $params=null, $if=null, $cond=null)
     {
         if ($type==='skin_css' && empty($params)) {
@@ -77,22 +140,34 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * Remove Item from HEAD entity
+     *
+     * @param string $type
+     * @param string $name
+     * @return Mage_Page_Block_Html_Head
+     */
     public function removeItem($type, $name)
     {
         unset($this->_data['items'][$type.'/'.$name]);
         return $this;
     }
 
+    /**
+     * Retrieve HEAD fragment HTML with CSS/JS/RSS definations
+     *
+     * @return string
+     */
     public function getCssJsHtml()
     {
-//        return '';
-        $lines = array();
+        $lines  = array();
         $baseJs = Mage::getBaseUrl('js');
-        $html = '';
+        $html   = '';
 
-        $script = '<script type="text/javascript" src="%s" %s></script>';
+        $script     = '<script type="text/javascript" src="%s" %s></script>';
         $stylesheet = '<link rel="stylesheet" type="text/css" href="%s" %s />';
-        $alternate = '<link rel="alternate" type="%s" href="%s" %s />';
+        $alternate  = '<link rel="alternate" type="%s" href="%s" %s />';
+        $linkRel    = '<link rel="%s" href="%s" />';
 
         foreach ($this->_data['items'] as $item) {
             if (!is_null($item['cond']) && !$this->getData($item['cond'])) {
@@ -121,6 +196,10 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
 
                 case 'rss':
                     $lines[$if]['other'][] = sprintf($alternate, 'application/rss+xml'/*'text/xml' for IE?*/, $item['name'], $item['params']);
+                    break;
+
+                case 'link_rel':
+                    $lines[$if]['other'][] = sprintf($linkRel, $item['name'], $item['params']);
                     break;
             }
         }
@@ -162,11 +241,19 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         return $html;
     }
 
-    public function getChunkedItems($items, $prefix='', $maxLen=450)
+    /**
+     * Retrieve Chunked Items
+     *
+     * @param array $items
+     * @param string $prefix
+     * @param int $maxLen
+     * @return array
+     */
+    public function getChunkedItems($items, $prefix = '', $maxLen = 450)
     {
         $chunks = array();
-        $chunk = $prefix;
-        foreach ($items as $i=>$item) {
+        $chunk  = $prefix;
+        foreach ($items as $item) {
             if (strlen($chunk.','.$item)>$maxLen) {
                 $chunks[] = $chunk;
                 $chunk = $prefix;
@@ -177,6 +264,11 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         return $chunks;
     }
 
+    /**
+     * Retrieve Content Type
+     *
+     * @return string
+     */
     public function getContentType()
     {
         if (empty($this->_data['content_type'])) {
@@ -185,6 +277,11 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         return $this->_data['content_type'];
     }
 
+    /**
+     * Retrieve Media Type
+     *
+     * @return string
+     */
     public function getMediaType()
     {
         if (empty($this->_data['media_type'])) {
@@ -193,6 +290,11 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         return $this->_data['media_type'];
     }
 
+    /**
+     * Retrieve Charset
+     *
+     * @return string
+     */
     public function getCharset()
     {
         if (empty($this->_data['charset'])) {
@@ -201,6 +303,12 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         return $this->_data['charset'];
     }
 
+    /**
+     * Set title element text
+     *
+     * @param string $title
+     * @return Mage_Page_Block_Html_Head
+     */
     public function setTitle($title)
     {
         $this->_data['title'] = Mage::getStoreConfig('design/head/title_prefix').' '.$title
@@ -208,6 +316,11 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * Retrieve title element text (encoded)
+     *
+     * @return string
+     */
     public function getTitle()
     {
         if (empty($this->_data['title'])) {
@@ -216,11 +329,21 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         return htmlspecialchars(html_entity_decode($this->_data['title'], ENT_QUOTES, 'UTF-8'));
     }
 
+    /**
+     * Retrieve default title text
+     *
+     * @return string
+     */
     public function getDefaultTitle()
     {
         return Mage::getStoreConfig('design/head/default_title');
     }
 
+    /**
+     * Retrieve content for description tag
+     *
+     * @return string
+     */
     public function getDescription()
     {
         if (empty($this->_data['description'])) {
@@ -229,6 +352,11 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         return $this->_data['description'];
     }
 
+    /**
+     * Retrieve content for keyvords tag
+     *
+     * @return string
+     */
     public function getKeywords()
     {
         if (empty($this->_data['keywords'])) {
@@ -237,6 +365,11 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         return $this->_data['keywords'];
     }
 
+    /**
+     * Retrieve URL to robots file
+     *
+     * @return string
+     */
     public function getRobots()
     {
         if (empty($this->_data['robots'])) {
@@ -257,5 +390,4 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         }
         return $this->_data['includes'];
     }
-
 }

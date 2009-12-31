@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-TEST
 <div class="account-box">
     <div class="page-head">
         <h3><?php echo $this->__('My Tags') ?></h3>
@@ -32,9 +31,7 @@ TEST
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
     <p>
         <?php echo $this->__('Tag Name: %s', $this->htmlEscape($this->getTagInfo()->getName())) ?>
-        ( <a href="<?php echo $this->getTagInfo()->getEditTagUrl(); ?>"><small><?php echo $this->__('Edit Tag') ?></small></a>
-        <span class="separator">|</span>
-        <a href="<?php echo $this->getTagInfo()->getRemoveTagUrl(); ?>" onclick="return confirm('<?php echo $this->__('Are you sure you want to delete this tag?') ?>');"><small><?php echo $this->__('Delete Tag') ?></small></a> )
+        <button type="button" class="button" onclick="if(confirm('<?php echo $this->__('Are you sure you want to delete this tag?') ?>')) window.location='<?php echo $this->getTagInfo()->getRemoveTagUrl(); ?>';"><span><span><?php echo $this->__('Delete') ?></span></span></button>
     </p>
     <?php echo $this->getToolbarHtml() ?>
     <table class="data-table box-table" id="my-tags-table" cellspacing="0">
@@ -49,8 +46,8 @@ TEST
                 <td><a href="<?php echo $_product->getProductUrl(); ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(100, 100); ?>" alt="" height="100" width="100" /></a></td>
                 <td>
                     <h5><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->htmlEscape($_product->getName()) ?></a></h5>
-                    <?php echo $this->helper('catalog/product')->getPriceHtml($_product) ?>
-                    <?php echo $this->helper('review/product')->getSummaryHtml($_product, 'short') ?>
+                    <?php echo $this->getPriceHtml($_product) ?>
+                    <?php echo $this->getSummaryHtml($_product, 'short') ?>
                     <p><?php echo $_product->getDescription() ?></p>
                 </td>
                 <td class="a-center">

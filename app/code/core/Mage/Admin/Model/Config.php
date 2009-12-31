@@ -34,11 +34,46 @@
  */
 class Mage_Admin_Model_Config extends Varien_Simplexml_Config
 {
+    /**
+     * adminhtml.xml merged config
+     *
+     * @var Varien_Simplexml_Config
+     */
+    protected $_adminhtmlConfig;
+
+    /**
+     * Load config from merged adminhtml.xml files
+     */
     public function __construct()
     {
         parent::__construct();
-        #$this->_elementClass = 'Mage_Core_Model_Config_Element';
-        #$this->loadFile(Mage::getModuleDir('etc', 'Mage_Admin').DS.'admin.xml');
+        $this->setCacheId('adminhtml_acl_menu_config');
+        /* @var $adminhtmlConfig Varien_Simplexml_Config */
+        $adminhtmlConfig = Mage::app()->loadCache($this->getCacheId());
+        if ($adminhtmlConfig) {
+            $this->_adminhtmlConfig = new Varien_Simplexml_Config($adminhtmlConfig);
+        } else {
+            $adminhtmlConfig = new Varien_Simplexml_Config;
+            $adminhtmlConfig->loadString('<?xml version="1.0"?><config></config>');
+            Mage::getConfig()->loadModulesConfiguration('adminhtml.xml', $adminhtmlConfig);
+            $this->_adminhtmlConfig = $adminhtmlConfig;
+
+            // support back compatibility with base config
+            $aclConfig  = Mage::getConfig()->getNode('adminhtml/acl');
+            if ($aclConfig) {
+                $adminhtmlConfig->getNode()->extendChild($aclConfig, true);
+            }
+
+            $menuConfig = Mage::getConfig()->getNode('adminhtml/menu');
+            if ($menuConfig) {
+                $adminhtmlConfig->getNode()->extendChild($menuConfig, true);
+            }
+
+            if (Mage::app()->useCache('config')) {
+                Mage::app()->saveCache($adminhtmlConfig->getXmlString(), $this->getCacheId(),
+                    array(Mage_Core_Model_Config::CACHE_TAG));
+            }
+        }
     }
 
     /**
@@ -52,7 +87,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
     public function loadAclResources(Mage_Admin_Model_Acl $acl, $resource=null, $parentName=null)
     {
         if (is_null($resource)) {
-            $resource = Mage::getConfig()->getNode("adminhtml/acl/resources");
+            $resource = $this->getAdminhtmlConfig()->getNode("acl/resources");
             $resourceName = null;
         } else {
             $resourceName = (is_null($parentName) ? '' : $parentName.'/').$resource->getName();
@@ -121,4 +156,13 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         return false;
     }
 
+    /**
+     * Retrieve xml config
+     *
+     * @return Varien_Simplexml_Config
+     */
+    public function getAdminhtmlConfig()
+    {
+        return $this->_adminhtmlConfig;
+    }
 }

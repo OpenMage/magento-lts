@@ -58,6 +58,8 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
      */
     protected $_usedForSortBy;
 
+    protected $_storeId = null;
+
     const XML_PATH_PRODUCT_COLLECTION_ATTRIBUTES = 'frontend/product/collection/attributes';
 
     /**
@@ -67,6 +69,31 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     protected function _construct()
     {
         $this->_init('catalog/config');
+    }
+
+    /**
+     * Set store id
+     *
+     * @param integer $storeId
+     * @return Mage_Catalog_Model_Config
+     */
+    public function setStoreId($storeId)
+    {
+        $this->_storeId = $storeId;
+        return $this;
+    }
+
+    /**
+     * Return store id, if is not set return current app store
+     *
+     * @return integer
+     */
+    public function getStoreId()
+    {
+        if ($this->_storeId === null) {
+            return Mage::app()->getStore()->getId();
+        }
+        return $this->_storeId;
     }
 
     public function loadAttributeSets()
@@ -268,6 +295,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             $this->_usedInProductListing = array();
             $entityType = 'catalog_product';
             $attributesData = $this->_getResource()
+                ->setStoreId($this->getStoreId())
                 ->getAttributesUsedInListing();
             Mage::getSingleton('eav/config')
                 ->importAttributesData($entityType, $attributesData);
@@ -315,7 +343,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         );
         foreach ($this->getAttributesUsedForSortBy() as $attribute) {
             /* @var $attribute Mage_Eav_Model_Entity_Attribute_Abstract */
-            $options[$attribute->getAttributeCode()] = Mage::helper('catalog')->__($attribute->getFrontendLabel());
+            $options[$attribute->getAttributeCode()] = $attribute->getStoreLabel();
         }
 
         return $options;

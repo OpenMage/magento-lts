@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Mail
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Mail.php 14072 2009-02-12 22:23:49Z beberlei $
+ * @version    $Id: Mail.php 16207 2009-06-21 19:17:51Z thomas $
  */
 
 
@@ -46,7 +46,7 @@
  *
  * @category   Zend
  * @package    Zend_Mail
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mail extends Zend_Mime_Message
@@ -609,6 +609,19 @@ class Zend_Mail extends Zend_Mime_Message
             #require_once 'Zend/Mail/Exception.php';
             throw new Zend_Mail_Exception('From Header set twice');
         }
+        return $this;
+    }
+
+    /**
+     * Set Reply-To Header
+     *
+     * @param string $email
+     * @param string $name
+     * @return Zend_Mail
+     */
+    public function setReplyTo($email, $name=null)
+    {
+        $this->_addRecipientAndHeader('Reply-To', $email, $name);
         return $this;
     }
 

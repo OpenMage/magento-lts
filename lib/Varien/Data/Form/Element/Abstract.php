@@ -247,4 +247,13 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         return $this->_getData('readonly');
     }
 
+    public function getHtmlContainerId()
+    {
+        if ($this->hasData('container_id')) {
+            return $this->getData('container_id');
+        } elseif ($idPrefix = $this->getForm()->getFieldContainerIdPrefix()) {
+            return $idPrefix . $this->getId();
+        }
+        return '';
+    }
 }

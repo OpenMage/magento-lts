@@ -45,7 +45,7 @@ class Mage_Newsletter_Model_Subscriber extends Varien_Object
     const XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY   = 'newsletter/subscription/un_email_identity';
     const XML_PATH_CONFIRMATION_FLAG            = 'newsletter/subscription/confirm';
 
-    const XML_PATH_SENDING_SET_RETURN_PATH      = 'newsletter/sending/set_return_path';
+    const XML_PATH_SENDING_SET_RETURN_PATH      = Mage_Core_Model_Email_Template::XML_PATH_SENDING_SET_RETURN_PATH;
 
     protected $_isStatusChanged = false;
 
@@ -282,7 +282,6 @@ class Mage_Newsletter_Model_Subscriber extends Varien_Object
         $customer = Mage::getModel('customer/customer')
            ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
            ->loadByEmail($email);
-        $isNewSubscriber = false;
 
         $customerSession = Mage::getSingleton('customer/session');
 
@@ -290,15 +289,10 @@ class Mage_Newsletter_Model_Subscriber extends Varien_Object
             $this->setSubscriberConfirmCode($this->randomSequence());
         }
 
-//        if(($this->getCustomerId() && !$customerSession->isLoggedIn())
-//           || ($this->getCustomerId()
-//               && $customerSession->getCustomerId() != $this->getCustomerId()
-//               )) {
-//            return $this->getSubscriberStatus();
-//        }
+        $isConfirmNeed = Mage::getStoreConfig(self::XML_PATH_CONFIRMATION_FLAG) == 1 ? true : false;
 
         if (!$this->getId() || $this->getStatus()==self::STATUS_UNSUBSCRIBED || $this->getStatus()==self::STATUS_NOT_ACTIVE) {
-            if (Mage::getStoreConfig(self::XML_PATH_CONFIRMATION_FLAG) == 1) {
+            if ($isConfirmNeed) {
                 $this->setStatus(self::STATUS_NOT_ACTIVE);
             } else {
                 $this->setStatus(self::STATUS_SUBSCRIBED);
@@ -317,16 +311,14 @@ class Mage_Newsletter_Model_Subscriber extends Varien_Object
         } else {
             $this->setStoreId(Mage::app()->getStore()->getId());
             $this->setCustomerId(0);
-            $isNewSubscriber = true;
         }
 
         $this->setIsStatusChanged(true);
 
         try {
             $this->save();
-            if (Mage::getStoreConfig(self::XML_PATH_CONFIRMATION_FLAG) == 1
-               && $this->getSubscriberStatus()==self::STATUS_NOT_ACTIVE) {
-                   $this->sendConfirmationRequestEmail();
+            if ($isConfirmNeed) {
+                $this->sendConfirmationRequestEmail();
             } else {
                 $this->sendConfirmationSuccessEmail();
             }
@@ -453,10 +445,7 @@ class Mage_Newsletter_Model_Subscriber extends Varien_Object
         $translate->setTranslateInline(false);
 
         $email = Mage::getModel('core/email_template');
-        /* @var $email Mage_Core_Model_Email_Template */
-        if (Mage::getStoreConfigFlag(self::XML_PATH_SENDING_SET_RETURN_PATH)) {
-            $email->setReturnPath(Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_IDENTITY));
-        }
+
         $email->sendTransactional(
             Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_TEMPLATE),
             Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_IDENTITY),
@@ -485,10 +474,7 @@ class Mage_Newsletter_Model_Subscriber extends Varien_Object
         $translate->setTranslateInline(false);
 
         $email = Mage::getModel('core/email_template');
-        /* @var $email Mage_Core_Model_Email_Template */
-        if (Mage::getStoreConfigFlag(self::XML_PATH_SENDING_SET_RETURN_PATH)) {
-            $email->setReturnPath(Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_IDENTITY));
-        }
+
         $email->sendTransactional(
             Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_TEMPLATE),
             Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_IDENTITY),
@@ -516,10 +502,7 @@ class Mage_Newsletter_Model_Subscriber extends Varien_Object
         $translate->setTranslateInline(false);
 
         $email = Mage::getModel('core/email_template');
-        /* @var $email Mage_Core_Model_Email_Template */
-        if (Mage::getStoreConfigFlag(self::XML_PATH_SENDING_SET_RETURN_PATH)) {
-            $email->setReturnPath(Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY));
-        }
+
         $email->sendTransactional(
             Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_TEMPLATE),
             Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY),

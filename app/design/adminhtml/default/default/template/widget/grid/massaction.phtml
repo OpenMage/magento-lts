@@ -45,7 +45,7 @@
                     <fieldset>
                         <span class="field-row">
                             <label><?php echo $this->__('Actions') ?></label>
-                            <select id="<?php echo $this->getHtmlId() ?>-select" class="required-entry select absolute-advice">
+                            <select id="<?php echo $this->getHtmlId() ?>-select" class="required-entry select absolute-advice local-validation">
                                 <option value=""></option>
                                 <?php foreach($this->getItems() as $_item): ?>
                                     <option value="<?php echo $_item->getId() ?>"<?php echo ($_item->getSelected() ? ' selected="selected"' : '')?>><?php echo $_item->getLabel() ?></option>

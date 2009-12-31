@@ -61,7 +61,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Option_Collection extends Mage_Core
                 ->joinLeft(array('store_value'=>$this->_optionValueTable),
                     'store_value.option_id=main_table.option_id AND '.$this->getConnection()->quoteInto('store_value.store_id=?', $storeId),
                     array('store_value'=>'value',
-                    'value' => new Zend_Db_Expr('IFNULL(store_value.value,store_default_value.value)')))
+                    'value' => new Zend_Db_Expr('IF(store_value.value_id>0, store_value.value,store_default_value.value)')))
                 ->where($this->getConnection()->quoteInto('store_default_value.store_id=?', 0));
         }
         else {

@@ -49,14 +49,14 @@ class Mage_Cms_Model_Mysql4_Page extends Mage_Core_Model_Mysql4_Abstract
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+        /*
+         * For two attributes which represent datetime data in DB
+         * we should make converting such as:
+         * If they are empty we need to convert them into DB
+         * type NULL so in DB they will be empty and not some default value.
+         */
         foreach (array('custom_theme_from', 'custom_theme_to') as $dataKey) {
-            if ($date = $object->getData($dataKey)) {
-                $object->setData($dataKey, Mage::app()->getLocale()->date($date, $format, null, false)
-                    ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT)
-                );
-            }
-            else {
+            if (!$object->getData($dataKey)) {
                 $object->setData($dataKey, new Zend_Db_Expr('NULL'));
             }
         }
@@ -177,8 +177,8 @@ class Mage_Cms_Model_Mysql4_Page extends Mage_Core_Model_Mysql4_Abstract
      *  Check whether page identifier is numeric
      *
      *  @param    Mage_Core_Model_Abstract $object
-     *  @return	  bool
-     *  @date	  Wed Mar 26 18:12:28 EET 2008
+     *  @return      bool
+     *  @date      Wed Mar 26 18:12:28 EET 2008
      */
     protected function isNumericPageIdentifier (Mage_Core_Model_Abstract $object)
     {
@@ -204,6 +204,51 @@ class Mage_Cms_Model_Mysql4_Page extends Mage_Core_Model_Mysql4_Abstract
             ->where('main_table.is_active=1 AND `cps`.store_id in (0, ?) ', $storeId)
             ->order('store_id DESC');
 
+        return $this->_getReadAdapter()->fetchOne($select);
+    }
+
+    /**
+     * Retrieves cms page title from DB by passed identifier.
+     *
+     * @param string $identifier
+     * @return string|false
+     */
+    public function getCmsPageTitleByIdentifier($identifier)
+    {
+        $select = $this->_getReadAdapter()->select();
+        /* @var $select Zend_Db_Select */
+        $select->from(array('main_table' => $this->getMainTable()), 'title')
+            ->where('main_table.identifier = ?', $identifier);
+        return $this->_getReadAdapter()->fetchOne($select);
+    }
+
+    /**
+     * Retrieves cms page title from DB by passed id.
+     *
+     * @param string $id
+     * @return string|false
+     */
+    public function getCmsPageTitleById($id)
+    {
+        $select = $this->_getReadAdapter()->select();
+        /* @var $select Zend_Db_Select */
+        $select->from(array('main_table' => $this->getMainTable()), 'title')
+            ->where('main_table.page_id = ?', $id);
+        return $this->_getReadAdapter()->fetchOne($select);
+    }
+
+    /**
+     * Retrieves cms page identifier from DB by passed id.
+     *
+     * @param string $id
+     * @return string|false
+     */
+    public function getCmsPageIdentifierById($id)
+    {
+        $select = $this->_getReadAdapter()->select();
+        /* @var $select Zend_Db_Select */
+        $select->from(array('main_table' => $this->getMainTable()), 'identifier')
+            ->where('main_table.page_id = ?', $id);
         return $this->_getReadAdapter()->fetchOne($select);
     }
 

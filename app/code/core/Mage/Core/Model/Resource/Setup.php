@@ -31,6 +31,7 @@
  */
 class Mage_Core_Model_Resource_Setup
 {
+    const DEFAULT_SETUP_CONNECTION = 'core_setup';
     const VERSION_COMPARE_EQUAL   = 0;
     const VERSION_COMPARE_LOWER   = -1;
     const VERSION_COMPARE_GREATER = 1;
@@ -56,7 +57,13 @@ class Mage_Core_Model_Resource_Setup
         $config = Mage::getConfig();
         $this->_resourceName = $resourceName;
         $this->_resourceConfig = $config->getResourceConfig($resourceName);
-        $this->_connectionConfig = $config->getResourceConnectionConfig($resourceName);
+        $connection = $config->getResourceConnectionConfig($resourceName);
+        if ($connection) {
+            $this->_connectionConfig = $connection;
+        } else {
+            $this->_connectionConfig = $config->getResourceConnectionConfig(self::DEFAULT_SETUP_CONNECTION);
+        }
+        
         $modName = (string)$this->_resourceConfig->setup->module;
         $this->_moduleConfig = $config->getModuleConfig($modName);
         $this->_conn = Mage::getSingleton('core/resource')->getConnection($this->_resourceName);

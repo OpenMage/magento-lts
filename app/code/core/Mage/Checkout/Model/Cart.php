@@ -211,6 +211,24 @@ class Mage_Checkout_Model_Cart extends Varien_Object
         $product = $this->_getProduct($product);
         $request = $this->_getProductRequest($info);
 
+        //Check if current product already exists in cart
+        $productId = $product->getId();
+        $items = $this->getQuote()->getAllItems();
+        $quoteProduct = null;
+        foreach ($items as $item) {
+            if ($item->getProductId() == $productId) {
+                $quoteProduct = $item;
+                break;
+            }
+        }
+
+        if ($product->getStockItem()) {
+            $minimumQty = $product->getStockItem()->getMinSaleQty();
+            //If product was not found in cart and there is set minimal qty for it
+            if($minimumQty > 0 && $request->getQty() < $minimumQty && $quoteProduct === null){
+                $request->setQty($minimumQty);
+            }
+        }
 
         if ($product->getId()) {
 

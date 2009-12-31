@@ -46,9 +46,18 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
         return $this->getId();
     }
 
-    public function getCurrentUrl($params=array())
+    /**
+     * Get current url
+     *
+     * @param array $params url parameters
+     * @return string current url
+     */
+    public function getCurrentUrl($params = array())
     {
-        return $this->getUrl('*/*/*', array('_current'=>true));
+        if (!isset($params['_current'])) {
+            $params['_current'] = true;
+        }
+        return $this->getUrl('*/*/*', $params);
     }
 
     protected function _addBreadcrumb($label, $title=null, $link=null)

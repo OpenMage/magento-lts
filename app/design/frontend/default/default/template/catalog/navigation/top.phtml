@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php 
+<?php
 /**
  * Top menu for store
  *
@@ -34,11 +34,13 @@
 <div class="header-nav-container">
     <div class="header-nav">
         <h4 class="no-display"><?php echo $this->__('Category Navigation:') ?></h4>
-        <ul id="nav">
-        <?php foreach ($this->getStoreCategories() as $_category): ?>
-            <?php echo $this->drawItem($_category) ?>
-        <?php endforeach ?>
-        </ul>
+        <?php // if (count($this->getStoreCategories()) > 0): ?>
+            <ul id="nav">
+            <?php foreach ($this->getStoreCategories() as $_category): ?>
+                <?php echo $this->drawItem($_category) ?>
+            <?php endforeach ?>
+            </ul>
+        <?php // endif; ?>
     </div>
     <?php echo $this->getChildHtml('topLeftLinks') ?>
 </div>

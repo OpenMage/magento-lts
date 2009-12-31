@@ -85,7 +85,8 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer_Abstract extends Mage_Core_Model_My
     {
         $table = $this->getTable('eav/attribute');
         $select = $this->_getReadAdapter()->select();
-        $select->from($table, 'attribute_id');
+        $select->from(array('main_table' => $table), 'attribute_id')
+            ->join(array('additional_table' => $this->getTable('catalog/eav_attribute')), 'additional_table.attribute_id=main_table.attribute_id');
         $select->distinct(true);
 
         if (is_array($conditions)) {
@@ -111,7 +112,6 @@ class Mage_CatalogIndex_Model_Mysql4_Indexer_Abstract extends Mage_Core_Model_My
         } else {
             $select->where($conditions);
         }
-
         return $this->_getReadAdapter()->fetchCol($select);
     }
 }

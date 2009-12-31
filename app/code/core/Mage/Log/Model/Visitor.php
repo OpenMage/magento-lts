@@ -175,10 +175,15 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        $this->setLastVisitAt(now());
-        $this->save();
+        try {
+            $this->setLastVisitAt(now());
+            $this->save();
 
-        $this->_getSession()->setVisitorData($this->getData());
+            $this->_getSession()->setVisitorData($this->getData());
+        }
+        catch (Exception $e) {
+            Mage::logException($e);
+        }
         return $this;
     }
 

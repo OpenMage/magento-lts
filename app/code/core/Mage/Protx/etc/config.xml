@@ -49,20 +49,7 @@
                 <setup>
                     <module>Mage_Protx</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </protx_setup>
-            <protx_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </protx_write>
-            <protx_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </protx_read>
         </resources>
         <blocks>
             <protx><class>Mage_Protx_Block</class></protx>

@@ -108,6 +108,8 @@
             <depends>
                 <Mage_Eav />
                 <Mage_Dataflow />
+                <Mage_Cms />
+                <Mage_Index />
             </depends>
         </Mage_Catalog>
         <Mage_CatalogRule>
@@ -388,5 +390,12 @@
                 <Mage_Catalog />
             </depends>
         </Mage_GoogleBase>
+        <Mage_Index>
+            <active>true</active>
+            <codePool>core</codePool>
+            <depends>
+                <Mage_Core/>
+            </depends>
+        </Mage_Index>
     </modules>
 </config>

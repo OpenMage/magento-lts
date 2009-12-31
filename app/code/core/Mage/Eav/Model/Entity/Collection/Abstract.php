@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Entity/Attribute/Model - collection abstract
  *
@@ -811,11 +810,11 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
     }
 
     /**
-     * Retrive all ids for collection
+     * Clone and reset collection
      *
-     * @return array
+     * @return Mage_Eav_Model_Entity_Collection_Abstract
      */
-    public function getAllIds($limit=null, $offset=null)
+    protected function _getAllIdsSelect($limit=null, $offset=null)
     {
         $idsSelect = clone $this->getSelect();
         $idsSelect->reset(Zend_Db_Select::ORDER);
@@ -824,7 +823,17 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
         $idsSelect->reset(Zend_Db_Select::COLUMNS);
         $idsSelect->from(null, 'e.'.$this->getEntity()->getIdFieldName());
         $idsSelect->limit($limit, $offset);
-        return $this->getConnection()->fetchCol($idsSelect, $this->_bindParams);
+        return $idsSelect;
+    }
+
+    /**
+     * Retrive all ids for collection
+     *
+     * @return array
+     */
+    public function getAllIds($limit=null, $offset=null)
+    {
+        return $this->getConnection()->fetchCol($this->_getAllIdsSelect($limit, $offset), $this->_bindParams);
     }
 
     /**

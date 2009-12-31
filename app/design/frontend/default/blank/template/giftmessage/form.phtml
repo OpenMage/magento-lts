@@ -52,19 +52,23 @@
     </ul>
     <div class="buttons-set">
         <p class="required"><?php echo $this->__('* Required Fields') ?></p>
-        <button class="button" type="submit" name="send"><span><?php echo $this->__('Save') ?></span></button> &nbsp;
-        <button class="button listen-cancel" type="button"><span><?php echo $this->__('Cancel') ?></span></button>
+        <button class="button" type="submit" name="send"><span><span><?php echo $this->__('Save') ?></span></span></button> &nbsp;
+        <button class="button listen-cancel" type="button"><span><span><?php echo $this->__('Cancel') ?></span></span></button>
         <?php if($this->getMessage()->getGiftMessageId()): ?>
-        <button class="button listen-remove" type="button"><span><?php echo $this->__('Remove') ?></span></button>
+        <button class="button listen-remove" type="button"><span><span><?php echo $this->__('Remove') ?></span></span></button>
         <?php endif; ?>
     </div>
 </form>
 <?php elseif($this->getSaveMode()=='save'): ?>
-<h2><?php echo $this->__('Your gift message has been successfully saved') ?></h2>
-<p><button class="button" type="button" onclick="giftMessageWindowObject.close()"><span><?php echo $this->__('Close') ?></span></button></p>
+    <h2><?php echo $this->__('Your gift message has been successfully saved') ?></h2>
+    <p>
+        <button class="button" type="button" onclick="giftMessageWindowObject.close()"><span><span><?php echo $this->__('Close') ?></span></span></button>
+    </p>
 <?php else: ?>
-<h2><?php echo $this->__('Your gift message has been successfully removed') ?></h2>
-<p><button class="button" type="button" onclick="giftMessageWindowObject.close()"><span><?php echo $this->__('Close') ?></span></button></p>
+    <h2><?php echo $this->__('Your gift message has been successfully removed') ?></h2>
+    <p>
+        <button class="button" type="button" onclick="giftMessageWindowObject.close()"><span><span><?php echo $this->__('Close') ?></span></span></button>
+    </p>
 <?php endif; ?>
 <script type="text/javascript">
 //<![CDATA[

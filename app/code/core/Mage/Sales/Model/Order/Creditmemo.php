@@ -412,6 +412,10 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
             );
         }
 
+        $this->getOrder()->setBaseTotalInvoicedCost(
+            $this->getOrder()->getBaseTotalInvoicedCost()-$this->getBaseCost()
+        );
+
         $state = $this->getState();
         if (is_null($state)) {
             $this->setState(self::STATE_OPEN);

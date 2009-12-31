@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: ControllerFile.php 16972 2009-07-22 18:44:24Z ralph $
  */
 
 /**
@@ -185,13 +185,22 @@ EOS
      */
     public function addAction($actionName)
     {
-        //#require_once $this->getPath();
-        //$codeGenFile = Zend_CodeGenerator_Php_File::fromReflection(new Zend_Reflection_File($this->getPath()));
+        $class = $this->getCodeGenerator();
+        $class->setMethod(array('name' => $actionName . 'Action', 'body' => '        // action body here'));
+        file_put_contents($this->getPath(), $codeGenFile->generate());
+    }
+    
+    /**
+     * getCodeGenerator()
+     *
+     * @return Zend_CodeGenerator_Php_Class
+     */
+    public function getCodeGenerator()
+    {
         $codeGenFile = Zend_CodeGenerator_Php_File::fromReflectedFileName($this->getPath());
         $codeGenFileClasses = $codeGenFile->getClasses();
         $class = array_shift($codeGenFileClasses);
-        $class->setMethod(array('name' => $actionName . 'Action', 'body' => '        // action body here'));
-        file_put_contents($this->getPath(), $codeGenFile->generate());
+        return $class;
     }
     
 }

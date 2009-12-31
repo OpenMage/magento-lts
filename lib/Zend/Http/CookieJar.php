@@ -15,13 +15,22 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage CookieJar
- * @version    $Id: CookieJar.php 13641 2009-01-14 21:58:25Z doctorrock83 $
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com/)
+ * @version    $Id: CookieJar.php 17124 2009-07-26 09:46:42Z shahar $
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
+/**
+ * @see Zend_Uri
+ */
 #require_once "Zend/Uri.php";
+/**
+ * @see Zend_Http_Cookie
+ */
 #require_once "Zend/Http/Cookie.php";
+/**
+ * @see Zend_Http_Response
+ */
 #require_once "Zend/Http/Response.php";
 
 /**
@@ -41,14 +50,14 @@
  * (by passing Zend_Http_CookieJar::COOKIE_STRING_CONCAT).
  *
  * @link       http://wp.netscape.com/newsref/std/cookie_spec.html for some specs.
- * 
+ *
  * @category   Zend
  * @package    Zend_Http
  * @subpackage CookieJar
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com/)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Http_CookieJar implements Countable, IteratorAggregate 
+class Zend_Http_CookieJar implements Countable, IteratorAggregate
 {
     /**
      * Return cookie(s) as a Zend_Http_Cookie object
@@ -137,7 +146,7 @@ class Zend_Http_CookieJar implements Countable, IteratorAggregate
     public function addCookiesFromResponse($response, $ref_uri)
     {
         if (! $response instanceof Zend_Http_Response) {
-            #require_once 'Zend/Http/Exception.php';        
+            #require_once 'Zend/Http/Exception.php';
             throw new Zend_Http_Exception('$response is expected to be a Response object, ' .
                 gettype($response) . ' was passed');
         }
@@ -181,18 +190,13 @@ class Zend_Http_CookieJar implements Countable, IteratorAggregate
     {
         if (is_string($uri)) $uri = Zend_Uri::factory($uri);
         if (! $uri instanceof Zend_Uri_Http) {
-            #require_once 'Zend/Http/Exception.php';    
+            #require_once 'Zend/Http/Exception.php';
             throw new Zend_Http_Exception("Invalid URI string or object passed");
         }
 
-        // Set path
-        $path = $uri->getPath();
-        $path = substr($path, 0, strrpos($path, '/'));
-        if (! $path) $path = '/';
-
         // First, reduce the array of cookies to only those matching domain and path
         $cookies = $this->_matchDomain($uri->getHost());
-        $cookies = $this->_matchPath($cookies, $path);
+        $cookies = $this->_matchPath($cookies, $uri->getPath());
         $cookies = $this->_flattenCookiesArray($cookies, self::COOKIE_OBJECT);
 
         // Next, run Cookie->match on all cookies to check secure, time and session mathcing
@@ -296,17 +300,17 @@ class Zend_Http_CookieJar implements Countable, IteratorAggregate
     /**
      * Return a subset of the cookies array matching a specific domain
      *
-     * Returned array is actually an array of pointers to items in the $this->cookies array.
-     *
      * @param string $domain
      * @return array
      */
-    protected function _matchDomain($domain) {
+    protected function _matchDomain($domain)
+    {
         $ret = array();
 
         foreach (array_keys($this->cookies) as $cdom) {
-            $regex = "/" . preg_quote($cdom, "/") . "$/i";
-            if (preg_match($regex, $domain)) $ret[$cdom] = &$this->cookies[$cdom];
+            if (Zend_Http_Cookie::matchCookieDomain($cdom, $domain)) {
+                $ret[$cdom] = $this->cookies[$cdom];
+            }
         }
 
         return $ret;
@@ -315,22 +319,22 @@ class Zend_Http_CookieJar implements Countable, IteratorAggregate
     /**
      * Return a subset of a domain-matching cookies that also match a specified path
      *
-     * Returned array is actually an array of pointers to items in the $passed array.
-     *
      * @param array $dom_array
      * @param string $path
      * @return array
      */
-    protected function _matchPath($domains, $path) {
+    protected function _matchPath($domains, $path)
+    {
         $ret = array();
-        if (substr($path, -1) != '/') $path .= '/';
 
         foreach ($domains as $dom => $paths_array) {
             foreach (array_keys($paths_array) as $cpath) {
-                $regex = "|^" . preg_quote($cpath, "|") . "|i";
-                if (preg_match($regex, $path)) {
-                    if (! isset($ret[$dom])) $ret[$dom] = array();
-                    $ret[$dom][$cpath] = &$paths_array[$cpath];
+                if (Zend_Http_Cookie::matchCookiePath($cpath, $path)) {
+                    if (! isset($ret[$dom])) {
+                        $ret[$dom] = array();
+                    }
+
+                    $ret[$dom][$cpath] = $paths_array[$cpath];
                 }
             }
         }

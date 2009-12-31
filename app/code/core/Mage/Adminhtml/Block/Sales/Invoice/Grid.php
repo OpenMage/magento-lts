@@ -36,6 +36,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
     {
         parent::__construct();
         $this->setId('sales_invoice_grid');
+        $this->setUseAjax(true);
         $this->setDefaultSort('created_at');
         $this->setDefaultDir('DESC');
     }
@@ -155,7 +156,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/*', array('_current' => true));
+        return $this->getUrl('*/*/grid', array('_current' => true));
     }
 
 }

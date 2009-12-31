@@ -157,6 +157,9 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
             // Prepare customer saving data
             if (isset($data['account'])) {
+                if (isset($data['account']['email'])) {
+                    $data['account']['email'] = trim($data['account']['email']);
+                }
                 $customer->addData($data['account']);
             }
 
@@ -190,6 +193,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             $isNewCustomer = !$customer->getId();
             try {
                 if ($customer->getPassword() == 'auto') {
+                    $sendPassToEmail = true;
                     $customer->setPassword($customer->generatePassword());
                 }
 
@@ -204,14 +208,14 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
                 $customer->save();
                 // send welcome email
-                if ($customer->getWebsiteId() && $customer->hasData('sendemail')) {
-                    $store_id = $customer->getStoreId();
+                if ($customer->getWebsiteId() && ($customer->hasData('sendemail') || isset($sendPassToEmail))) {
+                    $storeId = $customer->getSendemailStoreId();
                     if ($isNewCustomer) {
-                        $customer->sendNewAccountEmail('registered', '', $store_id);
+                        $customer->sendNewAccountEmail('registered', '', $storeId);
                     }
                     // confirm not confirmed customer
                     elseif ((!$customer->getConfirmation())) {
-                        $customer->sendNewAccountEmail('confirmed', '', $store_id);
+                        $customer->sendNewAccountEmail('confirmed', '', $storeId);
                     }
                 }
 
@@ -328,7 +332,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                         ->delete();
                 }
                 catch (Exception $e) {
-                    //
+                    Mage::logException($e);
                 }
             }
         }

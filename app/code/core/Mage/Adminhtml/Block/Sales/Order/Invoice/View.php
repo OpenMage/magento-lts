@@ -54,6 +54,13 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
             );
         }
 
+        $this->addButton('send_notification', array(
+            'label'     => Mage::helper('sales')->__('Send Email'),
+            'onclick'   => 'confirmSetLocation(\'' . Mage::helper('sales')->__(
+                'Are you sure you want to send Invoice email to customer?'
+            ) . '\', \'' . $this->getEmailUrl() . '\')'
+        ));
+
         if ($this->getInvoice()->getOrder()->canCreditmemo()) {
             if ($this->getInvoice()->getOrder()->getPayment()->canRefundPartialPerInvoice()
                 || !$this->getInvoice()->getIsUsedForRefund())
@@ -151,6 +158,14 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
     public function getCancelUrl()
     {
         return $this->getUrl('*/*/cancel', array('invoice_id'=>$this->getInvoice()->getId()));
+    }
+
+    public function getEmailUrl()
+    {
+        return $this->getUrl('*/*/email', array(
+            'order_id'  => $this->getInvoice()->getOrder()->getId(),
+            'invoice_id'=> $this->getInvoice()->getId(),
+        ));
     }
 
     public function getCreditMemoUrl()

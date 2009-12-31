@@ -486,11 +486,20 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                     $quoteItemOption = $this->getProduct($product)->getCustomOption('option_'.$optionId);
 
                     $group = $option->groupFactory($option->getType())
-                        ->setOption($option);
+                        ->setOption($option)->setListener(new Varien_Object());
 
                     if ($optionSku = $group->getOptionSku($quoteItemOption->getValue(), $skuDelimiter)) {
                         $sku .= $skuDelimiter . $optionSku;
                     }
+
+                    if ($group->getListener()->getHasError()) {
+                        $this->getProduct($product)
+                                ->setHasError(true)
+                                ->setMessage(
+                                    $group->getListener()->getMessage()
+                                );
+                    }
+
                 }
             }
         }

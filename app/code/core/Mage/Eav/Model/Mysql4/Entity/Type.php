@@ -55,4 +55,18 @@ class Mage_Eav_Model_Mysql4_Entity_Type extends Mage_Core_Model_Mysql4_Abstract
         return $this->load($object, $code, 'entity_type_code');
     }
 
+    /**
+     * Retrieve additional attribute table name for specified entity type
+     *
+     * @param integer $entityTypeId
+     * @return string
+     */
+    public function getAdditionalAttributeTable($entityTypeId)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getMainTable(), array('additional_attribute_table'))
+            ->where('entity_type_id = ?', $entityTypeId);
+        return $this->_getReadAdapter()->fetchOne($select);
+    }
+
 }

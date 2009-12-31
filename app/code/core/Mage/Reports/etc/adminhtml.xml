@@ -1,0 +1,300 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <menu>
+        <report translate="title" module="reports">
+            <title>Reports</title>
+            <sort_order>80</sort_order>
+            <children>
+                <salesroot translate="title" module="reports">
+                    <title>Sales</title>
+                    <children>
+                        <sales translate="title" module="reports">
+                            <title>Sales Report</title>
+                            <action>adminhtml/report_sales/sales</action>
+                        </sales>
+                        <tax translate="title" module="reports">
+                            <title>Tax</title>
+                            <action>adminhtml/report_sales/tax</action>
+                        </tax>
+                        <shipping translate="title" module="reports">
+                            <title>Shipping</title>
+                            <action>adminhtml/report_sales/shipping</action>
+                        </shipping>
+                        <invoiced translate="title" module="reports">
+                            <title>Total invoiced</title>
+                            <action>adminhtml/report_sales/invoiced</action>
+                        </invoiced>
+                        <refunded translate="title" module="reports">
+                            <title>Total refunded</title>
+                            <action>adminhtml/report_sales/refunded</action>
+                        </refunded>
+                         <coupons translate="title" module="reports">
+                            <title>Coupons</title>
+                            <action>adminhtml/report_sales/coupons</action>
+                        </coupons>
+                    </children>
+                </salesroot>
+                <shopcart translate="title" module="reports">
+                    <title>Shopping Cart</title>
+                    <children>
+                        <product translate="title" module="reports">
+                            <title>Products in carts</title>
+                            <action>adminhtml/report_shopcart/product</action>
+                        </product>
+                        <abandoned translate="title" module="reports">
+                            <title>Abandoned carts</title>
+                            <action>adminhtml/report_shopcart/abandoned</action>
+                        </abandoned>
+                        <!--<customer translate="title" module="reports">
+                            <title>Customers</title>
+                            <action>adminhtml/report_shopcart/customer</action>
+                        </customer>-->
+                    </children>
+                </shopcart>
+                <products translate="title" module="reports">
+                    <title>Products</title>
+                    <children>
+                        <ordered translate="title" module="reports">
+                            <title>Bestsellers</title>
+                            <action>adminhtml/report_product/ordered</action>
+                        </ordered>
+                        <sold translate="title" module="reports">
+                            <title>Products Ordered</title>
+                            <action>adminhtml/report_product/sold</action>
+                        </sold>
+                        <viewed translate="title" module="reports">
+                            <title>Most Viewed</title>
+                            <action>adminhtml/report_product/viewed</action>
+                        </viewed>
+                        <lowstock translate="title" module="reports">
+                            <title>Low stock</title>
+                            <action>adminhtml/report_product/lowstock</action>
+                        </lowstock>
+                        <downloads translate="title" module="reports">
+                            <title>Downloads</title>
+                            <action>adminhtml/report_product/downloads</action>
+                        </downloads>
+                    </children>
+                </products>
+                <customers translate="title" module="reports">
+                    <title>Customers</title>
+                    <children>
+                        <accounts translate="title" module="reports">
+                            <title>New Accounts</title>
+                            <action>adminhtml/report_customer/accounts</action>
+                        </accounts>
+                        <totals translate="title" module="reports">
+                            <title>Customers by orders total</title>
+                            <action>adminhtml/report_customer/totals</action>
+                        </totals>
+                        <orders translate="title" module="reports">
+                            <title>Customers by number of orders</title>
+                            <action>adminhtml/report_customer/orders</action>
+                        </orders>
+                    </children>
+                </customers>
+                <!--wishlist translate="title" module="reports">
+                    <title>Wishlist Report</title>
+                    <action>adminhtml/report/wishlist</action>
+                </wishlist>-->
+                <review translate="title" module="catalog">
+                    <title>Reviews</title>
+                    <children>
+                        <customer translate="title" module="catalog">
+                            <title>Customers Reviews</title>
+                            <action>adminhtml/report_review/customer</action>
+                        </customer>
+                        <product translate="title" module="catalog">
+                            <title>Products Reviews</title>
+                            <action>adminhtml/report_review/product</action>
+                        </product>
+                    </children>
+                </review>
+                <tags translate="title" module="tag">
+                    <title>Tags</title>
+                    <children>
+                        <customer translate="title" module="tag">
+                            <title>Customers</title>
+                            <action>adminhtml/report_tag/customer</action>
+                        </customer>
+                        <product translate="title" module="tag">
+                            <title>Products</title>
+                            <action>adminhtml/report_tag/product</action>
+                        </product>
+                        <!--<product_total>
+                            <title>Products (Total)</title>
+                            <action>adminhtml/report_tag/productAll</action>
+                        </product_total>-->
+                        <popular translate="title" module="tag">
+                            <title>Popular</title>
+                            <action>adminhtml/report_tag/popular</action>
+                        </popular>
+                    </children>
+                </tags>
+                <search translate="title" module="reports">
+                    <title>Search Terms</title>
+                    <action>adminhtml/report/search</action>
+                </search>
+                <!--<customers translate="title" module="reports">
+                    <title>Best Customers</title>
+                    <action>adminhtml/report/customers</action>
+                </customers>
+                <orders translate="title" module="reports">
+                    <title>Recent Orders</title>
+                    <action>adminhtml/report/orders</action>
+                </orders>
+                <totals translate="title" module="reports">
+                    <title>Order Totals</title>
+                    <action>adminhtml/report/totals</action>
+                </totals>-->
+            </children>
+        </report>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <report translate="title" module="reports">
+                        <title>Reports</title>
+                        <sort_order>80</sort_order>
+                        <children>
+                            <salesroot translate="title">
+                                <title>Sales</title>
+                                <children>
+                                    <sales translate="title">
+                                        <title>Sales Report</title>
+                                    </sales>
+                                    <tax translate="title">
+                                        <title>Tax</title>
+                                    </tax>
+                                    <shipping translate="title">
+                                        <title>Shipping</title>
+                                    </shipping>
+                                    <invoiced translate="title">
+                                        <title>Total invoiced</title>
+                                    </invoiced>
+                                    <refunded translate="title">
+                                        <title>Total refunded</title>
+                                    </refunded>
+                                     <coupons translate="title">
+                                        <title>Coupons</title>
+                                    </coupons>
+                                </children>
+                            </salesroot>
+                            <shopcart translate="title">
+                                <title>Shopping Cart</title>
+                                <children>
+                                    <product translate="title">
+                                        <title>Products in carts</title>
+                                    </product>
+                                    <abandoned translate="title">
+                                        <title>Abandoned carts</title>
+                                    </abandoned>
+                                </children>
+                            </shopcart>
+                            <products translate="title">
+                                <title>Products</title>
+                                <children>
+                                    <ordered translate="title">
+                                        <title>Bestsellers</title>
+                                    </ordered>
+                                    <sold translate="title">
+                                        <title>Products Ordered</title>
+                                    </sold>
+                                    <viewed translate="title">
+                                        <title>Most Viewed</title>
+                                    </viewed>
+                                    <lowstock translate="title">
+                                        <title>Low stock</title>
+                                    </lowstock>
+                                    <downloads translate="title">
+                                        <title>Downloads</title>
+                                    </downloads>
+                                </children>
+                            </products>
+                            <customers translate="title">
+                                <title>Customers</title>
+                                <children>
+                                    <accounts translate="title">
+                                        <title>New Accounts</title>
+                                    </accounts>
+                                    <totals translate="title">
+                                        <title>Customers by orders total</title>
+                                    </totals>
+                                    <orders translate="title">
+                                        <title>Customers by number of orders</title>
+                                    </orders>
+                                </children>
+                            </customers>
+                            <review translate="title" module="catalog">
+                                <title>Reviews</title>
+                                <children>
+                                    <customer translate="title">
+                                        <title>Customers Reviews</title>
+                                    </customer>
+                                    <product translate="title">
+                                        <title>Products Reviews</title>
+                                    </product>
+                                </children>
+                            </review>
+                            <tags translate="title" module="tag">
+                                <title>Tags</title>
+                                <children>
+                                    <customer translate="title" module="tag">
+                                        <title>Customers</title>
+                                    </customer>
+                                    <popular translate="title" module="tag">
+                                        <title>Popular</title>
+                                    </popular>
+                                    <product translate="title" module="tag">
+                                        <title>Products</title>
+                                    </product>
+                                </children>
+                            </tags>
+                            <search translate="title">
+                                <title>Search Terms</title>
+                            </search>
+                        </children>
+                    </report>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <reports translate="title" module="reports">
+                                        <title>Reports</title>
+                                    </reports>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

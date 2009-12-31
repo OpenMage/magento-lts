@@ -61,26 +61,12 @@
                 <setup>
                     <module>Mage_Strikeiron</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </strikeiron_setup>
-            <strikeiron_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </strikeiron_write>
-            <strikeiron_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </strikeiron_read>
         </resources>
         <events>
             <customer_save_before>
                 <observers>
                     <strikeiron_email_validation>
-                        <type>singleton</type>
                         <class>strikeiron/strikeiron</class>
                         <method>customerSaveBeforeObserver</method>
                     </strikeiron_email_validation>
@@ -89,7 +75,6 @@
             <customer_address_save_before>
                 <observers>
                     <strikeiron_address_validation>
-                        <type>singleton</type>
                         <class>strikeiron/strikeiron</class>
                         <method>addressSaveBeforeObserver</method>
                     </strikeiron_address_validation>
@@ -98,7 +83,6 @@
             <tax_rate_data_fetch>
                 <observers>
                     <strikeiron_tax_rate_fetch>
-                        <type>singleton</type>
                         <class>strikeiron/strikeiron</class>
                         <method>getTaxRate</method>
                     </strikeiron_tax_rate_fetch>
@@ -132,26 +116,6 @@
         </strikeiron>
     </default>
     <adminhtml>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <strikeiron module="strikeiron" translate="title">
-                                            <title>Strikeiron Section</title>
-                                            <sort_order>75</sort_order>
-                                        </strikeiron>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
         <translate>
             <modules>
                 <Mage_Strikeiron>

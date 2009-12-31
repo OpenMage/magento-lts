@@ -490,7 +490,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     {
         $state = Mage_Sales_Model_Order::STATE_PENDING_PAYMENT;
         $stateObject->setState($state);
-        $stateObject->setStatus(Mage::getSingleton('sales/order_config')->getStateDefaultStatus($state));
+        $stateObject->setStatus('pending_paypal');
         $stateObject->setIsNotified(false);
     }
 }

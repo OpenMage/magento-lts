@@ -17,7 +17,7 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Directory.php 16972 2009-07-22 18:44:24Z ralph $
  */
 
 /**
@@ -60,7 +60,7 @@ abstract class Zend_Tool_Project_Context_Filesystem_Directory extends Zend_Tool_
 
         return $this;
     }
-    
+
     /**
      * delete()
      *

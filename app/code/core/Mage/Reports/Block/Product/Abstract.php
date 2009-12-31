@@ -111,7 +111,9 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
                 ->addAttributeToSelect($attributes)
                 ->addIndexFilter()
                 ->excludeProductIds($this->_getModel()->getExcludeProductIds())
-                ->setAddedAtOrder();
+                ->setAddedAtOrder()
+                ->setPageSize($this->getPageSize())
+                ->setCurPage(1);
 
             Mage::getSingleton('catalog/product_visibility')
                 ->addVisibleInSiteFilterToCollection($this->_collection);

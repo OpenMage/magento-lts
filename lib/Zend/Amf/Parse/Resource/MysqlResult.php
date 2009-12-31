@@ -15,8 +15,9 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage Parse
- * @copyright  Copyright (c) 2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: MysqlResult.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /**
@@ -25,7 +26,7 @@
  *
  * @package    Zend_Amf
  * @subpackage Parse
- * @copyright  Copyright (c) 2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Parse_Resource_MysqlResult 
@@ -58,9 +59,9 @@ class Zend_Amf_Parse_Resource_MysqlResult
             }
         }
 
-        while($row = mysql_fetch_assoc($resource)) {
+        while($row = mysql_fetch_object($resource)) {
             foreach($fields_transform as $fieldname => $fieldtype) {
-               settype($row[$fieldname], $fieldtype);
+               settype($row->$fieldname, $fieldtype);
             }
             $result[] = $row;
         }

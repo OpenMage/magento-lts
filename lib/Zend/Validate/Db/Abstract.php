@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: $
+ * @version    $Id: Abstract.php 17160 2009-07-26 19:46:24Z bittarman $
  */  
   
 /**
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_Validate
  * @uses       Zend_Validate_Abstract
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */  
 abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract    
@@ -47,7 +47,12 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
      */    
     protected $_messageTemplates = array(self::ERROR_NO_RECORD_FOUND => 'No record matching %value% was found', 
                                          self::ERROR_RECORD_FOUND    => 'A record matching %value% was found');     
- 
+
+    /**
+     * @var string
+     */ 
+    protected $_schema = null;
+     
     /**
      * @var string
      */    
@@ -57,7 +62,7 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
      * @var string
      */    
     protected $_field = '';    
-       
+    
     /**
      * @var mixed
      */   
@@ -77,7 +82,7 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
      * to define the where clause added to the sql.  
      * A database adapter may optionally be supplied to avoid using the registered default adapter. 
      * 
-     * @param string $table The database table to validate against
+     * @param string||array $table The database table to validate against, or array with table and schema keys
      * @param string $field The field to check for a match
      * @param string||array $exclude An optional where clause or field/value pair to exclude from the query
      * @param Zend_Db_Adapter_Abstract $adapter An optional database adapter to use.
@@ -88,8 +93,15 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
             $this->_adapter = $adapter;    
         }   
         $this->_exclude = $exclude;   
-        $this->_table   = (string) $table;    
         $this->_field   = (string) $field;   
+        
+        if (is_array($table)) {
+            $this->_table  = (isset($table['table'])) ? $table['table'] : '';
+            $this->_schema = (isset($table['schema'])) ? $table['schema'] : null;                
+        } else {
+            $this->_table = (string) $table;            
+        }
+
     }  
      
     /**
@@ -103,15 +115,19 @@ abstract class Zend_Validate_Db_Abstract extends Zend_Validate_Abstract
         /**
          * Check for an adapter being defined. if not, fetch the default adapter.
          */ 
-        if($this->_adapter === null) {
+        if ($this->_adapter === null) {
             $this->_adapter = Zend_Db_Table_Abstract::getDefaultAdapter();
+            if (null === $this->_adapter) {
+                #require_once 'Zend/Validate/Exception.php';
+                throw new Zend_Validate_Exception('No database adapter present');
+            }
         }
 
         /**
          * Build select object
          */ 
         $select = new Zend_Db_Select($this->_adapter);
-        $select->from($this->_table, array($this->_field))
+        $select->from($this->_table, array($this->_field), $this->_schema)
                ->where($this->_adapter->quoteIdentifier($this->_field).' = ?', $value); 
         if ($this->_exclude !== null) { 
             if (is_array($this->_exclude)) { 

@@ -80,7 +80,8 @@
     <div class="button-set">
 
         <a href="<?php echo $this->getBackUrl() ?>" class="f-left">&laquo; <?php echo $this->__('Back') ?></a>
-        <a href="#" onclick="setLocation('<?php echo $this->getUrl('*/*/share') ?>')"><img src="<?php echo $this->getSkinUrl('images/btn_share_wishlist.gif');?>" alt="<?php echo $this->__('Share Wishlist') ?>" class="v-middle"/></a>
+        <input onclick="javascript:$('sAs').disabled = false" type="image" src="<?php echo $this->getSkinUrl('images/btn_share_wishlist.gif');?>" alt="<?php echo $this->__('Share Wishlist') ?>"/>
+        <input id="sAs" type="hidden" name="save_and_share" disabled="disabled" />
         <?php if($this->isSaleable()):?>
         &nbsp;<a href="<?php echo $this->getUrl('*/*/allcart') ?>"><img src="<?php echo $this->getSkinUrl('images/btn_add_all_to_cart.gif');?>" alt="<?php echo $this->__('Add All to Cart') ?>" class="v-middle"/></a>&nbsp;
         <?php endif;?>

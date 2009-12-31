@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tag
  * @subpackage Cloud
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlCloud.php 15122 2009-04-23 22:05:33Z dasprid $
+ * @version    $Id: HtmlCloud.php 16357 2009-06-29 23:04:14Z dasprid $
  */
 
 /**
@@ -31,7 +31,7 @@
  * @category  Zend
  * @package   Zend_Tag
  * @uses      Zend_Tag_Cloud_Decorator_Cloud
- * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
@@ -50,7 +50,7 @@ class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
      *
      * @var string
      */
-    protected $_separator = '';
+    protected $_separator = ' ';
     
     /**
      * Set the HTML tags surrounding all tags

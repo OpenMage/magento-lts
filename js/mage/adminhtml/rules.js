@@ -38,7 +38,6 @@ VarienRulesForm.prototype = {
 
     initParam: function (container) {
         container.rulesObject = this;
-
         var label = Element.down(container, '.label');
         if (label) {
             Event.observe(label, 'click', this.showParamInputField.bind(this, container));
@@ -55,7 +54,8 @@ VarienRulesForm.prototype = {
             if (apply) {
                 Event.observe(apply, 'click', this.hideParamInputField.bind(this, container));
             } else {
-                elem = elem.down();
+                elem = elem.down('.element-value-changer');
+                elem.container = container; 
                 if (!elem.multiple) {
                     Event.observe(elem, 'change', this.hideParamInputField.bind(this, container));
                 }
@@ -71,11 +71,15 @@ VarienRulesForm.prototype = {
 
     showChooserElement: function (chooser) {
         this.chooserSelectedItems = $H({});
-        var values = this.updateElement.value.split(','), s='';
-        for (i=0; i<values.length; i++) {
-            s = values[i].strip();
-            if (s!='') {
-               this.chooserSelectedItems.set(s,1);
+        if (chooser.hasClassName('no-split')) {
+            this.chooserSelectedItems.set(this.updateElement.value, 1);
+        } else {
+            var values = this.updateElement.value.split(','), s = '';
+            for (i=0; i<values.length; i++) {
+                s = values[i].strip();
+                if (s!='') {
+                   this.chooserSelectedItems.set(s,1);
+                }
             }
         }
         new Ajax.Request(chooser.getAttribute('url'), {
@@ -150,7 +154,7 @@ VarienRulesForm.prototype = {
 
         var elem = Element.down(elemContainer, 'input.input-text');
         if (elem) {
-            elem.focus();
+        	elem.focus();
             if (elem && elem.id && elem.id.match(/__value$/)) {
                 this.updateElement = elem;
                 //this.showChooser(container, event);
@@ -158,7 +162,7 @@ VarienRulesForm.prototype = {
 
         }
 
-        var elem = Element.down(elemContainer, 'select');
+        var elem = Element.down(elemContainer, '.element-value-changer');
         if (elem) {
            elem.focus();
            // trying to emulate enter to open dropdown
@@ -183,7 +187,7 @@ VarienRulesForm.prototype = {
         var label = Element.down(container, '.label'), elem;
 
         if (!container.hasClassName('rule-param-new-child')) {
-            elem = Element.down(container, 'select');
+            elem = Element.down(container, '.element-value-changer');
             if (elem && elem.options) {
                 var selectedOptions = [];
                 for (i=0; i<elem.options.length; i++) {
@@ -212,12 +216,10 @@ VarienRulesForm.prototype = {
                 label.innerHTML = str;
             }
         } else {
-            elem = Element.down(container, 'select');
-
+            elem = Element.down(container, '.element-value-changer');
             if (elem.value) {
                 this.addRuleNewChild(elem);
             }
-
             elem.value = '';
         }
 

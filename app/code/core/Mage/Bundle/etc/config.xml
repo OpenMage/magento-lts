@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Bundle>
-            <version>0.1.8</version>
+            <version>0.1.10</version>
         </Mage_Bundle>
     </modules>
     <global>
@@ -61,20 +61,7 @@
                     <module>Mage_Bundle</module>
                     <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </bundle_setup>
-            <bundle_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </bundle_write>
-            <bundle_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </bundle_read>
         </resources>
         <blocks>
             <bundle><class>Mage_Bundle_Block</class></bundle>
@@ -93,6 +80,8 @@
                         <price_model>bundle/product_price</price_model>
                         <index_data_retreiver>bundle/catalogIndex_data_bundle</index_data_retreiver>
                         <index_priority>40</index_priority>
+                        <price_indexer>bundle/indexer_price</price_indexer>
+                        <stock_indexer>bundle/indexer_stock</stock_indexer>
                     </bundle>
                 </type>
                 <options>
@@ -142,7 +131,6 @@
             <catalogindex_plain_reindex_after>
                 <observers>
                     <bundle>
-                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>catalogIndexPlainReindexAfter</method>
                     </bundle>
@@ -179,7 +167,6 @@
             <catalog_product_upsell>
                 <observers>
                     <bundle_observer>
-                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>appendUpsellProducts</method>
                     </bundle_observer>
@@ -188,7 +175,6 @@
             <sales_convert_quote_item_to_order_item>
                 <observers>
                     <bundle_observer>
-                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>appendBundleSelectionData</method>
                     </bundle_observer>
@@ -197,7 +183,6 @@
             <catalog_product_collection_load_after>
                 <observers>
                     <bundle_observer>
-                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>loadProductOptions</method>
                     </bundle_observer>
@@ -206,7 +191,6 @@
             <catalog_product_load_after>
                 <observers>
                     <bundle_observer>
-                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>catalogProductLoadAfter</method>
                     </bundle_observer>
@@ -260,7 +244,6 @@
             <catalog_product_prepare_save>
                 <observers>
                     <bundle_observer>
-                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>prepareProductSave</method>
                     </bundle_observer>
@@ -269,7 +252,6 @@
             <sales_convert_quote_item_to_order_item>
                 <observers>
                     <bundle_observer>
-                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>appendBundleSelectionData</method>
                     </bundle_observer>
@@ -278,7 +260,6 @@
             <catalog_model_product_duplicate>
                 <observers>
                     <bundle_observer>
-                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>duplicateProduct</method>
                     </bundle_observer>
@@ -287,7 +268,6 @@
             <catalog_product_edit_action>
                 <observers>
                     <bundle_observer>
-                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>setAttributeTabBlock</method>
                     </bundle_observer>
@@ -296,7 +276,6 @@
             <catalog_product_new_action>
                 <observers>
                     <bundle_observer>
-                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>setAttributeTabBlock</method>
                     </bundle_observer>

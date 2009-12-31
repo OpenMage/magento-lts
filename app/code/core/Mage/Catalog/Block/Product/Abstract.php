@@ -90,7 +90,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     public function getMinimalQty($product)
     {
         if ($stockItem = $product->getStockItem()) {
-            return $stockItem->getMinSaleQty()>1 ? $stockItem->getMinSaleQty()*1 : null;
+            return $stockItem->getMinSaleQty()>0 ? $stockItem->getMinSaleQty()*1 : null;
         }
         return null;
     }

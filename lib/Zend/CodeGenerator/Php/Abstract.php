@@ -17,7 +17,7 @@
  * @subpackage PHP
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Abstract.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /**
@@ -33,7 +33,13 @@
  */
 abstract class Zend_CodeGenerator_Php_Abstract extends Zend_CodeGenerator_Abstract
 {
-   
+
+    /**
+     * Line feed to use in place of EOL
+     *
+     */
+    const LINE_FEED = "\n";
+    
     /**
      * @var bool
      */

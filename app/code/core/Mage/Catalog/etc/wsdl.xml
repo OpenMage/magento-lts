@@ -374,9 +374,10 @@
     </message>
     <message name="catalogProductInfoRequest">
         <part name="sessionId" type="xsd:string" />
-        <part name="productId" type="xsd:string" />
+        <part name="product" type="xsd:string" />
         <part name="storeView" type="xsd:string" />
         <part name="attributes" type="typens:catalogProductRequestAttributes" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductInfoResponse">
         <part name="info" type="typens:catalogProductReturnEntity" />
@@ -396,6 +397,7 @@
         <part name="product" type="xsd:string" />
         <part name="productData" type="typens:catalogProductCreateEntity" />
         <part name="storeView" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductUpdateResponse">
         <part name="result" type="xsd:int" />
@@ -407,6 +409,7 @@
         <part name="fromDate" type="xsd:string" />
         <part name="toDate" type="xsd:string" />
         <part name="storeView" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductSetSpecialPriceResponse">
         <part name="result" type="xsd:int" />
@@ -415,6 +418,7 @@
         <part name="sessionId" type="xsd:string" />
         <part name="product" type="xsd:string" />
         <part name="storeView " type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductGetSpecialPriceResponse">
         <part name="result" type="typens:catalogProductReturnEntity" />
@@ -422,6 +426,7 @@
     <message name="catalogProductDeleteRequest">
         <part name="sessionId" type="xsd:string" />
         <part name="product" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductDeleteResponse">
         <part name="result" type="xsd:int" />
@@ -455,15 +460,17 @@
     </message>
     <message name="catalogProductAttributeTierPriceInfoRequest">
         <part name="sessionId" type="xsd:string" />
-        <part name="sku" type="xsd:string" />
+        <part name="product" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductAttributeTierPriceInfoResponse">
         <part name="result" type="typens:catalogProductTierPriceEntityArray" />
     </message>
     <message name="catalogProductAttributeTierPriceUpdateRequest">
         <part name="sessionId" type="xsd:string" />
-        <part name="productId" type="xsd:string" />
+        <part name="product" type="xsd:string" />
         <part name="tier_price" type="typens:catalogProductTierPriceEntityArray" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductAttributeTierPriceUpdateResponse">
         <part name="result" type="xsd:int" />
@@ -472,6 +479,7 @@
         <part name="sessionId" type="xsd:string" />
         <part name="product" type="xsd:string" />
         <part name="storeView" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductAttributeMediaListResponse">
         <part name="result" type="typens:catalogProductImageEntityArray" />
@@ -481,6 +489,7 @@
         <part name="product" type="xsd:string" />
         <part name="file" type="xsd:string" />
         <part name="storeView" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductAttributeMediaInfoResponse">
         <part name="result" type="typens:catalogProductImageEntity" />
@@ -497,6 +506,7 @@
         <part name="product" type="xsd:string" />
         <part name="data" type="typens:catalogProductAttributeMediaCreateEntity" />
         <part name="storeView" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductAttributeMediaCreateResponse">
         <part name="result" type="xsd:string" />
@@ -507,6 +517,7 @@
         <part name="file" type="xsd:string" />
         <part name="data" type="typens:catalogProductAttributeMediaCreateEntity" />
         <part name="storeView" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductAttributeMediaUpdateResponse">
         <part name="result" type="xsd:int" />
@@ -515,6 +526,7 @@
         <part name="sessionId" type="xsd:string" />
         <part name="product" type="xsd:string" />
         <part name="file" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductAttributeMediaRemoveResponse">
         <part name="result" type="xsd:int" />
@@ -523,6 +535,7 @@
         <part name="sessionId" type="xsd:string" />
         <part name="type" type="xsd:string" />
         <part name="product" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductLinkListResponse">
         <part name="result" type="typens:catalogProductLinkEntityArray" />
@@ -533,6 +546,7 @@
         <part name="product" type="xsd:string" />
         <part name="linkedProduct" type="xsd:string" />
         <part name="data" type="typens:catalogProductLinkEntity" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductLinkAssignResponse">
         <part name="result" type="xsd:string" />
@@ -543,6 +557,7 @@
         <part name="product" type="xsd:string" />
         <part name="linkedProduct" type="xsd:string" />
         <part name="data" type="typens:catalogProductLinkEntity" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductLinkUpdateResponse">
         <part name="result" type="xsd:string" />
@@ -552,6 +567,7 @@
         <part name="type" type="xsd:string" />
         <part name="product" type="xsd:string" />
         <part name="linkedProduct" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductLinkRemoveResponse">
         <part name="result" type="xsd:string" />
@@ -648,6 +664,7 @@
         <part name="categoryId" type="xsd:int" />
         <part name="product" type="xsd:string" />
         <part name="position" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogCategoryAssignProductResponse">
         <part name="result" type="xsd:boolean" />
@@ -657,6 +674,7 @@
         <part name="categoryId" type="xsd:int" />
         <part name="product" type="xsd:string" />
         <part name="position" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogCategoryUpdateProductResponse">
         <part name="result" type="xsd:boolean" />
@@ -665,6 +683,7 @@
         <part name="sessionId" type="xsd:string" />
         <part name="categoryId" type="xsd:int" />
         <part name="product" type="xsd:string" />
+        <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogCategoryRemoveProductResponse">
         <part name="result" type="xsd:boolean" />

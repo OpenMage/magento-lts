@@ -108,13 +108,13 @@
 <div class="col2-set">
     <div class="col-1">
         <div class="buttons-set">
-            <button type="button" class="button" onclick="checkout.setMethod();"><span><?php echo ($this->getQuote()->isAllowedGuestCheckout() ? $this->__('Continue') : $this->__('Register')) ?></span></button>
+            <button type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo ($this->getQuote()->isAllowedGuestCheckout() ? $this->__('Continue') : $this->__('Register')) ?></span></span></button>
         </div>
     </div>
     <div class="col-2">
         <div class="buttons-set">
             <a href="<?php echo $this->getUrl('customer/account/forgotpassword') ?>" class="f-left"><?php echo $this->__('Forgot your password?') ?></a>
-            <button type="submit" class="button" onclick="onepageLogin(this)"><span><?php echo $this->__('Login') ?></span></button>
+            <button type="submit" class="button" onclick="onepageLogin(this)"><span><span><?php echo $this->__('Login') ?></span></span></button>
         </div>
     </div>
 </div>

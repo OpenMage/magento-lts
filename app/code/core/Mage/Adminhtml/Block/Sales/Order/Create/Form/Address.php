@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
             $addressModel = Mage::getModel('customer/address');
 
             foreach ($addressModel->getAttributes() as $attribute) {
-                if (!$attribute->getIsVisible()) {
+                if ($attribute->hasData('is_visible') && !$attribute->getIsVisible()) {
                     continue;
                 }
                 if ($inputType = $attribute->getFrontend()->getInputType()) {
@@ -96,9 +96,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
 
             if ($regionElement = $this->_form->getElement('region')) {
                 $regionElement->setRenderer(
-                    $this->getLayout()
-                        ->createBlock('adminhtml/customer_edit_renderer_region')
-                        ->setStoreId($this->getStoreId())
+                    $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_region')
                 );
             }
             if ($regionElement = $this->_form->getElement('region_id')) {

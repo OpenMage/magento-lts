@@ -44,9 +44,6 @@
                 <setup>
                     <module>Mage_Payment</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </payment_setup>
         </resources>
 
@@ -93,7 +90,6 @@
             <sales_order_save_before>
                 <observers>
                     <payment_sales_order_save_before>
-                        <type>singleton</type>
                         <class>payment/observer</class>
                         <method>salesOrderBeforeSave</method>
                     </payment_sales_order_save_before>
@@ -124,25 +120,6 @@
                 </Mage_Payment>
             </modules>
         </translate>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <payment translate="title" module="payment">
-                                            <title>Payment Methods Section</title>
-                                        </payment>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
    </adminhtml>
 
     <default>

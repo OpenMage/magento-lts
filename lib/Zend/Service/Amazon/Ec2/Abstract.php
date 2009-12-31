@@ -17,7 +17,7 @@
  * @subpackage Ec2
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Abstract.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 #require_once 'Zend/Service/Amazon/Abstract.php';
@@ -32,7 +32,7 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage Ec2
- * @copyright  Copyright (c) 22005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Service_Amazon_Ec2_Abstract extends Zend_Service_Amazon_Abstract
@@ -40,27 +40,27 @@ abstract class Zend_Service_Amazon_Ec2_Abstract extends Zend_Service_Amazon_Abst
     /**
      * The HTTP query server
      */
-    const EC2_ENDPOINT = 'ec2.amazonaws.com';
+    protected $_ec2Endpoint = 'ec2.amazonaws.com';
 
     /**
      * The API version to use
      */
-    const EC2_API_VERSION = '2008-12-01';
+    protected $_ec2ApiVersion = '2009-04-04';
 
     /**
      * Signature Version
      */
-    const EC2_SIGNATURE_VERSION = '2';
+    protected $_ec2SignatureVersion = '2';
 
     /**
      * Signature Encoding Method
      */
-    const EC2_SIGNATURE_METHOD = 'HmacSHA256';
+    protected $_ec2SignatureMethod = 'HmacSHA256';
 
     /**
      * Period after which HTTP request will timeout in seconds
      */
-    const HTTP_TIMEOUT = 10;
+    protected $_httpTimeout = 10;
 
     /**
      * Sends a HTTP request to the queue service using Zend_Http_Client
@@ -71,17 +71,17 @@ abstract class Zend_Service_Amazon_Ec2_Abstract extends Zend_Service_Amazon_Abst
      */
     protected function sendRequest(array $params = array())
     {
-        $url = 'https://' . $this->_getRegion() . self::EC2_ENDPOINT . '/';
+        $url = 'https://' . $this->_getRegion() . $this->_ec2Endpoint . '/';
 
         $params = $this->addRequiredParameters($params);
 
         try {
             /* @var $request Zend_Http_Client */
             $request = self::getHttpClient();
-			$request->resetParameters();
+            $request->resetParameters();
 
             $request->setConfig(array(
-                'timeout' => self::HTTP_TIMEOUT
+                'timeout' => $this->_httpTimeout
             ));
 
             $request->setUri($url);
@@ -95,7 +95,6 @@ abstract class Zend_Service_Amazon_Ec2_Abstract extends Zend_Service_Amazon_Abst
             $message = 'Error in request to AWS service: ' . $zhce->getMessage();
             throw new Zend_Service_Amazon_Ec2_Exception($message, $zhce->getCode());
         }
-
         $response = new Zend_Service_Amazon_Ec2_Response($httpResponse);
         $this->checkForErrors($response);
 
@@ -124,10 +123,10 @@ abstract class Zend_Service_Amazon_Ec2_Abstract extends Zend_Service_Amazon_Abst
     protected function addRequiredParameters(array $parameters)
     {
         $parameters['AWSAccessKeyId']   = $this->_getAccessKey();
-        $parameters['SignatureVersion'] = self::EC2_SIGNATURE_VERSION;
-        $parameters['Expires']          = gmdate('c');
-        $parameters['Version']          = self::EC2_API_VERSION;
-        $parameters['SignatureMethod']  = self::EC2_SIGNATURE_METHOD;
+        $parameters['SignatureVersion'] = $this->_ec2SignatureVersion;
+        $parameters['Timestamp']        = gmdate('Y-m-d\TH:i:s\Z');
+        $parameters['Version']          = $this->_ec2ApiVersion;
+        $parameters['SignatureMethod']  = $this->_ec2SignatureMethod;
         $parameters['Signature']        = $this->signParameters($parameters);
 
         return $parameters;
@@ -156,7 +155,7 @@ abstract class Zend_Service_Amazon_Ec2_Abstract extends Zend_Service_Amazon_Abst
     protected function signParameters(array $paramaters)
     {
         $data = "POST\n";
-        $data .= $this->_getRegion() . self::EC2_ENDPOINT . "\n";
+        $data .= $this->_getRegion() . $this->_ec2Endpoint . "\n";
         $data .= "/\n";
 
         uksort($paramaters, 'strcmp');

@@ -106,6 +106,7 @@
                         </select>
                      </div>
                 </li>
+                <li class="adv-container"></li>
            </ul>
         </div>
         <script type="text/javascript">
@@ -138,39 +139,47 @@
 //<![CDATA[
 Validation.addAllThese([
     ['validate-cybersource-cc-ss', 'Please enter issue number or start date for Switch/Solo/Maestro(UK Domestic) card type.', function(v,elm) {
-          var endposition;
+              var endposition;
 
-          if (elm.id.match(/(.)+_cc_issue$/)) {
-              endposition = elm.id.indexOf('_cc_issue');
-          } else if (elm.id.match(/(.)+_start_month$/)) {
-              endposition = elm.id.indexOf('_start_month');
-          } else {
-              endposition = elm.id.indexOf('_start_year');
-          }
+              if (elm.id.match(/(.)+_cc_issue$/)) {
+                  endposition = elm.id.indexOf('_cc_issue');
+              } else if (elm.id.match(/(.)+_start_month$/)) {
+                  endposition = elm.id.indexOf('_start_month');
+              } else {
+                  endposition = elm.id.indexOf('_start_year');
+              }
 
-          var ccTypeContainer = $(elm.id.substr(0,endposition) + '_cc_type');
+              var prefix = elm.id.substr(0,endposition);
 
-          if (!ccTypeContainer) {
-                return true;
-          }
-          var ccType = ccTypeContainer.value;
+              var ccTypeContainer = $(prefix + '_cc_type');
 
-          if(ccType!='SS'){
+              if (!ccTypeContainer) {
+                    return true;
+              }
+              var ccType = ccTypeContainer.value;
+
+              if(ccType!='SS'){
+                  return true;
+              }
+
+              $(prefix + '_cc_issue').advaiceContainer
+                = $(prefix + '_start_month').advaiceContainer
+                = $(prefix + '_start_year').advaiceContainer
+                = $(prefix + '_cc_type_ss_div').down('li.adv-container');
+
+              var ccIssue   =  $(prefix + '_cc_issue').value;
+              var ccSMonth  =  $(prefix + '_start_month').value;
+              var ccSYear   =  $(prefix + '_start_year').value;
+
+              if((!ccIssue && !ccSMonth && !ccSYear) ||
+                 (!ccIssue && !ccSMonth && ccSYear)  ||
+                 (!ccIssue && ccSMonth && !ccSYear)
+              ){
+                  return false;
+              }
+
               return true;
-          }
 
-          var ccIssue = $(elm.id.substr(0,endposition) + '_cc_issue').value;
-          var ccSMonth =  $(elm.id.substr(0,endposition) + '_start_month').value;
-          var ccSYear =  $(elm.id.substr(0,endposition) + '_start_year').value;
-
-          if((!ccIssue && !ccSMonth && !ccSYear) ||
-           (!ccIssue && !ccSMonth && ccSYear) ||
-           (!ccIssue && ccSMonth && !ccSYear)
-          ){
-              return false;
-          }
-
-          return true;
     }]
 ]);
 //]]>

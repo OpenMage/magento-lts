@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Dijit.php 12281 2008-11-04 14:40:05Z matthew $
+ * @version    $Id: Dijit.php 16204 2009-06-21 18:58:29Z thomas $
  */
 
 /** Zend_View_Helper_HtmlElement */
@@ -29,7 +29,7 @@
  * @uses       Zend_View_Helper_Abstract
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement

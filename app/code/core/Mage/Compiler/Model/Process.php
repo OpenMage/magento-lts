@@ -76,10 +76,18 @@ class Mage_Compiler_Model_Process
     {
         if (empty($this->_includePaths)) {
             $originalPath = Mage::registry('original_include_path');
-            $path = str_replace($originalPath, '', get_include_path());
+            /**
+             * Exclude current dirrectory include path
+             */
+            if ($originalPath == '.') {
+                $path = get_include_path();
+            } else {
+                $path = str_replace($originalPath, '', get_include_path());
+            }
+            
             $this->_includePaths = explode(PS, $path);
             foreach ($this->_includePaths as $index => $path) {
-                if (empty($path)) {
+                if (empty($path) || $path == '.') {
                     unset($this->_includePaths[$index]);
                 }
             }

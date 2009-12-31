@@ -50,20 +50,7 @@
                     <module>Mage_Eway</module>
                     <class>Mage_Eway_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </eway_setup>
-            <eway_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </eway_write>
-            <eway_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </eway_read>
         </resources>
         <blocks>
             <eway><class>Mage_Eway_Block</class></eway>

@@ -38,6 +38,36 @@ class Mage_Log_Model_Mysql4_Visitor extends Mage_Core_Model_Mysql4_Abstract
         $this->_init('log/visitor', 'visitor_id');
     }
 
+    /**
+     * Start resource transaction
+     *
+     * @return Mage_Log_Model_Mysql4_Visitor
+     */
+    public function beginTransaction()
+    {
+        return $this;
+    }
+
+    /**
+     * Commit resource transaction
+     *
+     * @return Mage_Log_Model_Mysql4_Visitor
+     */
+    public function commit()
+    {
+        return $this;
+    }
+
+    /**
+     * Roll back resource transaction
+     *
+     * @return Mage_Log_Model_Mysql4_Visitor
+     */
+    public function rollBack()
+    {
+        return $this;
+    }
+
     protected function _prepareDataForSave(Mage_Core_Model_Abstract $visitor)
     {
         return array(

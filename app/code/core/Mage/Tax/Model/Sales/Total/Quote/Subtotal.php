@@ -73,7 +73,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
-        if ($this->_needSubtractTax($address)) {
+        if (!$address->getTaxSubtotalIsProcessed() && $this->_needSubtractTax($address)) {
             $address->setTotalAmount('subtotal', 0);
             $address->setBaseTotalAmount('subtotal', 0);
             $items  = $address->getAllItems();
@@ -100,10 +100,11 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
             $this->_config->setNeedUsePriceExcludeTax(true);
         }
 
-        if ($this->_needSubtractShippingTax($address)) {
+        if (!$address->getTaxSubtotalIsProcessed() && $this->_needSubtractShippingTax($address)) {
             $this->_processShippingAmount($address);
             $this->_config->setNeedUseShippingExcludeTax(true);
         }
+        $address->setTaxSubtotalIsProcessed(true);
         return $this;
     }
 

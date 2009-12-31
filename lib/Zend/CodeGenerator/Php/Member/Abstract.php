@@ -17,13 +17,18 @@
  * @subpackage PHP
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Abstract.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /**
  * @see Zend_CodeGenerator_Php_Abstract
  */
 #require_once 'Zend/CodeGenerator/Php/Abstract.php';
+
+/**
+ * @see Zend_CodeGenerator_Php_Abstract
+ */
+#require_once 'Zend/CodeGenerator/Php/Docblock.php';
 
 /**
  * @category   Zend
@@ -33,6 +38,7 @@
  */
 abstract class Zend_CodeGenerator_Php_Member_Abstract extends Zend_CodeGenerator_Php_Abstract
 {
+    
     /**#@+
      * @param const string
      */
@@ -42,9 +48,19 @@ abstract class Zend_CodeGenerator_Php_Member_Abstract extends Zend_CodeGenerator
     /**#@-*/
     
     /**
+     * @var Zend_CodeGenerator_Php_Docblock
+     */
+    protected $_docblock   = null;
+    
+    /**
      * @var bool
      */
     protected $_isAbstract = false;
+    
+    /**
+     * @var bool
+     */
+    protected $_isFinal    = false;
     
     /**
      * @var bool
@@ -117,6 +133,28 @@ abstract class Zend_CodeGenerator_Php_Member_Abstract extends Zend_CodeGenerator
     }
     
     /**
+     * setFinal()
+     *
+     * @param bool $isFinal
+     * @return Zend_CodeGenerator_Php_Member_Abstract
+     */
+    public function setFinal($isFinal)
+    {
+        $this->_isFinal = ($isFinal) ? true : false;
+        return $this;
+    }
+    
+    /**
+     * isFinal()
+     *
+     * @return bool
+     */
+    public function isFinal()
+    {
+        return $this->_isFinal;
+    }
+    
+    /**
      * setStatic()
      *
      * @param bool $isStatic
@@ -136,7 +174,7 @@ abstract class Zend_CodeGenerator_Php_Member_Abstract extends Zend_CodeGenerator
     public function isStatic()
     {
         return $this->_isStatic;
-    }    
+    }
     
     /**
      * setVisitibility()

@@ -34,21 +34,40 @@
 
 class Mage_Sales_Model_Mysql4_Order_Invoice_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
+    /**
+     * Initialize orders collection
+     *
+     */
     protected function _construct()
     {
         $this->_init('sales/order_invoice');
     }
 
+    /**
+     * Add order filter
+     *
+     * @return Mage_Sales_Model_Mysql4_Order_Invoice_Collection
+     */
     public function setOrderFilter($order)
     {
         if ($order instanceof Mage_Sales_Model_Order) {
             $this->addAttributeToFilter('order_id', $order->getId());
-        }
-        else {
+        } else {
             $this->addAttributeToFilter('order_id', $order);
         }
-
         return $this;
+    }
+
+    /**
+     * Reset left join
+     *
+     * @return Mage_Eav_Model_Entity_Collection_Abstract
+     */
+    protected function _getAllIdsSelect($limit = null, $offset = null)
+    {
+        $idsSelect = parent::_getAllIdsSelect($limit, $offset);
+        $idsSelect->resetJoinLeft();
+        return $idsSelect;
     }
 
 }

@@ -42,29 +42,4 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tabs extends Mage_Adminhtml_Block_
         $this->setDestElementId('edit_form');
         $this->setTitle(Mage::helper('catalogrule')->__('Catalog Price Rule'));
     }
-
-    protected function _beforeToHtml()
-    {
-        $this->addTab('main_section', array(
-            'label'     => Mage::helper('catalogrule')->__('Rule Information'),
-            'title'     => Mage::helper('catalogrule')->__('Rule Information'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/promo_catalog_edit_tab_main')->toHtml(),
-            'active'    => true
-        ));
-
-        $this->addTab('conditions_section', array(
-            'label'     => Mage::helper('catalogrule')->__('Conditions'),
-            'title'     => Mage::helper('catalogrule')->__('Conditions'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/promo_catalog_edit_tab_conditions')->toHtml(),
-        ));
-
-        $this->addTab('actions_section', array(
-            'label'     => Mage::helper('catalogrule')->__('Actions'),
-            'title'     => Mage::helper('catalogrule')->__('Actions'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/promo_catalog_edit_tab_actions')->toHtml(),
-        ));
-
-        return parent::_beforeToHtml();
-    }
-
 }

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 14317 2009-03-13 20:39:31Z thomas $
+ * @version    $Id: Abstract.php 16223 2009-06-21 20:04:53Z thomas $
  */
 
 /**
@@ -27,7 +27,7 @@
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
@@ -92,6 +92,13 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
      * @var Boolean
      */
     protected $_translatorDisabled = false;
+
+    /**
+     * Limits the maximum returned length of a error message
+     *
+     * @var Integer
+     */
+    protected static $_messageLength = -1;
 
     /**
      * Returns array of validation failure messages
@@ -229,6 +236,12 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
         foreach ($this->_messageVariables as $ident => $property) {
             $message = str_replace("%$ident%", (string) $this->$property, $message);
         }
+
+        $length = self::getMessageLength();
+        if (($length > -1) && (strlen($message) > $length)) {
+            $message = substr($message, 0, (self::getMessageLength() - 3)) . '...';
+        }
+
         return $message;
     }
 
@@ -394,5 +407,25 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
     public function translatorIsDisabled()
     {
         return $this->_translatorDisabled;
+    }
+
+    /**
+     * Returns the maximum allowed message length
+     *
+     * @return integer
+     */
+    public static function getMessageLength()
+    {
+        return self::$_messageLength;
+    }
+
+    /**
+     * Sets the maximum allowed message length
+     *
+     * @param integer $length
+     */
+    public static function setMessageLength($length = -1)
+    {
+        self::$_messageLength = $length;
     }
 }

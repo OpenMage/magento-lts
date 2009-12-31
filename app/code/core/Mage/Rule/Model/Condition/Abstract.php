@@ -33,9 +33,49 @@ abstract class Mage_Rule_Model_Condition_Abstract
     extends Varien_Object
     implements Mage_Rule_Model_Condition_Interface
 {
+    /**
+     * Defines which operators will be available for this condition
+     *
+     * @var string
+     */
+    protected $_inputType = null;
+
+    /**
+     * Default values for possible operator options
+     * @var array
+     */
+    protected $_defaultOperatorOptions;
+
+    /**
+     * Default combinations of operator options, depending on input type
+     * @var array
+     */
+    protected $_defaultOperatorInputByType = array(
+        'string'      => array('==', '!=', '>=', '>', '<=', '<', '{}', '!{}', '()', '!()'),
+        'numeric'     => array('==', '!=', '>=', '>', '<=', '<', '()', '!()'),
+        'date'        => array('==', '>=', '<='),
+        'select'      => array('==', '!='),
+        'multiselect' => array('==', '!=', '{}', '!{}'),
+        'grid'        => array('()', '!()'),
+    );
+
     public function __construct()
     {
         parent::__construct();
+
+        $this->_defaultOperatorOptions = array(
+            '=='  => Mage::helper('rule')->__('is'),
+            '!='  => Mage::helper('rule')->__('is not'),
+            '>='  => Mage::helper('rule')->__('equals or greater than'),
+            '<='  => Mage::helper('rule')->__('equals or less than'),
+            '>'   => Mage::helper('rule')->__('greater than'),
+            '<'   => Mage::helper('rule')->__('less than'),
+            '{}'  => Mage::helper('rule')->__('contains'),
+            '!{}' => Mage::helper('rule')->__('does not contain'),
+            '!{}' => Mage::helper('rule')->__('does not contain'),
+            '()'  => Mage::helper('rule')->__('is one of'),
+            '!()' => Mage::helper('rule')->__('is not one of'),
+        );
 
         $this->loadAttributeOptions()->loadOperatorOptions()->loadValueOptions();
 
@@ -123,39 +163,24 @@ abstract class Mage_Rule_Model_Condition_Abstract
 
     public function loadOperatorOptions()
     {
-        $this->setOperatorOption(array(
-            '=='  => Mage::helper('rule')->__('is'),
-            '!='  => Mage::helper('rule')->__('is not'),
-            '>='  => Mage::helper('rule')->__('equals or greater than'),
-            '<='  => Mage::helper('rule')->__('equals or less than'),
-            '>'   => Mage::helper('rule')->__('greater than'),
-            '<'   => Mage::helper('rule')->__('less than'),
-            '{}'  => Mage::helper('rule')->__('contains'),
-            '!{}' => Mage::helper('rule')->__('does not contain'),
-            '()'  => Mage::helper('rule')->__('is one of'),
-            '!()' => Mage::helper('rule')->__('is not one of'),
-        ));
-        $this->setOperatorByInputType(array(
-            'string' => array('==', '!=', '>=', '>', '<=', '<', '{}', '!{}', '()', '!()'),
-            'numeric' => array('==', '!=', '>=', '>', '<=', '<', '()', '!()'),
-            'date' => array('==', '>=', '<='),
-            'select' => array('==', '!='),
-            'multiselect' => array('==', '!=', '{}', '!{}'),
-            'grid' => array('()', '!()'),
-        ));
+        $this->setOperatorOption($this->_defaultOperatorOptions);
+        $this->setOperatorByInputType($this->_defaultOperatorInputByType);
         return $this;
     }
 
     /**
      * This value will define which operators will be available for this condition.
      *
-     * Possible values are: string, numeric, date, select, multiselect, grid
+     * Possible values are: string, numeric, date, select, multiselect, grid, boolean
      *
      * @return string
      */
     public function getInputType()
     {
-        return 'string';
+        if (null === $this->_inputType) {
+            return 'string';
+        }
+        return $this->_inputType;
     }
 
     public function getOperatorSelectOptions()

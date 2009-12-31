@@ -392,16 +392,26 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int|string $productId
      * @return int
      */
-    protected function _getProductId($productId)
+    protected function _getProductId($productId, $identifierType = null)
     {
+        $loadByIdOnFalse = false;
+        if ($identifierType === null) {
+            $identifierType = 'sku';
+            $loadByIdOnFalse = true;
+        }
         $product = Mage::getModel('catalog/product');
 
-        $idBySku = $product->getIdBySku($productId);
-        if ($idBySku) {
-            $productId = $idBySku;
+        if ($identifierType == 'sku') {
+            $idBySku = $product->getIdBySku($productId);
+            if ($idBySku) {
+                $productId = $idBySku;
+            }
+            if ($idBySku || $loadByIdOnFalse) {
+                $product->load($productId);
+            }
+        } elseif ($identifierType == 'id') {
+            $product->load($productId);
         }
-
-        $product->load($productId);
 
         if (!$product->getId()) {
             $this->_fault('not_exists','Product not exists.');
@@ -449,7 +459,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $position
      * @return boolean
      */
-    public function assignProduct($categoryId, $productId, $position = null)
+    public function assignProduct($categoryId, $productId, $position = null, $identifierType = null)
     {
         $category = $this->_initCategory($categoryId);
         $positions = $category->getProductsPosition();
@@ -475,11 +485,11 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $position
      * @return boolean
      */
-    public function updateProduct($categoryId, $productId, $position = null)
+    public function updateProduct($categoryId, $productId, $position = null, $identifierType = null)
     {
         $category = $this->_initCategory($categoryId);
         $positions = $category->getProductsPosition();
-        $productId = $this->_getProductId($productId);
+        $productId = $this->_getProductId($productId, $identifierType);
         if (!isset($positions[$productId])) {
             $this->_fault('product_not_assigned');
         }
@@ -502,11 +512,11 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $productId
      * @return boolean
      */
-    public function removeProduct($categoryId, $productId)
+    public function removeProduct($categoryId, $productId, $identifierType = null)
     {
         $category = $this->_initCategory($categoryId);
         $positions = $category->getProductsPosition();
-        $productId = $this->_getProductId($productId);
+        $productId = $this->_getProductId($productId, $identifierType);
         if (!isset($positions[$productId])) {
             $this->_fault('product_not_assigned');
         }

@@ -36,7 +36,7 @@
 <?php if($_order = $this->getLastOrder()): ?>
 
 <div class="box base-mini mini-compare-products">
-<form method="post" action="<?php echo $this->getUrl('checkout/cart/addgroup') ?>" id="reorder-validate-detail">
+<form method="post" action="<?php echo $this->getFormActionUrl() ?>" id="reorder-validate-detail">
     <div class="head">
         <h4 style="display: block; float: left;"><?php echo $this->__('My Orders') ?>&nbsp;&nbsp;-&nbsp;&nbsp;</h4>
         <a href="<?php echo $this->getUrl('customer/account') ?>"><?php echo $this->__('View All'); ?></a><br /><br />

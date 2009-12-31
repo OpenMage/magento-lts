@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Dojo
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Data.php 11282 2008-09-08 16:05:59Z matthew $
+ * @version    $Id: Data.php 16204 2009-06-21 18:58:29Z thomas $
  */
 
 /**
@@ -26,7 +26,7 @@
  * @uses       Iterator
  * @uses       Countable
  * @package    Zend_Dojo
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Dojo_Data implements ArrayAccess,Iterator,Countable 

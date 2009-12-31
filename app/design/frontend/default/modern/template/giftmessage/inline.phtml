@@ -32,7 +32,7 @@ if(!window.toogleVisibilityOnObjects) {
         if($(source) && $(source).checked) {
             objects.each(function(item){
                 $(item).show();
-                $(item).getElementsBySelector('.input-text').each(function(item) {
+                $$('#' + item + ' .input-text').each(function(item) {
                     item.removeClassName('validation-passed');
                 });
             });
@@ -41,11 +41,11 @@ if(!window.toogleVisibilityOnObjects) {
         } else {
             objects.each(function(item){
                 $(item).hide();
-                $(item).getElementsBySelector('.input-text').each(function(sitem) {
+                $$('#' + item + ' .input-text').each(function(sitem) {
                     sitem.addClassName('validation-passed');
                 });
 
-                 $(item).getElementsBySelector('giftmessage-area').each(function(sitem) {
+                 $$('#' + item + ' .giftmessage-area').each(function(sitem) {
                     sitem.value = '';
                 });
             });

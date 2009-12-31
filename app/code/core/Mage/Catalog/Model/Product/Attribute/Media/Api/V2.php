@@ -65,9 +65,9 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api_V2 extends Mage_Catalog_Mod
      * @param string|int $store
      * @return string
      */
-    public function create($productId, $data, $store = null)
+    public function create($productId, $data, $store = null, $identifierType = null)
     {
-        $product = $this->_initProduct($productId, $store);
+        $product = $this->_initProduct($productId, $store, $identifierType);
 
         $gallery = $this->_getGalleryAttribute($product);
 
@@ -142,9 +142,9 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api_V2 extends Mage_Catalog_Mod
      * @param string|int $store
      * @return boolean
      */
-    public function update($productId, $file, $data, $store = null)
+    public function update($productId, $file, $data, $store = null, $identifierType = null)
     {
-        $product = $this->_initProduct($productId, $store);
+        $product = $this->_initProduct($productId, $store, $identifierType);
 
         $gallery = $this->_getGalleryAttribute($product);
 

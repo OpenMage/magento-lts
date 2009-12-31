@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: StripTags.php 14560 2009-03-31 14:41:22Z thomas $
+ * @version    $Id: StripTags.php 16870 2009-07-20 10:17:59Z mikaelkael $
  */
 
 
@@ -30,7 +30,7 @@
 /**
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_StripTags implements Zend_Filter_Interface
@@ -46,7 +46,7 @@ class Zend_Filter_StripTags implements Zend_Filter_Interface
      * If false (the default), then comments are removed from the input string.
      *
      * @var boolean
-     * @depreciated
+     * @deprecated
      */
     public $commentsAllowed;
 

@@ -95,13 +95,13 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 				->setModifiedAt(Mage::getSingleton('core/date')->gmtDate());
 
             if (!$template->getId()) {
-                $type = constant(Mage::getConfig()->getModelClassName('core/email_template') . "::TYPE_HTML");
-                $template->setTemplateType($type);
+                //$type = constant(Mage::getConfig()->getModelClassName('core/email_template') . "::TYPE_HTML");
+                $template->setTemplateType(Mage_Core_Model_Email_Template::TYPE_HTML);
             }
 
             if($this->getRequest()->getParam('_change_type_flag')) {
-                $type = constant(Mage::getConfig()->getModelClassName('core/email_template') . "::TYPE_TEXT");
-                $template->setTemplateType($type);
+                //$type = constant(Mage::getConfig()->getModelClassName('core/email_template') . "::TYPE_TEXT");
+                $template->setTemplateType(Mage_Core_Model_Email_Template::TYPE_TEXT);
             }
 
             $template->save();

@@ -326,4 +326,18 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat_Collection extends Ma
         $this->setOrder('main_table.' . $field, 'ASC');
         return $this;
     }
+
+    /**
+     * Set collection page start and records to show
+     *
+     * @param integer $pageNum
+     * @param integer $pageSize
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat_Collection
+     */
+    public function setPage($pageNum, $pageSize)
+    {
+        $this->setCurPage($pageNum)
+            ->setPageSize($pageSize);
+        return $this;
+    }
 }

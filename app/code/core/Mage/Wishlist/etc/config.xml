@@ -59,20 +59,7 @@
                 <setup>
                     <module>Mage_Wishlist</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </wishlist_setup>
-            <wishlist_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </wishlist_write>
-            <wishlist_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </wishlist_read>
         </resources>
         <template>
             <email>
@@ -87,7 +74,6 @@
             <checkout_cart_update_items_before>
                 <observers>
                     <wishlist>
-                        <type>singleton</type>
                         <class>wishlist/observer</class>
                         <method>processCartUpdateBefore</method>
                     </wishlist>
@@ -96,7 +82,6 @@
             <checkout_cart_add_product_complete>
                 <observers>
                     <wishlist>
-                        <type>singleton</type>
                         <class>wishlist/observer</class>
                         <method>processAddToCart</method>
                     </wishlist>
@@ -134,7 +119,6 @@
             <customer_login>
                 <observers>
                     <wishlist>
-                        <type>singleton</type>
                         <class>wishlist/observer</class>
                         <method>customerLogin</method>
                     </wishlist>
@@ -143,7 +127,6 @@
             <customer_logout>
                 <observers>
                     <wishlist>
-                        <type>singleton</type>
                         <class>wishlist/observer</class>
                         <method>customerLogout</method>
                     </wishlist>
@@ -152,25 +135,6 @@
         </events>
     </frontend>
     <adminhtml>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <wishlist translate="title" module="wishlist">
-                                            <title>Wishlist Section</title>
-                                        </wishlist>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
         <translate>
             <modules>
                 <Mage_Wishlist>

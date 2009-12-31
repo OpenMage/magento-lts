@@ -184,35 +184,28 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Returns the node and children as an array
      *
-     * @return array
+     * @return array|string
      */
     public function asArray()
     {
-        $r = array();
-        foreach($this->attributes() as $k=>$v) {
-            if ($v) {
-                $r['@'][$k] = (string) $v;
+        $result = array();
+        // add attributes
+        foreach ($this->attributes() as $attributeName => $attribute) {
+            if ($attribute) {
+                $result['@'][$attributeName] = (string)$attribute;
             }
         }
-
-        if (!($children = $this->children())) {
-            $r = (string) $this;
-            return $r;
-        }
-
-        foreach($children as $childName=>$child) {
-            $r[$childName] = array();
-            foreach($child->attributes() as $attrName => $attrValue) {
-                if ($attrValue) {
-                    $r[$childName]['@'][$attrName] = (string) $attrValue;
-                }
-            }
-            foreach ($child as $index=>$element) {
-                $r[$childName][$index] = $element->asArray();
+        // add children values
+        if ($this->hasChildren()) {
+            foreach ($this->children() as $childName => $child) {
+                $result[$childName] = $child->asArray();
             }
         }
-
-        return $r;
+        // return as string, if nothing was found
+        if (empty($result)) {
+            $result = (string)$this;
+        }
+        return $result;
     }
 
     /**

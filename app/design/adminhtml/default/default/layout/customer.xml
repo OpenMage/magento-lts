@@ -31,6 +31,9 @@
         <reference name="content">
             <block type="adminhtml/customer_edit" name="customer_edit"></block>
         </reference>
+        <reference name="head">
+            <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
+        </reference>
         <reference name="left">
             <block type="adminhtml/customer_edit_tabs" name="customer_edit_tabs">
                 <block type="adminhtml/customer_edit_tab_view" name="customer_edit_tab_view" template="customer/tab/view.phtml">

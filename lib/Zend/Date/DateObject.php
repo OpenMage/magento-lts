@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Date
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: DateObject.php 14117 2009-02-19 21:29:17Z thomas $
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: DateObject.php 16561 2009-07-08 15:05:06Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,7 @@
  * @category   Zend
  * @package    Zend_Date
  * @subpackage Zend_Date_DateObject
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Date_DateObject {
@@ -658,13 +658,13 @@ abstract class Zend_Date_DateObject {
     {
 
         // actual timestamp
-        if ($timestamp === null) {
+        if (!is_numeric($timestamp)) {
             return getdate();
         }
 
         // 32bit timestamp
         if (abs($timestamp) <= 0x7FFFFFFF) {
-            return @getdate($timestamp);
+            return @getdate((int) $timestamp);
         }
 
         if (isset(self::$_cache)) {

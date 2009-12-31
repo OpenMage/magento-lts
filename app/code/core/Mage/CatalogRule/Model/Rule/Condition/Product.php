@@ -28,6 +28,13 @@
 class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Condition_Abstract
 {
     /**
+     * Attribute data key that indicates whether it should be used for rules
+     *
+     * @var string
+     */
+    protected $_isUsedForRuleProperty = 'is_used_for_price_rules';
+
+    /**
      * Retrieve attribute object
      *
      * @return Mage_Catalog_Model_Resource_Eav_Attribute
@@ -71,7 +78,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
         $attributes = array();
         foreach ($productAttributes as $attribute) {
             /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
-            if (!$attribute->isAllowedForRuleCondition() || !$attribute->getIsUsedForPriceRules()) {
+            if (!$attribute->isAllowedForRuleCondition() || !$attribute->getDataUsingMethod($this->_isUsedForRuleProperty)) {
                 continue;
             }
             $attributes[$attribute->getAttributeCode()] = $attribute->getFrontendLabel();

@@ -15,8 +15,8 @@
  *
  * @category   Zend
  * @package    Zend_TimeSync
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: TimeSync.php 15577 2009-05-14 12:43:34Z matthew $
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: TimeSync.php 16207 2009-06-21 19:17:51Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@
 /**
  * @category   Zend
  * @package    Zend_TimeSync
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_TimeSync implements IteratorAggregate

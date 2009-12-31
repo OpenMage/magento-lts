@@ -447,13 +447,21 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-     * Return true if the method can be used at this time
+     * Check whether payment method can be used
      *
+     * @param Mage_Sales_Model_Quote
      * @return bool
      */
-    public function isAvailable($quote=null)
+    public function isAvailable($quote = null)
     {
-        return true;
+        $checkResult = new StdClass;
+        $checkResult->isAvailable = (bool)(int)$this->getConfigData('active', ($quote ? $quote->getStoreId() : null));
+        Mage::dispatchEvent('payment_method_is_active', array(
+            'result'          => $checkResult,
+            'method_instance' => $this,
+            'quote'           => $quote,
+        ));
+        return $checkResult->isAvailable;
     }
 
     /**
@@ -467,5 +475,4 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     {
         return $this;
     }
-
 }

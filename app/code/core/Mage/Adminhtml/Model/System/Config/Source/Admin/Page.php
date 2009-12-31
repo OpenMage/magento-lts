@@ -83,7 +83,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
     protected function _buildMenuArray(Varien_Simplexml_Element $parent=null, $path='', $level=0)
     {
         if (is_null($parent)) {
-            $parent = Mage::getConfig()->getNode('adminhtml/menu');
+            $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
         }
 
         $parentArr = array();

@@ -28,8 +28,7 @@
 <?php echo $this->getMethod()->getTitle() ?><br />
 <!--<?php echo $this->__('Name on the Card: %s', $this->getInfo()->getCcOwner()) ?><br />-->
 <?php echo $this->__('Credit Card Type: %s', $this->getCcTypeName()) ?><br />
-<?php echo $this->__('Credit Card Number: xxxx-%s', $this->getInfo()->getCcLast4()) ?><br />
-<?php echo $this->__('Expiration Date: %s/%s', $this->getCcExpMonth(), $this->getInfo()->getCcExpYear()) ?><br />
+<?php echo $this->__('Credit Card Number: xxxx-%s', $this->getInfo()->getCcLast4()) ?>
 <?php if($this->getInfo()->getCcSsIssue()): ?>
 <?php echo $this->__("Switch/Solo/Maestro(UK Domestic) card issue number: %s", $this->getInfo()->getCcSsIssue()) ?><br />
 <?php endif; ?>

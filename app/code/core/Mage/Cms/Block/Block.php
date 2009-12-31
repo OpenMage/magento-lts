@@ -24,32 +24,34 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
 /**
- * Cms block content
+ * Cms block content block
  *
  * @category   Mage
  * @package    Mage_Cms
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
 {
+    /**
+     * Prepare Content HTML
+     *
+     * @return string
+     */
     protected function _toHtml()
     {
-		if (!$this->_beforeToHtml()) {
-			return '';
-		}
+        $blockId = $this->getBlockId();
         $html = '';
-        if ($blockId = $this->getBlockId()) {
+        if ($blockId) {
             $block = Mage::getModel('cms/block')
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->load($blockId);
-            if (!$block->getIsActive()) {
-                $html = '';
-            } else {
-                $content = $block->getContent();
-
-                $processor = Mage::getModel('core/email_template_filter');
-                $html = $processor->filter($content);
+            if ($block->getIsActive()) {
+                /* @var $helper Mage_Cms_Helper_Data */
+                $helper = Mage::helper('cms');
+                $processor = $helper->getBlockTemplateProcessor();
+                $html = $processor->filter($block->getContent());
             }
         }
         return $html;

@@ -45,10 +45,8 @@
 
 input.radio { width:13px; height:13px; }
 input.checkbox { width:13px; height:13px; }
-button.button { background-position:0 0; }
-button.button span { background-position:100% 0; position:relative; }
-button.button,
-button.button span { height:21px; }
+button.button { height:21px; }
+button.button span { position:relative; }
 
 /* Clearer */
 .clearer { display:block; clear:both; font-size:0; line-height:0; height:0; overflow:hidden; }

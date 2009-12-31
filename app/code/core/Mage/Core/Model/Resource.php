@@ -37,6 +37,9 @@ class Mage_Core_Model_Resource
     const AUTO_UPDATE_NEVER     = -1;
     const AUTO_UPDATE_ALWAYS    = 1;
 
+    const DEFAULT_READ_RESOURCE = 'core_read';
+    const DEFAULT_WRITE_RESOURCE= 'core_write';
+
     /**
      * Instances of classes for connection types
      *
@@ -68,12 +71,16 @@ class Mage_Core_Model_Resource
      */
     public function getConnection($name)
     {
+//        echo $name . '<br>';
         if (isset($this->_connections[$name])) {
             return $this->_connections[$name];
         }
         $connConfig = Mage::getConfig()->getResourceConnectionConfig($name);
-
-        if (!$connConfig || !$connConfig->is('active', 1)) {
+        if (!$connConfig) {
+            $this->_connections[$name] = $this->_getDefaultConnection($name);
+            return $this->_connections[$name];
+        }
+        if (!$connConfig->is('active', 1)) {
             return false;
         }
         $origName = $connConfig->getParent()->getName();
@@ -91,6 +98,14 @@ class Mage_Core_Model_Resource
             $this->_connections[$origName] = $conn;
         }
         return $conn;
+    }
+
+    protected function _getDefaultConnection($requiredConnectionName)
+    {
+        if (strpos($requiredConnectionName, 'read') !== false) {
+            return $this->getConnection(self::DEFAULT_READ_RESOURCE);
+        }
+        return $this->getConnection(self::DEFAULT_WRITE_RESOURCE);
     }
 
     /**

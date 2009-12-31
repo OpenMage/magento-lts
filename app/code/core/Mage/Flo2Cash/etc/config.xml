@@ -50,20 +50,7 @@
                     <module>Mage_Flo2Cash</module>
                     <class>Mage_Flo2Cash_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </flo2cash_setup>
-            <flo2cash_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </flo2cash_write>
-            <flo2cash_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </flo2cash_read>
         </resources>
         <blocks>
             <flo2cash><class>Mage_Flo2Cash_Block</class></flo2cash>

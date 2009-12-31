@@ -35,11 +35,22 @@ class Mage_GoogleAnalytics_Model_Observer
 {
 
     /**
-     * Enter description here...
+     * Create Google Analytics block for success page view
      *
-     * @param unknown_type $observer
+     * @deprecated after 1.3.2.3 Use setGoogleAnalyticsOnOrderSuccessPageView() method instead
+     * @param Varien_Event_Observer $observer
      */
     public function order_success_page_view($observer)
+    {
+        $this->setGoogleAnalyticsOnOrderSuccessPageView($observer);
+    }
+
+    /**
+     * Create Google Analytics block for success page view
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function setGoogleAnalyticsOnOrderSuccessPageView(Varien_Event_Observer $observer)
     {
         $quoteId = Mage::getSingleton('checkout/session')->getLastQuoteId();
         $analyticsBlock = Mage::app()->getFrontController()->getAction()->getLayout()->getBlock('google_analytics');

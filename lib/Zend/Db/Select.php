@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Select
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Select.php 6897 2007-11-22 08:31:59Z thomas $
+ * @version    $Id: Select.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 
@@ -38,7 +38,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Select
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Select
@@ -682,7 +682,7 @@ class Zend_Db_Select
     /**
      * Converts this object to an SQL SELECT string.
      *
-     * @return string This object as a SELECT string.
+     * @return string|null This object as a SELECT string. (or null if a string cannot be produced.)
      */
     public function assemble()
     {
@@ -995,7 +995,7 @@ class Zend_Db_Select
      * Render DISTINCT clause
      *
      * @param string   $sql SQL query
-     * @return string
+     * @return string|null
      */
     protected function _renderColumns($sql)
     {

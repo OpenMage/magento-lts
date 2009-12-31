@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Dom
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,9 +24,9 @@
  * @package    Zend_Dom
  * @subpackage Query
  * @uses       Iterator
- * @copyright  Copyright (C) 2008 - Present, Zend Technologies, Inc.
- * @license    New BSD {@link http://framework.zend.com/license/new-bsd}
- * @version    $Id: Result.php 12507 2008-11-10 16:29:09Z matthew $
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Result.php 16541 2009-07-07 06:59:03Z bkarwin $
  */
 class Zend_Dom_Query_Result implements Iterator,Countable
 {

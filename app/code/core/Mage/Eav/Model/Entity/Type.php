@@ -273,4 +273,17 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     {
         return Mage::getResourceSingleton($this->_data['entity_model']);
     }
+
+    /**
+     * Return attribute collection. If not specify return default
+     *
+     * @return string
+     */
+    public function getEntityAttributeCollection()
+    {
+        if ($collection = $this->_getData('entity_attribute_collection')) {
+            return $collection;
+        }
+        return 'eav/entity_attribute_collection';
+    }
 }

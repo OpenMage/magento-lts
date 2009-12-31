@@ -49,6 +49,7 @@ class Mage_Catalog_Model_Product_Type
     static protected $_types;
     static protected $_compositeTypes;
     static protected $_priceModels;
+    static protected $_typesPriority;
 
     /**
      * Product type instance factory
@@ -185,5 +186,40 @@ class Mage_Catalog_Model_Product_Type
             }
         }
         return self::$_compositeTypes;
+    }
+
+    /**
+     * Return product types by type indexing priority
+     *
+     * @return array
+     */
+    public static function getTypesByPriority()
+    {
+        if (is_null(self::$_typesPriority)) {
+            self::$_typesPriority = array();
+            $a = array();
+            $b = array();
+
+            $types = self::getTypes();
+            foreach ($types as $typeId => $typeInfo) {
+                $priority = isset($typeInfo['index_priority']) ? abs(intval($typeInfo['index_priority'])) : 0;
+                if (!empty($typeInfo['composite'])) {
+                    $b[$typeId] = $priority;
+                } else {
+                    $a[$typeId] = $priority;
+                }
+            }
+
+            asort($a, SORT_NUMERIC);
+            asort($b, SORT_NUMERIC);
+
+            foreach (array_keys($a) as $typeId) {
+                self::$_typesPriority[$typeId] = $types[$typeId];
+            }
+            foreach (array_keys($b) as $typeId) {
+                self::$_typesPriority[$typeId] = $types[$typeId];
+            }
+        }
+        return self::$_typesPriority;
     }
 }

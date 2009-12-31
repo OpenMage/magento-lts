@@ -662,8 +662,8 @@ Payment.prototype = {
             form.style.display = '';
             var elements = form.select('input', 'select', 'textarea');
             for (var i=0; i<elements.length; i++) elements[i].disabled = false;
-            this.currentMethod = method;
         }
+        this.currentMethod = method;
     },
 
     validate: function() {

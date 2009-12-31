@@ -34,6 +34,7 @@
 
 class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
 {
+    const ENTITY         = 'store_group';
     const CACHE_TAG      = 'store_group';
 
     protected $_cacheTag = true;

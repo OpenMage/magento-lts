@@ -32,7 +32,7 @@ if(!window.toogleVisibilityOnObjects) {
         if($(source) && $(source).checked) {
             objects.each(function(item){
                 $(item).show();
-                $(item).getElementsByClassName('input-text').each(function(item) {
+                $$('#' + item + ' .input-text').each(function(item) {
                     item.removeClassName('validation-passed');
                 });
             });
@@ -41,11 +41,11 @@ if(!window.toogleVisibilityOnObjects) {
         } else {
             objects.each(function(item){
                 $(item).hide();
-                $(item).getElementsBySelector('.input-text').each(function(sitem) {
+                $$('#' + item + ' .input-text').each(function(sitem) {
                     sitem.addClassName('validation-passed');
                 });
 
-                 $(item).getElementsBySelector('.giftmessage-area').each(function(sitem) {
+                 $$('#' + item + ' .giftmessage-area').each(function(sitem) {
                     sitem.value = '';
                 });
             });
@@ -234,7 +234,7 @@ billing.onSave = function(evt){
                      <div class="product-img-box">
                          <p class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(75); ?>" width="75" height="75" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" /></p>
                          <h6 class="product-name"><?php echo $this->htmlEscape($_product->getName()) ?></h6>
-                     </div>               
+                     </div>
                      <fieldset class="group-select">
                          <input type="hidden" name="giftmessage[<?php echo $_item->getId() ?>][type]" value="quote_address_item" />
                          <input type="hidden" name="giftmessage[<?php echo $_item->getId() ?>][address]" value="<?php echo $this->getEntity()->getId()?>" />

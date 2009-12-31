@@ -98,4 +98,19 @@ class Mage_Bundle_Model_Mysql4_Bundle extends Mage_CatalogIndex_Model_Mysql4_Dat
             ->query("DELETE FROM ".$this->getTable('bundle/selection')."
                     WHERE `parent_product_id` = ". $productId . ( count($ids) > 0 ? " and selection_id not in (" . implode(',', $ids) . ")": ''));
     }
+
+    /**
+     * Save product relations
+     *
+     * @param int $parentId
+     * @param array $childIds
+     * @return Mage_Bundle_Model_Mysql4_Bundle
+     */
+    public function saveProductRelations($parentId, $childIds)
+    {
+        Mage::getResourceSingleton('catalog/product_relation')
+            ->processRelations($parentId, $childIds);
+
+        return $this;
+    }
 }

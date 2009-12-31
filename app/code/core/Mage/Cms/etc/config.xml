@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Cms>
-            <version>0.7.8</version>
+            <version>0.7.11</version>
         </Mage_Cms>
     </modules>
     <frontend>
@@ -45,7 +45,6 @@
             <controller_action_noroute>
                 <observers>
                     <cms>
-                        <type>singleton</type>
                         <class>cms/observer</class>
                         <method>noRoute</method>
                     </cms>
@@ -54,7 +53,6 @@
             <controller_action_nocookies>
                 <observers>
                     <cms>
-                        <type>singleton</type>
                         <class>cms/observer</class>
                         <method>noCookies</method>
                     </cms>
@@ -88,52 +86,13 @@
                 </Mage_Cms>
             </modules>
         </translate>
-        <menu>
-             <cms translate="title" module="cms">
-                <title>CMS</title>
-                <sort_order>70</sort_order>
-                <children>
-                    <page translate="title" module="cms">
-                        <title>Manage Pages</title>
-                        <action>adminhtml/cms_page</action>
-                    </page>
-                    <block translate="title" module="cms">
-                        <title>Static Blocks</title>
-                        <action>adminhtml/cms_block</action>
-                    </block>
-                    <poll translate="title" module="cms">
-                        <title>Poll Manager</title>
-                        <action>adminhtml/poll</action>
-                    </poll>
-                </children>
-             </cms>
-        </menu>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <cms translate="title" module="cms">
-                            <title>CMS</title>
-                            <sort_order>70</sort_order>
-                            <children>
-                                <block translate="title">
-                                    <title>Static Blocks</title>
-                                    <sort_order>0</sort_order>
-                                </block>
-                                <page translate="title">
-                                    <title>Manage Pages</title>
-                                    <sort_order>10</sort_order>
-                                </page>
-                                <poll translate="title">
-                                    <title>Poll Manager</title>
-                                    <sort_order>20</sort_order>
-                                </poll>
-                            </children>
-                        </cms>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
+        <layout>
+            <updates>
+                <cms>
+                    <file>cms.xml</file>
+                </cms>
+            </updates>
+        </layout>
     </adminhtml>
     <global>
         <models>
@@ -156,6 +115,9 @@
                     <block_store>
                         <table>cms_block_store</table>
                     </block_store>
+                    <widget>
+                        <table>cms_widget</table>
+                    </widget>
                 </entities>
             </cms_mysql4>
         </models>
@@ -164,20 +126,7 @@
                 <setup>
                     <module>Mage_Cms</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </cms_setup>
-            <cms_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </cms_write>
-            <cms_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </cms_read>
         </resources>
         <blocks>
             <cms><class>Mage_Cms_Block</class></cms>
@@ -186,13 +135,20 @@
             <controller_front_init_routers>
                 <observers>
                     <cms>
-                        <type>singleton</type>
                         <class>Mage_Cms_Controller_Router</class>
                         <method>initControllerRouters</method>
                     </cms>
                 </observers>
             </controller_front_init_routers>
         </events>
+        <cms>
+            <page>
+                <tempate_filter>cms/template_filter</tempate_filter>
+            </page>
+            <block>
+                <tempate_filter>cms/template_filter</tempate_filter>
+            </block>
+        </cms>
     </global>
 
     <default>
@@ -206,5 +162,18 @@
                 <show_cms_breadcrumbs>1</show_cms_breadcrumbs>
             </default>
         </web>
+        <cms>
+            <wysiwyg>
+                <enabled>enabled</enabled>
+                <upload_root>content/images</upload_root>
+                <browser_allowed_extensions>jpg,jpeg,png,gif</browser_allowed_extensions>
+                <browser_image_allowed_extensions>jpg,jpeg,png,gif</browser_image_allowed_extensions>
+                <browser_media_allowed_extensions>flv,swf,avi,mov</browser_media_allowed_extensions>
+                <browser_window_width>1000</browser_window_width>
+                <browser_window_height>800</browser_window_height>
+                <browser_resize_width>100</browser_resize_width>
+                <browser_resize_height>75</browser_resize_height>
+            </wysiwyg>
+        </cms>
     </default>
 </config>

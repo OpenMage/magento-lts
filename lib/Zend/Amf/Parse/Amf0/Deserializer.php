@@ -17,6 +17,7 @@
  * @subpackage Parse_Amf0
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Deserializer.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /** Zend_Amf_Parse_Deserializer */
@@ -56,7 +57,6 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
      *
      * @param  integer $typeMarker
      * @return mixed whatever the data type is of the marker in php
-     * @return mixed
      * @throws Zend_Amf_Exception for invalid type
      */
     public function readTypeMarker($typeMarker = null)

@@ -103,7 +103,7 @@ abstract class Mage_Reports_Model_Mysql4_Product_Index_Abstract extends Mage_Cor
 
         $where  = $this->_getWriteAdapter()->quoteInto('customer_id=?', $object->getCustomerId());
         $bind   = array(
-            'visitor_id' => 0,
+            'visitor_id' => null,
         );
 
         $this->_getWriteAdapter()->update($this->getMainTable(), $bind, $where);

@@ -17,6 +17,7 @@
  * @subpackage Zend_Cache_Backend
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: ZendServer.php 17672 2009-08-19 13:05:18Z yoshida@zend.co.jp $
  */
 
 
@@ -30,7 +31,7 @@
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implements Zend_Cache_Backend_Interface
@@ -50,9 +51,9 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
     /**
      * Store data
      *
-     * @var mixed  $data        Object to store
-     * @var string $id          Cache id
-     * @var int    $timeToLive  Time to live in seconds
+     * @param mixed  $data        Object to store
+     * @param string $id          Cache id
+     * @param int    $timeToLive  Time to live in seconds
      * @throws Zend_Cache_Exception
      */
     abstract protected function _store($data, $id, $timeToLive);
@@ -60,9 +61,7 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
     /**
      * Fetch data
      *
-     * @var mixed  $data        Object to store
-     * @var string $id          Cache id
-     * @var int    $timeToLive  Time to live in seconds
+     * @param string $id          Cache id
      * @throws Zend_Cache_Exception
      */
     abstract protected function _fetch($id);
@@ -70,7 +69,7 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
     /**
      * Unset data
      *
-     * @var string $id          Cache id
+     * @param string $id          Cache id
      */
     abstract protected function _unset($id);
 
@@ -105,10 +104,10 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
     public function test($id)
     {
         $tmp = $this->_fetch('internal-metadatas---' . $id);
-        if ($tmp !== null) {
-        	if (!is_array($tmp) || !isset($tmp['mtime'])) {
-        		Zend_Cache::throwException('Cache metadata for \'' . $id . '\' id is corrupted' );
-        	}
+        if ($tmp !== false) {
+            if (!is_array($tmp) || !isset($tmp['mtime'])) {
+                Zend_Cache::throwException('Cache metadata for \'' . $id . '\' id is corrupted' );
+            }
             return $tmp['mtime'];
         }
         return false;
@@ -163,8 +162,8 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
      */
     public function remove($id)
     {
-    	$result1 = $this->_unset($id);
-    	$result2 = $this->_unset('internal-metadatas---' . $id);
+        $result1 = $this->_unset($id);
+        $result2 = $this->_unset('internal-metadatas---' . $id);
 
         return $result1 && $result2;
     }
@@ -188,7 +187,7 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
     {
         switch ($mode) {
             case Zend_Cache::CLEANING_MODE_ALL:
-            	$this->_clear();
+                $this->_clear();
                 return true;
                 break;
             case Zend_Cache::CLEANING_MODE_OLD:
@@ -197,7 +196,7 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
             case Zend_Cache::CLEANING_MODE_MATCHING_TAG:
             case Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG:
             case Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG:
-            	$this->_clear();
+                $this->_clear();
                 $this->_log('Zend_Cache_Backend_ZendServer::clean() : tags are unsupported by the Zend Server backends.');
                 break;
             default:

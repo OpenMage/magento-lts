@@ -33,13 +33,13 @@
     </modules>
     <global>
         <sales>
-	        <quote>
-		        <item>
+            <quote>
+                <item>
                     <product_attributes>
                         <enable_googlecheckout/>
                     </product_attributes>
-		        </item>
-	        </quote>
+                </item>
+            </quote>
         </sales>
         <models>
             <googlecheckout>
@@ -64,20 +64,7 @@
                     <module>Mage_GoogleCheckout</module>
                     <class>Mage_GoogleCheckout_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </googlecheckout_setup>
-            <googlecheckout_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </googlecheckout_write>
-            <googlecheckout_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </googlecheckout_read>
         </resources>
         <blocks>
             <googlecheckout><class>Mage_GoogleCheckout_Block</class></googlecheckout>
@@ -137,25 +124,6 @@ Something like this is to be added to resolve bug #4890
                 </Mage_GoogleCheckout>
             </modules>
         </translate>
-        <acl>
-            <resources>
-                <admin>
-                    <children>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <google translate="title" module="googlecheckout">
-                                            <title>Google API</title>
-                                        </google>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
         <events>
             <sales_order_shipment_track_save_after>
                 <observers>

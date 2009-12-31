@@ -40,9 +40,32 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract
     const TYPE_CUSTOM   = 3;
     const REWRITE_REQUEST_PATH_ALIAS = 'rewrite_request_path';
 
+    /**
+     * Cache tag for clear cache in after save and after delete
+     *
+     * @var mixed | array | string | boolean
+     */
+    protected $_cacheTag = false;
+
     protected function _construct()
     {
         $this->_init('core/url_rewrite');
+    }
+
+    /**
+     * Clean cache for front-end menu
+     *
+     * @return  Mage_Core_Model_Url_Rewrite
+     */
+    protected function _afterSave()
+    {
+        if ($this->hasCategoryId()) {
+            $this->_cacheTag = array(Mage_Catalog_Model_Category::CACHE_TAG, Mage_Core_Model_Store_Group::CACHE_TAG);
+        }
+
+        parent::_afterSave();
+
+        return $this;
     }
 
     /**

@@ -168,7 +168,6 @@ class Mage_Core_Model_Translate_Inline
                 $this->processResponseBody($part);
             }
         } else if (is_string($body)) {
-            Mage::log($body);
             $this->_content = $body;
 
             $this->_tagAttributes();

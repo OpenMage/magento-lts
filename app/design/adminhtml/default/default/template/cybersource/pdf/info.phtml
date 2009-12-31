@@ -33,8 +33,6 @@
         {{pdf_row_separator}}
     <?php echo $this->__('Credit Card Number: xxxx-%s', $this->getInfo()->getCcLast4()) ?>
         {{pdf_row_separator}}
-    <?php echo $this->__('Expiration Date: %s/%s', $this->getCcExpMonth(), $this->getInfo()->getCcExpYear()) ?>
-        {{pdf_row_separator}}
     <?php if($this->getInfo()->getCcSsIssue()): ?>
         <?php echo $this->__("Switch/Solo card issue number: %s", $this->getInfo()->getCcSsIssue()) ?>
             {{pdf_row_separator}}

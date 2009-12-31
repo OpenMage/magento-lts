@@ -59,41 +59,52 @@
         <li>
             <div class="input-box">
                 <label for="<?php echo $_code ?>_expiration"><?php echo $this->__('Expiration Date') ?> <span class="required">*</span></label><br />
-                <select id="<?php echo $_code ?>_expiration" style="width:140px;" name="payment[cc_exp_month]" class="required-entry">
-                <?php $_ccExpMonth = $this->getInfoData('cc_exp_month') ?>
-                <?php foreach ($this->getCcMonths() as $k=>$v): ?>
-                    <option value="<?php echo $k?$k:'' ?>" <?php if($k==$_ccExpMonth): ?>selected="selected"<?php endif ?>><?php echo $v ?></option>
-                <?php endforeach ?>
-                </select>
+                <div class="v-fix">
+                    <select id="<?php echo $_code ?>_expiration" name="payment[cc_exp_month]" class="month required-entry">
+                    <?php $_ccExpMonth = $this->getInfoData('cc_exp_month') ?>
+                    <?php foreach ($this->getCcMonths() as $k=>$v): ?>
+                        <option value="<?php echo $k?$k:'' ?>" <?php if($k==$_ccExpMonth): ?>selected="selected"<?php endif ?>><?php echo $v ?></option>
+                    <?php endforeach ?>
+                    </select>
+                </div>
                 <?php $_ccExpYear = $this->getInfoData('cc_exp_year') ?>
-                <select id="<?php echo $_code ?>_expiration_yr" style="width:103px;" name="payment[cc_exp_year]" class="required-entry">
-                <?php foreach ($this->getCcYears() as $k=>$v): ?>
-                    <option value="<?php echo $k?$k:'' ?>" <?php if($k==$_ccExpYear): ?>selected="selected"<?php endif ?>><?php echo $v ?></option>
-                <?php endforeach ?>
-                </select>
+                <div class="v-fix">
+                    <select id="<?php echo $_code ?>_expiration_yr" name="payment[cc_exp_year]" class="year required-entry">
+                    <?php foreach ($this->getCcYears() as $k=>$v): ?>
+                        <option value="<?php echo $k?$k:'' ?>" <?php if($k==$_ccExpYear): ?>selected="selected"<?php endif ?>><?php echo $v ?></option>
+                    <?php endforeach ?>
+                    </select>
+                </div>
             </div>
         </li>
         <?php if ($this->hasSsCardType()): ?>
         <li id="<?php echo $_code ?>_cc_type_ss_div">
             <div class="input-box">
                 <label for="<?php echo $_code ?>_issue"><?php echo $this->__('Switch/Solo/Maestro(UK Domestic) Only') ?> <span class="required">*</span></label><br/>
-                <ul style="margin:5px 0;">
-                <li><?php echo $this->__('Issue Number') ?>:
-                <input type="text" title="<?php echo $this->__('Issue Number') ?>" class="input-text validate-cybersource-cc-ss" id="<?php echo $_code ?>_cc_issue" name="payment[cc_ss_issue]" style="width:3em;" value="" /></li>
-                <li><?php echo $this->__('Start Date') ?>:
-                 <select id="<?php echo $_code ?>_start_month" style="width:140px;" name="payment[cc_ss_start_month]" class="validate-cybersource-cc-ss">
-                 <?php $_ccStartMonth = $this->getInfoData('cc_ss_start_month') ?>
-                 <?php foreach ($this->getCcMonths() as $k=>$v): ?>
-                    <option value="<?php echo $k?$k:'' ?>" <?php if($k==$_ccStartMonth): ?>selected="selected"<?php endif ?>><?php echo $v ?></option>
-                 <?php endforeach ?>
-                 </select>
-                 <select id="<?php echo $_code ?>_start_year" style="width:103px;" name="payment[cc_ss_start_year]" class="validate-cybersource-cc-ss">
-                 <?php $_ccStartYear = $this->getInfoData('cc_ss_start_year') ?>
-                 <?php foreach ($this->getSsStartYears() as $k=>$v): ?>
-                    <option value="<?php echo $k?$k:'' ?>" <?php if($k==$_ccStartYear): ?>selected="selected"<?php endif ?>><?php echo $v ?></option>
-                 <?php endforeach ?>
-                 </select>
+                <ul class="inner-form" style="margin:0;">
+                <li>
+                    <label for="<?php echo $_code ?>_cc_issue"><?php echo $this->__('Issue Number') ?>:</label><br />
+                    <input type="text" title="<?php echo $this->__('Issue Number') ?>" class="input-text validate-cybersource-cc-ss" id="<?php echo $_code ?>_cc_issue" name="payment[cc_ss_issue]" style="width:3em;" value="" />
                 </li>
+                <li><label for="<?php echo $_code ?>_start_month"><?php echo $this->__('Start Date') ?>:</label><br />
+                    <div class="v-fix">
+                        <select id="<?php echo $_code ?>_start_month" name="payment[cc_ss_start_month]" class="month validate-cybersource-cc-ss">
+                        <?php $_ccStartMonth = $this->getInfoData('cc_ss_start_month') ?>
+                        <?php foreach ($this->getCcMonths() as $k=>$v): ?>
+                            <option value="<?php echo $k?$k:'' ?>" <?php if($k==$_ccStartMonth): ?>selected="selected"<?php endif ?>><?php echo $v ?></option>
+                        <?php endforeach ?>
+                        </select>
+                    </div>
+                    <div class="v-fix">
+                        <select id="<?php echo $_code ?>_start_year" name="payment[cc_ss_start_year]" class="year validate-cybersource-cc-ss">
+                        <?php $_ccStartYear = $this->getInfoData('cc_ss_start_year') ?>
+                        <?php foreach ($this->getSsStartYears() as $k=>$v): ?>
+                            <option value="<?php echo $k?$k:'' ?>" <?php if($k==$_ccStartYear): ?>selected="selected"<?php endif ?>><?php echo $v ?></option>
+                        <?php endforeach ?>
+                        </select>
+                    </div>
+                </li>
+                <li class="adv-container"></li>
                </ul>
             </div>
             <script type="text/javascript">
@@ -115,7 +126,7 @@
         <li>
             <div class="input-box">
                 <label for="<?php echo $_code ?>_cc_cid"><?php echo $this->__('Card Verification Number') ?> <span class="required">*</span></label><br/>
-                <input type="text" title="<?php echo $this->__('Card Verification Number') ?>" class="required-entry input-text validate-cc-cvn" id="<?php echo $_code ?>_cc_cid" name="payment[cc_cid]" style="width:3em;" value="" />
+                <div class="v-fix"><input type="text" title="<?php echo $this->__('Card Verification Number') ?>" class="required-entry input-text validate-cc-cvn" id="<?php echo $_code ?>_cc_cid" name="payment[cc_cid]" style="width:3em;" value="" /></div>
                 &nbsp;
                 <a href="#" class="cvv-what-is-this"><?php echo $this->__('What is this?') ?></a>
             </div>
@@ -136,7 +147,9 @@ Validation.addAllThese([
               endposition = elm.id.indexOf('_start_year');
           }
 
-          var ccTypeContainer = $(elm.id.substr(0,endposition) + '_cc_type');
+          var prefix = elm.id.substr(0,endposition);
+
+          var ccTypeContainer = $(prefix + '_cc_type');
 
           if (!ccTypeContainer) {
                 return true;
@@ -147,18 +160,24 @@ Validation.addAllThese([
               return true;
           }
 
-          var ccIssue = $(elm.id.substr(0,endposition) + '_cc_issue').value;
-          var ccSMonth =  $(elm.id.substr(0,endposition) + '_start_month').value;
-          var ccSYear =  $(elm.id.substr(0,endposition) + '_start_year').value;
+          $(prefix + '_cc_issue').advaiceContainer
+            = $(prefix + '_start_month').advaiceContainer
+            = $(prefix + '_start_year').advaiceContainer
+            = $(prefix + '_cc_type_ss_div').down('ul li.adv-container');
+
+          var ccIssue   =  $(prefix + '_cc_issue').value;
+          var ccSMonth  =  $(prefix + '_start_month').value;
+          var ccSYear   =  $(prefix + '_start_year').value;
 
           if((!ccIssue && !ccSMonth && !ccSYear) ||
-           (!ccIssue && !ccSMonth && ccSYear) ||
-           (!ccIssue && ccSMonth && !ccSYear)
+             (!ccIssue && !ccSMonth && ccSYear)  ||
+             (!ccIssue && ccSMonth && !ccSYear)
           ){
               return false;
           }
 
           return true;
+
     }]
 ]);
 </script>

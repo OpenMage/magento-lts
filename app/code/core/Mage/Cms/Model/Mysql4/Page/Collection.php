@@ -39,6 +39,8 @@ class Mage_Cms_Model_Mysql4_Page_Collection extends Mage_Core_Model_Mysql4_Colle
     protected function _construct()
     {
         $this->_init('cms/page');
+
+        $this->_map['fields']['page_id'] = 'main_table.page_id';
     }
 
     public function toOptionArray()
@@ -91,18 +93,37 @@ class Mage_Cms_Model_Mysql4_Page_Collection extends Mage_Core_Model_Mysql4_Colle
      */
     public function addStoreFilter($store, $withAdmin = true)
     {
-        if ($store instanceof Mage_Core_Model_Store) {
-            $store = array($store->getId());
+        if (!$this->getFlag('store_filter_added')) {
+            if ($store instanceof Mage_Core_Model_Store) {
+                $store = array($store->getId());
+            }
+
+            $this->getSelect()->join(
+                array('store_table' => $this->getTable('cms/page_store')),
+                'main_table.page_id = store_table.page_id',
+                array()
+            )
+            ->where('store_table.store_id in (?)', ($withAdmin ? array(0, $store) : $store))
+            ->group('main_table.page_id');
+
+            $this->setFlag('store_filter_added', true);
         }
 
-        $this->getSelect()->join(
-            array('store_table' => $this->getTable('cms/page_store')),
-            'main_table.page_id = store_table.page_id',
-            array()
-        )
-        ->where('store_table.store_id in (?)', ($withAdmin ? array(0, $store) : $store))
-        ->group('main_table.page_id');
-
         return $this;
+    }
+
+    /**
+     * Get SQL for get record count.
+     * Extra group by strip added.
+     *
+     * @return Varien_Db_Select
+     */
+    public function getSelectCountSql()
+    {
+        $countSelect = parent::getSelectCountSql();
+
+        $countSelect->reset(Zend_Db_Select::GROUP);
+
+        return $countSelect;
     }
 }

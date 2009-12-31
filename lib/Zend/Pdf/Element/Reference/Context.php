@@ -14,8 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Context.php 16978 2009-07-22 19:59:40Z alexander $
  */
 
 
@@ -32,7 +33,7 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Element_Reference_Context
@@ -68,7 +69,7 @@ class Zend_Pdf_Element_Reference_Context
     /**
      * Context parser
      *
-     * @return Zend_Pdf_Parser
+     * @return Zend_Pdf_StringParser
      */
     public function getParser()
     {

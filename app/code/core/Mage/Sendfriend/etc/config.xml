@@ -53,20 +53,7 @@
                    <module>Mage_Sendfriend</module>
                    <class>Mage_Sendfriend_Model_Mysql4_Setup</class>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </sendfriend_setup>
-            <sendfriend_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </sendfriend_write>
-            <sendfriend_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </sendfriend_read>
         </resources>
         <blocks>
             <sendfriend><class>Mage_Sendfriend_Block</class></sendfriend>
@@ -99,7 +86,6 @@
             <catalog_controller_product_view>
                 <observers>
                     <sendfriend>
-                        <type>singleton</type>
                         <class>sendfriend/observer</class>
                         <method>register</method>
                     </sendfriend>

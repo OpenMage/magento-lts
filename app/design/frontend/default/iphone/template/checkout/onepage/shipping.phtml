@@ -171,10 +171,6 @@
     //shippingForm.setElementsRelation('shipping:country_id', 'shipping:region', '<?php echo $this->getUrl('directory/json/childRegion') ?>', '<?php echo $this->__('Select State/Province...') ?>');
     $('shipping-address-select') && shipping.newAddress(!$('shipping-address-select').value);
 
-    var zipOptions = {};
-    zipOptions.input_el = "shipping:postcode";
-    zipOptions.label_el = $("shipping:postcode").up(1).down('label > span.required');
-    zipOptions.optional_countries = <?php echo $this->helper('directory')->getCountriesWithOptionalZipJson() ?>;
-    var shippingRegionUpdater = new RegionUpdater('shipping:country_id', 'shipping:region', 'shipping:region_id', countryRegions, undefined, zipOptions);
+    var shippingRegionUpdater = new RegionUpdater('shipping:country_id', 'shipping:region', 'shipping:region_id', countryRegions, undefined, 'shipping:postcode');
 //-->
 </script>

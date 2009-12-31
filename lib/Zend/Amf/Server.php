@@ -14,8 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Amf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Server.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /** Zend_Server_Interface */
@@ -51,7 +52,7 @@
  * @todo       Make the relection methods cache and autoload.
  * @package    Zend_Amf
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Server implements Zend_Server_Interface
@@ -61,6 +62,15 @@ class Zend_Amf_Server implements Zend_Server_Interface
      * @var array
      */
     protected $_methods = array();
+    
+    /**
+     * Array of classes that can be called without being explicitly loaded
+     * 
+     * Keys are class names.
+     *
+     * @var array
+     */
+    protected $_classAllowed = array();
 
     /**
      * Loader for classes in added directories
@@ -304,7 +314,7 @@ class Zend_Amf_Server implements Zend_Server_Interface
                 	$this->getLoader()->load($className);
                 } catch (Exception $e) {
                     #require_once 'Zend/Amf/Server/Exception.php';
-                    throw new Zend_Amf_Server_Exception('Class "' . $className . '" does not exist');
+                    throw new Zend_Amf_Server_Exception('Class "' . $className . '" does not exist: '.$e->getMessage());
                 }
                 // Add the new loaded class to the server.
                 $this->setClass($className, $source);
@@ -340,7 +350,7 @@ class Zend_Amf_Server implements Zend_Server_Interface
                     $object = $info->getDeclaringClass()->newInstance();
                 } catch (Exception $e) {
                     #require_once 'Zend/Amf/Server/Exception.php';
-                    throw new Zend_Amf_Server_Exception('Error instantiating class ' . $class . ' to invoke method ' . $info->getName(), 621);
+                    throw new Zend_Amf_Server_Exception('Error instantiating class ' . $class . ' to invoke method ' . $info->getName() . ': '.$e->getMessage(), 621);
                 }
                 $this->_checkAcl($object, $info->getName());
                 $return = $info->invokeArgs($object, $params);

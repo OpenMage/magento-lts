@@ -104,7 +104,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
         /**
          * Add shipping
          */
-        if ($this->getSource()->getShippingAmount() || $this->getSource()->getShippingDescription())
+        if (!$this->getSource()->getIsVirtual() && ((float) $this->getSource()->getShippingAmount() || $this->getSource()->getShippingDescription()))
         {
             $this->_totals['shipping'] = new Varien_Object(array(
                 'code'  => 'shipping',
@@ -211,7 +211,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
                 }
                 $this->_totals = $totals;
                 return $this;
-            } 
+            }
         }
         $totals = array();
         $first = array_shift($this->_totals);
@@ -283,7 +283,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
                     $totals[] = $total;
                 }
             }
-        } 
+        }
         return $totals;
     }
 

@@ -88,6 +88,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
     protected $_productTypes;
 
     /**
+     * Exists flat tables cache
+     *
+     * @var array
+     */
+    protected $_existsFlatTables = array();
+
+    /**
      * Initialize connection
      *
      */
@@ -152,18 +159,22 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
 
             $this->_attributeCodes = array();
             $whereCond  = array(
-                $this->_getReadAdapter()->quoteInto('backend_type=?', 'static'),
-                $this->_getReadAdapter()->quoteInto('used_in_product_listing=?', 1),
-                $this->_getReadAdapter()->quoteInto('used_for_sort_by=?', 1),
-                $this->_getReadAdapter()->quoteInto('attribute_code IN(?)', $this->_systemAttributes)
+                $this->_getReadAdapter()->quoteInto('main_table.backend_type=?', 'static'),
+                $this->_getReadAdapter()->quoteInto('additional_table.used_in_product_listing=?', 1),
+                $this->_getReadAdapter()->quoteInto('additional_table.used_for_sort_by=?', 1),
+                $this->_getReadAdapter()->quoteInto('main_table.attribute_code IN(?)', $this->_systemAttributes)
             );
             if ($this->getFlatHelper()->isAddFilterableAttributes()) {
-                $whereCond[] = $this->_getReadAdapter()->quoteInto('is_filterable>?', 0);
+                $whereCond[] = $this->_getReadAdapter()->quoteInto('additional_table.is_filterable>?', 0);
             }
 
             $select = $this->_getReadAdapter()->select()
-                ->from($this->getTable('eav/attribute'))
-                ->where('entity_type_id=?', $this->getEntityTypeId())
+                ->from(array('main_table' => $this->getTable('eav/attribute')))
+                ->join(
+                    array('additional_table' => $this->getTable('catalog/eav_attribute')),
+                    'additional_table.attribute_id=main_table.attribute_id'
+                )
+                ->where('main_table.entity_type_id=?', $this->getEntityTypeId())
                 ->where(join(' OR ', $whereCond));
             $attributesData = $this->_getReadAdapter()->fetchAll($select);
             Mage::getSingleton('eav/config')
@@ -512,9 +523,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
 
         $tableName = $this->getFlatTableName($store);
         $tableNameQuote = $this->_getWriteAdapter()->quoteIdentifier($tableName);
-        $tableExistsSql = $this->_getWriteAdapter()
-            ->quoteInto("SHOW TABLE STATUS LIKE ?", $tableName);
-        if (!$this->_getWriteAdapter()->fetchRow($tableExistsSql)) {
+        if (!$this->_isFlatTableExists($store)) {
             $sql = "CREATE TABLE {$tableNameQuote} (\n";
             foreach ($columns as $field => $fieldProp) {
                 $sql .= sprintf("  %s,\n",
@@ -533,6 +542,8 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
             }
             $sql .= "\n) ENGINE=InnoDB DEFAULT CHARSET=utf8";
             $this->_getWriteAdapter()->query($sql);
+
+            $this->_existsFlatTables[$store] = true;
         }
         else {
             $describe   = $this->_getWriteAdapter()->describeTable($tableName);
@@ -646,6 +657,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function updateStaticAttributes($store, $productIds = null)
     {
+        if (!$this->_isFlatTableExists($store)) {
+            return $this;
+        }
+
         $website = Mage::app()->getStore($store)->getWebsite()->getId();
         $status = $this->getAttribute('status');
         /* @var $status Mage_Eav_Model_Entity_Attribute */
@@ -680,7 +695,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
             ->where("t1.entity_type_id=?", $status->getEntityTypeId())
             ->where("t1.attribute_id=?", $status->getId())
             ->where("t1.store_id=?", 0)
-            ->where("IFNULL(`t2`.`value`, `t1`.`value`)=?", Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+            ->where("IF(`t2`.`value_id`>0, `t2`.`value`, `t1`.`value`)=?", Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
         foreach ($this->getAttributes() as $attributeCode => $attribute) {
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
             if ($attribute->getBackend()->getType() == 'static') {
@@ -751,7 +766,16 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function updateAttribute($attribute, $store, $productIds = null)
     {
+        if (!$this->_isFlatTableExists($store)) {
+            return $this;
+        }
+
+        $describe = $this->_getWriteAdapter()->describeTable($this->getFlatTableName($store));
+
         if ($attribute->getBackend()->getType() == 'static') {
+            if (!isset($describe[$attribute->getAttributeCode()])) {
+                return $this;
+            }
             $select = $this->_getWriteAdapter()->select()
                 ->join(
                     array('main_table' => $this->getTable('catalog/product')),
@@ -768,6 +792,16 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
                 $this->_getWriteAdapter()->query($sql);
         }
         else {
+            $columns = $attribute->getFlatColumns();
+            if (!$columns) {
+                return $this;
+            }
+            foreach (array_keys($columns) as $columnName) {
+                if (!isset($describe[$columnName])) {
+                    return $this;
+                }
+            }
+
             $select = $attribute->getFlatUpdateSelect($store);
             if ($select instanceof Varien_Db_Select) {
                 if (!is_null($productIds)) {
@@ -789,6 +823,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function updateEavAttributes($store, $productIds = null)
     {
+        if (!$this->_isFlatTableExists($store)) {
+            return $this;
+        }
+
         foreach ($this->getAttributes() as $attribute) {
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
             if ($attribute->getBackend()->getType() != 'static') {
@@ -846,6 +884,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
             return $this;
         }
 
+        if (!$this->_isFlatTableExists($store)) {
+            return $this;
+        }
+
         foreach ($this->getProductTypeInstances() as $typeInstance) {
             if (!$typeInstance->isComposite()) {
                 continue;
@@ -900,6 +942,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
     public function updateChildrenDataFromParent($store, $productIds = null)
     {
         if (!$this->getFlatHelper()->isAddChildData()) {
+            return $this;
+        }
+
+        if (!$this->_isFlatTableExists($store)) {
             return $this;
         }
 
@@ -995,6 +1041,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function removeProduct($productIds, $store)
     {
+        if (!$this->_isFlatTableExists($store)) {
+            return $this;
+        }
+
         $cond = array(
             $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $productIds)
         );
@@ -1037,6 +1087,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function updateProduct($productIds, $store)
     {
+        if (!$this->_isFlatTableExists($store)) {
+            return $this;
+        }
+
         $this->saveProduct($productIds, $store);
 
         Mage::dispatchEvent('catalog_product_flat_update_product', array(
@@ -1057,6 +1111,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function saveProduct($productIds, $store)
     {
+        if (!$this->_isFlatTableExists($store)) {
+            return $this;
+        }
+
         $this->updateStaticAttributes($store, $productIds);
         $this->updateEavAttributes($store, $productIds);
 
@@ -1071,16 +1129,34 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function deleteFlatTable($store)
     {
-        $tableName = $this->getFlatTableName($store);
-        $tableNameQuote = $this->_getWriteAdapter()->quoteIdentifier($tableName);
-        $tableExistsSql = $this->_getWriteAdapter()
-            ->quoteInto("SHOW TABLE STATUS LIKE ?", $tableName);
-        if ($this->_getWriteAdapter()->query($tableExistsSql)) {
-            $sql = sprintf('DROP TABLE IF EXISTS %s', $tableNameQuote);
+        if ($this->_isFlatTableExists($store)) {
+            $tableName = $this->_getWriteAdapter()->quoteIdentifier($this->getFlatTableName($store));
+            $sql = sprintf('DROP TABLE IF EXISTS %s', $tableName);
             $this->_getWriteAdapter()->query($sql);
         }
 
         return $this;
+    }
+
+    /**
+     * Check is flat table for store exists
+     *
+     * @param int $store
+     * @return bool
+     */
+    protected function _isFlatTableExists($store)
+    {
+        if (!isset($this->_existsFlatTables[$store])) {
+            $tableName = $this->getFlatTableName($store);
+            $tableExistsSql = $this->_getWriteAdapter()
+                ->quoteInto("SHOW TABLE STATUS LIKE ?", $tableName);
+            if ($this->_getWriteAdapter()->fetchRow($tableExistsSql)) {
+                $this->_existsFlatTables[$store] = true;
+            } else {
+                $this->_existsFlatTables[$store] = false;
+            }
+        }
+        return $this->_existsFlatTables[$store];
     }
 
     /**

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Xml.php 14267 2009-03-10 15:49:03Z dasprid $
+ * @version    $Id: Xml.php 16924 2009-07-21 16:34:04Z dasprid $
  */
 
 /**
@@ -25,9 +25,14 @@
 #require_once 'Zend/Config/Writer.php';
 
 /**
+ * @see Zend_Config_Xml
+ */
+#require_once 'Zend/Config/Xml.php';
+
+/**
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Config_Writer_Xml extends Zend_Config_Writer
@@ -106,7 +111,7 @@ class Zend_Config_Writer_Xml extends Zend_Config_Writer
             throw new Zend_Config_Exception('No config was set');
         }
         
-        $xml         = new SimpleXMLElement('<zend-config/>');
+        $xml         = new SimpleXMLElement('<zend-config xmlns:zf="' . Zend_Config_Xml::XML_NAMESPACE . '"/>');
         $extends     = $this->_config->getExtends();
         $sectionName = $this->_config->getSectionName();
         
@@ -122,7 +127,7 @@ class Zend_Config_Writer_Xml extends Zend_Config_Writer
                     $child = $xml->addChild($sectionName);
                     
                     if (isset($extends[$sectionName])) {
-                        $child->addAttribute('extends', $extends[$sectionName]);
+                        $child->addAttribute('zf:extends', $extends[$sectionName], Zend_Config_Xml::XML_NAMESPACE);
                     }
         
                     $this->_addBranch($data, $child, $xml);

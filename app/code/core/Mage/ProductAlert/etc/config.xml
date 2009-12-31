@@ -60,20 +60,7 @@
                 <setup>
                     <module>Mage_ProductAlert</module>
                 </setup>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
             </productalert_setup>
-            <productalert_read>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
-            </productalert_read>
-            <productalert_write>
-                <connection>
-                    <use>core_setup</use>
-                </connection>
-            </productalert_write>
         </resources>
         <blocks>
             <productalert>

@@ -26,7 +26,7 @@
 ?>
 <?php  $_results = $this->getTrackingInfo() ?>
 <div class="buttons-set">
-    <button class="button" onclick="window.close(); window.opener.focus();"><span><?php echo $this->__('Close Window') ?></span></button>
+    <button class="button" onclick="window.close(); window.opener.focus();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
 </div>
 <?php if(sizeof($_results)>0): ?>
 <?php foreach($_results as $shipid => $_result): ?>
@@ -163,5 +163,5 @@
     <div><?php echo $this->__('There is no tracking available.'); ?></div>
 <?php endif; ?>
 <div class="buttons-set">
-    <button class="button" onclick="window.close(); window.opener.focus();"><span><?php echo $this->__('Close Window') ?></span></button>
+    <button class="button" onclick="window.close(); window.opener.focus();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
 </div>

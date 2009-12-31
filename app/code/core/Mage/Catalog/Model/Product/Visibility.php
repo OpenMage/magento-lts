@@ -283,7 +283,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
                         . " AND `{$valueTable2}`.`store_id`='{$collection->getStoreId()}'",
                     array()
                 );
-            $valueExpr = new Zend_Db_Expr("IFNULL(`{$valueTable2}`.`value`, `{$valueTable1}`.`value`)");
+            $valueExpr = new Zend_Db_Expr("IF(`{$valueTable2}`.`value_id`>0, `{$valueTable2}`.`value`, `{$valueTable1}`.`value`)");
         }
 
         $collection->getSelect()->order($valueExpr . ' ' . $dir);

@@ -17,13 +17,13 @@
  * @subpackage Framework
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Dynamic.php 17517 2009-08-10 13:52:31Z ralph $
  */
 
 /**
- * @see Zend_Tool_Framework_Manifest_Metadata
+ * @see Zend_Tool_Framework_Metadata_Interface
  */
-#require_once 'Zend/Tool/Framework/Manifest/Metadata.php';
+#require_once 'Zend/Tool/Framework/Metadata/Interface.php';
 
 /**
  * @category   Zend
@@ -40,9 +40,56 @@ class Zend_Tool_Framework_Metadata_Dynamic implements Zend_Tool_Framework_Metada
     protected $_type = 'Dynamic';
     
     /**
+     * @var string
+     */
+    protected $_name = null;
+    
+    /**
+     * @var string
+     */
+    protected $_value = null;
+    
+    /**
      * @var array
      */
     protected $_dynamicAttributes = array();
+    
+    /**
+     * getType()
+     * 
+     * The type of metadata this describes
+     * 
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->_type;
+    }
+    
+    /**
+     * getName()
+     *
+     * Metadata name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->_name;
+    }
+    
+    /**
+     * getValue()
+     * 
+     * Metadata Value
+     *
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->_value;
+    }
+    
     
     /**
      * __isset()

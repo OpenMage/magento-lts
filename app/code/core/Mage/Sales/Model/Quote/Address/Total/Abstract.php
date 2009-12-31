@@ -153,10 +153,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      */
     protected function _addAmount($amount)
     {
-        $this->_getAddress()->setTotalAmount(
-            $this->getCode(),
-            $this->_getAddress()->getTotalAmount($this->getCode())+$amount
-        );
+        $this->_getAddress()->addTotalAmount($this->getCode(),$amount);
         return $this;
     }
 
@@ -168,10 +165,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      */
     protected function _addBaseAmount($baseAmount)
     {
-        $this->_getAddress()->setBaseTotalAmount(
-            $this->getCode(),
-            $this->_getAddress()->getBaseTotalAmount($this->getCode())+$baseAmount
-        );
+        $this->_getAddress()->addBaseTotalAmount($this->getCode(), $baseAmount);
         return $this;
     }
 

@@ -586,15 +586,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </default>
-                        <optional_zip_countries translate="label">
-                            <label>Make Zip Code optional for Specific countries</label>
-                            <frontend_type>multiselect</frontend_type>
-                            <sort_order>3</sort_order>
-                            <source_model>adminhtml/system_config_source_country</source_model>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </optional_zip_countries>
                     </fields>
                 </country>
                 <locale translate="label">
@@ -656,7 +647,7 @@
             <show_in_store>1</show_in_store>
             <groups>
                 <smtp translate="label">
-                    <label>SMTP settings (Windows server only)</label>
+                    <label>Mail Sending Settings</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
@@ -679,6 +670,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <comment>For Windows Server Only</comment>
                         </host>
                         <port translate="label">
                             <label>Port (25)</label>
@@ -687,6 +679,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <comment>For Windows Server Only</comment>
                         </port>
                         <!--
                         <auth translate="label">
@@ -715,6 +708,15 @@
                             <show_in_store>1</show_in_store>
                         </password>
                         -->
+                        <set_return_path translate="label">
+                            <label>Set Return-Path</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </set_return_path>
                     </fields>
                 </smtp>
             </groups>
@@ -825,7 +827,7 @@
                         </use_form_key>
                         <session_cookie_lifetime translate="label comment">
                             <label>Session Lifetime (seconds)</label>
-                            <comment>Values less than 60 are ignored.</comment>
+                            <comment>Values less than 60 are ignored. Please note, that changes will apply after logout.</comment>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -1058,19 +1060,11 @@
                         <cookie_lifetime translate="label">
                             <label>Cookie Lifetime</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>30</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </cookie_lifetime>
-                        <cookie_domain translate="label">
-                            <label>Cookie Domain</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </cookie_domain>
+                        </cookie_lifetime>
                         <cookie_path translate="label">
                             <label>Cookie Path</label>
                             <frontend_type>text</frontend_type>
@@ -1079,6 +1073,14 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </cookie_path>
+                        <cookie_domain translate="label">
+                            <label>Cookie Domain</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cookie_domain>
                         <cookie_httponly translate="label">
                             <label>Use HTTP Only</label>
                             <frontend_type>select</frontend_type>

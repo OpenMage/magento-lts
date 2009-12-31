@@ -111,13 +111,13 @@
     <div class="buttons-set">
         <p class="required"><?php echo $this->__('* Required Fields') ?></p>
         <a href="<?php echo $this->getUrl('customer/address/') ?>" class="back-link">&laquo; <?php echo $this->__('Back') ?></a>
-        <button class="button" type="submit"><span><?php echo $this->__('Save Address') ?></span></button>
+        <button class="button" type="submit"><span><span><?php echo $this->__('Save Address') ?></span></span></button>
     </div>
 </form>
 <script type="text/javascript">
 //<![CDATA[
     var dataForm = new VarienForm('form-validate', true);
     //dataForm.setElementsRelation('country', 'state', '<?php echo $this->getUrl('directory/json/childRegion') ?>');
-    new RegionUpdater('country', 'region', 'region_id', countryRegions, undefined, <?php echo $this->helper('directory')->getCountriesWithOptionalZipJson() ?>);
+    new RegionUpdater('country', 'region', 'region_id', countryRegions, undefined, 'zip');
 //]]>
 </script>

@@ -298,7 +298,11 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
                 ->addExpressionAttributeToSelect(
                     'refunded',
                     'SUM({{base_total_refunded}})',
-                    array('base_total_refunded'));
+                    array('base_total_refunded'))
+                ->addExpressionAttributeToSelect(
+                    'profit',
+                    'SUM({{base_total_paid}}) - SUM({{base_total_refunded}}) - SUM({{base_total_invoiced_cost}})',
+                    array('base_total_paid', 'base_total_refunded', 'base_total_invoiced_cost'));
         } else {
             $this->addExpressionAttributeToSelect(
                     'subtotal',
@@ -327,7 +331,11 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
                 ->addExpressionAttributeToSelect(
                     'refunded',
                     'SUM({{base_total_refunded}}*{{base_to_global_rate}})',
-                    array('base_total_refunded', 'base_to_global_rate'));
+                    array('base_total_refunded', 'base_to_global_rate'))
+                ->addExpressionAttributeToSelect(
+                    'profit',
+                    'SUM({{base_total_paid}}*{{base_to_global_rate}}) - SUM({{base_total_refunded}}*{{base_to_global_rate}}) - SUM({{base_total_invoiced_cost}}*{{base_to_global_rate}})',
+                    array('base_total_paid', 'base_total_refunded', 'base_total_invoiced_cost', 'base_to_global_rate'));
         }
 
         return $this;
@@ -459,5 +467,23 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
         $sql = $countSelect->__toString();
 
         return $sql;
+    }
+
+    /**
+     * Add period filter by created_at attribute
+     *
+     * @param string $period
+     * @return Mage_Reports_Model_Mysql4_Order_Collection
+     */
+    public function addCreateAtPeriodFilter($period)
+    {
+        list($from, $to) = $this->getDateRange($period, 0, 0, true);
+
+        $this->addAttributeToFilter('created_at', array(
+            'from'  => $from->toString(Varien_Date::DATETIME_INTERNAL_FORMAT),
+            'to'    => $to->toString(Varien_Date::DATETIME_INTERNAL_FORMAT)
+        ));
+
+        return $this;
     }
 }

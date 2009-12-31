@@ -28,7 +28,7 @@
     <div class="block-title">
         <h2><?php echo $this->__('Newsletter') ?><a name="newsletter-box"></a></h2>
     </div>
-    <form action="<?php echo $this->getUrl('newsletter/subscriber/new') ?>" method="post" id="newsletter-validate-detail">
+    <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
         <fieldset class="block-content">
             <legend><?php echo $this->__('Newsletter') ?></legend>
             <?php /*
@@ -43,7 +43,7 @@
             <div class="input-box">
                <input name="email" type="text" id="newsletter" class="input-text required-entry validate-email" />
             </div>
-            <button type="submit" class="button"><span><?php echo $this->__('Subscribe') ?></span></button>
+            <button type="submit" class="button"><span><span><?php echo $this->__('Subscribe') ?></span></span></button>
         </fieldset>
     </form>
 <script type="text/javascript">

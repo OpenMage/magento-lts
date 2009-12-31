@@ -57,17 +57,6 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
     }
 
     /**
-     * Return true if the method can be used at this time
-     * Use google/checkout/active flag of admin module config
-     *
-     * @return bool
-     */
-    public function isAvailable($quote=null)
-    {
-        return Mage::getStoreConfig('google/checkout/active') > 0;
-    }
-
-    /**
      *  Return Order Place Redirect URL
      *
      *  @return	  string Order Redirect URL

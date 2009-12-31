@@ -15,15 +15,15 @@
  * @category   Zend
  * @package    Zend_Tag
  * @subpackage Item
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Taggable.php 14868 2009-04-12 16:38:07Z dasprid $
+ * @version    $Id: Taggable.php 16209 2009-06-21 19:20:34Z thomas $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Tag
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Tag_Taggable

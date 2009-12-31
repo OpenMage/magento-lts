@@ -93,7 +93,7 @@
                             <show_in_store>0</show_in_store>
                         </ytd_start>
                         <mtd_start translate="label comment">
-                            <label>Month-To-Date Starts</label>
+                            <label>Current Month Starts</label>
                             <frontend_type>select</frontend_type>
                             <frontend_model>adminhtml/report_config_form_field_mtdStart</frontend_model>
                             <comment>Select day of the month</comment>

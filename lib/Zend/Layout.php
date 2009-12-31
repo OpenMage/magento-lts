@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Layout
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Layout.php 15577 2009-05-14 12:43:34Z matthew $
+ * @version    $Id: Layout.php 16942 2009-07-22 04:03:09Z ralph $
  */
 
 /**
@@ -24,7 +24,7 @@
  *
  * @category   Zend
  * @package    Zend_Layout
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Layout
@@ -174,9 +174,11 @@ class Zend_Layout
     {
         if (null === self::$_mvcInstance) {
             self::$_mvcInstance = new self($options, true);
-        } elseif (is_string($options)) {
+        }
+        
+        if (is_string($options)) {
             self::$_mvcInstance->setLayoutPath($options);
-        } else {
+        } elseif (is_array($options) || $options instanceof Zend_Config) {
             self::$_mvcInstance->setOptions($options);
         }
 
@@ -222,7 +224,7 @@ class Zend_Layout
     /**
      * Set options en masse
      * 
-     * @param  array $options 
+     * @param  array|Zend_Config $options 
      * @return void
      */
     public function setOptions($options)

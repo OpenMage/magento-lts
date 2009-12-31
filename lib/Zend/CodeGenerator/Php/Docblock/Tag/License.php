@@ -17,7 +17,7 @@
  * @subpackage PHP
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: License.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /**
@@ -91,7 +91,7 @@ class Zend_CodeGenerator_Php_Docblock_Tag_License extends Zend_CodeGenerator_Php
      */
     public function generate()
     {
-        $output = '@license ' . $this->_url . ' ' . $this->_description . PHP_EOL;
+        $output = '@license ' . $this->_url . ' ' . $this->_description . self::LINE_FEED;
         return $output;
     }
     

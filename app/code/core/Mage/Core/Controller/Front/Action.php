@@ -34,13 +34,27 @@
 class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Action
 {
     /**
+     * Currently used area
+     *
+     * @var string
+     */
+    protected $_currentArea = 'frontend';
+
+    /**
+     * Namespace for session.
+     *
+     * @var string
+     */
+    protected $_sessionNamespace = 'frontend';
+
+    /**
      * Predispatch: shoud set layout area
      *
      * @return Mage_Core_Controller_Front_Action
      */
     public function preDispatch()
     {
-        $this->getLayout()->setArea('frontend');
+        $this->getLayout()->setArea($this->_currentArea);
 
         parent::preDispatch();
         return $this;

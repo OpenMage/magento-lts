@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tag
  * @subpackage Item
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Item.php 15457 2009-05-09 15:19:13Z dasprid $
+ * @version    $Id: Item.php 16209 2009-06-21 19:20:34Z thomas $
  */
 
 /**
@@ -29,7 +29,7 @@
  * @category   Zend
  * @package    Zend_Tag
  * @uses       Zend_Tag_Taggable
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tag_Item implements Zend_Tag_Taggable

@@ -38,14 +38,15 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         $html  = '<input type="text" name="' . $this->getName() . '" id="' . $this->getId() . '" ';
-        $html .= 'value="'.$this->getValue().'" class="'.$this->getClass().'" style="width:100px" '.$this->getExtraParams().'/> ';
+        $html .= 'value="'.$this->getValue().'" class="'.$this->getClass().'" '.$this->getExtraParams().'/> ';
 
-        $html .= '<img src="' . $this->getImage() . '" alt="" class="v-middle" ';
+        $html .= '<img src="' . $this->getImage() . '" alt="' . $this->helper('core')->__('Select Date') . '" class="v-middle" ';
         $html .= 'title="' . $this->helper('core')->__('Select Date') . '" id="' . $this->getId() . '_trig" />';
 
         $html .=
 
         '<script type="text/javascript">
+        //<![CDATA[
             Calendar.setup({
                 inputField  : "' . $this->getId() . '",
                 ifFormat    : "' . $this->getFormat() . '",
@@ -53,6 +54,7 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
                 align       : "Bl",
                 singleClick : true
             });
+        //]]>
         </script>';
 
 

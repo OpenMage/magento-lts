@@ -42,6 +42,9 @@ varienForm.prototype = {
     },
 
     submit : function(url){
+        if (typeof varienGlobalEvents != undefined) {
+            varienGlobalEvents.fireEvent('formSubmit', this.formId);
+        }
         this.errorSections = $H({});
         this.canShowError = true;
         this.submitUrl = url;
@@ -275,6 +278,7 @@ RegionUpdater.prototype = {
 //            Element.remove(this.regionSelectEl);
 //            this.regionSelectEl = null;
         }
+        varienGlobalEvents.fireEvent("address_country_changed", this.countryEl);
     },
 
     setMarkDisplay: function(elem, display){

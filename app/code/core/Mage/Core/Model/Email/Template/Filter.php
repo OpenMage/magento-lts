@@ -113,16 +113,20 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         } elseif (isset($blockParameters['id'])) {
             $block = $layout->createBlock('cms/block');
             if ($block) {
-                $block->setBlockId($blockParameters['id'])
-                    ->setBlockParams($blockParameters);
-                foreach ($blockParameters as $k => $v) {
-                    if (in_array($k, $skipParams)) {
-                        continue;
-                    }
-                    $block->setDataUsingMethod($k, $v);
-                }
+                $block->setBlockId($blockParameters['id']);
             }
         }
+
+        if ($block) {
+            $block->setBlockParams($blockParameters);
+            foreach ($blockParameters as $k => $v) {
+                if (in_array($k, $skipParams)) {
+                    continue;
+                }
+                $block->setDataUsingMethod($k, $v);
+            }
+        }
+
         if (!$block) {
             return '';
         }

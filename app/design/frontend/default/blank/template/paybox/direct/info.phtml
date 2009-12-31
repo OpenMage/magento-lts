@@ -28,8 +28,7 @@
     <?php echo $this->getMethod()->getTitle() ?><br />
     <?php echo $this->__('Name on the Card: %s', $this->htmlEscape($this->getInfo()->getCcOwner())) ?><br />
     <?php echo $this->__('Credit Card Type: %s', $this->htmlEscape($this->getCcTypeName())) ?><br />
-    <?php echo $this->__('Credit Card Number: xxxx-%s', $this->htmlEscape($this->getInfo()->getCcLast4())) ?><br />
-    <?php echo $this->__('Expiration Date: %s/%s', $this->htmlEscape($this->getCcExpMonth()), $this->htmlEscape($this->getInfo()->getCcExpYear())) ?>
+    <?php echo $this->__('Credit Card Number: xxxx-%s', $this->htmlEscape($this->getInfo()->getCcLast4())) ?>
 <?php else: ?>
 
 <?php endif; ?>

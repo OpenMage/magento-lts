@@ -33,6 +33,14 @@
  */
 class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 {
+
+    /**
+     * Event prefix for observer
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'review';
+
     const ENTITY_PRODUCT = 1;
 
     const STATUS_APPROVED       = 1;

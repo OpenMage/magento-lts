@@ -35,6 +35,35 @@
 class Mage_Wishlist_Model_Mysql4_Product_Collection
     extends Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
 {
+
+    /**
+     * Add days in whishlist filter of product collection
+     *
+     * @var boolean
+     */
+    protected $_addDaysInWishlist = false;
+
+    /**
+     * Get add days in whishlist filter of product collection flag
+     *
+     * @return boolean
+     */
+    public function getDaysInWishlist()
+    {
+        return $this->_addDaysInWishlist;
+    }
+
+    /**
+     * Set add days in whishlist filter of product collection flag
+     *
+     * @return Mage_Wishlist_Model_Mysql4_Product_Collection
+     */
+    public function setDaysInWishlist($flag)
+    {
+        $this->_addDaysInWishlist = (bool) $flag;
+        return $this;
+    }
+
     /**
      * Add wishlist filter to collection
      *
@@ -81,21 +110,35 @@ class Mage_Wishlist_Model_Mysql4_Product_Collection
     }
 
     /**
+     * Reset sort order
+     *
+     * @return Mage_Wishlist_Model_Mysql4_Product_Collection
+     */
+    public function resetSortOrder()
+    {
+        $this->getSelect()->reset(Zend_Db_Select::ORDER);
+        return $this;
+    }
+
+    /**
      * Add store data (days in wishlist)
      *
      * @return Mage_Wishlist_Model_Mysql4_Product_Collection
      */
     public function addStoreData()
     {
-        if (!isset($this->_joinFields['e_id'])) {
+        if (!$this->getDaysInWishlist()) {
             return $this;
         }
 
-        $dayTable = $this->_getAttributeTableAlias('days_in_wishlist');
-        $this->joinField('store_name', 'core/store', 'name', 'store_id=store_id');
+        $this->setDaysInWishlist(false);
+
+        $dayTable = 't_wi'; //$this->_getAttributeTableAlias('days_in_wishlist');
+
+        $this->joinField('store_name', 'core/store', 'name', 'store_id=item_store_id');
         $this->joinField('days_in_wishlist',
             'wishlist/item',
-            "(TO_DAYS('" . Mage::getSingleton('core/date')->date() . "') - TO_DAYS(DATE_ADD(".$dayTable.".added_at, INTERVAL " .(int) Mage::getSingleton('core/date')->getGmtOffset() . " SECOND)))",
+            "(TO_DAYS('" . (substr(Mage::getSingleton('core/date')->date(), 0, -2) . '00') . "') - TO_DAYS(DATE_ADD(".$dayTable.".added_at, INTERVAL " .(int) Mage::getSingleton('core/date')->getGmtOffset() . " SECOND)))",
             'wishlist_item_id=wishlist_item_id'
         );
 

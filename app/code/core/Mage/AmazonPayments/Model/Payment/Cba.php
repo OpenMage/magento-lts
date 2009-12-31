@@ -51,16 +51,6 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
     protected $_skipProccessDocument = false;
 
     /**
-     * Return true if the method can be used at this time
-     *
-     * @return bool
-     */
-    public function isAvailable($quote=null)
-    {
-        return Mage::getStoreConfig('payment/amazonpayments_cba/active');
-    }
-
-    /**
      * Get checkout session namespace
      *
      * @return Mage_Checkout_Model_Session
@@ -447,7 +437,7 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
         }
 
         $order->save();
-        
+
         $quote->setIsActive(false);
         $quote->save();
 

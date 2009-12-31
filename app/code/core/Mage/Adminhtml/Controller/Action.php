@@ -47,6 +47,20 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     protected $_usedModuleName = 'adminhtml';
 
+    /**
+     * Currently used area
+     *
+     * @var string
+     */
+    protected $_currentArea = 'adminhtml';
+
+    /**
+     * Namespace for session.
+     *
+     * @var string
+     */
+    protected $_sessionNamespace = 'adminhtml';
+
     protected function _isAllowed()
     {
         return true;
@@ -120,11 +134,11 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     public function preDispatch()
     {
-        Mage::getDesign()->setArea('adminhtml')
+        Mage::getDesign()->setArea($this->_currentArea)
             ->setPackageName((string)Mage::getConfig()->getNode('stores/admin/design/package/name'))
             ->setTheme((string)Mage::getConfig()->getNode('stores/admin/design/theme/default'));
 
-        $this->getLayout()->setArea('adminhtml');
+        $this->getLayout()->setArea($this->_currentArea);
 
         Mage::dispatchEvent('adminhtml_controller_action_predispatch_start', array());
         parent::preDispatch();
@@ -166,7 +180,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             && !$this->getRequest()->getParam('forwarded')
             && !$this->_getSession()->getIsUrlNotice(true)
             && !Mage::getConfig()->getNode('global/can_use_base_url')) {
-            $this->_checkUrlSettings();
+            //$this->_checkUrlSettings();
             $this->setFlag('', self::FLAG_IS_URLS_CHECKED, true);
         }
         if (is_null(Mage::getSingleton('adminhtml/session')->getLocale())) {
@@ -176,6 +190,10 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         return $this;
     }
 
+    /**
+     * @deprecated after 1.4.0.0 alpha, logic moved to Mage_Adminhtml_Block_Notification_Baseurl
+     * @return Mage_Adminhtml_Controller_Action
+     */
     protected function _checkUrlSettings()
     {
         /**

@@ -161,10 +161,19 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected $_massactionBlockName = 'adminhtml/widget_grid_massaction';
 
-    /*
+    /**
     * RSS list
+    *
+    * @var array
     */
     protected $_rssLists = array();
+
+    /**
+     * Columns view order
+     *
+     * @var array
+     */
+    protected $_columnsOrder = array();
 
     public function __construct($attributes=array())
     {
@@ -285,22 +294,60 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function addColumnAfter($columnId, $column, $after)
     {
         $this->addColumn($columnId, $column);
-        // Moving grid column
+        $this->addColumnsOrder($columnId, $after);
+        return $this;
+    }
+
+    /**
+     * Add column view order
+     *
+     * @param string $columnId
+     * @param string $after
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
+    public function addColumnsOrder($columnId, $after)
+    {
+        $this->_columnsOrder[$columnId] = $after;
+        return $this;
+    }
+
+    /**
+     * Retrieve columns order
+     *
+     * @return array
+     */
+    public function getColumnsOrder()
+    {
+        return $this->_columnsOrder;
+    }
+
+    /**
+     * Sort columns by predefined order
+     *
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
+    public function sortColumnsByOrder()
+    {
         $keys = array_keys($this->_columns);
         $values = array_values($this->_columns);
-        $positionCurrent = array_search($columnId, $keys);
 
-        if (array_search($after, $keys) === false || $positionCurrent === false) {
-            return $this;
+        foreach ($this->getColumnsOrder() as $columnId => $after) {
+            if (array_search($after, $keys) !== false) {
+                // Moving grid column
+                $positionCurrent = array_search($columnId, $keys);
+
+                $key = array_splice($keys, $positionCurrent, 1);
+                $value = array_splice($values, $positionCurrent, 1);
+
+                $positionTarget = array_search($after, $keys) + 1;
+
+                array_splice($keys, $positionTarget, 0, $key);
+                array_splice($values, $positionTarget, 0, $value);
+
+                $this->_columns = array_combine($keys, $values);
+            }
         }
 
-        $key = array_splice($keys, $positionCurrent, 1);
-        $value = array_splice($values, $positionCurrent, 1);
-        $positionTarget = array_search($after, $keys) + 1;
-        array_splice($keys, $positionTarget, 0, $key);
-        array_splice($values, $positionTarget, 0, $value);
-
-        $this->_columns = array_combine($keys, $values);
         end($this->_columns);
         $this->_lastColumnId = key($this->_columns);
         return $this;
@@ -422,6 +469,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     protected function _prepareColumns()
     {
+        $this->sortColumnsByOrder();
         return $this;
     }
 
@@ -856,9 +904,28 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         return true;
     }
 
+    /**
+     * Grid url getter
+     *
+     * @deprecated after 1.3.2.3 Use getAbsoluteGridUrl() method instead
+     *
+     * @return string current grid url
+     */
     public function getGridUrl()
     {
         return $this->getCurrentUrl();
+    }
+
+    /**
+     * Grid url getter
+     * Version of getGridUrl() but with parameters
+     *
+     * @param array $params url parameters
+     * @return string current grid url
+     */
+    public function getAbsoluteGridUrl($params = array())
+    {
+        return $this->getCurrentUrl($params);
     }
 
     /**

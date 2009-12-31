@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Dojo
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Exception.php 9854 2008-07-01 15:22:29Z matthew $
+ * @version    $Id: Exception.php 16204 2009-06-21 18:58:29Z thomas $
  */
 
 /** Zend_Exception */
@@ -27,7 +27,7 @@
  * 
  * @uses       Zend_Exception
  * @package    Zend_Dojo
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Dojo_Exception extends Zend_Exception

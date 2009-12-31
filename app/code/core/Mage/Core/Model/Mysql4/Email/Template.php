@@ -189,7 +189,7 @@ class Mage_Core_Model_Mysql4_Email_Template
 
         $validators = array(
             'template_code' 		=> array(Zend_Filter_Input::ALLOW_EMPTY => false),
-            'template_type' 		=> 'Alnum',
+            #'template_type' 		=> 'Alnum',
             #'template_sender_email' => 'EmailAddress',
             #'template_sender_name'	=> array(Zend_Filter_Input::ALLOW_EMPTY => false)
         );

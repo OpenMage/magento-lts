@@ -104,7 +104,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     public function match(Zend_Controller_Request_Http $request)
     {
-        //checkings before even try to findout that current module
+        //checking before even try to find out that current module
         //should use this router
         if (!$this->_beforeModuleMatch()) {
             return false;
@@ -198,7 +198,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
             }
 
             // instantiate controller class
-            $controllerInstance = new $controllerClassName($request, $front->getResponse());
+            $controllerInstance = Mage::getControllerInstance($controllerClassName, $request, $front->getResponse());
 
             if (!$controllerInstance->hasAction($action)) {
                 continue;
@@ -222,7 +222,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                 }
 
                 // instantiate controller class
-                $controllerInstance = Mage::getControllerInstance($request, $front->getResponse());
+                $controllerInstance = Mage::getControllerInstance($controllerClassName, $request, $front->getResponse());
 
                 if (!$controllerInstance->hasAction($action)) {
                     return false;
@@ -251,7 +251,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     }
 
     /**
-     * Allow to control if we need to enable norout functionality in current router
+     * Allow to control if we need to enable no route functionality in current router
      *
      * @return bool
      */
