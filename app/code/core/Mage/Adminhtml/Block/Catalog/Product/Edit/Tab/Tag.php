@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -45,10 +45,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag extends Mage_Adminhtml_B
 
     protected function _prepareCollection()
     {
+        $tagId = Mage::registry('tagId');
         $collection = Mage::getModel('tag/tag')
             ->getResourceCollection()
             ->addProductFilter($this->getProductId())
-            ->addPopularity();
+            ->addPopularity($tagId);
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -79,7 +80,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag extends Mage_Adminhtml_B
             'width'     => '90px',
             'index'     => 'status',
             'type'      => 'options',
-            'options'   => array(
+            'options'    => array(
                 Mage_Tag_Model_Tag::STATUS_DISABLED => Mage::helper('catalog')->__('Disabled'),
                 Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('catalog')->__('Pending'),
                 Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('catalog')->__('Approved'),
@@ -92,17 +93,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag extends Mage_Adminhtml_B
     protected function getRowUrl($row)
     {
         return $this->getUrl('*/tag/edit', array(
-            'tag_id'        => $row->getId(),
-            'product_id'    => $this->getProductId(),
+            'tag_id' => $row->getId(),
+            'product_id' => $this->getProductId(),
         ));
     }
 
     public function getGridUrl()
     {
         return $this->getUrl('*/catalog_product/tagGrid', array(
-            '_current'      => true,
-            'id'            => $this->getProductId(),
-            'product_id'    => $this->getProductId(),
+            '_current' => true,
+            'id'       => $this->getProductId(),
+            'product_id' => $this->getProductId(),
         ));
     }
 }

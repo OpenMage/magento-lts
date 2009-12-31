@@ -12,30 +12,28 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Png.php 18993 2009-11-15 17:09:16Z alexander $
  */
-
-
-/** Internally used classes */
-#require_once 'Zend/Pdf/Element/Array.php';
-#require_once 'Zend/Pdf/Element/Dictionary.php';
-#require_once 'Zend/Pdf/Element/Name.php';
-#require_once 'Zend/Pdf/Element/Numeric.php';
-#require_once 'Zend/Pdf/Element/String/Binary.php';
-
 
 /** Zend_Pdf_Resource_Image */
 #require_once 'Zend/Pdf/Resource/Image.php';
+
+/** Zend_Pdf_Element_Numeric */
+#require_once 'Zend/Pdf/Element/Numeric.php';
+
+/** Zend_Pdf_Element_Name */
+#require_once 'Zend/Pdf/Element/Name.php';
+
+/** Zend_Pdf_ElementFactory */
+#require_once 'Zend/Pdf/ElementFactory.php';
 
 /**
  * PNG image
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
@@ -149,27 +147,20 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
                     switch ($color) {
                         case Zend_Pdf_Resource_Image_Png::PNG_CHANNEL_GRAY:
                             $baseColor = ord(substr($trnsData, 1, 1));
-                            $transparencyData = array(new Zend_Pdf_Element_Numeric($baseColor),
-                                                      new Zend_Pdf_Element_Numeric($baseColor));
+                            $transparencyData = array(new Zend_Pdf_Element_Numeric($baseColor), new Zend_Pdf_Element_Numeric($baseColor));
                             break;
 
                         case Zend_Pdf_Resource_Image_Png::PNG_CHANNEL_RGB:
                             $red = ord(substr($trnsData,1,1));
                             $green = ord(substr($trnsData,3,1));
                             $blue = ord(substr($trnsData,5,1));
-                            $transparencyData = array(new Zend_Pdf_Element_Numeric($red),
-                                                      new Zend_Pdf_Element_Numeric($red),
-                                                      new Zend_Pdf_Element_Numeric($green),
-                                                      new Zend_Pdf_Element_Numeric($green),
-                                                      new Zend_Pdf_Element_Numeric($blue),
-                                                      new Zend_Pdf_Element_Numeric($blue));
+                            $transparencyData = array(new Zend_Pdf_Element_Numeric($red), new Zend_Pdf_Element_Numeric($red), new Zend_Pdf_Element_Numeric($green), new Zend_Pdf_Element_Numeric($green), new Zend_Pdf_Element_Numeric($blue), new Zend_Pdf_Element_Numeric($blue));
                             break;
 
                         case Zend_Pdf_Resource_Image_Png::PNG_CHANNEL_INDEXED:
                             //Find the first transparent color in the index, we will mask that. (This is a bit of a hack. This should be a SMask and mask all entries values).
                             if(($trnsIdx = strpos($trnsData, chr(0))) !== false) {
-                                $transparencyData = array(new Zend_Pdf_Element_Numeric($trnsIdx),
-                                                          new Zend_Pdf_Element_Numeric($trnsIdx));
+                                $transparencyData = array(new Zend_Pdf_Element_Numeric($trnsIdx), new Zend_Pdf_Element_Numeric($trnsIdx));
                             }
                             break;
 
@@ -232,7 +223,6 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
 
                 $colorSpace = new Zend_Pdf_Element_Name('DeviceGray');
 
-                #require_once 'Zend/Pdf/ElementFactory.php';
                 $decodingObjFactory = Zend_Pdf_ElementFactory::createFactory(1);
                 $decodingStream = $decodingObjFactory->newStreamObject($imageData);
                 $decodingStream->dictionary->Filter      = new Zend_Pdf_Element_Name('FlateDecode');
@@ -267,7 +257,6 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
 
                 $colorSpace = new Zend_Pdf_Element_Name('DeviceRGB');
 
-                #require_once 'Zend/Pdf/ElementFactory.php';
                 $decodingObjFactory = Zend_Pdf_ElementFactory::createFactory(1);
                 $decodingStream = $decodingObjFactory->newStreamObject($imageData);
                 $decodingStream->dictionary->Filter      = new Zend_Pdf_Element_Name('FlateDecode');
@@ -306,11 +295,11 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
              * Includes the Alpha transparency data as a Gray Image, then assigns the image as the Shadow Mask for the main image data.
              */
             $smaskStream = $this->_objectFactory->newStreamObject($smaskData);
-            $smaskStream->dictionary->Type             = new Zend_Pdf_Element_Name('XObject');
-            $smaskStream->dictionary->Subtype          = new Zend_Pdf_Element_Name('Image');
-            $smaskStream->dictionary->Width            = new Zend_Pdf_Element_Numeric($width);
-            $smaskStream->dictionary->Height           = new Zend_Pdf_Element_Numeric($height);
-            $smaskStream->dictionary->ColorSpace       = new Zend_Pdf_Element_Name('DeviceGray');
+            $smaskStream->dictionary->Type = new Zend_Pdf_Element_Name('XObject');
+            $smaskStream->dictionary->Subtype = new Zend_Pdf_Element_Name('Image');
+            $smaskStream->dictionary->Width = new Zend_Pdf_Element_Numeric($width);
+            $smaskStream->dictionary->Height = new Zend_Pdf_Element_Numeric($height);
+            $smaskStream->dictionary->ColorSpace = new Zend_Pdf_Element_Name('DeviceGray');
             $smaskStream->dictionary->BitsPerComponent = new Zend_Pdf_Element_Numeric($bits);
             $imageDictionary->SMask = $smaskStream;
 

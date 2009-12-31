@@ -1,0 +1,65 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php if ($this->helper('wishlist')->isAllow()) : ?>
+<?php //if($this->getCanDisplayWishlist()): ?>
+<div class="box base-mini mini-wishlist">
+    <div class="head">
+        <h4><?php echo $this->__('My Wishlist - <a href="%s">%d Item(s)</a>',
+                $this->helper('wishlist')->getListUrl(),
+                $this->helper('wishlist')->getItemCount()
+            ) ?></h4>
+        <h5><?php echo $this->__('Last Added Items') ?></h5>
+    </div>
+    <?php if($this->helper('wishlist')->getItemCount()>0): ?>
+    <ol id="wishlist-sidebar">
+     <?php foreach($this->getWishlistItems() as $_item): ?>
+        <li>
+            <div class="product-images">
+                <a href="<?php echo $_item->getProductUrl() ?>">
+                    <img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50); ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" width="50" height="50" />
+                </a>
+            </div>
+            <div class="product-details">
+                <a href="<?php echo $this->helper('wishlist')->getRemoveUrl($_item) ?>" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the wishlist?') ?>');" class="widget-btn">
+                    <img src="<?php echo $this->getSkinUrl('images/list_remove_btn.gif') ?>" alt="<?php echo $this->__('Remove Item') ?>" />
+                </a>
+                <a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
+                <?php echo $this->getPriceHtml($_item) ?>
+                <?php if($_item->isSaleable()): ?>
+                <a href="<?php echo $this->helper('wishlist')->getAddToCartUrlBase64($_item) ?>" class="link-cart"><?php echo $this->__('Add to Cart') ?></a>
+                <?php endif; ?>
+            </div>
+        </li>
+    <?php endforeach; ?>
+    </ol>
+    <script type="text/javascript">decorateList('wishlist-sidebar')</script>
+    <?php else: ?>
+    <div class="content"><p><?php echo $this->__('You have no items in your wishlist.') ?></p></div>
+    <?php endif ?>
+    <div class="actions"><a href="<?php echo $this->helper('wishlist')->getListUrl() ?>"><?php echo $this->__('Go to Wishlist') ?></a></div>
+</div>
+<?php endif ?>

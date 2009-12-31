@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Tax
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Tax
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Tax>
-            <version>0.7.11</version>
+            <version>0.7.8</version>
         </Mage_Tax>
     </modules>
     <global>
@@ -55,12 +55,6 @@
                     <tax_calculation_rule>
                         <table>tax_calculation_rule</table>
                     </tax_calculation_rule>
-                    <tax_order_aggregated_created>
-                        <table>tax_order_aggregated_created</table>
-                    </tax_order_aggregated_created>
-                    <tax_order_aggregated_updated>
-                        <table>tax_order_aggregated_updated</table>
-                    </tax_order_aggregated_updated>
                 </entities>
             </tax_mysql4>
         </models>
@@ -70,28 +64,26 @@
                     <module>Mage_Tax</module>
                     <class>Mage_Tax_Model_Mysql4_Setup</class>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </tax_setup>
+            <tax_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </tax_write>
+            <tax_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </tax_read>
         </resources>
-        <fieldsets>
-            <sales_convert_quote_address>
-                <subtotal_incl_tax><to_order>*</to_order></subtotal_incl_tax>
-                <base_subtotal_incl_tax><to_order>*</to_order></base_subtotal_incl_tax>
-            </sales_convert_quote_address>
-            <sales_convert_quote_item>
-                <price_incl_tax><to_order_item>*</to_order_item></price_incl_tax>
-                <base_price_incl_tax><to_order_item>*</to_order_item></base_price_incl_tax>
-                <row_total_incl_tax><to_order_item>*</to_order_item></row_total_incl_tax>
-                <base_row_total_incl_tax><to_order_item>*</to_order_item></base_row_total_incl_tax>
-            </sales_convert_quote_item>
-            <sales_convert_order_item>
-                <price_incl_tax><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></price_incl_tax>
-                <base_price_incl_tax><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></base_price_incl_tax>
-            </sales_convert_order_item>
-        </fieldsets>
         <events>
             <sales_convert_quote_address_to_order>
                 <observers>
                     <tax>
+                        <type>singleton</type>
                         <class>tax/observer</class>
                         <method>salesEventConvertQuoteAddressToOrder</method>
                     </tax>
@@ -100,6 +92,7 @@
             <sales_order_save_after>
                 <observers>
                     <tax>
+                        <type>singleton</type>
                         <class>tax/observer</class>
                         <method>salesEventOrderAfterSave</method>
                     </tax>
@@ -108,6 +101,7 @@
             <catalogindex_prepare_price_select>
                 <observers>
                     <tax>
+                        <type>singleton</type>
                         <class>tax/observer</class>
                         <method>prepareCatalogIndexPriceSelect</method>
                     </tax>
@@ -116,63 +110,97 @@
             <catalog_product_collection_load_after>
                 <observers>
                     <tax>
+                        <type>singleton</type>
                         <class>tax/observer</class>
                         <method>addTaxPercentToProductCollection</method>
                     </tax>
                 </observers>
             </catalog_product_collection_load_after>
         </events>
-        <sales>
-            <quote>
-                <totals>
-                    <tax_subtotal>
-                        <class>tax/sales_total_quote_subtotal</class>
-                        <after>shipping</after>
-                        <before>tax,discount</before>
-                    </tax_subtotal>
-                    <tax>
-                        <class>tax/sales_total_quote_tax</class>
-                        <after>subtotal,shipping</after>
-                        <before>grand_total</before>
-                        <renderer>tax/checkout_tax</renderer>
-                        <admin_renderer>adminhtml/sales_order_create_totals_tax</admin_renderer>
-                    </tax>
-                    <subtotal>
-                        <renderer>tax/checkout_subtotal</renderer>
-                        <admin_renderer>adminhtml/sales_order_create_totals_subtotal</admin_renderer>
-                    </subtotal>
-                    <shipping>
-                        <renderer>tax/checkout_shipping</renderer>
-                        <admin_renderer>adminhtml/sales_order_create_totals_shipping</admin_renderer>
-                    </shipping>
-                    <discount>
-                        <renderer>tax/checkout_discount</renderer>
-                        <admin_renderer>adminhtml/sales_order_create_totals_discount</admin_renderer>
-                    </discount>
-                    <grand_total>
-                        <renderer>tax/checkout_grandtotal</renderer>
-                        <admin_renderer>adminhtml/sales_order_create_totals_grandtotal</admin_renderer>
-                    </grand_total>
-                </totals>
-            </quote>
-        </sales>
-        <pdf>
-            <totals>
-                <subtotal><model>tax/sales_pdf_subtotal</model></subtotal>
-                <shipping><model>tax/sales_pdf_shipping</model></shipping>
-                <grand_total><model>tax/sales_pdf_grandtotal</model></grand_total>
-                <tax translate="title">
-                    <title>Tax</title>
-                    <source_field>tax_amount</source_field>
-                    <model>tax/sales_pdf_tax</model>
-                    <font_size>7</font_size>
-                    <display_zero>0</display_zero>
-                    <sort_order>300</sort_order>
-                </tax>
-            </totals>
-        </pdf>
     </global>
     <adminhtml>
+        <menu>
+            <sales>
+                <children>
+                    <tax translate="title" module="tax">
+                        <title>Tax</title>
+                        <sort_order>500</sort_order>
+                        <children>
+                            <rules translate="title" module="tax">
+                                <title>Manage Tax Rules</title>
+                                <action>adminhtml/tax_rule</action>
+                            </rules>
+                            <rates translate="title" module="tax">
+                                <title>Manage Tax Zones &amp; Rates</title>
+                                <action>adminhtml/tax_rate</action>
+                            </rates>
+                            <import_export translate="title" module="tax">
+                                <title>Import / Export Tax Rates</title>
+                                <action>adminhtml/tax_rate/importExport</action>
+                            </import_export>
+                            <classes_customer translate="title" module="tax">
+                                <title>Customer Tax Classes</title>
+                                <action>adminhtml/tax_class_customer</action>
+                            </classes_customer>
+                            <classes_product translate="title" module="tax">
+                                <title>Product Tax Classes</title>
+                                <action>adminhtml/tax_class_product</action>
+                            </classes_product>
+                        </children>
+                    </tax>
+                </children>
+            </sales>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <sales>
+                            <children>
+                                <tax translate="title" module="tax">
+                                    <title>Tax</title>
+                                    <sort_order>500</sort_order>
+                                    <children>
+                                        <classes_customer translate="title">
+                                            <title>Customer Tax Classes</title>
+                                            <sort_order>0</sort_order>
+                                        </classes_customer>
+                                        <classes_product translate="title">
+                                            <title>Product Tax Classes</title>
+                                            <sort_order>10</sort_order>
+                                        </classes_product>
+                                        <import_export translate="title">
+                                            <title>Import / Export Tax Rates</title>
+                                            <sort_order>20</sort_order>
+                                        </import_export>
+                                        <rates translate="title">
+                                            <title>Manage Tax Zones &amp; Rates</title>
+                                            <sort_order>30</sort_order>
+                                        </rates>
+                                        <rules translate="title">
+                                            <title>Manage Tax Rules</title>
+                                            <sort_order>40</sort_order>
+                                        </rules>
+                                    </children>
+                                </tax>
+                            </children>
+                        </sales>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <tax translate="title">
+                                            <title>Tax Section</title>
+                                            <sort_order>55</sort_order>
+                                        </tax>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
         <translate>
             <modules>
                 <Mage_Tax>
@@ -201,7 +229,6 @@
                 <shipping_tax_class></shipping_tax_class>
             </classes>
             <calculation>
-                <algorithm>TOTAL_BASE_CALCULATION</algorithm>
                 <apply_after_discount>0</apply_after_discount>
                 <discount_tax>0</discount_tax>
                 <based_on>shipping</based_on>
@@ -216,35 +243,11 @@
                 <postcode>*</postcode>
             </defaults>
             <display>
+                <column_in_summary>1</column_in_summary>
                 <type>1</type>
+                <full_summary>0</full_summary>
                 <shipping>1</shipping>
             </display>
-            <cart_display>
-                <price>1</price>
-                <subtotal>1</subtotal>
-                <shipping>1</shipping>
-                <discount>1</discount>
-                <grandtotal>0</grandtotal>
-                <full_summary>0</full_summary>
-                <zero_tax>0</zero_tax>
-            </cart_display>
-            <sales_display>
-                <price>1</price>
-                <subtotal>1</subtotal>
-                <shipping>1</shipping>
-                <discount>1</discount>
-                <grandtotal>0</grandtotal>
-                <full_summary>0</full_summary>
-                <zero_tax>0</zero_tax>
-            </sales_display>
         </tax>
     </default>
-    <crontab>
-        <jobs>
-            <aggregate_sales_report_tax_data>
-                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
-                <run><model>tax/observer::aggregateSalesReportTaxData</model></run>
-            </aggregate_sales_report_tax_data>
-        </jobs>
-    </crontab>
 </config>

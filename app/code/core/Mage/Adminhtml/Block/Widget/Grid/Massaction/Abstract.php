@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -78,7 +78,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrieve massaction item with id $itemId
+     * Retrive massaction item with id $itemId
      *
      * @param string $itemId
      * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item
@@ -93,7 +93,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrieve massaction items
+     * Retrive massaction items
      *
      * @return array
      */
@@ -103,7 +103,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrieve massaction items JSON
+     * Retrive massaction items JSON
      *
      * @return string
      */
@@ -114,11 +114,11 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
             $result[$itemId] = $item->toArray();
         }
 
-        return Mage::helper('core')->jsonEncode($result);
+        return Zend_Json::encode($result);
     }
 
     /**
-     * Retrieve massaction items count
+     * Retrive massaction items count
      *
      * @return integer
      */
@@ -138,7 +138,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrieve global form field name for all massaction items
+     * Retrive global form field name for all massaction items
      *
      * @return string
      */
@@ -148,7 +148,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrieve form field name for internal use. Based on $this->getFormFieldName()
+     * Retrive form field name for internal use. Based on $this->getFormFieldName()
      *
      * @return string
      */
@@ -158,7 +158,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrieve massaction block js object name
+     * Retrive massaction block js object name
      *
      * @return string
      */
@@ -168,7 +168,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrieve grid block js object name
+     * Retrive grid block js object name
      *
      * @return string
      */
@@ -178,7 +178,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrieve JSON string of selected checkboxes
+     * Retrive JSON string of selected checkboxes
      *
      * @return string
      */
@@ -187,7 +187,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         if($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
             $selected = explode(',', $selected);
             return join(',', $selected);
-//            return Mage::helper('core')->jsonEncode($selected);
+//            return Zend_Json::encode($selected);
         } else {
             return '';
 //            return '[]';
@@ -195,7 +195,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrieve array of selected checkboxes
+     * Retrive array of selected checkboxes
      *
      * @return array
      */
@@ -210,7 +210,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     }
 
     /**
-     * Retrieve apply button html
+     * Retrive apply button html
      *
      * @return string
      */
@@ -235,7 +235,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
 
         if(!empty($gridIds)) {
             return join(",", $gridIds);
-            //return Mage::helper('core')->jsonEncode($gridIds);
+            //return Zend_Json::encode($gridIds);
         }
         return '';
         //return '[]';
@@ -246,19 +246,5 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         return $this->getParentBlock()->getHtmlId() . '_massaction';
     }
 
-    /**
-     * Remove existing massaction item by its id
-     *
-     * @param string $itemId
-     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
-     */
-    public function removeItem($itemId)
-    {
-        if (isset($this->_items[$itemId])) {
-            unset($this->_items[$itemId]);
-        }
-
-        return $this;
-    }
 }
  // Class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract End

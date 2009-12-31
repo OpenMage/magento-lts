@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -42,14 +42,15 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     protected $_useAbsoluteLinks = false;
 
     /**
-     * Whether to allow SID in store directive: NO
+     * Use session in URL flag
      *
      * @var bool
      */
-    protected $_useSessionInUrl = false;
+    protected $_useSessionInUrl;
 
     /**
-     * @deprecated after 1.4.0.0-alpha2
+     * Url Instance
+     *
      * @var Mage_Core_Model_Url
      */
     protected static $_urlInstance;
@@ -60,10 +61,6 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * @var array
      */
     protected $_modifiers = array('nl2br'  => '');
-
-    protected $_storeId = null;
-
-    protected $_plainTemplateMode = false;
 
     /**
      * Setup callbacks for filters
@@ -87,63 +84,15 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     }
 
     /**
-     * Setter whether SID is allowed in store directive
-     * Doesn't set anything intentionally, since SID is not allowed in any kind of emails
+     * Set Use session in URL flag
      *
      * @param bool $flag
      * @return Mage_Core_Model_Email_Template_Filter
      */
     public function setUseSessionInUrl($flag)
     {
+        $this->_useSessionInUrl = (bool)$flag;
         return $this;
-    }
-
-    /**
-     * Setter
-     *
-     * @param boolean $plainTemplateMode
-     * @return Mage_Core_Model_Email_Template_Filter
-     */
-    public function setPlainTemplateMode($plainTemplateMode)
-    {
-        $this->_plainTemplateMode = (bool)$plainTemplateMode;
-        return $this;
-    }
-
-    /**
-     * Getter
-     *
-     * @return boolean
-     */
-    public function getPlainTemplateMode()
-    {
-        return $this->_plainTemplateMode;
-    }
-
-    /**
-     * Setter
-     *
-     * @param integer $storeId
-     * @return Mage_Core_Model_Email_Template_Filter
-     */
-    public function setStoreId($storeId)
-    {
-        $this->_storeId = $storeId;
-        return $this;
-    }
-
-    /**
-     * Getter
-     * if $_storeId is null return Design store id
-     *
-     * @return integer
-     */
-    public function getStoreId()
-    {
-        if (null === $this->_storeId) {
-            $this->_storeId = Mage::app()->getStore()->getId();
-        }
-        return $this->_storeId;
     }
 
     /**
@@ -164,20 +113,16 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         } elseif (isset($blockParameters['id'])) {
             $block = $layout->createBlock('cms/block');
             if ($block) {
-                $block->setBlockId($blockParameters['id']);
-            }
-        }
-
-        if ($block) {
-            $block->setBlockParams($blockParameters);
-            foreach ($blockParameters as $k => $v) {
-                if (in_array($k, $skipParams)) {
-                    continue;
+                $block->setBlockId($blockParameters['id'])
+                    ->setBlockParams($blockParameters);
+                foreach ($blockParameters as $k => $v) {
+                    if (in_array($k, $skipParams)) {
+                        continue;
+                    }
+                    $block->setDataUsingMethod($k, $v);
                 }
-                $block->setDataUsingMethod($k, $v);
             }
         }
-
         if (!$block) {
             return '';
         }
@@ -224,16 +169,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
                 }
 
                 $block->setDataUsingMethod($k, $v);
+                $layout->addOutputBlock($blockName);
             }
-        }
-
-        /**
-         * Add output method for first block
-         */
-        $allBlocks = $layout->getAllBlocks();
-        $firstBlock = reset($allBlocks);
-        if ($firstBlock) {
-            $layout->addOutputBlock($firstBlock->getNameInLayout());
         }
 
         $layout->setDirectOutput(false);
@@ -313,11 +250,33 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             unset($params['direct_url']);
         }
         else {
-            $path = isset($params['url']) ? $params['url'] : '';
+            $path = $params['url'];
             unset($params['url']);
         }
 
-        return Mage::app()->getStore(Mage::getDesign()->getStore())->getUrl($path, $params);
+        if (!self::$_urlInstance) {
+            self::$_urlInstance = Mage::getModel('core/url')->setStore(
+                Mage::app()->getStore(Mage::getDesign()->getStore())->getId()
+            );
+        }
+        $_urlInstanceOldStore = null;
+        if (!empty($path) && !Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL)
+            && !Mage::app()->isSingleStoreMode())
+        {
+            $params['_query']['___store'] = Mage::app()->getStore(Mage::getDesign()->getStore())->getCode();
+        } elseif (!empty($path) && Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL)
+            && !Mage::app()->isSingleStoreMode())
+        {
+            $_urlInstanceOldStore = self::$_urlInstance->getStore();
+            self::$_urlInstance->setStore(Mage::app()->getStore(Mage::getDesign()->getStore())->getCode());
+        }
+
+        $url = self::$_urlInstance->getUrl($path, $params);
+        if (null ==! $_urlInstanceOldStore) {
+            self::$_urlInstance->setStore($_urlInstanceOldStore);
+        }
+
+        return $url;
     }
 
     /**
@@ -411,97 +370,6 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
             case 'url':
                 return rawurlencode($value);
-        }
-        return $value;
-    }
-
-    /**
-     * HTTP Protocol directive
-     *
-     * Using:
-     * {{protocol}} - current protocol http or https
-     * {{protocol url="www.domain.com/"}} domain URL with current protocol
-     * {{protocol http="http://url" https="https://url"}
-     * also allow additional parameter "store"
-     *
-     * @param array $construction
-     * @return string
-     */
-    public function protocolDirective($construction)
-    {
-        $params = $this->_getIncludeParameters($construction[2]);
-        $store = null;
-        if (isset($params['store'])) {
-            $store = Mage::app()->getSafeStore($params['store']);
-        }
-        $isSecure = Mage::app()->getStore($store)->isCurrentlySecure();
-        $protocol = $isSecure ? 'https' : 'http';
-        if (isset($params['url'])) {
-            return $protocol . '://' . $params['url'];
-        }
-        elseif (isset($params['http']) && isset($params['https'])) {
-            if ($isSecure) {
-                return $params['https'];
-            }
-            return $params['http'];
-        }
-
-        return $protocol;
-    }
-
-    /**
-     * Store config directive
-     *
-     * @param array $construction
-     * @return string
-     */
-    public function configDirective($construction)
-    {
-        $configValue = '';
-        $params = $this->_getIncludeParameters($construction[2]);
-        $storeId = $this->getStoreId();
-        if (isset($params['path'])) {
-            $configValue = Mage::getStoreConfig($params['path'], $storeId);
-        }
-        return $configValue;
-    }
-
-    /**
-     * Custom Variable directive
-     *
-     * @param array $construction
-     * @return string
-     */
-    public function customvarDirective($construction)
-    {
-        $customVarValue = '';
-        $params = $this->_getIncludeParameters($construction[2]);
-        if (isset($params['code'])) {
-            $variable = Mage::getModel('core/variable')
-                ->setStoreId($this->getStoreId())
-                ->loadByCode($params['code']);
-            $mode = $this->getPlainTemplateMode()?Mage_Core_Model_Variable::TYPE_TEXT:Mage_Core_Model_Variable::TYPE_HTML;
-            if ($value = $variable->getValue($mode)) {
-                $customVarValue = $value;
-            }
-        }
-        return $customVarValue;
-    }
-
-    /**
-     * Filter the string as template.
-     * Rewrited for logging exceptions
-     *
-     * @param string $value
-     * @return string
-     */
-    public function filter($value)
-    {
-        try {
-            $value = parent::filter($value);
-        } catch (Exception $e) {
-            $value = '';
-            Mage::logException($e);
         }
         return $value;
     }

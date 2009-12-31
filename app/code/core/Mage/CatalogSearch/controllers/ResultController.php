@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -43,13 +43,13 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
      */
     public function indexAction()
     {
-        $query = Mage::helper('catalogsearch')->getQuery();
+        $query = Mage::helper('catalogSearch')->getQuery();
         /* @var $query Mage_CatalogSearch_Model_Query */
 
         $query->setStoreId(Mage::app()->getStore()->getId());
 
         if ($query->getQueryText()) {
-            if (Mage::helper('catalogsearch')->isMinQueryLength()) {
+            if (Mage::helper('catalogSearch')->isMinQueryLength()) {
                 $query->setId(0)
                     ->setIsActive(1)
                     ->setIsProcessed(1);
@@ -72,14 +72,14 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
                 }
             }
 
-            Mage::helper('catalogsearch')->checkNotes();
+            Mage::helper('catalogSearch')->checkNotes();
 
             $this->loadLayout();
             $this->_initLayoutMessages('catalog/session');
             $this->_initLayoutMessages('checkout/session');
             $this->renderLayout();
 
-            if (!Mage::helper('catalogsearch')->isMinQueryLength()) {
+            if (!Mage::helper('catalogSearch')->isMinQueryLength()) {
                 $query->save();
             }
         }

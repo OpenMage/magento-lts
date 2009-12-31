@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -57,7 +57,7 @@ class Mage_Reports_Model_Mysql4_Coupons_Collection extends Mage_Sales_Model_Enti
         $this->groupByAttribute('coupon_code')
             ->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to, 'datetime' => true))
             ->addAttributeToFilter('coupon_code', array('neq' => ''))
-            ->getselect()->columns(array('uses' => 'COUNT(e.entity_id)'))
+            ->getselect()->from('', array('uses' => 'COUNT(e.entity_id)'))
             ->having('uses > 0')
             ->order('uses desc');
         //die($this->getSelect());
@@ -101,7 +101,7 @@ class Mage_Reports_Model_Mysql4_Coupons_Collection extends Mage_Sales_Model_Enti
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->columns("count(DISTINCT main_table.rule_id)");
+        $countSelect->from("", "count(DISTINCT main_table.rule_id)");
         $sql = $countSelect->__toString();
         return $sql;
     }

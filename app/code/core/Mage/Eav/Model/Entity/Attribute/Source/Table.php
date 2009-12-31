@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -127,7 +127,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
                 . " AND `{$valueTable2}`.`store_id`='{$collection->getStoreId()}'",
                 array()
             );
-        $valueExpr = new Zend_Db_Expr("IF(`{$valueTable2}`.`value_id`>0, `{$valueTable2}`.`value`, `{$valueTable1}`.`value`)");
+        $valueExpr = new Zend_Db_Expr("IFNULL(`{$valueTable2}`.`value`, `{$valueTable1}`.`value`)");
 
         Mage::getResourceModel('eav/entity_attribute_option')
             ->addOptionValueToCollection($collection, $this->getAttribute(), $valueExpr);
@@ -146,16 +146,14 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     public function getFlatColums()
     {
         $columns = array();
-        $isMulti = $this->getAttribute()->getFrontend()->getInputType() == 'multiselect';
         $columns[$this->getAttribute()->getAttributeCode()] = array(
-            'type'      => $isMulti ? 'varchar(255)' : 'int',
+            'type'      => 'int',
             'unsigned'  => false,
             'is_null'   => true,
             'default'   => null,
             'extra'     => null
         );
-
-        if (!$isMulti) {
+        if ($this->getAttribute()->getFrontend()->getInputType() != 'multiselect') {
             $columns[$this->getAttribute()->getAttributeCode() . '_value'] = array(
                 'type'      => 'varchar(255)',
                 'unsigned'  => false,

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Contacts
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Contacts
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -83,11 +83,6 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 if (!Zend_Validate::is(trim($post['email']), 'EmailAddress')) {
                     $error = true;
                 }
-
-                if (Zend_Validate::is(trim($post['hideit']), 'NotEmpty')) {
-                    $error = true;
-                }
-
                 if ($error) {
                     throw new Exception();
                 }

@@ -15,31 +15,30 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Nirvanix
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Response.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
  * This class decorates a SimpleXMLElement parsed from a Nirvanix web service
- * response.  It is primarily exists to provide a convenience feature that
+ * response.  It is primarily exists to provide a convenience feature that 
  * throws an exception when <ResponseCode> contains an error.
  *
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Nirvanix
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Nirvanix_Response
 {
     /**
      * SimpleXMLElement parsed from Nirvanix web service response.
-     *
+     * 
      * @var SimpleXMLElement
      */
     protected $_sxml;
-
+    
     /**
      * Class constructor.  Parse the XML response from a Nirvanix method
      * call into a decorated SimpleXMLElement element.
@@ -59,7 +58,7 @@ class Zend_Service_Nirvanix_Response
         if ($name != 'Response') {
             $this->_throwException("Expected XML element Response, got $name");
         }
-
+        
         $code = (int)$this->_sxml->ResponseCode;
         if ($code != 0) {
             $msg = (string)$this->_sxml->ErrorMessage;
@@ -84,7 +83,7 @@ class Zend_Service_Nirvanix_Response
      * @param  string  $offset  Undefined property name
      * @return mixed
      */
-    public function __get($offset)
+    public function __get($offset) 
     {
         return $this->_sxml->$offset;
     }
@@ -104,7 +103,7 @@ class Zend_Service_Nirvanix_Response
     /**
      * Throw an exception.  This method exists to only contain the
      * lazy-require() of the exception class.
-     *
+     * 
      * @param  string   $message  Error message
      * @param  integer  $code     Error code
      * @throws Zend_Service_Nirvanix_Exception
@@ -115,7 +114,7 @@ class Zend_Service_Nirvanix_Response
         /**
          * @see Zend_Service_Nirvanix_Exception
          */
-        #require_once 'Zend/Service/Nirvanix/Exception.php';
+        #require_once 'Zend/Service/Nirvanix/Exception.php';        
 
         throw new Zend_Service_Nirvanix_Exception($message, $code);
     }

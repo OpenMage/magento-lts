@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,39 +29,5 @@
  */
 class Mage_SalesRule_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    /**
-     * Set store and base price which will be used duering discount calculation to item object
-     *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
-     * @param   float $basePrice
-     * @param   float $price
-     * @return  Mage_SalesRule_Helper_Data
-     */
-    public function setItemDiscountPrices(Mage_Sales_Model_Quote_Item_Abstract $item, $basePrice, $price)
-    {
-        $item->setDiscountCalculationPrice($price);
-        $item->setBaseDiscountCalculationPrice($basePrice);
-        return $this;
-    }
 
-    /**
-     * Add additional amounts to discount calculation prices
-     *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
-     * @param   float $basePrice
-     * @param   float $price
-     * @return  Mage_SalesRule_Helper_Data
-     */
-    public function addItemDiscountPrices(Mage_Sales_Model_Quote_Item_Abstract $item, $basePrice, $price)
-    {
-        $discountPrice      = $item->getDiscountCalculationPrice();
-        $baseDiscountPrice  = $item->getBaseDiscountCalculationPrice();
-
-        if ($discountPrice || $baseDiscountPrice || $basePrice || $price) {
-            $discountPrice      = $discountPrice ? $discountPrice : $item->getCalculationPrice();
-            $baseDiscountPrice  = $baseDiscountPrice ? $baseDiscountPrice : $item->getBaseCalculationPrice();
-            $this->setItemDiscountPrices($item, $baseDiscountPrice+$basePrice, $discountPrice+$price);
-        }
-        return $this;
-    }
 }

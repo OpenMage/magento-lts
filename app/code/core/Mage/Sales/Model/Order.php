@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -79,11 +79,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     const ACTION_FLAG_SHIP = 'ship';
     const ACTION_FLAG_COMMENT = 'comment';
 
-    /**
-     * Report date types
-     */
-    const REPORT_DATE_TYPE_CREATED = 'created';
-    const REPORT_DATE_TYPE_UPDATED = 'updated';
 
     protected $_eventPrefix = 'sales_order';
     protected $_eventObject = 'order';
@@ -196,7 +191,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             return false;
         }
 
-        if ($this->isCanceled() ||
+        if ($this->getState() === self::STATE_CANCELED ||
             $this->getState() === self::STATE_COMPLETE ||
             $this->getState() === self::STATE_CLOSED) {
             return false;
@@ -219,23 +214,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Getter whether the payment can be voided
-     * @return bool
-     */
-    public function canVoidPayment()
-    {
-        if ($this->canUnhold()) {
-            return false;
-        }
-        if ($this->isCanceled() ||
-            $this->getState() === self::STATE_COMPLETE ||
-            $this->getState() === self::STATE_CLOSED ) {
-            return false;
-        }
-        return $this->getPayment()->canVoid(new Varien_Object);
-    }
-
-    /**
      * Retrieve order invoice availability
      *
      * @return bool
@@ -245,7 +223,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->canUnhold()) {
             return false;
         }
-        if ($this->isCanceled() ||
+        if ($this->getState() === self::STATE_CANCELED ||
             $this->getState() === self::STATE_COMPLETE ||
             $this->getState() === self::STATE_CLOSED ) {
             return false;
@@ -278,7 +256,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             return false;
         }
 
-        if ($this->isCanceled() ||
+        if ($this->getState() === self::STATE_CANCELED ||
             $this->getState() === self::STATE_CLOSED ) {
             return false;
         }
@@ -306,7 +284,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function canHold()
     {
-        if ($this->isCanceled() ||
+        if ($this->getState() === self::STATE_CANCELED ||
             $this->getState() === self::STATE_COMPLETE ||
             $this->getState() === self::STATE_CLOSED ||
             $this->getState() === self::STATE_HOLDED) {
@@ -383,7 +361,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             return false;
         }
 
-        if ($this->isCanceled() ||
+        if ($this->getState() === self::STATE_CANCELED ||
             $this->getState() === self::STATE_COMPLETE ||
             $this->getState() === self::STATE_CLOSED) {
             return false;
@@ -535,66 +513,24 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Order state setter.
-     * If status is specified, will add order status history with specified comment
-     * the setData() cannot be overriden because of compatibility issues with resource model
+     * Declare order state
      *
      * @param string $state
-     * @param string|bool $status
+     * @param string $status
      * @param string $comment
      * @param bool $isCustomerNotified
-     * @return Mage_Sales_Model_Order
+     * @return  Mage_Sales_Model_Order
      */
-    public function setState($state, $status = false, $comment = '', $isCustomerNotified = null)
+    public function setState($state, $status = false, $comment = '', $isCustomerNotified = false)
     {
-        return $this->_setState($state, $status, $comment, $isCustomerNotified, true);
-    }
-
-    /**
-     * Order state protected setter.
-     * By default allows to set any state. Can also update status to default or specified value
-     * Сomplete and closed states are encapsulated intentionally, see the _checkState()
-     *
-     * @param string $state
-     * @param string|bool $status
-     * @param string $comment
-     * @param bool $isCustomerNotified
-     * @param $shouldProtectState
-     * @return Mage_Sales_Model_Order
-     */
-    protected function _setState($state, $status = false, $comment = '', $isCustomerNotified = null, $shouldProtectState = false)
-    {
-        // attempt to set the specified state
-        if ($shouldProtectState) {
-            if ($this->isStateProtected($state)) {
-                Mage::throwException(Mage::helper('sales')->__('The Order State "%s" must not be set manually.', $state));
-            }
-        }
         $this->setData('state', $state);
-
-        // add status history
         if ($status) {
             if ($status === true) {
                 $status = $this->getConfig()->getStateDefaultStatus($state);
             }
-            $this->setStatus($status);
-            $history = $this->addStatusHistoryComment($comment, false); // no sense to set $status again
-            $history->setIsCustomerNotified($isCustomerNotified); // for backwards compatibility
+            $this->addStatusToHistory($status, $comment, $isCustomerNotified);
         }
         return $this;
-    }
-
-    /**
-     * Whether specified state can be set from outside
-     * @param $state
-     * @return bool
-     */
-    public function isStateProtected($state)
-    {
-        if (empty($state)) {
-            return false;
-        }
-        return self::STATE_COMPLETE == $state || self::STATE_CLOSED == $state;
     }
 
     /**
@@ -609,43 +545,22 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Add status change information to history
-     * @deprecated after 1.4.0.0-alpha3
      *
-     * @param  string $status
-     * @param  string $comment
-     * @param  bool $isCustomerNotified
-     * @return Mage_Sales_Model_Order
+     * @param   string $status
+     * @param   string $comments
+     * @param   boolean $is_customer_notified
+     * @return  Mage_Sales_Model_Order
      */
-    public function addStatusToHistory($status, $comment = '', $isCustomerNotified = false)
+    public function addStatusToHistory($status, $comment='', $isCustomerNotified = false)
     {
-        $history = $this->addStatusHistoryComment($comment, $status)
+        $status = Mage::getModel('sales/order_status_history')
+            ->setStatus($status)
+            ->setComment($comment)
             ->setIsCustomerNotified($isCustomerNotified);
+        $this->addStatusHistory($status);
         return $this;
     }
 
-    /*
-     * Add a comment to order
-     * Different or default status may be specified
-     *
-     * @param string $comment
-     * @param string $status
-     * @return Mage_Sales_Order_Status_History
-     */
-    public function addStatusHistoryComment($comment, $status = false)
-    {
-        if (false === $status) {
-            $status = $this->getStatus();
-        } elseif (true === $status) {
-            $status = $this->getConfig()->getStateDefaultStatus($this->getState());
-        } else {
-            $this->setStatus($status);
-        }
-        $history = Mage::getModel('sales/order_status_history')
-            ->setStatus($status)
-            ->setComment($comment);
-        $this->addStatusHistory($history);
-        return $history;
-    }
 
     /**
      * Place order
@@ -688,21 +603,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     {
         if ($this->canCancel()) {
             $this->getPayment()->cancel();
-            $this->registerCancellation();
-        }
-        return $this;
-    }
-
-    /**
-     * Prepare order totlas to cancellation
-     * @param string $comment
-     * @param bool $graceful
-     * @return Mage_Sales_Model_Order
-     * @throws Mage_Core_Exception
-     */
-    public function registerCancellation($comment = '', $graceful = true)
-    {
-        if ($this->canCancel()) {
             $cancelState = self::STATE_CANCELED;
             foreach ($this->getAllItems() as $item) {
                 if ($item->getQtyInvoiced()>$item->getQtyRefunded()) {
@@ -720,12 +620,14 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $this->setShippingCanceled($this->getShippingAmount() - $this->getShippingInvoiced());
             $this->setBaseShippingCanceled($this->getBaseShippingAmount() - $this->getBaseShippingInvoiced());
 
-            $this->setDiscountCanceled($this->getDiscountAmount() - $this->getDiscountInvoiced());
-            $this->setBaseDiscountCanceled($this->getBaseDiscountAmount() - $this->getBaseDiscountInvoiced());
+            $this->setDiscountCanceled(
+                $this->getDiscountAmount() - $this->getDiscountInvoiced()
+            );
+            $this->setBaseDiscountCanceled(
+                $this->getBaseDiscountAmount() - $this->getBaseDiscountInvoiced()
+            );
 
-            $this->_setState($cancelState, true, $comment);
-        } elseif (!$graceful) {
-            Mage::throwException(Mage::helper('sales')->__('Order does not allow to be canceled.'));
+            $this->setState($cancelState, true);
         }
         return $this;
     }
@@ -831,8 +733,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                     )
                 );
         }
-        $this->setEmailSent(true);
-        $this->_getResource()->saveAttribute($this, 'email_sent');
+
         $translate->setTranslateInline(true);
 
         return $this;
@@ -1187,21 +1088,14 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return false;
     }
 
-    /**
-     * Set the order status history object and the order object to each other
-     * Adds the object to the status history collection, which is automatically saved when the order is saved.
-     * See the entity_id attribute backend model.
-     * Or the history record can be saved standalone after this.
-     *
-     * @param Mage_Sales_Model_Order_Status_History $status
-     * @return Mage_Sales_Model_Order
-     */
-    public function addStatusHistory(Mage_Sales_Model_Order_Status_History $history)
+    public function addStatusHistory(Mage_Sales_Model_Order_Status_History $status)
     {
-        $history->setOrder($this);
-        $this->setStatus($history->getStatus());
-        if (!$history->getId()) {
-            $this->getStatusHistoryCollection()->addItem($history);
+        $status->setOrder($this)
+            ->setParentId($this->getId())
+            ->setStoreId($this->getStoreId());
+        $this->setStatus($status->getStatus());
+        if (!$status->getId()) {
+            $this->getStatusHistoryCollection()->addItem($status);
         }
         return $this;
     }
@@ -1222,7 +1116,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Get currency model instance. Will be used currency with which order placed
+     * Retrieve order currency model instance
      *
      * @return Mage_Directory_Model_Currency
      */
@@ -1235,7 +1129,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Get formated price value including order currency rate to order website currency
+     * Retrieve formated price value includeing order rate
      *
      * @param   float $price
      * @param   bool  $addBrackets
@@ -1243,12 +1137,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function formatPrice($price, $addBrackets = false)
     {
-        return $this->formatPricePrecision($price, 2, $addBrackets);
-    }
-
-    public function formatPricePrecision($price, $precision, $addBrackets = false)
-    {
-        return $this->getOrderCurrency()->formatPrecision($price, $precision, array(), true, $addBrackets);
+        return $this->getOrderCurrency()->format($price, array(), true, $addBrackets);
     }
 
     /**
@@ -1277,23 +1166,18 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Retrieve order website currency for working with base prices
-     * @deprecated  please use getBaseCurrency instead.
+     * Deprecated method, please use getBaseCurrency instead.
      *
      * @return Mage_Directory_Model_Currency
      */
     public function getStoreCurrency()
     {
-        return $this->getData('store_currency');
+        return $this->getStoreCurrency();
     }
 
     public function formatBasePrice($price)
     {
-        return $this->formatBasePricePrecision($price, 2);
-    }
-
-    public function formatBasePricePrecision($price, $precision)
-    {
-        return $this->getBaseCurrency()->formatPrecision($price, $precision);
+        return $this->getBaseCurrency()->format($price);
     }
 
     public function isCurrencyDifferent()
@@ -1393,7 +1277,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     {
         if (empty($this->_creditmemos)) {
             if ($this->getId()) {
-                $this->_creditmemos = Mage::getResourceModel('sales/order_creditmemo_collection')
+                $this->_creditmemos = Mage::getResourceModel('sales/order_Creditmemo_collection')
                     ->addAttributeToSelect('*')
                     ->setOrderFilter($this->getId())
                     ->load();
@@ -1533,10 +1417,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 }
             }
         }
-        if ($this->getCustomer()) {
-            $this->setCustomerId($this->getCustomer()->getId());
-        }
-        $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
+
         return $this;
     }
 
@@ -1546,15 +1427,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             return $this;
         }
 
-        $userNotification = $this->hasCustomerNoteNotify() ? $this->getCustomerNoteNotify() : null;
-
-        if (!$this->isCanceled()
+        if ($this->getState() !== self::STATE_CANCELED
             && !$this->canUnhold()
             && !$this->canInvoice()
             && !$this->canShip()) {
             if ($this->canCreditmemo()) {
                 if ($this->getState() !== self::STATE_COMPLETE) {
-                    $this->_setState(self::STATE_COMPLETE, true, '', $userNotification);
+                    $this->setState(self::STATE_COMPLETE, true);
                 }
             }
             /**
@@ -1562,13 +1441,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
              */
             elseif(floatval($this->getTotalRefunded())) {
                 if ($this->getState() !== self::STATE_CLOSED) {
-                    $this->_setState(self::STATE_CLOSED, true, '', $userNotification);
+                    $this->setState(self::STATE_CLOSED, true);
                 }
             }
         }
 
         if ($this->getState() == self::STATE_NEW && $this->getIsInProcess()) {
-            $this->setState(self::STATE_PROCESSING, true, '', $userNotification);
+            $this->setState(self::STATE_PROCESSING, true);
         }
         return $this;
     }
@@ -1639,10 +1518,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = $qtys[$orderItem->getId()];
-                } elseif (!count($qtys)) {
-                    $qty = $orderItem->getQtyToInvoice();
                 } else {
-                    continue;
+                    $qty = $orderItem->getQtyToInvoice();
                 }
             }
 
@@ -1650,7 +1527,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $invoice->addItem($item);
         }
         $invoice->collectTotals();
-        $this->getInvoiceCollection()->addItem($invoice);
+
         return $invoice;
     }
 
@@ -1677,10 +1554,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = $qtys[$orderItem->getId()];
-                } elseif (!count($qtys)) {
-                    $qty = $orderItem->getQtyToShip();
                 } else {
-                    continue;
+                    $qty = $orderItem->getQtyToShip();
                 }
             }
 
@@ -1731,16 +1606,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             }
             return false;
         }
-    }
-
-    /**
-     * Check whether order is canceled
-     *
-     * @return bool
-     */
-    public function isCanceled()
-    {
-        return ($this->getState() === self::STATE_CANCELED);
     }
 
     protected function _beforeDelete()

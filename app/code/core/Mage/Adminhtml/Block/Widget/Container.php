@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,7 +66,6 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * @param string $id
      * @param array $data
      * @param integer $level
-     * @param integer $sortOrder
      * @param string|null $placement area, that button should be displayed in ('header', 'footer', null)
      * @return Mage_Adminhtml_Block_Widget_Container
      */
@@ -78,21 +77,6 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         $this->_buttons[$level][$id] = $data;
         $this->_buttons[$level][$id]['area'] = $area;
         return $this;
-    }
-
-    /**
-     * Public wrapper for protected _addButton method
-     *
-     * @param string $id
-     * @param array $data
-     * @param integer $level
-     * @param integer $sortOrder
-     * @param string|null $placement area, that button should be displayed in ('header', 'footer', null)
-     * @return Mage_Adminhtml_Block_Widget_Container
-     */
-    public function addButton($id, $data, $level = 0, $sortOrder = 100, $area = 'header')
-    {
-        return $this->_addButton($id, $data, $level, $sortOrder, $area);
     }
 
     /**
@@ -153,57 +137,14 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         return $this;
     }
 
-    /**
-     * Public wrapper for protected _updateButton method
-     *
-     * @param string $id
-     * @param string|null $key
-     * @param mixed $data
-     * @return Mage_Adminhtml_Block_Widget_Container
-     */
-    public function updateButton($id, $key=null, $data)
-    {
-        return $this->_updateButton($id, $key, $data);
-    }
-
-    /**
-     * Preparing child blocks for each added button
-     *
-     * @return Mage_Core_Block_Abstract
-     */
     protected function _prepareLayout()
     {
         foreach ($this->_buttons as $level => $buttons) {
             foreach ($buttons as $id => $data) {
-                $childId = $this->_prepareButtonBlockId($id);
-                $this->_addButtonChildBlock($childId);
+                $this->setChild($id . '_button', $this->getLayout()->createBlock('adminhtml/widget_button')->setData($data));
             }
         }
         return parent::_prepareLayout();
-    }
-
-    /**
-     * Prepare block id for button's id
-     *
-     * @param string $id
-     * @return string
-     */
-    protected function _prepareButtonBlockId($id)
-    {
-        return $id . '_button';
-    }
-
-    /**
-     * Adding child block with specified child's id.
-     *
-     * @param string $childId
-     * @return Mage_Adminhtml_Block_Widget_Button
-     */
-    protected function _addButtonChildBlock($childId)
-    {
-        $block = $this->getLayout()->createBlock('adminhtml/widget_button');
-        $this->setChild($childId, $block);
-        return $block;
     }
 
     /**
@@ -220,18 +161,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
                 if ($area && isset($data['area']) && ($area != $data['area'])) {
                     continue;
                 }
-                $childId = $this->_prepareButtonBlockId($id);
-                $child = $this->getChild($childId);
-
-                if (!$child) {
-                    $child = $this->_addButtonChildBlock($childId);
-                }
-                if (isset($data['name'])) {
-                    $data['element_name'] = $data['name'];
-                }
-                $child->setData($data);
-
-                $out .= $this->getChildHtml($childId);
+                $out .= $this->getChildHtml($id . '_button');
             }
         }
         return $out;

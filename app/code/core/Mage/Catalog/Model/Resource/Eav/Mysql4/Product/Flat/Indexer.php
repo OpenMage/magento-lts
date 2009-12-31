@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -88,13 +88,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
     protected $_productTypes;
 
     /**
-     * Exists flat tables cache
-     *
-     * @var array
-     */
-    protected $_existsFlatTables = array();
-
-    /**
      * Initialize connection
      *
      */
@@ -159,22 +152,18 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
 
             $this->_attributeCodes = array();
             $whereCond  = array(
-                $this->_getReadAdapter()->quoteInto('main_table.backend_type=?', 'static'),
-                $this->_getReadAdapter()->quoteInto('additional_table.used_in_product_listing=?', 1),
-                $this->_getReadAdapter()->quoteInto('additional_table.used_for_sort_by=?', 1),
-                $this->_getReadAdapter()->quoteInto('main_table.attribute_code IN(?)', $this->_systemAttributes)
+                $this->_getReadAdapter()->quoteInto('backend_type=?', 'static'),
+                $this->_getReadAdapter()->quoteInto('used_in_product_listing=?', 1),
+                $this->_getReadAdapter()->quoteInto('used_for_sort_by=?', 1),
+                $this->_getReadAdapter()->quoteInto('attribute_code IN(?)', $this->_systemAttributes)
             );
             if ($this->getFlatHelper()->isAddFilterableAttributes()) {
-                $whereCond[] = $this->_getReadAdapter()->quoteInto('additional_table.is_filterable>?', 0);
+                $whereCond[] = $this->_getReadAdapter()->quoteInto('is_filterable>?', 0);
             }
 
             $select = $this->_getReadAdapter()->select()
-                ->from(array('main_table' => $this->getTable('eav/attribute')))
-                ->join(
-                    array('additional_table' => $this->getTable('catalog/eav_attribute')),
-                    'additional_table.attribute_id=main_table.attribute_id'
-                )
-                ->where('main_table.entity_type_id=?', $this->getEntityTypeId())
+                ->from($this->getTable('eav/attribute'))
+                ->where('entity_type_id=?', $this->getEntityTypeId())
                 ->where(join(' OR ', $whereCond));
             $attributesData = $this->_getReadAdapter()->fetchAll($select);
             Mage::getSingleton('eav/config')
@@ -402,109 +391,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
     }
 
     /**
-     * Compare Flat style with Describe style columns
-     *
-     * If column a different - return false
-     *
-     * @param array $column
-     * @param array $describe
-     * @return bool
-     */
-    protected function _compareColumnProperties($column, $describe)
-    {
-        $type       = $column['type'];
-        $length     = null;
-        $precision  = null;
-        $scale      = null;
-
-        $matches = array();
-        if (preg_match('/^((?:var)?char)\((\d+)\)/', $type, $matches)) {
-            $type       = $matches[1];
-            $length     = $matches[2];
-        } else if (preg_match('/^decimal\((\d+),(\d+)\)/', $type, $matches)) {
-            $type       = 'decimal';
-            $precision  = $matches[1];
-            $scale      = $matches[2];
-        } else if (preg_match('/^float\((\d+),(\d+)\)/', $type, $matches)) {
-            $type       = 'float';
-            $precision  = $matches[1];
-            $scale      = $matches[2];
-        } else if (preg_match('/^((?:big|medium|small|tiny)?int)\((\d+)\)?/', $type, $matches)) {
-            $type       = $matches[1];
-        }
-
-        return ($describe['DATA_TYPE'] == $type)
-            && ($describe['DEFAULT'] == $column['default'])
-            && ((bool)$describe['NULLABLE'] == (bool)$column['is_null'])
-            && ((bool)$describe['UNSIGNED'] == (bool)$column['unsigned'])
-            && ($describe['LENGTH'] == $length)
-            && ($describe['SCALE'] == $scale)
-            && ($describe['PRECISION'] == $precision);
-    }
-
-    /**
-     * Retrieve column definition fragment
-     *
-     * Example: `field_name` smallint(5) unsigned NOT NULL default '0'
-     *
-     * @param string $fieldName
-     * @param array $fieldProp
-     * @return string
-     */
-    protected function _sqlColunmDefinition($fieldName, $fieldProp)
-    {
-        $fieldNameQuote = $this->_getWriteAdapter()->quoteIdentifier($fieldName);
-        return "{$fieldNameQuote} {$fieldProp['type']}"
-            . ($fieldProp['unsigned'] ? ' UNSIGNED' : '')
-            . ($fieldProp['extra'] ? ' ' . $fieldProp['extra'] : '')
-            . ($fieldProp['is_null'] === false ? ' NOT NULL' : '')
-            . ($fieldProp['default'] === null ? ' DEFAULT NULL' : $this->_getReadAdapter()
-                ->quoteInto(' DEFAULT ?', $fieldProp['default']));
-    }
-
-    /**
-     * Retrieve index definition fragment
-     *
-     * Example: INDEX `IDX_NAME` (`field_id`)
-     *
-     * @param string $indexName
-     * @param array $indexProp
-     * @return string
-     */
-    protected function _sqlIndexDefinition($indexName, $indexProp)
-    {
-        $fields = $indexProp['fields'];
-        if (is_array($fields)) {
-            $fieldSql = array();
-            foreach ($fields as $field) {
-                $fieldSql[] = $this->_getReadAdapter()->quoteIdentifier($field);
-            }
-            $fieldSql = join(',', $fieldSql);
-        }
-        else {
-            $fieldSql = $this->_getReadAdapter()->quoteIdentifier($fields);
-        }
-
-        $indexNameQuote = $this->_getReadAdapter()->quoteIdentifier($indexName);
-        switch (strtolower($indexProp['type'])) {
-            case 'primary':
-                $condition = 'PRIMARY KEY';
-                break;
-            case 'unique':
-                $condition = 'UNIQUE ' . $indexNameQuote;
-                break;
-            case 'fulltext':
-                $condition = 'FULLTEXT ' . $indexNameQuote;
-                break;
-            default:
-                $condition = 'INDEX ' . $indexNameQuote;
-                break;
-        }
-
-        return sprintf('%s (%s)', $condition, $fieldSql);
-    }
-
-    /**
      * Prepare flat table for store
      *
      * @param int $store
@@ -523,15 +409,50 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
 
         $tableName = $this->getFlatTableName($store);
         $tableNameQuote = $this->_getWriteAdapter()->quoteIdentifier($tableName);
-        if (!$this->_isFlatTableExists($store)) {
+        $tableExistsSql = $this->_getWriteAdapter()
+            ->quoteInto("SHOW TABLE STATUS LIKE ?", $tableName);
+        if (!$this->_getWriteAdapter()->fetchRow($tableExistsSql)) {
             $sql = "CREATE TABLE {$tableNameQuote} (\n";
             foreach ($columns as $field => $fieldProp) {
-                $sql .= sprintf("  %s,\n",
-                    $this->_sqlColunmDefinition($field, $fieldProp));
+                $fieldNameQuote = $this->_getWriteAdapter()->quoteIdentifier($field);
+                $sql .= "  {$fieldNameQuote} {$fieldProp['type']}";
+                $sql .= ($fieldProp['unsigned'] ? ' UNSIGNED' : '');
+                $sql .= ($fieldProp['extra'] ? ' ' . $fieldProp['extra'] : '');
+                $sql .= ($fieldProp['is_null'] === false ? ' NOT NULL' : '');
+                $sql .= ($fieldProp['default'] === null
+                    ? ' DEFAULT NULL'
+                    : $this->_getReadAdapter()->quoteInto(' DEFAULT ?', $fieldProp['default']));
+                $sql .= ",\n";
             }
             foreach ($indexes as $indexName => $indexProp) {
-                $sql .= sprintf("  %s,\n",
-                    $this->_sqlIndexDefinition($indexName, $indexProp));
+                $fields = $indexProp['fields'];
+                if (is_array($fields)) {
+                    $fieldSql = array();
+                    foreach ($fields as $field) {
+                        $fieldSql[] = $this->_getReadAdapter()->quoteIdentifier($field);
+                    }
+                    $fieldSql = join(',', $fieldSql);
+                }
+                else {
+                    $fieldSql = $this->_getReadAdapter()->quoteIdentifier($fields);
+                }
+
+                switch (strtolower($indexProp['type'])) {
+                    case 'primary':
+                        $condition = 'PRIMARY KEY';
+                        break;
+                    case 'unique':
+                        $condition = 'UNIQUE ' . $this->_getReadAdapter()->quoteIdentifier($indexName);
+                        break;
+                    case 'fulltext':
+                        $condition = 'FULLTEXT ' . $this->_getReadAdapter()->quoteIdentifier($indexName);
+                        break;
+                    default:
+                        $condition = 'KEY ' . $this->_getReadAdapter()->quoteIdentifier($indexName);
+                        break;
+                }
+
+                $sql .= "  {$condition} (" . $fieldSql . "),\n";
             }
 
             $sql .= "  CONSTRAINT `FK_CATALOG_PRODUCT_FLAT_{$store}_ENTITY` FOREIGN KEY (`entity_id`)"
@@ -542,17 +463,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
             }
             $sql .= "\n) ENGINE=InnoDB DEFAULT CHARSET=utf8";
             $this->_getWriteAdapter()->query($sql);
-
-            $this->_existsFlatTables[$store] = true;
         }
         else {
-            $this->_getWriteAdapter()->resetDdlCache($tableName);
             $describe   = $this->_getWriteAdapter()->describeTable($tableName);
             $indexList  = $this->_getWriteAdapter()->getIndexList($tableName);
 
             $addColumns     = array_diff_key($columns, $describe);
             $dropColumns    = array_diff_key($describe, $columns);
-            $modifyColumns  = array();
 
             $addIndexes     = array_diff_key($indexes, $indexList);
             $dropIndexes    = array_diff_key($indexList, $indexes);
@@ -575,13 +492,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
                 );
             }
 
-            foreach ($columns as $field => $fieldProp) {
-                if (isset($describe[$field])
-                    && !$this->_compareColumnProperties($fieldProp, $describe[$field])) {
-                    $modifyColumns[$field] = $fieldProp;
-                }
-            }
-
             foreach ($indexList as $indexName => $indexProp) {
                 if (isset($indexes[$indexName]) && ($indexes[$indexName]['type'] != $indexProp['type'])) {
                     $dropIndexes[$indexName] = $indexProp;
@@ -589,14 +499,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
                 }
             }
 
-            if ($addColumns or $dropColumns or $modifyColumns or $addIndexes or $dropIndexes) {
+            if ($addColumns or $dropColumns or $addIndexes or $dropIndexes) {
                 $sql = "ALTER TABLE {$tableNameQuote}";
                 // drop columns
                 foreach ($dropColumns as $columnName => $columnProp) {
                     $columnNameQuote = $this->_getWriteAdapter()->quoteIdentifier($columnName);
                     $sql .= " DROP COLUMN {$columnNameQuote},";
                 }
-
                 // drop indexes
                 foreach ($dropIndexes as $indexName => $indexProp) {
                     if ($indexName == 'PRIMARY') {
@@ -608,26 +517,54 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
                     }
                 }
 
-                // modify colunm
-                foreach ($modifyColumns as $columnName => $columnProp) {
-                    $sql .= sprintf(' MODIFY COLUMN %s,',
-                        $this->_sqlColunmDefinition($columnName, $columnProp));
-                }
-
                 // add columns
                 foreach ($addColumns as $columnName => $columnProp) {
-                    $sql .= sprintf(' ADD COLUMN %s',
-                        $this->_sqlColunmDefinition($columnName, $columnProp));
-                    $afterColumn = $this->_arrayPrevKey($columns, $columnName);
-                    if ($afterColumn) {
-                        $sql .= ' AFTER ' . $this->_getWriteAdapter()->quoteIdentifier($afterColumn);
+                    //var_dump($columnProp);
+                    $columnNameQuote = $this->_getWriteAdapter()->quoteIdentifier($columnName);
+                    $sql .= " ADD COLUMN {$columnNameQuote} {$columnProp['type']}";
+                    $sql .= ($columnProp['unsigned'] ? ' UNSIGNED' : '');
+                    $sql .= ($columnProp['extra'] ? ' ' . $columnProp['extra'] : '');
+                    $sql .= ($columnProp['is_null'] === false ? ' NOT NULL' : '');
+                    $sql .= ($columnProp['default'] === null
+                        ? ' DEFAULT NULL'
+                        : $this->_getReadAdapter()->quoteInto(' DEFAULT ?', $columnProp['default']));
+                    if ($afterField = $this->_arrayPrevKey($columns, $columnName)) {
+                        $sql .= ' AFTER ' . $this->_getWriteAdapter()->quoteIdentifier($afterField);
                     }
-                    $sql .= ',';
+                    $sql .= ",";
                 }
                 // add indexes
                 foreach ($addIndexes as $indexName => $indexProp) {
-                    $sql .= sprintf(' ADD %s,',
-                        $this->_sqlIndexDefinition($indexName, $indexProp));
+                    $indexNameQuote = $this->_getWriteAdapter()->quoteIdentifier($indexName);
+
+                    switch (strtolower($indexProp['type'])) {
+                        case 'primary':
+                            $condition = 'PRIMARY KEY';
+                            break;
+                        case 'unique':
+                            $condition = 'UNIQUE ' . $indexNameQuote;
+                            break;
+                        case 'fulltext':
+                            $condition = 'FULLTEXT ' . $indexNameQuote;
+                            break;
+                        default:
+                            $condition = 'INDEX ' . $indexNameQuote;
+                            break;
+                    }
+
+                    $fields = $indexProp['fields'];
+                    if (is_array($fields)) {
+                        $fieldSql = array();
+                        foreach ($fields as $field) {
+                            $fieldSql[] = $this->_getReadAdapter()->quoteIdentifier($field);
+                        }
+                        $fieldSql = join(',', $fieldSql);
+                    }
+                    else {
+                        $fieldSql = $this->_getReadAdapter()->quoteIdentifier($fields);
+                    }
+
+                    $sql .= " ADD {$condition} ({$fieldSql}),";
                 }
                 $sql = rtrim($sql, ",");
                 $this->_getWriteAdapter()->query($sql);
@@ -658,10 +595,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function updateStaticAttributes($store, $productIds = null)
     {
-        if (!$this->_isFlatTableExists($store)) {
-            return $this;
-        }
-
         $website = Mage::app()->getStore($store)->getWebsite()->getId();
         $status = $this->getAttribute('status');
         /* @var $status Mage_Eav_Model_Entity_Attribute */
@@ -696,7 +629,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
             ->where("t1.entity_type_id=?", $status->getEntityTypeId())
             ->where("t1.attribute_id=?", $status->getId())
             ->where("t1.store_id=?", 0)
-            ->where("IF(`t2`.`value_id`>0, `t2`.`value`, `t1`.`value`)=?", Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
+            ->where("IFNULL(`t2`.`value`, `t1`.`value`)=?", Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
         foreach ($this->getAttributes() as $attributeCode => $attribute) {
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
             if ($attribute->getBackend()->getType() == 'static') {
@@ -704,7 +637,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
                     continue;
                 }
                 $fieldList[] = $attributeCode;
-                $select->columns($attributeCode, 'e');
+                $select->from(null, $attributeCode);
             }
         }
 
@@ -767,16 +700,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function updateAttribute($attribute, $store, $productIds = null)
     {
-        if (!$this->_isFlatTableExists($store)) {
-            return $this;
-        }
-
-        $describe = $this->_getWriteAdapter()->describeTable($this->getFlatTableName($store));
-
         if ($attribute->getBackend()->getType() == 'static') {
-            if (!isset($describe[$attribute->getAttributeCode()])) {
-                return $this;
-            }
             $select = $this->_getWriteAdapter()->select()
                 ->join(
                     array('main_table' => $this->getTable('catalog/product')),
@@ -793,16 +717,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
                 $this->_getWriteAdapter()->query($sql);
         }
         else {
-            $columns = $attribute->getFlatColumns();
-            if (!$columns) {
-                return $this;
-            }
-            foreach (array_keys($columns) as $columnName) {
-                if (!isset($describe[$columnName])) {
-                    return $this;
-                }
-            }
-
             $select = $attribute->getFlatUpdateSelect($store);
             if ($select instanceof Varien_Db_Select) {
                 if (!is_null($productIds)) {
@@ -824,10 +738,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function updateEavAttributes($store, $productIds = null)
     {
-        if (!$this->_isFlatTableExists($store)) {
-            return $this;
-        }
-
         foreach ($this->getAttributes() as $attribute) {
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
             if ($attribute->getBackend()->getType() != 'static') {
@@ -882,10 +792,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
     public function updateRelationProducts($store, $productIds = null)
     {
         if (!$this->getFlatHelper()->isAddChildData()) {
-            return $this;
-        }
-
-        if (!$this->_isFlatTableExists($store)) {
             return $this;
         }
 
@@ -946,16 +852,12 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
             return $this;
         }
 
-        if (!$this->_isFlatTableExists($store)) {
-            return $this;
-        }
-
         $select = $this->_getWriteAdapter()->select();
         foreach (array_keys($this->getFlatColumns()) as $columnName) {
             if ($columnName == 'entity_id' || $columnName == 'child_id' || $columnName == 'is_child') {
                 continue;
             }
-            $select->columns(array($columnName => new Zend_Db_Expr('`t1`.`'. $columnName.'`')));
+            $select->from(null, array($columnName => new Zend_Db_Expr('`t1`.`'. $columnName.'`')));
         }
         $select
             ->joinLeft(
@@ -1042,10 +944,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function removeProduct($productIds, $store)
     {
-        if (!$this->_isFlatTableExists($store)) {
-            return $this;
-        }
-
         $cond = array(
             $this->_getWriteAdapter()->quoteInto('entity_id IN(?)', $productIds)
         );
@@ -1088,10 +986,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function updateProduct($productIds, $store)
     {
-        if (!$this->_isFlatTableExists($store)) {
-            return $this;
-        }
-
         $this->saveProduct($productIds, $store);
 
         Mage::dispatchEvent('catalog_product_flat_update_product', array(
@@ -1112,10 +1006,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function saveProduct($productIds, $store)
     {
-        if (!$this->_isFlatTableExists($store)) {
-            return $this;
-        }
-
         $this->updateStaticAttributes($store, $productIds);
         $this->updateEavAttributes($store, $productIds);
 
@@ -1130,34 +1020,16 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
      */
     public function deleteFlatTable($store)
     {
-        if ($this->_isFlatTableExists($store)) {
-            $tableName = $this->_getWriteAdapter()->quoteIdentifier($this->getFlatTableName($store));
-            $sql = sprintf('DROP TABLE IF EXISTS %s', $tableName);
+        $tableName = $this->getFlatTableName($store);
+        $tableNameQuote = $this->_getWriteAdapter()->quoteIdentifier($tableName);
+        $tableExistsSql = $this->_getWriteAdapter()
+            ->quoteInto("SHOW TABLE STATUS LIKE ?", $tableName);
+        if ($this->_getWriteAdapter()->query($tableExistsSql)) {
+            $sql = sprintf('DROP TABLE IF EXISTS %s', $tableNameQuote);
             $this->_getWriteAdapter()->query($sql);
         }
 
         return $this;
-    }
-
-    /**
-     * Check is flat table for store exists
-     *
-     * @param int $store
-     * @return bool
-     */
-    protected function _isFlatTableExists($store)
-    {
-        if (!isset($this->_existsFlatTables[$store])) {
-            $tableName = $this->getFlatTableName($store);
-            $tableExistsSql = $this->_getWriteAdapter()
-                ->quoteInto("SHOW TABLE STATUS LIKE ?", $tableName);
-            if ($this->_getWriteAdapter()->fetchRow($tableExistsSql)) {
-                $this->_existsFlatTables[$store] = true;
-            } else {
-                $this->_existsFlatTables[$store] = false;
-            }
-        }
-        return $this->_existsFlatTables[$store];
     }
 
     /**

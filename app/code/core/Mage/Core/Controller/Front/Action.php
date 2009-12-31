@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -34,27 +34,13 @@
 class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Action
 {
     /**
-     * Currently used area
-     *
-     * @var string
-     */
-    protected $_currentArea = 'frontend';
-
-    /**
-     * Namespace for session.
-     *
-     * @var string
-     */
-    protected $_sessionNamespace = 'frontend';
-
-    /**
      * Predispatch: shoud set layout area
      *
      * @return Mage_Core_Controller_Front_Action
      */
     public function preDispatch()
     {
-        $this->getLayout()->setArea($this->_currentArea);
+        $this->getLayout()->setArea('frontend');
 
         parent::preDispatch();
         return $this;

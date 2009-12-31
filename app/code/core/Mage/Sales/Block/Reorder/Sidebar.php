@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -53,56 +53,6 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
         }
     }
 
-    /**
-     * Get list of last ordered products
-     *
-     * @return array
-     */
-    public function getItems()
-    {
-        $items = array();
-        $order = $this->getLastOrder();
-        $limit = 5;
-        if ($order) {
-            foreach ($order->getItemsRandomCollection($limit) as $item) {
-                if ($item->getProduct()) {
-                    $items[] = $item;
-                }
-            }
-        }
-        return $items;
-    }
-
-    /**
-     * Check item product availability for reorder
-     *
-     * @param  Mage_Sales_Model_Order_Item $orderItem
-     * @return boolean
-     */
-    public function isItemAvailableForReorder(Mage_Sales_Model_Order_Item $orderItem)
-    {
-        if ($orderItem->getProduct()) {
-            return $orderItem->getProduct()->getStockItem()->getIsInStock();
-        }
-        return false;
-    }
-
-    /**
-     * Retrieve form action url and set "secure" param to avoid confirm
-     * message when we submit form from secure page to unsecure
-     *
-     * @return string
-     */
-    public function getFormActionUrl()
-    {
-        return $this->getUrl('checkout/cart/addgroup', array('_secure' => true));
-    }
-
-    /**
-     * Last order getter
-     *
-     * @return Mage_Sales_Model_Order | false
-     */
     public function getLastOrder()
     {
         foreach ($this->getOrders() as $order) {

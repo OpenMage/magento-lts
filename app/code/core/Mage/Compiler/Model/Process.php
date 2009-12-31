@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Compiler
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Compiler
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -76,18 +76,10 @@ class Mage_Compiler_Model_Process
     {
         if (empty($this->_includePaths)) {
             $originalPath = Mage::registry('original_include_path');
-            /**
-             * Exclude current dirrectory include path
-             */
-            if ($originalPath == '.') {
-                $path = get_include_path();
-            } else {
-                $path = str_replace($originalPath, '', get_include_path());
-            }
-            
+            $path = str_replace($originalPath, '', get_include_path());
             $this->_includePaths = explode(PS, $path);
             foreach ($this->_includePaths as $index => $path) {
-                if (empty($path) || $path == '.') {
+                if (empty($path)) {
                     unset($this->_includePaths[$index]);
                 }
             }

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Admin
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Admin
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
@@ -71,7 +71,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     {
         static $result;
         if (is_null($resource)) {
-            $resource = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('acl/resources');
+            $resource = Mage::getConfig()->getNode('adminhtml/acl/resources');
             $resourceName = null;
             $level = -1;
         } else {
@@ -88,6 +88,12 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
                     $resource->addAttribute("aclpath", $resourceName);
                     $resource->addAttribute("module_c", $module);
                 }
+
+                //if (!(string)$resource->title) {
+                //   return array();
+                //}
+
+                //$resource->title = Mage::helper($module)->__((string)$resource->title);
 
                 if ( is_null($represent2Darray) ) {
                     $result[$resourceName]['name']  = Mage::helper($module)->__((string)$resource->title);

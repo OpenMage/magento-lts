@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <!-- Addresses list -->
@@ -184,10 +184,6 @@ addressesModel.prototype = {
             Element.hide($('form_'+item.id));
             $('form_'+item.id).statusBar = item;
             $('form_'+item.id).addressItem = item;
-
-            // set Zip optional/required
-            var countryElement = $('id' + item.id.replace(/address_item_/, '') + 'country_id');
-            varienGlobalEvents.fireEvent("address_country_changed", countryElement);
         }
     },
 
@@ -429,13 +425,7 @@ addressesModel.prototype = {
 
     bindCountryRegionRelation : function(parentId){
         //alert('OK');
-        if(parentId){
-            var countryElements = $(parentId).getElementsByClassName('countries');
-        }
-        else{
-            var countryElements = $$('.countries');
-        }
-
+        var countryElements = $$('.countries');
         for(var i=0;i<=countryElements.length;i++){
             if(countryElements[i]){
                 if(!countryElements[i].bindRegions || !countryElements[i].parentBindId || countryElements[i].parentBindId!=parentId){
@@ -458,8 +448,6 @@ addressesModel.prototype = {
                 var url = this.regionsUrl+'parent/'+countryElement.value;
                 this.loader.load(url, {}, this.refreshRegionField.bind(this));
             }
-            // set Zip optional/required
-            varienGlobalEvents.fireEvent("address_country_changed", countryElement);
         }
     },
 

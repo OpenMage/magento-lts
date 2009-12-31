@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Paypal>
-            <version>0.7.4</version>
+            <version>0.7.2</version>
         </Mage_Paypal>
     </modules>
     <global>
@@ -50,30 +50,24 @@
                     <module>Mage_Paypal</module>
                     <class>Mage_Paypal_Model_Mysql4_Setup</class>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </paypal_setup>
+            <paypal_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </paypal_write>
+            <paypal_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </paypal_read>
         </resources>
         <blocks>
             <paypal><class>Mage_Paypal_Block</class></paypal>
         </blocks>
-        <sales>
-            <order>
-                <statuses>
-                    <!-- retained for backwards compatibility, not used anymore -->
-                    <pending_paypal translate="label"><label>Pending PayPal</label></pending_paypal>
-                </statuses>
-            </order>
-        </sales>
-        <payment>
-            <cc>
-                <types>
-                    <SS translate="name">
-                        <code>SS</code>
-                        <name>Maestro/Solo</name>
-                        <order>40</order>
-                    </SS>
-                </types>
-            </cc>
-        </payment>
     </global>
     <frontend>
         <secure_url>
@@ -116,44 +110,59 @@
                 </Mage_Paypal>
             </modules>
         </translate>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <paypal>
+                                            <title>PayPal Section</title>
+                                        </paypal>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
     </adminhtml>
+
     <default>
         <paypal>
             <wpp>
-                <business_account backend_model="adminhtml/system_config_backend_encrypted"/>
                 <api_password backend_model="adminhtml/system_config_backend_encrypted"/>
                 <api_signature backend_model="adminhtml/system_config_backend_encrypted"/>
                 <api_username backend_model="adminhtml/system_config_backend_encrypted"/>
-                <button_flavor>dynamic</button_flavor>
-                <button_type>ec-shortcut</button_type>
             </wpp>
             <wps>
                 <business_account backend_model="adminhtml/system_config_backend_encrypted"/>
             </wps>
         </paypal>
         <payment>
-            <paypal_express translate="title">
+            <paypal_express>
+                <payment_action>Authorization</payment_action>
                 <model>paypal/express</model>
-                <title>PayPal</title>
-                <payment_action>Sale</payment_action>
+                <title>Paypal Express</title>
                 <allowspecific>0</allowspecific>
-                <solution_type>Sole</solution_type>
-                <line_items_enabled>1</line_items_enabled>
             </paypal_express>
-            <paypal_direct translate="title">
-                <payment_action>Sale</payment_action>
+            <paypal_direct>
+                <payment_action>Authorization</payment_action>
                 <model>paypal/direct</model>
-                <title>Debit or Credit Card</title>
+                <title>Paypal Direct</title>
                 <cctypes>AE,VI,MC,DI</cctypes>
                 <allowspecific>0</allowspecific>
-                <line_items_enabled>1</line_items_enabled>
             </paypal_direct>
-            <paypal_standard translate="title">
-                <model>paypal/standard</model>
-                <title>PayPal</title>
-                <allowspecific>0</allowspecific>
-                <payment_action>Sale</payment_action>
-                <line_items_enabled>1</line_items_enabled>
+            <paypal_standard>
+                  <model>paypal/standard</model>
+                  <title>Paypal Standard</title>
+                  <types>IPN</types>
+                  <allowspecific>0</allowspecific>
+                  <transaction_type>O</transaction_type>
+                  <order_status>pending_paypal</order_status>
             </paypal_standard>
         </payment>
     </default>

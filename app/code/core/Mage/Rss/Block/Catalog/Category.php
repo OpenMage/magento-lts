@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Rss
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Rss
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,7 +31,7 @@
  * @package    Mage_Rss
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
+class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Abstract
 {
     protected function _construct()
     {
@@ -63,7 +63,8 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                         'link'        => $newurl,
                         'charset'     => 'UTF-8',
                         );
-
+//echo "<pre>";
+//print_r($data);
                 $rssObj->_addHeader($data);
 
                 $_collection = $category->getCollection();
@@ -80,6 +81,18 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 $layer->prepareProductCollection($productCollection);
                 $productCollection->addCountToCategories($_collection);
 
+                /*if ($_collection->count()) {
+                    foreach ($_collection as $_category){
+                         $data = array(
+                                    'title'         => $_category->getName(),
+                                    'link'          => $_category->getCategoryUrl(),
+                                    'description'   => $this->helper('rss')->__('Total Products: %s', $_category->getProductCount()),
+                                    );
+
+                        $rssObj->_addEntry($data);
+                    }
+                }
+                */
                 $category->getProductCollection()->setStoreId($storeId);
                 /*
                 only load latest 50 products
@@ -87,58 +100,35 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 $_productCollection = $currentyCateogry
                     ->getProductCollection()
                     ->addAttributeToSort('updated_at','desc')
-                    ->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds())
                     ->setCurPage(1)
                     ->setPageSize(50)
                 ;
-
+//echo "<hr>".$_productCollection->getSelect();
                 if ($_productCollection->getSize()>0) {
-                    $args = array('rssObj' => $rssObj);
                     foreach ($_productCollection as $_product) {
-                        $args['product'] = $_product;
-                        $this->addNewItemXmlCallback($args);
+                        $final_price = $_product->getFinalPrice();
+                        $description = '<table><tr>'.
+                            '<td><a href="'.$_product->getProductUrl().'"><img src="' . $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(75, 75)
+                            .'" border="0" align="left" height="75" width="75"></a></td>'.
+                            '<td  style="text-decoration:none;">'.$_product->getDescription().
+                            '<p> Price:'.Mage::helper('core')->currency($_product->getPrice()).
+                            ($_product->getPrice() != $final_price  ? ' Special Price:'. Mage::helper('core')->currency($final_price) : '').
+                            '</p>'.
+                            '</td>'.
+                            '</tr></table>'
+                        ;
+                        $data = array(
+                                    'title'         => $_product->getName(),
+                                    'link'          => $_product->getProductUrl(),
+                                    'description'   => $description,
+                                    );
+//print_r($data);
+                        $rssObj->_addEntry($data);
                     }
                 }
             }
         }
         return $rssObj->createRssXml();
-    }
 
-    /**
-     * Preparing data and adding to rss object
-     *
-     * @param array $args
-     */
-    public function addNewItemXmlCallback($args)
-    {
-        $product = $args['product'];
-        $product->setAllowedInRss(true);
-        $product->setAllowedPriceInRss(true);
-
-        Mage::dispatchEvent('rss_catalog_category_xml_callback', $args);
-
-        if (!$product->getAllowedInRss()) {
-            return;
-        }
-
-        $description = '<table><tr>'
-                     . '<td><a href="'.$product->getProductUrl().'"><img src="'
-                     . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
-                     . '" border="0" align="left" height="75" width="75"></a></td>'
-                     . '<td  style="text-decoration:none;">' . $product->getDescription();
-
-        if ($product->getAllowedPriceInRss()) {
-            $description.= $this->getPriceHtml($product,true);
-        }
-
-        $description .= '</td></tr></table>';
-        $rssObj = $args['rssObj'];
-        $data = array(
-                'title'         => $product->getName(),
-                'link'          => $product->getProductUrl(),
-                'description'   => $description,
-            );
-
-        $rssObj->_addEntry($data);
     }
 }

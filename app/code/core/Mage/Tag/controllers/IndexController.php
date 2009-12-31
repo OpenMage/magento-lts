@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -51,6 +51,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
             } else {
                 try {
                     $customerId = Mage::getSingleton('customer/session')->getCustomerId();
+                    $tagName = urldecode($tagName);
                     $tagNamesArr = explode("\n", preg_replace("/(\'(.*?)\')|(\s+)/i", "$1\n", $tagName));
 
                     foreach( $tagNamesArr as $key => $tagName ) {
@@ -61,33 +62,15 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                         }
                     }
                     $newCount = 0;
-
                     foreach( $tagNamesArr as $tagName ) {
                         if( $tagName ) {
                             $tagModel = Mage::getModel('tag/tag');
                             $tagModel->loadByName($tagName);
-                            $tagRelationModel = Mage::getModel('tag/tag_relation');
-
                             if ($tagModel->getId()) {
                                 $status = $tagModel->getStatus();
-
-                                $productIds = $tagRelationModel
-                                      ->loadByTagCustomer(
-                                            $productId,
-                                            $tagModel->getId(),
-                                            $customerId
-                                        )
-                                      ->getProductIds();
-
-                                if(0 < count($productIds)) {
-                                    $session->addNotice(Mage::helper('tag')->__('Tag "%s" has already been added to the product' ,$tagName));
-                                }
-                                else {
-                                    $session->addSuccess(Mage::helper('tag')->__('Tag "%s" has been added to the product' ,$tagName));
-                                }
+                                $session->addNotice(Mage::helper('tag')->__('Tag "%s" has already been added to the product' ,$tagName));
                             }
                             else {
-                                $tagModel->setFirstCustomerId($customerId);
                                 $status = $tagModel->getPendingStatus();
                                 $newCount++;
                             }
@@ -97,6 +80,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                                     ->setStatus($status)
                                     ->save();
 
+                            $tagRelationModel = Mage::getModel('tag/tag_relation');
                             $tagRelationModel->loadByTagCustomer($productId,
                                 $tagModel->getId(),
                                 $customerId,
@@ -110,7 +94,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                                 ->setCustomerId($customerId)
                                 ->setProductId($productId)
                                 ->setStoreId(Mage::app()->getStore()->getId())
-                                ->setCreatedAt( $tagRelationModel->getResource()->formatDate(time()) )
+                                ->setCreatedAt( now() )
                                 ->setActive(1)
                                 ->save();
                             $tagModel->aggregate();

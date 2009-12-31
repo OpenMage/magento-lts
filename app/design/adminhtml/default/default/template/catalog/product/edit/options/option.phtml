@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php echo $this->getTemplatesHtml() ?>
@@ -41,7 +41,7 @@ var firstStepTemplate = '<div class="option-box" id="option_{{id}}">'+
                     '<th class="opt-type"><?php echo Mage::helper('catalog')->__('Input Type') ?> <span class="required">*</span></th>'+
                     '<th class="opt-req"><?php echo Mage::helper('catalog')->__('Is Required') ?></th>'+
                     '<th class="opt-order"><?php echo Mage::helper('catalog')->__('Sort Order') ?></th>'+
-                    '<th class="a-right"><?php echo $this->jsQuoteEscape($this->getDeleteButtonHtml()) ?></th>'+
+                    '<th class="a-right"><?php echo $this->getDeleteButtonHtml() ?></th>'+
                 '</tr>'+
             '</thead>'+
             '<tr>'+

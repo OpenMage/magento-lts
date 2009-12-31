@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,27 +31,20 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Customer_Group extends Mage_Adminhtml_Block_Widget_Grid_Container//Mage_Adminhtml_Block_Template
+class Mage_Adminhtml_Block_Customer_Group extends Mage_Adminhtml_Block_Template
 {
 
-    /**
-     * Modify header & button labels
-     *
-     */
     public function __construct()
     {
-        $this->_controller = 'customer_group';
-        $this->_headerText = Mage::helper('customer')->__('Customer Groups');
-        $this->_addButtonLabel = Mage::helper('customer')->__('Add New Customer Group');
         parent::__construct();
+        $this->setTemplate('customer/group/list.phtml');
     }
 
-    /**
-     * Redefine header css class
-     *
-     * @return string
-     */
-    public function getHeaderCssClass() {
-        return 'icon-head head-customer-groups';
+    public function _beforeToHtml()
+    {
+        $this->assign('createUrl', $this->getUrl('*/customer_group/new'));
+        $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/customer_group_grid', 'customer.group.grid'));
+        return parent::_beforeToHtml();
     }
+
 }

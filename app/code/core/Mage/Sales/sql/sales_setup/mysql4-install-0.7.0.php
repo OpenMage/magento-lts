@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
@@ -67,6 +67,22 @@ CREATE TABLE {$this->getTable('sales_discount_coupon')} (
 /*Data for the table `sales_discount_coupon` */
 
 insert  into {$this->getTable('sales_discount_coupon')}(`coupon_id`,`coupon_code`,`discount_percent`,`discount_fixed`,`is_active`,`from_date`,`to_date`,`min_subtotal`,`limit_products`,`limit_categories`,`limit_attributes`) values (1,'test',10.0000,0.0000,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',0.0000,'','','');
+
+/*Table structure for table `sales_giftcert` */
+
+-- DROP TABLE IF EXISTS {$this->getTable('sales_giftcert')};
+
+CREATE TABLE {$this->getTable('sales_giftcert')} (
+  `giftcert_id` int(10) unsigned NOT NULL auto_increment,
+  `giftcert_code` varchar(50) NOT NULL default '',
+  `balance_amount` decimal(12,4) NOT NULL default '0.0000',
+  PRIMARY KEY  (`giftcert_id`),
+  UNIQUE KEY `gift_code` (`giftcert_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `sales_giftcert` */
+
+insert  into {$this->getTable('sales_giftcert')}(`giftcert_id`,`giftcert_code`,`balance_amount`) values (1,'test',20.0000);
 
 /*Table structure for table `sales_invoice_entity` */
 

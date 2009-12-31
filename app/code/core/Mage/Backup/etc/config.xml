@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Backup
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Backup
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -46,10 +46,37 @@
                 <setup>
                     <module>Mage_Backup</module>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </backup_setup>
+            <backup_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </backup_write>
+            <backup_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </backup_read>
         </resources>
     </global>
     <adminhtml>
+        <menu>
+            <system>
+                <children>
+                    <tools>
+                        <children>
+                            <backup translate="title" module="backup">
+                                <title>Backups</title>
+                                <action>adminhtml/system_backup</action>
+                            </backup>
+                        </children>
+                    </tools>
+                </children>
+            </system>
+        </menu>
         <translate>
             <modules>
                 <Mage_Backup>
@@ -59,5 +86,24 @@
                 </Mage_Backup>
             </modules>
         </translate>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <tools>
+                                    <children>
+                                        <backup translate="title" module="backup">
+                                            <title>Backups</title>
+                                        </backup>
+                                    </children>
+                                </tools>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
     </adminhtml>
 </config>

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -40,9 +40,9 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
         $this->_storeIdSessionField = 'product_store_id';
     }
 
-    public function info($productId, $identifierType = null)
+    public function info($productId)
     {
-        $product = $this->_initProduct($productId, $identifierType);
+        $product = $this->_initProduct($productId);
         $tierPrices = $product->getData(self::ATTRIBUTE_CODE);
 
         if (!is_array($tierPrices)) {
@@ -64,9 +64,9 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
         return $result;
     }
 
-    public function update($productId, $tierPrices, $identifierType = null)
+    public function update($productId, $tierPrices)
     {
-        $product = $this->_initProduct($productId, $identifierType);
+        $product = $this->_initProduct($productId);
         if (!is_array($tierPrices)) {
             $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid Tier Prices'));
         }
@@ -90,10 +90,6 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
                 }
             }
 
-            if (intval($tierPrice['website']) > 0 && !in_array($tierPrice['website'], $product->getWebsiteIds())) {
-                $this->_fault('data_invalid', Mage::helper('catalog')->__('Invalid tier prices. Product is not associated to the requested website.'));
-            }
-
             if (!isset($tierPrice['customer_group_id'])) {
                 $tierPrice['customer_group_id'] = 'all';
             }
@@ -108,7 +104,9 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
                 'price_qty'  => $tierPrice['qty'],
                 'price'      => $tierPrice['price']
             );
+
         }
+
 
         try {
             if (is_array($errors = $product->validate())) {
@@ -119,7 +117,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
         }
 
         try {
-            $product->setData(self::ATTRIBUTE_CODE ,$updateValue);
+        	$product->setData(self::ATTRIBUTE_CODE ,$updateValue);
             $product->validate();
             $product->save();
         } catch (Mage_Core_Exception $e) {
@@ -136,27 +134,17 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
      * @param string|int $store
      * @return Mage_Catalog_Model_Product
      */
-    protected function _initProduct($productId, $identifierType = null)
+    protected function _initProduct($productId)
     {
-        $loadByIdOnFalse = false;
-        if ($identifierType === null) {
-            $identifierType = 'sku';
-            $loadByIdOnFalse = true;
-        }
         $product = Mage::getModel('catalog/product')
                        ->setStoreId($this->_getStoreId());
 
-        if ($identifierType == 'sku') {
-            $idBySku = $product->getIdBySku($productId);
-            if ($idBySku) {
-                $productId = $idBySku;
-            }
-            if ($idBySku || $loadByIdOnFalse) {
-                $product->load($productId);
-            }
-        } elseif ($identifierType == 'id') {
-            $product->load($productId);
+        $idBySku = $product->getIdBySku($productId);
+        if ($idBySku) {
+            $productId = $idBySku;
         }
+
+        $product->load($productId);
 
         /* @var $product Mage_Catalog_Model_Product */
 

@@ -20,6 +20,7 @@
         billing_address_id
         shipping_address_id
         coupon_code
+        giftcert_code
         weight
         shipping_method
         shipping_description
@@ -27,6 +28,7 @@
         tax_amount
         shipping_amount
         discount_amount
+        giftcert_amount
         custbalance_amount
         grand_total
         total_paid

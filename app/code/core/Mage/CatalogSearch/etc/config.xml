@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_CatalogSearch>
-            <version>0.7.7</version>
+            <version>0.7.6</version>
         </Mage_CatalogSearch>
     </modules>
     <global>
@@ -63,12 +63,26 @@
                 <setup>
                     <module>Mage_CatalogSearch</module>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </catalogsearch_setup>
+            <catalogsearch_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </catalogsearch_write>
+            <catalogsearch_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </catalogsearch_read>
         </resources>
         <events>
-            <!-- catalog_product_save_after>
+            <catalog_product_save_after>
                 <observers>
                     <catalogsearch>
+                        <type>singleton</type>
                         <class>catalogsearch/fulltext_observer</class>
                         <method>refreshProductIndex</method>
                     </catalogsearch>
@@ -77,6 +91,7 @@
             <catalog_product_delete_after>
                 <observers>
                     <catalogsearch>
+                        <type>singleton</type>
                         <class>catalogsearch/fulltext_observer</class>
                         <method>cleanProductIndex</method>
                     </catalogsearch>
@@ -85,6 +100,7 @@
             <catalog_entity_attribute_save_after>
                 <observers>
                     <catalogsearch>
+                        <type>singleton</type>
                         <class>catalogsearch/fulltext_observer</class>
                         <method>eavAttributeChange</method>
                     </catalogsearch>
@@ -93,6 +109,7 @@
             <catalog_entity_attribute_delete_after>
                 <observers>
                     <catalogsearch>
+                        <type>singleton</type>
                         <class>catalogsearch/fulltext_observer</class>
                         <method>eavAttributeChange</method>
                     </catalogsearch>
@@ -101,6 +118,7 @@
             <catalog_product_import_after>
                 <observers>
                     <catalogsearch>
+                        <type>singleton</type>
                         <class>catalogsearch/fulltext_observer</class>
                         <method>refreshIndexAfterImport</method>
                     </catalogsearch>
@@ -109,6 +127,7 @@
             <store_add>
                 <observers>
                     <catalogsearch>
+                        <type>singleton</type>
                         <class>catalogsearch/fulltext_observer</class>
                         <method>refreshStoreIndex</method>
                     </catalogsearch>
@@ -117,6 +136,7 @@
             <store_delete>
                 <observers>
                     <catalogsearch>
+                        <type>singleton</type>
                         <class>catalogsearch/fulltext_observer</class>
                         <method>cleanStoreIndex</method>
                     </catalogsearch>
@@ -125,22 +145,16 @@
             <catalog_product_website_update>
                 <observers>
                     <catalogsearch>
+                        <type>singleton</type>
                         <class>catalogsearch/fulltext_observer</class>
                         <method>catalogProductWebsiteUpdate</method>
                     </catalogsearch>
                 </observers>
-            </catalog_product_website_update -->
+            </catalog_product_website_update>
         </events>
         <blocks>
             <catalogsearch><class>Mage_CatalogSearch_Block</class></catalogsearch>
         </blocks>
-        <index>
-            <indexer>
-                <catalogsearch_fulltext>
-                    <model>catalogsearch/indexer_fulltext</model>
-                </catalogsearch_fulltext>
-            </indexer>
-        </index>
     </global>
     <frontend>
         <routers>
@@ -179,6 +193,31 @@
                 </Mage_CatalogSearch>
             </modules>
         </translate>
+        <menu>
+            <catalog>
+                <children>
+                    <search translate="title" module="catalogsearch">
+                        <title>Search</title>
+                        <action>adminhtml/catalog_search/</action>
+                    </search>
+                </children>
+            </catalog>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <catalog>
+                            <children>
+                                <search translate="title" module="catalogsearch">
+                                    <title>Search</title>
+                                </search>
+                            </children>
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
     </adminhtml>
 
     <default>

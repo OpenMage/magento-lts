@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Rss
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Rss
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -38,7 +38,7 @@ class Mage_Rss_Helper_Catalog extends Mage_Core_Helper_Abstract
         if(Mage::getStoreConfig('rss/catalog/tag') && $this->_getRequest()->getParam('tagId')){
             $tagModel = Mage::getModel('tag/tag')->load($this->_getRequest()->getParam('tagId'));
             if($tagModel && $tagModel->getId()){
-                return Mage::getUrl('rss/catalog/tag', array('tagName' => urlencode($tagModel->getName())));
+                return Mage::getUrl('rss/catalog/tag', array('tagName' => $tagModel->getName()));
             }
         }
         return $url;

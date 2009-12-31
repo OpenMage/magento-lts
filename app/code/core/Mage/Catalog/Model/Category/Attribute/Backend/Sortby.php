@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -51,7 +51,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
         if ($attributeCode == 'default_sort_by') {
             if ($available = $object->getData('available_sort_by')) {
                 if (!is_array($available)) {
-                    $available = explode(',', $available);
+                    $available = split(',', $available);
                 }
                 if (!in_array($object->getData($attributeCode), $available)) {
                     Mage::throwException(Mage::helper('eav')->__('Default Product Listing Sort by not exists on Available Product Listing Sort by'));
@@ -77,9 +77,6 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
             }
             $object->setData($attributeCode, join(',', $data));
         }
-        if (is_null($object->getData($attributeCode))) {
-            $object->setData($attributeCode, false);
-        }
         return $this;
     }
 
@@ -88,7 +85,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
         if ($attributeCode == 'available_sort_by') {
             $data = $object->getData($attributeCode);
             if ($data) {
-                $object->setData($attributeCode, explode(',', $data));
+                $object->setData($attributeCode, split(',', $data));
             }
         }
         return $this;

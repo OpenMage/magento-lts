@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Loader
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Loader.php 16206 2009-06-21 19:15:37Z thomas $
+ * @version    $Id: Loader.php 12772 2008-11-22 17:05:16Z matthew $
  */
 
 /**
@@ -24,7 +24,7 @@
  *
  * @category   Zend
  * @package    Zend_Loader
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Loader
@@ -61,7 +61,11 @@ class Zend_Loader
         }
 
         // autodiscover the path from the class name
-        $file = str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+        if (defined('COMPILER_INCLUDE_PATH')) {
+            $file = $class . '.php';
+        } else {
+            $file = str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+        }
         if (!empty($dirs)) {
             // use the autodiscovered path
             $dirPath = dirname($file);
@@ -177,13 +181,11 @@ class Zend_Loader
      * spl_autoload_register(array('Zend_Loader', 'autoload'));
      * </code>
      *
-     * @deprecated Since 1.8.0
-     * @param  string $class
+     * @param string $class
      * @return string|false Class name on success; false on failure
      */
     public static function autoload($class)
     {
-        trigger_error(__CLASS__ . '::' . __METHOD__ . ' is deprecated as of 1.8.0 and will be removed with 2.0.0; use Zend_Loader_Autoloader instead', E_USER_NOTICE);
         try {
             @self::loadClass($class);
             return $class;
@@ -195,7 +197,6 @@ class Zend_Loader
     /**
      * Register {@link autoload()} with spl_autoload()
      *
-     * @deprecated Since 1.8.0
      * @param string $class (optional)
      * @param boolean $enabled (optional)
      * @return void
@@ -204,26 +205,22 @@ class Zend_Loader
      */
     public static function registerAutoload($class = 'Zend_Loader', $enabled = true)
     {
-        trigger_error(__CLASS__ . '::' . __METHOD__ . ' is deprecated as of 1.8.0 and will be removed with 2.0.0; use Zend_Loader_Autoloader instead', E_USER_NOTICE);
-        #require_once 'Zend/Loader/Autoloader.php';
-        $autoloader = Zend_Loader_Autoloader::getInstance();
-        $autoloader->setFallbackAutoloader(true);
+        if (!function_exists('spl_autoload_register')) {
+            #require_once 'Zend/Exception.php';
+            throw new Zend_Exception('spl_autoload does not exist in this PHP installation');
+        }
 
-        if ('Zend_Loader' != $class) {
-            self::loadClass($class);
-            $methods = get_class_methods($class);
-            if (!in_array('autoload', (array) $methods)) {
-                #require_once 'Zend/Exception.php';
-                throw new Zend_Exception("The class \"$class\" does not have an autoload() method");
-            }
+        self::loadClass($class);
+        $methods = get_class_methods($class);
+        if (!in_array('autoload', (array) $methods)) {
+            #require_once 'Zend/Exception.php';
+            throw new Zend_Exception("The class \"$class\" does not have an autoload() method");
+        }
 
-            $callback = array($class, 'autoload');
-
-            if ($enabled) {
-                $autoloader->pushAutoloader($callback);
-            } else {
-                $autoloader->removeAutoloader($callback);
-            }
+        if ($enabled === true) {
+            spl_autoload_register(array($class, 'autoload'));
+        } else {
+            spl_autoload_unregister(array($class, 'autoload'));
         }
     }
 

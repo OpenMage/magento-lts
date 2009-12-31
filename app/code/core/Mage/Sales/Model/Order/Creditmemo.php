@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -44,9 +44,6 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     const XML_PATH_UPDATE_EMAIL_COPY_TO         = 'sales_email/creditmemo_comment/copy_to';
     const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/creditmemo_comment/copy_method';
     const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/creditmemo_comment/enabled';
-
-    const REPORT_DATE_TYPE_ORDER_CREATED        = 'order_created';
-    const REPORT_DATE_TYPE_REFUND_CREATED       = 'refund_created';
 
     protected static $_states;
 
@@ -379,7 +376,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     {
         if ($this->getId()) {
             Mage::throwException(
-                Mage::helper('sales')->__('Cannot register existing creditmemo')
+                Mage::helper('sales')->__('Can not register existing creditmemo')
             );
         }
 
@@ -394,7 +391,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
 
         $this->setDoTransaction(true);
         if ($this->getOfflineRequested()) {
-            $this->setDoTransaction(false);
+            $this->getDoTransaction(false);
         }
         $this->refund();
 
@@ -414,10 +411,6 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
                 $this->getOrder()->getBaseTotalOfflineRefunded()+$this->getBaseGrandTotal()
             );
         }
-
-        $this->getOrder()->setBaseTotalInvoicedCost(
-            $this->getOrder()->getBaseTotalInvoicedCost()-$this->getBaseCost()
-        );
 
         $state = $this->getState();
         if (is_null($state)) {

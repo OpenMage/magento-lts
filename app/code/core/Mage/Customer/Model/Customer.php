@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,19 +31,17 @@
  */
 class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_REGISTER_EMAIL_TEMPLATE      = 'customer/create_account/email_template';
-    const XML_PATH_REGISTER_EMAIL_IDENTITY      = 'customer/create_account/email_identity';
-    const XML_PATH_FORGOT_EMAIL_TEMPLATE        = 'customer/password/forgot_email_template';
-    const XML_PATH_FORGOT_EMAIL_IDENTITY        = 'customer/password/forgot_email_identity';
-    const XML_PATH_DEFAULT_EMAIL_DOMAIN         = 'customer/create_account/email_domain';
-    const XML_PATH_IS_CONFIRM                   = 'customer/create_account/confirm';
-    const XML_PATH_CONFIRM_EMAIL_TEMPLATE       = 'customer/create_account/email_confirmation_template';
-    const XML_PATH_CONFIRMED_EMAIL_TEMPLATE     = 'customer/create_account/email_confirmed_template';
-    const XML_PATH_GENERATE_HUMAN_FRIENDLY_ID   = 'customer/create_account/generate_human_friendly_id';
+    const XML_PATH_REGISTER_EMAIL_TEMPLATE  = 'customer/create_account/email_template';
+    const XML_PATH_REGISTER_EMAIL_IDENTITY  = 'customer/create_account/email_identity';
+    const XML_PATH_FORGOT_EMAIL_TEMPLATE    = 'customer/password/forgot_email_template';
+    const XML_PATH_FORGOT_EMAIL_IDENTITY    = 'customer/password/forgot_email_identity';
+    const XML_PATH_DEFAULT_EMAIL_DOMAIN     = 'customer/create_account/email_domain';
+    const XML_PATH_IS_CONFIRM               = 'customer/create_account/confirm';
+    const XML_PATH_CONFIRM_EMAIL_TEMPLATE   = 'customer/create_account/email_confirmation_template';
+    const XML_PATH_CONFIRMED_EMAIL_TEMPLATE = 'customer/create_account/email_confirmed_template';
 
     const EXCEPTION_EMAIL_NOT_CONFIRMED       = 1;
     const EXCEPTION_INVALID_EMAIL_OR_PASSWORD = 2;
-    const EXCEPTION_EMAIL_EXISTS              = 3;
 
     const SUBSCRIBED_YES = 'yes';
     const SUBSCRIBED_NO  = 'no';
@@ -68,6 +66,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     protected $_isReadonly = false;
 
+
     private static $_isConfirmationRequired;
 
     function _construct()
@@ -78,7 +77,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Retrieve customer sharing configuration model
      *
-     * @return Mage_Customer_Model_Config_Share
+     * @return unknown
      */
     public function getSharingConfig()
     {
@@ -98,14 +97,10 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         $this->loadByEmail($login);
         if ($this->getConfirmation() && $this->isConfirmationRequired()) {
-            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('This account is not confirmed.'),
-                self::EXCEPTION_EMAIL_NOT_CONFIRMED
-            );
+            throw new Exception(Mage::helper('customer')->__('This account is not confirmed.'), self::EXCEPTION_EMAIL_NOT_CONFIRMED);
         }
         if (!$this->validatePassword($password)) {
-            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Invalid login or password.'),
-                self::EXCEPTION_INVALID_EMAIL_OR_PASSWORD
-            );
+            throw new Exception(Mage::helper('customer')->__('Invalid login or password.'), self::EXCEPTION_INVALID_EMAIL_OR_PASSWORD);
         }
         Mage::dispatchEvent('customer_customer_authenticated', array(
            'model'    => $this,
@@ -250,12 +245,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         return $this->_attributes;
     }
 
-    /**
-     * Get customer attribute model object
-     *
-     * @param   string $attributeCode
-     * @return  Mage_Customer_Model_Entity_Attribute || null
-     */
     public function getAttribute($attributeCode)
     {
         $this->getAttributes();
@@ -279,7 +268,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Hash customer password
+     * Hach customer password
      *
      * @param   string $password
      * @return  string
@@ -338,10 +327,10 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve default address by type(attribute)
+     * Retrieve primary address by type(attribute)
      *
-     * @param   string $attributeCode address type attribute code
-     * @return  Mage_Customer_Model_Address
+     * @param   string $attributeCode
+     * @return  Mage_Customer_Mode_Address
      */
     public function getPrimaryAddress($attributeCode)
     {
@@ -358,47 +347,37 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Get customer default billing address
+     * Retrieve customer primary billing address
      *
-     * @return Mage_Customer_Model_Address
+     * @return Mage_Customer_Mode_Address
      */
     public function getPrimaryBillingAddress()
     {
         return $this->getPrimaryAddress('default_billing');
     }
 
-    /**
-     * Get customer default billing address
-     *
-     * @return Mage_Customer_Model_Address
-     */
     public function getDefaultBillingAddress()
     {
         return $this->getPrimaryBillingAddress();
     }
 
     /**
-     * Get default customer shipping address
+     * Retrieve primary customer shipping address
      *
-     * @return Mage_Customer_Model_Address
+     * @return Mage_Customer_Mode_Address
      */
     public function getPrimaryShippingAddress()
     {
         return $this->getPrimaryAddress('default_shipping');
     }
 
-    /**
-     * Get default customer shipping address
-     *
-     * @return Mage_Customer_Model_Address
-     */
     public function getDefaultShippingAddress()
     {
         return $this->getPrimaryShippingAddress();
     }
 
     /**
-     * Retrieve ids of default addresses
+     * Retrieve ids of primary addresses
      *
      * @return unknown
      */
@@ -415,7 +394,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve all customer default addresses
+     * Retrieve all customer primary addresses
      *
      * @return array
      */
@@ -442,7 +421,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve not default addresses
+     * Retrieve not primary addresses
      *
      * @return array
      */
@@ -471,7 +450,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @return Mage_Customer_Model_Customer
      */
-    public function sendNewAccountEmail($type = 'registered', $backUrl = '', $storeId = '0')
+    public function sendNewAccountEmail($type = 'registered', $backUrl = '')
     {
         $types = array(
             'registered'   => self::XML_PATH_REGISTER_EMAIL_TEMPLATE,  // welcome email, when confirmation is disabled
@@ -486,7 +465,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         /* @var $translate Mage_Core_Model_Translate */
         $translate->setTranslateInline(false);
 
-        $storeId = ($storeId == '0')?$this->getSendemailStoreId():$storeId;
+        $storeId = $this->getStoreId();
         if ($this->getWebsiteId() != '0' && $storeId == '0') {
             $storeIds = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
             reset($storeIds);
@@ -496,8 +475,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         Mage::getModel('core/email_template')
             ->setDesignConfig(array('area'=>'frontend', 'store'=>$storeId))
             ->sendTransactional(
-                Mage::getStoreConfig($types[$type], $storeId),
-                Mage::getStoreConfig(self::XML_PATH_REGISTER_EMAIL_IDENTITY, $storeId),
+                Mage::getStoreConfig($types[$type]),
+                Mage::getStoreConfig(self::XML_PATH_REGISTER_EMAIL_IDENTITY),
                 $this->getEmail(),
                 $this->getName(),
                 array('customer' => $this, 'back_url' => $backUrl));
@@ -715,10 +694,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (('req' === Mage::helper('customer/address')->getConfig('taxvat_show'))
             && '' == trim($this->getTaxvat())) {
             $errors[] = Mage::helper('customer')->__('TAX/VAT number is required.');
-        }
-        if (('req' === Mage::helper('customer/address')->getConfig('gender_show'))
-            && '' == trim($this->getGender())) {
-            $errors[] = Mage::helper('customer')->__('Gender is required.');
         }
 
         if (empty($errors)) {
@@ -1067,15 +1042,15 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         return $this->getId() && $this->hasSkipConfirmationIfEmail()
             && strtolower($this->getSkipConfirmationIfEmail()) === strtolower($this->getEmail());
     }
-
-    public function __clone()
+    
+	public function __clone()
     {
-        $newAddressCollection = $this->getPrimaryAddresses();
-        $newAddressCollection = array_merge($newAddressCollection, $this->getAdditionalAddresses());
-        $this->setId(null);
-        $this->cleanAllAddresses();
+    	$newAddressCollection = $this->getPrimaryAddresses();
+    	$newAddressCollection = array_merge($newAddressCollection, $this->getAdditionalAddresses());
+    	$this->setId(null);
+    	$this->cleanAllAddresses();
         foreach ($newAddressCollection as $address) {
-            $this->addAddress(clone $address);
+        	$this->addAddress(clone $address);
         }
     }
 }

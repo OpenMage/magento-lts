@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -97,20 +97,5 @@ class Mage_Bundle_Model_Mysql4_Bundle extends Mage_CatalogIndex_Model_Mysql4_Dat
         $this->_getWriteAdapter()
             ->query("DELETE FROM ".$this->getTable('bundle/selection')."
                     WHERE `parent_product_id` = ". $productId . ( count($ids) > 0 ? " and selection_id not in (" . implode(',', $ids) . ")": ''));
-    }
-
-    /**
-     * Save product relations
-     *
-     * @param int $parentId
-     * @param array $childIds
-     * @return Mage_Bundle_Model_Mysql4_Bundle
-     */
-    public function saveProductRelations($parentId, $childIds)
-    {
-        Mage::getResourceSingleton('catalog/product_relation')
-            ->processRelations($parentId, $childIds);
-
-        return $this;
     }
 }

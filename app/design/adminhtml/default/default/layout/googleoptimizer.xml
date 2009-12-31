@@ -19,17 +19,17 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage_GoogleOptimizer
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 
 <layout>
 
 <!--
-Layout handle for products
+Layout handle for budle products
 -->
 
     <adminhtml_catalog_product_edit>
@@ -51,32 +51,5 @@ Layout handle for products
             <block type="googleoptimizer/js" template="googleoptimizer/js.phtml" name="googleoptimizer_js"></block>
         </reference>
     </adminhtml_catalog_product_new>
-
-<!--
-Layout handle for cms page
--->
-
-    <adminhtml_cms_page_edit>
-        <reference name="content">
-            <block type="googleoptimizer/adminhtml_cms_page_edit_enable" name="googleoptimizer_enable">
-                <action method="ifGoogleOptimizerEnabled">
-                    <name>cms_page_edit_tabs</name>
-                    <method>addTab</method>
-                    <params>
-                        <name>googleoptimizer_section</name>
-                        <block>googleoptimizer/adminhtml_cms_page_edit_tab_googleoptimizer</block>
-                    </params>
-                </action>
-                <action method="ifGoogleOptimizerEnabledAppend">
-                    <container>js</container>
-                    <name>googleoptimizer_js</name>
-                    <type>googleoptimizer/js</type>
-                    <attributes>
-                        <template>googleoptimizer/js.phtml</template>
-                    </attributes>
-                </action>
-            </block>
-        </reference>
-    </adminhtml_cms_page_edit>
 
 </layout>

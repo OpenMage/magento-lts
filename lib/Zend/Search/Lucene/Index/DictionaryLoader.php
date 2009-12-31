@@ -15,9 +15,8 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Index
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DictionaryLoader.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /**
@@ -31,7 +30,7 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Index
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Index_DictionaryLoader
@@ -255,14 +254,12 @@ class Zend_Search_Lucene_Index_DictionaryLoader
         if ($termDictionary[0][0] != (int)0xFFFFFFFF) {
             #require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('Wrong TermInfoIndexFile file format');
-        }
-
-        if (PHP_INT_SIZE > 4) {
+        } else if (PHP_INT_SIZE > 4){
             // Treat 64-bit 0xFFFFFFFF as -1
             $termDictionary[0][0] = -1;
         }
 
-        return array($termDictionary, $termInfos);
+        return array(&$termDictionary, &$termInfos);
     }
 }
 

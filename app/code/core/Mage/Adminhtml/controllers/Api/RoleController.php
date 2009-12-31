@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -97,7 +97,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $rid = $this->getRequest()->getParam('rid', false);
 
         try {
-            Mage::getModel("api/roles")->load($rid)->delete();
+            Mage::getModel("api/roles")->setId($rid)->delete();
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Role successfully deleted.'));
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('Error while deleting this role. Please try again later.'));
@@ -108,15 +108,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 
     public function saveRoleAction()
     {
-
         $rid        = $this->getRequest()->getParam('role_id', false);
-        $role = Mage::getModel('api/roles')->load($rid);
-        if (!$role->getId() && $rid) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('This Role no longer exists'));
-            $this->_redirect('*/*/');
-            return;
-        }
-
         $resource   = explode(',', $this->getRequest()->getParam('resource', false));
         $roleUsers  = $this->getRequest()->getParam('in_role_user', null);
         parse_str($roleUsers, $roleUsers);
@@ -128,7 +120,8 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         }
 
         try {
-            $role = $role
+            $role = Mage::getModel("api/roles")
+                    ->setId($rid)
                     ->setName($this->getRequest()->getParam('rolename', false))
                     ->setPid($this->getRequest()->getParam('parent_id', false))
                     ->setRoleType('G')

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -101,6 +101,17 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             Mage::throwException(Mage::helper('eav')->__('The attribute code \'%s\' is reserved by system. Please, try another attribute code.', $this->_data['attribute_code']));
         }
 
+        // prevent changing attribute scope, if used in configurable products
+        if (isset($this->_origData['is_global'])) {
+            if (!isset($this->_data['is_global'])) {
+                Mage::throwException('0_o');
+            }
+            if (($this->_data['is_global'] != $this->_origData['is_global'])
+                && $this->_getResource()->isUsedBySuperProducts($this)) {
+                Mage::throwException(Mage::helper('eav')->__('Scope must not be changed, because the attribute is used in configurable products.'));
+            }
+        }
+
         if ($this->getBackendType() == 'datetime') {
             if (!$this->getBackendModel()) {
                 $this->setBackendModel('eav/entity_attribute_backend_datetime');
@@ -113,18 +124,19 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
             // save default date value as timestamp
             if ($defaultValue = $this->getDefaultValue()) {
                 $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-                try {
-                    $defaultValue = Mage::app()->getLocale()->date($defaultValue, $format, null, false)->toValue();
-                    $this->setDefaultValue($defaultValue);
-                } catch (Exception $e) {
-                    throw new Exception("Invalid default date.");
-                }
+                $this->setDefaultValue(Mage::app()->getLocale()->date($defaultValue, $format, null, false)->toValue());
             }
         }
 
         if ($this->getBackendType() == 'gallery') {
             if (!$this->getBackendModel()) {
                 $this->setBackendModel('eav/entity_attribute_backend_media');
+            }
+        }
+
+        if ($this->getFrontendInput() == 'price') {
+            if (!$this->getBackendModel()) {
+                $this->setBackendModel('catalog/product_attribute_backend_price');
             }
         }
 
@@ -234,28 +246,5 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     public function getAttributeCodesByFrontendType($type)
     {
         return $this->getResource()->getAttributeCodesByFrontendType($type);
-    }
-
-    /**
-     * Return array of labels of stores
-     *
-     * @return array
-     */
-    public function getStoreLabels()
-    {
-        if (!$this->getData('store_labels')) {
-            $this->setData('store_labels', $this->getResource()->getStoreLabelsByAttributeId($this->getId()));
-        }
-        return $this->getData('store_labels');
-    }
-
-    /**
-     * Return store label of attribute
-     *
-     * @return string
-     */
-    public function getStoreLabel()
-    {
-        return $this->getData('store_label');
     }
 }

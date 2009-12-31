@@ -106,12 +106,10 @@ Product.Zoom.prototype = {
 
     toggleFull: function () {
         this.showFull = !this.showFull;
+        //TODO: hide selects for IE only
 
-        //Hide selects for IE6 only
-        if (typeof document.body.style.maxHeight == "undefined")  {
-            for (i=0; i<this.selects.length; i++) {
-                this.selects[i].style.visibility = this.showFull ? 'hidden' : 'visible';
-            }
+        for (i=0; i<this.selects.length; i++) {
+            this.selects[i].style.visibility = this.showFull ? 'hidden' : 'visible';
         }
         val_scale = !this.showFull ? this.slider.value : 1;
         this.scale(val_scale);
@@ -124,22 +122,15 @@ Product.Zoom.prototype = {
     },
 
     scale: function (v) {
-        var centerX  = (this.containerDim.width*(1-this.imageZoom)/2-this.imageX)/this.imageZoom;
-        var centerY  = (this.containerDim.height*(1-this.imageZoom)/2-this.imageY)/this.imageZoom;
-        var overSize = (this.imageDim.width > this.containerDim.width && this.imageDim.height > this.containerDim.height);
-        
+
+        var centerX = (this.containerDim.width*(1-this.imageZoom)/2-this.imageX)/this.imageZoom;
+        var centerY = (this.containerDim.height*(1-this.imageZoom)/2-this.imageY)/this.imageZoom;
+
         this.imageZoom = this.floorZoom+(v*(this.ceilingZoom-this.floorZoom));
 
-        if (overSize) {
-            if (this.imageDim.width > this.containerDim.width) {
-                this.imageEl.style.width = (this.imageZoom*this.containerDim.width)+'px';
-            }
-
-            if(this.containerDim.ratio){
-                this.imageEl.style.height = (this.imageZoom*this.containerDim.width*this.containerDim.ratio)+'px'; // for safari
-            }
-        } else {
-            this.slider.setDisabled();
+        this.imageEl.style.width = (this.imageZoom*this.containerDim.width)+'px';
+        if(this.containerDim.ratio){
+          this.imageEl.style.height = (this.imageZoom*this.containerDim.width*this.containerDim.ratio)+'px'; // for safari
         }
 
         this.imageX = this.containerDim.width*(1-this.imageZoom)/2-centerX*this.imageZoom;
@@ -152,23 +143,19 @@ Product.Zoom.prototype = {
 
     startZoomIn: function()
     {
-        if (!this.slider.disabled) {
-            this.zoomBtnPressed = true;
-            this.sliderAccel = .002;
-            this.periodicalZoom();
-            this.zoomer = new PeriodicalExecuter(this.periodicalZoom.bind(this), .05);
-        }
+        this.zoomBtnPressed = true;
+        this.sliderAccel = .002;
+        this.periodicalZoom();
+        this.zoomer = new PeriodicalExecuter(this.periodicalZoom.bind(this), .05);
         return this;
     },
 
     startZoomOut: function()
     {
-        if (!this.slider.disabled) {
-            this.zoomBtnPressed = true;
-            this.sliderAccel = -.002;
-            this.periodicalZoom();
-            this.zoomer = new PeriodicalExecuter(this.periodicalZoom.bind(this), .05);
-        }
+        this.zoomBtnPressed = true;
+        this.sliderAccel = -.002;
+        this.periodicalZoom();
+        this.zoomer = new PeriodicalExecuter(this.periodicalZoom.bind(this), .05);
         return this;
     },
 
@@ -216,14 +203,6 @@ Product.Zoom.prototype = {
         x = x<xMax ? xMax : x;
         y = y>yMin ? yMin : y;
         y = y<yMax ? yMax : y;
-
-        if (this.containerDim.width > dim.width) {
-            x = (this.containerDim.width/2) - (dim.width/2);
-        }
-
-        if (this.containerDim.height > dim.height) {
-            y = (this.containerDim.height/2) - (dim.height/2);
-        }
 
         this.imageX = x;
         this.imageY = y;

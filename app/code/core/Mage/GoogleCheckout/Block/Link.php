@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_GoogleCheckout
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -75,16 +75,15 @@ class Mage_GoogleCheckout_Block_Link extends Mage_Core_Block_Template
          return $v[1];
     }
 
-    /**
-     * Check whether method is available and render HTML
-     * @return string
-     */
     public function _toHtml()
     {
-        $quote = Mage::getSingleton('checkout/session')->getQuote();
-        if (Mage::getModel('googlecheckout/payment')->isAvailable($quote) && $quote->validateMinimumAmount()) {
+        if (!Mage::getSingleton('checkout/session')->getQuote()->validateMinimumAmount()) {
+            return '';
+        }
+        if (Mage::getStoreConfigFlag('google/checkout/active')) {
             return parent::_toHtml();
         }
+
         return '';
     }
 

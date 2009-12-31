@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_AmazonPayments
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_AmazonPayments
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -33,17 +33,6 @@
  */
 class Mage_AmazonPayments_Block_Asp_Redirect extends Mage_Core_Block_Template
 {
-
-    /**
-     * Return Amazon Simple Pay payment model
-     *
-     * @return Mage_AmazonPayments_Model_Payment_Asp
-     */
-    public function getPayment()
-    {
-        return Mage::registry('amazonpayments_payment_asp');
-    }
-
     /**
      * Return Amazon Simple Pay payment url
      *
@@ -51,7 +40,7 @@ class Mage_AmazonPayments_Block_Asp_Redirect extends Mage_Core_Block_Template
      */
     public function getRedirectUrl()
     {
-        return $this->getPayment()->getPayRedirectUrl();
+        return Mage::registry('amazonpayments_payment_asp')->getPayRedirectUrl();
     }
 
     /**
@@ -61,17 +50,6 @@ class Mage_AmazonPayments_Block_Asp_Redirect extends Mage_Core_Block_Template
      */
     public function getRedirectParams()
     {
-        return $this->getPayment()->getPayRedirectParams();
+        return Mage::registry('amazonpayments_payment_asp')->getPayRedirectParams();
     }
-
-    /**
-     * Return redirect message
-     *
-     * @return string
-     */
-    public function getRedirectMessage()
-    {
-        return $this->getPayment()->getRedirectMessage();
-    }
-    
 }

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,22 +24,22 @@
 
 /**
  * Captcha generic decorator
- *
+ * 
  * Adds captcha adapter output
  *
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Captcha.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: $
  */
 class Zend_Form_Decorator_Captcha extends Zend_Form_Decorator_Abstract
 {
     /**
      * Render captcha
-     *
-     * @param  string $content
+     * 
+     * @param  string $content 
      * @return string
      */
     public function render($content)

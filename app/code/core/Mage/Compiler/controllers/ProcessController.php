@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Compiler
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Compiler
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -54,6 +54,9 @@ class Mage_Compiler_ProcessController extends Mage_Adminhtml_Controller_Action
     }
     public function indexAction()
     {
+        Mage::getSingleton('adminhtml/session')->addError(
+            Mage::helper('compiler')->__('Compiler module is now in Beta (not to be used in production environment)')
+        );
         $this->loadLayout();
         $this->_setActiveMenu('system/tools');
         $this->renderLayout();
@@ -78,11 +81,8 @@ class Mage_Compiler_ProcessController extends Mage_Adminhtml_Controller_Action
 
     public function recompileAction()
     {
-        /**
-         * Add redirect heades before clear compiled sources
-         */
-        $this->_redirect('*/*/run');
         $this->_getCompiler()->clear();
+        $this->_redirect('*/*/run');
     }
 
     public function disableAction()

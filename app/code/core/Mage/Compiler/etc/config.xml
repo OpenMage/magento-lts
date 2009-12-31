@@ -20,9 +20,9 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    Mage
- * @package     Mage_Compiler
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @package     Mage_Api
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 -->
 <config>
@@ -51,7 +51,20 @@
                 <setup>
                     <module>Mage_Compiler</module>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </compiler_setup>
+            <compiler_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </compiler_write>
+            <compiler_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </compiler_read>
         </resources>
     </global>
     <admin>
@@ -66,6 +79,26 @@
         </routers>
     </admin>
     <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <tools>
+                                    <children>
+                                        <compiler translate="title" module="compiler">
+                                            <title>Compilation</title>
+                                            <sort_order>0</sort_order>
+                                        </compiler>
+                                    </children>
+                                </tools>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
         <translate>
             <modules>
                 <Mage_Compiler>
@@ -75,6 +108,21 @@
                 </Mage_Compiler>
             </modules>
         </translate>
+        <menu>
+            <system>
+                <children>
+                    <tools>
+                        <children>
+                            <compiler translate="title" module="compiler">
+                                <title>Compilation (Beta)</title>
+                                <sort_order>1000</sort_order>
+                                <action>compiler/process</action>
+                            </compiler>
+                        </children>
+                    </tools>
+                </children>
+            </system>
+        </menu>
         <layout>
             <updates>
                 <compiler>

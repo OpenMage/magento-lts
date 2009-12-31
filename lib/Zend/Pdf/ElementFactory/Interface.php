@@ -12,11 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Interface.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
 /**
@@ -24,7 +22,7 @@
  * Responsibility is to log PDF changes
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Pdf_ElementFactory_Interface
@@ -74,19 +72,11 @@ interface Zend_Pdf_ElementFactory_Interface
     /**
      * Calculate object enumeration shift.
      *
+     * @internal
      * @param Zend_Pdf_ElementFactory_Interface $factory
      * @return integer
      */
     public function calculateShift(Zend_Pdf_ElementFactory_Interface $factory);
-
-    /**
-     * Clean enumeration shift cache.
-     * Has to be used after PDF render operation to let followed updates be correct.
-     *
-     * @param Zend_Pdf_ElementFactory_Interface $factory
-     * @return integer
-     */
-    public function cleanEnumerationShiftCache();
 
     /**
      * Retrive object enumeration shift.
@@ -149,3 +139,4 @@ interface Zend_Pdf_ElementFactory_Interface
      */
     public function isModified();
 }
+

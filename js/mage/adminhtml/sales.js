@@ -554,12 +554,6 @@ AdminOrder.prototype = {
                 loaderArea: indicator,
                 onSuccess: function(transport) {
                     var response = transport.responseText.evalJSON();
-                    if (response.error) {
-                        alert(response.message);
-                    }
-                    if(response.ajaxExpired && response.ajaxRedirect) {
-                        setLocation(response.ajaxRedirect);
-                    }
                     if(!this.loadingAreas){
                         this.loadingAreas = [];
                     }
@@ -570,9 +564,7 @@ AdminOrder.prototype = {
                     for(var i=0; i<this.loadingAreas.length; i++){
                         var id = this.loadingAreas[i];
                         if($(this.getAreaId(id))){
-                            if ('message' != id || response[id]) {
-                                $(this.getAreaId(id)).update(response[id] ? response[id] : '');
-                            }
+                            $(this.getAreaId(id)).update(response[id] ? response[id] : '');
                             if ($(this.getAreaId(id)).callback) {
                                 this[$(this.getAreaId(id)).callback]();
                             }

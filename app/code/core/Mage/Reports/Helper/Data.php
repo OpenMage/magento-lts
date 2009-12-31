@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,70 +29,5 @@
  */
 class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const REPORT_PERIOD_TYPE_DAY    = 'day';
-    const REPORT_PERIOD_TYPE_MONTH  = 'month';
-    const REPORT_PERIOD_TYPE_YEAR   = 'year';
-    /**
-     * Retrieve array of intervals
-     *
-     * @param string $from
-     * @param string $to
-     * @param string $period
-     * @return array
-     */
-    public function getIntervals($from, $to, $period = self::REPORT_PERIOD_TYPE_DAY)
-    {
-        $intervals = array();
-        if (!$from && !$to){
-            return $intervals;
-        }
 
-        $start = Mage::app()->getLocale()->date($from, Varien_Date::DATE_INTERNAL_FORMAT);
-
-        if ($period == self::REPORT_PERIOD_TYPE_DAY) {
-            $dateStart = $start;
-        }
-
-        if ($period == self::REPORT_PERIOD_TYPE_MONTH) {
-            $dateStart = new Zend_Date(date("Y-m", $start->getTimestamp()), Varien_Date::DATE_INTERNAL_FORMAT);
-        }
-
-        if ($period == self::REPORT_PERIOD_TYPE_YEAR) {
-            $dateStart = new Zend_Date(date("Y", $start->getTimestamp()), Varien_Date::DATE_INTERNAL_FORMAT);
-        }
-
-        $dateEnd = Mage::app()->getLocale()->date($to, Varien_Date::DATE_INTERNAL_FORMAT);
-
-        while ($dateStart->compare($dateEnd) <= 0) {
-            switch ($period) {
-                case self::REPORT_PERIOD_TYPE_DAY :
-                    $t = $dateStart->toString('yyyy-MM-dd');
-                    $dateStart->addDay(1);
-                    break;
-                case self::REPORT_PERIOD_TYPE_MONTH:
-                    $t = $dateStart->toString('yyyy-MM');
-                    $dateStart->addMonth(1);
-                    break;
-                case self::REPORT_PERIOD_TYPE_YEAR:
-                    $t = $dateStart->toString('yyyy');
-                    $dateStart->addYear(1);
-                    break;
-            }
-            $intervals[] = $t;
-        }
-        return  $intervals;
-    }
-
-    public function prepareIntervalsCollection($collection, $from, $to, $periodType = self::REPORT_PERIOD_TYPE_DAY)
-    {
-        $intervals = $this->getIntervals($from, $to, $periodType);
-
-        foreach ($intervals as $interval) {
-            $item = Mage::getModel('adminhtml/report_item');
-            $item->setPeriod($interval);
-            $item->setIsEmpty();
-            $collection->addItem($item);
-        }
-    }
 }
-

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -90,7 +90,6 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'index' => 'customer_tax_classes',
                 'filter_index' => 'ctc.customer_tax_class_id',
                 'type'    => 'options',
-                'show_missing_option_values' => true,
                 'options' => Mage::getModel('tax/class')->getCollection()->setClassTypeFilter('CUSTOMER')->toOptionHash(),
             )
         );
@@ -103,7 +102,6 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'index' => 'product_tax_classes',
                 'filter_index' => 'ptc.product_tax_class_id',
                 'type'    => 'options',
-                'show_missing_option_values' => true,
                 'options' => Mage::getModel('tax/class')->getCollection()->setClassTypeFilter('PRODUCT')->toOptionHash(),
             )
         );
@@ -116,7 +114,6 @@ class Mage_Adminhtml_Block_Tax_Rule_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'index'   => 'tax_rates',
                 'filter_index' => 'rate.tax_calculation_rate_id',
                 'type'    => 'options',
-                'show_missing_option_values' => true,
                 'options' => Mage::getModel('tax/calculation_rate')->getCollection()->toOptionHash(),
             )
         );

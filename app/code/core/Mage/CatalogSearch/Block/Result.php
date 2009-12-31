@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -48,7 +48,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     protected function _getQuery()
     {
-        return $this->helper('catalogsearch')->getQuery();
+        return $this->helper('catalogSearch')->getQuery();
     }
 
     /**
@@ -58,7 +58,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        $title = $this->__("Search results for: '%s'", $this->helper('catalogsearch')->getEscapedQueryText());
+        $title = $this->__("Search results for: '%s'", $this->helper('catalogSearch')->getEscapedQueryText());
 
         // add Home breadcrumb
         if ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs')) {
@@ -180,8 +180,8 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     public function getNoResultText()
     {
-        if (Mage::helper('catalogsearch')->isMinQueryLength()) {
-            return Mage::helper('catalogsearch')->__('Minimum Search query length is %s', $this->_getQuery()->getMinQueryLength());
+        if (Mage::helper('catalogSearch')->isMinQueryLength()) {
+            return Mage::helper('catalogSearch')->__('Minimum Search query length is %s', $this->_getQuery()->getMinQueryLenght());
         }
         return $this->_getData('no_result_text');
     }
@@ -193,6 +193,6 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     public function getNoteMessages()
     {
-        return Mage::helper('catalogsearch')->getNoteMessages();
+        return Mage::helper('catalogSearch')->getNoteMessages();
     }
 }

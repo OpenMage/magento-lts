@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -129,24 +129,6 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * Check whether or not the module output is enabled in Configuration
-     * TODO: add checking if module exists
-     *
-     * @param string $moduleName Full module name
-     * @return boolean
-     */
-    public function isModuleOutputEnabled($moduleName = null)
-    {
-        if ($moduleName === null) {
-            $moduleName = $this->_getModuleName();
-        }
-        if (Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $moduleName)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * Translate
      *
      * @return string
@@ -171,7 +153,7 @@ abstract class Mage_Core_Helper_Abstract
         if (is_array($data)) {
             $result = array();
             foreach ($data as $item) {
-                $result[] = $this->htmlEscape($item);
+            	$result[] = $this->htmlEscape($item);
             }
         } else {
             // process single item

@@ -18,25 +18,36 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php $_source  = $this->getSource() ?>
+<?php $this->setPriceDataObject($_source) ?>
+<?php $_currency= $this->getCurrency() ?>
 <?php if ($_source): ?>
     <tr>
         <td class="label"><?php echo $this->helper('sales')->__('Refund Shipping') ?></td>
-        <td><input type="text" name="creditmemo[shipping_amount]" value="<?php echo $_source->getBaseShippingAmount()*1 ?>" class="input-text not-negative-amount" style="width:60px;text-align:right" id="shipping_amount" /><div id="shipping_amount_adv"></div></td>
+        <td><input type="text" name="creditmemo[shipping_amount]" value="<?php echo $_source->getBaseShippingAmount()*1 ?>" class="input-text not-negative-amount" style="width:60px;text-align:right" id="shipping_amount" /></td>
+    </tr>
+    <tr>
+        <td colspan="2" id="shipping_amount_adv" class="advice-bg-right"></td>
     </tr>
     <tr>
         <td class="label"><?php echo $this->helper('sales')->__('Adjustment Refund') ?></td>
-        <td><input type="text" name="creditmemo[adjustment_positive]" value="<?php echo $_source->getBaseAdjustmentFeePositive()*1 ?>" class="input-text not-negative-amount" style="width:60px;text-align:right" id="adjustment_positive" /><div id="adjustment_positive_adv"></div></td>
+        <td><input type="text" name="creditmemo[adjustment_positive]" value="<?php echo $_source->getBaseAdjustmentFeePositive()*1 ?>" class="input-text not-negative-amount" style="width:60px;text-align:right" id="adjustment_positive" /></td>
+    </tr>
+    <tr>
+        <td colspan="2" id="adjustment_positive_adv" class="advice-bg-right"></td>
     </tr>
     <tr>
         <td class="label"><?php echo $this->helper('sales')->__('Adjustment Fee') ?></td>
-        <td><input type="text" name="creditmemo[adjustment_negative]" value="<?php echo $_source->getBaseAdjustmentFeeNegative()*1 ?>" class="input-text not-negative-amount" style="width:60px;text-align:right" id="adjustment_negative"/><div id="adjustment_negative_adv"></div></td>
+        <td><input type="text" name="creditmemo[adjustment_negative]" value="<?php echo $_source->getBaseAdjustmentFeeNegative()*1 ?>" class="input-text not-negative-amount" style="width:60px;text-align:right" id="adjustment_negative"/></td>
+    </tr>
+    <tr>
+        <td colspan="2" id="adjustment_negative_adv" class="advice-bg-right"></td>
     </tr>
     <script type="text/javascript">
     //<![CDATA[

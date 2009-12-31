@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Shipping
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Shipping
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -51,7 +51,20 @@
                 <setup>
                     <module>Mage_Shipping</module>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </shipping_setup>
+            <shipping_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </shipping_write>
+            <shipping_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </shipping_read>
         </resources>
         <sales>
             <shipping>
@@ -89,6 +102,30 @@
         </sales>
     </global>
     <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <shipping translate="title" modul="shipping">
+                                            <title>Shipping Settings Section</title>
+                                            <sort_order>0</sort_order>
+                                        </shipping>
+                                        <carriers translate="title" modul="shipping">
+                                            <title>Shipping Methods Section</title>
+                                            <sort_order>0</sort_order>
+                                        </carriers>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
         <translate>
             <modules>
                 <Mage_Shipping>
@@ -168,7 +205,6 @@
                 <active>0</active>
                 <sallowspecific>0</sallowspecific>
                 <condition_name>package_weight</condition_name>
-                <include_virtual_price>1</include_virtual_price>
                 <model>shipping/carrier_tablerate</model>
                 <name>Table Rate</name>
                 <title>Best Way</title>

@@ -12,22 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: AsciiHex.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
 
 /** Zend_Pdf_Filter_Interface */
 #require_once 'Zend/Pdf/Filter/Interface.php';
 
+
 /**
  * AsciiHex stream filter
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Filter_AsciiHex implements Zend_Pdf_Filter_Interface
@@ -99,7 +98,6 @@ class Zend_Pdf_Filter_AsciiHex implements Zend_Pdf_Filter_Interface
                     } else if ($charCode >= 0x61 /*'a'*/ && $charCode <= 0x66 /*'f'*/) {
                         $code = $charCode - 0x57/*0x61 - 0x0A*/;
                     } else {
-                        #require_once 'Zend/Pdf/Exception.php';
                         throw new Zend_Pdf_Exception('Wrong character in a encoded stream');
                     }
 
@@ -121,7 +119,6 @@ class Zend_Pdf_Filter_AsciiHex implements Zend_Pdf_Filter_Interface
 
         /* Check that stream is terminated by End Of Data marker */
         if ($data[$count] != '>') {
-            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Wrong encoded stream End Of Data marker.');
         }
 

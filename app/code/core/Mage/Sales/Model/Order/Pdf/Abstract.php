@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -56,8 +56,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      */
     protected $_pdf;
 
-    protected $_defaultTotalModel = 'sales/order_pdf_total_default';
-
     /**
      * Retrieve PDF
      *
@@ -81,8 +79,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      */
     public function widthForStringUsingFontSize($string, $font, $fontSize)
     {
-        $drawingString = '"libiconv"' == ICONV_IMPL ? iconv('UTF-8', 'UTF-16BE//IGNORE', $string) : @iconv('UTF-8', 'UTF-16BE', $string);
-
+        $drawingString = iconv('UTF-8', 'UTF-16BE//IGNORE', $string);
         $characters = array();
         for ($i = 0; $i < strlen($drawingString); $i++) {
             $characters[] = (ord($drawingString[$i++]) << 8) | ord($drawingString[$i]);
@@ -169,7 +166,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     protected function _formatAddress($address)
     {
         $return = array();
-        foreach (explode('|', $address) as $str) {
+        foreach (split('\|', $address) as $str) {
             foreach (Mage::helper('core/string')->str_split($str, 65, true, true) as $part) {
                 if (empty($part)) {
                     continue;
@@ -381,59 +378,61 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     {
         $totals = Mage::getConfig()->getNode('global/pdf/totals')->asArray();
         usort($totals, array($this, '_sortTotalsList'));
-        $totalModels = array();
-        foreach ($totals as $index => $totalInfo) {
-            if (!empty($totalInfo['model'])) {
-                $totalModel = Mage::getModel($totalInfo['model']);
-                if ($totalModel instanceof Mage_Sales_Model_Order_Pdf_Total_Default) {
-                    $totalInfo['model'] = $totalModel;
-                } else {
-                    Mage::throwException(
-                        Mage::helper('sales')->__('Pdf total model should extend Mage_Sales_Model_Order_Pdf_Total_Default')
-                    );
-                }
-            } else {
-                $totalModel = Mage::getModel($this->_defaultTotalModel);
-            }
-            $totalModel->setData($totalInfo);
-            $totalModels[] = $totalModel;
-        }
 
-        return $totalModels;
+        return $totals;
     }
 
     protected function insertTotals($page, $source){
         $order = $source->getOrder();
+//        $font = $this->_setFontBold($page);
+
         $totals = $this->_getTotalsList($source);
+
         $lineBlock = array(
             'lines'  => array(),
             'height' => 15
         );
         foreach ($totals as $total) {
-            $total->setOrder($order)
-                ->setSource($source);
+            $amount = $source->getDataUsingMethod($total['source_field']);
+            $displayZero = (isset($total['display_zero']) ? $total['display_zero'] : 0);
 
-            if ($total->canDisplay()) {
-                foreach ($total->getTotalsForDisplay() as $totalData) {
-                    $lineBlock['lines'][] = array(
-                        array(
-                            'text'      => $totalData['label'],
-                            'feed'      => 475,
-                            'align'     => 'right',
-                            'font_size' => $totalData['font_size'],
-                            'font'      => 'bold'
-                        ),
-                        array(
-                            'text'      => $totalData['amount'],
-                            'feed'      => 565,
-                            'align'     => 'right',
-                            'font_size' => $totalData['font_size'],
-                            'font'      => 'bold'
-                        ),
-                    );
+            if ($amount != 0 || $displayZero) {
+                $amount = $order->formatPriceTxt($amount);
+
+                if (isset($total['amount_prefix']) && $total['amount_prefix']) {
+                    $amount = "{$total['amount_prefix']}{$amount}";
                 }
+
+                $fontSize = (isset($total['font_size']) ? $total['font_size'] : 7);
+                //$page->setFont($font, $fontSize);
+
+                $label = Mage::helper('sales')->__($total['title']) . ':';
+
+                $lineBlock['lines'][] = array(
+                    array(
+                        'text'      => $label,
+                        'feed'      => 475,
+                        'align'     => 'right',
+                        'font_size' => $fontSize,
+                        'font'      => 'bold'
+                    ),
+                    array(
+                        'text'      => $amount,
+                        'feed'      => 565,
+                        'align'     => 'right',
+                        'font_size' => $fontSize,
+                        'font'      => 'bold'
+                    ),
+                );
+
+//                $page->drawText($label, 475-$this->widthForStringUsingFontSize($label, $font, $fontSize), $this->y, 'UTF-8');
+//                $page->drawText($amount, 565-$this->widthForStringUsingFontSize($amount, $font, $fontSize), $this->y, 'UTF-8');
+//                $this->y -=15;
             }
         }
+
+//        echo '<pre>';
+//        var_dump($lineBlock);
 
         $page = $this->drawLineBlocks($page, array($lineBlock));
         return $page;

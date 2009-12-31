@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,20 +31,20 @@
  * - separator: Separator to use between elements
  *
  * Any other options passed will be used as HTML attributes of the form tag.
- *
+ * 
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: PrepareElements.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: PrepareElements.php 12347 2008-11-06 21:45:56Z matthew $
  */
 class Zend_Form_Decorator_PrepareElements extends Zend_Form_Decorator_FormElements
 {
     /**
      * Render form elements
      *
-     * @param  string $content
+     * @param  string $content 
      * @return string
      */
     public function render($content)

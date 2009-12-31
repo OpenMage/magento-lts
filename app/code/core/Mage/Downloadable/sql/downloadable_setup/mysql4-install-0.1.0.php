@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,7 @@ $fieldList = array(
 
 // make these attributes applicable to downloadable products
 foreach ($fieldList as $field) {
-    $applyTo = explode(',', $installer->getAttribute('catalog_product', $field, 'apply_to'));
+    $applyTo = split(',', $installer->getAttribute('catalog_product', $field, 'apply_to'));
     if (!in_array('downloadable', $applyTo)) {
         $applyTo[] = 'downloadable';
         $installer->updateAttribute('catalog_product', $field, 'apply_to', join(',', $applyTo));

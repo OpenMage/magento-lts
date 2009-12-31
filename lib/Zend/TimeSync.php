@@ -15,10 +15,15 @@
  *
  * @category   Zend
  * @package    Zend_TimeSync
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: TimeSync.php 16207 2009-06-21 19:17:51Z thomas $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: TimeSync.php 13218 2008-12-14 11:11:56Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
+
+/**
+ * Zend_Loader
+ */
+#require_once 'Zend/Loader.php';
 
 /**
  * Zend_Date
@@ -28,7 +33,7 @@
 /**
  * @category   Zend
  * @package    Zend_TimeSync
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_TimeSync implements IteratorAggregate
@@ -82,7 +87,7 @@ class Zend_TimeSync implements IteratorAggregate
      */
     public function __construct($target = null, $alias = null)
     {
-        if ($target !== null) {
+        if (!is_null($target)) {
             $this->addServer($target, $alias);
         }
     }
@@ -293,10 +298,8 @@ class Zend_TimeSync implements IteratorAggregate
         }
 
         $className = 'Zend_TimeSync_' . $protocol;
-        if (!class_exists($className)) {
-            #require_once 'Zend/Loader.php';
-            Zend_Loader::loadClass($className);
-        }
+
+        #Zend_Loader::loadClass($className);
         $timeServerObj = new $className($adress, $port);
 
         $this->_timeservers[$alias] = $timeServerObj;

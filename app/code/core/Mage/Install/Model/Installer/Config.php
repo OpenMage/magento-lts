@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Install
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Install
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -160,9 +160,11 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
 
     public function replaceTmpInstallDate($date = null)
     {
-        $stamp    = strtotime((string) $date);
+        if (is_null($date)) {
+            $date = date('r');
+        }
         $localXml = file_get_contents($this->_localConfigFile);
-        $localXml = str_replace(self::TMP_INSTALL_DATE_VALUE, date('r', $stamp ? $stamp : time()), $localXml);
+        $localXml = str_replace(self::TMP_INSTALL_DATE_VALUE, date('r'), $localXml);
         file_put_contents($this->_localConfigFile, $localXml);
 
         return $this;

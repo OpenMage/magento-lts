@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Core>
-             <version>0.8.24</version>
+             <version>0.8.13</version>
         </Mage_Core>
     </modules>
 
@@ -42,8 +42,6 @@
                     <config_field><table>core_config_field</table></config_field>
                     <config_data><table>core_config_data</table></config_data>
                     <email_template><table>core_email_template</table></email_template>
-                    <variable><table>core_variable</table></variable>
-                    <variable_value><table>core_variable_value</table></variable_value>
                     <translate><table>core_translate</table></translate>
                     <session><table>core_session</table></session>
                     <layout_update><table>core_layout_update</table></layout_update>
@@ -73,31 +71,11 @@
         </template>
         <cache>
             <types>
-                <config translate="label,description" module="core">
-                    <label>Configuration</label>
-                    <description>System(config.xml, local.xml) and modules configuration files(config.xml).</description>
-                    <tags>CONFIG</tags>
-                </config>
-                <layout translate="label,description" module="core">
-                    <label>Layouts</label>
-                    <description>Layout building instructions.</description>
-                    <tags>LAYOUT_GENERAL_CACHE_TAG</tags>
-                </layout>
-                <block_html translate="label,description" module="core">
-                    <label>Blocks HTML output</label>
-                    <description>Page blocks HTML.</description>
-                    <tags>BLOCK_HTML</tags>
-                </block_html>
-                <translate translate="label,description" module="core">
-                    <label>Translations</label>
-                    <description>Translation files.</description>
-                    <tags>TRANSLATE</tags>
-                </translate>
-                <collections translate="label,description" module="core">
-                    <label>Collections Data</label>
-                    <description>Collection data files.</description>
-                    <tags>COLLECTION_DATA</tags>
-                </collections>
+                <config translate="label" module="core"><label>Configuration</label></config>
+                <layout translate="label" module="core"><label>Layouts</label></layout>
+                <block_html translate="label" module="core"><label>Blocks HTML output</label></block_html>
+                <translate translate="label" module="core"><label>Translations</label></translate>
+                <collections translate="label" module="core"><label>Collections Data</label></collections>
             </types>
         </cache>
         <session>
@@ -150,16 +128,6 @@
                 </Mage_Core>
             </modules>
         </translate>
-        <events>
-            <cms_wysiwyg_config_prepare>
-                <observers>
-                    <variable_observer>
-                        <class>core/variable_observer</class>
-                        <method>prepareWysiwygPluginConfig</method>
-                    </variable_observer>
-                </observers>
-            </cms_wysiwyg_config_prepare>
-        </events>
     </adminhtml>
     <install>
         <translate>
@@ -182,10 +150,6 @@
                 <theme>default</theme>
                 <translate>default</translate>
             </package>
-            <pagination>
-                <list_allow_all>1</list_allow_all>
-                <pagination_frame>5</pagination_frame>
-            </pagination>
         </design>
 
         <dev>
@@ -287,14 +251,13 @@
                 <use_http_via>0</use_http_via>
                 <use_http_x_forwarded_for>0</use_http_x_forwarded_for>
                 <use_http_user_agent>0</use_http_user_agent>
-                <use_frontend_sid>1</use_frontend_sid>
             </session>
 
             <browser_capabilities>
                 <cookies>1</cookies>
                 <javascript>1</javascript>
             </browser_capabilities>
-
+            
         </web>
 
         <admin>

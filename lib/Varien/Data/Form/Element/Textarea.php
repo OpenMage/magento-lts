@@ -44,7 +44,7 @@ class Varien_Data_Form_Element_Textarea extends Varien_Data_Form_Element_Abstrac
 
     public function getHtmlAttributes()
     {
-        return array('title', 'class', 'style', 'onclick', 'onchange', 'rows', 'cols', 'readonly', 'disabled', 'onkeyup', 'tabindex');
+        return array('title', 'class', 'style', 'onclick', 'onchange', 'rows', 'cols', 'readonly', 'disabled', 'onkeyup');
     }
 
     public function getElementHtml()

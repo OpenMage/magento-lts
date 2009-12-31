@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Jumping.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Jumping.php 10013 2008-07-09 21:08:06Z norm2782 $
  */
 
 /**
@@ -25,20 +25,20 @@
 #require_once 'Zend/Paginator/ScrollingStyle/Interface.php';
 
 /**
- * A scrolling style in which the cursor advances to the upper bound
- * of the page range, the page range "jumps" to the next section, and
+ * A scrolling style in which the cursor advances to the upper bound 
+ * of the page range, the page range "jumps" to the next section, and 
  * the cursor moves back to the beginning of the range.
- *
+ * 
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Paginator_ScrollingStyle_Jumping implements Zend_Paginator_ScrollingStyle_Interface
 {
     /**
      * Returns an array of "local" pages given a page number and range.
-     *
+     * 
      * @param  Zend_Paginator $paginator
      * @param  integer $pageRange Unused
      * @return array
@@ -47,17 +47,17 @@ class Zend_Paginator_ScrollingStyle_Jumping implements Zend_Paginator_ScrollingS
     {
         $pageRange  = $paginator->getPageRange();
         $pageNumber = $paginator->getCurrentPageNumber();
-
+        
         $delta = $pageNumber % $pageRange;
-
+        
         if ($delta == 0) {
             $delta = $pageRange;
         }
 
         $offset     = $pageNumber - $delta;
-        $lowerBound = $offset + 1;
+        $lowerBound = $offset + 1; 
         $upperBound = $offset + $pageRange;
-
-        return $paginator->getPagesInRange($lowerBound, $upperBound);
+        
+        return $paginator->getPagesInRange($lowerBound, $upperBound); 
     }
 }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Health
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ccr.php 16214 2009-06-21 19:34:03Z thomas $
+ * @version    $Id: Ccr.php 13107 2008-12-09 08:17:39Z tjohns $
  */
 
 /**
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Health
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Health_Extension_Ccr extends Zend_Gdata_App_Extension_Element
@@ -77,22 +77,22 @@ class Zend_Gdata_Health_Extension_Ccr extends Zend_Gdata_App_Extension_Element
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        if ($doc === null) {
+        if (is_null($doc)) {
             $doc = new DOMDocument('1.0', 'utf-8');
         }
         $domElement = $doc->importNode($this->_ccrDom, true);
         return $domElement;
-    }
+    } 
 
     /**
-     * Magic helper that allows drilling down and returning specific elements
+     * Magic helper that allows drilling down and returning specific elements 
      * in the CCR. For example, to retrieve the users medications
      * (/ContinuityOfCareRecord/Body/Medications) from the entry's CCR, call
      * $entry->getCcr()->getMedications().  Similarly, getConditions() would
      * return extract the user's conditions.
      *
      * @param string $name Name of the function to call
-     * @return array.<DOMElement> A list of the appropriate CCR data
+     * @return array.<DOMElement> A list of the appropriate CCR data 
      */
     public function __call($name, $args)
     {

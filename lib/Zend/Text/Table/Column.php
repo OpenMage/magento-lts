@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Text_Table
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Column.php 16209 2009-06-21 19:20:34Z thomas $
+ * @version   $Id: Column.php 12637 2008-11-14 06:53:07Z ralph $
  */
 
 /**
@@ -25,16 +25,11 @@
 #require_once 'Zend/Text/Table.php';
 
 /**
- * @see Zend_Text_MultiByte
- */
-#require_once 'Zend/Text/MultiByte.php';
-
-/**
  * Column class for Zend_Text_Table_Row
  *
  * @category  Zend
  * @package   Zend_Text_Table
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Text_Table_Column
@@ -66,7 +61,7 @@ class Zend_Text_Table_Column
      * @var integer
      */
     protected $_colSpan = 1;
-
+    
     /**
      * Allowed align parameters
      *
@@ -121,15 +116,15 @@ class Zend_Text_Table_Column
         } else {
             $inputCharset = strtolower($charset);
         }
-
+        
         $outputCharset = Zend_Text_Table::getOutputCharset();
-
+        
         if ($inputCharset !== $outputCharset) {
-            if (PHP_OS !== 'AIX') {
+            if (PHP_OS != 'AIX') {
                 // AIX does not understand these character sets
                 $content = iconv($inputCharset, $outputCharset, $content);
             }
-
+            
         }
 
         $this->_content = $content;
@@ -200,9 +195,9 @@ class Zend_Text_Table_Column
             #require_once 'Zend/Text/Table/Exception.php';
             throw new Zend_Text_Table_Exception('$columnWidth must be an integer and greater than 0');
         }
-
+        
         $columnWidth -= ($padding * 2);
-
+        
         if ($columnWidth < 1) {
             #require_once 'Zend/Text/Table/Exception.php';
             throw new Zend_Text_Table_Exception('Padding (' . $padding . ') is greater than column width');
@@ -226,18 +221,18 @@ class Zend_Text_Table_Column
                 break;
         }
 
-        $outputCharset = Zend_Text_Table::getOutputCharset();
-        $lines         = explode("\n", Zend_Text_MultiByte::wordWrap($this->_content, $columnWidth, "\n", true, $outputCharset));
-        $paddedLines   = array();
+        $lines       = explode("\n", wordwrap($this->_content, $columnWidth, "\n"));
+        $paddedLines = array();
 
         foreach ($lines AS $line) {
             $paddedLines[] = str_repeat(' ', $padding)
-                           . Zend_Text_MultiByte::strPad($line, $columnWidth, ' ', $padMode, $outputCharset)
+                           . str_pad($line, $columnWidth, ' ', $padMode)
                            . str_repeat(' ', $padding);
         }
 
         $result = implode("\n", $paddedLines);
 
         return $result;
+
     }
 }

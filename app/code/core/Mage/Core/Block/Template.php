@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -56,53 +56,9 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
     protected static $_showTemplateHints;
     protected static $_showTemplateHintsBlocks;
 
-    /**
-     * Path to template file in theme.
-     *
-     * @var string
-     */
-    protected $_template;
-
-    /**
-     * Internal constructor, that is called from real constructor
-     *
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-
-        /*
-         * In case template was passed through constructor
-         * we assign it to block's property _template
-         * Mainly for those cases when block created
-         * not via Mage_Core_Model_Layout::addBlock()
-         */
-        if ($this->hasData('template')) {
-            $this->setTemplate($this->getData('template'));
-        }
-    }
-
-    /**
-     * Retrieve path to template used for generating block's output.
-     *
-     * @return string
-     */
     public function getTemplate()
     {
-        return $this->_template;
-    }
-
-    /**
-     * Set path to template used for generating block's output.
-     *
-     * @param string $template
-     * @return Mage_Core_Block_Template
-     */
-    public function setTemplate($template)
-    {
-        $this->_template = $template;
-
-        return $this;
+        return $this->_getData('template');
     }
 
     public function getArea()

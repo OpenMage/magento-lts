@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Date.php 2498 2006-12-23 22:13:38Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Translate.php 16207 2009-06-21 19:17:51Z thomas $
  */
 
 /**
@@ -28,7 +28,7 @@
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate {
@@ -86,10 +86,7 @@ class Zend_Translate {
             $adapter = 'Zend_Translate_Adapter_' . ucfirst($adapter);
         }
 
-        if (!class_exists($adapter)) {
-            Zend_Loader::loadClass($adapter);
-        }
-
+        #Zend_Loader::loadClass($adapter);
         if (self::$_cache !== null) {
             call_user_func(array($adapter, 'setCache'), self::$_cache);
         }

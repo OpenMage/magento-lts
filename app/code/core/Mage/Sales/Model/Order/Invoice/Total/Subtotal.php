@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -35,12 +35,8 @@ class Mage_Sales_Model_Order_Invoice_Total_Subtotal extends Mage_Sales_Model_Ord
      */
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {
-        $subtotal       = 0;
-        $baseSubtotal   = 0;
-        $subtotalInclTax= 0;
-        $baseSubtotalInclTax = 0;
-
-        $order = $invoice->getOrder();
+        $subtotal = 0;
+        $baseSubtotal = 0;
 
         foreach ($invoice->getAllItems() as $item) {
             $item->calcRowTotal();
@@ -49,28 +45,12 @@ class Mage_Sales_Model_Order_Invoice_Total_Subtotal extends Mage_Sales_Model_Ord
                 continue;
             }
 
-            $subtotal       += $item->getRowTotal();
-            $baseSubtotal   += $item->getBaseRowTotal();
-            $subtotalInclTax+= $item->getRowTotalInclTax();
-            $baseSubtotalInclTax += $item->getBaseRowTotalInclTax();
-        }
-
-        $allowedSubtotal = $order->getSubtotal() - $order->getSubtotalInvoiced();
-        $baseAllowedSubtotal = $order->getBaseSubtotal() -$order->getBaseSubtotalInvoiced();
-
-        if ($invoice->isLast()) {
-            $subtotal = $allowedSubtotal;
-            $baseSubtotal = $baseAllowedSubtotal;
-        }
-        else {
-            $subtotal = min($allowedSubtotal, $subtotal);
-            $baseSubtotal = min($baseAllowedSubtotal, $baseSubtotal);
+            $subtotal+= $item->getRowTotal();
+            $baseSubtotal+= $item->getBaseRowTotal();
         }
 
         $invoice->setSubtotal($subtotal);
         $invoice->setBaseSubtotal($baseSubtotal);
-        $invoice->setSubtotalInclTax($subtotalInclTax);
-        $invoice->setBaseSubtotalInclTax($baseSubtotalInclTax);
 
         $invoice->setGrandTotal($invoice->getGrandTotal() + $subtotal);
         $invoice->setBaseGrandTotal($invoice->getBaseGrandTotal() + $baseSubtotal);

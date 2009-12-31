@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -56,34 +56,23 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         return $this;
     }
 
-    /**
-     * Validate ajax request and redirect on failure
-     *
-     * @return bool
-     */
     protected function _expireAjax()
     {
         if (!$this->getOnepage()->getQuote()->hasItems()
             || $this->getOnepage()->getQuote()->getHasError()
             || $this->getOnepage()->getQuote()->getIsMultiShipping()) {
             $this->_ajaxRedirectResponse();
-            return true;
+            exit;
         }
         $action = $this->getRequest()->getActionName();
         if (Mage::getSingleton('checkout/session')->getCartWasUpdated(true)
             && !in_array($action, array('index', 'progress'))) {
             $this->_ajaxRedirectResponse();
-            return true;
+            exit;
         }
-
-        return false;
+        Mage::getSingleton('core/translate_inline')->setIsAjaxRequest(true);
     }
 
-    /**
-     * Get shipping method step html
-     *
-     * @return string
-     */
     protected function _getShippingMethodsHtml()
     {
         $layout = $this->getLayout();
@@ -95,11 +84,6 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         return $output;
     }
 
-    /**
-     * Get payment method step html
-     *
-     * @return string
-     */
     protected function _getPaymentMethodsHtml()
     {
         $layout = $this->getLayout();
@@ -122,18 +106,13 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         return $output;
     }
 
-    /**
-     * Get order review step html
-     *
-     * @return string
-     */
     protected function _getReviewHtml()
     {
         return $this->getLayout()->getBlock('root')->toHtml();
     }
 
     /**
-     * Get one page checkout model
+     * Enter description here...
      *
      * @return Mage_Checkout_Model_Type_Onepage
      */
@@ -164,7 +143,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             return;
         }
         Mage::getSingleton('checkout/session')->setCartWasUpdated(false);
-        Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', array('_secure'=>true)));
+        Mage::getSingleton('customer/session')->setBeforeAuthUrl($this->getRequest()->getRequestUri());
         $this->getOnepage()->initCheckout();
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
@@ -177,34 +156,25 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     public function progressAction()
     {
-        if ($this->_expireAjax()) {
-            return;
-        }
+        $this->_expireAjax();
         $this->loadLayout(false);
         $this->renderLayout();
     }
 
     public function shippingMethodAction()
     {
-        if ($this->_expireAjax()) {
-            return;
-        }
+        $this->_expireAjax();
         $this->loadLayout(false);
         $this->renderLayout();
     }
 
     public function reviewAction()
     {
-        if ($this->_expireAjax()) {
-            return;
-        }
+        $this->_expireAjax();
         $this->loadLayout(false);
         $this->renderLayout();
     }
 
-    /**
-     * Order success action
-     */
     public function successAction()
     {
         if (!$this->getOnepage()->getCheckout()->getLastSuccessQuoteId()) {
@@ -252,9 +222,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     public function getAddressAction()
     {
-        if ($this->_expireAjax()) {
-            return;
-        }
+        $this->_expireAjax();
         $addressId = $this->getRequest()->getParam('address', false);
         if ($addressId) {
             $address = $this->getOnepage()->getAddress($addressId);
@@ -263,18 +231,13 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         }
     }
 
-    /**
-     * Save checkout method
-     */
     public function saveMethodAction()
     {
-        if ($this->_expireAjax()) {
-            return;
-        }
+        $this->_expireAjax();
         if ($this->getRequest()->isPost()) {
             $method = $this->getRequest()->getPost('method');
             $result = $this->getOnepage()->saveCheckoutMethod($method);
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+            $this->getResponse()->setBody(Zend_Json::encode($result));
         }
     }
 
@@ -283,15 +246,10 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     public function saveBillingAction()
     {
-        if ($this->_expireAjax()) {
-            return;
-        }
+        $this->_expireAjax();
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost('billing', array());
             $customerAddressId = $this->getRequest()->getPost('billing_address_id', false);
-            if (isset($data['email'])) {
-                $data['email'] = trim($data['email']);
-            }
             $result = $this->getOnepage()->saveBilling($data, $customerAddressId);
 
             if (!isset($result['error'])) {
@@ -302,8 +260,11 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                         'name' => 'payment-method',
                         'html' => $this->_getPaymentMethodsHtml()
                     );
-                } elseif (isset($data['use_for_shipping']) && $data['use_for_shipping'] == 1) {
-                    $result['goto_section'] = 'shipping_method';
+                }
+                elseif (isset($data['use_for_shipping']) && $data['use_for_shipping'] == 1) {
+
+                   $result['goto_section'] = 'shipping_method';
+
                     $result['update_section'] = array(
                         'name' => 'shipping-method',
                         'html' => $this->_getShippingMethodsHtml()
@@ -311,23 +272,19 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
                     $result['allow_sections'] = array('shipping');
                     $result['duplicateBillingInfo'] = 'true';
-                } else {
+                }
+                else {
                     $result['goto_section'] = 'shipping';
                 }
             }
 
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+            $this->getResponse()->setBody(Zend_Json::encode($result));
         }
     }
 
-    /**
-     * Shipping address save action
-     */
     public function saveShippingAction()
     {
-        if ($this->_expireAjax()) {
-            return;
-        }
+        $this->_expireAjax();
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost('shipping', array());
             $customerAddressId = $this->getRequest()->getPost('shipping_address_id', false);
@@ -340,18 +297,18 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                     'html' => $this->_getShippingMethodsHtml()
                 );
             }
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+
+//            $this->loadLayout('checkout_onepage_shippingMethod');
+//            $result['shipping_methods_html'] = $this->getLayout()->getBlock('root')->toHtml();
+//            $result['shipping_methods_html'] = $this->_getShippingMethodsHtml();
+
+            $this->getResponse()->setBody(Zend_Json::encode($result));
         }
     }
 
-    /**
-     * Shipping method save action
-     */
     public function saveShippingMethodAction()
     {
-        if ($this->_expireAjax()) {
-            return;
-        }
+        $this->_expireAjax();
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost('shipping_method', '');
             $result = $this->getOnepage()->saveShippingMethod($data);
@@ -360,74 +317,66 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             */
             if(!$result) {
                 Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', array('request'=>$this->getRequest(), 'quote'=>$this->getOnepage()->getQuote()));
-                $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+                $this->getResponse()->setBody(Zend_Json::encode($result));
 
                 $result['goto_section'] = 'payment';
                 $result['update_section'] = array(
                     'name' => 'payment-method',
                     'html' => $this->_getPaymentMethodsHtml()
                 );
+
+//                $result['payment_methods_html'] = $this->_getPaymentMethodsHtml();
             }
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+            $this->getResponse()->setBody(Zend_Json::encode($result));
         }
+
     }
 
-    /**
-     * Save payment ajax action
-     *
-     * Sets either redirect or a JSON response
-     */
     public function savePaymentAction()
     {
-        if ($this->_expireAjax()) {
-            return;
-        }
-        try {
-            if (!$this->getRequest()->isPost()) {
-                $this->_ajaxRedirectResponse();
-                return;
-            }
-
-            // set payment to quote
-            $result = array();
+        $this->_expireAjax();
+        if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost('payment', array());
-            $result = $this->getOnepage()->savePayment($data);
+            /*
+            * first to check payment information entered is correct or not
+            */
 
-            // get section and redirect data
-            $redirectUrl = $this->getOnepage()->getQuote()->getPayment()->getCheckoutRedirectUrl();
+            try {
+                $result = $this->getOnepage()->savePayment($data);
+            }
+            catch (Mage_Payment_Exception $e) {
+                if ($e->getFields()) {
+                    $result['fields'] = $e->getFields();
+                }
+                $result['error'] = $e->getMessage();
+            }
+            catch (Exception $e) {
+                $result['error'] = $e->getMessage();
+            }
+            $redirectUrl = $this->getOnePage()->getQuote()->getPayment()->getCheckoutRedirectUrl();
             if (empty($result['error']) && !$redirectUrl) {
                 $this->loadLayout('checkout_onepage_review');
+
                 $result['goto_section'] = 'review';
                 $result['update_section'] = array(
                     'name' => 'review',
                     'html' => $this->_getReviewHtml()
                 );
+
+//                $result['review_html'] = $this->getLayout()->getBlock('root')->toHtml();
             }
+
             if ($redirectUrl) {
                 $result['redirect'] = $redirectUrl;
             }
-        } catch (Mage_Payment_Exception $e) {
-            if ($e->getFields()) {
-                $result['fields'] = $e->getFields();
-            }
-            $result['error'] = $e->getMessage();
-        } catch (Mage_Core_Exception $e) {
-            $result['error'] = $e->getMessage();
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $result['error'] = $this->__('Unable to set Payment Method.');
+
+            $this->getResponse()->setBody(Zend_Json::encode($result));
         }
-        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
-    /**
-     * Create order action
-     */
     public function saveOrderAction()
     {
-        if ($this->_expireAjax()) {
-            return;
-        }
+        $this->_expireAjax();
 
         $result = array();
         try {
@@ -437,7 +386,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                     $result['success'] = false;
                     $result['error'] = true;
                     $result['error_messages'] = $this->__('Please agree to all Terms and Conditions before placing the order.');
-                    $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+                    $this->getResponse()->setBody(Zend_Json::encode($result));
                     return;
                 }
             }
@@ -448,7 +397,8 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $redirectUrl = $this->getOnepage()->getCheckout()->getRedirectUrl();
             $result['success'] = true;
             $result['error']   = false;
-        } catch (Mage_Core_Exception $e) {
+        }
+        catch (Mage_Core_Exception $e) {
             Mage::logException($e);
             Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $e->getMessage());
             $result['success'] = false;
@@ -472,7 +422,8 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             }
 
             $this->getOnepage()->getQuote()->save();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             Mage::logException($e);
             Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $e->getMessage());
             $result['success']  = false;
@@ -489,7 +440,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $result['redirect'] = $redirectUrl;
         }
 
-        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+        $this->getResponse()->setBody(Zend_Json::encode($result));
     }
 
 }

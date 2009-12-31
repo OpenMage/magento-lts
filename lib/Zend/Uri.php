@@ -14,17 +14,22 @@
  *
  * @category  Zend
  * @package   Zend_Uri
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Uri.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version   $Id: Uri.php 12037 2008-10-20 18:54:44Z shahar $
  */
+
+/**
+ * @see Zend_Loader
+ */
+#require_once 'Zend/Loader.php';
 
 /**
  * Abstract class for all Zend_Uri handlers
  *
  * @category  Zend
  * @package   Zend_Uri
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Uri
@@ -44,7 +49,7 @@ abstract class Zend_Uri
     static protected $_config = array(
         'allow_unwise' => false
     );
-
+    
     /**
      * Return a string representation of this URI.
      *
@@ -123,10 +128,7 @@ abstract class Zend_Uri
                 break;
         }
 
-        if (!class_exists($className)) {
-            #require_once 'Zend/Loader.php';
-            Zend_Loader::loadClass($className);
-        }
+        #Zend_Loader::loadClass($className);
         $schemeHandler = new $className($scheme, $schemeSpecific);
 
         return $schemeHandler;
@@ -157,7 +159,7 @@ abstract class Zend_Uri
             self::$_config[$k] = $v;
         }
     }
-
+    
     /**
      * Zend_Uri and its subclasses cannot be instantiated directly.
      * Use Zend_Uri::factory() to return a new Zend_Uri object.

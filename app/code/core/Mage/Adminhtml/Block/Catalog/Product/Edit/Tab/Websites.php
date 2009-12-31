@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -89,7 +89,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Websites extends Mage_Adminh
     public function getChooseFromStoreHtml($storeTo)
     {
         if (!$this->_storeFromHtml) {
-            $this->_storeFromHtml = '<select name="copy_to_stores[__store_identifier__]" disabled="disabled">';
+            $this->_storeFromHtml = '<select name="copy_to_stores[__store_identifier__]" disabled>';
             $this->_storeFromHtml.= '<option value="0">'.Mage::helper('catalog')->__('Default Values').'</option>';
             foreach ($this->getWebsiteCollection() as $_website) {
                 if (!$this->hasWebsite($_website->getId())) {

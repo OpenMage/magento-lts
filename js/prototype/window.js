@@ -79,7 +79,6 @@ Window.prototype = {
       opacity:           1,
       recenterAuto:      true,
       wiredDrag:         false,
-      closeOnEsc:        true,
       closeCallback:     null,
       destroyOnClose:    false,
       gridX:             1, 
@@ -122,7 +121,6 @@ Window.prototype = {
     this.eventOnLoad    = this._getWindowBorderSize.bindAsEventListener(this);
     this.eventMouseDownContent = this.toFront.bindAsEventListener(this);
     this.eventResize = this._recenter.bindAsEventListener(this);
-    this.eventKeyUp = this._keyUp.bindAsEventListener(this);
  
     this.topbar = $(this.element.id + "_top");
     this.bottombar = $(this.element.id + "_bottom");
@@ -134,7 +132,6 @@ Window.prototype = {
     Event.observe(window, "load", this.eventOnLoad);
     Event.observe(window, "resize", this.eventResize);
     Event.observe(window, "scroll", this.eventResize);
-    Event.observe(document, "keyup", this.eventKeyUp);
     Event.observe(this.options.parent, "scroll", this.eventResize);
     
     if (this.options.draggable)  {
@@ -210,7 +207,6 @@ Window.prototype = {
     Event.stopObserving(window, "scroll", this.eventResize);
     
     Event.stopObserving(this.content, "load", this.options.onload);
-    Event.stopObserving(document, "keyup", this.eventKeyUp);
 
     if (this._oldParent) {
       var content = this.getContent();
@@ -607,7 +603,6 @@ Window.prototype = {
     var blank = "../themes/default/blank.gif";
     
     win.innerHTML = closeDiv + minDiv + maxDiv + "\
-      <a href='#' id='"+ id +"_focus_anchor'><!-- --></a>\
       <table id='"+ id +"_row1' class=\"top table_window\">\
         <tr>\
           <td class='"+ className +"_nw'></td>\
@@ -802,7 +797,6 @@ Window.prototype = {
     this._checkIEOverlapping();
     WindowUtilities.focusedWindow = this
     this._notify("onShow");   
-    $(this.element.id + '_focus_anchor').focus();
   },
   
   // Displays window modal state or not at the center of the page
@@ -1064,12 +1058,6 @@ Window.prototype = {
       this.iefix.show();
   },
   
-  _keyUp: function(event) {
-      if (27 == event.keyCode && this.options.closeOnEsc) {
-          this.close();
-      }
-  },
-
   _getWindowBorderSize: function(event) {
     // Hack to get real window border size!!
     var div = this._createHiddenDiv(this.options.className + "_n")

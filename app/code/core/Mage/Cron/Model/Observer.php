@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Cron
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,6 +81,8 @@ class Mage_Cron_Model_Observer
                     Mage::throwException(Mage::helper('cron')->__('Too late for the schedule'));
                 }
 
+                $schedule->setExecutedAt(strftime('%Y-%m-%d %H:%M:%S', time()));
+
                 if ($runConfig->model) {
                     if (!preg_match(self::REGEX_RUN_MODEL, (string)$runConfig->model, $run)) {
                         Mage::throwException(Mage::helper('cron')->__('Invalid model/method definition, expecting "model/class::method".'));
@@ -95,11 +97,7 @@ class Mage_Cron_Model_Observer
                     Mage::throwException(Mage::helper('cron')->__('No callbacks found'));
                 }
 
-                if (!$schedule->tryLockJob()) {
-                    // another cron started this job intermittently, so skip it
-                    continue;
-                }
-                $schedule->setExecutedAt(strftime('%Y-%m-%d %H:%M:%S', time()))
+                $schedule->setStatus(Mage_Cron_Model_Schedule::STATUS_RUNNING)
                     ->save();
 
                 call_user_func_array($callback, $arguments);
@@ -154,7 +152,7 @@ class Mage_Cron_Model_Observer
          */
         $config = Mage::getConfig()->getNode('crontab/jobs');
         if ($config instanceof Mage_Core_Model_Config_Element) {
-            $this->_generateJobs($config->children(), $exists);
+        	$this->_generateJobs($config->children(), $exists);
         }
 
         /**
@@ -162,7 +160,7 @@ class Mage_Cron_Model_Observer
          */
         $config = Mage::getConfig()->getNode('default/crontab/jobs');
         if ($config instanceof Mage_Core_Model_Config_Element) {
-            $this->_generateJobs($config->children(), $exists);
+        	$this->_generateJobs($config->children(), $exists);
         }
 
         /**

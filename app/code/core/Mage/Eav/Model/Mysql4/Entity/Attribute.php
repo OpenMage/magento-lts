@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -169,7 +169,23 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
                 Mage::throwException(Mage::helper('eav')->__('Frontend label is not defined'));
             }
             $object->setFrontendLabel($frontendLabel[0]);
-            $object->setStoreLabels($frontendLabel);
+
+            if ($object->getData('modulePrefix')) {
+                $str = $object->getData('modulePrefix') . Mage_Core_Model_Translate::SCOPE_SEPARATOR . $frontendLabel[0];
+            }
+            else {
+                $str = $frontendLabel[0];
+            }
+            Mage::getModel('core/translate_string')
+                ->setString($str)
+                ->setTranslate($frontendLabel[0])
+                ->setStoreTranslations($frontendLabel)
+                ->save();
+        }
+        $applyTo = $object->getApplyTo();
+
+        if (is_array($applyTo)) {
+            $object->setApplyTo(implode(',', $applyTo));
         }
 
         /**
@@ -192,74 +208,9 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
-        $this->_saveStoreLabels($object)
-            ->_saveAdditionalAttributeData($object)
-            ->saveInSetIncluding($object)
+        $this->saveInSetIncluding($object)
             ->_saveOption($object);
         return parent::_afterSave($object);
-    }
-
-    /**
-     * Save store labels
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute
-     */
-    protected function _saveStoreLabels(Mage_Core_Model_Abstract $object)
-    {
-        $storeLabels = $object->getStoreLabels();
-        if (is_array($storeLabels)) {
-            if ($object->getId()) {
-                $condition = $this->_getWriteAdapter()->quoteInto('attribute_id = ?', $object->getId());
-                $this->_getWriteAdapter()->delete($this->getTable('eav/attribute_label'), $condition);
-            }
-            foreach ($storeLabels as $storeId => $label) {
-                if ($storeId == 0 || !strlen($label)) {
-                    continue;
-                }
-                $this->_getWriteAdapter()->insert(
-                    $this->getTable('eav/attribute_label'),
-                    array(
-                        'attribute_id' => $object->getId(),
-                        'store_id' => $storeId,
-                        'value' => $label
-                    )
-                );
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Save additional data of attribute
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute
-     */
-    protected function _saveAdditionalAttributeData(Mage_Core_Model_Abstract $object)
-    {
-        if ($additionalTable = $this->getAdditionalAttributeTable($object->getEntityTypeId())) {
-            $describe = $this->describeTable($this->getTable($additionalTable));
-            $data = array();
-            foreach (array_keys($describe) as $field) {
-                if (null !== ($value = $object->getData($field))) {
-                    $data[$field] = $value;
-                }
-            }
-            $select = $this->_getWriteAdapter()->select()
-                ->from($this->getTable($additionalTable), array('attribute_id'))
-                ->where('attribute_id = ?', $object->getId());
-            if ($this->_getWriteAdapter()->fetchOne($select)) {
-                $this->_getWriteAdapter()->update(
-                    $this->getTable($additionalTable),
-                    $data,
-                    $this->_getWriteAdapter()->quoteInto('attribute_id = ?', $object->getId())
-                );
-            } else {
-                $this->_getWriteAdapter()->insert($this->getTable($additionalTable), $data);
-            }
-        }
-        return $this;
     }
 
     /**
@@ -441,8 +392,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
      * @param int $store
      * @return Varien_Db_Select
      */
-    public function getFlatUpdateSelect(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $store)
-    {
+    public function getFlatUpdateSelect(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $store) {
         $joinCondition = "`e`.`entity_id`=`t1`.`entity_id`";
         if ($attribute->getFlatAddChildData()) {
             $joinCondition .= " AND `e`.`child_id`=`t1`.`entity_id`";
@@ -459,7 +409,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
                     . " AND t1.entity_type_id = t2.entity_type_id"
                     . " AND t1.attribute_id = t2.attribute_id"
                     . " AND t2.store_id = {$store}",
-                array($attribute->getAttributeCode() => "IF(t2.value_id>0, t2.value, t1.value)"))
+                array($attribute->getAttributeCode() => "IFNULL(t2.value, t1.value)"))
             ->where("t1.entity_type_id=?", $attribute->getEntityTypeId())
             ->where("t1.attribute_id=?", $attribute->getId())
             ->where("t1.store_id=?", 0);
@@ -479,71 +429,4 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
         return $this->_getReadAdapter()->describeTable($table);
     }
 
-    /**
-     * Retrieve additional attribute table name for specified entity type
-     *
-     * @param integer $entityTypeId
-     * @return string
-     */
-    public function getAdditionalAttributeTable($entityTypeId)
-    {
-        return Mage::getResourceSingleton('eav/entity_type')->getAdditionalAttributeTable($entityTypeId);
-    }
-
-    /**
-     * Load additional attribute data.
-     * Load label of current active store
-     *
-     * @param Varien_Object $object
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute
-     */
-    protected function _afterLoad(Mage_Core_Model_Abstract $object)
-    {
-        if ($entityType = $object->getData('entity_type')) {
-            $additionalTable = $entityType->getAdditionalAttributeTable();
-        } else {
-            $additionalTable = $this->getAdditionalAttributeTable($object->getEntityTypeId());
-        }
-        if ($additionalTable) {
-            $select = $this->_getReadAdapter()->select()
-                ->from($this->getTable($additionalTable))
-                ->where('attribute_id = ?', $object->getId());
-            if ($result = $this->_getReadAdapter()->fetchRow($select)) {
-                $object->addData($result);
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Retrieve store labels by given attribute id
-     *
-     * @param integer $attributeId
-     * @return array
-     */
-    public function getStoreLabelsByAttributeId($attributeId)
-    {
-        $values = array();
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('eav/attribute_label'))
-            ->where('attribute_id = ?', $attributeId);
-        foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
-            $values[$row['store_id']] = $row['value'];
-        }
-        return $values;
-    }
-
-    /**
-     * Load by given attributes ids and return only exist attribute ids
-     *
-     * @param array $attributeIds
-     * @return array
-     */
-    public function getValidAttributeIds($attributeIds)
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), array('attribute_id'))
-            ->where('attribute_id in (?)', $attributeIds);
-        return $this->_getReadAdapter()->fetchCol($select);
-    }
 }

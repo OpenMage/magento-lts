@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -100,7 +100,6 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         if(!$this->getShared()) {
             $this->setId(null);
         }
-
         return $this;
     }
 
@@ -111,7 +110,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      */
     protected function _getSharingRandomCode()
     {
-        return Mage::helper('core')->uniqHash();
+        return md5(microtime() . rand());
     }
 
     /**
@@ -121,8 +120,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      */
     public function getItemCollection()
     {
-        if (is_null($this->_itemCollection)) {
+        if(is_null($this->_itemCollection)) {
             $this->_itemCollection =  Mage::getResourceModel('wishlist/item_collection')
+                ->setStoreId($this->getStore()->getId())
                 ->addWishlistFilter($this);
         }
 
@@ -286,16 +286,5 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             }
         }
         return false;
-    }
-
-    /**
-     * Check customer is owner this wishlist
-     *
-     * @param int $customerId
-     * @return bool
-     */
-    public function isOwner($customerId)
-    {
-        return $customerId == $this->getCustomerId();
     }
 }

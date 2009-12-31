@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -44,11 +44,11 @@ class Mage_Bundle_Model_Mysql4_Option_Collection extends Mage_Core_Model_Mysql4_
         $this->getSelect()->joinLeft(array('option_value_default' => $this->getTable('bundle/option_value')),
                 '`main_table`.`option_id` = `option_value_default`.`option_id` and `option_value_default`.`store_id` = "0"',
                 array())
-            ->columns(array('default_title' => 'option_value_default.title'));
+            ->from('', array('default_title' => 'option_value_default.title'));
 
         if ($storeId !== null) {
             $this->getSelect()
-                ->columns(array('title' => 'IFNULL(`option_value`.`title`, `option_value_default`.`title`)'))
+                ->from('', array('title' => 'IFNULL(`option_value`.`title`, `option_value_default`.`title`)'))
                 ->joinLeft(array('option_value' => $this->getTable('bundle/option_value')),
                     '`main_table`.`option_id` = `option_value`.`option_id` and `option_value`.`store_id` = "' . $storeId . '"',
                     array());

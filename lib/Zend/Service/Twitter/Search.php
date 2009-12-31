@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Twitter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Search.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: $
  */
 
 /**
@@ -44,7 +44,7 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Twitter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -96,7 +96,6 @@ class Zend_Service_Twitter_Search extends Zend_Http_Client
     public function setResponseType($responseType = 'json')
     {
         if(!in_array($responseType, $this->_responseTypes, TRUE)) {
-            #require_once 'Zend/Service/Twitter/Exception.php';
             throw new Zend_Service_Twitter_Exception('Invalid Response Type');
         }
         $this->_responseType = $responseType;
@@ -116,7 +115,6 @@ class Zend_Service_Twitter_Search extends Zend_Http_Client
     /**
      * Get the current twitter trends.  Currnetly only supports json as the return.
      *
-     * @throws Zend_Http_Client_Exception
      * @return array
      */
     public function trends()
@@ -128,11 +126,6 @@ class Zend_Service_Twitter_Search extends Zend_Http_Client
         return Zend_Json::decode($response->getBody());
     }
 
-    /**
-     * Performs a Twitter search query.
-     *
-     * @throws Zend_Http_Client_Exception
-     */
     public function search($query, array $params = array())
     {
 
@@ -147,12 +140,12 @@ class Zend_Service_Twitter_Search extends Zend_Http_Client
             switch($key) {
                 case 'geocode':
                 case 'lang':
-                case 'since_id':
                     $_query[$key] = $param;
                     break;
                 case 'rpp':
                     $_query[$key] = (intval($param) > 100) ? 100 : intval($param);
                     break;
+                case 'since_id':
                 case 'page':
                     $_query[$key] = intval($param);
                     break;

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogInvemtory
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -46,23 +46,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     const XML_PATH_NOTIFY_STOCK_QTY = 'cataloginventory/item_options/notify_stock_qty';
     const XML_PATH_MANAGE_STOCK     = 'cataloginventory/item_options/manage_stock';
 
-    const ENTITY                    = 'cataloginventory_stock_item';
-
-    /**
-     * Prefix of model events names
-     *
-     * @var string
-     */
-    protected $_eventPrefix = 'cataloginventory_stock_item';
-
-    /**
-     * Parameter name in event
-     *
-     * In observe method you can use $observer->getEvent()->getItem() in this case
-     *
-     * @var string
-     */
-    protected $_eventObject = 'item';
+    // cataloginventory/cart_options/...
 
     /**
      * Initialize resource model
@@ -314,7 +298,6 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     public function checkQuoteItemQty($qty, $summaryQty, $origQty = 0)
     {
-
         $result = new Varien_Object();
         $result->setHasError(false);
 
@@ -389,7 +372,11 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                     }
                     $result->setItemBackorders($backorderQty);
                     if ($this->getBackorders() == Mage_CatalogInventory_Model_Stock::BACKORDERS_YES_NOTIFY) {
-                        $result->setMessage(Mage::helper('cataloginventory')->__('This product is not available in the requested quantity. %s of the items will be backordered.', ($backorderQty * 1), $this->getProductName()));
+                        $result->setMessage(Mage::helper('cataloginventory')->__('This product is not available in the requested quantity. %d of the items will be backordered.',
+                            $backorderQty,
+                            $this->getProductName())
+                            )
+                        ;
                     }
                 }
             }
@@ -467,23 +454,22 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $this->setQty(0);
         }
 
+        Mage::dispatchEvent('cataloginventory_stock_item_save_before', array('item' => $this));
         return $this;
     }
 
     /**
-     * Process stock status index on item after commit
+     * Processing object after save data
      *
      * @return Mage_CatalogInventory_Model_Stock_Item
      */
-    public function afterCommitCallback()
+    protected function _afterSave()
     {
-        parent::afterCommitCallback();
-        Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
-        );
+        parent::_afterSave();
+        Mage::getSingleton('cataloginventory/stock_status')
+            ->changeItemStatus($this);
         return $this;
     }
-
 
     /**
      * Retrieve Stock Availability

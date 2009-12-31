@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -52,22 +52,12 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Abstract
 
     protected $_stores = false;
 
-    /**
-     * Design changes object instance
-     * @var Varien_Object
-     */
-    protected $_designConfig;
-
     const STATUS_NEVER = 0;
     const STATUS_SENDING = 1;
     const STATUS_CANCEL = 2;
     const STATUS_SENT = 3;
     const STATUS_PAUSE = 4;
 
-    /**
-     * Default design area for emulation
-     */
-    const DEFAULT_DESIGN_AREA = 'frontend';
 
     protected function _construct()
     {
@@ -136,19 +126,9 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Abstract
             }
         }
 
-        // save current design settings
-        $currentDesignConfig = clone $this->_getDesignConfig();
         foreach($collection->getItems() as $item) {
-            if ($this->_getDesignConfig()->getStore() != $item->getStoreId()) {
-                $this->_setDesignConfig(array('area' => self::DEFAULT_DESIGN_AREA, 'store' => $item->getStoreId()));
-                $this->_applyDesignConfig();
-            }
             $this->getTemplate()->send($item, array('subscriber'=>$item), null, $this);
         }
-
-        // restore previous design settings
-        $this->_setDesignConfig($currentDesignConfig->getData());
-        $this->_applyDesignConfig();
 
         if(count($collection->getItems()) < $count-1 || count($collection->getItems()) == 0) {
             $this->setQueueFinishAt(now());
@@ -223,70 +203,5 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Abstract
                 ->load($this->getTemplateId());
         }
         return $this->_template;
-    }
-
-    /**
-     * Setter for design changes
-     *
-     * @param   array $config
-     * @return  Mage_Newsletter_Model_Queue
-     */
-    protected function _setDesignConfig(array $config)
-    {
-        $this->_getDesignConfig()->setData($config);
-        return $this;
-    }
-
-    /**
-     * Getter for design changes
-     *
-     * @return Varien_Object
-     */
-    protected function _getDesignConfig()
-    {
-        if(is_null($this->_designConfig)) {
-
-            $store = is_object(Mage::getDesign()->getStore())
-                ? Mage::getDesign()->getStore()->getId()
-                : Mage::getDesign()->getStore();
-
-            $this->_designConfig = new Varien_Object(array(
-                'area' => Mage::getDesign()->getArea(),
-                'store' => $store
-            ));
-        }
-        return $this->_designConfig;
-    }
-
-    protected function _applyDesignConfig()
-    {
-        $designConfig = $this->_getDesignConfig();
-
-        $design = Mage::getDesign();
-        $designConfig->setOldArea($design->getArea())
-            ->setOldStore($design->getStore());
-
-        if ($designConfig->hasData('area')) {
-            Mage::getDesign()->setArea($designConfig->getArea());
-        }
-
-        if ($designConfig->hasData('store')) {
-            $store = $designConfig->getStore();
-            Mage::app()->setCurrentStore($store);
-
-            $locale = new Zend_Locale(Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $store));
-            Mage::app()->getLocale()->setLocale($locale);
-            Mage::app()->getLocale()->setLocaleCode($locale->toString());
-            if ($designConfig->hasData('area')) {
-                Mage::getSingleton('core/translate')->setLocale($locale)
-                    ->init($designConfig->getArea(), true);
-            }
-
-            $design->setStore($store);
-            $design->setTheme('');
-            $design->setPackageName('');
-        }
-
-        return $this;
     }
 }

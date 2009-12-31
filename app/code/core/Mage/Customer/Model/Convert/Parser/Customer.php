@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -18,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -315,18 +316,10 @@ class Mage_Customer_Model_Convert_Parser_Customer
             $row['created_in'] = $store->getCode();
 
             $newsletter = $this->getNewsletterModel()
-                ->setData(array())
                 ->loadByCustomer($customer);
             $row['is_subscribed'] = ($newsletter->getId()
                 && $newsletter->getSubscriberStatus() == Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED)
                 ? 1 : 0;
-
-            if($customer->getGroupId()){
-                $group = Mage::getResourceModel('customer/group_collection')
-                    ->addFilter('customer_group_id',$customer->getGroupId())
-                    ->load();
-                $row['group'] = $group->getFirstItem()->getCustomerGroupCode();
-            }
 
             $batchExport = $this->getBatchExportModel()
                 ->setId(null)
@@ -352,10 +345,14 @@ class Mage_Customer_Model_Convert_Parser_Customer
             'country_id'
         );
 
-        $customerAttributes = Mage::getResourceModel('customer/attribute_collection')
+        $entityTypeId = Mage::getSingleton('eav/config')->getEntityType('customer')->getId();
+        $customerAttributes = Mage::getResourceModel('eav/entity_attribute_collection')
+            ->setEntityTypeFilter($entityTypeId)
             ->load()->getIterator();
 
-        $addressAttributes = Mage::getResourceModel('customer/address_attribute_collection')
+        $entityTypeId = Mage::getSingleton('eav/config')->getEntityType('customer_address')->getId();
+        $addressAttributes = Mage::getResourceModel('eav/entity_attribute_collection')
+            ->setEntityTypeFilter($entityTypeId)
             ->load()->getIterator();
 
         $attributes = array(

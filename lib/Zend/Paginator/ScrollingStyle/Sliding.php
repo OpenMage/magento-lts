@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Sliding.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Sliding.php 10013 2008-07-09 21:08:06Z norm2782 $
  */
 
 /**
@@ -25,22 +25,22 @@
 #require_once 'Zend/Paginator/ScrollingStyle/Interface.php';
 
 /**
- * A Yahoo! Search-like scrolling style.  The cursor will advance to
- * the middle of the range, then remain there until the user reaches
- * the end of the page set, at which point it will continue on to
+ * A Yahoo! Search-like scrolling style.  The cursor will advance to 
+ * the middle of the range, then remain there until the user reaches 
+ * the end of the page set, at which point it will continue on to 
  * the end of the range and the last page in the set.
  *
  * @link       http://search.yahoo.com/search?p=Zend+Framework
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Paginator_ScrollingStyle_Sliding implements Zend_Paginator_ScrollingStyle_Interface
 {
     /**
      * Returns an array of "local" pages given a page number and range.
-     *
+     * 
      * @param  Zend_Paginator $paginator
      * @param  integer $pageRange (Optional) Page range
      * @return array
@@ -53,23 +53,23 @@ class Zend_Paginator_ScrollingStyle_Sliding implements Zend_Paginator_ScrollingS
 
         $pageNumber = $paginator->getCurrentPageNumber();
         $pageCount  = count($paginator);
-
+        
         if ($pageRange > $pageCount) {
             $pageRange = $pageCount;
         }
-
+        
         $delta = ceil($pageRange / 2);
 
         if ($pageNumber - $delta > $pageCount - $pageRange) {
             $lowerBound = $pageCount - $pageRange + 1;
-            $upperBound = $pageCount;
+            $upperBound = $pageCount; 
         } else {
             if ($pageNumber - $delta < 0) {
                 $delta = $pageNumber;
             }
-
+            
             $offset     = $pageNumber - $delta;
-            $lowerBound = $offset + 1;
+            $lowerBound = $offset + 1; 
             $upperBound = $offset + $pageRange;
         }
 

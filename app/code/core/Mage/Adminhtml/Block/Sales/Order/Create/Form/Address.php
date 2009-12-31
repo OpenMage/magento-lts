@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
         foreach ($this->getAddressCollection() as $address) {
             $data[$address->getId()] = $address->getData();
         }
-        return Mage::helper('core')->jsonEncode($data);
+        return Zend_Json::encode($data);
     }
 
     public function getForm()
@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
             $addressModel = Mage::getModel('customer/address');
 
             foreach ($addressModel->getAttributes() as $attribute) {
-                if ($attribute->hasData('is_visible') && !$attribute->getIsVisible()) {
+                if (!$attribute->getIsVisible()) {
                     continue;
                 }
                 if ($inputType = $attribute->getFrontend()->getInputType()) {

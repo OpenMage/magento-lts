@@ -12,26 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Simple.php 18993 2009-11-15 17:09:16Z alexander $
  */
-
-
-/** Internally used classes */
-#require_once 'Zend/Pdf/Element/Name.php';
-
 
 /** Zend_Pdf_Resource_Font */
 #require_once 'Zend/Pdf/Resource/Font.php';
 
+/** Zend_Pdf_Cmap */
+#require_once 'Zend/Pdf/Cmap.php';
+
+
+
 /**
  * Adobe PDF Simple fonts implementation
- *
- * PDF simple fonts functionality is presented by Adobe Type 1
+ * 
+ * PDF simple fonts functionality is presented by Adobe Type 1 
  * (including standard PDF Type1 built-in fonts) and TrueType fonts support.
  *
  * Both fonts have the following properties:
@@ -40,23 +38,23 @@
  *   into a table of 256 glyphs; the mapping from codes to glyphs is called the font’s
  *   encoding.
  *   PDF specification provides a possibility to specify any user defined encoding in addition
- *   to the standard built-in encodings: Standard-Encoding, MacRomanEncoding, WinAnsiEncoding,
- *   and PDFDocEncoding, but Zend_Pdf simple fonts implementation operates only with
+ *   to the standard built-in encodings: Standard-Encoding, MacRomanEncoding, WinAnsiEncoding, 
+ *   and PDFDocEncoding, but Zend_Pdf simple fonts implementation operates only with 
  *   Windows ANSI encoding (except Symbol and ZapfDingbats built-in fonts).
  *
  * - Each glyph has a single set of metrics, including a horizontal displacement or
  *   width. That is, simple fonts support only horizontal writing mode.
  *
- *
+ * 
  * The code in this class is common to both types. However, you will only deal
  * directly with subclasses.
- *
+ * 
  * Font objects should be normally be obtained from the factory methods
  * {@link Zend_Pdf_Font::fontWithName} and {@link Zend_Pdf_Font::fontWithPath}.
  *
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
@@ -81,12 +79,12 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
 
     /**
      * Width for glyphs missed in the font
-     *
+     * 
      * Note: Adobe PDF specfication (V1.4 - V1.6) doesn't define behavior for rendering
      * characters missed in the standard PDF fonts (such us 0x7F (DEL) Windows ANSI code)
      * Adobe Font Metrics files doesn't also define metrics for "missed glyph".
      * We provide character width as "0" for this case, but actually it depends on PDF viewer
-     * implementation.
+     * implementation. 
      *
      * @var integer
      */
@@ -108,13 +106,13 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
 
         /**
          * @todo
-         * It's easy to add other encodings support now (Standard-Encoding, MacRomanEncoding,
+         * It's easy to add other encodings support now (Standard-Encoding, MacRomanEncoding, 
          * PDFDocEncoding, MacExpertEncoding, Symbol, and ZapfDingbats).
          * Steps for the implementation:
          * - completely describe all PDF single byte encodings in the documentation
          * - implement non-WinAnsi encodings processing into encodeString()/decodeString() methods
-         *
-         * These encodings will be automatically supported for standard builtin PDF fonts as well
+         * 
+         * These encodings will be automatically supported for standard builtin PDF fonts as well 
          * as for external fonts.
          */
         $this->_resource->Encoding = new Zend_Pdf_Element_Name('WinAnsiEncoding');
@@ -251,8 +249,8 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
 
     /**
      * Convert string to the font encoding.
-     *
-     * The method is used to prepare string for text drawing operators
+     * 
+     * The method is used to prepare string for text drawing operators 
      *
      * @param string $string
      * @param string $charEncoding Character encoding of source text.
@@ -263,7 +261,7 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
         if (PHP_OS == 'AIX') {
             return $string; // returning here b/c AIX doesnt know what CP1252 is
         }
-
+        
         return iconv($charEncoding, 'CP1252//IGNORE', $string);
     }
 

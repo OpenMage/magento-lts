@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "../../common/dtd/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.29 $"/>
-		<generation date="$Date: 2009/05/05 23:06:37 $"/>
+		<version number="$Revision: 1.21 $"/>
+		<generation date="$Date: 2008/05/28 15:49:33 $"/>
 		<language type="kfo"/>
 	</identity>
 	<characters>
@@ -124,17 +124,17 @@
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
-							<pattern>EEEE, y MMMM dd</pattern>
+							<pattern>EEEE, yyyy MMMM dd</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
 						<dateFormat>
-							<pattern>y MMMM d</pattern>
+							<pattern>yyyy MMMM d</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="medium">
 						<dateFormat>
-							<pattern>y MMM d</pattern>
+							<pattern>yyyy MMM d</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="short">
@@ -146,7 +146,7 @@
 				<timeFormats>
 					<timeFormatLength type="full">
 						<timeFormat>
-							<pattern>HH:mm:ss zzzz</pattern>
+							<pattern>HH:mm:ss v</pattern>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="long">
@@ -166,6 +166,11 @@
 					</timeFormatLength>
 				</timeFormats>
 				<dateTimeFormats>
+					<dateTimeFormatLength>
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
 					<availableFormats>
 						<dateFormatItem id="yyQ">Q yy</dateFormatItem>
 					</availableFormats>
@@ -182,8 +187,8 @@
 		<currencies>
 			<currency type="NGN">
 				<displayName>Neira</displayName>
+				<symbol>₦</symbol>
 			</currency>
 		</currencies>
 	</numbers>
 </ldml>
-

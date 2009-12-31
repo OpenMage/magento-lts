@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -43,30 +43,11 @@ class Mage_Sales_Block_Order_Invoice_Items extends Mage_Sales_Block_Items_Abstra
         return Mage::registry('current_order');
     }
 
-    public function getPrintInvoiceUrl($invoice)
-    {
+    public function getPrintInvoiceUrl($invoice){
         return Mage::getUrl('*/*/printInvoice', array('invoice_id' => $invoice->getId()));
     }
 
-    public function getPrintAllInvoicesUrl($order)
-    {
+    public function getPrintAllInvoicesUrl($order){
         return Mage::getUrl('*/*/printInvoice', array('order_id' => $order->getId()));
-    }
-
-    /**
-     * Get html of invoice totals block
-     *
-     * @param   Mage_Sales_Model_Order_Invoice $invoice
-     * @return  string
-     */
-    public function getInvoiceTotalsHtml($invoice)
-    {
-        $html = '';
-        $totals = $this->getChild('invoice_totals');
-        if ($totals) {
-            $totals->setInvoice($invoice);
-            $html = $totals->toHtml();
-        }
-        return $html;
     }
 }

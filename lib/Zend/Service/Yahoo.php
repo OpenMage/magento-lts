@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Yahoo
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Yahoo.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Yahoo.php 13004 2008-12-03 21:14:45Z matthew $
  */
 
 
@@ -26,7 +26,7 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Yahoo
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Yahoo
@@ -841,7 +841,7 @@ class Zend_Service_Yahoo
                                                                       'cc_modifiable'));
         if (isset($options['region'])){
             $this->_validateInArray('region', $options['region'], array('ar', 'au', 'at', 'br', 'ca', 'ct', 'dk', 'fi',
-                                                                          'fr', 'de', 'in', 'id', 'it', 'my', 'mx',
+                                                                          'fr', 'de', 'in', 'id', 'it', 'my', 'mx', 
                                                                           'nl', 'no', 'ph', 'ru', 'sg', 'es', 'se',
                                                                           'ch', 'th', 'uk', 'us'));
         }

@@ -12,39 +12,29 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_Pdf
  * @subpackage FileParser
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2006 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Image.php 18993 2009-11-15 17:09:16Z alexander $
  */
-
-
-/** Internally used classes */
-
-/** Zend_Pdf_Image */
-#require_once 'Zend/Pdf/Image.php';
-
 
 /** Zend_Pdf_FileParser */
 #require_once 'Zend/Pdf/FileParser.php';
+
+/** Zend_Log */
+#require_once 'Zend/Log.php';
+
 
 /**
  * FileParser for Zend_Pdf_Image subclasses.
  *
  * @package    Zend_Pdf
  * @subpackage FileParser
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2006 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_FileParser_Image extends Zend_Pdf_FileParser
 {
-    /**
-     * Image Type
-     *
-     * @var integer
-     */
     protected $imageType;
 
     /**
@@ -58,6 +48,9 @@ abstract class Zend_Pdf_FileParser_Image extends Zend_Pdf_FileParser
     public function __construct(Zend_Pdf_FileParserDataSource $dataSource)
     {
         parent::__construct($dataSource);
-        $this->imageType = Zend_Pdf_Image::TYPE_UNKNOWN;
+       $this->imageType = Zend_Pdf_Image::TYPE_UNKNOWN;
     }
+
 }
+
+

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Cms
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cms
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -39,7 +39,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     const XML_PATH_HOME_PAGE            = 'web/default/cms_home_page';
 
     /**
-    * Renders CMS page on front end
+    * Renders CMS page
     *
     * Call from controller action
     *
@@ -48,19 +48,6 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     * @return boolean
     */
     public function renderPage(Mage_Core_Controller_Front_Action $action, $pageId = null)
-    {
-        return $this->_renderPage($action, $pageId);
-    }
-
-   /**
-    * Renders CMS page
-    *
-    * @param Mage_Core_Controller_Front_Action $action
-    * @param integer $pageId
-    * @param bool $renderLayout
-    * @return boolean
-    */
-    protected function _renderPage(Mage_Core_Controller_Varien_Action  $action, $pageId = null, $renderLayout = true)
     {
         $page = Mage::getSingleton('cms/page');
         if (!is_null($pageId) && $pageId!==$page->getId()) {
@@ -74,10 +61,8 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
             return false;
         }
 
-        $inRange = Mage::app()->getLocale()->isStoreDateInInterval(null, $page->getCustomThemeFrom(), $page->getCustomThemeTo());
-
         if ($page->getCustomTheme()) {
-            if ($inRange) {
+            if (Mage::app()->getLocale()->IsStoreDateInInterval(null, $page->getCustomThemeFrom(), $page->getCustomThemeTo())) {
                 list($package, $theme) = explode('/', $page->getCustomTheme());
                 Mage::getSingleton('core/design_package')
                     ->setPackageName($package)
@@ -91,57 +76,30 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 
         $action->addActionLayoutHandles();
         if ($page->getRootTemplate()) {
-            $handle = ($page->getCustomRootTemplate()
-                        && $page->getCustomRootTemplate() != 'empty'
-                        && $inRange) ? $page->getCustomRootTemplate() : $page->getRootTemplate();
-            $action->getLayout()->helper('page/layout')->applyHandle($handle);
+            $action->getLayout()->helper('page/layout')
+                ->applyHandle($page->getRootTemplate());
         }
-
-
-        Mage::dispatchEvent('cms_page_render', array('page' => $page, 'controller_action' => $action));
 
         $action->loadLayoutUpdates();
-        $layoutUpdate = ($page->getCustomLayoutUpdateXml() && $inRange) ? $page->getCustomLayoutUpdateXml() : $page->getLayoutUpdateXml();
-        $action->getLayout()->getUpdate()->addUpdate($layoutUpdate);
+        $action->getLayout()->getUpdate()->addUpdate($page->getLayoutUpdateXml());
         $action->generateLayoutXml()->generateLayoutBlocks();
-
-        $contentHeadingBlock = $action->getLayout()->getBlock('page_content_heading');
-        if ($contentHeadingBlock) {
-            $contentHeadingBlock->setContentHeading($page->getContentHeading());
-        }
 
         if ($page->getRootTemplate()) {
             $action->getLayout()->helper('page/layout')
                 ->applyTemplate($page->getRootTemplate());
         }
 
-        foreach (array('catalog/session', 'checkout/session') as $class_name) {
-            $storage = Mage::getSingleton($class_name);
-            if ($storage) {
-                $action->getLayout()->getMessagesBlock()->addMessages($storage->getMessages(true));
-            }
+        if ($storage = Mage::getSingleton('catalog/session')) {
+            $action->getLayout()->getMessagesBlock()->addMessages($storage->getMessages(true));
         }
 
-        if ($renderLayout) {
-            $action->renderLayout();
+        if ($storage = Mage::getSingleton('checkout/session')) {
+            $action->getLayout()->getMessagesBlock()->addMessages($storage->getMessages(true));
         }
+
+        $action->renderLayout();
 
         return true;
-    }
-
-    /**
-     * Renders CMS Page with more flexibility then original renderPage function.
-     * Allows to use also backend action as first parameter.
-     * Also takes third parameter which allows not run renderLayout method.
-     *
-     * @param Mage_Core_Controller_Varien_Action $action
-     * @param $pageId
-     * @param $renderLayout
-     * @return bool
-     */
-    public function renderPageExtended(Mage_Core_Controller_Varien_Action $action, $pageId = null, $renderLayout = true)
-    {
-        return $this->_renderPage($action, $pageId, $renderLayout);
     }
 
     /**
@@ -152,7 +110,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      */
     public function getPageUrl($pageId = null)
     {
-        $page = Mage::getModel('cms/page');
+        $page = Mage::getSingleton('cms/page');
         if (!is_null($pageId) && $pageId !== $page->getId()) {
             $page->setStoreId(Mage::app()->getStore()->getId());
             if (!$page->load($pageId)) {

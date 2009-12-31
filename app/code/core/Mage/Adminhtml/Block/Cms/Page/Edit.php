@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -41,22 +41,14 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
 
         parent::__construct();
 
-        if ($this->_isAllowedAction('save')) {
-            $this->_updateButton('save', 'label', Mage::helper('cms')->__('Save Page'));
-            $this->_addButton('saveandcontinue', array(
-                'label'     => Mage::helper('adminhtml')->__('Save And Continue Edit'),
-                'onclick'   => 'saveAndContinueEdit()',
-                'class'     => 'save',
-            ), -100);
-        } else {
-            $this->_removeButton('save');
-        }
+        $this->_updateButton('save', 'label', Mage::helper('cms')->__('Save Page'));
+        $this->_updateButton('delete', 'label', Mage::helper('cms')->__('Delete Page'));
 
-        if ($this->_isAllowedAction('delete')) {
-            $this->_updateButton('delete', 'label', Mage::helper('cms')->__('Delete Page'));
-        } else {
-            $this->_removeButton('delete');
-        }
+        $this->_addButton('saveandcontinue', array(
+            'label'     => Mage::helper('adminhtml')->__('Save And Continue Edit'),
+            'onclick'   => 'saveAndContinueEdit()',
+            'class'     => 'save',
+        ), -100);
 
         $this->_formScripts[] = "
             function toggleEditor() {
@@ -73,11 +65,6 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
         ";
     }
 
-    /**
-     * Retrieve text for header element depending on loaded page
-     *
-     * @return string
-     */
     public function getHeaderText()
     {
         if (Mage::registry('cms_page')->getId()) {
@@ -88,14 +75,4 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
         }
     }
 
-    /**
-     * Check permission for passed action
-     *
-     * @param string $action
-     * @return bool
-     */
-    protected function _isAllowedAction($action)
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('cms/page/' . $action);
-    }
 }

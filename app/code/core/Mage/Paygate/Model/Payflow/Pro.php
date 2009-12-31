@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Paygate
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paygate
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -73,7 +73,7 @@ class Mage_Paygate_Model_Payflow_Pro extends  Mage_Payment_Model_Method_Cc
     protected $_canUseCheckout          = true;
     protected $_canUseForMultishipping  = true;
     protected $_canSaveCc = false;
-    protected $_isProxy = false;
+	protected $_isProxy = false;
 
     /**
      * Fields that should be replaced in debug with '***'
@@ -127,21 +127,6 @@ class Mage_Paygate_Model_Payflow_Pro extends  Mage_Payment_Model_Method_Cc
             Mage::throwException($error);
         }
         return $this;
-    }
-
-    /**
-     * Check capture availability
-     * To avoid capture already voided transactions, allow only one capture thus the method
-     * cannot make capture partially
-     *
-     * @return bool
-     */
-    public function canCapture()
-    {
-        if ($this->getInfoInstance()->getOrder()->getBaseSubtotalInvoiced() > 0) {
-            return false;
-        }
-        return true;
     }
 
     public function capture(Varien_Object $payment, $amount)
@@ -332,19 +317,19 @@ class Mage_Paygate_Model_Payflow_Pro extends  Mage_Payment_Model_Method_Cc
 
         $client = new Varien_Http_Client();
 
-        $_config = array(
+    	$_config = array(
                         'maxredirects'=>5,
                         'timeout'=>30,
                     );
 
-        $_isProxy = $this->getConfigData('use_proxy', false);
-        if($_isProxy){
-            $_config['proxy'] = $this->getConfigData('proxy_host') . ':' . $this->getConfigData('proxy_port');//http://proxy.shr.secureserver.net:3128',
-            $_config['httpproxytunnel'] = true;
-            $_config['proxytype'] = CURLPROXY_HTTP;
-        }
+    	$_isProxy = $this->getConfigData('use_proxy', false);
+    	if($_isProxy){
+    		$_config['proxy'] = $this->getConfigData('proxy_host') . ':' . $this->getConfigData('proxy_port');//http://proxy.shr.secureserver.net:3128',
+    		$_config['httpproxytunnel'] = true;
+    		$_config['proxytype'] = CURLPROXY_HTTP;
+    	}
 
-        $uri = $this->getConfigData('url');
+	    $uri = $this->getConfigData('url');
         $client->setUri($uri)
             ->setConfig($_config)
             ->setMethod(Zend_Http_Client::POST)
@@ -452,7 +437,7 @@ class Mage_Paygate_Model_Payflow_Pro extends  Mage_Payment_Model_Method_Cc
 
     protected function _generateRequestId()
     {
-        return Mage::helper('core')->uniqHash();
+        return md5(microtime() . rand(0, time()));
     }
 
      /**

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -74,7 +74,7 @@
                     <td class="a-left"><?php echo $this->helper('sales')->__('Total %d product(s)', count($_items)) ?></td>
                     <td colspan="2" class="a-right"><?php echo $this->helper('sales')->__('Subtotal:') ?></td>
                     <td class="price"><strong><?php echo $this->formatPrice($this->getSubtotal()) ?></strong></td>
-                    <td class="price"><strong><?php echo $this->formatPrice($this->getDiscountAmount()) ?></strong></td>
+                    <td class="price"><strong><?php echo $this->formatPrice(-$this->getDiscountAmount()) ?></strong></td>
                     <td class="price"><strong><?php echo $this->formatPrice($this->getSubtotalWithDiscount()) ?></strong></td>
                     <td <?php if($this->isGiftMessagesAvailable()): ?>colspan="2"<?php endif; ?>>&nbsp;</td>
                 </tr>
@@ -293,14 +293,13 @@
 
 
     <?php if ($this->helper('tax')->displayCartPriceExclTax($this->getStore()) || $this->helper('tax')->displayCartBothPrices($this->getStore())): ?>
-        <?php $_rowTotalWithoutDiscount = $_item->getRowTotal() - $_item->getDiscountAmount();?>
         <?php if ($this->helper('tax')->displayCartBothPrices($this->getStore())): ?>
             <span class="label"><?php echo $this->__('Excl. Tax'); ?>:</span>
         <?php endif; ?>
         <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales')): ?>
-            <?php echo $this->formatPrice($_rowTotalWithoutDiscount+$_item->getWeeeTaxAppliedRowAmount()+$_item->getWeeeTaxRowDisposition()); ?>
+            <?php echo $this->formatPrice($_item->getRowTotalWithDiscount()+$_item->getWeeeTaxAppliedRowAmount()+$_item->getWeeeTaxRowDisposition()); ?>
         <?php else: ?>
-            <?php echo $this->formatPrice($_rowTotalWithoutDiscount) ?>
+            <?php echo $this->formatPrice($_item->getRowTotalWithDiscount()) ?>
         <?php endif; ?>
 
 
@@ -336,12 +335,12 @@
         <?php if ($this->helper('tax')->displayCartBothPrices($this->getStore())): ?>
             <br /><span class="label"><?php echo $this->__('Incl. Tax'); ?>:</span>
         <?php endif; ?>
-        <?php $_incl = $_item->getRowTotal()-$_item->getDiscountAmount()+$_item->getTaxAmount(); ?>
-        <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales')): ?>
-            <?php echo $this->formatPrice($_incl+$_item->getWeeeTaxAppliedRowAmount()); ?>
-        <?php else: ?>
-            <?php echo $this->formatPrice($_incl-$_item->getWeeeTaxRowDisposition()) ?>
-        <?php endif; ?>
+        <?php $_incl = $_item->getRowTotalWithDiscount()+$_item->getTaxAmount(); ?>
+            <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales')): ?>
+                <?php echo $this->formatPrice($_incl+$_item->getWeeeTaxAppliedRowAmount()); ?>
+            <?php else: ?>
+                <?php echo $this->formatPrice($_incl-$_item->getWeeeTaxRowDisposition()) ?>
+            <?php endif; ?>
         <?php if (Mage::helper('weee')->getApplied($_item)): ?>
             <br />
             <?php if (Mage::helper('weee')->typeOfDisplay($_item, 1, 'sales')): ?>
@@ -368,6 +367,8 @@
         <?php endif; ?>
     <?php endif; ?>
 
+
+
                         </td>
                         <?php if($this->isGiftMessagesAvailable()): ?>
                         <td class="a-center">
@@ -390,16 +391,17 @@
         </table>
     </div>
     <table cellspacing="0" width="100%">
-        <col width="50%" />
-        <col width="50%" />
+    <col width="50%" />
+    <col width="50%" />
         <tr>
-            <td class="a-left"><small><?php echo $this->getInclExclTaxMessage(); ?></small></td>
-            <td class="a-right"><?php echo $this->getButtonHtml($this->helper('sales')->__('Update Items and Qty\'s'),'order.itemsUpdate()'); ?></td>
+            <td><small><?php echo $this->getInclExclTaxMessage(); ?></small></td>
+            <td rowspan="2" class="a-right"><?php echo $this->getButtonHtml($this->helper('sales')->__('Update Items and Qty\'s'),'order.itemsUpdate()'); ?></td>
+        </tr>
+        <tr>
+            <td><div id="order-coupons"><?php echo $this->getChildHtml() ?></div></td>
         </tr>
     </table>
-    <br />
-    <div id="order-coupons"><?php echo $this->getChildHtml() ?></div>
-    <div class="clear"></div>
+    <br/>
     <script type="text/javascript">order.itemsOnchangeBind()</script>
 </div>
 <?php endif; ?>

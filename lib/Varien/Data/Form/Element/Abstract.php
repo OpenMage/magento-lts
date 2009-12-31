@@ -120,7 +120,7 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
 
     public function getHtmlAttributes()
     {
-        return array('type', 'title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'tabindex');
+        return array('type', 'title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly');
     }
 
     public function addClass($class)
@@ -247,13 +247,4 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
         return $this->_getData('readonly');
     }
 
-    public function getHtmlContainerId()
-    {
-        if ($this->hasData('container_id')) {
-            return $this->getData('container_id');
-        } elseif ($idPrefix = $this->getForm()->getFieldContainerIdPrefix()) {
-            return $idPrefix . $this->getId();
-        }
-        return '';
-    }
 }

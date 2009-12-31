@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Builder.php 19055 2009-11-19 19:45:10Z padraic $
+ * @version    $Id: Builder.php 8064 2008-02-16 10:58:39Z thomas $
  */
 
 
@@ -44,7 +44,7 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
@@ -212,7 +212,7 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
      * @throws Zend_Feed_Builder_Exception
      * @return void
      */
-    protected function _createHeader(array $data)
+    private function _createHeader(array $data)
     {
         $mandatories = array('title', 'link', 'charset');
         foreach ($mandatories as $mandatory) {
@@ -340,7 +340,7 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
      * @throws Zend_Feed_Builder_Exception
      * @return void
      */
-    protected function _createEntries(array $data)
+    private function _createEntries(array $data)
     {
         foreach ($data as $row) {
             $mandatories = array('title', 'link', 'description');
@@ -354,9 +354,6 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
                 }
             }
             $entry = new Zend_Feed_Builder_Entry($row['title'], $row['link'], $row['description']);
-            if (isset($row['author'])) {
-                $entry->setAuthor($row['author']);
-            }
             if (isset($row['guid'])) {
                 $entry->setId($row['guid']);
             }

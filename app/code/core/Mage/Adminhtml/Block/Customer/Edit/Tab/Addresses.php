@@ -18,14 +18,14 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Customer addresses forms
+ * Custmer addresses forms
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -51,7 +51,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                 ->setData(array(
                     'label'  => Mage::helper('customer')->__('Delete Address'),
                     'name'   => 'delete_address',
-                    'element_name' => 'delete_address',
                     'disabled' => $this->isReadonly(),
                     'class'  => 'delete' . ($this->isReadonly() ? ' disabled' : '')
                 ))
@@ -62,7 +61,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                     'label'  => Mage::helper('customer')->__('Add New Address'),
                     'id'     => 'add_address_button',
                     'name'   => 'add_address_button',
-                    'element_name' => 'add_address_button',
                     'disabled' => $this->isReadonly(),
                     'class'  => 'add'  . ($this->isReadonly() ? ' disabled' : ''),
                     'onclick'=> 'customerAddresses.addNewAddress()'
@@ -74,7 +72,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                     'label'  => Mage::helper('customer')->__('Cancel'),
                     'id'     => 'cancel_add_address'.$this->getTemplatePrefix(),
                     'name'   => 'cancel_address',
-                    'element_name' => 'cancel_address',
                     'class'  => 'cancel delete-address'  . ($this->isReadonly() ? ' disabled' : ''),
                     'disabled' => $this->isReadonly(),
                     'onclick'=> 'customerAddresses.cancelAdd(this)',

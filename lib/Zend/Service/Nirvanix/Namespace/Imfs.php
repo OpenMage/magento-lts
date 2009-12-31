@@ -15,23 +15,22 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Nirvanix
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Imfs.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
  * @see Zend_Service_Nirvanix_Namespace_Base
  */
-#require_once 'Zend/Service/Nirvanix/Namespace/Base.php';
-
+#require_once 'Zend/Service/Nirvanix/Namespace/Base.php'; 
+ 
 /**
  * Namespace proxy with additional convenience methods for the IMFS namespace.
- *
+ * 
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Nirvanix
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Nirvanix_Namespace_Imfs extends Zend_Service_Nirvanix_Namespace_Base
@@ -43,7 +42,7 @@ class Zend_Service_Nirvanix_Namespace_Imfs extends Zend_Service_Nirvanix_Namespa
      * @param  string  $filePath    Remote path and filename
      * @param  integer $expiration  Number of seconds that Nirvanix
      *                              make the file available for download.
-     * @return string               Contents of file
+     * @return string               Contents of file  
      */
     public function getContents($filePath, $expiration = 3600)
     {
@@ -82,13 +81,13 @@ class Zend_Service_Nirvanix_Namespace_Imfs extends Zend_Service_Nirvanix_Namespa
         $this->_httpClient->resetParameters();
         $this->_httpClient->setUri("http://{$host}/Upload.ashx");
         $this->_httpClient->setParameterPost('uploadToken', $uploadToken);
-        $this->_httpClient->setParameterPost('destFolderPath', str_replace('\\', '/',dirname($filePath)));
+        $this->_httpClient->setParameterPost('destFolderPath', dirname($filePath));
         $this->_httpClient->setFileUpload(basename($filePath), 'uploadFile', $data, $mimeType);
         $response = $this->_httpClient->request(Zend_Http_Client::POST);
 
         return new Zend_Service_Nirvanix_Response($response->getBody());
     }
-
+    
     /**
      * Convenience function to remove a file from the Nirvanix IMFS.
      * Analog to PHP's unlink().

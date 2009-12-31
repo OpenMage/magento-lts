@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Payment
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Payment
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -137,14 +137,14 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             $errorMsg = $this->_getHelper()->__('Credit card type is not allowed for this payment method');
         }
 
-                                //validate credit card verification number
+								//validate credit card verification number
         if ($errorMsg === false && $this->hasVerification()) {
             $verifcationRegEx = $this->getVerificationRegEx();
             $regExp = isset($verifcationRegEx[$info->getCcType()]) ? $verifcationRegEx[$info->getCcType()] : '';
             if (!$info->getCcCid() || !$regExp || !preg_match($regExp ,$info->getCcCid())){
                 $errorMsg = $this->_getHelper()->__('Please enter a valid credit card verification number.');
             }
-        }
+        }					
 
         if($errorMsg){
             Mage::throwException($errorMsg);
@@ -154,7 +154,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         return $this;
     }
 
-    public function hasVerification()
+				public function hasVerification()
     {
         $configData = $this->getConfigData('useccv');
         if(is_null($configData)){
@@ -163,14 +163,14 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         return (bool) $configData;
     }
 
-    public function getVerificationRegEx()
+				public function getVerificationRegEx()
     {
         $verificationExpList = array(
             'VI' => '/^[0-9]{3}$/', // Visa
             'MC' => '/^[0-9]{3}$/',       // Master Card
             'AE' => '/^[0-9]{4}$/',        // American Express
             'DI' => '/^[0-9]{3}$/',          // Discovery
-            'SS' => '/^[0-9]{3,4}$/',
+            'SS' => '/^[0-9]{4}$/',
             'OT' => '/^[0-9]{3,4}$/'
         );
         return $verificationExpList;
@@ -184,7 +184,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         }
         return true;
     }
-
+    
     public function OtherCcType($type)
     {
         return $type=='OT';
@@ -240,14 +240,4 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         return preg_match('/^\\d+$/', $ccNumber);
     }
 
-    /**
-     * Check whether there are CC types set in configuration
-     *
-     * @return bool
-     */
-    public function isAvailable($quote = null)
-    {
-        return $this->getConfigData('cctypes', ($quote ? $quote->getStoreId() : null))
-            && parent::isAvailable($quote);
-    }
 }

@@ -18,15 +18,15 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
- * Catalog Configurable Product Attribute Collection
+ * Catalog super product attribute collection
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -173,17 +173,17 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
             $select = $this->getConnection()->select()
                 ->from(array('default'=>$this->_labelTable))
                 ->joinLeft(
-                    array('store' => $this->_labelTable),
+                    array('store'=>$this->_labelTable),
                     'store.product_super_attribute_id=default.product_super_attribute_id AND store.store_id='.$this->getStoreId(),
                     array(
-                        'use_default' => new Zend_Db_Expr('IFNULL(store.use_default, default.use_default)'),
+                        'store_lebel'=>'value',
                         'label' => new Zend_Db_Expr('IFNULL(store.value, default.value)')
-                    ))
+                    )
+                )
                 ->where('default.product_super_attribute_id IN (?)', array_keys($this->_items))
                 ->where('default.store_id=0');
                 foreach ($this->getConnection()->fetchAll($select) as $data) {
-                    $this->getItemById($data['product_super_attribute_id'])->setLabel($data['label']);
-                    $this->getItemById($data['product_super_attribute_id'])->setUseDefault($data['use_default']);
+                	$this->getItemById($data['product_super_attribute_id'])->setLabel($data['label']);
                 }
         }
         return $this;

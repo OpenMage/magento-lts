@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,20 +24,20 @@
 
 /**
  * Dijit-enabled Form
- *
+ * 
  * @uses       Zend_Form
  * @package    Zend_Dojo
  * @subpackage Form
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Form.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Form.php 12373 2008-11-07 16:52:44Z matthew $
  */
 class Zend_Dojo_Form extends Zend_Form
 {
     /**
      * Constructor
-     *
-     * @param  array|Zend_Config|null $options
+     * 
+     * @param  array|Zend_Config|null $options 
      * @return void
      */
     public function __construct($options = null)
@@ -52,7 +52,7 @@ class Zend_Dojo_Form extends Zend_Form
 
     /**
      * Load the default decorators
-     *
+     * 
      * @return void
      */
     public function loadDefaultDecorators()
@@ -73,8 +73,8 @@ class Zend_Dojo_Form extends Zend_Form
      * Set the view object
      *
      * Ensures that the view object has the dojo view helper path set.
-     *
-     * @param  Zend_View_Interface $view
+     * 
+     * @param  Zend_View_Interface $view 
      * @return Zend_Dojo_Form_Element_Dijit
      */
     public function setView(Zend_View_Interface $view = null)

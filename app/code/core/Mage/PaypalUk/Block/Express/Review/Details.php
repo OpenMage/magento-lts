@@ -18,10 +18,8 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_PaypalUk
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,7 +29,7 @@
  * @package    Mage_PaypalUk
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_PaypalUk_Block_Express_Review_Details extends Mage_Checkout_Block_Cart_Totals
+class Mage_PaypalUk_Block_Express_Review_Details extends Mage_Core_Block_Template
 {
     protected $_address;
 
@@ -55,11 +53,21 @@ class Mage_PaypalUk_Block_Express_Review_Details extends Mage_Checkout_Block_Car
 
     public function getItems()
     {
+//		$priceFilter = Mage::app()->getStore()->getPriceFilter();
+//        $itemsFilter = new Varien_Filter_Object_Grid();
+//        $itemsFilter->addFilter(new Varien_Filter_Sprintf('%d'), 'qty');
+//        $itemsFilter->addFilter($priceFilter, 'price');
+//        $itemsFilter->addFilter($priceFilter, 'row_total');
+//        return $itemsFilter->filter($this->getAddress()->getAllItems());
         return $this->getReview()->getQuote()->getAllItems();
     }
 
     public function getTotals()
     {
+//        $totals = $this->getAddress()->getTotals();
+//        $totalsFilter = new Varien_Filter_Object_Grid();
+//        $totalsFilter->addFilter(Mage::app()->getStore()->getPriceFilter(), 'value');
+//        return $totalsFilter->filter($totals);
         return $this->getReview()->getQuote()->getTotals();
     }
 }

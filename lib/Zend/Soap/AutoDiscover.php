@@ -14,10 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Soap
- * @subpackage AutoDiscover
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: AutoDiscover.php 16210 2009-06-21 19:22:17Z thomas $
+ * @version    $Id: AutoDiscover.php 13216 2008-12-14 11:09:01Z thomas $
  */
 
 #require_once 'Zend/Server/Interface.php';
@@ -31,7 +30,6 @@
  *
  * @category   Zend
  * @package    Zend_Soap
- * @subpackage AutoDiscover
  */
 class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
     /**
@@ -76,6 +74,13 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
     protected $_bindingStyle = array('style' => 'rpc', 'transport' => 'http://schemas.xmlsoap.org/soap/http');
 
     /**
+     * To enable compability with class generators for Java and DotNet framework SOAP Clients.
+     *
+     * @var boolean
+     */
+    protected $_responseMessageReturnNameCompability = false;
+
+    /**
      * Constructor
      *
      * @param boolean|string|Zend_Soap_Wsdl_Strategy_Interface $strategy
@@ -101,7 +106,9 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
      */
     public function setUri($uri)
     {
-        if(!is_string($uri) && !($uri instanceof Zend_Uri)) {
+        if(is_string($uri)) {
+            $uri = Zend_Uri::factory($uri);
+        } else if(!($uri instanceof Zend_Uri)) {
             #require_once "Zend/Soap/AutoDiscover/Exception.php";
             throw new Zend_Soap_AutoDiscover_Exception("No uri given to Zend_Soap_AutoDiscover::setUri as string or Zend_Uri instance.");
         }
@@ -122,7 +129,7 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
      */
     public function getUri()
     {
-        if($this->_uri !== null) {
+        if($this->_uri instanceof Zend_Uri) {
             $uri = $this->_uri;
         } else {
             $schema     = $this->getSchema();
@@ -170,6 +177,21 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
         if(isset($bindingStyle['transport'])) {
             $this->_bindingStyle['transport'] = $bindingStyle['transport'];
         }
+        return $this;
+    }
+
+    /**
+     * Enable/Disable naming of "return" only for response message parts.
+     *
+     * Some Clients only work when the response message part is explicilty called "return".
+     * This affects .NET and Java clients.
+     *
+     * @param  boolean $flag
+     * @return Zend_Soap_AutoDiscover
+     */
+    public function setResponseMessageReturnNameCompability($flag)
+    {
+        $this->_responseMessageReturnNameCompability = $flag;
         return $this;
     }
 
@@ -254,16 +276,57 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
 
         $wsdl = new Zend_Soap_Wsdl($class, $uri, $this->_strategy);
 
-        // The wsdl:types element must precede all other elements (WS-I Basic Profile 1.1 R2023)
-        $wsdl->addSchemaTypeSection();
-
         $port = $wsdl->addPortType($class . 'Port');
         $binding = $wsdl->addBinding($class . 'Binding', 'tns:' .$class. 'Port');
 
         $wsdl->addSoapBinding($binding, $this->_bindingStyle['style'], $this->_bindingStyle['transport']);
         $wsdl->addService($class . 'Service', $class . 'Port', 'tns:' . $class . 'Binding', $uri);
         foreach ($this->_reflection->reflectClass($class)->getMethods() as $method) {
-            $this->_addFunctionToWsdl($method, $wsdl, $port, $binding);
+            /* <wsdl:portType>'s */
+            $portOperation = $wsdl->addPortOperation($port, $method->getName(), 'tns:' .$method->getName(). 'Request', 'tns:' .$method->getName(). 'Response');
+            $desc = $method->getDescription();
+            if (strlen($desc) > 0) {
+                /** @todo check, what should be done for portoperation documentation */
+                //$wsdl->addDocumentation($portOperation, $desc);
+            }
+            /* </wsdl:portType>'s */
+
+            $this->_functions[] = $method->getName();
+
+            $selectedPrototype = null;
+            $maxNumArgumentsOfPrototype = -1;
+            foreach ($method->getPrototypes() as $prototype) {
+                $numParams = count($prototype->getParameters());
+                if($numParams > $maxNumArgumentsOfPrototype) {
+                    $maxNumArgumentsOfPrototype = $numParams;
+                    $selectedPrototype = $prototype;
+                }
+            }
+
+            if($selectedPrototype != null) {
+                $prototype = $selectedPrototype;
+                $args = array();
+                foreach($prototype->getParameters() as $param) {
+                    $args[$param->getName()] = $wsdl->getType($param->getType());
+                }
+                $message = $wsdl->addMessage($method->getName() . 'Request', $args);
+                if (strlen($desc) > 0) {
+                    //$wsdl->addDocumentation($message, $desc);
+                }
+                if ($prototype->getReturnType() != "void") {
+                    if($this->_responseMessageReturnNameCompability === true) {
+                        $returnName = 'return';
+                    } else {
+                        $returnName = $method->getName() . 'Return';
+                    }
+                    $message = $wsdl->addMessage($method->getName() . 'Response', array($returnName => $wsdl->getType($prototype->getReturnType())));
+                }
+
+                /* <wsdl:binding>'s */
+                $operation = $wsdl->addBindingOperation($binding, $method->getName(),  $this->_operationBodyStyle, $this->_operationBodyStyle);
+                $wsdl->addSoapOperation($operation, $uri->getUri() . '#' .$method->getName());
+                /* </wsdl:binding>'s */
+            }
         }
         $this->_wsdl = $wsdl;
     }
@@ -291,9 +354,6 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
             $name = $parts[0];
             $wsdl = new Zend_Soap_Wsdl($name, $uri, $this->_strategy);
 
-            // The wsdl:types element must precede all other elements (WS-I Basic Profile 1.1 R2023)
-            $wsdl->addSchemaTypeSection();
-
             $port = $wsdl->addPortType($name . 'Port');
             $binding = $wsdl->addBinding($name . 'Binding', 'tns:' .$name. 'Port');
 
@@ -305,120 +365,44 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
 
         foreach ($function as $func) {
             $method = $this->_reflection->reflectFunction($func);
-            $this->_addFunctionToWsdl($method, $wsdl, $port, $binding);
+            foreach ($method->getPrototypes() as $prototype) {
+                $args = array();
+                foreach ($prototype->getParameters() as $param) {
+                    $args[$param->getName()] = $wsdl->getType($param->getType());
+                }
+                $message = $wsdl->addMessage($method->getName() . 'Request', $args);
+                $desc = $method->getDescription();
+                if (strlen($desc) > 0) {
+                    //$wsdl->addDocumentation($message, $desc);
+                }
+                if ($prototype->getReturnType() != "void") {
+                    if($this->_responseMessageReturnNameCompability === true) {
+                        $returnName = "return";
+                    } else {
+                        $returnName = $method->getName() . 'Return';
+                    }
+
+                    $message = $wsdl->addMessage($method->getName() . 'Response', array($returnName => $wsdl->getType($prototype->getReturnType())));
+                }
+                 /* <wsdl:portType>'s */
+                   $portOperation = $wsdl->addPortOperation($port, $method->getName(), 'tns:' .$method->getName(). 'Request', 'tns:' .$method->getName(). 'Response');
+                if (strlen($desc) > 0) {
+                    //$wsdl->addDocumentation($portOperation, $desc);
+                }
+                   /* </wsdl:portType>'s */
+
+                /* <wsdl:binding>'s */
+                $operation = $wsdl->addBindingOperation($binding, $method->getName(), $this->_operationBodyStyle, $this->_operationBodyStyle);
+                $wsdl->addSoapOperation($operation, $uri->getUri() . '#' .$method->getName());
+                /* </wsdl:binding>'s */
+
+                $this->_functions[] = $method->getName();
+
+                // We will only add one prototype
+                break;
+            }
         }
         $this->_wsdl = $wsdl;
-    }
-
-    /**
-     * Add a function to the WSDL document.
-     *
-     * @param $function Zend_Server_Reflection_Function_Abstract function to add
-     * @param $wsdl Zend_Soap_Wsdl WSDL document
-     * @param $port object wsdl:portType
-     * @param $binding object wsdl:binding
-     * @return void
-     */
-    protected function _addFunctionToWsdl($function, $wsdl, $port, $binding)
-    {
-        $uri = $this->getUri();
-
-        // We only support one prototype: the one with the maximum number of arguments
-        $prototype = null;
-        $maxNumArgumentsOfPrototype = -1;
-        foreach ($function->getPrototypes() as $tmpPrototype) {
-            $numParams = count($tmpPrototype->getParameters());
-            if ($numParams > $maxNumArgumentsOfPrototype) {
-                $maxNumArgumentsOfPrototype = $numParams;
-                $prototype = $tmpPrototype;
-            }
-        }
-        if ($prototype === null) {
-            #require_once "Zend/Soap/AutoDiscover/Exception.php";
-            throw new Zend_Soap_AutoDiscover_Exception("No prototypes could be found for the '" . $function->getName() . "' function");
-        }
-
-        // Add the input message (parameters)
-        $args = array();
-        if ($this->_bindingStyle['style'] == 'document') {
-            // Document style: wrap all parameters in a sequence element
-            $sequence = array();
-            foreach ($prototype->getParameters() as $param) {
-                $sequenceElement = array(
-                    'name' => $param->getName(),
-                    'type' => $wsdl->getType($param->getType())
-                );
-                if ($param->isOptional()) {
-                    $sequenceElement['nillable'] = 'true';
-                }
-                $sequence[] = $sequenceElement;
-            }
-            $element = array(
-                'name' => $function->getName(),
-                'sequence' => $sequence
-            );
-            // Add the wrapper element part, which must be named 'parameters'
-            $args['parameters'] = array('element' => $wsdl->addElement($element));
-        } else {
-            // RPC style: add each parameter as a typed part
-            foreach ($prototype->getParameters() as $param) {
-                $args[$param->getName()] = array('type' => $wsdl->getType($param->getType()));
-            }
-        }
-        $wsdl->addMessage($function->getName() . 'In', $args);
-
-        $isOneWayMessage = false;
-        if($prototype->getReturnType() == "void") {
-            $isOneWayMessage = true;
-        }
-
-        if($isOneWayMessage == false) {
-            // Add the output message (return value)
-            $args = array();
-            if ($this->_bindingStyle['style'] == 'document') {
-                // Document style: wrap the return value in a sequence element
-                $sequence = array();
-                if ($prototype->getReturnType() != "void") {
-                    $sequence[] = array(
-                        'name' => $function->getName() . 'Result',
-                        'type' => $wsdl->getType($prototype->getReturnType())
-                    );
-                }
-                $element = array(
-                    'name' => $function->getName() . 'Response',
-                    'sequence' => $sequence
-                );
-                // Add the wrapper element part, which must be named 'parameters'
-                $args['parameters'] = array('element' => $wsdl->addElement($element));
-            } else if ($prototype->getReturnType() != "void") {
-                // RPC style: add the return value as a typed part
-                $args['return'] = array('type' => $wsdl->getType($prototype->getReturnType()));
-            }
-            $wsdl->addMessage($function->getName() . 'Out', $args);
-        }
-
-        // Add the portType operation
-        if($isOneWayMessage == false) {
-            $portOperation = $wsdl->addPortOperation($port, $function->getName(), 'tns:' . $function->getName() . 'In', 'tns:' . $function->getName() . 'Out');
-        } else {
-            $portOperation = $wsdl->addPortOperation($port, $function->getName(), 'tns:' . $function->getName() . 'In', false);
-        }
-        $desc = $function->getDescription();
-        if (strlen($desc) > 0) {
-            $wsdl->addDocumentation($portOperation, $desc);
-        }
-
-        // When using the RPC style, make sure the operation style includes a 'namespace' attribute (WS-I Basic Profile 1.1 R2717)
-        if ($this->_bindingStyle['style'] == 'rpc' && !isset($this->_operationBodyStyle['namespace'])) {
-            $this->_operationBodyStyle['namespace'] = ''.$uri;
-        }
-
-        // Add the binding operation
-        $operation = $wsdl->addBindingOperation($binding, $function->getName(),  $this->_operationBodyStyle, $this->_operationBodyStyle);
-        $wsdl->addSoapOperation($operation, $uri . '#' .$function->getName());
-
-        // Add the function name to the list
-        $this->_functions[] = $function->getName();
     }
 
     /**
@@ -444,40 +428,6 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface {
             header('Content-Type: text/xml');
         }
         $this->_wsdl->dump();
-    }
-
-    /**
-     * Proxy to WSDL dump function
-     *
-     * @param string $filename
-     */
-    public function dump($filename)
-    {
-        if($this->_wsdl !== null) {
-            return $this->_wsdl->dump($filename);
-        } else {
-            /**
-             * @see Zend_Soap_AutoDiscover_Exception
-             */
-            #require_once "Zend/Soap/AutoDiscover/Exception.php";
-            throw new Zend_Soap_AutoDiscover_Exception("Cannot dump autodiscovered contents, WSDL file has not been generated yet.");
-        }
-    }
-
-    /**
-     * Proxy to WSDL toXml() function
-     */
-    public function toXml()
-    {
-        if($this->_wsdl !== null) {
-            return $this->_wsdl->toXml();
-        } else {
-            /**
-             * @see Zend_Soap_AutoDiscover_Exception
-             */
-            #require_once "Zend/Soap/AutoDiscover/Exception.php";
-            throw new Zend_Soap_AutoDiscover_Exception("Cannot return autodiscovered contents, WSDL file has not been generated yet.");
-        }
     }
 
     /**

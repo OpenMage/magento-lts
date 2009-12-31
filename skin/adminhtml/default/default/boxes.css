@@ -100,23 +100,28 @@
     z-index:1000;
     }
 
-#message-popup-window-mask { position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:9999; background-color:#efefef; opacity:.5; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";/*IE8*/ }
-.message-popup { position:absolute; z-index:99999; width:407px; top:-9999em; left:50%; margin:0 0 0 -203px; background:#f3bf8f; padding:0 4px 4px; }
-.message-popup.show { top:280px; }
-.message-popup .message-popup-head { padding:1px 0; }
-.message-popup .message-popup-head h2 { padding:0 10px; margin:0; font:bold 12px/19px Arial, Helvetica, sans-serif; color:#644f3b; }
-.message-popup .message-popup-head a { float:right; border:1px solid #ea7601; padding:0 12px 0 7px; background:url(images/bkg_btn-close.gif) 0 50% repeat-x !important; font:normal 12px/17px Arial, Helvetica, sans-serif; color:#fff; text-decoration:none !important; cursor:pointer; }
-.message-popup .message-popup-head a span { float:left; background:url(images/bkg_btn-close2.gif) 0 50% no-repeat; padding-left:19px; }
-.message-popup .message-popup-content { background:#fdf4eb; padding:21px 21px 10px; }
-.message-popup .message-popup-content .message-icon { float:left; width:50px; padding:47px 0 0; background-position:50% 0; background-repeat:no-repeat; font-size:10px; line-height:12px; text-transform:uppercase; text-align:center; overflow:hidden; }
-.message-popup .message-popup-content .message-critical { background-image:url(images/severity_critical.gif); color:#e41101; }
-.message-popup .message-popup-content .message-major { /*background-image:url(images/severity_major.gif);*/ color:#f55600; }
-.message-popup .message-popup-content .message-minor { /*background-image:url(images/severity_minor.gif);*/ color:#ff9e22; }
-.message-popup .message-popup-content .message-notice { /*background-image:url(images/severity_notice.gif);*/ color:#659601; }
-.message-popup .message-popup-content .message-text { float:right; width:295px; min-height:4.5em; overflow:hidden; color:#644f3b; }
-.message-popup .message-popup-content .read-more { margin:7px 0 0; text-align:right; }
-.message-popup .message-popup-content .read-more a { background:url(images/more_arrow.gif) 0 50% no-repeat; padding-left:14px; text-decoration:underline; }
-.message-popup .message-popup-content .read-more a:hover { text-decoration:none; }
+#message-popup-window-mask {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:9999;
+    background-color:#efefef;
+    opacity:.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)"; /* IE8 */
+    }
+
+#message-popup-window-mask .flash-window {
+    position:fixed;
+    top:45%;
+    left:50%;
+    z-index:1000;
+    margin-left:-207px;
+    margin-top:-70px;
+    }
 
 /* TABLES
 *******************************************************************************/
@@ -128,7 +133,7 @@
 .grid tbody                     { background:#fff; }    /* Zebra odd-row */
 .grid tr.even, .grid tr.even tr { background:#f6f6f6; } /* Zebra even-row */
 .grid tr.on-mouse               { background:#fcf5dd; cursor:pointer; } /* Rows mouse-over */
-.grid tr.invalid                { background-color:#f5d6c7; }
+.grid tr.invalid                { background-color:#d3a5ba !important; }
 .grid th, .grid td              { padding:2px 4px 2px 4px; }
 .grid th                        { white-space:nowrap; }
 .grid td input.input-text       { width:86%; }
@@ -177,7 +182,6 @@ table.actions td                { vertical-align:top; }
 .massaction { width:100%; height:26px; border:1px solid #d1cfcf; border-bottom:none; background:url(images/massaction_bg.gif) repeat-x 0 100% #ebebeb; font-size:.9em; }
 .massaction td                              { width:50%; border-top:1px solid #fff; padding:1px 8px; vertical-align:middle; }
 .massaction .entry-edit fieldset .select    { width:auto; /*width:120px;*/ display:inline; }
-.massaction .entry-edit fieldset select.validation-failed { border:1px dashed #eb340a !important; background:#faebe7 !important }
 .massaction .entry-edit fieldset            { margin:0; padding:0; background:none; border:none; }
 .massaction .entry-edit fieldset .field-row { display:inline; }
 .massaction .entry-edit .field-row label    { float:none; width:auto; margin-left:13px; }
@@ -215,8 +219,8 @@ table.actions td                { vertical-align:top; }
 tr.dynamic-grid td,
 tr.dynamic-grid th { padding:2px 10px 2px 0; width:auto; }
 tr.dynamic-grid input.input-text { width:154px; }
-.available { color:#080; font-weight:bold; }
-.not-available { color:#800; }
+
+
 
 
 /* ACCORDION
@@ -276,8 +280,7 @@ ul.tabs-horiz li a.active       { border-bottom:1px solid #fff; background:#fff;
 
 /* MESSAGES
 *******************************************************************************/
-.notification-global { padding:5px 27px 5px 47px; background:#fff9e9 url(images/error_msg_icon.gif) 27px 5px no-repeat; border-bottom:1px solid #eee2be; border-top:1px solid #eee2be; font-size:11px; line-height:16px; margin:0 0 -3px; color:#444; position:relative; }
-.notification-global-notice { background-image:url(images/note_msg_icon.gif); }
+.notification-global { padding:5px 27px 5px 47px; background:#fff9e9 url(images/error_msg_icon.gif) 27px 5px no-repeat; border-bottom:1px solid #eee2be; font-size:11px; line-height:16px; margin:0 0 -3px; color:#444; position:relative; }
 .notification-global .label { color:#eb5e00; }
 .notification-global .clickable { cursor:pointer; }
 .notification-global span.critical { color:#d20000; }
@@ -345,7 +348,6 @@ select optgroup                 { font-style:normal; }
 select optgroup option          { padding-left:10px; }
 select optgroup option.even     { background:#f6f6f6; } /* Zebra even-row */
 select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd; }
-.checkboxes li                  { margin:0 0 5px !important; }
 .field-100 { background-color:#fff; border-width:1px; border-style:solid; border-color:#aaa #c8c8c8 #c8c8c8 #aaa; padding:2px; }
 .field-100 textarea,
 .field-100 input.input-text { float:left; width:100% !important; border:0 !important; padding:0 !important; }
@@ -353,22 +355,17 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 
 /* Form List */ /* Table for default form data */
 .form-list                      { width:auto; border:0 !important; }
-.form-list td.label,
-.form-list td.value,
-.form-list td.note,
-.form-list td.scope-label,
-.form-list td.use-default       { border:0 !important; padding-top:5px !important; padding-bottom:5px !important; background:0 !important; }
+.form-list td                   { border:0 !important; padding-top:5px !important; padding-bottom:5px !important; background:0 !important;  }
 .form-list td.hidden            { border:0 !important; padding:0 !important; background:0 !important; }
-.form-list td.label             { width:200px; }
-.form-list td.label label       { display:block; width:185px; padding-right:15px; }
+.form-list td.label             { width:150px; }
+.form-list td.label label       { display:block; width:150px; padding-right:15px; }
 .form-list td.value input.input-text,
 .form-list td.value textarea    { width:274px; }
 .form-list td.value textarea    { height:12em; }
 .form-list td.value select      { width:280px; }
 .form-list td.use-default       { padding-left:15px; }
-.form-list td.note              { background:url(images/note_cell_bg.gif) 6px 10px no-repeat !important; padding-left:18px; }
+.form-list td.note              { background:url(images/note_cell_bg.gif) no-repeat 6px 10px !important; padding-left:18px; }
 .form-list td.scope-label       { padding-left:5px; color:#6f8992; font-size:.9em; }
-.form-list p.note               { margin:0; padding:0 0 0 13px; background:url(images/note_bg.gif) 1px 6px no-repeat; font-size:11px; }
 
 .columns .form-list             { width:auto; }
 .columns .form-list td.value    { width:280px; padding-right:5px !important; }
@@ -377,7 +374,6 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 
 .fieldset-wide .form-list { width:100% !important; }
 .fieldset-wide .form-list td.value { width:auto !important; }
-.fieldset-wide .form-list td.value input.input-text,
 .fieldset-wide .form-list td.value textarea { width:98% !important; }
 
 .multi-input                    { margin-bottom:8px; } /* Example: Address fields with 2 input lines */
@@ -412,9 +408,7 @@ button.cancel span,
 button.delete span,
 button.save span,
 button.add span,
-button.back span,
-button.add-image span,
-button.add-widget span { padding-left:20px; }
+button.back span { padding-left:20px; }
 button.back { border-color:#ccc #aaa #aaa #ccc; background-color:#fff; background-image:url(images/btn_back_bg.gif); color:#555; }
 button.back span { background-image:url(images/icon_btn_back.gif); }
 button.cancel,
@@ -427,21 +421,14 @@ button.cancel span,
 button.delete span { background-image:url(images/cancel_btn_icon.gif); }
 button.add span     { background-image:url(images/add_btn_icon.gif); }
 button.save span    { background-image:url(images/save_btn_icon.gif); }
-button.show-hide span { background-image:url(images/btn_show-hide_icon.gif); padding-left:26px; }
-button.add-image span { background-image:url(images/btn_add-image_icon.gif); }
-button.add-widget span { background-image:url(images/btn_add-widget_icon2.gif); padding-left:24px; }
-button.btn-chooser { display:block; margin:0 0 10px; }
 
 button.disabled,
 button.disabled:hover,
-button.disabled:active { border-color:#777 #505050 #505050 #777; background:#919191 url(images/btn_bg-disabled.gif) 0 0 repeat-x; color:#fff; cursor:default; opacity:.8; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)"; }
+button.disabled:active { border-color:#777 #505050 #505050 #777; background:#919191 url(images/btn_bg-disabled.gif) 0 0 repeat-x; color:#fff; cursor:default; opacity:.8; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)"; }
 button.add.disabled span { background-image:url(images/add_btn_icon-disabled.gif); }
 
-button.icon-btn { width:32px !important; }
+button.icon-btn { width:32px!important; }
 button.icon-btn span { text-indent:-999em; display:block; width:16px; padding:0; overflow:hidden; }
-
-.buttons-set { margin:0 0 10px; }
-.buttons-set button { margin-right:5px; }
 
 
 /* SWITCHER
@@ -529,7 +516,6 @@ div.main-col-inner { float:left; /* Fixes some inner clears in the liquid main-c
 .footer { clear:both; background:url(images/footer_bg.gif) repeat-x #e6e6e6; padding:105px 2.8em 2.8em 2.8em; font-size:.95em; text-align:center; }
 .simple-container-popup { min-height:50px !important; padding:1.8em 2.3em 6em 2.3em; background:url(images/simple_container_bg.gif) repeat-x; }
 
-.page-popup { background:#fff; }
 
 
 /******************************************************************************/
@@ -606,7 +592,7 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 .left-col-block { width:200px; }
 
 /* Floating Content Header */ /* Used to make action buttons always within reach */
-.content-header-floating { display:none; position:fixed; left:0; top:0; width:100%; border-bottom:solid 1px #988753; z-index:100; background:#fdfaa4; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)"/* IE8 */; opacity:.85; }
+.content-header-floating { display:none; position:fixed; left:0; top:0; width:100%; border-bottom:solid 1px #988753; z-index:100; background:#fdfaa4; opacity:.85; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)" }
 .content-header-floating .content-header { padding:6px 8px 4px 8px; margin-bottom:0; border:0; }
 .content-header-floating td     { padding-right:20px; }
 .content-header-floating button { margin-top:3px; }
@@ -658,7 +644,7 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 .head-order-date                { background-image:url(images/fam_calendar.gif); }
 .head-customer-sales-statistics { background-image:url(images/fam_money.gif); }
 .head-notification              { background-image:url(images/fam_folder_table.gif); }
-.head-compilation               { background-image:url(images/fam_package_go.gif); }
+.head-compilation               {background-image:url(images/fam_package_go.gif); }
 
 
 
@@ -760,7 +746,6 @@ ul.item-options li { padding-left:.7em; }
 .order-totals table td.label            { white-space:normal; padding:3px 10px 3px 20px; }
 .order-totals table td.last             { padding:2px 6px; }
 .order-totals-bottom                    { padding:0 20px; }
-.order-totals table .validation-advice  { text-align:right; white-space:nowrap; background-position:100% 1px; padding-right:14px; padding-left:0; }
 .grand-total, .grand_total              { font-size:1.2em; font-weight:bold; color:#eb4d00 !important; }
 
 /* Tax details */
@@ -823,7 +808,6 @@ ul.item-options li { padding-left:.7em; }
 
 #tree-div { overflow:auto!important; padding-bottom:15px; width:200px; }
 
-.x-tree-node { margin:0 !important; }
 .x-tree-node .leaf .x-tree-node-icon        { background-image:url(images/fam_leaf.png); }
 .x-tree-node .system-leaf .x-tree-node-icon { background-image:url(images/fam_application_form_delete.png); }
 
@@ -1005,12 +989,6 @@ input.downloads { width:6.5em !important; }
 
 /* SYSTEM
 *******************************************************************************/
-.stores-tree td { padding-top:3px !important; padding-bottom:3px !important; }
-.stores-tree td.label label { display:inline; width:auto; padding-right:10px; }
-.stores-tree td.website-label label { font-weight:bold; }
-.stores-tree td.store-group-label label { font-weight:bold; padding-left:15px; }
-.stores-tree td.store-label label { padding-left:30px; }
-.stores-tree .buttons-set { margin:10px 0; }
 
 /* Configuration */
 /*fieldset.config td          { padding-top:5px; padding-bottom:5px; }
@@ -1085,21 +1063,14 @@ ul.super-product-attributes { padding-left:15px; }
 .grid-row-title { color:#444; font-weight:bold; }
 
 .grid-severity-critical,
-.grid-severity-critical span,
 .grid-severity-major,
-.grid-severity-major span,
 .grid-severity-minor,
-.grid-severity-minor span,
-.grid-severity-notice,
-.grid-severity-notice span { display:block; height:16px; background-image:url(images/bg_notifications.gif); background-repeat:no-repeat; font:bold 10px/16px Arial, Helvetica, sans-serif; text-transform:uppercase; text-align:center; padding:0 0 0 7px; margin:1px 0; white-space:nowrap; color:#fff; }
-.grid-severity-critical { background-position:0 0; }
-.grid-severity-critical span { background-position:100% 0; padding:0 7px 0 0; }
-.grid-severity-major { background-position:0 -16px; }
-.grid-severity-major span { background-position:100% -16px; padding:0 7px 0 0; }
-.grid-severity-minor { background-position:0 -32px; }
-.grid-severity-minor span { background-position:100% -32px; padding:0 7px 0 0; }
-.grid-severity-notice { background-position:0 -48px; }
-.grid-severity-notice span { background-position:100% -48px; padding:0 7px 0 0; }
+.grid-severity-notice   { display:block; color:#fff; font-family:Arial, Tahoma, Verdana; font-weight:bold; font-size:10px; text-transform:uppercase; text-align:center; height:13px; padding-top:3px; width:61px; margin:1px 0; line-height:1; }
+.grid-severity-critical { background:url(images/bg_severity-critical.gif) no-repeat 0 0; }
+.grid-severity-major    { background:url(images/bg_severity-major.gif) no-repeat 0 0; }
+.grid-severity-minor    { background:url(images/bg_severity-minor.gif) no-repeat 0 0; }
+.grid-severity-notice   { background:url(images/bg_severity-notice.gif) no-repeat 0 0; }
+
 
 .super-attributes                       { margin:0; padding:0; }
 .super-attributes li.attribute          { border:1px solid #dfdfdf; background-color:#ededed; margin:1px 0; }
@@ -1167,23 +1138,6 @@ ul.super-product-attributes { padding-left:15px; }
 #page-help-link:hover { color:white; }
 
 
-/* CMS
-*******************************************************************************/
-/*table.mceLayout { width:100% !important; }*/
-
-/* CMS Widgets Instance */
-.options-box .option-box { border:1px solid #cddddd; padding:1em; background:#e7efef; margin:1.5em 0; }
-.options-box .option-title { padding:0 0 10px; border-bottom:1px solid #cddddd; }
-.options-box .option-title button { float:right; }
-.options-box .option-title label {font-weight:bold; line-height:21px; padding-right:1em; float:left; }
-.options-box .option-title select { float:left; width:260px; vertical-align:middle; }
-.options-box .option-header { margin:5px 0 0; width:100%; border:0; background:#e7efef; border-bottom:1em solid #e7efef; }
-.options-box .option-header .input-text,
-.options-box .option-header select { width:95%; }
-.options-box .option-header th { padding:2px; }
-.options-box .option-header td { padding:5px 2px; }
-.options-box .option-header .tree { margin:5px 0 0; }
-
 
 /*****************************************/
 /******** ALIGNMENTS AND CLEARS **********/
@@ -1216,11 +1170,9 @@ ul.super-product-attributes { padding-left:15px; }
 .normal             { font-weight:normal !important; }
 
 /* Clear */ /* This keeps our HTML free of buncha clearing elements */
-.message-popup .message-popup-head:after,
-.message-popup .message-popup-content .message:after,
 .login-form .form-buttons:after,
 .wrapper:after,
-.option-title:after,
+.bundle .option-title:after,
 .columns:after,
 .main-col:after,
 .content-header-floating:after,

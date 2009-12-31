@@ -11,13 +11,13 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
- *
+ * 
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Interface.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Interface.php 8064 2008-02-16 10:58:39Z thomas $
  */
 
 
@@ -25,7 +25,7 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -95,7 +95,7 @@ interface Zend_Mail_Part_Interface extends RecursiveIterator
      * @throws Zend_Mail_Exception
      */
     public function getHeader($name, $format = null);
-
+    
     /**
      * Get a specific field from a header like content type or all fields as array
      *

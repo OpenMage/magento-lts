@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -87,15 +87,15 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
             );
         }
 
-        $this->_headerText = Mage::helper('adminhtml')->__('Add New URL Rewrite');
+        $this->_headerText = Mage::helper('adminhtml')->__('Add New Urlrewrite');
 
         // edit form for existing urlrewrite
         if ($this->getUrlrewriteId()) {
-            $this->_headerText = Mage::helper('adminhtml')->__('Edit URL Rewrite');
+            $this->_headerText = Mage::helper('adminhtml')->__('Edit Urlrewrite');
             $this->_setFormChild();
         }
         elseif ($this->getProductId()) {
-            $this->_headerText = Mage::helper('adminhtml')->__('Add URL Rewrite for a Product');
+            $this->_headerText = Mage::helper('adminhtml')->__('Add Urlrewrite for a Product');
 
             // edit form for product with or without category
             if ($this->getCategoryId() || !$this->isMode('category')) {
@@ -119,7 +119,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         }
         // edit form for category
         elseif ($this->getCategoryId()) {
-            $this->_headerText = Mage::helper('adminhtml')->__('Add URL Rewrite for a Category');
+            $this->_headerText = Mage::helper('adminhtml')->__('Add Urlrewrite for a Category');
             $this->_setFormChild();
         }
         // modes selector and products/categories selectors, as well as edit form for custom urlrewrite

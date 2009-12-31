@@ -55,7 +55,20 @@
                     <module>Mage_AmazonPayments</module>
                     <class>Mage_AmazonPayments_Model_Mysql4_Setup</class>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </amazonpayments_setup>
+            <amazonpayments_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </amazonpayments_write>
+            <amazonpayments_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </amazonpayments_read>
         </resources>
         <blocks>
             <amazonpayments><class>Mage_AmazonPayments_Block</class></amazonpayments>
@@ -77,11 +90,11 @@
         </sales>
         <template>
             <email>
-                <payment_amazonpayments_asp_email_template_notification_error translate="label" module="amazonpayments">
+                <payment_amazonpayments_asp translate="label" module="amazonpayments">
                     <label>Amazon Simple Pay notification error</label>
                     <file>amazonpayments_asp_notification_error.html</file>
                     <type>html</type>
-                </payment_amazonpayments_asp_email_template_notification_error>
+                </payment_amazonpayments_asp>
             </email>
         </template>
     </global>
@@ -197,8 +210,6 @@ Something like this is to be added to resolve bug #4890
                 <pay_service_url>https://authorize.payments.amazon.com/pba/paypipeline</pay_service_url>
                 <pay_service_url_sandbox>https://authorize.payments-sandbox.amazon.com/pba/paypipeline</pay_service_url_sandbox>
 
-                <choice_method_description>Your billing address will be ignored and you will be redirected to Amazon Simple Pay website.</choice_method_description>
-                <redirect_message>You will be redirected to Amazon Simple Pay in a few seconds.</redirect_message>
                 <pay_description>MAGENTO ASP PAYMENT</pay_description>
                 <refund_description>MAGENTO ASP REFUND</refund_description>
                 <cancel_description>MAGENTO ASP CANCEL</cancel_description>
@@ -212,7 +223,7 @@ Something like this is to be added to resolve bug #4890
                 <fps_service_url_sandbox>https://fps.sandbox.amazonaws.com/</fps_service_url_sandbox>
 
                 <email_sender_identity>general</email_sender_identity>
-                <email_template_notification_error>payment_amazonpayments_asp_email_template_notification_error</email_template_notification_error>
+                <email_template_notofication_error>payment_amazonpayments_asp</email_template_notofication_error>
                 <report_error_to_email>0</report_error_to_email>
 
                 <error_log>0</error_log>

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_Varien_Router_Abstract
@@ -104,7 +104,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     public function match(Zend_Controller_Request_Http $request)
     {
-        //checking before even try to find out that current module
+        //checkings before even try to findout that current module
         //should use this router
         if (!$this->_beforeModuleMatch()) {
             return false;
@@ -198,7 +198,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
             }
 
             // instantiate controller class
-            $controllerInstance = Mage::getControllerInstance($controllerClassName, $request, $front->getResponse());
+            $controllerInstance = new $controllerClassName($request, $front->getResponse());
 
             if (!$controllerInstance->hasAction($action)) {
                 continue;
@@ -222,7 +222,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                 }
 
                 // instantiate controller class
-                $controllerInstance = Mage::getControllerInstance($controllerClassName, $request, $front->getResponse());
+                $controllerInstance = new $controllerClassName($request, $front->getResponse());
 
                 if (!$controllerInstance->hasAction($action)) {
                     return false;
@@ -251,7 +251,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     }
 
     /**
-     * Allow to control if we need to enable no route functionality in current router
+     * Allow to control if we need to enable norout functionality in current router
      *
      * @return bool
      */
@@ -414,10 +414,6 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     protected function _getCurrentSecureUrl($request)
     {
-        if ($alias = $request->getAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS)) {
-            return Mage::getBaseUrl('link', true).ltrim($alias, '/');
-        }
-
         return Mage::getBaseUrl('link', true).ltrim($request->getPathInfo(), '/');
     }
 

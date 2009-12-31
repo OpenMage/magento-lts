@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Form
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,9 +31,9 @@
  *
  * @package    Zend_Dojo
  * @subpackage Form_Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DijitForm.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: DijitForm.php 10009 2008-07-09 16:52:18Z matthew $
  */
 class Zend_Dojo_Form_Decorator_DijitForm extends Zend_Dojo_Form_Decorator_DijitContainer
 {
@@ -41,8 +41,8 @@ class Zend_Dojo_Form_Decorator_DijitForm extends Zend_Dojo_Form_Decorator_DijitC
      * Render a form
      *
      * Replaces $content entirely from currently set element.
-     *
-     * @param  string $content
+     * 
+     * @param  string $content 
      * @return string
      */
     public function render($content)
@@ -56,6 +56,6 @@ class Zend_Dojo_Form_Decorator_DijitForm extends Zend_Dojo_Form_Decorator_DijitC
         $dijitParams = $this->getDijitParams();
         $attribs     = array_merge($this->getAttribs(), $this->getOptions());
 
-        return $view->form($element->getName(), $attribs, $content);
+        return $view->form($element->getName(), $attribs, $content); 
     }
 }

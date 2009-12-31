@@ -27,13 +27,6 @@ var giftMessagesController = {
         if(!$(source).value.blank()) {
             objects.each(function(item) {
                $(item).addClassName('required-entry');
-               var label = findFieldLabel($(item));
-               if (label) {
-                   var span = label.down('span');
-                   if (!span) {
-                       Element.insert(label, {bottom: '&nbsp;<span class="required">*</span>'});
-                   }
-               }
             });
         } else {
             objects.each(function(item) {
@@ -41,13 +34,6 @@ var giftMessagesController = {
                     $(source).formObj.validator.reset(item);
                 }
                 $(item).removeClassName('required-entry');
-                var label = findFieldLabel($(item));
-                if (label) {
-                    var span = label.down('span');
-                    if (span) {
-                        Element.remove(span);
-                    }
-                }
             });
         }
     },
@@ -122,19 +108,4 @@ var giftMessagesController = {
         return container + '_' + name;
     }
 };
-
-function findFieldLabel(field) {
-    var tdField = $(field).up('td');
-    if (tdField) {
-       var tdLabel = tdField.previous('td');
-       if (tdLabel) {
-           var label = tdLabel.down('label');
-           if (label) {
-               return label;
-           }
-       }
-    }
-
-    return false;
-}
 

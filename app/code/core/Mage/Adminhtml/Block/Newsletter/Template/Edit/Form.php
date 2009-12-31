@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -112,31 +112,17 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
             'value'     => $model->getTemplateSenderEmail(),
         ));
 
-
-        $widgetFilters = array('is_email_compatible' => 1);
-        $wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(array('widget_filters' => $widgetFilters));
-        if ($model->isPlain()) {
-            $wysiwygConfig->setEnabled(false);
-        }
         $fieldset->addField('text', 'editor', array(
             'name'      => 'text',
+            'wysiwyg'   => (!$model->isPlain()),
             'label'     => Mage::helper('newsletter')->__('Template Content'),
             'title'     => Mage::helper('newsletter')->__('Template Content'),
+            'theme'     => 'advanced',
             'required'  => true,
             'state'     => 'html',
             'style'     => 'height:36em;',
             'value'     => $model->getTemplateText(),
-            'config'    => $wysiwygConfig
         ));
-
-        if (!$model->isPlain()) {
-            $fieldset->addField('template_styles', 'textarea', array(
-                'name'          =>'styles',
-                'label'         => Mage::helper('newsletter')->__('Template Styles'),
-                'container_id'  => 'field_template_styles',
-                'value'         => $model->getTemplateStyles()
-            ));
-        }
 
         $form->setAction($this->getUrl('*/*/save'));
         $form->setUseContainer(true);

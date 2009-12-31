@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Translate.php 19122 2009-11-20 18:06:37Z matthew $
+ * @version    $Id: Translate.php 12062 2008-10-21 17:28:12Z thomas $
  */
 
 /** Zend_Locale */
@@ -31,7 +31,7 @@
  *
  * @category  Zend
  * @package   Zend_View
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
@@ -50,7 +50,7 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
      */
     public function __construct($translate = null)
     {
-        if ($translate !== null) {
+        if (empty($translate) === false) {
             $this->setTranslator($translate);
         }
     }
@@ -92,7 +92,7 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
         }
 
         $message = $translate->translate($messageid, $locale);
-        if (count($options) === 0) {
+        if ($count === 0) {
             return $message;
         }
 
@@ -132,7 +132,7 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
     {
         if ($this->_translator === null) {
             #require_once 'Zend/Registry.php';
-            if (Zend_Registry::isRegistered('Zend_Translate')) {
+            if (Zend_Registry::isRegistered('Zend_Translate') === true) {
                 $this->setTranslator(Zend_Registry::get('Zend_Translate'));
             }
         }

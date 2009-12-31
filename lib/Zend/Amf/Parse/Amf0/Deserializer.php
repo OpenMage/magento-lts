@@ -15,9 +15,8 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage Parse_Amf0
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Deserializer.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /** Zend_Amf_Parse_Deserializer */
@@ -30,7 +29,7 @@
  * @todo       Class could be implmented as Factory Class with each data type it's own class
  * @package    Zend_Amf
  * @subpackage Parse_Amf0
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
@@ -49,6 +48,13 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
     protected $_objectEncoding = Zend_Amf_Constants::AMF0_OBJECT_ENCODING;
 
     /**
+     * refrence to AMF3 deserializer
+     *
+     * @var Zend_Amf_Parse_Amf3_Deserializer
+     */
+    protected $_deserializer = null;
+
+    /**
      * Read AMF markers and dispatch for deserialization
      *
      * Checks for AMF marker types and calls the appropriate methods
@@ -57,11 +63,12 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
      *
      * @param  integer $typeMarker
      * @return mixed whatever the data type is of the marker in php
+     * @return mixed
      * @throws Zend_Amf_Exception for invalid type
      */
     public function readTypeMarker($typeMarker = null)
     {
-        if ($typeMarker === null) {
+        if (is_null($typeMarker)) {
             $typeMarker = $this->_stream->readByte();
         }
 
@@ -145,7 +152,7 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
      */
     public function readObject($object = null)
     {
-        if ($object === null) {
+        if (is_null($object)) {
             $object = array();
         }
 
@@ -254,7 +261,7 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
      * Commonly used for Value Objects on the server
      *
      * @todo   implement Typed Class mapping
-     * @return object|array
+     * @return object
      * @throws Zend_Amf_Exception if unable to load type
      */
     public function readTypedObject()
@@ -270,9 +277,7 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
                 $returnObject->$key = $value;
             }
         }
-       if($returnObject instanceof Zend_Amf_Value_Messaging_ArrayCollection) {
-            $returnObject = get_object_vars($returnObject);
-       }
+
         return $returnObject;
     }
 
@@ -284,8 +289,7 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
      */
     public function readAmf3TypeMarker()
     {
-        #require_once 'Zend/Amf/Parse/Amf3/Deserializer.php';
-        $deserializer = new Zend_Amf_Parse_Amf3_Deserializer($this->_stream);
+        $deserializer = $this->getDeserializer();
         $this->_objectEncoding = Zend_Amf_Constants::AMF3_OBJECT_ENCODING;
         return $deserializer->readTypeMarker();
     }
@@ -299,5 +303,19 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
     public function getObjectEncoding()
     {
         return $this->_objectEncoding;
+    }
+
+    /**
+     * Get deserializer
+     *
+     * @return Zend_Amf_Parse_Amf3_Deserializer
+     */
+    public function getDeserializer()
+    {
+        if (null === $this->_deserializer) {
+            #require_once 'Zend/Amf/Parse/Amf3/Deserializer.php';
+            $this->_deserializer = new Zend_Amf_Parse_Amf3_Deserializer($this->_stream);
+        }
+        return $this->_deserializer;
     }
 }

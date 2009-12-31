@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -57,21 +57,9 @@ class Mage_Core_Model_Mysql4_Store_Collection extends Mage_Core_Model_Mysql4_Col
         return $this;
     }
 
-    /**
-     * Add filter by group id.
-     * Group id can be passed as one single value or array of values.
-     *
-     * @param int|array $groupId
-     * @return Mage_Core_Model_Mysql4_Store_Collection
-     */
     public function addGroupFilter($groupId)
     {
-        if (is_array($groupId)) {
-            $condition = $this->getConnection()->quoteInto("main_table.group_id IN (?)", $groupId);
-        } else {
-            $condition = $this->getConnection()->quoteInto("main_table.group_id = ?",$groupId);
-        }
-
+        $condition = $this->getConnection()->quoteInto("main_table.group_id=?", $groupId);
         $this->addFilter('group_id', $condition, 'string');
         return $this;
     }

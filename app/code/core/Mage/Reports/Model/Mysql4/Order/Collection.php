@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -114,7 +114,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
                 break;
 
             case '1m':
-                $dateStart->setDay(Mage::getStoreConfig('reports/dashboard/mtd_start'));
+                $dateStart->setDay(1);
                 break;
 
             case 'custom':
@@ -123,15 +123,13 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
                 break;
 
             case '1y':
+                $dateStart->setMonth(1);
+                $dateStart->setDay(1);
+                break;
             case '2y':
-                $startMonthDay = explode(',', Mage::getStoreConfig('reports/dashboard/ytd_start'));
-                $startMonth = isset($startMonthDay[0]) ? (int)$startMonthDay[0] : 1;
-                $startDay = isset($startMonthDay[1]) ? (int)$startMonthDay[1] : 1;
-                $dateStart->setMonth($startMonth);
-                $dateStart->setDay($startDay);
-                if ($range == '2y') {
-                    $dateStart->subYear(1);
-                }
+                $dateStart->setMonth(1);
+                $dateStart->setDay(1);
+                $dateStart->subYear(1);
                 break;
         }
 
@@ -250,7 +248,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
 //        $this->getSelect()
 //            ->joinLeft(array("order_items2" => $tableName),
 //                "order_items2.entity_id = `order_items`.entity_id and order_items2.attribute_id = {$attrId}", array())
-//            ->columns(array("items" => "sum(order_items2.{$fieldName})"));
+//            ->from("", array("items" => "sum(order_items2.{$fieldName})"));
 
         $countSql = clone $this->getSelect();
         $countSql->reset();
@@ -261,7 +259,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
             ->where("`order_items`.`order_id` = `e`.`entity_id`")
             ->where("`order_items2`.`parent_item_id` is NULL");
 
-        $this->getSelect()->columns(array("items" => "SUM((".$countSql."))"));
+        $this->getSelect()->from("", array("items" => "SUM((".$countSql."))"));
 
         return $this;
     }
@@ -298,11 +296,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
                 ->addExpressionAttributeToSelect(
                     'refunded',
                     'SUM({{base_total_refunded}})',
-                    array('base_total_refunded'))
-                ->addExpressionAttributeToSelect(
-                    'profit',
-                    'SUM(IFNULL({{base_subtotal_invoiced}}, 0)) + SUM(IFNULL({{base_discount_refunded}}, 0)) - SUM(IFNULL({{base_subtotal_refunded}}, 0)) - SUM(IFNULL({{base_discount_invoiced}}, 0)) - SUM(IFNULL({{base_total_invoiced_cost}}, 0))',
-                    array('base_subtotal_invoiced', 'base_discount_refunded', 'base_subtotal_refunded', 'base_discount_invoiced', 'base_total_invoiced_cost'));
+                    array('base_total_refunded'));
         } else {
             $this->addExpressionAttributeToSelect(
                     'subtotal',
@@ -331,11 +325,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
                 ->addExpressionAttributeToSelect(
                     'refunded',
                     'SUM({{base_total_refunded}}*{{base_to_global_rate}})',
-                    array('base_total_refunded', 'base_to_global_rate'))
-                ->addExpressionAttributeToSelect(
-                    'profit',
-                    'SUM(IFNULL({{base_subtotal_invoiced}}, 0)*{{base_to_global_rate}}) + SUM(IFNULL({{base_discount_refunded}}, 0)*{{base_to_global_rate}}) - SUM(IFNULL({{base_subtotal_refunded}}, 0)*{{base_to_global_rate}}) - SUM(IFNULL({{base_discount_invoiced}}, 0)*{{base_to_global_rate}}) - SUM(IFNULL({{base_total_invoiced_cost}}, 0)*{{base_to_global_rate}})',
-                    array('base_subtotal_invoiced', 'base_discount_refunded', 'base_subtotal_refunded', 'base_discount_invoiced', 'base_total_invoiced_cost', 'base_to_global_rate'));
+                    array('base_total_refunded', 'base_to_global_rate'));
         }
 
         return $this;
@@ -363,7 +353,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
         //TODO: add full name logic
         $this->joinAttribute('firstname', 'customer/firstname', 'customer_id');
         $this->joinAttribute('lastname', 'customer/lastname', 'customer_id');
-        $this->getSelect()->columns(array('name' => 'CONCAT(_table_firstname.value," ", _table_lastname.value)'));
+        $this->getSelect()->from("", array('name' => 'CONCAT(_table_firstname.value," ", _table_lastname.value)'));
         return $this;
     }
 
@@ -376,7 +366,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
     {
         $this->addAttributeToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED));
         $this->getSelect()
-            ->columns(array("orders_count" => "COUNT(e.entity_id)"));
+            ->from('', array("orders_count" => "COUNT(e.entity_id)"));
 
         return $this;
     }
@@ -389,16 +379,40 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
      */
     public function addSumAvgTotals($storeId = 0)
     {
-        /**
-         * calculate average and total amount
-         */
-        $expr = ($storeId == 0)
-            ? '(e.base_subtotal-IFNULL(e.base_subtotal_refunded,0)-IFNULL(e.base_subtotal_canceled,0))*e.base_to_global_rate'
-            : 'e.base_subtotal-IFNULL(e.base_subtotal_canceled,0)-IFNULL(e.base_subtotal_refunded,0)';
+        if ($storeId == 0) {
+            /**
+             * Join store_to_base_rate attribute
+             */
+            $order = Mage::getResourceSingleton('sales/order');
+            /* @var $order Mage_Sales_Model_Entity_Order */
+
+            $attr = $order->getAttribute('base_to_global_rate');
+            /* @var $attr Mage_Eav_Model_Entity_Attribute_Abstract */
+            $attrId = $attr->getAttributeId();
+            $attributeTableName = $attr->getBackend()->getTable();
+            $baseToGlobalRateTableName = $attr->getBackend()->isStatic() ? 'base_to_global_rate' : 'value';
+
+            $this->getSelect()
+                ->joinLeft(array('_b2gr_'.$baseToGlobalRateTableName => $attributeTableName),
+                    "_b2gr_{$baseToGlobalRateTableName}.entity_id=e.entity_id AND ".
+                    "_b2gr_{$baseToGlobalRateTableName}.attribute_id={$attrId}", array());
+
+            /**
+             * calculate average and total amount
+             */
+            $expr = "(e.base_subtotal-IFNULL(e.base_subtotal_refunded,0)-IFNULL(e.base_subtotal_canceled,0))*_b2gr_{$baseToGlobalRateTableName}.{$baseToGlobalRateTableName}";
+
+        } else {
+
+            /**
+             * calculate average and total amount
+             */
+            $expr = "e.base_subtotal-IFNULL(e.base_subtotal_canceled,0)-IFNULL(e.base_subtotal_refunded,0)";
+        }
 
         $this->getSelect()
-            ->columns(array("orders_avg_amount" => "AVG({$expr})"))
-            ->columns(array("orders_sum_amount" => "SUM({$expr})"));
+            ->from('', array("orders_avg_amount" => "AVG({$expr})"))
+            ->from('', array("orders_sum_amount" => "SUM({$expr})"));
 
         return $this;
     }
@@ -438,28 +452,10 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->columns("count(DISTINCT e.entity_id)");
+        $countSelect->from("", "count(DISTINCT e.entity_id)");
 
         $sql = $countSelect->__toString();
 
         return $sql;
-    }
-
-    /**
-     * Add period filter by created_at attribute
-     *
-     * @param string $period
-     * @return Mage_Reports_Model_Mysql4_Order_Collection
-     */
-    public function addCreateAtPeriodFilter($period)
-    {
-        list($from, $to) = $this->getDateRange($period, 0, 0, true);
-
-        $this->addAttributeToFilter('created_at', array(
-            'from'  => $from->toString(Varien_Date::DATETIME_INTERNAL_FORMAT),
-            'to'    => $to->toString(Varien_Date::DATETIME_INTERNAL_FORMAT)
-        ));
-
-        return $this;
     }
 }

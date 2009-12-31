@@ -81,7 +81,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      *
      * @var string
      */
-    protected $_allowedDirsMask  = '/^[a-z0-9\.\-\_]+$/i';
+    protected $_allowedDirsMask  = '/^[a-z0-9\.\-]+$/i';
 
     /**
      * Filenames regex pre-filter
@@ -174,7 +174,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      */
     public function setCollectFiles($value)
     {
-        $this->_collectFiles = (bool)$value;
+        $this->_collectDirs = (bool)$value;
         return $this;
     }
 
@@ -231,13 +231,11 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
             $dir = array($dir);
         }
         foreach ($dir as $folder) {
-            if ($nodes = glob($folder . DIRECTORY_SEPARATOR . '*')) {
-                foreach ($nodes as $node) {
-                    $collectedResult[] = $node;
-                }
+            foreach (glob($folder . DIRECTORY_SEPARATOR . '*') as $node) {
+                $collectedResult[] = $node;
             }
         }
-        if (empty($collectedResult)) {
+        if (!is_array($collectedResult)) {
             return;
         }
 
@@ -295,12 +293,10 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
         // paginate and add items
         $from = ($this->getCurPage() - 1) * $this->getPageSize();
         $to = $from + $this->getPageSize() - 1;
-        $isPaginated = $this->getPageSize() > 0;
-
         $cnt = 0;
         foreach ($this->_collectedFiles as $row) {
             $cnt++;
-            if ($isPaginated && ($cnt < $from || $cnt > $to)) {
+            if ($cnt < $from || $cnt > $to) {
                 continue;
             }
             $item = new $this->_itemObjectClass();
@@ -685,7 +681,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
     }
 
     /**
-     * Callback method for 'lteq' fancy filter
+     * Callback method for 'leq' fancy filter
      *
      * @param string $field
      * @param mixed $filterValue

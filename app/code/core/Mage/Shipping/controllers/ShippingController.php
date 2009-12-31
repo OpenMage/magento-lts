@@ -18,24 +18,28 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Shipping
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @deprecated after 1.3.2.3 - this controller is not used anywhere
+ * Sales orders controller
+ *
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
+
 class Mage_Shipping_ShippingController extends Mage_Core_Controller_Front_Action
 {
-    /**
-     * @deprecated after 1.3.2.3
-     */
     public function viewAction()
     {
         $params = $this->getRequest()->getPost();
+        var_dump($params);
         $this->loadLayout();
         $this->renderLayout();
     }
+
 }

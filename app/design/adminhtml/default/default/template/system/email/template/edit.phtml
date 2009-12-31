@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div class="content-header">
@@ -104,7 +104,6 @@
     <?php echo $this->getBlockHtml('formkey')?>
     <fieldset>
         <input type="hidden" id="change_flag_element" name="_change_type_flag" value="" />
-        <input type="hidden" id="orig_template_code" name="orig_template_code" value="<?php echo $this->getOrigTemplateCode() ?>" />
         <?php echo $this->getFormHtml() ?>
     </fieldset>
 </form>
@@ -113,7 +112,6 @@
     <div class="no-display">
         <input type="hidden" id="preview_type" name="type" value="<?php echo $this->isTextType()?1:2 ?>" />
         <input type="hidden" id="preview_text" name="text" value="" />
-        <input type="hidden" id="preview_styles" name="styles" value="" />
     </div>
 </form>
 <script type="text/javascript">
@@ -123,13 +121,10 @@
     var templateControl = {
         unconvertedText: '',
         typeChange: false,
-        variables: null,
         init: function () {
-            if ($('convert_button_back')) {
-                $('convert_button_back').hide();
-            }
-            this.renderPaths(<?php echo $this->getUsedDefaultForPaths(); ?>, 'used_default_for');
-            this.renderPaths(<?php echo $this->getUsedCurrentlyForPaths(); ?>, 'used_currently_for');
+        	if ($('convert_button_back')) {
+        		$('convert_button_back').hide();
+        	}
         },
         stripTags: function () {
             if(!window.confirm("<?php echo $this->__('Are you sure that you want to strip tags?') ?>")) {
@@ -141,7 +136,6 @@
                 new RegExp('<style[^>]*>[\\S\\s]*?</style>', 'img'), ''
             ).stripTags().strip();
             $('convert_button_back').show();
-            $('field_template_styles').hide();
             this.typeChange = true;
             return false;
         },
@@ -149,7 +143,6 @@
             $('convert_button').show();
             $('convert_button_back').hide();
             $('template_text').value =  this.unconvertedText;
-            $('field_template_styles').show();
             this.typeChange = false;
             return false;
         },
@@ -163,26 +156,19 @@
         preview: function() {
             if (this.typeChange) {
                 $('preview_type').value = 1;
-            } else {
-                $('preview_type').value = 2;
             }
             if (typeof tinyMCE == 'undefined' || !tinyMCE.getInstanceById('template_text')) {
                 $('preview_text').value = $('template_text').value;
             } else {
-                $('preview_text').value = tinyMCE.getInstanceById('template_text').getHTML();
+                 $('preview_text').value = tinyMCE.getInstanceById('template_text').getHTML();
             }
-
-            if ($('template_styles') != undefined) {
-                $('preview_styles').value = $('template_styles').value;
-            }
-
             templatePreviewForm.submit();
             return false;
         },
 
         deleteTemplate: function() {
             if(window.confirm("<?php echo $this->__('Are you sure that you want to delete this template?') ?>")) {
-                   window.location.href = '<?php echo $this->getDeleteUrl() ?>';
+               	window.location.href = '<?php echo $this->getDeleteUrl() ?>';
             }
         },
 
@@ -192,8 +178,6 @@
             if (!form.validator.validate()) {
                 return;
             }
-
-            this.variables = null;
 
             new Ajax.Request($('email_template_load_form').action, {
                parameters: Form.serialize($('email_template_load_form'), true),
@@ -216,60 +200,11 @@
                                   $('convert_button').show();
                               }
                           }
-                          if (pair.key == 'orig_template_used_default_for') {
-                               if(pair.value.length){
-                                   $('used_default_for').show();
-                                   this.renderPaths(pair.value, 'used_default_for');
-                               }
-                               else{
-                                   $('used_default_for').hide();
-                               }
-                          }
                        }.bind(this));
                    }
                }.bind(this)
             });
 
-        },
-
-        renderPaths: function(paths, fieldId){
-            var field = $(fieldId);
-            if(field){
-                field.down('td').next('td').update(this.parsePath(paths, '<span class="path-delimiter">&nbsp;-&gt;&nbsp;</span>', '<br />'));
-            }
-        },
-
-        parsePath: function (value, pathDelimiter, lineDelimiter) {
-            if (Object.isArray(value)) {
-                var result = [];
-                for (var i = 0, len = value.length; i < len; i++) {
-                    result.push(this.parsePath(value[i], pathDelimiter, pathDelimiter));
-                }
-                return result.join(lineDelimiter);
-            }
-
-            if(!Object.isString(value) && value.title) {
-                value = (value.url ? '<a href="' + value.url + '">' + value.title + '</a>' : value.title) + (value.scope ? '&nbsp;&nbsp;<span class="path-scope-label">(' + value.scope + ')</span>' : '');
-            }
-
-            return value;
-        },
-
-        openVariableChooser: function() {
-            Variables.init('template_text');
-            if (this.variables == null) {
-                Variables.resetData();
-                this.variables = $('variables').value.evalJSON();
-                var templateVariablesValue = $('template_variables').value;
-                if (this.variables && templateVariablesValue) {
-                    if (templateVariables = templateVariablesValue.evalJSON()) {
-                        this.variables.push(templateVariables);
-                    }
-                }
-            }
-            if (this.variables) {
-                Variables.openVariableChooser(this.variables);
-            }
         }
     };
 

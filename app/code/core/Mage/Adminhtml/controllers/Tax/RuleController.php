@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -53,7 +53,6 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         if ($taxRuleId) {
             $ruleModel->load($taxRuleId);
             if (!$ruleModel->getId()) {
-                Mage::getSingleton('adminhtml/session')->unsRuleData();
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('This rule no longer exists'));
                 $this->_redirect('*/*/');
                 return;
@@ -83,13 +82,8 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
                 $ruleModel->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('Tax rule was successfully saved'));
-
-                if ($this->getRequest()->getParam('back')) {
-                    $this->_redirect('*/*/edit', array('rule' => $ruleModel->getId()));
-                    return;
-                }
-
                 $this->_redirect('*/*/');
+
                 return;
             }
             catch (Mage_Core_Exception $e) {
@@ -101,9 +95,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
             Mage::getSingleton('adminhtml/session')->setRuleData($postData);
             $this->_redirectReferer();
-            return;
         }
-        $this->getResponse()->setRedirect($this->getUrl('*/tax_rule'));
     }
 
     public function deleteAction()
@@ -152,6 +144,6 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/tax/rules');
+	    return Mage::getSingleton('admin/session')->isAllowed('sales/tax/rules');
     }
 }

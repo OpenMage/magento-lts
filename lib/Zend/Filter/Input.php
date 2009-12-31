@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -14,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Input.php 18186 2009-09-17 18:57:00Z matthew $
+ * @version    $Id: Input.php 12670 2008-11-15 19:35:19Z beberlei $
  */
 
 /**
@@ -37,7 +38,7 @@
 /**
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_Input
@@ -720,7 +721,7 @@ class Zend_Filter_Input
             $validatorList = array();
             foreach ($validatorRule as $key => $value) {
                 if (is_int($key)) {
-                    $validatorList[$key] = $value;
+                    $validatorList[] = $value;
                 }
             }
 
@@ -740,22 +741,12 @@ class Zend_Filter_Input
             if (!isset($validatorRule[self::ALLOW_EMPTY])) {
                 $validatorRule[self::ALLOW_EMPTY] = $this->_defaults[self::ALLOW_EMPTY];
             }
-
             if (!isset($validatorRule[self::MESSAGES])) {
                 $validatorRule[self::MESSAGES] = array();
             } else if (!is_array($validatorRule[self::MESSAGES])) {
                 $validatorRule[self::MESSAGES] = array($validatorRule[self::MESSAGES]);
-            } else if (array_intersect_key($validatorList, $validatorRule[self::MESSAGES])) {
-                // There are now corresponding numeric keys in the validation rule messages array
-                // Treat it as a named messages list for all rule validators
-                $unifiedMessages = $validatorRule[self::MESSAGES];
-                $validatorRule[self::MESSAGES] = array();
-
-                foreach ($validatorList as $key => $validator) {
-                    if (array_key_exists($key, $unifiedMessages)) {
-                        $validatorRule[self::MESSAGES][$key] = $unifiedMessages[$key];
-                    }
-                }
+            } else if (!array_intersect_key($validatorList, $validatorRule[self::MESSAGES])) {
+                $validatorRule[self::MESSAGES] = array($validatorRule[self::MESSAGES]);
             }
 
             /**
@@ -763,28 +754,25 @@ class Zend_Filter_Input
              */
             if (!isset($validatorRule[self::VALIDATOR_CHAIN])) {
                 $validatorRule[self::VALIDATOR_CHAIN] = new Zend_Validate();
+                $i = 0;
+                foreach ($validatorList as $validator) {
 
-                foreach ($validatorList as $key => $validator) {
                     if (is_string($validator) || is_array($validator)) {
                         $validator = $this->_getValidator($validator);
                     }
-
-                    if (isset($validatorRule[self::MESSAGES][$key])) {
-                        $value = $validatorRule[self::MESSAGES][$key];
+                    if (isset($validatorRule[self::MESSAGES][$i])) {
+                        $value = $validatorRule[self::MESSAGES][$i];
                         if (is_array($value)) {
                             $validator->setMessages($value);
                         } else {
                             $validator->setMessage($value);
                         }
-
-                        if ($validator instanceof Zend_Validate_NotEmpty) {
-                            $this->_defaults[self::NOT_EMPTY_MESSAGE] = $value;
-                        }
                     }
 
                     $validatorRule[self::VALIDATOR_CHAIN]->addValidator($validator, $validatorRule[self::BREAK_CHAIN]);
+                    ++$i;
                 }
-                $validatorRule[self::VALIDATOR_CHAIN_COUNT] = count($validatorList);
+                $validatorRule[self::VALIDATOR_CHAIN_COUNT] = $i;
             }
 
             /**
@@ -832,26 +820,21 @@ class Zend_Filter_Input
          * Apply defaults if fields are missing.
          */
         $data = array();
-        foreach ((array) $validatorRule[self::FIELDS] as $key => $field) {
+        foreach ((array) $validatorRule[self::FIELDS] as $field) {
             if (array_key_exists($field, $this->_data)) {
                 $data[$field] = $this->_data[$field];
-            } else if (isset($validatorRule[self::DEFAULT_VALUE])) {
-                /** @todo according to this code default value can't be an array. It has to be reviewed */
-                if (!is_array($validatorRule[self::DEFAULT_VALUE])) {
-                    // Default value is a scalar
-                    $data[$field] = $validatorRule[self::DEFAULT_VALUE];
-                } else {
-                    // Default value is an array. Search for corresponding key
-                    if (isset($validatorRule[self::DEFAULT_VALUE][$key])) {
+            } else
+            if (array_key_exists(self::DEFAULT_VALUE, $validatorRule)) {
+                if (is_array($validatorRule[self::DEFAULT_VALUE])) {
+                    $key = array_search($field, (array) $validatorRule[self::FIELDS]);
+                    if (array_key_exists($key, $validatorRule[self::DEFAULT_VALUE])) {
                         $data[$field] = $validatorRule[self::DEFAULT_VALUE][$key];
-                    } else if ($validatorRule[self::PRESENCE] == self::PRESENCE_REQUIRED) {
-                        // Default value array is provided, but it doesn't have an entry for current field
-                        // and presence is required
-                        $this->_missingFields[$validatorRule[self::RULE]][] =
-                           $this->_getMissingMessage($validatorRule[self::RULE], $field);
                     }
+                } else {
+                    $data[$field] = $validatorRule[self::DEFAULT_VALUE];
                 }
-            } else if ($validatorRule[self::PRESENCE] == self::PRESENCE_REQUIRED) {
+            } else
+            if ($validatorRule[self::PRESENCE] == self::PRESENCE_REQUIRED) {
                 $this->_missingFields[$validatorRule[self::RULE]][] =
                     $this->_getMissingMessage($validatorRule[self::RULE], $field);
             }
@@ -868,93 +851,38 @@ class Zend_Filter_Input
          * Evaluate the inputs against the validator chain.
          */
         if (count((array) $validatorRule[self::FIELDS]) > 1) {
-            if (!$validatorRule[self::ALLOW_EMPTY]) {
-                $emptyFieldsFound = false;
-                $errorsList       = array();
-                $messages         = array();
-
-                foreach ($data as $fieldKey => $field) {
-                    $notEmptyValidator = $this->_getValidator('NotEmpty');
-                    $notEmptyValidator->setMessage($this->_getNotEmptyMessage($validatorRule[self::RULE], $fieldKey));
-
-                    if (!$notEmptyValidator->isValid($field)) {
-                        foreach ($notEmptyValidator->getMessages() as $messageKey => $message) {
-                            if (!isset($messages[$messageKey])) {
-                                $messages[$messageKey] = $message;
-                            } else {
-                                $messages[] = $message;
-                            }
-                        }
-                        $errorsList[] = $notEmptyValidator->getErrors();
-                        $emptyFieldsFound = true;
-                    }
-                }
-
-                if ($emptyFieldsFound) {
-                    $this->_invalidMessages[$validatorRule[self::RULE]] = $messages;
-                    $this->_invalidErrors[$validatorRule[self::RULE]]   = array_unique(call_user_func_array('array_merge', $errorsList));
-                    return;
-                }
-            }
-
             if (!$validatorRule[self::VALIDATOR_CHAIN]->isValid($data)) {
                 $this->_invalidMessages[$validatorRule[self::RULE]] = $validatorRule[self::VALIDATOR_CHAIN]->getMessages();
                 $this->_invalidErrors[$validatorRule[self::RULE]] = $validatorRule[self::VALIDATOR_CHAIN]->getErrors();
                 return;
             }
-        } else if (count($data) > 0) {
-            // $data is actually a one element array
-            $fieldNames = array_keys($data);
-            $fieldName = reset($fieldNames);
-            $field     = reset($data);
-
+        } else {
             $failed = false;
-            if (!is_array($field)) {
-                $field = array($field);
-            }
-
-            $notEmptyValidator = $this->_getValidator('NotEmpty');
-            $notEmptyValidator->setMessage($this->_getNotEmptyMessage($validatorRule[self::RULE], $fieldName));
-            if ($validatorRule[self::ALLOW_EMPTY]) {
-                $validatorChain = $validatorRule[self::VALIDATOR_CHAIN];
-            } else {
-                $validatorChain = new Zend_Validate();
-                $validatorChain->addValidator($notEmptyValidator, true /* Always break on failure */);
-                $validatorChain->addValidator($validatorRule[self::VALIDATOR_CHAIN]);
-            }
-
-            foreach ($field as $value) {
-                if ($validatorRule[self::ALLOW_EMPTY]  &&  !$notEmptyValidator->isValid($value)) {
-                    // Field is empty AND it's allowed. Do nothing.
-                    continue;
+            foreach ($data as $fieldKey => $field) {
+                if (!is_array($field)) {
+                    $field = array($field);
                 }
-
-                if (!$validatorChain->isValid($value)) {
-                    if (isset($this->_invalidMessages[$validatorRule[self::RULE]])) {
-                        $collectedMessages = $this->_invalidMessages[$validatorRule[self::RULE]];
-                    } else {
-                        $collectedMessages = array();
-                    }
-
-                    foreach ($validatorChain->getMessages() as $messageKey => $message) {
-                        if (!isset($collectedMessages[$messageKey])) {
-                            $collectedMessages[$messageKey] = $message;
-                        } else {
-                            $collectedMessages[] = $message;
+                foreach ($field as $value) {
+                    if (empty($value)) {
+                        if ($validatorRule[self::ALLOW_EMPTY] == true) {
+                            continue;
+                        }
+                        if ($validatorRule[self::VALIDATOR_CHAIN_COUNT] == 0) {
+                            $notEmptyValidator = $this->_getValidator('NotEmpty');
+                            $notEmptyValidator->setMessage($this->_getNotEmptyMessage($validatorRule[self::RULE], $fieldKey));
+                            $validatorRule[self::VALIDATOR_CHAIN]->addValidator($notEmptyValidator);
                         }
                     }
-
-                    $this->_invalidMessages[$validatorRule[self::RULE]] = $collectedMessages;
-                    if (isset($this->_invalidErrors[$validatorRule[self::RULE]])) {
-                        $this->_invalidErrors[$validatorRule[self::RULE]] = array_merge($this->_invalidErrors[$validatorRule[self::RULE]],
-                                                                                        $validatorChain->getErrors());
-                    } else {
-                        $this->_invalidErrors[$validatorRule[self::RULE]] = $validatorChain->getErrors();
-                    }
-                    unset($this->_validFields[$fieldName]);
-                    $failed = true;
-                    if ($validatorRule[self::BREAK_CHAIN]) {
-                        return;
+                    if (!$validatorRule[self::VALIDATOR_CHAIN]->isValid($value)) {
+                        $this->_invalidMessages[$validatorRule[self::RULE]] =
+                            $validatorRule[self::VALIDATOR_CHAIN]->getMessages();
+                        $this->_invalidErrors[$validatorRule[self::RULE]] =
+                            $validatorRule[self::VALIDATOR_CHAIN]->getErrors();
+                        unset($this->_validFields[$fieldKey]);
+                        $failed = true;
+                        if ($validatorRule[self::BREAK_CHAIN]) {
+                            return;
+                        }
                     }
                 }
             }

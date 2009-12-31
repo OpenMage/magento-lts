@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,9 +70,6 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      */
     public function hasLinks($product = null)
     {
-        if ($this->getProduct($product)->hasData('links_exist')) {
-            return $this->getProduct($product)->getData('links_exist');
-        }
         return count($this->getLinks($product)) > 0;
     }
 
@@ -146,7 +143,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     }
 
     /**
-     * Save Product downloadable information (links and samples)
+     * Enter description here...
      *
      * @param Mage_Catalog_Model_Product $product
      * @return Mage_Downloadable_Model_Product_Type
@@ -174,7 +171,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                         $sampleModel = Mage::getModel('downloadable/sample');
                         $files = array();
                         if (isset($sampleItem['file'])) {
-                            $files = Mage::helper('core')->jsonDecode($sampleItem['file']);
+                            $files = Zend_Json::decode($sampleItem['file']);
                             unset($sampleItem['file']);
                         }
 
@@ -212,7 +209,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                         }
                         $files = array();
                         if (isset($linkItem['file'])) {
-                            $files = Mage::helper('core')->jsonDecode($linkItem['file']);
+                            $files = Zend_Json::decode($linkItem['file']);
                             unset($linkItem['file']);
                         }
                         $sample = array();
@@ -225,8 +222,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                             ->setLinkType($linkItem['type'])
                             ->setProductId($product->getId())
                             ->setStoreId($product->getStoreId())
-                            ->setWebsiteId($product->getStore()->getWebsiteId())
-                            ->setProductWebsiteIds($product->getWebsiteIds());
+                            ->setWebsiteId($product->getStore()->getWebsiteId());
                         if (null === $linkModel->getPrice()) {
                             $linkModel->setPrice(0);
                         }
@@ -239,7 +235,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                                 $linkModel->setSampleUrl($sample['url']);
                             }
                             $linkModel->setSampleType($sample['type']);
-                            $sampleFile = Mage::helper('core')->jsonDecode($sample['file']);
+                            $sampleFile = Zend_Json::decode($sample['file']);
                         }
                         if ($linkModel->getLinkType() == Mage_Downloadable_Helper_Download::LINK_TYPE_FILE) {
                             $linkFileName = Mage::helper('downloadable/file')->moveFileFromTmp(
@@ -263,9 +259,6 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                 if ($_deleteItems) {
                     Mage::getResourceModel('downloadable/link')->deleteItems($_deleteItems);
                 }
-                if ($this->getProduct($product)->getLinksPurchasedSeparately()) {
-                    $this->getProduct($product)->setIsCustomOptionChanged();
-                }
             }
         }
 
@@ -273,7 +266,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     }
 
     /**
-     * Prepare Product object before adding to Shopping Cart
+     * Enter description here...
      *
      * @param Varien_Object $buyRequest
      * @param Mage_Catalog_Model_Product $product
@@ -361,27 +354,6 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
             $this->getProduct($product)->setTypeHasOptions(false);
             $this->getProduct($product)->setTypeHasRequiredOptions(false);
         }
-
-        // Update links_exist attribute value
-        $linksExist = false;
-        if ($data = $product->getDownloadableData()) {
-            if (isset($data['link'])) {
-                foreach ($data['link'] as $linkItem) {
-                    if (!isset($linkItem['is_delete']) || !$linkItem['is_delete']) {
-                        $linksExist = true;
-                        break;
-                    }
-                }
-            }
-        }
-
-        /*
-         * After "Downloadable Information" tab was made non-ajax we should
-         * set this flag "true" to force saving of 'required_options' attribute
-         */
-        $this->getProduct($product)->setCanSaveCustomOptions(true);
-
-        $this->getProduct($product)->setLinksExist($linksExist);
     }
 
     /**
@@ -409,16 +381,5 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
         }
 
         return $searchData;
-    }
-
-    /**
-     * Check is product available for sale
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @return bool
-     */
-    public function isSalable($product = null)
-    {
-        return $this->hasLinks($product) && parent::isSalable($product);
     }
 }

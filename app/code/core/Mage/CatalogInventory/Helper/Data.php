@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,8 +29,6 @@
  */
 class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_SHOW_OUT_OF_STOCK    = 'cataloginventory/options/show_out_of_stock';
-
     /**
      * All product types registry in scope of quantity availability
      *
@@ -95,15 +93,5 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
             'notify_stock_qty',
             'manage_stock'
         );
-    }
-
-    /**
-     * Display out of stock products option
-     *
-     * @return bool
-     */
-    public function isShowOutOfStock()
-    {
-        return Mage::getStoreConfigFlag(self::XML_PATH_SHOW_OUT_OF_STOCK);
     }
 }

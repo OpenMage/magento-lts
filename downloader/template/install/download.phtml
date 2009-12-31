@@ -1,0 +1,87 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   Varien
+ * @package    Varien_Object
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php echo $this->template('install/header.phtml') ?>
+
+<div class="page-head">
+    <h3>Welcome to Magento's Installation Wizard!</h3>
+</div>
+
+<fieldset>
+<?php if (!$this->controller()->isDownloaded()): ?>
+    <p>You are now ready to continue the installation process by downloading the most up-to-date copy of the Magento software.</p>
+    <form id="install_all" method="post" action="<?php echo $this->url('pearInstallAll') ?>" target="pear_iframe" onsubmit="return installAll()">
+        <fieldset>
+            <button class="form-button" type="submit">Start the download process</button>
+        </fielset>
+    </form>
+<?php else: ?>
+    <p>There's an indication that Magento files already have been downloaded.</p>
+    <p>If you feel that you have arrived to this page by mistake, please continue installation:</p>
+    <button class="form-button" type="button" onclick="location.href='<?php echo $this->mageUrl() ?>'"><span>Continue Magento installation</span></button>
+    <br/><br/><br/>
+    <p>Alternatively, you could proceed with Re-Downloading all packages</p>
+    <form id="reinstall_all" method="post" action="<?php echo $this->url('pearInstallAll') ?>&force=1" target="pear_iframe" onsubmit="return installAll(true)">
+        <fieldset>
+            <button class="form-button" type="submit">Re-Download All Magento Core Packages</button>
+        </fieldset>
+    </form>
+<?php endif; ?>
+</fieldset>
+
+<br/>
+<?php echo $this->template('pear/iframe.phtml') ?>
+
+<a name="pear_iframe_result"></a>
+<div id="pear_iframe_success" style="display:none">
+    <?php $this->set('messages', array('success'=>array(
+       'Download completed. You can proceed with installation',
+    ))) ?>
+    <?php echo $this->template('messages.phtml') ?>
+
+    <button class="form-button" type="button" onclick="location.href='<?php echo $this->mageUrl() ?>'"><span>Continue Magento installation</span></button>
+</div>
+
+<div id="pear_iframe_failure" style="display:none">
+    <?php $this->set('messages', array('error'=>array('There was a problem during downloading of Magento packages. Please check the output frame for errors information and refresh the page to retry again.'))) ?>
+    <?php echo $this->template('messages.phtml') ?>
+    <button class="form-button" type="button" onclick="location.reload()"><span>Refresh</span></button>
+</div>
+
+<script type="text/javascript">
+function installAll(force)
+{
+    if (force) {
+        if (!confirm("This will delete all files from core packages.\n\nAre you sure you wish to force re-install all Magento files?")) {
+            return false;
+        }
+    }
+
+    return onSubmit();
+}
+</script>
+
+<?php echo $this->template('install/footer.phtml') ?>

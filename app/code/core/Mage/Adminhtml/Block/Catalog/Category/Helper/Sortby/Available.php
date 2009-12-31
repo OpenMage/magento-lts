@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -48,8 +48,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Sortby_Available
             $disabled = true;
         }
         $html = parent::getElementHtml();
+
         $htmlId = 'use_config_' . $this->getHtmlId();
-        $html .= '<input id="'.$htmlId.'" name="use_config[]" value="' . $this->getId() . '"';
+        $html .= '<input id="'.$htmlId.'" value="1"';
         $html .= ($disabled ? ' checked="checked"' : '');
 
         if ($this->getReadonly()) {
@@ -59,7 +60,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Sortby_Available
         $html .= 'onclick="toggleValueElements(this, this.parentNode);" class="checkbox" type="checkbox">';
 
         $html .= ' <label for="'.$htmlId.'" class="normal">'
-            . Mage::helper('adminhtml')->__('Use All Available Attributes').'</label>';
+            . Mage::helper('adminhtml')->__('Use Config Settings').'</label>';
         $html .= '<script type="text/javascript">toggleValueElements($(\''.$htmlId.'\'), $(\''.$htmlId.'\').parentNode);</script>';
 
         return $html;

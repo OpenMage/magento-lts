@@ -18,21 +18,26 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_PaypalUk
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- * UK domestic cards specific information block
- */
+
 class Mage_PaypalUk_Block_Direct_Form extends Mage_Payment_Block_Form_Cc
 {
+    protected function _construct()
+    {
+        parent::_construct();
+        $this->setTemplate('paypaluk/direct/form.phtml');
+    }
+
     protected function _getDirect()
     {
         return Mage::getSingleton('paypaluk/direct');
     }
+
 
     /**
      * Retrieve availables credit card types
@@ -88,19 +93,4 @@ class Mage_PaypalUk_Block_Direct_Form extends Mage_Payment_Block_Form_Cc
         return false;
     }
 
-    /**
-     * Add UK domestic cards additional fields as child block
-     * 
-     * Forks a clone, but with a different form
-     *
-     * @return Mage_PaypalUk_Block_Direct_Form
-     */
-    public function _beforeToHtml()
-    {
-        $child = clone $this;
-        $this->setChild('uk_domestic',
-            $child->setTemplate('paypaluk/direct/form.phtml')
-        );
-        return parent::_beforeToHtml();
-    }
 }

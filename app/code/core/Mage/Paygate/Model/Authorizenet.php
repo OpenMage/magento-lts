@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Paygate
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paygate
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -93,73 +93,62 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      */
     public function canUseForCurrency($currencyCode)
     {
-        if (!in_array($currencyCode, $this->getAcceptedCurrencyCodes())) {
+        if (!in_array($currencyCode, $this->_allowCurrencyCode)) {
             return false;
         }
         return true;
     }
 
     /**
-     * Return array of currency codes supplied by Payment Gateway
-     *
-     * @return array
-     */
-    public function getAcceptedCurrencyCodes()
-    {
-        if (!$this->hasData('_accepted_currency')) {
-            $acceptedCurrencyCodes = $this->_allowCurrencyCode;
-            $acceptedCurrencyCodes[] = $this->getConfigData('currency');
-            $this->setData('_accepted_currency', $acceptedCurrencyCodes);
-        }
-        return $this->_getData('_accepted_currency');
-    }
-
-    /**
      * Send authorize request to gateway
      *
-     * @param  Varien_Object $payment
-     * @param  decimal $amount
-     * @return Mage_Paygate_Model_Authorizenet
-     * @throws Mage_Core_Exception
+     * @param   Varien_Object $payment
+     * @param   decimal $amount
+     * @return  Mage_Paygate_Model_Authorizenet
      */
     public function authorize(Varien_Object $payment, $amount)
     {
-        if ($amount <= 0) {
-            Mage::throwException(Mage::helper('paygate')->__('Invalid amount for authorization.'));
+        $error = false;
+
+        if($amount>0){
+            $payment->setAnetTransType(self::REQUEST_TYPE_AUTH_ONLY);
+            $payment->setAmount($amount);
+
+            $request= $this->_buildRequest($payment);
+            $result = $this->_postRequest($request);
+
+            $payment->setCcApproval($result->getApprovalCode())
+                ->setLastTransId($result->getTransactionId())
+                ->setCcTransId($result->getTransactionId())
+                ->setCcAvsStatus($result->getAvsResultCode())
+                ->setCcCidStatus($result->getCardCodeResponseCode());
+
+            switch ($result->getResponseCode()) {
+                case self::RESPONSE_CODE_APPROVED:
+                    $payment->setStatus(self::STATUS_APPROVED);
+                    break;
+                case self::RESPONSE_CODE_DECLINED:
+                    $error = Mage::helper('paygate')->__('Payment authorization transaction has been declined.');
+                    break;
+                default:
+                    $error = Mage::helper('paygate')->__('Payment authorization error.');
+                    break;
+            }
+        }else{
+            $error = Mage::helper('paygate')->__('Invalid amount for authorization.');
         }
-        $payment->setAnetTransType(self::REQUEST_TYPE_AUTH_ONLY);
-        $payment->setAmount($amount);
 
-        $request= $this->_buildRequest($payment);
-        $result = $this->_postRequest($request);
-
-        $payment->setCcApproval($result->getApprovalCode())
-            ->setLastTransId($result->getTransactionId())
-            ->setCcTransId($result->getTransactionId())
-            ->setCcAvsStatus($result->getAvsResultCode())
-            ->setCcCidStatus($result->getCardCodeResponseCode());
-
-        switch ($result->getResponseCode()) {
-            case self::RESPONSE_CODE_APPROVED:
-                $payment->setStatus(self::STATUS_APPROVED);
-                return $this;
-            case self::RESPONSE_CODE_DECLINED:
-                Mage::throwException(Mage::helper('paygate')->__('Payment authorization transaction has been declined.'));
-            default:
-                Mage::throwException(Mage::helper('paygate')->__('Payment authorization error.'));
+        if ($error !== false) {
+            Mage::throwException($error);
         }
+        return $this;
     }
 
-    /**
-     * Send capture request to gateway
-     *
-     * @param Varien_Object $payment
-     * @param decimal $amount
-     * @return Mage_Paygate_Model_Authorizenet
-     * @throws Mage_Core_Exception
-     */
+
     public function capture(Varien_Object $payment, $amount)
     {
+        $error = false;
+
         if ($payment->getCcTransId()) {
             $payment->setAnetTransType(self::REQUEST_TYPE_PRIOR_AUTH_CAPTURE);
         } else {
@@ -175,69 +164,87 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             $payment->setStatus(self::STATUS_APPROVED);
             //$payment->setCcTransId($result->getTransactionId());
             $payment->setLastTransId($result->getTransactionId());
-            return $this;
         }
-        if ($result->getResponseReasonText()) {
-            Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+        else {
+            if ($result->getResponseReasonText()) {
+                $error = $result->getResponseReasonText();
+            }
+            else {
+                $error = Mage::helper('paygate')->__('Error in capturing the payment');
+            }
         }
-        Mage::throwException(Mage::helper('paygate')->__('Error in capturing the payment'));
+
+        if ($error !== false) {
+            Mage::throwException($error);
+        }
+
+        return $this;
     }
 
 
     /**
-     * Void the payment through gateway
+     * void
      *
-     * @param Varien_Object $payment
-     * @return Mage_Paygate_Model_Authorizenet
-     * @throws Mage_Core_Exception
+ * @author      Magento Core Team <core@magentocommerce.com>
+     * @access public
+     * @param string $payment Varien_Object object
+     * @return Mage_Payment_Model_Abstract
      */
     public function void(Varien_Object $payment)
     {
-        if ($payment->getVoidTransactionId()) {
+        $error = false;
+        if($payment->getVoidTransactionId()){
             $payment->setAnetTransType(self::REQUEST_TYPE_VOID);
             $request = $this->_buildRequest($payment);
                         $request->setXTransId($payment->getVoidTransactionId());
             $result = $this->_postRequest($request);
-            if ($result->getResponseCode()==self::RESPONSE_CODE_APPROVED) {
+            if($result->getResponseCode()==self::RESPONSE_CODE_APPROVED){
                  $payment->setStatus(self::STATUS_SUCCESS );
-                 return $this;
             }
+            else{
+                $payment->setStatus(self::STATUS_ERROR);
+                $error = $result->getResponseReasonText();
+            }
+        }else{
             $payment->setStatus(self::STATUS_ERROR);
-            Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+            $error = Mage::helper('paygate')->__('Invalid transaction id');
         }
-        $payment->setStatus(self::STATUS_ERROR);
-        Mage::throwException(Mage::helper('paygate')->__('Invalid transaction id'));
+        if ($error !== false) {
+            Mage::throwException($error);
+        }
+        return $this;
     }
 
     /**
      * refund the amount with transaction id
      *
+     * @access public
      * @param string $payment Varien_Object object
-     * @return Mage_Paygate_Model_Authorizenet
-     * @throws Mage_Core_Exception
+     * @return Mage_Payment_Model_Abstract
      */
     public function refund(Varien_Object $payment, $amount)
     {
-        if ($payment->getRefundTransactionId() && $amount > 0) {
+        $error = false;
+        if ($payment->getRefundTransactionId() && $amount>0) {
             $payment->setAnetTransType(self::REQUEST_TYPE_CREDIT);
             $request = $this->_buildRequest($payment);
             $request->setXTransId($payment->getRefundTransactionId());
-
-            /**
-             * need to send last 4 digit credit card number to authorize.net
-             * otherwise it will give an error
-             */
-            $request->setXCardNum($payment->getCcLast4());
-
             $result = $this->_postRequest($request);
 
             if ($result->getResponseCode()==self::RESPONSE_CODE_APPROVED) {
                 $payment->setStatus(self::STATUS_SUCCESS);
-                return $this;
+            } else {
+                $error = $result->getResponseReasonText();
             }
-            Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
+
+        } else {
+            $error = Mage::helper('paygate')->__('Error in refunding the payment');
         }
-        Mage::throwException(Mage::helper('paygate')->__('Error in refunding the payment'));
+
+        if ($error !== false) {
+            Mage::throwException($error);
+        }
+        return $this;
     }
 
     /**
@@ -401,7 +408,9 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                     ->setResultDump(print_r($result->getData(),1))
                     ->save();
             }
-            Mage::throwException($this->_wrapGatewayError($e->getMessage()));
+            Mage::throwException(
+                Mage::helper('paygate')->__('Gateway request error: %s', $e->getMessage())
+            );
         }
 
         $responseBody = $response->getBody();
@@ -424,7 +433,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                 ->setCustomerId($r[12])
                 ->setMd5Hash($r[37])
                 ->setCardCodeResponseCode($r[38])
-                ->setCAVVResponseCode( (isset($r[39])) ? $r[39] : null);
+                ->setCAVVResponseCode($r[39]);
         } else {
              Mage::throwException(
                 Mage::helper('paygate')->__('Error in payment gateway')
@@ -440,16 +449,5 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         }
 
         return $result;
-    }
-
-    /**
-     * Gateway response wrapper
-     *
-     * @param string $text
-     * @return string
-     */
-    protected function _wrapGatewayError($text)
-    {
-        return Mage::helper('paygate')->__('Gateway error: %s', $text);
     }
 }

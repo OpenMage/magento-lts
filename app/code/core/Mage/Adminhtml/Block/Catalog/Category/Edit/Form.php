@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -75,12 +75,11 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         }
 
         if (!$this->getCategory()->isReadonly()) {
-            $resetPath = $this->getCategory()->getId() ? '*/*/edit' : '*/*/add';
             $this->setChild('reset_button',
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('catalog')->__('Reset'),
-                        'onclick'   => "categoryReset('".$this->getUrl($resetPath, array('_current'=>true))."',true)"
+                        'onclick'   => "categoryReset('".$this->getUrl('*/*/edit', array('_current'=>true))."',true)"
                     ))
             );
         }
@@ -145,9 +144,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
      */
     public function addAdditionalButton($alias, $config)
     {
-        if (isset($config['name'])) {
-            $config['element_name'] = $config['name'];
-        }
         $this->setChild($alias . '_button',
                         $this->getLayout()->createBlock('adminhtml/widget_button')->addData($config));
         $this->_additionalButtons[$alias] = $alias . '_button';
@@ -190,24 +186,11 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         return $this->getUrl('*/*/delete', $params);
     }
 
-    /**
-     * Return URL for refresh input element 'path' in form
-     *
-     * @param array $args
-     * @return string
-     */
-    public function getRefreshPathUrl(array $args = array())
-    {
-        $params = array('_current'=>true);
-        $params = array_merge($params, $args);
-        return $this->getUrl('*/*/refreshPath', $params);
-    }
-
     public function getProductsJson()
     {
         $products = $this->getCategory()->getProductsPosition();
         if (!empty($products)) {
-            return Mage::helper('core')->jsonEncode($products);
+            return Zend_Json::encode($products);
         }
         return '{}';
     }

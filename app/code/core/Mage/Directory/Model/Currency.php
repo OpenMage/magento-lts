@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Directory
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Directory
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -128,8 +128,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         }
         return $rates[$code];
     }
-
-    /**
+    
+	/**
      * Get currency rate (base=>allowed or allowed=>base)
      *
      * @param   string $toCurrency
@@ -194,24 +194,6 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      */
     public function format($price, $options=array(), $includeContainer = true, $addBrackets = false)
     {
-        return $this->formatPrecision($price, 2, $options, $includeContainer, $addBrackets);
-    }
-
-    /**
-     * Apply currency format to number with specific rounding precision
-     *
-     * @param   float $price
-     * @param   int $precision
-     * @param   array $options
-     * @param   bool $includeContainer
-     * @param   bool $addBrackets
-     * @return  string
-     */
-    public function formatPrecision($price, $precision, $options=array(), $includeContainer = true, $addBrackets = false)
-    {
-        if (!isset($options['precision'])) {
-            $options['precision'] = $precision;
-        }
         if ($includeContainer) {
             return '<span class="price">' . ($addBrackets ? '[' : '') . $this->formatTxt($price, $options) . ($addBrackets ? ']' : '') . '</span>';
         }
@@ -225,11 +207,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         }
         /**
          * Fix problem with 12 000 000, 1 200 000
-         *
-         * %f - the argument is treated as a float, and presented as a floating-point number (locale aware).
-         * %F - the argument is treated as a float, and presented as a floating-point number (non-locale aware).
          */
-        $price = sprintf("%F", $price);
+        $price = sprintf("%f", $price);
         return Mage::app()->getLocale()->currency($this->getCode())->toCurrency($price, $options);
     }
 

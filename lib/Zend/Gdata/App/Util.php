@@ -16,9 +16,8 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Util.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /**
@@ -27,7 +26,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_App_Util
@@ -81,7 +80,7 @@ class Zend_Gdata_App_Util
             throw new Zend_Gdata_App_Exception("Empty namespace collection encountered.");
         }
 
-        if ($maximumKey === null) {
+        if (is_null($maximumKey)) {
             // If the key is null, then we return the maximum available
             $keys = array_keys($collection);
             sort($keys);

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogInventory
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogInventory
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,18 +31,18 @@
  */
 class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
 {
-    const BACKORDERS_NO             = 0;
-    const BACKORDERS_YES_NONOTIFY   = 1;
-    const BACKORDERS_YES_NOTIFY     = 2;
+    const BACKORDERS_NO     = 0;
+    const BACKORDERS_YES_NONOTIFY = 1;
+    const BACKORDERS_YES_NOTIFY   = 2;
 
     /* deprecated */
-    const BACKORDERS_BELOW          = 1;
-    const BACKORDERS_YES            = 2;
+    const BACKORDERS_BELOW  = 1;
+    const BACKORDERS_YES    = 2;
 
-    const STOCK_OUT_OF_STOCK        = 0;
-    const STOCK_IN_STOCK            = 1;
+    const STOCK_OUT_OF_STOCK    = 0;
+    const STOCK_IN_STOCK        = 1;
 
-    const DEFAULT_STOCK_ID          = 1;
+    const DEFAULT_STOCK_ID      = 1;
 
     protected function _construct()
     {
@@ -71,13 +71,13 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
             ->addProductsFilter($productCollection)
             ->joinStockStatus($productCollection->getStoreId())
             ->load();
-        $stockItems = array();
         foreach ($items as $item) {
-            $stockItems[$item->getProductId()] = $item;
-        }
-        foreach ($productCollection as $product) {
-            if (isset($stockItems[$product->getId()])) {
-                $stockItems[$product->getId()]->assignProduct($product);
+            foreach($productCollection as $product){
+                if($product->getId()==$item->getProductId()){
+                    if($product instanceof Mage_Catalog_Model_Product) {
+                        $item->assignProduct($product);
+                    }
+                }
             }
         }
         return $this;

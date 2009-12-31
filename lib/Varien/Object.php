@@ -191,8 +191,11 @@ class Varien_Object implements ArrayAccess
      *
      * If $key is an array, it will overwrite all the data in the object.
      *
+     * $isChanged will specify if the object needs to be saved after an update.
+     *
      * @param string|array $key
      * @param mixed $value
+     * @param boolean $isChanged
      * @return Varien_Object
      */
     public function setData($key, $value=null)
@@ -210,7 +213,10 @@ class Varien_Object implements ArrayAccess
      *
      * $key can be a string only. Array will be ignored.
      *
+     * $isChanged will specify if the object needs to be saved after an update.
+     *
      * @param string $key
+     * @param boolean $isChanged
      * @return Varien_Object
      */
     public function unsetData($key=null)
@@ -234,6 +240,7 @@ class Varien_Object implements ArrayAccess
      *
      * @param string $key
      * @param string|int $index
+     * @param mixed $default
      * @return mixed
      */
     public function getData($key='', $index=null)
@@ -474,11 +481,11 @@ class Varien_Object implements ArrayAccess
      * @param  string $valueSeparator
      * @return string
      */
-//    public function __toString(array $arrAttributes = array(), $valueSeparator=',')
-//    {
-//        $arrData = $this->toArray($arrAttributes);
-//        return implode($valueSeparator, $arrData);
-//    }
+    public function __toString(array $arrAttributes = array(), $valueSeparator=',')
+    {
+        $arrData = $this->toArray($arrAttributes);
+        return implode($valueSeparator, $arrData);
+    }
 
     /**
      * Public wrapper for __toString

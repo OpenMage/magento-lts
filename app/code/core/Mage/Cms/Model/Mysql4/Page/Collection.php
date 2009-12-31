@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Cms
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cms
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -39,8 +39,6 @@ class Mage_Cms_Model_Mysql4_Page_Collection extends Mage_Core_Model_Mysql4_Colle
     protected function _construct()
     {
         $this->_init('cms/page');
-
-        $this->_map['fields']['page_id'] = 'main_table.page_id';
     }
 
     public function toOptionArray()
@@ -93,37 +91,18 @@ class Mage_Cms_Model_Mysql4_Page_Collection extends Mage_Core_Model_Mysql4_Colle
      */
     public function addStoreFilter($store, $withAdmin = true)
     {
-        if (!$this->getFlag('store_filter_added')) {
-            if ($store instanceof Mage_Core_Model_Store) {
-                $store = array($store->getId());
-            }
-
-            $this->getSelect()->join(
-                array('store_table' => $this->getTable('cms/page_store')),
-                'main_table.page_id = store_table.page_id',
-                array()
-            )
-            ->where('store_table.store_id in (?)', ($withAdmin ? array(0, $store) : $store))
-            ->group('main_table.page_id');
-
-            $this->setFlag('store_filter_added', true);
+        if ($store instanceof Mage_Core_Model_Store) {
+            $store = array($store->getId());
         }
 
+        $this->getSelect()->join(
+            array('store_table' => $this->getTable('cms/page_store')),
+            'main_table.page_id = store_table.page_id',
+            array()
+        )
+        ->where('store_table.store_id in (?)', ($withAdmin ? array(0, $store) : $store))
+        ->group('main_table.page_id');
+
         return $this;
-    }
-
-    /**
-     * Get SQL for get record count.
-     * Extra group by strip added.
-     *
-     * @return Varien_Db_Select
-     */
-    public function getSelectCountSql()
-    {
-        $countSelect = parent::getSelectCountSql();
-
-        $countSelect->reset(Zend_Db_Select::GROUP);
-
-        return $countSelect;
     }
 }

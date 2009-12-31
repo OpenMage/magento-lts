@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Locale
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Locale.php 17479 2009-08-09 08:19:03Z thomas $
+ * @version   $Id: Locale.php 13368 2008-12-19 10:48:07Z thomas $
  */
 
 /**
@@ -24,7 +24,7 @@
  *
  * @category  Zend
  * @package   Zend_Locale
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Locale
@@ -45,71 +45,67 @@ class Zend_Locale
         'be'    => true, 'bg_BG' => true, 'bg'    => true, 'bn_BD' => true, 'bn_IN' => true,
         'bn'    => true, 'bo_CN' => true, 'bo_IN' => true, 'bo'    => true, 'bs_BA' => true,
         'bs'    => true, 'byn_ER'=> true, 'byn'   => true, 'ca_ES' => true, 'ca'    => true,
-        'cch_NG'=> true, 'cch'   => true, 'cop'   => true, 'cs_CZ' => true, 'cs'    => true,
-        'cy_GB' => true, 'cy'    => true, 'da_DK' => true, 'da'    => true, 'de_AT' => true,
-        'de_BE' => true, 'de_CH' => true, 'de_DE' => true, 'de_LI' => true, 'de_LU' => true,
-        'de'    => true, 'dv_MV' => true, 'dv'    => true, 'dz_BT' => true, 'dz'    => true,
-        'ee_GH' => true, 'ee_TG' => true, 'ee'    => true, 'el_CY' => true, 'el_GR' => true,
-        'el'    => true, 'en_AS' => true, 'en_AU' => true, 'en_BE' => true, 'en_BW' => true,
-        'en_BZ' => true, 'en_CA' => true, 'en_GB' => true, 'en_GU' => true, 'en_HK' => true,
-        'en_IE' => true, 'en_IN' => true, 'en_JM' => true, 'en_MH' => true, 'en_MP' => true,
-        'en_MT' => true, 'en_NA' => true, 'en_NZ' => true, 'en_PH' => true, 'en_PK' => true,
-        'en_SG' => true, 'en_TT' => true, 'en_UM' => true, 'en_US' => true, 'en_VI' => true,
-        'en_ZA' => true, 'en_ZW' => true, 'en'    => true, 'eo'    => true, 'es_AR' => true,
-        'es_BO' => true, 'es_CL' => true, 'es_CO' => true, 'es_CR' => true, 'es_DO' => true,
-        'es_EC' => true, 'es_ES' => true, 'es_GT' => true, 'es_HN' => true, 'es_MX' => true,
-        'es_NI' => true, 'es_PA' => true, 'es_PE' => true, 'es_PR' => true, 'es_PY' => true,
-        'es_SV' => true, 'es_US' => true, 'es_UY' => true, 'es_VE' => true, 'es'    => true,
-        'et_EE' => true, 'et'    => true, 'eu_ES' => true, 'eu'    => true, 'fa_AF' => true,
-        'fa_IR' => true, 'fa'    => true, 'fi_FI' => true, 'fi'    => true, 'fil_PH'=> true,
+        'cch_NG'=> true, 'cch'   => true, 'cop_EG'=> true, 'cop_US'=> true, 'cop'   => true,
+        'cs_CZ' => true, 'cs'    => true, 'cy_GB' => true, 'cy'    => true, 'da_DK' => true,
+        'da'    => true, 'de_AT' => true, 'de_BE' => true, 'de_CH' => true, 'de_DE' => true,
+        'de_LI' => true, 'de_LU' => true, 'de'    => true, 'dv_MV' => true, 'dv'    => true,
+        'dz_BT' => true, 'dz'    => true, 'ee_GH' => true, 'ee_TG' => true, 'ee'    => true,
+        'el_CY' => true, 'el_GR' => true, 'el'    => true, 'en_AS' => true, 'en_AU' => true,
+        'en_BE' => true, 'en_BW' => true, 'en_BZ' => true, 'en_CA' => true, 'en_GB' => true,
+        'en_GU' => true, 'en_HK' => true, 'en_IE' => true, 'en_IN' => true, 'en_JM' => true,
+        'en_MH' => true, 'en_MP' => true, 'en_MT' => true, 'en_NZ' => true, 'en_PH' => true,
+        'en_PK' => true, 'en_SG' => true, 'en_TT' => true, 'en_UM' => true, 'en_US' => true,
+        'en_VI' => true, 'en_ZA' => true, 'en_ZW' => true, 'en'    => true, 'eo'    => true,
+        'es_AR' => true, 'es_BO' => true, 'es_CL' => true, 'es_CO' => true, 'es_CR' => true,
+        'es_DO' => true, 'es_EC' => true, 'es_ES' => true, 'es_GT' => true, 'es_HN' => true,
+        'es_MX' => true, 'es_NI' => true, 'es_PA' => true, 'es_PE' => true, 'es_PR' => true,
+        'es_PY' => true, 'es_SV' => true, 'es_US' => true, 'es_UY' => true, 'es_VE' => true,
+        'es'    => true, 'et_EE' => true, 'et'    => true, 'eu_ES' => true, 'eu'    => true,
+        'fa_AF' => true, 'fa_IR' => true, 'fa'    => true, 'fi_FI' => true, 'fi'    => true,
         'fil'   => true, 'fo_FO' => true, 'fo'    => true, 'fr_BE' => true, 'fr_CA' => true,
-        'fr_CH' => true, 'fr_FR' => true, 'fr_LU' => true, 'fr_MC' => true, 'fr_SN' => true,
-        'fr'    => true, 'fur_IT'=> true, 'fur'   => true, 'ga_IE' => true, 'ga'    => true,
-        'gaa_GH'=> true, 'gaa'   => true, 'gez_ER'=> true, 'gez_ET'=> true, 'gez'   => true,
-        'gl_ES' => true, 'gl'    => true, 'gsw_CH'=> true, 'gsw'   => true, 'gu_IN' => true,
-        'gu'    => true, 'gv_GB' => true, 'gv'    => true, 'ha_GH' => true, 'ha_NE' => true,
-        'ha_NG' => true, 'ha_SD' => true, 'ha'    => true, 'haw_US'=> true, 'haw'   => true,
-        'he_IL' => true, 'he'    => true, 'hi_IN' => true, 'hi'    => true, 'hr_HR' => true,
-        'hr'    => true, 'hu_HU' => true, 'hu'    => true, 'hy_AM' => true, 'hy'    => true,
-        'ia'    => true, 'id_ID' => true, 'id'    => true, 'ig_NG' => true, 'ig'    => true,
-        'ii_CN' => true, 'ii'    => true, 'in'    => true, 'is_IS' => true, 'is'    => true,
-        'it_CH' => true, 'it_IT' => true, 'it'    => true, 'iu'    => true, 'iw'    => true,
-        'ja_JP' => true, 'ja'    => true, 'ka_GE' => true, 'ka'    => true, 'kaj_NG'=> true,
-        'kaj'   => true, 'kam_KE'=> true, 'kam'   => true, 'kcg_NG'=> true, 'kcg'   => true,
-        'kfo_CI'=> true, 'kfo'   => true, 'kk_KZ' => true, 'kk'    => true, 'kl_GL' => true,
-        'kl'    => true, 'km_KH' => true, 'km'    => true, 'kn_IN' => true, 'kn'    => true,
-        'ko_KR' => true, 'ko'    => true, 'kok_IN'=> true, 'kok'   => true, 'kpe_GN'=> true,
-        'kpe_LR'=> true, 'kpe'   => true, 'ku_IQ' => true, 'ku_IR' => true, 'ku_SY' => true,
-        'ku_TR' => true, 'ku'    => true, 'kw_GB' => true, 'kw'    => true, 'ky_KG' => true,
-        'ky'    => true, 'ln_CD' => true, 'ln_CG' => true, 'ln'    => true, 'lo_LA' => true,
-        'lo'    => true, 'lt_LT' => true, 'lt'    => true, 'lv_LV' => true, 'lv'    => true,
-        'mk_MK' => true, 'mk'    => true, 'ml_IN' => true, 'ml'    => true, 'mn_CN' => true,
-        'mn_MN' => true, 'mn'    => true, 'mo'    => true, 'mr_IN' => true, 'mr'    => true,
-        'ms_BN' => true, 'ms_MY' => true, 'ms'    => true, 'mt_MT' => true, 'mt'    => true,
-        'my_MM' => true, 'my'    => true, 'nb_NO' => true, 'nb'    => true, 'nds_DE'=> true,
-        'nds'   => true, 'ne_IN' => true, 'ne_NP' => true, 'ne'    => true, 'nl_BE' => true,
-        'nl_NL' => true, 'nl'    => true, 'nn_NO' => true, 'nn'    => true, 'no'    => true,
-        'nr_ZA' => true, 'nr'    => true, 'nso_ZA'=> true, 'nso'   => true, 'ny_MW' => true,
-        'ny'    => true, 'oc_FR' => true, 'oc'    => true, 'om_ET' => true, 'om_KE' => true,
-        'om'    => true, 'or_IN' => true, 'or'    => true, 'pa_IN' => true, 'pa_PK' => true,
-        'pa'    => true, 'pl_PL' => true, 'pl'    => true, 'ps_AF' => true, 'ps'    => true,
-        'pt_BR' => true, 'pt_PT' => true, 'pt'    => true, 'ro_MD' => true, 'ro_RO' => true,
+        'fr_CH' => true, 'fr_FR' => true, 'fr_LU' => true, 'fr_MC' => true, 'fr'    => true,
+        'fur_IT'=> true, 'fur'   => true, 'ga_IE' => true, 'ga'    => true, 'gaa_GH'=> true,
+        'gaa'   => true, 'gez_ER'=> true, 'gez_ET'=> true, 'gez'   => true, 'gl_ES' => true,
+        'gl'    => true, 'gu_IN' => true, 'gu'    => true, 'gv_GB' => true, 'gv'    => true,
+        'ha_GH' => true, 'ha_NE' => true, 'ha_NG' => true, 'ha'    => true, 'haw_US'=> true,
+        'haw'   => true, 'he_IL' => true, 'he'    => true, 'hi_IN' => true, 'hi'    => true,
+        'hr_HR' => true, 'hr'    => true, 'hu_HU' => true, 'hu'    => true, 'hy_AM' => true,
+        'hy'    => true, 'ia'    => true, 'id_ID' => true, 'id'    => true, 'ig_NG' => true,
+        'ig'    => true, 'ii_CN' => true, 'ii'    => true, 'is_IS' => true, 'is'    => true,
+        'it_CH' => true, 'it_IT' => true, 'it'    => true, 'iu'    => true, 'ja_JP' => true,
+        'ja'    => true, 'ka_GE' => true, 'ka'    => true, 'kaj_NG'=> true, 'kaj'   => true,
+        'kam_KE'=> true, 'kam'   => true, 'kcg_NG'=> true, 'kcg'   => true, 'kfo_NG'=> true,
+        'kfo'   => true, 'kk_KZ' => true, 'kk'    => true, 'kl_GL' => true, 'kl'    => true,
+        'km_KH' => true, 'km'    => true, 'kn_IN' => true, 'kn'    => true, 'ko_KR' => true,
+        'ko'    => true, 'kok_IN'=> true, 'kok'   => true, 'kpe_GN'=> true, 'kpe_LR'=> true,
+        'kpe'   => true, 'ku_IQ' => true, 'ku_IR' => true, 'ku_SY' => true, 'ku_TR' => true,
+        'ku'    => true, 'kw_GB' => true, 'kw'    => true, 'ky_KG' => true, 'ky'    => true,
+        'ln_CD' => true, 'ln_CG' => true, 'ln'    => true, 'lo_LA' => true, 'lo'    => true,
+        'lt_LT' => true, 'lt'    => true, 'lv_LV' => true, 'lv'    => true, 'mk_MK' => true,
+        'mk'    => true, 'ml_IN' => true, 'ml'    => true, 'mn_MN' => true, 'mn'    => true,
+        'mr_IN' => true, 'mr'    => true, 'ms_BN' => true, 'ms_MY' => true, 'ms'    => true,
+        'mt_MT' => true, 'mt'    => true, 'my_MM' => true, 'my'    => true, 'nb_NO' => true,
+        'nb'    => true, 'ne_NP' => true, 'ne'    => true, 'nl_BE' => true, 'nl_NL' => true,
+        'nl'    => true, 'nn_NO' => true, 'nn'    => true, 'nr_ZA' => true, 'nr'    => true,
+        'nso_ZA'=> true, 'nso'   => true, 'ny_MW' => true, 'ny'    => true, 'om_ET' => true,
+        'om_KE' => true, 'om'    => true, 'or_IN' => true, 'or'    => true, 'pa_IN' => true,
+        'pa_PK' => true, 'pa'    => true, 'pl_PL' => true, 'pl'    => true, 'ps_AF' => true,
+        'ps'    => true, 'pt_BR' => true, 'pt_PT' => true, 'pt'    => true, 'ro_RO' => true,
         'ro'    => true, 'ru_RU' => true, 'ru_UA' => true, 'ru'    => true, 'rw_RW' => true,
         'rw'    => true, 'sa_IN' => true, 'sa'    => true, 'se_FI' => true, 'se_NO' => true,
         'se'    => true, 'sh_BA' => true, 'sh_CS' => true, 'sh_YU' => true, 'sh'    => true,
-        'si_LK' => true, 'si'    => true, 'sid_ET'=> true, 'sid'   => true, 'sk_SK' => true,
-        'sk'    => true, 'sl_SI' => true, 'sl'    => true, 'so_DJ' => true, 'so_ET' => true,
-        'so_KE' => true, 'so_SO' => true, 'so'    => true, 'sq_AL' => true, 'sq'    => true,
-        'sr_BA' => true, 'sr_CS' => true, 'sr_ME' => true, 'sr_RS' => true, 'sr_YU' => true,
-        'sr'    => true, 'ss_SZ' => true, 'ss_ZA' => true, 'ss'    => true, 'st_LS' => true,
-        'st_ZA' => true, 'st'    => true, 'sv_FI' => true, 'sv_SE' => true, 'sv'    => true,
-        'sw_KE' => true, 'sw_TZ' => true, 'sw'    => true, 'syr_SY'=> true, 'syr'   => true,
-        'ta_IN' => true, 'ta'    => true, 'te_IN' => true, 'te'    => true, 'tg_TJ' => true,
-        'tg'    => true, 'th_TH' => true, 'th'    => true, 'ti_ER' => true, 'ti_ET' => true,
-        'ti'    => true, 'tig_ER'=> true, 'tig'   => true, 'tl'    => true, 'tn_ZA' => true,
-        'tn'    => true, 'to_TO' => true, 'to'    => true, 'tr_TR' => true, 'tr'    => true,
-        'trv_TW'=> true, 'trv'   => true, 'ts_ZA' => true, 'ts'    => true, 'tt_RU' => true,
-        'tt'    => true, 'ug_CN' => true, 'ug'    => true, 'uk_UA' => true, 'uk'    => true,
+        'sid_ET'=> true, 'sid'   => true, 'sk_SK' => true, 'sk'    => true, 'sl_SI' => true,
+        'sl'    => true, 'so_DJ' => true, 'so_ET' => true, 'so_KE' => true, 'so_SO' => true,
+        'so'    => true, 'sq_AL' => true, 'sq'    => true, 'sr_BA' => true, 'sr_CS' => true,
+        'sr_ME' => true, 'sr_RS' => true, 'sr_YU' => true, 'sr'    => true, 'ss_ZA' => true,
+        'ss'    => true, 'ssy'   => true, 'st_ZA' => true, 'st'    => true, 'sv_FI' => true,
+        'sv_SE' => true, 'sv'    => true, 'sw_KE' => true, 'sw_TZ' => true, 'sw'    => true,
+        'syr_SY'=> true, 'syr'   => true, 'ta_IN' => true, 'ta'    => true, 'te_IN' => true,
+        'te'    => true, 'tg_TJ' => true, 'tg'    => true, 'th_TH' => true, 'th'    => true,
+        'ti_ER' => true, 'ti_ET' => true, 'ti'    => true, 'tig_ER'=> true, 'tig'   => true,
+        'tn_ZA' => true, 'tn'    => true, 'to_TO' => true, 'to'    => true, 'tr_TR' => true,
+        'tr'    => true, 'ts_ZA' => true, 'ts'    => true, 'tt_RU' => true, 'tt'    => true,
+        'ug'    => true, 'uk_UA' => true, 'uk'    => true, 'und_ZZ'=> true, 'und'   => true,
         'ur_IN' => true, 'ur_PK' => true, 'ur'    => true, 'uz_AF' => true, 'uz_UZ' => true,
         'uz'    => true, 've_ZA' => true, 've'    => true, 'vi_VN' => true, 'vi'    => true,
         'wal_ET'=> true, 'wal'   => true, 'wo_SN' => true, 'wo'    => true, 'xh_ZA' => true,
@@ -131,7 +127,7 @@ class Zend_Locale
      *
      * @var boolean
      */
-    public static $compatibilityMode = false;
+    public static $compatibilityMode = true;
 
     /**
      * Internal variable
@@ -251,7 +247,7 @@ class Zend_Locale
     }
 
     /**
-     * Sets a new default locale which will be used when no locale can be detected
+     * Sets a new default locale
      * If provided you can set a quality between 0 and 1 (or 2 and 100)
      * which represents the percent of quality the browser
      * requested within HTTP
@@ -279,13 +275,12 @@ class Zend_Locale
             $quality /= 100;
         }
 
-        $locale = self::_prepareLocale($locale);
         if (isset(self::$_localeData[(string) $locale]) === true) {
             self::$_default = array((string) $locale => $quality);
         } else {
-            $elocale = explode('_', (string) $locale);
-            if (isset(self::$_localeData[$elocale[0]]) === true) {
-                self::$_default = array($elocale[0] => $quality);
+            $locale = explode('_', (string) $locale);
+            if (isset(self::$_localeData[$locale[0]]) === true) {
+                self::$_default = array($locale[0] => $quality);
             } else {
                 #require_once 'Zend/Locale/Exception.php';
                 throw new Zend_Locale_Exception("Unknown locale '" . (string) $locale . "' can not be set as default!");
@@ -445,7 +440,7 @@ class Zend_Locale
     /**
      * Returns the language part of the locale
      *
-     * @return string
+     * @return language
      */
     public function getLanguage()
     {
@@ -543,11 +538,9 @@ class Zend_Locale
      *
      * @param  string|Zend_Locale $locale (Optional) Locale for language translation
      * @return array
-     * @deprecated
      */
     public static function getLanguageTranslationList($locale = null)
     {
-        trigger_error("The method getLanguageTranslationList is deprecated. Use getTranslationList('language', $locale) instead", E_USER_NOTICE);
         return self::getTranslationList('language', $locale);
     }
 
@@ -556,11 +549,9 @@ class Zend_Locale
      *
      * @param  string|Zend_Locale $locale (Optional) Locale for script translation
      * @return array
-     * @deprecated
      */
     public static function getScriptTranslationList($locale = null)
     {
-        trigger_error("The method getScriptTranslationList is deprecated. Use getTranslationList('script', $locale) instead", E_USER_NOTICE);
         return self::getTranslationList('script', $locale);
     }
 
@@ -569,11 +560,9 @@ class Zend_Locale
      *
      * @param  string|Zend_Locale $locale (Optional) Locale for country translation
      * @return array
-     * @deprecated
      */
     public static function getCountryTranslationList($locale = null)
     {
-        trigger_error("The method getCountryTranslationList is deprecated. Use getTranslationList('territory', $locale, 2) instead", E_USER_NOTICE);
         return self::getTranslationList('territory', $locale, 2);
     }
 
@@ -583,11 +572,9 @@ class Zend_Locale
      *
      * @param  string|Zend_Locale $locale (Optional) Locale for territory translation
      * @return array
-     * @deprecated
      */
     public static function getTerritoryTranslationList($locale = null)
     {
-        trigger_error("The method getTerritoryTranslationList is deprecated. Use getTranslationList('territory', $locale, 1) instead", E_USER_NOTICE);
         return self::getTranslationList('territory', $locale, 1);
     }
 
@@ -618,11 +605,9 @@ class Zend_Locale
      * @param  string $value  Name to get detailed information about
      * @param  string $locale (Optional) Locale for language translation
      * @return array
-     * @deprecated
      */
     public static function getLanguageTranslation($value, $locale = null)
     {
-        trigger_error("The method getLanguageTranslation is deprecated. Use getTranslation($value, 'language', $locale) instead", E_USER_NOTICE);
         return self::getTranslation($value, 'language', $locale);
     }
 
@@ -632,11 +617,9 @@ class Zend_Locale
      * @param  string $value  Name to get detailed information about
      * @param  string $locale (Optional) locale for script translation
      * @return array
-     * @deprecated
      */
     public static function getScriptTranslation($value, $locale = null)
     {
-        trigger_error("The method getScriptTranslation is deprecated. Use getTranslation($value, 'script', $locale) instead", E_USER_NOTICE);
         return self::getTranslation($value, 'script', $locale);
     }
 
@@ -646,11 +629,9 @@ class Zend_Locale
      * @param  string             $value  Name to get detailed information about
      * @param  string|Zend_Locale $locale (Optional) Locale for country translation
      * @return array
-     * @deprecated
      */
     public static function getCountryTranslation($value, $locale = null)
     {
-        trigger_error("The method getCountryTranslation is deprecated. Use getTranslation($value, 'country', $locale) instead", E_USER_NOTICE);
         return self::getTranslation($value, 'country', $locale);
     }
 
@@ -661,11 +642,9 @@ class Zend_Locale
      * @param  string             $value  Name to get detailed information about
      * @param  string|Zend_Locale $locale (Optional) Locale for territory translation
      * @return array
-     * @deprecated
      */
     public static function getTerritoryTranslation($value, $locale = null)
     {
-        trigger_error("The method getTerritoryTranslation is deprecated. Use getTranslation($value, 'territory', $locale) instead", E_USER_NOTICE);
         return self::getTranslation($value, 'territory', $locale);
     }
 
@@ -749,14 +728,6 @@ class Zend_Locale
      */
     public static function isLocale($locale, $strict = false, $compatible = true)
     {
-        if ($locale instanceof Zend_Locale) {
-            return true;
-        }
-
-        if (($locale !== null) and !is_string($locale) and !is_array($locale)) {
-            return false;
-        }
-
         try {
             $locale = self::_prepareLocale($locale, $strict);
         } catch (Zend_Locale_Exception $e) {
@@ -903,18 +874,6 @@ class Zend_Locale
     }
 
     /**
-     * Disables the set cache
-     *
-     * @param  boolean $flag True disables any set cache, default is false
-     * @return void
-     */
-    public static function disableCache($flag)
-    {
-        #require_once 'Zend/Locale/Data.php';
-        Zend_Locale_Data::disableCache($flag);
-    }
-
-    /**
      * Internal function, returns a single locale on detection
      *
      * @param  string|Zend_Locale $locale (Optional) Locale to work on
@@ -971,18 +930,6 @@ class Zend_Locale
             $locale = strtr($locale, '-', '_');
         }
 
-        $parts = explode('_', $locale);
-        if (!isset(self::$_localeData[$parts[0]])) {
-            return '';
-        }
-
-        foreach($parts as $key => $value) {
-            if ((strlen($value) < 2) || (strlen($value) > 3)) {
-                unset($parts[$key]);
-            }
-        }
-
-        $locale = implode('_', $parts);
         return (string) $locale;
     }
 

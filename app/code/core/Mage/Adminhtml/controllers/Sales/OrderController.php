@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -38,7 +38,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      *
      * @var array
      */
-    protected $_publicActions = array('view', 'index');
+    protected $_publicActions = array('view');
 
     /**
      * Additional initialization
@@ -117,24 +117,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     }
 
     /**
-     * Notify user
-     */
-    public function emailAction()
-    {
-        if ($order = $this->_initOrder()) {
-            try {
-                $order->sendNewOrderEmail();
-                $this->_getSession()->addSuccess($this->__('Order email has been successfully sent.'));
-            } catch (Mage_Core_Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
-                $this->_getSession()->addError($this->__('Failed to send order email.'));
-                Mage::logException($e);
-            }
-        }
-        $this->_redirect('*/sales_order/view', array('order_id' => $order->getId()));
-    }
-    /**
      * Cancel order
      */
     public function cancelAction()
@@ -152,7 +134,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             }
             catch (Exception $e) {
                 $this->_getSession()->addError($this->__('Order was not cancelled.'));
-                Mage::logException($e);
             }
             $this->_redirect('*/sales_order/view', array('order_id' => $order->getId()));
         }
@@ -236,7 +217,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 );
             }
             if (is_array($response)) {
-                $response = Mage::helper('core')->jsonEncode($response);
+                $response = Zend_Json::encode($response);
                 $this->getResponse()->setBody($response);
             }
         }
@@ -526,29 +507,6 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             }
         }
         $this->_redirect('*/*/');
-    }
-
-    /**
-     * Atempt to void the order payment
-     */
-    public function voidPaymentAction()
-    {
-        if (!$order = $this->_initOrder()) {
-            return;
-        }
-        try {
-            $order->getPayment()->void(
-                new Varien_Object() // workaround for backwards compatibility
-            );
-            $order->save();
-            $this->_getSession()->addSuccess($this->__('Payment has been voided successfully.'));
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            $this->_getSession()->addError($this->__('Failed to void the payment.'));
-            Mage::logException($e);
-        }
-        $this->_redirect('*/*/view', array('order_id' => $order->getId()));
     }
 
     protected function _isAllowed()

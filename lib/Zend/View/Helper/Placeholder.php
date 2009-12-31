@@ -12,11 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Placeholder.php 18951 2009-11-12 16:26:19Z alexander $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Placeholder.php 10664 2008-08-05 10:56:06Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,16 +33,16 @@
  *
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */
+ */ 
 class Zend_View_Helper_Placeholder extends Zend_View_Helper_Abstract
-{
+{  
     /**
      * Placeholder items
      * @var array
-     */
-    protected $_items = array();
+     */  
+    protected $_items = array();  
 
     /**
      * @var Zend_View_Helper_Placeholder_Registry
@@ -54,30 +53,30 @@ class Zend_View_Helper_Placeholder extends Zend_View_Helper_Abstract
      * Constructor
      *
      * Retrieve container registry from Zend_Registry, or create new one and register it.
-     *
+     * 
      * @return void
      */
     public function __construct()
     {
         $this->_registry = Zend_View_Helper_Placeholder_Registry::getRegistry();
     }
-
-
+  
+ 
     /**
      * Placeholder helper
-     *
-     * @param  string $name
+     * 
+     * @param  string $name 
      * @return Zend_View_Helper_Placeholder_Container_Abstract
-     */
-    public function placeholder($name)
-    {
-        $name = (string) $name;
+     */  
+    public function placeholder($name)  
+    {  
+        $name = (string) $name;  
         return $this->_registry->getContainer($name);
-    }
+    }  
 
     /**
      * Retrieve the registry
-     *
+     * 
      * @return Zend_View_Helper_Placeholder_Registry
      */
     public function getRegistry()

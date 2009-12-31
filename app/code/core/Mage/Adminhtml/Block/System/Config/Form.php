@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -82,24 +82,12 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     protected $_fieldsets = array();
 
     /**
-     * Translated scope labels
-     *
-     * @var array
-     */
-    protected $_scopeLabels = array();
-
-    /**
      * Enter description here...
      *
      */
     public function __construct()
     {
         parent::__construct();
-        $this->_scopeLabels = array(
-            self::SCOPE_DEFAULT  => Mage::helper('adminhtml')->__('[GLOBAL]'),
-            self::SCOPE_WEBSITES => Mage::helper('adminhtml')->__('[WEBSITE]'),
-            self::SCOPE_STORES   => Mage::helper('adminhtml')->__('[STORE VIEW]'),
-        );
     }
 
     /**
@@ -204,20 +192,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Return dependency block object
-     *
-     * @return Mage_Adminhtml_Block_Widget_Form_Element_Dependence
-     */
-    protected function _getDependence()
-    {
-        if (!$this->getChild('element_dependense')){
-            $this->setChild('element_dependense',
-                $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence'));
-        }
-        return $this->getChild('element_dependense');
-    }
-
-    /**
      * Init fieldset fields
      *
      * @param Varien_Data_Form_Element_Fieldset $fieldset
@@ -269,7 +243,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 $name       = 'groups['.$group->getName().'][fields]['.$fieldPrefix.$e->getName().'][value]';
                 $label      =  Mage::helper($helperName)->__($labelPrefix).' '.Mage::helper($helperName)->__((string)$e->label);
                 $comment    = (string)$e->comment ? Mage::helper($helperName)->__((string)$e->comment) : '';
-                $hint       = (string)$e->hint ? Mage::helper($helperName)->__((string)$e->hint) : '';
 
                 if ($e->backend_model) {
                     $model = Mage::getModel((string)$e->backend_model);
@@ -279,30 +252,16 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     $model->setPath($path)->setValue($data)->afterLoad();
                     $data = $model->getValue();
                 }
-
-                if ($e->depends) {
-                    foreach ($e->depends->children() as $dependent) {
-                        $dependentId = $section->getName() . '_' . $group->getName() . '_' . $fieldPrefix . $dependent->getName();
-                        $dependentValue = (string) $dependent;
-                        $this->_getDependence()
-                            ->addFieldMap($id, $id)
-                            ->addFieldMap($dependentId, $dependentId)
-                            ->addFieldDependence($id, $dependentId, $dependentValue);
-                    }
-                }
-
                 $field = $fieldset->addField($id, $fieldType, array(
                     'name'                  => $name,
                     'label'                 => $label,
                     'comment'               => $comment,
-                    'hint'                  => $hint,
                     'value'                 => $data,
                     'inherit'               => $inherit,
                     'class'                 => $e->frontend_class,
                     'field_config'          => $e,
                     'scope'                 => $this->getScope(),
                     'scope_id'              => $this->getScopeId(),
-                    'scope_label'           => $this->getScopeLabel($e),
                     'can_use_default_value' => $this->canUseDefaultValue((int)$e->show_in_default),
                     'can_use_website_value' => $this->canUseWebsiteValue((int)$e->show_in_website),
                 ));
@@ -318,50 +277,17 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 $field->setRenderer($fieldRenderer);
 
                 if ($e->source_model) {
-                    // determine callback for the source model
-                    $factoryName = (string)$e->source_model;
-                    $method = false;
-                    if (preg_match('/^([^:]+?)::([^:]+?)$/', $factoryName, $matches)) {
-                        array_shift($matches);
-                        list($factoryName, $method) = array_values($matches);
-                    }
-
-                    $sourceModel = Mage::getSingleton($factoryName);
+                    $sourceModel = Mage::getSingleton((string)$e->source_model);
                     if ($sourceModel instanceof Varien_Object) {
                         $sourceModel->setPath($path);
                     }
-                    if ($method) {
-                        if ($fieldType == 'multiselect') {
-                            $optionArray = $sourceModel->$method();
-                        } else {
-                            $optionArray = array();
-                            foreach ($sourceModel->$method() as $value => $label) {
-                                $optionArray[] = array('label' => $label, 'value' => $value);
-                            }
-                        }
-                    } else {
-                        $optionArray = $sourceModel->toOptionArray($fieldType == 'multiselect');
-                    }
-                    $field->setValues($optionArray);
+                    $field->setValues($sourceModel->toOptionArray($fieldType == 'multiselect'));
                 }
             }
         }
         return $this;
     }
 
-    /**
-     * Append dependence block at then end of form block
-     *
-     *
-     */
-    protected function _afterToHtml($html)
-    {
-        if ($this->_getDependence()) {
-            $html .= $this->_getDependence()->toHtml();
-        }
-        $html = parent::_afterToHtml($html);
-        return $html;
-    }
 
     /**
      * Enter description here...
@@ -449,22 +375,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         }
 
         return $scope;
-    }
-
-    /**
-     * Retrieve label for scope
-     *
-     * @param Mage_Core_Model_Config_Element $element
-     * @return string
-     */
-    public function getScopeLabel($element)
-    {
-        if ($element->show_in_store == 1) {
-            return $this->_scopeLabels[self::SCOPE_STORES];
-        } elseif ($element->show_in_website == 1) {
-            return $this->_scopeLabels[self::SCOPE_WEBSITES];
-        }
-        return $this->_scopeLabels[self::SCOPE_DEFAULT];
     }
 
     /**

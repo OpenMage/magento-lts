@@ -14,9 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 19117 2009-11-20 17:44:14Z matthew $
  */
 
 /** Zend_Loader */
@@ -33,7 +32,7 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_View_Abstract implements Zend_View_Interface
@@ -115,12 +114,6 @@ abstract class Zend_View_Abstract implements Zend_View_Interface
     private $_encoding = 'ISO-8859-1';
 
     /**
-     * Flag indicating whether or not LFI protection for rendering view scripts is enabled
-     * @var bool
-     */
-    private $_lfiProtectionOn = true;
-
-    /**
      * Plugin loaders
      * @var array
      */
@@ -138,6 +131,8 @@ abstract class Zend_View_Abstract implements Zend_View_Interface
      * @var boolean
      */
     private $_strictVars = false;
+
+    private $_log;
 
     /**
      * Constructor.
@@ -178,32 +173,20 @@ abstract class Zend_View_Abstract implements Zend_View_Interface
 
         // user-defined helper path
         if (array_key_exists('helperPath', $config)) {
-            if (is_array($config['helperPath'])) {
-                foreach ($config['helperPath'] as $prefix => $path) {
-                    $this->addHelperPath($path, $prefix);
-                }
-            } else {
-                $prefix = 'Zend_View_Helper';
-                if (array_key_exists('helperPathPrefix', $config)) {
-                    $prefix = $config['helperPathPrefix'];
-                }
-                $this->addHelperPath($config['helperPath'], $prefix);
+            $prefix = 'Zend_View_Helper';
+            if (array_key_exists('helperPathPrefix', $config)) {
+                $prefix = $config['helperPathPrefix'];
             }
+            $this->addHelperPath($config['helperPath'], $prefix);
         }
 
         // user-defined filter path
         if (array_key_exists('filterPath', $config)) {
-            if (is_array($config['filterPath'])) {
-                foreach ($config['filterPath'] as $prefix => $path) {
-                    $this->addFilterPath($path, $prefix);
-                }
-            } else {
-                $prefix = 'Zend_View_Filter';
-                if (array_key_exists('filterPathPrefix', $config)) {
-                    $prefix = $config['filterPathPrefix'];
-                }
-                $this->addFilterPath($config['filterPath'], $prefix);
+            $prefix = 'Zend_View_Filter';
+            if (array_key_exists('filterPathPrefix', $config)) {
+                $prefix = $config['filterPathPrefix'];
             }
+            $this->addFilterPath($config['filterPath'], $prefix);
         }
 
         // user-defined filters
@@ -214,11 +197,6 @@ abstract class Zend_View_Abstract implements Zend_View_Interface
         // strict vars
         if (array_key_exists('strictVars', $config)) {
             $this->strictVars($config['strictVars']);
-        }
-
-        // LFI protection flag
-        if (array_key_exists('lfiProtectionOn', $config)) {
-            $this->setLfiProtection($config['lfiProtectionOn']);
         }
 
         $this->init();
@@ -707,28 +685,6 @@ abstract class Zend_View_Abstract implements Zend_View_Interface
     }
 
     /**
-     * Set LFI protection flag
-     *
-     * @param  bool $flag
-     * @return Zend_View_Abstract
-     */
-    public function setLfiProtection($flag)
-    {
-        $this->_lfiProtectionOn = (bool) $flag;
-        return $this;
-    }
-
-    /**
-     * Return status of LFI protection flag
-     *
-     * @return bool
-     */
-    public function isLfiProtectionOn()
-    {
-        return $this->_lfiProtectionOn;
-    }
-
-    /**
      * Assigns variables to the view script via differing strategies.
      *
      * Zend_View::assign('name', $value) assigns a variable called 'name'
@@ -900,11 +856,6 @@ abstract class Zend_View_Abstract implements Zend_View_Interface
      */
     protected function _script($name)
     {
-        if ($this->isLfiProtectionOn() && preg_match('#\.\.[\\\/]#', $name)) {
-            #require_once 'Zend/View/Exception.php';
-            throw new Zend_View_Exception('Requested scripts may not include parent directory traversal ("../", "..\\" notation)');
-        }
-
         if (0 == count($this->_path['script'])) {
             #require_once 'Zend/View/Exception.php';
             throw new Zend_View_Exception('no view script directory set; unable to determine location for view script',

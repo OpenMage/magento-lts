@@ -18,16 +18,15 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Collection_Db
 {
-    const CACHE_TAG = 'COLLECTION_DATA';
     /**
      * Model name
      *
@@ -167,7 +166,7 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
         $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $idsSelect->reset(Zend_Db_Select::COLUMNS);
-        $idsSelect->columns(
+        $idsSelect->from(null,
             'main_table.' . $this->getResource()->getIdFieldName()
         );
         return $this->getConnection()->fetchCol($idsSelect);
@@ -224,39 +223,9 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
         return $this;
     }
 
-    /**
-     * Check if cache can be used for collection
-     *
-     * @return bool
-     */
     protected function _canUseCache()
     {
-        return Mage::app()->useCache('collections') && !empty($this->_cacheConf);
-    }
-
-    /**
-     * Load cached data for select
-     *
-     * @param Zend_Db_Select $select
-     * @return string | false
-     */
-    protected function _loadCache($select)
-    {
-        $data = Mage::app()->loadCache($this->_getSelectCacheId($select));
-        return $data;
-    }
-
-    /**
-     * Save collection data to cache
-     *
-     * @param array $data
-     * @param Zend_Db_Select $select
-     * @return unknown_type
-     */
-    protected function _saveCache($data, $select)
-    {
-        Mage::app()->saveCache(serialize($data), $this->_getSelectCacheId($select), $this->_getCacheTags());
-        return $this;
+        return Mage::app()->useCache('collections');
     }
 
     /**
@@ -267,8 +236,10 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
     protected function _getCacheTags()
     {
         $tags = parent::_getCacheTags();
+        foreach ($tags as $key => $value) {
+        	$tags[$key] = Mage::app()->prepareCacheId($value);
+        }
         $tags[] = Mage_Core_Model_App::CACHE_TAG;
-        $tags[] = self::CACHE_TAG;
         return $tags;
     }
 }

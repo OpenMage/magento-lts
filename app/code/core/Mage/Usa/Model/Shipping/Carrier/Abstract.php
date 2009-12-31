@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Usa
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Usa
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -82,15 +82,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      */
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request)
     {
-        //Skip by item validation if there is no items in request
-        if(!count($request->getAllItems())) {
-            return $this;
-        }
-
         $maxAllowedWeight = (float) $this->getConfigData('max_package_weight');
         $error = null;
         $showMethod = $this->getConfigData('showmethod');
-
         foreach ($request->getAllItems() as $item) {
             if ($item->getProduct() && $item->getProduct()->getId()) {
                 if ($item->getProduct()->getWeight() > $maxAllowedWeight) {

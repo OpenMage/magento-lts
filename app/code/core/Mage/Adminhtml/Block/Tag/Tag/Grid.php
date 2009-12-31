@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,39 +29,23 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Constructor
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         parent::__construct();
-        $this->setId('tag_tag_grid')
-             ->setDefaultSort('name')
-             ->setDefaultDir('ASC')
-             ->setUseAjax(true)
-             ->setSaveParametersInSession(true);
-    }
-
-    protected function _addColumnFilterToCollection($column)
-    {
-        if($column->getIndex()=='stores') {
-            $this->getCollection()->addStoreFilter($column->getFilter()->getCondition(), false);
-        } else {
-            parent::_addColumnFilterToCollection($column);
-        }
-        return $this;
+        $this->setId('tag_tag_grid');
+        $this->setDefaultSort('name');
+        $this->setDefaultDir('ASC');
     }
 
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('tag/tag_collection')
-            ->addSummary(Mage::app()->getStore()->getId())
+            ->addSummary(0)
             ->addStoresVisibility();
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -69,6 +53,8 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     protected function _prepareColumns()
     {
+        $baseUrl = $this->getUrl();
+
         $this->addColumn('name', array(
             'header'    => Mage::helper('tag')->__('Tag'),
             'index'     => 'name',
@@ -76,7 +62,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->addColumn('total_used', array(
             'header'    => Mage::helper('tag')->__('Uses'),
-            'width'     => 140,
+            'width'     => '140px',
             'align'     => 'right',
             'index'     => 'uses',
             'type'      => 'number',
@@ -84,7 +70,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->addColumn('products', array(
             'header'    => Mage::helper('tag')->__('Products'),
-            'width'     => 140,
+            'width'     => '140px',
             'align'     => 'right',
             'index'     => 'products',
             'type'      => 'number',
@@ -92,7 +78,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->addColumn('customers', array(
             'header'    => Mage::helper('tag')->__('Customers'),
-            'width'     => 140,
+            'width'     => '140px',
             'align'     => 'right',
             'index'     => 'customers',
             'type'      => 'number',
@@ -100,7 +86,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->addColumn('popularity', array(
             'header'    => Mage::helper('tag')->__('Popularity'),
-            'width'     => 140,
+            'width'     => '140px',
             'align'     => 'right',
             'index'     => 'popularity',
             'type'      => 'number',
@@ -108,24 +94,67 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $this->addColumn('status', array(
             'header'    => Mage::helper('tag')->__('Status'),
-            'width'     => 90,
+            'width'     => '90px',
             'index'     => 'status',
             'type'      => 'options',
-            'options'   => $this->helper('tag/data')->getStatusesArray(),
+            'options'    => $this->helper('tag/data')->getStatusesArray(),
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('visible_in', array(
-                'header'                => Mage::helper('tag')->__('Visible In'),
-                'type'                  => 'store',
-                'skipAllStoresLabel'    => true,
-                'index'                 => 'stores',
-                'sortable'              => false,
-                'store_view'            => true
+                'header'    => Mage::helper('tag')->__('Visible In'),
+                'type'      => 'store',
+                'skipAllStoresLabel' => true,
+                'index'     => 'stores',
+                'sortable'  => false,
+                'store_view'=> true
             ));
         }
 
+        $this->addColumn('actions', array(
+            'header'    => Mage::helper('tag')->__('Actions'),
+            'width'     => '100px',
+            'type'      => 'action',
+            'getter'     => 'getId',
+            'sortable'  => false,
+            'filter'    => false,
+            'actions'    => array(
+                array(
+                    'caption'   => Mage::helper('tag')->__('Edit Tag'),
+                    'url'       => $this->getUrl('*/*/edit', array('ret' => 'all', 'tag_id'=>'$tag_id')),
+                ),
+                array(
+                    'caption'   => Mage::helper('tag')->__('View Products'),
+                    'url'       => $this->getUrl('*/*/product', array('ret' => 'all', 'tag_id'=>'$tag_id')),
+                ),
+
+                array(
+                    'caption'   => Mage::helper('tag')->__('View Customers'),
+                    'url'       => $this->getUrl('*/*/customer', array('ret' => 'all', 'tag_id'=>'$tag_id')),
+                )
+            ),
+        ));
+
         return parent::_prepareColumns();
+    }
+
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', array(
+            'tag_id' => $row->getId(),
+            'ret'    => 'all',
+        ));
+    }
+
+    protected function _addColumnFilterToCollection($column)
+    {
+         if($column->getIndex()=='stores') {
+                $this->getCollection()->addStoreFilter($column->getFilter()->getCondition(), false);
+         } else {
+                parent::_addColumnFilterToCollection($column);
+         }
+
+         return $this;
     }
 
     protected function _prepareMassaction()
@@ -134,9 +163,9 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->getMassactionBlock()->setFormFieldName('tag');
 
         $this->getMassactionBlock()->addItem('delete', array(
-             'label'    => Mage::helper('tag')->__('Delete'),
-             'url'      => $this->getUrl('*/*/massDelete'),
-             'confirm'  => Mage::helper('tag')->__('Are you sure?')
+             'label'=> Mage::helper('tag')->__('Delete'),
+             'url'  => $this->getUrl('*/*/massDelete'),
+             'confirm' => Mage::helper('tag')->__('Are you sure?')
         ));
 
         $statuses = $this->helper('tag/data')->getStatusesOptionsArray();
@@ -148,11 +177,11 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
              'url'  => $this->getUrl('*/*/massStatus', array('_current'=>true)),
              'additional' => array(
                     'visibility' => array(
-                         'name'     => 'status',
-                         'type'     => 'select',
-                         'class'    => 'required-entry',
-                         'label'    => Mage::helper('tag')->__('Status'),
-                         'values'   => $statuses
+                         'name' => 'status',
+                         'type' => 'select',
+                         'class' => 'required-entry',
+                         'label' => Mage::helper('tag')->__('Status'),
+                         'values' => $statuses
                      )
              )
         ));
@@ -160,24 +189,5 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return $this;
     }
 
-    /*
-     * Retrieves Grid Url
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/tag/ajaxGrid', array('_current' => true));
-    }
-
-    /**
-     * Retrives row click URL
-     *
-     * @param  mixed $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', array('tag_id' => $row->getId()));
-    }
 }
+

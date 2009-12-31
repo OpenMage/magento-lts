@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Review
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Review
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Review>
-            <version>0.7.6</version>
+            <version>0.7.4</version>
         </Mage_Review>
     </modules>
     <global>
@@ -66,7 +66,20 @@
                 <setup>
                     <module>Mage_Review</module>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </review_setup>
+            <review_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </review_write>
+            <review_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </review_read>
         </resources>
         <blocks>
                 <review>
@@ -75,6 +88,62 @@
         </blocks>
     </global>
     <adminhtml>
+        <menu>
+            <catalog>
+                <children>
+                    <reviews_ratings translate="title" module="review">
+                        <title>Reviews and Ratings</title>
+                        <children>
+                            <reviews translate="title" module="review">
+                                <title>Customer Reviews</title>
+                                <children>
+                                    <pending translate="title" module="review">
+                                        <title>Pending Reviews</title>
+                                        <action>adminhtml/catalog_product_review/pending/</action>
+                                    </pending>
+                                    <all translate="title" module="review">
+                                        <title>All Reviews</title>
+                                        <action>adminhtml/catalog_product_review/</action>
+                                    </all>
+                                </children>
+                            </reviews>
+                            <ratings translate="title" module="review">
+                                <title>Manage Ratings</title>
+                                <action>adminhtml/rating/</action>
+                            </ratings>
+                        </children>
+                    </reviews_ratings>
+                </children>
+             </catalog>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <catalog>
+                            <children>
+                                <reviews_ratings translate="title" module="review">
+                                    <title>Reviews and Ratings</title>
+                                    <children>
+                                        <reviews translate="title">
+                                            <title>Customer Reviews</title>
+                                            <children>
+                                                <all translate="title">
+                                                    <title>All Reviews</title>
+                                                </all>
+                                                <pending translate="title">
+                                                    <title>Pending Reviews</title>
+                                                </pending>
+                                            </children>
+                                        </reviews>
+                                     </children>
+                                </reviews_ratings>
+                            </children>
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
         <translate>
             <modules>
                 <Mage_Review>
@@ -84,16 +153,6 @@
                 </Mage_Review>
             </modules>
         </translate>
-        <events>
-            <catalog_product_delete_after_done>
-                <observers>
-                    <review>
-                        <class>review/observer</class>
-                        <method>processProductAfterDeleteEvent</method>
-                    </review>
-                </observers>
-            </catalog_product_delete_after_done>
-        </events>
     </adminhtml>
     <frontend>
         <routers>
@@ -105,16 +164,6 @@
                 </args>
             </review>
         </routers>
-        <events>
-            <review_save_after>
-                <observers>
-                    <rss>
-                        <class>rss/observer</class>
-                        <method>reviewSaveAfter</method>
-                    </rss>
-                </observers>
-            </review_save_after>
-        </events>
         <translate>
             <modules>
                 <Mage_Review>
@@ -142,9 +191,6 @@
                 </observers>
             </tag_tag_product_collection_load_after>
         </events>
-        <secure_url>
-            <review_customer>/review/customer/</review_customer>
-        </secure_url>
     </frontend>
     <default>
         <catalog>

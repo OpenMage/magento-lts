@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -58,7 +58,7 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'wishlist.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_wishlist_grid')
-            ->getCsvFile();
+            ->getCsv();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -70,7 +70,7 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'wishlist.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_wishlist_grid')
-            ->getExcelFile($fileName);
+            ->getExcel($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -93,7 +93,7 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'search.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_search_grid')
-            ->getCsvFile();
+            ->getCsv();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -105,7 +105,7 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'search.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_search_grid')
-            ->getExcelFile($fileName);
+            ->getExcel($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -129,7 +129,7 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
 
     protected function _isAllowed()
     {
-        switch ($this->getRequest()->getActionName()) {
+	    switch ($this->getRequest()->getActionName()) {
             case 'search':
                 return Mage::getSingleton('admin/session')->isAllowed('report/search');
                 break;

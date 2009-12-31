@@ -88,15 +88,6 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
     }
 
     /**
-     * Return allowed HTML form attributes
-     * @return array
-     */
-    public function getHtmlAttributes()
-    {
-        return array('id', 'name', 'method', 'action', 'enctype', 'class', 'onsubmit');
-    }
-
-    /**
      * Add form element
      *
      * @param   Varien_Data_Form_Element_Abstract $element
@@ -175,12 +166,6 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         return $this;
     }
 
-    /**
-     * Add suffix to name of all elements
-     *
-     * @param string $suffix
-     * @return Varien_Data_Form
-     */
     public function addFieldNameSuffix($suffix)
     {
         foreach ($this->_allElements as $element) {
@@ -189,7 +174,6 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
                 $element->setName($this->addSuffixToName($name, $suffix));
             }
         }
-        return $this;
     }
 
     public function addSuffixToName($name, $suffix)
@@ -213,23 +197,12 @@ class Varien_Data_Form extends Varien_Data_Form_Abstract
         return $this;
     }
 
-    public function setFieldContainerIdPrefix($prefix)
-    {
-        $this->setData('field_container_id_prefix', $prefix);
-        return $this;
-    }
-
-    public function getFieldContainerIdPrefix()
-    {
-        return $this->getData('field_container_id_prefix');
-    }
-
     public function toHtml()
     {
         Varien_Profiler::start('form/toHtml');
         $html = '';
         if ($useContainer = $this->getUseContainer()) {
-            $html .= '<form '.$this->serialize($this->getHtmlAttributes()).'>';
+            $html .= '<form '.$this->serialize(array('id', 'name', 'method', 'action', 'enctype', 'class', 'onsubmit')).'>';
             $html .= '<div>';
             if (strtolower($this->getData('method')) == 'post') {
                 $html .= '<input name="form_key" type="hidden" value="'.Mage::getSingleton('core/session')->getFormKey().'" />';

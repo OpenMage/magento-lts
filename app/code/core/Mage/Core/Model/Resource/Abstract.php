@@ -18,17 +18,17 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract resource model
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Model_Resource_Abstract
@@ -37,13 +37,6 @@ abstract class Mage_Core_Model_Resource_Abstract
     {
         $this->_construct();
     }
-
-    /**
-     * Array of callbacks subscribed to commit transaction commit
-     *
-     * @var array
-     */
-    static protected $_commitCallbacks = array();
 
     /**
      * Resource initialization
@@ -72,19 +65,6 @@ abstract class Mage_Core_Model_Resource_Abstract
     }
 
     /**
-     * Subscribe some callback to transaction commit
-     *
-     * @param callback $callback
-     * @return Mage_Core_Model_Resource_Abstract
-     */
-    public function addCommitCallback($callback)
-    {
-        $adapterKey = spl_object_hash($this->_getWriteAdapter());
-        self::$_commitCallbacks[$adapterKey][] = $callback;
-        return $this;
-    }
-
-    /**
      * Commit resource transaction
      *
      * @return Mage_Core_Model_Resource_Abstract
@@ -92,18 +72,6 @@ abstract class Mage_Core_Model_Resource_Abstract
     public function commit()
     {
         $this->_getWriteAdapter()->commit();
-        /**
-         * Process after commit callbacks
-         */
-        if ($this->_getWriteAdapter()->getTransactionLevel() === 0) {
-            $adapterKey = spl_object_hash($this->_getWriteAdapter());
-            if (isset(self::$_commitCallbacks[$adapterKey])) {
-                foreach (self::$_commitCallbacks[$adapterKey] as $index => $callback) {
-                    unset(self::$_commitCallbacks[$adapterKey][$index]);
-                    call_user_func($callback);
-                }
-            }
-        }
         return $this;
     }
 
@@ -136,9 +104,9 @@ abstract class Mage_Core_Model_Resource_Abstract
             }
         }
 
-        if (empty($date)) {
-            return new Zend_Db_Expr('NULL');
-        }
+    	if (empty($date)) {
+    		return new Zend_Db_Expr('NULL');
+    	}
 
         if (!is_numeric($date)) {
             $date = strtotime($date);

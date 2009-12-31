@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -54,7 +54,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Status extends Mage_Core_Mo
      * Retrieve product attribute (public method for status model)
      *
      * @param string $attributeCode
-     * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getProductAttribute($attributeCode)
     {
@@ -106,7 +106,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Status extends Mage_Core_Mo
 
         $query = "INSERT INTO $indexTable
             SELECT
-                {$productId}, {$storeId}, IF(t_v.value_id>0, t_v.value, t_v_default.value)
+                {$productId}, {$storeId}, IFNULL(t_v.value, t_v_default.value)
             FROM
                 {$visibilityTable} AS t_v_default
             LEFT JOIN {$visibilityTable} AS `t_v`
@@ -118,7 +118,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Status extends Mage_Core_Mo
             WHERE
                 t_v_default.entity_id={$productId}
                 AND t_v_default.attribute_id='{$visibilityAttributeId}' AND t_v_default.store_id=0
-                AND (IF(t_s.value_id>0, t_s.value, t_s_default.value)=".Mage_Catalog_Model_Product_Status::STATUS_ENABLED.")";
+                AND (IFNULL(t_s.value, t_s_default.value)=".Mage_Catalog_Model_Product_Status::STATUS_ENABLED.")";
         $this->_getWriteAdapter()->query($query);
 
         return $this;
@@ -205,7 +205,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Status extends Mage_Core_Mo
             $select = $this->_getReadAdapter()->select()
                 ->from(
                     array('t1' => $attributeTable),
-                    array('entity_id', 'IF(t2.value_id>0, t2.value, t1.value) as value'))
+                    array('entity_id', 'IFNULL(t2.value, t1.value) as value'))
                 ->joinLeft(
                     array('t2' => $attributeTable),
                     $this->_getReadAdapter()->quoteInto('t1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id=?', $storeId),

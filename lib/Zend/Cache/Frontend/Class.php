@@ -15,9 +15,8 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Frontend
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Class.php 16541 2009-07-07 06:59:03Z bkarwin $
  */
 
 /**
@@ -29,7 +28,7 @@
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Frontend
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Frontend_Class extends Zend_Cache_Core
@@ -90,7 +89,7 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
       * @var string
       */
     private $_cachedEntityLabel = '';
-
+    
     /**
      * Priority (used by some particular backends)
      *
@@ -110,7 +109,7 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
         while (list($name, $value) = each($options)) {
             $this->setOption($name, $value);
         }
-        if ($this->_specificOptions['cached_entity'] === null) {
+        if (is_null($this->_specificOptions['cached_entity'])) {
             Zend_Cache::throwException('cached_entity must be set !');
         }
         $this->setCachedEntity($this->_specificOptions['cached_entity']);
@@ -126,18 +125,18 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
     public function setSpecificLifetime($specificLifetime = false)
     {
         $this->_specificLifetime = $specificLifetime;
-    }
+    }  
 
     /**
      * Set the priority (used by some particular backends)
-     *
+     * 
      * @param int $priority integer between 0 (very low priority) and 10 (maximum priority)
      */
     public function setPriority($priority)
     {
         $this->_priority = $priority;
     }
-
+        
     /**
      * Public frontend to set an option
      *
@@ -156,14 +155,14 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
             parent::setOption($name, $value);
         }
     }
-
+    
     /**
      * Specific method to set the cachedEntity
-     *
+     * 
      * if set to a class name, we will cache an abstract class and will use only static calls
      * if set to an object, we will cache this object methods
-     *
-     * @param mixed $cachedEntity
+     * 
+     * @param mixed $cachedEntity 
      */
     public function setCachedEntity($cachedEntity)
     {

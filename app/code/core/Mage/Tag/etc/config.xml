@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Tag>
-            <version>0.7.4</version>
+            <version>0.7.2</version>
         </Mage_Tag>
     </modules>
     <global>
@@ -64,7 +64,20 @@
                 <setup>
                     <module>Mage_Tag</module>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </tag_setup>
+            <tag_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </tag_write>
+            <tag_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </tag_read>
         </resources>
         <blocks>
             <tag><class>Mage_Tag_Block</class></tag>
@@ -96,9 +109,6 @@
                   </tag>
               </updates>
           </layout>
-        <secure_url>
-            <tag_customer>/tag/customer/</tag_customer>
-        </secure_url>
     </frontend>
     <adminhtml>
         <events>
@@ -120,16 +130,59 @@
                     </tag>
                 </observers>
             </catalog_controller_product_delete>
-            <catalog_product_delete_before>
-                <observers>
-                    <tag>
-                        <type>model</type>
-                        <class>tag/tag</class>
-                        <method>productDeleteEventAction</method>
-                    </tag>
-                </observers>
-            </catalog_product_delete_before>
         </events>
+        <menu>
+            <catalog>
+                <children>
+                    <tag translate="title" module="tag">
+                        <title>Tags</title>
+                        <children>
+                            <pending translate="title" module="tag">
+                                <title>Pending Tags</title>
+                                <action>adminhtml/tag/pending</action>
+                            </pending>
+                            <all translate="title" module="tag">
+                                <title>All Tags</title>
+                                <action>adminhtml/tag/index</action>
+                            </all>
+                            <!--
+                            <customer>
+                                <title>Customers' Tags</title>
+                                <action>adminhtml/tag/customer</action>
+                            </customer>
+                            <product>
+                                <title>Products' Tags</title>
+                                <action>adminhtml/tag/product</action>
+                            </product>
+                            -->
+                        </children>
+                    </tag>
+                 </children>
+            </catalog>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <catalog>
+                            <children>
+                                <tag translate="title" module="tag">
+                                    <title>Tags</title>
+                                    <children>
+                                        <all translate="title">
+                                            <title>All Tags</title>
+                                        </all>
+                                        <pending translate="title">
+                                            <title>Pending Tags</title>
+                                        </pending>
+                                    </children>
+                                </tag>
+                            </children>
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
         <translate>
             <modules>
                 <Mage_Tag>
@@ -139,12 +192,5 @@
                 </Mage_Tag>
             </modules>
         </translate>
-        <layout>
-            <updates>
-                <tag>
-                    <file>tag.xml</file>
-                </tag>
-            </updates>
-        </layout>
     </adminhtml>
 </config>

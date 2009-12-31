@@ -15,9 +15,8 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HelperBroker.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -34,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Action_HelperBroker
@@ -60,8 +59,8 @@ class Zend_Controller_Action_HelperBroker
 
     /**
      * Set PluginLoader for use with broker
-     *
-     * @param  Zend_Loader_PluginLoader_Interface $loader
+     * 
+     * @param  Zend_Loader_PluginLoader_Interface $loader 
      * @return void
      */
     public static function setPluginLoader($loader)
@@ -75,7 +74,7 @@ class Zend_Controller_Action_HelperBroker
 
     /**
      * Retrieve PluginLoader
-     *
+     * 
      * @return Zend_Loader_PluginLoader
      */
     public static function getPluginLoader()
@@ -150,7 +149,7 @@ class Zend_Controller_Action_HelperBroker
     {
         $name  = self::_normalizeHelperName($name);
         $stack = self::getStack();
-
+        
         if (!isset($stack->{$name})) {
             self::_loadHelper($name);
         }
@@ -177,7 +176,7 @@ class Zend_Controller_Action_HelperBroker
     {
         $name  = self::_normalizeHelperName($name);
         $stack = self::getStack();
-
+        
         if (!isset($stack->{$name})) {
             #require_once 'Zend/Controller/Action/Exception.php';
             throw new Zend_Controller_Action_Exception('Action helper "' . $name . '" has not been registered with the helper broker');
@@ -235,10 +234,10 @@ class Zend_Controller_Action_HelperBroker
         if (self::$_stack == null) {
             self::$_stack = new Zend_Controller_Action_HelperBroker_PriorityStack();
         }
-
+        
         return self::$_stack;
     }
-
+    
     /**
      * Constructor
      *

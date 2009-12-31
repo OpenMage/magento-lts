@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -80,15 +80,15 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
     /**
      * Retrieve product category identifiers
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @return array
+     * @param   $product
+     * @return  Mage_Catalog_Model_Resource_Eav_Mysql4_Product
      */
     public function getCategoryIds($product)
     {
-        $select = $this->_getReadAdapter()->select()
+        $select = $this->_getWriteAdapter()->select()
             ->from($this->_productCategoryTable, 'category_id')
             ->where('product_id=?', $product->getId());
-        return $this->_getReadAdapter()->fetchCol($select);
+        return $this->_getWriteAdapter()->fetchCol($select);
     }
 
     /**
@@ -110,23 +110,16 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
      */
     protected function _beforeSave(Varien_Object $object)
     {
-        /**
-         * Try detect product id by sku if id is not declared
-         */
         if (!$object->getId() && $object->getSku()) {
-            $object->setId($this->getIdBySku($object->getSku()));
+           $object->setId($this->getIdBySku($object->getSku()));
         }
 
-        /**
-         * Check if declared category ids in object data.
-         */
-        if ($object->hasCategoryIds()) {
-            $categoryIds = Mage::getResourceSingleton('catalog/category')->verifyIds(
-                $object->getCategoryIds()
-            );
-            $object->setCategoryIds($categoryIds);
+        $categoryIds = $object->getCategoryIds();
+        if ($categoryIds) {
+            $categoryIds = Mage::getModel('catalog/category')->verifyIds($categoryIds);
         }
 
+        $object->setData('category_ids', implode(',', $categoryIds));
         return parent::_beforeSave($object);
     }
 
@@ -140,8 +133,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
     {
         $this->_saveWebsiteIds($product)
             ->_saveCategories($product)
-            //->refreshIndex($product)
-            ;
+            ->refreshIndex($product);
 
         parent::_afterSave($product);
         return $this;
@@ -199,19 +191,15 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
     /**
      * Save product category relations
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product
+     * @param   Mage_Catalog_Model_Product $product
+     * @return  Mage_Catalog_Model_Resource_Eav_Mysql4_Product
      */
     protected function _saveCategories(Varien_Object $object)
     {
-        /**
-         * If category ids data is not declared we haven't do manipulations
-         */
-        if (!$object->hasCategoryIds()) {
-            return $this;
-        }
         $categoryIds = $object->getCategoryIds();
-        $oldCategoryIds = $this->getCategoryIds($object);
+
+        $oldCategoryIds = $object->getOrigData('category_ids');
+        $oldCategoryIds = !empty($oldCategoryIds) ? explode(',', $oldCategoryIds) : array();
 
         $object->setIsChangedCategories(false);
 
@@ -220,32 +208,26 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
 
         $write = $this->_getWriteAdapter();
         if (!empty($insert)) {
-            $data = array();
-            foreach ($insert as $categoryId) {
-                if (empty($categoryId)) {
-                    continue;
+            $insertSql = array();
+            foreach ($insert as $v) {
+                if (!empty($v)) {
+                    $insertSql[] = '('.(int)$v.','.$object->getId().',0)';
                 }
-                $data[] = array(
-                    'category_id' => (int)$categoryId,
-                    'product_id'  => $object->getId(),
-                    'position'    => 1
-                );
-            }
-            if ($data) {
-                $write->insertMultiple($this->_productCategoryTable, $data);
+            };
+            if ($insertSql) {
+                $write->query("insert into {$this->_productCategoryTable}
+                    (category_id, product_id, position) values ".join(',', $insertSql));
             }
         }
 
         if (!empty($delete)) {
-            $where = join(' AND ', array(
-                $write->quoteInto('product_id=?', $object->getId()),
-                $write->quoteInto('category_id IN(?)', $delete)
-            ));
-            $write->delete($this->_productCategoryTable, $where);
+            $write->delete($this->_productCategoryTable,
+                $write->quoteInto('product_id=?', $object->getId())
+                .' and '.$write->quoteInto('category_id in (?)', $delete)
+            );
         }
 
         if (!empty($insert) || !empty($delete)) {
-            $object->setAffectedCategoryIds(array_merge($insert, $delete));
             $object->setIsChangedCategories(true);
         }
 
@@ -351,7 +333,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
             $this->_getWriteAdapter()->delete($indexTable, 'store_id='.$storeId.$deleteCondition);
             $query = "INSERT INTO $indexTable
             SELECT
-                t_v_default.entity_id, {$storeId}, IF(t_v.value_id>0, t_v.value, t_v_default.value)
+                t_v_default.entity_id, {$storeId}, IFNULL(t_v.value, t_v_default.value)
             FROM
                 {$visibilityTable} AS t_v_default
             INNER JOIN {$this->getTable('catalog/product_website')} AS w
@@ -371,7 +353,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
             WHERE
                 t_v_default.attribute_id='{$visibilityAttributeId}'
                 AND t_v_default.store_id=0{$productsCondition}
-                AND (IF(t_s.value_id>0, t_s.value, t_s_default.value)=".Mage_Catalog_Model_Product_Status::STATUS_ENABLED.")";
+                AND (IFNULL(t_s.value, t_s_default.value)=".Mage_Catalog_Model_Product_Status::STATUS_ENABLED.")";
             $this->_getWriteAdapter()->query($query);
         }
         elseif (is_null($store)) {
@@ -386,7 +368,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
             $this->_getWriteAdapter()->delete($indexTable, 'product_id='.$productId.' AND store_id='.$storeId);
             $query = "INSERT INTO $indexTable
             SELECT
-                {$productId}, {$storeId}, IF(t_v.value_id>0, t_v.value, t_v_default.value)
+                {$productId}, {$storeId}, IFNULL(t_v.value, t_v_default.value)
             FROM
                 {$visibilityTable} AS t_v_default
             LEFT JOIN {$visibilityTable} AS `t_v`
@@ -404,7 +386,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
             WHERE
                 t_v_default.entity_id={$productId}
                 AND t_v_default.attribute_id='{$visibilityAttributeId}' AND t_v_default.store_id=0
-                AND (IF(t_s.value_id>0, t_s.value, t_s_default.value)=".Mage_Catalog_Model_Product_Status::STATUS_ENABLED.")";
+                AND (IFNULL(t_s.value, t_s_default.value)=".Mage_Catalog_Model_Product_Status::STATUS_ENABLED.")";
             $this->_getWriteAdapter()->query($query);
         }
 
@@ -427,20 +409,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product extends Mage_Catalog_Model_
                 null)
             ->addFieldToFilter('product_id', (int) $product->getId());
         return $collection;
-    }
-
-    /**
-     * Retrieve category ids where product is available
-     *
-     * @param Mage_Catalog_Model_Product $object
-     * @return array
-     */
-    public function getAvailableInCategories($object)
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('catalog/category_product_index'), array('category_id'))
-            ->where('product_id=?', $object->getEntityId());
-        return $this->_getReadAdapter()->fetchCol($select);
     }
 
     /**

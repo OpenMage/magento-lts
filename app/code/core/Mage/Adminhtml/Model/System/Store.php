@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -113,13 +113,6 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         return $this;
     }
 
-    /**
-     * Retrieve store values for form
-     *
-     * @param bool $empty
-     * @param bool $all
-     * @return array
-     */
     public function getStoreValuesForForm($empty = false, $all = false)
     {
         $options = array();
@@ -174,84 +167,12 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         return $options;
     }
 
-    /**
-     * Retrieve stores structure
-     *
-     * @param bool $isAll
-     * @param array $storeIds
-     * @param array $groupIds
-     * @param array $websiteIds
-     * @return array
-     */
-    public function getStoresStructure($isAll = false, $storeIds = array(), $groupIds = array(), $websiteIds = array())
-    {
-        $out = array();
-        $websites = $this->getWebsiteCollection();
-
-        if ($isAll) {
-            $out[] = array(
-                'value' => 0,
-                'label' => Mage::helper('adminhtml')->__('All Store Views')
-            );
-        }
-
-        foreach ($websites as $website) {
-
-            $websiteId = $website->getId();
-            if ($websiteIds && !in_array($websiteId, $websiteIds)) {
-                continue;
-            }
-            $out[$websiteId] = array(
-                'value' => $websiteId,
-                'label' => $website->getName()
-            );
-
-            foreach ($website->getGroups() as $group) {
-
-                $groupId = $group->getId();
-                if ($groupIds && !in_array($groupId, $groupIds)) {
-                    continue;
-                }
-                $out[$websiteId]['children'][$groupId] = array(
-                    'value' => $groupId,
-                    'label' => $group->getName()
-                );
-
-                foreach ($group->getStores() as $store) {
-
-                    $storeId = $store->getId();
-                    if ($storeIds && !in_array($storeId, $storeIds)) {
-                        continue;
-                    }
-                    $out[$websiteId]['children'][$groupId]['children'][$storeId] = array(
-                        'value' => $storeId,
-                        'label' => $store->getName()
-                    );
-                }
-                if (empty($out[$websiteId]['children'][$groupId]['children'])) {
-                    unset($out[$websiteId]['children'][$groupId]);
-                }
-            }
-            if (empty($out[$websiteId]['children'])) {
-                unset($out[$websiteId]);
-            }
-        }
-        return $out;
-    }
-
-    /**
-     * Website label/value array getter, compatible with form dropdown options
-     *
-     * @param bool $empty
-     * @param bool $all
-     * @return array
-     */
     public function getWebsiteValuesForForm($empty = false, $all = false)
     {
         $options = array();
         if ($empty) {
             $options[] = array(
-                'label' => Mage::helper('adminhtml')->__('-- Please Select --'),
+                'label' => '',
                 'value' => ''
             );
         }
@@ -389,7 +310,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         if (is_array($storeId)) {
             $names = array();
             foreach ($storeId as $id) {
-                $names[]= $this->getStoreNameWithWebsite($id);
+            	$names[]= $this->getStoreNameWithWebsite($id);
             }
             $name = implode(', ', $names);
         }
@@ -478,7 +399,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         if (is_array($storeId)) {
             $names = array();
             foreach ($storeId as $id) {
-                $names[]= $this->getStoreNamePath($id);
+            	$names[]= $this->getStoreNamePath($id);
             }
             $name = implode(', ', $names);
         }

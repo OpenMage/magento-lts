@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -55,10 +55,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
         $this->_disableSubmitButton = true;
         $_submitButtonClass = ' disabled';
         foreach ($this->getInvoice()->getAllItems() as $item) {
-            /**
-             * @see bug #14839
-             */
-            if ($item->getQty()/* || $this->getSource()->getData('base_grand_total')*/) {
+            if ($item->getQty() || $this->getSource()->getData('base_grand_total')) {
                 $this->_disableSubmitButton = false;
                 $_submitButtonClass = '';
                 break;
@@ -136,7 +133,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
     public function getOrderTotalbarData()
     {
         $totalbarData = array();
-        $this->setPriceDataObject($this->getInvoice()->getOrder());
+        $this->setPriceDataObject($this->getInvoice());
         $totalbarData[] = array(Mage::helper('sales')->__('Paid Amount'), $this->displayPriceAttribute('amount_paid'), false);
         $totalbarData[] = array(Mage::helper('sales')->__('Refund Amount'), $this->displayPriceAttribute('amount_refunded'), false);
         $totalbarData[] = array(Mage::helper('sales')->__('Shipping Amount'), $this->displayPriceAttribute('shipping_captured'), false);

@@ -18,23 +18,23 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div class="content-header">
     <table cellspacing="0">
-        <tr>
-            <td style="width:50%;"><h3 class="icon-head head-product-attribute-sets"><?php echo $this->_getHeader() ?></h3></td>
-            <td class="form-buttons">
+    	<tr>
+    		<td style="width:50%;"><h3 class="icon-head head-product-attribute-sets"><?php echo $this->_getHeader() ?></h3></td>
+        	<td class="form-buttons">
                 <?php echo $this->getBackButtonHtml() ?>
                 <?php echo $this->getResetButtonHtml() ?>
                 <?php echo $this->getDeleteButtonHtml() ?>
                 <?php echo $this->getSaveButtonHtml() ?>
-            </td>
-        </tr>
+        	</td>
+    	</tr>
     </table>
 </div>
 <table cellspacing="0" width="100%">
@@ -73,7 +73,7 @@
             </div>
             <div id="tree-div2" style="height:400px; margin-top:5px;overflow:auto"></div>
             <script type="text/javascript">
-            //<![CDATA[
+			//<![CDATA[
             var allowDragAndDrop = <?php echo ($this->getIsReadOnly() ? 'false' : 'true'); ?>;
             var canEditGroups = <?php echo ($this->getIsReadOnly() ? 'false' : 'true'); ?>;
 
@@ -161,7 +161,7 @@
                         for( i in rootNode.childNodes ) {
                             if(rootNode.childNodes[i].id) {
                                 var group = rootNode.childNodes[i];
-                                editSet.req.groups[gIterator] = new Array(group.id, group.attributes.text.strip(), (gIterator+1));
+                                editSet.req.groups[gIterator] = new Array(group.id, group.attributes.text, (gIterator+1));
                                 var iterator = 0
                                 for( j in group.childNodes ) {
                                     iterator ++;
@@ -192,7 +192,7 @@
 
             function buildCategoryTree(parent, config){
                 if (!config) return null;
-                if (parent && config && config.length){
+            	if (parent && config && config.length){
                     for (var i = 0; i < config.length; i++) {
                         var node = new Ext.tree.TreeNode(config[i]);
                         parent.appendChild(node);
@@ -270,7 +270,7 @@
                         for (var i in currentNode.childNodes ) {
                             if (currentNode.childNodes[i].id) {
                                 child = editSet.currentNode.childNodes[i];
-                                if (child.attributes.is_configurable) {
+                                if (child.attributes.is_used_in_configurable) {
                                     return true;
                                 }
                             }
@@ -284,7 +284,7 @@
 
                     addGroup : function() {
                         var group_name = prompt("<?php echo Mage::helper('catalog')->__('Please enter a new group name') ?>","");
-                        group_name = group_name.strip();
+
                         if( group_name == '' ) {
                             this.addGroup();
                         } else if( group_name != false && group_name != null && group_name != '' ) {
@@ -300,17 +300,14 @@
                                     allowDrag : true
                                 });
                             TreePanels.root.appendChild(newNode);
-                            newNode.addListener('beforemove', editSet.groupBeforeMove);
-                            newNode.addListener('beforeinsert', editSet.groupBeforeInsert);
-                            newNode.addListener('beforeappend', editSet.groupBeforeInsert);
                             newNode.addListener('click', editSet.register);
                         }
                     },
 
                     editGroup : function(obj) {
                         if( obj.editNode.attributes.cls != 'folder' || !canEditGroups) {
-                             TreePanels.ge.cancelEdit();
-                             return false;
+                         	TreePanels.ge.cancelEdit();
+                         	return false;
                         }
                     },
 
@@ -319,10 +316,6 @@
                     },
 
                     validateGroupName : function(name, exceptNodeId) {
-                        name = name.strip();
-                        if (name === '') {
-                            return false;
-                        }
                         for (var i=0; i < TreePanels.root.childNodes.length; i++) {
                             if (TreePanels.root.childNodes[i].text.toLowerCase() == name.toLowerCase() && TreePanels.root.childNodes[i].id != exceptNodeId) {
                                 errorText = "<?php echo Mage::helper('catalog')->__('Attribute group with the \"/name/\" name already exists') ?>";
@@ -376,16 +369,11 @@
                     },
 
                     rightBeforeAppend : function(tree, nodeThis, node, newParent) {
-                        if (node.attributes.is_user_defined == 0) {
+                        if( node.attributes.is_user_defined == 1 ) {
+                            return true;
+                        } else {
                             alert('<?php echo Mage::helper('catalog')->__('You cannot remove system attribute from this set.') ?>');
                             return false;
-                        }
-                        else if (node.attributes.is_configurable == 1) {
-                            alert('<?php echo Mage::helper('catalog')->__('This attribute is used in configurable products. You cannot remove it from the attribute set.') ?>');
-                            return false;
-                        }
-                        else {
-                            return true;
                         }
                     },
 
@@ -395,16 +383,11 @@
                             return false;
                         }
 
-                        if (node.attributes.is_user_defined == 0) {
+                        if( node.attributes.is_user_defined == 1 ) {
+                            return true;
+                        } else {
                             alert('<?php echo Mage::helper('catalog')->__('You cannot remove system attribute from this set.') ?>');
                             return false;
-                        }
-                        else if (node.attributes.is_configurable == 1) {
-                            alert('<?php echo Mage::helper('catalog')->__('This attribute is used in configurable products. You cannot remove it from the attribute set.') ?>');
-                            return false;
-                        }
-                        else {
-                            return true;
                         }
                     },
 
@@ -454,7 +437,7 @@
 
             initVars();
             Ext.EventManager.onDocumentReady(TreePanels.init, TreePanels, true);
-            //]]>
+			//]]>
             </script>
         </td>
     </tr>

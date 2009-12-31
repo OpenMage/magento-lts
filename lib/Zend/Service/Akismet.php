@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Akismet
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Akismet.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Akismet.php 8502 2008-03-01 19:56:46Z weppos $
  */
 
 
@@ -26,7 +26,7 @@
  */
 #require_once 'Zend/Version.php';
 
-/**
+/**   
  * @see Zend_Service_Abstract
  */
 #require_once 'Zend/Service/Abstract.php';
@@ -39,7 +39,7 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Akismet
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Akismet extends Zend_Service_Abstract

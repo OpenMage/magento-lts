@@ -15,9 +15,8 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage Parse_Amf0
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Serializer.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /** Zend_Amf_Parse_Serializer */
@@ -29,7 +28,7 @@
  * @uses       Zend_Amf_Parse_Serializer
  * @package    Zend_Amf
  * @subpackage Parse_Amf0
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Parse_Amf0_Serializer extends Zend_Amf_Parse_Serializer
@@ -38,12 +37,6 @@ class Zend_Amf_Parse_Amf0_Serializer extends Zend_Amf_Parse_Serializer
      * @var string Name of the class to be returned
      */
     protected $_className = '';
-
-    /**
-     * An array of reference objects
-     * @var array
-     */
-    protected $_referenceObjects = array();
 
     /**
      * Determine type and serialize accordingly
@@ -60,58 +53,48 @@ class Zend_Amf_Parse_Amf0_Serializer extends Zend_Amf_Parse_Serializer
     public function writeTypeMarker($data, $markerType = null)
     {
         if (null !== $markerType) {
-            //try to refrence the given object
-            if( !$this->writeObjectReference($data, $markerType) ) {
-
-                // Write the Type Marker to denote the following action script data type
-                $this->_stream->writeByte($markerType);
-                switch($markerType) {
-                    case Zend_Amf_Constants::AMF0_NUMBER:
-                        $this->_stream->writeDouble($data);
-                        break;
-                    case Zend_Amf_Constants::AMF0_BOOLEAN:
-                        $this->_stream->writeByte($data);
-                        break;
-                    case Zend_Amf_Constants::AMF0_STRING:
-                        $this->_stream->writeUTF($data);
-                        break;
-                    case Zend_Amf_Constants::AMF0_OBJECT:
-                        $this->writeObject($data);
-                        break;
-                    case Zend_Amf_Constants::AMF0_NULL:
-                        break;
-                    case Zend_Amf_Constants::AMF0_REFERENCE:
-                        $this->_stream->writeInt($data);
-                        break;
-                    case Zend_Amf_Constants::AMF0_MIXEDARRAY:
-                        // Write length of numeric keys as zero.
-                        $this->_stream->writeLong(0);
-                        $this->writeObject($data);
-                        break;
-                    case Zend_Amf_Constants::AMF0_ARRAY:
-                        $this->writeArray($data);
-                        break;
-                    case Zend_Amf_Constants::AMF0_DATE:
-                        $this->writeDate($data);
-                        break;
-                    case Zend_Amf_Constants::AMF0_LONGSTRING:
-                        $this->_stream->writeLongUTF($data);
-                        break;
-                    case Zend_Amf_Constants::AMF0_TYPEDOBJECT:
-                        $this->writeTypedObject($data);
-                        break;
-                    case Zend_Amf_Constants::AMF0_AMF3:
-                        $this->writeAmf3TypeMarker($data);
-                        break;
-                    default:
-                        #require_once 'Zend/Amf/Exception.php';
-                        throw new Zend_Amf_Exception("Unknown Type Marker: " . $markerType);
-                }
+            // Write the Type Marker to denote the following action script data type
+            $this->_stream->writeByte($markerType);
+            switch($markerType) {
+                case Zend_Amf_Constants::AMF0_NUMBER:
+                    $this->_stream->writeDouble($data);
+                    break;
+                case Zend_Amf_Constants::AMF0_BOOLEAN:
+                    $this->_stream->writeByte($data);
+                    break;
+                case Zend_Amf_Constants::AMF0_STRING:
+                    $this->_stream->writeUTF($data);
+                    break;
+                case Zend_Amf_Constants::AMF0_OBJECT:
+                    $this->writeObject($data);
+                    break;
+                case Zend_Amf_Constants::AMF0_NULL:
+                    break;
+                case Zend_Amf_Constants::AMF0_MIXEDARRAY:
+                    // Write length of numeric keys as zero.
+                    $this->_stream->writeLong(0);
+                    $this->writeObject($data);
+                    break;
+                case Zend_Amf_Constants::AMF0_ARRAY:
+                    $this->writeArray($data);
+                    break;
+                case Zend_Amf_Constants::AMF0_DATE:
+                    $this->writeDate($data);
+                    break;
+                case Zend_Amf_Constants::AMF0_LONGSTRING:
+                    $this->_stream->writeLongUTF($data);
+                    break;
+                case Zend_Amf_Constants::AMF0_TYPEDOBJECT:
+                    $this->writeTypedObject($data);
+                    break;
+                case Zend_Amf_Constants::AMF0_AMF3:
+                    $this->writeAmf3TypeMarker($data);
+                    break;
+                default:
+                    #require_once 'Zend/Amf/Exception.php';
+                    throw new Zend_Amf_Exception("Unknown Type Marker: " . $markerType);
             }
         } else {
-            if(is_resource($data)) {
-                $data = Zend_Amf_Parse_TypeLoader::handleResource($data);
-            }
             switch (true) {
                 case (is_int($data) || is_float($data)):
                     $markerType = Zend_Amf_Constants::AMF0_NUMBER;
@@ -149,13 +132,13 @@ class Zend_Amf_Parse_Amf0_Serializer extends Zend_Amf_Parse_Serializer
                     $i = 0;
                     foreach (array_keys($data) as $key) {
                         // check if it contains non-integer keys
-                        if (!is_numeric($key) || intval($key) != $key) {
-                            $markerType = Zend_Amf_Constants::AMF0_OBJECT;
-                            break;
+                        if (!is_numeric($key) || intval($key) != $key) { 
+                            $markerType = Zend_Amf_Constants::AMF0_OBJECT; 
+                            break; 
                             // check if it is a sparse indexed array
-                         } else if ($key != $i) {
-                             $markerType = Zend_Amf_Constants::AMF0_MIXEDARRAY;
-                             break;
+                         } else if ($key != $i) { 
+                             $markerType = Zend_Amf_Constants::AMF0_MIXEDARRAY; 
+                             break; 
                          }
                          $i++;
                     }
@@ -176,33 +159,6 @@ class Zend_Amf_Parse_Amf0_Serializer extends Zend_Amf_Parse_Serializer
     }
 
     /**
-     * Check if the given object is in the reference table, write the reference if it exists,
-     * otherwise add the object to the reference table
-     *
-     * @param mixed $object object to check for reference
-     * @param $markerType AMF type of the object to write
-     * @return Boolean true, if the reference was written, false otherwise
-     */
-    protected function writeObjectReference($object, $markerType){
-        if( $markerType == Zend_Amf_Constants::AMF0_OBJECT ||
-            $markerType == Zend_Amf_Constants::AMF0_MIXEDARRAY ||
-            $markerType == Zend_Amf_Constants::AMF0_ARRAY ||
-            $markerType == Zend_Amf_Constants::AMF0_TYPEDOBJECT ) {
-
-            $ref = array_search($object, $this->_referenceObjects,true);
-            //handle object reference
-            if($ref !== false){
-                $this->writeTypeMarker($ref,Zend_Amf_Constants::AMF0_REFERENCE);
-                return true;
-            }
-
-            $this->_referenceObjects[] = $object;
-        }
-
-        return false;
-    }
-
-    /**
      * Write a php array with string or mixed keys.
      *
      * @param object $data
@@ -212,8 +168,6 @@ class Zend_Amf_Parse_Amf0_Serializer extends Zend_Amf_Parse_Serializer
     {
         // Loop each element and write the name of the property.
         foreach ($object as $key => $value) {
-            // skip variables starting with an _ provate transient
-            if( $key[0] == "_")    continue;
             $this->_stream->writeUTF($key);
             $this->writeTypeMarker($value);
         }
@@ -323,18 +277,14 @@ class Zend_Amf_Parse_Amf0_Serializer extends Zend_Amf_Parse_Serializer
                 // Check to see if the user has defined an explicit Action Script type.
             case isset($object->_explicitType):
                 $className = $object->_explicitType;
+                unset($object->_explicitType);
                 break;
                 // Check if user has defined a method for accessing the Action Script type
             case method_exists($object, 'getASClassName'):
                 $className = $object->getASClassName();
                 break;
                 // No return class name is set make it a generic object
-            case ($object instanceof stdClass):
-                $className = '';
-                break;
-        // By default, use object's class name
             default:
-        $className = get_class($object);
                 break;
         }
         if(!$className == '') {

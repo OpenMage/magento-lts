@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -30,35 +30,17 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link extends Mage_Core_Model_Mysql4_Abstract
 {
-    /**
-     * Product Link Attributes Table
-     *
-     * @var string
-     */
     protected $_attributesTable;
-
-    /**
-     * Define main table name and attributes table
-     *
-     */
     protected function  _construct()
     {
         $this->_init('catalog/product_link', 'link_id');
         $this->_attributesTable = $this->getTable('catalog/product_link_attribute');
     }
 
-    /**
-     * Save Product Links process
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $data
-     * @param int $typeId
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link
-     */
     public function saveProductLinks($product, $data, $typeId)
     {
         if (!is_array($data)) {
@@ -79,32 +61,18 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link extends Mage_Core_Mode
             $linkId = $this->_getWriteAdapter()->lastInsertId();
             foreach ($attributes as $attributeInfo) {
                 $attributeTable = $this->getAttributeTypeTable($attributeInfo['type']);
-                if ($attributeTable && isset($linkInfo[$attributeInfo['code']])) {
+            	if ($attributeTable && isset($linkInfo[$attributeInfo['code']])) {
                     $this->_getWriteAdapter()->insert($attributeTable, array(
                         'product_link_attribute_id' => $attributeInfo['id'],
                         'link_id'                   => $linkId,
                         'value'                     => $linkInfo[$attributeInfo['code']]
                     ));
-                }
+            	}
             }
         }
-
-        /**
-         * Grouped product relations should be added to relation table
-         */
-        if ($typeId == Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED) {
-
-        }
-
         return $this;
     }
 
-    /**
-     * Retrieve product link attributes by link type
-     *
-     * @param int $typeId
-     * @return array
-     */
     public function getAttributesByType($typeId)
     {
         $select = $this->_getReadAdapter()->select()
@@ -122,7 +90,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link extends Mage_Core_Mode
         return $this->getTable('catalog/product_link_attribute_'.$type);
     }
 
-    /**
+/**
      * Retrieve Required children ids
      * Return grouped array, ex array(
      *   group => array(ids)
@@ -175,37 +143,5 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link extends Mage_Core_Mode
         }
 
         return $parentIds;
-    }
-
-    /**
-     * Save grouped product relations
-     *
-     * @param Mage_Catalog_Model_Product $parentProduct
-     * @param array $data
-     * @param int $typeId
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link
-     */
-    public function saveGroupedLinks($product, $data, $typeId)
-    {
-        // check for change relations
-        $select = $this->_getWriteAdapter()->select()
-            ->from($this->getMainTable(), array('linked_product_id'))
-            ->where('product_id=?', $product->getId())
-            ->where('link_type_id=?', $typeId);
-        $old = $this->_getWriteAdapter()->fetchCol($select);
-        $new = array_keys($data);
-
-        if (array_diff($old, $new) || array_diff($new, $old)) {
-            $product->setIsRelationsChanged(true);
-        }
-
-        // save product links attributes
-        $this->saveProductLinks($product, $data, $typeId);
-
-        // Grouped product relations should be added to relation table
-        Mage::getResourceSingleton('catalog/product_relation')
-            ->processRelations($product->getId(), $new);
-
-        return $this;
     }
 }

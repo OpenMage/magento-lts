@@ -16,9 +16,8 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Calendar
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: EventQuery.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /**
@@ -39,7 +38,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Calendar
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
@@ -343,7 +342,7 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
      */
     public function setSingleEvents($value)
     {
-        if ($value !== null) {
+        if (!is_null($value)) {
             if (is_bool($value)) {
                 $this->_params['singleevents'] = ($value?'true':'false');
             } elseif ($value == 'true' | $value == 'false') {
@@ -392,7 +391,7 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
      */
     public function setFutureEvents($value)
     {
-        if ($value !== null) {
+        if (!is_null($value)) {
             if (is_bool($value)) {
                 $this->_params['futureevents'] = ($value?'true':'false');
             } elseif ($value == 'true' | $value == 'false') {

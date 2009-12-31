@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Mysqli.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Mysqli.php 9738 2008-06-19 23:06:36Z peptolab $
  */
 
 
@@ -26,18 +26,25 @@
  */
 #require_once 'Zend/Db/Statement.php';
 
-
+    
 /**
  * Extends for Mysqli
  *
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
 {
+
+    /**
+     * The mysqli_stmt object.
+     *
+     * @var mysqli_stmt
+     */
+    protected $_stmt;
 
     /**
      * Column names.
@@ -74,7 +81,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
              * @see Zend_Db_Statement_Mysqli_Exception
              */
             #require_once 'Zend/Db/Statement/Mysqli/Exception.php';
-            throw new Zend_Db_Statement_Mysqli_Exception("Mysqli prepare error: " . $mysqli->error, $mysqli->errno);
+            throw new Zend_Db_Statement_Mysqli_Exception("Mysqli prepare error: " . $mysqli->error);
         }
     }
 
@@ -118,9 +125,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
     {
         if ($stmt = $this->_stmt) {
             $mysqli = $this->_adapter->getConnection();
-            while ($mysqli->more_results()) {
-                $mysqli->next_result();
-            }
+            while ($mysqli->next_result()) {}
             $this->_stmt->free_result();
             return $this->_stmt->reset();
         }
@@ -194,14 +199,10 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
         // send $params as input parameters to the statement
         if ($params) {
             array_unshift($params, str_repeat('s', count($params)));
-            $stmtParams = array();
-            foreach ($params as $k => &$value) {
-                $stmtParams[$k] = &$value;
-            }
             call_user_func_array(
                 array($this->_stmt, 'bind_param'),
-                $stmtParams
-                );
+                $params
+            );
         }
 
         // execute the statement
@@ -211,7 +212,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
              * @see Zend_Db_Statement_Mysqli_Exception
              */
             #require_once 'Zend/Db/Statement/Mysqli/Exception.php';
-            throw new Zend_Db_Statement_Mysqli_Exception("Mysqli statement execute error : " . $this->_stmt->error, $this->_stmt->errno);
+            throw new Zend_Db_Statement_Mysqli_Exception("Mysqli statement execute error : " . $this->_stmt->error);
         }
 
 
@@ -223,7 +224,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
                  * @see Zend_Db_Statement_Mysqli_Exception
                  */
                 #require_once 'Zend/Db/Statement/Mysqli/Exception.php';
-                throw new Zend_Db_Statement_Mysqli_Exception("Mysqli statement metadata error: " . $this->_stmt->error, $this->_stmt->errno);
+                throw new Zend_Db_Statement_Mysqli_Exception("Mysqli statement metadata error: " . $this->_stmt->error);
             }
         }
 
@@ -275,12 +276,12 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
         // fetch the next result
         $retval = $this->_stmt->fetch();
         switch ($retval) {
-            case null: // end of data
-            case false: // error occurred
-                $this->_stmt->reset();
-                return false;
-            default:
-                // fallthrough
+        case null: // end of data
+        case false: // error occurred
+            $this->_stmt->reset();
+            return $retval;
+        default:
+            // fallthrough
         }
 
         // make sure we have a fetch mode

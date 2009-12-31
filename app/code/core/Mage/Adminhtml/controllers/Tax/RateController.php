@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -77,17 +77,8 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
      */
     public function saveAction()
     {
-        $ratePost = $this->getRequest()->getPost();
-        if ($ratePost) {
-
-            $rateId = $this->getRequest()->getParam('rate');
-            if ($rateId) {
-                $rateModel = Mage::getSingleton('tax/calculation_rate')->load($rateId);
-                if (!$rateModel->getId()) {
-                    unset($ratePost['tax_calculation_rate_id']);
-                }
-            }
-
+        if ($ratePost = $this->getRequest()->getPost()) {
+            $ratePostData = $this->getRequest()->getPost('rate_data');
             $rateModel = Mage::getModel('tax/calculation_rate')->setData($ratePost);
 
             try {
@@ -106,9 +97,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             }
 
             $this->_redirectReferer();
-            return;
         }
-        $this->getResponse()->setRedirect($this->getUrl('*/tax_rate'));
     }
 
     /**
@@ -118,7 +107,8 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     public function editAction()
     {
         $rateId = (int)$this->getRequest()->getParam('rate');
-        $rateModel = Mage::getSingleton('tax/calculation_rate')->load($rateId);
+        $rateModel = Mage::getSingleton('tax/calculation_rate')
+            ->load($rateId);
         if (!$rateModel->getId()) {
             $this->getResponse()->setRedirect($this->getUrl("*/*/"));
             return ;
@@ -179,7 +169,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'rates.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/tax_rate_grid')
-            ->getCsvFile();
+            ->getCsv();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -191,7 +181,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'rates.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/tax_rate_grid')
-            ->getExcelFile();
+            ->getXml();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -360,50 +350,36 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
      */
     public function exportPostAction()
     {
-        $storeTaxTitleTemplate       = array();
-        $taxCalculationRateTitleDict = array();
+        /** get rate types */
+        $stores = array();
+        $storeCollection = Mage::getModel('core/store')->getCollection()->setLoadDefault(false);
+        foreach ($storeCollection as $store) {
+            $stores[$store->getId()] = $store->getCode();
+        }
 
         /** start csv content and set template */
-        $content = '"'.Mage::helper('tax')->__('Code') . '","' . Mage::helper('tax')->__('Country') . '","'
-                 . Mage::helper('tax')->__('State') . '","' . Mage::helper('tax')->__('Zip/Post Code') . '","'
-                 . Mage::helper('tax')->__('Rate') . '"';
-
-        $template = '"{{code}}","{{country_name}}","{{region_name}}","{{tax_postcode}}","{{rate}}"';
-
-        foreach (Mage::getModel('core/store')->getCollection()->setLoadDefault(false) as $store) {
-            $storeTitle = 'title_' . $store->getId();
-            $content   .= ',"' . $store->getCode() . '"';
-            $template  .= ',"{{' . $storeTitle . '}}"';
-            $storeTaxTitleTemplate[$storeTitle] = null;
+        $content    = '"'.Mage::helper('tax')->__('Code').'","'.Mage::helper('tax')->__('Country').'","'.Mage::helper('tax')->__('State').'","'.Mage::helper('tax')->__('Zip/Post Code').'","'.Mage::helper('tax')->__('Rate').'"';
+        $template   = '"{{code}}","{{country_name}}","{{region_name}}","{{tax_postcode}}","{{rate}}"';
+        foreach ($stores as $id => $name) {
+            $content   .= ',"'.$name.'"';
+            $template  .= ',"{{title_'.$id.'}}"';
         }
-
         $content .= "\n";
 
-        foreach (Mage::getModel('tax/calculation_rate_title')->getCollection() as $title) {
-            $rateId = $title->getTaxCalculationRateId();
-
-            if (! array_key_exists($rateId, $taxCalculationRateTitleDict)) {
-                $taxCalculationRateTitleDict[$rateId] = $storeTaxTitleTemplate;
-            }
-
-            $taxCalculationRateTitleDict[$rateId]['title_' . $title->getStoreId()] = $title->getValue();
-        }
-
-        foreach (Mage::getModel('tax/calculation_rate')->getCollection()->joinCountryTable()->joinRegionTable() as $rate) {
+        $rateCollection = Mage::getModel('tax/calculation_rate')->getCollection()
+            ->joinStoreTitles()
+            ->joinCountryTable()
+            ->joinRegionTable();
+        foreach ($rateCollection as $rate) {
             if ($rate->getTaxRegionId() == 0) {
                 $rate->setRegionName('*');
             }
-
-            if (array_key_exists($rate->getId(), $taxCalculationRateTitleDict)) {
-                $rate->addData($taxCalculationRateTitleDict[$rate->getId()]);
-            } else {
-                $rate->addData($storeTaxTitleTemplate);
-            }
-
-            $content .= $rate->toString($template) . "\n";
+            $content .= $rate->toString($template)."\n";
         }
 
-        $this->_prepareDownloadResponse('tax_rates.csv', $content);
+        $fileName = 'tax_rates.csv';
+
+        $this->_prepareDownloadResponse($fileName, $content);
     }
 
     protected function _isAllowed()

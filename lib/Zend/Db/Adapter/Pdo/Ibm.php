@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ibm.php 16203 2009-06-21 18:56:17Z thomas $
+ * @version    $Id: Ibm.php 12958 2008-11-30 09:14:05Z mikaelkael $
  */
 
 
@@ -38,7 +38,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
@@ -260,7 +260,7 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
         $newbind = array();
         if (is_array($bind)) {
             foreach ($bind as $name => $value) {
-                if($value !== null) {
+                if(!is_null($value)) {
                     $newbind[$name] = $value;
                 }
             }

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -104,7 +104,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity
             if ($type == 'dateFromTo' || $type == 'datetimeFromTo') {
                 foreach ($filters as $k => $v) {
                     if (strpos($k, $key . '/') === 0) {
-                        $split = explode('/', $k);
+                        $split = split('/', $k);
                         $filters[$key][$split[1]] = $v;
                     }
                 }
@@ -164,8 +164,8 @@ class Mage_Eav_Model_Convert_Adapter_Entity
                 case 'datetimeFromTo':
                     $attr = array(
                         'attribute' => $keyDB,
-                        'from'      => isset($val['from']) ? $val['from'] : null,
-                        'to'        => isset($val['to']) ? $val['to'] : null,
+                        'from'      => $val['from'],
+                        'to'        => $val['to'],
                         'datetime'  => true
                     );
                     break;

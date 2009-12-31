@@ -18,478 +18,444 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * NVP API wrappers model
- * @TODO: move some parts to abstract, don't hesitate to throw exceptions on api calls
+ *
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 {
-    /**
-     * Global public interface map
-     * @var array
-     */
-    protected $_globalMap = array(
-        // each call
-        'VERSION'      => 'version',
-        'USER'         => 'api_username',
-        'PWD'          => 'api_password',
-        'SIGNATURE'    => 'api_signature',
-        'BUTTONSOURCE' => 'build_notation_code',
-        // commands
-        'PAYMENTACTION' => 'payment_action',
-        'RETURNURL'     => 'return_url',
-        'CANCELURL'     => 'cancel_url',
-        'INVNUM'        => 'inv_num',
-        'TOKEN'         => 'token',
-        'CORRELATIONID' => 'correlation_id',
-        'SOLUTIONTYPE'  => 'solution_type',
-        'GIROPAYCANCELURL'  => 'giropay_cancel_url',
-        'GIROPAYSUCCESSURL' => 'giropay_success_url',
-        'BANKTXNPENDINGURL' => 'giropay_bank_txn_pending_url',
-        'IPADDRESS'         => 'ip_address',
-        'NOTIFYURL'         => 'notify_url',
-        'RETURNFMFDETAILS'  => 'fraud_management_filters_enabled',
-        'NOTE'              => 'note',
-        'REFUNDTYPE'        => 'refund_type',
-        'ACTION'            => 'action',
-        // style settings
-        'PAGESTYLE'      => 'page_style',
-        'HDRIMG'         => 'hdrimg',
-        'HDRBORDERCOLOR' => 'hdrbordercolor',
-        'HDRBACKCOLOR'   => 'hdrbackcolor',
-        'PAYFLOWCOLOR'   => 'payflowcolor',
-        'LOCALECODE'     => 'locale_code',
-        'PAL'            => 'pal',
-
-        // transaction info
-        'TRANSACTIONID'   => 'transaction_id',
-        'AUTHORIZATIONID' => 'authorization_id',
-        'REFUNDTRANSACTIONID' => 'refund_transaction_id',
-        'COMPLETETYPE'    => 'complete_type',
-        'AMT' => 'amount',
-        'GROSSREFUNDAMT' => 'refunded_amount', // possible mistake, check with API reference
-
-        // payment/billing info
-        'CURRENCYCODE'  => 'currency_code',
-        'PAYMENTSTATUS' => 'payment_status',
-        'PENDINGREASON' => 'pending_reason',
-        'PROTECTIONELIGIBILITY' => 'protection_eligibility',
-        'PAYERID' => 'payer_id',
-        'PAYERSTATUS' => 'payer_status',
-        'ADDRESSID' => 'address_id',
-        'ADDRESSSTATUS' => 'address_status',
-        'EMAIL'         => 'email',
-            // backwards compatibility
-            'FIRSTNAME'     => 'firstname',
-            'LASTNAME'      => 'lastname',
-        // paypal direct credit card information
-        'CREDITCARDTYPE' => 'credit_card_type',
-        'ACCT'           => 'credit_card_number',
-        'EXPDATE'        => 'credit_card_expiration_date',
-        'CVV2'           => 'credit_card_cvv2',
-        'STARTDATE'      => 'maestro_solo_issue_date', // MMYYYY, always six chars, including leading zero
-        'ISSUENUMBER'    => 'maestro_solo_issue_number',
-        'CVV2MATCH'      => 'cvv2_check_result',
-        'AVSCODE'        => 'avs_result',
-        // cardinal centinel
-        'AUTHSTATUS3D' => 'centinel_authstatus',
-        'MPIVENDOR3DS' => 'centinel_mpivendor',
-        'CAVV'         => 'centinel_cavv',
-        'ECI3DS'       => 'centinel_eci',
-        'XID'          => 'centinel_xid',
-        'VPAS'         => 'centinel_vpas_result',
-        'ECISUBMITTED3DS' => 'centinel_eci_result',
-    );
-
-    /**
-     * Filter callbacks for preparing internal amounts to NVP request
-     *
-     * @var array
-     */
-    protected $_exportToRequestFilters = array(
-        'AMT' => '_filterAmount',
-        'CREDITCARDTYPE' => '_filterCcType',
-    );
-
-    /**
-     * Request map for each API call
-     * @var array
-     */
-    protected $_eachCallRequest = array('VERSION', 'USER', 'PWD', 'SIGNATURE', 'BUTTONSOURCE',);
-
-    /**
-     * SetExpressCheckout request/response map
-     * @var array
-     */
-    protected $_setExpressCheckoutRequest = array(
-        'PAYMENTACTION', 'AMT', 'CURRENCYCODE', 'RETURNURL', 'CANCELURL', 'INVNUM', 'SOLUTIONTYPE',
-        'GIROPAYCANCELURL', 'GIROPAYSUCCESSURL', 'BANKTXNPENDINGURL',
-        'PAGESTYLE', 'HDRIMG', 'HDRBORDERCOLOR', 'HDRBACKCOLOR', 'PAYFLOWCOLOR', 'LOCALECODE',
-    );
-    protected $_setExpressCheckoutResponse = array('TOKEN');
-
-    /**
-     * GetExpressCheckoutDetails request/response map
-     * @var array
-     */
-    protected $_getExpressCheckoutDetailsRequest = array('TOKEN');
-
-    /**
-     * DoExpressCheckoutPayment request/response map
-     * @var array
-     */
-    protected $_doExpressCheckoutPaymentRequest = array(
-        'TOKEN', 'PAYERID', 'PAYMENTACTION', 'AMT', 'CURRENCYCODE', 'IPADDRESS', 'BUTTONSOURCE', 'NOTIFYURL',
-    );
-    protected $_doExpressCheckoutPaymentResponse = array(
-        'TRANSACTIONID', 'AMT', 'PAYMENTSTATUS'
-    );
-
-    /**
-     * DoDirectPayment request/response map
-     * @var array
-     */
-    protected $_doDirectPaymentRequest = array(
-        'PAYMENTACTION', 'IPADDRESS', 'RETURNFMFDETAILS',
-        'AMT', 'CURRENCYCODE', 'INVNUM', 'NOTIFYURL', 'EMAIL', //, 'ITEMAMT', 'SHIPPINGAMT', 'TAXAMT',
-        'CREDITCARDTYPE', 'ACCT', 'EXPDATE', 'CVV2', 'STARTDATE', 'ISSUENUMBER',
-        'AUTHSTATUS3D', 'MPIVENDOR3DS', 'CAVV', 'ECI3DS', 'XID',
-    );
-    protected $_doDirectPaymentResponse = array(
-        'TRANSACTIONID', 'AMT', 'AVSCODE', 'CVV2MATCH', 'VPAS', 'ECISUBMITTED3DS'
-    );
-
-    /**
-     * DoReauthorization request/response map
-     * @var array
-     */
-    protected $_doReauthorizationRequest = array('AUTHORIZATIONID', 'AMT', 'CURRENCYCODE');
-    protected $_doReauthorizationResponse = array(
-        'AUTHORIZATIONID', 'PAYMENTSTATUS', 'PENDINGREASON', 'PROTECTIONELIGIBILITY'
-    );
-
-    /**
-     * DoCapture request/response map
-     * @var array
-     */
-    protected $_doCaptureRequest = array('AUTHORIZATIONID', 'COMPLETETYPE', 'AMT', 'CURRENCYCODE', 'NOTE', 'INVNUM',);
-    protected $_doCaptureResponse = array('TRANSACTIONID', 'CURRENCYCODE', 'AMT',);
-
-    /**
-     * DoVoid request map
-     * @var array
-     */
-    protected $_doVoidRequest = array('AUTHORIZATIONID', 'NOTE',);
-
-    /**
-     * GetTransactionDetailsRequest
-     * @var array
-     */
-    protected $_getTransactionDetailsRequest = array('TRANSACTIONID');
-    protected $_getTransactionDetailsResponse = array(
-        'PAYERID', 'FIRSTNAME', 'LASTNAME', 'TRANSACTIONID', 'PARENTTRANSACTIONID', 'CURRENCYCODE', 'AMT',
-    );
-
-    /**
-     * RefundTransaction request/response map
-     * @var array
-     */
-    protected $_refundTransactionRequest = array('TRANSACTIONID', 'REFUNDTYPE', 'CURRENCYCODE', 'NOTE',);
-    protected $_refundTransactionResponse = array('REFUNDTRANSACTIONID', 'GROSSREFUNDAMT',);
-
-    /**
-     * ManagePendingTransactionStatus request/response map
-     */
-    protected $_managePendingTransactionStatusRequest = array('TRANSACTIONID', 'ACTION');
-    protected $_managePendingTransactionStatusResponse = array('TRANSACTIONID');
-
-    /**
-     * GetPalDetails response map
-     * @var array
-     */
-    protected $_getPalDetailsResponse = array('PAL');
-
-    /**
-     * Map for billing address import/export
-     * @var array
-     */
-    protected $_billingAddressMap = array (
-        'BUSINESS' => 'company',
-        'NOTETEXT' => 'customer_notes',
-        'EMAIL' => 'email',
-        'FIRSTNAME' => 'firstname',
-        'LASTNAME' => 'lastname',
-        'MIDDLENAME' => 'middlename',
-        'SALUTATION' => 'prefix',
-        'SUFFIX' => 'suffix',
-
-        'COUNTRYCODE' => 'country_id', // iso-3166 two-character code
-        'STATE'    => 'region',
-        'CITY'     => 'city',
-        'STREET'   => 'street',
-        'STREET2'  => 'street2',
-        'ZIP'      => 'postcode',
-        'PHONENUM' => 'telephone',
-    );
-
-    /**
-     * Map for shipping address import/export (extends billing address mapper)
-     * @var array
-     */
-    protected $_shippingAddressMap = array(
-        'SHIPTOCOUNTRYCODE' => 'country_id',
-        'SHIPTOSTATE' => 'region',
-        'SHIPTOCITY'    => 'city',
-        'SHIPTOSTREET'  => 'street',
-        'SHIPTOSTREET2' => 'street2',
-        'SHIPTOZIP' => 'postcode',
-        'SHIPTOPHONENUM' => 'telephone',
-        // 'SHIPTONAME' will be treated manually in address import/export methods
-    );
-
-    /**
-     * Payment information response specifically to be collected after some requests
-     * @var array
-     */
-    protected $_paymentInformationResponse = array(
-        'PAYERID', 'PAYERSTATUS', 'CORRELATIONID', 'ADDRESSID', 'ADDRESSSTATUS',
-        'PAYMENTSTATUS', 'PENDINGREASON', 'PROTECTIONELIGIBILITY', 'EMAIL',
-    );
-
-    /**
-     * Line items export mapping settings
-     * @var array
-     */
-    protected $_lineItemExportTotals = array(
-        'subtotal' => 'ITEMAMT',
-        'shipping' => 'SHIPPINGAMT',
-        'tax'      => 'TAXAMT',
-        // 'shipping_discount' => 'SHIPPINGDISCOUNT', // currently ignored by API for some reason
-    );
-    protected $_lineItemExportItemsFormat = array(
-        'id'     => 'L_NUMBER%d',
-        'name'   => 'L_NAME%d',
-        'qty'    => 'L_QTY%d',
-        'amount' => 'L_AMT%d',
-    );
-
     /**
      * Fields that should be replaced in debug with '***'
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array(
-        'ACCT', 'EXPDATE', 'CVV2', 'CARDISSUE', 'CARDSTART', 'CREDITCARDTYPE', 'USER', 'PWD', 'SIGNATURE'
-    );
+    protected $_debugReplacePrivateDataKeys = array('ACCT', 'EXPDATE', 'CVV2',
+                                                    'CARDISSUE', 'CARDSTART',
+                                                    'CREDITCARDTYPE', 'USER',
+                                                    'PWD', 'SIGNATURE');
 
-    /**
-     * Map of credit card types supported by this API
-     * @var array
-     */
-    protected $_supportedCcTypes = array('VI' => 'Visa', 'MC' => 'MasterCard', 'DI' => 'Discover', 'AE' => 'Amex');
+    public function getPageStyle()
+    {
+        return $this->getConfigData('page_style');
+    }
 
-    /**
-     * Warning codes recollected after each API call
-     *
-     * @var array
-     */
-    protected $_callWarnings = array();
-
-    /**
-     * API endpoint getter
-     *
-     * @return string
-     */
     public function getApiEndpoint()
     {
-        return sprintf('https://api-3t%s.paypal.com/nvp', $this->_config->sandboxFlag ? '.sandbox' : '');
+        if (!$this->getData('api_endpoint')) {
+            if ($this->getSandboxFlag()) {
+                $default = 'https://api-3t.sandbox.paypal.com/nvp';
+            } else {
+                $default = 'https://api-3t.paypal.com/nvp';
+            }
+            return $this->getConfigData('api_endpoint', $default);
+        }
+        return $this->getData('api_endpoint');
     }
 
-    /**
-     * Return Paypal Api version
-     *
-     * @return string
-     */
+    public function getPaypalUrl()
+    {
+        if (!$this->hasPaypalUrl()) {
+            if ($this->getSandboxFlag()) {
+                $default = 'https://www.sandbox.paypal.com/';
+            } else {
+                $default = 'https://www.paypal.com/cgi-bin/';
+            }
+            $default .= 'webscr?cmd=_express-checkout&useraction='.$this->getUserAction().'&token=';
+
+            $url = $this->getConfigData('paypal_url', $default);
+        } else {
+            $url = $this->getData('paypal_url');
+        }
+        return $url . $this->getToken();
+    }
+
     public function getVersion()
     {
-        return '60.0';
+        return '3.0';
     }
 
     /**
-     * SetExpressCheckout call
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_SetExpressCheckout
-     * TODO: put together style and giropay settings
+     * SetExpressCheckout API call
+     *
+     * An express checkout transaction starts with a token, that
+     * identifies to PayPal your transaction
+     * In this example, when the script sees a token, the script
+     * knows that the buyer has already authorized payment through
+     * paypal.  If no token was found, the action is to send the buyer
+     * to PayPal to first authorize payment
      */
     public function callSetExpressCheckout()
     {
-        $request = $this->_exportToRequest($this->_setExpressCheckoutRequest);
-        $this->_exportLineItems($request);
+        //------------------------------------------------------------------------------------------------------------------------------------
+        // Construct the parameter string that describes the SetExpressCheckout API call
 
-        // import/suppress shipping address, if any
-        if ($address = $this->getAddress()) {
-            $request = $this->_importAddress($address, $request);
-            $request['ADDROVERRIDE'] = 1;
-        }
-        if ($this->getSuppressShipping()) {
-            $request['NOSHIPPING'] = 1;
+        $nvpArr = array(
+            'PAYMENTACTION' => $this->getPaymentType(),
+            'AMT'           => $this->getAmount(),
+            'CURRENCYCODE'  => $this->getCurrencyCode(),
+            'RETURNURL'     => $this->getReturnUrl(),
+            'CANCELURL'     => $this->getCancelUrl(),
+            'INVNUM'        => $this->getInvNum()
+        );
+
+        if ($this->getPageStyle()) {
+            $nvpArr = array_merge($nvpArr, array(
+                'PAGESTYLE' => $this->getPageStyle()
+            ));
         }
 
-        $response = $this->call('SetExpressCheckout', $request);
-        $this->_importFromResponse($this->_setExpressCheckoutResponse, $response);
+        $this->setUserAction(self::USER_ACTION_CONTINUE);
+
+        // for mark SetExpressCheckout API call
+        if ($a = $this->getShippingAddress()) {
+            $nvpArr = array_merge($nvpArr, array(
+                'ADDROVERRIDE'      => 1,
+                'SHIPTONAME'        => $a->getName(),
+                'SHIPTOSTREET'      => $a->getStreet(1),
+                'SHIPTOSTREET2'     => $a->getStreet(2),
+                'SHIPTOCITY'        => $a->getCity(),
+                'SHIPTOSTATE'       => $a->getRegionCode(),
+                'SHIPTOCOUNTRYCODE' => $a->getCountry(),
+                'SHIPTOZIP'         => $a->getPostcode(),
+                'PHONENUM'          => $a->getTelephone(),
+            ));
+            $this->setUserAction(self::USER_ACTION_COMMIT);
+        }
+
+        //'---------------------------------------------------------------------------------------------------------------
+        //' Make the API call to PayPal
+        //' If the API call succeded, then redirect the buyer to PayPal to begin to authorize payment.
+        //' If an error occured, show the resulting errors
+        //'---------------------------------------------------------------------------------------------------------------
+        $resArr = $this->call('SetExpressCheckout', $nvpArr);
+
+        if (false===$resArr) {
+            return false;
+        }
+
+        $this->setToken($resArr['TOKEN']);
+        $this->setRedirectUrl($this->getPaypalUrl());
+        return $resArr;
     }
 
-    /**
-     * GetExpressCheckoutDetails call
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_GetExpressCheckoutDetails
-     */
+    /*
+    '-------------------------------------------------------------------------------------------
+    ' Purpose:  Prepares the parameters for the GetExpressCheckoutDetails API Call.
+    '
+    ' Inputs:
+    '       None
+    ' Returns:
+    '       The NVP Collection object of the GetExpressCheckoutDetails Call Response.
+    '-------------------------------------------------------------------------------------------
+    */
     function callGetExpressCheckoutDetails()
     {
-        $request = $this->_exportToRequest($this->_getExpressCheckoutDetailsRequest);
-        $response = $this->call('GetExpressCheckoutDetails', $request);
-        $this->_importFromResponse($this->_paymentInformationResponse, $response);
-        $this->_exportAddressses($response);
-//        $this->setIsRedirectRequired(!empty($resArr['REDIRECTREQUIRED']) && (bool)$resArr['REDIRECTREQUIRED']);
+        //'--------------------------------------------------------------
+        //' At this point, the buyer has completed authorizing the payment
+        //' at PayPal.  The function will call PayPal to obtain the details
+        //' of the authorization, incuding any shipping information of the
+        //' buyer.  Remember, the authorization is not a completed transaction
+        //' at this state - the buyer still needs an additional step to finalize
+        //' the transaction
+        //'--------------------------------------------------------------
+
+        //'---------------------------------------------------------------------------
+        //' Build a second API request to PayPal, using the token as the
+        //'  ID to get the details on the payment authorization
+        //'---------------------------------------------------------------------------
+        $nvpArr = array(
+            'TOKEN' => $this->getToken(),
+        );
+
+        //'---------------------------------------------------------------------------
+        //' Make the API call and store the results in an array.
+        //' If the call was a success, show the authorization details, and provide
+        //'     an action to complete the payment.
+        //' If failed, show the error
+        //'---------------------------------------------------------------------------
+        $resArr = $this->call('GetExpressCheckoutDetails', $nvpArr);
+        if (false===$resArr) {
+            return false;
+        }
+
+        $this->setPayerId($resArr['PAYERID']);
+        $this->setCorrelationId($resArr['CORRELATIONID']);
+        $this->setPayerStatus($resArr['PAYERSTATUS']);
+        if (isset($resArr['ADDRESSID'])) {
+            $this->setAddressId($resArr['ADDRESSID']);
+        }
+        $this->setAddressStatus($resArr['ADDRESSSTATUS']);
+        $this->setPaypalPayerEmail($resArr['EMAIL']);
+
+        if (!$this->getShippingAddress()) {
+            $this->setShippingAddress(Mage::getModel('customer/address'));
+        }
+        $a = $this->getShippingAddress();
+        $a->setEmail($resArr['EMAIL']);
+        $a->setFirstname($resArr['FIRSTNAME']);
+        $a->setLastname($resArr['LASTNAME']);
+        $street = array($resArr['SHIPTOSTREET']);
+        if (isset($resArr['SHIPTOSTREET2'])) {
+            $street[] = $resArr['SHIPTOSTREET2'];
+        }
+        $a->setStreet($street);
+        $a->setCity($resArr['SHIPTOCITY']);
+        $a->setRegion(isset($resArr['SHIPTOSTATE']) ? $resArr['SHIPTOSTATE'] : '');
+        $a->setPostcode($resArr['SHIPTOZIP']);
+        $a->setCountry($resArr['SHIPTOCOUNTRYCODE']);
+        $a->setTelephone(Mage::helper('paypal')->__('N/A'));
+
+        return $resArr;
     }
 
-    /**
-     * DoExpressCheckout call
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoExpressCheckoutPayment
-     */
+    /*
+    '-------------------------------------------------------------------------------------------------------------------------------------------
+    ' Purpose:  Prepares the parameters for the GetExpressCheckoutDetails API Call.
+    '
+    ' Returns:
+    '       The NVP Collection object of the GetExpressCheckoutDetails Call Response.
+    '--------------------------------------------------------------------------------------------------------------------------------------------
+    */
     public function callDoExpressCheckoutPayment()
     {
-        $request = $this->_exportToRequest($this->_doExpressCheckoutPaymentRequest);
-        $this->_exportLineItems($request);
+        /* Gather the information to make the final call to
+           finalize the PayPal payment.  The variable nvpstr
+           holds the name value pairs
+           */
 
-        $response = $this->call('DoExpressCheckoutPayment', $request);
-        $this->_importFromResponse($this->_paymentInformationResponse, $response);
-        $this->_importFromResponse($this->_doExpressCheckoutPaymentResponse, $response);
-        $this->_importFraudFiltersResult($response, $this->_callWarnings);
-//        $this->setIsRedirectRequired(!empty($response['REDIRECTREQUIRED']) && (bool)$response['REDIRECTREQUIRED']);
+        $nvpArr = array(
+            'TOKEN'         => $this->getToken(),
+            'PAYERID'       => $this->getPayerId(),
+            'PAYMENTACTION' => $this->getPaymentType(),
+            'AMT'           => $this->getAmount(),
+            'CURRENCYCODE'  => $this->getCurrencyCode(),
+            'IPADDRESS'     => $this->getServerName(),
+            'BUTTONSOURCE'  => $this->getButtonSourceEc(),
+        );
+
+         /* Make the call to PayPal to finalize payment
+            If an error occured, show the resulting errors
+            */
+        $resArr = $this->call('DoExpressCheckoutPayment', $nvpArr);
+
+        if (false===$resArr) {
+            return false;
+        }
+
+        $this->setTransactionId($resArr['TRANSACTIONID']);
+        $this->setAmount($resArr['AMT']);
+
+        return $resArr;
     }
 
-    /**
-     * Process a credit card payment
-     */
     public function callDoDirectPayment()
     {
-        $request = $this->_exportToRequest($this->_doDirectPaymentRequest);
-        $this->_exportLineItems($request);
-        if ($address = $this->getAddress()) {
-            $request = $this->_importAddress($address, $request);
+        $p = $this->getPayment();
+        $a = $this->getBillingAddress();
+        if ($this->getShippingAddress()) {
+            $s = $this->getShippingAddress();
+        } else {
+            $s = $a;
         }
-        $response = $this->call('DoDirectPayment', $request);
-        $this->_importFromResponse($this->_doDirectPaymentResponse, $response);
-        $this->_importFraudFiltersResult($response, $this->_callWarnings);
+
+        $nvpArr = array(
+            'PAYMENTACTION'  => $this->getPaymentType(),
+            'AMT'            => $this->getAmount(),
+            'CURRENCYCODE'   => $this->getCurrencyCode(),
+            'BUTTONSOURCE'   => $this->getButtonSourceDp(),
+            'INVNUM'         => $this->getInvNum(),
+
+            'CREDITCARDTYPE' => $this->getCcTypeName($p->getCcType()),
+            'ACCT'           => $p->getCcNumber(),
+            'EXPDATE'        => sprintf('%02d%02d', $p->getCcExpMonth(), $p->getCcExpYear()),
+            'CVV2'           => $p->getCcCid(),
+
+            'FIRSTNAME'      => $a->getFirstname(),
+            'LASTNAME'       => $a->getLastname(),
+            'STREET'         => $a->getStreet(1),
+            'CITY'           => $a->getCity(),
+            'STATE'          => ($a->getRegionCode() ? $a->getRegionCode() : $a->getRegion()),
+            'ZIP'            => $a->getPostcode(),
+            'COUNTRYCODE'    => 'US', // only US supported for direct payment
+            'EMAIL'          => $this->getEmail(),
+
+            'SHIPTONAME'     => $s->getName(),
+            'SHIPTOSTREET'   => $s->getStreet(1),
+            'SHIPTOSTREET2'   => $s->getStreet(2),
+            'SHIPTOCITY'     => $s->getCity(),
+            'SHIPTOSTATE'    => ($s->getRegionCode() ? $s->getRegionCode() : $s->getRegion()),
+            'SHIPTOZIP'      => $s->getPostcode(),
+            'SHIPTOCOUNTRYCODE' => $s->getCountry(),
+        );
+
+#echo "<pre>".print_r($nvpArr,1)."</pre>"; die;
+        $resArr = $this->call('DoDirectPayment', $nvpArr);
+
+        if (false===$resArr) {
+            return false;
+        }
+
+        $this->setTransactionId($resArr['TRANSACTIONID']);
+        $this->setAmount($resArr['AMT']);
+        $this->setAvsCode($resArr['AVSCODE']);
+        $this->setCvv2Match($resArr['CVV2MATCH']);
+
+        return $resArr;
     }
 
-    /**
-     * Made additional request to paypal to get autharization id
-     */
     public function callDoReauthorization()
     {
-        $request = $this->_export($this->_doReauthorizationRequest);
-        $response = $this->call('DoReauthorization', $request);
-        $this->_import($response, $this->_doReauthorizationResponse);
+        $nvpArr = array(
+            'AUTHORIZATIONID' => $this->getAuthorizationId(),
+            'AMT'             => $this->getAmount(),
+            'CURRENCYCODE'    => $this->getCurrencyCode(),
+        );
+
+        $resArr = $this->call('DoReauthorization', $nvpArr);
+
+        if (false===$resArr) {
+            return false;
+        }
+
+        $this->setAuthorizationId($resArr['AUTHORIZATIONID']);
+
+        return $resArr;
     }
 
-    /**
-     * DoCapture call
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoCapture
-     */
     public function callDoCapture()
     {
-        $request = $this->_exportToRequest($this->_doCaptureRequest);
-        $response = $this->call('DoCapture', $request);
-        $this->_importFromResponse($this->_paymentInformationResponse, $response);
-        $this->_importFromResponse($this->_doCaptureResponse, $response);
+        $nvpArr = array(
+            'AUTHORIZATIONID' => $this->getAuthorizationId(),
+            'COMPLETETYPE'    => $this->getCompleteType(),
+            'AMT'             => $this->getAmount(),
+            'CURRENCYCODE'    => $this->getCurrencyCode(),
+            'NOTE'            => $this->getNote(),
+            'INVNUM'          => $this->getInvNum()
+        );
+
+        $resArr = $this->call('DoCapture', $nvpArr);
+
+        if (false===$resArr) {
+            return false;
+        }
+
+        $this->setAuthorizationId($resArr['AUTHORIZATIONID']);
+        $this->setTransactionId($resArr['TRANSACTIONID']);
+        $this->setPaymentStatus($resArr['PAYMENTSTATUS']);
+        $this->setCurrencyCode($resArr['CURRENCYCODE']);
+        $this->setAmount($resArr['AMT']);
+
+        return $resArr;
     }
 
-    /**
-     * DoVoid call
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoVoid
-     */
     public function callDoVoid()
     {
-        $request = $this->_exportToRequest($this->_doVoidRequest);
-        $this->call('DoVoid', $request);
+        $nvpArr = array(
+            'AUTHORIZATIONID' => $this->getAuthorizationId(),
+            'NOTE'            => $this->getNote(),
+        );
+
+        $resArr = $this->call('DoVoid', $nvpArr);
+
+        if (false===$resArr) {
+            return false;
+        }
+
+        $this->setAuthorizationId($resArr['AUTHORIZATIONID']);
+
+        return $resArr;
     }
 
-    /**
-     * GetTransactionDetails
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_GetTransactionDetails
-     */
     public function callGetTransactionDetails()
     {
-        $request = $this->_exportToRequest($this->_getTransactionDetailsRequest);
-        $response = $this->call('GetTransactionDetails', $request);
-        $this->_importFromResponse($this->_getTransactionDetailsResponse, $response);
+        $nvpArr = array(
+            'TRANSACTIONID' => $this->getTransactionId(),
+        );
+
+        $resArr = $this->call('GetTransactionDetails', $nvpArr);
+
+        if (false===$resArr) {
+            return false;
+        }
+
+        $this->setPayerEmail($resArr['RECEIVEREMAIL']);
+        $this->setPayerId($resArr['PAYERID']);
+        $this->setFirstname($resArr['FIRSTNAME']);
+        $this->setLastname($resArr['LASTNAME']);
+        $this->setTransactionId($resArr['TRANSACTIONID']);
+        $this->setParentTransactionId($resArr['PARENTTRANSACTIONID']);
+        $this->setCurrencyCode($resArr['CURRENCYCODE']);
+        $this->setAmount($resArr['AMT']);
+        $this->setPaymentStatus($resArr['PAYERSTATUS']);
+
+        return $resArr;
     }
 
-    /**
-     * RefundTransaction call
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_RefundTransaction
-     */
     public function callRefundTransaction()
     {
-        $request = $this->_exportToRequest($this->_refundTransactionRequest);
-        if ($this->getRefundType() === Mage_Paypal_Model_Config::REFUND_TYPE_PARTIAL) {
-            $request['AMT'] = $this->getAmount();
+        $nvpArr = array(
+            'TRANSACTIONID' => $this->getTransactionId(),
+            'REFUNDTYPE'    => $this->getRefundType(),
+            'CURRENCYCODE'  => $this->getCurrencyCode(),
+            'NOTE'          => $this->getNote(),
+        );
+        if ($this->getRefundType()===self::REFUND_TYPE_PARTIAL) {
+            $nvpArr['AMT'] = $this->getAmount();
         }
-        $response = $this->call('RefundTransaction', $request);
-        $this->_importFromResponse($this->_refundTransactionResponse, $response);
+
+        $resArr = $this->call('RefundTransaction', $nvpArr);
+
+        if (false===$resArr) {
+            return false;
+        }
+
+        $this->setTransactionId($resArr['REFUNDTRANSACTIONID']);
+        $this->setAmount($resArr['GROSSREFUNDAMT']);
+
+        return $resArr;
     }
 
     /**
-     * ManagePendingTransactionStatus
-     * @see https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_ManagePendingTransactionStatus
-     */
-    public function callManagePendingTransactionStatus()
-    {
-        $request = $this->_exportToRequest($this->_managePendingTransactionStatusRequest);
-        $response = $this->call('ManagePendingTransactionStatus', $request);
-        $this->_importFromResponse($this->_managePendingTransactionStatusResponse, $response);
-    }
-
-    /**
-     * getPalDetails call
-     * @see https://www.x.com/docs/DOC-1300
-     * @see https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_ECButtonIntegration
-     */
-    public function callGetPalDetails()
-    {
-        $result = $this->call('getPalDetails', array());
-        $this->_importFromResponse($this->_getPalDetailsResponse, $response);
-    }
-
-    /**
-     * Do the API call
+     * Function to perform the API call to PayPal using API signature
      *
-     * @param string $methodName
-     * @param array $request
-     * @return array
-     * @throws Mage_Core_Exception
+     * @param $methodName string is name of API  method.
+     * @param $nvpArr array NVP params array
+     * @return array|boolean an associtive array containing the response from the server or false in case of error.
      */
-    public function call($methodName, array $request)
+    public function call($methodName, array $nvpArr)
     {
-        $request['method'] = $methodName;
-        $request = $this->_exportToRequest($this->_eachCallRequest, $request);
+        $nvpArr = array_merge(array(
+            'METHOD'    => $methodName,
+            'VERSION'   => $this->getVersion(),
+            'USER'      => $this->getApiUserName(),
+            'PWD'       => $this->getApiPassword(),
+            'SIGNATURE' => $this->getApiSignature(),
+        ), $nvpArr);
 
-        if ($this->getDebug()) {
-            $requestDebug = $request;
-            foreach ($this->_debugReplacePrivateDataKeys as $key) {
-                if (isset($request[$key])) {
-                    $requestDebug[$key] = '***';
-                }
+        $nvpReq = '';
+        $nvpReqDebug = '';
+
+        foreach ($nvpArr as $k=>$v) {
+            $nvpReq .= '&'.$k.'='.urlencode($v);
+            $nvpReqDebug .= '&'.$k.'=';
+            if (in_array($k, $this->_debugReplacePrivateDataKeys)) {
+                $nvpReqDebug .= '***';
+            } else {
+                $nvpReqDebug .= urlencode($v);
             }
+        }
+        $nvpReq = substr($nvpReq, 1);
+        if ($this->getDebug()) {
             $debug = Mage::getModel('paypal/api_debug')
                 ->setApiEndpoint($this->getApiEndpoint())
-                ->setRequestBody(var_export($requestDebug, 1))
+                ->setRequestBody($nvpReqDebug)
                 ->save();
         }
 
@@ -499,65 +465,72 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             $config['proxy'] = $this->getProxyHost(). ':' . $this->getProxyPort();
         }
         $http->setConfig($config);
-        $http->write(Zend_Http_Client::POST, $this->getApiEndpoint(), '1.1', array(), http_build_query($request));
+        $http->write(Zend_Http_Client::POST, $this->getApiEndpoint(), '1.1', array(), $nvpReq);
         $response = $http->read();
-        $http->close();
         $response = preg_split('/^\r?$/m', $response, 2);
         $response = trim($response[1]);
-        $response = $this->_deformatNVP($response);
 
         if ($this->getDebug()) {
-            $debug->setResponseBody(var_export($response, 1))->save();
+            $debug->setResponseBody($response)->save();
         }
 
-        // handle transport error
+        $nvpReqArray = $this->deformatNVP($nvpReq);
+        $this->getSession()->setNvpReqArray($nvpReqArray);
+
         if ($http->getErrno()) {
-            Mage::logException(new Exception(
-                sprintf('PayPal NVP CURL connection error #%s: %s', $http->getErrno(), $http->getError())
+            $http->close();
+            $this->setError(array(
+                'type'=>'CURL',
+                'code'=>$http->getErrno(),
+                'message'=>$http->getError()
             ));
-            Mage::throwException(Mage::helper('paypal')->__('Unable to communicate with PayPal gateway.'));
+            $this->setRedirectUrl($this->getApiErrorUrl());
+            return false;
+        }
+        $http->close();
+
+        //converting NVPResponse to an Associative Array
+        $nvpResArray = $this->deformatNVP($response);
+        $this->getSession()
+            ->setLastCallMethod($methodName)
+            ->setResHash($nvpResArray);
+
+        $ack = strtoupper($nvpResArray['ACK']);
+
+        if ($ack == 'SUCCESS' || $ack=='SUCCESSWITHWARNING') {
+            $this->unsError();
+            return $nvpResArray;
         }
 
-        $ack = strtoupper($response['ACK']);
-        $this->_callWarnings = array();
-        if ($ack == 'SUCCESS' || $ack == 'SUCCESSWITHWARNING') {
-            // collect warnings
-            if ($ack == 'SUCCESSWITHWARNING') {
-                for ($i = 0; isset($response["L_ERRORCODE{$i}"]); $i++) {
-                    $this->_callWarnings[] = $response["L_ERRORCODE{$i}"];
-                }
-            }
-            return $response;
-        }
 
-        // handle logical errors
-        $errors = array();
-        for ($i = 0; isset($response["L_ERRORCODE{$i}"]); $i++) {
-            $longMessage = isset($response["L_LONGMESSAGE{$i}"])
-                ? preg_replace('/\.$/', '', $response["L_LONGMESSAGE{$i}"]) : '';
-            $shortMessage = preg_replace('/\.$/', '', $response["L_SHORTMESSAGE{$i}"]);
-            $errors[] = $longMessage
-                ? sprintf('%s (#%s: %s).', $longMessage, $response["L_ERRORCODE{$i}"], $shortMessage)
-                : sprintf('#%s: %s.', $response["L_ERRORCODE{$i}"], $shortMessage);
+        $errorArr = array(
+            'type' => 'API',
+            'ack' => $ack,
+        );
+        if (isset($nvpResArray['VERSION'])) {
+            $errorArr['version'] = $nvpResArray['VERSION'];
         }
-        if ($errors) {
-            $errors = implode(' ', $errors);
-            $e = new Exception(sprintf('PayPal NVP gateway errors: %s Corellation ID: %s. Version: %s.', $errors,
-                isset($response['CORRELATIONID']) ? $response['CORRELATIONID'] : '',
-                isset($response['VERSION']) ? $response['VERSION'] : ''
-            ));
-            Mage::logException($e);
-            Mage::throwException(Mage::helper('paypal')->__('PayPal geteway rejected request. %s', $errors));
+        if (isset($nvpResArray['CORRELATIONID'])) {
+            $errorArr['correlation_id'] = $nvpResArray['CORRELATIONID'];
         }
-        return $response;
+        for ($i=0; isset($nvpResArray['L_SHORTMESSAGE'.$i]); $i++) {
+            $errorArr['code'] = $nvpResArray['L_ERRORCODE'.$i];
+            $errorArr['short_message'] = $nvpResArray['L_SHORTMESSAGE'.$i];
+            $errorArr['long_message'] = $nvpResArray['L_LONGMESSAGE'.$i];
+        }
+        $this->setError($errorArr);
+        $this->setRedirectUrl($this->getApiErrorUrl());
+        return false;
     }
 
-    /**
-     * Parse an NVP response string into an associative array
-     * @param string $nvpstr
-     * @return array
-     */
-    protected function _deformatNVP($nvpstr)
+    /*'----------------------------------------------------------------------------------
+     * This function will take NVPString and convert it to an Associative Array and it will decode the response.
+      * It is usefull to search for a particular key and displaying arrays.
+      * @nvpstr is NVPString.
+      * @nvpArray is Associative Array.
+       ----------------------------------------------------------------------------------
+      */
+    public function deformatNVP($nvpstr)
     {
         $intial=0;
         $nvpArray = array();
@@ -580,119 +553,4 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         return $nvpArray;
     }
 
-    /**
-     * Create billing and shipping addresses basing on response data
-     * @param array $data
-     */
-    protected function _exportAddressses($data)
-    {
-        $address = new Varien_Object();
-        Varien_Object_Mapper::accumulateByMap($data, $address, $this->_billingAddressMap);
-        $this->_applyStreetAndRegionWorkarounds($address);
-        $address->setExportedKeys(array_values($this->_billingAddressMap));
-        $this->setExportedBillingAddress($address);
-
-        // assume there is shipping address if there is at least one field specific to shipping
-        if (isset($data['SHIPTONAME'])) {
-            $shippingAddress = clone $address;
-            Varien_Object_Mapper::accumulateByMap($data, $shippingAddress, $this->_shippingAddressMap);
-            $this->_applyStreetAndRegionWorkarounds($shippingAddress);
-            // PayPal doesn't provide detailed shipping name fields, so the name will be overwritten
-            $shippingAddress->addData(array(
-                'prefix'     => null,
-                'firstname'  => $data['SHIPTONAME'],
-                'middlename' => null,
-                'lastname'   => null,
-                'suffix'     => null,
-            ));
-            $this->setExportedShippingAddress($shippingAddress);
-        }
-    }
-
-    /**
-     * Adopt specified address object to be compatible with Magento
-     *
-     * @param Varien_Object $address
-     */
-    protected function _applyStreetAndRegionWorkarounds(Varien_Object $address)
-    {
-        // merge street addresses into 1
-        if ($address->hasStreet2()) {
-             $address->setStreet(implode("\n", array($address->getStreet(), $address->getStreet2())));
-             $address->unsStreet2();
-        }
-        // attempt to fetch region_id from directory
-        if ($address->getCountryId() && $address->getRegion()) {
-            $regions = Mage::getModel('directory/country')->loadByCode($address->getCountryId())->getRegionCollection()
-                ->addRegionCodeFilter($address->getRegion())
-                ->setPageSize(1)
-            ;
-            foreach ($regions as $region) {
-                $address->setRegionId($region->getId());
-                break;
-            }
-        }
-    }
-
-    /**
-     * Prepare request data basing on provided address
-     *
-     * @param Varien_Object $address
-     * @param array $to
-     * @return array
-     */
-    protected function _importAddress(Varien_Object $address, array $to)
-    {
-        $to = Varien_Object_Mapper::accumulateByMap($address, $to, array_flip($this->_billingAddressMap));
-        if ($regionCode = $this->_lookupRegionCodeFromAddress($address)) {
-            $to['STATE'] = $regionCode;
-        }
-        if (!$this->getSuppressShipping()) {
-            $to = Varien_Object_Mapper::accumulateByMap($address, $to, array_flip($this->_shippingAddressMap));
-            if ($regionCode = $this->_lookupRegionCodeFromAddress($address)) {
-                $to['SHIPTOSTATE'] = $regionCode;
-            }
-            $this->_importStreetFromAddress($address, $to, 'SHIPTOSTREET', 'SHIPTOSTREET2');
-            $this->_importStreetFromAddress($address, $to, 'STREET', 'STREET2');
-            $to['SHIPTONAME'] = $address->getName();
-        }
-        return $to;
-    }
-
-    /**
-     * Filter for credit card type
-     *
-     * @param string $value
-     * @return string
-     */
-    protected function _filterCcType($value)
-    {
-        if (isset($this->_supportedCcTypes[$value])) {
-            return $this->_supportedCcTypes[$value];
-        }
-        return '';
-    }
-
-    /**
-     * Get FMF results from response, if any
-     * TODO: PayPal doesn't provide this information in API response for some reason.
-     *       However, the FMF results go in IPN
-     *
-     * @param array $from
-     * @param array $collectedWarnings
-     */
-    protected function _importFraudFiltersResult(array $from, array $collectedWarnings)
-    {
-        // detect whether there is a fraud warning
-        if (!in_array(11610, $collectedWarnings)) {
-            return;
-        }
-        $collectedFilters = array();
-        for ($i = 0; isset($from["L_FMFfilterID{$i}"]); $i++) {
-            $collectedFilters[] = $from["L_FMFfilterNAME{$i}"];
-        }
-        if ($collectedFilters) {
-            $this->setCollectedFraudFilters($collectedFilters);
-        }
-    }
 }

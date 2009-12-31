@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_GoogleAnalytics
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_GoogleAnalytics
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -35,22 +35,11 @@ class Mage_GoogleAnalytics_Model_Observer
 {
 
     /**
-     * Create Google Analytics block for success page view
+     * Enter description here...
      *
-     * @deprecated after 1.3.2.3 Use setGoogleAnalyticsOnOrderSuccessPageView() method instead
-     * @param Varien_Event_Observer $observer
+     * @param unknown_type $observer
      */
     public function order_success_page_view($observer)
-    {
-        $this->setGoogleAnalyticsOnOrderSuccessPageView($observer);
-    }
-
-    /**
-     * Create Google Analytics block for success page view
-     *
-     * @param Varien_Event_Observer $observer
-     */
-    public function setGoogleAnalyticsOnOrderSuccessPageView(Varien_Event_Observer $observer)
     {
         $quoteId = Mage::getSingleton('checkout/session')->getLastQuoteId();
         $analyticsBlock = Mage::app()->getFrontController()->getAction()->getLayout()->getBlock('google_analytics');

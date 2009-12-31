@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Install
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Install
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -41,6 +41,14 @@
                 <class>Mage_Install_Model_Mysql4</class>
             </install_mysql4>
         </models>
+        <resources>
+            <install_write>
+                <connection><use>core_write</use></connection>
+            </install_write>
+            <install_read>
+                <connection><use>core_read</use></connection>
+            </install_read>
+        </resources>
         <blocks>
             <install><class>Mage_Install_Block</class></install>
         </blocks>
@@ -69,6 +77,7 @@
             <controller_action_predispatch>
                 <observers>
                     <checkConnection>
+                        <type>singleton</type>
                         <class>core/resource</class>
                         <method>checkDbConnection</method>
                     </checkConnection>
@@ -77,6 +86,7 @@
             <mage_run_exception>
                 <observers>
                     <install_failure>
+                        <type>singleton</type>
                         <class>install/observer</class>
                         <method>installFailure</method>
                     </install_failure>
@@ -85,6 +95,7 @@
             <core_locale_set_locale>
                 <observers>
                     <bind_locale>
+                        <type>singleton</type>
                         <class>install/observer</class>
                         <method>bindLocale</method>
                     </bind_locale>

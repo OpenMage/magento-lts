@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,28 +25,28 @@
 /**
  * Zend_Form_Decorator_Callback
  *
- * Execute an arbitrary callback to decorate an element. Callbacks should take
+ * Execute an arbitrary callback to decorate an element. Callbacks should take 
  * three arguments, $content, $element, and $options:
  *
  * function mycallback($content, $element, array $options)
  * {
  * }
  *
- * and should return a string. ($options are whatever options were provided to
+ * and should return a string. ($options are whatever options were provided to 
  * the decorator.)
  *
  * To specify a callback, pass a valid callback as the 'callback' option.
  *
  * Callback results will be either appended, prepended, or replace the provided
- * content. To replace the content, specify a placement of boolean false;
+ * content. To replace the content, specify a placement of boolean false; 
  * defaults to append content.
- *
+ * 
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Callback.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Callback.php 8064 2008-02-16 10:58:39Z thomas $
  */
 class Zend_Form_Decorator_Callback extends Zend_Form_Decorator_Abstract
 {
@@ -58,17 +58,25 @@ class Zend_Form_Decorator_Callback extends Zend_Form_Decorator_Abstract
 
     /**
      * Set callback
-     *
-     * @param  callback $callback
+     * 
+     * @param  string|array $callback 
      * @return Zend_Form_Decorator_Callback
      * @throws Zend_Form_Exception
      */
     public function setCallback($callback)
     {
-        if (!is_callable($callback)) {
+        if (!is_string($callback) && !is_array($callback)) {
             #require_once 'Zend/Form/Exception.php';
             throw new Zend_Form_Exception('Invalid callback provided to callback decorator');
         }
+
+        if (is_array($callback)) {
+            if (2 !== count($callback)) {
+                #require_once 'Zend/Form/Exception.php';
+                throw new Zend_Form_Exception('Invalid method callback provided to callback decorator');
+            }
+        }
+
         $this->_callback = $callback;
         return $this;
     }
@@ -76,9 +84,9 @@ class Zend_Form_Decorator_Callback extends Zend_Form_Decorator_Abstract
     /**
      * Get registered callback
      *
-     * If not previously registered, checks to see if it exists in registered
+     * If not previously registered, checks to see if it exists in registered 
      * options.
-     *
+     * 
      * @return null|string|array
      */
     public function getCallback()
@@ -94,13 +102,13 @@ class Zend_Form_Decorator_Callback extends Zend_Form_Decorator_Abstract
     }
 
     /**
-     * Render
+     * Render 
      *
-     * If no callback registered, returns callback. Otherwise, gets return
+     * If no callback registered, returns callback. Otherwise, gets return 
      * value of callback and either appends, prepends, or replaces passed in
      * content.
      *
-     * @param  string $content
+     * @param  string $content 
      * @return string
      */
     public function render($content)

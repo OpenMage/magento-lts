@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Rss
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Rss
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,7 +31,7 @@
  * @package    Mage_Rss
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
+class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Abstract
 {
     protected function _construct()
     {
@@ -77,57 +77,40 @@ getFinalPrice() - used in shopping cart calculations
             ->addAttributeToSelect(array('special_price', 'special_from_date', 'special_to_date'), 'left')
         ;
 
-        $products->setVisibility(Mage::getSingleton('catalog/product_visibility')->getVisibleInCatalogIds());
-
+        Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($products);
+        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($products);
+//echo $products->getSelect();
         /*
         using resource iterator to load the data one by one
         instead of loading all at the same time. loading all data at the same time can cause the big memory allocation.
         */
-
         Mage::getSingleton('core/resource_iterator')
             ->walk($products->getSelect(), array(array($this, 'addNewItemXmlCallback')), array('rssObj'=> $rssObj, 'product'=>$product));
 
         return $rssObj->createRssXml();
     }
 
-    /**
-     * Preparing data and adding to rss object
-     *
-     * @param array $args
-     */
     public function addNewItemXmlCallback($args)
     {
         $product = $args['product'];
-
-        $product->setAllowedInRss(true);
-        Mage::dispatchEvent('rss_catalog_new_xml_callback', $args);
-
-        if (!$product->getAllowedInRss()) {
-            //Skip adding product to RSS
-            return;
-        }
-
-        $allowedPriceInRss = $product->getAllowedPriceInRss();
-
         //$product->unsetData()->load($args['row']['entity_id']);
         $product->setData($args['row']);
+        $final_price = $product->getFinalPrice();
         $description = '<table><tr>'.
             '<td><a href="'.$product->getProductUrl().'"><img src="'. $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75) .'" border="0" align="left" height="75" width="75"></a></td>'.
-            '<td  style="text-decoration:none;">'.$product->getDescription();
-
-        if ($allowedPriceInRss) {
-            $description .= $this->getPriceHtml($product,true);
-        }
-
-        $description .= '</td>'.
+            '<td  style="text-decoration:none;">'.$product->getDescription().
+            '<p> Price:'.Mage::helper('core')->currency($product->getPrice()).
+            ($product->getPrice() != $final_price  ? ' Special Price:'. Mage::helper('core')->currency($final_price) : '').
+            '</p>'.
+            '</td>'.
             '</tr></table>';
-
         $rssObj = $args['rssObj'];
         $data = array(
                 'title'         => $product->getName(),
                 'link'          => $product->getProductUrl(),
                 'description'   => $description,
-            );
+
+                );
         $rssObj->_addEntry($data);
     }
 }

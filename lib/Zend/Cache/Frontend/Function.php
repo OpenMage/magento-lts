@@ -15,9 +15,8 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Frontend
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Function.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 
@@ -30,7 +29,7 @@
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Frontend
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Frontend_Function extends Zend_Cache_Core
@@ -76,7 +75,7 @@ class Zend_Cache_Frontend_Function extends Zend_Cache_Core
      * @param  array  $parameters       Function parameters
      * @param  array  $tags             Cache tags
      * @param  int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
-     * @param  int   $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
+     * @param  int   $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends             
      * @return mixed Result
      */
     public function call($name, $parameters = array(), $tags = array(), $specificLifetime = false, $priority = 8)

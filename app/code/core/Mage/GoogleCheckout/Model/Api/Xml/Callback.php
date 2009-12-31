@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_GoogleCheckout
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Model_Api_Xml_Abstract
@@ -234,8 +234,8 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                             $address->setCollectShippingRates(true)->collectTotals();
                             $billingAddress->setCollectShippingRates(true)->collectTotals();
 
-                            $taxAmount = $address->getBaseTaxAmount();
-                            $taxAmount += $billingAddress->getBaseTaxAmount();
+                            $taxAmount = $address->getTaxAmount();
+                            $taxAmount += $billingAddress->getTaxAmount();
 
                             $result->setTaxDetails($taxAmount);
                         }
@@ -250,8 +250,8 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
                 $address->setCollectShippingRates(true)->collectTotals();
                 $billingAddress->setCollectShippingRates(true)->collectTotals();
 
-                $taxAmount = $address->getBaseTaxAmount();
-                $taxAmount += $billingAddress->getBaseTaxAmount();
+                $taxAmount = $address->getTaxAmount();
+                $taxAmount += $billingAddress->getTaxAmount();
 
                 $result = new GoogleResult($addressId);
                 $result->setTaxDetails($taxAmount);
@@ -278,7 +278,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         // IMPORT GOOGLE ORDER DATA INTO QUOTE
 
         $quoteId = $this->getData('root/shopping-cart/merchant-private-data/quote-id/VALUE');
-        $quote = Mage::getModel('sales/quote')->load($quoteId)->setIsActive(true);
+        $quote = Mage::getModel('sales/quote')->load($quoteId);
 //
 //        $quoteItems = $quote->getItemsCollection();
 //        foreach ($this->getData('root/shopping-cart/items') as $item) {
@@ -373,8 +373,6 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
             ->setLastSuccessQuoteId($quote->getId())
             ->setLastRealOrderId($order->getIncrementId());
 
-        $quote->setIsActive(false)->save();
-
         if ($emailAllowed) {
             Mage::getModel('newsletter/subscriber')->subscribe($order->getCustomerEmail());
         }
@@ -429,11 +427,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
 
     protected function _importGoogleTotals($qAddress)
     {
-        $qAddress->setTaxAmount(
-            $this->_reCalculateToStoreCurrency(
-                $this->getData('root/order-adjustment/total-tax/VALUE'), $qAddress->getQuote()
-            )
-        );
+        $qAddress->setTaxAmount($this->getData('root/order-adjustment/total-tax/VALUE'));
         $qAddress->setBaseTaxAmount($this->getData('root/order-adjustment/total-tax/VALUE'));
 
         $prefix = 'root/order-adjustment/shipping/';
@@ -450,18 +444,13 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
             $excludingTax = $shipping['shipping-cost']['VALUE'];
             $qAddress->setShippingMethod($method)
                 ->setShippingDescription($shipping['shipping-name']['VALUE'])
-                ->setShippingAmount(
-                    $this->_reCalculateToStoreCurrency($excludingTax, $qAddress->getQuote()),
-                    true
-                )
+                ->setShippingAmount($excludingTax, true)
                 ->setBaseShippingAmount($excludingTax, true);
 
             if (!Mage::helper('tax')->shippingPriceIncludesTax()) {
                 $includingTax = Mage::helper('tax')->getShippingPrice($excludingTax, true, $qAddress, $qAddress->getQuote()->getCustomerTaxClassId());
                 $shippingTax = $includingTax - $excludingTax;
-                $qAddress->setShippingTaxAmount(
-                    $this->_reCalculateToStoreCurrency($shippingTax, $qAddress->getQuote())
-                    )
+                $qAddress->setShippingTaxAmount($shippingTax)
                     ->setBaseShippingTaxAmount($shippingTax);
             } else {
                 if ($method == 'googlecheckout_carrier') {
@@ -474,11 +463,7 @@ class Mage_GoogleCheckout_Model_Api_Xml_Callback extends Mage_GoogleCheckout_Mod
         }
 
 
-        $qAddress->setGrandTotal(
-            $this->_reCalculateToStoreCurrency(
-                $this->getData('root/order-total/VALUE'), $qAddress->getQuote()
-            )
-        );
+        $qAddress->setGrandTotal($this->getData('root/order-total/VALUE'));
         $qAddress->setBaseGrandTotal($this->getData('root/order-total/VALUE'));
     }
 

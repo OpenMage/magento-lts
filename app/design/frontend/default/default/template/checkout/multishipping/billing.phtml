@@ -1,0 +1,119 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Multishipping checkout billing information
+ *
+ * @see Mage_Checkout_Block_Multishipping_Billing
+ */
+?>
+<div class="page-head">
+    <h3><?php echo $this->__('Billing Information') ?></h3>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<script src="<?php echo Mage::getBaseUrl('js') ?>varien/payment.js" type="text/javascript"></script>
+<form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="multishipping-billing-form">
+<div class="multi-address-checkout-box">
+    <div class="box">
+        <div class="content col2-set">
+            <div class="col-1">
+                <div class="head">
+                    <h5>
+                        <?php echo $this->__('Billing Address') ?>
+                        <span class="pipe">|</span>
+                        <a href="<?php echo $this->getSelectAddressUrl() ?>"><?php echo $this->__('Change') ?></a>
+                    </h5>
+                 </div>
+                <?php $_address=$this->getAddress() ?>
+                <address>
+                    <?php echo $_address->format('html') ?>
+                </address>
+            </div>
+            <div class="col-2">
+                <div class="head">
+                    <h5><?php echo $this->__('Payment Method') ?></h5>
+                </div>
+                <div class="tool-tip" id="payment-tool-tip" style="display:none;">
+                    <div class="btn-close">
+                    <a href="#" id="payment-tool-tip-close"><img src="<?php echo $this->getSkinUrl('images/btn_window_close.gif') ?>" alt="<?php echo $this->__('Close') ?>" /></a></div>
+                    <div class="block-content">
+                    <img src="<?php echo $this->getSkinUrl('images/cvv.gif') ?>" alt="<?php echo $this->__('Card Verification Number Visual Reference') ?>" />
+                    </div>
+                </div>
+
+                <!-- Payment methods forms list -->
+                <dl class="payment-methods">
+                <?php
+                    $_methods       = $this->getMethods();
+                    $_methodsCount  = count($_methods);
+                ?>
+                <?php foreach ($_methods as $_method): $_code = $_method->getCode() ?>
+                    <dt>
+                        <?php if ($_methodsCount > 1): ?>
+                        <input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" class="radio" onclick="payment.switchMethod('<?php echo $_code ?>')"<?php if($this->getSelectedMethodCode()==$_code): ?> checked="checked"<?php endif; ?> />
+                        <?php else :?>
+                        <span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" /></span>
+                        <?php endif;?>
+                        <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?></label>
+                    </dt>
+                    <?php if($html = $this->getChildHtml('payment.method.'.$_code)): ?>
+                    <dd>
+                        <?php echo $html; ?>
+                    </dd>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                </dl>
+            </div>
+        </div>
+      </div>
+    <?php echo $this->getChildHtml('checkout_billing_items') ?>
+</div>
+<div class="button-set">
+    <a href="<?php echo $this->getBackUrl() ?>" class="left">&laquo;<?php echo $this->__('Back to Shipping Information') ?></a>
+    <button  class="form-button" type="submit"><span><?php echo $this->__('Continue to Review Your Order') ?></span></button>
+</div>
+</form>
+<script type="text/javascript">
+    // Need to fix payment JS
+    var payment = new paymentForm('multishipping-billing-form');
+    function toggleToolTip(event){
+        if($('payment-tool-tip')){
+            $('payment-tool-tip').setStyle({
+                //left: (Event.pointerX(event)-800)+'px',
+                top: (Event.pointerY(event)-530)+'px'
+            })
+            $('payment-tool-tip').toggle();
+        }
+        Event.stop(event);
+    }
+    if($('payment-tool-tip-close')){
+        Event.observe($('payment-tool-tip-close'), 'click', toggleToolTip);
+    }
+    $$('.cvv-what-is-this').each(function(element){
+        Event.observe(element, 'click', toggleToolTip);
+    });
+</script>

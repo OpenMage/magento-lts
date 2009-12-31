@@ -18,27 +18,21 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Cms
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cms
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- * Cms page content block
+ * Cms page content
  *
  * @category   Mage
  * @package    Mage_Cms
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 {
-    /**
-     * Retrieve Page instance
-     *
-     * @return Mage_Cms_Model_Page
-     */
     public function getPage()
     {
         if (!$this->hasData('page')) {
@@ -54,11 +48,6 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         return $this->getData('page');
     }
 
-    /**
-     * Prepare global layout
-     *
-     * @return Mage_Cms_Block_Page
-     */
     protected function _prepareLayout()
     {
         $page = $this->getPage();
@@ -72,31 +61,20 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
                 $breadcrumbs->addCrumb('cms_page', array('label'=>$page->getTitle(), 'title'=>$page->getTitle()));
         }
 
-        $root = $this->getLayout()->getBlock('root');
-        if ($root) {
+        if ($root = $this->getLayout()->getBlock('root')) {
             $root->addBodyClass('cms-'.$page->getIdentifier());
         }
 
-        $head = $this->getLayout()->getBlock('head');
-        if ($head) {
+        if ($head = $this->getLayout()->getBlock('head')) {
             $head->setTitle($page->getTitle());
             $head->setKeywords($page->getMetaKeywords());
             $head->setDescription($page->getMetaDescription());
         }
-
-        return parent::_prepareLayout();
     }
 
-    /**
-     * Prepare HTML content
-     *
-     * @return string
-     */
     protected function _toHtml()
     {
-        /* @var $helper Mage_Cms_Helper_Data */
-        $helper = Mage::helper('cms');
-        $processor = $helper->getPageTemplateProcessor();
+        $processor = Mage::getModel('core/email_template_filter');
         $html = $processor->filter($this->getPage()->getContent());
         $html = $this->getMessagesBlock()->getGroupedHtml() . $html;
         return $html;

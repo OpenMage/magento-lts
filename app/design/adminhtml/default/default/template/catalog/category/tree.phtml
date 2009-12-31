@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div class="categories-side-col">
@@ -171,10 +171,7 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
 
     categoryClick : function(node, e)
     {
-        var baseUrl = '<?php echo $this->getEditUrl() ?>';
-        var urlExt = (this.storeId?'store/'+this.storeId+'/':'')+'id/'+node.id+'/';
-        var url = parseSidUrl(baseUrl, urlExt);
-
+        var url = '<?php echo $this->getEditUrl() ?>'+(this.storeId?'store/'+this.storeId+'/':'')+'id/'+node.id+'/';
         this.currentNodeId = node.id;
         this.addNodeTo = false;
         if (!this.useAjax) {
@@ -441,19 +438,15 @@ function categoryMove(obj)
 
     var success = function(o) {
         try {
-            if(o.responseText){
-                if(o.responseText==='SUCCESS'){
-                    categoryForm.refreshPath();
-                } else {
-                    alert(o.responseText);
-                    location.reload();
-                }
+            if(o.responseText && o.responseText!=='SUCCESS'){
+                alert(o.responseText);
+                location.reload();
             }
         }
         catch(e) {
+
         }
     };
-
     var failure = function(o) {
         try {
             console.log(o.statusText);

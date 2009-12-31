@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -80,7 +80,6 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
                 $wishlist->addNewItem($productId);
             }
             $wishlist->save();
-            Mage::helper('wishlist')->calculate();
         }
         return $this;
     }
@@ -134,31 +133,4 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
             Mage::getSingleton('checkout/session')->setNoCartRedirect(true);
         }
     }
-
-    /**
-     * Customer login processing
-     *
-     * @param Varien_Event_Observer $observer
-     * @return Mage_Wishlist_Model_Observer
-     */
-    public function customerLogin(Varien_Event_Observer $observer)
-    {
-        Mage::helper('wishlist')->calculate();
-
-        return $this;
-    }
-
-    /**
-     * Customer logout processing
-     *
-     * @param Varien_Event_Observer $observer
-     * @return Mage_Wishlist_Model_Observer
-     */
-    public function customerLogout(Varien_Event_Observer $observer)
-    {
-        Mage::getSingleton('customer/session')->setWishlistItemCount(0);
-
-        return $this;
-    }
-
 }

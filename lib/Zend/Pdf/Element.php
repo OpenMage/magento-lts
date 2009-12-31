@@ -12,19 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Element.php 18993 2009-11-15 17:09:16Z alexander $
  */
+
+
+/** Zend_Pdf_Element */
+#require_once 'Zend/Pdf/Element.php';
+
+/** Zend_Pdf_Element_Object */
+#require_once 'Zend/Pdf/Element/Object.php';
 
 
 /**
  * PDF file element implementation
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_Element
@@ -70,9 +75,9 @@ abstract class Zend_Pdf_Element
      *
      * @param Zend_Pdf_Element_Object $parent
      */
-    public function setParentObject(Zend_Pdf_Element_Object $parent)
+    public function setParentObject(Zend_Pdf_Element_Object &$parent)
     {
-        $this->_parentObject = $parent;
+        $this->_parentObject = &$parent;
     }
 
 
@@ -127,10 +132,8 @@ abstract class Zend_Pdf_Element
     public static function phpToPdf($input)
     {
         if (is_numeric($input)) {
-            #require_once 'Zend/Pdf/Element/Numeric.php';
             return new Zend_Pdf_Element_Numeric($input);
         } else if (is_bool($input)) {
-            #require_once 'Zend/Pdf/Element/Boolean.php';
             return new Zend_Pdf_Element_Boolean($input);
         } else if (is_array($input)) {
             $pdfElementsArray = array();
@@ -144,15 +147,13 @@ abstract class Zend_Pdf_Element
             }
 
             if ($isDictionary) {
-                #require_once 'Zend/Pdf/Element/Dictionary.php';
                 return new Zend_Pdf_Element_Dictionary($pdfElementsArray);
             } else {
-                #require_once 'Zend/Pdf/Element/Array.php';
                 return new Zend_Pdf_Element_Array($pdfElementsArray);
             }
         } else {
-            #require_once 'Zend/Pdf/Element/String.php';
             return new Zend_Pdf_Element_String((string)$input);
         }
     }
 }
+

@@ -75,6 +75,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         elseif ($this->getOptions() && is_array($this->getOptions())) {
             $options = $this->getOptions();
         }
+
         foreach ($options as $k => $v) {
             if (is_string($v)) {
                 $values[] = array(
@@ -136,7 +137,8 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                 $checked[$k] = strval($v);
             }
         }
-        if (in_array(strval($value), $checked)) {
+
+        if (array_search(strval($value), $checked)) {
             return 'checked';
         }
         return ;
@@ -153,7 +155,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                     $disabled[$k] = strval($v);
                 }
             }
-            if (in_array(strval($value), $disabled)) {
+            if (array_search(strval($value), $disabled)) {
                 return 'disabled';
             }
         }

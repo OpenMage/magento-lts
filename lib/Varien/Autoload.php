@@ -33,7 +33,7 @@ class Varien_Autoload
 
     static protected $_instance;
     static protected $_scope = 'default';
-
+    
     protected $_isIncludePathDefined= null;
     protected $_collectClasses      = false;
     protected $_collectPath         = null;
@@ -103,9 +103,7 @@ class Varien_Autoload
     static public function registerScope($code)
     {
         self::$_scope = $code;
-        if (defined('COMPILER_INCLUDE_PATH')) {
-            @include_once self::SCOPE_FILE_PREFIX.$code.'.php';
-        }
+        @include_once self::SCOPE_FILE_PREFIX.$code.'.php';
     }
 
     /**
@@ -117,7 +115,7 @@ class Varien_Autoload
     {
         return self::$_scope;
     }
-
+    
     /**
      * Class destructor
      */

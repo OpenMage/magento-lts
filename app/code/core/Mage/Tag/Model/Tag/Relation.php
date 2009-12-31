@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -99,23 +99,6 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
     public function deactivate()
     {
         $this->_getResource()->deactivate($this->getTagId(),  $this->getCustomerId());
-        return $this;
-    }
-
-    /**
-     * Add TAG to PRODUCT relations
-     *
-     * @param Mage_Tag_Model_Tag $model
-     * @param array $productIds
-     * @return Mage_Tag_Model_Tag_Relation
-     */
-    public function addRelations(Mage_Tag_Model_Tag $model, $productIds = array())
-    {
-        $this->setAddedProductIds($productIds);
-        $this->setTagId($model->getTagId());
-        $this->setCustomerId(null);
-        $this->setStoreId($model->getStoreId());
-        $this->_getResource()->addRelations($this);
         return $this;
     }
 }

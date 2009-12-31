@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -78,7 +78,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         if(!is_array($value['images']) && strlen($value['images']) > 0) {
-           $value['images'] = Mage::helper('core')->jsonDecode($value['images']);
+           $value['images'] = Zend_Json::decode($value['images']);
         }
 
         if (!is_array($value['images'])) {
@@ -123,7 +123,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $attrData = $object->getData($mediaAttrCode);
 
             if (in_array($attrData, $clearImages)) {
-                $object->setData($mediaAttrCode, false);
+                $object->setData($mediaAttrCode, null);
             }
 
             if (in_array($attrData, array_keys($newImages))) {

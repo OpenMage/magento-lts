@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -75,13 +75,14 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     public function getOriginalEditablePrice($item)
     {
         if ($item->hasOriginalCustomPrice()) {
-            $result = $item->getOriginalCustomPrice()*1;
-        } elseif ($item->hasCustomPrice()) {
-            $result = $item->getCustomPrice()*1;
+            return $item->getOriginalCustomPrice()*1;
         } else {
-            $result = $item->getOriginalPrice()*1;
+            $result = $item->getCalculationPrice()*1;
+            if (Mage::helper('tax')->priceIncludesTax($this->getStore()) && $item->getTaxPercent()) {
+                $result = $result + ($result*($item->getTaxPercent()/100));
+            }
+            return $result;
         }
-        return $result;
     }
 
     public function getItemOrigPrice($item)
@@ -108,40 +109,18 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         return Mage::getSingleton('adminhtml/giftmessage_save')->getIsAllowedQuoteItem($item);
     }
 
-    /**
-     * Check if we need display grid totals include tax
-     *
-     * @return bool
-     */
-    public function displayTotalsIncludeTax()
-    {
-        $res = Mage::getSingleton('tax/config')->displayCartSubtotalInclTax($this->getStore())
-            || Mage::getSingleton('tax/config')->displayCartSubtotalBoth($this->getStore());
-        return $res;
-    }
-
     public function getSubtotal()
     {
-        $address = $this->getQuote()->getShippingAddress();
-        if ($this->displayTotalsIncludeTax()) {
-            if ($address->getSubtotalInclTax()) {
-                return $address->getSubtotalInclTax();
-            }
-            return $address->getSubtotal()+$address->getTaxAmount();
-        } else {
-            return $address->getSubtotal();
+        $totals = $this->getQuote()->getTotals();
+        if (isset($totals['subtotal'])) {
+            return $totals['subtotal']->getValue();
         }
         return false;
     }
 
     public function getSubtotalWithDiscount()
     {
-        $address = $this->getQuote()->getShippingAddress();
-        if ($this->displayTotalsIncludeTax()) {
-            return $address->getSubtotal()+$address->getTaxAmount()+$this->getDiscountAmount();
-        } else {
-            return $address->getSubtotal()+$this->getDiscountAmount();
-        }
+        return $this->getQuote()->getShippingAddress()->getSubtotalWithDiscount();
     }
 
     public function getDiscountAmount()
@@ -156,8 +135,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
 
     public function getQtyTitle($item)
     {
-        $prices = $item->getProduct()->getTierPrice();
-        if ($prices) {
+        if ($prices = $item->getProduct()->getTierPrice()) {
             $info = array();
             foreach ($prices as $data) {
                 $qty    = $data['price_qty']*1;
@@ -174,8 +152,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     public function getTierHtml($item)
     {
         $html = '';
-        $prices = $item->getProduct()->getTierPrice();
-        if ($prices) {
+        if ($prices = $item->getProduct()->getTierPrice()) {
             foreach ($prices as $data) {
                 $qty    = $data['price_qty']*1;
                 $price  = $this->convertPrice($data['price']);
@@ -244,7 +221,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     public function displayRowTotalWithDiscountInclTax($item)
     {
         $tax = ($item->getTaxAmount() ? $item->getTaxAmount() : 0);
-        return $this->formatPrice($item->getRowTotal()-$item->getDiscountAmount()+$tax);
+        return $this->formatPrice($item->getRowTotalWithDiscount()+$tax);
     }
 
     public function getInclExclTaxMessage()

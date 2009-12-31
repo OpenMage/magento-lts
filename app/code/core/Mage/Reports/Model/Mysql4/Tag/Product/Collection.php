@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -37,7 +37,7 @@ class Mage_Reports_Model_Mysql4_Tag_Product_Collection extends Mage_Tag_Model_My
     public function addUniqueTagedCount()
     {
         $this->getSelect()
-            ->columns(array('utaged' => 'count(DISTINCT(relation.tag_id))'));
+            ->from('', array('utaged' => 'count(DISTINCT(relation.tag_id))'));
             //->order('taged desc');
         return $this;
     }
@@ -45,7 +45,7 @@ class Mage_Reports_Model_Mysql4_Tag_Product_Collection extends Mage_Tag_Model_My
     public function addAllTagedCount()
     {
         $this->getSelect()
-            ->columns(array('taged' => 'count(relation.tag_id)'));
+            ->from('', array('taged' => 'count(relation.tag_id)'));
             //->order('taged desc');
         return $this;
     }
@@ -53,7 +53,7 @@ class Mage_Reports_Model_Mysql4_Tag_Product_Collection extends Mage_Tag_Model_My
     public function addTagedCount()
     {
         $this->getSelect()
-            ->columns(array('taged' => 'count(relation.tag_relation_id)'));
+            ->from('', array('taged' => 'count(relation.tag_relation_id)'));
             //->order('taged desc');
         return $this;
     }

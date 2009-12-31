@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Usa
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Usa
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -426,34 +426,30 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     {
         $costArr = array();
         $priceArr = array();
-
+        $errorTitle = 'Unable to retrieve quotes';
         if (strlen(trim($response))>0) {
-           if ($xml = $this->_parseXml($response)) {
-               
-               if (is_object($xml->Error) && is_object($xml->Error->Message)) {
-                   $errorTitle = (string)$xml->Error->Message;
-               } elseif (is_object($xml->SoftError) && is_object($xml->SoftError->Message)) {
-                   $errorTitle = (string)$xml->SoftError->Message;
-               } else {
-                   $errorTitle = 'Unknown error';
-               }
-                
-               $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));
-                
-               foreach ($xml->Entry as $entry) {
-                   if (in_array((string)$entry->Service, $allowedMethods)) {
-                       $costArr[(string)$entry->Service] = (string)$entry->EstimatedCharges->DiscountedCharges->NetCharge;
-                           $priceArr[(string)$entry->Service] = $this->getMethodPrice((string)$entry->EstimatedCharges->DiscountedCharges->NetCharge, (string)$entry->Service);
-                   }
-               }
-
-               asort($priceArr);
-
-           } else {
-               $errorTitle = 'Response is in the wrong format.';
-           }
-        } else {
-            $errorTitle = 'Unable to retrieve tracking';
+            if (strpos(trim($response), '<?xml')===0) {
+                $xml = simplexml_load_string($response);
+                if (is_object($xml)) {
+                    if (is_object($xml->Error) && is_object($xml->Error->Message)) {
+                        $errorTitle = (string)$xml->Error->Message;
+                    } elseif (is_object($xml->SoftError) && is_object($xml->SoftError->Message)) {
+                        $errorTitle = (string)$xml->SoftError->Message;
+                    } else {
+                        $errorTitle = 'Unknown error';
+                    }
+                    $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));
+                    foreach ($xml->Entry as $entry) {
+                        if (in_array((string)$entry->Service, $allowedMethods)) {
+                            $costArr[(string)$entry->Service] = (string)$entry->EstimatedCharges->DiscountedCharges->NetCharge;
+                            $priceArr[(string)$entry->Service] = $this->getMethodPrice((string)$entry->EstimatedCharges->DiscountedCharges->NetCharge, (string)$entry->Service);
+                        }
+                    }
+                    asort($priceArr);
+                }
+            } else {
+                $errorTitle = 'Response is in the wrong format';
+            }
         }
 
         $result = Mage::getModel('shipping/rate_result');
@@ -478,26 +474,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
             }
         }
         return $result;
-    }
-
-    /**
-     * Parse XML string and return XML document object or false 
-     *
-     * @param string $xmlContent
-     * @return SimpleXMLElement|bool
-     */
-    protected function _parseXml($xmlContent)
-    {
-        try {
-            try {
-                return simplexml_load_string($xmlContent);
-            } catch (Exception $e) {
-                throw new Exception(Mage::helper('usa')->__('Failed to parse xml document: %s', $xmlContent));
-            }
-        } catch (Exception $e) {
-            Mage::logException($e);
-            return false;
-        }
     }
 
 /*
@@ -670,15 +646,19 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     {
          $resultArr=array();
          if (strlen(trim($response))>0) {
-            if ($xml = $this->_parseXml($response)) {
-                  
-                 if (is_object($xml->Error) && is_object($xml->Error->Message)) {
-                    $errorTitle = (string)$xml->Error->Message;
-                 } elseif (is_object($xml->SoftError) && is_object($xml->SoftError->Message)) {
-                    $errorTitle = (string)$xml->SoftError->Message;
-                 }
+              if (strpos(trim($response), '<?xml')===0) {
+                  $xml = simplexml_load_string($response);
+                  if (is_object($xml)) {
+                    if (is_object($xml->Error) && is_object($xml->Error->Message)) {
+                        $errorTitle = (string)$xml->Error->Message;
+                    } elseif (is_object($xml->SoftError) && is_object($xml->SoftError->Message)) {
+                        $errorTitle = (string)$xml->SoftError->Message;
+                    }
+                  }else{
+                      $errorTitle = 'Error in loading response';
+                  }
 
-                 if (!isset($errorTitle)) {
+                  if (!isset($errorTitle)) {
                       $resultArr['status'] = (string)$xml->Package->StatusDescription;
                       $resultArr['service'] = (string)$xml->Package->Service;
                       $resultArr['deliverydate'] = (string)$xml->Package->DeliveredDate;

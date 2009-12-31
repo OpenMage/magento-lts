@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Value
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Base64.php 18443 2009-09-30 13:35:47Z lars $
+ * @version    $Id: Base64.php 9096 2008-03-30 19:04:05Z thomas $
  */
 
 
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Value
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_XmlRpc_Value_Base64 extends Zend_XmlRpc_Value_Scalar
@@ -68,7 +68,7 @@ class Zend_XmlRpc_Value_Base64 extends Zend_XmlRpc_Value_Scalar
 
     /**
      * Return the XML code representing the base64-encoded value
-     *
+     * 
      * @return string
      */
     public function saveXML()

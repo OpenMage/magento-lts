@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,385 +31,310 @@
  */
 abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
 {
-    /**
-     * Config instance
-     * @var Mage_Paypal_Model_Config
-     */
-    protected $_config = null;
+    const PAYMENT_TYPE_SALE = 'Sale';
+    const PAYMENT_TYPE_ORDER = 'Order';
+    const PAYMENT_TYPE_AUTH = 'Authorization';
 
-    /**
-     * Global private to public interface map
-     * @var array
-     */
-    protected $_globalMap = array();
+    const REFUND_TYPE_FULL = 'Full';
+    const REFUND_TYPE_PARTIAL = 'Partial';
 
-    /**
-     * Filter callbacks for importing/exporting amount
-     * @var array
-     */
-    protected $_exportToRequestFilters = array();
+    const COMPLETE = 'Complete';
+    const NOTCOMPLETE = 'NotComplete';
 
-    /**
-     * Line items export to request mapping settings
-     * @var array
-     */
-    protected $_lineItemExportTotals = array();
-    protected $_lineItemExportItemsFormat = array();
+    const USER_ACTION_COMMIT = 'commit';
+    const USER_ACTION_CONTINUE = 'continue';
 
-    /**
-     * Return Paypal Api user name based on config data
-     *
-     * @return string
-     */
+    public function getServerName()
+    {
+        if (!$this->hasServerName()) {
+            $this->setServerName($_SERVER['SERVER_NAME']);
+        }
+        return $this->getData('server_name');
+    }
+
+    public function getConfigData($key, $default=false, $storeId = null)
+    {
+        if (!$this->hasData($key)) {
+            if ($storeId === null && $this->getPayment() instanceof Varien_Object) {
+                $storeId = $this->getPayment()->getOrder()->getStoreId();
+            }
+            $value = Mage::getStoreConfig('paypal/wpp/'.$key, $storeId);
+            if (is_null($value) || false===$value) {
+                $value = $default;
+            }
+            $this->setData($key, $value);
+        }
+        return $this->getData($key);
+    }
+
+    public function getSession()
+    {
+        return Mage::getSingleton('paypal/session');
+    }
+
+    public function getUseSession()
+    {
+        if (!$this->hasData('use_session')) {
+            $this->setUseSession(true);
+        }
+        return $this->getData('use_session');
+    }
+
+    public function getSessionData($key, $default=false)
+    {
+        if (!$this->hasData($key)) {
+            $value = $this->getSession()->getData($key);
+            if ($this->getSession()->hasData($key)) {
+                $value = $this->getSession()->getData($key);
+            } else {
+                $value = $default;
+            }
+            $this->setData($key, $value);
+        }
+        return $this->getData($key);
+    }
+
+    public function setSessionData($key, $value)
+    {
+        if ($this->getUseSession()) {
+            $this->getSession()->setData($key, $value);
+        }
+        $this->setData($key, $value);
+        return $this;
+    }
+
+    public function getSandboxFlag()
+    {
+        return $this->getConfigData('sandbox_flag', true);
+    }
+
     public function getApiUsername()
     {
-        return $this->_config->apiUsername;
+        return $this->getConfigData('api_username');
     }
 
-    /**
-     * Return Paypal Api password based on config data
-     *
-     * @return string
-     */
     public function getApiPassword()
     {
-        return $this->_config->apiPassword;
+        return $this->getConfigData('api_password');
     }
 
-    /**
-     * Return Paypal Api signature based on config data
-     *
-     * @return string
-     */
     public function getApiSignature()
     {
-        return $this->_config->apiSignature;
+        return $this->getConfigData('api_signature');
     }
 
-    /**
-     * BN code getter
-     *
-     * @return string
-     */
-    public function getBuildNotationCode()
+    public function getButtonSourceEc()
     {
-        return $this->_config->getBuildNotationCode();
+        return $this->getConfigData('button_source_ec', 'Varien_Cart_EC_US');
     }
 
-    /**
-     * Return Paypal Api proxy status based on config data
-     *
-     * @return bool
-     */
+    public function getButtonSourceDp()
+    {
+        return $this->getConfigData('button_source_dp', 'Varien_Cart_DP_US');
+    }
+
     public function getUseProxy()
     {
-        return $this->_getDataOrConfig('use_proxy', false);
+        return $this->getConfigData('use_proxy', false);
     }
 
-    /**
-     * Return Paypal Api proxy host based on config data
-     *
-     * @return string
-     */
     public function getProxyHost()
     {
-        return $this->_getDataOrConfig('proxy_host', '127.0.0.1');
+        return $this->getConfigData('proxy_host', '127.0.0.1');
     }
 
-    /**
-     * Return Paypal Api proxy port based on config data
-     *
-     * @return string
-     */
     public function getProxyPort()
     {
-        return $this->_getDataOrConfig('proxy_port', '808');
+        return $this->getConfigData('proxy_port', '808');
     }
 
-    /**
-     * Return Paypal Api debug flag based on config data
-     *
-     * @return bool
-     */
     public function getDebug()
     {
-        return $this->_config->debugFlag;
+        return $this->getConfigData('debug_flag', true);
     }
 
     /**
-     * PayPal page CSS getter
+     * the page where buyers will go if there are API error
      *
      * @return string
      */
-    public function getPageStyle()
+    public function getApiErrorUrl()
     {
-        return $this->_getDataOrConfig('page_style');
+        return Mage::getUrl($this->getConfigData('api_error_url', 'paypal/express/error'));
     }
 
     /**
-     * Logo URL getter
+     * the page where buyers return to after they are done with the payment review on PayPal
      *
      * @return string
      */
-    public function getLogoUrl()
+    public function getReturnUrl()
     {
-        return $this->_getDataOrConfig('logo_url');
+        return Mage::getUrl($this->getConfigData('api_return_url', 'paypal/express/return'));
     }
 
     /**
-     * PayPal page header image URL getter
+     * The page where buyers return to when they cancel the payment review on PayPal
      *
      * @return string
      */
-    public function getHdrimg()
+    public function getCancelUrl()
     {
-        return $this->_getDataOrConfig('paypal_hdrimg');
+        return Mage::getUrl($this->getConfigData('api_cancel_url', 'paypal/express/cancel'));
     }
 
     /**
-     * PayPal page header border color getter
+     * Decide whether to return from Paypal EC before payment was made or after
      *
      * @return string
      */
-    public function getHdrbordercolor()
+    public function getUserAction()
     {
-        return $this->_getDataOrConfig('paypal_hdrbordercolor');
+        return $this->getSessionData('user_action', self::USER_ACTION_CONTINUE);
+    }
+
+    public function setUserAction($data)
+    {
+        return $this->setSessionData('user_action', $data);
     }
 
     /**
-     * PayPal page header background color getter
+     * PayPal API token
      *
      * @return string
      */
-    public function getHdrbackcolor()
+    public function getToken()
     {
-        return $this->_getDataOrConfig('paypal_hdrbackcolor');
+        return $this->getSessionData('token');
+    }
+
+    public function setToken($data)
+    {
+        return $this->setSessionData('token', $data);
+    }
+
+    public function getTransactionId()
+    {
+        return $this->getSessionData('transaction_id');
+    }
+
+    public function setTransactionId($data)
+    {
+        return $this->setSessionData('transaction_id', $data);
+    }
+
+    public function getAuthorizationId()
+    {
+        return $this->getSessionData('authorization_id');
+    }
+
+    public function setAuthorizationId($data)
+    {
+        return $this->setSessionData('authorization_id', $data);
+    }
+
+    public function getPayerId()
+    {
+        return $this->getSessionData('payer_id');
+    }
+
+    public function setPayerId($data)
+    {
+        return $this->setSessionData('payer_id', $data);
     }
 
     /**
-     * PayPal page "payflow color" (?) getter
+     * Complete type code (Complete, NotComplete)
      *
      * @return string
      */
-    public function getPayflowcolor()
+    public function getCompleteType()
     {
-        return $this->_getDataOrConfig('paypal_payflowcolor');
+        return $this->getSessionData('complete_type');
+    }
+
+    public function setCompleteType($data)
+    {
+        return $this->setSessionData('complete_type', $data);
     }
 
     /**
-     * Payment action getter
+     * Has to be one of the following values: Sale or Order or Authorization
      *
      * @return string
      */
-    public function getPaymentAction()
+    public function getPaymentType()
     {
-        return $this->_getDataOrConfig('payment_action');
+        return $this->getSessionData('payment_type');
+    }
+
+    public function setPaymentType($data)
+    {
+        return $this->setSessionData('payment_type', $data);
     }
 
     /**
-     * Import $this public data to specified object or array
+     * Total value of the shopping cart
      *
-     * @param array|Varien_Object $to
-     * @param array $publicMap
-     * @return array|Varien_Object
-     */
-    public function &import($to, array $publicMap = array())
-    {
-        return Varien_Object_Mapper::accumulateByMap(array($this, 'getDataUsingMethod'), $to, $publicMap);
-    }
-
-    /**
-     * Export $this public data from specified object or array
+     * Includes taxes, shipping costs, discount, etc.
      *
-     * @param array|Varien_Object $from
-     * @param array $publicMap
-     * @return Mage_Paypal_Model_Api_Abstract
+     * @return float
      */
-    public function export($from, array $publicMap = array())
+    public function getAmount()
     {
-        Varien_Object_Mapper::accumulateByMap($from, array($this, 'setDataUsingMethod'), $publicMap);
-        return $this;
+        return $this->getSessionData('amount');
+    }
+
+    public function setAmount($data)
+    {
+	    $data = sprintf('%.2f', $data);
+        return $this->setSessionData('amount', $data);
+    }
+
+    public function getCurrencyCode()
+    {
+        //return $this->getSessionData('currency_code', 'USD');
+        return $this->getSessionData('currency_code', Mage::app()->getStore()->getBaseCurrencyCode());
+    }
+
+    public function setCurrencyCode($data)
+    {
+        return $this->setSessionData('currency_code', $data);
     }
 
     /**
-     * Config instance setter
-     * @param Mage_Paypal_Model_Config $config
-     * @return Mage_Paypal_Model_Api_Abstract
-     */
-    public function setConfigObject(Mage_Paypal_Model_Config $config)
-    {
-        $this->_config = $config;
-        return $this;
-    }
-
-    /**
-     * Current locale code getter
+     * Refund type ('Full', 'Partial')
      *
      * @return string
      */
-    public function getLocaleCode()
+    public function getRefundType()
     {
-        return Mage::app()->getLocale()->getLocaleCode();
+        return $this->getSessionData('refund_type');
     }
 
-    /**
-     * Always take into accoun
-     */
-    public function getFraudManagementFiltersEnabled()
+    public function setRefundType($data)
     {
-        return 1;
+        return $this->setSessionData('refund_type', $data);
     }
 
-    /**
-     * Whether specified payment status indicates that money were paid
-     *
-     * @param string $paymentStatus
-     * @return bool
-     */
-    public function isPaid($paymentStatus)
+    public function getError()
     {
-        return $paymentStatus === 'Completed';
+        return $this->getSessionData('error');
     }
 
-    /**
-     * Export $this public data to private request array
-     *
-     * @param array $internalRequestMap
-     * @param array $request
-     * @return array
-     */
-    protected function &_exportToRequest(array $privateRequestMap, array $request = array())
+    public function setError($data)
     {
-        $map = array();
-        foreach ($privateRequestMap as $key) {
-            $map[$this->_globalMap[$key]] = $key;
-        }
-        $result = Varien_Object_Mapper::accumulateByMap(array($this, 'getDataUsingMethod'), $request, $map);
-        foreach ($privateRequestMap as $key) {
-            if (isset($this->_exportToRequestFilters[$key]) && isset($result[$key])) {
-                $callback   = $this->_exportToRequestFilters[$key];
-                $privateKey = $result[$key];
-                $publicKey  = $map[$this->_globalMap[$key]];
-                $result[$key] = call_user_func(array($this, $callback), $privateKey, $publicKey);
-            }
-        }
-        return $result;
+        return $this->setSessionData('error', $data);
     }
 
-    /**
-     * Import $this public data from a private response array
-     *
-     * @param array $privateResponseMap
-     * @param array $response
-     */
-    protected function _importFromResponse(array $privateResponseMap, array $response)
+    public function getCcTypeName($ccType)
     {
-        $map = array();
-        foreach ($privateResponseMap as $key) {
-            $map[$key] = $this->_globalMap[$key];
-        }
-        Varien_Object_Mapper::accumulateByMap($response, array($this, 'setDataUsingMethod'), $map);
+        $types = array('AE'=>Mage::helper('paypal')->__('Amex'), 'VI'=>Mage::helper('paypal')->__('Visa'), 'MC'=>Mage::helper('paypal')->__('MasterCard'), 'DI'=>Mage::helper('paypal')->__('Discover'));
+        return isset($types[$ccType]) ? $types[$ccType] : false;
     }
 
-    /**
-     * Prepare line items request
-     *
-     * @param array &$request
-     * @param int $i
-     */
-    protected function _exportLineItems(array &$request, $i = 0)
+    public function unsError()
     {
-        $items = $this->getLineItems();
-        if (empty($items)) {
-            return;
-        }
-        // line items
-        foreach ($items as $item) {
-            foreach ($this->_lineItemExportItemsFormat as $publicKey => $privateFormat) {
-                $value = $item->getDataUsingMethod($publicKey);
-                if (is_float($value)) {
-                    $value = $this->_filterAmount($value);
-                }
-                $request[sprintf($privateFormat, $i)] = $value;
-            }
-            $i++;
-        }
-        // line item totals
-        $lineItemTotals = $this->getLineItemTotals();
-        if ($lineItemTotals) {
-            $request = Varien_Object_Mapper::accumulateByMap($lineItemTotals, $request, $this->_lineItemExportTotals);
-            foreach ($this->_lineItemExportTotals as $privateKey) {
-                if (isset($request[$privateKey])) {
-                    $request[$privateKey] = $this->_filterAmount($request[$privateKey]);
-                } else {
-                    Mage::logException(new Exception(sprintf('Missing index "%s" for line item totals.', $privateKey)));
-                    Mage::throwException(Mage::helper('paypal')->__('Unable to calculate cart line item totals.'));
-                }
-            }
-        }
-    }
-
-    /**
-     * Filter amounts in API calls
-     * @param float|string $value
-     * @return string
-     */
-    protected function _filterAmount($value)
-    {
-        return sprintf('%.2F', $value);
-    }
-
-    /**
-     * Unified getter that looks in data or falls back to config
-     *
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
-     */
-    protected function _getDataOrConfig($key, $default = null)
-    {
-        if ($this->hasData($key)) {
-            return $this->getData($key);
-        }
-        return $this->_config->$key ? $this->_config->$key : $default;
-    }
-
-
-    /**
-     * region_id workaround: PayPal requires state code, try to find one in the address
-     *
-     * @param Varien_Object $address
-     * @return string
-     */
-    protected function _lookupRegionCodeFromAddress(Varien_Object $address)
-    {
-        if ($regionId = $address->getData('region_id')) {
-            $region = Mage::getModel('directory/region')->load($regionId);
-            if ($region->getId()) {
-                return $region->getCode();
-            }
-        }
-        return '';
-    }
-
-    /**
-     * Street address workaround: divides address lines into parts by specified keys
-     * (keys should go as 3rd, 4th[...] parameters)
-     *
-     * @param Varien_Object $address
-     * @param array $request
-     */
-    protected function _importStreetFromAddress(Varien_Object $address, array &$to)
-    {
-        $keys = func_get_args(); array_shift($keys); array_shift($keys);
-        $street = $address->getStreet();
-        if (!$keys || !$street || !is_array($street)) {
-            return;
-        }
-        foreach ($keys as $key) {
-            if ($value = array_pop($street)) {
-                $to[$key] = $value;
-            }
-        }
+        return $this->setSessionData('error', null);
     }
 }

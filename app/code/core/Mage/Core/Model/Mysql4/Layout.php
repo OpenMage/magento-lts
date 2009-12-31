@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -41,26 +41,23 @@ class Mage_Core_Model_Mysql4_Layout extends Mage_Core_Model_Mysql4_Abstract
     public function fetchUpdatesByHandle($handle, $params = array())
     {
         $storeId = isset($params['store_id']) ? $params['store_id'] : Mage::app()->getStore()->getId();
-        $area = isset($params['area']) ? $params['area'] : Mage::getSingleton('core/design_package')->getArea();
         $package = isset($params['package']) ? $params['package'] : Mage::getSingleton('core/design_package')->getPackageName();
         $theme = isset($params['theme']) ? $params['theme'] : Mage::getSingleton('core/design_package')->getTheme('layout');
 
+        $read = $this->_getReadAdapter();
         $updateStr = '';
-
-        $readAdapter = $this->_getReadAdapter();
-        if ($readAdapter) {
-            $select = $readAdapter->select()
-                ->from(array('update'=>$this->getMainTable()), array('xml'))
+        
+        if ($read) {
+            $select = $read->select()->from(array('update'=>$this->getMainTable()), 'xml')
                 ->join(array('link'=>$this->getTable('core/layout_link')), 'link.layout_update_id=update.layout_update_id', '')
-                ->where('link.store_id IN (0, ?)', $storeId)
-                ->where('link.area=?', $area)
+                ->where('link.store_id=?', $storeId)
                 ->where('link.package=?', $package)
-                ->where('link.theme=?', $theme)
-                ->where('update.handle = ?', $handle)
-                ->order('update.sort_order ASC');
-
-            foreach ($readAdapter->fetchAll($select) as $update) {
-                $updateStr .= $update['xml'];
+                ->where('link.theme=?', $theme);
+    
+            if ($updates = $read->fetchAll($select)) {
+                foreach ($updates as $update) {
+                    $updateStr .= $update['xml'];
+                }
             }
         }
         return $updateStr;

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -46,8 +46,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
 
     protected function _prepareCollection()
     {
-        // TODO: add full name logic
-        // TODO: encapsulate this logic into collection
+        //TODO: add full name logic
         $collection = Mage::getResourceModel('sales/order_collection')
             ->addAttributeToSelect('*')
             ->joinAttribute('billing_firstname', 'order_address/firstname', 'billing_address_id', null, 'left')
@@ -58,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
                 'CONCAT({{billing_firstname}}, " ", {{billing_lastname}})',
                 array('billing_firstname', 'billing_lastname'))
             ->addExpressionAttributeToSelect('shipping_name',
-                'CONCAT({{shipping_firstname}},  IFNULL(CONCAT(\' \', {{shipping_lastname}}), \'\'))',
+                'CONCAT({{shipping_firstname}}, " ", {{shipping_lastname}})',
                 array('shipping_firstname', 'shipping_lastname'));
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -171,26 +170,20 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
         $this->setMassactionIdField('entity_id');
         $this->getMassactionBlock()->setFormFieldName('order_ids');
 
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/cancel')) {
-            $this->getMassactionBlock()->addItem('cancel_order', array(
-                 'label'=> Mage::helper('sales')->__('Cancel'),
-                 'url'  => $this->getUrl('*/*/massCancel'),
-            ));
-        }
+        $this->getMassactionBlock()->addItem('cancel_order', array(
+             'label'=> Mage::helper('sales')->__('Cancel'),
+             'url'  => $this->getUrl('*/*/massCancel'),
+        ));
 
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/hold')) {
-            $this->getMassactionBlock()->addItem('hold_order', array(
-                 'label'=> Mage::helper('sales')->__('Hold'),
-                 'url'  => $this->getUrl('*/*/massHold'),
-            ));
-        }
+        $this->getMassactionBlock()->addItem('hold_order', array(
+             'label'=> Mage::helper('sales')->__('Hold'),
+             'url'  => $this->getUrl('*/*/massHold'),
+        ));
 
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/unhold')) {
-            $this->getMassactionBlock()->addItem('unhold_order', array(
-                 'label'=> Mage::helper('sales')->__('Unhold'),
-                 'url'  => $this->getUrl('*/*/massUnhold'),
-            ));
-        }
+        $this->getMassactionBlock()->addItem('unhold_order', array(
+             'label'=> Mage::helper('sales')->__('Unhold'),
+             'url'  => $this->getUrl('*/*/massUnhold'),
+        ));
 
         $this->getMassactionBlock()->addItem('pdfinvoices_order', array(
              'label'=> Mage::helper('sales')->__('Print Invoices'),

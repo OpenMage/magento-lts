@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Downloadable
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -94,35 +94,13 @@ class Mage_Downloadable_Model_Mysql4_Link extends Mage_Core_Model_Mysql4_Abstrac
             }
         } else {
             if (!$linkObject->getUseDefaultPrice()) {
-                $dataToInsert[] = array(
-                    'link_id' => $linkObject->getId(),
-                    'website_id' => $linkObject->getWebsiteId(),
-                    'price' => $linkObject->getPrice()
-                );
-                $_isNew = $linkObject->getOrigData('link_id') != $linkObject->getLinkId();
-                if ($linkObject->getWebsiteId() == 0 && $_isNew && !Mage::helper('catalog')->isPriceGlobal()) {
-                    $websiteIds = $linkObject->getProductWebsiteIds();
-                    foreach ($websiteIds as $websiteId) {
-                        $baseCurrency = Mage::app()->getBaseCurrencyCode();
-                        $websiteCurrency = Mage::app()->getWebsite($websiteId)->getBaseCurrencyCode();
-                        if ($websiteCurrency == $baseCurrency) {
-                            continue;
-                        }
-                        $rate = Mage::getModel('directory/currency')->load($baseCurrency)->getRate($websiteCurrency);
-                        if (!$rate) {
-                            $rate = 1;
-                        }
-                        $newPrice = $linkObject->getPrice() * $rate;
-                        $dataToInsert[] = array(
-                            'link_id' => $linkObject->getId(),
-                            'website_id' => $websiteId,
-                            'price' => $newPrice
-                        );
-                    }
-                }
-                foreach ($dataToInsert as $_data) {
-                    $this->_getWriteAdapter()->insert($this->getTable('downloadable/link_price'), $_data);
-                }
+                $this->_getWriteAdapter()->insert(
+                    $this->getTable('downloadable/link_price'),
+                    array(
+                        'link_id' => $linkObject->getId(),
+                        'website_id' => $linkObject->getWebsiteId(),
+                        'price' => $linkObject->getPrice()
+                    ));
             }
         }
         return $this;

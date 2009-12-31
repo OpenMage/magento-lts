@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -30,56 +30,80 @@
  *
  * @category   Mage
  * @package    Mage_Wishlist
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Wishlist_Block_Share_Wishlist extends Mage_Wishlist_Block_Abstract
+class Mage_Wishlist_Block_Share_Wishlist extends Mage_Catalog_Block_Product_Abstract
 {
-    /**
-     * Customer instance
-     *
-     * @var Mage_Customer_Model_Customer
-     */
+
+    protected $_collection = null;
     protected $_customer = null;
 
-    /**
-     * Prepare global layout
-     *
-     * @return Mage_Wishlist_Block_Share_Wishlist
-     *
-     */
     protected function _prepareLayout()
     {
-        parent::_prepareLayout();
-
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
+        if ($headBlock = $this->getLayout()->getBlock('head')) {
             $headBlock->setTitle($this->getHeader());
         }
-        return $this;
     }
 
-    /**
-     * Retrieve Shared Wishlist Customer instance
-     *
-     * @return Mage_Customer_Model_Customer
-     */
+    public function getWishlist()
+    {
+        if(is_null($this->_collection)) {
+            $this->_collection = Mage::registry('shared_wishlist')->getProductCollection()
+                ->addAttributeToSelect('name')
+                ->addAttributeToSelect('price')
+                ->addAttributeToSelect('special_price')
+                ->addAttributeToSelect('special_from_date')
+                ->addAttributeToSelect('special_to_date')
+                ->addAttributeToSelect('image')
+                ->addAttributeToSelect('small_image')
+                ->addAttributeToSelect('thumbnail')
+                //->addAttributeToFilter('store_id', array('in'=>Mage::registry('shared_wishlist')->getSharedStoreIds()))
+                ->addStoreFilter();
+
+            Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($this->_collection);
+            Mage::getSingleton('catalog/product_visibility')->addVisibleInSiteFilterToCollection($this->_collection);
+        }
+        return $this->_collection;
+    }
+
     public function getWishlistCustomer()
     {
-        if (is_null($this->_customer)) {
+        if(is_null($this->_customer)) {
             $this->_customer = Mage::getModel('customer/customer')
-                ->load($this->_getWishlist()->getCustomerId());
+                ->load(Mage::registry('shared_wishlist')->getCustomerId());
+
         }
 
         return $this->_customer;
     }
 
-    /**
-     * Retrieve Page Header
-     *
-     * @return string
-     */
+
+    public function getEscapedDescription($item)
+    {
+        if ($item->getWishlistItemDescription()) {
+            return $this->htmlEscape($item->getWishlistItemDescription());
+        }
+        return '&nbsp;';
+    }
+
     public function getHeader()
     {
         return Mage::helper('wishlist')->__("%s's Wishlist", $this->htmlEscape($this->getWishlistCustomer()->getFirstname()));
+    }
+
+    public function getFormatedDate($date)
+    {
+        return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
+    }
+
+    public function isSaleable()
+    {
+        foreach ($this->getWishlist() as $item) {
+            if ($item->isSaleable()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

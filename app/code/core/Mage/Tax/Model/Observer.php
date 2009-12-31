@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Tax
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tax
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -59,7 +59,7 @@ class Mage_Tax_Model_Observer
     public function salesEventOrderAfterSave(Varien_Event_Observer $observer)
     {
         $order = $observer->getEvent()->getOrder();
-        if (!$order->getConvertingFromQuote() || $order->getAppliedTaxIsSaved()) {
+        if (!$order->getConvertingFromQuote()) {
             return;
         }
 
@@ -92,7 +92,6 @@ class Mage_Tax_Model_Observer
                 Mage::getModel('sales/order_tax')->setData($data)->save();
             }
         }
-        $order->setAppliedTaxIsSaved(true);
     }
 
     /**
@@ -110,16 +109,13 @@ class Mage_Tax_Model_Observer
 
         $additionalCalculations = $response->getAdditionalCalculations();
         $calculation = Mage::helper('tax')->getPriceTaxSql(
-            $table . '.min_price', $table.'.tax_class_id'
+            $table . '.value', 'IFNULL(tax_class_c.value, tax_class_d.value)'
         );
 
         if (!empty($calculation)) {
             $additionalCalculations[] = $calculation;
             $response->setAdditionalCalculations($additionalCalculations);
-            /**
-             * Tax class presented in price index table
-             */
-            //Mage::helper('tax')->joinTaxClass($select, $storeId, $table);
+            Mage::helper('tax')->joinTaxClass($select, $storeId, $table);
         }
 
         return $this;
@@ -156,21 +152,4 @@ class Mage_Tax_Model_Observer
         }
         return $this;
     }
-
-    /**
-     * Refresh sales tax report statistics for last day
-     *
-     * @param Mage_Cron_Model_Schedule $schedule
-     * @return Mage_Tax_Model_Observer
-     */
-    public function aggregateSalesReportTaxData($schedule)
-    {
-        Mage::app()->getLocale()->emulate(0);
-        $currentDate = Mage::app()->getLocale()->date();
-        $date = $currentDate->subHour(25);
-        Mage::getResourceModel('tax/tax')->aggregate($date);
-        Mage::app()->getLocale()->revert();
-        return $this;
-    }
 }
-

@@ -16,9 +16,8 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Entry.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /**
@@ -30,11 +29,6 @@
  * @see Zend_Gdata_App_Extension_Content
  */
 #require_once 'Zend/Gdata/App/Extension/Content.php';
-
-/**
- * @see Zend_Gdata_App_Extension_Edited
- */
-#require_once 'Zend/Gdata/App/Extension/Edited.php';
 
 /**
  * @see Zend_Gdata_App_Extension_Published
@@ -62,7 +56,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
@@ -117,13 +111,6 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      */
     protected $_control = null;
 
-    /**
-     * app:edited element
-     *
-     * @var Zend_Gdata_App_Extension_Edited
-     */
-    protected $_edited = null;
-
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
         $element = parent::getDOM($doc, $majorVersion, $minorVersion);
@@ -141,9 +128,6 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
         }
         if ($this->_control != null) {
             $element->appendChild($this->_control->getDOM($element->ownerDocument));
-        }
-        if ($this->_edited != null) {
-            $element->appendChild($this->_edited->getDOM($element->ownerDocument));
         }
         return $element;
     }
@@ -176,11 +160,6 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
             $control = new Zend_Gdata_App_Extension_Control();
             $control->transferFromDOM($child);
             $this->_control = $control;
-            break;
-        case $this->lookupNamespace('app') . ':' . 'edited':
-            $edited = new Zend_Gdata_App_Extension_Edited();
-            $edited->transferFromDOM($child);
-            $this->_edited = $edited;
             break;
         default:
             parent::takeChildFromDOM($child);
@@ -242,15 +221,15 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     {
         // Get URI
         $editLink = $this->getEditLink();
-        if (($uri === null) && $editLink != null) {
+        if (is_null($uri) && $editLink != null) {
             $uri = $editLink->getHref();
         }
-
+        
         // Set classname to current class, if not otherwise set
-        if ($className === null) {
+        if (is_null($className)) {
             $className = get_class($this);
         }
-
+        
         // Append ETag, if present (Gdata v2 and above, only) and doesn't
         // conflict with existing headers
         if ($this->_etag != null
@@ -258,7 +237,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
                 && !array_key_exists('If-None-Match', $extraHeaders)) {
             $extraHeaders['If-None-Match'] = $this->_etag;
         }
-
+        
         // If an HTTP 304 status (Not Modified)is returned, then we return
         // null.
         $result = null;
@@ -268,7 +247,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
             if ($e->getResponse()->getStatus() != '304')
                 throw $e;
         }
-
+        
         return $result;
     }
 

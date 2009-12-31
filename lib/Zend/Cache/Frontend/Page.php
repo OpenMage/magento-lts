@@ -15,9 +15,8 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Frontend
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Page.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 
@@ -30,7 +29,7 @@
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Frontend
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Frontend_Page extends Zend_Cache_Core
@@ -64,12 +63,12 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
      *     - (boolean) makeIdWithXXXVariables (XXXX = 'Get', 'Post', 'Session', 'Files' or 'Cookie') :
      *       if true, we have to use the content of this superglobal array to make a cache id
      *       if false, the cache id won't be dependent of the content of this superglobal array
-     *     - (int) specific_lifetime : cache specific lifetime
-     *                                (false => global lifetime is used, null => infinite lifetime,
-     *                                 integer => this lifetime is used), this "lifetime" is probably only
+     *     - (int) specific_lifetime : cache specific lifetime 
+     *                                (false => global lifetime is used, null => infinite lifetime, 
+     *                                 integer => this lifetime is used), this "lifetime" is probably only 
      *                                usefull when used with "regexps" array
-     *     - (array) tags : array of tags (strings)
-     *     - (int) priority : integer between 0 (very low priority) and 10 (maximum priority) used by
+     *     - (array) tags : array of tags (strings) 
+     *     - (int) priority : integer between 0 (very low priority) and 10 (maximum priority) used by 
      *                        some particular backends
      *
      * ====> (array) regexps :
@@ -249,7 +248,7 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
             }
         }
         $this->_activeOptions = $this->_specificOptions['default_options'];
-        if ($lastMatchingRegexp !== null) {
+        if (!is_null($lastMatchingRegexp)) {
             $conf = $this->_specificOptions['regexps'][$lastMatchingRegexp];
             foreach ($conf as $key=>$value) {
                 $this->_activeOptions[$key] = $value;
@@ -268,15 +267,15 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
         if ($array !== false) {
             $data = $array['data'];
             $headers = $array['headers'];
+            if ($this->_specificOptions['debug_header']) {
+                echo 'DEBUG HEADER : This is a cached page !';
+            }
             if (!headers_sent()) {
                 foreach ($headers as $key=>$headerCouple) {
                     $name = $headerCouple[0];
                     $value = $headerCouple[1];
                     header("$name: $value");
                 }
-            }
-            if ($this->_specificOptions['debug_header']) {
-                echo 'DEBUG HEADER : This is a cached page !';
             }
             echo $data;
             if ($doNotDie) {
@@ -314,14 +313,14 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
         $headersList = headers_list();
         foreach($this->_specificOptions['memorize_headers'] as $key=>$headerName) {
             foreach ($headersList as $headerSent) {
-                $tmp = explode(':', $headerSent);
+                $tmp = split(':', $headerSent);
                 $headerSentName = trim(array_shift($tmp));
                 if (strtolower($headerName) == strtolower($headerSentName)) {
                     $headerSentValue = trim(implode(':', $tmp));
                     $storedHeaders[] = array($headerSentName, $headerSentValue);
                 }
             }
-        }
+        }       
         $array = array(
             'data' => $data,
             'headers' => $storedHeaders
@@ -338,8 +337,6 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
     protected function _makeId()
     {
         $tmp = $_SERVER['REQUEST_URI'];
-        $array = explode('?', $tmp, 2);
-          $tmp = $array[0];
         foreach (array('Get', 'Post', 'Session', 'Files', 'Cookie') as $arrayName) {
             $tmp2 = $this->_makePartialId($arrayName, $this->_activeOptions['cache_with_' . strtolower($arrayName) . '_variables'], $this->_activeOptions['make_id_with_' . strtolower($arrayName) . '_variables']);
             if ($tmp2===false) {

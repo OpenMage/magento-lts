@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -72,7 +72,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
     {
         $validators = array(
             'template_code'         => array(Zend_Filter_Input::ALLOW_EMPTY => false),
-            'template_type'         => 'Int',
+            'template_type'         => 'Alnum',
             'template_sender_email' => 'EmailAddress',
             'template_sender_name'  => array(Zend_Filter_Input::ALLOW_EMPTY => false)
         );
@@ -179,8 +179,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
      */
     public function getProcessedTemplate(array $variables = array(), $usePreprocess = false)
     {
-        $processor = Mage::helper('newsletter')->getTemplateProcessor();
-        /* @var $processor Mage_Newsletter_Model_Template_Filter */
+        $processor = Mage::getModel('core/email_template_filter');
 
         if (!$this->_preprocessFlag) {
             $variables['this'] = $this;
@@ -191,28 +190,10 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
             ->setVariables($variables);
 
         if ($usePreprocess && $this->isPreprocessed()) {
-            return $processor->filter($this->getPreparedTemplateText(true));
+            return $processor->filter($this->getTemplateTextPreprocessed());
         }
 
-        return $processor->filter($this->getPreparedTemplateText());
-    }
-
-    /**
-     * Makes additional text preparations for HTML templates
-     *
-     * @param bool $usePreprocess Use Preprocessed text or original text
-     * @return string
-     */
-    public function getPreparedTemplateText($usePreprocess = false)
-    {
-        $text = $usePreprocess ? $this->getTemplateTextPreprocessed() : $this->getTemplateText();
-
-        if ($this->_preprocessFlag || $this->isPlain() || !$this->getTemplateStyles()) {
-            return $text;
-        }
-        // wrap styles into style tag
-        $html = "<style type=\"text/css\">\n%s\n</style>\n%s";
-        return sprintf($html, $this->getTemplateStyles(), $text);
+        return $processor->filter($this->getTemplateText());
     }
 
     /**

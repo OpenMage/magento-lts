@@ -18,40 +18,38 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Cms
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cms
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- * Cms block content block
+ * Cms block content
  *
  * @category   Mage
  * @package    Mage_Cms
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
 {
-    /**
-     * Prepare Content HTML
-     *
-     * @return string
-     */
     protected function _toHtml()
     {
-        $blockId = $this->getBlockId();
+		if (!$this->_beforeToHtml()) {
+			return '';
+		}
         $html = '';
-        if ($blockId) {
+        if ($blockId = $this->getBlockId()) {
             $block = Mage::getModel('cms/block')
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->load($blockId);
-            if ($block->getIsActive()) {
-                /* @var $helper Mage_Cms_Helper_Data */
-                $helper = Mage::helper('cms');
-                $processor = $helper->getBlockTemplateProcessor();
-                $html = $processor->filter($block->getContent());
+            if (!$block->getIsActive()) {
+                $html = '';
+            } else {
+                $content = $block->getContent();
+
+                $processor = Mage::getModel('core/email_template_filter');
+                $html = $processor->filter($content);
             }
         }
         return $html;

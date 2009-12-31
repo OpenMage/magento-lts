@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_TimeSync
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Ntp.php 16209 2009-06-21 19:20:34Z thomas $
+ * @version   $Id: Ntp.php 9488 2008-05-19 20:41:34Z thomas $
  */
 
 /**
@@ -29,7 +29,7 @@
  *
  * @category  Zend
  * @package   Zend_TimeSync
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
@@ -50,7 +50,7 @@ class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
     public function __construct($timeserver, $port = 123)
     {
         $this->_timeserver = 'udp://' . $timeserver;
-        if ($port !== null) {
+        if (is_null($port) === false) {
             $this->_port = $port;
         }
     }

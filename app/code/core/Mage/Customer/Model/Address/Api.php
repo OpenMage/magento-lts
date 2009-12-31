@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,7 +34,7 @@
 class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 {
     protected $_mapAttributes = array(
-        'customer_address_id' => 'entity_id'
+        'customer_id' => 'entity_id'
     );
 
     public function __construct()
@@ -73,8 +73,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
                 }
             }
 
-            $row['is_default_billing'] = $customer->getDefaultBilling() == $address->getId();
-            $row['is_default_shipping'] = $customer->getDefaultShipping() == $address->getId();
+            $row['is_default_billing'] = $customer->getDefaultBillingAddress() == $address->getId();
+            $row['is_default_shipping'] = $customer->getDefaultShippingAddress() == $address->getId();
 
             $result[] = $row;
 
@@ -160,8 +160,8 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 
 
         if ($customer = $address->getCustomer()) {
-            $result['is_default_billing']  = $customer->getDefaultBilling() == $address->getId();
-            $result['is_default_shipping'] = $customer->getDefaultShipping() == $address->getId();
+            $result['is_default_billing']  = $customer->getDefaultBillingAddress() == $address->getId();
+            $result['is_default_shipping'] = $customer->getDefaultShippingAddress() == $address->getId();
         }
 
         return $result;

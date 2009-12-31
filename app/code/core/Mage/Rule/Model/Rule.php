@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Rule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Rule
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
@@ -44,11 +44,7 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
      */
     protected $_isReadonly = false;
 
-    /**
-     * Init resoirce
-     *
-     * @return unknown_type
-     */
+
     protected function _construct()
     {
         $this->_init('rule/rule');
@@ -188,7 +184,7 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
                 if (in_array($key, array('from_date', 'to_date')) && $value) {
                     $value = Mage::app()->getLocale()->date(
                         $value,
-                        Varien_Date::DATE_INTERNAL_FORMAT,
+                        Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
                         null,
                         false
                     );
@@ -248,21 +244,13 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
             $this->getActions()->loadArray($actionsArr);
         }
 
-        $websiteIds = $this->_getData('website_ids');
-        if (is_string($websiteIds)) {
-            $this->setWebsiteIds(explode(',', $websiteIds));
-        }
+        $this->setWebsiteIds(explode(',',$this->getWebsiteIds()));
         $groupIds = $this->getCustomerGroupIds();
         if (is_string($groupIds)) {
-            $this->setCustomerGroupIds(explode(',', $groupIds));
+            $this->setCustomerGroupIds(explode(',',$groupIds));
         }
     }
 
-    /**
-     * Prepare data before saving
-     *
-     * @return Mage_Rule_Model_Rule
-     */
     protected function _beforeSave()
     {
         // check if discount amount > 0
@@ -279,26 +267,13 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
             $this->setActionsSerialized(serialize($this->getActions()->asArray()));
             $this->unsActions();
         }
-
-        $this->_prepareWebsiteIds();
-
+        if (is_array($this->getWebsiteIds())) {
+            $this->setWebsiteIds(join(',', $this->getWebsiteIds()));
+        }
         if (is_array($this->getCustomerGroupIds())) {
             $this->setCustomerGroupIds(join(',', $this->getCustomerGroupIds()));
         }
         parent::_beforeSave();
-    }
-
-    /**
-     * Combain website ids to string
-     *
-     * @return Mage_Rule_Model_Rule
-     */
-    protected function _prepareWebsiteIds()
-    {
-        if (is_array($this->getWebsiteIds())) {
-            $this->setWebsiteIds(join(',', $this->getWebsiteIds()));
-        }
-        return $this;
     }
 
     /**
@@ -344,24 +319,5 @@ class Mage_Rule_Model_Rule extends Mage_Core_Model_Abstract
     {
         $this->_isReadonly = (boolean) $value;
         return $this;
-    }
-    
-    /**
-     * Validates data for rule
-     * @param Varien_Object $object
-     * @returns boolean|array - returns true if validation passed successfully. Array with error
-     * description otherwise
-     */
-    public function validateData(Varien_Object $object)
-    {
-        if($object->getData('from_date') && $object->getData('to_date')){
-            $dateStartUnixTime = strtotime($object->getData('from_date'));
-            $dateEndUnixTime   = strtotime($object->getData('to_date'));
-
-            if ($dateEndUnixTime < $dateStartUnixTime) {
-                return array(Mage::helper('rule')->__("End Date should be greater than Start Date"));
-            }
-        }
-        return true;
     }
 }

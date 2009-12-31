@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -31,7 +31,7 @@ class Mage_Sales_Model_Order_Invoice_Total_Tax extends Mage_Sales_Model_Order_In
     {
         $totalTax = 0;
         $baseTotalTax = 0;
-        $order = $invoice->getOrder();
+
         foreach ($invoice->getAllItems() as $item) {
             $orderItem = $item->getOrderItem();
             $orderItemTax       = $orderItem->getTaxAmount();
@@ -69,30 +69,19 @@ class Mage_Sales_Model_Order_Invoice_Total_Tax extends Mage_Sales_Model_Order_In
         /**
          * Check shipping amount in previus invoices
          */
-        foreach ($order->getInvoiceCollection() as $previusInvoice) {
+        foreach ($invoice->getOrder()->getInvoiceCollection() as $previusInvoice) {
             if ($previusInvoice->getShippingAmount() && !$previusInvoice->isCanceled()) {
                 $includeShippingTax = false;
             }
         }
 
         if ($includeShippingTax) {
-            $totalTax += $order->getShippingTaxAmount();
-            $baseTotalTax += $order->getBaseShippingTaxAmount();
-            $invoice->setShippingTaxAmount($order->getShippingTaxAmount());
-            $invoice->setBaseShippingTaxAmount($order->getBaseShippingTaxAmount());
+            $totalTax += $invoice->getOrder()->getShippingTaxAmount();
+            $baseTotalTax += $invoice->getOrder()->getBaseShippingTaxAmount();
+            $invoice->setShippingTaxAmount($invoice->getOrder()->getShippingTaxAmount());
+            $invoice->setBaseShippingTaxAmount($invoice->getOrder()->getBaseShippingTaxAmount());
         }
 
-        $allowedTax = $order->getTaxAmount() - $order->getTaxInvoiced();
-        $allowedBaseTax = $order->getBaseTaxAmount() - $order->getBaseTaxInvoiced();;
-
-        if ($invoice->isLast()) {
-            $totalTax = $allowedTax;
-            $baseTotalTax = $allowedBaseTax;
-        }
-        else {
-            $totalTax = min($allowedTax, $totalTax);
-            $baseTotalTax = min($allowedBaseTax, $baseTotalTax);
-        }
 
         $invoice->setTaxAmount($totalTax);
         $invoice->setBaseTaxAmount($baseTotalTax);

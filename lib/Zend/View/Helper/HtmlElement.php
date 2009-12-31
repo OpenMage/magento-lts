@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlElement.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: HtmlElement.php 12477 2008-11-09 01:55:35Z yoshida@zend.co.jp $
  */
 
 /**
@@ -29,7 +29,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_View_Helper_HtmlElement extends Zend_View_Helper_Abstract
@@ -115,15 +115,15 @@ abstract class Zend_View_Helper_HtmlElement extends Zend_View_Helper_Abstract
             } else {
                 $xhtml .= " $key=\"$val\"";
             }
-
+            
         }
         return $xhtml;
     }
 
     /**
      * Normalize an ID
-     *
-     * @param  string $value
+     * 
+     * @param  string $value 
      * @return string
      */
     protected function _normalizeId($value)

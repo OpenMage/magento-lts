@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -36,8 +36,6 @@ class Mage_Reports_Model_Mysql4_Quote_Collection extends Mage_Sales_Model_Mysql4
 {
     protected $_joinedFields = array();
 
-    protected $_map = array('fields' => array('store_id' => 'main_table.store_id'));
-
     public function prepareForAbandonedReport($storeIds, $filter = null)
     {
         $this->addFieldToFilter('items_count', array('neq' => '0'))
@@ -45,21 +43,10 @@ class Mage_Reports_Model_Mysql4_Quote_Collection extends Mage_Sales_Model_Mysql4
             ->addSubtotal($storeIds, $filter)
             ->addCustomerData($filter)
             ->setOrder('updated_at');
-        if (is_array($storeIds)) {
-            $this->addFieldToFilter('store_id', array('in' => $storeIds));
-        }
-        return $this;
-    }
 
-    /**
-     * Add store ids to filter
-     *
-     * @param array $storeIds
-     * @return Mage_Reports_Model_Mysql4_Quote_Collection
-     */
-    public function addStoreFilter($storeIds)
-    {
-        $this->addFieldToFilter('store_id', array('in' => $storeIds));
+        if (is_array($storeIds)) {
+            $this->addFieldToFilter('main_table.store_id', array('in' => $storeIds));
+        }
         return $this;
     }
 
@@ -115,10 +102,10 @@ class Mage_Reports_Model_Mysql4_Quote_Collection extends Mage_Sales_Model_Mysql4
     public function addSubtotal($storeIds = '', $filter = null)
     {
         if (is_array($storeIds)) {
-            $this->getSelect()->columns(array("subtotal" => "(main_table.base_subtotal_with_discount*main_table.base_to_global_rate)"));
+            $this->getSelect()->from("", array("subtotal" => "(main_table.base_subtotal_with_discount*main_table.base_to_global_rate)"));
             $this->_joinedFields['subtotal'] = '(main_table.base_subtotal_with_discount*main_table.base_to_global_rate)';
         } else {
-            $this->getSelect()->columns(array("subtotal" => "main_table.base_subtotal_with_discount"));
+            $this->getSelect()->from("", array("subtotal" => "main_table.base_subtotal_with_discount"));
             $this->_joinedFields['subtotal'] = 'main_table.base_subtotal_with_discount';
         }
 
@@ -143,7 +130,7 @@ class Mage_Reports_Model_Mysql4_Quote_Collection extends Mage_Sales_Model_Mysql4
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
 
-        $countSelect->columns("count(DISTINCT main_table.entity_id)");
+        $countSelect->from("", "count(DISTINCT main_table.entity_id)");
         $sql = $countSelect->__toString();
 
         return $sql;

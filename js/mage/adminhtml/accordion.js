@@ -121,9 +121,6 @@ varienAccordion.prototype = {
         location.href = item.link.href;
     },
     setItemContent : function(content){
-        if (content.isJSON) {
-            return;
-        }
         this.loadingItem.dd.innerHTML = content;
     },
     hideAllItems : function(){

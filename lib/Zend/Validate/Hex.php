@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Hex.php 17470 2009-08-08 22:27:09Z thomas $
+ * @version    $Id: Hex.php 8064 2008-02-16 10:58:39Z thomas $
  */
 
 
@@ -30,12 +30,14 @@
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_Hex extends Zend_Validate_Abstract
 {
-    const INVALID = 'hexInvalid';
+    /**
+     * Validation failure message key for when the value contains characters other than hexadecimal digits
+     */
     const NOT_HEX = 'notHex';
 
     /**
@@ -44,7 +46,6 @@ class Zend_Validate_Hex extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID => "Invalid type given, value should be a string",
         self::NOT_HEX => "'%value%' has not only hexadecimal digit characters"
     );
 
@@ -58,14 +59,12 @@ class Zend_Validate_Hex extends Zend_Validate_Abstract
      */
     public function isValid($value)
     {
-        if (!is_string($value) && !is_int($value)) {
-            $this->_error(self::INVALID);
-            return false;
-        }
+        $valueString = (string) $value;
 
-        $this->_setValue($value);
-        if (!ctype_xdigit((string) $value)) {
-            $this->_error(self::NOT_HEX);
+        $this->_setValue($valueString);
+
+        if (!ctype_xdigit($valueString)) {
+            $this->_error();
             return false;
         }
 

@@ -18,11 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 
 /**
  * Entity/Attribute/Model - collection abstract
@@ -459,7 +460,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
             $fullExpression = str_replace('{{' . $attributeItem . '}}', $attrField, $fullExpression);
         }
 
-        $this->getSelect()->columns(array($alias=>$fullExpression));
+        $this->getSelect()->from(null, array($alias=>$fullExpression));
 
         $this->_joinFields[$alias] = array(
             'table' => false,
@@ -672,7 +673,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
     /**
      * Join a table
      *
-     * @param string|array $table
+     * @param string $table
      * @param string $bind
      * @param string|array $fields
      * @param null|array $cond
@@ -681,21 +682,11 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
      */
     public function joinTable($table, $bind, $fields=null, $cond=null, $joinType='inner')
     {
-        $tableAlias = null;
-        if (is_array($table)) {
-            list($tableAlias, $tableName) = each($table);
-        }
-        else {
-            $tableName = $table;
-        }
-
         // validate table
-        if (strpos($tableName, '/') !== false) {
-            $tableName = Mage::getSingleton('core/resource')->getTableName($tableName);
+        if (strpos($table, '/')!==false) {
+            $table = Mage::getSingleton('core/resource')->getTableName($table);
         }
-        if (empty($tableAlias)) {
-            $tableAlias = $tableName;
-        }
+        $tableAlias = $table;
 
         // validate fields and aliases
         if (!$fields) {
@@ -706,14 +697,14 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Joined field with this alias (%s) is already declared', $alias));
             }
             $this->_joinFields[$alias] = array(
-                'table' => $tableAlias,
-                'field' => $field,
+                'table'=>$tableAlias,
+                'field'=>$field,
             );
         }
 
         // validate bind
         list($pk, $fk) = explode('=', $bind);
-        $bindCond = $tableAlias . '.' . $pk . '=' . $this->_getAttributeFieldName($fk);
+        $bindCond = $tableAlias.'.'.$pk.'='.$this->_getAttributeFieldName($fk);
 
         // process join type
         switch ($joinType) {
@@ -739,7 +730,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
         $cond = '('.join(') AND (', $condArr).')';
 
 // join table
-        $this->getSelect()->$joinMethod(array($tableAlias => $tableName), $cond, $fields);
+        $this->getSelect()->$joinMethod(array($tableAlias=>$table), $cond, $fields);
 
         return $this;
     }
@@ -810,30 +801,20 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
     }
 
     /**
-     * Clone and reset collection
-     *
-     * @return Mage_Eav_Model_Entity_Collection_Abstract
-     */
-    protected function _getAllIdsSelect($limit=null, $offset=null)
-    {
-        $idsSelect = clone $this->getSelect();
-        $idsSelect->reset(Zend_Db_Select::ORDER);
-        $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
-        $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
-        $idsSelect->reset(Zend_Db_Select::COLUMNS);
-        $idsSelect->columns('e.'.$this->getEntity()->getIdFieldName());
-        $idsSelect->limit($limit, $offset);
-        return $idsSelect;
-    }
-
-    /**
      * Retrive all ids for collection
      *
      * @return array
      */
     public function getAllIds($limit=null, $offset=null)
     {
-        return $this->getConnection()->fetchCol($this->_getAllIdsSelect($limit, $offset), $this->_bindParams);
+        $idsSelect = clone $this->getSelect();
+        $idsSelect->reset(Zend_Db_Select::ORDER);
+        $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
+        $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
+        $idsSelect->reset(Zend_Db_Select::COLUMNS);
+        $idsSelect->from(null, 'e.'.$this->getEntity()->getIdFieldName());
+        $idsSelect->limit($limit, $offset);
+        return $this->getConnection()->fetchCol($idsSelect, $this->_bindParams);
     }
 
     /**
@@ -849,7 +830,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
         $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $idsSelect->reset(Zend_Db_Select::COLUMNS);
         $idsSelect->reset(Zend_Db_Select::GROUP);
-        $idsSelect->columns('e.'.$this->getEntity()->getIdFieldName());
+        $idsSelect->from(null, 'e.'.$this->getEntity()->getIdFieldName());
         return $idsSelect;
     }
 
@@ -989,7 +970,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
         foreach ($this->_selectAttributes as $attributeCode => $attributeId) {
             $attribute = Mage::getSingleton('eav/config')->getCollectionAttribute($entity->getType(), $attributeCode);
             if ($attribute && !$attribute->isStatic()) {
-                $tableAttributes[$attribute->getBackendTable()][] = $attributeId;
+            	$tableAttributes[$attribute->getBackendTable()][] = $attributeId;
             }
         }
 
@@ -1020,7 +1001,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
     protected function _getLoadAttributesSelect($table, $attributeIds=array())
     {
         if (empty($attributeIds)) {
-            $attributeIds = $this->_selectAttributes;
+        	$attributeIds = $this->_selectAttributes;
         }
         $entityIdField = $this->getEntity()->getEntityIdField();
         $select = $this->getConnection()->select()

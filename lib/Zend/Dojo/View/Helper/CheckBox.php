@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: CheckBox.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: CheckBox.php 11292 2008-09-08 18:51:39Z matthew $
  */
 
 /** Zend_Dojo_View_Helper_Dijit */
@@ -25,11 +25,11 @@
 
 /**
  * Dojo CheckBox dijit
- *
+ * 
  * @uses       Zend_Dojo_View_Helper_Dijit
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 class Zend_Dojo_View_Helper_CheckBox extends Zend_Dojo_View_Helper_Dijit
@@ -54,12 +54,12 @@ class Zend_Dojo_View_Helper_CheckBox extends Zend_Dojo_View_Helper_Dijit
 
     /**
      * dijit.form.CheckBox
-     *
-     * @param  int $id
-     * @param  string $content
+     * 
+     * @param  int $id 
+     * @param  string $content 
      * @param  array $params  Parameters to use for dijit creation
      * @param  array $attribs HTML attributes
-     * @param  array $checkedOptions Should contain either two items, or the keys checkedValue and uncheckedValue
+     * @param  array $checkedOptions Should contain either two items, or the keys checkedValue and unCheckedValue
      * @return string
      */
     public function checkBox($id, $value = null, array $params = array(), array $attribs = array(), array $checkedOptions = null)
@@ -89,7 +89,7 @@ class Zend_Dojo_View_Helper_CheckBox extends Zend_Dojo_View_Helper_Dijit
         $html = '';
         if (!strstr($id, '[]')) {
             // hidden element for unchecked value
-            $html .= $this->_renderHiddenElement($id, $checkboxInfo['uncheckedValue']);
+            $html .= $this->_renderHiddenElement($id, $checkboxInfo['unCheckedValue']);
         }
 
         // and final element

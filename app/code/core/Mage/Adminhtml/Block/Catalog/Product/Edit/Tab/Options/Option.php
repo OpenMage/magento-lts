@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -37,6 +37,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     protected $_product;
 
     protected $_productInstance;
+
+    protected $_name = 'product[options]';
+    protected $_id = 'product_option';
 
     protected $_values;
 
@@ -83,24 +86,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
         return $this;
     }
 
-    /**
-     * Retrieve options field name prefix
-     *
-     * @return string
-     */
     public function getFieldName()
     {
-        return 'product[options]';
+        return $this->_name;
     }
 
-    /**
-     * Retrieve options field id prefix
-     *
-     * @return string
-     */
     public function getFieldId()
     {
-        return 'product_option';
+        return $this->_id;
     }
 
     /**

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 /**
  * Manage Newsletter Template Controller
@@ -102,10 +102,10 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
             $model->addData($values);
         }
 
-        if ($editBlock = $this->getLayout()->getBlock('template_edit')) {
-            $editBlock->setEditMode($model->getId() > 0);
-        }
-
+        $content = $this->getLayout()
+            ->createBlock('adminhtml/newsletter_template_edit', 'template_edit')
+            ->setEditMode($model->getId() > 0);
+        $this->_addContent($content);
         $this->renderLayout();
     }
 
@@ -116,9 +116,6 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
     public function saveAction ()
     {
         $request = $this->getRequest();
-        if (!$request->isPost()) {
-            $this->getResponse()->setRedirect($this->getUrl('*/newsletter_template'));
-        }
         $template = Mage::getModel('newsletter/template');
 
         if ($id = (int)$request->getParam('id')) {
@@ -132,7 +129,6 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
                 ->setTemplateSenderEmail($request->getParam('sender_email'))
                 ->setTemplateSenderName($request->getParam('sender_name'))
                 ->setTemplateText($request->getParam('text'))
-                ->setTemplateStyles($request->getParam('styles'))
                 ->setModifiedAt(Mage::getSingleton('core/date')->gmtDate());
 
             if (!$template->getId()) {
@@ -140,7 +136,6 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
             }
             if ($this->getRequest()->getParam('_change_type_flag')) {
                 $template->setTemplateType(Mage_Newsletter_Model_Template::TYPE_TEXT);
-                $template->setTemplateStyles('');
             }
             if ($this->getRequest()->getParam('_save_as_flag')) {
                 $template->setId(null);

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -58,7 +58,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
     {
         $fileName   = 'shopcart_customer.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_shopcart_customer_grid')
-            ->getCsvFile();
+            ->getCsv();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
     {
         $fileName   = 'shopcart_customer.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_shopcart_customer_grid')
-            ->getExcelFile($fileName);
+            ->getExcel($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -91,7 +91,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
     {
         $fileName   = 'shopcart_product.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_shopcart_product_grid')
-            ->getCsvFile();
+            ->getCsv();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -103,7 +103,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
     {
         $fileName   = 'shopcart_product.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_shopcart_product_grid')
-            ->getExcelFile($fileName);
+            ->getExcel($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
     {
         $fileName   = 'shopcart_abandoned.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_shopcart_abandoned_grid')
-            ->getCsvFile();
+            ->getCsv();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -136,7 +136,7 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
     {
         $fileName   = 'shopcart_abandoned.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_shopcart_abandoned_grid')
-            ->getExcelFile($fileName);
+            ->getExcel($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }

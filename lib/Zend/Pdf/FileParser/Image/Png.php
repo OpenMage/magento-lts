@@ -12,12 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_Pdf
  * @subpackage FileParser
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2006 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Png.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
 /** Zend_Pdf_FileParser_Image */
@@ -29,7 +27,7 @@
  *
  * @package    Zend_Pdf
  * @subpackage FileParser
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2006 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_FileParser_Image_Png extends Zend_Pdf_FileParser_Image
@@ -178,7 +176,6 @@ class Zend_Pdf_FileParser_Image_Png extends Zend_Pdf_FileParser_Image
          while($size - $this->getOffset() >= 8) {
               $chunkLength = $this->readUInt(4);
               if($chunkLength < 0 || ($chunkLength + $this->getOffset() + 4) > $size) {
-                   #require_once 'Zend/Pdf/Exception.php';
                    throw new Zend_Pdf_Exception("PNG Corrupt: Invalid Chunk Size In File.");
               }
 
@@ -209,7 +206,6 @@ class Zend_Pdf_FileParser_Image_Png extends Zend_Pdf_FileParser_Image
               }
          }
          if(empty($this->_imageData)) {
-              #require_once 'Zend/Pdf/Exception.php';
               throw new Zend_Pdf_Exception ( "This PNG is corrupt. All png must contain IDAT chunks." );
          }
     }
@@ -217,7 +213,6 @@ class Zend_Pdf_FileParser_Image_Png extends Zend_Pdf_FileParser_Image
     protected function _parseIHDRChunk() {
          $this->moveToOffset(12); //IHDR must always start at offset 12 and run for 17 bytes
          if(!$this->readBytes(4) == 'IHDR') {
-              #require_once 'Zend/Pdf/Exception.php';
               throw new Zend_Pdf_Exception( "This PNG is corrupt. The first chunk in a PNG file must be IHDR." );
          }
          $this->_width = $this->readUInt(4);
@@ -228,7 +223,6 @@ class Zend_Pdf_FileParser_Image_Png extends Zend_Pdf_FileParser_Image
          $this->_preFilter = $this->readInt(1);
          $this->_interlacing = $this->readInt(1);
          if($this->_interlacing != Zend_Pdf_Image::PNG_INTERLACING_DISABLED) {
-              #require_once 'Zend/Pdf/Exception.php';
               throw new Zend_Pdf_Exception( "Only non-interlaced images are currently supported." );
          }
     }
@@ -321,9 +315,10 @@ class Zend_Pdf_FileParser_Image_Png extends Zend_Pdf_FileParser_Image
              case Zend_Pdf_Image::PNG_CHANNEL_GRAY_ALPHA:
                   //Fall through to the next case
              case Zend_Pdf_Image::PING_CHANNEL_RGB_ALPHA:
-                  #require_once 'Zend/Pdf/Exception.php';
                   throw new Zend_Pdf_Exception( "tRNS chunk illegal for Alpha Channel Images" );
                   break;
          }
     }
 }
+
+

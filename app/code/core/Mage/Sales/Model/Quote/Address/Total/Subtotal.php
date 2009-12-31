@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -35,8 +35,13 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
-        parent::collect($address);
+        /**
+         * Reset subtotal information
+         */
+        $address->setSubtotal(0);
+        $address->setBaseSubtotal(0);
         $address->setTotalQty(0);
+        $address->setBaseTotalPriceIncTax(0);
 
         /**
          * Process address items
@@ -52,6 +57,8 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
         /**
          * Initialize grand totals
          */
+        $address->setGrandTotal($address->getSubtotal());
+        $address->setBaseGrandTotal($address->getBaseSubtotal());
         Mage::helper('sales')->checkQuoteAmount($address->getQuote(), $address->getSubtotal());
         Mage::helper('sales')->checkQuoteAmount($address->getQuote(), $address->getBaseSubtotal());
         return $this;
@@ -97,12 +104,13 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
             );
             $item->setPrice($finalPrice);
             $item->calcRowTotal();
-        } else if (!$quoteItem->getParentItem()) {
+        }
+        else if (!$quoteItem->getParentItem()) {
             $finalPrice = $product->getFinalPrice($quoteItem->getQty());
             $item->setPrice($finalPrice);
             $item->calcRowTotal();
-            $this->_addAmount($item->getRowTotal());
-            $this->_addBaseAmount($item->getBaseRowTotal());
+            $address->setSubtotal($address->getSubtotal() + $item->getRowTotal());
+            $address->setBaseSubtotal($address->getBaseSubtotal() + $item->getBaseRowTotal());
             $address->setTotalQty($address->getTotalQty() + $item->getQty());
         }
 
@@ -134,18 +142,12 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
         return $this;
     }
 
-    /**
-     * Assign subtotal amount and label to address object
-     *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  Mage_Sales_Model_Quote_Address_Total_Subtotal
-     */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         $address->addTotal(array(
-            'code'  => $this->getCode(),
-            'title' => Mage::helper('sales')->__('Subtotal'),
-            'value' => $address->getSubtotal()
+            'code'=>$this->getCode(),
+            'title'=>Mage::helper('sales')->__('Subtotal'),
+            'value'=>$address->getSubtotal()
         ));
         return $this;
     }

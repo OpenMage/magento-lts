@@ -18,19 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- * Catalogsearch term block
- *
- * @category   Mage
- * @package    Mage_CatalogSearch
- * @author     Magento Core Team <core@magentocommerce.com>
- */
 class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
 {
     protected $_terms;
@@ -42,11 +35,6 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
         parent::__construct();
     }
 
-    /**
-     * Load terms and try to sort it by names
-     *
-     * @return Mage_CatalogSearch_Block_Term
-     */
     protected function _loadTerms()
     {
         if (empty($this->_terms)) {
@@ -72,14 +60,9 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
                     continue;
                 }
                 $term->setRatio(($term->getPopularity()-$this->_minPopularity)/$range);
-                $temp[$term->getName()] = $term;
-                $termKeys[] = $term->getName();
+                $this->_terms[$term->getName()] = $term;
             }
-            natcasesort($termKeys);
-
-            foreach ($termKeys as $termKey) {
-                $this->_terms[$termKey] = $temp[$termKey];
-            }
+            ksort($this->_terms);
         }
         return $this;
     }
@@ -91,15 +74,15 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
     }
 
     public function getSearchUrl($obj)
-    {
-        $url = Mage::getModel('core/url');
-        /*
-        * url encoding will be done in Url.php http_build_query
-        * so no need to explicitly called urlencode for the text
-        */
-        $url->setQueryParam('q', $obj->getName());
-        return $url->getUrl('catalogsearch/result');
-    }
+	{
+	    $url = Mage::getModel('core/url');
+	    /*
+	    * url encoding will be done in Url.php http_build_query
+	    * so no need to explicitly called urlencode for the text
+	    */
+	    $url->setQueryParam('q', $obj->getName());
+	    return $url->getUrl('catalogsearch/result');
+	}
 
     public function getMaxPopularity()
     {

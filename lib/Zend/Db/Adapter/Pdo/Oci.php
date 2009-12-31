@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Oci.php 19048 2009-11-19 18:15:05Z mikaelkael $
+ * @version    $Id: Oci.php 13095 2008-12-08 16:30:45Z mikaelkael $
  */
 
 
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
@@ -45,13 +45,6 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
      * @var string
      */
     protected $_pdoType = 'oci';
-
-    /**
-     * Default class name for a DB statement.
-     *
-     * @var string
-     */
-    protected $_defaultStmtClass = 'Zend_Db_Statement_Pdo_Oci';
 
     /**
      * Keys are UPPERCASE SQL datatypes or the constants
@@ -83,22 +76,20 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         // baseline of DSN parts
         $dsn = $this->_config;
 
+        $tns = 'dbname=(DESCRIPTION=';
         if (isset($dsn['host'])) {
-            $tns = 'dbname=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)' .
-                   '(HOST=' . $dsn['host'] . ')';
-
+            $tns .= '(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=' . $dsn['host'] . ')';
             if (isset($dsn['port'])) {
                 $tns .= '(PORT=' . $dsn['port'] . ')';
             } else {
                 $tns .= '(PORT=1521)';
             }
-
-            $tns .= '))(CONNECT_DATA=(SID=' . $dsn['dbname'] . ')))';
-        } else {
-            $tns = 'dbname=' . $dsn['dbname'];
+            $tns .= '))';
         }
+        $tns .= '(CONNECT_DATA=(SID=' . $dsn['dbname'] . ')))';
 
-        if (isset($dsn['charset'])) {
+        if (isset($dsn['charset']))
+        {
             $tns .= ';charset=' . $dsn['charset'];
         }
 
@@ -180,13 +171,13 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
     public function describeTable($tableName, $schemaName = null)
     {
         $version = $this->getServerVersion();
-        if (($version === null) || version_compare($version, '9.0.0', '>=')) {
+        if (is_null($version) || version_compare($version, '9.0.0', '>=')) {
             $sql = "SELECT TC.TABLE_NAME, TC.OWNER, TC.COLUMN_NAME, TC.DATA_TYPE,
                     TC.DATA_DEFAULT, TC.NULLABLE, TC.COLUMN_ID, TC.DATA_LENGTH,
                     TC.DATA_SCALE, TC.DATA_PRECISION, C.CONSTRAINT_TYPE, CC.POSITION
                 FROM ALL_TAB_COLUMNS TC
                 LEFT JOIN (ALL_CONS_COLUMNS CC JOIN ALL_CONSTRAINTS C
-                    ON (CC.CONSTRAINT_NAME = C.CONSTRAINT_NAME AND CC.TABLE_NAME = C.TABLE_NAME AND CC.OWNER = C.OWNER AND C.CONSTRAINT_TYPE = 'P'))
+                    ON (CC.CONSTRAINT_NAME = C.CONSTRAINT_NAME AND CC.TABLE_NAME = C.TABLE_NAME AND C.CONSTRAINT_TYPE = 'P'))
                   ON TC.TABLE_NAME = CC.TABLE_NAME AND TC.COLUMN_NAME = CC.COLUMN_NAME
                 WHERE UPPER(TC.TABLE_NAME) = UPPER(:TBNAME)";
             $bind[':TBNAME'] = $tableName;
@@ -366,12 +357,12 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
          */
         $limit_sql = "SELECT z2.*
             FROM (
-                SELECT z1.*, ROWNUM AS \"zend_db_rownum\"
+                SELECT ROWNUM AS zend_db_rownum, z1.*
                 FROM (
                     " . $sql . "
                 ) z1
             ) z2
-            WHERE z2.\"zend_db_rownum\" BETWEEN " . ($offset+1) . " AND " . ($offset+$count);
+            WHERE z2.zend_db_rownum BETWEEN " . ($offset+1) . " AND " . ($offset+$count);
         return $limit_sql;
     }
 

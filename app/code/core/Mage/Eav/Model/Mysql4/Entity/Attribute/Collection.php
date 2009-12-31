@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -49,13 +49,14 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
-     * Return array of fields to load attribute values
+     * Specify select columns which are used for load arrtibute values
      *
-     * @return array
+     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
      */
-    protected function _getLoadDataFields()
+    public function useLoadDataFields()
     {
-        $fields = array(
+        $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
+        $this->getSelect()->columns(array(
             'attribute_id',
             'entity_type_id',
             'attribute_code',
@@ -65,19 +66,8 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
             'backend_table',
             'frontend_input',
             'source_model',
-        );
-        return $fields;
-    }
-
-    /**
-     * Specify select columns which are used for load arrtibute values
-     *
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
-     */
-    public function useLoadDataFields()
-    {
-        $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
-        $this->getSelect()->columns($this->_getLoadDataFields());
+            'is_global'
+        ));
         return $this;
     }
 
@@ -90,12 +80,6 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     public function setEntityTypeFilter($typeId)
     {
         $this->getSelect()->where('main_table.entity_type_id=?', $typeId);
-        if ($additionalTable = $this->getResource()->getAdditionalAttributeTable($typeId)) {
-            $this->getSelect()->join(
-                array('additional_table' => $this->getTable($additionalTable)),
-                'additional_table.attribute_id=main_table.attribute_id'
-            );
-        }
         return $this;
     }
 
@@ -210,6 +194,39 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
+     * Specify filter by "is_visible" field
+     *
+     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     */
+    public function addVisibleFilter()
+    {
+        $this->getSelect()->where('main_table.is_visible=?', 1);
+        return $this;
+    }
+
+    /**
+     * Specify "is_filterable" filter
+     *
+     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     */
+    public function addIsFilterableFilter()
+    {
+        $this->getSelect()->where('main_table.is_filterable>0');
+        return $this;
+    }
+
+    /**
+     * Add filterable in search filter
+     *
+     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     */
+    public function addIsFilterableInSearchFilter()
+    {
+        $this->getSelect()->where('main_table.is_filterable_in_search>0');
+        return $this;
+    }
+
+    /**
      * Specify "is_unique" filter as true
      *
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
@@ -232,6 +249,17 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     }
 
     /**
+     * Specify "is_searchable" filter
+     *
+     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     */
+    public function addIsSearchableFilter()
+    {
+        $this->getSelect()->where('main_table.is_searchable=1');
+        return $this;
+    }
+
+    /**
      * Specify filter to select just attributes with options
      *
      * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
@@ -244,6 +272,18 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
             )
             ->group('main_table.attribute_id')
             ->where('(main_table.frontend_input = ? and option_id > 0) or (main_table.frontend_input <> ?) or (main_table.is_user_defined = 0)', 'select', 'select');
+
+        return $this;
+    }
+
+    /**
+     * Specify "is_visible_in_advanced_search" filter
+     *
+     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     */
+    public function addDisplayInAdvancedSearchFilter(){
+        $this->getSelect()
+            ->where('main_table.is_visible_in_advanced_search = ?', 1);
 
         return $this;
     }
@@ -283,7 +323,7 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
         if ($this->_addSetInfoFlag) {
             $attributeIds = array();
             foreach ($this->_data as &$dataItem) {
-                $attributeIds[] = $dataItem['attribute_id'];
+            	$attributeIds[] = $dataItem['attribute_id'];
             }
             $attributeToSetInfo = array();
 
@@ -330,18 +370,32 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     protected function _afterLoadData()
     {
         $this->_addSetInfo();
-
         return parent::_afterLoadData();
     }
 
     /**
-     * Load is used in configurable products flag
+     * TODO: issue #5126
      *
-     * @deprecated
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
+     * @return unknown
      */
     public function checkConfigurableProducts()
     {
+// was:
+/*
+SELECT `main_table`.*, `entity_attribute`.*
+FROM `eav_attribute` AS `main_table`
+    INNER JOIN `eav_entity_attribute` AS `entity_attribute` ON entity_attribute.attribute_id=main_table.attribute_id
+WHERE (entity_attribute.attribute_group_id='46') AND (main_table.is_visible=1)
+*/
+// to be done: left join catalog_product_super_attribute and count appropriate lines
+/*
+SELECT `main_table`.*, `entity_attribute`.*, COUNT(`super`.attribute_id) AS `is_used_in_configurable`
+FROM `eav_attribute` AS `main_table`
+    INNER JOIN `eav_entity_attribute` AS `entity_attribute` ON entity_attribute.attribute_id=main_table.attribute_id
+    LEFT JOIN `catalog_product_super_attribute` AS `super` ON `main_table`.attribute_id=`super`.attribute_id
+WHERE (entity_attribute.attribute_group_id='46') AND (main_table.is_visible=1)
+GROUP BY `main_table`.attribute_id
+*/
         return $this;
     }
 
@@ -354,28 +408,12 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute_Collection extends Mage_Core_Model_
     public function setCodeFilter($code)
     {
         if (empty($code)) {
-            return $this;
+        	return $this;
         }
         if (!is_array($code)) {
-            $code = array($code);
+        	$code = array($code);
         }
         $this->getSelect()->where('main_table.attribute_code IN(?)', $code);
-        return $this;
-    }
-
-    /**
-     * Add store label to attribute by specified store id
-     *
-     * @param integer $storeId
-     * @return Mage_Eav_Model_Mysql4_Entity_Attribute_Collection
-     */
-    public function addStoreLabel($storeId)
-    {
-        $this->getSelect()->joinLeft(
-            array('al' => $this->getTable('eav/attribute_label')),
-            'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int) $storeId,
-            array('store_label' => new Zend_Db_Expr('IFNULL(al.value, main_table.frontend_label)'))
-        );
         return $this;
     }
 }

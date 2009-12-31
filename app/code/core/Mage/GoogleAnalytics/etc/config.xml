@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_GoogleAnalytics
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_GoogleAnalytics
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -60,19 +60,12 @@
             <checkout_onepage_controller_success_action>
                 <observers>
                     <googleanalytics_order_success>
+                        <type>singleton</type>
                         <class>googleanalytics/observer</class>
-                        <method>setGoogleAnalyticsOnOrderSuccessPageView</method>
+                        <method>order_success_page_view</method>
                     </googleanalytics_order_success>
                 </observers>
             </checkout_onepage_controller_success_action>
-            <checkout_multishipping_controller_success_action>
-                <observers>
-                    <googleanalytics_order_success>
-                        <class>googleanalytics/observer</class>
-                        <method>setGoogleAnalyticsOnOrderSuccessPageView</method>
-                    </googleanalytics_order_success>
-                </observers>
-            </checkout_multishipping_controller_success_action>
         </events>
         <layout>
             <updates>
@@ -93,5 +86,24 @@
                 </Mage_GoogleAnalytics>
             </modules>
         </translate>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <google translate="title" module="googleanalytics">
+                                            <title>Google API</title>
+                                        </google>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
     </adminhtml>
 </config>

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Rss
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Rss
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -36,6 +36,7 @@ class Mage_Rss_OrderController extends Mage_Core_Controller_Front_Action
 {
     public function newAction()
     {
+        Mage::helper('rss')->authAdmin('sales/order');
         $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
         $this->loadLayout(false);
         $this->renderLayout();
@@ -68,19 +69,5 @@ class Mage_Rss_OrderController extends Mage_Core_Controller_Front_Action
             }
         }
         $this->_forward('nofeed', 'index', 'rss');
-    }
-
-    /**
-     * Controller predispatch method to change area for some specific action.
-     *
-     * @return Mage_Rss_OrderController
-     */
-    public function preDispatch()
-    {
-        if ($this->getRequest()->getActionName() == 'new') {
-            $this->_currentArea = 'adminhtml';
-            Mage::helper('rss')->authAdmin('sales/order');
-        }
-        return parent::preDispatch();
     }
 }

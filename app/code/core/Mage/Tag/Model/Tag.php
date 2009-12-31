@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -38,31 +38,9 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     const STATUS_PENDING = 0;
     const STATUS_APPROVED = 1;
 
-    /**
-     * Event prefix for observer
-     *
-     * @var string
-     */
-    protected $_eventPrefix = 'tag';
-
     protected function _construct()
     {
         $this->_init('tag/tag');
-    }
-
-    /**
-     * Product event tags collection getter
-     *
-     * @param  Varien_Event_Observer $observer
-     * @return Mage_Tag_Model_Mysql4_Tag_Collection
-     */
-    protected function _getProductEventTagsCollection(Varien_Event_Observer $observer)
-    {
-        return $this->getResourceCollection()
-                        ->joinRel()
-                        ->addProductFilter($observer->getEvent()->getProduct()->getId())
-                        ->addTagGroup()
-                        ->load();
     }
 
     public function getPopularity()
@@ -105,19 +83,17 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
 
     public function productEventAggregate($observer)
     {
-        $this->_getProductEventTagsCollection($observer)->walk('aggregate');
-        return $this;
-    }
+        $product = $observer->getEvent()->getProduct();
+        $collection = $this->getResourceCollection()
+            ->joinRel()
+            ->addProductFilter($product->getId())
+            ->addTagGroup()
+            ->load();
 
-    /**
-     * Product delete event action
-     *
-     * @param  Varien_Event_Observer $observer
-     * @return Mage_Tag_Model_Tag
-     */
-    public function productDeleteEventAction($observer)
-    {
-        $this->_getResource()->decrementProducts($this->_getProductEventTagsCollection($observer)->getAllIds());
+
+        $collection->walk('aggregate');
+
+
         return $this;
     }
 
@@ -171,32 +147,6 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     public function getPopularCollection()
     {
         return Mage::getResourceModel('tag/popular_collection');
-    }
-
-    /**
-     * Retrieves array of related product IDs
-     *
-     * @return array
-     */
-    public function getRelatedProductIds()
-    {
-        return Mage::getModel('tag/tag_relation')
-            ->setTagId($this->getTagId())
-            ->setStoreId($this->getStoreId())
-            ->setCustomerId(null)
-            ->getProductIds();
-    }
-
-    /**
-     * Checks is available current tag in specified store
-     *
-     * @param int $storeId
-     * @return bool
-     */
-    public function isAvailableInStore($storeId = null)
-    {
-        $storeId = (is_null($storeId)) ? Mage::app()->getStore()->getId() : $storeId;
-        return in_array($storeId, $this->getVisibleInStoreIds());
     }
 
     protected function _beforeDelete()

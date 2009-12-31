@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -72,40 +72,13 @@ class Mage_Core_Model_Mysql4_Url_Rewrite extends Mage_Core_Model_Mysql4_Abstract
      */
     protected function _getLoadSelect($field, $value, $object)
     {
-        /* @var $select Varien_Db_Select */
         $select = parent::_getLoadSelect($field, $value, $object);
 
         if (!is_null($object->getStoreId())) {
-            $select->where('store_id IN(?)', array(0, $object->getStoreId()));
-            $select->order('store_id desc');
-            $select->limit(1);
+            $select->where('store_id=0 or store_id=?', $object->getStoreId());
+            $select->order('store_id', 'desc');
         }
 
         return $select;
-    }
-
-    /**
-     * Retrieve request_path using id_path and current store's id.
-     *
-     * @param string $idPath
-     * @param int|Mage_Core_Model_Store $store
-     * @return string|false
-     */
-    public function getRequestPathByIdPath($idPath, $store)
-    {
-        if ($store instanceof Mage_Core_Model_Store) {
-            $storeId = (int)$store->getId();
-        } else {
-            $storeId = (int)$store;
-        }
-
-        $select = $this->_getReadAdapter()->select();
-        /* @var $select Zend_Db_Select */
-        $select->from(array('main_table' => $this->getMainTable()), 'request_path')
-            ->where('main_table.store_id = ?', $storeId)
-            ->where('main_table.id_path = ?', $idPath)
-            ->limit(1);
-
-        return $this->_getReadAdapter()->fetchOne($select);
     }
 }

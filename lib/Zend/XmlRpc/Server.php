@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Server.php 17786 2009-08-23 22:26:33Z lars $
+ * @version    $Id: Server.php 13223 2008-12-14 11:21:31Z thomas $
  */
 
 /**
@@ -111,7 +111,7 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_XmlRpc_Server extends Zend_Server_Abstract
@@ -136,7 +136,7 @@ class Zend_XmlRpc_Server extends Zend_Server_Abstract
 
     /**
      * Dispatch table of name => method pairs
-     * @var Zend_Server_Definition
+     * @var Zend_XmlRpc_Server_ServerDefinition
      */
     protected $_table;
 
@@ -169,13 +169,6 @@ class Zend_XmlRpc_Server extends Zend_Server_Abstract
         'void'             => 'void',
         'mixed'            => 'struct'
     );
-
-    /**
-     * Send arguments to all methods or just constructor?
-     *
-     * @var bool
-     */
-    protected $_sendArgumentsToAllMethods = true;
 
     /**
      * Constructor
@@ -268,14 +261,16 @@ class Zend_XmlRpc_Server extends Zend_Server_Abstract
     public function setClass($class, $namespace = '', $argv = null)
     {
         if (is_string($class) && !class_exists($class)) {
-            #require_once 'Zend/XmlRpc/Server/Exception.php';
-            throw new Zend_XmlRpc_Server_Exception('Invalid method class', 610);
+            if (!class_exists($class)) {
+                #require_once 'Zend/XmlRpc/Server/Exception.php';
+                throw new Zend_XmlRpc_Server_Exception('Invalid method class', 610);
+            }
         }
 
         $argv = null;
-        if (2 < func_num_args()) {
+        if (3 < func_num_args()) {
             $argv = func_get_args();
-            $argv = array_slice($argv, 2);
+            $argv = array_slice($argv, 3);
         }
 
         $dispatchable = Zend_Server_Reflection::reflectClass($class, $argv, $namespace);
@@ -296,7 +291,7 @@ class Zend_XmlRpc_Server extends Zend_Server_Abstract
         if (!$fault instanceof Exception) {
             $fault = (string) $fault;
             if (empty($fault)) {
-                $fault = 'Unknown Error';
+                $fault = 'Unknown error';
             }
             #require_once 'Zend/XmlRpc/Server/Exception.php';
             $fault = new Zend_XmlRpc_Server_Exception($fault, $code);
@@ -452,14 +447,15 @@ class Zend_XmlRpc_Server extends Zend_Server_Abstract
      */
     public function setResponseClass($class)
     {
-        if (!class_exists($class) or
-            ($c = new ReflectionClass($class) and !$c->isSubclassOf('Zend_XmlRpc_Response'))) {
-
-            #require_once 'Zend/XmlRpc/Server/Exception.php';
-            throw new Zend_XmlRpc_Server_Exception('Invalid response class');
+        if (class_exists($class)) {
+            $reflection = new ReflectionClass($class);
+            if ($reflection->isSubclassOf(new ReflectionClass('Zend_XmlRpc_Response'))) {
+                $this->_responseClass = $class;
+                return true;
+            }
         }
-        $this->_responseClass = $class;
-        return true;
+
+        return false;
     }
 
     /**
@@ -506,24 +502,6 @@ class Zend_XmlRpc_Server extends Zend_Server_Abstract
     }
 
     /**
-     * Send arguments to all methods?
-     *
-     * If setClass() is used to add classes to the server, this flag defined
-     * how to handle arguments. If set to true, all methods including constructor
-     * will receive the arguments. If set to false, only constructor will receive the
-     * arguments
-     */
-    public function sendArgumentsToAllMethods($flag = null)
-    {
-        if ($flag === null) {
-            return $this->_sendArgumentsToAllMethods;
-        }
-
-        $this->_sendArgumentsToAllMethods = (bool)$flag;
-        return $this;
-    }
-
-    /**
      * Map PHP type to XML-RPC type
      *
      * @param  string $type
@@ -559,7 +537,7 @@ class Zend_XmlRpc_Server extends Zend_Server_Abstract
         $info     = $this->_table->getMethod($method);
         $params   = $request->getParams();
         $argv     = $info->getInvokeArguments();
-        if (0 < count($argv) and $this->sendArgumentsToAllMethods()) {
+        if (0 < count($argv)) {
             $params = array_merge($params, $argv);
         }
 

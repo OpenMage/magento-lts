@@ -18,17 +18,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
 /* @var $installer Mage_Sales_Model_Entity_Setup */
 $installer->startSetup();
 $installer->run("
-DROP TABLE IF EXISTS  `{$installer->getTable('sales_flat_quote')}`;
 CREATE TABLE `{$installer->getTable('sales_flat_quote')}` (
     `entity_id` int(10) unsigned NOT NULL auto_increment,
     `store_id` smallint(5) unsigned NOT NULL default '0',
@@ -80,7 +79,7 @@ CREATE TABLE `{$installer->getTable('sales_flat_quote')}` (
     KEY `IDX_CUSTOMER` (`customer_id`,`store_id`,`is_active`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS  `{$installer->getTable('sales_flat_quote_address')}`;
+
 CREATE TABLE `{$installer->getTable('sales_flat_quote_address')}` (
     `address_id` int(10) unsigned NOT NULL auto_increment,
     `quote_id` int(10) unsigned NOT NULL default '0',
@@ -135,7 +134,6 @@ CREATE TABLE `{$installer->getTable('sales_flat_quote_address')}` (
     CONSTRAINT `FK_SALES_QUOTE_ADDRESS_SALES_QUOTE` FOREIGN KEY (`quote_id`) REFERENCES `{$installer->getTable('sales_flat_quote')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS  `{$installer->getTable('sales_flat_quote_address_item')}`;
 CREATE TABLE `{$installer->getTable('sales_flat_quote_address_item')}` (
     `address_item_id` int(10) unsigned NOT NULL auto_increment,
     `quote_address_id` int(10) unsigned NOT NULL default '0',
@@ -163,7 +161,6 @@ CREATE TABLE `{$installer->getTable('sales_flat_quote_address_item')}` (
     CONSTRAINT `FK_SALES_QUOTE_ADDRESS_ITEM_QUOTE_ITEM` FOREIGN KEY (`quote_item_id`) REFERENCES `{$installer->getTable('sales_flat_quote_item')}` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS  `{$installer->getTable('sales_flat_quote_item')}`;
 CREATE TABLE `{$installer->getTable('sales_flat_quote_item')}` (
     `item_id` int(10) unsigned NOT NULL auto_increment,
     `quote_id` int(10) unsigned NOT NULL default '0',
@@ -204,7 +201,6 @@ CREATE TABLE `{$installer->getTable('sales_flat_quote_item')}` (
     CONSTRAINT `FK_SALES_QUOTE_ITEM_SALES_QUOTE` FOREIGN KEY (`quote_id`) REFERENCES `{$installer->getTable('sales_flat_quote')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS  `{$installer->getTable('sales_flat_quote_item_option')}`;
 CREATE TABLE `{$installer->getTable('sales_flat_quote_item_option')}` (
     `option_id` int(10) unsigned NOT NULL auto_increment,
     `item_id` int(10) unsigned NOT NULL,
@@ -216,7 +212,6 @@ CREATE TABLE `{$installer->getTable('sales_flat_quote_item_option')}` (
     CONSTRAINT `FK_SALES_QUOTE_ITEM_OPTION_ITEM_ID` FOREIGN KEY (`item_id`) REFERENCES `{$installer->getTable('sales_flat_quote_item')}` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Additional options for quote item';
 
-DROP TABLE IF EXISTS  `{$installer->getTable('sales_flat_quote_payment')}`;
 CREATE TABLE `{$installer->getTable('sales_flat_quote_payment')}` (
     `payment_id` int(10) unsigned NOT NULL auto_increment,
     `quote_id` int(10) unsigned NOT NULL default '0',
@@ -245,7 +240,6 @@ CREATE TABLE `{$installer->getTable('sales_flat_quote_payment')}` (
     CONSTRAINT `FK_SALES_QUOTE_PAYMENT_SALES_QUOTE` FOREIGN KEY (`quote_id`) REFERENCES `{$installer->getTable('sales_flat_quote')}` (`entity_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS  `{$installer->getTable('sales_flat_quote_shipping_rate')}`;
 CREATE TABLE `{$installer->getTable('sales_flat_quote_shipping_rate')}` (
     `rate_id` int(10) unsigned NOT NULL auto_increment,
     `address_id` int(10) unsigned NOT NULL default '0',
@@ -263,7 +257,6 @@ CREATE TABLE `{$installer->getTable('sales_flat_quote_shipping_rate')}` (
     CONSTRAINT `FK_SALES_QUOTE_SHIPPING_RATE_ADDRESS` FOREIGN KEY (`address_id`) REFERENCES `{$installer->getTable('sales_flat_quote_address')}` (`address_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS  `{$installer->getTable('sales_order')}`;
 CREATE TABLE `{$installer->getTable('sales_order')}` (
     `entity_id` int(10) unsigned NOT NULL auto_increment,
     `entity_type_id` smallint(5) unsigned NOT NULL default '0',
@@ -327,7 +320,6 @@ CREATE TABLE `{$installer->getTable('sales_order')}` (
     CONSTRAINT `FK_SALE_ORDER_TYPE` FOREIGN KEY (`entity_type_id`) REFERENCES `{$installer->getTable('eav_entity_type')}` (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
-DROP TABLE IF EXISTS  `{$installer->getTable('sales_order')}_datetime`;
 CREATE TABLE `{$this->getTable('sales_order')}_datetime` (
   `value_id` int(11) NOT NULL auto_increment,
   `entity_type_id` smallint(5) unsigned NOT NULL default '0',
@@ -343,7 +335,6 @@ CREATE TABLE `{$this->getTable('sales_order')}_datetime` (
   CONSTRAINT `FK_SALES_ORDER_DATETIME_ENTITY_TYPE` FOREIGN KEY (`entity_type_id`) REFERENCES `{$this->getTable('eav_entity_type')}` (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS  `{$installer->getTable('sales_order')}_decimal`;
 CREATE TABLE `{$this->getTable('sales_order')}_decimal` (
   `value_id` int(11) NOT NULL auto_increment,
   `entity_type_id` smallint(5) unsigned NOT NULL default '0',
@@ -359,7 +350,6 @@ CREATE TABLE `{$this->getTable('sales_order')}_decimal` (
   CONSTRAINT `FK_SALES_ORDER_DECIMAL_ENTITY_TYPE` FOREIGN KEY (`entity_type_id`) REFERENCES `{$this->getTable('eav_entity_type')}` (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS  `{$installer->getTable('sales_order')}_int`;
 CREATE TABLE `{$this->getTable('sales_order')}_int` (
   `value_id` int(11) NOT NULL auto_increment,
   `entity_type_id` smallint(5) unsigned NOT NULL default '0',
@@ -375,7 +365,6 @@ CREATE TABLE `{$this->getTable('sales_order')}_int` (
   CONSTRAINT `FK_SALES_ORDER_INT_ENTITY_TYPE` FOREIGN KEY (`entity_type_id`) REFERENCES `{$this->getTable('eav_entity_type')}` (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS  `{$installer->getTable('sales_order')}_text`;
 CREATE TABLE `{$this->getTable('sales_order')}_text` (
   `value_id` int(11) NOT NULL auto_increment,
   `entity_type_id` smallint(5) unsigned NOT NULL default '0',
@@ -391,7 +380,6 @@ CREATE TABLE `{$this->getTable('sales_order')}_text` (
   CONSTRAINT `FK_SALES_ORDER_TEXT_ENTITY_TYPE` FOREIGN KEY (`entity_type_id`) REFERENCES `{$this->getTable('eav_entity_type')}` (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS  `{$installer->getTable('sales_order')}_varchar`;
 CREATE TABLE `{$this->getTable('sales_order')}_varchar` (
   `value_id` int(11) NOT NULL auto_increment,
   `entity_type_id` smallint(5) unsigned NOT NULL default '0',
@@ -407,7 +395,6 @@ CREATE TABLE `{$this->getTable('sales_order')}_varchar` (
   CONSTRAINT `FK_SALES_ORDER_VARCHAR_ENTITY_TYPE` FOREIGN KEY (`entity_type_id`) REFERENCES `{$this->getTable('eav_entity_type')}` (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `{$installer->getTable('sales_order_entity')}`;
 CREATE TABLE `{$installer->getTable('sales_order_entity')}` (
     `entity_id` int(10) unsigned NOT NULL auto_increment,
     `entity_type_id` smallint(8) unsigned NOT NULL default '0',
@@ -425,7 +412,6 @@ CREATE TABLE `{$installer->getTable('sales_order_entity')}` (
     CONSTRAINT `FK_SALE_ORDER_ENTITY_STORE` FOREIGN KEY (`store_id`) REFERENCES `{$installer->getTable('core_store')}` (`store_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
-DROP TABLE IF EXISTS `{$this->getTable('sales_order_entity')}_datetime`;
 CREATE TABLE `{$this->getTable('sales_order_entity')}_datetime` (
   `value_id` int(11) NOT NULL auto_increment,
   `entity_type_id` smallint(5) unsigned NOT NULL default '0',
@@ -441,7 +427,6 @@ CREATE TABLE `{$this->getTable('sales_order_entity')}_datetime` (
   CONSTRAINT `FK_SALES_ORDER_ENTITY_DATETIME_ENTITY_TYPE` FOREIGN KEY (`entity_type_id`) REFERENCES `{$this->getTable('eav_entity_type')}` (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `{$this->getTable('sales_order_entity')}_decimal`;
 CREATE TABLE `{$installer->getTable('sales_order_entity')}_decimal` (
   `value_id` int(11) NOT NULL auto_increment,
   `entity_type_id` smallint(5) unsigned NOT NULL default '0',
@@ -457,7 +442,6 @@ CREATE TABLE `{$installer->getTable('sales_order_entity')}_decimal` (
   CONSTRAINT `FK_SALES_ORDER_ENTITY_DECIMAL_ENTITY_TYPE` FOREIGN KEY (`entity_type_id`) REFERENCES `{$this->getTable('eav_entity_type')}` (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `{$this->getTable('sales_order_entity')}_int`;
 CREATE TABLE `{$installer->getTable('sales_order_entity')}_int` (
   `value_id` int(11) NOT NULL auto_increment,
   `entity_type_id` smallint(5) unsigned NOT NULL default '0',
@@ -473,7 +457,6 @@ CREATE TABLE `{$installer->getTable('sales_order_entity')}_int` (
   CONSTRAINT `FK_SALES_ORDER_ENTITY_INT_ENTITY_TYPE` FOREIGN KEY (`entity_type_id`) REFERENCES `{$this->getTable('eav_entity_type')}` (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `{$this->getTable('sales_order_entity')}_text`;
 CREATE TABLE `{$installer->getTable('sales_order_entity')}_text` (
   `value_id` int(11) NOT NULL auto_increment,
   `entity_type_id` smallint(5) unsigned NOT NULL default '0',
@@ -489,7 +472,6 @@ CREATE TABLE `{$installer->getTable('sales_order_entity')}_text` (
   CONSTRAINT `FK_SALES_ORDER_ENTITY_TEXT_ENTITY_TYPE` FOREIGN KEY (`entity_type_id`) REFERENCES `{$this->getTable('eav_entity_type')}` (`entity_type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `{$this->getTable('sales_order_entity')}_varchar`;
 CREATE TABLE `{$installer->getTable('sales_order_entity')}_varchar` (
   `value_id` int(11) NOT NULL auto_increment,
   `entity_type_id` smallint(5) unsigned NOT NULL default '0',

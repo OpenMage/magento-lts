@@ -15,14 +15,16 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Filesystem.php 18954 2009-11-12 20:01:33Z alexander $
  */
 
 
 /** Zend_Search_Lucene_Storage_Directory */
 #require_once 'Zend/Search/Lucene/Storage/Directory.php';
+
+/** Zend_Search_Lucene_Storage_File_Filesystem */
+#require_once 'Zend/Search/Lucene/Storage/File/Filesystem.php';
 
 
 /**
@@ -31,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene_Storage_Directory
@@ -92,7 +94,7 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
 
     public static function mkdirs($dir, $mode = 0777, $recursive = true)
     {
-        if (($dir === null) || $dir === '') {
+        if (is_null($dir) || $dir === '') {
             return false;
         }
         if (is_dir($dir) || $dir === '/') {
@@ -180,7 +182,6 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
             $this->_fileHandlers[$filename]->close();
         }
         unset($this->_fileHandlers[$filename]);
-        #require_once 'Zend/Search/Lucene/Storage/File/Filesystem.php';
         $this->_fileHandlers[$filename] = new Zend_Search_Lucene_Storage_File_Filesystem($this->_dirPath . '/' . $filename, 'w+b');
 
         // Set file permissions, but don't care about any possible failures, since file may be already
@@ -345,7 +346,6 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
     {
         $fullFilename = $this->_dirPath . '/' . $filename;
 
-        #require_once 'Zend/Search/Lucene/Storage/File/Filesystem.php';
         if (!$shareHandler) {
             return new Zend_Search_Lucene_Storage_File_Filesystem($fullFilename);
         }

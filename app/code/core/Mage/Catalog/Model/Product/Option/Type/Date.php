@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -126,17 +126,8 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             }
 
             if ($this->_timeExists()) {
-                // 24hr hour conversion
-                if (! $this->is24hTimeFormat()) {
-                    $pmDayPart = ('pm' == strtolower($value['day_part']));
-                    if (12 == $value['hour']) {
-                        $value['hour'] = $pmDayPart ? 12 : 0;
-                    } elseif ($pmDayPart) {
-                        $value['hour'] += 12;
-                    }
-                }
-
-                $timestamp += 60 * 60 * $value['hour'] + 60 * $value['minute'];
+                $hour = $this->is24hTimeFormat() ? $value['hour'] : $value['hour'] + 12;
+                $timestamp += 60 * 60 * $hour + 60 * $value['minute'];
             }
 
             $date = new Zend_Date($timestamp);

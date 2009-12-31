@@ -14,28 +14,28 @@
  *
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Writer.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Writer.php 12220 2008-10-31 20:13:55Z dasprid $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Config_Writer
 {
     /**
      * Option keys to skip when calling setOptions()
-     *
+     * 
      * @var array
      */
     protected $_skipOptions = array(
         'options'
     );
-
+    
     /**
      * Config object to write
      *
@@ -45,8 +45,8 @@ abstract class Zend_Config_Writer
 
     /**
      * Create a new adapter
-     *
-     * $options can only be passed as array or be omitted
+     * 
+     * $options can only be passed as array or be omitted 
      *
      * @param null|array $options
      */
@@ -56,7 +56,7 @@ abstract class Zend_Config_Writer
             $this->setOptions($options);
         }
     }
-
+    
     /**
      * Set options via a Zend_Config instance
      *
@@ -66,10 +66,10 @@ abstract class Zend_Config_Writer
     public function setConfig(Zend_Config $config)
     {
         $this->_config = $config;
-
+        
         return $this;
     }
-
+    
     /**
      * Set options via an array
      *
@@ -88,10 +88,10 @@ abstract class Zend_Config_Writer
                 $this->$method($value);
             }
         }
-
+        
         return $this;
     }
-
+    
     /**
      * Write a Zend_Config object to it's target
      *

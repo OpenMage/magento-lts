@@ -18,19 +18,18 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Configurable product type resource model
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable extends Mage_Core_Model_Mysql4_Abstract
 {
@@ -44,55 +43,23 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable extends M
     }
 
     /**
-     * Save configurable product relations
+     * Save product
      *
-     * @param Mage_Catalog_Model_Product|int $mainProduct the parent id
+     * @param int $mainProductId the parent id
      * @param array $productIds the children id array
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable
      */
-    public function saveProducts($mainProduct, $productIds)
+    public function saveProducts($mainProductId, $productIds)
     {
-        $isProductInstance = false;
-        if ($mainProduct instanceof Mage_Catalog_Model_Product) {
-            $mainProductId = $mainProduct->getId();
-            $isProductInstance = true;
-        } else {
-            $mainProductId = $mainProduct;
-        }
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), 'product_id')
-            ->where('parent_id=?', $mainProductId);
-        $old    = $this->_getReadAdapter()->fetchCol($select);
-
-        $insert = array_diff($productIds, $old);
-        $delete = array_diff($old, $productIds);
-
-        if ((!empty($insert) || !empty($delete)) && $isProductInstance) {
-            $mainProduct->setIsRelationsChanged(true);
-        }
-
-        if (!empty($delete)) {
-            $where = join(' AND ', array(
-                $this->_getWriteAdapter()->quoteInto('parent_id=?', $mainProductId),
-                $this->_getWriteAdapter()->quoteInto('product_id IN(?)', $delete)
+        $this->_getWriteAdapter()->delete($this->getMainTable(),
+            $this->_getWriteAdapter()->quoteInto('parent_id=?', $mainProductId)
+        );
+        foreach ($productIds as $productId) {
+            $this->_getWriteAdapter()->insert($this->getMainTable(), array(
+               'product_id'    => $productId,
+               'parent_id'     => $mainProductId
             ));
-            $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
         }
-        if (!empty($insert)) {
-            $data = array();
-            foreach ($insert as $childId) {
-                $data[] = array(
-                    'product_id' => $childId,
-                    'parent_id'  => $mainProductId
-                );
-            }
-            $this->_getWriteAdapter()->insertMultiple($this->getMainTable(), $data);
-        }
-
-        // configurable product relations should be added to relation table
-        Mage::getResourceSingleton('catalog/product_relation')
-            ->processRelations($mainProductId, $productIds);
-
         return $this;
     }
 

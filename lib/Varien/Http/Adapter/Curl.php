@@ -172,42 +172,4 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
     {
         return curl_getinfo($this->_getResource(), $opt);
     }
-
-    /**
-     * curl_multi_* requests support
-     *
-     * @param array $urls
-     * @param array $options
-     * @return array
-     */
-    public function multiRequest($urls, $options = array())
-    {
-        $handles = array();
-        $result  = array();
-
-        $multihandle = curl_multi_init();
-
-        foreach ($urls as $key => $url) {
-            $handles[$key] = curl_init();
-            curl_setopt($handles[$key], CURLOPT_URL,            $url);
-            curl_setopt($handles[$key], CURLOPT_HEADER,         0);
-            curl_setopt($handles[$key], CURLOPT_RETURNTRANSFER, 1);
-            if (!empty($options)) {
-                curl_setopt_array($handles[$key], $options);
-            }
-            curl_multi_add_handle($multihandle, $handles[$key]);
-        }
-        $process = null;
-        do {
-            curl_multi_exec($multihandle, $process);
-            usleep(100);
-        } while ($process>0);
-
-        foreach ($handles as $key => $handle) {
-            $result[$key] = curl_multi_getcontent($handle);
-            curl_multi_remove_handle($multihandle, $handle);
-        }
-        curl_multi_close($multihandle);
-        return $result;
-    }
 }

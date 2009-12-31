@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,7 +34,7 @@
 class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
 {
 
-    /**
+        /**
      * Retrieve list of products with basic info (id, sku, type, set, name)
      *
      * @param array $filters
@@ -79,14 +79,14 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         $result = array();
 
         foreach ($collection as $product) {
-            $result[] = array(
+//            $result[] = $product->getData();
+            $result[] = array( // Basic product data
                 'product_id' => $product->getId(),
                 'sku'        => $product->getSku(),
                 'name'       => $product->getName(),
                 'set'        => $product->getAttributeSetId(),
                 'type'       => $product->getTypeId(),
-                'category_ids' => $product->getCategoryIds(),
-                'website_ids'  => $product->getWebsiteIds()
+                'category_ids'       => $product->getCategoryIds()
             );
         }
 
@@ -101,9 +101,9 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param stdClass $attributes
      * @return array
      */
-    public function info($productId, $store = null, $attributes = null, $identifierType = null)
+    public function info($productId, $store = null, $attributes = null)
     {
-        $product = $this->_getProduct($productId, $store, $identifierType);
+        $product = $this->_getProduct($productId, $store);
 
         if (!$product->getId()) {
             $this->_fault('not_exists');
@@ -160,9 +160,10 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         if (!$type || !$set || !$sku) {
             $this->_fault('data_invalid');
         }
+        $store = null;
         $product = Mage::getModel('catalog/product');
         /* @var $product Mage_Catalog_Model_Product */
-        $product->setStoreId($this->_getStoreId())
+        $product->setStoreId($this->_getStoreId($store))
             ->setAttributeSetId($set)
             ->setTypeId($type)
             ->setSku($sku);
@@ -178,7 +179,6 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             }
             unset($productData->additional_attributes);
         }
-
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             $_attrCode = $attribute->getAttributeCode();
             if ($this->_isAllowedAttribute($attribute)
@@ -213,9 +213,9 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      * @param string|int $store
      * @return boolean
      */
-    public function update($productId, $productData, $store = null, $identifierType = null)
+    public function update($productId, $productData, $store = null)
     {
-        $product = $this->_getProduct($productId, $store, $identifierType);
+        $product = $this->_getProduct($productId, $store);
 
         if (!$product->getId()) {
             $this->_fault('not_exists');
@@ -287,16 +287,8 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             $product->setWebsiteIds($productData->websites);
         }
 
-        if (Mage::app()->isSingleStoreMode()) {
-            $product->setWebsiteIds(array(Mage::app()->getStore(true)->getWebsite()->getId()));
-        }
-
-        if (property_exists($productData, 'stock_data')) {
-            $_stockData = array();
-            foreach ($productData->stock_data as $key => $value) {
-                $_stockData[$key] = $value;
-            }
-            $product->setStockData($_stockData);
+        if (property_exists($productData, 'stock_data') && is_array($productData->stock_data)) {
+            $product->setStockData($productData->stock_data);
         }
     }
 

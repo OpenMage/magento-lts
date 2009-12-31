@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_OpenId
  * @subpackage Zend_OpenId_Provider
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Provider.php 16212 2009-06-21 19:24:49Z thomas $
+ * @version    $Id: Provider.php 12507 2008-11-10 16:29:09Z matthew $
  */
 
 /**
@@ -37,7 +37,7 @@
  * @category   Zend
  * @package    Zend_OpenId
  * @subpackage Zend_OpenId_Provider
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_OpenId_Provider
@@ -603,7 +603,7 @@ class Zend_OpenId_Provider
         if ($trusted === false) {
             $ret['openid.mode'] = 'cancel';
             return $ret;
-        } else if ($trusted === null) {
+        } else if (is_null($trusted)) {
             /* Redirect to Server Trust Screen */
             $params2 = array();
             foreach ($params as $key => $val) {

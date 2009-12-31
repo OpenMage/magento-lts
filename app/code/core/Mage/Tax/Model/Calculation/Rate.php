@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Tax
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tax
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -43,30 +43,12 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Prepare location settings and tax postcode before save rate
+     * Prepare location settings before save rate
      *
      * @return Mage_Tax_Model_Calculation_Rate
      */
     protected function _beforeSave()
     {
-        if ($this->getZipIsRange()) {
-            $this->setTaxPostcode("{$this->getZipFrom()}-{$this->getZipTo()}");
-        }
-        else {
-            $taxPostCode = $this->getTaxPostcode();
-
-            // postcode must be not longer than 10 symbols
-            if (strlen($taxPostCode) > 10) {
-                $taxPostCode = substr($taxPostCode, 0, 10);
-            }
-
-            $this
-                ->setTaxPostcode($taxPostCode)
-                ->setZipIsRange(null)
-                ->setZipFrom(null)
-                ->setZipTo(null);
-        }
-
         parent::_beforeSave();
         $country = $this->getTaxCountryId();
         $region = $this->getTaxRegionId();
@@ -141,14 +123,14 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
 
     public function deleteAllRates()
     {
-        $this->_getResource()->deleteAllRates();
-        Mage::dispatchEvent('tax_settings_change_after');
-        return $this;
+    	$this->_getResource()->deleteAllRates();
+    	Mage::dispatchEvent('tax_settings_change_after');
+    	return $this;
     }
 
     /**
-     * Load rate model by code
-     *
+     * Load rate model by code 
+     * 
      * @param  string $code
      * @return Mage_Tax_Model_Calculation_Rate
      */
@@ -157,5 +139,5 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
         $this->load($code, 'code');
         return $this;
     }
-
+    
 }

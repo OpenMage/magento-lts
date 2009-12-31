@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -272,18 +272,5 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     public function getEntity()
     {
         return Mage::getResourceSingleton($this->_data['entity_model']);
-    }
-
-    /**
-     * Return attribute collection. If not specify return default
-     *
-     * @return string
-     */
-    public function getEntityAttributeCollection()
-    {
-        if ($collection = $this->_getData('entity_attribute_collection')) {
-            return $collection;
-        }
-        return 'eav/entity_attribute_collection';
     }
 }

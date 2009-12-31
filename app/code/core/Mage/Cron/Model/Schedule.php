@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Cron
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cron
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -185,21 +185,5 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         }
 
         return false;
-    }
-
-    /**
-     * Sets a job to STATUS_RUNNING only if it is currently in STATUS_PENDING.
-     * Returns true if status was changed and false otherwise.
-     *
-     * This is used to implement locking for cron jobs.
-     *
-     * @return boolean
-     */
-    public function tryLockJob()
-    {
-        return ($this->_getResource()->trySetJobStatusAtomic(
-                $this->getId(),
-                self::STATUS_RUNNING,
-                self::STATUS_PENDING));
     }
 }

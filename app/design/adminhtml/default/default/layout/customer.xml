@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 
@@ -30,9 +30,6 @@
     <adminhtml_customer_edit>
         <reference name="content">
             <block type="adminhtml/customer_edit" name="customer_edit"></block>
-        </reference>
-        <reference name="head">
-            <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
         </reference>
         <reference name="left">
             <block type="adminhtml/customer_edit_tabs" name="customer_edit_tabs">
@@ -47,9 +44,4 @@
             <block type="adminhtml/template" template="customer/edit/js.phtml" name="customer.edit.js" as="customer_edit_js"></block>
         </reference>
     </adminhtml_customer_edit>
-    <adminhtml_customer_group_index>
-        <reference name="content">
-            <block type="adminhtml/customer_group" name="customer_group"></block>
-        </reference>
-    </adminhtml_customer_group_index>
 </layout>

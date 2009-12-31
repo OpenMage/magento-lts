@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -58,8 +58,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
     {
         if ($this->getColumn()->getEditable()) {
             $value = $this->_getValue($row);
-            return $value . ($this->getColumn()->getEditOnly() ? '' : ($value != '' ? '' : '&nbsp;') . '</td><td>')
-                . $this->_getInputValueElement($row);
+            $value = $value!=''?$value:'&nbsp;';
+            return $value . ( ($this->getColumn()->getEditOnly() && trim($this->_getValue($row)!='')) ? '' : '</td><td>' ) . $this->_getInputValueElement($row);
+
         }
         return $this->_getValue($row);
     }
@@ -85,7 +86,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
 
     public function _getInputValueElement(Varien_Object $row)
     {
-        return '<input type="text" class="input-text ' . $this->getColumn()->getValidateClass() . '" name="' . $this->getColumn()->getId() . '" value="' . $this->_getInputValue($row) . '"/>';
+        return '<input type="text" class="input-text ' . $this->getColumn()->getValidateClass() . '" name="'.( $this->getColumn()->getName() ? $this->getColumn()->getName() : $this->getColumn()->getId() ).'" value="'.$this->_getInputValue($row).'"/>';
     }
 
     protected function _getInputValue(Varien_Object $row)

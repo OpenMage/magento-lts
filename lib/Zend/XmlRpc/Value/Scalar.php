@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Value
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Scalar.php 18443 2009-09-30 13:35:47Z lars $
+ * @version    $Id: Scalar.php 9095 2008-03-30 18:52:31Z thomas $
  */
 
 
@@ -31,7 +31,7 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Value
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_XmlRpc_Value_Scalar extends Zend_XmlRpc_Value
@@ -57,3 +57,4 @@ abstract class Zend_XmlRpc_Value_Scalar extends Zend_XmlRpc_Value
         return $this->_as_xml;
     }
 }
+

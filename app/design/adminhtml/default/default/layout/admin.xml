@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 
@@ -60,10 +60,4 @@
             </block>
         </reference>
     </adminhtml_dashboard_index>
-    <adminhtml_cache_index>
-        <reference name="content">
-            <block type="adminhtml/cache" name="cache"></block>
-            <block type="adminhtml/cache_additional" name="cache.additional" template="system/cache/additional.phtml"></block>
-        </reference>
-    </adminhtml_cache_index>
 </layout>

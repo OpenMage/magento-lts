@@ -1,0 +1,121 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="col2-set">
+    <div class="col-1">
+        <h4><?php if( $this->getQuote()->isAllowedGuestCheckout() ): ?><?php echo $this->__('Checkout as a Guest or Register') ?><?php else: ?><?php echo $this->__('Register to Create an Account') ?><?php endif; ?></h4>
+
+        <?php if( $this->getQuote()->isAllowedGuestCheckout() ): ?>
+            <p><?php echo $this->__('Register with us for future convenience:') ?></p>
+        <?php else: ?>
+            <strong><?php echo $this->__('Register and save time!') ?></strong><br />
+            <?php echo $this->__('Register with us for future convenience:') ?>
+            <ul class="disc">
+                <li><?php echo $this->__('Fast and easy check out') ?></li>
+                <li><?php echo $this->__('Easy access to your order history and status') ?></li>
+            </ul>
+        <?php endif; ?>
+        <?php if( $this->getQuote()->isAllowedGuestCheckout() ): ?>
+            <ul class="form-list">
+                <?php if( $this->getQuote()->isAllowedGuestCheckout() ): ?>
+                <li>
+                    <input type="radio" name="checkout_method" id="login:guest" value="guest"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Sales_Model_Quote::CHECKOUT_METHOD_GUEST): ?> checked="checked"<?php endif ?> />
+                    <label for="login:guest"><?php echo $this->__('Checkout as Guest') ?></label>
+                </li>
+                <?php endif; ?>
+                <li>
+                    <input type="radio" name="checkout_method" id="login:register" value="register"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER || !$this->getQuote()->isAllowedGuestCheckout()): ?> checked="checked"<?php endif ?> />
+                    <label for="login:register"><?php echo $this->__('Register') ?></label>
+                </li>
+            </ul>
+            <strong><?php echo $this->__('Register and save time!') ?></strong><br />
+            <?php echo $this->__('Register with us for future convenience:') ?>
+            <ul class="disc">
+                <li><?php echo $this->__('Fast and easy check out') ?></li>
+                <li><?php echo $this->__('Easy access to your order history and status') ?></li>
+            </ul>
+        <?php else: ?>
+            <input type="hidden" name="checkout_method" id="login:register" value="register" checked="checked" />
+        <?php endif; ?>
+    </div>
+    <div class="col-2">
+        <h4><?php echo $this->__('Login') ?></h4>
+        <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+        <form id="login-form" action="<?php echo $this->getPostAction() ?>" method="post" onsubmit="alert('123');">
+            <p><strong><?php echo $this->__('Already registered?') ?></strong><br />
+            <?php echo $this->__('Please log in below:') ?></p>
+            <ul class="form-list">
+                <li>
+                    <div class="input-box">
+                        <label for="login-email"><?php echo $this->__('Email Address') ?> <span class="required">*</span></label><br />
+                        <input type="text" class="input-text required-entry validate-email" id="login-email" name="login[username]" value="<?php echo $this->htmlEscape($this->getUsername()) ?>" />
+                    </div>
+                </li>
+                <li>
+                    <div class="input-box">
+                        <label for="login-password"><?php echo $this->__('Password') ?> <span class="required">*</span></label><br />
+                        <input type="password" class="input-text required-entry" id="login-password" name="login[password]" />
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>
+<div class="col2-set">
+    <div class="col-1">
+        <div class="button-set">
+            <p class="required">&nbsp;</p>
+            <button class="form-button" onclick="checkout.setMethod();"><span><?php echo ($this->getQuote()->isAllowedGuestCheckout() ? $this->__('Continue') : $this->__('Register')) ?></span></button>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="button-set">
+            <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+            <a href="<?php echo $this->getUrl('customer/account/forgotpassword') ?>" class="left"><?php echo $this->__('Forgot your password?') ?></a>
+            <button type="button" class="form-button" onclick="onepageLogin(this)" ><span><?php echo $this->__('Login') ?></span></button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+    var loginForm = new VarienForm('login-form', true);
+    $('login-email').observe('keypress', bindLoginPost);
+    $('login-password').observe('keypress', bindLoginPost);
+    function bindLoginPost(evt){
+        if (evt.keyCode == Event.KEY_RETURN) {
+            loginForm.submit();
+        }
+    }
+    function onepageLogin(button)
+    {
+        if(loginForm.validator && loginForm.validator.validate()){
+            button.disabled = true;
+            loginForm.submit();
+        }
+    }
+//]]>
+</script>

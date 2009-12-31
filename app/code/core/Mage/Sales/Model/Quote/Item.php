@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -216,23 +216,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     }
 
     /**
-     * Checking item data
-     *
-     * @return Mage_Sales_Model_Quote_Item_Abstract
-     */
-    public function checkData()
-    {
-        $parent = parent::checkData();
-        if ($this->getProduct()->getHasError()) {
-            $this->setHasError(true);
-            $this->setMessage(Mage::helper('sales')->__('Item options declare error'));
-            $this->getQuote()->setHasError(true);
-            $this->getQuote()->addMessage($this->getProduct()->getMessage(), 'options');
-        }
-        return $parent;
-    }
-
-    /**
      * Setup product for quote item
      *
      * @param   Mage_Catalog_Model_Product $product
@@ -250,10 +233,8 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             ->setName($product->getName())
             ->setWeight($this->getProduct()->getWeight())
             ->setTaxClassId($product->getTaxClassId())
-            ->setBaseCost($product->getCost());
-            if ($product->getStockItem()) {
-                $this->setIsQtyDecimal($product->getStockItem()->getIsQtyDecimal());
-            }
+            ->setCost($product->getCost())
+            ->setIsQtyDecimal($product->getIsQtyDecimal());
 
         Mage::dispatchEvent('sales_quote_item_set_product', array(
             'product' => $product,
@@ -280,7 +261,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             $product = Mage::getModel('catalog/product')
                 ->setStoreId($this->getQuote()->getStoreId())
                 ->load($this->getProductId());
-
             $this->setProduct($product);
         }
 
@@ -305,37 +285,21 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             return false;
         }
 
-        $itemOptions    = $this->getOptionsByCode();
+        $itemOptions    = $this->getOptions();
         $productOptions = $product->getCustomOptions();
 
-        if(!$this->compareOptions($itemOptions, $productOptions)){
+        if (count($itemOptions) != count($productOptions)) {
             return false;
         }
-        if(!$this->compareOptions($productOptions, $itemOptions)){
-            return false;
-        }
-        return true;
-    }
 
-    /**
-     * Check if two options array are identical
-     * First options array is prerogative
-     * Second options array checked against first one
-     *
-     * @param array $options1
-     * @param array $options2
-     * @return bool
-     */
-    public function compareOptions($options1, $options2)
-    {
-        foreach ($options1 as $option) {
+        foreach ($itemOptions as $option) {
             $code = $option->getCode();
             if (in_array($code, $this->_notRepresentOptions )) {
                 continue;
             }
-            if ( !isset($options2[$code])
-                || ($options2[$code]->getValue() === null)
-                || $options2[$code]->getValue() != $option->getValue()) {
+            if ( !isset($productOptions[$code])
+                || ($productOptions[$code]->getValue() === null)
+                || $productOptions[$code]->getValue() != $option->getValue()) {
                 return false;
             }
         }
@@ -445,16 +409,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     public function getOptions()
     {
         return $this->_options;
-    }
-
-    /**
-     * Get all item options as array with codes in array key
-     *
-     * @return array
-     */
-    public function getOptionsByCode()
-    {
-        return $this->_optionsByCode;
     }
 
     /**

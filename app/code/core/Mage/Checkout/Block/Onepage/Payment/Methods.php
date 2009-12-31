@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -63,25 +63,5 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
             return $method;
         }
         return false;
-    }
-
-    /**
-     * Payment method form html getter
-     * @param Mage_Payment_Model_Method_Abstract $method
-     */
-    public function getPaymentMethodFormHtml(Mage_Payment_Model_Method_Abstract $method)
-    {
-         return $this->getChildHtml('payment.method.' . $method->getCode());
-    }
-
-    /**
-     * Payment method additional label part getter
-     * @param Mage_Payment_Model_Method_Abstract $method
-     */
-    public function getMethodLabelAfterHtml(Mage_Payment_Model_Method_Abstract $method)
-    {
-        if ($form = $this->getChild('payment.method.' . $method->getCode())) {
-            return $form->getMethodLabelAfterHtml();
-        }
     }
 }

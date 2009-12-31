@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -42,14 +42,14 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit extends Mage_Adm
 
         $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('adminhtml')->__('General Information')));
 
-        $fieldset->addField('name', 'text', array(
+    	$fieldset->addField('name', 'text', array(
             'name' => 'name',
             'label' => Mage::helper('adminhtml')->__('Profile Name'),
             'title' => Mage::helper('adminhtml')->__('Profile Name'),
             'required' => true,
         ));
 
-        $fieldset->addField('actions_xml', 'textarea', array(
+    	$fieldset->addField('actions_xml', 'textarea', array(
             'name' => 'actions_xml',
             'label' => Mage::helper('adminhtml')->__('Actions XML'),
             'title' => Mage::helper('adminhtml')->__('Actions XML'),

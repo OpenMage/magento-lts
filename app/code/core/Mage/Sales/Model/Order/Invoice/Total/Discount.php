@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -32,26 +32,8 @@ class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Ord
         $invoice->setDiscountAmount(0);
         $invoice->setBaseDiscountAmount(0);
 
-        $totalDiscountAmount     = 0;
+        $totalDiscountAmount = 0;
         $baseTotalDiscountAmount = 0;
-
-        /**
-         * Checking if shipping discount was added in previous invoices.
-         * So basically if we have invoice with positive discount and it
-         * was not canceled we don't add shipping discount to this one.
-         */
-        $addShippingDicount = true;
-        foreach ($invoice->getOrder()->getInvoiceCollection() as $previusInvoice) {
-            if ($previusInvoice->getDiscountAmount()) {
-                $addShippingDicount = false;
-            }
-        }
-
-        if ($addShippingDicount) {
-            $totalDiscountAmount     = $totalDiscountAmount + $invoice->getOrder()->getShippingDiscountAmount();
-            $baseTotalDiscountAmount = $baseTotalDiscountAmount + $invoice->getOrder()->getBaseShippingDiscountAmount();
-        }
-
         foreach ($invoice->getAllItems() as $item) {
             if ($item->getOrderItem()->isDummy()) {
                 continue;
@@ -84,7 +66,6 @@ class Mage_Sales_Model_Order_Invoice_Total_Discount extends Mage_Sales_Model_Ord
                 $baseTotalDiscountAmount += $baseDiscount;
             }
         }
-
 
         $invoice->setDiscountAmount($totalDiscountAmount);
         $invoice->setBaseDiscountAmount($baseTotalDiscountAmount);

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Rss
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Rss
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -76,7 +76,7 @@ class Mage_Rss_CatalogController extends Mage_Core_Controller_Front_Action
     public function tagAction()
     {
         if ($this->checkFeedEnable('tag')) {
-            $tagName = urldecode($this->getRequest()->getParam('tagName'));
+            $tagName = $this->getRequest()->getParam('tagName');
             $tagModel = Mage::getModel('tag/tag');
             $tagModel->loadByName($tagName);
             if ($tagModel->getId() && $tagModel->getStatus()==$tagModel->getApprovedStatus()) {
@@ -91,6 +91,7 @@ class Mage_Rss_CatalogController extends Mage_Core_Controller_Front_Action
 
     public function notifystockAction()
     {
+        Mage::helper('rss')->authAdmin('catalog/products');
         $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
         $this->loadLayout(false);
         $this->renderLayout();
@@ -98,6 +99,7 @@ class Mage_Rss_CatalogController extends Mage_Core_Controller_Front_Action
 
     public function reviewAction()
     {
+        Mage::helper('rss')->authAdmin('catalog/reviews_ratings');
         $this->getResponse()->setHeader('Content-type', 'text/xml; charset=UTF-8');
         $this->loadLayout(false);
         $this->renderLayout();
@@ -109,23 +111,5 @@ class Mage_Rss_CatalogController extends Mage_Core_Controller_Front_Action
             $this->loadLayout(false);
             $this->renderLayout();
         }
-    }
-
-    /**
-     * Controller predispatch method to change area for some specific action.
-     *
-     * @return Mage_Rss_CatalogController
-     */
-    public function preDispatch()
-    {
-        if ($this->getRequest()->getActionName() == 'notifystock') {
-            $this->_currentArea = 'adminhtml';
-            Mage::helper('rss')->authAdmin('catalog/products');
-        }
-        if ($this->getRequest()->getActionName() == 'review') {
-            $this->_currentArea = 'adminhtml';
-            Mage::helper('rss')->authAdmin('catalog/reviews_ratings');
-        }
-        return parent::preDispatch();
     }
 }

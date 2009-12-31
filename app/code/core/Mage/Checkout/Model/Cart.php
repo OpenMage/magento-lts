@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -211,24 +211,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object
         $product = $this->_getProduct($product);
         $request = $this->_getProductRequest($info);
 
-        //Check if current product already exists in cart
-        $productId = $product->getId();
-        $items = $this->getQuote()->getAllItems();
-        $quoteProduct = null;
-        foreach ($items as $item) {
-            if ($item->getProductId() == $productId) {
-                $quoteProduct = $item;
-                break;
-            }
-        }
-
-        if ($product->getStockItem()) {
-            $minimumQty = $product->getStockItem()->getMinSaleQty();
-            //If product was not found in cart and there is set minimal qty for it
-            if($minimumQty > 0 && $request->getQty() < $minimumQty && $quoteProduct === null){
-                $request->setQty($minimumQty);
-            }
-        }
 
         if ($product->getId()) {
 
@@ -357,10 +339,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object
         $this->getQuote()->collectTotals();
         $this->getQuote()->save();
         $this->getCheckoutSession()->setQuoteId($this->getQuote()->getId());
-        /**
-         * Cart save usually called after chenges with cart items.
-         */
-        Mage::dispatchEvent('checkout_cart_save_after', array('cart'=>$this));
         return $this;
     }
 

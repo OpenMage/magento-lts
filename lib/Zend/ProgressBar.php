@@ -12,9 +12,9 @@
  *
  * @category   Zend
  * @package    Zend_ProgressBar
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ProgressBar.php 16207 2009-06-21 19:17:51Z thomas $
+ * @version    $Id: ProgressBar.php 12296 2008-11-05 11:26:37Z dasprid $
  */
 
 /**
@@ -22,7 +22,7 @@
  *
  * @category  Zend
  * @package   Zend_ProgressBar
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_ProgressBar
@@ -33,14 +33,14 @@ class Zend_ProgressBar
      * @var float
      */
     protected $_min;
-
+    
     /**
      * Max value
      *
      * @var float
      */
     protected $_max;
-
+    
     /**
      * Current value
      *
@@ -68,14 +68,14 @@ class Zend_ProgressBar
      * @var Zend_ProgressBar_Adapter
      */
     protected $_adapter;
-
+    
     /**
      * Namespace for keeping the progressbar persistent
      *
      * @var string
      */
     protected $_persistenceNamespace = null;
-
+    
     /**
      * Create a new progressbar backend.
      *
@@ -86,30 +86,30 @@ class Zend_ProgressBar
      * @throws Zend_ProgressBar_Exception When $min is greater than $max
      */
     public function __construct(Zend_ProgressBar_Adapter $adapter, $min = 0, $max = 100, $persistenceNamespace = null)
-    {
+    {       
         // Check min/max values and set them
         if ($min > $max) {
             #require_once 'Zend/ProgressBar/Exception.php';
             throw new Zend_ProgressBar_Exception('$max must be greater than $min');
         }
-
+        
         $this->_min     = (float) $min;
         $this->_max     = (float) $max;
         $this->_current = (float) $min;
-
+        
         // See if we have to open a session namespace
         if ($persistenceNamespace !== null) {
             #require_once 'Zend/Session/Namespace.php';
-
+            
             $this->_persistenceNamespace = new Zend_Session_Namespace($persistenceNamespace);
         }
-
+        
         // Set adapter
         $this->_adapter = $adapter;
 
         // Track the start time
         $this->_startTime = time();
-
+        
         // See If a persistenceNamespace exists and handle accordingly
         if ($this->_persistenceNamespace !== null) {
             if (isset($this->_persistenceNamespace->isSet)) {
@@ -126,7 +126,7 @@ class Zend_ProgressBar
             $this->update();
         }
     }
-
+    
     /**
      * Get the current adapter
      *
@@ -136,7 +136,7 @@ class Zend_ProgressBar
     {
         return $this->_adapter;
     }
-
+    
     /**
      * Update the progressbar
      *
@@ -150,7 +150,7 @@ class Zend_ProgressBar
         if ($value !== null) {
             $this->_current = min($this->_max, max($this->_min, $value));
         }
-
+        
         // Update text if given
         if ($text !== null) {
             $this->_statusText = $text;
@@ -163,25 +163,21 @@ class Zend_ProgressBar
         }
 
         // Calculate percent
-        if ($this->_min === $this->_max) {
-            $percent = false;
-        } else {
-            $percent = (float) ($this->_current - $this->_min) / ($this->_max - $this->_min);
-        }
+        $percent  = (float) ($this->_current - $this->_min) / ($this->_max - $this->_min);
 
         // Calculate ETA
         $timeTaken = time() - $this->_startTime;
-
-        if ($percent === .0 || $percent === false) {
+        
+        if ($percent === .0) {
             $timeRemaining = null;
         } else {
             $timeRemaining = round(((1 / $percent) * $timeTaken) - $timeTaken);
         }
-
+        
         // Poll the adapter
         $this->_adapter->notify($this->_current, $this->_max, $percent, $timeTaken, $timeRemaining, $this->_statusText);
     }
-
+    
     /**
      * Update the progressbar to the next value
      *
@@ -189,10 +185,10 @@ class Zend_ProgressBar
      * @return void
      */
     public function next($diff = 1, $text = null)
-    {
+    {       
         $this->update(max($this->_min, min($this->_max, $this->_current + $diff)), $text);
     }
-
+    
     /**
      * Call the adapters finish() behaviour
      *
@@ -203,7 +199,7 @@ class Zend_ProgressBar
         if ($this->_persistenceNamespace !== null) {
             unset($this->_persistenceNamespace->isSet);
         }
-
+        
         $this->_adapter->finish();
     }
 }

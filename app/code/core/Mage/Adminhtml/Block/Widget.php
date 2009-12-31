@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
     public function getId()
     {
         if ($this->getData('id')===null) {
-            $this->setData('id', Mage::helper('core')->uniqHash('id_'));
+            $this->setData('id', 'id_'.md5(microtime()));
         }
         return $this->getData('id');
     }
@@ -46,18 +46,9 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
         return $this->getId();
     }
 
-    /**
-     * Get current url
-     *
-     * @param array $params url parameters
-     * @return string current url
-     */
-    public function getCurrentUrl($params = array())
+    public function getCurrentUrl($params=array())
     {
-        if (!isset($params['_current'])) {
-            $params['_current'] = true;
-        }
-        return $this->getUrl('*/*/*', $params);
+        return $this->getUrl('*/*/*', array('_current'=>true));
     }
 
     protected function _addBreadcrumb($label, $title=null, $link=null)

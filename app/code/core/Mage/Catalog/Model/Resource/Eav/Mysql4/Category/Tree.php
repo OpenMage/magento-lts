@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -59,13 +59,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
     protected $_inactiveCategoryIds = null;
 
     /**
-     * store id
-     *
-     * @var integer
-     */
-    protected $_storeId = null;
-
-    /**
      * Enter description here...
      *
      */
@@ -86,31 +79,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
     }
 
     /**
-     * Set store id
-     *
-     * @param integer $storeId
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree
-     */
-    public function setStoreId($storeId)
-    {
-        $this->_storeId = (int) $storeId;
-        return $this;
-    }
-
-    /**
-     * Return store id
-     *
-     * @return integer
-     */
-    public function getStoreId()
-    {
-        if ($this->_storeId === null) {
-            $this->_storeId = Mage::app()->getStore()->getId();
-        }
-        return $this->_storeId;
-    }
-
-    /**
      * Enter description here...
      *
      * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection $collection
@@ -128,6 +96,12 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
         if (!is_array($exclude)) {
             $exclude = array($exclude);
         }
+
+        $collection->initCache(
+            Mage::app()->getCache(),
+            'tree',
+            array(Mage_Catalog_Model_Category::CACHE_TAG)
+        );
 
         $nodeIds = array();
         foreach ($this->getNodes() as $node) {
@@ -265,7 +239,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
             ->where('d.store_id = ?', 0)
             ->where('d.entity_id IN (?)', new Zend_Db_Expr($filter))
             ->joinLeft(array('c'=>$table), "c.attribute_id = '{$attributeId}' AND c.store_id = '{$storeId}' AND c.entity_id = d.entity_id", array())
-            ->where('IF(c.value_id>0, c.value, d.value) = ?', 0);
+            ->where('IFNULL(c.value, d.value) = ?', 0);
 
         return $this->_conn->fetchCol($select);
     }
@@ -320,12 +294,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
         $collection = Mage::getModel('catalog/category')->getCollection();
         /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection */
 
-        $attributes = Mage::getConfig()->getNode('frontend/category/collection/attributes');
-        if ($attributes) {
-            $attributes = $attributes->asArray();
-            $attributes = array_keys($attributes);
-        }
-        $collection->addAttributeToSelect($attributes);
+        $collection->addAttributeToSelect('name')
+            ->addAttributeToSelect('url_key')
+            ->addAttributeToSelect('is_active');
 
         if ($sorted) {
             if (is_string($sorted)) {
@@ -535,21 +506,13 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree extends Varien_Data_T
             $attribute = Mage::getResourceSingleton('catalog/category')->getAttribute($attributeCode);
             // join non-static attribute table
             if (!$attribute->getBackend()->isStatic()) {
-                $defaultTableAs   = "default_$attributeCode";
-                $storeTableAs   = "store_$attributeCode";
+                $tableAs   = "_$attributeCode";
                 $select->joinLeft(
-                    array($defaultTableAs => $attribute->getBackend()->getTable()),
+                    array($tableAs => $attribute->getBackend()->getTable()),
                     sprintf('`%1$s`.entity_id=e.entity_id AND `%1$s`.attribute_id=%2$d AND `%1$s`.entity_type_id=e.entity_type_id AND `%1$s`.store_id=%3$d',
-                        $defaultTableAs, $attribute->getData('attribute_id'), Mage_Core_Model_App::ADMIN_STORE_ID
+                        $tableAs, $attribute->getData('attribute_id'), Mage_Core_Model_App::ADMIN_STORE_ID
                     ),
                     array($attributeCode => 'value')
-                )
-                ->joinLeft(
-                    array($storeTableAs => $attribute->getBackend()->getTable()),
-                    sprintf('`%1$s`.entity_id=e.entity_id AND `%1$s`.attribute_id=%2$d AND `%1$s`.entity_type_id=e.entity_type_id AND `%1$s`.store_id=%3$d',
-                        $storeTableAs, $attribute->getData('attribute_id'), $this->getStoreId()
-                    ),
-                    array($attributeCode => new Zend_Db_Expr("IF(`{$storeTableAs}`.value>0, `{$storeTableAs}`.value, `$defaultTableAs`.value)"))
                 );
             }
         }

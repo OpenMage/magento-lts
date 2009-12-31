@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -61,18 +61,18 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
     }
 
     /**
-     * Get current payment method code or the only available, if there is only one method
+     * Retrieve code of current payment method
      *
-     * @return string|false
+     * @return mixed
      */
     public function getSelectedMethodCode()
     {
-        if ($currentMethodCode = $this->getQuote()->getPayment()->getMethod()) {
-            return $currentMethodCode;
+        if ($method = $this->getQuote()->getPayment()->getMethod()) {
+            return $method;
         }
         if (count($this->getMethods()) == 1) {
-            foreach ($this->getMethods() as $method) {
-                return $method->getCode();
+            foreach ($this->getMethods() as $_method) {
+                return $_method->getCode();
             }
         }
         return false;

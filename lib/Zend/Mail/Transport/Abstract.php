@@ -11,13 +11,13 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
- *
+ * 
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 18760 2009-10-31 13:09:01Z yoshida@zend.co.jp $
+ * @version    $Id: Abstract.php 8064 2008-02-16 10:58:39Z thomas $
  */
 
 
@@ -34,10 +34,10 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Mail_Transport_Abstract
+abstract class Zend_Mail_Transport_Abstract 
 {
     /**
      * Mail body
@@ -140,14 +140,14 @@ abstract class Zend_Mail_Transport_Abstract
             }
 
             $this->_headers['Content-Type'] = array(
-                $type . ';'
+                $type . '; charset="' . $this->_mail->getCharset() . '";'
                 . $this->EOL
                 . " " . 'boundary="' . $boundary . '"'
             );
+            $this->_headers['MIME-Version'] = array('1.0');
+
             $this->boundary = $boundary;
         }
-
-        $this->_headers['MIME-Version'] = array('1.0');
 
         return $this->_headers;
     }

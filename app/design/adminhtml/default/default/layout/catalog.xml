@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 
@@ -38,7 +38,6 @@
     </adminhtml_catalog_product_index>
 
     <adminhtml_catalog_product_new>
-        <update handle="editor"/>
         <reference name="content">
             <block type="adminhtml/catalog_product_edit" name="product_edit"></block>
         </reference>
@@ -46,13 +45,11 @@
             <block type="adminhtml/catalog_product_edit_tabs" name="product_tabs"></block>
         </reference>
         <reference name="js">
-            <block type="adminhtml/catalog_product_edit_js" template="catalog/product/js.phtml" name="catalog_product_js"></block>
-            <block type="core/template" template="catalog/wysiwyg/js.phtml"/>
+            <block type="adminhtml/template" template="catalog/product/js.phtml" name="catalog_product_js"></block>
         </reference>
     </adminhtml_catalog_product_new>
 
     <adminhtml_catalog_product_edit>
-        <update handle="editor"/>
         <reference name="content">
             <block type="adminhtml/catalog_product_edit" name="product_edit"></block>
         </reference>
@@ -61,85 +58,10 @@
             <block type="adminhtml/catalog_product_edit_tabs" name="product_tabs"></block>
         </reference>
         <reference name="js">
-            <block type="adminhtml/catalog_product_edit_js" template="catalog/product/js.phtml" name="catalog_product_js"></block>
-            <block type="core/template" template="catalog/wysiwyg/js.phtml"/>
+            <block type="adminhtml/template" template="catalog/product/js.phtml" name="catalog_product_js"></block>
         </reference>
     </adminhtml_catalog_product_edit>
 
-    <adminhtml_catalog_product_related>
-        <block type="core/text_list" name="root">
-            <block type="adminhtml/catalog_product_edit_tab_related" name="catalog.product.edit.tab.related"/>
-            <block type="adminhtml/widget_grid_serializer" name="related_grid_serializer">
-                <reference name="related_grid_serializer">
-                    <action method="initSerializerBlock">
-                        <grid_block_name>catalog.product.edit.tab.related</grid_block_name>
-                        <data_callback>getSelectedRelatedProducts</data_callback>
-                        <hidden_input_name>links[related]</hidden_input_name>
-                        <reload_param_name>products_related</reload_param_name>
-                    </action>
-                    <action method="addColumnInputName">
-                        <input_name>position</input_name>
-                    </action>
-                </reference>
-            </block>
-        </block>
-    </adminhtml_catalog_product_related>
-
-    <adminhtml_catalog_product_relatedgrid>
-        <block type="core/text_list" name="root">
-            <block type="adminhtml/catalog_product_edit_tab_related" name="catalog.product.edit.tab.related"/>
-        </block>
-    </adminhtml_catalog_product_relatedgrid>
-
-    <adminhtml_catalog_product_upsell>
-        <block type="core/text_list" name="root">
-            <block type="adminhtml/catalog_product_edit_tab_upsell" name="catalog.product.edit.tab.upsell"/>
-            <block type="adminhtml/widget_grid_serializer" name="upsell_grid_serializer">
-                <reference name="upsell_grid_serializer">
-                    <action method="initSerializerBlock">
-                        <grid_block_name>catalog.product.edit.tab.upsell</grid_block_name>
-                        <data_callback>getSelectedUpsellProducts</data_callback>
-                        <hidden_input_name>links[upsell]</hidden_input_name>
-                        <reload_param_name>products_upsell</reload_param_name>
-                    </action>
-                    <action method="addColumnInputName">
-                        <input_name>position</input_name>
-                    </action>
-                </reference>
-            </block>
-        </block>
-    </adminhtml_catalog_product_upsell>
-
-    <adminhtml_catalog_product_upsellgrid>
-        <block type="core/text_list" name="root">
-            <block type="adminhtml/catalog_product_edit_tab_upsell" name="catalog.product.edit.tab.upsell"/>
-        </block>
-    </adminhtml_catalog_product_upsellgrid>
-
-    <adminhtml_catalog_product_crosssell>
-        <block type="core/text_list" name="root">
-            <block type="adminhtml/catalog_product_edit_tab_crosssell" name="catalog.product.edit.tab.crosssell"/>
-            <block type="adminhtml/widget_grid_serializer" name="crosssell_grid_serializer">
-                <reference name="crosssell_grid_serializer">
-                    <action method="initSerializerBlock">
-                        <grid_block_name>catalog.product.edit.tab.crosssell</grid_block_name>
-                        <data_callback>getSelectedCrossSellProducts</data_callback>
-                        <hidden_input_name>links[crosssell]</hidden_input_name>
-                        <reload_param_name>products_crosssell</reload_param_name>
-                    </action>
-                    <action method="addColumnInputName">
-                        <input_name>position</input_name>
-                    </action>
-                </reference>
-            </block>
-        </block>
-    </adminhtml_catalog_product_crosssell>
-
-    <adminhtml_catalog_product_crosssellgrid>
-        <block type="core/text_list" name="root">
-            <block type="adminhtml/catalog_product_edit_tab_crosssell" name="catalog.product.edit.tab.crosssell"/>
-        </block>
-    </adminhtml_catalog_product_crosssellgrid>
 <!--
 Layout handle for simple products
 -->
@@ -149,37 +71,13 @@ Layout handle for simple products
 <!--
 Layout handle for grouped products
 -->
+
     <adminhtml_catalog_product_grouped>
         <reference name="product_tabs">
             <action method="addTab"><name>super</name><block>adminhtml/catalog_product_edit_tab_super_group</block></action>
         </reference>
     </adminhtml_catalog_product_grouped>
 
-    <adminhtml_catalog_product_supergroup>
-        <block type="core/text_list" name="root">
-            <block type="adminhtml/catalog_product_edit_tab_super_group" name="catalog.product.edit.tab.super.group" />
-            <block type="adminhtml/widget_grid_serializer" name="grouped_grid_serializer">
-                <reference name="grouped_grid_serializer">
-                    <action method="initSerializerBlock">
-                        <grid_block_name>catalog.product.edit.tab.super.group</grid_block_name>
-                        <data_callback>getSelectedGroupedProducts</data_callback>
-                        <hidden_input_name>links[grouped]</hidden_input_name>
-                        <reload_param_name>products_grouped</reload_param_name>
-                    </action>
-                    <action method="addColumnInputName">
-                        <input_name>qty</input_name>
-                        <input_name>position</input_name>
-                    </action>
-                </reference>
-            </block>
-        </block>
-    </adminhtml_catalog_product_supergroup>
-
-    <adminhtml_catalog_product_supergroupgridonly>
-        <block type="core/text_list" name="root">
-            <block type="adminhtml/catalog_product_edit_tab_super_group" name="catalog.product.edit.tab.super.group" />
-        </block>
-    </adminhtml_catalog_product_supergroupgridonly>
 <!--
 Layout handle for configurable products
 -->
@@ -214,17 +112,13 @@ Layout handle for configurable products
             <block type="adminhtml/catalog_product_edit_action_attribute" name="attribute" template="catalog/product/edit/action/attribute.phtml" />
         </reference>
     </adminhtml_catalog_product_action_attribute_edit>
-
+    
     <adminhtml_catalog_category_edit>
-        <update handle="editor"/>
         <reference name="left">
             <block name="category.tree" type="adminhtml/catalog_category_tree" template="catalog/category/tree.phtml" />
         </reference>
         <reference name="content">
             <block name="category.edit"  type="adminhtml/catalog_category_edit" template="catalog/category/edit.phtml" />
-        </reference>
-        <reference name="js">
-            <block type="core/template" template="catalog/wysiwyg/js.phtml"/>
         </reference>
     </adminhtml_catalog_category_edit>
 

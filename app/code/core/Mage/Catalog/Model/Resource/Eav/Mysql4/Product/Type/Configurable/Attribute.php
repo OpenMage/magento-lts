@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -96,7 +96,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
     /**
      * Save Custom labels for Attribute name
      *
-     * @param Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
      */
     public function saveLabel($attribute)
@@ -106,10 +106,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
             ->where('product_super_attribute_id=?', $attribute->getId())
             ->where('store_id=?', (int)$attribute->getStoreId());
         if ($valueId = $this->_getWriteAdapter()->fetchOne($select)) {
-            $this->_getWriteAdapter()->update($this->_labelTable,array(
-                'use_default' => (int) $attribute->getUseDefault(),
-                'value'=>$attribute->getLabel()
-                ),
+            $this->_getWriteAdapter()->update($this->_labelTable,array('value'=>$attribute->getLabel()),
                 $this->_getWriteAdapter()->quoteInto('value_id=?', $valueId)
             );
         }
@@ -117,7 +114,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
             $this->_getWriteAdapter()->insert($this->_labelTable, array(
                 'product_super_attribute_id' => $attribute->getId(),
                 'store_id' => (int) $attribute->getStoreId(),
-                'use_default' => (int) $attribute->getUseDefault(),
                 'value' => $attribute->getLabel()
             ));
         }
@@ -127,156 +123,150 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
     /**
      * Save Options prices (Depends from price save scope)
      *
-     * @param Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Type_Configurable_Attribute
      */
     public function savePrices($attribute)
     {
-        $write      = $this->_getWriteAdapter();
-        // define website id scope
-        if ($this->getCatalogHelper()->isPriceGlobal()) {
-            $websiteId = 0;
-        } else {
-            $websiteId = Mage::app()->getStore($attribute->getStoreId())->getWebsite()->getId();
-        }
+        $newValues      = $attribute->getValues();
 
-        $values     = $attribute->getValues();
-        if (!is_array($values)) {
-            $values = array();
-        }
-
-        $new = array();
-        $old = array();
-
-        // retrieve old values
-        $select = $write->select()
+        $oldValues      = array();
+        $valueIndexes   = array();
+        $select = $this->_getWriteAdapter()->select()
             ->from($this->_priceTable)
-            ->where('product_super_attribute_id=?', $attribute->getId())
-            ->where('website_id=?', $websiteId);
-
-        $rowSet = $write->fetchAll($select);
-        foreach ($rowSet as $row) {
+            ->where('product_super_attribute_id=?', $attribute->getId());
+        $query  = $this->_getWriteAdapter()->query($select);
+        while ($row = $query->fetch()) {
             $key = join('-', array($row['website_id'], $row['value_index']));
-            if (!isset($old[$key])) {
-                $old[$key] = $row;
-            } else {
-                // delete invalid (duplicate row)
-                $write->delete($this->_priceTable, array('value_id' => $row['value_id']));
-            }
+            $oldValues[$key] = $row;
         }
 
-        // prepare new values
-        foreach ($values as $v) {
-            if (empty($v['value_index'])) {
-                continue;
-            }
-            $key = join('-', array($websiteId, $v['value_index']));
-            $new[$key] = array(
-                'value_index'   => $v['value_index'],
-                'pricing_value' => $v['pricing_value'],
-                'is_percent'    => $v['is_percent'],
-                'website_id'    => $websiteId,
-                'use_default'   => !empty($v['use_default_value']) ? true : false
-            );
-        }
-
+        $delete = array();
         $insert = array();
         $update = array();
-        $delete = array();
 
-        foreach ($old as $k => $v) {
-            if (!isset($new[$k])) {
-                $delete[] = $v['value_id'];
+        foreach ($newValues as $value) {
+            $valueIndexes[$value['value_index']] = $value['value_index'];
+        }
+
+        if ($this->getCatalogHelper()->isPriceGlobal()) {
+            foreach ($oldValues as $row) {
+                if (!isset($valueIndexes[$row['value_index']])) {
+                    $delete[] = $row['value_id'];
+                    continue;
+                }
+            }
+            foreach ($newValues as $value) {
+                $valueObject = new Varien_Object($value);
+                $key = join('-', array(0, $value['value_index']));
+
+                $pricingValue = $valueObject->getPricingValue();
+                if ($pricingValue == '' || is_null($pricingValue)) {
+                    $pricingValue = null;
+                }
+                else {
+                    $pricingValue = Mage::app()->getLocale()->getNumber($pricingValue);
+                }
+                // update
+                if (isset($oldValues[$key])) {
+                    $oldValue = $oldValues[$key];
+                    $update[$oldValue['value_id']] = array(
+                        'pricing_value' => $pricingValue,
+                        'is_percent'    => intval($valueObject->getIsPercent())
+                    );
+                }
+                // insert
+                else {
+                    if (!empty($value['pricing_value'])) {
+                        $insert[] = array(
+                            'product_super_attribute_id'    => $attribute->getId(),
+                            'value_index'                   => $valueObject->getValueIndex(),
+                            'is_percent'                    => intval($valueObject->getIsPercent()),
+                            'pricing_value'                 => $pricingValue,
+                            'website_id'                    => 0
+                        );
+                    }
+                }
             }
         }
-        foreach ($new as $k => $v) {
-            $needInsert = false;
-            $needUpdate = false;
-            $needDelete = false;
-
-            $isGlobal   = true;
-            if (!$this->getCatalogHelper()->isPriceGlobal() && $websiteId != 0) {
-                $isGlobal = false;
-            }
-
-            $hasValue   = ($isGlobal && !empty($v['pricing_value']))
-                || (!$isGlobal && !$v['use_default']);
-
-            if (isset($old[$k])) {
-                // data changed
-                $dataChanged = ($old[$k]['is_percent'] != $v['is_percent'])
-                    || ($old[$k]['pricing_value'] != $v['pricing_value']);
-                if (!$hasValue) {
-                    $needDelete = true;
-                } else if ($dataChanged) {
-                    $needUpdate = true;
+        else {
+            $websiteId = Mage::app()->getStore($attribute->getStoreId())->getWebsiteId();
+            foreach ($oldValues as $row) {
+                if (!isset($valueIndexes[$row['value_index']])) {
+                    $delete[] = $row['value_id'];
+                    continue;
                 }
-            } else if ($hasValue) {
-                $needInsert = true;
             }
+            foreach ($newValues as $value) {
+                $valueObject = new Varien_Object($value);
+                $key = join('-', array($websiteId, $value['value_index']));
 
-            if (!$isGlobal && empty($v['pricing_value'])) {
-                $v['pricing_value'] = 0;
-                $v['is_percent']    = 0;
-            }
+                $pricingValue = $valueObject->getPricingValue();
+                if ($pricingValue == '' || is_null($pricingValue)) {
+                    $pricingValue = null;
+                }
+                else {
+                    $pricingValue = Mage::app()->getLocale()->getNumber($pricingValue);
+                }
 
-            if ($needInsert) {
-                $insert[] = array(
-                    'product_super_attribute_id' => $attribute->getId(),
-                    'value_index'                => $v['value_index'],
-                    'is_percent'                 => $v['is_percent'],
-                    'pricing_value'              => $v['pricing_value'],
-                    'website_id'                 => $websiteId
-                );
-            }
-            if ($needUpdate) {
-                $update[$old[$k]['value_id']] = array(
-                    'is_percent'    => $v['is_percent'],
-                    'pricing_value' => $v['pricing_value']
-                );
-            }
-            if ($needDelete) {
-                $delete[] = $old[$k]['value_id'];
+                // update
+                if (isset($oldValues[$key])) {
+                    $oldValue = $oldValues[$key];
+
+                    if ($websiteId && $valueObject->getUseDefaultValue()) {
+                        $delete[] = $oldValue['value_id'];
+                    }
+                    else {
+                        $update[$oldValue['value_id']] = array(
+                            'pricing_value' => $pricingValue,
+                            'is_percent'    => intval($valueObject->getIsPercent())
+                        );
+                    }
+                }
+                // insert
+                else {
+                    if ($websiteId && $valueObject->getUseDefaultValue()) {
+                        continue;
+                    }
+                    $insert[] = array(
+                        'product_super_attribute_id'    => $attribute->getId(),
+                        'value_index'                   => $valueObject->getValueIndex(),
+                        'is_percent'                    => intval($valueObject->getIsPercent()),
+                        'pricing_value'                 => $pricingValue,
+                        'website_id'                    => $websiteId
+                    );
+                }
+                $key = join('-', array(0, $value['value_index']));
+                if (!isset($oldValues[$key])) {
+                    $insert[] = array(
+                        'product_super_attribute_id'    => $attribute->getId(),
+                        'value_index'                   => $valueObject->getValueIndex(),
+                        'is_percent'                    => 0,
+                        'pricing_value'                 => null,
+                        'website_id'                    => 0
+                    );
+                }
             }
         }
 
         if (!empty($delete)) {
-            $where = $write->quoteInto('value_id IN(?)', $delete);
-            $write->delete($this->_priceTable, $where);
+            $where = $this->_getWriteAdapter()->quoteInto('value_id IN(?)', $delete);
+            $this->_getWriteAdapter()->delete($this->_priceTable, $where);
         }
+
         if (!empty($update)) {
-            foreach ($update as $valueId => $bind) {
-                $where = $write->quoteInto('value_id=?', $valueId);
-                $write->update($this->_priceTable, $bind, $where);
+            foreach ($update as $valueId => $valueData) {
+                $where = $this->_getWriteAdapter()->quoteInto('value_id=?', $valueId);
+                $this->_getWriteAdapter()->update($this->_priceTable, $valueData, $where);
             }
         }
+
         if (!empty($insert)) {
-            $write->insertMultiple($this->_priceTable, $insert);
+            foreach ($insert as $valueData) {
+                $this->_getWriteAdapter()->insert($this->_priceTable, $valueData);
+            }
         }
 
-
         return $this;
-    }
-
-    /**
-     * Retrieve Used in Configurable Products Attributes
-     *
-     * @param int $setId The specific attribute set
-     * @return array
-     */
-    public function getUsedAttributes($setId)
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->distinct(true)
-            ->from(array('e' => $this->getTable('catalog/product')), null)
-            ->join(
-                array('a' => $this->getMainTable()),
-                'e.entity_id=a.product_id',
-                array('attribute_id')
-            )
-            ->where('e.attribute_set_id=?', $setId)
-            ->where('e.type_id=?', Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE);
-
-        return $this->_getReadAdapter()->fetchCol($select);
     }
 }

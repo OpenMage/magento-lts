@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Cipher
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Rsa.php 16214 2009-06-21 19:34:03Z thomas $
+ * @version    $Id: Rsa.php 13213 2008-12-14 11:05:07Z thomas $
  */
 
 /**
@@ -37,7 +37,7 @@
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Cipher
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_InfoCard_Cipher_Pki_Adapter_Rsa
@@ -82,7 +82,7 @@ class Zend_InfoCard_Cipher_Pki_Adapter_Rsa
             throw new Zend_InfoCard_Cipher_Exception("Failed to load private key");
         }
 
-        if($padding !== null) {
+        if(!is_null($padding)) {
             try {
                 $this->setPadding($padding);
             } catch(Exception $e) {

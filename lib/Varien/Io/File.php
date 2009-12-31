@@ -212,22 +212,6 @@ class Varien_Io_File extends Varien_Io_Abstract
     }
 
     /**
-     * Format line as CSV and write to file pointer
-     *
-     * @param array $row
-     * @param string $delimiter
-     * @param string $enclosure
-     * @return bool|int
-     */
-    public function streamWriteCsv(array $row, $delimiter = ',', $enclosure = '"')
-    {
-        if (!$this->_streamHandler) {
-            return false;
-        }
-        return @fputcsv($this->_streamHandler, $row, $delimiter, $enclosure);
-    }
-
-    /**
      * Close an open file pointer
      * Set chmod on a file
      *
@@ -353,39 +337,28 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string $dir
      * @return boolean
      */
-    public function rmdir($dir, $recursive = false)
+    public function rmdir($dir, $recursive=false)
     {
-        if ($this->_cwd) {
+        if( $this->_cwd ) {
             @chdir($this->_cwd);
         }
-        $result = self::rmdirRecursive($dir, $recursive);
-        @chdir($this->_iwd);
-        return $result;
-    }
 
-    /**
-     * Delete a directory recursively
-     * @param string $dir
-     * @param bool $recursive
-     * @return bool
-     */
-    public static function rmdirRecursive($dir, $recursive = true)
-    {
-        if ($recursive) {
-            if (is_dir($dir)) {
-                foreach (scandir($dir) as $item) {
-                    if (!strcmp($item, '.') || !strcmp($item, '..')) {
+        if( $recursive ) {
+            if( is_dir( $dir ) ){
+                foreach( scandir( $dir ) as $item ){
+                    if( !strcmp( $item, '.' ) || !strcmp( $item, '..' ) )
                         continue;
-                    }
-                    self::rmdirRecursive($dir . "/" . $item, $recursive);
+                    $this->rmdir( $dir . "/" . $item, $recursive );
                 }
-                $result = @rmdir($dir);
+                $result = @rmdir( $dir );
             } else {
-                $result = @unlink($dir);
+                $result = @unlink( $dir );
             }
         } else {
             $result = @rmdir($dir);
         }
+
+        @chdir($this->_iwd);
         return $result;
     }
 

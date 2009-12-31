@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Bundle>
-            <version>0.1.11</version>
+            <version>0.1.7</version>
         </Mage_Bundle>
     </modules>
     <global>
@@ -52,9 +52,6 @@
                     <price_index>
                         <table>catalog_product_bundle_price_index</table>
                     </price_index>
-                    <stock_index>
-                        <table>catalog_product_bundle_stock_index</table>
-                    </stock_index>
                 </entities>
             </bundle_mysql4>
         </models>
@@ -64,7 +61,20 @@
                     <module>Mage_Bundle</module>
                     <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </bundle_setup>
+            <bundle_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </bundle_write>
+            <bundle_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </bundle_read>
         </resources>
         <blocks>
             <bundle><class>Mage_Bundle_Block</class></bundle>
@@ -83,8 +93,6 @@
                         <price_model>bundle/product_price</price_model>
                         <index_data_retreiver>bundle/catalogIndex_data_bundle</index_data_retreiver>
                         <index_priority>40</index_priority>
-                        <price_indexer>bundle/indexer_price</price_indexer>
-                        <stock_indexer>bundle/indexer_stock</stock_indexer>
                     </bundle>
                 </type>
                 <options>
@@ -115,7 +123,6 @@
                         <price_type />
                         <shipment_type />
                         <weight_type />
-                        <sku_type />
                     </product_attributes>
                 </item>
             </quote>
@@ -135,6 +142,7 @@
             <catalogindex_plain_reindex_after>
                 <observers>
                     <bundle>
+                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>catalogIndexPlainReindexAfter</method>
                     </bundle>
@@ -171,6 +179,7 @@
             <catalog_product_upsell>
                 <observers>
                     <bundle_observer>
+                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>appendUpsellProducts</method>
                     </bundle_observer>
@@ -179,6 +188,7 @@
             <sales_convert_quote_item_to_order_item>
                 <observers>
                     <bundle_observer>
+                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>appendBundleSelectionData</method>
                     </bundle_observer>
@@ -187,11 +197,21 @@
             <catalog_product_collection_load_after>
                 <observers>
                     <bundle_observer>
+                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>loadProductOptions</method>
                     </bundle_observer>
                 </observers>
             </catalog_product_collection_load_after>
+            <catalog_product_load_after>
+                <observers>
+                    <bundle_observer>
+                        <type>singleton</type>
+                        <class>bundle/observer</class>
+                        <method>catalogProductLoadAfter</method>
+                    </bundle_observer>
+                </observers>
+            </catalog_product_load_after>
         </events>
     </frontend>
     <admin>
@@ -240,6 +260,7 @@
             <catalog_product_prepare_save>
                 <observers>
                     <bundle_observer>
+                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>prepareProductSave</method>
                     </bundle_observer>
@@ -248,6 +269,7 @@
             <sales_convert_quote_item_to_order_item>
                 <observers>
                     <bundle_observer>
+                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>appendBundleSelectionData</method>
                     </bundle_observer>
@@ -256,6 +278,7 @@
             <catalog_model_product_duplicate>
                 <observers>
                     <bundle_observer>
+                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>duplicateProduct</method>
                     </bundle_observer>
@@ -264,6 +287,7 @@
             <catalog_product_edit_action>
                 <observers>
                     <bundle_observer>
+                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>setAttributeTabBlock</method>
                     </bundle_observer>
@@ -272,6 +296,7 @@
             <catalog_product_new_action>
                 <observers>
                     <bundle_observer>
+                        <type>singleton</type>
                         <class>bundle/observer</class>
                         <method>setAttributeTabBlock</method>
                     </bundle_observer>

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -52,7 +52,8 @@ class Mage_CatalogSearch_Model_Mysql4_Search_Collection
     protected function _getAttributesCollection()
     {
         if (!$this->_attributesCollection) {
-            $this->_attributesCollection = Mage::getResourceModel('catalog/product_attribute_collection')
+            $this->_attributesCollection = Mage::getResourceModel('eav/entity_attribute_collection')
+                ->setEntityTypeFilter($this->getEntity()->getTypeId())
                 ->load();
 
             foreach ($this->_attributesCollection as $attribute) {
@@ -117,7 +118,7 @@ class Mage_CatalogSearch_Model_Mysql4_Search_Collection
                 )
                 ->where('t1.attribute_id IN (?)', $attributeIds)
                 ->where('t1.store_id = ?', 0)
-                ->where('IF(t2.value_id>0, t2.value, t1.value) LIKE :'.$param);
+                ->where('IFNULL(t2.value, t1.value) LIKE :'.$param);
                 $this->addBindParam($param, $this->_searchQuery);
         }
 
@@ -172,7 +173,7 @@ class Mage_CatalogSearch_Model_Mysql4_Search_Collection
             ->join(array('a' => $attributesTable), 'option.attribute_id=a.attribute_id', array())
             ->where('default.store_id=0')
             ->where('option.attribute_id IN (?)', $attributeIds)
-            ->where('IF(store.value_id>0, store.value, default.value) LIKE :search_query');
+            ->where('IFNULL(store.value, default.value) LIKE :search_query');
         $options = $this->getConnection()->fetchAll($select, array('search_query'=>$this->_searchQuery));
         if (empty($options)) {
             return false;

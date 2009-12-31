@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -34,40 +34,27 @@
  */
 class Mage_Wishlist_Model_Mysql4_Item extends Mage_Core_Model_Mysql4_Abstract
 {
-    /**
-     * Initialize connection and define main table
-     *
-     */
+
+    protected $_productIdFieldName = 'product_id';
+
     protected function _construct()
     {
         $this->_init('wishlist/item', 'wishlist_item_id');
     }
 
-    /**
-     * Load item by wishlist, product and shared stores
-     *
-     * @param Mage_Wishlist_Model_Item $object
-     * @param int $wishlistId
-     * @param int $productId
-     * @param array $sharedStores
-     * @return Mage_Wishlist_Model_Mysql4_Item
-     */
-    public function loadByProductWishlist($object, $wishlistId, $productId, $sharedStores)
+    public function loadByProductWishlist(Mage_Wishlist_Model_Item $item, $wishlistId, $productId, array $sharedStores)
     {
-        $adapter = $this->_getReadAdapter();
-        $select  = $adapter->select()
-            ->from($this->getMainTable())
-            ->where('wishlist_id=?', $wishlistId)
-            ->where('product_id=?', $productId)
-            ->where('store_id IN(?)', $sharedStores);
+        $select = $this->_getReadAdapter()->select()
+            ->from(array('main_table'=>$this->getTable('item')))
+            ->where('main_table.wishlist_id = ?',  $wishlistId)
+            ->where('main_table.product_id = ?',  $productId)
+            ->where('main_table.store_id in (?)',  $sharedStores);
 
-        $data = $adapter->fetchRow($select);
-        if ($data) {
-            $object->setData($data);
+        if($_data = $this->_getReadAdapter()->fetchRow($select)) {
+            $item->setData($_data);
         }
 
-        $this->_afterLoad($object);
-
-        return $this;
+        return $item;
     }
+
 }

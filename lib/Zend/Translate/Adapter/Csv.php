@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Csv.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Date.php 2498 2006-12-23 22:13:38Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,12 +30,10 @@
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Translate_Adapter_Csv extends Zend_Translate_Adapter
-{
-    private $_data    = array();
+class Zend_Translate_Adapter_Csv extends Zend_Translate_Adapter {
 
     /**
      * Generates the adapter
@@ -60,12 +58,15 @@ class Zend_Translate_Adapter_Csv extends Zend_Translate_Adapter
      * @param  string        $locale    Locale/Language to add data for, identical with locale identifier,
      *                                  see Zend_Locale for more information
      * @param  array         $option    OPTIONAL Options to use
-     * @return array
      */
     protected function _loadTranslationData($filename, $locale, array $options = array())
     {
-        $this->_data = array();
-        $options     = $options + $this->_options;
+        $options = $options + $this->_options;
+
+        if ($options['clear']  ||  !isset($this->_translate[$locale])) {
+            $this->_translate[$locale] = array();
+        }
+
         $this->_file = @fopen($filename, 'rb');
         if (!$this->_file) {
             #require_once 'Zend/Translate/Exception.php';
@@ -77,19 +78,12 @@ class Zend_Translate_Adapter_Csv extends Zend_Translate_Adapter
                 continue;
             }
 
-            if (!isset($data[1])) {
+            if (isset($data[1]) !== true) {
                 continue;
             }
 
-            if (count($data) == 2) {
-                $this->_data[$locale][$data[0]] = $data[1];
-            } else {
-                $singular = array_shift($data);
-                $this->_data[$locale][$singular] = $data;
-            }
+            $this->_translate[$locale][$data[0]] = $data[1];
         }
-
-        return $this->_data;
     }
 
     /**

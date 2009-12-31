@@ -18,52 +18,18 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Paypal
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Paypal
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- * PayPal Standard payment "form"
- */
+
 class Mage_Paypal_Block_Standard_Form extends Mage_Payment_Block_Form
 {
-    /**
-     * Payment method code
-     * @var string
-     */
-    protected $_methodCode = Mage_Paypal_Model_Config::METHOD_WPS;
-
-    /**
-     * Set template and redirect message
-     */
     protected function _construct()
     {
-        $config = Mage::getSingleton('paypal/config')->setMethod($this->getMethodCode());
-        $locale = Mage::app()->getLocale();
-        $mark = Mage::getConfig()->getBlockClassName('core/template');
-        $mark = new $mark;
-        $mark->setTemplate('paypal/payment/mark.phtml')
-            ->setPaymentAcceptanceMarkHref($config->getPaymentMarkWhatIsPaypalUrl($locale))
-            ->setPaymentAcceptanceMarkSrc($config->getPaymentMarkImageUrl($locale->getLocaleCode()))
-        ; // known issue: code above will render only static mark image
-        $this->setTemplate('paypal/payment/redirect.phtml')
-            ->setRedirectMessage(
-                Mage::helper('paypal')->__('You will be redirected to PayPal website when you place an order.')
-            )
-            ->setBannerSrc($config->getSolutionImageUrl($locale->getLocaleCode()))
-            ->setMethodLabelAfterHtml($mark->toHtml())
-        ;
-        return parent::_construct();
-    }
-
-    /**
-     * Payment method code getter
-     * @return string
-     */
-    public function getMethodCode()
-    {
-        return $this->_methodCode;
+        $this->setTemplate('paypal/standard/form.phtml');
+        parent::_construct();
     }
 }

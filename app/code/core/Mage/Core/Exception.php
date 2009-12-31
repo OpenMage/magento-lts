@@ -18,22 +18,22 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * Magento Core Exception
- *
+ * 
  * This class will be extended by other modules
- *
+ * 
  * @category   Mage
  * @package    Mage_Core
  */
-class Mage_Core_Exception extends Exception
+class Mage_Core_Exception extends Exception 
 {
     protected $_messages = array();
 
@@ -44,8 +44,8 @@ class Mage_Core_Exception extends Exception
         }
         $this->_messages[$message->getType()][] = $message;
         return $this;
-    }
-
+    }   
+    
     public function getMessages($type='')
     {
         if ('' == $type) {
@@ -56,22 +56,5 @@ class Mage_Core_Exception extends Exception
             return $arrRes;
         }
         return isset($this->_messages[$type]) ? $this->_messages[$type] : array();
-    }
-
-    /**
-     * Set or append a message to existing one
-     *
-     * @param string $message
-     * @param bool $append
-     * @return Mage_Core_Exception
-     */
-    public function setMessage($message, $append = false)
-    {
-        if ($append) {
-            $this->message .= $message;
-        } else {
-            $this->message = $message;
-        }
-        return $this;
     }
 }

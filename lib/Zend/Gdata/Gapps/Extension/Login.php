@@ -16,9 +16,8 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Login.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /**
@@ -40,7 +39,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
@@ -476,7 +475,7 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
     public function __toString()
     {
         return "Username: " . $this->getUsername() .
-            "\nPassword: " . (($this->getPassword() === null) ? "NOT SET" : "SET") .
+            "\nPassword: " . (is_null($this->getPassword()) ? "NOT SET" : "SET") .
             "\nPassword Hash Function: " . $this->getHashFunctionName() .
             "\nAdministrator: " . ($this->getAdmin() ? "Yes" : "No") .
             "\nAgreed To Terms: " . ($this->getAgreedToTerms() ? "Yes" : "No") .

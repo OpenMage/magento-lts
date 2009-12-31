@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Iterator.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Iterator.php 11222 2008-09-04 03:18:34Z mratzloff $
  */
 
 /**
@@ -27,18 +27,18 @@
 /**
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Paginator_Adapter_Iterator implements Zend_Paginator_Adapter_Interface
 {
     /**
      * Iterator which implements Countable
-     *
+     * 
      * @var Iterator
      */
     protected $_iterator = null;
-
+    
     /**
      * Item count
      *
@@ -48,7 +48,7 @@ class Zend_Paginator_Adapter_Iterator implements Zend_Paginator_Adapter_Interfac
 
     /**
      * Constructor.
-     *
+     * 
      * @param  Iterator $iterator Iterator to paginate
      * @throws Zend_Paginator_Exception
      */
@@ -59,7 +59,7 @@ class Zend_Paginator_Adapter_Iterator implements Zend_Paginator_Adapter_Interfac
              * @see Zend_Paginator_Exception
              */
             #require_once 'Zend/Paginator/Exception.php';
-
+            
             throw new Zend_Paginator_Exception('Iterator must implement Countable');
         }
 

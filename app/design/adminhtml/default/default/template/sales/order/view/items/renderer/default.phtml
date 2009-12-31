@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php $_item = $this->getItem() ?>
@@ -75,9 +75,9 @@
     <td class="a-center"><?php echo $_item->getStatus() ?></td>
     <td class="a-right"><?php echo $this->displayPriceAttribute('original_price') ?></td>
     <td class="a-right">
-        <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceExclTax()): ?>
+        <?php if ($this->helper('tax')->displayCartBothPrices() || $this->helper('tax')->displayCartPriceExclTax()): ?>
             <span class="price-excl-tax">
-                <?php if ($this->helper('tax')->displaySalesBothPrices()): ?>
+                <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                     <span class="label"><?php echo $this->__('Excl. Tax'); ?>:</span>
                 <?php endif; ?>
 
@@ -128,9 +128,9 @@
             </span>
             <br />
         <?php endif; ?>
-        <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceInclTax()): ?>
+        <?php if ($this->helper('tax')->displayCartBothPrices() || $this->helper('tax')->displayCartPriceInclTax()): ?>
             <span class="price-incl-tax">
-                <?php if ($this->helper('tax')->displaySalesBothPrices()): ?>
+                <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                     <span class="label"><?php echo $this->__('Incl. Tax'); ?>:</span>
                 <?php endif; ?>
                 <?php $_incl = $this->helper('checkout')->getPriceInclTax($_item); ?>
@@ -174,9 +174,9 @@
     <td><?php echo $this->getColumnHtml($_item, 'qty') ?></td>
 
     <td class="a-right">
-        <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceExclTax()): ?>
+        <?php if ($this->helper('tax')->displayCartBothPrices() || $this->helper('tax')->displayCartPriceExclTax()): ?>
             <span class="price-excl-tax">
-                <?php if ($this->helper('tax')->displaySalesBothPrices()): ?>
+                <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                     <span class="label"><?php echo $this->__('Excl. Tax'); ?>:</span>
                 <?php endif; ?>
 
@@ -226,9 +226,9 @@
             </span>
             <br />
         <?php endif; ?>
-        <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceInclTax()): ?>
+        <?php if ($this->helper('tax')->displayCartBothPrices() || $this->helper('tax')->displayCartPriceInclTax()): ?>
             <span class="price-incl-tax">
-                <?php if ($this->helper('tax')->displaySalesBothPrices()): ?>
+                <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                     <span class="label"><?php echo $this->__('Incl. Tax'); ?>:</span>
                 <?php endif; ?>
                 <?php $_incl = $this->helper('checkout')->getSubtotalInclTax($_item); ?>

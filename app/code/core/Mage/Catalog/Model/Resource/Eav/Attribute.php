@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -37,113 +37,12 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     const SCOPE_GLOBAL  = 1;
     const SCOPE_WEBSITE = 2;
 
-    const MODULE_NAME   = 'Mage_Catalog';
-    const ENTITY        = 'catalog_eav_attribute';
-
-    protected $_eventPrefix = 'catalog_entity_attribute';
-    protected $_eventObject = 'attribute';
-
     /**
      * Array with labels
      *
      * @var array
      */
     static protected $_labels = null;
-
-    protected function _construct()
-    {
-        $this->_init('catalog/attribute');
-    }
-
-    /**
-     * Processing object before save data
-     *
-     * @return Mage_Core_Model_Abstract
-     */
-    protected function _beforeSave()
-    {
-        $this->setData('modulePrefix', self::MODULE_NAME);
-        if (isset($this->_origData['is_global'])) {
-            if (!isset($this->_data['is_global'])) {
-                Mage::throwException('0_o');
-            }
-            if (($this->_data['is_global'] != $this->_origData['is_global'])
-                && $this->_getResource()->isUsedBySuperProducts($this)) {
-                Mage::throwException(Mage::helper('eav')->__('Scope must not be changed, because the attribute is used in configurable products.'));
-            }
-        }
-        if ($this->getFrontendInput() == 'price') {
-            if (!$this->getBackendModel()) {
-                $this->setBackendModel('catalog/product_attribute_backend_price');
-            }
-        }
-        return parent::_beforeSave();
-    }
-
-    /**
-     * Processing object after save data
-     *
-     * @return Mage_Core_Model_Abstract
-     */
-    protected function _afterSave()
-    {
-        /**
-         * Fix saving attribute in admin
-         */
-        Mage::getSingleton('eav/config')->clear();
-        return parent::_afterSave();
-    }
-
-    /**
-     * Init indexing process after attribute data commit
-     *
-     * @return Mage_CatalogInventory_Model_Stock_Item
-     */
-    public function afterCommitCallback()
-    {
-        parent::afterCommitCallback();
-
-        Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
-        );
-        return $this;
-    }
-
-    /**
-     * Register indexing event before delete catalog eav attribute
-     *
-     * @return Mage_Catalog_Model_Resource_Eav_Attribute
-     */
-    protected function _beforeDelete()
-    {
-        Mage::getSingleton('index/indexer')->logEvent(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
-        );
-        return parent::_beforeDelete();
-    }
-
-    /**
-     * Init indexing process after catalog eav attribute delete commit
-     *
-     * @return Mage_Catalog_Model_Resource_Eav_Attribute
-     */
-    protected function _afterDeleteCommit()
-    {
-        parent::_afterDeleteCommit();
-        Mage::getSingleton('index/indexer')->indexEvents(
-            self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
-        );
-    }
-
-    /**
-     * Return is attribute global
-     *
-     * @return integer
-     */
-    public function getIsGlobal()
-    {
-        return $this->_getData('is_global');
-    }
 
     /**
      * Retrieve attribute is global scope flag
@@ -197,9 +96,6 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     public function getApplyTo()
     {
         if ($this->getData('apply_to')) {
-            if (is_array($this->getData('apply_to'))) {
-                return $this->getData('apply_to');
-            }
             return explode(',', $this->getData('apply_to'));
         } else {
             return array();
@@ -288,52 +184,5 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     public function _getDefaultSourceModel()
     {
         return 'eav/entity_attribute_source_table';
-    }
-
-    /**
-     * Check is an attribute used in EAV index
-     *
-     * @return bool
-     */
-    public function isIndexable()
-    {
-        // exclude price attribute
-        if ($this->getAttributeCode() == 'price') {
-            return false;
-        }
-
-        if (!$this->getIsFilterableInSearch() && !$this->getIsVisibleInAdvancedSearch() && !$this->getIsFilterable()) {
-            return false;
-        }
-
-        $backendType    = $this->getBackendType();
-        $frontendInput  = $this->getFrontendInput();
-
-        if ($backendType == 'int' && $frontendInput == 'select') {
-            return true;
-        } else if ($backendType == 'varchar' && $frontendInput == 'multiselect') {
-            return true;
-        } else if ($backendType == 'decimal') {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Retrieve index type for indexable attribute
-     *
-     * @return string|false
-     */
-    public function getIndexType()
-    {
-        if (!$this->isIndexable()) {
-            return false;
-        }
-        if ($this->getBackendType() == 'decimal') {
-            return 'decimal';
-        }
-
-        return 'source';
     }
 }

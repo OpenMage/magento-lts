@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,72 +29,49 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Report_Sales_Shipping_Grid extends Mage_Adminhtml_Block_Report_Grid_Abstract
+class Mage_Adminhtml_Block_Report_Sales_Shipping_Grid extends Mage_Adminhtml_Block_Report_Grid
 {
-    protected $_columnGroupBy = 'period';
 
     public function __construct()
     {
         parent::__construct();
-        $this->setCountTotals(true);
-        $this->setCountSubTotals(true);
+        $this->setId('gridShipping');
     }
 
-    public function getResourceCollectionName()
+    protected function _prepareCollection()
     {
-        return ($this->getFilterData()->getData('report_type') == 'created_at_shipment')
-            ? 'sales/report_shipping_collection_shipment'
-            : 'sales/report_shipping_collection_order';
+        parent::_prepareCollection();
+        $this->getCollection()->initReport('reports/shipping_collection');
     }
 
     protected function _prepareColumns()
     {
-        $this->addColumn('period', array(
-            'header'            => Mage::helper('adminhtml')->__('Period'),
-            'index'             => 'period',
-            'type'              => 'string',
-            'width'             => 100,
-            'sortable'          => false,
-            'totals_label'      => Mage::helper('adminhtml')->__('Total'),
-            'subtotals_label'   => Mage::helper('adminhtml')->__('SubTotal')
-        ));
-
         $this->addColumn('shipping_description', array(
-            'header'    => Mage::helper('adminhtml')->__('Carrier/Method'),
-            'index'     => 'shipping_description',
-            'sortable'  => false
+            'header'    =>Mage::helper('reports')->__('Carrier/Method'),
+            'index'     =>'shipping_description'
         ));
 
-        $this->addColumn('orders_count', array(
-            'header'    => Mage::helper('adminhtml')->__('Number of Orders'),
-            'index'     => 'orders_count',
-            'total'     => 'sum',
-            'type'      => 'number',
-            'width'     => 100,
-            'sortable'  => false
+        $this->addColumn('orders', array(
+            'header'    =>Mage::helper('reports')->__('Number of Orders'),
+            'index'     =>'orders',
+            'total'     =>'sum',
+            'type'      =>'number'
         ));
 
-        if ($this->getFilterData()->getStoreIds()) {
-            $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
-        }
-
-        $this->addColumn('total_shipping', array(
-            'header'        => Mage::helper('adminhtml')->__('Total Shipping'),
-            'type'          => 'currency',
+        $this->addColumn('total', array(
+            'header'    =>Mage::helper('reports')->__('Total Shipping'),
+            'type'      =>'currency',
             'currency_code' => $this->getCurrentCurrencyCode(),
-            'index'         => 'total_shipping',
-            'total'         => 'sum',
-            'sortable'      => false
+            'index'     =>'total',
+            'total'     =>'sum',
+            'renderer'  =>'adminhtml/report_grid_column_renderer_currency'
         ));
 
-        $this->addExportType('*/*/exportShippingCsv', Mage::helper('adminhtml')->__('CSV'));
-        $this->addExportType('*/*/exportShippingExcel', Mage::helper('adminhtml')->__('Excel'));
+        $this->addExportType('*/*/exportShippingCsv', Mage::helper('reports')->__('CSV'));
+        $this->addExportType('*/*/exportShippingExcel', Mage::helper('reports')->__('Excel'));
 
         return parent::_prepareColumns();
     }
 }
-
-
-

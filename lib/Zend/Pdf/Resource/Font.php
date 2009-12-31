@@ -12,24 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Font.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
 /** Zend_Pdf_Resource */
 #require_once 'Zend/Pdf/Resource.php';
-
-/**
- * Zend_Pdf_Font
- *
- * Zend_Pdf_Font class constants are used within Zend_Pdf_Resource_Font
- * and its subclusses.
- */
-#require_once 'Zend/Pdf/Font.php';
 
 /**
  * Abstract class which manages PDF fonts.
@@ -44,7 +34,7 @@
  *
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
@@ -241,13 +231,13 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
         }
         /* If the preferred language could not be found, use whatever is first.
          */
-        if ($name === null) {
+        if (is_null($name)) {
             $names = $this->_fontNames[$nameType];
             $name  = reset($names);
         }
         /* Convert the character set if requested.
          */
-        if (($characterSet !== null) && ($characterSet != 'UTF-16BE') && PHP_OS != 'AIX') { // AIX knows not this charset
+        if ((! is_null($characterSet)) && ($characterSet != 'UTF-16BE') && PHP_OS != 'AIX') { // AIX knows not this charset
             $name = iconv('UTF-16BE', $characterSet, $name);
         }
         return $name;

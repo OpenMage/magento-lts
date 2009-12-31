@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Review
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Review
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -38,43 +38,31 @@ class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract
     {
         parent::__construct();
         $this->setTemplate('review/view.phtml');
+
+        $this->setReviewId($this->getRequest()->getParam('id', false));
     }
 
-    /**
-     * Retrieve current product model from registry
-     *
-     * @return Mage_Catalog_Model_Product
-     */
     public function getProductData()
     {
-        return Mage::registry('current_product');
+        if( $this->getReviewId() && !$this->getProductCacheData() ) {
+            $this->setProductCacheData(Mage::getModel('catalog/product')->load($this->getReviewData()->getEntityPkValue()));
+        }
+        return $this->getProductCacheData();
     }
 
-    /**
-     * Retrieve current review model from registry
-     *
-     * @return Mage_Review_Model_Review
-     */
     public function getReviewData()
     {
-        return Mage::registry('current_review');
+        if( $this->getReviewId() && !$this->getReviewCachedData() ) {
+            $this->setReviewCachedData(Mage::getModel('review/review')->load($this->getReviewId()));
+        }
+        return $this->getReviewCachedData();
     }
 
-    /**
-     * Prepare link to review list for current product
-     *
-     * @return string
-     */
     public function getBackUrl()
     {
         return Mage::getUrl('*/*/list', array('id' => $this->getProductData()->getId()));
     }
 
-    /**
-     * Retrieve collection of ratings
-     *
-     * @return Mage_Rating_Model_Mysql4_Rating_Option_Vote_Collection
-     */
     public function getRating()
     {
         if( !$this->getRatingCollection() ) {
@@ -89,11 +77,6 @@ class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract
         return $this->getRatingCollection();
     }
 
-    /**
-     * Retrieve rating summary for current product
-     *
-     * @return string
-     */
     public function getRatingSummary()
     {
         if( !$this->getRatingSummaryCache() ) {
@@ -102,11 +85,6 @@ class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract
         return $this->getRatingSummaryCache();
     }
 
-    /**
-     * Retrieve total review count for current product
-     *
-     * @return string
-     */
     public function getTotalReviews()
     {
         if( !$this->getTotalReviewsCache() ) {
@@ -115,12 +93,6 @@ class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract
         return $this->getTotalReviewsCache();
     }
 
-    /**
-     * Format date in long format
-     *
-     * @param string $date
-     * @return string
-     */
     public function dateFormat($date)
     {
         return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_LONG);

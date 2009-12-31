@@ -15,12 +15,10 @@
  * @category   Zend
  * @package    Zend_Soap
  * @subpackage Wsdl
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DefaultComplexType.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id$
  */
-
-#require_once "Zend/Soap/Wsdl/Strategy/Abstract.php";
 
 class Zend_Soap_Wsdl_Strategy_DefaultComplexType extends Zend_Soap_Wsdl_Strategy_Abstract
 {
@@ -49,7 +47,7 @@ class Zend_Soap_Wsdl_Strategy_DefaultComplexType extends Zend_Soap_Wsdl_Strategy
         $all = $dom->createElement('xsd:all');
 
         foreach ($class->getProperties() as $property) {
-            if ($property->isPublic() && preg_match_all('/@var\s+([^\s]+)/m', $property->getDocComment(), $matches)) {
+            if (preg_match_all('/@var\s+([^\s]+)/m', $property->getDocComment(), $matches)) {
 
                 /**
                  * @todo check if 'xsd:element' must be used here (it may not be compatible with using 'complexType'

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -119,7 +119,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
         if (!empty($categoryPaths)) {
             $tags = array();
             foreach ($categoryPaths as $path) {
-                $tags[] = Mage_Catalog_Model_Category::CACHE_TAG.':'.$path;
+            	$tags[] = Mage_Catalog_Model_Category::CACHE_TAG.':'.$path;
             }
             $this->clearCacheData($tags);
         }
@@ -151,11 +151,11 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
     {
         $newTags = array();
         foreach ($tags as $tag) {
-            $tagInfo = explode(':', $tag);
+            $tagInfo = split(':', $tag);
             if (count($tagInfo)==1) {
                 $newTags[] = $tagInfo[0];
             } else {
-                $tagVariants = explode('/', $tagInfo[1]);
+                $tagVariants = split('/', $tagInfo[1]);
                 foreach ($tagVariants as $tagVariant) {
                     $newTags[] = $tagInfo[0] . $tagVariant;
                 }

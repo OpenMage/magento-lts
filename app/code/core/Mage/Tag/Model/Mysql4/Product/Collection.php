@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -51,7 +51,6 @@ class Mage_Tag_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resour
     /**
      * Join Flags
      *
-     * @deprecated after 1.3.2.3
      * @var array
      */
     protected $_joinFlags = array();
@@ -72,43 +71,43 @@ class Mage_Tag_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resour
     }
 
     /**
-     * Set flag about joined table.
-     * setFlag method must be used in future.
+     * Set join flag
      *
-     * @deprecated after 1.3.2.3
      * @param string $table
      * @return Mage_Tag_Model_Mysql4_Product_Collection
      */
     public function setJoinFlag($table)
     {
-        $this->setFlag($table, true);
+        $this->_joinFlags[$table] = true;
         return $this;
     }
 
     /**
-     * Get flag's status about joined table.
-     * getFlag method must be used in future.
+     * Retrieve join flag
      *
-     * @deprecated after 1.3.2.3
-     * @param $table
+     * @param string $table
      * @return bool
      */
     public function getJoinFlag($table)
     {
-        return $this->getFlag($table);
+        return isset($this->_joinFlags[$table]);
     }
 
     /**
-     * Unset value of join flag.
-     * Set false (bool) value to flag instead in future.
+     * Unset join flag
      *
-     * @deprecated after 1.3.2.3
-     * @param $table
+     * @param string $table
      * @return Mage_Tag_Model_Mysql4_Product_Collection
      */
-    public function unsetJoinFlag($table=null)
+    public function unsetJoinFlag($table = null)
     {
-        $this->setFlag($table, false);
+        if (is_null($table)) {
+            $this->_joinFlags = array();
+        }
+        elseif ($this->getJoinFlag($table)) {
+            unset($this->_joinFlags[$table]);
+        }
+
         return $this;
     }
 
@@ -119,7 +118,7 @@ class Mage_Tag_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resour
      */
     public function addStoresVisibility()
     {
-        $this->setFlag('add_stores_after', true);
+        $this->setJoinFlag('add_stores_after');
         return $this;
     }
 
@@ -174,36 +173,15 @@ class Mage_Tag_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resour
     }
 
     /**
-     * Add Store ID filter
-     *
-     * @param int|array $store
-     * @return Mage_Tag_Model_Mysql4_Product_Collection
-     */
-    public function addStoreFilter($store=null)
-    {
-        if (!is_null($store)) {
-            $this->getSelect()->where('relation.store_id IN (?)', $store);
-        }
-        return $this;
-    }
-
-    /**
      * Set Customer filter
-     * If incoming parameter is array and has element with key 'null'
-     * then condition with IS NULL or IS NOT NULL will be added.
-     * Otherwise condition with IN() will be added
      *
-     * @param int|array $customerId
+     * @param int $customerId
      * @return Mage_Tag_Model_Mysql4_Product_Collection
      */
     public function addCustomerFilter($customerId)
     {
-        if (is_array($customerId) && isset($customerId['null'])) {
-            $condition = ($customerId['null']) ? 'IS NULL' : 'IS NOT NULL';
-            $this->getSelect()->where('relation.customer_id ' . $condition);
-            return $this;
-        }
-        $this->getSelect()->where('relation.customer_id IN(?)', $customerId);
+        $this->getSelect()
+            ->where('relation.customer_id = ?', $customerId);
         $this->_customerFilterId = $customerId;
         return $this;
     }
@@ -217,7 +195,7 @@ class Mage_Tag_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resour
     public function addTagFilter($tagId)
     {
         $this->getSelect()->where('relation.tag_id = ?', $tagId);
-        $this->setFlag('distinct', true);
+        $this->setJoinFlag('distinct');
         return $this;
     }
 
@@ -259,9 +237,9 @@ class Mage_Tag_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resour
         $condition = array(
             'prelation.product_id=e.entity_id'
         );
-
         if (!is_null($storeId)) {
-            $condition[] = $this->getConnection()->quoteInto('prelation.store_id = ?', $storeId);
+            $condition[] = $this->getConnection()
+                ->quoteInto('prelation.store_id=?', $storeId);
         }
         $condition = join(' AND ', $condition);
 
@@ -273,7 +251,7 @@ class Mage_Tag_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resour
             ->where('prelation.tag_id = ?', $tagId);
 
         $this->_tagIdFilter = $tagId;
-        $this->setFlag('prelation', true);
+        $this->setJoinFlag('prelation');
         return $this;
     }
 
@@ -318,7 +296,7 @@ class Mage_Tag_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resour
     {
         $active = Mage_Tag_Model_Tag_Relation::STATUS_ACTIVE;
         $this->getSelect()->where('relation.active=?', $active);
-        if ($this->getFlag('prelation')) {
+        if ($this->getJoinFlag('prelation')) {
             $this->getSelect()->where('prelation.active=?', $active);
         }
         return $this;
@@ -366,15 +344,11 @@ class Mage_Tag_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resour
             ->addAttributeToSelect('small_image');
 
         $this->getSelect()
-            ->join(array('relation' => $tagRelationTable), 'relation.product_id = e.entity_id', array(
-                'product_id'                => 'product_id',
-                'item_store_id'             => 'store_id',
-            ))
+            ->join(array('relation' => $tagRelationTable), 'relation.product_id = e.entity_id')
             ->join(array('t' => $tagTable),
                 't.tag_id = relation.tag_id',
                 array('tag_id', 'name', 'tag_status' => 'status', 'tag_name' => 'name')
             );
-
         return $this;
     }
 
@@ -387,7 +361,7 @@ class Mage_Tag_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resour
     {
         parent::_afterLoad();
 
-        if ($this->getFlag('add_stores_after')) {
+        if ($this->getJoinFlag('add_stores_after')) {
             $this->_addStoresVisibility();
         }
 
@@ -415,17 +389,17 @@ class Mage_Tag_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resour
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $countSelect->reset(Zend_Db_Select::GROUP);
 
-        if ($this->getFlag('group_tag')) {
+        if ($this->getJoinFlag('group_tag')) {
             $field = 'relation.tag_id';
         }
         else {
             $field = 'e.entity_id';
         }
         $expr = new Zend_Db_Expr('COUNT('
-            . ($this->getFlag('distinct') ? 'DISTINCT ' : '')
+            . ($this->getJoinFlag('distinct') ? 'DISTINCT ' : '')
             . $field . ')');
 
-        $countSelect->columns($expr);
+        $countSelect->from(null, $expr);
 
         return $countSelect;
     }

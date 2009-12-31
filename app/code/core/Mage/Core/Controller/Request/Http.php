@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -56,13 +56,6 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 
     protected $_directFrontNames = array();
     protected $_controllerModule = null;
-
-    /**
-     * Request's original information before forward.
-     *
-     * @var array
-     */
-    protected $_beforeForwardInfo = array();
 
     public function __construct($uri = null)
     {
@@ -278,7 +271,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             return false;
         }
         if ($trimPort) {
-            $host = explode(':', $_SERVER['HTTP_HOST']);
+            $host = split(':', $_SERVER['HTTP_HOST']);
             return $host[0];
         }
         return $_SERVER['HTTP_HOST'];
@@ -397,44 +390,5 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             return $this->_rewritedPathInfo[2];
         }
         return $this->getActionName();
-    }
-
-    /**
-     * Collect properties changed by _forward in protected storage
-     * before _forward was called first time.
-     *
-     * @return Mage_Core_Controller_Varien_Action
-     */
-    public function initForward()
-    {
-        if (empty($this->_beforeForwardInfo)) {
-            $this->_beforeForwardInfo = array(
-                'params' => $this->getParams(),
-                'action_name' => $this->getActionName(),
-                'controller_name' => $this->getControllerName(),
-                'module_name' => $this->getModuleName()
-            );
-        }
-
-        return $this;
-    }
-
-    /**
-     * Retrieve property's value which was before _forward call.
-     * If property was not changed during _forward call null will be returned.
-     * If passed name will be null whole state array will be returned.
-     *
-     * @param string $name
-     * @return array|string|null
-     */
-    public function getBeforeForwardInfo($name = null)
-    {
-        if (is_null($name)) {
-            return $this->_beforeForwardInfo;
-        } elseif (isset($this->_beforeForwardInfo[$name])) {
-            return $this->_beforeForwardInfo[$name];
-        }
-
-        return null;
     }
 }

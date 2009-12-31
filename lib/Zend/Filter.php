@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -14,20 +15,22 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Filter.php 17082 2009-07-25 21:32:00Z thomas $
+ * @version    $Id: Filter.php 12770 2008-11-22 16:12:23Z matthew $
  */
+
 
 /**
  * @see Zend_Filter_Interface
  */
 #require_once 'Zend/Filter/Interface.php';
 
+
 /**
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter implements Zend_Filter_Interface
@@ -38,13 +41,6 @@ class Zend_Filter implements Zend_Filter_Interface
      * @var array
      */
     protected $_filters = array();
-
-    /**
-     * Default Namespaces
-     *
-     * @var array
-     */
-    protected static $_defaultNamespaces = array();
 
     /**
      * Adds a filter to the end of the chain
@@ -76,77 +72,6 @@ class Zend_Filter implements Zend_Filter_Interface
     }
 
     /**
-     * Returns the set default namespaces
-     *
-     * @return array
-     */
-    public static function getDefaultNamespaces()
-    {
-        return self::$_defaultNamespaces;
-    }
-
-    /**
-     * Sets new default namespaces
-     *
-     * @param array|string $namespace
-     * @return null
-     */
-    public static function setDefaultNamespaces($namespace)
-    {
-        if (!is_array($namespace)) {
-            $namespace = array((string) $namespace);
-        }
-
-        self::$_defaultNamespaces = $namespace;
-    }
-
-    /**
-     * Adds a new default namespace
-     *
-     * @param array|string $namespace
-     * @return null
-     */
-    public static function addDefaultNamespaces($namespace)
-    {
-        if (!is_array($namespace)) {
-            $namespace = array((string) $namespace);
-        }
-
-        self::$_defaultNamespaces = array_unique(array_merge(self::$_defaultNamespaces, $namespace));
-    }
-
-    /**
-     * Returns true when defaultNamespaces are set
-     *
-     * @return boolean
-     */
-    public static function hasDefaultNamespaces()
-    {
-        return (!empty(self::$_defaultNamespaces));
-    }
-
-    /**
-     * @deprecated
-     * @see Zend_Filter::filterStatic()
-     *
-     * @param  mixed        $value
-     * @param  string       $classBaseName
-     * @param  array        $args          OPTIONAL
-     * @param  array|string $namespaces    OPTIONAL
-     * @return mixed
-     * @throws Zend_Filter_Exception
-     */
-    public static function get($value, $classBaseName, array $args = array(), $namespaces = array())
-    {
-        trigger_error(
-            'Zend_Filter::get() is deprecated as of 1.9.0; please update your code to utilize Zend_Filter::filterStatic()',
-            E_USER_NOTICE
-        );
-
-        return self::filterStatic($value, $classBaseName, $args, $namespaces);
-    }
-
-    /**
      * Returns a value filtered through a specified filter class, without requiring separate
      * instantiation of the filter object.
      *
@@ -163,18 +88,16 @@ class Zend_Filter implements Zend_Filter_Interface
      * @return mixed
      * @throws Zend_Filter_Exception
      */
-    public static function filterStatic($value, $classBaseName, array $args = array(), $namespaces = array())
+    public static function get($value, $classBaseName, array $args = array(), $namespaces = array())
     {
         #require_once 'Zend/Loader.php';
-        $namespaces = array_merge((array) $namespaces, self::$_defaultNamespaces, array('Zend_Filter'));
+        $namespaces = array_merge(array('Zend_Filter'), (array) $namespaces);
         foreach ($namespaces as $namespace) {
             $className = $namespace . '_' . ucfirst($classBaseName);
-            if (!class_exists($className)) {
-                try {
-                    Zend_Loader::loadClass($className);
-                } catch (Zend_Exception $ze) {
-                    continue;
-                }
+            try {
+                #Zend_Loader::loadClass($className);
+            } catch (Zend_Exception $ze) {
+                continue;
             }
             $class = new ReflectionClass($className);
             if ($class->implementsInterface('Zend_Filter_Interface')) {

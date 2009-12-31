@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_OpenId
  * @subpackage Zend_OpenId_Consumer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: File.php 16212 2009-06-21 19:24:49Z thomas $
+ * @version    $Id: File.php 12969 2008-12-01 12:54:06Z dmitry $
  */
 
 /**
@@ -32,7 +32,7 @@
  * @category   Zend
  * @package    Zend_OpenId
  * @subpackage Zend_OpenId_Consumer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_OpenId_Consumer_Storage_File extends Zend_OpenId_Consumer_Storage
@@ -53,7 +53,7 @@ class Zend_OpenId_Consumer_Storage_File extends Zend_OpenId_Consumer_Storage
      */
     public function __construct($dir = null)
     {
-        if ($dir === null) {
+        if (is_null($dir)) {
             $tmp = getenv('TMP');
             if (empty($tmp)) {
                 $tmp = getenv('TEMP');
@@ -155,7 +155,7 @@ class Zend_OpenId_Consumer_Storage_File extends Zend_OpenId_Consumer_Storage
             @unlink($name1);
             $ret = true;
         } else {
-            $ret = false;
+        	$ret = false;
         }
         fclose($f);
         fclose($lock);

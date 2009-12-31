@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -29,13 +29,6 @@ class Mage_SalesRule_Model_Observer
 {
     protected $_validator;
 
-    /**
-     * Get quote item validator/processor object
-     *
-     * @deprecated
-     * @param   Varien_Event $event
-     * @return  Mage_SalesRule_Model_Validator
-     */
     public function getValidator($event)
     {
         if (!$this->_validator) {
@@ -45,12 +38,6 @@ class Mage_SalesRule_Model_Observer
         return $this->_validator;
     }
 
-    /**
-     * Process quote item (apply discount to item)
-     *
-     * @deprecated process call movet to total model
-     * @param Varien_Event_Observer $observer
-     */
     public function sales_quote_address_discount_item($observer)
     {
         $this->getValidator($observer->getEvent())
@@ -101,21 +88,4 @@ class Mage_SalesRule_Model_Observer
             }
         }
     }
-
-    /**
-     * Refresh sales coupons report statistics for last day
-     *
-     * @param Mage_Cron_Model_Schedule $schedule
-     * @return Mage_Tax_Model_Observer
-     */
-    public function aggregateSalesReportCouponsData($schedule)
-    {
-        Mage::app()->getLocale()->emulate(0);
-        $currentDate = Mage::app()->getLocale()->date();
-        $date = $currentDate->subHour(25);
-        Mage::getResourceModel('salesrule/rule')->aggregate($date);
-        Mage::app()->getLocale()->revert();
-        return $this;
-    }
 }
-

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -40,32 +40,9 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract
     const TYPE_CUSTOM   = 3;
     const REWRITE_REQUEST_PATH_ALIAS = 'rewrite_request_path';
 
-    /**
-     * Cache tag for clear cache in after save and after delete
-     *
-     * @var mixed | array | string | boolean
-     */
-    protected $_cacheTag = false;
-
     protected function _construct()
     {
         $this->_init('core/url_rewrite');
-    }
-
-    /**
-     * Clean cache for front-end menu
-     *
-     * @return  Mage_Core_Model_Url_Rewrite
-     */
-    protected function _afterSave()
-    {
-        if ($this->hasCategoryId()) {
-            $this->_cacheTag = array(Mage_Catalog_Model_Category::CACHE_TAG, Mage_Core_Model_Store_Group::CACHE_TAG);
-        }
-
-        parent::_afterSave();
-
-        return $this;
     }
 
     /**
@@ -84,12 +61,12 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract
             foreach ($path as $pathInfo) {
                 $this->load($pathInfo, 'request_path');
                 if ($this->getId()) {
-                    return $this;
+                	return $this;
                 }
             }
         }
         else {
-            $this->load($path, 'request_path');
+        	$this->load($path, 'request_path');
         }
         return $this;
     }
@@ -219,7 +196,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract
          */
         if (!$this->getId() && isset($_GET['___from_store'])) {
             try {
-                $fromStoreId = Mage::app()->getStore($_GET['___from_store'])->getId();
+                $fromStoreId = Mage::app()->getStore($_GET['___from_store']);
             }
             catch (Exception $e) {
                 return false;
@@ -266,7 +243,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract
             }
 
         if ($queryString = $this->_getQueryString()) {
-            $targetUrl .= '?'.$queryString;
+        	$targetUrl .= '?'.$queryString;
         }
 
         $request->setRequestUri($targetUrl);

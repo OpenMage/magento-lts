@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Mysql.php 16942 2009-07-22 04:03:09Z ralph $
+ * @version    $Id: Mysql.php 12788 2008-11-23 15:26:26Z mikaelkael $
  */
 
 
@@ -33,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
@@ -75,26 +75,6 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
         'FIXED'              => Zend_Db::FLOAT_TYPE,
         'FLOAT'              => Zend_Db::FLOAT_TYPE
     );
-
-    /**
-     * Creates a PDO object and connects to the database.
-     *
-     * @return void
-     * @throws Zend_Db_Adapter_Exception
-     */
-    protected function _connect()
-    {
-        if ($this->_connection) {
-            return;
-        }
-
-        if (!empty($this->_config['charset'])) {
-            $initCommand = "SET NAMES '" . $this->_config['charset'] . "'";
-            $this->_config['driver_options'][1002] = $initCommand; // 1002 = PDO::MYSQL_ATTR_INIT_COMMAND
-        }
-
-        parent::_connect();
-    }
 
     /**
      * @return string

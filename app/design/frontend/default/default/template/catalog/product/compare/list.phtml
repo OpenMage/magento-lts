@@ -1,0 +1,126 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="page-head button-level">
+    <h3><?php echo $this->__('Compare Products') ?></h3>
+    <a href="#" class="link-print right" onclick="print();"><?php echo $this->__('Print This Page') ?></a>
+</div>
+<?php $_total=$this->getItems()->getSize() ?>
+<?php if($_total): ?>
+<div class="compare-products">
+    <table cellspacing="0" class="data-table box-table catalog-listing" id="product_comparison">
+<?php if ($_total>2): ?>
+        <tbody class="remove-buttons">
+            <tr>
+                <?php $_i=0 ?>
+                <?php foreach($this->getItems() as $_item): ?>
+                <?php if($_i++%10==0): ?>
+                <td>&nbsp;</td>
+                <?php endif; ?>
+                <td><a href="#" onclick="setLocation('<?php echo $this->helper('catalog/product_compare')->getRemoveUrl($_item) ?>');window.opener.location.reload();"><img src="<?php echo $this->getSkinUrl('images/chart_remove.gif') ?>" alt="<?php echo $this->__('Remove Product') ?>" /></a></td>
+                <?php endforeach; ?>
+            </tr>
+        </tbody>
+<?php endif ?>
+        <tbody>
+            <tr class="first">
+            <?php $_i=0 ?>
+            <?php foreach($this->getItems() as $_item): ?>
+                <?php if($_i++%10==0): ?>
+                    <td class="label">&nbsp;</td>
+                <?php endif; ?>
+                <td>
+                    <a href="#" onclick="setPLocation('<?php echo $_item->getProductUrl() ?>', true)" title="<?php echo $this->htmlEscape($_item->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
+                    <h5><a href="#" onclick="setPLocation('<?php echo $_item->getProductUrl() ?>', true)" title="<?php echo $this->htmlEscape($_item->getName()) ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a></h5>
+                    <?php echo $this->getReviewsSummaryHtml($_item, 'short') ?>
+                    <?php echo $this->getPriceHtml($_item, true) ?>
+                    <?php if($_item->isSaleable()): ?>
+                    <button class="form-button" onclick="setPLocation('<?php echo $this->helper('catalog/product_compare')->getAddToCartUrl($_item) ?>', true)"><span><?php echo $this->__('Add to Cart') ?></span></button><br/>
+                    <?php else: ?>
+                    <div class="out-of-stock"><?php echo $this->__('Out of stock') ?></div>
+                    <?php endif; ?>
+                    <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                    <a href="#" onclick="setPLocation('<?php echo $this->helper('catalog/product_compare')->getAddToWishlistUrl($_item) ?>', true)" class="link-cart"><small><?php echo $this->__('Add to Wishlist') ?></small></a>
+                    <?php endif; ?>
+                </td>
+            <?php endforeach; ?>
+            </tr>
+        </tbody>
+        <tbody>
+        <?php foreach ($this->getAttributes() as $_attribute): ?>
+            <tr>
+                <?php $_i=0 ?>
+                <?php foreach($this->getItems() as $_item): ?>
+                <?php if($_i++%10==0): ?>
+                <td class="label"><?php echo $this->__($_attribute->getFrontendLabel()) ?></td>
+                <?php endif; ?>
+                <td>
+                    <?php switch ($_attribute->getAttributeCode()) {
+                        case "price": ?>
+                            <?php echo $this->getPriceHtml($_item, true) ?>
+                            <?php break;
+                        case "small_image": ?>
+                            <img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" />
+                            <?php break;
+                        default: ?>
+                            <?php echo nl2br($this->getProductAttributeValue($_item, $_attribute)) ?>
+                            <?php break;
+                    } ?>
+                </td>
+                <?php endforeach; ?>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+        <tbody class="attribute-cart">
+                <tr>
+                <?php $_i=0 ?>
+                <?php foreach($this->getItems() as $_item): ?>
+                <?php if($_i++%10==0): ?>
+                 <td class="label">&nbsp;</td>
+                <?php endif; ?>
+                <td>
+                    <?php echo $this->getPriceHtml($_item, true) ?>
+                    <?php if($_item->isSaleable()): ?>
+                    <button class="form-button" onclick="setPLocation('<?php echo $this->helper('catalog/product_compare')->getAddToCartUrl($_item) ?>', true)"><span><?php echo $this->__('Add to Cart') ?></span></button><br/>
+                    <?php else: ?>
+                    <div class="out-of-stock"><?php echo $this->__('Out of stock') ?></div>
+                    <?php endif; ?>
+                    <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                    <a href="#" onclick="setPLocation('<?php echo $this->helper('catalog/product_compare')->getAddToWishlistUrl($_item) ?>', true)" class="link-cart"><small><?php echo $this->__('Add to Wishlist') ?></small></a>
+                    <?php endif; ?>
+                </td>
+                <?php endforeach; ?>
+            </tr>
+        </tbody>
+    </table>
+    <div class="button-set">
+        <button class="form-button" onclick="window.close();"><span><?php echo $this->__('Close Window') ?></span></button>
+    </div>
+</div>
+<script type="text/javascript">decorateTable('product_comparison');</script>
+<?php else: ?>
+<script type="text/javascript">window.close();</script>
+<?php endif; ?>

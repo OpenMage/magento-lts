@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -42,9 +42,6 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     const XML_PATH_UPDATE_EMAIL_COPY_TO         = 'sales_email/shipment_comment/copy_to';
     const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/shipment_comment/copy_method';
     const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/shipment_comment/enabled';
-
-    const REPORT_DATE_TYPE_ORDER_CREATED        = 'order_created';
-    const REPORT_DATE_TYPE_SHIPMENT_CREATED     = 'shipment_created';
 
     protected $_items;
     protected $_tracks;
@@ -93,17 +90,6 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         $this->setOrderId($order->getId())
             ->setStoreId($order->getStoreId());
         return $this;
-    }
-
-
-    /**
-     * Retrieve hash code of current order
-     *
-     * @return string
-     */
-    public function getProtectCode()
-    {
-        return (string)$this->getOrder()->getProtectCode();
     }
 
     /**

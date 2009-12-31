@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -36,9 +36,6 @@ class Mage_Core_Model_Resource
     const AUTO_UPDATE_ONCE      = 0;
     const AUTO_UPDATE_NEVER     = -1;
     const AUTO_UPDATE_ALWAYS    = 1;
-
-    const DEFAULT_READ_RESOURCE = 'core_read';
-    const DEFAULT_WRITE_RESOURCE= 'core_write';
 
     /**
      * Instances of classes for connection types
@@ -60,7 +57,7 @@ class Mage_Core_Model_Resource
      * @var array
      */
     protected $_entities = array();
-
+    
     protected $_mappedTableNames;
 
     /**
@@ -75,11 +72,8 @@ class Mage_Core_Model_Resource
             return $this->_connections[$name];
         }
         $connConfig = Mage::getConfig()->getResourceConnectionConfig($name);
-        if (!$connConfig) {
-            $this->_connections[$name] = $this->_getDefaultConnection($name);
-            return $this->_connections[$name];
-        }
-        if (!$connConfig->is('active', 1)) {
+
+        if (!$connConfig || !$connConfig->is('active', 1)) {
             return false;
         }
         $origName = $connConfig->getParent()->getName();
@@ -91,23 +85,12 @@ class Mage_Core_Model_Resource
 
         $typeInstance = $this->getConnectionTypeInstance((string)$connConfig->type);
         $conn = $typeInstance->getConnection($connConfig);
-        if (method_exists($conn, 'setCacheAdapter')) {
-            $conn->setCacheAdapter(Mage::app()->getCache());
-        }
 
         $this->_connections[$name] = $conn;
         if ($origName!==$name) {
             $this->_connections[$origName] = $conn;
         }
         return $conn;
-    }
-
-    protected function _getDefaultConnection($requiredConnectionName)
-    {
-        if (strpos($requiredConnectionName, 'read') !== false) {
-            return $this->getConnection(self::DEFAULT_READ_RESOURCE);
-        }
-        return $this->getConnection(self::DEFAULT_WRITE_RESOURCE);
     }
 
     /**
@@ -163,14 +146,14 @@ class Mage_Core_Model_Resource
         } else {
             $tableName = $modelEntity;
         }
-
+        
         Mage::dispatchEvent('resource_get_tablename', array('resource' => $this, 'model_entity' => $modelEntity, 'table_name' => $tableName));
         $mappedTableName = $this->getMappedTableName($tableName);
         if ($mappedTableName) {
-            $tableName = $mappedTableName;
+        	$tableName = $mappedTableName;
         } else {
-            $tablePrefix = (string)Mage::getConfig()->getTablePrefix();
-            $tableName = $tablePrefix . $tableName;
+        	$tablePrefix = (string)Mage::getConfig()->getTablePrefix();
+        	$tableName = $tablePrefix . $tableName;
         }
 
         return $tableName;
@@ -178,19 +161,19 @@ class Mage_Core_Model_Resource
 
     public function setMappedTableName($tableName, $mappedName)
     {
-        $this->_mappedTableNames[$tableName] = $mappedName;
-        return $this;
+    	$this->_mappedTableNames[$tableName] = $mappedName;
+    	return $this;
     }
-
+    
     public function getMappedTableName($tableName)
     {
-        if (isset($this->_mappedTableNames[$tableName])) {
-            return $this->_mappedTableNames[$tableName];
-        } else {
-            return false;
-        }
+    	if (isset($this->_mappedTableNames[$tableName])) {
+    		return $this->_mappedTableNames[$tableName];
+    	} else {
+    		return false;
+    	}
     }
-
+    
     public function cleanDbRow(&$row)
     {
         if (!empty($row) && is_array($row)) {
@@ -214,9 +197,9 @@ class Mage_Core_Model_Resource
 
     public function checkDbConnection()
     {
-        if (!$this->getConnection('core_read')) {
-            //Mage::app()->getResponse()->setRedirect(Mage::getUrl('install'));
-        }
+    	if (!$this->getConnection('core_read')) {
+    		//Mage::app()->getResponse()->setRedirect(Mage::getUrl('install'));
+    	}
     }
 
     public function getAutoUpdate()

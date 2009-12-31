@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Payment
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Payment
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -45,7 +45,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     {
         $info = $this->getData('info');
         if (!($info instanceof Mage_Payment_Model_Info)) {
-            Mage::throwException($this->__('Cannot retrieve payment info model object.'));
+            Mage::throwException($this->__('Can not retrieve payment info model object.'));
         }
         return $info;
     }
@@ -59,74 +59,10 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     {
         return $this->getInfo()->getMethodInstance();
     }
-
-    /**
-     * Render as PDF
-     * @return string
-     */
+    
     public function toPdf()
     {
         $this->setTemplate('payment/info/pdf/default.phtml');
         return $this->toHtml();
-    }
-
-    /**
-     * Getter for children PDF, as array. Analogue of $this->getChildHtml()
-     *
-     * Children must have toPdf() callable
-     * Known issue: not sorted
-     * @return array
-     */
-    public function getChildPdfAsArray()
-    {
-        $result = array();
-        foreach ($this->getChild() as $child) {
-            if (is_callable(array($child, 'toPdf'))) {
-                $result[] = $child->toPdf();
-            }
-        }
-        return $result;
-    }
-
-    /**
-     * Get some specific information in format of array($label => $value)
-     * (to be extended by descendants)
-     * @return array
-     */
-    public function getSpecificInformation()
-    {
-        return array();
-    }
-
-    /**
-     * Render the value as an array
-     *
-     * @param mixed $value
-     * @param bool $escapeHtml
-     * @return $array
-     */
-    public function getValueAsArray($value, $escapeHtml = false)
-    {
-        if (empty($value)) {
-            return array();
-        }
-        if (!is_array($value)) {
-            $value = array($value);
-        }
-        if ($escapeHtml) {
-            array_walk($value, array($this, '_escapeHtmlWalkCallback'));
-        }
-        return $value;
-    }
-
-    /**
-     * Callback for escaping HTML
-     *
-     * @param array $array
-     * @param string|int $key
-     */
-    private function _escapeHtmlWalkCallback(&$array, $key)
-    {
-        $array[$key] = $this->htmlEscape($array[$key]);
     }
 }

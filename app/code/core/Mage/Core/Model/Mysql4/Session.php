@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -62,14 +62,6 @@ class Mage_Core_Model_Mysql4_Session implements Zend_Session_SaveHandler_Interfa
      */
     protected $_write;
 
-    /**
-     * Automatic cleaning factor of expired sessions
-     *
-     * value zero means no automatic cleaning, one means automatic cleaning each time a session is closed, and x>1 means
-     * cleaning once in x calls
-     */
-    protected $_automaticCleaningFactor = 50;
-    
     public function __construct()
     {
         $this->_sessionTable = Mage::getSingleton('core/resource')->getTableName('core/session');
@@ -219,12 +211,7 @@ class Mage_Core_Model_Mysql4_Session implements Zend_Session_SaveHandler_Interfa
      */
     public function gc($sessMaxLifeTime)
     {
-        if ($this->_automaticCleaningFactor > 0) {
-            if ($this->_automaticCleaningFactor == 1 ||
-                rand(1, $this->_automaticCleaningFactor)==1) {
-                $this->_write->query("DELETE FROM `{$this->_sessionTable}` WHERE `session_expires` < ?", array(time()));
-            }
-        }
+        $this->_write->query("DELETE FROM `{$this->_sessionTable}` WHERE `session_expires` < ?", array(time()));
         return true;
     }
 }

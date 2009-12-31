@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -98,9 +98,9 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * @param array $attributes
      * @return array
      */
-    public function info($productId, $store = null, $attributes = null, $identifierType = null)
+    public function info($productId, $store = null, $attributes = null)
     {
-        $product = $this->_getProduct($productId, $store, $identifierType);
+        $product = $this->_getProduct($productId, $store);
 
         if (!$product->getId()) {
             $this->_fault('not_exists');
@@ -141,7 +141,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
 
         $product = Mage::getModel('catalog/product');
         /* @var $product Mage_Catalog_Model_Product */
-        $product->setStoreId($this->_getStoreId())
+        $product->setStoreId($this->_getStoreId($store))
             ->setAttributeSetId($set)
             ->setTypeId($type)
             ->setSku($sku);
@@ -183,9 +183,9 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * @param string|int $store
      * @return boolean
      */
-    public function update($productId, $productData, $store = null, $identifierType = null)
+    public function update($productId, $productData = array(), $store = null)
     {
-        $product = $this->_getProduct($productId, $store, $identifierType);
+        $product = $this->_getProduct($productId, $store);
 
         if (!$product->getId()) {
             $this->_fault('not_exists');
@@ -248,10 +248,6 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
             $product->setWebsiteIds($productData['websites']);
         }
 
-        if (Mage::app()->isSingleStoreMode()) {
-            $product->setWebsiteIds(array(Mage::app()->getStore(true)->getWebsite()->getId()));
-        }
-
         if (isset($productData['stock_data']) && is_array($productData['stock_data'])) {
             $product->setStockData($productData['stock_data']);
         }
@@ -294,9 +290,9 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * @param int|string $productId
      * @return boolean
      */
-    public function delete($productId, $identifierType = null)
+    public function delete($productId)
     {
-        $product = $this->_getProduct($productId, null, $identifierType);
+        $product = $this->_getProduct($productId);
 
         if (!$product->getId()) {
             $this->_fault('not_exists');

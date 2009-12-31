@@ -15,20 +15,24 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Index
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SegmentMerger.php 18954 2009-11-12 20:01:33Z alexander $
  */
 
 /** Zend_Search_Lucene_Index_SegmentInfo */
 #require_once 'Zend/Search/Lucene/Index/SegmentInfo.php';
 
+/** Zend_Search_Lucene_Index_SegmentWriter_StreamWriter */
+#require_once 'Zend/Search/Lucene/Index/SegmentWriter/StreamWriter.php';
+
+/** Zend_Search_Lucene_Index_SegmentInfoPriorityQueue */
+#require_once 'Zend/Search/Lucene/Index/SegmentInfoPriorityQueue.php';
 
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Index
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Index_SegmentMerger
@@ -82,8 +86,6 @@ class Zend_Search_Lucene_Index_SegmentMerger
      */
     public function __construct($directory, $name)
     {
-        /** Zend_Search_Lucene_Index_SegmentWriter_StreamWriter */
-        #require_once 'Zend/Search/Lucene/Index/SegmentWriter/StreamWriter.php';
         $this->_writer = new Zend_Search_Lucene_Index_SegmentWriter_StreamWriter($directory, $name);
     }
 
@@ -223,14 +225,11 @@ class Zend_Search_Lucene_Index_SegmentMerger
      */
     private function _mergeTerms()
     {
-        /** Zend_Search_Lucene_Index_TermsPriorityQueue */
-        #require_once 'Zend/Search/Lucene/Index/TermsPriorityQueue.php';
-
-        $segmentInfoQueue = new Zend_Search_Lucene_Index_TermsPriorityQueue();
+        $segmentInfoQueue = new Zend_Search_Lucene_Index_SegmentInfoPriorityQueue();
 
         $segmentStartId = 0;
         foreach ($this->_segmentInfos as $segName => $segmentInfo) {
-            $segmentStartId = $segmentInfo->resetTermsStream($segmentStartId, Zend_Search_Lucene_Index_SegmentInfo::SM_MERGE_INFO);
+            $segmentStartId = $segmentInfo->reset($segmentStartId, Zend_Search_Lucene_Index_SegmentInfo::SM_MERGE_INFO);
 
             // Skip "empty" segments
             if ($segmentInfo->currentTerm() !== null) {

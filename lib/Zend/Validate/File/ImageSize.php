@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: ImageSize.php 18148 2009-09-16 19:27:43Z thomas $
+ * @version   $Id: $
  */
 
 /**
@@ -29,7 +29,7 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_File_ImageSize extends Zend_Validate_Abstract
@@ -124,11 +124,15 @@ class Zend_Validate_File_ImageSize extends Zend_Validate_Abstract
      */
     public function __construct($options)
     {
+        $minwidth  = 0;
+        $minheight = 0;
+        $maxwidth  = null;
+        $maxheight = null;
+
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } elseif (1 < func_num_args()) {
-// @todo: Preperation for 2.0... needs to be cleared with the dev-team
-//          trigger_error('Multiple constructor options are deprecated in favor of a single options array', E_USER_NOTICE);
+            trigger_error('Multiple constructor options are deprecated in favor of a single options array', E_USER_NOTICE);
             if (!is_array($options)) {
                 $options = array('minwidth' => $options);
             }

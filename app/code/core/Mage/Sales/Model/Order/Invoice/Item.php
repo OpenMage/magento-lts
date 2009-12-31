@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -113,9 +113,8 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
         /**
          * Check qty availability
          */
-        $qtyToInvoice = sprintf("%F", $this->getOrderItem()->getQtyToInvoice());
-        $qty = sprintf("%F", $qty);
-        if ($qty <= $qtyToInvoice || $this->getOrderItem()->isDummy()) {
+
+        if ($qty <= $this->getOrderItem()->getQtyToInvoice() || $this->getOrderItem()->isDummy()) {
             $this->setData('qty', $qty);
         }
         else {
@@ -175,25 +174,11 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      */
     public function calcRowTotal()
     {
-        $store          = $this->getInvoice()->getStore();
-        $orderItem      = $this->getOrderItem();
-        $orderItemQty   = $orderItem->getQtyOrdered();
+        $rowTotal       = $this->getOrderItem()->getRowTotal()/$this->getOrderItem()->getQtyOrdered()*$this->getQty();
+        $baseRowTotal   = $this->getOrderItem()->getBaseRowTotal()/$this->getOrderItem()->getQtyOrdered()*$this->getQty();
 
-        $rowTotal       = $orderItem->getRowTotal();
-        $baseRowTotal   = $orderItem->getBaseRowTotal();
-        $rowTotalInclTax    = $orderItem->getRowTotalInclTax();
-        $baseRowTotalInclTax= $orderItem->getBaseRowTotalInclTax();
-
-        $rowTotal       = $rowTotal/$orderItemQty*$this->getQty();
-        $baseRowTotal   = $baseRowTotal/$orderItemQty*$this->getQty();
-
-        $this->setRowTotal($store->roundPrice($rowTotal));
-        $this->setBaseRowTotal($store->roundPrice($baseRowTotal));
-
-        if ($rowTotalInclTax && $baseRowTotalInclTax) {
-            $this->setRowTotalInclTax($store->roundPrice($rowTotalInclTax/$orderItemQty*$this->getQty()));
-            $this->setBaseRowTotalInclTax($store->roundPrice($baseRowTotalInclTax/$orderItemQty*$this->getQty()));
-        }
+        $this->setRowTotal($this->getInvoice()->getStore()->roundPrice($rowTotal));
+        $this->setBaseRowTotal($this->getInvoice()->getStore()->roundPrice($baseRowTotal));
         return $this;
     }
 
@@ -204,7 +189,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
      */
     public function isLast()
     {
-        if ((string)(float)$this->getQty() == (string)(float)$this->getOrderItem()->getQtyToInvoice()) {
+        if ($this->getQty() == $this->getOrderItem()->getQtyToInvoice()) {
             return true;
         }
         return false;

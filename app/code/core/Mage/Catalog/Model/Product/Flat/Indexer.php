@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -70,14 +70,13 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
      *
      * @param string $attributeCode
      * @param int $store
-     * @param int|array $productIds
      * @return Mage_Catalog_Model_Product_Flat_Indexer
      */
-    public function updateAttribute($attributeCode, $store = null, $productIds = null)
+    public function updateAttribute($attributeCode, $store = null)
     {
         if (is_null($store)) {
             foreach (Mage::app()->getStores() as $store) {
-                $this->updateAttribute($attributeCode, $store->getId(), $productIds);
+                $this->updateAttribute($attributeCode, $store->getId());
             }
 
             return $this;
@@ -85,8 +84,8 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
 
         $this->_getResource()->prepareFlatTable($store);
         $attribute = $this->_getResource()->getAttribute($attributeCode);
-        $this->_getResource()->updateAttribute($attribute, $store, $productIds);
-        $this->_getResource()->updateChildrenDataFromParent($store, $productIds);
+        $this->_getResource()->updateAttribute($attribute, $store);
+        $this->_getResource()->updateChildrenDataFromParent($store);
 
         return $this;
     }

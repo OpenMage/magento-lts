@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -106,14 +106,13 @@ class Mage_Catalog_Model_Product_Type_Price
      * @param   Mage_Catalog_Model_Product $product
      * @return  double
      */
-    public function getTierPrice($qty = null, $product)
+    public function getTierPrice($qty=null, $product)
     {
         $allGroups = Mage_Customer_Model_Group::CUST_GROUP_ALL;
         $prices = $product->getData('tier_price');
 
         if (is_null($prices)) {
-            $attribute = $product->getResource()->getAttribute('tier_price');
-            if ($attribute) {
+            if ($attribute = $product->getResource()->getAttribute('tier_price')) {
                 $attribute->getBackend()->afterLoad($product);
                 $prices = $product->getData('tier_price');
             }
@@ -154,28 +153,15 @@ class Mage_Catalog_Model_Product_Type_Price
                     // found tier qty is same as current tier qty but current tier group is ALL_GROUPS
                     continue;
                 }
-                if ($price['website_price'] < $prevPrice) {
-                    $prevPrice  = $price['website_price'];
-                    $prevQty    = $price['price_qty'];
-                    $prevGroup  = $price['cust_group'];
-                }
+                $prevPrice  = $price['website_price'];
+                $prevQty    = $price['price_qty'];
+                $prevGroup  = $price['cust_group'];
             }
             return $prevPrice;
         } else {
-            $qtyCache = array();
-            foreach ($prices as $i => $price) {
-                if ($price['cust_group'] != $custGroup && $price['cust_group'] != $allGroups) {
+            foreach ($prices as $i=>$price) {
+                if ($price['cust_group']!=$custGroup && $price['cust_group']!=$allGroups) {
                     unset($prices[$i]);
-                } else if (isset($qtyCache[$price['price_qty']])) {
-                    $j = $qtyCache[$price['price_qty']];
-                    if ($prices[$j]['website_price'] > $price['website_price']) {
-                        unset($prices[$j]);
-                        $qtyCache[$price['price_qty']] = $i;
-                    } else {
-                        unset($prices[$i]);
-                    }
-                } else {
-                    $qtyCache[$price['price_qty']] = $i;
                 }
             }
         }
@@ -334,20 +320,10 @@ class Mage_Catalog_Model_Product_Type_Price
     public static function calculateSpecialPrice($finalPrice, $specialPrice, $specialPriceFrom, $specialPriceTo, $store = null)
     {
         if (!is_null($specialPrice) && $specialPrice != false) {
-            if (Mage::app()->getLocale()->isStoreDateInInterval($store, $specialPriceFrom, $specialPriceTo)) {
+            if (Mage::app()->getLocale()->IsStoreDateInInterval($store, $specialPriceFrom, $specialPriceTo)) {
                 $finalPrice     = min($finalPrice, $specialPrice);
             }
         }
         return $finalPrice;
-    }
-
-    /**
-     * Check is tier price value fixed or percent of original price
-     *
-     * @return bool
-     */
-    public function isTierPriceFixed()
-    {
-        return true;
     }
 }

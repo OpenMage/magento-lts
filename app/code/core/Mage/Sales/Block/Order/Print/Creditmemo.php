@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,6 +34,12 @@
 
 class Mage_Sales_Block_Order_Print_Creditmemo extends Mage_Sales_Block_Items_Abstract
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -73,23 +79,8 @@ class Mage_Sales_Block_Order_Print_Creditmemo extends Mage_Sales_Block_Items_Abs
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
     {
         $renderer->setPrintStatus(true);
+
         return parent::_prepareItem($renderer);
     }
-
-    /**
-     * Get Creditmemo totals block html gor specific creditmemo
-     *
-     * @param   Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @return  string
-     */
-    public function getTotalsHtml($creditmemo)
-    {
-        $totals = $this->getChild('creditmemo_totals');
-        $html = '';
-        if ($totals) {
-            $totals->setCreditmemo($creditmemo);
-            $html = $totals->toHtml();
-        }
-        return $html;
-    }
 }
+

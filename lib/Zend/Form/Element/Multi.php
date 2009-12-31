@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,9 +28,9 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Multi.php 16218 2009-06-21 19:44:04Z thomas $
+ * @version    $Id: Multi.php 12527 2008-11-10 21:00:57Z thomas $
  */
 abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
 {
@@ -278,7 +278,7 @@ abstract class Zend_Form_Element_Multi extends Zend_Form_Element_Xhtml
     protected function _translateOption($option, $value)
     {
         if ($this->translatorIsDisabled()) {
-            return false;
+            return true;
         }
 
         if (!isset($this->_translated[$option]) && !empty($value)) {

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -427,15 +427,12 @@ class Mage_Eav_Model_Config
                 }
                 $attributeKey = $this->_getAttributeKey($entityTypeCode, $attribute->getAttributeCode());
             } else {
-                $attribute = Mage::getModel($entityType->getAttributeModel())
-                    ->loadByCode($entityType, $code)
-                    ->setAttributeCode($code);
+                $attribute = Mage::getModel($entityType->getAttributeModel())->loadByCode($entityType, $code);
             }
         }
 
         if ($attribute) {
-            $attribute->setEntityType($entityType)
-                ->setEntityTypeId($entityType->getId());
+            $attribute->setEntityType($entityType);
             $this->_addAttributeReference($attribute->getId(), $attribute->getAttributeCode(), $entityTypeCode);
             $this->_save($attribute, $attributeKey);
         }
@@ -457,10 +454,6 @@ class Mage_Eav_Model_Config
         if (($object instanceof Varien_Object) && $object->getAttributeSetId()) {
              $attributeSetId = $object->getAttributeSetId();
         }
-        $storeId = 0;
-        if (($object instanceof Varien_Object) && $object->getStoreId()) {
-            $storeId = $object->getStoreId();
-        }
         $cacheKey = sprintf('%d-%d', $entityType->getId(), $attributeSetId);
         if (isset($this->_attributeCodes[$cacheKey])) {
             return $this->_attributeCodes[$cacheKey];
@@ -472,7 +465,6 @@ class Mage_Eav_Model_Config
                 ->setEntityTypeFilter($entityType->getId())
                 ->setAttributeSetFilter($attributeSetId)
 //                ->addSetInfo()
-                ->addStoreLabel($storeId)
                 ->getData();
             $attributes = array();
             foreach ($attributesInfo as $attributeData) {
@@ -609,8 +601,8 @@ class Mage_Eav_Model_Config
         if (empty($attributes)) {
             return $this;
         }
-        $attributeCollection = $entityType->getEntityAttributeCollection();
-        $attributesInfo = Mage::getResourceModel($attributeCollection)
+
+        $attributesInfo = Mage::getResourceModel('eav/entity_attribute_collection')
             ->useLoadDataFields()
             ->setEntityTypeFilter($entityType->getId())
             ->setCodeFilter($attributes)

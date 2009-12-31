@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -102,29 +102,22 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @param  int|string $store
      * @return Mage_Catalog_Model_Product
      */
-    protected function _getProduct($productId, $store = null, $identifierType = null)
+    protected function _getProduct ($productId, $store = null)
     {
-        $loadByIdOnFalse = false;
-        if ($identifierType === null) {
-            $identifierType = 'sku';
-            $loadByIdOnFalse = true;
-        }
         $product = Mage::getModel('catalog/product');
-        if ($store !== null) {
-            $product->setStoreId($this->_getStoreId($store));
-        }
+
         /* @var $product Mage_Catalog_Model_Product */
-        if ($identifierType == 'sku') {
+
+        if (is_string($productId)) {
             $idBySku = $product->getIdBySku($productId);
             if ($idBySku) {
                 $productId = $idBySku;
             }
-            if ($idBySku || $loadByIdOnFalse) {
-                $product->load($productId);
-            }
-        } elseif ($identifierType == 'id') {
-            $product->load($productId);
         }
+        if ($store !== null) {
+            $product->setStoreId($this->_getStoreId($store));
+        }
+        $product->load($productId);
         return $product;
     }
 

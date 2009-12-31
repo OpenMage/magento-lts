@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -30,38 +30,11 @@
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Checkout_Block_Total_Default extends Mage_Checkout_Block_Cart_Totals
+class Mage_Checkout_Block_Total_Default extends Mage_Core_Block_Template
 {
     protected $_template = 'checkout/total/default.phtml';
-    protected $_store;
 
-    protected function _construct()
-    {
+    protected function _construct(){
         $this->setTemplate($this->_template);
-        $this->_store = Mage::app()->getStore();
-    }
-
-    /**
-     * Get style assigned to total object
-     *
-     * @return string
-     */
-    public function getStyle()
-    {
-        return $this->getTotal()->getStyle();
-    }
-
-    public function setTotal($total)
-    {
-        $this->setData('total', $total);
-        if ($total->getAddress()) {
-            $this->_store = $total->getAddress()->getQuote()->getStore();
-        }
-        return $this;
-    }
-
-    public function getStore()
-    {
-        return $this->_store;
     }
 }

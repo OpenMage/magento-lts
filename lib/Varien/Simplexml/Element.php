@@ -184,54 +184,30 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Returns the node and children as an array
      *
-     * @return array|string
+     * @return array
      */
     public function asArray()
     {
-        return $this->_asArray();
-    }
+        $r = array();
 
-    /**
-     * asArray() analog, but without attributes
-     * @return array|string
-     */
-    public function asCanonicalArray()
-    {
-        return $this->_asArray(true);
-    }
+        $attributes = $this->attributes();
+        foreach($attributes as $k=>$v) {
+            if ($v) $r['@'][$k] = (string) $v;
+        }
 
-    /**
-     * Returns the node and children as an array
-     *
-     * @param bool $isCanonical - whether to ignore attributes
-     * @return array|string
-     */
-    protected function _asArray($isCanonical = false)
-    {
-        $result = array();
-        if (!$isCanonical) {
-            // add attributes
-            foreach ($this->attributes() as $attributeName => $attribute) {
-                if ($attribute) {
-                    $result['@'][$attributeName] = (string)$attribute;
-                }
+        if (!($children = $this->children())) {
+            $r = (string) $this;
+            return $r;
+        }
+
+        foreach($children as $childName=>$child) {
+            $r[$childName] = array();
+            foreach ($child as $index=>$element) {
+                $r[$childName][$index] = $element->asArray();
             }
         }
-        // add children values
-        if ($this->hasChildren()) {
-            foreach ($this->children() as $childName => $child) {
-                $result[$childName] = $child->_asArray($isCanonical);
-            }
-        } else {
-            if (empty($result)) {
-                // return as string, if nothing was found
-                $result = (string) $this;
-            } else {
-                // value has zero key element
-                $result[0] = (string) $this;
-            }
-        }
-        return $result;
+
+        return $r;
     }
 
     /**
@@ -302,9 +278,9 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @param  string
      * @return string
      */
-    public function xmlentities($value = null)
+    public function xmlentities($value='')
     {
-        if (is_null($value)) {
+        if (empty($value)) {
             $value = $this;
         }
         $value = (string)$value;

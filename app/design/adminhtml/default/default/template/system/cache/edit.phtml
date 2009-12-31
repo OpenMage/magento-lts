@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -42,18 +42,14 @@
 </div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="config_edit_form" enctype="multipart/form-data">
     <?php echo $this->getBlockHtml('formkey')?>
-
     <script type="text/javascript">
-    function setCacheAction(id, button)
+    function cacheCatalogAction(button)
     {
-        $(id).value = button.id;
+        $('catalog_action').value = button.id;
         configForm.submit();
     }
     </script>
-
     <input type="hidden" id="catalog_action" name="catalog_action" value="" />
-    <input type="hidden" id="jscss_action" name="jscss_action" value="" />
-
     <?php echo $this->getChildHtml('form') ?>
     <div class="entry-edit">
         <div class="entry-edit-head">
@@ -63,13 +59,11 @@
             <table cellspacing="0" class="form-list">
                 <tbody>
                     <?php foreach ($this->getCatalogData() as $_item): ?>
-                    <?php /* disable reindex buttons. functionality moved to index management*/?>
-                    <?php if ($_item['buttons'][0]['name']!='clear_images_cache') continue;?>
                     <tr>
                         <td class="label"><label><?php echo $_item['label'] ?></label></td>
                         <td class="value">
                             <?php foreach ($_item['buttons'] as $_button): ?>
-                                <?php $clickAction = "setCacheAction('catalog_action',this)"; ?>
+                                <?php $clickAction = 'cacheCatalogAction(this)'; ?>
                                 <?php if (isset($_button['warning']) && $_button['warning']): ?>
                                     <?php $clickAction = "if (confirm('".addslashes($_button['warning'])."')) {{$clickAction}}"; ?>
                                 <?php endif; ?>
@@ -80,25 +74,6 @@
                         <td><small>&nbsp;</small></td>
                     </tr>
                     <?php endforeach; ?>
-                </tbody>
-            </table>
-        </fieldset>
-    </div>
-
-    <div class="entry-edit">
-        <div class="entry-edit-head">
-            <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('JavaScript/CSS') ?></h4>
-        </div>
-
-        <fieldset id="jscss">
-            <table cellspacing="0" class="form-list">
-                <tbody>
-                    <tr>
-                        <td class="label"><label><?php echo $this->__('JavaScript/CSS Cache') ?></label></td>
-                        <td class="value">
-                            <button onclick="setCacheAction('jscss_action', this)" id='jscss_action' type="button" class="scalable"><span><?php echo $this->__('Clear') ?></span></button>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </fieldset>

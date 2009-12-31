@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Ini.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,13 +28,11 @@
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate_Adapter_Ini extends Zend_Translate_Adapter
 {
-    private $_data = array();
-
     /**
      * Generates the adapter
      *
@@ -55,24 +53,20 @@ class Zend_Translate_Adapter_Ini extends Zend_Translate_Adapter
      * @param  string        $locale  Locale/Language to add data for, identical with locale identifier,
      *                                see Zend_Locale for more information
      * @param  array         $options OPTIONAL Options to use
-     * @throws Zend_Translate_Exception Ini file not found
-     * @return array
      */
     protected function _loadTranslationData($data, $locale, array $options = array())
     {
-        $this->_data = array();
         if (!file_exists($data)) {
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception("Ini file '".$data."' not found");
         }
-
         $inidata = parse_ini_file($data, false);
-        if (!isset($this->_data[$locale])) {
-            $this->_data[$locale] = array();
-        }
 
-        $this->_data[$locale] = array_merge($this->_data[$locale], $inidata);
-        return $this->_data;
+        $options = array_merge($this->_options, $options);
+        if (($options['clear'] == true) ||  !isset($this->_translate[$locale])) {
+            $this->_translate[$locale] = array();
+        }
+        $this->_translate[$locale] = array_merge($this->_translate[$locale], $inidata);
     }
 
     /**

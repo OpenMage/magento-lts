@@ -14,14 +14,12 @@
  *
  * @category   Zend
  * @package    Zend_Soap
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ArrayOfTypeSequence.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id$
  */
 
-#require_once "Zend/Soap/Wsdl/Strategy/DefaultComplexType.php";
-
-class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strategy_DefaultComplexType
+class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strategy_Abstract
 {
     /**
      * Add an unbounded ArrayOfType based on the xsd:sequence syntax if type[] is detected in return value doc comment.
@@ -37,21 +35,20 @@ class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strateg
             $singularType = $this->_getSingularType($type);
 
             for($i = 1; $i <= $nestedCounter; $i++) {
-                $complexTypeName = substr($this->_getTypeNameBasedOnNestingLevel($singularType, $i), 4);
+                $complexTypeName = $this->_getTypeNameBasedOnNestingLevel($singularType, $i);
                 $childTypeName = $this->_getTypeNameBasedOnNestingLevel($singularType, $i-1);
 
                 $this->_addElementFromWsdlAndChildTypes($complexTypeName, $childTypeName);
             }
             // adding the PHP type which is resolved to a nested XSD type. therefore add only once.
-            $this->getContext()->addType($complexTypeName);
+            $this->getContext()->addType($type);
 
             return "tns:$complexTypeName";
-        } else if (!in_array($type, $this->getContext()->getTypes())) {
-            // New singular complex type
-            return parent::addComplexType($type);
         } else {
-            // Existing complex type
-            return $this->getContext()->getType($type);
+            #require_once "Zend/Soap/Wsdl/Exception.php";
+            throw new Zend_Soap_Wsdl_Exception(sprintf(
+                'ArrayOfTypeSequence Strategy does not allow for complex types that are not in @return type[] syntax. "%s" type was specified.', $type
+            ));
         }
     }
 
@@ -71,7 +68,7 @@ class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strateg
             $prefix = str_repeat("ArrayOf", $level);
             $xsdType = $this->_getStrippedXsdType($singularType);
             $arrayType = $prefix.$xsdType;
-            return "tns:$arrayType";
+            return $arrayType;
         }
     }
 
@@ -96,6 +93,14 @@ class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strateg
     protected function _getSingularType($type)
     {
         $singulartype = $this->getContext()->getType(str_replace("[]", "", $type));
+
+        if(substr($singulartype, 0, 4) != "xsd:") {
+            #require_once "Zend/Soap/Wsdl/Exception.php";
+            throw new Zend_Soap_Wsdl_Exception(sprintf(
+                'ArrayOfTypeSequence Strategy works only with arrays of simple types like int, string, boolean, not with "%s".'.
+                'You may use Zend_Soap_Wsdl_Strategy_ArrayOfTypeComplex for more complex types.', $type
+            ));
+        }
         return $singulartype;
     }
 

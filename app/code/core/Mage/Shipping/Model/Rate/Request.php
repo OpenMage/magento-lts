@@ -18,29 +18,29 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Shipping
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Shipping
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Fields:
- * - orig:
- *   - country_id: UK
+ * - orig: 
+ *   - country_id: 223
  *   - region_id: 1
  *   - postcode: 90034
- * - dest:
- *   - country_id: UK
+ * - dest: 
+ *   - country_id: 223
  *   - region_id: 2
  *   - postcode: 01005
- * - package:
+ * - package: 
  *   - value: $100
  *   - weight: 1.5 lb
  *   - height: 10"
  *   - width: 10"
  *   - depth: 10"
- * - order:
+ * - order: 
  *   - total_qty: 10
  *   - subtotal: $100
  * - option

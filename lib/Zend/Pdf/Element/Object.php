@@ -14,14 +14,16 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Object.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
 
 /** Zend_Pdf_Element */
 #require_once 'Zend/Pdf/Element.php';
+
+/** Zend_Pdf_ElementFactory */
+#require_once 'Zend/Pdf/ElementFactory.php';
 
 
 /**
@@ -29,7 +31,7 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Element_Object extends Zend_Pdf_Element
@@ -74,17 +76,14 @@ class Zend_Pdf_Element_Object extends Zend_Pdf_Element
     public function __construct(Zend_Pdf_Element $val, $objNum, $genNum, Zend_Pdf_ElementFactory $factory)
     {
         if ($val instanceof self) {
-            #require_once 'Zend/Pdf/Exception.php';
-            throw new Zend_Pdf_Exception('Object number must not be an instance of Zend_Pdf_Element_Object.');
+            throw new Zend_Pdf_Exception('Object number must not be instance of Zend_Pdf_Element_Object.');
         }
 
         if ( !(is_integer($objNum) && $objNum > 0) ) {
-            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Object number must be positive integer.');
         }
 
         if ( !(is_integer($genNum) && $genNum >= 0) ) {
-            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Generation number must be non-negative integer.');
         }
 
@@ -93,9 +92,7 @@ class Zend_Pdf_Element_Object extends Zend_Pdf_Element
         $this->_genNum  = $genNum;
         $this->_factory = $factory;
 
-        $this->setParentObject($this);
-
-        $factory->registerObject($this, $objNum . ' ' . $genNum);
+        $factory->registerObject($this);
     }
 
 
@@ -208,7 +205,20 @@ class Zend_Pdf_Element_Object extends Zend_Pdf_Element
      */
     public function __call($method, $args)
     {
-        return call_user_func_array(array($this->_value, $method), $args);
+        switch (count($args)) {
+            case 0:
+                return $this->_value->$method();
+            case 1:
+                return $this->_value->$method($args[0]);
+            case 2:
+                return $this->_value->$method($args[0], $args[1]);
+            case 3:
+                return $this->_value->$method($args[0], $args[1], $args[2]);
+            case 4:
+                return $this->_value->$method($args[0], $args[1], $args[2], $args[3]);
+            default:
+                throw new Zend_Pdf_Exception('Unsupported number of arguments');
+        }
     }
 
 
@@ -218,16 +228,6 @@ class Zend_Pdf_Element_Object extends Zend_Pdf_Element
     public function touch()
     {
         $this->_factory->markAsModified($this);
-    }
-
-    /**
-     * Return object, which can be used to identify object and its references identity
-     *
-     * @return Zend_Pdf_Element_Object
-     */
-    public function getObject()
-    {
-        return $this;
     }
 
     /**

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Form.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Form.php 10196 2008-07-18 22:01:18Z matthew $
  */
 
 /** Zend_Dojo_View_Helper_Dijit */
@@ -25,11 +25,11 @@
 
 /**
  * Dojo Form dijit
- *
+ * 
  * @uses       Zend_Dojo_View_Helper_Dijit
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 class Zend_Dojo_View_Helper_Form extends Zend_Dojo_View_Helper_Dijit
@@ -53,10 +53,10 @@ class Zend_Dojo_View_Helper_Form extends Zend_Dojo_View_Helper_Dijit
 
     /**
      * dijit.form.Form
-     *
-     * @param  string $id
+     * 
+     * @param  string $id 
      * @param  null|array $attribs HTML attributes
-     * @param  false|string $content
+     * @param  false|string $content 
      * @return string
      */
     public function form($id, $attribs = null, $content = false)
@@ -81,7 +81,7 @@ class Zend_Dojo_View_Helper_Form extends Zend_Dojo_View_Helper_Dijit
 
     /**
      * Get standard form helper
-     *
+     * 
      * @return Zend_View_Helper_Form
      */
     public function getFormHelper()

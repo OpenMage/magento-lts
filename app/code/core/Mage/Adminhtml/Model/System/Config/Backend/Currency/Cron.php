@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -41,7 +41,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Cron extends Mage_Core
         $enabled = $this->getData('groups/import/fields/enabled/value');
         $service = $this->getData('groups/import/fields/service/value');
         $time = $this->getData('groups/import/fields/time/value');
-        $frequency = $this->getData('groups/import/fields/frequency/value');
+        $frequncy = $this->getData('groups/import/fields/frequncy/value');
         $errorEmail = $this->getData('groups/import/fields/error_email/value');
 
         $frequencyDaily = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_DAILY;
@@ -53,9 +53,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Cron extends Mage_Core
         $cronExprArray = array(
             intval($time[1]),                                   # Minute
             intval($time[0]),                                   # Hour
-            ($frequency == $frequencyMonthly) ? '1' : '*',       # Day of the Month
+            ($frequncy == $frequencyMonthly) ? '1' : '*',       # Day of the Month
             '*',                                                # Month of the Year
-            ($frequency == $frequencyWeekly) ? '1' : '*',        # Day of the Week
+            ($frequncy == $frequencyWeekly) ? '1' : '*',        # Day of the Week
         );
 
         $cronExprString = join(' ', $cronExprArray);

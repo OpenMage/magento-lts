@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -387,52 +387,6 @@
                         </default_ua_regexp>
                     </fields>
                 </theme>
-                <pagination translate="label">
-                    <label>Pagination</label>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>500</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
-                        <pagination_frame translate="label comment">
-                            <label>Pagination Frame</label>
-                            <comment>How many Links to display at once</comment>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>7</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </pagination_frame>
-                        <pagination_frame_skip translate="label comment">
-                            <label>Pagination Frame Skip</label>
-                            <comment>If the Current Frame Position does not cover Utmost Pages, will render Link to Current Position plus/minus this Value</comment>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>8</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </pagination_frame_skip>
-                        <anchor_text_for_previous translate="label comment">
-                            <label>Anchor Text for Previous</label>
-                            <comment>Alternative text for Previous link in pagination menu. If empty, default arrow image will used</comment>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>9</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </anchor_text_for_previous>
-                        <anchor_text_for_next translate="label comment">
-                            <label>Anchor Text for Next</label>
-                            <comment>Alternative text for Next Link in pagination menu. If empty, default arrow image will used</comment>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>10</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </anchor_text_for_next>
-                    </fields>
-                </pagination>
             </groups>
         </design>
         <dev translate="label" module="core">
@@ -553,7 +507,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Logging from Mage::log(). File is located in {{base_dir}}/var/log</comment>
+                            <comment>Logging from Mage::log(). File is located in {{base_dir}}/var/log</comment>
                         </file>
                         <exception_file translate="label comment">
                             <label>Exceptions Log File Name</label>
@@ -562,7 +516,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Logging from Mage::logException(). File is located in {{base_dir}}/var/log</comment>
+                            <comment>Logging from Mage::logException(). File is located in {{base_dir}}/var/log</comment>
                         </exception_file>
                     </fields>
                 </log>
@@ -575,7 +529,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <merge_files translate="label">
-                            <label>Merge JavaScript Files (beta)</label>
+                            <label>Merge JavaScript Files</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>10</sort_order>
@@ -594,26 +548,6 @@
                         </deprecation>
                     </fields>
                 </js>
-                <css translate="label">
-                    <label>CSS Settings</label>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>110</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
-                        <merge_css_files translate="label">
-                            <label>Merge CSS Files (beta)</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>10</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>Experimental. Turn this feature off if there are troubles with relative urls inside css-files.</comment>
-                        </merge_css_files>
-                    </fields>
-                </css>
             </groups>
         </dev>
         <general translate="label" module="core">
@@ -643,6 +577,15 @@
                             <show_in_store>1</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </allow>
+                        <default translate="label">
+                            <label>Default country</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default>
                         <default translate="label">
                             <label>Default country</label>
                             <frontend_type>select</frontend_type>
@@ -700,40 +643,6 @@
                         </weekend>
                     </fields>
                 </locale>
-                <store_information translate="label">
-                    <label>Store Information</label>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>100</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
-                        <name translate="label">
-                            <label>Store Name</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>10</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </name>
-                        <phone translate="label">
-                            <label>Store Contact Telephone</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>20</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </phone>
-                        <address translate="label">
-                            <label>Store Contact Address</label>
-                            <frontend_type>textarea</frontend_type>
-                            <sort_order>30</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </address>
-                    </fields>
-                </store_information>
             </groups>
         </general>
         <system translate="label" module="core">
@@ -747,7 +656,7 @@
             <show_in_store>1</show_in_store>
             <groups>
                 <smtp translate="label">
-                    <label>Mail Sending Settings</label>
+                    <label>SMTP settings (Windows server only)</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
@@ -770,7 +679,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>For Windows Server Only</comment>
                         </host>
                         <port translate="label">
                             <label>Port (25)</label>
@@ -779,7 +687,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>For Windows Server Only</comment>
                         </port>
                         <!--
                         <auth translate="label">
@@ -808,26 +715,6 @@
                             <show_in_store>1</show_in_store>
                         </password>
                         -->
-                        <set_return_path translate="label">
-                            <label>Set Return-Path</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesnocustom</source_model>
-                            <sort_order>70</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </set_return_path>
-                        <return_path_email translate="label">
-                            <label>Return-Path Email</label>
-                            <frontend_type>text</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_email_address</backend_model>
-                            <validate>validate-email</validate>
-                            <sort_order>80</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><set_return_path>2</set_return_path></depends>
-                        </return_path_email>
                     </fields>
                 </smtp>
             </groups>
@@ -936,18 +823,9 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </use_form_key>
-                        <use_case_sensitive_login translate="label">
-                            <label>Login is Case Sensitive</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </use_case_sensitive_login>
                         <session_cookie_lifetime translate="label comment">
                             <label>Session Lifetime (seconds)</label>
-                            <comment>Values less than 60 are ignored. Please note, that changes will apply after logout.</comment>
+                            <comment>Values less than 60 are ignored.</comment>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -1180,11 +1058,19 @@
                         <cookie_lifetime translate="label">
                             <label>Cookie Lifetime</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>10</sort_order>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </cookie_lifetime>
+                        <cookie_domain translate="label">
+                            <label>Cookie Domain</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cookie_domain>
                         <cookie_path translate="label">
                             <label>Cookie Path</label>
                             <frontend_type>text</frontend_type>
@@ -1193,14 +1079,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </cookie_path>
-                        <cookie_domain translate="label">
-                            <label>Cookie Domain</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>30</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </cookie_domain>
                         <cookie_httponly translate="label">
                             <label>Use HTTP Only</label>
                             <frontend_type>select</frontend_type>
@@ -1256,16 +1134,6 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </use_http_user_agent>
-                        <use_frontend_sid translate="label comment">
-                            <label>Use SID on Frontend</label>
-                            <comment>Allows Customers to stay logged in when switching between different Stores.</comment>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>50</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </use_frontend_sid>
                     </fields>
                 </session>
                 <browser_capabilities translate="label">
@@ -1286,7 +1154,7 @@
                             <show_in_store>1</show_in_store>
                         </cookies>
                         <javascript translate="label" module="cms">
-                            <label>Show notice if JavaScript is disabled</label>
+                            <label>Show notice if JavaScipt is disabled</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>200</sort_order>

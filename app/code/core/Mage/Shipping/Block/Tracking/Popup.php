@@ -18,86 +18,59 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Shipping
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Shipping
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 {
-    /**
-     * @deprecated after 1.3.2.3
-     */
+
     protected $_track_id;
-    /**
-     * @deprecated after 1.3.2.3
-     */
     protected $_order_id;
-    /**
-     * @deprecated after 1.3.2.3
-     */
     protected $_ship_id;
 
-    /**
-     * @deprecated after 1.3.2.3
-     */
     public function setOrderId($oid)
     {
-        return $this->setData('order_id', $oid);
+        $this->_order_id=$oid;
     }
 
-    /**
-     * @deprecated after 1.3.2.3
-     */
     public function getOrderId()
     {
-        return $this->_getData('order_id');
+        return $this->_order_id;
     }
 
-    /**
-     * @deprecated after 1.3.2.3
-     */
     public function setShipId($oid)
     {
-        return $this->setData('ship_id', $oid);
+        $this->_ship_id=$oid;
     }
 
-    /**
-     * @deprecated after 1.3.2.3
-     */
     public function getShipId()
     {
-        return $this->_getData('ship_id');
+        return $this->_ship_id;
     }
 
-    /**
-     * @deprecated after 1.3.2.3
-     */
     public function setTrackId($tid='')
     {
-        return $this->setData('track_id', $tid);
+        $this->_track_id=$tid;
     }
 
-    /**
-     * @deprecated after 1.3.2.3
-     */
     public function getTrackId()
     {
-        return $this->_getData('track_id');
+        return $this->_track_id;
     }
 
      /**
-      * @deprecated after 1.4.0.0-alpha3
-      * Initialize order model instance
-      *
-      * @return Mage_Sales_Model_Order || false
-      */
+     * Initialize order model instance
+     *
+     * @return Mage_Sales_Model_Order || false
+     */
     protected function _initOrder()
     {
-        $order = Mage::getModel('sales/order')->load($this->getOrderId());
+        $order = Mage::getModel('sales/order')->load($this->_order_id);
 
-        if (!$order->getId() || $this->getProtectCode() != $order->getProtectCode()) {
+        if (!$order->getId()) {
             return false;
         }
 
@@ -105,16 +78,15 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
-     * @deprecated after 1.4.0.0-alpha3
      * Initialize ship model instance
      *
      * @return Mage_Sales_Model_Order_Shipment || false
      */
     protected function _initShipment()
     {
-        $ship = Mage::getModel('sales/order_shipment')->load($this->getShipId());
+        $ship = Mage::getModel('sales/order_shipment')->load($this->_ship_id);
 
-        if (!$ship->getEntityId() || $this->getProtectCode() != $ship->getProtectCode()) {
+        if (!$ship->getEntityId()) {
             return false;
         }
 
@@ -122,22 +94,24 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
 
-    /**
-     * Retrieve array of tracking info
-     *
-     * @return array
-     */
     public function getTrackingInfo()
     {
-        return Mage::registry('current_shipping_info')->getTrackingInfo();
+        $this->setOrderId($this->getRequest()->getParam('order_id'));
+        $this->setTrackId($this->getRequest()->getParam('track_id'));
+        $this->setShipId($this->getRequest()->getParam('ship_id'));
+
+        if ($this->getOrderId()>0) {
+            return $this->getTrackingInfoByOrder();
+        } elseif($this->getShipId()>0) {
+            return $this->getTrackingInfoByShip();
+        } else {
+            return $this->getTrackingInfoByTrackId();
+        }
     }
 
-    /**
-     * @deprecated after 1.4.0.0-alpha3
-     * Retrieve all tracking by orders id
-     *
-     * @return array
-     */
+    /*
+    * retrieve all tracking by orders id
+    */
     public function getTrackingInfoByOrder()
     {
         $shipTrack = array();
@@ -157,12 +131,9 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         return $shipTrack;
     }
 
-    /**
-     * @deprecated after 1.4.0.0-alpha3
-     * Retrieve all tracking by ship id
-     *
-     * @return array
-     */
+    /*
+    * retrieve all tracking by ship id
+    */
     public function getTrackingInfoByShip()
     {
         $shipTrack = array();
@@ -180,71 +151,41 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         return $shipTrack;
     }
 
-    /**
-     * @deprecated after 1.4.0.0-alpha3
-     * Retrieve tracking by tracking entity id
-     *
-     * @return array
-     */
+    /*
+    * retrieve tracking by tracking entity id
+    */
     public function getTrackingInfoByTrackId()
     {
-        $track = Mage::getModel('sales/order_shipment_track')->load($this->getTrackId());
-        if ($this->getProtectCode() == $track->getProtectCode()) {
-            return array(array($track->getNumberDetail()));
-        }
-        return array(array());
+        $shipTrack[] = array(Mage::getModel('sales/order_shipment_track')->load($this->getTrackId())
+                       ->getNumberDetail());
+        return $shipTrack;
     }
 
-    /**
-     * Format given date and time in current locale without changing timezone
-     *
-     * @param string $date
-     * @param string $time
-     * @return string
-     */
-    public function formatDeliveryDateTime($date, $time)
+    /*
+    * change date format to mm/dd/Y hh:mm AM/PM
+    */
+    public function formatDeliveryDateTime($date,$time)
     {
-        return $this->formatDeliveryDate($date) . ' ' . $this->formatDeliveryTime($time);
+        return Mage::app()->getLocale()->date(strtotime($date.' '.$time),Zend_Date::TIMESTAMP, null, false)->toString('MM/dd/YYYY hh:mm a');
     }
 
-    /**
-     * Format given date in current locale without changing timezone
-     *
-     * @param string $date
-     * @return string
-     */
+    /*
+    * change date format to mm/dd/Y
+    */
     public function formatDeliveryDate($date)
     {
-        $format = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
-        return Mage::app()->getLocale()->date(strtotime($date), Zend_Date::TIMESTAMP, null, false)
-            ->toString($format);
+        return Mage::app()->getLocale()->date(strtotime($date),Zend_Date::TIMESTAMP, null, false)->toString('MM/dd/YYYY');
     }
 
-    /**
-     * Format given time [+ date] in current locale without changing timezone
-     *
-     * @param string $time
-     * @param string $date
-     * @return string
-     */
+    /*
+    * change date format to mm/dd/Y
+    */
     public function formatDeliveryTime($time, $date = null)
     {
         if (!empty($date)) {
-            $time = $date . ' ' . $time;
+            $time = $date.' '.$time;
         }
-        $format = Mage::app()->getLocale()->getTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-        return Mage::app()->getLocale()->date(strtotime($time), Zend_Date::TIMESTAMP, null, false)
-            ->toString($format);
-    }
-
-    /**
-     * Is 'contact us' option enabled?
-     *
-     * @return boolean
-     */
-    public function getContactUsEnabled()
-    {
-        return (bool) Mage::getStoreConfig('contacts/contacts/enabled');
+        return Mage::app()->getLocale()->date(strtotime($time),Zend_Date::TIMESTAMP, null, false)->toString('hh:mm a');
     }
 
     public function getStoreSupportEmail()

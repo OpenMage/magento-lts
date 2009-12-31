@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -95,39 +95,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     }
 
     /**
-     * Check Product has URL
-     *
-     * @return this
-     */
-    public function hasProductUrl()
-    {
-        if ($this->_productUrl || $this->getItem()->getRedirectUrl()) {
-            return true;
-        }
-
-        $product = $this->getProduct();
-        $option  = $this->getItem()->getOptionByCode('product_type');
-        if ($option) {
-            $product = $option->getProduct();
-        }
-
-        if ($product->isVisibleInSiteVisibility()) {
-            return true;
-        }
-        else {
-            if ($product->hasUrlDataObject()) {
-                $data = $product->getUrlDataObject();
-                if (in_array($data->getVisibility(), $product->getVisibleInSiteVisibilities())) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Retrieve URL to item Product
+     * Get url to item product
      *
      * @return string
      */
@@ -136,17 +104,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if (!is_null($this->_productUrl)) {
             return $this->_productUrl;
         }
-        if ($this->getItem()->getRedirectUrl()) {
-            return $this->getItem()->getRedirectUrl();
-        }
-
-        $product = $this->getProduct();
-        $option  = $this->getItem()->getOptionByCode('product_type');
-        if ($option) {
-            $product = $option->getProduct();
-        }
-
-        return $product->getUrlModel()->getUrl($product);
+        return $this->getProduct()->getProductUrl();
     }
 
     /**

@@ -12,19 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Trailer.php 18993 2009-11-15 17:09:16Z alexander $
  */
+
+
+/** Zend_Pdf_Element_Dictionary */
+#require_once 'Zend/Pdf/Element/Dictionary.php';
 
 
 /**
  * PDF file trailer
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_Trailer
@@ -48,7 +50,6 @@ abstract class Zend_Pdf_Trailer
     {
         if ( !in_array($key, self::$_allowedKeys) ) {
             /** @todo Make warning (log entry) instead of an exception */
-            #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception("Unknown trailer dictionary key: '$key'.");
         }
     }

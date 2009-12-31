@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_File_Transfer
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Transfer.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version   $Id: $
  */
 
 /**
@@ -24,7 +24,7 @@
  *
  * @category  Zend
  * @package   Zend_File_Transfer
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_File_Transfer
@@ -44,12 +44,8 @@ class Zend_File_Transfer
                 $adapter = 'Zend_File_Transfer_Adapter_Http';
                 break;
         }
-
-        if (!class_exists($adapter)) {
-            #require_once 'Zend/Loader.php';
-            Zend_Loader::loadClass($adapter);
-        }
-
+        
+        #Zend_Loader::loadClass($adapter);
         $this->_adapter = new $adapter();
         if (!$this->_adapter instanceof Zend_File_Transfer_Adapter) {
             #require_once 'Zend/File/Transfer/Exception.php';

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: StackContainer.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: StackContainer.php 10067 2008-07-12 21:05:32Z matthew $
  */
 
 /** Zend_Dojo_View_Helper_DijitContainer */
@@ -25,11 +25,11 @@
 
 /**
  * Dojo StackContainer dijit
- *
+ * 
  * @uses       Zend_Dojo_View_Helper_DijitContainer
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 class Zend_Dojo_View_Helper_StackContainer extends Zend_Dojo_View_Helper_DijitContainer
@@ -48,9 +48,9 @@ class Zend_Dojo_View_Helper_StackContainer extends Zend_Dojo_View_Helper_DijitCo
 
     /**
      * dijit.layout.StackContainer
-     *
-     * @param  string $id
-     * @param  string $content
+     * 
+     * @param  string $id 
+     * @param  string $content 
      * @param  array $params  Parameters to use for dijit creation
      * @param  array $attribs HTML attributes
      * @return string

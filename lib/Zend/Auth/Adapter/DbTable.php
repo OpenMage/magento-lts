@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage Zend_Auth_Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DbTable.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: DbTable.php 13201 2008-12-13 19:52:26Z sidhighwind $
  */
 
 
@@ -41,23 +41,17 @@
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage Zend_Auth_Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Auth_Adapter_DbTable implements Zend_Auth_Adapter_Interface
 {
-
     /**
      * Database Connection
      *
      * @var Zend_Db_Adapter_Abstract
      */
     protected $_zendDb = null;
-
-    /**
-     * @var Zend_Db_Select
-     */
-    protected $_dbSelect = null;
 
     /**
      * $_tableName - the table name to check
@@ -232,20 +226,6 @@ class Zend_Auth_Adapter_DbTable implements Zend_Auth_Adapter_Interface
     }
 
     /**
-     * getDbSelect() - Return the preauthentication Db Select object for userland select query modification
-     *
-     * @return Zend_Db_Select
-     */
-    public function getDbSelect()
-    {
-        if ($this->_dbSelect == null) {
-            $this->_dbSelect = $this->_zendDb->select();
-        }
-
-        return $this->_dbSelect;
-    }
-
-    /**
      * getResultRowObject() - Returns the result row as a stdClass object
      *
      * @param  string|array $returnColumns
@@ -373,13 +353,11 @@ class Zend_Auth_Adapter_DbTable implements Zend_Auth_Adapter_Interface
                 . ' = ' . $this->_credentialTreatment, $this->_credential
                 )
             . ' THEN 1 ELSE 0 END) AS '
-            . $this->_zendDb->quoteIdentifier(
-                $this->_zendDb->foldCase('zend_auth_credential_match')
-                )
+            . $this->_zendDb->quoteIdentifier('zend_auth_credential_match')
             );
 
         // get select
-        $dbSelect = clone $this->getDbSelect();
+        $dbSelect = $this->_zendDb->select();
         $dbSelect->from($this->_tableName, array('*', $credentialExpression))
                  ->where($this->_zendDb->quoteIdentifier($this->_identityColumn, true) . ' = ?', $this->_identity);
 
@@ -428,6 +406,7 @@ class Zend_Auth_Adapter_DbTable implements Zend_Auth_Adapter_Interface
     protected function _authenticateValidateResultSet(array $resultIdentities)
     {
 
+
         if (count($resultIdentities) < 1) {
             $this->_authenticateResultInfo['code'] = Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND;
             $this->_authenticateResultInfo['messages'][] = 'A record with the supplied identity could not be found.';
@@ -450,15 +429,13 @@ class Zend_Auth_Adapter_DbTable implements Zend_Auth_Adapter_Interface
      */
     protected function _authenticateValidateResult($resultIdentity)
     {
-        $zendAuthCredentialMatchColumn = $this->_zendDb->foldCase('zend_auth_credential_match');
-
-        if ($resultIdentity[$zendAuthCredentialMatchColumn] != '1') {
+        if ($resultIdentity['zend_auth_credential_match'] != '1') {
             $this->_authenticateResultInfo['code'] = Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID;
             $this->_authenticateResultInfo['messages'][] = 'Supplied credential is invalid.';
             return $this->_authenticateCreateAuthResult();
         }
 
-        unset($resultIdentity[$zendAuthCredentialMatchColumn]);
+        unset($resultIdentity['zend_auth_credential_match']);
         $this->_resultRow = $resultIdentity;
 
         $this->_authenticateResultInfo['code'] = Zend_Auth_Result::SUCCESS;

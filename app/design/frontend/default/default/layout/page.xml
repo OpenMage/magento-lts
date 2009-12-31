@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<layout version="0.1.0">
+<!--
+Default layout, loads most of the pages
+-->
+
+    <default>
+        <block type="page/html" name="root" output="toHtml" template="page/3columns.phtml">
+
+            <block type="page/html_head" name="head" as="head">
+                <action method="addJs"><script>prototype/prototype.js</script></action>
+                <action method="addJs" ifconfig="dev/js/deprecation"><script>prototype/deprecation.js</script></action>
+                <action method="addJs"><script>prototype/validation.js</script></action>
+                <action method="addJs"><script>scriptaculous/builder.js</script></action>
+                <action method="addJs"><script>scriptaculous/effects.js</script></action>
+                <action method="addJs"><script>scriptaculous/dragdrop.js</script></action>
+                <action method="addJs"><script>scriptaculous/controls.js</script></action>
+                <action method="addJs"><script>scriptaculous/slider.js</script></action>
+                <action method="addJs"><script>varien/js.js</script></action>
+                <action method="addJs"><script>varien/form.js</script></action>
+                <action method="addJs"><script>varien/menu.js</script></action>
+                <action method="addJs"><script>mage/translate.js</script></action>
+                <action method="addJs"><script>mage/cookies.js</script></action>
+                <action method="addCss"><stylesheet>css/reset.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/boxes.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/menu.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/clears.css</stylesheet></action>
+
+                <action method="addItem"><type>skin_css</type><name>css/iestyles.css</name><params/><if>lt IE 8</if></action>
+                <action method="addItem"><type>skin_css</type><name>css/ie7minus.css</name><params/><if>lt IE 7</if></action>
+
+                <action method="addItem"><type>js</type><name>lib/ds-sleight.js</name><params/><if>lt IE 7</if></action>
+                <action method="addItem"><type>js</type><name>varien/iehover-fix.js</name><params/><if>lt IE 7</if></action>
+
+                <action method="addCss"><stylesheet>css/print.css</stylesheet><params>media="print"</params></action>
+            </block>
+
+            <block type="page/html_notices" name="global_notices" as="global_notices" template="page/html/notices.phtml" />
+
+            <block type="page/html_header" name="header" as="header">
+                <block type="page/template_links" name="top.links" as="topLinks"/>
+                <block type="page/switch" name="store_language" as="store_language" template="page/switch/languages.phtml"/>
+                <block type="core/text_list" name="top.menu" as="topMenu"/>
+            </block>
+
+            <block type="page/html_breadcrumbs" name="breadcrumbs" as="breadcrumbs"/>
+
+            <block type="core/text_list" name="left" as="left"/>
+
+            <block type="core/messages" name="global_messages" as="global_messages"/>
+            <block type="core/messages" name="messages" as="messages"/>
+
+            <block type="core/text_list" name="content" as="content"/>
+
+            <block type="core/text_list" name="right" as="right"/>
+
+            <block type="page/html_footer" name="footer" as="footer" template="page/html/footer.phtml">
+                <block type="page/switch" name="store_switcher" as="store_switcher" template="page/switch/stores.phtml"/>
+                <block type="page/template_links" name="footer_links" as="footer_links" template="page/template/links.phtml"/>
+            </block>
+
+            <block type="core/text_list" name="before_body_end" as="before_body_end"/>
+        </block>
+
+        <block type="core/profiler" output="toHtml"/>
+    </default>
+
+    <print>
+        <!-- Mage_Page -->
+        <block type="page/html" name="root" output="toHtml" template="page/print.phtml">
+
+            <block type="page/html_head" name="head" as="head">
+                <action method="addJs"><script>prototype/prototype.js</script></action>
+                <action method="addJs"><script>mage/translate.js</script></action>
+                <action method="addJs"><script>prototype/validation.js</script></action>
+                <action method="addJs"><script>varien/js.js</script></action>
+
+                <action method="addCss"><stylesheet>css/reset.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/boxes.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/menu.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/clears.css</stylesheet></action>
+
+                <action method="addItem"><type>skin_css</type><name>css/iestyles.css</name><params/><if>lt IE 8</if></action>
+                <action method="addItem"><type>skin_css</type><name>css/ie7minus.css</name><params/><if>lt IE 7</if></action>
+
+                <action method="addItem"><type>js</type><name>lib/ds-sleight.js</name><params/><if>lt IE 7</if></action>
+                <action method="addItem"><type>js</type><name>varien/iehover-fix.js</name><params/><if>lt IE 7</if></action>
+
+                <action method="addCss"><stylesheet>css/print.css</stylesheet><params>media="print"</params></action>
+            </block>
+
+            <block type="core/text_list" name="content" as="content"/>
+
+        </block>
+    </print>
+    
+     <!-- Custom page layout handles -->
+    <page_empty>
+        <reference name="root">
+            <action method="setTemplate"><template>page/one-column.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action> 
+        </reference>
+    </page_empty>
+    
+    <page_one_column>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action> 
+        </reference>
+    </page_one_column>
+    
+    <page_two_columns_left>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action> 
+        </reference>
+    </page_two_columns_left>
+    
+    <page_two_columns_right>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action> 
+        </reference>
+    </page_two_columns_right>
+    
+    <page_three_columns>
+        <reference name="root">
+            <action method="setTemplate"><template>page/3columns.phtml</template></action>
+            <!-- Mark root page block that template is applied -->
+            <action method="setIsHandle"><applied>1</applied></action> 
+        </reference>
+    </page_three_columns>
+</layout>

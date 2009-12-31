@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -14,20 +15,22 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: StringTrim.php 16417 2009-07-02 20:17:13Z thomas $
+ * @version    $Id: StringTrim.php 8064 2008-02-16 10:58:39Z thomas $
  */
+
 
 /**
  * @see Zend_Filter_Interface
  */
 #require_once 'Zend/Filter/Interface.php';
 
+
 /**
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_StringTrim implements Zend_Filter_Interface
@@ -86,29 +89,9 @@ class Zend_Filter_StringTrim implements Zend_Filter_Interface
     public function filter($value)
     {
         if (null === $this->_charList) {
-            return $this->_unicodeTrim((string) $value);
+            return trim((string) $value);
         } else {
-            return $this->_unicodeTrim((string) $value, $this->_charList);
+            return trim((string) $value, $this->_charList);
         }
-    }
-
-    /**
-     * Unicode aware trim method
-     * Fixes a PHP problem
-     *
-     * @param string $value
-     * @param string $charlist
-     * @return string
-     */
-    protected function _unicodeTrim($value, $charlist = '\\\\s')
-    {
-        $chars = preg_replace(
-            array( '/[\^\-\]\\\]/S', '/\\\{4}/S' ),
-            array( '\\\\\\0', '\\' ),
-            $charlist
-        );
-
-        $pattern = '^[' . $chars . ']*|[' . $chars . ']*$';
-        return preg_replace("/$pattern/sSD", '', $value);
     }
 }

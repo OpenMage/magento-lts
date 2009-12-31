@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -49,7 +49,6 @@ class Mage_Catalog_Model_Product_Type
     static protected $_types;
     static protected $_compositeTypes;
     static protected $_priceModels;
-    static protected $_typesPriority;
 
     /**
      * Product type instance factory
@@ -154,16 +153,7 @@ class Mage_Catalog_Model_Product_Type
     static public function getTypes()
     {
         if (is_null(self::$_types)) {
-            $productTypes = Mage::getConfig()->getNode('global/catalog/product/type')->asArray();
-            foreach ($productTypes as $productKey => $productConfig) {
-                $moduleName = 'catalog';
-                if (isset($productConfig['@']['module'])) {
-                    $moduleName = $productConfig['@']['module'];
-                }
-                $translatedLabel = Mage::helper($moduleName)->__($productConfig['label']);
-                $productTypes[$productKey]['label'] = $translatedLabel;
-            }
-            self::$_types = $productTypes;
+            self::$_types = Mage::getConfig()->getNode('global/catalog/product/type')->asArray();
         }
 
         return self::$_types;
@@ -186,40 +176,5 @@ class Mage_Catalog_Model_Product_Type
             }
         }
         return self::$_compositeTypes;
-    }
-
-    /**
-     * Return product types by type indexing priority
-     *
-     * @return array
-     */
-    public static function getTypesByPriority()
-    {
-        if (is_null(self::$_typesPriority)) {
-            self::$_typesPriority = array();
-            $a = array();
-            $b = array();
-
-            $types = self::getTypes();
-            foreach ($types as $typeId => $typeInfo) {
-                $priority = isset($typeInfo['index_priority']) ? abs(intval($typeInfo['index_priority'])) : 0;
-                if (!empty($typeInfo['composite'])) {
-                    $b[$typeId] = $priority;
-                } else {
-                    $a[$typeId] = $priority;
-                }
-            }
-
-            asort($a, SORT_NUMERIC);
-            asort($b, SORT_NUMERIC);
-
-            foreach (array_keys($a) as $typeId) {
-                self::$_typesPriority[$typeId] = $types[$typeId];
-            }
-            foreach (array_keys($b) as $typeId) {
-                self::$_typesPriority[$typeId] = $types[$typeId];
-            }
-        }
-        return self::$_typesPriority;
     }
 }

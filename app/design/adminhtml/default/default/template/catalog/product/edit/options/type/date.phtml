@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <script type="text/javascript">
@@ -33,7 +33,7 @@ OptionTemplateDate = '<table class="border" cellpadding="0" cellspacing="0">'+
             '<th class="last"><?php echo Mage::helper('catalog')->__('SKU') ?></th>'+
         '</tr>'+
         '<tr>'+
-            '<td><input type="text" class="input-text validate-zero-or-greater product-option-price" id="product_option_{{option_id}}_price" name="product[options][{{option_id}}][price]" value="{{price}}"></td>'+
+            '<td><input type="text" class="required-entry input-text validate-zero-or-greater product-option-price" id="product_option_{{option_id}}_price" name="product[options][{{option_id}}][price]" value="{{price}}"></td>'+
             '<td><?php echo $this->getPriceTypeSelectHtml() ?>{{checkboxScopePrice}}</td>'+
             '<td class="last"><input type="text" class="input-text type-sku" name="product[options][{{option_id}}][sku]" value="{{sku}}"></td>'+
         '</tr>'+

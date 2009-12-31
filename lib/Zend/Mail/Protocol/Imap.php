@@ -11,13 +11,13 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
- *
+ * 
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Imap.php 18977 2009-11-14 14:15:59Z yoshida@zend.co.jp $
+ * @version    $Id: Imap.php 12539 2008-11-11 02:47:17Z yoshida@zend.co.jp $
  */
 
 
@@ -25,7 +25,7 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mail_Protocol_Imap
@@ -34,7 +34,7 @@ class Zend_Mail_Protocol_Imap
      * Default timeout in seconds for initiating session
      */
     const TIMEOUT_CONNECTION = 30;
-
+    
     /**
      * socket to imap server
      * @var resource|null
@@ -50,7 +50,7 @@ class Zend_Mail_Protocol_Imap
     /**
      * Public constructor
      *
-     * @param  string   $host  hostname or IP address of IMAP server, if given connect() is called
+     * @param  string   $host  hostname of IP address of IMAP server, if given connect() is called
      * @param  int|null $port  port of IMAP server, null for default (143 or 993 for ssl)
      * @param  bool     $ssl   use ssl? 'SSL', 'TLS' or false
      * @throws Zend_Mail_Protocol_Exception
@@ -71,9 +71,9 @@ class Zend_Mail_Protocol_Imap
     }
 
     /**
-     * Open connection to IMAP server
+     * Open connection to POP3 server
      *
-     * @param  string      $host  hostname or IP address of IMAP server
+     * @param  string      $host  hostname of IP address of POP3 server
      * @param  int|null    $port  of IMAP server, default is 143 (993 for ssl)
      * @param  string|bool $ssl   use 'SSL', 'TLS' or false
      * @return string welcome message
@@ -97,8 +97,7 @@ class Zend_Mail_Protocol_Imap
              * @see Zend_Mail_Protocol_Exception
              */
             #require_once 'Zend/Mail/Protocol/Exception.php';
-            throw new Zend_Mail_Protocol_Exception('cannot connect to host; error = ' . $errstr .
-                                                   ' (errno = ' . $errno . ' )');
+            throw new Zend_Mail_Protocol_Exception('cannot connect to host : ' . $errno . ' : ' . $errstr);
         }
 
         if (!$this->_assumedNextLine('* OK')) {
@@ -196,8 +195,8 @@ class Zend_Mail_Protocol_Imap
                 "foo" baz {3}<NL>bar ("f\\\"oo" bar)
             would be returned as:
                 array('foo', 'baz', 'bar', array('f\\\"oo', 'bar'));
-
-            // TODO: add handling of '[' and ']' to parser for easier handling of response text
+                
+            // TODO: add handling of '[' and ']' to parser for easier handling of response text 
         */
         //  replace any trailling <NL> including spaces with a single space
         $line = rtrim($line) . ' ';
@@ -209,7 +208,7 @@ class Zend_Mail_Protocol_Imap
                 $token = substr($token, 1);
             }
             if ($token[0] == '"') {
-                if (preg_match('%^\(*"((.|\\\\|\\")*?)" *%', $line, $matches)) {
+                if (preg_match('%^"((.|\\\\|\\")*?)" *%', $line, $matches)) {
                     $tokens[] = $matches[1];
                     $line = substr($line, strlen($matches[0]));
                     continue;
@@ -242,8 +241,8 @@ class Zend_Mail_Protocol_Imap
                 // only count braces if more than one
                 $braces -= strlen($token) + 1;
                 // only add if token had more than just closing braces
-                if (rtrim($token) != '') {
-                    $tokens[] = rtrim($token);
+                if ($token) {
+                    $tokens[] = $token;
                 }
                 $token = $tokens;
                 $tokens = array_pop($stack);
@@ -825,7 +824,7 @@ class Zend_Mail_Protocol_Imap
         if (!$response) {
             return $response;
         }
-
+        
         foreach ($response as $ids) {
             if ($ids[0] == 'SEARCH') {
                 array_shift($ids);

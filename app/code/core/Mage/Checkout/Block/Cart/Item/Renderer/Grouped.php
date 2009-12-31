@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,8 +43,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
      */
     public function getGroupedProduct()
     {
-        $option = $this->getItem()->getOptionByCode('product_type');
-        if ($option) {
+        if ($option = $this->getItem()->getOptionByCode('product_type')) {
             return $option->getProduct();
         }
         return $this->getProduct();
@@ -67,6 +66,16 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
     }
 
     /**
+     * Get url to item product
+     *
+     * @return string
+     */
+    public function getProductUrl()
+    {
+        return $this->getGroupedProduct()->getProductUrl();
+    }
+
+    /**
      * Prepare item html
      *
      * This method uses renderer for real product type
@@ -77,11 +86,12 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
     {
         $renderer = $this->getRenderedBlock()->getItemRenderer($this->getItem()->getRealProductType());
         $renderer->setItem($this->getItem());
-//        $renderer->overrideProductUrl($this->getProductUrl());
+        $renderer->overrideProductUrl($this->getProductUrl());
         $renderer->overrideProductThumbnail($this->getProductThumbnail());
         $rendererHtml = $renderer->toHtml();
-//        $renderer->overrideProductUrl(null);
+        $renderer->overrideProductUrl(null);
         $renderer->overrideProductThumbnail(null);
         return $rendererHtml;
     }
+
 }

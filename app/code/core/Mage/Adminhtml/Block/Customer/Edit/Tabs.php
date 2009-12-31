@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -68,14 +68,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
         // load: Orders, Shopping Cart, Wishlist, Product Reviews, Product Tags - with ajax
 
         if (Mage::registry('current_customer')->getId()) {
-
-            if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
-                $this->addTab('orders', array(
-                    'label'     => Mage::helper('customer')->__('Orders'),
-                    'class'     => 'ajax',
-                    'url'       => $this->getUrl('*/*/orders', array('_current' => true)),
-                 ));
-            }
+            $this->addTab('orders', array(
+                'label'     => Mage::helper('customer')->__('Orders'),
+                'class'     => 'ajax',
+                'url'       => $this->getUrl('*/*/orders', array('_current' => true)),
+             ));
 
             $this->addTab('cart', array(
                 'label'     => Mage::helper('customer')->__('Shopping Cart'),
@@ -89,30 +86,24 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 'url'       => $this->getUrl('*/*/wishlist', array('_current' => true)),
             ));
 
-            if (Mage::getSingleton('admin/session')->isAllowed('newsletter/subscriber')) {
-                $this->addTab('newsletter', array(
-                    'label'     => Mage::helper('customer')->__('Newsletter'),
-                    'content'   => $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter')->initForm()->toHtml()
-                ));
-            }
+            $this->addTab('newsletter', array(
+                'label'     => Mage::helper('customer')->__('Newsletter'),
+                'content'   => $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter')->initForm()->toHtml()
+            ));
 
-            if (Mage::getSingleton('admin/session')->isAllowed('catalog/reviews_ratings')) {
-                $this->addTab('reviews', array(
-                    'label'     => Mage::helper('customer')->__('Product Reviews'),
-                    'class'     => 'ajax',
-                    'url'       => $this->getUrl('*/*/productReviews', array('_current' => true)),
-                ));
-            }
+            $this->addTab('reviews', array(
+                'label'     => Mage::helper('customer')->__('Product Reviews'),
+                'class'     => 'ajax',
+                'url'       => $this->getUrl('*/*/productReviews', array('_current' => true)),
+            ));
 
-            if (Mage::getSingleton('admin/session')->isAllowed('catalog/tag')) {
-                $this->addTab('tags', array(
-                    'label'     => Mage::helper('customer')->__('Product Tags'),
-                    'class'     => 'ajax',
-                    'url'       => $this->getUrl('*/*/productTags', array('_current' => true)),
-                ));
-            }
+            $this->addTab('tags', array(
+                'label'     => Mage::helper('customer')->__('Product Tags'),
+                'class'     => 'ajax',
+                'url'       => $this->getUrl('*/*/productTags', array('_current' => true)),
+            ));
         }
-
+        
         $this->_updateActiveTab();
         Varien_Profiler::stop('customer/tabs');
         return parent::_beforeToHtml();
@@ -120,12 +111,12 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
 
     protected function _updateActiveTab()
     {
-        $tabId = $this->getRequest()->getParam('tab');
-        if( $tabId ) {
-            $tabId = preg_replace("#{$this->getId()}_#", '', $tabId);
-            if($tabId) {
-                $this->setActiveTab($tabId);
-            }
-        }
+    	$tabId = $this->getRequest()->getParam('tab');
+    	if( $tabId ) {
+    		$tabId = preg_replace("#{$this->getId()}_#", '', $tabId);
+    		if($tabId) {
+    			$this->setActiveTab($tabId);
+    		}
+    	}
     }
 }

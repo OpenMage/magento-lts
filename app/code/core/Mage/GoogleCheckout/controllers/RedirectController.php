@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +31,7 @@
  */
 class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_Action
 {
+    
     /**
      *  Send request to Google Checkout and return Responce Api
      *
@@ -58,6 +59,7 @@ class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_
         $baseCurrency = $session->getQuote()->getBaseCurrencyCode();
         $currency = Mage::app()->getStore($session->getQuote()->getStoreId())->getBaseCurrency();
         $session->getQuote()
+            ->setForcedCurrency($currency)
             ->collectTotals()
             ->save();
 
@@ -69,8 +71,6 @@ class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_
             if ($api->getError()) {
                 Mage::getSingleton('checkout/session')->addError($api->getError());
             } else {
-                $oldQuote = $session->getQuote();
-                $oldQuote->setIsActive(false)->save();
                 $session->replaceQuote($storeQuote);
                 Mage::getModel('checkout/cart')->init()->save();
                 if (Mage::getStoreConfigFlag('google/checkout/hide_cart_contents')) {
@@ -134,12 +134,12 @@ class Mage_GoogleCheckout_RedirectController extends Mage_Core_Controller_Front_
         if ($quoteId = $session->getGoogleCheckoutQuoteId()) {
             $quote = Mage::getModel('sales/quote')->load($quoteId)
                 ->setIsActive(false)->save();
-            $session->clear();
+            $session->unsQuoteId();
         }
 
-        if (Mage::getStoreConfigFlag('google/checkout/hide_cart_contents')) {
-            $session->setGoogleCheckoutQuoteId(null);
-        }
+//        if (Mage::getStoreConfigFlag('google/checkout/hide_cart_contents')) {
+//            $session->unsGoogleCheckoutQuoteId();
+//        }
 
         $url = Mage::getStoreConfig('google/checkout/continue_shopping_url');
         if (empty($url)) {

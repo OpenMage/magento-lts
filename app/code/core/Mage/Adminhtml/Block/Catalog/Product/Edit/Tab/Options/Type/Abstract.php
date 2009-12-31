@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -44,11 +44,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract extend
                     'id' => 'product_option_{{option_id}}_price_type',
                     'class' => 'select product-option-price-type'
                 ))
+                ->setName('product[options][{{option_id}}][price_type]')
+                ->setOptions(Mage::getSingleton('adminhtml/system_config_source_product_options_price')->toOptionArray())
         );
-
-        $this->getChild('option_price_type')->setName('product[options][{{option_id}}][price_type]')
-            ->setOptions(Mage::getSingleton('adminhtml/system_config_source_product_options_price')
-            ->toOptionArray());
 
         return parent::_prepareLayout();
     }

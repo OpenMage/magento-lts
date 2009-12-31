@@ -193,22 +193,6 @@ function decorateDataList(list) {
 }
 
 /**
- * Parse SID and produces the correct URL
- */
-function parseSidUrl(baseUrl, urlExt) {
-    sidPos = baseUrl.indexOf('/?SID=');
-    sid = '';
-    urlExt = (urlExt != undefined) ? urlExt : '';
-
-    if(sidPos > -1) {
-        sid = '?' + baseUrl.substring(sidPos + 2);
-        baseUrl = baseUrl.substring(0, sidPos + 1);
-    }
-
-    return baseUrl+urlExt+sid;
-}
-
-/**
  * Formats currency using patern
  * format - JSON (pattern, decimal, decimalsDelimeter, groupsDelimeter)
  * showPlus - true (always show '+'or '-'),
@@ -340,14 +324,13 @@ Varien.searchForm.prototype = {
             url,
             {
                 paramName: this.field.name,
-                method: 'get',
                 minChars: 2,
                 updateElement: this._selectAutocompleteItem.bind(this),
-                onShow : function(element, update) {
+                onShow : function(element, update) { 
                     if(!update.style.position || update.style.position=='absolute') {
                         update.style.position = 'absolute';
                         Position.clone(element, update, {
-                            setHeight: false,
+                            setHeight: false, 
                             offsetTop: element.offsetHeight
                         });
                     }
@@ -484,24 +467,3 @@ function truncateOptions() {
 Event.observe(window, 'load', function(){
    truncateOptions();
 });
-
-Element.addMethods({
-    getInnerText: function(element)
-    {
-        element = $(element);
-        if(element.innerText && !Prototype.Browser.Opera) {
-            return element.innerText
-        }
-        return element.innerHTML.stripScripts().unescapeHTML().replace(/[\n\r\s]+/g, ' ');
-    }
-});
-
-if (!("console" in window) || !("firebug" in console))
-{
-    var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml",
-    "group", "groupEnd", "time", "timeEnd", "count", "trace", "profile", "profileEnd"];
-
-    window.console = {};
-    for (var i = 0; i < names.length; ++i)
-        window.console[names[i]] = function() {}
-}

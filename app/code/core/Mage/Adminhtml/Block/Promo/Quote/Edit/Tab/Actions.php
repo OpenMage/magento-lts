@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -32,50 +32,8 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions extends Mage_Adminhtml_Block_Widget_Form
 {
-    /**
-     * Prepare content for tab
-     *
-     * @return string
-     */
-    public function getTabLabel()
-    {
-        return Mage::helper('salesrule')->__('Actions');
-    }
-
-    /**
-     * Prepare title for tab
-     *
-     * @return string
-     */
-    public function getTabTitle()
-    {
-        return Mage::helper('salesrule')->__('Actions');
-    }
-
-    /**
-     * Returns status flag about this tab can be showen or not
-     *
-     * @return true
-     */
-    public function canShowTab()
-    {
-        return true;
-    }
-
-    /**
-     * Returns status flag about this tab hidden or not
-     *
-     * @return true
-     */
-    public function isHidden()
-    {
-        return false;
-    }
-
     protected function _prepareForm()
     {
         $model = Mage::registry('current_promo_quote_rule');
@@ -114,13 +72,6 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Actions
         $fieldset->addField('discount_step', 'text', array(
             'name' => 'discount_step',
             'label' => Mage::helper('salesrule')->__('Discount Qty Step (Buy X)'),
-        ));
-
-        $fieldset->addField('apply_to_shipping', 'select', array(
-            'label'     => Mage::helper('salesrule')->__('Apply to Shipping Amount'),
-            'title'     => Mage::helper('salesrule')->__('Apply to Shipping Amount'),
-            'name'      => 'apply_to_shipping',
-            'values'    => Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray(),
         ));
 
         $fieldset->addField('simple_free_shipping', 'select', array(

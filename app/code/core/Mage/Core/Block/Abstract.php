@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -37,13 +37,13 @@
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
 {
-    const CACHE_GROUP = 'block_html';
+
     /**
      * Block name in layout
      *
      * @var string
      */
-    protected $_nameInLayout;
+    protected $_name;
 
     /**
      * Parent layout of the block
@@ -121,18 +121,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * @var Mage_Core_Block_Abstract
      */
     protected $_parentBlock;
-
-    /**
-     * Block html frame open tag
-     * @var string
-     */
-    protected $_frameOpenTag;
-
-    /**
-     * Block html frame close tag
-     * @var string
-     */
-    protected $_frameCloseTag;
 
     protected static $_urlModel;
 
@@ -268,20 +256,19 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         return $this;
     }
 
-    /**
-     * Set block's name in layout and unsets previous link if such exists.
-     *
-     * @param $name
-     * @return Mage_Core_Block_Abstract
-     */
-    public function setNameInLayout($name)
+    public function getName()
     {
-        if (!empty($this->_nameInLayout) && $this->getLayout()) {
+        return $this->_name;
+    }
+
+    public function setName($name)
+    {
+        if (!empty($this->_name) && $this->getLayout()) {
             $this->getLayout()
-            ->unsetBlock($this->_nameInLayout)
+            ->unsetBlock($this->_name)
             ->setBlock($name, $this);
         }
-        $this->_nameInLayout = $name;
+        $this->_name = $name;
         return $this;
     }
 
@@ -631,24 +618,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * Specify block output frame tags
-     *
-     * @param $openTag
-     * @param $closeTag
-     * @return Mage_Core_Block_Abstract
-     */
-    public function setFrameTags($openTag, $closeTag=null)
-    {
-        $this->_frameOpenTag = $openTag;
-        if ($closeTag) {
-            $this->_frameCloseTag = $closeTag;
-        } else {
-            $this->_frameCloseTag = '/'.$openTag;
-        }
-        return $this;
-    }
-
-    /**
      * Produce and return block's html output
      *
      * It is a final method, but you can override _toHmtl() method in descendants if needed
@@ -678,15 +647,10 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 $translate->setTranslateInline(true);
             }
         }
+
         $html = $this->_afterToHtml($html);
         Mage::dispatchEvent('core_block_abstract_to_html_after', array('block' => $this));
 
-        /**
-         * Check framing options
-         */
-        if ($this->_frameOpenTag) {
-            $html = '<'.$this->_frameOpenTag.'>'.$html.'<'.$this->_frameCloseTag.'>';
-        }
         return $html;
     }
 
@@ -910,7 +874,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         } else {
             $tags = $this->getData('cache_tags');
         }
-        $tags[] = self::CACHE_GROUP;
+        $tags[] = 'block_html';
         return $tags;
     }
 
@@ -934,7 +898,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _loadCache()
     {
-        if (is_null($this->getCacheLifetime()) || !Mage::app()->useCache(self::CACHE_GROUP)) {
+        if (is_null($this->getCacheLifetime()) || !Mage::app()->useCache('block_html')) {
             return false;
         }
         return Mage::app()->loadCache($this->getCacheKey());
@@ -948,7 +912,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _saveCache($data)
     {
-        if (is_null($this->getCacheLifetime()) || !Mage::app()->useCache(self::CACHE_GROUP)) {
+        if (is_null($this->getCacheLifetime()) || !Mage::app()->useCache('block_html')) {
             return false;
         }
         Mage::app()->saveCache($data, $this->getCacheKey(), $this->getCacheTags(), $this->getCacheLifetime());
@@ -990,14 +954,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         return $this->helper('core')->jsQuoteEscape($data, $quote);
     }
 
-    /**
-     * Alias for getName method.
-     *
-     * @return string
-     */
     public function getNameInLayout()
     {
-        return $this->_nameInLayout;
+        return $this->_getData('name_in_layout');
     }
 
     public function countChildren()
@@ -1012,7 +971,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _beforeCacheUrl()
     {
-        if (Mage::app()->useCache(self::CACHE_GROUP)) {
+        if (Mage::app()->useCache('block_html')) {
             Mage::app()->setUseSessionVar(true);
         }
         return $this;
@@ -1026,7 +985,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     protected function _afterCacheUrl($html)
     {
-        if (Mage::app()->useCache(self::CACHE_GROUP)) {
+        if (Mage::app()->useCache('block_html')) {
             Mage::app()->setUseSessionVar(false);
             Varien_Profiler::start('CACHE_URL');
             $html = Mage::getSingleton('core/url')->sessionUrlVar($html);

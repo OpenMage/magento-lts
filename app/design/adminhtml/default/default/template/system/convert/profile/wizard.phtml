@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -143,12 +143,10 @@ function changeDirection()
 
 function updateRun(select)
 {
-    if ($('file_list') != null){
-        if ($(select).value=='interactive') {
-            $('file_list').show();
-        } else {
-            $('file_list').hide();
-        }
+    if ($(select).value=='interactive') {
+        $('file_list').show();
+    } else {
+        $('file_list').hide();
     }
 }
 
@@ -373,10 +371,7 @@ Event.observe(window, 'load', function(){
                 <div id="map_template_<?php echo $_entityType ?>" style="display:none">
                     <span class="field-row">
                         <?php echo $this->__("In Database:") ?> <select name="gui_data[map][<?php echo $_entityType ?>][db][]" onchange="setMapFileField(this)">
-                            <?php
-                                $fieldMappingInDatabase = $this->getAttributes($_entityType);
-                                asort($fieldMappingInDatabase);
-                                foreach ($fieldMappingInDatabase as $_value=>$_label): ?>
+                            <?php foreach ($this->getAttributes($_entityType) as $_value=>$_label): ?>
                                 <option value="<?php echo $_value ?>"><?php echo $_label ?></option>
                             <?php endforeach ?>
                         </select>

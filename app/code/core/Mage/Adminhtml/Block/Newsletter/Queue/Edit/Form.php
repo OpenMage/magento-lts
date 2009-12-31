@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -132,19 +132,15 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
                 Mage_Newsletter_Model_Queue::STATUS_NEVER,
                 Mage_Newsletter_Model_Queue::STATUS_PAUSE))) {
 
-            $widgetFilters = array('is_email_compatible' => 1);
-            $wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(array('widget_filters' => $widgetFilters));
-            if ($queue->getTemplate()->isPlain()) {
-                $wysiwygConfig->setEnabled(false);
-            }
             $fieldset->addField('text','editor', array(
                 'name'      => 'text',
+                'wysiwyg'   => !$queue->getTemplate()->isPlain(),
                 'label'     => Mage::helper('newsletter')->__('Message'),
                 'state'     => 'html',
+                'theme'     => 'advanced',
                 'required'  => true,
                 'value'     => $queue->getTemplate()->getTemplateTextPreprocessed(),
                 'style'     => 'width:98%; height: 600px;',
-                'config'    => $wysiwygConfig
             ));
         } else {
             $fieldset->addField('text','text', array(

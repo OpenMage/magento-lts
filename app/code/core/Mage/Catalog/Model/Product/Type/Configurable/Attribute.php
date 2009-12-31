@@ -18,15 +18,15 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
- * Catalog Configurable Product Attribute Model
+ * Catalog super product attribute model
  *
  * @category   Mage
  * @package    Mage_Catalog
@@ -61,20 +61,27 @@ class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_M
     }
 
     /**
-     * Retrieve attribute label
+     * Retrieve label
      *
      * @return string
      */
     public function getLabel()
     {
-        if ($this->getData('use_default') && $this->getProductAttribute()) {
-            return $this->getProductAttribute()->getStoreLabel();
-        } else if (is_null($this->getData('label')) && $this->getProductAttribute()) {
-            $this->setData('label', $this->getProductAttribute()->getStoreLabel());
+        if (is_null($this->getData('label')) && $this->getProductAttribute()) {
+            // If no attribute label seted
+            $this->setData('label', $this->getProductAttribute()->getFrontend()->getLabel());
         }
 
         return $this->getData('label');
     }
+
+    /*protected function _afterLoad()
+    {
+        parent::_afterLoad();
+        $this->_getResource()->loadLabel($this);
+        $this->_getResource()->loadPrices($this);
+        return $this;
+    }*/
 
     /**
      * After save process

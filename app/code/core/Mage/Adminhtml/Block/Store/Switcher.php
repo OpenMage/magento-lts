@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -37,8 +37,6 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
      * @var array
      */
     protected $_storeIds;
-
-    protected $_storeVarName = 'store';
 
     /**
      * @var bool
@@ -155,18 +153,12 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
         if ($url = $this->getData('switch_url')) {
             return $url;
         }
-        return $this->getUrl('*/*/*', array('_current' => true, $this->_storeVarName => null));
-    }
-
-    public function setStoreVarName($varName)
-    {
-        $this->_storeVarName = $varName;
-        return $this;
+        return $this->getUrl('*/*/*', array('_current' => true, 'store' => null));
     }
 
     public function getStoreId()
     {
-        return $this->getRequest()->getParam($this->_storeVarName);
+        return $this->getRequest()->getParam('store');
     }
 
     public function setStoreIds($storeIds)

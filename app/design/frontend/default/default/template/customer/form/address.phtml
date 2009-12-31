@@ -1,0 +1,121 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<script type="text/javascript">countryRegions = <?php echo $this->helper('directory')->getRegionJson() ?></script>
+
+<div class="page-head">
+    <h3><?php if($data->getAddressId()): ?><?php echo $this->__('Edit Address Entry') ?><?php else: ?><?php echo $this->__('New Address Entry') ?><?php endif ?></h3>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<form action="<?php echo $action ?>" method="post" id="form-validate">
+    <fieldset class="group-select">
+<input type="hidden" name="address_id" value="<?php echo $data->getAddressId() ?>" />
+<input type="hidden" name="customer_id" id="address_id" value="<?php echo $data->getCustomerId() ?>" />
+        <h3 class="legend"><?php echo $this->__('Personal Information') ?></h3>
+        <ul>
+            <li>
+                <?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($data)->toHtml() ?>
+            </li>
+            <li>
+                <div class="input-box">
+                    <label for="company"><?php echo $this->__('Company') ?></label><br />
+                    <input type="text" name="company" id="company" title="<?php echo $this->__('Company') ?>" value="<?php echo $this->htmlEscape($data->getCompany()) ?>" class="input-text" />
+                </div>
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset class="group-select">
+        <h3 class="legend"><?php echo $this->__('Address') ?></h3>
+        <ul>
+            <li>
+                <label for="street_1"><?php echo $this->__('Street Address') ?> <span class="required">*</span></label><br />
+                <input type="text" name="street[]" value="<?php echo $this->htmlEscape($data->getStreet(1)) ?>" title="<?php echo $this->__('Street Address') ?>" id="street_1" class="required-entry input-text" />
+            </li>
+<?php for ($_i=2, $_n=$this->helper('customer/address')->getStreetLines(); $_i<=$_n; $_i++): ?>
+            <li>
+                <input type="text" name="street[]" value="<?php echo $this->htmlEscape($data->getStreet($_i)) ?>" title="<?php echo $this->__('Street Address '.$_i) ?>" id="street_<?php echo $_i?>" class="input-text" />
+            </li>
+<?php endfor ?>
+            <li>
+                <div class="input-box">
+                    <label for="city"><?php echo $this->__('City') ?> <span class="required">*</span></label><br />
+                    <input type="text" name="city" value="<?php echo $this->htmlEscape($data->getCity()) ?>" title="<?php echo $this->__('City') ?>" class="required-entry input-text" id="city" />
+                </div>
+                <div class="input-box">
+                    <label for="region_id"><?php echo $this->__('State/Province') ?> <span class="required">*</span></label><br />
+                    <select id="region_id" name="region_id" title="<?php echo $this->__('State/Province') ?>" class="validate-select" style="display:none">
+                        <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+                    </select>
+                    <script type="text/javascript">
+                        $('region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
+                    </script>
+                    <input type="text" id="region" name="region" value="<?php echo $this->htmlEscape($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="required-entry  input-text" style="display:none" />
+                </div>
+            </li>
+            <li>
+                <div class="input-box">
+                    <label for="zip"><?php echo $this->__('Zip/Postal Code') ?> <span class="required">*</span></label><br />
+                    <input type="text" name="postcode" value="<?php echo $this->htmlEscape($data->getPostcode()) ?>" title="<?php echo $this->__('Zip/Postal Code') ?>" id="zip" class="validate-zip-international required-entry input-text" />
+                </div>
+                <div class="input-box">
+                    <label for="country"><?php echo $this->__('Country') ?> <span class="required">*</span></label><br />
+                    <select name="country_id" id="country" title="<?php echo $this->__('Country') ?>" class="validate-select">
+                        <?php echo $countries->toHtmlOptions($data->getCountryId()) ?>
+                    </select>
+                </div>
+            </li>
+            <li>
+                <div class="input-box">
+                    <label for="telephone"><?php echo $this->__('Telephone') ?> <span class="required">*</span></label><br />
+                    <input type="text" name="telephone" value="<?php echo $this->htmlEscape($data->getTelephone()) ?>" title="<?php echo $this->__('Telephone') ?>" class="input-text" id="telephone" /></div>
+                <div class="input-box">
+                    <label for="fax"><?php echo $this->__('Fax') ?></label><br />
+                    <input type="text" name="fax" value="<?php echo $this->htmlEscape($data->getFax()) ?>" title="<?php echo $this->__('Fax') ?>" class="input-text" id="fax" />
+                </div>
+            </li>
+            <?php foreach ($primaryTypes as $code=>$type): ?>
+                <li>
+                <?php if ($address->isPrimary($type['address_type_id'])): ?>
+                    <?php echo $this->__("This is My Primary %s Address", ucfirst($type['name'])) ?>
+                <?php else: ?>
+                    <input type="checkbox" id="primary_<?php echo $code ?>" name="primary_types[]" value="<?php echo $type['address_type_id'] ?>" />&nbsp;
+                    <label for="primary_<?php echo $code ?>"><?php echo $this->__("Use as My Primary %s Address", ucfirst($type['name'])) ?></label>
+                <?php endif ?>
+                </li>
+            <?php endforeach ?>
+        </ul>
+    </fieldset>
+    <div class="button-set">
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <a href="<?php echo $this->getUrl('customer/address/') ?>" class="left">&laquo; <?php echo $this->__('Back') ?></a>
+        <button class="form-button" type="submit"><span><?php echo $this->__('Save Address') ?></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+    var dataForm = new VarienForm('form-validate', true);
+    //dataForm.setElementsRelation('country', 'state', '<?php echo $this->getUrl('directory/json/childRegion') ?>');
+
+    new RegionUpdater('country', 'region', 'region_id', countryRegions);
+</script>

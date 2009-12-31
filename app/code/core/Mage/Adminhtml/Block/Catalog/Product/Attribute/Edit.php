@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -53,19 +53,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit extends Mage_Adminhtml
                     'level'     => -1
                 )
             );
-        } else {
-            $this->_addButton(
-                'save_and_edit_button',
-                array(
-                    'label'     => Mage::helper('catalog')->__('Save And Continue Edit'),
-                    'onclick'   => 'saveAndContinueEdit()',
-                    'class'     => 'save'
-                ),
-                100
-            );
         }
 
         $this->_updateButton('save', 'label', Mage::helper('catalog')->__('Save Attribute'));
+        $this->_addButton(
+            'save_and_edit_button',
+            array(
+                'label'     => Mage::helper('catalog')->__('Save And Continue Edit'),
+                'onclick'   => 'saveAndContinueEdit()',
+                'class'     => 'save'
+            ),
+            100
+        );
 
         if (! Mage::registry('entity_attribute')->getIsUserDefined()) {
             $this->_removeButton('delete');

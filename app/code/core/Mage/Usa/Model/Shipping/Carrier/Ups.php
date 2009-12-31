@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Usa
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Usa
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -149,7 +149,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
         }
 
         $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
-        $weight = ceil($weight*10) / 10;
         $r->setWeight($weight);
         if ($request->getFreeMethodWeight()!=$request->getPackageWeight()) {
             $r->setFreeMethodWeight($request->getFreeMethodWeight());
@@ -192,7 +191,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
         $r = $this->_rawRequest;
 
         $weight = $this->getTotalNumOfBoxes($r->getFreeMethodWeight());
-        $weight = ceil($weight*10) / 10;
         $r->setWeight($weight);
         $r->setAction($this->getCode('action', 'single'));
         $r->setProduct($freeMethod);
@@ -209,7 +207,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
             '14_origCountry' => $r->getOrigCountry(),
             '15_origPostal'  => $r->getOrigPostal(),
             'origCity'       => $r->getOrigCity(),
-            '19_destPostal'  => 'US' == $r->getDestCountry() ? substr($r->getDestPostal(), 0, 5) : $r->getDestPostal(), // UPS returns error for zip+4 US codes
+            '19_destPostal'  => substr($r->getDestPostal(), 0, 5),
             '22_destCountry' => $r->getDestCountry(),
             '23_weight'      => $r->getWeight(),
             '47_rate_chart'  => $r->getPickup(),
@@ -512,7 +510,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
             '15_origPostal'  => $r->getOrigPostal(),
             'origCity'       => $r->getOrigCity(),
             'origRegionCode' => $r->getOrigRegionCode(),
-            '19_destPostal'  => 'US' == $r->getDestCountry() ? substr($r->getDestPostal(), 0, 5) : $r->getDestPostal(), // UPS returns error for zip+4 US codes
+            '19_destPostal'  => substr($r->getDestPostal(), 0, 5),
             '22_destCountry' => $r->getDestCountry(),
             'destRegionCode' => $r->getDestRegionCode(),
             '23_weight'      => $r->getWeight(),
@@ -601,7 +599,6 @@ $xmlRequest .= <<< XMLRequest
 </RatingServiceSelectionRequest>
 XMLRequest;
 
-
         try {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -610,7 +607,6 @@ XMLRequest;
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $xmlRequest);
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, (boolean)$this->getConfigFlag('mode_xml'));
             $xmlResponse = curl_exec ($ch);
         } catch (Exception $e) {
             $xmlResponse = '';
@@ -626,7 +622,7 @@ XMLRequest;
             $xml = new Varien_Simplexml_Config();
             $xml->loadString($xmlResponse);
             $arr = $xml->getXpath("//RatingServiceSelectionResponse/Response/ResponseStatusCode/text()");
-            $success = (int)$arr[0];
+            $success = (int)$arr[0][0];
             if($success===1){
                 $arr = $xml->getXpath("//RatingServiceSelectionResponse/RatedShipment");
                 $allowedMethods = explode(",", $this->getConfigData('allowed_methods'));

@@ -15,9 +15,8 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Statement.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -36,16 +35,11 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
 {
-
-    /**
-     * @var resource|object The driver level statement object/resource
-     */
-    protected $_stmt = null;
 
     /**
      * @var Zend_Db_Adapter_Abstract
@@ -115,17 +109,6 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         $this->_prepare($sql);
 
         $this->_queryId = $this->_adapter->getProfiler()->queryStart($sql);
-    }
-
-    /**
-     * Internal method called by abstract statment constructor to setup
-     * the driver level statement
-     *
-     * @return void
-     */
-    protected function _prepare($sql)
-    {
-        return;
     }
 
     /**
@@ -342,7 +325,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
                 $data[] = $row;
             }
         } else {
-            while (false !== ($val = $this->fetchColumn($col))) {
+            while ($val = $this->fetchColumn($col)) {
                 $data[] = $val;
             }
         }
@@ -462,24 +445,4 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         return true;
     }
 
-    /**
-     * Gets the Zend_Db_Adapter_Abstract for this
-     * particular Zend_Db_Statement object.
-     *
-     * @return Zend_Db_Adapter_Abstract
-     */
-    public function getAdapter()
-    {
-        return $this->_adapter;
-    }
-
-    /**
-     * Gets the resource or object setup by the
-     * _parse
-     * @return unknown_type
-     */
-    public function getDriverStatement()
-    {
-        return $this->_stmt;
-    }
 }

@@ -15,10 +15,16 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage StrikeIron
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: StrikeIron.php 16211 2009-06-21 19:23:55Z thomas $
+ * @version    $Id: StrikeIron.php 8539 2008-03-04 20:29:55Z darby $
  */
+
+
+/**
+ * @see Zend_Loader
+ */
+#require_once 'Zend/Loader.php';
 
 
 /**
@@ -29,7 +35,7 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage StrikeIron
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_StrikeIron
@@ -68,10 +74,7 @@ class Zend_Service_StrikeIron
         }
 
         try {
-            if (!class_exists($class)) {
-                #require_once 'Zend/Loader.php';
-                @Zend_Loader::loadClass($class);
-            }
+            @#Zend_Loader::loadClass($class);
             if (!class_exists($class, false)) {
                 throw new Exception('Class file not found');
             }

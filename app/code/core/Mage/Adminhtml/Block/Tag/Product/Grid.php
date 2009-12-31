@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -37,31 +37,17 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
     public function __construct()
     {
         parent::__construct();
-        $this->setId('tag_product_grid' . Mage::registry('current_tag')->getId());
+        $this->setId('tag_grid' . Mage::registry('tagId'));
         $this->setDefaultSort('name');
         $this->setDefaultDir('ASC');
-        $this->setUseAjax(true);
-    }
-
-    /*
-     * Retrieves Grid Url
-     *
-     * @return string
-     */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/product', array('_current' => true));
     }
 
     protected function _prepareCollection()
     {
-        $tagId = Mage::registry('current_tag')->getId();
-        $storeId = Mage::registry('current_tag')->getStoreId();
+        $tagId = Mage::registry('tagId');
         $collection = Mage::getModel('tag/tag')
             ->getEntityCollection()
             ->addTagFilter($tagId)
-            ->addCustomerFilter(array('null' => false))
-            ->addStoreFilter($storeId)
             ->addPopularity($tagId);
 
         $this->setCollection($collection);
@@ -93,15 +79,6 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
             'align'         => 'right',
             'index'         => 'popularity',
             'type'          => 'number'
-        ));
-
-        $this->addColumn('sku', array(
-            'header'    => Mage::helper('tag')->__('SKU'),
-            'filter'    => false,
-            'sortable'  => false,
-            'width'     => 50,
-            'align'     => 'right',
-            'index'     => 'sku',
         ));
 
         return parent::_prepareColumns();

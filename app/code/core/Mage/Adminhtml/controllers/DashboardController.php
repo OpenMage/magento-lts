@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -60,7 +60,7 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
     {
         $output   = '';
         $blockTab = $this->getRequest()->getParam('block');
-        if (in_array($blockTab, array('tab_orders', 'tab_amounts', 'totals'))) {
+        if (in_array($blockTab, array('tab_orders', 'tab_amounts'))) {
             $output = $this->getLayout()->createBlock('adminhtml/dashboard_' . $blockTab)->toHtml();
         }
         $this->getResponse()->setBody($output);
@@ -70,23 +70,19 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
     public function tunnelAction()
     {
         $httpClient = new Varien_Http_Client();
-        $gaData = $this->getRequest()->getParam('ga');
-        $gaHash = $this->getRequest()->getParam('h');
-        if ($gaData && $gaHash) {
-            $newHash = Mage::helper('adminhtml/dashboard_data')->getChartDataHash($gaData);
-            if ($newHash == $gaHash) {
-                if ($params = unserialize(base64_decode(urldecode($gaData)))) {
-                    $response = $httpClient->setUri(Mage_Adminhtml_Block_Dashboard_Graph::API_URL)
-                            ->setParameterGet($params)
-                            ->setConfig(array('timeout' => 5))
-                            ->request('GET');
 
-                    $headers = $response->getHeaders();
+        if ($ga = $this->getRequest()->getParam('ga')) {
+            if ($params = unserialize(base64_decode(urldecode($ga)))) {
+                $response = $httpClient->setUri(Mage_Adminhtml_Block_Dashboard_Graph::API_URL)
+                        ->setParameterGet($params)
+                        ->setConfig(array('timeout' => 15))
+                        ->request('GET');
 
-                    $this->getResponse()
-                        ->setHeader('Content-type', $headers['Content-type'])
-                        ->setBody($response->getBody());
-                }
+                $headers = $response->getHeaders();
+
+                $this->getResponse()
+                    ->setHeader('Content-type', $headers['Content-type'])
+                    ->setBody($response->getBody());
             }
         }
     }

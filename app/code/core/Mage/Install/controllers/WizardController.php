@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Install
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Install
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -384,30 +384,11 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $adminData      = $this->getRequest()->getPost('admin');
         $encryptionKey  = $this->getRequest()->getPost('encryption_key');
 
-        $errors = array();
-
-        //preparing admin user model with data and validate it
-        $user = $this->_getInstaller()->validateAndPrepareAdministrator($adminData);
-        if (is_array($user)) {
-            $errors = $user;
-        }
-
-        //checking if valid encryption key was entered
-        $result = $this->_getInstaller()->validateEncryptionKey($encryptionKey);
-        if (is_array($result)) {
-            $errors = array_merge($errors, $result);
-        }
-
-        if (!empty($errors)) {
-            Mage::getSingleton('install/session')->setAdminData($adminData);
-            $this->getResponse()->setRedirect($step->getUrl());
-            return false;
-        }
-
         try {
-            $this->_getInstaller()->createAdministrator($user);
-            $this->_getInstaller()->installEnryptionKey($encryptionKey);
-        } catch (Exception $e){
+            $this->_getInstaller()->createAdministrator($adminData)
+                ->installEnryptionKey($encryptionKey);
+        }
+        catch (Exception $e){
             Mage::getSingleton('install/session')
                 ->setAdminData($adminData)
                 ->addError($e->getMessage());

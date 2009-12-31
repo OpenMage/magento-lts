@@ -12,21 +12,15 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: CourierOblique.php 18993 2009-11-15 17:09:16Z alexander $
  */
-
-
-/** Internally used classes */
-#require_once 'Zend/Pdf/Element/Name.php';
-
 
 /** Zend_Pdf_Resource_Font_Simple_Standard */
 #require_once 'Zend/Pdf/Resource/Font/Simple/Standard.php';
+
 
 /**
  * Implementation for the standard PDF font Courier-Oblique.
@@ -43,7 +37,7 @@
  *
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Resource_Font_Simple_Standard_CourierOblique extends Zend_Pdf_Resource_Font_Simple_Standard
@@ -281,9 +275,8 @@ class Zend_Pdf_Resource_Font_Simple_Standard_CourierOblique extends Zend_Pdf_Res
             0xac => 0x0131,   0xf6 => 0x0132,   0xfc => 0x0133, 0x2260 => 0x0134,
           0x0123 => 0x0135,   0xf0 => 0x0136, 0x017e => 0x0137, 0x0146 => 0x0138,
             0xb9 => 0x0139, 0x012b => 0x013a, 0x20ac => 0x013b);
-        #require_once 'Zend/Pdf/Cmap.php';
         $this->_cmap = Zend_Pdf_Cmap::cmapWithTypeData(
-            Zend_Pdf_Cmap::TYPE_BYTE_ENCODING_STATIC, $cmapData);
+          Zend_Pdf_Cmap::TYPE_BYTE_ENCODING_STATIC, $cmapData);
 
 
         /* Resource dictionary */
@@ -294,4 +287,5 @@ class Zend_Pdf_Resource_Font_Simple_Standard_CourierOblique extends Zend_Pdf_Res
          */
         $this->_resource->BaseFont = new Zend_Pdf_Element_Name('Courier-Oblique');
     }
+
 }

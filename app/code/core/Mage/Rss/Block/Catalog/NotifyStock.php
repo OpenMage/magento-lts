@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Rss
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Rss
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,21 +29,12 @@
  *
  * @category   Mage
  * @package    Mage_Rss
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
 {
-
-    /**
-     * Cache tag constant for feed notify stock
-     *
-     * @var string
-     */
-    const CACHE_TAG = 'block_html_rss_catalog_notifystock';
-
     protected function _construct()
     {
-        $this->setCacheTags(array(self::CACHE_TAG));
         /*
         * setting cache to save the rss for 10 minutes
         */
@@ -67,7 +58,7 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
         $_configManageStock = (int)Mage::getStoreConfigFlag(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK);
         $stockItemWhere = "({{table}}.low_stock_date is not null) "
             . " and ({{table}}.low_stock_date>'0000-00-00') "
-            . " and IF({{table}}.use_config_manage_stock=1," . $_configManageStock . ",{{table}}.manage_stock) <= 1";
+            . " and IF({{table}}.use_config_manage_stock=1," . $_configManageStock . ",{{table}}.manage_stock)=1";
 
         $product = Mage::getModel('catalog/product');
         $collection = $product->getCollection()
@@ -77,8 +68,6 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
             ->setOrder('low_stock_date')
         ;
         $_globalNotifyStockQty = (float) Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY);
-
-        Mage::dispatchEvent('rss_catalog_notify_stock_collection_select', array('collection' => $collection));
 
         /*
         using resource iterator to load the data one by one

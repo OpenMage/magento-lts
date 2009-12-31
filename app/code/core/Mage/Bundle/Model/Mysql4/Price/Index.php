@@ -18,21 +18,19 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
  * Bundle Product Price Index Resource model
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
- * @deprecated  since 1.4.0.0
- * @see         Mage_Bundle_Model_Mysql4_Indexer_Price
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Bundle_Model_Mysql4_Price_Index extends Mage_Core_Model_Mysql4_Abstract
 {
@@ -125,7 +123,7 @@ class Mage_Bundle_Model_Mysql4_Price_Index extends Mage_Core_Model_Mysql4_Abstra
                 array('e' => $this->getTable('catalog/product')),
                 array('entity_id'))
             ->where('e.type_id=?', 'bundle');
-        if ($product instanceof Mage_Catalog_Model_Product) {
+        if ($product instanceof Mage_Core_Model_Product) {
             $select->where('e.entity_id=?', $product->getId());
         }
         elseif ($product instanceof Mage_Catalog_Model_Product_Condition_Interface) {
@@ -345,7 +343,7 @@ class Mage_Bundle_Model_Mysql4_Price_Index extends Mage_Core_Model_Mysql4_Abstra
                     'e.entity_id=t1_status.entity_id'
                         . ' AND t1_status.attribute_id=' . $status->getAttributeId()
                         . ' AND t1_status.store_id=0',
-                    array('status' => 'IF(t2_status.value_id > 0, t2_status.value, t1_status.value)'))
+                    array('status' => 'IFNULL(t2_status.value, t1_status.value)'))
                 ->joinLeft(
                     array('t2_status' => $statusTable),
                     't1_status.entity_id = t2_status.entity_id'
@@ -463,7 +461,7 @@ class Mage_Bundle_Model_Mysql4_Price_Index extends Mage_Core_Model_Mysql4_Abstra
                     'e.entity_id='.$tableGlobal.'.entity_id'
                         . ' AND '.$tableGlobal.'.attribute_id=' . $attribute->getAttributeId()
                         . ' AND '.$tableGlobal.'.store_id=0',
-                    array($attribute->getAttributeCode() => 'IF('.$tableStore.'.value_id > 0, '.$tableStore.'.value, '.$tableGlobal.'.value)'))
+                    array($attribute->getAttributeCode() => 'IFNULL('.$tableStore.'.value, '.$tableGlobal.'.value)'))
                 ->joinLeft(
                     array($tableStore => $tableName),
                     $tableGlobal.'.entity_id = '.$tableStore.'.entity_id'
@@ -763,7 +761,7 @@ class Mage_Bundle_Model_Mysql4_Price_Index extends Mage_Core_Model_Mysql4_Abstra
         $specialPrice       = $priceData['special_price'];
 
         if (!is_null($specialPrice) && $specialPrice != false) {
-            if (Mage::app()->getLocale()->isStoreDateInInterval($store, $priceData['special_from_date'], $priceData['special_to_date'])) {
+            if (Mage::app()->getLocale()->IsStoreDateInInterval($store, $priceData['special_from_date'], $priceData['special_to_date'])) {
                 $specialPrice   = ($finalPrice * $specialPrice) / 100;
                 $finalPrice     = min($finalPrice, $specialPrice);
             }

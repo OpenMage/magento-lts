@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -175,7 +175,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
          * Adding products to quote from special grid and
          */
         if ($data = $this->getRequest()->getPost('add_products')) {
-            $this->_getOrderCreateModel()->addProducts(Mage::helper('core')->jsonDecode($data));
+            $this->_getOrderCreateModel()->addProducts(Zend_Json::decode($data));
         }
 
         /**
@@ -236,7 +236,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
          * Importing gift message allow items from specific product grid
          */
         if ($data = $this->getRequest()->getPost('add_products')) {
-            $this->_getGiftmessageSaveModel()->importAllowQuoteItemsFromProducts(Mage::helper('core')->jsonDecode($data));
+            $this->_getGiftmessageSaveModel()->importAllowQuoteItemsFromProducts(Zend_Json::decode($data));
         }
 
         /**

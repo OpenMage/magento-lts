@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Rss.php 19133 2009-11-20 19:44:09Z padraic $
+ * @version    $Id: Rss.php 11654 2008-10-03 16:03:35Z yoshida@zend.co.jp $
  */
 
 
@@ -43,7 +43,7 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Rss extends Zend_Feed_Abstract
@@ -80,14 +80,9 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
         parent::__wakeup();
 
         // Find the base channel element and create an alias to it.
-        $rdfTags = $this->_element->getElementsByTagNameNS('http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'RDF');
-        if ($rdfTags->length != 0) {
-            $this->_element = $rdfTags->item(0);
-        } else  {
-            $this->_element = $this->_element->getElementsByTagName('channel')->item(0);
-        }
+        $this->_element = $this->_element->getElementsByTagName('channel')->item(0);
         if (!$this->_element) {
-            /**
+            /** 
              * @see Zend_Feed_Exception
              */
             #require_once 'Zend/Feed/Exception.php';
@@ -147,12 +142,11 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
         $channel->appendChild($description);
 
         $pubdate = isset($array->lastUpdate) ? $array->lastUpdate : time();
-        $pubdate = $this->_element->createElement('pubDate', date(DATE_RSS, $pubdate));
+        $pubdate = $this->_element->createElement('pubDate', gmdate('r', $pubdate));
         $channel->appendChild($pubdate);
 
         if (isset($array->published)) {
-            $lastBuildDate = $this->_element->createElement('lastBuildDate', date(DATE_RSS, $array->published));
-            $channel->appendChild($lastBuildDate);
+            $lastBuildDate = $this->_element->createElement('lastBuildDate', gmdate('r', $array->published));
         }
 
         $editor = '';
@@ -175,17 +169,11 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
             $channel->appendChild($copyright);
         }
 
-        if (isset($array->category)) {
-            $category = $this->_element->createElement('category', $array->category);
-            $channel->appendChild($category);
-        }
-
         if (!empty($array->image)) {
             $image = $this->_element->createElement('image');
             $url = $this->_element->createElement('url', $array->image);
             $image->appendChild($url);
-            $imagetitle = $this->_element->createElement('title');
-            $imagetitle->appendChild($this->_element->createCDATASection($array->title));
+            $imagetitle = $this->_element->createElement('title', $array->title);
             $image->appendChild($imagetitle);
             $imagelink = $this->_element->createElement('link', $array->link);
             $image->appendChild($imagelink);
@@ -213,11 +201,6 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
             $cloud->setAttribute('registerProcedure', $array->cloud['procedure']);
             $cloud->setAttribute('protocol', $array->cloud['protocol']);
             $channel->appendChild($cloud);
-        }
-
-        if (isset($array->ttl)) {
-            $ttl = $this->_element->createElement('ttl', $array->ttl);
-            $channel->appendChild($ttl);
         }
 
         if (isset($array->rating)) {
@@ -401,19 +384,11 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
             $title->appendChild($this->_element->createCDATASection($dataentry->title));
             $item->appendChild($title);
 
-            if (isset($dataentry->author)) {
-                $author = $this->_element->createElement('author', $dataentry->author);
-                $item->appendChild($author);
-            }
-
             $link = $this->_element->createElement('link', $dataentry->link);
             $item->appendChild($link);
 
             if (isset($dataentry->guid)) {
                 $guid = $this->_element->createElement('guid', $dataentry->guid);
-                if (!Zend_Uri::check($dataentry->guid)) {
-                    $guid->setAttribute('isPermaLink', 'false');
-                }
                 $item->appendChild($guid);
             }
 
@@ -428,7 +403,7 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
             }
 
             $pubdate = isset($dataentry->lastUpdate) ? $dataentry->lastUpdate : time();
-            $pubdate = $this->_element->createElement('pubDate', date(DATE_RSS, $pubdate));
+            $pubdate = $this->_element->createElement('pubDate', gmdate('r', $pubdate));
             $item->appendChild($pubdate);
 
             if (isset($dataentry->category)) {
@@ -514,7 +489,7 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
     public function send()
     {
         if (headers_sent()) {
-            /**
+            /** 
              * @see Zend_Feed_Exception
              */
             #require_once 'Zend/Feed/Exception.php';

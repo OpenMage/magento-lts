@@ -1,0 +1,116 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php  $_order = $this->getOrder() ?>
+<table cellspacing="0" class="data-table" id="my-orders-table">
+    <col />
+    <col width="25%" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo $this->__('Product Name') ?></th>
+            <th><?php echo $this->__('SKU') ?></th>
+            <th class="a-right"><?php echo $this->__('Price') ?></th>
+            <th class="a-center"><?php echo $this->__('Qty') ?></th>
+            <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
+        </tr>
+        <!-- tr>
+            <?php if ($this->helper('tax')->displayCartBothPrices() || $this->helper('tax')->displayCartPriceExclTax()): ?>
+            <th class="a-center"><?php echo $this->__('Excl. Tax') ?></th>
+            <?php endif; ?>
+            <?php if ($this->helper('tax')->displayCartBothPrices() || $this->helper('tax')->displayCartPriceInclTax()): ?>
+            <th class="a-center"><?php echo $this->__('Incl. Tax') ?></th>
+            <?php endif; ?>
+            <th class="a-center" width="6%"><?php echo $this->__('Ordered') ?></th>
+            <?php if (!$_order->getIsVirtual()): ?><th class="a-center" width="6%"><?php echo $this->__('Shipped') ?></th><?php endif; ?>
+            <th class="a-center" width="6%"><?php echo $this->__('Canceled') ?></th>
+            <?php if ($this->helper('tax')->displayCartBothPrices() || $this->helper('tax')->displayCartPriceExclTax()): ?>
+            <th class="a-center"><?php echo $this->__('Excl. Tax') ?></th>
+            <?php endif; ?>
+            <?php if ($this->helper('tax')->displayCartBothPrices() || $this->helper('tax')->displayCartPriceInclTax()): ?>
+            <th class="a-center"><?php echo $this->__('Incl. Tax') ?></th>
+            <?php endif; ?>
+        </tr -->
+    </thead>
+    <?php $colspan = 4; ?>
+    <tfoot>
+        <tr>
+            <td colspan="<?php echo $colspan; ?>" class="a-right"><?php echo $this->__('Order Subtotal') ?></td>
+            <td class="last a-right"><?php echo $_order->formatPrice($_order->getSubtotal()) ?></td>
+        </tr>
+        <?php if ($_order->getDiscountAmount() > 0): ?>
+            <tr>
+                <td colspan="<?php echo $colspan; ?>" class="a-right"><?php echo $this->__('Discount '.($_order->getCouponCode()?'('.$_order->getCouponCode().')':'')) ?></td>
+                <td class="last a-right"><?php echo $_order->formatPrice(0.00 - $_order->getDiscountAmount()) ?></td>
+            </tr>
+        <?php endif; ?>
+        <?php //if ($_order->getTaxAmount() > 0): ?>
+        <?php if (($_order->getTaxAmount() > 0)||(Mage::helper('tax')->displayZeroTax())): ?>
+            <?php echo $this->getChildHtml('tax'); ?>
+        <?php endif; ?>
+        <?php if ($_order->getShippingAmount() || $_order->getShippingDescription()): ?>
+            <tr>
+                <td colspan="<?php echo $colspan; ?>" class="a-right"><?php echo $this->__('Shipping & Handling') ?></td>
+                <td class="last a-right"><?php echo $_order->formatPrice($_order->getShippingAmount()) ?></td>
+            </tr>
+        <?php endif; ?>
+        <tr>
+            <td colspan="<?php echo $colspan; ?>" class="a-right"><?php echo $this->__('Grand Total') ?></td>
+            <td class="last a-right"><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
+        </tr>
+        <?php if ($_order->isCurrencyDifferent()): ?>
+        <tr>
+            <td colspan="<?php echo $colspan; ?>" class="a-right"><?php echo $this->__('Grand Total to be charged') ?></td>
+            <td class="last a-right"><?php echo $_order->formatBasePrice($_order->getBaseGrandTotal()) ?></td>
+        </tr>
+        <?php endif; ?>
+    </tfoot>
+        <?php $_items = $_order->getItemsCollection(); ?>
+        <?php $_index = 0; ?>
+            <?php $_count = $_items->count(); ?>
+        <?php foreach ($_items as $_item): ?>
+        <?php if ($_item->getParentItem()) continue; ?>
+        <tbody>
+            <?php echo $this->getItemHtml($_item) ?>
+            <?php if($this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $_item) && $_item->getGiftMessageId()): ?>
+            <tr class="border<?php echo ($_index++ > $_count ?' last':'') ?>" id="order-item-gift-message-<?php echo $_item->getId() ?>" style="display:none;">
+                <?php $_giftMessage=$this->helper('giftmessage/message')->getGiftMessageForEntity($_item); ?>
+                <td class="giftmessage-row last" colspan="7">
+                    <ul class="giftmessage-content">
+                        <li><label><?php echo $this->__('From') ?></label> <?php echo $this->htmlEscape($_giftMessage->getRecipient()) ?></li>
+                        <li><label><?php echo $this->__('To') ?></label> <?php echo $this->htmlEscape($_giftMessage->getSender()) ?></li>
+                      <li><?php echo $this->helper('giftmessage/message')->getEscapedGiftMessage($_item) ?></li>
+                    </ul>
+                  <div class="giftmessage-close"><a href="#" onclick="return giftMessageToogle('<?php echo $_item->getId() ?>');"><img src="<?php echo $this->getSkinUrl('images/gift-message-close.gif') ?>" alt="" /></a></div>
+                </td>
+            </tr>
+            <?php endif ?>
+        </tbody>
+        <?php endforeach; ?>
+</table>
+<script type="text/javascript">decorateTable('my-orders-table', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>

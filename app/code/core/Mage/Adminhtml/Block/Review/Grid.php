@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -207,34 +207,37 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     protected function _prepareMassaction()
     {
-        $this->setMassactionIdField('review_id');
-        $this->setMassactionIdFieldOnlyIndexValue(true);
-        $this->getMassactionBlock()->setFormFieldName('reviews');
+        if (Mage::registry('usePendingFilter') == true) {
+            $this->setMassactionIdField('review_id');
+            $this->setMassactionIdFieldOnlyIndexValue(true);
+            $this->getMassactionBlock()->setFormFieldName('reviews');
 
-        $this->getMassactionBlock()->addItem('delete', array(
-            'label'=> Mage::helper('review')->__('Delete'),
-            'url'  => $this->getUrl('*/*/massDelete', array('ret' => Mage::registry('usePendingFilter') ? 'pending' : 'index')),
-            'confirm' => Mage::helper('review')->__('Are you sure?')
-        ));
+            $this->getMassactionBlock()->addItem('delete', array(
+                'label'=> Mage::helper('review')->__('Delete'),
+                'url'  => $this->getUrl('*/*/massDelete'),
+                'confirm' => Mage::helper('review')->__('Are you sure?')
+            ));
 
-        $statuses = Mage::getModel('review/review')
-            ->getStatusCollection()
-            ->load()
-            ->toOptionArray();
-        array_unshift($statuses, array('label'=>'', 'value'=>''));
-        $this->getMassactionBlock()->addItem('update_status', array(
-            'label'         => Mage::helper('review')->__('Update status'),
-            'url'           => $this->getUrl('*/*/massUpdateStatus', array('ret' => Mage::registry('usePendingFilter') ? 'pending' : 'index')),
-            'additional'    => array(
-                'status'    => array(
-                    'name'      => 'status',
-                    'type'      => 'select',
-                    'class'     => 'required-entry',
-                    'label'     => Mage::helper('review')->__('Status'),
-                    'values'    => $statuses
+            $statuses = Mage::getModel('review/review')
+                ->getStatusCollection()
+                ->load()
+                ->toOptionArray();
+            array_unshift($statuses, array('label'=>'', 'value'=>''));
+            $this->getMassactionBlock()->addItem('update_status', array(
+                'label'         => Mage::helper('review')->__('Update status'),
+                'url'           => $this->getUrl('*/*/massUpdateStatus'),
+                'additional'    => array(
+                    'status'    => array(
+                        'name'      => 'status',
+                        'type'      => 'select',
+                        'class'     => 'required-entry',
+                        'label'     => Mage::helper('review')->__('Status'),
+                        'values'    => $statuses
+                    )
                 )
-            )
-        ));
+            ));
+
+        }
     }
 
     public function getRowUrl($row)

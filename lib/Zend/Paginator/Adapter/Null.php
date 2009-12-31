@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Null.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Null.php 10792 2008-08-08 03:11:03Z mratzloff $
  */
 
 /**
@@ -27,7 +27,7 @@
 /**
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Paginator_Adapter_Null implements Zend_Paginator_Adapter_Interface
@@ -38,10 +38,10 @@ class Zend_Paginator_Adapter_Null implements Zend_Paginator_Adapter_Interface
      * @var integer
      */
     protected $_count = null;
-
+    
     /**
      * Constructor.
-     *
+     * 
      * @param array $count Total item count
      */
     public function __construct($count = 0)

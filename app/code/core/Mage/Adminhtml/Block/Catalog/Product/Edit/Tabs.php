@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -135,27 +135,23 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
             }
 
             if( $this->getRequest()->getParam('id', false) ) {
-                if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/reviews_ratings')){
-                    $this->addTab('reviews', array(
-                        'label' => Mage::helper('catalog')->__('Product Reviews'),
-                        'url'   => $this->getUrl('*/*/reviews', array('_current' => true)),
-                        'class' => 'ajax',
-                    ));
-                }
-                if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/tag')){
-                    $this->addTab('tags', array(
-                     'label'     => Mage::helper('catalog')->__('Product Tags'),
-                     'url'   => $this->getUrl('*/*/tagGrid', array('_current' => true)),
-                     'class' => 'ajax',
-                    ));
+                $this->addTab('reviews', array(
+                    'label' => Mage::helper('catalog')->__('Product Reviews'),
+                    'url'   => $this->getUrl('*/*/reviews', array('_current' => true)),
+                    'class' => 'ajax',
+                ));
 
-                    $this->addTab('customers_tags', array(
-                        'label'     => Mage::helper('catalog')->__('Customers Tagged Product'),
-                        'url'   => $this->getUrl('*/*/tagCustomerGrid', array('_current' => true)),
-                        'class' => 'ajax',
-                    ));
-                }
+                $this->addTab('tags', array(
+                    'label'     => Mage::helper('catalog')->__('Product Tags'),
+                    'url'   => $this->getUrl('*/*/tagGrid', array('_current' => true)),
+                    'class' => 'ajax',
+                ));
 
+                $this->addTab('customers_tags', array(
+                    'label'     => Mage::helper('catalog')->__('Customers Tagged Product'),
+                    'url'   => $this->getUrl('*/*/tagCustomerGrid', array('_current' => true)),
+                    'class' => 'ajax',
+                ));
             }
 
             /**

@@ -14,21 +14,21 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: String.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
 
 /** Zend_Pdf_Element */
 #require_once 'Zend/Pdf/Element.php';
 
+
 /**
  * PDF file 'string' element implementation
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Element_String extends Zend_Pdf_Element
@@ -77,187 +77,170 @@ class Zend_Pdf_Element_String extends Zend_Pdf_Element
     /**
      * Escape string according to the PDF rules
      *
-     * @param string $str
+     * @param string $inStr
      * @return string
      */
-    public static function escape($str)
+    public static function escape($inStr)
     {
-        $outEntries = array();
+        $outStr = '';
+        $lastNL = 0;
 
-        foreach (str_split($str, 128) as $chunk) {
-            // Collect sequence of unescaped characters
-            $offset = strcspn($chunk, "\n\r\t\x08\x0C()\\");
-            $chunkOut = substr($chunk, 0, $offset);
-
-            while ($offset < strlen($chunk)) {
-                $nextCode = ord($chunk[$offset++]);
-                switch ($nextCode) {
-                    // "\n" - line feed (LF)
-                    case 10:
-                        $chunkOut .= '\\n';
-                        break;
-
-                    // "\r" - carriage return (CR)
-                    case 13:
-                        $chunkOut .= '\\r';
-                        break;
-
-                    // "\t" - horizontal tab (HT)
-                    case 9:
-                        $chunkOut .= '\\t';
-                        break;
-
-                    // "\b" - backspace (BS)
-                    case 8:
-                        $chunkOut .= '\\b';
-                        break;
-
-                    // "\f" - form feed (FF)
-                    case 12:
-                        $chunkOut .= '\\f';
-                        break;
-
-                    // '(' - left paranthesis
-                    case 40:
-                        $chunkOut .= '\\(';
-                        break;
-
-                    // ')' - right paranthesis
-                    case 41:
-                        $chunkOut .= '\\)';
-                        break;
-
-                    // '\' - backslash
-                    case 92:
-                        $chunkOut .= '\\\\';
-                        break;
-
-                    default:
-                        // This code is never executed extually
-                        //
-                        // Don't use non-ASCII characters escaping
-                        // if ($nextCode >= 32 && $nextCode <= 126 ) {
-                        //     // Visible ASCII symbol
-                        //     $chunkEntries[] = chr($nextCode);
-                        // } else {
-                        //     $chunkEntries[] = sprintf('\\%03o', $nextCode);
-                        // }
-
-                        break;
-                }
-
-                // Collect sequence of unescaped characters
-                $start = $offset;
-                $offset += strcspn($chunk, "\n\r\t\x08\x0C()\\", $offset);
-                $chunkOut .= substr($chunk, $start, $offset - $start);
+        for ($count = 0; $count < strlen($inStr); $count++) {
+            if (strlen($outStr) - $lastNL > 128)  {
+                $outStr .= "\\\n";
+                $lastNL = strlen($outStr);
             }
 
-            $outEntries[] = $chunkOut;
+            $nextCode = ord($inStr[$count]);
+            switch ($nextCode) {
+                // "\n" - line feed (LF)
+                case 10:
+                    $outStr .= '\\n';
+                    break;
+
+                // "\r" - carriage return (CR)
+                case 13:
+                    $outStr .= '\\r';
+                    break;
+
+                // "\t" - horizontal tab (HT)
+                case 9:
+                    $outStr .= '\\t';
+                    break;
+
+                // "\b" - backspace (BS)
+                case 8:
+                    $outStr .= '\\b';
+                    break;
+
+                // "\f" - form feed (FF)
+                case 12:
+                    $outStr .= '\\f';
+                    break;
+
+                // '(' - left paranthesis
+                case 40:
+                    $outStr .= '\\(';
+                    break;
+
+                // ')' - right paranthesis
+                case 41:
+                    $outStr .= '\\)';
+                    break;
+
+                // '\' - backslash
+                case 92:
+                    $outStr .= '\\\\';
+                    break;
+
+                default:
+                    // Don't use non-ASCII characters escaping
+                    // if ($nextCode >= 32 && $nextCode <= 126 ) {
+                    //     // Visible ASCII symbol
+                    //     $outStr .= $inStr[$count];
+                    // } else {
+                    //     $outStr .= sprintf('\\%03o', $nextCode);
+                    // }
+                    $outStr .= $inStr[$count];
+
+                    break;
+            }
         }
 
-        return implode("\\\n", $outEntries);
+        return $outStr;
     }
 
 
     /**
      * Unescape string according to the PDF rules
      *
-     * @param string $str
+     * @param string $inStr
      * @return string
      */
-    public static function unescape($str)
+    public static function unescape($inStr)
     {
-        $outEntries = array();
+        $outStr = '';
 
-        $offset = 0;
-        while ($offset < strlen($str)) {
-            // Searche for the next escaped character/sequence
-            $escapeCharOffset = strpos($str, '\\', $offset);
-            if ($escapeCharOffset === false  ||  $escapeCharOffset == strlen($str) - 1) {
-                // There are no escaped characters or '\' char has came at the end of string
-                $outEntries[] = substr($str, $offset);
-                break;
-            } else {
-                // Collect unescaped characters sequence
-                $outEntries[] = substr($str, $offset, $escapeCharOffset - $offset);
-                // Go to the escaped character
-                $offset = $escapeCharOffset + 1;
-
-                switch ($str[$offset]) {
+        for ($count = 0; $count < strlen($inStr); $count++) {
+            if ($inStr[$count] != '\\' || $count == strlen($inStr)-1)  {
+                $outStr .= $inStr[$count];
+            } else { // Escape sequence
+                switch ($inStr{++$count}) {
                     // '\\n' - line feed (LF)
                     case 'n':
-                        $outEntries[] = "\n";
+                        $outStr .= "\n";
                         break;
 
                     // '\\r' - carriage return (CR)
                     case 'r':
-                        $outEntries[] = "\r";
+                        $outStr .= "\r";
                         break;
 
                     // '\\t' - horizontal tab (HT)
                     case 't':
-                        $outEntries[] = "\t";
+                        $outStr .= "\t";
                         break;
 
                     // '\\b' - backspace (BS)
                     case 'b':
-                        $outEntries[] = "\x08";
+                        $outStr .= "\x08";
                         break;
 
                     // '\\f' - form feed (FF)
                     case 'f':
-                        $outEntries[] = "\x0C";
+                        $outStr .= "\x0C";
                         break;
 
                     // '\\(' - left paranthesis
                     case '(':
-                        $outEntries[] = '(';
+                        $outStr .= '(';
                         break;
 
                     // '\\)' - right paranthesis
                     case ')':
-                        $outEntries[] = ')';
+                        $outStr .= ')';
                         break;
 
                     // '\\\\' - backslash
                     case '\\':
-                        $outEntries[] = '\\';
+                        $outStr .= '\\';
                         break;
 
                     // "\\\n" or "\\\n\r"
                     case "\n":
                         // skip new line symbol
-                        if ($str[$offset + 1] == "\r") {
-                            $offset++;
+                        if ($inStr[$count+1] == "\r") {
+                            $count++;
                         }
                         break;
 
                     default:
-                        if (strpos('0123456789', $str[$offset]) !== false) {
+                        if (ord($inStr[$count]) >= ord('0') &&
+                            ord($inStr[$count]) <= ord('9')) {
                             // Character in octal representation
                             // '\\xxx'
-                            $nextCode = '0' . $str[$offset];
+                            $nextCode = '0' . $inStr[$count];
 
-                            if (strpos('0123456789', $str[$offset + 1]) !== false) {
-                                $nextCode .= $str[++$offset];
+                            if (ord($inStr[$count+1]) >= ord('0') &&
+                                ord($inStr[$count+1]) <= ord('9')) {
+                                $nextCode .= $inStr{++$count};
 
-                                if (strpos('0123456789', $str[$offset + 1]) !== false) {
-                                    $nextCode .= $str[++$offset];
+                                if (ord($inStr[$count+1]) >= ord('0') &&
+                                    ord($inStr[$count+1]) <= ord('9')) {
+                                    $nextCode .= $inStr{++$count};
                                 }
                             }
 
-                            $outEntries[] = chr($nextCode);
+                            $outStr .= chr($nextCode);
                         } else {
-                            $outEntries[] = $str[$offset];
+                            $outStr .= $inStr[$count];
                         }
                         break;
                 }
-
-                $offset++;
             }
         }
 
-        return implode($outEntries);
+        return $outStr;
     }
 
 }

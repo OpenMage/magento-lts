@@ -15,9 +15,8 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Analysis
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: StopWords.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /** Zend_Search_Lucene_Analysis_TokenFilter */
@@ -32,7 +31,7 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Analysis
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -78,13 +77,13 @@ class Zend_Search_Lucene_Analysis_TokenFilter_StopWords extends Zend_Search_Luce
      */
     public function loadFromFile($filepath = null) {
         if (! $filepath || ! file_exists($filepath)) {
-            #require_once 'Zend/Search/Lucene/Exception.php';
-            throw new Zend_Search_Lucene_Exception('You have to provide valid file path');
+            #require_once 'Zend/Search/Exception.php';
+            throw new Zend_Search_Exception('You have to provide valid file path');
         }
         $fd = fopen($filepath, "r");
         if (! $fd) {
-            #require_once 'Zend/Search/Lucene/Exception.php';
-            throw new Zend_Search_Lucene_Exception('Cannot open file ' . $filepath);
+            #require_once 'Zend/Search/Exception.php';
+            throw new Zend_Search_Exception('Cannot open file ' . $filepath);
         }
         while (!feof ($fd)) {
             $buffer = trim(fgets($fd));
@@ -93,8 +92,8 @@ class Zend_Search_Lucene_Analysis_TokenFilter_StopWords extends Zend_Search_Luce
             }
         }
         if (!fclose($fd)) {
-            #require_once 'Zend/Search/Lucene/Exception.php';
-            throw new Zend_Search_Lucene_Exception('Cannot close file ' . $filepath);
+            #require_once 'Zend/Search/Exception.php';
+            throw new Zend_Search_Exception('Cannot close file ' . $filepath);
         }
     }
 }

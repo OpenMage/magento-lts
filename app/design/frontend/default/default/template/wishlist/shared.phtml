@@ -1,0 +1,76 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="page-head">
+    <h3><?php echo $this->htmlEscape($this->getHeader()) ?></h3>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php if($this->getWishlist()->getSize()): ?>
+<form action="<?php echo $this->getUrl('*/*/update') ?>" method="post">
+    <table cellspacing="0" width="100%" class="data-table box-table" id="wishlist-table">
+    <col width="130" />
+    <col />
+    <col width="130" />
+    <thead>
+        <tr>
+            <th class="align-left"><?php echo $this->__('Product') ?></th>
+            <th class="align-center"><?php echo $this->__('Comment') ?></th>
+            <th class="align-center">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->getWishlist() as $item): ?>
+        <tr>
+            <td>
+                <div>
+                    <a href="<?php echo $item->getProductUrl() ?>">
+                        <img src="<?php echo $this->helper('catalog/image')->init($item, 'small_image')->resize(113); ?>" alt="<?php echo $this->htmlEscape($item->getName()) ?>" width="113" />
+                    </a>
+                </div>
+                <div><a href="<?php echo $item->getProductUrl() ?>" title="<?php echo $this->htmlEscape($item->getName()) ?>"><?php echo $this->htmlEscape($item->getName()) ?></a></div>
+                <?php echo $this->getPriceHtml($item) ?>
+            </td>
+            <td class="align-center"><?php echo $this->getEscapedDescription($item) ?></td>
+            <td class="align-center">
+                <?php if($item->isSaleable()): ?>
+                <a href="#" onclick="setLocation('<?php echo $this->helper('checkout/cart')->getAddUrl($item) ?>');return false;" class="link-cart"><?php echo $this->__('Add to Cart') ?></a><br/>
+                <?php endif;?>
+                <a href="#" onclick="setLocation('<?php echo $this->helper('wishlist')->getAddUrl($item) ?>');return false;" class="link-cart"><?php echo $this->__('Add to Wishlist') ?></a>
+            </td>
+        </tr>
+        <?php endforeach ?>
+    </tbody>
+    </table>
+    <script type="text/javascript">decorateTable('wishlist-table')</script>
+    <?php if($this->isSaleable()):?>
+    <div class="button-set">
+        <button onclick="setLocation('<?php echo $this->getUrl('*/*/allcart', array('_current'=>true)) ?>')" class="form-button-alt"  type="button"><span><?php echo $this->__('Add All to Cart') ?></span></button>&nbsp;
+    </div>
+    <?php endif;?>
+</form>
+<?php else: ?>
+    <p><?php echo $this->__('Wishlist is empty now.') ?></p>
+<?php endif ?>

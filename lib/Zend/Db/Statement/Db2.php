@@ -12,12 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db2.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /**
@@ -30,11 +28,15 @@
  *
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Statement_Db2 extends Zend_Db_Statement
 {
+    /**
+     * Statement resource handle.
+     */
+    protected $_stmt = null;
 
     /**
      * Column names.
@@ -154,7 +156,7 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
 
         $error = db2_stmt_error();
         if ($error === '') {
-            return false;
+        	return false;
         }
 
         return $error;
@@ -168,10 +170,10 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
      */
     public function errorInfo()
     {
-        $error = $this->errorCode();
-        if ($error === false){
-            return false;
-        }
+    	$error = $this->errorCode();
+    	if ($error === false){
+    		return false;
+    	}
 
         /*
          * Return three-valued array like PDO.  But DB2 does not distinguish

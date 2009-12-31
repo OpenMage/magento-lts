@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Tax
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tax
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -39,11 +39,7 @@ class Mage_Tax_Model_Mysql4_Calculation_Rule_Collection extends Mage_Core_Model_
 
     public function joinCalculationData($alias)
     {
-        $this->getSelect()->joinLeft(
-            array($alias=>$this->getTable('tax_calculation')),
-            "main_table.tax_calculation_rule_id = {$alias}.tax_calculation_rule_id",
-            array()
-        );
+        $this->getSelect()->joinLeft(array($alias=>$this->getTable('tax_calculation')), "main_table.tax_calculation_rule_id = {$alias}.tax_calculation_rule_id", array());
         $this->getSelect()->group('main_table.tax_calculation_rule_id');
     }
 
@@ -55,27 +51,22 @@ class Mage_Tax_Model_Mysql4_Calculation_Rule_Collection extends Mage_Core_Model_
         }
         if (!empty($children)) {
             $select = $this->getConnection()->select()
-                ->from(
-                    array('calculation'=>$this->getTable('tax_calculation')),
-                    array('calculation.tax_calculation_rule_id')
-                )
+                ->from(array('calculation'=>$this->getTable('tax_calculation')), array('calculation.tax_calculation_rule_id'))
                 ->join(
                     array('item'=>$this->getTable($itemTable)),
                     "item.{$secondaryJoinField} = calculation.{$primaryJoinField}",
-                    array("item.{$titleField}", "item.{$secondaryJoinField}")
-                )
+                    array("item.{$titleField}"))
                 ->where('calculation.tax_calculation_rule_id IN (?)', array_keys($children))
                 ->distinct(true);
 
             $data = $this->getConnection()->fetchAll($select);
             foreach ($data as $row) {
-               $children[$row['tax_calculation_rule_id']][$row[$secondaryJoinField]] = $row[$titleField];
+        	   $children[$row['tax_calculation_rule_id']][] = $row[$titleField];
             }
         }
-
         foreach ($this as $rule) {
             if (isset($children[$rule->getId()])) {
-                $rule->setData($dataField, array_keys($children[$rule->getId()]));
+                $rule->setData($dataField, $children[$rule->getId()]);
             }
         }
         return $this;

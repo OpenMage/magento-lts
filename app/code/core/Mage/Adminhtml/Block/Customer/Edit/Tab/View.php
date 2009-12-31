@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -156,7 +156,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
             $html = $address->format('html');
         }
         else {
-            $html = Mage::helper('customer')->__('Customer doesn\'t have default billing address');
+            $html = Mage::helper('customer')->__("Customer doesn't have primary billing address");
         }
         return $html;
     }

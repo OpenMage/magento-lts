@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Newsletter>
-            <version>0.8.2</version>
+            <version>0.8.0</version>
         </Mage_Newsletter>
     </modules>
     <global>
@@ -69,7 +69,20 @@
                 <setup>
                     <module>Mage_Newsletter</module>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </newsletter_setup>
+            <newsletter_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </newsletter_write>
+            <newsletter_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </newsletter_read>
         </resources>
         <template>
             <email>
@@ -90,15 +103,13 @@
                 </newsletter_subscription_un_email_template>
             </email>
         </template>
-        <newsletter>
-            <tempate_filter>newsletter/template_filter</tempate_filter>
-        </newsletter>
     </global>
     <adminhtml>
         <events>
             <customer_save_after>
                 <observers>
                     <newsletter_subscribe_observer>
+                        <type>singleton</type>
                         <class>newsletter/observer</class>
                         <method>subscribeCustomer</method>
                     </newsletter_subscribe_observer>
@@ -107,12 +118,78 @@
             <customer_delete_after>
                 <observers>
                     <newsletter_subscribe_observer>
+                        <type>singleton</type>
                         <class>newsletter/observer</class>
                         <method>customerDeleted</method>
                     </newsletter_subscribe_observer>
                 </observers>
             </customer_delete_after>
         </events>
+        <menu>
+            <newsletter translate="title" module="newsletter">
+                <title>Newsletter</title>
+                <sort_order>60</sort_order>
+                <children>
+                    <template translate="title" module="newsletter">
+                        <title>Newsletter Templates</title>
+                        <action>adminhtml/newsletter_template/</action>
+                        <resource>admin/newsletter/template</resource>
+                    </template>
+                    <queue translate="title" module="newsletter">
+                        <title>Newsletter Queue</title>
+                        <action>adminhtml/newsletter_queue/</action>
+                        <resource>admin/newsletter/queue</resource>
+                    </queue>
+                    <subscriber translate="title" module="newsletter">
+                        <title>Newsletter Subscribers</title>
+                        <action>adminhtml/newsletter_subscriber/</action>
+                        <resource>admin/newsletter/subscriber</resource>
+                    </subscriber>
+                    <problem translate="title" module="newsletter">
+                        <title>Newsletter Problem Reports</title>
+                        <action>adminhtml/newsletter_problem/</action>
+                        <resource>admin/newsletter/problem</resource>
+                    </problem>
+                </children>
+            </newsletter>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <newsletter translate="title" module="newsletter">
+                                            <title>Newsletter Section</title>
+                                        </newsletter>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                        <newsletter translate="title" module="newsletter">
+                            <title>Newsletter</title>
+                            <sort_order>60</sort_order>
+                            <children>
+                                <problem translate="title">
+                                    <title>Newsletter Problem Reports</title>
+                                </problem>
+                                <queue translate="title">
+                                    <title>Newsletter Queue</title>
+                                </queue>
+                                <subscriber translate="title">
+                                    <title>Newsletter Subscribers</title>
+                                </subscriber>
+                                <template translate="title">
+                                    <title>Newsletter Templates</title>
+                                </template>
+                            </children>
+                       </newsletter>
+                   </children>
+               </admin>
+           </resources>
+        </acl>
         <translate>
             <modules>
                 <Mage_Newsletter>
@@ -122,19 +199,13 @@
                 </Mage_Newsletter>
             </modules>
         </translate>
-        <layout>
-              <updates>
-                  <newsletter>
-                      <file>newsletter.xml</file>
-                  </newsletter>
-              </updates>
-        </layout>
     </adminhtml>
     <frontend>
         <events>
             <customer_save_after>
                 <observers>
                     <newsletter_subscribe_observer>
+                        <type>singleton</type>
                         <class>newsletter/observer</class>
                         <method>subscribeCustomer</method>
                     </newsletter_subscribe_observer>
@@ -143,6 +214,7 @@
             <customer_delete_after>
                 <observers>
                     <newsletter_subscribe_observer>
+                        <type>singleton</type>
                         <class>newsletter/observer</class>
                         <method>customerDeleted</method>
                     </newsletter_subscribe_observer>
@@ -174,9 +246,6 @@
                   </newsletter>
               </updates>
           </layout>
-        <secure_url>
-            <newsletter_manage>/newsletter/manage/</newsletter_manage>
-        </secure_url>
     </frontend>
 
     <default>
@@ -199,7 +268,7 @@
     <crontab>
         <jobs>
             <newsletter_send_all>
-                <schedule><cron_expr>*/5 * * * *</cron_expr></schedule>
+                <schedule><cron_expr>* * * * *</cron_expr></schedule>
                 <run><model>newsletter/observer::scheduledSend</model></run>
             </newsletter_send_all>
         </jobs>

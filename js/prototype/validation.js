@@ -97,25 +97,21 @@ Validation.prototype = {
         }, options || {});
         if(this.options.onSubmit) Event.observe(this.form,'submit',this.onSubmit.bind(this),false);
         if(this.options.immediate) {
-            Form.getElements(this.form).each(function(input) { // Thanks Mike!
+            Form.getElements(this.form).each(function(input) { // Thanks Mike!                
                 if (input.tagName.toLowerCase() == 'select') {
                     Event.observe(input, 'blur', this.onChange.bindAsEventListener(this));
                 }
-                if (input.type.toLowerCase() == 'radio' || input.type.toLowerCase() == 'checkbox') {
-                    Event.observe(input, 'click', this.onChange.bindAsEventListener(this));
-                } else {
-                    Event.observe(input, 'change', this.onChange.bindAsEventListener(this));
-                }
+                Event.observe(input, 'change', this.onChange.bindAsEventListener(this));
             }, this);
         }
     },
     onChange : function (ev) {
         Validation.isOnChange = true;
         Validation.validate(Event.element(ev),{
-                useTitle : this.options.useTitles,
+                useTitle : this.options.useTitles, 
                 onElementValidate : this.options.onElementValidate
         });
-        Validation.isOnChange = false;
+        Validation.isOnChange = false; 
     },
     onSubmit :  function(ev){
         if(!this.validate()) Event.stop(ev);
@@ -126,19 +122,9 @@ Validation.prototype = {
         var callback = this.options.onElementValidate;
         try {
             if(this.options.stopOnFirst) {
-                result = Form.getElements(this.form).all(function(elm) {
-                    if (elm.hasClassName('local-validation') && !this.isElementInForm(elm, this.form)) {
-                        return true;
-                    }
-                    return Validation.validate(elm,{useTitle : useTitles, onElementValidate : callback});
-                }, this);
+                result = Form.getElements(this.form).all(function(elm) { return Validation.validate(elm,{useTitle : useTitles, onElementValidate : callback}); });
             } else {
-                result = Form.getElements(this.form).collect(function(elm) {
-                    if (elm.hasClassName('local-validation') && !this.isElementInForm(elm, this.form)) {
-                        return true;
-                    }
-                    return Validation.validate(elm,{useTitle : useTitles, onElementValidate : callback});
-                }, this).all();
+                result = Form.getElements(this.form).collect(function(elm) { return Validation.validate(elm,{useTitle : useTitles, onElementValidate : callback}); }).all();
             }
         } catch (e) {
 
@@ -156,13 +142,6 @@ Validation.prototype = {
     },
     reset : function() {
         Form.getElements(this.form).each(Validation.reset);
-    },
-    isElementInForm : function(elm, form) {
-        var domForm = elm.up('form');
-        if (domForm == form) {
-            return true;
-        }
-        return false;
     }
 }
 
@@ -265,7 +244,7 @@ Object.extend(Validation, {
         if (elm.type == 'radio' || elm.type == 'checkbox') {
             return elm.hasClassName('change-container-classname');
         }
-
+        
         return true;
     },
     test : function(name, elm, useTitle) {
@@ -285,8 +264,8 @@ Object.extend(Validation, {
             if (!elm.advaiceContainer) {
                 elm.removeClassName('validation-passed');
                 elm.addClassName('validation-failed');
-            }
-
+            } 
+            
            if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
                 var container = elm.up(Validation.defaultOptions.containerClassName);
                 if (container && this.allowContainerClassName(elm)) {
@@ -305,7 +284,7 @@ Object.extend(Validation, {
             if (Validation.defaultOptions.addClassNameToContainer && Validation.defaultOptions.containerClassName != '') {
                 var container = elm.up(Validation.defaultOptions.containerClassName);
                 if (container && !container.down('.validation-failed') && this.allowContainerClassName(elm)) {
-                    if (!Validation.get('IsEmpty').test(elm.value) || !this.isVisible(elm)) {
+                    if (!Validation.get('IsEmpty').test(elm.value) || !this.isVisible(elm)) { 
                         container.addClassName('validation-passed');
                     } else {
                         container.removeClassName('validation-passed');
@@ -451,8 +430,8 @@ Validation.addAllThese([
                 //return Validation.get('IsEmpty').test(v) || /^[\!\#$%\*/?|\^\{\}`~&\'\+\-=_a-z0-9][\!\#$%\*/?|\^\{\}`~&\'\+\-=_a-z0-9\.]{1,30}[\!\#$%\*/?|\^\{\}`~&\'\+\-=_a-z0-9]@([a-z0-9_-]{1,30}\.){1,5}[a-z]{2,4}$/i.test(v)
                 return Validation.get('IsEmpty').test(v) || /^[a-z0-9,!\#\$%&'\*\+/=\?\^_`\{\|}~-]+(\.[a-z0-9,!#\$%&'\*\+/=\?\^_`\{\|}~-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,})/i.test(v)
             }],
-    ['validate-emailSender', 'Please use only visible characters and spaces.', function (v) {
-                return Validation.get('IsEmpty').test(v) ||  /^[\S ]+$/.test(v)
+    ['validate-emailSender', 'Please use only letters (a-z or A-Z), numbers (0-9) , underscore(_) or spaces in this field.', function (v) {
+                return Validation.get('IsEmpty').test(v) ||  /^[a-zA-Z0-9_\s]+$/.test(v)
                     }],
     ['validate-password', 'Please enter 6 or more characters. Leading or trailing spaces will be ignored.', function(v) {
                 var pass=v.strip(); /*strip leading and trailing spaces*/
@@ -469,21 +448,13 @@ Validation.addAllThese([
                 return !(pass.length < 7);
             }],
     ['validate-cpassword', 'Please make sure your passwords match.', function(v) {
-                var conf = $('confirmation') ? $('confirmation') : $$('.validate-cpassword')[0];
-                var pass = false;
                 if ($('password')) {
-                    pass = $('password');
+                    var pass = $('password');
                 }
-                var passwordElements = $$('.validate-password');
-                for (var i = 0; i < passwordElements.size(); i++) {
-                    var passwordElement = passwordElements[i];
-                    if (passwordElement.up('form').id == conf.up('form').id) {
-                        pass = passwordElement;
-                    }
+                else {
+                    var pass = $$('.validate-password').length ? $$('.validate-password')[0] : $$('.validate-admin-password')[0];
                 }
-                if ($$('.validate-admin-password').size()) {
-                    pass = $$('.validate-admin-password')[0];
-                }
+                var conf = $('confirmation') ? $('confirmation') : $$('.validate-cpassword')[0];
                 return (pass.value == conf.value);
             }],
     ['validate-url', 'Please enter a valid URL. http:// is required', function (v) {
@@ -492,7 +463,7 @@ Validation.addAllThese([
     ['validate-clean-url', 'Please enter a valid URL. For example http://www.example.com or www.example.com', function (v) {
                 return Validation.get('IsEmpty').test(v) || /^(http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+.(com|org|net|dk|at|us|tv|info|uk|co.uk|biz|se)$)(:(\d+))?\/?/i.test(v) || /^(www)((\.[A-Z0-9][A-Z0-9_-]*)+.(com|org|net|dk|at|us|tv|info|uk|co.uk|biz|se)$)(:(\d+))?\/?/i.test(v)
             }],
-    ['validate-identifier', 'Please enter a valid URL Key. For example "example-page", "example-page.html" or "anotherlevel/example-page"', function (v) {
+    ['validate-identifier', 'Please enter a valid Identifier. For example example-page, example-page.html or anotherlevel/example-page', function (v) {
                 return Validation.get('IsEmpty').test(v) || /^[A-Z0-9][A-Z0-9_\/-]+(\.[A-Z0-9_-]+)*$/i.test(v)
             }],
     ['validate-xml-identifier', 'Please enter a valid XML-identifier. For example something_1, block5, id-4', function (v) {
@@ -533,13 +504,13 @@ Validation.addAllThese([
             }],
     ['validate-one-required-by-name', 'Please select one of the options.', function (v,elm) {
                 var inputs = $$('input[name="' + elm.name.replace(/([\\"])/g, '\\$1') + '"]');
-
+                
                 var error = 1;
                 for(var i=0;i<inputs.length;i++) {
                     if((inputs[i].type == 'checkbox' || inputs[i].type == 'radio') && inputs[i].checked == true) {
                         error = 0;
                     }
-
+                    
                     if(Validation.isOnChange && (inputs[i].type == 'checkbox' || inputs[i].type == 'radio')) {
                         Validation.reset(inputs[i]);
                     }
@@ -622,7 +593,7 @@ Validation.addAllThese([
                 if(ccMatchedType != ccType) {
                     return false;
                 }
-
+                
                 if (ccTypeContainer.hasClassName('validation-failed') && Validation.isOnChange) {
                     Validation.validate(ccTypeContainer);
                 }
@@ -641,7 +612,7 @@ Validation.addAllThese([
             }],
      ['validate-cc-exp', 'Incorrect credit card expiration date', function(v, elm) {
                 var ccExpMonth   = v;
-                var ccExpYear    = $(elm.id.substr(0,elm.id.indexOf('_expiration')) + '_expiration_yr').value;
+                var ccExpYear    = $('ccsave_expiration_yr').value;
                 var currentTime  = new Date();
                 var currentMonth = currentTime.getMonth() + 1;
                 var currentYear  = currentTime.getFullYear();
@@ -692,10 +663,9 @@ Validation.addAllThese([
                         }
                     });
                 return result;
-            }],
-     ['validate-percents', 'Please enter a number lower than 100', {max:100}]
-
+            }]
 ]);
+
 
 // Credit Card Validation Javascript
 // copyright 12th May 2003, by Stephen Chapman, Felgall Pty Ltd
@@ -770,5 +740,3 @@ Validation.creditCartTypes = $H({
     'SS': [new RegExp('^((6759[0-9]{12})|(49[013][1356][0-9]{13})|(633[34][0-9]{12})|(633110[0-9]{10})|(564182[0-9]{10}))([0-9]{2,3})?$'), new RegExp('^([0-9]{3}|[0-9]{4})?$'), true],
     'OT': [false, new RegExp('^([0-9]{3}|[0-9]{4})?$'), false]
 });
-
-

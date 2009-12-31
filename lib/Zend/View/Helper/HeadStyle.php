@@ -12,11 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: HeadStyle.php 18572 2009-10-16 13:37:08Z sgehrig $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Placeholder.php 7078 2007-12-11 14:29:33Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +28,7 @@
  * @uses       Zend_View_Helper_Placeholder_Container_Standalone
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_Standalone
@@ -324,7 +323,6 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
                         $media_types = explode(',', $value);
                         $value = '';
                         foreach($media_types as $type) {
-                            $type = trim($type);
                             if (!in_array($type, $this->_mediaTypes)) {
                                 continue;
                             }
@@ -364,7 +362,6 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
                 : $this->getIndent();
 
         $items = array();
-        $this->getContainer()->ksort();
         foreach ($this as $item) {
             if (!$this->_isValid($item)) {
                 continue;

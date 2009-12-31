@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -190,28 +190,39 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     public function updateProductStatus($productId, $storeId, $value)
     {
-        Mage::getSingleton('catalog/product_action')
-            ->updateAttributes(array($productId), array('status' => $value), $storeId);
-
-        // add back compatibility event
-        $status = $this->_getResource()->getProductAttribute('status');
-        if ($status->isScopeWebsite()) {
-            $website = Mage::app()->getStore($storeId)->getWebsite();
-            $stores  = $website->getStoreIds();
-        } else if ($status->isScopeStore()) {
-            $stores = array($storeId);
-        } else {
-            $stores = array_keys(Mage::app()->getStores());
+        $stores = array();
+        if ($storeId != 0) {
+            $attribute = $this->getProductAttribute('status');
+            if ($attribute->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE) {
+                $stores[] = $storeId;
+            }
+            elseif ($attribute->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE) {
+                $website = Mage::app()->getStore($storeId)->getWebsite();
+                foreach ($website->getStores() as $store) {
+                    $stores[] = $store->getId();
+                }
+            }
+            else {
+                $stores[] = 0;
+            }
+        }
+        else {
+            $stores[] = $storeId;
         }
 
         foreach ($stores as $storeId) {
+            $this->_getResource()->updateProductStatus($productId, $storeId, $value);
+            Mage::getResourceModel('catalog/category')->refreshProductIndex(
+                array(),
+                array($productId),
+                $storeId ? array($storeId) : array()
+            );
             Mage::dispatchEvent('catalog_product_status_update', array(
                 'product_id'    => $productId,
                 'store_id'      => $storeId,
                 'status'        => $value
             ));
         }
-
         return $this;
     }
 
@@ -323,7 +334,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
                         . " AND `{$valueTable2}`.`store_id`='{$collection->getStoreId()}'",
                     array()
                 );
-            $valueExpr = new Zend_Db_Expr("IF(`{$valueTable2}`.`value_id`>0, `{$valueTable2}`.`value`, `{$valueTable1}`.`value`)");
+            $valueExpr = new Zend_Db_Expr("IFNULL(`{$valueTable2}`.`value`, `{$valueTable1}`.`value`)");
         }
 
         $collection->getSelect()->order($valueExpr . ' ' . $dir);

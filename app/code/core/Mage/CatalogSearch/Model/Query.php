@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -46,16 +46,6 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve search collection
-     *
-     * @return Mage_CatalogSearch_Model_Mysql4_Search_Collection
-     */
-    public function getSearchCollection()
-    {
-        return Mage::getResourceModel('catalogsearch/search_collection');
-    }
-
-    /**
      * Retrieve collection of search results
      *
      * @return Mage_Eav_Model_Entity_Collection_Abstract
@@ -64,9 +54,9 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     {
         $collection = $this->getData('result_collection');
         if (is_null($collection)) {
-            $collection = $this->getSearchCollection();
+            $collection = Mage::getResourceModel('catalogsearch/search_collection');
 
-            $text = $this->getSynonymFor();
+            $text = $this->getSynonimFor();
             if (!$text) {
                 $text = $this->getQueryText();
             }
@@ -106,20 +96,6 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     public function loadByQuery($text)
     {
         $this->_getResource()->loadByQuery($this, $text);
-        $this->_afterLoad();
-        $this->setOrigData();
-        return $this;
-    }
-
-    /**
-     * Load Query object only by query text (skip 'synonym for')
-     *
-     * @param string $text
-     * @return Mage_CatalogSearch_Model_Query
-     */
-    public function loadByQueryText($text)
-    {
-        $this->_getResource()->loadByQueryText($this, $text);
         $this->_afterLoad();
         $this->setOrigData();
         return $this;
@@ -169,7 +145,6 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Retrieve minimum query length
      *
-     * @deprecated after 1.3.2.3 use getMinQueryLength() instead
      * @return int
      */
     public function getMinQueryLenght()
@@ -178,33 +153,13 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve minimum query length
-     *
-     * @return int
-     */
-    public function getMinQueryLength(){
-        return $this->getMinQueryLenght();
-    }
-
-    /**
      * Retrieve maximum query length
      *
-     * @deprecated after 1.3.2.3 use getMaxQueryLength() instead
      * @return int
      */
     public function getMaxQueryLenght()
     {
         return Mage::getStoreConfig(self::XML_PATH_MAX_QUERY_LENGTH, $this->getStoreId());
-    }
-
-    /**
-     * Retrieve maximum query length
-     *
-     * @return int
-     */
-    public function getMaxQueryLength()
-    {
-        return $this->getMaxQueryLenght();
     }
 
     /**

@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Cms
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Cms
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Cms>
-            <version>0.7.13</version>
+            <version>0.7.8</version>
         </Mage_Cms>
     </modules>
     <frontend>
@@ -45,6 +45,7 @@
             <controller_action_noroute>
                 <observers>
                     <cms>
+                        <type>singleton</type>
                         <class>cms/observer</class>
                         <method>noRoute</method>
                     </cms>
@@ -53,6 +54,7 @@
             <controller_action_nocookies>
                 <observers>
                     <cms>
+                        <type>singleton</type>
                         <class>cms/observer</class>
                         <method>noCookies</method>
                     </cms>
@@ -86,55 +88,52 @@
                 </Mage_Cms>
             </modules>
         </translate>
-        <layout>
-            <updates>
-                <cms>
-                    <file>cms.xml</file>
-                </cms>
-            </updates>
-        </layout>
-        <cms>
-            <browser>
-                <dirs>
-                    <exclude>
-                        <catalog_dir regexp="0">catalog</catalog_dir><!-- use regexp="0" or "1" to override -->
-                        <downloadable>downloadable</downloadable>
-                        <flex_dir>flex</flex_dir>
-                        <import>import</import>
-                        <tmp>tmp</tmp>
-                        <js>js</js>
-                        <css>css</css>
-                    </exclude>
-                    <include></include>
-                </dirs>
-                <extensions>
-                    <allowed>
-                        <jpg>1</jpg>
-                        <jpeg>1</jpeg>
-                        <png>1</png>
-                        <gif>1</gif>
-                    </allowed>
-                    <image_allowed>
-                        <jpg>1</jpg>
-                        <jpeg>1</jpeg>
-                        <png>1</png>
-                        <gif>1</gif>
-                    </image_allowed>
-                    <media_allowed>
-                        <flv>1</flv>
-                        <swf>1</swf>
-                        <avi>1</avi>
-                        <mov>1</mov>
-                        <rm>1</rm>
-                        <wmv>1</wmv>
-                    </media_allowed>
-                </extensions>
-                <window_width>1000</window_width>
-                <window_height>600</window_height>
-                <resize_width>100</resize_width>
-                <resize_height>75</resize_height>
-            </browser>
-        </cms>
+        <menu>
+             <cms translate="title" module="cms">
+                <title>CMS</title>
+                <sort_order>70</sort_order>
+                <children>
+                    <page translate="title" module="cms">
+                        <title>Manage Pages</title>
+                        <action>adminhtml/cms_page</action>
+                    </page>
+                    <block translate="title" module="cms">
+                        <title>Static Blocks</title>
+                        <action>adminhtml/cms_block</action>
+                    </block>
+                    <poll translate="title" module="cms">
+                        <title>Poll Manager</title>
+                        <action>adminhtml/poll</action>
+                    </poll>
+                </children>
+             </cms>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <cms translate="title" module="cms">
+                            <title>CMS</title>
+                            <sort_order>70</sort_order>
+                            <children>
+                                <block translate="title">
+                                    <title>Static Blocks</title>
+                                    <sort_order>0</sort_order>
+                                </block>
+                                <page translate="title">
+                                    <title>Manage Pages</title>
+                                    <sort_order>10</sort_order>
+                                </page>
+                                <poll translate="title">
+                                    <title>Poll Manager</title>
+                                    <sort_order>20</sort_order>
+                                </poll>
+                            </children>
+                        </cms>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
     </adminhtml>
     <global>
         <models>
@@ -165,7 +164,20 @@
                 <setup>
                     <module>Mage_Cms</module>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </cms_setup>
+            <cms_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </cms_write>
+            <cms_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </cms_read>
         </resources>
         <blocks>
             <cms><class>Mage_Cms_Block</class></cms>
@@ -174,20 +186,13 @@
             <controller_front_init_routers>
                 <observers>
                     <cms>
+                        <type>singleton</type>
                         <class>Mage_Cms_Controller_Router</class>
                         <method>initControllerRouters</method>
                     </cms>
                 </observers>
             </controller_front_init_routers>
         </events>
-        <cms>
-            <page>
-                <tempate_filter>cms/template_filter</tempate_filter>
-            </page>
-            <block>
-                <tempate_filter>cms/template_filter</tempate_filter>
-            </block>
-        </cms>
     </global>
 
     <default>
@@ -201,10 +206,5 @@
                 <show_cms_breadcrumbs>1</show_cms_breadcrumbs>
             </default>
         </web>
-        <cms>
-            <wysiwyg>
-                <enabled>enabled</enabled>
-            </wysiwyg>
-        </cms>
     </default>
 </config>

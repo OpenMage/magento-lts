@@ -15,25 +15,25 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Technorati
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TagsResultSet.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: TagsResultSet.php 8064 2008-02-16 10:58:39Z thomas $
  */
 
 
-/**
- * @see Zend_Service_Technorati_ResultSet
+/** 
+ * @see Zend_Service_Technorati_ResultSet 
  */
 #require_once 'Zend/Service/Technorati/ResultSet.php';
 
 
 /**
  * Represents a Technorati TopTags or BlogPostTags queries result set.
- *
+ * 
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Technorati
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Technorati_TagsResultSet extends Zend_Service_Technorati_ResultSet

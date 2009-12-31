@@ -18,41 +18,22 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Cms
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cms
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/**
- * Cms Controller Router
- *
- * @category    Mage
- * @package     Mage_Cms
- * @author      Magento Core Team <core@magentocommerce.com>
- */
 class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abstract
 {
-    /**
-     * Initialize Controller Router
-     *
-     * @param Varien_Event_Observer $observer
-     */
     public function initControllerRouters($observer)
     {
-        /* @var $front Mage_Core_Controller_Varien_Front */
         $front = $observer->getEvent()->getFront();
 
-        $front->addRouter('cms', $this);
+        $cms = new Mage_Cms_Controller_Router();
+        $front->addRouter('cms', $cms);
     }
 
-    /**
-     * Validate and Match Cms Page and modify request
-     *
-     * @param Zend_Controller_Request_Http $request
-     * @return bool
-     */
     public function match(Zend_Controller_Request_Http $request)
     {
         if (!Mage::isInstalled()) {
@@ -64,43 +45,20 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
 
         $identifier = trim($request->getPathInfo(), '/');
 
-        $condition = new Varien_Object(array(
-            'identifier' => $identifier,
-            'continue'   => true
-        ));
-        Mage::dispatchEvent('cms_controller_router_match_before', array(
-            'router'    => $this,
-            'condition' => $condition
-        ));
-        $identifier = $condition->getIdentifier();
-
-        if ($condition->getRedirectUrl()) {
-            Mage::app()->getFrontController()->getResponse()
-                ->setRedirect($condition->getRedirectUrl())
-                ->sendResponse();
-            $request->setDispatched(true);
-            return true;
-        }
-
-        if (!$condition->getContinue()) {
-            return false;
-        }
-
-        $page   = Mage::getModel('cms/page');
+        $page = Mage::getModel('cms/page');
         $pageId = $page->checkIdentifier($identifier, Mage::app()->getStore()->getId());
         if (!$pageId) {
             return false;
         }
 
-        $request->setModuleName('cms')
-            ->setControllerName('page')
-            ->setActionName('view')
+        $request->setModuleName(isset($d[0]) ? $d[0] : 'cms')
+            ->setControllerName(isset($d[1]) ? $d[1] : 'page')
+            ->setActionName(isset($d[2]) ? $d[2] : 'view')
             ->setParam('page_id', $pageId);
-        $request->setAlias(
-            Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
-            $identifier
-        );
-
+		$request->setAlias(
+			Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
+			$identifier
+		);
         return true;
     }
 }

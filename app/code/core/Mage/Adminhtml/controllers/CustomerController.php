@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -151,15 +151,12 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost()) {
-            $redirectBack   = $this->getRequest()->getParam('back', false);
+        	$redirectBack   = $this->getRequest()->getParam('back', false);
             $this->_initCustomer('customer_id');
             $customer = Mage::registry('current_customer');
 
             // Prepare customer saving data
             if (isset($data['account'])) {
-                if (isset($data['account']['email'])) {
-                    $data['account']['email'] = trim($data['account']['email']);
-                }
                 $customer->addData($data['account']);
             }
 
@@ -193,7 +190,6 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             $isNewCustomer = !$customer->getId();
             try {
                 if ($customer->getPassword() == 'auto') {
-                    $sendPassToEmail = true;
                     $customer->setPassword($customer->generatePassword());
                 }
 
@@ -207,15 +203,15 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 );
 
                 $customer->save();
+
                 // send welcome email
-                if ($customer->getWebsiteId() && ($customer->hasData('sendemail') || isset($sendPassToEmail))) {
-                    $storeId = $customer->getSendemailStoreId();
+                if ($customer->getWebsiteId() && $customer->hasData('sendemail')) {
                     if ($isNewCustomer) {
-                        $customer->sendNewAccountEmail('registered', '', $storeId);
+                        $customer->sendNewAccountEmail();
                     }
                     // confirm not confirmed customer
                     elseif ((!$customer->getConfirmation())) {
-                        $customer->sendNewAccountEmail('confirmed', '', $storeId);
+                        $customer->sendNewAccountEmail('confirmed');
                     }
                 }
 
@@ -230,16 +226,14 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 }
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Customer was successfully saved'));
-                Mage::dispatchEvent('adminhtml_customer_save_after',
-                    array('customer' => $customer, 'request' => $this->getRequest())
-                );
+                Mage::dispatchEvent('adminhtml_customer_save_after', array('customer' => $customer));
 
                 if ($redirectBack) {
-                    $this->_redirect('*/*/edit', array(
-                        'id'    => $customer->getId(),
-                        '_current'=>true
-                    ));
-                    return;
+	                $this->_redirect('*/*/edit', array(
+	                    'id'    => $customer->getId(),
+	                    '_current'=>true
+	                ));
+	                return;
                 }
             }
             catch (Exception $e){
@@ -259,7 +253,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'customers.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/customer_grid')
-            ->getCsvFile();
+            ->getCsv();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -271,7 +265,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     {
         $fileName   = 'customers.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/customer_grid')
-            ->getExcelFile();
+            ->getXml();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -334,7 +328,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                         ->delete();
                 }
                 catch (Exception $e) {
-                    Mage::logException($e);
+                    //
                 }
             }
         }
@@ -409,7 +403,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     {
         $this->_initCustomer();
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/customer_edit_tab_reviews', 'admin.customer.reviews')
+            $this->getLayout()->createBlock('adminhtml/review_grid', 'admin.customer.reviews')
                 ->setCustomerId(Mage::registry('current_customer')->getId())
                 ->setUseAjax(true)
                 ->toHtml()

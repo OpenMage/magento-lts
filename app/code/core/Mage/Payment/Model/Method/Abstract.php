@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Payment
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Payment
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -46,8 +46,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     protected $_infoBlockType = 'payment/info';
 
     /**
-     * Payment Method features
-     * @var bool
+     * Availability options
      */
     protected $_isGateway               = false;
     protected $_canAuthorize            = false;
@@ -60,12 +59,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     protected $_canUseCheckout          = true;
     protected $_canUseForMultishipping  = true;
     protected $_isInitializeNeeded      = false;
-    /**
-     * TODO: whether a captured transaction may be voided by this gateway
-     * This may happen when amount is captured, but not settled
-     * @var bool
-     */
-    protected $_canCancelInvoice        = false;
 
     public function __construct()
     {
@@ -334,27 +327,12 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         return $this;
     }
 
-    /**
-     * Set capture transaction ID to invoice for informational purposes
-     * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Payment_Model_Method_Abstract
-     */
     public function processInvoice($invoice, $payment)
     {
         $invoice->setTransactionId($payment->getLastTransId());
         return $this;
     }
 
-    /**
-     * Set refund transaction id to payment object for informational purposes
-     * Candidate to be deprecated:
-     * there can be multiple refunds per payment, thus payment.refund_transaction_id doesn't make big sense
-     *
-     * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Payment_Model_Method_Abstract
-     */
     public function processBeforeRefund($invoice, $payment)
     {
         $payment->setRefundTransactionId($invoice->getTransactionId());
@@ -379,12 +357,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         return $this;
     }
 
-    /**
-     * Set transaction ID into creditmemo for informational purposes
-     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
-     * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Payment_Model_Method_Abstract
-     */
     public function processCreditmemo($creditmemo, $payment)
     {
         $creditmemo->setTransactionId($payment->getLastTransId());
@@ -402,14 +374,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         return $this;
     }
 
-    /**
-     * @deprecated after 1.4.0.0-alpha3
-     * this method doesn't make sense, because invoice must not void entire authorization
-     * there should be method for invoice cancellation
-     * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Payment_Model_Method_Abstract
-     */
     public function processBeforeVoid($invoice, $payment)
     {
         $payment->setVoidTransactionId($invoice->getTransactionId());
@@ -483,21 +447,13 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     }
 
     /**
-     * Check whether payment method can be used
-     * TODO: payment method instance is not supposed to know about quote
-     * @param Mage_Sales_Model_Quote
+     * Return true if the method can be used at this time
+     *
      * @return bool
      */
-    public function isAvailable($quote = null)
+    public function isAvailable($quote=null)
     {
-        $checkResult = new StdClass;
-        $checkResult->isAvailable = (bool)(int)$this->getConfigData('active', ($quote ? $quote->getStoreId() : null));
-        Mage::dispatchEvent('payment_method_is_active', array(
-            'result'          => $checkResult,
-            'method_instance' => $this,
-            'quote'           => $quote,
-        ));
-        return $checkResult->isAvailable;
+        return true;
     }
 
     /**
@@ -512,14 +468,4 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         return $this;
     }
 
-    /**
-     * Get config peyment action url
-     * Used to universalize payment actions when processing payment place
-     *
-     * @return string
-     */
-    public function getConfigPaymentAction()
-    {
-        return $this->getConfigData('payment_action');
-    }
 }

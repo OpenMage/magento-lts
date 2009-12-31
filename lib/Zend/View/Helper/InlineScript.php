@@ -12,11 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: InlineScript.php 18951 2009-11-12 16:26:19Z alexander $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: InlineScript.php 9099 2008-03-30 19:35:47Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,13 +23,13 @@
 #require_once 'Zend/View/Helper/HeadScript.php';
 
 /**
- * Helper for setting and retrieving script elements for inclusion in HTML body
+ * Helper for setting and retrieving script elements for inclusion in HTML body 
  * section
  *
  * @uses       Zend_View_Helper_Head_Script
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_InlineScript extends Zend_View_Helper_HeadScript
@@ -44,7 +43,7 @@ class Zend_View_Helper_InlineScript extends Zend_View_Helper_HeadScript
     /**
      * Return InlineScript object
      *
-     * Returns InlineScript helper object; optionally, allows specifying a
+     * Returns InlineScript helper object; optionally, allows specifying a 
      * script or script file to include.
      *
      * @param  string $mode Script or file

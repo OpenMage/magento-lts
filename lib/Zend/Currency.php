@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Currency
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Currency.php 17080 2009-07-25 21:14:29Z thomas $
+ * @version   $Id: Currency.php 6137 2007-08-19 14:55:27Z shreef $
  */
 
 /**
@@ -31,7 +31,7 @@
  *
  * @category  Zend
  * @package   Zend_Currency
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Currency
@@ -52,7 +52,7 @@ class Zend_Currency
      *
      * @var string
      */
-    private $_locale = null;
+    protected $_locale = null;
 
     /**
      * Options array
@@ -109,12 +109,40 @@ class Zend_Currency
         }
 
         // Get the format
+        $this->_options['position'] = $this->_updateFormat();
         $this->_options['display']  = self::NO_SYMBOL;
         if (empty($this->_options['symbol']) === false) {
             $this->_options['display'] = self::USE_SYMBOL;
         } else if (empty($this->_options['currency']) === false) {
             $this->_options['display'] = self::USE_SHORTNAME;
         }
+    }
+
+    /**
+     * Gets the information required for formating the currency from Zend_Locale
+     *
+     * @return Zend_Currency
+     */
+    protected function _updateFormat()
+    {
+        $locale = (empty($this->_options['format']) === true) ? $this->_locale : $this->_options['format'];
+
+        // Getting the format information of the currency
+        $format = Zend_Locale_Data::getContent($locale, 'currencynumber');
+
+        iconv_set_encoding('internal_encoding', 'UTF-8');
+        if (iconv_strpos($format, ';') !== false) {
+            $format = iconv_substr($format, 0, iconv_strpos($format, ';'));
+        }
+
+        // Knowing the sign positioning information
+        if (iconv_strpos($format, '¤') === 0) {
+            $position = self::LEFT;
+        } else if (iconv_strpos($format, '¤') === (iconv_strlen($format) - 1)) {
+            $position = self::RIGHT;
+        }
+
+        return $position;
     }
 
     /**
@@ -136,105 +164,99 @@ class Zend_Currency
         $options = $this->_checkOptions($options) + $this->_options;
 
         // Format the number
-        $format = $options['format'];
-        $locale = $this->_locale;
-        if (empty($format)) {
-            $format = Zend_Locale_Data::getContent($this->_locale, 'currencynumber');
-        } else if (Zend_Locale::isLocale($format, true, false)) {
-            $locale = $format;
-            $format = Zend_Locale_Data::getContent($format, 'currencynumber');
+        if (empty($options['format']) === true) {
+            $options['format'] = $this->_locale;
         }
 
-        $symbols  = Zend_Locale_Data::getList($locale, 'symbols');
-        $original = $value;
-        $value    = Zend_Locale_Format::toNumber($value, array('locale'        => $locale,
-                                                               'number_format' => $format,
-                                                              'precision'     => $options['precision']));
-
-        if ($options['position'] !== self::STANDARD) {
-            $value = str_replace('¤', '', $value);
-            $space = '';
-            if (iconv_strpos($value, ' ') !== false) {
-                $value = str_replace(' ', '', $value);
-                $space = ' ';
-            }
-
-            if ($options['position'] == self::LEFT) {
-                $value = '¤' . $space . $value;
-            } else {
-                $value = $value . $space . '¤';
-            }
-        }
+        $value = Zend_Locale_Format::toNumber($value, array('locale' => $options['format'],
+                                                            'precision' => $options['precision']));
 
         // Localize the number digits
         if (empty($options['script']) === false) {
             $value = Zend_Locale_Format::convertNumerals($value, 'Latn', $options['script']);
         }
 
+        $options = $this->_processSymbolChoice($options, $value);
+
         // Get the sign to be placed next to the number
         if (is_numeric($options['display']) === false) {
-            $sign = $options['display'];
+            $sign = ' ' . $options['display'] . ' ';
         } else {
             switch($options['display']) {
                 case self::USE_SYMBOL:
-                    $sign = $this->_extractPattern($options['symbol'], $original);
+                    $sign = ' ' . $options['symbol'] . ' ';
                     break;
 
                 case self::USE_SHORTNAME:
-                    $sign = $options['currency'];
+                    $sign = ' ' . $options['currency'] . ' ';
                     break;
 
                 case self::USE_NAME:
-                    $sign = $options['name'];
+                    $sign = ' ' . $options['name'] . ' ';
                     break;
 
                 default:
                     $sign = '';
-                    $value = str_replace(' ', '', $value);
                     break;
             }
         }
 
-        $value = str_replace('¤', $sign, $value);
-        return $value;
+        $value = $this->_concatSign($value, $sign, $options);
+
+        return trim($value);
     }
 
     /**
-     * Internal method to extract the currency pattern
-     * when a choice is given based on the given value
+     * Place the sign next to the number
      *
-     * @param  string $pattern
-     * @param  float|integer $value
+     * @param string $value
+     * @param string $sign
+     * @param array $options
      * @return string
      */
-    private function _extractPattern($pattern, $value)
+    protected function _concatSign($value, $sign, $options)
     {
-        if (strpos($pattern, '|') === false) {
-            return $pattern;
+        if ($options['position'] === self::RIGHT) {
+            $result = $value . $sign;
+        } else if ($options['position'] === self::LEFT) {
+            $result = $sign . $value;
         }
+        return $result;
+    }
 
-        $patterns = explode('|', $pattern);
-        $token    = $pattern;
-        $value    = trim(str_replace('¤', '', $value));
-        krsort($patterns);
-        foreach($patterns as $content) {
-            if (strpos($content, '<') !== false) {
-                $check = iconv_substr($content, 0, iconv_strpos($content, '<'));
-                $token = iconv_substr($content, iconv_strpos($content, '<') + 1);
-                if ($check < $value) {
-                    return $token;
-                }
-            } else {
-                $check = iconv_substr($content, 0, iconv_strpos($content, '≤'));
-                $token = iconv_substr($content, iconv_strpos($content, '≤') + 1);
-                if ($check <= $value) {
-                    return $token;
+    /**
+     * Select currency symbol if multiple symbols were specified
+     *
+     * @param array $options
+     * @param integer|float $value  Currency value
+     * @return array
+     */
+    protected function _processSymbolChoice($options, $value)
+    {
+        if (isset($options['symbol_choice']) && $options['symbol_choice']) {
+            $symbols = explode('|', $options['symbol']);
+            if (is_array($symbols)) {
+                foreach ($symbols as $symbol) {
+                    $type = $position = null;
+                    if (($tmp = iconv_strpos($symbol, '≤')) !== false) {
+                        $type = 1;
+                        $position = $tmp;
+                    }
+                    if (($tmp = iconv_strpos($symbol, '<')) !== false) {
+                        $type = 2;
+                        $position = $tmp;
+                    }
+                    if (!is_null($position)) {
+                        $number = iconv_substr($symbol, 0, $position);
+                        $sign = iconv_substr($symbol, $position+1);
+                        if (($type == 1 && $number <= $value) || ($type == 2 && $number < $value)) {
+                            $options['symbol'] = $sign;
+                        }
+                    }
                 }
             }
-
         }
-
-        return $token;
+        return $options;
     }
 
     /**
@@ -259,7 +281,7 @@ class Zend_Currency
      * @throws Zend_Currency_Exception When locale contains no region
      * @return string The extracted locale representation as string
      */
-    private function _checkParams($currency = null, $locale = null)
+    protected function _checkParams($currency = null, $locale = null)
     {
         // Manage the params
         if ((empty($locale)) and (!empty($currency)) and
@@ -544,7 +566,7 @@ class Zend_Currency
      * @throws Zend_Currency_Exception On unknown options
      * @return array
      */
-    private function _checkOptions(array $options = array())
+    protected function _checkOptions(array $options = array())
     {
         if (count($options) === 0) {
             return $this->_options;
@@ -565,6 +587,9 @@ class Zend_Currency
                         throw new Zend_Currency_Exception("Unknown position '" . $value . "'");
                     }
 
+                    if ($value === self::STANDARD) {
+                        $options['position'] = $this->_updateFormat();
+                    }
                     break;
 
                 case 'format':

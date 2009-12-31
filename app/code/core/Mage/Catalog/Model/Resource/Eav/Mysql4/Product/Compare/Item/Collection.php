@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -138,21 +138,18 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection ext
      */
     public function _addJoinToSelect()
     {
-        $this->joinTable(
-            array('t_compare' => 'catalog/compare_item'),
+        $this->joinField(
+            'catalog_compare_item_id',
+            'catalog/compare_item',
+            'catalog_compare_item_id',
             'product_id=entity_id',
-            array(
-                'product_id'    => 'product_id',
-                'customer_id'   => 'customer_id',
-                'visitor_id'    => 'visitor_id',
-                'item_store_id' => 'store_id',
-                'catalog_compare_item_id' => 'catalog_compare_item_id'
-            ),
             $this->getConditionForJoin()
         );
-
-        $this->_productLimitationFilters['store_table']  = 't_compare';
-
+        $this->joinTable(
+            'catalog/compare_item',
+            'catalog_compare_item_id=catalog_compare_item_id',
+            array('product_id', 'customer_id', 'visitor_id'));
+        $this->addStoreFilter();
         return $this;
     }
 
@@ -228,19 +225,11 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection ext
                 $attributeIds = $this->_getAttributeIdsBySetIds($setIds);
 
                 $select = $this->getConnection()->select()
-                    ->from(array('main_table' => $this->getTable('eav/attribute')))
-                    ->join(
-                        array('additional_table' => $this->getTable('catalog/eav_attribute')),
-                        'additional_table.attribute_id=main_table.attribute_id'
-                    )
-                    ->joinLeft(
-                        array('al' => $this->getTable('eav/attribute_label')),
-                        'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int) $this->getStoreId(),
-                        array('store_label' => new Zend_Db_Expr('IFNULL(al.value, main_table.frontend_label)'))
-                    )
-                    ->where('additional_table.is_comparable=?', 1)
-                    ->where('main_table.attribute_id IN(?)', $attributeIds);
+                    ->from($this->getTable('eav/attribute'))
+                    ->where('is_comparable=?', 1)
+                    ->where('attribute_id IN(?)', $attributeIds);
                 $attributesData = $this->getConnection()->fetchAll($select);
+
                 if ($attributesData) {
                     $entityType = 'catalog_product';
                     Mage::getSingleton('eav/config')
@@ -285,10 +274,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection ext
     public function useProductItem()
     {
         $this->setObject('catalog/product');
-
-        $this->setFlag('url_data_object', true);
-        $this->setFlag('do_not_use_category_id', true);
-
         return $this;
     }
 
@@ -326,8 +311,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection ext
         }
 
         $this->getConnection()->delete($this->getTable('catalog/compare_item'), $where);
-
-        Mage::dispatchEvent('catalog_product_compare_item_collection_clear');
 
         return $this;
     }

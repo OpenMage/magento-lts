@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: FilesSize.php 18148 2009-09-16 19:27:43Z thomas $
+ * @version   $Id: $
  */
 
 /**
@@ -29,7 +29,7 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
@@ -63,7 +63,9 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
      * Min limits the used diskspace for all files, when used with max=null it is the maximum filesize
      * It also accepts an array with the keys 'min' and 'max'
      *
-     * @param  integer|array|Zend_Config $options Options for this validator
+     * @param  integer|array $min        Minimum diskspace for all files
+     * @param  integer       $max        Maximum diskspace for all files (deprecated)
+     * @param  boolean       $bytestring Use bytestring or real size ? (deprecated)
      * @return void
      */
     public function __construct($options)
@@ -71,18 +73,16 @@ class Zend_Validate_File_FilesSize extends Zend_Validate_File_Size
         $this->_files = array();
         $this->_setSize(0);
 
-        if ($options instanceof Zend_Config) {
-            $options = $options->toArray();
-        } elseif (is_scalar($options)) {
-            $options = array('max' => $options);
-        } elseif (!is_array($options)) {
-            #require_once 'Zend/Validate/Exception.php';
-            throw new Zend_Validate_Exception('Invalid options to validator provided');
-        }
-
         if (1 < func_num_args()) {
-// @todo: Preperation for 2.0... needs to be cleared with the dev-team
-//          trigger_error('Multiple constructor options are deprecated in favor of a single options array', E_USER_NOTICE);
+            trigger_error('Multiple constructor options are deprecated in favor of a single options array', E_USER_NOTICE);
+            if ($options instanceof Zend_Config) {
+                $options = $options->toArray();
+            } elseif (is_scalar($options)) {
+                $options = array('min' => $options);
+            } elseif (!is_array($options)) {
+                #require_once 'Zend/Validate/Exception.php';
+                throw new Zend_Validate_Exception('Invalid options to validator provided');
+            }
 
             $argv = func_get_args();
             array_shift($argv);

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -92,18 +92,15 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
     public function deleteAction()
     {
         $rid = $this->getRequest()->getParam('rid', false);
-
         $currentUser = Mage::getModel('admin/user')->setId(Mage::getSingleton('admin/session')->getUser()->getId());
-
-        if (in_array($rid, $currentUser->getRoles()) ) {
+        if ( in_array($rid, $currentUser->getRoles()) ) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('You can not delete self assigned roles.'));
             $this->_redirect('*/*/editrole', array('rid' => $rid));
             return;
         }
 
         try {
-            $role = $this->_initRole()->delete();
-
+            Mage::getModel("admin/roles")->setId($rid)->delete();
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Role successfully deleted.'));
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('Error while deleting this role. Please try again later.'));
@@ -124,17 +121,12 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         if ($isAll)
             $resource = array("all");
 
-        $role = $this->_initRole('role_id');
-        if (!$role->getId() && $rid) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('This Role no longer exists'));
-            $this->_redirect('*/*/');
-            return;
-        }
-
         try {
-            $role->setName($this->getRequest()->getParam('rolename', false))
-                 ->setPid($this->getRequest()->getParam('parent_id', false))
-                 ->setRoleType('G');
+            $role = Mage::getModel("admin/roles")
+                    ->setId($rid)
+                    ->setName($this->getRequest()->getParam('rolename', false))
+                    ->setPid($this->getRequest()->getParam('parent_id', false))
+                    ->setRoleType('G');
             Mage::dispatchEvent('admin_permissions_role_prepare_save', array('object' => $role, 'request' => $this->getRequest()));
             $role->save();
 

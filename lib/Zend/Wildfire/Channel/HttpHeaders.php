@@ -15,9 +15,8 @@
  * @category   Zend
  * @package    Zend_Wildfire
  * @subpackage Channel
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HttpHeaders.php 18951 2009-11-12 16:26:19Z alexander $
  */
 
 /** Zend_Wildfire_Channel_Interface */
@@ -44,7 +43,7 @@
  * @category   Zend
  * @package    Zend_Wildfire
  * @subpackage Channel
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Wildfire_Channel_HttpHeaders extends Zend_Controller_Plugin_Abstract implements Zend_Wildfire_Channel_Interface
@@ -82,30 +81,24 @@ class Zend_Wildfire_Channel_HttpHeaders extends Zend_Controller_Plugin_Abstract 
      */
     public static function init($class = null)
     {
-        if (self::$_instance !== null) {
+        if (self::$_instance!==null) {
             #require_once 'Zend/Wildfire/Exception.php';
             throw new Zend_Wildfire_Exception('Singleton instance of Zend_Wildfire_Channel_HttpHeaders already exists!');
         }
-        if ($class !== null) {
+        if ($class!==null) {
             if (!is_string($class)) {
                 #require_once 'Zend/Wildfire/Exception.php';
                 throw new Zend_Wildfire_Exception('Third argument is not a class string');
             }
-
-            if (!class_exists($class)) {
-                #require_once 'Zend/Loader.php';
-                Zend_Loader::loadClass($class);
-            }
-
+            #Zend_Loader::loadClass($class);
             self::$_instance = new $class();
-
             if (!self::$_instance instanceof Zend_Wildfire_Channel_HttpHeaders) {
                 self::$_instance = null;
                 #require_once 'Zend/Wildfire/Exception.php';
                 throw new Zend_Wildfire_Exception('Invalid class to third argument. Must be subclass of Zend_Wildfire_Channel_HttpHeaders.');
             }
         } else {
-            self::$_instance = new self();
+          self::$_instance = new self();
         }
 
         return self::$_instance;
@@ -233,50 +226,13 @@ class Zend_Wildfire_Channel_HttpHeaders extends Zend_Controller_Plugin_Abstract 
     /**
      * Determine if channel is ready.
      *
-     * The channel is ready as long as the request and response objects are initialized,
-     * can send headers and the FirePHP header exists in the User-Agent.
-     *
-     * If the header does not exist in the User-Agent, no appropriate client
-     * is making this request and the messages should not be sent.
-     *
-     * A timing issue arises when messages are logged before the request/response
-     * objects are initialized. In this case we do not yet know if the client
-     * will be able to accept the messages. If we consequently indicate that
-     * the channel is not ready, these messages will be dropped which is in
-     * most cases not the intended behaviour. The intent is to send them at the
-     * end of the request when the request/response objects will be available
-     * for sure.
-     *
-     * If the request/response objects are not yet initialized we assume if messages are
-     * logged, the client will be able to receive them. As soon as the request/response
-     * objects are availoable and a message is logged this assumption is challenged.
-     * If the client cannot accept the messages any further messages are dropped
-     * and messages sent prior are kept but discarded when the channel is finally
-     * flushed at the end of the request.
-     *
-     * When the channel is flushed the $forceCheckRequest option is used to force
-     * a check of the request/response objects. This is the last verification to ensure
-     * messages are only sent when the client can accept them.
-     *
-     * @param boolean $forceCheckRequest OPTIONAL Set to TRUE if the request must be checked
      * @return boolean Returns TRUE if channel is ready.
      */
-    public function isReady($forceCheckRequest=false)
+    public function isReady()
     {
-        if (!$forceCheckRequest
-            && !$this->_request
-            && !$this->_response
-        ) {
-            return true;
-        }
-
-        return ($this->getResponse()->canSendHeaders()
-                && preg_match_all(
-                    '/\s?FirePHP\/([\.|\d]*)\s?/si',
-                    $this->getRequest()->getHeader('User-Agent'),
-                    $m
-                )
-        );
+        return ($this->getResponse()->canSendHeaders() &&
+                preg_match_all('/\s?FirePHP\/([\.|\d]*)\s?/si',
+                               $this->getRequest()->getHeader('User-Agent'),$m));
     }
 
 

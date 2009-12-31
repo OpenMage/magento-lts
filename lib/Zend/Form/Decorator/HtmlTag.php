@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,20 +32,20 @@
  * Options accepted are:
  * - tag: tag to use in decorator
  * - noAttribs: do not render attributes in the opening tag
- * - placement: 'append' or 'prepend'. If 'append', renders opening and
+ * - placement: 'append' or 'prepend'. If 'append', renders opening and 
  *   closing tag after content; if prepend, renders opening and closing tag
  *   before content.
  * - openOnly: render opening tag only
  * - closeOnly: render closing tag only
  *
  * Any other options passed are processed as HTML attributes of the tag.
- *
+ * 
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlTag.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: HtmlTag.php 12514 2008-11-10 16:30:24Z matthew $
  */
 class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
 {
@@ -68,7 +68,7 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
 
     /**
      * Convert options to tag attributes
-     *
+     * 
      * @return string
      */
     protected function _htmlAttribs(array $attribs)
@@ -89,8 +89,8 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
      * Normalize tag
      *
      * Ensures tag is alphanumeric characters only, and all lowercase.
-     *
-     * @param  string $tag
+     * 
+     * @param  string $tag 
      * @return string
      */
     public function normalizeTag($tag)
@@ -108,8 +108,8 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
 
     /**
      * Set tag to use
-     *
-     * @param  string $tag
+     * 
+     * @param  string $tag 
      * @return Zend_Form_Decorator_HtmlTag
      */
     public function setTag($tag)
@@ -122,7 +122,7 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
      * Get tag
      *
      * If no tag is registered, either via setTag() or as an option, uses 'div'.
-     *
+     * 
      * @return string
      */
     public function getTag()
@@ -141,9 +141,9 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
 
     /**
      * Get the formatted open tag
-     *
-     * @param  string $tag
-     * @param  array $attribs
+     * 
+     * @param  string $tag 
+     * @param  array $attribs 
      * @return string
      */
     protected function _getOpenTag($tag, array $attribs = null)
@@ -158,8 +158,8 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
 
     /**
      * Get formatted closing tag
-     *
-     * @param  string $tag
+     * 
+     * @param  string $tag 
      * @return string
      */
     protected function _getCloseTag($tag)
@@ -169,8 +169,8 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
 
     /**
      * Render content wrapped in an HTML tag
-     *
-     * @param  string $content
+     * 
+     * @param  string $content 
      * @return string
      */
     public function render($content)
@@ -197,8 +197,8 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
                 if ($openOnly) {
                     return $content . $this->_getOpenTag($tag, $attribs);
                 }
-                return $content
-                     . $this->_getOpenTag($tag, $attribs)
+                return $content 
+                     . $this->_getOpenTag($tag, $attribs) 
                      . $this->_getCloseTag($tag);
             case self::PREPEND:
                 if ($closeOnly) {

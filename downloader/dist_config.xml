@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config>
+    <distributions>
+        <distribution>
+            <version>1.0</version>
+            <state>stable</state>
+            <metapackage>Mage_All_Latest</metapackage>
+            <pkgs>
+                <pkg>Lib_Js_Calendar</pkg>
+                <pkg>Lib_Js_Ext</pkg>
+                <pkg>Lib_Google_Checkout</pkg>
+                <pkg>Lib_Js_Mage</pkg>
+                <pkg>Lib_Js_Prototype</pkg>
+                <pkg>Lib_Varien</pkg>
+                <pkg>Lib_ZF</pkg>
+                <pkg>Lib_ZF_Locale</pkg> 
+                <pkg>Mage_Core_Adminhtml</pkg>
+                <pkg>Mage_Core_Modules</pkg>
+                <pkg>Interface_Frontend_Default</pkg>
+                <pkg>Interface_Adminhtml_Default</pkg>
+                <pkg>Interface_Install_Default</pkg>
+            </pkgs>
+        </distribution>
+    
+        <distribution>
+            <version>1.1</version>
+            <state>alpha</state>
+            <metapackage>Mage_All_Latest_v1_1</metapackage>
+            <pkgs>
+                <pkg>Lib_Js_Calendar</pkg>
+                <pkg>Lib_Js_Ext</pkg>
+                <pkg>Lib_Google_Checkout_v1_1</pkg>
+                <pkg>Lib_Js_Mage_v1_1</pkg>
+                <pkg>Lib_Js_Prototype_v1_1</pkg>
+                <pkg>Lib_Varien_v1_1</pkg>
+                <pkg>Lib_ZF_v1_1</pkg>
+                <pkg>Lib_ZF_Locale_v1_1</pkg> 
+                <pkg>Mage_Core_Adminhtml_v1_1</pkg>
+                <pkg>Mage_Core_Modules_v1_1</pkg>
+                <pkg>Interface_Frontend_Default_v1_1</pkg>
+                <pkg>Interface_Adminhtml_Default_v1_1</pkg>
+                <pkg>Interface_Install_Default_v1_1</pkg>
+            </pkgs>
+        </distribution>
+    </distributions>
+</config>
+

@@ -15,10 +15,16 @@
  *
  * @category   Zend
  * @package    Zend_Db
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db.php 18373 2009-09-22 19:16:25Z ralph $
+ * @version    $Id: Db.php 13136 2008-12-10 18:36:46Z doctorrock83 $
  */
+
+
+/**
+ * @see Zend_Loader
+ */
+#require_once 'Zend/Loader.php';
 
 
 /**
@@ -26,7 +32,7 @@
  *
  * @category   Zend
  * @package    Zend_Db
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db
@@ -171,10 +177,7 @@ class Zend_Db
      *
      * First argument may be a string containing the base of the adapter class
      * name, e.g. 'Mysqli' corresponds to class Zend_Db_Adapter_Mysqli.  This
-     * name is currently case-insensitive, but is not ideal to rely on this behavior.
-     * If your class is named 'My_Company_Pdo_Mysql', where 'My_Company' is the namespace
-     * and 'Pdo_Mysql' is the adapter name, it is best to use the name exactly as it
-     * is defined in the class.  This will ensure proper use of the factory API.
+     * is case-insensitive.
      *
      * First argument may alternatively be an object of type Zend_Config.
      * The adapter class base name is read from the 'adapter' property.
@@ -244,19 +247,14 @@ class Zend_Db
             }
             unset($config['adapterNamespace']);
         }
-
-        // Adapter no longer normalized- see http://framework.zend.com/issues/browse/ZF-5606
-        $adapterName = $adapterNamespace . '_';
-        $adapterName .= str_replace(' ', '_', ucwords(str_replace('_', ' ', strtolower($adapter))));
+        $adapterName = strtolower($adapterNamespace . '_' . $adapter);
+        $adapterName = str_replace(' ', '_', ucwords(str_replace('_', ' ', $adapterName)));
 
         /*
          * Load the adapter class.  This throws an exception
          * if the specified class cannot be loaded.
          */
-        if (!class_exists($adapterName)) {
-            #require_once 'Zend/Loader.php';
-            Zend_Loader::loadClass($adapterName);
-        }
+        #Zend_Loader::loadClass($adapterName);
 
         /*
          * Create an instance of the adapter class.

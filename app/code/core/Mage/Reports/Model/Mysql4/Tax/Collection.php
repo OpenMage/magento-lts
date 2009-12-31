@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -60,7 +60,7 @@ class Mage_Reports_Model_Mysql4_Tax_Collection extends Mage_Sales_Model_Entity_O
         if (count($storeIds) >= 1 && $vals[0] != '') {
             $this->getSelect()
                 ->where('e.store_id in (?)', (array)$storeIds)
-                ->columns(array('tax'=>'SUM(tax_table.base_real_amount)'));
+                ->from('', array('tax'=>'SUM(tax_table.base_real_amount)'));
         } else {
             $this->addExpressionAttributeToSelect(
                     'tax',
@@ -80,7 +80,7 @@ class Mage_Reports_Model_Mysql4_Tax_Collection extends Mage_Sales_Model_Entity_O
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->columns("count(DISTINCT e.entity_id)");
+        $countSelect->from("", "count(DISTINCT e.entity_id)");
         $sql = $countSelect->__toString();
         return $sql;
     }

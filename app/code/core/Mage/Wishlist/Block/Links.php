@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -44,13 +44,11 @@ class Mage_Wishlist_Block_Links extends Mage_Core_Block_Template
         $parentBlock = $this->getParentBlock();
         if ($parentBlock && $this->helper('wishlist')->isAllow()) {
             $count = $this->helper('wishlist')->getItemCount();
-            if ($count > 1) {
+            if( $count > 1 ) {
                 $text = $this->__('My Wishlist (%d items)', $count);
-            }
-            else if ($count == 1) {
+            } elseif( $count == 1 ) {
                 $text = $this->__('My Wishlist (%d item)', $count);
-            }
-            else {
+            } else {
                 $text = $this->__('My Wishlist');
             }
             $parentBlock->addLink($text, 'wishlist', $text, true, array(), 30, null, 'class="top-link-wishlist"');

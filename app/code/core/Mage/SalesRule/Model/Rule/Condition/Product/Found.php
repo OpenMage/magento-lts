@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -36,22 +36,22 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found
 
     public function loadValueOptions()
     {
-        $this->setValueOption(array(
-            1=>'FOUND',
-            0=>'NOT FOUND',
-        ));
-        return $this;
+    	$this->setValueOption(array(
+    		1=>'FOUND',
+    		0=>'NOT FOUND',
+    	));
+    	return $this;
     }
 
     public function asHtml()
     {
-        $html = $this->getTypeElement()->getHtml().
-            Mage::helper('salesrule')->__("If an item is %s in the cart with %s of these conditions true:",
-            $this->getValueElement()->getHtml(), $this->getAggregatorElement()->getHtml());
-           if ($this->getId()!='1') {
-               $html.= $this->getRemoveLinkHtml();
-           }
-        return $html;
+    	$html = $this->getTypeElement()->getHtml().
+    	    Mage::helper('salesrule')->__("If an item is %s in the cart with %s of these conditions true:",
+    		$this->getValueElement()->getHtml(), $this->getAggregatorElement()->getHtml());
+       	if ($this->getId()!='1') {
+       	    $html.= $this->getRemoveLinkHtml();
+       	}
+    	return $html;
     }
 
     /**
@@ -66,24 +66,27 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found
         $true = (bool)$this->getValue();
         $found = false;
         foreach ($object->getAllItems() as $item) {
-            $found = $all;
+            $found = $all ? true : false;
             foreach ($this->getConditions() as $cond) {
                 $validated = $cond->validate($item);
-                if (($all && !$validated) || (!$all && $validated)) {
-                    $found = $validated;
+                if ($all && !$validated) {
+                    $found = false;
                     break;
+                } elseif (!$all && $validated) {
+                    $found = true;
+                    break 2;
                 }
             }
-            if (($found && $true) || (!$true && $found)) {
+            if ($found && $true) {
                 break;
             }
         }
-        // found an item and we're looking for existing one
         if ($found && $true) {
+            // found an item and we're looking for existing one
+
             return true;
-        }
-        // not found and we're making sure it doesn't exist
-        elseif (!$found && !$true) {
+        } elseif (!$found && !$true) {
+            // not found and we're making sure it doesn't exist
             return true;
         }
         return false;

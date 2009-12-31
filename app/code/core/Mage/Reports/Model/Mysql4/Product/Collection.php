@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Reports
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Reports
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -104,7 +104,7 @@ class Mage_Reports_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Re
         $this->addAttributeToSelect('entity_id')
             ->addAttributeToSelect('name')
             ->addAttributeToSelect('price');
-        /*$this->getSelect()->columns(array(
+        /*$this->getSelect()->from('', array(
                     'viewed' => 'CONCAT("","")',
                     'added' => 'CONCAT("","")',
                     'purchased' => 'CONCAT("","")',
@@ -134,7 +134,7 @@ class Mage_Reports_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Re
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->columns("count(DISTINCT e.entity_id)");
+        $countSelect->from("", "count(DISTINCT e.entity_id)");
         $sql = $countSelect->__toString();
         return $sql;
     }
@@ -151,7 +151,7 @@ class Mage_Reports_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Re
             ->where("quote_items.product_id = e.entity_id");
 
         $this->getSelect()
-            ->columns(array("carts" => "({$countSelect})"))
+            ->from("", array("carts" => "({$countSelect})"))
             ->group("e.{$this->getProductEntityId()}")
             ->having('carts > 0');
 
@@ -163,7 +163,7 @@ class Mage_Reports_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Re
         $this->getSelect()
             ->joinLeft(array("order_items" => $this->getTable('sales/order_item')),
                 "order_items.product_id = e.{$this->getProductEntityId()}", array())
-            ->columns(array("orders" => "count(`order_items2`.item_id)"))
+            ->from("", array("orders" => "count(`order_items2`.item_id)"))
             ->group("e.{$this->getProductEntityId()}");
 
         if ($from != '' && $to != '') {

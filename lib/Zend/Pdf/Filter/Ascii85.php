@@ -12,22 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ascii85.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
 
 /** Zend_Pdf_Filter_Interface */
 #require_once 'Zend/Pdf/Filter/Interface.php';
 
+
 /**
  * ASCII85 stream filter
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Filter_Ascii85 implements Zend_Pdf_Filter_Interface
@@ -42,7 +41,6 @@ class Zend_Pdf_Filter_Ascii85 implements Zend_Pdf_Filter_Interface
      */
     public static function encode($data, $params = null)
     {
-        #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('Not implemented yet');
     }
 
@@ -56,7 +54,6 @@ class Zend_Pdf_Filter_Ascii85 implements Zend_Pdf_Filter_Interface
      */
     public static function decode($data, $params = null)
     {
-        #require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('Not implemented yet');
     }
 }

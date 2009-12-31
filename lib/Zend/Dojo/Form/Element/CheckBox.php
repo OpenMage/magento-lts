@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -26,13 +26,13 @@
  * CheckBox dijit
  *
  * Note: this would be easier with mixins or traits...
- *
+ * 
  * @uses       Zend_Dojo_Form_Element_Dijit
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: CheckBox.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: CheckBox.php 10001 2008-07-08 21:26:09Z matthew $
  */
 class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
 {
@@ -47,15 +47,6 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
      * @var string
      */
     public $helper = 'CheckBox';
-
-    /**
-     * Options that will be passed to the view helper
-     * @var array
-     */
-    public $options = array(
-        'checkedValue'   => '1',
-        'uncheckedValue' => '0',
-    );
 
     /**
      * Value when checked
@@ -78,10 +69,10 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
     /**
      * Set options
      *
-     * Intercept checked and unchecked values and set them early; test stored
+     * Intercept checked and unchecked values and set them early; test stored 
      * value against checked and unchecked values after configuration.
-     *
-     * @param  array $options
+     * 
+     * @param  array $options 
      * @return Zend_Form_Element_Checkbox
      */
     public function setOptions(array $options)
@@ -111,11 +102,11 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
      * If value matches checked value, sets to that value, and sets the checked
      * flag to true.
      *
-     * Any other value causes the unchecked value to be set as the current
+     * Any other value causes the unchecked value to be set as the current 
      * value, and the checked flag to be set as false.
      *
-     *
-     * @param  mixed $value
+     * 
+     * @param  mixed $value 
      * @return Zend_Form_Element_Checkbox
      */
     public function setValue($value)
@@ -132,20 +123,19 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
 
     /**
      * Set checked value
-     *
-     * @param  string $value
+     * 
+     * @param  string $value 
      * @return Zend_Form_Element_Checkbox
      */
     public function setCheckedValue($value)
     {
         $this->_checkedValue = (string) $value;
-        $this->options['checkedValue'] = $value;
         return $this;
     }
 
     /**
      * Get value when checked
-     *
+     * 
      * @return string
      */
     public function getCheckedValue()
@@ -155,20 +145,19 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
 
     /**
      * Set unchecked value
-     *
-     * @param  string $value
+     * 
+     * @param  string $value 
      * @return Zend_Form_Element_Checkbox
      */
     public function setUncheckedValue($value)
     {
         $this->_uncheckedValue = (string) $value;
-        $this->options['uncheckedValue'] = $value;
         return $this;
     }
 
     /**
      * Get value when not checked
-     *
+     * 
      * @return string
      */
     public function getUncheckedValue()
@@ -178,8 +167,8 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
 
     /**
      * Set checked flag
-     *
-     * @param  bool $flag
+     * 
+     * @param  bool $flag 
      * @return Zend_Form_Element_Checkbox
      */
     public function setChecked($flag)
@@ -195,11 +184,29 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
 
     /**
      * Get checked flag
-     *
+     * 
      * @return bool
      */
     public function isChecked()
     {
         return $this->checked;
     }
+
+    /**
+     * Render
+     *
+     * Ensure that options property is set when rendering.
+     * 
+     * @param  Zend_View_Interface $view 
+     * @return string
+     */
+    public function render(Zend_View_Interface $view = null)
+    {
+        $this->options = array(
+            'checked'   => $this->getCheckedValue(),
+            'unChecked' => $this->getUncheckedValue(),
+        );
+        return parent::render($view);
+    }
 }
+

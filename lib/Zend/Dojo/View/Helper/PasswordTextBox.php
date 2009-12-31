@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: PasswordTextBox.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: PasswordTextBox.php 10667 2008-08-05 13:00:56Z matthew $
  */
 
 /** Zend_Dojo_View_Helper_ValidationTextBox */
@@ -25,11 +25,11 @@
 
 /**
  * Dojo ValidationTextBox dijit tied to password input
- *
+ * 
  * @uses       Zend_Dojo_View_Helper_Dijit
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 class Zend_Dojo_View_Helper_PasswordTextBox extends Zend_Dojo_View_Helper_ValidationTextBox
@@ -42,9 +42,9 @@ class Zend_Dojo_View_Helper_PasswordTextBox extends Zend_Dojo_View_Helper_Valida
 
     /**
      * dijit.form.ValidationTextBox tied to password input
-     *
-     * @param  string $id
-     * @param  mixed $value
+     * 
+     * @param  string $id 
+     * @param  mixed $value 
      * @param  array $params  Parameters to use for dijit creation
      * @param  array $attribs HTML attributes
      * @return string

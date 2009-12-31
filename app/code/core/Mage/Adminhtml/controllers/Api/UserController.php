@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
 {
@@ -82,13 +82,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost()) {
-            $id = $this->getRequest()->getPost('user_id', false);
-            $model = Mage::getModel('api/user')->load($id);
-            if (!$model->getId() && $id) {
-                Mage::getSingleton('adminhtml/session')->addError($this->__('This User no longer exists'));
-                $this->_redirect('*/*/');
-                return;
-            }
+            $model = Mage::getModel('api/user');
             $model->setData($data);
             try {
                 $model->save();
@@ -126,7 +120,8 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
         if ($id = $this->getRequest()->getParam('user_id')) {
 
             try {
-                $model = Mage::getModel('api/user')->load($id);
+                $model = Mage::getModel('api/user');
+                $model->setId($id);
                 $model->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('User was successfully deleted'));
                 $this->_redirect('*/*/');

@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,9 +32,9 @@
  *
  * @category Zend
  * @package  Zend_XmlRpc
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Http.php 18443 2009-09-30 13:35:47Z lars $
+ * @version $Id: Http.php 8064 2008-02-16 10:58:39Z thomas $
  */
 class Zend_XmlRpc_Request_Http extends Zend_XmlRpc_Request
 {
@@ -61,12 +61,17 @@ class Zend_XmlRpc_Request_Http extends Zend_XmlRpc_Request
      */
     public function __construct()
     {
-        $xml = @file_get_contents('php://input');
-        if (!$xml) {
-            #require_once 'Zend/XmlRpc/Fault.php';
-            $this->_fault = new Zend_XmlRpc_Fault(630);
+        $fh = fopen('php://input', 'r');
+        if (!$fh) {
+            $this->_fault = new Zend_XmlRpc_Server_Exception(630);
             return;
         }
+
+        $xml = '';
+        while (!feof($fh)) {
+            $xml .= fgets($fh);
+        }
+        fclose($fh);
 
         $this->_xml = $xml;
 

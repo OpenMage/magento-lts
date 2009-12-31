@@ -18,14 +18,20 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php $_code=$this->getMethodCode() ?>
 <ul id="payment_form_<?php echo $_code ?>" style="display:none">
+    <!--li>
+        <div class="input-box">
+            <label for="<?php echo $_code ?>_cc_owner"><?php echo Mage::helper('payment')->__('Name on Card') ?> <span class="required">*</span></label><br/>
+            <input type="text" title="<?php echo Mage::helper('payment')->__('Name on Card') ?>" class="required-entry input-text" id="<?php echo $_code ?>_cc_owner" name="payment[cc_owner]" value="<?php echo $this->getInfoData('cc_owner') ?>"/>
+        </div>
+    </li-->
     <li>
         <div class="input-box">
             <label for="<?php echo $_code ?>_cc_type"><?php echo Mage::helper('payment')->__('Credit Card Type') ?> <span class="required">*</span></label><br/>

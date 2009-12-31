@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -38,15 +38,14 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         $html  = '<input type="text" name="' . $this->getName() . '" id="' . $this->getId() . '" ';
-        $html .= 'value="'.$this->getValue().'" class="'.$this->getClass().'" '.$this->getExtraParams().'/> ';
+        $html .= 'value="'.$this->getValue().'" class="'.$this->getClass().'" style="width:100px" '.$this->getExtraParams().'/> ';
 
-        $html .= '<img src="' . $this->getImage() . '" alt="' . $this->helper('core')->__('Select Date') . '" class="v-middle" ';
+        $html .= '<img src="' . $this->getImage() . '" alt="" class="v-middle" ';
         $html .= 'title="' . $this->helper('core')->__('Select Date') . '" id="' . $this->getId() . '_trig" />';
 
         $html .=
 
         '<script type="text/javascript">
-        //<![CDATA[
             Calendar.setup({
                 inputField  : "' . $this->getId() . '",
                 ifFormat    : "' . $this->getFormat() . '",
@@ -54,7 +53,6 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
                 align       : "Bl",
                 singleClick : true
             });
-        //]]>
         </script>';
 
 

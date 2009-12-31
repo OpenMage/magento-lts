@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -101,11 +101,11 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     public function prepareResult($query = null)
     {
         if (!$query instanceof Mage_CatalogSearch_Model_Query) {
-            $query = Mage::helper('catalogsearch')->getQuery();
+            $query = Mage::helper('catalogSearch')->getQuery();
         }
-        $queryText = Mage::helper('catalogsearch')->getQueryText();
-        if ($query->getSynonymFor()) {
-            $queryText = $query->getSynonymFor();
+        $queryText = Mage::helper('catalogSearch')->getQueryText();
+        if ($query->getSynonimFor()) {
+            $queryText = $query->getSynonimFor();
         }
         $this->getResource()->prepareResult($this, $queryText, $query);
         return $this;

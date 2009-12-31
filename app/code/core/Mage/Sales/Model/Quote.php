@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -38,6 +38,19 @@
  */
 class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 {
+    /**
+     * Checkout methods
+     */
+    const CHECKOUT_METHOD_REGISTER = 'register';
+    const CHECKOUT_METHOD_GUEST = 'guest';
+    const CHECKOUT_METHOD_LOGIN_IN = 'login_in';
+
+    /**
+     * Performance +30% without cache
+     */
+//    const CACHE_TAG         = 'sales_quote';
+//    protected $_cacheTag    = 'sales_quote';
+
     protected $_eventPrefix = 'sales_quote';
     protected $_eventObject = 'quote';
 
@@ -181,10 +194,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->setIsChanged(0);
         }
 
-        if ($this->_customer) {
-            $this->setCustomerId($this->_customer->getId());
-        }
-
         parent::_beforeSave();
     }
 
@@ -220,6 +229,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         if ($customer instanceof Mage_Customer_Model_Customer) {
             $customerId = $customer->getId();
+            $this->setStoreId($customer->getStoreId());
         }
         else {
             $customerId = (int) $customer;
@@ -270,7 +280,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function setCustomer(Mage_Customer_Model_Customer $customer)
     {
         $this->_customer = $customer;
-        $this->setCustomerId($customer->getId());
         Mage::helper('core')->copyFieldset('customer_account', 'to_quote', $customer, $this);
         return $this;
     }
@@ -305,6 +314,20 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->setCustomerTaxClassId($classId);
         //}
         return $this->getData('customer_tax_class_id');
+    }
+
+    /**
+     * Return quote checkout method code
+     *
+     * @param boolean $originalMethod if true return defined method from begining
+     * @return string
+     */
+    public function getCheckoutMethod($originalMethod = false)
+    {
+        if ($this->getCustomerId() && !$originalMethod) {
+            return self::CHECKOUT_METHOD_LOGIN_IN;
+        }
+        return $this->_getData('checkout_method');
     }
 
     /**
@@ -668,10 +691,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
         $parentItem = null;
         $errors = array();
-        $items = array();
         foreach ($cartCandidates as $candidate) {
             $item = $this->_addCatalogProduct($candidate, $candidate->getCartQty());
-            $items[] = $item;
 
             /**
              * As parent item we should always use the item of first added product
@@ -696,9 +717,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!empty($errors)) {
             Mage::throwException(implode("\n", $errors));
         }
-
-        Mage::dispatchEvent('sales_quote_product_add_after', array('items' => $items));
-
         return $item;
     }
 
@@ -708,18 +726,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @param   Mage_Catalog_Model_Product $product
      * @return  Mage_Sales_Model_Quote_Item
      */
-    protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1)
+    protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty=1)
     {
+
         $item = $this->getItemByProduct($product);
         if (!$item) {
             $item = Mage::getModel('sales/quote_item');
             $item->setQuote($this);
-            if (Mage::app()->getStore()->isAdmin()) {
-                $item->setStoreId($this->getStore()->getId());
-            }
-            else {
-                $item->setStoreId(Mage::app()->getStore()->getId());
-            }
         }
 
         /**
@@ -876,12 +889,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function collectTotals()
     {
-        /**
-         * Protect double totals collection
-         */
-        if ($this->getTotalsCollectedFlag()) {
-            return $this;
-        }
         Mage::dispatchEvent(
             $this->_eventPrefix . '_collect_totals_before',
             array(
@@ -901,6 +908,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         foreach ($this->getAllAddresses() as $address) {
             $address->setSubtotal(0);
             $address->setBaseSubtotal(0);
+
+            $address->setSubtotalWithDiscount(0);
+            $address->setBaseSubtotalWithDiscount(0);
 
             $address->setGrandTotal(0);
             $address->setBaseGrandTotal(0);
@@ -954,39 +964,23 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             )
         );
 
-        $this->setTotalsCollectedFlag(true);
         return $this;
     }
 
     /**
      * Get all quote totals (sorted by priority)
-     * Metchod process quote states isVirtual and isMultiShipping
      *
      * @return array
      */
     public function getTotals()
     {
-        /**
-         * If quote is virtual we are using totals of billing address because
-         * all items assigned to it
-         */
-        if ($this->isVirtual()) {
-            return $this->getBillingAddress()->getTotals();
-        }
-
-        $shippingAddress = $this->getShippingAddress();
-        $totals = $shippingAddress->getTotals();
-        // Going through all quote addresses and merge their totals
-        foreach ($this->getAddressesCollection() as $address) {
-            if ($address->isDeleted() || $address === $shippingAddress) {
-                continue;
+        $totals = $this->getShippingAddress()->getTotals();
+        foreach ($this->getBillingAddress()->getTotals() as $code => $total) {
+            if (isset($totals[$code])) {
+                $totals[$code]->setValue($totals[$code]->getValue()+$total->getValue());
             }
-            foreach ($address->getTotals() as $code => $total) {
-                if (isset($totals[$code])) {
-                    $totals[$code]->merge($total);
-                } else {
-                    $totals[$code] = $total;
-                }
+            else {
+                $totals[$code] = $total;
             }
         }
 
@@ -1030,11 +1024,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         return $messages;
     }
 
-    /**
-     * Generate new increment order id and associate it with current quote
-     *
-     * @return Mage_Sales_Model_Quote
-     */
     public function reserveOrderId()
     {
         if (!$this->getReservedOrderId()) {
@@ -1133,6 +1122,16 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Check is allow Guest Checkout
+     *
+     * @return bool
+     */
+    public function isAllowedGuestCheckout()
+    {
+        return Mage::helper('checkout')->isAllowedGuestCheckout($this, $this->getStoreId());
+    }
+
+    /**
      * Merge quotes
      *
      * @param   Mage_Sales_Model_Quote $quote
@@ -1169,14 +1168,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                     }
                 }
             }
-        }
-
-        /**
-         * Init shipping and billing address if quote is new
-         */
-        if (!$this->getId()) {
-            $this->getShippingAddress();
-            $this->getBillingAddress();
         }
 
         if ($quote->getCouponCode()) {
@@ -1226,42 +1217,5 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->collectTotals()->save();
         }
         return parent::_afterLoad();
-    }
-
-
-
-
-
-    /**
-     * @deprecated after 1.4 beta1 - one page checkout responsibility
-     */
-    const CHECKOUT_METHOD_REGISTER  = 'register';
-    const CHECKOUT_METHOD_GUEST     = 'guest';
-    const CHECKOUT_METHOD_LOGIN_IN  = 'login_in';
-
-    /**
-     * Return quote checkout method code
-     *
-     * @deprecated after 1.4 beta1 it is checkout module responsibility
-     * @param boolean $originalMethod if true return defined method from begining
-     * @return string
-     */
-    public function getCheckoutMethod($originalMethod = false)
-    {
-        if ($this->getCustomerId() && !$originalMethod) {
-            return self::CHECKOUT_METHOD_LOGIN_IN;
-        }
-        return $this->_getData('checkout_method');
-    }
-
-    /**
-     * Check is allow Guest Checkout
-     *
-     * @deprecated after 1.4 beta1 it is checkout module responsibility
-     * @return bool
-     */
-    public function isAllowedGuestCheckout()
-    {
-        return Mage::helper('checkout')->isAllowedGuestCheckout($this, $this->getStoreId());
     }
 }

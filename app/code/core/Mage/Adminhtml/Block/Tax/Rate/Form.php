@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -49,24 +49,15 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
         $rateObject = new Varien_Object();
         $rateModel  = Mage::getSingleton('tax/calculation_rate');
         $rateObject->setData($rateModel->getData());
-
         $form = new Varien_Data_Form();
 
         $countries = Mage::getModel('adminhtml/system_config_source_country')
             ->toOptionArray();
         unset($countries[0]);
 
-        if (!$rateObject->hasTaxCountryId()) {
-            $rateObject->setTaxCountryId(Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_COUNTRY));
-        }
-
-        if (!$rateObject->hasTaxRegionId()) {
-            $rateObject->setTaxRegionId(Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_REGION));
-        }
-
         $regionCollection = Mage::getModel('directory/region')
             ->getCollection()
-            ->addCountryFilter($rateObject->getTaxCountryId());
+            ->addCountryFilter($rateModel->getTaxCountryId());
 
         $regions = $regionCollection->toOptionArray();
 
@@ -87,6 +78,11 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
             );
         }
 
+        $countryId = $rateObject->getTaxCountryId();
+        if (!$countryId) {
+            $countryId = Mage::getStoreConfig('general/country/default');
+        }
+
         $fieldset->addField('code', 'text',
             array(
                 'name' => 'code',
@@ -103,8 +99,10 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
                 'name' => 'tax_country_id',
                 'label' => Mage::helper('tax')->__('Country'),
                 'title' => Mage::helper('tax')->__('Please select Country'),
+                'class' => 'required-entry',
                 'required' => true,
-                'values' => $countries
+                'values' => $countries,
+                'value' => $countryId,
             )
         );
 
@@ -113,7 +111,10 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
                 'name' => 'tax_region_id',
                 'label' => Mage::helper('tax')->__('State'),
                 'title' => Mage::helper('tax')->__('Please select State'),
-                'values' => $regions
+                'class' => 'required-entry',
+                'required' => true,
+                'values' => $regions,
+                'value' => $rateObject->getTaxRegionId()
             )
         );
 
@@ -134,40 +135,16 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
         );
         } */
 
-        $fieldset->addField('zip_is_range', 'select', array(
-            'name' => 'zip_is_range',
-            'label' => Mage::helper('tax')->__('Zip/Post Is Range'),
-            'options'   => array(
-                    '0' => Mage::helper('tax')->__('No'),
-                    '1' => Mage::helper('tax')->__('Yes'),
-                )
-        ));
-
-        if (!$rateObject->hasTaxPostcode()) {
-            $rateObject->setTaxPostcode(Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_POSTCODE));
+        $postcode = $rateObject->getTaxPostcode();
+        if (!$postcode) {
+            $postcode = '*';
         }
 
         $fieldset->addField('tax_postcode', 'text',
             array(
                 'name' => 'tax_postcode',
                 'label' => Mage::helper('tax')->__('Zip/Post Code'),
-                'note' => Mage::helper('tax')->__("'*' - matches any; 'xyz*' - matches any that begins on 'xyz' and not longer than %d.", Mage::helper('tax')->getPostCodeSubStringLength()),
-            )
-        );
-
-        $fieldset->addField('zip_from', 'text',
-            array(
-                'name' => 'zip_from',
-                'label' => Mage::helper('tax')->__('Range from'),
-                'value' => $rateObject->getZipFrom()
-            )
-        );
-
-        $fieldset->addField('zip_to', 'text',
-            array(
-                'name' => 'zip_to',
-                'label' => Mage::helper('tax')->__('Range to'),
-                'value' => $rateObject->getZipTo()
+                'value' => $postcode
             )
         );
 
@@ -176,7 +153,6 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
         } else {
             $value = 0;
         }
-
         $fieldset->addField('rate', 'text',
             array(
                 'name' => "rate",
@@ -193,23 +169,12 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
         $form->setId('rate_form');
         $form->setMethod('post');
 
+
         if (!Mage::app()->isSingleStoreMode()) {
             $form->addElement(Mage::getBlockSingleton('adminhtml/tax_rate_title_fieldset')->setLegend(Mage::helper('tax')->__('Tax Titles')));
         }
 
-        $form->setValues($rateObject->getData());
         $this->setForm($form);
-
-        $this->setChild('form_after',
-            $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
-            ->addFieldMap("zip_is_range", 'zip_is_range')
-            ->addFieldMap("tax_postcode", 'tax_postcode')
-            ->addFieldMap("zip_from", 'zip_from')
-            ->addFieldMap("zip_to", 'zip_to')
-            ->addFieldDependence('zip_from', 'zip_is_range', '1')
-            ->addFieldDependence('zip_to', 'zip_is_range', '1')
-            ->addFieldDependence('tax_postcode', 'zip_is_range', '0')
-        );
 
         return parent::_prepareForm();
     }

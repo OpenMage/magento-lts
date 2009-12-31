@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -63,19 +63,9 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         return $this->getChildHtml('payment_info');
     }
 
-    /**
-     * Get object with payment info posted data
-     *
-     * @return Varien_Object
-     */
     public function getPayment()
     {
-        if (!$this->hasData('payment')) {
-            $payment = new Varien_Object($this->getRequest()->getPost('payment'));
-            $this->setData('payment', $payment);
-        }
-        return $this->_getData('payment');
-        //return $this->getCheckout()->getQuote()->getPayment();
+        return $this->getCheckout()->getQuote()->getPayment();
     }
 
     public function getShippingAddresses()
@@ -225,13 +215,9 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
 
-    public function renderTotals($totals, $colspan=null)
+    public function renderTotals($totals)
     {
-        if ($colspan === null) {
-            $colspan = $this->helper('tax')->displayCartBothPrices() ? 5 : 3;
-        }
-        $totals = $this->getChild('totals')->setTotals($totals)->renderTotals('', $colspan)
-            . $this->getChild('totals')->setTotals($totals)->renderTotals('footer', $colspan);
-        return $totals;
+        $colspan = $this->helper('tax')->displayCartBothPrices() ? 5 : 3;
+        return $this->getChild('totals')->setTotals($totals)->renderTotals(-1, $colspan);
     }
 }

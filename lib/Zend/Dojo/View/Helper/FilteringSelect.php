@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FilteringSelect.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: FilteringSelect.php 9978 2008-07-07 12:39:39Z matthew $
  */
 
 /** Zend_Dojo_View_Helper_ComboBox */
@@ -25,11 +25,11 @@
 
 /**
  * Dojo FilteringSelect dijit
- *
+ * 
  * @uses       Zend_Dojo_View_Helper_ComboBox
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 class Zend_Dojo_View_Helper_FilteringSelect extends Zend_Dojo_View_Helper_ComboBox
@@ -48,9 +48,9 @@ class Zend_Dojo_View_Helper_FilteringSelect extends Zend_Dojo_View_Helper_ComboB
 
     /**
      * dijit.form.FilteringSelect
-     *
-     * @param  int $id
-     * @param  mixed $value
+     * 
+     * @param  int $id 
+     * @param  mixed $value 
      * @param  array $params  Parameters to use for dijit creation
      * @param  array $attribs HTML attributes
      * @param  array|null $options Select options

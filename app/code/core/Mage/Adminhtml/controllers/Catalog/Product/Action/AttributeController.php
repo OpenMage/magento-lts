@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -58,10 +58,10 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
         }
 
         /* Collect Data */
-        $inventoryData      = $this->getRequest()->getParam('inventory', array());
-        $attributesData     = $this->getRequest()->getParam('attributes', array());
-        $websiteRemoveData  = $this->getRequest()->getParam('remove_website_ids', array());
-        $websiteAddData     = $this->getRequest()->getParam('add_website_ids', array());
+        $inventoryData = $this->getRequest()->getParam('inventory', array());
+        $attributesData = $this->getRequest()->getParam('attributes', array());
+        $websiteRemoveData = $this->getRequest()->getParam('remove_website_ids', array());
+        $websiteAddData = $this->getRequest()->getParam('add_website_ids', array());
 
         /* Prepare inventory data item options (use config settings) */
         foreach (Mage::helper('cataloginventory')->getConfigItemOptions() as $option) {
@@ -72,36 +72,54 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
 
         try {
             if ($attributesData) {
-                $dateFormat = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-                $storeId    = $this->_getHelper()->getSelectedStoreId();
+                $product = Mage::getModel('catalog/product');
+                if ($inventoryData) {
+                    $stockItem = Mage::getModel('cataloginventory/stock_item');
+                }
+                foreach ($this->_getHelper()->getProductIds() as $productId) {
+                    $product->setData(array());
+                    $product->setStoreId($this->_getHelper()->getSelectedStoreId())
+                        ->load($productId)
+                        ->setIsMassupdate(true)
+                        ->setExcludeUrlRewrite(true);
 
-                foreach ($attributesData as $attributeCode => $value) {
-                    $attribute = Mage::getSingleton('eav/config')
-                        ->getAttribute('catalog_product', $attributeCode);
-                    if (!$attribute->getAttributeId()) {
-                        unset($attributesData[$attributeCode]);
+                    if (!$product->getId()) {
                         continue;
                     }
-                    if ($attribute->getBackendType() == 'datetime') {
-                        if (!empty($value)) {
-                            $filterInput    = new Zend_Filter_LocalizedToNormalized(array(
-                                'date_format' => $dateFormat
-                            ));
-                            $filterInternal = new Zend_Filter_NormalizedToLocalized(array(
-                                'date_format' => Varien_Date::DATE_INTERNAL_FORMAT
-                            ));
-                            $value = $filterInternal->filter($filterInput->filter($value));
-                        } else {
-                            $value = null;
+
+                    $product->addData($attributesData);
+                    if ($inventoryData) {
+                        $product->setStockData($inventoryData);
+                    }
+
+                    $dataChanged = false;
+                    foreach ($attributesData as $k => $v) {
+                        if ($product->dataHasChangedFor($k)) {
+                            $dataChanged = true;
                         }
-                        $attributesData[$attributeCode] = $value;
+                    }
+
+                    if ($dataChanged) {
+                        $product->save();
+                    }
+                    elseif ($inventoryData) {
+                        $stockItem->setData(array());
+                        $stockItem->loadByProduct($productId)
+                            ->setProductId($productId);
+                        $stockDataChanged = false;
+                        foreach ($inventoryData as $k => $v) {
+                            $stockItem->setDataUsingMethod($k, $v);
+                            if ($stockItem->dataHasChangedFor($k)) {
+                                $stockDataChanged = true;
+                            }
+                        }
+                        if ($stockDataChanged) {
+                            $stockItem->save();
+                        }
                     }
                 }
-
-                Mage::getSingleton('catalog/product_action')
-                    ->updateAttributes($this->_getHelper()->getProductIds(), $attributesData, $storeId);
             }
-            if ($inventoryData) {
+            elseif ($inventoryData) {
                 $stockItem = Mage::getModel('cataloginventory/stock_item');
 
                 foreach ($this->_getHelper()->getProductIds() as $productId) {
@@ -123,23 +141,20 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             }
 
             if ($websiteAddData || $websiteRemoveData) {
-                /* @var $actionModel Mage_Catalog_Model_Product_Action */
-                $actionModel = Mage::getSingleton('catalog/product_action');
-                $productIds  = $this->_getHelper()->getProductIds();
+                $productWebsite = Mage::getModel('catalog/product_website');
+                /* @var $productWebsite Mage_Catalog_Model_Product_Website */
 
                 if ($websiteRemoveData) {
-                    $actionModel->updateWebsites($productIds, $websiteRemoveData, 'remove');
+                    $productWebsite->removeProducts($websiteRemoveData, $this->_getHelper()->getProductIds());
                 }
                 if ($websiteAddData) {
-                    $actionModel->updateWebsites($productIds, $websiteAddData, 'add');
+                    $productWebsite->addProducts($websiteAddData, $this->_getHelper()->getProductIds());
                 }
 
-                /**
-                 * @deprecated since 1.3.2.2
-                 */
-                Mage::dispatchEvent('catalog_product_to_website_change', array(
-                    'products' => $productIds
-                ));
+                Mage::dispatchEvent(
+                    'catalog_product_to_website_change',
+                    array('products'=>$this->_getHelper()->getProductIds())
+                );
 
                 $this->_getSession()->addNotice(
                     $this->__('Please refresh "Catalog Rewrites" and "Layered Navigation Indices" in System -> <a href="%s">Cache Management</a>', $this->getUrl('adminhtml/system_cache'))

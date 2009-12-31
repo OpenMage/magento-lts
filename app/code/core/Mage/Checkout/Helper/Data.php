@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -87,45 +87,51 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function canOnepageCheckout()
     {
-        return (bool)Mage::getStoreConfig('checkout/options/onepage_checkout_enabled');
+        if (Mage::getStoreConfig('checkout/options/onepage_checkout_disabled')) {
+            return false;
+        }
+        return true;
     }
 
-    /**
-     * Get sales item (quote item, order item etc) price including tax based on row total and tax amount
-     *
-     * @param   Varien_Object $item
-     * @return  float
-     */
     public function getPriceInclTax($item)
     {
-        if ($item->getPriceInclTax()) {
-            return $item->getPriceInclTax();
-        }
+        //$price = ($item->getCalculationPrice() ? $item->getCalculationPrice() : $item->getPrice());
         $qty = ($item->getQty() ? $item->getQty() : ($item->getQtyOrdered() ? $item->getQtyOrdered() : 1));
-        $price = (floatval($qty)) ? ($item->getRowTotal() + $item->getTaxAmount())/$qty : 0;
-        return Mage::app()->getStore()->roundPrice($price);
+        //$tax = ($item->getTaxBeforeDiscount() ? $item->getTaxBeforeDiscount() : $item->getTaxAmount());
+        //$price = Mage::app()->getStore()->roundPrice($price+($tax/$qty));
+        $price = Mage::app()->getStore()->roundPrice(($item->getRowTotal()+$item->getTaxAmount())/$qty);
+        return $price;
     }
 
-    /**
-     * Get sales item (quote item, order item etc) row total price including tax
-     *
-     * @param   Varien_Object $item
-     * @return  float
-     */
     public function getSubtotalInclTax($item)
     {
-        if ($item->getRowTotalInclTax()) {
-            return $item->getRowTotalInclTax();
+        if ($item instanceof Mage_Sales_Model_Order_Item) {
+            $store = $item->getOrder()->getStore();
+        } elseif($item instanceof Mage_Sales_Model_Order_Invoice_Item) {
+            $store = $item->getInvoice()->getOrder()->getStore();
+        } elseif($item instanceof Mage_Sales_Model_Order_Shipment_Item) {
+            $store = $item->getShipment()->getOrder()->getStore();
+        } elseif($item instanceof Mage_Sales_Model_Order_Creditmemo_Item) {
+            $store = $item->getCreditmemo()->getOrder()->getStore();
+        } else {
+            $store = $item->getQuote()->getStore();
         }
-        $tax = $item->getTaxAmount();
+        if (!Mage::helper('tax')->applyTaxAfterDiscount($store) and $item->getTaxBeforeDiscount()) {
+            $tax = $item->getTaxBeforeDiscount();
+        } else {
+            $tax = $item->getTaxAmount();
+        }
         return $item->getRowTotal() + $tax;
     }
 
     public function getBasePriceInclTax($item)
     {
+        //$price = ($item->getCalculationPrice() ? $item->getCalculationPrice() : $item->getPrice());
         $qty = ($item->getQty() ? $item->getQty() : ($item->getQtyOrdered() ? $item->getQtyOrdered() : 1));
-        $price = (floatval($qty)) ? ($item->getBaseRowTotal() + $item->getBaseTaxAmount())/$qty : 0;
-        return Mage::app()->getStore()->roundPrice($price);
+        //$tax = ($item->getTaxBeforeDiscount() ? $item->getTaxBeforeDiscount() : $item->getTaxAmount());
+        //$price = Mage::app()->getStore()->roundPrice($price+($tax/$qty));
+        $price = Mage::app()->getStore()->roundPrice(($item->getBaseRowTotal()+$item->getBaseTaxAmount())/$qty);
+        return $price;
     }
 
     public function getBaseSubtotalInclTax($item)
@@ -263,9 +269,6 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isAllowedGuestCheckout(Mage_Sales_Model_Quote $quote, $store = null)
     {
-        if ($store === null) {
-            $store = $quote->getStoreId();
-        }
         $guestCheckout = Mage::getStoreConfigFlag(self::XML_PATH_GUEST_CHECKOUT, $store);
 
         if ($guestCheckout == true) {

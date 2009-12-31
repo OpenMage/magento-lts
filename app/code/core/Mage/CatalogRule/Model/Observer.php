@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogRule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogRule
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -62,8 +62,7 @@ class Mage_CatalogRule_Model_Observer
     }
 
     /**
-     * Apply all price rules for current date.
-     * Handle cataolg_product_import_after event
+     * Apply all price rules for current date
      *
      * @param   Varien_Event_Observer $observer
      * @return  Mage_CatalogRule_Model_Observer
@@ -176,29 +175,5 @@ class Mage_CatalogRule_Model_Observer
     public function flushPriceCache()
     {
         $this->_rulePrices = array();
-    }
-
-    /**
-     * Calculate minimal final price with catalog rule price
-     *
-     * @param Varien_Event_Observer $observer
-     * @return Mage_CatalogRule_Model_Observer
-     */
-    public function prepareCatalogProductPriceIndexTable(Varien_Event_Observer $observer)
-    {
-        $select             = $observer->getEvent()->getSelect();
-        $indexTable         = $observer->getEvent()->getIndexTable();
-        $entityId           = $observer->getEvent()->getEntityId();
-        $customerGroupId    = $observer->getEvent()->getCustomerGroupId();
-        $websiteId          = $observer->getEvent()->getWebsiteId();
-
-        $websiteDate        = $observer->getEvent()->getWebsiteDate();
-        $updateFields       = $observer->getEvent()->getUpdateFields();
-
-        Mage::getSingleton('catalogrule/rule_product_price')
-            ->applyPriceRuleToIndexTable($select, $indexTable, $entityId, $customerGroupId, $websiteId,
-                $updateFields, $websiteDate);
-
-        return $this;
     }
 }

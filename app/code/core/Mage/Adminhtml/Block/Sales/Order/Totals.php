@@ -18,53 +18,67 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml order totals block
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Totals extends Mage_Adminhtml_Block_Sales_Totals//Mage_Adminhtml_Block_Sales_Order_Abstract
+class Mage_Adminhtml_Block_Sales_Order_Totals extends Mage_Adminhtml_Block_Sales_Order_Abstract
 {
     /**
-     * Initialize order totals array
-     *
-     * @return Mage_Sales_Block_Order_Totals
+     * Retrieve required options from parent
      */
-    protected function _initTotals()
+    protected function _beforeToHtml()
     {
-        parent::_initTotals();
-        $this->_totals['paid'] = new Varien_Object(array(
-            'code'      => 'paid',
-            'strong'    => true,
-            'value'     => $this->getSource()->getTotalPaid(),
-            'base_value'=> $this->getSource()->getBaseTotalPaid(),
-            'label'     => $this->helper('sales')->__('Total Paid'),
-            'area'      => 'footer'
-        ));
-        $this->_totals['refunded'] = new Varien_Object(array(
-            'code'      => 'refunded',
-            'strong'    => true,
-            'value'     => $this->getSource()->getTotalRefunded(),
-            'base_value'=> $this->getSource()->getBaseTotalRefunded(),
-            'label'     => $this->helper('sales')->__('Total Refunded'),
-            'area'      => 'footer'
-        ));
-        $this->_totals['due'] = new Varien_Object(array(
-            'code'      => 'due',
-            'strong'    => true,
-            'value'     => $this->getSource()->getTotalDue(),
-            'base_value'=> $this->getSource()->getBaseTotalDue(),
-            'label'     => $this->helper('sales')->__('Total Due'),
-            'area'      => 'footer'
-        ));
-        return $this;
+        if (!$this->getParentBlock()) {
+            Mage::throwException(Mage::helper('adminhtml')->__('Invalid parrent block for this block'));
+        }
+        $this->setOrder($this->getParentBlock()->getOrder());
+        $this->setSource($this->getParentBlock()->getSource());
+        $this->setCurrency($this->getParentBlock()->getOrder()->getOrderCurrency());
+
+        foreach ($this->getParentBlock()->getOrderTotalData() as $k => $v) {
+            $this->setDataUsingMethod($k, $v);
+        }
+
+        parent::_beforeToHtml();
+    }
+
+    /**
+     * Retrieve data source instance
+     *
+     * @return Mage_Sales_Model_Order
+     */
+    public function getSource()
+    {
+        return $this->getData('source');
+    }
+
+    /**
+     * Retrieve Order instance
+     *
+     * @return Mage_Sales_Model_Order
+     */
+    public function getOrder()
+    {
+        return $this->getData('order');
+    }
+
+    /**
+     * Retrieve currency instance
+     *
+     * @return Mage_Directory_Model_Currency
+     */
+    public function getCurrency()
+    {
+        return $this->getData('currency');
     }
 }

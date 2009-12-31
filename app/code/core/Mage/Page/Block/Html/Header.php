@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Page
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Page
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -36,16 +36,6 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     public function _construct()
     {
         $this->setTemplate('page/html/header.phtml');
-    }
-
-    /**
-     * Check if current url is url for home page
-     *
-     * @return true
-     */
-    public function getIsHomePage()
-    {
-        return $this->getUrl('') == $this->getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true));
     }
 
     public function setLogo($logo_src, $logo_alt)

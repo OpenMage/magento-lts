@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -75,11 +75,6 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
     protected function _beforeSave(Varien_Object $customer)
     {
         parent::_beforeSave($customer);
-
-        if (!$customer->getEmail()) {
-            Mage::throwException(Mage::helper('customer')->__('Customer email is required'));
-        }
-
         $select = $this->_getReadAdapter()->select()
             ->from($this->getEntityTable(), array($this->getEntityIdField()))
             ->where('email=?', $customer->getEmail());
@@ -91,9 +86,7 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
         }
 
         if ($this->_getWriteAdapter()->fetchOne($select)) {
-            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Customer email already exists'),
-                Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS
-            );
+            Mage::throwException(Mage::helper('customer')->__('Customer email already exists'));
         }
 
         // set confirmation key logic
@@ -131,27 +124,28 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
      */
     protected function _saveAddresses(Mage_Customer_Model_Customer $customer)
     {
-        $defaultBillingId   = $customer->getData('default_billing');
-        $defaultShippingId  = $customer->getData('default_shipping');
         foreach ($customer->getAddresses() as $address) {
             if ($address->getData('_deleted')) {
-                if ($address->getId() == $defaultBillingId) {
+                if ($address->getId() == $customer->getData('default_billing')) {
                     $customer->setData('default_billing', null);
                 }
-                if ($address->getId() == $defaultShippingId) {
+                if ($address->getId() == $customer->getData('default_shipping')) {
                     $customer->setData('default_shipping', null);
                 }
                 $address->delete();
-            } else {
+            }
+            else {
                 $address->setParentId($customer->getId())
                     ->setStoreId($customer->getStoreId())
                     ->save();
-                if (($address->getIsPrimaryBilling() || $address->getIsDefaultBilling())
-                    && $address->getId() != $defaultBillingId) {
+                if ($address->getIsPrimaryBilling()
+                    && $address->getId() != $customer->getData('default_billing'))
+                {
                     $customer->setData('default_billing', $address->getId());
                 }
-                if (($address->getIsPrimaryShipping() || $address->getIsDefaultShipping())
-                    && $address->getId() != $defaultShippingId) {
+                if ($address->getIsPrimaryShipping()
+                    && $address->getId() != $customer->getData('default_shipping'))
+                {
                     $customer->setData('default_shipping', $address->getId());
                 }
             }
@@ -260,33 +254,4 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
         }
         return false;
     }
-
-    /**
-     * Get customer website id
-     *
-     * @param int $customerId
-     * @return int
-     */
-    public function getWebsiteId($customerId)
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('customer/entity'), 'website_id')
-            ->where('entity_id=?', $customerId);
-        return $this->_getReadAdapter()->fetchOne($select);
-    }
-
-    /**
-     * Custom setter of increment ID if its needed
-     *
-     * @param Varien_Object $object
-     * @return Mage_Customer_Model_Entity_Customer
-     */
-    public function setNewIncrementId(Varien_Object $object)
-    {
-        if (Mage::getStoreConfig(Mage_Customer_Model_Customer::XML_PATH_GENERATE_HUMAN_FRIENDLY_ID)) {
-            parent::setNewIncrementId($object);
-        }
-        return $this;
-    }
 }
-

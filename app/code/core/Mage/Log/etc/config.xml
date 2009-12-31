@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Log
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Log
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
     <Mage_Log>
-        <version>0.7.7</version>
+        <version>0.7.6</version>
     </Mage_Log>
     </modules>
     <global>
@@ -39,11 +39,6 @@
                 <admin />
             </entities>
         </ignoredModules>
-        <ignore_user_agents>
-            <google1>Googlebot/1.0 (googlebot@googlebot.com http://googlebot.com/)</google1>
-            <google2>Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</google2>
-            <google3>Googlebot/2.1 (+http://www.googlebot.com/bot.html)</google3>
-        </ignore_user_agents>
         <models>
             <log>
                 <class>Mage_Log_Model</class>
@@ -52,15 +47,33 @@
             <log_mysql4>
                 <class>Mage_Log_Model_Mysql4</class>
                 <entities>
-                    <customer><table>log_customer</table></customer>
-                    <visitor><table>log_visitor</table></visitor>
-                    <visitor_info><table>log_visitor_info</table></visitor_info>
-                    <url_table><table>log_url</table></url_table>
-                    <url_info_table><table>log_url_info</table></url_info_table>
-                    <summary_table><table>log_summary</table></summary_table>
-                    <summary_type_table><table>log_summary_type</table></summary_type_table>
-                    <quote_table><table>log_quote</table></quote_table>
-                    <visitor_online><table>log_visitor_online</table></visitor_online>
+                    <customer>
+                        <table>log_customer</table>
+                    </customer>
+                    <visitor>
+                        <table>log_visitor</table>
+                    </visitor>
+                    <visitor_info>
+                        <table>log_visitor_info</table>
+                    </visitor_info>
+                    <url_table>
+                        <table>log_url</table>
+                    </url_table>
+                    <url_info_table>
+                        <table>log_url_info</table>
+                    </url_info_table>
+                    <summary_table>
+                        <table>log_summary</table>
+                    </summary_table>
+                    <summary_type_table>
+                        <table>log_summary_type</table>
+                    </summary_type_table>
+                    <quote_table>
+                        <table>log_quote</table>
+                    </quote_table>
+                    <visitor_online>
+                        <table>log_visitor_online</table>
+                    </visitor_online>
                 </entities>
             </log_mysql4>
         </models>
@@ -69,7 +82,20 @@
                 <setup>
                     <module>Mage_Log</module>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </log_setup>
+            <log_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </log_write>
+            <log_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </log_read>
         </resources>
         <template>
             <email>
@@ -86,6 +112,7 @@
             <controller_action_predispatch>
                 <observers>
                     <log>
+                        <type>singleton</type>
                         <class>log/visitor</class>
                         <method>initByRequest</method>
                     </log>
@@ -94,6 +121,7 @@
             <controller_action_postdispatch>
                 <observers>
                     <log>
+                        <type>singleton</type>
                         <class>log/visitor</class>
                         <method>saveByRequest</method>
                     </log>
@@ -102,6 +130,7 @@
             <customer_login>
                 <observers>
                     <log>
+                        <type>singleton</type>
                         <class>log/visitor</class>
                         <method>bindCustomerLogin</method>
                     </log>
@@ -110,6 +139,7 @@
             <customer_logout>
                 <observers>
                     <log>
+                        <type>singleton</type>
                         <class>log/visitor</class>
                         <method>bindCustomerLogout</method>
                     </log>
@@ -118,6 +148,7 @@
             <sales_quote_save_after>
                 <observers>
                     <log>
+                        <type>singleton</type>
                         <class>log/visitor</class>
                         <method>bindQuoteCreate</method>
                     </log>
@@ -126,6 +157,7 @@
             <checkout_quote_destroy>
                 <observers>
                     <log>
+                        <type>singleton</type>
                         <class>log/visitor</class>
                         <method>bindQuoteDestroy</method>
                     </log>

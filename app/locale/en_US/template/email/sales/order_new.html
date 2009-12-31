@@ -1,22 +1,8 @@
-<!--@subject {{var store.getFrontendName()}}: New Order # {{var order.increment_id}} @-->
-<!--@vars
-{"store url=\"\"":"Store Url",
-"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
-"htmlescape var=$order.getCustomerName()":"Customer Name",
-"var store.getFrontendName()":"Store Name",
-"store url=\"customer/account/\"":"Customer Account Url",
-"var order.increment_id":"Order Id",
-"var order.getCreatedAtFormated('long')":"Order Created At (datetime)",
-"var order.getBillingAddress().format('html')":"Billing Address",
-"var payment_html":"Payment Details",
-"var order.getShippingAddress().format('html')":"Shipping Address",
-"var order.getShippingDescription()":"Shipping Description",
-"layout handle=\"sales_email_order_items\" order=$order":"Order Items Grid",
-"var order.getEmailCustomerNote()":"Email Order Note"}
-@-->
-<!--@styles
-body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
-@-->
+<!--@subject {{var order.getStoreGroupName()}}: New Order # {{var order.increment_id}} @-->
+
+<style type="text/css">
+    body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+</style>
 
 <div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
 <table cellspacing="0" cellpadding="0" border="0" width="98%" style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
@@ -34,7 +20,7 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                 <td valign="top">
                     <p>
                         <strong>Hello {{htmlescape var=$order.getCustomerName()}}</strong>,<br/>
-                        Thank you for your order from {{var store.getFrontendName()}}.
+                        Thank you for your order from {{var order.getStoreGroupName()}}.
                         Once your package ships we will send an email with a link to track your order.
                         You can check the status of your order by <a href="{{store url="customer/account/"}}" style="color:#1E7EC8;">logging into your account</a>.
                         If you have any questions about your order please contact us at <a href="mailto:dummyemail@magentocommerce.com" style="color:#1E7EC8;">dummyemail@magentocommerce.com</a> or call us at <span class="nobr">(555) 555-0123</span> Monday - Friday, 8am - 5pm PST.
@@ -91,7 +77,7 @@ body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;
                     {{layout handle="sales_email_order_items" order=$order}}
                     <br/>
                     {{var order.getEmailCustomerNote()}}
-                    <p>Thank you again,<br/><strong>{{var store.getFrontendName()}}</strong></p>
+                    <p>Thank you again,<br/><strong>{{var order.getStoreGroupName()}}</strong></p>
                 </td>
             </tr>
         </table>

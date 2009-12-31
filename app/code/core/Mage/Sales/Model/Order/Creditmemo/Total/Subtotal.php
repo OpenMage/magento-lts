@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -37,26 +37,18 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Subtotal extends Mage_Sales_Model_
     {
         $subtotal       = 0;
         $baseSubtotal   = 0;
-        $subtotalInclTax= 0;
-        $baseSubtotalInclTax = 0;
 
         foreach ($creditmemo->getAllItems() as $item) {
             $item->calcRowTotal();
-
             if ($item->getOrderItem()->isDummy()) {
                 continue;
             }
-
-            $subtotal       += $item->getRowTotal();
-            $baseSubtotal   += $item->getBaseRowTotal();
-            $subtotalInclTax+= $item->getRowTotalInclTax();
-            $baseSubtotalInclTax += $item->getBaseRowTotalInclTax();
+            $subtotal+= $item->getRowTotal();
+            $baseSubtotal+= $item->getBaseRowTotal();
         }
 
         $creditmemo->setSubtotal($subtotal);
         $creditmemo->setBaseSubtotal($baseSubtotal);
-        $creditmemo->setSubtotalInclTax($subtotalInclTax);
-        $creditmemo->setBaseSubtotalInclTax($baseSubtotalInclTax);
 
         $creditmemo->setGrandTotal($creditmemo->getGrandTotal() + $subtotal);
         $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() + $baseSubtotal);

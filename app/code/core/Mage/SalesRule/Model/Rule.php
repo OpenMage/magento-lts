@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -30,24 +30,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
     const FREE_SHIPPING_ITEM = 1;
     const FREE_SHIPPING_ADDRESS = 2;
 
-    /**
-     * Prefix of model events names
-     *
-     * @var string
-     */
-    protected $_eventPrefix = 'salesrule_rule';
-
-    /**
-     * Parameter name in event
-     *
-     * In observe method you can use $observer->getEvent()->getRule() in this case
-     *
-     * @var string
-     */
-    protected $_eventObject = 'rule';
-
-    protected $_labels = array();
-
     protected function _construct()
     {
         parent::_construct();
@@ -55,15 +37,9 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
         $this->setIdFieldName('rule_id');
     }
 
-    /**
-     * Check unique coupon code before saving and clear coupon related cache
-     *
-     * @return Mage_SalesRule_Model_Rule
-     */
     protected function _beforeSave()
     {
-        $coupon = $this->getCouponCode();
-        if($coupon) {
+        if($coupon = $this->getCouponCode()) {
             $this->getResource()->addUniqueField(array(
                 'field' => 'coupon_code',
                 'title' => Mage::helper('salesRule')->__('Coupon with the same code')
@@ -75,18 +51,13 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
         return parent::_beforeSave();
     }
 
-    /**
-     * Delete rule coupon code related cache
-     *
-     * @return Mage_SalesRule_Model_Rule
-     */
+
     protected function _beforeDelete()
     {
-        $coupon = $this->getCouponCode();
-        if ($coupon) {
+        if ($coupon = $this->getCouponCode()) {
             Mage::app()->cleanCache('salesrule_coupon_'.$coupon);
         }
-        return parent::_beforeDelete();
+        parent::_beforeDelete();
     }
 
     public function getConditionsInstance()
@@ -112,25 +83,17 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
         return $str;
     }
 
-    /**
-     * Initialize rule model data from array
-     *
-     * @param   array $rule
-     * @return  Mage_SalesRule_Model_Rule
-     */
     public function loadPost(array $rule)
     {
         $arr = $this->_convertFlatToRecursive($rule);
-        if (isset($arr['conditions'])) {
-            $this->getConditions()->setConditions(array())->loadArray($arr['conditions'][1]);
-        }
-        if (isset($arr['actions'])) {
-            $this->getActions()->setActions(array())->loadArray($arr['actions'][1], 'actions');
-        }
-        if (isset($rule['store_labels'])) {
-            $this->setStoreLabels($rule['store_labels']);
-        }
-        return $this;
+		if (isset($arr['conditions'])) {
+    		$this->getConditions()->setConditions(array())->loadArray($arr['conditions'][1]);
+		}
+		if (isset($arr['actions'])) {
+    		$this->getActions()->setActions(array())->loadArray($arr['actions'][1], 'actions');
+		}
+
+    	return $this;
     }
 
     /**
@@ -153,59 +116,56 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Rule
 
         return $out;
     }
+    /*
+    public function processProduct(Mage_Sales_Model_Product $product)
+    {
+        $this->validateProduct($product) && $this->updateProduct($product);
+        return $this;
+    }
 
+    public function validateProduct(Mage_Sales_Model_Product $product)
+    {
+        if (!$this->getIsCollectionValidated()) {
+            $env = $this->getEnv();
+            $result = $result && $this->getIsActive()
+                && (strtotime($this->getStartAt()) <= $env->getNow())
+                && (strtotime($this->getExpireAt()) >= $env->getNow())
+                && ($this->getCustomerRegistered()==2 || $this->getCustomerRegistered()==$env->getCustomerRegistered())
+                && ($this->getCustomerNewBuyer()==2 || $this->getCustomerNewBuyer()==$env->getCustomerNewBuyer())
+                && $this->getConditions()->validateProduct($product);
+        } else {
+            $result = $this->getConditions()->validateProduct($product);
+        }
+
+        return $result;
+    }
+
+    public function updateProduct(Mage_Sales_Model_Product $product)
+    {
+        $this->getActions()->updateProduct($product);
+        return $this;
+    }
+    */
     public function getResourceCollection()
     {
         return Mage::getResourceModel('salesrule/rule_collection');
     }
 
-    /**
-     * Save rula labels after rule save
-     *
-     * @return Mage_SalesRule_Model_Rule
-     */
-    protected function _afterSave()
-    {
-        if ($this->hasStoreLabels()) {
-            $this->_getResource()->saveStoreLabels($this->getId(), $this->getStoreLabels());
-        }
-        return parent::_afterSave();
-    }
-
-    /**
-     * Get Rule label for specific store
-     *
-     * @param   store $store
-     * @return  string | false
-     */
-    public function getStoreLabel($store=null)
-    {
-        $storeId = Mage::app()->getStore($store)->getId();
-        if ($this->hasStoreLabels()) {
-            $labels = $this->_getData('store_labels');
-            if (isset($labels[$storeId])) {
-                return $labels[$storeId];
-            } elseif ($labels[0]) {
-                return $labels[0];
-            }
-            return false;
-        } elseif (!isset($this->_labels[$storeId])) {
-            $this->_labels[$storeId] = $this->_getResource()->getStoreLabel($this->getId(), $storeId);
-        }
-        return $this->_labels[$storeId];
-    }
-
-    /**
-     * Get all existing rule labels
-     *
-     * @return array
-     */
-    public function getStoreLabels()
-    {
-        if (!$this->hasStoreLabels()) {
-            $labels = $this->_getResource()->getStoreLabels($this->getId());
-            $this->setStoreLabels($labels);
-        }
-        return $this->_getData('store_labels');
-    }
+//    protected function _afterSave()
+//    {
+//        $this->_getResource()->updateRuleProductData($this);
+//        parent::_afterSave();
+//    }
+//
+//    public function validate(Varien_Object $quote)
+//    {
+//
+//        if ($this->getUsesPerCustomer() && $quote->getCustomer()) {
+//            $customerUses = $this->_getResource()->getCustomerUses($this, $quote->getCustomerId());
+//            if ($customerUses >= $this->getUsesPerCustomer()) {
+//                return false;
+//            }
+//        }
+//        return parent::validate($quote);
+//    }
 }

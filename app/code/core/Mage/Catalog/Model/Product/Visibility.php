@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -136,7 +136,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     static public function getOptionArray()
     {
         return array(
-            self::VISIBILITY_NOT_VISIBLE=> Mage::helper('catalog')->__('Not Visible Individually'),
+            self::VISIBILITY_NOT_VISIBLE=> Mage::helper('catalog')->__('Nowhere'),
             self::VISIBILITY_IN_CATALOG => Mage::helper('catalog')->__('Catalog'),
             self::VISIBILITY_IN_SEARCH  => Mage::helper('catalog')->__('Search'),
             self::VISIBILITY_BOTH       => Mage::helper('catalog')->__('Catalog, Search')
@@ -192,13 +192,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     public function getFlatColums()
     {
-        return array($this->getAttribute()->getAttributeCode() => array(
-            'type'      => 'tinyint',
-            'unsigned'  => true,
-            'is_null'   => true,
-            'default'   => null,
-            'extra'     => null
-        ));
+        return array();
     }
 
     /**
@@ -220,8 +214,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
      */
     public function getFlatUpdateSelect($store)
     {
-        return Mage::getResourceSingleton('eav/entity_attribute')
-            ->getFlatUpdateSelect($this->getAttribute(), $store);
+        return null;
     }
 
     /**
@@ -283,7 +276,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
                         . " AND `{$valueTable2}`.`store_id`='{$collection->getStoreId()}'",
                     array()
                 );
-            $valueExpr = new Zend_Db_Expr("IF(`{$valueTable2}`.`value_id`>0, `{$valueTable2}`.`value`, `{$valueTable1}`.`value`)");
+            $valueExpr = new Zend_Db_Expr("IFNULL(`{$valueTable2}`.`value`, `{$valueTable1}`.`value`)");
         }
 
         $collection->getSelect()->order($valueExpr . ' ' . $dir);

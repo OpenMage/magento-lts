@@ -36,11 +36,13 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
-
-        if($this->isEnabled()) {
+        if( $this->getWysiwyg() === true )
+        {
             $this->setType('wysiwyg');
             $this->setExtType('wysiwyg');
-        } else {
+        }
+        else
+        {
             $this->setType('textarea');
             $this->setExtType('textarea');
         }
@@ -48,81 +50,43 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
 
     public function getElementHtml()
     {
-        $js = '
-            <script type="text/javascript">
-            //<![CDATA[
-                openEditorPopup = function(url, name, specs, parent) {
-                    if ((typeof popups == "undefined") || popups[name] == undefined || popups[name].closed) {
-                        if (typeof popups == "undefined") {
-                            popups = new Array();
-                        }
-                        var opener = (parent != undefined ? parent : window);
-                        popups[name] = opener.open(url, name, specs);
-                    } else {
-                        popups[name].focus();
-                    }
-                    return popups[name];
-                }
-
-                closeEditorPopup = function(name) {
-                    if ((typeof popups != "undefined") && popups[name] != undefined && !popups[name].closed) {
-                        popups[name].close();
-                    }
-                }
-            //]]>
-            </script>';
-
-        if($this->isEnabled())
+        if( $this->getWysiwyg() === true )
         {
-            // add Firebug notice translations
-            $this->getConfig()->addData(array(
-                'firebug_warning_title'  => $this->translate('Warning'),
-                'firebug_warning_text'   => $this->translate('Firebug is known to make the WYSIWYG editor slow unless it is turned off or configured properly.'),
-                'firebug_warning_anchor' => $this->translate('Hide'),
-            ));
+            $element = ($this->getState() == 'html') ? '' : $this->getHtmlId();
 
-            $translatedString = array(
-                'Insert Image...' => $this->translate('Insert Image...'),
-                'Insert Media...' => $this->translate('Insert Media...'),
-                'Insert File...' => $this->translate('Insert File...')
-            );
-
-            $jsSetupObject = 'wysiwyg' . $this->getHtmlId();
-
-            $html = $this->_getButtonsHtml()
-                .'<textarea name="'.$this->getName().'" title="'.$this->getTitle().'" id="'.$this->getHtmlId().'" class="textarea '.$this->getClass().'" '.$this->serialize($this->getHtmlAttributes()).' >'.$this->getEscapedValue().'</textarea>
-
-                '.$js.'
-
-                <script type="text/javascript">
-                //<![CDATA[
-                    if ("undefined" != typeof(Translator)) {
-                        Translator.add(' . Zend_Json::encode($translatedString) . ');
-                    }
-                    '.$jsSetupObject.' = new tinyMceWysiwygSetup("'.$this->getHtmlId().'", '.Zend_Json::encode($this->getConfig()).');
-
-                    '.($this->isHidden() ? '' : ($this->getForceLoad()?$jsSetupObject.'.setup("exact");':'Event.observe(window, "load", '.$jsSetupObject.'.setup.bind('.$jsSetupObject.', "exact"));')).'
-                    editorFormValidationHandler = '.$jsSetupObject.'.onFormValidation.bind('.$jsSetupObject.');
-                    Event.observe("toggle'.$this->getHtmlId().'", "click", '.$jsSetupObject.'.toggle.bind('.$jsSetupObject.'));
-                    varienGlobalEvents.attachEventHandler("formSubmit", editorFormValidationHandler);
-                    varienGlobalEvents.attachEventHandler("tinymceBeforeSetContent", '.$jsSetupObject.'.beforeSetContent.bind('.$jsSetupObject.'));
-                    varienGlobalEvents.attachEventHandler("tinymceSaveContent", '.$jsSetupObject.'.saveContent.bind('.$jsSetupObject.'));
-                    varienGlobalEvents.attachEventHandler("open_browser_callback", '.$jsSetupObject.'.openFileBrowser.bind('.$jsSetupObject.'));
-                //]]>
+            $html = '
+                <textarea name="'.$this->getName().'" title="'.$this->getTitle().'" id="'.$this->getHtmlId().'" class="textarea '.$this->getClass().'" '.$this->serialize($this->getHtmlAttributes()).' >'.$this->getEscapedValue().'</textarea>
+        		<script type="text/javascript">
+				//<![CDATA[
+                   /* tinyMCE.init({
+                        mode : "exact",
+                        theme : "'.$this->getTheme().'",
+                        elements : "' . $element . '",
+                        theme_advanced_toolbar_location : "top",
+                        theme_advanced_toolbar_align : "left",
+                        theme_advanced_path_location : "bottom",
+                        extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
+                        theme_advanced_resize_horizontal : "false",
+                        theme_advanced_resizing : "false",
+                        apply_source_formatting : "true",
+                        convert_urls : "false",
+                        force_br_newlines : "true",
+                        doctype : \'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\'
+                    });*/
+				//]]>
                 </script>';
 
-            $html = $this->_wrapIntoContainer($html);
+                /*plugins : "inlinepopups,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,zoom,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras",
+                theme_advanced_buttons1 : "newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+                theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+                theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+                theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,|,visualchars,nonbreaking"*/
+
             $html.= $this->getAfterElementHtml();
             return $html;
         }
         else
         {
-            // Display only buttons to additional features
-            if ($this->getConfig('widget_window_url')) {
-                $html = $this->_getButtonsHtml() . $js . parent::getElementHtml();
-                $html = $this->_wrapIntoContainer($html);
-                return $html;
-            }
             return parent::getElementHtml();
         }
     }
@@ -133,235 +97,6 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             return 'simple';
         }
 
-        return $this->_getData('theme');
-    }
-
-    /**
-     * Return Editor top Buttons HTML
-     *
-     * @return string
-     */
-    protected function _getButtonsHtml()
-    {
-        $buttonsHtml = '<div id="buttons'.$this->getHtmlId().'" class="buttons-set">';
-        if ($this->isEnabled()) {
-            $buttonsHtml .= $this->_getToggleButtonHtml() . $this->_getPluginButtonsHtml($this->isHidden());
-        } else {
-            $buttonsHtml .= $this->_getPluginButtonsHtml(true);
-        }
-        $buttonsHtml .= '</div>';
-
-        return $buttonsHtml;
-    }
-
-    /**
-     * Return HTML button to toggling WYSIWYG
-     *
-     * @return string
-     */
-    protected function _getToggleButtonHtml($visible = true)
-    {
-        $html = $this->_getButtonHtml(array(
-            'title'     => $this->translate('Show / Hide Editor'),
-            'class'     => 'show-hide',
-            'style'     => $visible ? '' : 'display:none',
-            'id'        => 'toggle'.$this->getHtmlId(),
-        ));
-        return $html;
-    }
-
-    /**
-     * Prepare Html buttons for additional WYSIWYG features
-     *
-     * @param bool $visible Display button or not
-     * @return void
-     */
-    protected function _getPluginButtonsHtml($visible = true)
-    {
-        $buttonsHtml = '';
-
-        // Button to widget insertion window
-        if ($this->getConfig('add_widgets')) {
-            $buttonsHtml .= $this->_getButtonHtml(array(
-                'title'     => $this->translate('Insert Widget...'),
-                'onclick'   => "widgetTools.openDialog('" . $this->getConfig('widget_window_url') . "widget_target_id/" . $this->getHtmlId() . "')",
-                'class'     => 'add-widget plugin',
-                'style'     => $visible ? '' : 'display:none',
-            ));
-        }
-
-        // Button to media images insertion window
-        $buttonsHtml .= $this->_getButtonHtml(array(
-            'title'     => $this->translate('Insert Image...'),
-            'onclick'   => "MediabrowserUtility.openDialog('" . $this->getConfig('files_browser_window_url') . "target_element_id/" . $this->getHtmlId() . "/')",
-            'class'     => 'add-image plugin',
-            'style'     => $visible ? '' : 'display:none',
-        ));
-
-        foreach ($this->getConfig('plugins') as $plugin) {
-            if (isset($plugin['options']) && $this->_checkPluginButtonOptions($plugin['options'])) {
-                $buttonOptions = $this->_prepareButtonOptions($plugin['options']);
-                if (!$visible) {
-                    $configStyle = '';
-                    if (isset($buttonOptions['style'])) {
-                        $configStyle = $buttonOptions['style'];
-                    }
-                    $buttonOptions = array_merge($buttonOptions, array('style' => 'display:none;' . $configStyle));
-                }
-                $buttonsHtml .= $this->_getButtonHtml($buttonOptions);
-            }
-        }
-
-        return $buttonsHtml;
-    }
-
-    /**
-     * Prepare button options array to create button html
-     *
-     * @param array $options
-     * @return array
-     */
-    protected function _prepareButtonOptions($options)
-    {
-        $buttonOptions = array();
-        $buttonOptions['class'] = 'plugin';
-        foreach ($options as $name => $value) {
-            $buttonOptions[$name] = $value;
-        }
-        $buttonOptions = $this->_prepareOptions($buttonOptions);
-        return $buttonOptions;
-    }
-
-    /**
-     * Check if plugin button options have required values
-     *
-     * @param array $pluginOptions
-     * @return boolean
-     */
-    protected function _checkPluginButtonOptions($pluginOptions)
-    {
-        if (!isset($pluginOptions['title'])) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Convert options by replacing template constructions ( like {{var_name}} )
-     * with data from this element object
-     *
-     * @param array $options
-     * @return array
-     */
-    protected function _prepareOptions($options)
-    {
-        $preparedOptions = array();
-        foreach ($options as $name => $value) {
-            if (is_array($value) && isset($value['search']) && isset($value['subject'])) {
-                $subject = $value['subject'];
-                foreach ($value['search'] as $part) {
-                    $subject = str_replace('{{'.$part.'}}', $this->getDataUsingMethod($part), $subject);
-                }
-                $preparedOptions[$name] = $subject;
-            } else {
-                $preparedOptions[$name] = $value;
-            }
-        }
-        return $preparedOptions;
-    }
-
-    /**
-     * Return custom button HTML
-     *
-     * @param array $data Button params
-     * @return string
-     */
-    protected function _getButtonHtml($data)
-    {
-        $html = '<button type="button"';
-        $html.= ' class="scalable '.(isset($data['class']) ? $data['class'] : '').'"';
-        $html.= isset($data['onclick']) ? ' onclick="'.$data['onclick'].'"' : '';
-        $html.= isset($data['style']) ? ' style="'.$data['style'].'"' : '';
-        $html.= isset($data['id']) ? ' id="'.$data['id'].'"' : '';
-        $html.= '>';
-        $html.= isset($data['title']) ? '<span>'.$data['title'].'</span>' : '';
-        $html.= '</button>';
-
-        return $html;
-    }
-
-    /**
-     * Wraps Editor HTML into div if 'use_container' config option is set to true
-     * If 'no_display' config option is set to true, the div will be invisible
-     *
-     * @param string $html HTML code to wrap
-     * @return string
-     */
-    protected function _wrapIntoContainer($html)
-    {
-        if (!$this->getConfig('use_container')) {
-            return $html;
-        }
-
-        $html = '<div id="editor'.$this->getHtmlId().'"'.($this->getConfig('no_display') ? ' style="display:none;"' : '').'>'
-              . $html
-              . '</div>';
-
-        return $html;
-    }
-
-    /**
-     * Editor config retriever
-     *
-     * @param string $key Config var key
-     * @return mixed
-     */
-    public function getConfig($key = null)
-    {
-        if ( !($this->_getData('config') instanceof Varien_Object) ) {
-            $config = new Varien_Object();
-            $this->setConfig($config);
-        }
-        if ($key !== null) {
-            return $this->_getData('config')->getData($key);
-        }
-        return $this->_getData('config');
-    }
-
-    /**
-     * Translate string using defined helper
-     *
-     * @param string $string String to be translated
-     * @return string
-     */
-    public function translate($string)
-    {
-        if ($this->getConfig('translator') instanceof Varien_Object) {
-            return $this->getConfig('translator')->__($string);
-        }
-        return $string;
-    }
-
-    /**
-     * Check whether Wysiwyg is enabled or not
-     *
-     * @return bool
-     */
-    public function isEnabled()
-    {
-        if ($this->hasData('wysiwyg')) {
-            return $this->getWysiwyg();
-        }
-        return $this->getConfig('enabled');
-    }
-
-    /**
-     * Check whether Wysiwyg is loaded on demand or not
-     *
-     * @return bool
-     */
-    public function isHidden()
-    {
-        return $this->getConfig('hidden');
+        return $this->getData('theme');
     }
 }

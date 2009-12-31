@@ -18,58 +18,44 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
- * Catalog Comapare Products Sidebar Block
+ * Catalog comapare sidebar block
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Product_Compare_Abstract
-{
-    /**
-     * Initialize block
-     *
-     */
-    protected function _construct()
+ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Product_Abstract
+ {
+     protected function _construct()
+     {
+         $this->setId('compare');
+     }
+
+     public function getItems()
+     {
+         return $this->helper('catalog/product_compare')->getItemCollection();
+     }
+
+    public function getRemoveUrl($item)
     {
-        $this->setId('compare');
+        return $this->helper('catalog/product_compare')->getRemoveUrl($item);
     }
 
-    /**
-     * Retrieve Compare Products Collection
-     *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection
-     */
-    public function getItems()
-    {
-        return $this->_getHelper()->getItemCollection();
-    }
-
-    /**
-     * Retrieve Clean Compared Items URL
-     *
-     * @return string
-     */
     public function getClearUrl()
     {
-        return $this->_getHelper()->getClearListUrl();
+        return $this->helper('catalog/product_compare')->getClearListUrl();
     }
 
-    /**
-     * Retrieve Full Compare page URL
-     *
-     * @return string
-     */
-    public function getCompareUrl()
-    {
-        return $this->_getHelper()->getListUrl();
-    }
-}
+     public function getCompareUrl()
+     {
+         return $this->helper('catalog/product_compare')->getListUrl();
+     }
+ }

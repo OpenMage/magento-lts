@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -290,6 +290,7 @@ class Mage_Sales_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
 
                     'coupon_code'       => array(),
                     'applied_rule_ids'  => array(),
+                    'giftcert_code'     => array(),
 
                     'global_currency_code'    => array(),
                     'base_currency_code'    => array(),
@@ -310,6 +311,7 @@ class Mage_Sales_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
                     'tax_amount'        => array('type'=>'static'),
                     'shipping_amount'   => array('type'=>'static'),
                     'discount_amount'   => array('type'=>'static'),
+                    'giftcert_amount'   => array('type'=>'decimal'),
                     'custbalance_amount'=> array('type'=>'decimal'),
 
                     'subtotal'          => array('type'=>'static'),
@@ -328,6 +330,7 @@ class Mage_Sales_Model_Entity_Setup extends Mage_Eav_Model_Entity_Setup
                     'base_tax_amount'        => array('type'=>'static'),
                     'base_shipping_amount'   => array('type'=>'static'),
                     'base_discount_amount'   => array('type'=>'static'),
+                    'base_giftcert_amount'   => array('type'=>'decimal'),
                     'base_custbalance_amount'=> array('type'=>'decimal'),
 
                     'base_subtotal'          => array('type'=>'static'),

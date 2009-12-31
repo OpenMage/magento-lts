@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,7 @@ $installer = $this;
 
 $installer->startSetup();
 // make attribute 'weight' not applicable to downloadable products
-$applyTo = explode(',', $installer->getAttribute('catalog_product', 'weight', 'apply_to'));
+$applyTo = split(',', $installer->getAttribute('catalog_product', 'weight', 'apply_to'));
 if (in_array('downloadable', $applyTo)) {
     $newApplyTo = array();
     foreach ($applyTo as $key=>$value) {

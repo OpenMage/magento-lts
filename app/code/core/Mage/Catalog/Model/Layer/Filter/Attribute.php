@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -36,13 +36,6 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
     const OPTIONS_ONLY_WITH_RESULTS = 1;
 
     /**
-     * Resource instance
-     *
-     * @var Mage_Catalog_Model_Resource_Eav_Mysql4_Layer_Filter_Attribute
-     */
-    protected $_resource;
-
-    /**
      * Construct attribute filter
      *
      */
@@ -50,19 +43,6 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
     {
         parent::__construct();
         $this->_requestVar = 'attribute';
-    }
-
-    /**
-     * Retrieve resource instance
-     *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Layer_Filter_Attribute
-     */
-    protected function _getResource()
-    {
-        if (is_null($this->_resource)) {
-            $this->_resource = Mage::getResourceModel('catalog/layer_filter_attribute');
-        }
-        return $this->_resource;
     }
 
     /**
@@ -91,22 +71,15 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
         }
         $text = $this->_getOptionText($filter);
         if ($filter && $text) {
-            $this->_getResource()->applyFilterToCollection($this, $filter);
+            Mage::getSingleton('catalogindex/attribute')->applyFilterToCollection(
+                $this->getLayer()->getProductCollection(),
+                $this->getAttributeModel(),
+                $filter
+            );
             $this->getLayer()->getState()->addFilter($this->_createItem($text, $filter));
             $this->_items = array();
         }
         return $this;
-    }
-
-    /**
-     * Check whether specified attribute can be used in LN
-     *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @return bool
-     */
-    protected function _getIsFilterableAttribute($attribute)
-    {
-        return $attribute->getIsFilterable();
     }
 
     /**
@@ -124,7 +97,10 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
 
         if ($data === null) {
             $options = $attribute->getFrontend()->getSelectOptions();
-            $optionsCount = $this->_getResource()->getCount($this);
+            $optionsCount = Mage::getSingleton('catalogindex/attribute')->getCount(
+                $attribute,
+                $this->_getBaseCollectionSql()
+            );
             $data = array();
 
             foreach ($options as $option) {
@@ -133,7 +109,7 @@ class Mage_Catalog_Model_Layer_Filter_Attribute extends Mage_Catalog_Model_Layer
                 }
                 if (Mage::helper('core/string')->strlen($option['value'])) {
                     // Check filter type
-                    if ($this->_getIsFilterableAttribute($attribute) == self::OPTIONS_ONLY_WITH_RESULTS) {
+                    if ($attribute->getIsFilterable() == self::OPTIONS_ONLY_WITH_RESULTS) {
                         if (!empty($optionsCount[$option['value']])) {
                             $data[] = array(
                                 'label' => $option['label'],

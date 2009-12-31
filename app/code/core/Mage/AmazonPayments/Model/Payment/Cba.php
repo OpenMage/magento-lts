@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_AmazonPayments
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_AmazonPayments
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Abstract
@@ -49,6 +49,16 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
 //    const ACTION_AUTHORIZE_CAPTURE = 1;
 
     protected $_skipProccessDocument = false;
+
+    /**
+     * Return true if the method can be used at this time
+     *
+     * @return bool
+     */
+    public function isAvailable($quote=null)
+    {
+        return Mage::getStoreConfig('payment/amazonpayments_cba/active');
+    }
 
     /**
      * Get checkout session namespace
@@ -435,8 +445,6 @@ class Mage_AmazonPayments_Model_Payment_Cba extends Mage_Payment_Model_Method_Ab
                 ->setCustomerIsGuest(true)
                 ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
         }
-
-        $order->save();
 
         $quote->setIsActive(false);
         $quote->save();

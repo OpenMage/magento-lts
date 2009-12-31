@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,10 +34,6 @@
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Block_Widget_Form_Container
 {
 
-    /**
-     * Add & remove control buttons
-     *
-     */
     public function __construct()
     {
         $this->_objectId    = 'creditmemo_id';
@@ -59,15 +55,6 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             );
         }
 
-        if ($this->_isAllowedAction('emails')) {
-            $this->addButton('send_notification', array(
-                'label'     => Mage::helper('sales')->__('Send Email'),
-                'onclick'   => 'confirmSetLocation(\''
-                . Mage::helper('sales')->__('Are you sure you want to send Creditmemo email to customer?')
-                . '\', \'' . $this->getEmailUrl() . '\')'
-            ));
-        }
-
         if ($this->getCreditmemo()->canRefund()) {
             $this->_addButton('refund', array(
                 'label'     => Mage::helper('sales')->__('Refund'),
@@ -85,7 +72,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
                 )
             );
         }
-
+        
         if ($this->getCreditmemo()->getId()) {
             $this->_addButton('print', array(
                 'label'     => Mage::helper('sales')->__('Print'),
@@ -106,11 +93,6 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
         return Mage::registry('current_creditmemo');
     }
 
-    /**
-     * Retrieve text for header
-     *
-     * @return string
-     */
     public function getHeaderText()
     {
         if ($this->getCreditmemo()->getEmailSent()) {
@@ -129,11 +111,6 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
         return $header;
     }
 
-    /**
-     * Retrieve back url
-     *
-     * @return string
-     */
     public function getBackUrl()
     {
         return $this->getUrl(
@@ -144,82 +121,33 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
             ));
     }
 
-    /**
-     * Retrieve capture url
-     *
-     * @return string
-     */
     public function getCaptureUrl()
     {
         return $this->getUrl('*/*/capture', array('creditmemo_id'=>$this->getCreditmemo()->getId()));
     }
 
-    /**
-     * Retrieve void url
-     *
-     * @return string
-     */
     public function getVoidUrl()
     {
         return $this->getUrl('*/*/void', array('creditmemo_id'=>$this->getCreditmemo()->getId()));
     }
 
-    /**
-     * Retrieve cancel url
-     *
-     * @return string
-     */
     public function getCancelUrl()
     {
         return $this->getUrl('*/*/cancel', array('creditmemo_id'=>$this->getCreditmemo()->getId()));
     }
 
-    /**
-     * Retrieve email url
-     *
-     * @return string
-     */
-    public function getEmailUrl()
-    {
-        return $this->getUrl('*/*/email', array(
-            'creditmemo_id' => $this->getCreditmemo()->getId(),
-            'order_id'      => $this->getCreditmemo()->getOrderId()
-        ));
-    }
-
-    /**
-     * Retrieve print url
-     *
-     * @return string
-     */
     public function getPrintUrl()
     {
         return $this->getUrl('*/*/print', array(
             'invoice_id' => $this->getCreditmemo()->getId()
         ));
     }
-
-    /**
-     * Update 'back' button url
-     *
-     * @return Mage_Adminhtml_Block_Widget_Container | Mage_Adminhtml_Block_Sales_Order_Creditmemo_View
-     */
+    
     public function updateBackButtonUrl($flag)
     {
         if ($flag) {
             return $this->_updateButton('back', 'onclick', 'setLocation(\'' . $this->getUrl('*/sales_creditmemo/') . '\')');
         }
         return $this;
-    }
-
-    /**
-     * Check whether action is allowed
-     *
-     * @param string $action
-     * @return bool
-     */
-    public function _isAllowedAction($action)
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/' . $action);
     }
 }

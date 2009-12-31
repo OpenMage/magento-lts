@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -92,13 +92,6 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
      * @var bool
      */
     protected $_isPkAutoIncrement = true;
-
-    /**
-     * Fields List for update in forsedSave
-     *
-     * @var array
-     */
-    protected $_fieldsForUpdate = array();
 
     protected $_mainTableFields;
 
@@ -229,7 +222,6 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
      * Get table name for the entity
      *
      * @param string $entityName
-     * @return string
      */
     public function getTable($entityName)
     {
@@ -245,18 +237,6 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
             $this->_tables[$entityName] = $entityName;
         }
         return $this->_tables[$entityName];
-    }
-
-    /**
-     * Retrieve table name for the entity separated value
-     *
-     * @param string $entityName
-     * @param string $valueType
-     * @return string
-     */
-    public function getValueTable($entityName, $valueType)
-    {
-        return $this->getTable($entityName) . '_' . $valueType;
     }
 
     /**
@@ -283,7 +263,7 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
     /**
      * Retrieve connection for read data
      *
-     * @return  Varien_Db_Adapter_Pdo_Mysql
+     * @return  Zend_Db_Adapter_Abstract
      */
     protected function _getReadAdapter()
     {
@@ -293,7 +273,7 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
     /**
      * Retrieve connection for write data
      *
-     * @return  Varien_Db_Adapter_Pdo_Mysql
+     * @return  Zend_Db_Adapter_Abstract
      */
     protected function _getWriteAdapter()
     {
@@ -303,7 +283,7 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
     /**
      * Temporary resolving collection compatibility
      *
-     * @return Varien_Db_Adapter_Pdo_Mysql
+     * @return Zend_Db_Adapter_Abstract
      */
     public function getReadConnection()
     {
@@ -377,8 +357,7 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
             if ($this->_isPkAutoIncrement) {
                 $this->_getWriteAdapter()->update($this->getMainTable(), $this->_prepareDataForSave($object), $condition);
             } else {
-                $select = $this->_getWriteAdapter()->select()
-                    ->from($this->getMainTable(), array($this->getIdFieldName()))
+                $select = $this->_getWriteAdapter()->select($this->getMainTable(), array($this->getIdFieldName()))
                     ->where($condition);
                 if ($this->_getWriteAdapter()->fetchOne($select) !== false) {
                     $this->_getWriteAdapter()->update($this->getMainTable(), $this->_prepareDataForSave($object), $condition);
@@ -388,32 +367,6 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
             }
         } else {
             $this->_getWriteAdapter()->insert($this->getMainTable(), $this->_prepareDataForSave($object));
-            $object->setId($this->_getWriteAdapter()->lastInsertId($this->getMainTable()));
-        }
-
-        $this->_afterSave($object);
-
-        return $this;
-    }
-
-    /**
-     * Forsed save object data
-     * forsed update If duplicate unique key data
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Mysql4_Abstract
-     */
-    public function forsedSave(Mage_Core_Model_Abstract $object)
-    {
-        $this->_beforeSave($object);
-
-        // update
-        if (!is_null($object->getId()) && $this->_isPkAutoIncrement) {
-            $condition = $this->_getWriteAdapter()->quoteInto($this->getIdFieldName().'=?', $object->getId());
-            $this->_getWriteAdapter()->update($this->getMainTable(), $this->_prepareDataForSave($object), $condition);
-        }
-        else {
-            $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), $this->_prepareDataForSave($object), $this->_fieldsForUpdate);
             $object->setId($this->_getWriteAdapter()->lastInsertId($this->getMainTable()));
         }
 
@@ -447,9 +400,7 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
      */
     public function addUniqueField($field)
     {
-        if (is_null($this->_uniqueFields)) {
-            $this->_initUniqueFields();
-        }
+        $this->_initUniqueFields();
         if(is_array($this->_uniqueFields) ) {
             $this->_uniqueFields[] = $field;
         }
@@ -499,20 +450,8 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
      */
     protected function _prepareDataForSave(Mage_Core_Model_Abstract $object)
     {
-        return $this->_prepareDataForTable($object, $this->getMainTable());
-    }
-
-    /**
-     * Prepare data for passed table
-     *
-     * @param Varien_Object $object
-     * @param string $table
-     * @return array
-     */
-    protected function _prepareDataForTable(Varien_Object $object, $table)
-    {
         $data = array();
-        $fields = $this->_getWriteAdapter()->describeTable($table);
+        $fields = $this->_getWriteAdapter()->describeTable($this->getMainTable());
         foreach (array_keys($fields) as $field) {
             if ($object->hasData($field)) {
                 $fieldValue = $object->getData($field);
@@ -595,10 +534,10 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
 
         if (!empty($existent)) {
             if (count($existent) == 1 ) {
-                $error = Mage::helper('core')->__('%s already exists', $existent[0]);
+                $error = Mage::helper('core')->__('%s already exist', $existent[0]);
             }
             else {
-                $error = Mage::helper('core')->__('%s already exist', implode(', ', $existent));
+                $error = Mage::helper('core')->__('%s already exists', implode(', ', $existent));
             }
             Mage::throwException($error);
         }

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Rating
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Rating
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -304,40 +304,5 @@ class Mage_Rating_Model_Mysql4_Rating extends Mage_Core_Model_Mysql4_Abstract
         }
 
         return array_values($result);
-    }
-
-    /**
-     * Get rating entity type id by code
-     *
-     * @param string $entityCode
-     * @return int
-     */
-    public function getEntityIdByCode($entityCode)
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->from( $this->getTable('rating_entity'), array('entity_id'))
-            ->where('entity_code = ?', $entityCode);
-        return $this->_getReadAdapter()->fetchOne($select);
-    }
-
-    /**
-     * Delete ratings by product id
-     *
-     * @param int $productId
-     * @return Mage_Rating_Model_Mysql4_Rating
-     */
-    public function deleteAggregatedRatingsByProductId($productId)
-    {
-        $entityId = $this->getEntityIdByCode(Mage_Rating_Model_Rating::ENTITY_PRODUCT_CODE);
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('rating/rating'), array('rating_id'))
-            ->where('entity_id = ?', $entityId);
-        $ratings = $this->_getReadAdapter()->fetchCol($select);
-
-        $this->_getWriteAdapter()->delete($this->getTable('rating/rating_vote_aggregated'), array(
-            'entity_pk_value=?' => $productId,
-            'rating_id IN(?)'   => $ratings
-        ));
-        return $this;
     }
 }

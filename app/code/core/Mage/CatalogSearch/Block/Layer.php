@@ -18,28 +18,14 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogSearch
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- * Layered Navigation block for search
- *
- */
 class Mage_CatalogSearch_Block_Layer extends Mage_Catalog_Block_Layer_View
 {
-    /**
-     * Get attribute filter block name
-     *
-     * @return string
-     */
-    protected function _getAttributeFilterBlockName()
-    {
-        return 'catalogsearch/layer_filter_attribute';
-    }
-
     /**
      * Get layer object
      *

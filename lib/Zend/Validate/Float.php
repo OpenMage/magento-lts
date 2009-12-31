@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Float.php 17470 2009-08-08 22:27:09Z thomas $
+ * @version    $Id: Float.php 13375 2008-12-19 14:16:40Z thomas $
  */
 
 /**
@@ -32,19 +32,18 @@
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_Float extends Zend_Validate_Abstract
 {
-    const INVALID   = 'floatInvalid';
+
     const NOT_FLOAT = 'notFloat';
 
     /**
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID   => "Invalid type given, value should be float, string, or integer",
         self::NOT_FLOAT => "'%value%' does not appear to be a float"
     );
 
@@ -57,9 +56,7 @@ class Zend_Validate_Float extends Zend_Validate_Abstract
      */
     public function __construct($locale = null)
     {
-        if ($locale !== null) {
-            $this->setLocale($locale);
-        }
+        $this->setLocale($locale);
     }
 
     /**
@@ -92,33 +89,18 @@ class Zend_Validate_Float extends Zend_Validate_Abstract
      */
     public function isValid($value)
     {
-        if (!is_string($value) && !is_int($value) && !is_float($value)) {
-            $this->_error(self::INVALID);
+        $valueString = (string) $value;
+
+        $this->_setValue($valueString);
+
+        try {
+            if (!Zend_Locale_Format::isFloat($value, array('locale' => $this->_locale))) {
+                $this->_error();
+                return false;
+            }
+        } catch (Zend_Locale_Exception $e) {
+            $this->_error();
             return false;
-        }
-
-        $this->_setValue($value);
-        if ($this->_locale === null) {
-            $locale        = localeconv();
-            $valueFiltered = str_replace($locale['thousands_sep'], '', (string) $value);
-            $valueFiltered = str_replace($locale['decimal_point'], '.', $valueFiltered);
-
-            if (strval(floatval($valueFiltered)) != $valueFiltered) {
-                $this->_error(self::NOT_FLOAT);
-                return false;
-            }
-
-        } else {
-            try {
-                if (!Zend_Locale_Format::isFloat($value, array('locale' => 'en')) &&
-                    !Zend_Locale_Format::isFloat($value, array('locale' => $this->_locale))) {
-                    $this->_error(self::NOT_FLOAT);
-                    return false;
-                }
-            } catch (Zend_Locale_Exception $e) {
-                $this->_error(self::NOT_FLOAT);
-                return false;
-            }
         }
 
         return true;

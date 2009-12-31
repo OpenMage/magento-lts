@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,13 +24,13 @@
 
 /**
  * Submit form element
- *
+ * 
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Element
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Submit.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Submit.php 8585 2008-03-06 19:32:34Z matthew $
  */
 class Zend_Form_Element_Submit extends Zend_Form_Element_Xhtml
 {
@@ -42,7 +42,7 @@ class Zend_Form_Element_Submit extends Zend_Form_Element_Xhtml
 
     /**
      * Constructor
-     *
+     * 
      * @param  string|array|Zend_Config $spec Element name or configuration
      * @param  string|array|Zend_Config $options Element value or configuration
      * @return void
@@ -62,7 +62,7 @@ class Zend_Form_Element_Submit extends Zend_Form_Element_Xhtml
      * If no label is present, returns the currently set name.
      *
      * If a translator is present, returns the translated label.
-     *
+     * 
      * @return string
      */
     public function getLabel()
@@ -82,7 +82,7 @@ class Zend_Form_Element_Submit extends Zend_Form_Element_Xhtml
 
     /**
      * Has this submit button been selected?
-     *
+     * 
      * @return bool
      */
     public function isChecked()
@@ -103,7 +103,7 @@ class Zend_Form_Element_Submit extends Zend_Form_Element_Xhtml
      * Default decorators
      *
      * Uses only 'Submit' and 'DtDdWrapper' decorators by default.
-     *
+     * 
      * @return void
      */
     public function loadDefaultDecorators()
@@ -114,8 +114,7 @@ class Zend_Form_Element_Submit extends Zend_Form_Element_Xhtml
 
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
-            $this->addDecorator('Tooltip')
-                 ->addDecorator('ViewHelper')
+            $this->addDecorator('ViewHelper')
                  ->addDecorator('DtDdWrapper');
         }
     }

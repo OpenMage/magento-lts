@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -40,33 +40,20 @@ class Mage_Tag_Model_Mysql4_Popular_Collection extends Mage_Core_Model_Mysql4_Co
         $this->_init('tag/tag');
     }
 
-    /**
-     * Replacing popularity by sum of popularity and base_popularity
-     *
-     * @param int $storeId
-     * @return Mage_Tag_Model_Mysql4_Popular_Collection
-     */
     public function joinFields($storeId = 0)
     {
         $this->getSelect()
             ->reset()
-            ->from(
-                array('tag_summary' => $this->getTable('tag/summary')),
-                array(
-                    'tag_id',
-                    'popularity' => '(tag_summary.popularity + tag_summary.base_popularity)'
-                )
-            )
-            ->joinInner(
-                array('tag' => $this->getTable('tag/tag')),
-                'tag.tag_id = tag_summary.tag_id AND tag.status = '.Mage_Tag_Model_Tag::STATUS_APPROVED
-            )
-            ->where('tag_summary.store_id = ?', $storeId)
-            ->where('tag_summary.products > 0')
+            ->from(array('main_table' => $this->getTable('tag/summary')))
+            ->join(
+                array('tag' => $this->getTable('tag/tag')), 
+                'tag.tag_id = main_table.tag_id AND tag.status = '.Mage_Tag_Model_Tag::STATUS_APPROVED)
+            ->where('main_table.store_id = ?', $storeId)
             ->order('popularity desc');
+       
         return $this;
     }
-
+    
     public function load($printQuery = false, $logQuery = false)
     {
         if ($this->isLoaded()) {
@@ -75,7 +62,7 @@ class Mage_Tag_Model_Mysql4_Popular_Collection extends Mage_Core_Model_Mysql4_Co
         parent::load($printQuery, $logQuery);
         return $this;
     }
-
+    
     public function limit($limit)
     {
         $this->getSelect()->limit($limit);

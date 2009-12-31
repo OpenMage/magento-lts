@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Admin
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Admin
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_Admin_Model_Mysql4_Rules extends Mage_Core_Model_Mysql4_Abstract
@@ -30,47 +30,38 @@ class Mage_Admin_Model_Mysql4_Rules extends Mage_Core_Model_Mysql4_Abstract
         $this->_init('admin/rule', 'rule_id');
     }
 
-    /**
-     * Save ACL resources
-     *
-     * @param Mage_Admin_Model_Rules $rule
-     */
-    public function saveRel(Mage_Admin_Model_Rules $rule)
-    {
+    public function saveRel(Mage_Admin_Model_Rules $rule) {
+        $this->_getWriteAdapter()->beginTransaction();
+
         try {
-            $this->_getWriteAdapter()->beginTransaction();
             $roleId = $rule->getRoleId();
             $this->_getWriteAdapter()->delete($this->getMainTable(), "role_id = {$roleId}");
-            $postedResources = $rule->getResources();
-            if ($postedResources) {
-                $row = array(
-                    'role_type'   => 'G',
-                    'resource_id' => 'all',
-                    'privileges'  => '', // not used yet
-                    'assert_id'   => 0,
-                    'role_id'     => $roleId,
-                    'permission'  => 'allow'
-                );
-
-                // If all was selected save it only and nothing else.
-                if ($postedResources === array('all')) {
-                    $this->_getWriteAdapter()->insert($this->getMainTable(), $row);
-                } else {
-                    foreach (Mage::getModel('admin/roles')->getResourcesList2D() as $index => $resName) {
-                        $row['permission']  = (in_array($resName, $postedResources) ? 'allow' : 'deny');
-                        $row['resource_id'] = trim($resName, '/');
-                        $this->_getWriteAdapter()->insert($this->getMainTable(), $row);
+            $masterResources = Mage::getModel('admin/roles')->getResourcesList2D();
+            $masterAdmin = false;
+            if ( $postedResources = $rule->getResources() ) {
+                foreach ($masterResources as $index => $resName) {
+                    if ( !$masterAdmin ) {
+                        $permission = ( in_array($resName, $postedResources) )? 'allow' : 'deny';
+                        $this->_getWriteAdapter()->insert($this->getMainTable(), array(
+                            'role_type' 	=> 'G',
+                            'resource_id' 	=> trim($resName, '/'),
+                            'privileges' 	=> '', # FIXME !!!
+                            'assert_id' 	=> 0,
+                            'role_id' 		=> $roleId,
+                            'permission'	=> $permission
+                            ));
+                    }
+                    if ( $resName == 'all' && $permission == 'allow' ) {
+                        $masterAdmin = true;
                     }
                 }
             }
 
             $this->_getWriteAdapter()->commit();
         } catch (Mage_Core_Exception $e) {
-            $this->_getWriteAdapter()->rollBack();
             throw $e;
         } catch (Exception $e){
             $this->_getWriteAdapter()->rollBack();
-            Mage::logException($e);
         }
     }
 }

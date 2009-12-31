@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -35,11 +35,7 @@
 class Mage_Tag_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_Entity_Customer_Collection
 {
     protected $_allowDisableGrouping = true;
-    protected $_countAttribute = 'tr.tag_id';
-
-    /**
-     * @deprecated after 1.3.2.3
-     */
+    protected $_countAttribute = 'tr.tag_relation_id';
     protected $_joinFlags = array();
 
     public function _initSelect()
@@ -50,44 +46,25 @@ class Mage_Tag_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_Enti
         return $this;
     }
 
-    /**
-     * Set flag about joined table.
-     * setFlag method must be used in future.
-     *
-     * @deprecated after 1.3.2.3
-     * @param string $table
-     * @return Mage_Tag_Model_Mysql4_Customer_Collection
-     */
     public function setJoinFlag($table)
     {
-        $this->setFlag($table, true);
+        $this->_joinFlags[$table] = true;
         return $this;
     }
 
-    /**
-     * Get flag's status about joined table.
-     * getFlag method must be used in future.
-     *
-     * @deprecated after 1.3.2.3
-     * @param $table
-     * @return bool
-     */
     public function getJoinFlag($table)
     {
-        return $this->getFlag($table);
+        return isset($this->_joinFlags[$table]);
     }
 
-    /**
-     * Unset value of join flag.
-     * Set false (bool) value to flag instead in future.
-     *
-     * @deprecated after 1.3.2.3
-     * @param $table
-     * @return Mage_Tag_Model_Mysql4_Customer_Collection
-     */
     public function unsetJoinFlag($table=null)
     {
-        $this->setFlag($table, false);
+        if (is_null($table)) {
+            $this->_joinFlags = array();
+        } elseif ($this->getJoinFlag($table)) {
+            unset($this->_joinFlags[$table]);
+        }
+
         return $this;
     }
 
@@ -102,18 +79,6 @@ class Mage_Tag_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_Enti
     {
         $this->getSelect()
             ->where('tr.product_id = ?', $productId);
-        return $this;
-    }
-
-    /**
-     * Apply filter by store id(s).
-     *
-     * @param int|array $storeId
-     * @return Mage_Tag_Model_Mysql4_Customer_Collection
-     */
-    public function addStoreFilter($storeId)
-    {
-        $this->getSelect()->where('tr.store_id IN (?)', $storeId);
         return $this;
     }
 
@@ -134,9 +99,9 @@ class Mage_Tag_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_Enti
     public function addGroupByTag()
     {
         $this->getSelect()
-            ->group('tr.tag_id');
+            ->group('tr.tag_relation_id');
 
-        $this->_allowDisableGrouping = true;
+        $this->_allowDisableGrouping = false;
         return $this;
     }
 
@@ -179,14 +144,18 @@ class Mage_Tag_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_Enti
 
     public function getSelectCountSql()
     {
-        $countSelect = parent::getSelectCountSql();
+        $countSelect = clone $this->getSelect();
+        $countSelect->reset(Zend_Db_Select::ORDER);
+        $countSelect->reset(Zend_Db_Select::LIMIT_COUNT);
+        $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
 
-        if ($this->_allowDisableGrouping) {
-            $countSelect->reset(Zend_Db_Select::COLUMNS);
+        if( $this->_allowDisableGrouping ) {
             $countSelect->reset(Zend_Db_Select::GROUP);
-            $countSelect->columns('COUNT(DISTINCT ' . $this->getCountAttribute() . ')');
         }
-        return $countSelect;
+
+        $sql = $countSelect->__toString();
+        $sql = preg_replace('/^select\s+.+?\s+from\s+/is', "select count({$this->getCountAttribute()}) from ", $sql);
+        return $sql;
     }
 
     public function addProductName()

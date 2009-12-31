@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_GoogleCheckout
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 set_include_path(get_include_path().PS.Mage::getBaseDir('lib').DS.'googlecheckout');
@@ -199,20 +199,5 @@ abstract class Mage_GoogleCheckout_Model_Api_Xml_Abstract extends Varien_Object
     protected function _getCallbackUrl()
     {
         return Mage::getUrl('googlecheckout/api', array('_forced_secure'=>Mage::getStoreConfig('google/checkout/use_secure_callback_url', $this->getStoreId())));
-    }
-
-    /**
-     * Recalculate amount to store currency
-     *
-     * @param float $amount
-     * @param Mage_Sales_Model_Quote $quote
-     * @return float
-     */
-    protected function _reCalculateToStoreCurrency($amount, $quote)
-    {
-        if ($quote->getQuoteCurrencyCode() != $quote->getBaseCurrencyCode()) {
-            $amount = $amount * $quote->getStoreToQuoteRate();
-        }
-        return $amount;
     }
 }

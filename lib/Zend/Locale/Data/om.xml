@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "../../common/dtd/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.62 $"/>
-		<generation date="$Date: 2009/05/05 23:06:38 $"/>
+		<version number="$Revision: 1.52 $"/>
+		<generation date="$Date: 2008/05/28 15:49:34 $"/>
 		<language type="om"/>
 	</identity>
 	<localeDisplayNames>
@@ -228,17 +228,17 @@
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
-							<pattern>EEEE, MMMM d, y</pattern>
+							<pattern>EEEE, MMMM d, yyyy</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
 						<dateFormat>
-							<pattern>dd MMMM y</pattern>
+							<pattern>dd MMMM yyyy</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="medium">
 						<dateFormat>
-							<pattern>dd-MMM-y</pattern>
+							<pattern>dd-MMM-yyyy</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="short">
@@ -250,7 +250,7 @@
 				<timeFormats>
 					<timeFormatLength type="full">
 						<timeFormat>
-							<pattern>h:mm:ss a zzzz</pattern>
+							<pattern>h:mm:ss a v</pattern>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="long">
@@ -270,12 +270,17 @@
 					</timeFormatLength>
 				</timeFormats>
 				<dateTimeFormats>
+					<dateTimeFormatLength>
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
 					<availableFormats>
 						<dateFormatItem id="MMMMdd">dd MMMM</dateFormatItem>
 						<dateFormatItem id="MMdd">dd/MM</dateFormatItem>
 						<dateFormatItem id="yyMM">MM/yy</dateFormatItem>
 						<dateFormatItem id="yyQ">Q yy</dateFormatItem>
-						<dateFormatItem id="yyyyMMMM">MMMM y</dateFormatItem>
+						<dateFormatItem id="yyyyMMMM">MMMM yyyy</dateFormatItem>
 					</availableFormats>
 				</dateTimeFormats>
 			</calendar>
@@ -303,6 +308,7 @@
 			</currency>
 			<currency type="ETB">
 				<displayName>Itoophiyaa Birrii</displayName>
+				<symbol>$</symbol>
 			</currency>
 			<currency type="EUR">
 				<displayName>Euro</displayName>
@@ -316,6 +322,9 @@
 			<currency type="JPY">
 				<displayName>Japanese Yen</displayName>
 			</currency>
+			<currency type="KES">
+				<symbol>Ksh</symbol>
+			</currency>
 			<currency type="RUB">
 				<displayName>Russian Ruble</displayName>
 			</currency>
@@ -325,4 +334,3 @@
 		</currencies>
 	</numbers>
 </ldml>
-

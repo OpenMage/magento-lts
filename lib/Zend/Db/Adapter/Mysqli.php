@@ -15,11 +15,16 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Mysqli.php 16203 2009-06-21 18:56:17Z thomas $
+ * @version    $Id: Mysqli.php 13009 2008-12-04 00:37:15Z sidhighwind $
  */
 
+
+/**
+ * @see Zend_Loader
+ */
+#require_once 'Zend/Loader.php';
 
 /**
  * @see Zend_Db_Adapter_Abstract
@@ -46,7 +51,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
@@ -305,7 +310,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
                     // Suppress warnings here
                     // Ignore it if it's not a valid constant
                     $option = @constant(strtoupper($option));
-                    if($option === null)
+                    if(is_null($option))
                         continue;
                 }
                 mysqli_options($this->_connection, $option, $value);
@@ -324,17 +329,11 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         );
 
         if ($_isConnected === false || mysqli_connect_errno()) {
-
-            $this->closeConnection();
             /**
              * @see Zend_Db_Adapter_Mysqli_Exception
              */
             #require_once 'Zend/Db/Adapter/Mysqli/Exception.php';
             throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_error());
-        }
-
-        if (!empty($this->_config['charset'])) {
-            mysqli_set_charset($this->_connection, $this->_config['charset']);
         }
     }
 
@@ -374,10 +373,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             $this->_stmt->close();
         }
         $stmtClass = $this->_defaultStmtClass;
-        if (!class_exists($stmtClass)) {
-            #require_once 'Zend/Loader.php';
-            Zend_Loader::loadClass($stmtClass);
-        }
+        #Zend_Loader::loadClass($stmtClass);
         $stmt = new $stmtClass($this, $sql);
         if ($stmt === false) {
             return false;

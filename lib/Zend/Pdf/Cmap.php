@@ -12,14 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Cmap.php 18993 2009-11-15 17:09:16Z alexander $
  */
 
+/** Zend_Pdf_Cmap_ByteEncoding */
+#require_once 'Zend/Pdf/Cmap/ByteEncoding.php';
+
+/** Zend_Pdf_Cmap_ByteEncoding_Static */
+#require_once 'Zend/Pdf/Cmap/ByteEncoding/Static.php';
+
+/** Zend_Pdf_Cmap_SegmentToDelta */
+#require_once 'Zend/Pdf/Cmap/SegmentToDelta.php';
+
+/** Zend_Pdf_Cmap_TrimmedTable */
+#require_once 'Zend/Pdf/Cmap/TrimmedTable.php';
 
 /**
  * Abstract helper class for {@link Zend_Pdf_Resource_Font} which manages font
@@ -47,7 +56,7 @@
  *
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_Cmap
@@ -146,11 +155,9 @@ abstract class Zend_Pdf_Cmap
     {
         switch ($cmapType) {
             case Zend_Pdf_Cmap::TYPE_BYTE_ENCODING:
-                #require_once 'Zend/Pdf/Cmap/ByteEncoding.php';
                 return new Zend_Pdf_Cmap_ByteEncoding($cmapData);
 
             case Zend_Pdf_Cmap::TYPE_BYTE_ENCODING_STATIC:
-                #require_once 'Zend/Pdf/Cmap/ByteEncoding/Static.php';
                 return new Zend_Pdf_Cmap_ByteEncoding_Static($cmapData);
 
             case Zend_Pdf_Cmap::TYPE_HIGH_BYTE_MAPPING:
@@ -159,11 +166,9 @@ abstract class Zend_Pdf_Cmap
                                              Zend_Pdf_Exception::CMAP_TYPE_UNSUPPORTED);
 
             case Zend_Pdf_Cmap::TYPE_SEGMENT_TO_DELTA:
-                #require_once 'Zend/Pdf/Cmap/SegmentToDelta.php';
                 return new Zend_Pdf_Cmap_SegmentToDelta($cmapData);
 
             case Zend_Pdf_Cmap::TYPE_TRIMMED_TABLE:
-                #require_once 'Zend/Pdf/Cmap/TrimmedTable.php';
                 return new Zend_Pdf_Cmap_TrimmedTable($cmapData);
 
             case Zend_Pdf_Cmap::TYPE_MIXED_COVERAGE:

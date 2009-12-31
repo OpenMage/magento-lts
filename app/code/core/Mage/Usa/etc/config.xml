@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Usa
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Usa
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Usa>
-            <version>0.7.1</version>
+            <version>0.7.0</version>
         </Mage_Usa>
     </modules>
     <global>
@@ -37,7 +37,15 @@
                 <setup>
                     <module>Mage_Usa</module>
                 </setup>
+                <connection>
+                    <use>directory_setup</use>
+                </connection>
             </usa_setup>
+            <usa_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </usa_read>
         </resources>
         <models>
             <usa>
@@ -150,7 +158,7 @@
                 <dest_type>RES</dest_type>
                 <free_method>GND</free_method>
                 <gateway_url>http://www.ups.com/using/services/rave/qcostcgi.cgi</gateway_url>
-                <gateway_xml_url>https://onlinetools.ups.com/ups.app/xml/Rate</gateway_xml_url>
+                <gateway_xml_url>https://www.ups.com/ups.app/xml/Rate</gateway_xml_url>
                 <handling>0</handling>
                 <model>usa/shipping_carrier_ups</model>
                 <pickup>CC</pickup>
@@ -164,7 +172,6 @@
                 <handling_type>F</handling_type>
                 <handling_action>O</handling_action>
                 <negotiated_active>0</negotiated_active>
-                <mode_xml>1</mode_xml>
             </ups>
 
             <usps>

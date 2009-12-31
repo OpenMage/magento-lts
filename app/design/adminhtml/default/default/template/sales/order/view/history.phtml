@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   default
+ * @package    default_default
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div id="order_history_block">
@@ -54,22 +54,20 @@
     <div class="divider"></div>
     <?php endif;?>
     <ul class="note-list">
-    <?php foreach ($this->getOrder()->getStatusHistoryCollection(true) as $_item): ?>
+    <?php foreach ($this->getOrder()->getStatusHistoryCollection(true) as $_history): ?>
         <li>
-            <strong><?php echo $this->helper('core')->formatDate($_item->getCreatedAtDate(), 'medium') ?></strong>
-            <?php echo $this->helper('core')->formatTime($_item->getCreatedAtDate(), 'medium') ?><span class="separator">|</span><strong><?php echo $_item->getStatusLabel() ?></strong><br/><small><?php echo $this->helper('sales')->__('Customer') ?>
+            <strong><?php echo $this->helper('core')->formatDate($_history->getCreatedAtDate(), 'medium') ?></strong>
+            <?php echo $this->helper('core')->formatTime($_history->getCreatedAtDate(), 'medium') ?><span class="separator">|</span><strong><?php echo $_history->getStatusLabel() ?></strong><br/><small><?php echo $this->helper('sales')->__('Customer') ?>
             <strong class="subdue">
-                <?php if ($this->isCustomerNotificationNotApplicable($_item)): ?>
-                <?php echo $this->helper('sales')->__('Notification Not Applicable') ?>
-                <?php elseif ($_item->getIsCustomerNotified()): ?>
+                <?php if ($_history->getIsCustomerNotified()): ?>
                 <?php echo $this->helper('sales')->__('Notified') ?>
                 <img src="<?php echo $this->getSkinUrl('images/ico_success.gif') ?>" width="16" height="16" alt="" />
                 <?php else: ?>
                 <?php echo $this->helper('sales')->__('Not Notified') ?>
                 <?php endif; ?>
             </strong></small>
-            <?php if ($_item->getComment()): ?>
-                <br/><?php echo $this->htmlEscape($_item->getComment(), array('b','br','strong','i','u')) ?>
+            <?php if ($_history->getComment()): ?>
+                <br/><?php echo $this->htmlEscape($_history->getComment(), array('b','br','strong','i','u')) ?>
             <?php endif; ?>
         </li>
     <?php endforeach; ?>

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -132,26 +132,18 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 'name'  => 'sendemail',
                 'id'    => 'sendemail',
             ));
-            if (!Mage::app()->isSingleStoreMode()) {
-                $fieldset->addField('sendemail_store_id', 'select', array(
-                    'label' => $this->helper('customer')->__('Send From'),
-                    'name' => 'sendemail_store_id',
-                    'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm()
-                ));
-            }
         }
 
-        // make sendemail and sendmail_store_id disabled, if website_id has empty value
-        if ($sendemail = $form->getElement('sendemail_store_id')) {
+        // make sendemail disabled, if website_id has empty value
+        if ($sendemail = $form->getElement('sendemail')) {
             $prefix = $form->getHtmlIdPrefix();
             $sendemail->setAfterElementHtml(
                 '<script type="text/javascript">'
                 . "
                 $('{$prefix}website_id').disableSendemail = function() {
                     $('{$prefix}sendemail').disabled = ('' == this.value || '0' == this.value);
-                    $('{$prefix}sendemail_store_id').disabled = ('' == this.value || '0' == this.value);
                 }.bind($('{$prefix}website_id'));
-                Event.observe('{$prefix}website_id', 'change', $('{$prefix}website_id').disableSendemail);
+                Event.observe('{$prefix}website_id', 'click', $('{$prefix}website_id').disableSendemail);
                 $('{$prefix}website_id').disableSendemail();
                 "
                 . '</script>'

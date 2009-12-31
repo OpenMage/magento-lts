@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -229,7 +229,7 @@ class Mage_Core_Model_Locale
     {
         $options    = array();
         $locales    = $this->getLocale()->getLocaleList();
-        $languages  = $this->getLocale()->getTranslationList('language', $this->getLocale());
+        $languages  = $this->getLocale()->getLanguageTranslationList($this->getLocale());
         $countries  = $this->getCountryTranslationList();
 
         $allowed    = $this->getAllowLocales();
@@ -243,8 +243,8 @@ class Mage_Core_Model_Locale
                     continue;
                 }
                 if ($translatedName) {
-                    $label = ucwords($this->getLocale()->getTranslation($data[0], 'language', $code))
-                        . ' (' . $this->getLocale()->getTranslation($data[1], 'country', $code) . ') / '
+                    $label = ucwords($this->getLocale()->getLanguageTranslation($data[0], $code))
+                        . ' (' . $this->getLocale()->getCountryTranslation($data[1], $code)  . ') / '
                         . $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
                 } else {
                     $label = $languages[$data[0]] . ' (' . $countries[$data[1]] . ')';
@@ -381,7 +381,11 @@ class Mage_Core_Model_Locale
      */
     public function getAllowLocales()
     {
-        return Mage::getSingleton('core/locale_config')->getAllowedLocales();
+        $data = Mage::getConfig()->getNode(self::XML_PATH_ALLOW_CODES)->asArray();
+        if ($data) {
+            return array_keys($data);
+        }
+        return array();
     }
 
     /**
@@ -395,8 +399,12 @@ class Mage_Core_Model_Locale
         if (Mage::isInstalled()) {
             $data = Mage::app()->getStore()->getConfig(self::XML_PATH_ALLOW_CURRENCIES_INSTALLED);
             return explode(',', $data);
-        } else {
-            $data = Mage::getSingleton('core/locale_config')->getAllowedCurrencies();
+        }
+        else {
+            $data = Mage::getConfig()->getNode(self::XML_PATH_ALLOW_CURRENCIES)->asArray();
+            if ($data) {
+                return array_keys($data);
+            }
         }
         return $data;
     }
@@ -504,25 +512,6 @@ class Mage_Core_Model_Locale
     }
 
     /**
-     * Create Zend_Date object with date converted from store's timezone
-     * to UTC time zone. Date can be passed in format of store's locale
-     * or in format which was passed as parameter.
-     *
-     * @param mixed $store Information about store
-     * @param string|integer|Zend_Date|array|null $date date in store's timezone
-     * @param boolean $includeTime flag for including time to date
-     * @param null|string $format
-     * @return Zend_Date
-     */
-    public function utcDate($store=null, $date, $includeTime = false, $format = null)
-    {
-        $dateObj = $this->storeDate($store, $date, $includeTime);
-        $dateObj->set($date, $format);
-        $dateObj->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
-        return $dateObj;
-    }
-
-    /**
      * Get store timestamp
      * Timstamp will be builded with store timezone settings
      *
@@ -540,19 +529,19 @@ class Mage_Core_Model_Locale
     }
 
     /**
-     * Create Zend_Currency object for current locale
+     * Create Mage_Core_Model_Locale_Currency object for current locale
      *
      * @param   string $currency
-     * @return  Zend_Currency
+     * @return  Mage_Core_Model_Locale_Currency
      */
     public function currency($currency)
     {
         Varien_Profiler::start('locale/currency');
         if (!isset(self::$_currencyCache[$this->getLocaleCode()][$currency])) {
             try {
-                $currencyObject = new Zend_Currency($currency, $this->getLocale());
+                $currencyObject = new Mage_Core_Model_Locale_Currency($currency, $this->getLocale());
             } catch (Exception $e) {
-                $currencyObject = new Zend_Currency($this->getCurrency(), $this->getLocale());
+                $currencyObject = new Mage_Core_Model_Locale_Currency($this->getCurrency(), $this->getLocale());
                 $options = array(
                         'name'      => $currency,
                         'currency'  => $currency,
@@ -735,7 +724,7 @@ class Mage_Core_Model_Locale
      */
     public function getCountryTranslation($value)
     {
-        return $this->getLocale()->getTranslation($value, 'country', $this->getLocale());
+        return $this->getLocale()->getCountryTranslation($value, $this->getLocale());
     }
 
     /**
@@ -745,18 +734,18 @@ class Mage_Core_Model_Locale
      */
     public function getCountryTranslationList()
     {
-        return $this->getLocale()->getTranslationList('territory', $this->getLocale(), 2);
+        return $this->getLocale()->getCountryTranslationList($this->getLocale());
     }
 
     /**
-     * Checks if current date of the given store (in the store timezone) is within the range
+     * Is Store dat in iterval
      *
      * @param int|string|Mage_Core_Model_Store $store
      * @param string|null $dateFrom
      * @param string|null $dateTo
      * @return bool
      */
-    public function isStoreDateInInterval($store, $dateFrom = null, $dateTo = null)
+    public function IsStoreDateInInterval($store, $dateFrom = null, $dateTo = null)
     {
         if (!$store instanceof Mage_Core_Model_Store) {
             $store = Mage::app()->getStore($store);

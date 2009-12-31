@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Delicious
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Delicious.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Delicious.php 9638 2008-06-08 15:58:11Z ghacek $
  */
 
 
@@ -54,7 +54,7 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Delicious
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Delicious
@@ -426,10 +426,10 @@ class Zend_Service_Delicious
         $path = sprintf(self::JSON_FANS, $user);
         return $this->makeRequest($path, array(), 'json');
     }
-
+    
     /**
      * Get details on a particular bookmarked URL
-     *
+     * 
      * Returned array contains four elements:
      *  - hash - md5 hash of URL
      *  - top_tags - array of tags and their respective usage counts
@@ -439,14 +439,14 @@ class Zend_Service_Delicious
      * If URL hasen't been bookmarked null is returned.
      *
      * @param  string $url URL for which to get details
-     * @return array
+     * @return array 
      */
-    public function getUrlDetails($url)
+    public function getUrlDetails($url) 
     {
         $parms = array('hash' => md5($url));
-
+        
         $res = $this->makeRequest(self::JSON_URL, $parms, 'json');
-
+        
         if(isset($res[0])) {
             return $res[0];
         } else {

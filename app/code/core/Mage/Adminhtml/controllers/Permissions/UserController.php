@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controller_Action
 {
@@ -82,36 +82,8 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
     public function saveAction()
     {
         if ($data = $this->getRequest()->getPost()) {
-
-            $id = $this->getRequest()->getParam('user_id');
-            $model = Mage::getModel('admin/user')->load($id);
-            if (!$model->getId() && $id) {
-                Mage::getSingleton('adminhtml/session')->addError($this->__('This User no longer exists'));
-                $this->_redirect('*/*/');
-                return;
-            }
+            $model = Mage::getModel('admin/user');
             $model->setData($data);
-
-            /*
-             * Unsetting new password and password confirmation if they are blank
-             */
-            if ($model->hasNewPassword() && $model->getNewPassword() === '') {
-                $model->unsNewPassword();
-            }
-            if ($model->hasPasswordConfirmation() && $model->getPasswordConfirmation() === '') {
-                $model->unsPasswordConfirmation();
-            }
-
-            $result = $model->validate();
-            if (is_array($result)) {
-                Mage::getSingleton('adminhtml/session')->setUserData($data);
-                foreach ($result as $message) {
-                    Mage::getSingleton('adminhtml/session')->addError($message);
-                }
-                $this->_redirect('*/*/edit', array('_current' => true));
-                return $this;
-            }
-
             try {
                 $model->save();
                 if ( $uRoles = $this->getRequest()->getParam('roles', false) ) {
@@ -133,7 +105,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 Mage::getSingleton('adminhtml/session')->setUserData(false);
                 $this->_redirect('*/*/edit', array('user_id' => $model->getUserId()));
                 return;
-            } catch (Mage_Core_Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setUserData($data);
                 $this->_redirect('*/*/edit', array('user_id' => $model->getUserId()));

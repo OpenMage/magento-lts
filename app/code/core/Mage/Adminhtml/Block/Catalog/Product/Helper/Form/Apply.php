@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -35,17 +35,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Apply extends Varien_Data
 {
     public function getElementHtml()
     {
-        $elementAttributeHtml = '';
-
-        if ($this->getReadonly()) {
-            $elementAttributeHtml = $elementAttributeHtml . ' readonly="readonly"';
-        }
-
-        if ($this->getDisabled()) {
-            $elementAttributeHtml = $elementAttributeHtml . ' disabled="disabled"';
-        }
-
-        $html = '<select onchange="toggleApplyVisibility(this)"' . $elementAttributeHtml . '>'
+        $html = '<select onchange="toggleApplyVisibility(this)">'
               . '<option value="0">' . $this->getModeLabels('all'). '</option>'
               . '<option value="1" ' . ($this->getValue()==null ? '' : 'selected') . '>' . $this->getModeLabels('custom'). '</option>'
               . '</select><br /><br />';
@@ -53,19 +43,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Apply extends Varien_Data
         $html .= parent::getElementHtml();
         return $html;
     }
-
-    /**
-     * Dublicate interface of Varien_Data_Form_Element_Abstract::setReadonly
-     *
-     * @param bool $readonly
-     * @param bool $useDisabled
-     * @return Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Apply
-     */
-    public function setReadonly($readonly, $useDisabled = false)
-    {
-        $this->setData('readonly', $readonly);
-        $this->setData('disabled', $useDisabled);
-        return $this;
-    }
-
 }

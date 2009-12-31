@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Log
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Log
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -151,7 +151,7 @@ class Mage_Log_Model_Mysql4_Visitor_Collection extends Varien_Data_Collection_Db
         $email  = $customersCollection->getAttribute('email');
 
         $this->_select
-            ->columns(array('type' => 'IF(customer_id, \''.Mage_Log_Model_Visitor::VISITOR_TYPE_CUSTOMER.'\', \''.Mage_Log_Model_Visitor::VISITOR_TYPE_VISITOR.'\')'))
+            ->from('', array('type' => 'IF(customer_id, \''.Mage_Log_Model_Visitor::VISITOR_TYPE_CUSTOMER.'\', \''.Mage_Log_Model_Visitor::VISITOR_TYPE_VISITOR.'\')'))
             ->joinLeft(
                 array('customer_lastname_table'=>$lastname->getBackend()->getTable()),
                 'customer_lastname_table.entity_id=customer_table.customer_id

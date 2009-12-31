@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -230,7 +230,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     /**
      * Get attribute model associated with filter
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     * @return Mage_Eav_Model_Entity_Attribute
      */
     public function getAttributeModel()
     {
@@ -248,56 +248,6 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
      */
     public function getName()
     {
-        return $this->getAttributeModel()->getStoreLabel();
-    }
-
-    /**
-     * Retrieve current store id scope
-     *
-     * @return int
-     */
-    public function getStoreId()
-    {
-        $storeId = $this->_getData('store_id');
-        if (is_null($storeId)) {
-            $storeId = Mage::app()->getStore()->getId();
-        }
-        return $storeId;
-    }
-
-    /**
-     * Set store id scope
-     *
-     * @param int $storeId
-     * @return Mage_Catalog_Model_Layer_Filter_Abstract
-     */
-    public function setStoreId($storeId)
-    {
-        return $this->setData('store_id', $storeId);
-    }
-
-    /**
-     * Retrieve Website ID scope
-     *
-     * @return int
-     */
-    public function getWebsiteId()
-    {
-        $websiteId = $this->_getData('website_id');
-        if (is_null($websiteId)) {
-            $websiteId = Mage::app()->getStore()->getWebsiteId();
-        }
-        return $websiteId;
-    }
-
-    /**
-     * Set Website ID scope
-     *
-     * @param int $websiteId
-     * @return Mage_Catalog_Model_Layer_Filter_Abstract
-     */
-    public function setWebsiteId($websiteId)
-    {
-        return $this->setData('website_id', $websiteId);
+        return $this->getAttributeModel()->getFrontendLabel();
     }
 }

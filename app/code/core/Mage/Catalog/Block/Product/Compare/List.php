@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -32,7 +32,7 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product_Compare_Abstract
+class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product_Abstract
 {
     /**
      * Product Compare items collection
@@ -49,39 +49,13 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     protected $_attributes;
 
     /**
-     * Flag which allow/disallow to use link for as low as price
-     *
-     * @var bool
-     */
-    protected $_useLinkForAsLowAs = false;
-
-    /**
-     * Retrieve url for adding product to wishlist with params
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @return string
-     */
-    public function getAddToWishlistUrl($product)
-    {
-        $continueUrl    = Mage::helper('core')->urlEncode($this->getUrl('customer/account'));
-        $urlParamName   = Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED;
-
-        $params = array(
-            $urlParamName   => $continueUrl
-        );
-
-        return $this->helper('wishlist')->getAddUrlWithParams($product, $params);
-    }
-
-    /**
      * Preparing layout
      *
      * @return Mage_Catalog_Block_Product_Compare_List
      */
     protected function _prepareLayout()
     {
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
+        if ($headBlock = $this->getLayout()->getBlock('head')) {
             $headBlock->setTitle(Mage::helper('catalog')->__('Compare Products List') . ' - ' . $headBlock->getDefaultTitle());
         }
         return parent::_prepareLayout();
@@ -96,16 +70,17 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     {
         if (is_null($this->_items)) {
             Mage::helper('catalog/product_compare')->setAllowUsedFlat(false);
-
             $this->_items = Mage::getResourceModel('catalog/product_compare_item_collection')
                 ->useProductItem(true)
                 ->setStoreId(Mage::app()->getStore()->getId());
 
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-                $this->_items->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
+                $this->_items
+                    ->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
             }
             else {
-                $this->_items->setVisitorId(Mage::getSingleton('log/visitor')->getId());
+                $this->_items
+                    ->setVisitorId(Mage::getSingleton('log/visitor')->getId());
             }
 
             $this->_items

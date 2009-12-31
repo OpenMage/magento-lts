@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,12 +31,7 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region extends Mage_Adminhtml_Block_Abstract implements Varien_Data_Form_Element_Renderer_Interface
 {
-    /**
-     * Output the region element and javasctipt that makes it dependent from country element
-     *
-     * @param Varien_Data_Form_Element_Abstract $element
-     * @return string
-     */
+
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         if ($country = $element->getForm()->getElement('country_id')) {
@@ -58,12 +53,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region extends Mage_Adminhtml_
         $html.= '<select id="'.$selectId.'" name="'.$selectName.'" class="select required-entry" style="display:none">';
         $html.= '<option value="">'.Mage::helper('customer')->__('Please select').'</option>';
         $html.= '</select>';
-
-        $html.= '<script type="text/javascript">'."\n";
-        $html.= 'new regionUpdater("'.$country->getHtmlId().'", "'.$element->getHtmlId().'", "'.$selectId.'", '.$this->helper('directory')->getRegionJson().');'."\n";
-        $html.= '</script>'."\n";
-
+        $html.= '<script type="text/javascript">
+        if ($("'.$country->getHtmlId().'") != undefined) {
+            new regionUpdater("'.$country->getHtmlId().'", "'.$element->getHtmlId().'", "'.$selectId.'", '.$this->helper('directory')->getRegionJson().');
+        }
+        </script>';
         $html.= '</td></tr>'."\n";
         return $html;
     }
+
 }

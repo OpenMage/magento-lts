@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -160,19 +160,29 @@ class Mage_Bundle_Model_Mysql4_Selection extends Mage_Core_Model_Mysql4_Abstract
     }
 
     /**
-     * Retrieve array of related bundle product ids by selection product id(s)
+     * Retrieve parent ids array by requered child
      *
      * @param int|array $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
     {
-        $adapter = $this->_getReadAdapter();
-        $select  = $adapter->select()
-            ->distinct(true)
-            ->from($this->getMainTable(), 'parent_product_id')
-            ->where('product_id IN(?)', $childId);
+        $parentIds = array();
 
-        return $adapter->fetchCol($select);
+        $select = $this->_getReadAdapter()->select()
+            ->from(
+                array('tbl_selection' => $this->getMainTable()),
+                array('product_id', 'parent_product_id', 'option_id'))
+            ->join(
+                array('tbl_option' => $this->getTable('bundle/option')),
+                '`tbl_option`.`option_id` = `tbl_selection`.`option_id`',
+                array('required')
+            )
+            ->where('`tbl_selection`.`product_id` IN(?)', $childId);
+        foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
+            $parentIds[] = $row['parent_product_id'];
+        }
+
+        return $parentIds;
     }
 }

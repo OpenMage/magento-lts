@@ -19,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Rating
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Rating
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
@@ -72,7 +72,20 @@
                 <setup>
                     <module>Mage_Rating</module>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </rating_setup>
+            <rating_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </rating_write>
+            <rating_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </rating_read>
         </resources>
         <blocks>
                 <rating>
@@ -93,6 +106,25 @@
     </frontend>
 
     <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <catalog>
+                            <children>
+                                <reviews_ratings>
+                                    <children>
+                                        <ratings translate="title" module="rating">
+                                            <title>Manage Ratings</title>
+                                        </ratings>
+                                     </children>
+                                </reviews_ratings>
+                            </children>
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
         <translate>
             <modules>
                 <Mage_Rating>
@@ -102,15 +134,5 @@
                 </Mage_Rating>
             </modules>
         </translate>
-        <events>
-            <catalog_product_delete_after_done>
-                <observers>
-                    <rating>
-                        <class>rating/observer</class>
-                        <method>processProductAfterDeleteEvent</method>
-                    </rating>
-                </observers>
-            </catalog_product_delete_after_done>
-        </events>
     </adminhtml>
 </config>

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Wishlist
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Wishlist
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -30,58 +30,36 @@
  *
  * @category   Mage
  * @package    Mage_Wishlist
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
 {
-    /**
-     * Entered Data cache
-     *
-     * @param array
-     */
+
     protected  $_enteredData = null;
 
-    /**
-     * Prepare Global Layout
-     *
-     * @return Mage_Wishlist_Block_Customer_Sharing
-     */
     protected function _prepareLayout()
     {
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
+        if ($headBlock = $this->getLayout()->getBlock('head')) {
             $headBlock->setTitle($this->__('Wishlist Sharing'));
         }
     }
 
-    /**
-     * Retrieve Send Form Action URL
-     *
-     * @return string
-     */
     public function getSendUrl()
     {
         return $this->getUrl('*/*/send');
     }
 
-    /**
-     * Retrieve Entered Data by key
-     *
-     * @param string $key
-     * @return mixed
-     */
     public function getEnteredData($key)
     {
-        if (is_null($this->_enteredData)) {
-            $this->_enteredData = Mage::getSingleton('wishlist/session')
-                ->getData('sharing_form', true);
+        if(is_null($this->_enteredData)) {
+            $this->_enteredData = Mage::getSingleton('wishlist/session')->getData('sharing_form', true);
         }
 
-        if (!$this->_enteredData || !isset($this->_enteredData[$key])) {
+        if(!$this->_enteredData || !isset($this->_enteredData[$key])) {
             return null;
-        }
-        else {
+        } else {
             return $this->htmlEscape($this->_enteredData[$key]);
         }
     }
+
 }

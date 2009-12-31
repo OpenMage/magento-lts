@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 #require_once 'Mage/Core/Model/Mysql4.php';
@@ -35,11 +35,7 @@ class Mage_Core_Model_Mysql4_Resource
     protected $_write = null;
     protected $_resTable = null;
     protected static $_versions = null;
-    protected static $_dataVersions = null;
 
-    /**
-     * Class constructor
-     */
     public function __construct()
     {
         $this->_resTable = Mage::getSingleton('core/resource')->getTableName('core/resource');
@@ -86,54 +82,14 @@ class Mage_Core_Model_Mysql4_Resource
             'version' => $version,
         );
 
-        if ($this->getDbVersion($resName)) {
+        if ($this -> getDbVersion($resName)) {
             self::$_versions[$resName] = $version;
-            $condition = $this->_write->quoteInto('code=?', $resName);
-            return $this->_write->update($this->_resTable, $dbModuleInfo, $condition);
+        	$condition = $this->_write->quoteInto('code=?', $resName);
+        	return $this->_write->update($this->_resTable, $dbModuleInfo, $condition);
         }
         else {
             self::$_versions[$resName] = $version;
-            return $this->_write->insert($this->_resTable, $dbModuleInfo);
+        	return $this->_write->insert($this->_resTable, $dbModuleInfo);
         }
-    }
-
-    /**
-     * Get resource data version
-     *
-     * @param string $resName
-     * @return string | false
-     */
-    public function getDataVersion($resName)
-    {
-        if (!$this->_read) {
-            return false;
-        }
-        if (is_null(self::$_dataVersions)) {
-            $select = $this->_read->select()->from($this->_resTable, array('code', 'data_version'));
-            self::$_dataVersions = $this->_read->fetchPairs($select);
-        }
-        return isset(self::$_dataVersions[$resName]) ? self::$_dataVersions[$resName] : false;
-    }
-
-    /**
-     * Specify resource data version
-     *
-     * @param string $resName
-     * @param string $version
-     * @return Mage_Core_Model_Mysql4_Resource
-     */
-    public function setDataVersion($resName, $version)
-    {
-        $data = array('code' => $resName, 'data_version' => $version);
-
-        if ($this->getDbVersion($resName) || $this->getDataVersion($resName)) {
-            self::$_dataVersions[$resName] = $version;
-            $this->_write->update($this->_resTable, $data, array('code=?' => $resName));
-        }
-        else {
-            self::$_dataVersions[$resName] = $version;
-            $this->_write->insert($this->_resTable, $data);
-        }
-        return $this;
     }
 }

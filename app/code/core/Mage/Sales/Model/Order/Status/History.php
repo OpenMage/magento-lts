@@ -18,31 +18,21 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- * Order status history comments
- */
+
 class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 {
-    const CUSTOMER_NOTIFICATION_NOT_APPLICABLE = 2;
-
     /**
      * Order instance
      *
      * @var Mage_Sales_Model_Order
      */
     protected $_order;
-
-    /**
-     * Whether setting order again is required (for example when setting non-saved yet order)
-     * @var bool
-     */
-    private $_shouldSetOrderBeforeSave = false;
 
     /**
      * Initialize resource model
@@ -53,7 +43,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * Set order object and grab some metadata from it
+     * declare order instance
      *
      * @param   Mage_Sales_Model_Order $order
      * @return  Mage_Sales_Model_Order_Status_History
@@ -61,36 +51,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     public function setOrder(Mage_Sales_Model_Order $order)
     {
         $this->_order = $order;
-        $id = $order->getId();
-        if (!$id) {
-            $this->_shouldSetOrderBeforeSave = true;
-        }
-        return $this->setParentId($id)->setStoreId($order->getStoreId());
-    }
-
-    /**
-     * Notification flag
-     *
-     * @param  mixed $flag OPTIONAL (notification is not applicable by default)
-     * @return Mage_Sales_Model_Order_Status_History
-     */
-    public function setIsCustomerNotified($flag = null)
-    {
-        if (is_null($flag)) {
-            $flag = self::CUSTOMER_NOTIFICATION_NOT_APPLICABLE;
-        }
-
-        return $this->setData('is_customer_notified', $flag);
-    }
-
-    /**
-     * Customer Notification Applicable check method
-     *
-     * @return boolean
-     */
-    public function isCustomerNotificationNotApplicable()
-    {
-        return $this->getIsCustomerNotified() == self::CUSTOMER_NOTIFICATION_NOT_APPLICABLE;
+        return $this;
     }
 
     /**
@@ -126,17 +87,5 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
             return $this->getOrder()->getStore();
         }
         return Mage::app()->getStore();
-    }
-
-    /**
-     * Set order again if required
-     * @return Mage_Sales_Model_Order_Status_History
-     */
-    protected function _beforeSave()
-    {
-        if ($this->_shouldSetOrderBeforeSave) {
-            $this->setOrder($this->_order);
-        }
-        return parent::_beforeSave();
     }
 }

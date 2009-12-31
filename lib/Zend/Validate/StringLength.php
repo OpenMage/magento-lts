@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: StringLength.php 16223 2009-06-21 20:04:53Z thomas $
+ * @version    $Id: StringLength.php 13277 2008-12-15 19:52:00Z thomas $
  */
 
 /**
@@ -27,12 +27,11 @@
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_StringLength extends Zend_Validate_Abstract
 {
-    const INVALID   = 'stringLengthInvalid';
     const TOO_SHORT = 'stringLengthTooShort';
     const TOO_LONG  = 'stringLengthTooLong';
 
@@ -40,7 +39,6 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::INVALID   => "Invalid type given, value should be a string",
         self::TOO_SHORT => "'%value%' is less than %min% characters long",
         self::TOO_LONG  => "'%value%' is greater than %max% characters long"
     );
@@ -200,16 +198,12 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
      */
     public function isValid($value)
     {
-        if (!is_string($value)) {
-            $this->_error(self::INVALID);
-            return false;
-        }
-
-        $this->_setValue($value);
+        $valueString = (string) $value;
+        $this->_setValue($valueString);
         if ($this->_encoding !== null) {
-            $length = iconv_strlen($value, $this->_encoding);
+            $length = iconv_strlen($valueString, $this->_encoding);
         } else {
-            $length = iconv_strlen($value);
+            $length = iconv_strlen($valueString);
         }
 
         if ($length < $this->_min) {

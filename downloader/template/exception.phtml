@@ -1,0 +1,10 @@
+<?php echo $this->template($this->controller()->isInstalled() ? 'header.phtml' : 'install/header.phtml') ?>
+
+<h2>Exception caught:</h2>
+<br/>
+<h3><?php echo $this->get('exception')->getMessage() ?></h3>
+<br/>
+<h4>Backtrace:</h4>
+<pre><?php echo $this->get('exception')->getTraceAsString() ?></pre>
+
+<?php echo $this->template($this->controller()->isInstalled() ? 'footer.phtml' : 'install/footer.phtml') ?>

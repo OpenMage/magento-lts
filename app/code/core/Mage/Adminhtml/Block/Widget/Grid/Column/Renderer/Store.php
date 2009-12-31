@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -46,16 +46,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
         return Mage::getSingleton('adminhtml/system_store');
     }
 
-    /**
-     * Retrieve 'show all stores label' flag
-     *
-     * @return bool
-     */
     protected function _getShowAllStoresLabelFlag()
     {
-        return $this->getColumn()->getData('skipAllStoresLabel')
-            ? $this->getColumn()->getData('skipAllStoresLabel')
-            : $this->_skipAllStoresLabel;
+        return $this->getColumn()->getData('skipAllStoresLabel')?$this->getColumn()->getData('skipAllStoresLabel'):$this->_skipAllStoresLabel;
     }
 
     /**
@@ -66,83 +59,44 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
      */
     public function render(Varien_Object $row)
     {
-        $out = '';
         $skipAllStoresLabel = $this->_getShowAllStoresLabelFlag();
         $origStores = $row->getData($this->getColumn()->getIndex());
-
-        if (is_null($origStores) && $row->getStoreName()) {
-            $scopes = array();
-            foreach (explode("\n", $row->getStoreName()) as $k => $label) {
-                $scopes[] = str_repeat('&nbsp;', $k * 3) . $label;
-            }
-            $out .= implode('<br/>', $scopes) . $this->__(' [deleted]');
-            return $out;
-        }
-
+        $showNumericStores = (bool)$this->getColumn()->getShowNumericStores();
+        $stores = array();
         if (!is_array($origStores)) {
             $origStores = array($origStores);
         }
-
-        if (in_array(0, $origStores) && !$skipAllStoresLabel) {
-            return Mage::helper('adminhtml')->__('All Store Views');
-        }
-
-        $data = $this->_getStoreModel()->getStoresStructure(false, $origStores);
-
-        foreach ($data as $website) {
-            $out .= $website['label'] . '<br/>';
-            foreach ($website['children'] as $group) {
-                $out .= str_repeat('&nbsp;', 3) . $group['label'] . '<br/>';
-                foreach ($group['children'] as $store) {
-                    $out .= str_repeat('&nbsp;', 6) . $store['label'] . '<br/>';
+        foreach ($origStores as $origStore) {
+            if (is_numeric($origStore)) {
+                if (0 == $origStore) {
+                    if (!$skipAllStoresLabel) {
+                        $stores[] = Mage::helper('adminhtml')->__('All Store Views');
+                    }
+                }
+                elseif ($storeName = $this->_getStoreModel()->getStoreName($origStore)) {
+                    if ($this->getColumn()->getStoreView()) {
+                        $store = $this->_getStoreModel()->getStoreNameWithWebsite($origStore);
+                    } else {
+                        $store = $this->_getStoreModel()->getStoreNamePath($origStore);
+                    }
+                    $layers = array();
+                    foreach (explode('/', $store) as $key => $value) {
+                        $layers[] = str_repeat("&nbsp;", $key * 3) . $value;
+                    }
+                    $stores[] = implode('<br/>', $layers);
+                }
+                elseif ($showNumericStores) {
+                    $stores[] = $origStore;
                 }
             }
-        }
-
-        return $out;
-    }
-
-    /**
-     * Render row store views for export
-     *
-     * @param Varien_Object $row
-     * @return string
-     */
-    public function renderExport(Varien_Object $row)
-    {
-        $out = '';
-        $skipAllStoresLabel = $this->_getShowAllStoresLabelFlag();
-        $origStores = $row->getData($this->getColumn()->getIndex());
-
-        if (is_null($origStores) && $row->getStoreName()) {
-            $scopes = array();
-            foreach (explode("\n", $row->getStoreName()) as $k => $label) {
-                $scopes[] = str_repeat(' ', $k * 3) . $label;
+            elseif (is_null($origStore) && $row->getStoreName()) {
+                $stores[] = $row->getStoreName() . ' ' . $this->__('[deleted]');
             }
-            $out .= implode("\r\n", $scopes) . $this->__(' [deleted]');
-            return $out;
-        }
-
-        if (!is_array($origStores)) {
-            $origStores = array($origStores);
-        }
-
-        if (in_array(0, $origStores) && !$skipAllStoresLabel) {
-            return Mage::helper('adminhtml')->__('All Store Views');
-        }
-
-        $data = $this->_getStoreModel()->getStoresStructure(false, $origStores);
-
-        foreach ($data as $website) {
-            $out .= $website['label'] . "\r\n";
-            foreach ($website['children'] as $group) {
-                $out .= str_repeat(' ', 3) . $group['label'] . "\r\n";
-                foreach ($group['children'] as $store) {
-                    $out .= str_repeat(' ', 6) . $store['label'] . "\r\n";
-                }
+            else {
+                $stores[] = $origStore;
             }
         }
-
-        return $out;
+        return $stores ? join('<br/> ', $stores) : '&nbsp;';
     }
+
 }

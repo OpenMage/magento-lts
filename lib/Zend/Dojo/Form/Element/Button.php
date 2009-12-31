@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,13 +24,13 @@
 
 /**
  * Button dijit
- *
+ * 
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Button.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Button.php 10091 2008-07-15 03:46:37Z matthew $
  */
 class Zend_Dojo_Form_Element_Button extends Zend_Dojo_Form_Element_Dijit
 {
@@ -42,7 +42,7 @@ class Zend_Dojo_Form_Element_Button extends Zend_Dojo_Form_Element_Dijit
 
     /**
      * Constructor
-     *
+     * 
      * @param  string|array|Zend_Config $spec Element name or configuration
      * @param  string|array|Zend_Config $options Element value or configuration
      * @return void
@@ -62,7 +62,7 @@ class Zend_Dojo_Form_Element_Button extends Zend_Dojo_Form_Element_Dijit
      * If no label is present, returns the currently set name.
      *
      * If a translator is present, returns the translated label.
-     *
+     * 
      * @return string
      */
     public function getLabel()
@@ -82,7 +82,7 @@ class Zend_Dojo_Form_Element_Button extends Zend_Dojo_Form_Element_Dijit
 
     /**
      * Has this submit button been selected?
-     *
+     * 
      * @return bool
      */
     public function isChecked()
@@ -103,7 +103,7 @@ class Zend_Dojo_Form_Element_Button extends Zend_Dojo_Form_Element_Dijit
      * Default decorators
      *
      * Uses only 'DijitElement' and 'DtDdWrapper' decorators by default.
-     *
+     * 
      * @return void
      */
     public function loadDefaultDecorators()

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Payment
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Payment
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -44,13 +44,13 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
         $key = self::XML_PATH_PAYMENT_METHODS.'/'.$code.'/model';
         $class = Mage::getStoreConfig($key);
         if (!$class) {
-            Mage::throwException($this->__('Cannot load configuration for payment method "%s"', $code));
+            Mage::throwException($this->__('Can not configuration for payment method with code: %s', $code));
         }
         return Mage::getModel($class);
     }
 
     /**
-     * Get and sort available payment methods for specified or current store
+     * Retrieve available payment methods for store
      *
      * array structure:
      *  $index => Varien_Simplexml_Element
@@ -58,34 +58,61 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * @param   mixed $store
      * @return  array
      */
-    public function getStoreMethods($store = null, $quote = null)
+    public function getStoreMethods($store=null, $quote=null)
     {
         $methods = Mage::getStoreConfig(self::XML_PATH_PAYMENT_METHODS, $store);
         $res = array();
         foreach ($methods as $code => $methodConfig) {
-            $prefix = self::XML_PATH_PAYMENT_METHODS . '/' . $code . '/';
-            if (!$model = Mage::getStoreConfig($prefix . 'model', $store)) {
+            $prefix = self::XML_PATH_PAYMENT_METHODS.'/'.$code.'/';
+
+            if (!Mage::getStoreConfigFlag($prefix.'active', $store)) {
                 continue;
             }
+            if (!$model = Mage::getStoreConfig($prefix.'model', $store)) {
+                continue;
+            }
+
             $methodInstance = Mage::getModel($model);
-            if (!$methodInstance->isAvailable($quote)) {
+
+            if ($methodInstance instanceof Mage_Payment_Model_Method_Cc && !Mage::getStoreConfig($prefix.'cctypes')) {
+                /* if the payment method has credit card types configuration option
+                   and no credit card type is enabled in configuration */
+                continue;
+            }
+
+            if ( !$methodInstance->isAvailable($quote) ) {
                 /* if the payment method can not be used at this time */
                 continue;
             }
 
-            $sortOrder = (int)Mage::getStoreConfig($prefix . 'sort_order', $store);
+            $sortOrder = (int)Mage::getStoreConfig($prefix.'sort_order', $store);
             $methodInstance->setSortOrder($sortOrder);
             $methodInstance->setStore($store);
+//            while (isset($res[$sortOrder])) {
+//                $sortOrder++;
+//            }
+//            $res[$sortOrder] = $methodInstance;
             $res[] = $methodInstance;
         }
+//        ksort($res);
+        //die('!');
 
+        //echo '<pre>';
+        //var_dump( (array)$res);
         usort($res, array($this, '_sortMethods'));
+        //var_dump((array)$res);
+      //  echo '</pre>';
         return $res;
     }
 
     protected function _sortMethods($a, $b)
     {
+       // var_dump($a);
         if (is_object($a)) {
+            //var_dump($a->getData());
+            //var_dump($a->sort_order);
+            //die ();
+
             return (int)$a->sort_order < (int)$b->sort_order ? -1 : ((int)$a->sort_order > (int)$b->sort_order ? 1 : 0);
         }
         return 0;

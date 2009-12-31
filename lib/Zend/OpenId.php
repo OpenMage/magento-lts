@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_OpenId
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: OpenId.php 16207 2009-06-21 19:17:51Z thomas $
+ * @version    $Id: OpenId.php 13218 2008-12-14 11:11:56Z thomas $
  */
 
 /**
@@ -35,7 +35,7 @@
  *
  * @category   Zend
  * @package    Zend_OpenId
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_OpenId
@@ -627,14 +627,14 @@ class Zend_OpenId
                     'p' => $p,
                     'g' => $g
                 );
-            if ($priv_key !== null) {
+            if (!is_null($priv_key)) {
                 $dh_details['priv_key'] = $priv_key;
             }
             return openssl_pkey_new(array('dh'=>$dh_details));
         } else {
             $bn_p        = self::binToBigNum($p);
             $bn_g        = self::binToBigNum($g);
-            if ($priv_key === null) {
+            if (is_null($priv_key)) {
                 $priv_key    = self::randomBytes(Zend_OpenId::strlen($p));
             }
             $bn_priv_key = self::binToBigNum($priv_key);

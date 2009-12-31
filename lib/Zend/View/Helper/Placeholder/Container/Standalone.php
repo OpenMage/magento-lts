@@ -12,11 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Standalone.php 18951 2009-11-12 16:26:19Z alexander $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Standalone.php 13197 2008-12-13 13:31:29Z matthew $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -31,11 +30,11 @@
  *
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */
+ */ 
 abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_View_Helper_Abstract implements IteratorAggregate, Countable, ArrayAccess
-{
+{  
     /**
      * @var Zend_View_Helper_Placeholder_Container_Abstract
      */
@@ -61,7 +60,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * Constructor
-     *
+     * 
      * @return void
      */
     public function __construct()
@@ -72,7 +71,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * Retrieve registry
-     *
+     * 
      * @return Zend_View_Helper_Placeholder_Registry
      */
     public function getRegistry()
@@ -81,9 +80,9 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
     }
 
     /**
-     * Set registry object
-     *
-     * @param  Zend_View_Helper_Placeholder_Registry $registry
+     * Set registry object 
+     * 
+     * @param  Zend_View_Helper_Placeholder_Registry $registry 
      * @return Zend_View_Helper_Placeholder_Container_Standalone
      */
     public function setRegistry(Zend_View_Helper_Placeholder_Registry $registry)
@@ -94,7 +93,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * Set whether or not auto escaping should be used
-     *
+     * 
      * @param  bool $autoEscape whether or not to auto escape output
      * @return Zend_View_Helper_Placeholder_Container_Standalone
      */
@@ -103,7 +102,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
         $this->_autoEscape = ($autoEscape) ? true : false;
         return $this;
     }
-
+    
     /**
      * Return whether autoEscaping is enabled or disabled
      *
@@ -116,8 +115,8 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * Escape a string
-     *
-     * @param  string $string
+     * 
+     * @param  string $string 
      * @return string
      */
     protected function _escape($string)
@@ -131,8 +130,8 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * Set container on which to operate
-     *
-     * @param  Zend_View_Helper_Placeholder_Container_Abstract $container
+     * 
+     * @param  Zend_View_Helper_Placeholder_Container_Abstract $container 
      * @return Zend_View_Helper_Placeholder_Container_Standalone
      */
     public function setContainer(Zend_View_Helper_Placeholder_Container_Abstract $container)
@@ -143,7 +142,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * Retrieve placeholder container
-     *
+     * 
      * @return Zend_View_Helper_Placeholder_Container_Abstract
      */
     public function getContainer()
@@ -153,9 +152,9 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * Overloading: set property value
-     *
-     * @param  string $key
-     * @param  mixed $value
+     * 
+     * @param  string $key 
+     * @param  mixed $value 
      * @return void
      */
     public function __set($key, $value)
@@ -166,8 +165,8 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * Overloading: retrieve property
-     *
-     * @param  string $key
+     * 
+     * @param  string $key 
      * @return mixed
      */
     public function __get($key)
@@ -182,8 +181,8 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * Overloading: check if property is set
-     *
-     * @param  string $key
+     * 
+     * @param  string $key 
      * @return bool
      */
     public function __isset($key)
@@ -194,8 +193,8 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * Overloading: unset property
-     *
-     * @param  string $key
+     * 
+     * @param  string $key 
      * @return void
      */
     public function __unset($key)
@@ -210,9 +209,9 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
      * Overload
      *
      * Proxy to container methods
-     *
-     * @param  string $method
-     * @param  array $args
+     * 
+     * @param  string $method 
+     * @param  array $args 
      * @return mixed
      */
     public function __call($method, $args)
@@ -233,7 +232,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * String representation
-     *
+     * 
      * @return string
      */
     public function toString()
@@ -243,7 +242,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * Cast to string representation
-     *
+     * 
      * @return string
      */
     public function __toString()
@@ -253,7 +252,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * Countable
-     *
+     * 
      * @return int
      */
     public function count()
@@ -264,8 +263,8 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * ArrayAccess: offsetExists
-     *
-     * @param  string|int $offset
+     * 
+     * @param  string|int $offset 
      * @return bool
      */
     public function offsetExists($offset)
@@ -275,8 +274,8 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * ArrayAccess: offsetGet
-     *
-     * @param  string|int $offset
+     * 
+     * @param  string|int $offset 
      * @return mixed
      */
     public function offsetGet($offset)
@@ -286,9 +285,9 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * ArrayAccess: offsetSet
-     *
-     * @param  string|int $offset
-     * @param  mixed $value
+     * 
+     * @param  string|int $offset 
+     * @param  mixed $value 
      * @return void
      */
     public function offsetSet($offset, $value)
@@ -298,8 +297,8 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * ArrayAccess: offsetUnset
-     *
-     * @param  string|int $offset
+     * 
+     * @param  string|int $offset 
      * @return void
      */
     public function offsetUnset($offset)
@@ -309,7 +308,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Standalone extends Zend_Vi
 
     /**
      * IteratorAggregate: get Iterator
-     *
+     * 
      * @return Iterator
      */
     public function getIterator()

@@ -15,9 +15,8 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Frontend
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Output.php 16541 2009-07-07 06:59:03Z bkarwin $
  */
 
 
@@ -30,7 +29,7 @@
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Frontend
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Frontend_Output extends Zend_Cache_Core
@@ -82,19 +81,19 @@ class Zend_Cache_Frontend_Output extends Zend_Cache_Core
      * @param  int     $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
      * @param  string  $forcedDatas      If not null, force written datas with this
      * @param  boolean $echoData         If set to true, datas are sent to the browser
-     * @param  int     $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
+     * @param  int     $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends         
      * @return void
      */
     public function end($tags = array(), $specificLifetime = false, $forcedDatas = null, $echoData = true, $priority = 8)
     {
-        if ($forcedDatas === null) {
+        if (is_null($forcedDatas)) {
             $data = ob_get_contents();
             ob_end_clean();
         } else {
             $data =& $forcedDatas;
         }
         $id = array_pop($this->_idStack);
-        if ($id === null) {
+        if (is_null($id)) {
             Zend_Cache::throwException('use of end() without a start()');
         }
         $this->save($data, $id, $tags, $specificLifetime, $priority);

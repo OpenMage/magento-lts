@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Rss
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Rss
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,21 +29,12 @@
  *
  * @category   Mage
  * @package    Mage_Rss
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
 {
-
-    /**
-     * Cache tag constant for feed reviews
-     *
-     * @var string
-     */
-    const CACHE_TAG = 'block_html_rss_catalog_review';
-
     protected function _construct()
     {
-        $this->setCacheTags(array(self::CACHE_TAG));
         /*
         * setting cache to save the rss for 10 minutes
         */
@@ -71,9 +62,7 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
             ->addAttributeToSelect('name', 'inner')
             ->setDateOrder();
 
-        Mage::dispatchEvent('rss_catalog_review_collection_select', array('collection' => $collection));
-
-        Mage::getSingleton('core/resource_iterator')
+         Mage::getSingleton('core/resource_iterator')
             ->walk($collection->getSelect(), array(array($this, 'addReviewItemXmlCallback')), array('rssObj'=> $rssObj, 'reviewModel'=> $reviewModel));
         return $rssObj->createRssXml();
     }
@@ -84,11 +73,9 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
         $reviewModel = $args['reviewModel'];
         $row = $args['row'];
 
-        $store = Mage::app()->getStore($row['store_id']);
-        $urlModel = Mage::getModel('core/url')->setStore($store);
-        $productUrl = $urlModel->getUrl('catalog/product/view', array('id'=>$row['entity_id']));
-        $reviewUrl = Mage::helper('adminhtml')->getUrl('adminhtml/catalog_product_review/edit/', array('id'=>$row['review_id'], '_secure' => true, '_nosecret'=>true));
-        $storeName = $store->getName();
+        $productUrl = Mage::getUrl('catalog/product/view',array('id'=>$row['entity_id']));
+        $reviewUrl = Mage::helper('adminhtml')->getUrl('adminhtml/catalog_product_review/edit/', array('id'=>$row['review_id'],'_secure' => true,'_nosecret' => true));
+        $storeName = Mage::app()->getStore($row['store_id'])->getName();
 
         $description = '<p>'.
         $this->__('Product: <a href="%s">%s</a> <br/>',$productUrl,$row['name']).

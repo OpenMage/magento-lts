@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -45,17 +45,6 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
         $this->setTitle(Mage::helper('cms')->__('Block Information'));
     }
 
-    /**
-     * Load Wysiwyg on demand and Prepare layout
-     */
-    protected function _prepareLayout()
-    {
-        parent::_prepareLayout();
-        if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
-            $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
-        }
-    }
-
     protected function _prepareForm()
     {
         $model = Mage::registry('cms_block');
@@ -67,19 +56,19 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
         $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('cms')->__('General Information'), 'class' => 'fieldset-wide'));
 
         if ($model->getBlockId()) {
-            $fieldset->addField('block_id', 'hidden', array(
+        	$fieldset->addField('block_id', 'hidden', array(
                 'name' => 'block_id',
             ));
         }
 
-        $fieldset->addField('title', 'text', array(
+    	$fieldset->addField('title', 'text', array(
             'name'      => 'title',
             'label'     => Mage::helper('cms')->__('Block Title'),
             'title'     => Mage::helper('cms')->__('Block Title'),
             'required'  => true,
         ));
 
-        $fieldset->addField('identifier', 'text', array(
+    	$fieldset->addField('identifier', 'text', array(
             'name'      => 'identifier',
             'label'     => Mage::helper('cms')->__('Identifier'),
             'title'     => Mage::helper('cms')->__('Identifier'),
@@ -91,7 +80,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
          * Check is single store mode
          */
         if (!Mage::app()->isSingleStoreMode()) {
-            $fieldset->addField('store_id', 'multiselect', array(
+        	$fieldset->addField('store_id', 'multiselect', array(
                 'name'      => 'stores[]',
                 'label'     => Mage::helper('cms')->__('Store View'),
                 'title'     => Mage::helper('cms')->__('Store View'),
@@ -107,7 +96,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
             $model->setStoreId(Mage::app()->getStore(true)->getId());
         }
 
-        $fieldset->addField('is_active', 'select', array(
+    	$fieldset->addField('is_active', 'select', array(
             'label'     => Mage::helper('cms')->__('Status'),
             'title'     => Mage::helper('cms')->__('Status'),
             'name'      => 'is_active',
@@ -117,17 +106,14 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
                 '0' => Mage::helper('cms')->__('Disabled'),
             ),
         ));
-        if (!$model->getId()) {
-            $model->setData('is_active', '1');
-        }
 
-        $fieldset->addField('content', 'editor', array(
+    	$fieldset->addField('content', 'editor', array(
             'name'      => 'content',
             'label'     => Mage::helper('cms')->__('Content'),
             'title'     => Mage::helper('cms')->__('Content'),
             'style'     => 'height:36em',
+            'wysiwyg'   => false,
             'required'  => true,
-            'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig()
         ));
 
         $form->setValues($model->getData());

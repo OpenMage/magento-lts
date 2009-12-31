@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Gettext.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Date.php 2498 2006-12-23 22:13:38Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
@@ -36,7 +36,6 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
     private $_bigEndian   = false;
     private $_file        = false;
     private $_adapterInfo = array();
-    private $_data        = array();
 
     /**
      * Generates the  adapter
@@ -73,13 +72,17 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
      *                            see Zend_Locale for more information
      * @param  array   $option    OPTIONAL Options to use
      * @throws Zend_Translation_Exception
-     * @return array
      */
     protected function _loadTranslationData($filename, $locale, array $options = array())
     {
-        $this->_data      = array();
         $this->_bigEndian = false;
-        $this->_file      = @fopen($filename, 'rb');
+        $options = $options + $this->_options;
+
+        if ($options['clear']  ||  !isset($this->_translate[$locale])) {
+            $this->_translate[$locale] = array();
+        }
+
+        $this->_file = @fopen($filename, 'rb');
         if (!$this->_file) {
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Error opening translation file \'' . $filename . '\'.');
@@ -124,36 +127,24 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
             if ($origtemp[$count * 2 + 1] != 0) {
                 fseek($this->_file, $origtemp[$count * 2 + 2]);
                 $original = @fread($this->_file, $origtemp[$count * 2 + 1]);
-                $original = explode(chr(00), $original);
             } else {
-                $original[0] = '';
+                $original = '';
             }
 
             if ($transtemp[$count * 2 + 1] != 0) {
                 fseek($this->_file, $transtemp[$count * 2 + 2]);
-                $translate = fread($this->_file, $transtemp[$count * 2 + 1]);
-                $translate = explode(chr(00), $translate);
-                if ((count($original) > 1) && (count($translate) > 1)) {
-                    $this->_data[$locale][$original[0]] = $translate;
-                    array_shift($original);
-                    foreach ($original as $orig) {
-                        $this->_data[$locale][$orig] = '';
-                    }
-                } else {
-                    $this->_data[$locale][$original[0]] = $translate[0];
-                }
+                $this->_translate[$locale][$original] = fread($this->_file, $transtemp[$count * 2 + 1]);
             }
         }
 
-        $this->_data[$locale][''] = trim($this->_data[$locale]['']);
-        if (empty($this->_data[$locale][''])) {
+        $this->_translate[$locale][''] = trim($this->_translate[$locale]['']);
+        if (empty($this->_translate[$locale][''])) {
             $this->_adapterInfo[$filename] = 'No adapter information available';
         } else {
-            $this->_adapterInfo[$filename] = $this->_data[$locale][''];
+            $this->_adapterInfo[$filename] = $this->_translate[$locale][''];
         }
 
-        unset($this->_data[$locale]['']);
-        return $this->_data;
+        unset($this->_translate[$locale]['']);
     }
 
     /**

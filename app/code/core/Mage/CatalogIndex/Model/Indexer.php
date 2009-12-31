@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -165,9 +165,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * @param   mixed $product
      * @return  Mage_CatalogIndex_Model_Indexer
      */
-    public function cleanup($product)
-    {
-        $this->_getResource()->clear(true, true, true, true, true, $product, ($product->getNeedStoreForReindex() === true ? $this->_getStores() : null));
+    public function cleanup($product) {
+        $this->_getResource()->clear(true, true, true, true, true, $product);
         return $this;
     }
 
@@ -614,7 +613,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                 $additionalCalculations[$code] = $response->getAdditionalCalculations();
 
                                 if ($indexer->isAttributeIdUsed()) {
-                                    //$filter[$code]->where("$table.attribute_id = ?", $attribute->getId());
+                                    $filter[$code]->where("$table.attribute_id = ?", $attribute->getId());
                                 }
                             }
                             if (is_array($values[$code])) {
@@ -630,14 +629,14 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
                                     if (strlen($values[$code]['from'])>0) {
                                         $filter[$code]->where(
-                                            "($table.min_price".implode('', $additionalCalculations[$code]).")*{$rateConversion} >= ?",
+                                            "($table.value".implode('', $additionalCalculations[$code]).")*{$rateConversion} >= ?",
                                             $values[$code]['from']
                                         );
                                     }
 
                                     if (strlen($values[$code]['to'])>0) {
                                         $filter[$code]->where(
-                                            "($table.min_price".implode('', $additionalCalculations[$code]).")*{$rateConversion} <= ?",
+                                            "($table.value".implode('', $additionalCalculations[$code]).")*{$rateConversion} <= ?",
                                             $values[$code]['to']
                                         );
                                     }

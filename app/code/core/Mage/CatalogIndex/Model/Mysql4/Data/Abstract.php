@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_CatalogIndex_Model_Mysql4_Data_Abstract extends Mage_Core_Model_Mysql4_Abstract
@@ -84,12 +84,7 @@ class Mage_CatalogIndex_Model_Mysql4_Data_Abstract extends Mage_Core_Model_Mysql
             $tableName = "{$this->getTable('catalog/product')}_{$suffix}";
             $condition = "product.entity_id = c.entity_id AND c.store_id = {$store} AND c.attribute_id = d.attribute_id";
             $defaultCondition = "product.entity_id = d.entity_id AND d.store_id = 0";
-            $fields = array(
-                'entity_id',
-                'type_id',
-                'attribute_id'  => 'IF(c.value_id>0, c.attribute_id, d.attribute_id)',
-                'value'         => 'IF(c.value_id>0, c.value, d.value)'
-            );
+            $fields = array('entity_id', 'type_id', 'attribute_id'=>'IFNULL(c.attribute_id, d.attribute_id)', 'value'=>'IFNULL(c.value, d.value)');
 
             $select = $this->_getReadAdapter()->select()
                 ->from(array('product'=>$this->getTable('catalog/product')), $fields)
@@ -279,8 +274,7 @@ class Mage_CatalogIndex_Model_Mysql4_Data_Abstract extends Mage_Core_Model_Mysql
                 sprintf('`%s`.`attribute_id`=`%s`.`attribute_id`', $tableGlobal, $tableStore),
                 $adapter->quoteInto(sprintf('`%s`.`store_id`=?', $tableStore), $store)
             ));
-            $whereCond      = sprintf('IF(`%s`.`value_id`>0, `%s`.`value`, `%s`.`value`) IN(?)',
-                $tableStore, $tableStore, $tableGlobal);
+            $whereCond      = sprintf('IFNULL(`%s`.`value`, `%s`.`value`) IN(?)', $tableStore, $tableGlobal);
 
             $select
                 ->join(

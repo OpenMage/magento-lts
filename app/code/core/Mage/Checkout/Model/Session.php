@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -55,23 +55,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             /* @var $quote Mage_Sales_Model_Quote */
             if ($this->getQuoteId()) {
                 $quote->load($this->getQuoteId());
-                if ($quote->getId()) {
-                    /**
-                     * If current currency code of quote is not equal current currency code of store, 
-                     * need recalculate totals of quote. It is possible if customer use currency switcher or 
-                     * store switcher.
-                     */
-                    if ($quote->getQuoteCurrencyCode() != Mage::app()->getStore()->getCurrentCurrencyCode()) {
-                        $quote->setStore(Mage::app()->getStore());
-                        $quote->collectTotals()->save();
-                        /*
-                         * We mast to create new quote object, because collectTotals() 
-                         * can to create links with other objects.
-                         */
-                        $quote = Mage::getModel('sales/quote')->setStoreId(Mage::app()->getStore()->getId());
-                        $quote->load($this->getQuoteId());
-                    }
-                } else {
+                if (!$quote->getId()) {
                     $this->setQuoteId(null);
                 }
             }
@@ -100,8 +84,6 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
 
         if ($remoteAddr = Mage::helper('core/http')->getRemoteAddr()) {
             $this->_quote->setRemoteIp($remoteAddr);
-            $xForwardIp = Mage::app()->getRequest()->getServer('HTTP_X_FORWARDED_FOR');
-            $this->_quote->setXForwardedFor($xForwardIp);
         }
         return $this->_quote;
     }

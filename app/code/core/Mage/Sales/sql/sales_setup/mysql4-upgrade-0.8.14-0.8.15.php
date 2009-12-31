@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
@@ -63,6 +63,7 @@ CREATE TABLE `{$installer->getTable('sales_quote')}` (
     `checkout_method` varchar(255) NOT NULL default '',
     `password_hash` varchar(255) NOT NULL default '',
     `coupon_code` varchar(255) NOT NULL default '',
+    `giftcert_code` varchar(255) NOT NULL default '',
     `base_currency_code` varchar(255) NOT NULL default '',
     `store_currency_code` varchar(255) NOT NULL default '',
     `quote_currency_code` varchar(255) NOT NULL default '',

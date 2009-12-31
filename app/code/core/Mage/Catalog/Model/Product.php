@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -33,12 +33,6 @@
  */
 class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 {
-    /**
-     * Entity code.
-     * Can be used as part of method name for entity processing
-     */
-    const ENTITY                 = 'catalog_product';
-
     const CACHE_TAG              = 'catalog_product';
     protected $_cacheTag         = 'catalog_product';
     protected $_eventPrefix      = 'catalog_product';
@@ -296,41 +290,42 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         return $category;
     }
 
-    /**
-     * Set assigned category IDs array to product
-     *
-     * @param array|string $ids
-     * @return Mage_Catalog_Model_Product
-     */
     public function setCategoryIds($ids)
     {
         if (is_string($ids)) {
             $ids = explode(',', $ids);
-        }
-        elseif (!is_array($ids)) {
+        } elseif (!is_array($ids)) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid category IDs'));
         }
-        foreach ($ids as $i => $v) {
+        foreach ($ids as $i=>$v) {
             if (empty($v)) {
                 unset($ids[$i]);
             }
         }
-
         $this->setData('category_ids', $ids);
         return $this;
     }
 
-    /**
-     * Retrieve assigned category Ids
-     *
-     * @return array
-     */
     public function getCategoryIds()
     {
-        if (! $this->hasData('category_ids')) {
+        if ($this->hasData('category_ids')) {
+            $ids = $this->_getData('category_ids');
+            if (!is_array($ids)) {
+                $wasLocked = false;
+                if ($this->isLockedAttribute('category_ids')) {
+                    $this->unlockAttribute('category_ids');
+                    $wasLocked = true;
+                }
+
+                $ids = !empty($ids) ? explode(',', $ids) : array();
+                $this->setData('category_ids', $ids);
+                if ($wasLocked) {
+                    $this->lockAttribute('category_ids');
+                }
+            }
+        } else {
             $wasLocked = false;
             if ($this->isLockedAttribute('category_ids')) {
-                $wasLocked = true;
                 $this->unlockAttribute('category_ids');
             }
             $ids = $this->_getResource()->getCategoryIds($this);
@@ -339,8 +334,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                 $this->lockAttribute('category_ids');
             }
         }
-
-        return (array) $this->_getData('category_ids');
+        return $this->_getData('category_ids');
     }
 
     /**
@@ -350,7 +344,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getCategoryCollection()
     {
-        return $this->_getResource()->getCategoryCollection($this);
+        return $this->getResource()->getCategoryCollection($this);
     }
 
     /**
@@ -436,7 +430,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if ($this->getCanSaveCustomOptions()) {
             $options = $this->getProductOptions();
             if (is_array($options)) {
-                $this->setIsCustomOptionChanged(true);
                 foreach ($this->getProductOptions() as $option) {
                     $this->getOptionInstance()->addOption($option);
                     if ((!isset($option['is_delete'])) || $option['is_delete'] != '1') {
@@ -444,8 +437,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                     }
                 }
                 foreach ($this->getOptionInstance()->getOptions() as $option) {
-                    if ($option['is_require'] == '1') {
-                        $hasRequiredOptions = true;
+                        if ($option['is_require'] == '1') {
+                            $hasRequiredOptions = true;
                         break;
                     }
                 }
@@ -502,50 +495,20 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
          */
         $this->getOptionInstance()->setProduct($this)
             ->saveOptions();
-        return parent::_afterSave();
-    }
 
-    /**
-     * Init indexing process after product data commit
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    public function afterCommitCallback()
-    {
-        parent::afterCommitCallback();
-        Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
-        );
-        return $this;
+        parent::_afterSave();
     }
 
     /**
      * Clear chache related with product and protect delete from not admin
-     * Register indexing event before delete product
      *
      * @return Mage_Catalog_Model_Product
      */
     protected function _beforeDelete()
     {
-        $this->_protectFromNonAdmin();
         $this->cleanCache();
-        Mage::getSingleton('index/indexer')->logEvent(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
-        );
+        $this->_protectFromNonAdmin();
         return parent::_beforeDelete();
-    }
-
-    /**
-     * Init indexing process after product delete commit
-     *
-     * @return Mage_Catalog_Model_Product
-     */
-    protected function _afterDeleteCommit()
-    {
-        parent::_afterDeleteCommit();
-        Mage::getSingleton('index/indexer')->indexEvents(
-            self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
-        );
     }
 
     /**
@@ -566,16 +529,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             }
         }
         return $this;
-    }
-
-    /**
-     * Retrieve resource instance wrapper
-     *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**
@@ -1107,41 +1060,16 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         return Mage::getSingleton('catalog/product_status')->getVisibleStatusIds();
     }
 
-    /**
-     * Retrieve visible statuses
-     *
-     * @return array
-     */
-    public function getVisibleStatuses()
-    {
-        return Mage::getSingleton('catalog/product_status')->getVisibleStatusIds();
-    }
-
-    /**
-     * Check Product visilbe in catalog
-     *
-     * @return bool
-     */
     public function isVisibleInCatalog()
     {
         return in_array($this->getStatus(), $this->getVisibleInCatalogStatuses());
     }
 
-    /**
-     * Retrieve visible in site visibilities
-     *
-     * @return array
-     */
     public function getVisibleInSiteVisibilities()
     {
         return Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds();
     }
 
-    /**
-     * Check Product visible in site
-     *
-     * @return bool
-     */
     public function isVisibleInSiteVisibility()
     {
         return in_array($this->getVisibility(), $this->getVisibleInSiteVisibilities());
@@ -1233,25 +1161,14 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrieve Product URL
+     * Get product url
      *
      * @param  bool $useSid
      * @return string
      */
-    public function getProductUrl($useSid = null)
+    public function getProductUrl($useSid = true)
     {
         return $this->getUrlModel()->getProductUrl($this, $useSid);
-    }
-
-    /**
-     * Retrieve URL in current store
-     *
-     * @param array $params the route params
-     * @return string
-     */
-    public function getUrlInStore($params = array())
-    {
-        return $this->getUrlModel()->getUrlInStore($this, $params);
     }
 
     public function formatUrlKey($str)
@@ -1514,15 +1431,25 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         return $this->_getResource()->canBeShowInCategory($this, $categoryId);
     }
 
-    /**
-     * Retrieve category ids where product is available
-     *
-     * @return array
-     */
+
     public function getAvailableInCategories()
     {
-        return $this->_getResource()->getAvailableInCategories($this);
+        $allCategories = array();
+        if (is_null($this->getData('_available_in_categories'))) {
+            $assigned = $this->getCategoryIds();
+            foreach ($assigned as $one) {
+                $allCategories[] = $one;
+                $anchors = Mage::getModel('catalog/category')->load($one)->getAnchorsAbove();
+                foreach ($anchors as $anchor) {
+                    $allCategories[] = $anchor;
+                }
+            }
+
+            $this->setData('_available_in_categories', $allCategories);
+        }
+        return $this->getData('_available_in_categories');
     }
+
 
     /**
      * Retrieve default attribute set id
@@ -1637,23 +1564,5 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $this->_errors              = array();
 
         return $this;
-    }
-
-    /**
-     * Get cahce tags associated with object id
-     *
-     * @return array
-     */
-    public function getCacheIdTags()
-    {
-        $tags = parent::getCacheIdTags();
-        $affectedCategoryIds = $this->getAffectedCategoryIds();
-        if (!$affectedCategoryIds) {
-            $affectedCategoryIds = $this->getCategoryIds();
-        }
-        foreach ($affectedCategoryIds as $categoryId) {
-            $tags[] = Mage_Catalog_Model_Category::CACHE_TAG.'_'.$categoryId;
-        }
-        return $tags;
     }
 }

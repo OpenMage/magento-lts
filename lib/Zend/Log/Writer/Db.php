@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db.php 16219 2009-06-21 19:45:39Z thomas $
+ * @version    $Id: Db.php 8064 2008-02-16 10:58:39Z thomas $
  */
 
 /** Zend_Log_Writer_Abstract */
@@ -27,9 +27,9 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db.php 16219 2009-06-21 19:45:39Z thomas $
+ * @version    $Id: Db.php 8064 2008-02-16 10:58:39Z thomas $
  */
 class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
 {
@@ -71,7 +71,6 @@ class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
      */
     public function setFormatter($formatter)
     {
-        #require_once 'Zend/Log/Exception.php';
         throw new Zend_Log_Exception(get_class() . ' does not support formatting');
     }
 
@@ -94,8 +93,7 @@ class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
     protected function _write($event)
     {
         if ($this->_db === null) {
-            #require_once 'Zend/Log/Exception.php';
-            throw new Zend_Log_Exception('Database adapter is null');
+            throw new Zend_Log_Exception('Database adapter instance has been removed by shutdown');
         }
 
         if ($this->_columnMap === null) {

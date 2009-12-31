@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -100,21 +100,11 @@ class Mage_Core_Model_Cookie
      */
     public function getDomain()
     {
-        $domain = $this->getConfigDomain();
+        $domain = Mage::getStoreConfig(self::XML_PATH_COOKIE_DOMAIN, $this->getStore());
         if (empty($domain)) {
             $domain = $this->_getRequest()->getHttpHost();
         }
         return $domain;
-    }
-
-    /**
-     * Retrieve Config Domain for cookie
-     *
-     * @return string
-     */
-    public function getConfigDomain()
-    {
-        return (string)Mage::getStoreConfig(self::XML_PATH_COOKIE_DOMAIN, $this->getStore());
     }
 
     /**
@@ -138,9 +128,10 @@ class Mage_Core_Model_Cookie
      */
     public function getLifetime()
     {
-        if (!is_null($this->_lifetime)) {
+        if (null !== $this->_lifetime) {
             $lifetime = $this->_lifetime;
-        } else {
+        }
+        else {
             $lifetime = Mage::getStoreConfig(self::XML_PATH_COOKIE_LIFETIME, $this->getStore());
         }
         if (!is_numeric($lifetime)) {

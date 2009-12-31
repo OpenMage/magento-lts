@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Paygate
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_Paygate
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
    <modules>
       <Mage_Paygate>
-         <version>0.7.1</version>
+         <version>0.7.0</version>
 
       </Mage_Paygate>
    </modules>
@@ -50,7 +50,20 @@
             <setup>
                <module>Mage_Paygate</module>
             </setup>
+            <connection>
+               <use>core_setup</use>
+            </connection>
          </paygate_setup>
+         <paygate_write>
+            <connection>
+               <use>core_write</use>
+            </connection>
+         </paygate_write>
+         <paygate_read>
+            <connection>
+               <use>core_read</use>
+            </connection>
+         </paygate_read>
       </resources>
    </global>
 
@@ -95,7 +108,6 @@
                 <title>Credit Card (Authorize.net)</title>
                 <trans_key backend_model="adminhtml/system_config_backend_encrypted"/>
                 <allowspecific>0</allowspecific>
-                <currency>USD</currency>
             </authorizenet>
 
             <verisign>
@@ -110,14 +122,14 @@
                 <pwd backend_model="adminhtml/system_config_backend_encrypted"/>
                 <tender>C</tender>
                 <title>Credit Card (Payflow Pro)</title>
-                <url>https://payflowpro.paypal.com/transaction</url>
+                <url>https://pilot-payflowpro.verisign.com/transaction</url>
                 <user backend_model="adminhtml/system_config_backend_encrypted"/>
                 <vendor/>
                 <verbosity>MEDIUM</verbosity>
                 <allowspecific>0</allowspecific>
-                <proxy_host/>
-                <proxy_port/>
-                <use_proxy>0</use_proxy>
+        		<proxy_host/>
+        		<proxy_port/>
+        		<use_proxy>0</use_proxy>
             </verisign>
         </payment>
     </default>

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Poll
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Poll
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -79,7 +79,7 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
 
         $this->assign('poll', $poll)
              ->assign('poll_answers', $pollAnswers)
-             ->assign('action', Mage::getUrl('poll/vote/add', array('poll_id' => $pollId, '_secure' => true)));
+             ->assign('action', Mage::getUrl('poll/vote/add', array('poll_id' => $pollId)));
 
         $this->_voted = Mage::getModel('poll/poll')->isVoted($pollId);
         Mage::getSingleton('core/session')->setJustVotedPoll(false);

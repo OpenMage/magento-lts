@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Xml
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Element.php 16214 2009-06-21 19:34:03Z thomas $
+ * @version    $Id: Element.php 13213 2008-12-14 11:05:07Z thomas $
  */
 
 /**
@@ -26,12 +26,17 @@
 #require_once 'Zend/InfoCard/Xml/Element/Interface.php';
 
 /**
+ * Zend_Loader
+ */
+#require_once 'Zend/Loader.php';
+
+/**
  * An abstract class representing a an XML data block
  *
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Xml
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_InfoCard_Xml_Element
@@ -80,10 +85,8 @@ abstract class Zend_InfoCard_Xml_Element
      */
     static public function convertToObject(DOMElement $e, $classname)
     {
-        if (!class_exists($classname)) {
-            #require_once 'Zend/Loader.php';
-            Zend_Loader::loadClass($classname);
-        }
+
+        #Zend_Loader::loadClass($classname);
 
         $reflection = new ReflectionClass($classname);
 

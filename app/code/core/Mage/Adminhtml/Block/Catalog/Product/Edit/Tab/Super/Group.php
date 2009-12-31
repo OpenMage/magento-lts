@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     }
 
     /**
-     * Retrieve currently edited product model
+     * Retirve currently edited product model
      *
      * @return Mage_Catalog_Model_Product
      */
@@ -164,38 +164,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
 
     public function getGridUrl()
     {
-        return $this->_getData('grid_url') ? $this->_getData('grid_url') : $this->getUrl('*/*/superGroupGridOnly', array('_current'=>true));
+        return $this->_getData('grid_url') ? $this->_getData('grid_url') : $this->getUrl('*/*/superGroup', array('_current'=>true));
     }
 
-    /**
-     * Retrieve selected grouped products
-     *
-     * @return array
-     */
     protected function _getSelectedProducts()
     {
-        $products = $this->getProductsGrouped();
+        $products = $this->getRequest()->getPost('products', null);
         if (!is_array($products)) {
-            $products = array_keys($this->getSelectedGroupedProducts());
-        }
-        return $products;
-    }
-
-    /**
-     * Retrieve grouped products
-     *
-     * @return array
-     */
-    public function getSelectedGroupedProducts()
-    {
-        $associatedProducts = Mage::registry('current_product')->getTypeInstance(true)
-            ->getAssociatedProducts(Mage::registry('current_product'));
-        $products = array();
-        foreach ($associatedProducts as $product) {
-            $products[$product->getId()] = array(
-                'qty'       => $product->getQty(),
-                'position'  => $product->getPosition()
-            );
+            $products = $this->_getProduct()->getTypeInstance(true)->getAssociatedProductIds($this->_getProduct());
         }
         return $products;
     }

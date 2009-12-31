@@ -1,0 +1,19 @@
+<role version="1.0">
+ <releasetypes>php</releasetypes>
+ <installable>1</installable>
+ <locationconfig>mage_lib_dir</locationconfig>
+ <honorsbaseinstall>1</honorsbaseinstall>
+ <unusualbaseinstall />
+ <phpfile>1</phpfile>
+ <executable />
+ <phpextension />
+ <config_vars>
+  <mage_lib_dir>
+   <type>directory</type>
+   <default>./lib</default>
+   <doc>Magento libraries directory</doc>
+   <prompt>Magento libraries directory</prompt>
+   <group>File Locations</group>
+  </mage_lib_dir>
+ </config_vars>
+</role>

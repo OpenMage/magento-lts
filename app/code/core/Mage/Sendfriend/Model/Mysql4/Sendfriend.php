@@ -18,89 +18,36 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Sendfriend
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sendfriend
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/**
- * SendFriend Log Resource Model
- *
- * @category    Mage
- * @package     Mage_Sendfriend
- * @author      Magento Core Team <core@magentocommerce.com>
- */
 class Mage_Sendfriend_Model_Mysql4_Sendfriend extends Mage_Core_Model_Mysql4_Abstract
 {
-    /**
-     * Initialize connection and table
-     *
-     */
     protected function _construct()
     {
         $this->_init('sendfriend/sendfriend', 'log_id');
     }
 
-    /**
-     * Retrieve Sended Emails By Ip
-     *
-     * @param Mage_Sendfriend_Model_Sendfriend $object
-     * @param int $ip
-     * @param int $startTime
-     * @param int $websiteId
-     * @return int
-     */
-    public function getSendCount($object, $ip, $startTime, $websiteId = null)
+    public function getSendCount($model, $ip, $startTime)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from(
-                array('main_table' => $this->getTable('sendfriend')),
-                array('count' => new Zend_Db_Expr('count(*)')))
-            ->where('ip=?', $ip)
-            ->where('time>=?', $startTime);
+            ->from(array('main_table' => $this->getTable('sendfriend')), new Zend_Db_Expr('count(*)'))
+            ->where('main_table.ip = ?',  $ip)
+            ->where('main_table.time >= ?', $startTime);
 
-        if ($websiteId) {
-            $select->where('website_id=?', $websiteId);
-        }
+        $data = $this->_getReadAdapter()->fetchRow($select);
 
-        $row = $this->_getReadAdapter()->fetchRow($select);
-        return $row['count'];
+        return $data['count(*)'];
     }
 
-    /**
-     * Add sended email by ip item
-     *
-     * @param int $ip
-     * @param int $startTime
-     * @param int $websiteId
-     * @return Mage_Sendfriend_Model_Mysql4_Sendfriend
-     */
-    public function addSendItem($ip, $startTime, $websiteId)
-    {
-        $this->_getWriteAdapter()->insert(
-            $this->getTable('sendfriend'),
-            array(
-                    'ip' => $ip,
-                    'time' => $startTime,
-                    'website_id' => $websiteId
-                 )
-        );
-        return $this;
-    }
-
-    /**
-     * Delete Old logs
-     *
-     * @param int $time
-     * @return Mage_Sendfriend_Model_Mysql4_Sendfriend
-     */
-    public function deleteLogsBefore($time)
-    {
-        $cond = $this->_getWriteAdapter()->quoteInto('time<?', $time);
-        $this->_getWriteAdapter()->delete($this->getMainTable(), $cond);
+	public function deleteLogsBefore($time)
+	{
+        $deleted = $this->_getWriteAdapter()
+            ->delete($this->getTable('sendfriend'), $this->_getWriteAdapter()->quoteInto('time < ?', $time));
 
         return $this;
-    }
+	}
 }

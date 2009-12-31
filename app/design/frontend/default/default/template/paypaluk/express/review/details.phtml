@@ -1,0 +1,62 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<table cellspacing="0" id="details-table" class="data-table nested-data-table">
+    <col />
+    <col width="70" />
+    <col width="30" />
+    <col width="70" />
+    <thead>
+        <tr>
+            <th><?php echo $this->__('Product Name') ?></th>
+            <th class="a-right"><?php echo $this->__('Price') ?></th>
+            <th class="a-center"><?php echo $this->__('Qty') ?></th>
+            <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($this->getItems() as $_item): ?>
+        <?php if ($_item->getParentItem()) continue ?>
+        <tr>
+            <td>
+                <?php echo $_item->getProduct()->getName() ?>
+                <?php echo $_item->getProduct()->getDescription() ?>
+            </td>
+            <td class="a-right"><?php echo $this->helper('checkout')->formatPrice($_item->getCalculationPrice()); ?></td>
+            <td class="a-center"><?php echo $_item->getQty() ?></td>
+            <td class="a-right"><?php echo $this->helper('checkout')->formatPrice($_item->getRowTotal()); ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+    <tfoot>
+    <?php foreach ($this->getTotals() as $_total): ?>
+        <tr>
+            <td colspan="3" class="a-right"><?php echo $_total->getTitle() ?></td>
+            <td class="a-right"><?php echo $this->helper('checkout')->formatPrice($_total->getValue()) ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tfoot>
+</table>

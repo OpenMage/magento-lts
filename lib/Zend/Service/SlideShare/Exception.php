@@ -16,23 +16,23 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage SlideShare
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Exception.php 16753 2009-07-16 01:38:21Z yoshida@zend.co.jp $
+ * @version    $Id: Exception.php 9094 2008-03-30 18:36:55Z thomas $
  */
 
 /**
- * @see Zend_Service_Exception
+ * @see Zend_Exception
  */
-#require_once 'Zend/Service/Exception.php';
+#require_once 'Zend/Exception.php';
 
 /**
  * @category   Zend
  * @package    Zend_Service
  * @subpackage SlideShare
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_SlideShare_Exception extends Zend_Service_Exception
+class Zend_Service_SlideShare_Exception extends Zend_Exception
 {
 }

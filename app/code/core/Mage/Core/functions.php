@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Core
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -174,19 +174,16 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
     if (!defined('E_RECOVERABLE_ERROR')) {
         define('E_RECOVERABLE_ERROR', 4096);
     }
-    if (!defined('E_DEPRECATED')) {
-        define('E_DEPRECATED', 8192);
-    }
 
     // PEAR specific message handling
     if (stripos($errfile.$errstr, 'pear') !== false) {
-         // ignore strict and deprecated notices
-        if (($errno == E_STRICT) || ($errno == E_DEPRECATED)) {
-            return true;
+         // ignore strict notices
+        if ($errno == E_STRICT) {
+            return false;
         }
         // ignore attempts to read system files when open_basedir is set
         if ($errno == E_WARNING && stripos($errstr, 'open_basedir') !== false) {
-            return true;
+            return false;
         }
     }
 
@@ -231,9 +228,6 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
             break;
         case E_RECOVERABLE_ERROR:
             $errorMessage .= "Recoverable Error";
-            break;
-        case E_DEPRECATED:
-            $errorMessage .= "Deprecated functionality";
             break;
         default:
             $errorMessage .= "Unknown error ($errno)";

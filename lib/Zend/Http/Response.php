@@ -16,8 +16,8 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Response
- * @version    $Id: Response.php 17124 2009-07-26 09:46:42Z shahar $
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Response.php 12519 2008-11-10 18:41:24Z alexander $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@
  *
  * @package    Zend_Http
  * @subpackage Response
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Http_Response
@@ -253,7 +253,7 @@ class Zend_Http_Response
         $body = '';
 
         // Decode the body if it was transfer-encoded
-        switch (strtolower($this->getHeader('transfer-encoding'))) {
+        switch ($this->getHeader('transfer-encoding')) {
 
             // Handle chunked body
             case 'chunked':
@@ -395,16 +395,6 @@ class Zend_Http_Response
     public function asString($br = "\n")
     {
         return $this->getHeadersAsString(true, $br) . $br . $this->getRawBody();
-    }
-
-    /**
-     * Implements magic __toString()
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->asString();
     }
 
     /**
@@ -561,29 +551,12 @@ class Zend_Http_Response
     {
         $decBody = '';
 
-        // If mbstring overloads substr and strlen functions, we have to
-        // override it's internal encoding
-        if (function_exists('mb_internal_encoding') &&
-           ((int) ini_get('mbstring.func_overload')) & 2) {
-
-            $mbIntEnc = mb_internal_encoding();
-            mb_internal_encoding('ASCII');
-        }
-
-        while (trim($body)) {
-            if (! preg_match("/^([\da-fA-F]+)[^\r\n]*\r\n/sm", $body, $m)) {
-                #require_once 'Zend/Http/Exception.php';
-                throw new Zend_Http_Exception("Error parsing body - doesn't seem to be a chunked message");
-            }
-
+        while (preg_match("/^([\da-fA-F]+)[^\r\n]*\r\n/sm", trim($body), $m)) {
             $length = hexdec(trim($m[1]));
             $cut = strlen($m[0]);
+
             $decBody .= substr($body, $cut, $length);
             $body = substr($body, $cut + $length + 2);
-        }
-
-        if (isset($mbIntEnc)) {
-            mb_internal_encoding($mbIntEnc);
         }
 
         return $decBody;
@@ -601,9 +574,8 @@ class Zend_Http_Response
     {
         if (! function_exists('gzinflate')) {
             #require_once 'Zend/Http/Exception.php';
-            throw new Zend_Http_Exception(
-                'zlib extension is required in order to decode "gzip" encoding'
-            );
+            throw new Zend_Http_Exception('Unable to decode gzipped response ' .
+                'body: perhaps the zlib extension is not loaded?');
         }
 
         return gzinflate(substr($body, 10));
@@ -621,28 +593,11 @@ class Zend_Http_Response
     {
         if (! function_exists('gzuncompress')) {
             #require_once 'Zend/Http/Exception.php';
-            throw new Zend_Http_Exception(
-                'zlib extension is required in order to decode "deflate" encoding'
-            );
+            throw new Zend_Http_Exception('Unable to decode deflated response ' .
+                'body: perhaps the zlib extension is not loaded?');
         }
 
-        /**
-         * Some servers (IIS ?) send a broken deflate response, without the
-         * RFC-required zlib header.
-         *
-         * We try to detect the zlib header, and if it does not exsit we
-         * teat the body is plain DEFLATE content.
-         *
-         * This method was adapted from PEAR HTTP_Request2 by (c) Alexey Borzov
-         *
-         * @link http://framework.zend.com/issues/browse/ZF-6040
-         */
-        $zlibHeader = unpack('n', substr($body, 0, 2));
-        if ($zlibHeader[1] % 31 == 0) {
-            return gzuncompress($body);
-        } else {
-            return gzinflate($body);
-        }
+        return gzuncompress($body);
     }
 
     /**

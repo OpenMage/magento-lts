@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -33,16 +33,5 @@
  */
 class Mage_Bundle_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_NODE_BUNDLE_PRODUCT_TYPE      = 'global/catalog/product/type/bundle';
 
-    /**
-     * Retrieve array of allowed product types for bundle selection product
-     *
-     * @return array
-     */
-    public function getAllowedSelectionTypes()
-    {
-        $config = Mage::getConfig()->getNode(self::XML_NODE_BUNDLE_PRODUCT_TYPE);
-        return array_keys($config->allowed_selection_types->asArray());
-    }
 }

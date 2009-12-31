@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "../../common/dtd/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.6/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.7 $"/>
-		<generation date="$Date: 2009/05/05 23:06:40 $"/>
+		<version number="$Revision: 1.2 $"/>
+		<generation date="$Date: 2008/05/28 15:49:36 $"/>
 		<language type="si"/>
 	</identity>
 	<localeDisplayNames>
@@ -26,9 +26,7 @@
 		</types>
 	</localeDisplayNames>
 	<characters>
-		<exemplarCharacters>[අ-ඍ එ-ඖ ං ඃ ක-ඣ ඥ ඤ ට-න ඳ-ර ල ව-ෆ ා-\u0DD4 \u0DD6 ෘ ෲ ෟ ෙ-ෞ \u0DCA]</exemplarCharacters>
-		<exemplarCharacters type="auxiliary">[\u200B-\u200D ඎ-ඐ ඦ ෳ]</exemplarCharacters>
-		<exemplarCharacters type="currencySymbol">[a-z]</exemplarCharacters>
+		<exemplarCharacters>[\u200C \u200D ං ඃ අ-ඖ ක-න ඳ-ර ල ව-ෆ ් ා-ු ූ ෘ-ෟ ෲ ෳ]</exemplarCharacters>
 	</characters>
 	<dates>
 		<calendars>
@@ -145,17 +143,17 @@
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
-							<pattern>EEEE, y MMMM d</pattern>
+							<pattern>EEEE, yyyy MMMM d</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
 						<dateFormat>
-							<pattern>y MMMM d</pattern>
+							<pattern>yyyy MMMM d</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="medium">
 						<dateFormat>
-							<pattern>y MMM d</pattern>
+							<pattern>yyyy MMM d</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="short">
@@ -167,7 +165,7 @@
 				<timeFormats>
 					<timeFormatLength type="full">
 						<timeFormat>
-							<pattern>h:mm:ss a zzzz</pattern>
+							<pattern>h:mm:ss a v</pattern>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="long">
@@ -188,9 +186,9 @@
 				</timeFormats>
 				<fields>
 					<field type="day">
-						<relative type="-1">ඊයෙ</relative>
 						<relative type="0">අද</relative>
 						<relative type="1">හෙට</relative>
+						<relative type="-1">ඊයෙ</relative>
 					</field>
 				</fields>
 			</calendar>
@@ -227,7 +225,7 @@
 		</currencyFormats>
 		<currencies>
 			<currency type="LKR">
-				<displayName>ලංකා රුපියල්</displayName>
+				<displayName>ලංකා රුපියල</displayName>
 				<symbol>SL Re</symbol>
 			</currency>
 		</currencies>
@@ -239,4 +237,3 @@
 		</messages>
 	</posix>
 </ldml>
-

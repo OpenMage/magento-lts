@@ -1,42 +1,6 @@
 <?php
-/**
- * Magento
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
- *
- * @category    Varien
- * @package     Varien_Db
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
- * Class for SQL SELECT generation and results.
- *
- * @category    Varien
- * @package     Varien_Db
- * @author      Magento Core Team <core@magentocommerce.com>
- */
 class Varien_Db_Select extends Zend_Db_Select
 {
-    const STRAIGHT_JOIN_ON  = 'straight_join';
-    const STRAIGHT_JOIN     = 'straightjoin';
-    const SQL_STRAIGHT_JOIN = 'STRAIGHT_JOIN';
-
     /**
      * Class constructor
      *
@@ -45,8 +9,6 @@ class Varien_Db_Select extends Zend_Db_Select
     public function __construct(Zend_Db_Adapter_Abstract $adapter)
     {
         parent::__construct($adapter);
-        self::$_joinTypes[] = self::STRAIGHT_JOIN_ON;
-        self::$_partsInit = array(self::STRAIGHT_JOIN => false) + self::$_partsInit;
     }
 
     /**
@@ -318,27 +280,6 @@ class Varien_Db_Select extends Zend_Db_Select
     }
 
     /**
-     * Generate INSERT IGNORE query to the table from current select
-     *
-     * @param string $tableName
-     * @param array $fields
-     * @return string
-     */
-    public function insertIgnoreFromSelect($tableName, $fields = array())
-    {
-        $insertFields = '';
-        if ($fields) {
-            $quotedFields = array_map(array($this->getAdapter(), 'quoteIdentifier'), $fields);
-            $insertFields = '(' . join(',', $quotedFields) . ') ';
-        }
-        return sprintf('INSERT IGNORE %s %s%s',
-            $this->getAdapter()->quoteIdentifier($tableName),
-            $insertFields,
-            $this->assemble()
-        );
-    }
-
-    /**
      * Retrieve DELETE query from select
      *
      * @param string $table The table name or alias
@@ -374,52 +315,5 @@ class Varien_Db_Select extends Zend_Db_Select
         }
         $this->_parts[$part] = $value;
         return $this;
-    }
-
-    /**
-     * Add a STRAIGHT_JOIN table and colums to the query (MySQL only).
-     * STRAIGHT_JOIN is similar to JOIN, except that the left table
-     * is always read before the right table. This can be used for those
-     * (few) cases for which the join optimizer puts the tables in the wrong order
-     *
-     * The $name and $cols parameters follow the same logic
-     * as described in the from() method.
-     *
-     * @param  array|string|Zend_Db_Expr $name The table name.
-     * @param  string $cond Join on this condition.
-     * @param  array|string $cols The columns to select from the joined table.
-     * @param  string $schema The database name to specify, if any.
-     * @return Zend_Db_Select This Zend_Db_Select object.
-     */
-    public function joinStraight($name, $cond, $cols = self::SQL_WILDCARD, $schema = null)
-    {
-        return $this->_join(self::STRAIGHT_JOIN_ON, $name, $cond, $cols, $schema);
-    }
-
-    /**
-     * Use a STRAIGHT_JOIN for the SQL Select
-     *
-     * @param bool $flag Whether or not the SELECT use STRAIGHT_JOIN (default true).
-     * @return Zend_Db_Select This Zend_Db_Select object.
-     */
-    public function useStraightJoin($flag = true)
-    {
-        $this->_parts[self::STRAIGHT_JOIN] = (bool) $flag;
-        return $this;
-    }
-
-    /**
-     * Render STRAIGHT_JOIN clause
-     *
-     * @param string   $sql SQL query
-     * @return string
-     */
-    protected function _renderStraightjoin($sql)
-    {
-        if (!empty($this->_parts[self::STRAIGHT_JOIN])) {
-            $sql .= ' ' . self::SQL_STRAIGHT_JOIN;
-        }
-
-        return $sql;
     }
 }

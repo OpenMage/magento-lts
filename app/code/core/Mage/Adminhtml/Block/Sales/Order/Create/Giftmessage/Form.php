@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * Retrieve default value for giftmessage sender
+     * Retrive default value for giftmessage sender
      *
      * @return string
      */
@@ -100,7 +100,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * Retrieve default value for giftmessage recipient
+     * Retrive default value for giftmessage recipient
      *
      * @return string
      */
@@ -149,14 +149,14 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
             array(
                 'name'  =>  $this->_getFieldName('sender'),
                 'label' =>  Mage::helper('sales')->__('From'),
-                'required' =>  $this->getMessage()->getMessage() ? true : false
+                'class' =>  $this->getMessage()->getMessage() ? 'required-entry' : ''
             )
         );
         $fieldset->addField('recipient','text',
             array(
                 'name'  =>  $this->_getFieldName('recipient'),
                 'label' =>  Mage::helper('sales')->__('To'),
-                'required' =>  $this->getMessage()->getMessage() ? true : false
+                'class' =>  $this->getMessage()->getMessage() ? 'required-entry' : ''
             )
         );
 
@@ -166,7 +166,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
                 'label'     =>  Mage::helper('sales')->__('Message'),
                 'rows'      =>  '5',
                 'cols'      =>  '20',
-                'onchange'  =>  'giftMessagesController.toogleRequired(\'' . $this->_getFieldId('message')
+                'onchange'  =>  'toogleRequired(\'' . $this->_getFieldId('message')
                              .  '\', [\'' . $this->_getFieldId('sender')
                              .  '\', \'' . $this->_getFieldId('recipient') . '\']);'
             )

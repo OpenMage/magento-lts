@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -18,10 +19,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -198,7 +199,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
      *
      * @return array
      */
-    public function getCustomerGroups()
+    public function getCustomerGoups()
     {
         if (is_null($this->_customerGroups)) {
             $this->_customerGroups = array();
@@ -212,15 +213,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
         return $this->_customerGroups;
     }
 
-    /**
-     * Alias at getCustomerGroups()
-     *
-     * @return array
-     */
-    public function getCustomerGoups()
-    {
-        return $this->getCustomerGroups();
-    }
+
 
     public function __construct()
     {
@@ -440,7 +433,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
         $customer->setWebsiteId($website->getId())
             ->loadByEmail($importData['email']);
         if (!$customer->getId()) {
-            $customerGroups = $this->getCustomerGroups();
+            $customerGroups = $this->getCustomerGoups();
             /**
              * Check customer group
              */
@@ -472,7 +465,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
             }
         }
         elseif (!empty($importData['group_id'])) {
-            $customerGroups = $this->getCustomerGroups();
+            $customerGroups = $this->getCustomerGoups();
             /**
              * Check customer group
              */
@@ -504,7 +497,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer
             $setValue = $value;
 
             if ($attribute->getFrontendInput() == 'multiselect') {
-                $value = explode(self::MULTI_DELIMITER, $value);
+                $value = split(self::MULTI_DELIMITER, $value);
                 $isArray = true;
                 $setValue = array();
             }

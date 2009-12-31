@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: Count.php 18148 2009-09-16 19:27:43Z thomas $
+ * @version   $Id: $
  */
 
 /**
@@ -29,7 +29,7 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_File_Count extends Zend_Validate_Abstract
@@ -100,7 +100,8 @@ class Zend_Validate_File_Count extends Zend_Validate_Abstract
      * 'min': Minimum filecount
      * 'max': Maximum filecount
      *
-     * @param  integer|array|Zend_Config $options Options for the adapter
+     * @param  integer|array $options Options for the adapter
+     * @param  integer $max (Deprecated) Maximum value (implies $options is the minimum)
      * @return void
      */
     public function __construct($options)
@@ -115,8 +116,7 @@ class Zend_Validate_File_Count extends Zend_Validate_Abstract
         }
 
         if (1 < func_num_args()) {
-// @todo: Preperation for 2.0... needs to be cleared with the dev-team
-//          trigger_error('Multiple arguments are deprecated in favor of an array of named arguments', E_USER_NOTICE);
+            trigger_error('Multiple arguments are deprecated in favor of an array of named arguments', E_USER_NOTICE);
             $options['min'] = func_get_arg(0);
             $options['max'] = func_get_arg(1);
         }
@@ -215,13 +215,14 @@ class Zend_Validate_File_Count extends Zend_Validate_Abstract
      */
     public function addFile($file)
     {
+var_dump($file);
         if (is_string($file)) {
             $file = array($file);
         }
 
         if (is_array($file)) {
             foreach ($file as $name) {
-                if (!isset($this->_files[$name]) && !empty($name)) {
+                if (!isset($this->_files[$name])) {
                     $this->_files[$name] = $name;
                 }
             }
@@ -244,6 +245,7 @@ class Zend_Validate_File_Count extends Zend_Validate_Abstract
     public function isValid($value, $file = null)
     {
         $this->addFile($value);
+print "\nVALIDATION:";
         $this->_count = count($this->_files);
         if (($this->_max !== null) && ($this->_count > $this->_max)) {
             return $this->_throw($file, self::TOO_MUCH);

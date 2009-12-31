@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_SalesRule>
-            <version>0.7.12</version>
+            <version>0.7.7</version>
         </Mage_SalesRule>
     </modules>
     <global>
@@ -45,15 +45,12 @@
             <salesrule_mysql4>
                 <class>Mage_SalesRule_Model_Mysql4</class>
                 <entities>
-                    <rule><table>salesrule</table></rule>
-                    <rule_customer><table>salesrule_customer</table></rule_customer>
-                    <label><table>salesrule_label</table></label>
-                    <coupon_aggregated>
-                        <table>coupon_aggregated</table>
-                    </coupon_aggregated>
-                    <coupon_aggregated_order>
-                        <table>coupon_aggregated_order</table>
-                    </coupon_aggregated_order>
+                    <rule>
+                        <table>salesrule</table>
+                    </rule>
+                    <rule_customer>
+                        <table>salesrule_customer</table>
+                    </rule_customer>
                 </entities>
             </salesrule_mysql4>
         </models>
@@ -61,45 +58,72 @@
             <salesrule_setup>
                 <setup>
                     <module>Mage_SalesRule</module>
-                    <class>Mage_Sales_Model_Mysql4_Setup</class>
                 </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
             </salesrule_setup>
+            <salesrule_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </salesrule_write>
+            <salesrule_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </salesrule_read>
         </resources>
-        <fieldsets>
-            <sales_convert_quote_address>
-                <discount_description><to_order>*</to_order></discount_description>
-                <shipping_discount_amount><to_order>*</to_order></shipping_discount_amount>
-                <base_shipping_discount_amount><to_order>*</to_order></base_shipping_discount_amount>
-            </sales_convert_quote_address>
-        </fieldsets>
+
         <events>
+            <sales_quote_address_discount_item>
+                <observers>
+                    <salesrule>
+                        <type>singleton</type>
+                        <class>salesrule/observer</class>
+                        <method>sales_quote_address_discount_item</method>
+                    </salesrule>
+                </observers>
+            </sales_quote_address_discount_item>
             <sales_order_place_after>
                 <observers>
                     <salesrule>
+                        <type>singleton</type>
                         <class>salesrule/observer</class>
                         <method>sales_order_afterPlace</method>
                     </salesrule>
                 </observers>
             </sales_order_place_after>
         </events>
-        <sales>
-            <quote>
-                <totals>
-                    <freeshipping>
-                        <class>salesrule/quote_freeshipping</class>
-                        <after>subtotal</after>
-                        <before>shipping</before>
-                    </freeshipping>
-                    <discount>
-                        <class>salesrule/quote_discount</class>
-                        <after>subtotal,shipping</after>
-                        <before>grand_total</before>
-                    </discount>
-                </totals>
-            </quote>
-        </sales>
     </global>
     <adminhtml>
+        <menu>
+             <promo>
+                <children>
+                    <quote translate="title" module="salesrule">
+                        <title>Shopping Cart Price Rules</title>
+                        <action>adminhtml/promo_quote/</action>
+                        <resource>promo/quote</resource>
+                        <depends><module>Mage_Sales</module></depends>
+                    </quote>
+                </children>
+             </promo>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <promo>
+                            <children>
+                                <quote translate="title" module="salesrule">
+                                    <title>Shopping Cart Price Rules</title>
+                                </quote>
+                            </children>
+                        </promo>
+                    </children>
+                </admin>
+            </resources>
+         </acl>
         <translate>
             <modules>
                 <Mage_SalesRule>
@@ -122,13 +146,4 @@
             </modules>
         </translate>
     </frontend>
-    
-    <crontab>
-        <jobs>
-            <aggregate_sales_report_coupons_data>
-                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
-                <run><model>salesrule/observer::aggregateSalesReportCouponsData</model></run>
-            </aggregate_sales_report_coupons_data>
-        </jobs>
-    </crontab>
 </config>

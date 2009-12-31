@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -42,4 +42,26 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tabs extends Mage_Adminhtml_Block_Wi
         $this->setDestElementId('edit_form');
         $this->setTitle(Mage::helper('salesrule')->__('Shopping Cart Price Rule'));
     }
+
+    protected function _beforeToHtml()
+    {
+        $this->addTab('main_section', array(
+            'label'     => Mage::helper('salesrule')->__('Rule Information'),
+            'content'   => $this->getLayout()->createBlock('adminhtml/promo_quote_edit_tab_main')->toHtml(),
+            'active'    => true
+        ));
+
+        $this->addTab('conditions_section', array(
+            'label'     => Mage::helper('salesrule')->__('Conditions'),
+            'content'   => $this->getLayout()->createBlock('adminhtml/promo_quote_edit_tab_conditions')->toHtml(),
+        ));
+
+        $this->addTab('actions_section', array(
+            'label'     => Mage::helper('salesrule')->__('Actions'),
+            'content'   => $this->getLayout()->createBlock('adminhtml/promo_quote_edit_tab_actions')->toHtml(),
+        ));
+
+        return parent::_beforeToHtml();
+    }
+
 }

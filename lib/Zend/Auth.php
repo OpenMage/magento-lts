@@ -14,16 +14,16 @@
  *
  * @category   Zend
  * @package    Zend_Auth
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Auth.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: Auth.php 11747 2008-10-08 18:33:58Z norm2782 $
  */
 
 
 /**
  * @category   Zend
  * @package    Zend_Auth
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Auth
@@ -115,14 +115,6 @@ class Zend_Auth
     public function authenticate(Zend_Auth_Adapter_Interface $adapter)
     {
         $result = $adapter->authenticate();
-
-        /**
-         * ZF-7546 - prevent multiple succesive calls from storing inconsistent results
-         * Ensure storage has clean state
-         */
-        if ($this->hasIdentity()) {
-            $this->clearIdentity();
-        }
 
         if ($result->isValid()) {
             $this->getStorage()->write($result->getIdentity());

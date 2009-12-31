@@ -1,0 +1,77 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php 
+/**
+ * Pager template
+ *
+ * @see Mage_Page_Block_Html_Pager
+ */
+?>
+<?php if($this->getCollection()->getSize()): ?>
+<table class="pager" cellspacing="0">
+    <tr>
+        <td>
+        <?php if($this->getLastPageNum()>1): ?>
+            <?php echo $this->__('Items %s to %s of %s total', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
+        <?php else: ?>
+            <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
+        <?php endif; ?>
+        </td>
+        <?php if($this->getLastPageNum()>1): ?>
+        <td class="pages">
+            <strong><?php echo $this->__('Page:') ?></strong>
+            <ol>
+            <?php if (!$this->isFirstPage()): ?>
+                <li><a href="<?php echo $this->getPreviousPageUrl() ?>"><img src="<?php echo $this->getSkinUrl('images/pager_arrow_left.gif') ?>" alt="<?php echo $this->__('Previous Page') ?>" /></a></li>
+            <?php endif ?>
+            <?php foreach ($this->getPages() as $_page): ?>
+                <?php if ($this->isPageCurrent($_page)): ?>
+                    <li><span class="on"><?php echo $_page ?></span></li>
+                <?php else: ?>
+                    <li><a href="<?php echo $this->getPageUrl($_page) ?>"><?php echo $_page ?></a></li>
+                <?php endif ?>
+            <?php endforeach;; ?>
+            <?php if (!$this->isLastPage()): ?>
+                <li><a href="<?php echo $this->getNextPageUrl() ?>"><img src="<?php echo $this->getSkinUrl('images/pager_arrow_right.gif') ?>" alt="<?php echo $this->__('Next Page') ?>"/></a></li>
+            <?php endif ?>
+            </ol>
+        </td>
+        <?php endif; ?>
+        <?php if($this->getShowPerPage()): ?>
+        <td class="a-right">
+            <?php echo $this->__('Show') ?> <select onchange="setLocation(this.value)">
+            <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
+                <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
+                    <?php echo $_limit ?>
+                </option>
+            <?php endforeach; ?>
+            </select> <?php echo $this->__('per page') ?>
+        </td>
+        <?php endif ?>
+    </tr>
+</table>
+<?php endif ?>

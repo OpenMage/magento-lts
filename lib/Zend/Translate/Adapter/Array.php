@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Array.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,13 +30,10 @@
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter
-{
-    private $_data = array();
-
+class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter {
     /**
      * Generates the adapter
      *
@@ -57,11 +54,9 @@ class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter
      * @param  string        $locale  Locale/Language to add data for, identical with locale identifier,
      *                                see Zend_Locale for more information
      * @param  array         $options OPTIONAL Options to use
-     * @return array
      */
     protected function _loadTranslationData($data, $locale, array $options = array())
     {
-        $this->_data = array();
         if (!is_array($data)) {
             if (file_exists($data)) {
                 ob_start();
@@ -74,12 +69,12 @@ class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter
             throw new Zend_Translate_Exception("Error including array or file '".$data."'");
         }
 
-        if (!isset($this->_data[$locale])) {
-            $this->_data[$locale] = array();
+        $options = $options + $this->_options;
+        if (($options['clear'] == true) ||  !isset($this->_translate[$locale])) {
+            $this->_translate[$locale] = array();
         }
 
-        $this->_data[$locale] = $data + $this->_data[$locale];
-        return $this->_data;
+        $this->_translate[$locale] = $data + $this->_translate[$locale];
     }
 
     /**

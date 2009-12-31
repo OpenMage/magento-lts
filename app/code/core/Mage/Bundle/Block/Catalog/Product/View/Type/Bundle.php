@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -96,14 +96,14 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     'plusDisposition' => 0,
                     'minusDisposition' => 0,
                 );
-                $responseObject = new Varien_Object();
-                $args = array('response_object'=>$responseObject, 'selection'=>$_selection);
-                Mage::dispatchEvent('bundle_product_view_config', $args);
-                if (is_array($responseObject->getAdditionalOptions())) {
-                    foreach ($responseObject->getAdditionalOptions() as $o=>$v) {
-                        $selection[$o] = $v;
-                    }
-                }
+        		$responseObject = new Varien_Object();
+        		$args = array('response_object'=>$responseObject, 'selection'=>$_selection);
+        		Mage::dispatchEvent('bundle_product_view_config', $args);
+        		if (is_array($responseObject->getAdditionalOptions())) {
+        			foreach ($responseObject->getAdditionalOptions() as $o=>$v) {
+        				$selection[$o] = $v;
+        			}
+        		}
                 $option['selections'][$_selection->getSelectionId()] = $selection;
 
                 if (($_selection->getIsDefault() || ($selectionCount == 1 && $_option->getRequired())) && $_selection->isSalable()) {
@@ -123,7 +123,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             'specialPrice' => $this->getProduct()->getSpecialPrice()
         );
 
-        return Mage::helper('core')->jsonEncode($config);
+        return Zend_Json::encode($config);
     }
 
     public function addRenderer($type, $block)

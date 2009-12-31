@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -62,7 +62,7 @@ class Mage_CatalogIndex_Model_Mysql4_Attribute extends Mage_CatalogIndex_Model_M
 
         $fields = array('count'=>'COUNT(index.entity_id)', 'index.value');
 
-        $select->columns($fields)
+        $select->from('', $fields)
             ->join(array('index'=>$this->getMainTable()), 'index.entity_id=e.entity_id', array())
             ->where('index.store_id = ?', $this->getStoreId())
             ->where('index.attribute_id = ?', $attribute->getId())

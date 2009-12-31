@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -46,54 +46,33 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
     {
         $model = Mage::registry('tag_tag');
 
-        $form = new Varien_Data_Form(
-            array('id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post')
-        );
+        $form = new Varien_Data_Form(array('id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post'));
 
         $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('tag')->__('General Information')));
 
         if ($model->getTagId()) {
-            $fieldset->addField('tag_id', 'hidden', array(
+        	$fieldset->addField('tag_id', 'hidden', array(
                 'name' => 'tag_id',
             ));
         }
 
-        $fieldset->addField('form_key', 'hidden', array(
-            'name'  => 'form_key',
-            'value' => Mage::getSingleton('core/session')->getFormKey(),
-        ));
-
-        $fieldset->addField('store_id', 'hidden', array(
-            'name'  => 'store_id',
-            'value' => (int)$this->getRequest()->getParam('store')
-        ));
-
-        $fieldset->addField('name', 'text', array(
-            'name' => 'tag_name',
+    	$fieldset->addField('name', 'text', array(
+            'name' => 'name',
             'label' => Mage::helper('tag')->__('Tag Name'),
             'title' => Mage::helper('tag')->__('Tag Name'),
             'required' => true,
-            'after_element_html' => ' [GLOBAL]',
         ));
 
-        $fieldset->addField('status', 'select', array(
+    	$fieldset->addField('status', 'select', array(
             'label' => Mage::helper('tag')->__('Status'),
             'title' => Mage::helper('tag')->__('Status'),
-            'name' => 'tag_status',
+            'name' => 'status',
             'required' => true,
             'options' => array(
                 Mage_Tag_Model_Tag::STATUS_DISABLED => Mage::helper('tag')->__('Disabled'),
                 Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('tag')->__('Pending'),
                 Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('tag')->__('Approved'),
             ),
-            'after_element_html' => ' [GLOBAL]',
-        ));
-
-        $fieldset->addField('base_popularity', 'text', array(
-            'name' => 'base_popularity',
-            'label' => Mage::helper('tag')->__('Base Popularity'),
-            'title' => Mage::helper('tag')->__('Base Popularity'),
-            'after_element_html' => ' [STORE VIEW]',
         ));
 
         if (!$model->getId() && !Mage::getSingleton('adminhtml/session')->getTagData() ) {
@@ -101,13 +80,17 @@ class Mage_Adminhtml_Block_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget_For
         }
 
         if ( Mage::getSingleton('adminhtml/session')->getTagData() ) {
-            $form->addValues(Mage::getSingleton('adminhtml/session')->getTagData());
+            $form->setValues(Mage::getSingleton('adminhtml/session')->getTagData());
             Mage::getSingleton('adminhtml/session')->setTagData(null);
         } else {
-            $form->addValues($model->getData());
+            $form->setValues($model->getData());
         }
 
+        $form->setUseContainer(true);
+        $form->setAction( $form->getAction() . 'ret/' . $this->getRequest()->getParam('ret') );
         $this->setForm($form);
+
         return parent::_prepareForm();
     }
+
 }

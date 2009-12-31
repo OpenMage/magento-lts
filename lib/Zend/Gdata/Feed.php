@@ -16,9 +16,8 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Feed.php 16971 2009-07-22 18:05:45Z mikaelkael $
  */
 
 /**
@@ -57,7 +56,7 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
@@ -73,21 +72,21 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
     /**
      * The openSearch:totalResults element
      *
-     * @var Zend_Gdata_Extension_OpenSearchTotalResults|null
+     * @var string
      */
     protected $_totalResults = null;
 
     /**
      * The openSearch:startIndex element
      *
-     * @var Zend_Gdata_Extension_OpenSearchStartIndex|null
+     * @var string
      */
     protected $_startIndex = null;
 
     /**
      * The openSearch:itemsPerPage element
      *
-     * @var Zend_Gdata_Extension_OpenSearchItemsPerPage|null
+     * @var string
      */
     protected $_itemsPerPage = null;
 
@@ -168,7 +167,7 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
             // ETags are special, since they can be conveyed by either the
             // HTTP ETag header or as an XML attribute.
             $etag = $attribute->nodeValue;
-            if ($this->_etag === null) {
+            if (is_null($this->_etag)) {
                 $this->_etag = $etag;
             }
             elseif ($this->_etag != $etag) {
@@ -185,8 +184,7 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
     /**
      *  Set the value of the totalResults property.
      *
-     * @param Zend_Gdata_Extension_OpenSearchTotalResults|null $value The
-     *        value of the totalResults property. Use null to unset.
+     * @param integer $value The value of the totalResults property.
      * @return Zend_Gdata_Feed Provides a fluent interface.
      */
     function setTotalResults($value) {
@@ -197,8 +195,7 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
     /**
      * Get the value of the totalResults property.
      *
-     * @return Zend_Gdata_Extension_OpenSearchTotalResults|null The value of
-     *         the totalResults property, or null if unset.
+     * @return integer|null The value of the totalResults property, or null.
      */
     function getTotalResults() {
         return $this->_totalResults;
@@ -207,8 +204,7 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
     /**
      * Set the start index property for feed paging.
      *
-     * @param Zend_Gdata_Extension_OpenSearchStartIndex|null $value The value
-     *        for the startIndex property. Use null to unset.
+     * @param integer $value The value for the startIndex property.
      * @return Zend_Gdata_Feed Provides a fluent interface.
      */
     function setStartIndex($value) {
@@ -219,8 +215,7 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
     /**
      * Get the value of the startIndex property.
      *
-     * @return Zend_Gdata_Extension_OpenSearchStartIndex|null The value of the
-     *         startIndex property, or null if unset.
+     * @return integer|null The value of the startIndex property, or null.
      */
     function getStartIndex() {
         return $this->_startIndex;
@@ -229,8 +224,7 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
     /**
      * Set the itemsPerPage property.
      *
-     * @param Zend_Gdata_Extension_OpenSearchItemsPerPage|null $value The
-     *        value for the itemsPerPage property. Use nul to unset.
+     * @param integer $value The value for the itemsPerPage property.
      * @return Zend_Gdata_Feed Provides a fluent interface.
      */
     function setItemsPerPage($value) {
@@ -241,8 +235,7 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
     /**
      * Get the value of the itemsPerPage property.
      *
-     * @return Zend_Gdata_Extension_OpenSearchItemsPerPage|null The value of
-     *         the itemsPerPage property, or null if unset.
+     * @return integer|null The value of the itemsPerPage property, or null.
      */
     function getItemsPerPage() {
         return $this->_itemsPerPage;

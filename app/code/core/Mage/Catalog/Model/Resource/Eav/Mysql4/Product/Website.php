@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -106,32 +106,28 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Website extends Mage_Core_M
 
         // Before adding of products we should remove it old rows with same ids
         $this->removeProducts($websiteIds, $productIds);
-        try {
-            foreach ($websiteIds as $websiteId) {
-                foreach ($productIds as $productId) {
-                    if (!$productId) {
-                        continue;
-                    }
-                    $this->_getWriteAdapter()->insert($this->getMainTable(), array(
-                        'product_id' => $productId,
-                        'website_id' => $websiteId
-                    ));
-                }
 
-                // Refresh product enabled index
-                $storeIds = Mage::app()->getWebsite($websiteId)->getStoreIds();
-                foreach ($storeIds as $storeId) {
-                    $store = Mage::app()->getStore($storeId);
-                    $this->_getProductResource()->refreshEnabledIndex($store, $productIds);
+        foreach ($websiteIds as $websiteId) {
+            foreach ($productIds as $productId) {
+                if (!$productId) {
+                    continue;
                 }
+                $this->_getWriteAdapter()->insert($this->getMainTable(), array(
+                    'product_id' => $productId,
+                    'website_id' => $websiteId
+                ));
             }
 
-            $this->_getWriteAdapter()->commit();
+            // Refresh product enabled index
+            $storeIds = Mage::app()->getWebsite($websiteId)->getStoreIds();
+            foreach ($storeIds as $storeId) {
+                $store = Mage::app()->getStore($storeId);
+                $this->_getProductResource()->refreshEnabledIndex($store, $productIds);
+            }
         }
-        catch (Exception $e) {
-            $this->_getWriteAdapter()->rollBack();
-            throw $e;
-        }
+
+        $this->_getWriteAdapter()->commit();
+
         return $this;
     }
 

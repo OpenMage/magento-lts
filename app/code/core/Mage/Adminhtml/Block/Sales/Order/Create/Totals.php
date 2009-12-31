@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -60,22 +60,16 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
 
     protected function _getTotalRenderer($code)
     {
-        $blockName = $code.'_total_renderer';
-        $block = $this->getLayout()->getBlock($blockName);
-        if (!$block) {
-            $block = $this->_defaultRenderer;
+        if (!isset($this->_totalRenderers[$code])) {
+            $this->_totalRenderers[$code] = $this->_defaultRenderer;
             $config = Mage::getConfig()->getNode("global/sales/quote/totals/{$code}/admin_renderer");
-            if ($config) {
-                $block = (string) $config;
-            }
+            if ($config)
+                $this->_totalRenderers[$code] = (string) $config;
 
-            $block = $this->getLayout()->createBlock($block, $blockName);
+            $this->_totalRenderers[$code] = $this->getLayout()->createBlock($this->_totalRenderers[$code], "{$code}_total_renderer");
         }
-        /**
-         * Transfer totals to renderer
-         */
-        $block->setTotals($this->getTotals());
-        return $block;
+
+        return $this->_totalRenderers[$code];
     }
 
     public function renderTotal($total, $area = null, $colspan = 1)
@@ -89,15 +83,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
 
     public function renderTotals($area = null, $colspan = 1)
     {
-        $html = '';
-        foreach($this->getTotals() as $total) {
-            if ($total->getArea() != $area && $area != -1) {
-                continue;
-            }
-            $html .= $this->renderTotal($total, $area, $colspan);
-        }
-        return $html;
-
         $html = '';
         foreach($this->getTotals() as $total) {
             $html .= $this->renderTotal($total, $area, $colspan);

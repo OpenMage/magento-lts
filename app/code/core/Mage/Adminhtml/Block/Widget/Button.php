@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -55,13 +55,13 @@ class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
     {
         $html = $this->getBeforeHtml().'<button '
             . ($this->getId()?' id="'.$this->getId() . '"':'')
-            . ($this->getElementName()?' name="'.$this->getElementName() . '"':'')
+            . ($this->getName()?' name="'.$this->getName() . '"':'')
             . ' type="'.$this->getType() . '"'
             . ' class="scalable '.$this->getClass().'"'
             . ' onclick="'.$this->getOnClick().'"'
             . ' style="'.$this->getStyle() .'"'
             . ($this->getValue()?' value="'.$this->getValue() . '"':'')
-            . ($this->getDisabled() ? ' disabled="disabled"' : '')
+            . ($this->getDisabled() ? 'disabled="disabled"' : '')
             . '><span>' .$this->getLabel().'</span></button>'.$this->getAfterHtml();
 
         return $html;

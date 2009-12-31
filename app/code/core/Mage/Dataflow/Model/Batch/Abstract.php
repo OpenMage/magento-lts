@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Dataflow
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Dataflow
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -43,14 +43,17 @@ abstract class Mage_Dataflow_Model_Batch_Abstract extends Mage_Core_Model_Abstra
      */
     public function setBatchData($data)
     {
-        if ('"libiconv"' == ICONV_IMPL) {
-            foreach ($data as $key => &$value) {
-                $value = iconv('utf-8', 'utf-8//IGNORE', $value);
-            }
+        /**
+        * need prepare valid utf-8 data
+        * related with php bug #42588
+        */
+        foreach ($data as $key=>$value) {
+            $str = @iconv("utf-8", "utf-8//IGNORE", $value);
+            if ($str) {
+                $data[$key] = $str;
+            }    
         }
-
         $this->setData('batch_data', serialize($data));
-        
         return $this;
     }
 

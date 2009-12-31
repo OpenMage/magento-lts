@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -218,7 +218,6 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
         $collection = $this->getProduct($product)->getLinkInstance()->useGroupedLinks()
             ->getProductCollection()
             ->setFlag('require_stock_items', true)
-            ->setFlag('product_children', true)
             ->setIsStrongMode();
         $collection->setProduct($this->getProduct($product));
         return $collection;
@@ -266,7 +265,6 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      */
     public function prepareForCart(Varien_Object $buyRequest, $product = null)
     {
-        $product = $this->getProduct($product);
         $productsInfo = $buyRequest->getSuperGroup();
         if (!empty($productsInfo) && is_array($productsInfo)) {
             $products = array();
@@ -288,12 +286,12 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                             }
 
                             $_result[0]->setCartQty($qty);
-                            $_result[0]->addCustomOption('product_type', self::TYPE_CODE, $product);
+                            $_result[0]->addCustomOption('product_type', self::TYPE_CODE, $this->getProduct($product));
                             $_result[0]->addCustomOption('info_buyRequest',
                                 serialize(array(
                                     'super_product_config' => array(
                                         'product_type'  => self::TYPE_CODE,
-                                        'product_id'    => $product->getId()
+                                        'product_id'    => $this->getProduct($product)->getId()
                                     )
                                 ))
                             );

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Tag
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Tag
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -53,13 +53,6 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
         return $this;
     }
 
-    /**
-     * Loading tag by name
-     *
-     * @param Mage_Tag_Model_Tag $model
-     * @param string $name
-     * @return unknown
-     */
     public function loadByName($model, $name)
     {
         if( $name ) {
@@ -96,36 +89,9 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
         return parent::_beforeSave($object);
     }
 
-    /**
-     * Getting base popularity per store view for specified tag
-     *
-     * @param int $tagId
-     * @return array
-     */
-    protected function _getExistingBasePopularity($tagId)
+    public function aggregate($object)
     {
-        $selectSummary = $this->_getReadAdapter()->select()
-            ->from(
-                array('main' => $this->getTable('summary')),
-                array('store_id', 'base_popularity')
-            )
-            ->where('main.tag_id = ?', $tagId)
-            ->where('main.store_id != 0');
-
-        return $this->_getReadAdapter()->fetchAssoc($selectSummary);
-    }
-
-
-    /**
-     * Get aggregation data per store view
-     *
-     * @param int $tagId
-     * @return array
-     */
-    protected function _getAggregationPerStoreView($tagId)
-    {
-        $readAdapter = $this->_getReadAdapter();
-        $selectLocal = $readAdapter->select()
+        $selectLocal = $this->_getReadAdapter()->select()
             ->from(
                 array('main'  => $this->getTable('relation')),
                 array(
@@ -143,54 +109,11 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
                 'product_website.website_id=store.website_id AND product_website.product_id=main.product_id',
                 array()
             )
-            ->where('main.tag_id = ?', $tagId)
+            ->where('main.tag_id = ?', $object->getId())
             ->where('main.active')
             ->group('main.store_id');
 
-        $selectLocalResult = $readAdapter->fetchAll($selectLocal);
-
-        $selectHistorical = $readAdapter->select()
-            ->from(
-                array('main'=>$this->getTable('relation')),
-                array('historical_uses'=>'COUNT(main.tag_relation_id)',
-                'store_id')
-            )
-            ->join(array('store' => $this->getTable('core/store')),
-                'store.store_id=main.store_id AND store.store_id>0',
-                array()
-            )
-            ->join(array('product_website' => $this->getTable('catalog/product_website')),
-                'product_website.website_id=store.website_id AND product_website.product_id=main.product_id',
-                array()
-            )
-            ->group('main.store_id')
-            ->where('main.tag_id = ?', $tagId);
-
-        $selectHistoricalResult = $readAdapter->fetchAll($selectHistorical);
-
-        foreach ($selectHistoricalResult as $historical) {
-            foreach ($selectLocalResult as $key => $local) {
-                if ($local['store_id'] == $historical['store_id']) {
-                    $selectLocalResult[$key]['historical_uses'] = $historical['historical_uses'];
-                    break;
-                }
-            }
-        }
-
-        return $selectLocalResult;
-    }
-
-    /**
-     * Get global aggregation data for row with store_id = 0
-     *
-     * @param int $tagId
-     * @return array
-     */
-    protected function _getGlobalAggregation($tagId)
-    {
-        $readAdapter = $this->_getReadAdapter();
-        // customers and products stats
-        $selectGlobal = $readAdapter->select()
+        $selectGlobal = $this->_getReadAdapter()->select()
             ->from(
                 array('main'=>$this->getTable('relation')),
                 array(
@@ -208,15 +131,27 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
                 'product_website.website_id=store.website_id AND product_website.product_id=main.product_id',
                 array()
             )
-            ->where('main.tag_id = ?', $tagId)
+            ->where('main.tag_id = ?', $object->getId())
             ->where('main.active');
-        $result = $readAdapter->fetchRow($selectGlobal);
-        if (!$result) {
-            return array();
-        }
 
-        // historical uses stats
-        $selectHistoricalGlobal = $readAdapter->select()
+        $selectHistorical = $this->_getReadAdapter()->select()
+            ->from(
+                array('main'=>$this->getTable('relation')),
+                array('historical_uses'=>'COUNT(main.tag_relation_id)',
+                'store_id')
+            )
+            ->join(array('store' => $this->getTable('core/store')),
+                'store.store_id=main.store_id AND store.store_id>0',
+                array()
+            )
+            ->join(array('product_website' => $this->getTable('catalog/product_website')),
+                'product_website.website_id=store.website_id AND product_website.product_id=main.product_id',
+                array()
+            )
+            ->group('main.store_id')
+            ->where('main.tag_id = ?', $object->getId());
+
+       $selectHistoricalGlobal = $this->_getReadAdapter()->select()
             ->from(
                 array('main'=>$this->getTable('relation')),
                 array('historical_uses'=>'COUNT(main.tag_relation_id)')
@@ -229,115 +164,53 @@ class Mage_Tag_Model_Mysql4_Tag extends Mage_Core_Model_Mysql4_Abstract
                 'product_website.website_id=store.website_id AND product_website.product_id=main.product_id',
                 array()
             )
-            ->where('main.tag_id = ?', $tagId);
-        $result['historical_uses'] = (int) $readAdapter->fetchOne($selectHistoricalGlobal);
+            ->where('main.tag_id = ?', $object->getId());
 
-        return $result;
-    }
-
-    /**
-     * Getting statistics data into buffer.
-     * Replacing our buffer array with new statistics and incoming data.
-     *
-     * @param Mage_Tag_Model_Tag $object
-     * @return Mage_Tag_Model_Tag
-     */
-    public function aggregate($object)
-    {
-        $tagId   = (int)$object->getId();
-        $storeId = (int)$object->getStore();
-
-        // create final summary from existing data and add specified base popularity
-        $finalSummary = $this->_getExistingBasePopularity($tagId);
-        if ($object->hasBasePopularity() && $storeId) {
-            $finalSummary[$storeId]['store_id'] = $storeId;
-            $finalSummary[$storeId]['base_popularity'] = $object->getBasePopularity();
+        $historicalAll = $this->_getReadAdapter()->fetchAll($selectHistorical);
+        $historicalCache = array();
+        foreach ($historicalAll as $historical) {
+            $historicalCache[$historical['store_id']] = $historical['historical_uses'];
         }
 
-        // calculate aggregation data
-        $summaries = $this->_getAggregationPerStoreView($tagId);
-        $summariesGlobal = $this->_getGlobalAggregation($tagId);
-        if ($summariesGlobal) {
-            $summaries[] = $summariesGlobal;
-        }
+        $summaries = $this->_getReadAdapter()->fetchAll($selectLocal);
+        if ($row = $this->_getReadAdapter()->fetchRow($selectGlobal)) {
+            $historical = $this->_getReadAdapter()->fetchOne($selectHistoricalGlobal);
 
-        // override final summary with aggregated data
-        foreach ($summaries as $row) {
-            $storeId = (int)$row['store_id'];
-            foreach ($row as $key => $value) {
-                $finalSummary[$storeId][$key] = $value;
+            if($historical) {
+                $row['historical_uses'] = $historical;
             }
+
+            $summaries[] = $row;
         }
 
-        // prepare static parameters to final summary for insertion
-        foreach ($finalSummary as $key => $row) {
-            $finalSummary[$key]['tag_id'] = $tagId;
-            foreach (array('base_popularity', 'popularity', 'historical_uses', 'uses', 'products', 'customers') as $k) {
-                if (!isset($row[$k])) {
-                    $finalSummary[$key][$k] = 0;
-                }
+        $this->_getReadAdapter()->delete($this->getTable('summary'), $this->_getReadAdapter()->quoteInto('tag_id = ?', $object->getId()));
+
+        foreach ($summaries as $summary) {
+            if(!isset($summary['historical_uses'])) {
+                $summary['historical_uses'] = isset($historicalCache[$summary['store_id']]) ? $historicalCache[$summary['store_id']] : 0;
             }
-            $finalSummary[$key]['popularity'] = $finalSummary[$key]['historical_uses'];
-        }
+            $summary['tag_id'] = $object->getId();
+            $summary['popularity'] = $summary['historical_uses'];
+            if (is_null($summary['uses'])) {
+                $summary['uses'] = 0;
+            }
 
-        // remove old and insert new data
-        $this->_getWriteAdapter()->delete(
-            $this->getTable('summary'), $this->_getWriteAdapter()->quoteInto('tag_id = ?', $tagId)
-        );
-        $this->_getWriteAdapter()->insertMultiple($this->getTable('summary'), $finalSummary);
+            $this->_getReadAdapter()->insert($this->getTable('summary'), $summary);
+        }
 
         return $object;
     }
 
-    /**
-     * Decrementing tag products quantity as action for product delete
-     *
-     * @param  array $tagsId
-     * @return int The number of affected rows
-     */
-    public function decrementProducts(array $tagsId)
-    {
-        $writeAdapter = $this->_getWriteAdapter();
-        $whereCond    = $writeAdapter->quoteInto('`tag_id` IN (?)', $tagsId, Zend_Db::INT_TYPE);
-
-        return $writeAdapter->update($this->getTable('summary'), array('products' => new Zend_Db_Expr('products - 1')), $whereCond);
-    }
-
-    /**
-     * Add summary data
-     *
-     * @param Mage_Tag_Model_Tag $object
-     * @return Mage_Tag_Model_Tag
-     */
     public function addSummary($object)
     {
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('summary'))
-            ->where('tag_id = ?', (int)$object->getId())
-            ->where('store_id = ?', (int)$object->getStoreId())
-            ->limit(1);
+            ->where('tag_id = ?', $object->getId())
+            ->where('store_id = ?', $object->getStoreId());
 
-        $row = $this->_getReadAdapter()->fetchRow($select);
-        if ($row) {
-            $object->addData($row);
-        }
+        $row = $this->_getReadAdapter()->fetchAll($select);
+
+        $object->addData($row);
         return $object;
-    }
-
-    /**
-     * Fetch store ids in which tag visible
-     *
-     * @param Mage_Tag_Model_Mysql4_Tag $object
-     */
-    protected function _afterLoad(Mage_Core_Model_Abstract $object)
-    {
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('tag/summary'), array('store_id'))
-            ->where('tag_id = ?', $object->getId());
-        $storeIds = $this->_getReadAdapter()->fetchCol($select);
-
-        $object->setVisibleInStoreIds($storeIds);
-
-        return $this;
     }
 }

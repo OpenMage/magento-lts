@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,13 +35,13 @@
  * - req(uired)Suffix: a suffix to the label to use when the element is required
  *
  * Any other options passed will be used as HTML attributes of the label tag.
- *
+ * 
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Label.php 19050 2009-11-19 18:22:31Z matthew $
+ * @version    $Id: Label.php 12383 2008-11-07 19:38:55Z matthew $
  */
 class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
 {
@@ -59,8 +59,8 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
 
     /**
      * Set element ID
-     *
-     * @param  string $id
+     * 
+     * @param  string $id 
      * @return Zend_Form_Decorator_Label
      */
     public function setId($id)
@@ -72,9 +72,9 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
     /**
      * Retrieve element ID (used in 'for' attribute)
      *
-     * If none set in decorator, looks first for element 'id' attribute, and
+     * If none set in decorator, looks first for element 'id' attribute, and 
      * defaults to element name.
-     *
+     * 
      * @return string
      */
     public function getId()
@@ -92,8 +92,8 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
 
     /**
      * Set HTML tag with which to surround label
-     *
-     * @param  string $tag
+     * 
+     * @param  string $tag 
      * @return Zend_Form_Decorator_Label
      */
     public function setTag($tag)
@@ -103,15 +103,12 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
         } else {
             $this->_tag = (string) $tag;
         }
-
-        $this->removeOption('tag');
-
         return $this;
     }
 
     /**
      * Get HTML tag, if any, with which to surround label
-     *
+     * 
      * @return void
      */
     public function getTag()
@@ -131,9 +128,9 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
     /**
      * Get class with which to define label
      *
-     * Appends either 'optional' or 'required' to class, depending on whether
+     * Appends either 'optional' or 'required' to class, depending on whether 
      * or not the element is required.
-     *
+     * 
      * @return string
      */
     public function getClass()
@@ -158,8 +155,8 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
 
     /**
      * Load an optional/required suffix/prefix key
-     *
-     * @param  string $key
+     * 
+     * @param  string $key 
      * @return void
      */
     protected function _loadOptReqKey($key)
@@ -186,9 +183,9 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
      * - setOpt(ional)Suffix()
      * - setReq(uired)Prefix()
      * - setReq(uired)Suffix()
-     *
-     * @param  string $method
-     * @param  array $args
+     * 
+     * @param  string $method 
+     * @param  array $args 
      * @return mixed
      * @throws Zend_Form_Exception for unsupported methods
      */
@@ -241,7 +238,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
 
     /**
      * Get label to render
-     *
+     * 
      * @return void
      */
     public function getLabel()
@@ -281,8 +278,8 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
 
     /**
      * Render a label
-     *
-     * @param  string $content
+     * 
+     * @param  string $content 
      * @return string
      */
     public function render($content)
@@ -308,7 +305,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
 
         if (!empty($label)) {
             $options['class'] = $class;
-            $label = $view->formLabel($element->getFullyQualifiedName(), trim($label), $options);
+            $label = $view->formLabel($element->getFullyQualifiedName(), trim($label), $options); 
         } else {
             $label = '&nbsp;';
         }
@@ -316,9 +313,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
         if (null !== $tag) {
             #require_once 'Zend/Form/Decorator/HtmlTag.php';
             $decorator = new Zend_Form_Decorator_HtmlTag();
-            $decorator->setOptions(array('tag' => $tag,
-                                         'id'  => $this->getElement()->getName() . '-label'));
-
+            $decorator->setOptions(array('tag' => $tag));
             $label = $decorator->render($label);
         }
 

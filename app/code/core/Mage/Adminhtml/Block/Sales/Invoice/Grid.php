@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -36,10 +36,8 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
     {
         parent::__construct();
         $this->setId('sales_invoice_grid');
-        $this->setUseAjax(true);
         $this->setDefaultSort('created_at');
         $this->setDefaultDir('DESC');
-        $this->setSaveParametersInSession(true);
     }
 
     protected function _prepareCollection()
@@ -66,7 +64,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('increment_id', array(
             'header'    => Mage::helper('sales')->__('Invoice #'),
             'index'     => 'increment_id',
-            'type'      => 'text',
+            'type'      => 'number',
         ));
 
         $this->addColumn('created_at', array(
@@ -157,7 +155,7 @@ class Mage_Adminhtml_Block_Sales_Invoice_Grid extends Mage_Adminhtml_Block_Widge
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current' => true));
+        return $this->getUrl('*/*/*', array('_current' => true));
     }
 
 }

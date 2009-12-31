@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -138,17 +138,11 @@ class Mage_Catalog_Model_Product_Link extends Mage_Core_Model_Abstract
         return $this;
     }
 
-    /**
-     * Save grouped product relation links
-     *
-     * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Link
-     */
     public function saveGroupedLinks($product)
     {
         $data = $product->getGroupedLinkData();
         if (!is_null($data)) {
-            $this->_getResource()->saveGroupedLinks($product, $data, self::LINK_TYPE_GROUPED);
+            $this->_getResource()->saveProductLinks($product, $data, self::LINK_TYPE_GROUPED);
         }
         return $this;
     }

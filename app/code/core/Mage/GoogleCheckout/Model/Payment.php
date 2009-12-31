@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_GoogleCheckout
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_GoogleCheckout
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstract
@@ -54,6 +54,17 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
     public function canEdit()
     {
         return false;
+    }
+
+    /**
+     * Return true if the method can be used at this time
+     * Use google/checkout/active flag of admin module config
+     *
+     * @return bool
+     */
+    public function isAvailable($quote=null)
+    {
+        return Mage::getStoreConfig('google/checkout/active') > 0;
     }
 
     /**
@@ -161,21 +172,5 @@ class Mage_GoogleCheckout_Model_Payment extends Mage_Payment_Model_Method_Abstra
         }
 
         return $this;
-    }
-
-    /**
-     * Retrieve information from payment configuration.
-     * Rewrited because of custom node for checkout settings
-     *
-     * @param   string $field
-     * @return  mixed
-     */
-    public function getConfigData($field, $storeId = null)
-    {
-        if (null === $storeId) {
-            $storeId = $this->getStore();
-        }
-        $path = 'google/checkout/'.$field;
-        return Mage::getStoreConfig($path, $storeId);
     }
 }

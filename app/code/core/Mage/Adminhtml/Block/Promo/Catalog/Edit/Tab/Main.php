@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -32,49 +32,8 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form
 {
-    /**
-     * Prepare content for tab
-     *
-     * @return string
-     */
-    public function getTabLabel()
-    {
-        return Mage::helper('catalogrule')->__('Rule Information');
-    }
-
-    /**
-     * Prepare title for tab
-     *
-     * @return string
-     */
-    public function getTabTitle()
-    {
-        return Mage::helper('catalogrule')->__('Rule Information');
-    }
-
-    /**
-     * Returns status flag about this tab can be showen or not
-     *
-     * @return true
-     */
-    public function canShowTab()
-    {
-        return true;
-    }
-
-    /**
-     * Returns status flag about this tab hidden or not
-     *
-     * @return true
-     */
-    public function isHidden()
-    {
-        return false;
-    }
 
     protected function _prepareForm()
     {
@@ -88,16 +47,16 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
         $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('catalogrule')->__('General Information')));
 
         $fieldset->addField('auto_apply', 'hidden', array(
-            'name' => 'auto_apply',
+        	'name' => 'auto_apply',
         ));
 
         if ($model->getId()) {
-            $fieldset->addField('rule_id', 'hidden', array(
+        	$fieldset->addField('rule_id', 'hidden', array(
                 'name' => 'rule_id',
             ));
         }
 
-        $fieldset->addField('name', 'text', array(
+    	$fieldset->addField('name', 'text', array(
             'name' => 'name',
             'label' => Mage::helper('catalogrule')->__('Rule Name'),
             'title' => Mage::helper('catalogrule')->__('Rule Name'),
@@ -111,7 +70,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
             'style' => 'width: 98%; height: 100px;',
         ));
 
-        $fieldset->addField('is_active', 'select', array(
+    	$fieldset->addField('is_active', 'select', array(
             'label'     => Mage::helper('catalogrule')->__('Status'),
             'title'     => Mage::helper('catalogrule')->__('Status'),
             'name'      => 'is_active',
@@ -144,15 +103,15 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
 
         $found = false;
         foreach ($customerGroups as $group) {
-            if ($group['value']==0) {
-                $found = true;
-            }
+        	if ($group['value']==0) {
+        		$found = true;
+        	}
         }
         if (!$found) {
-            array_unshift($customerGroups, array('value'=>0, 'label'=>Mage::helper('catalogrule')->__('NOT LOGGED IN')));
+        	array_unshift($customerGroups, array('value'=>0, 'label'=>Mage::helper('catalogrule')->__('NOT LOGGED IN')));
         }
 
-        $fieldset->addField('customer_group_ids', 'multiselect', array(
+    	$fieldset->addField('customer_group_ids', 'multiselect', array(
             'name'      => 'customer_group_ids[]',
             'label'     => Mage::helper('catalogrule')->__('Customer Groups'),
             'title'     => Mage::helper('catalogrule')->__('Customer Groups'),
@@ -161,7 +120,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
         ));
 
         $dateFormatIso = Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-        $fieldset->addField('from_date', 'date', array(
+    	$fieldset->addField('from_date', 'date', array(
             'name'   => 'from_date',
             'label'  => Mage::helper('catalogrule')->__('From Date'),
             'title'  => Mage::helper('catalogrule')->__('From Date'),
@@ -169,7 +128,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Main
             'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
             'format'       => $dateFormatIso
         ));
-        $fieldset->addField('to_date', 'date', array(
+    	$fieldset->addField('to_date', 'date', array(
             'name'   => 'to_date',
             'label'  => Mage::helper('catalogrule')->__('To Date'),
             'title'  => Mage::helper('catalogrule')->__('To Date'),

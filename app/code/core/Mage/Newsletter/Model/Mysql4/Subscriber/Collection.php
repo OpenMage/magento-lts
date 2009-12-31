@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -33,7 +33,7 @@
  * @todo       Refactoring this collection to Mage_Core_Model_Mysql4_Collection_Abstract.
  */
 
-class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Varien_Data_Collection_Db
 {
     /**
      * Subscribers table name
@@ -82,13 +82,14 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Core_Model
      *
      * Configures collection
      */
-    protected function _construct()
+    public function __construct()
     {
-        parent::_construct();
+        parent::__construct(Mage::getSingleton('core/resource')->getConnection('newsletter_read'));
         $this->_subscriberTable = Mage::getSingleton('core/resource')->getTableName('newsletter/subscriber');
         $this->_queueLinkTable = Mage::getSingleton('core/resource')->getTableName('newsletter/queue_link');
         $this->_storeTable = Mage::getSingleton('core/resource')->getTableName('core/store');
-        $this->_init('newsletter/subscriber');
+        $this->_select->from(array('main_table'=>$this->_subscriberTable));
+        $this->setItemObjectClass(Mage::getConfig()->getModelClassName('newsletter/subscriber'));
     }
 
     /**
@@ -98,10 +99,29 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Core_Model
      */
     public function useQueue(Mage_Newsletter_Model_Queue $queue)
     {
-        $this->getSelect()->join(array('link'=>$this->_queueLinkTable), "link.subscriber_id = main_table.subscriber_id", array())
+        $this->_select->join(array('link'=>$this->_queueLinkTable), "link.subscriber_id = main_table.subscriber_id", array())
             ->where("link.queue_id = ? ", $queue->getId());
         $this->_queueJoinedFlag = true;
         return $this;
+    }
+
+    /**
+     * Retrive all ids for collection
+     * @todo : In future we need to extend all newslatter classes from abstract classes
+     *
+     * @return array
+     */
+    public function getAllIds()
+    {
+        $idsSelect = clone $this->getSelect();
+        $idsSelect->reset(Zend_Db_Select::ORDER);
+        $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
+        $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
+        $idsSelect->reset(Zend_Db_Select::COLUMNS);
+        $idsSelect->from(null,
+            'main_table.subscriber_id'
+        );
+        return $this->getConnection()->fetchCol($idsSelect);
     }
 
     /**
@@ -110,7 +130,7 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Core_Model
     public function useOnlyUnsent( )
     {
         if($this->_queueJoinedFlag) {
-            $this->getSelect()->where("link.letter_sent_at IS NULL");
+            $this->_select->where("link.letter_sent_at IS NULL");
         }
 
         return $this;
@@ -155,7 +175,7 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Core_Model
     public function addSubscriberTypeField()
     {
         $this->getSelect()
-            ->columns(array('type'=>new Zend_Db_Expr('IF(main_table.customer_id = 0, 1, 2)')));
+            ->from(null, array('type'=>new Zend_Db_Expr('IF(main_table.customer_id = 0, 1, 2)')));
         return $this;
     }
 
@@ -179,7 +199,7 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Core_Model
     public function addFieldToFilter($field, $condition=null)
     {
         if(!is_null($condition)) {
-            parent::addFieldToFilter($field, $condition);
+            $this->_select->where($this->_getConditionSql($this->_getFieldTableAlias($field), $condition));
             $this->_countFilterPart[] = $this->_getConditionSql($this->_getFieldTableAlias($field), $condition);
         }
         return $this;
@@ -206,7 +226,7 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Core_Model
     {
         $this->_renderFilters();
 
-        $countSelect = clone $this->getSelect();
+        $countSelect = clone $this->_select;
 
         $countSelect->reset(Zend_Db_Select::HAVING);
         $countSelect->reset(Zend_Db_Select::ORDER);
@@ -231,7 +251,7 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Core_Model
      */
     public function useOnlyCustomers()
     {
-        $this->getSelect()->where("main_table.customer_id > 0");
+        $this->_select->where("main_table.customer_id > 0");
 
         return $this;
     }
@@ -241,20 +261,24 @@ class Mage_Newsletter_Model_Mysql4_Subscriber_Collection extends Mage_Core_Model
      */
     public function useOnlySubscribed()
     {
-        $this->getSelect()->where("main_table.subscriber_status = ?", Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED);
+        $this->_select->where("main_table.subscriber_status = ?", Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED);
 
         return $this;
     }
 
     /**
-     * Filter collection by specified store ids
+     * Load subscribes to collection
      *
-     * @param array|int $storeIds
-     * @return Mage_Newsletter_Model_Mysql4_Subscriber_Collection
+     * @param boolean $printQuery
+     * @param boolean $logQuery
+     * @return Varien_Data_Collection_Db
      */
-    public function addStoreFilter($storeIds)
+    public function load($printQuery=false, $logQuery=false)
     {
-        $this->getSelect()->where('main_table.store_id IN (?)', $storeIds);
+        if ($this->isLoaded()) {
+            return $this;
+        }
+        parent::load($printQuery, $logQuery);
         return $this;
     }
 }

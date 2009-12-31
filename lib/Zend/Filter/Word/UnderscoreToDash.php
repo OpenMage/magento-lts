@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: UnderscoreToDash.php 18951 2009-11-12 16:26:19Z alexander $
+ * @version    $Id: CamelCaseToSeparator.php 6779 2007-11-08 15:10:41Z matthew $
  */
 
 /**
@@ -27,14 +27,14 @@
 /**
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_Word_UnderscoreToDash extends Zend_Filter_Word_SeparatorToSeparator
 {
     /**
      * Constructor
-     *
+     * 
      * @param  string $separator Space by default
      * @return void
      */

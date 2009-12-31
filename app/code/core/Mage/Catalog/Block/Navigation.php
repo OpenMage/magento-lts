@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -35,13 +35,6 @@
 class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
 {
     protected $_categoryInstance = null;
-
-    /**
-     * Array of level position counters
-     *
-     * @var array
-     */
-    protected $_itemLevelPositions = array();
 
     protected function _construct()
     {
@@ -144,33 +137,6 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     }
 
     /**
-     * Return item position representation in menu tree
-     *
-     * @param int $level
-     * @return string
-     */
-    protected function _getItemPosition($level)
-    {
-        if ($level == 0) {
-            $zeroLevelPosition = isset($this->_itemLevelPositions[$level]) ? $this->_itemLevelPositions[$level] + 1 : 1;
-            $this->_itemLevelPositions = array();
-            $this->_itemLevelPositions[$level] = $zeroLevelPosition;
-        } elseif (isset($this->_itemLevelPositions[$level])) {
-            $this->_itemLevelPositions[$level]++;
-        } else {
-            $this->_itemLevelPositions[$level] = 1;
-        }
-
-        $position = array();
-        for($i = 0; $i <= $level; $i++) {
-            if (isset($this->_itemLevelPositions[$i])) {
-                $position[] = $this->_itemLevelPositions[$i];
-            }
-        }
-        return implode('-', $position);
-    }
-
-    /**
      * Enter description here...
      *
      * @param Mage_Catalog_Model_Category $category
@@ -198,8 +164,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         }
 
         $html.= ' class="level'.$level;
-        //$html.= ' nav-'.str_replace('/', '-', Mage::helper('catalog/category')->getCategoryUrlPath($category->getRequestPath()));
-        $html.= ' nav-' . $this->_getItemPosition($level);
+        $html.= ' nav-'.str_replace('/', '-', Mage::helper('catalog/category')->getCategoryUrlPath($category->getRequestPath()));
         if ($this->isCategoryActive($category)) {
             $html.= ' active';
         }
