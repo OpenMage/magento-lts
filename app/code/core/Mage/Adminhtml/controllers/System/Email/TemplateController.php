@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -40,7 +40,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
             return;
         }
 
-    	$this->loadLayout();
+        $this->loadLayout();
         $this->_setActiveMenu('system/email_template');
         $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Transactional Emails'), Mage::helper('adminhtml')->__('Transactional Emails'));
 
@@ -92,7 +92,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
                 ->setTemplateSenderName($request->getParam('sender_name'))
 */
                 ->setTemplateText($request->getParam('template_text'))
-				->setModifiedAt(Mage::getSingleton('core/date')->gmtDate());
+                ->setModifiedAt(Mage::getSingleton('core/date')->gmtDate());
 
             if (!$template->getId()) {
                 //$type = constant(Mage::getConfig()->getModelClassName('core/email_template') . "::TYPE_HTML");
@@ -108,9 +108,9 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
             $this->_redirect('*/*');
         }
         catch (Exception $e) {
-        	Mage::getSingleton('adminhtml/session')->setData('email_template_form_data', $this->getRequest()->getParams());
-        	Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        	$this->_forward('new');
+            Mage::getSingleton('adminhtml/session')->setData('email_template_form_data', $this->getRequest()->getParams());
+            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            $this->_forward('new');
         }
 
     }
@@ -148,6 +148,6 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
 
     protected function _isAllowed()
     {
-	    return Mage::getSingleton('admin/session')->isAllowed('system/email_template');
+        return Mage::getSingleton('admin/session')->isAllowed('system/email_template');
     }
 }

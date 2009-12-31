@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Core
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Core
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -587,5 +587,15 @@ XML;
     public function jsonDecode($encodedValue, $objectDecodeType = Zend_Json::TYPE_ARRAY)
     {
         return Zend_Json::decode($encodedValue, $objectDecodeType);
+    }
+
+    /**
+     * Generate a hash from unique ID
+     * @param $prefix
+     * @return string
+     */
+    public function uniqHash($prefix = '')
+    {
+        return $prefix . md5(uniqid(microtime(), true));
     }
 }

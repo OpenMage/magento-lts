@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Customer
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Customer
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -75,6 +75,11 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
     protected function _beforeSave(Varien_Object $customer)
     {
         parent::_beforeSave($customer);
+
+        if (!$customer->getEmail()) {
+            Mage::throwException(Mage::helper('customer')->__('Customer email is required'));
+        }
+
         $select = $this->_getReadAdapter()->select()
             ->from($this->getEntityTable(), array($this->getEntityIdField()))
             ->where('email=?', $customer->getEmail());
@@ -86,7 +91,9 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
         }
 
         if ($this->_getWriteAdapter()->fetchOne($select)) {
-            Mage::throwException(Mage::helper('customer')->__('Customer email already exists'));
+            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Customer email already exists'),
+                Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS
+            );
         }
 
         // set confirmation key logic

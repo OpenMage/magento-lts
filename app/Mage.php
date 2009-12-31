@@ -137,7 +137,8 @@ final class Mage
      */
     public static function getVersion()
     {
-        return '1.4.0.0-alpha2';
+        $i = self::getVersionInfo();
+        return trim("{$i['major']}.{$i['minor']}.{$i['revision']}.{$i['patch']}-{$i['stability']}{$i['number']}", '.-');
     }
 
     /**
@@ -154,7 +155,7 @@ final class Mage
             'revision'  => '0',
             'patch'     => '0',
             'stability' => 'alpha',
-            'number'    => '2',
+            'number'    => '3',
         );
     }
 

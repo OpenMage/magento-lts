@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Directory
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Directory
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -37,11 +37,6 @@ class Mage_Directory_CurrencyController extends Mage_Core_Controller_Front_Actio
     {
         if ($curency = (string) $this->getRequest()->getParam('currency')) {
             Mage::app()->getStore()->setCurrentCurrencyCode($curency);
-        }
-        if (Mage::getSingleton('checkout/session')->getQuote()) {
-            Mage::getSingleton('checkout/session')->getQuote()
-                ->collectTotals()
-                ->save();
         }
         $this->_redirectReferer(Mage::getBaseUrl());
     }

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -61,13 +61,13 @@ class Mage_Adminhtml_Block_Extensions_Custom_Edit_Tab_Package
             'name' => 'file_name',
         ));
 
-    	$fieldset->addField('name', 'text', array(
+        $fieldset->addField('name', 'text', array(
             'name' => 'name',
             'label' => Mage::helper('adminhtml')->__('Name'),
             'required' => true,
         ));
 
-    	$fieldset->addField('channel', 'text', array(
+        $fieldset->addField('channel', 'text', array(
             'name' => 'channel',
             'label' => Mage::helper('adminhtml')->__('Channel'),
             'required' => true,
@@ -87,14 +87,14 @@ class Mage_Adminhtml_Block_Extensions_Custom_Edit_Tab_Package
             'required' => true,
         ));
 
-    	$fieldset->addField('license', 'text', array(
+        $fieldset->addField('license', 'text', array(
             'name' => 'license',
             'label' => Mage::helper('adminhtml')->__('License'),
             'required' => true,
             'value' => 'Open Software License (OSL 3.0)',
         ));
 
-    	$fieldset->addField('license_uri', 'text', array(
+        $fieldset->addField('license_uri', 'text', array(
             'name' => 'license_uri',
             'label' => Mage::helper('adminhtml')->__('License URI'),
             'value' => 'http://opensource.org/licenses/osl-3.0.php',

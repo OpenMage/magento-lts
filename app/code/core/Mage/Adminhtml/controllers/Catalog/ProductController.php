@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -509,16 +509,16 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
          */
         $links = $this->getRequest()->getPost('links');
         if (isset($links['related']) && !$product->getRelatedReadonly()) {
-            $product->setRelatedLinkData($this->_decodeInput($links['related']));
+            $product->setRelatedLinkData(Mage::helper('adminhtml/js')->decodeGridSerializedInput($links['related']));
         }
-        if (isset($links['upsell'])  && !$product->getUpsellReadonly()) {
-            $product->setUpSellLinkData($this->_decodeInput($links['upsell']));
+        if (isset($links['upsell']) && !$product->getUpsellReadonly()) {
+            $product->setUpSellLinkData(Mage::helper('adminhtml/js')->decodeGridSerializedInput($links['upsell']));
         }
-        if (isset($links['crosssell'])  && !$product->getCrosssellReadonly()) {
-            $product->setCrossSellLinkData($this->_decodeInput($links['crosssell']));
+        if (isset($links['crosssell']) && !$product->getCrosssellReadonly()) {
+            $product->setCrossSellLinkData(Mage::helper('adminhtml/js')->decodeGridSerializedInput($links['crosssell']));
         }
-        if (isset($links['grouped'])  && !$product->getGroupedReadonly()) {
-            $product->setGroupedLinkData($this->_decodeInput($links['grouped']));
+        if (isset($links['grouped']) && !$product->getGroupedReadonly()) {
+            $product->setGroupedLinkData(Mage::helper('adminhtml/js')->decodeGridSerializedInput($links['grouped']));
         }
 
         /**
@@ -653,10 +653,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     }
 
    /**
-     * Decode strings for linked products
-     *
-     * @param   string $encoded
-     * @return  array
+     * @deprecated since 1.4.0.0-alpha2
      */
     protected function _decodeInput($encoded)
     {
@@ -664,7 +661,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         foreach($data as $key=>$value) {
             parse_str(base64_decode($value), $data[$key]);
         }
-
         return $data;
     }
 

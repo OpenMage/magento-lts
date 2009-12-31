@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,15 +34,15 @@
 
 class Mage_Adminhtml_Block_Review_Grid_Renderer_Type extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
-	public function render(Varien_Object $row)
-	{
-		if (is_null($row->getCustomerId())) {
-			return Mage::helper('review')->__('Guest');
-		} elseif ($row->getCustomerId() == 0) {
-			return Mage::helper('review')->__('Administrator');
-		} elseif ($row->getCustomerId() > 0) {
-			return Mage::helper('review')->__('Customer');
-		}
+    public function render(Varien_Object $row)
+    {
+        if (is_null($row->getCustomerId())) {
+            return Mage::helper('review')->__('Guest');
+        } elseif ($row->getCustomerId() == 0) {
+            return Mage::helper('review')->__('Administrator');
+        } elseif ($row->getCustomerId() > 0) {
+            return Mage::helper('review')->__('Customer');
+        }
 //		return ($row->getCustomerId() ? Mage::helper('review')->__('Customer') : Mage::helper('review')->__('Guest'));
-	}
+    }
 }// Class Mage_Adminhtml_Block_Review_Grid_Renderer_Type END

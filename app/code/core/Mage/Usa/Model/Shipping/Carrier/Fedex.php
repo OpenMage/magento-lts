@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Usa
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Usa
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -480,14 +480,19 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
         return $result;
     }
 
-    public function _parseXml($xmlContent)
+    /**
+     * Parse XML string and return XML document object or false 
+     *
+     * @param string $xmlContent
+     * @return SimpleXMLElement|bool
+     */
+    protected function _parseXml($xmlContent)
     {
         try {
             try {
-                $xml = simplexml_load_string($xmlContent);
-                return $xml; 
+                return simplexml_load_string($xmlContent);
             } catch (Exception $e) {
-                throw new Exception('Invalid XML document "' . $xmlContent . '"');
+                throw new Exception(Mage::helper('usa')->__('Failed to parse xml document: %s', $xmlContent));
             }
         } catch (Exception $e) {
             Mage::logException($e);

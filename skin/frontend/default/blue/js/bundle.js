@@ -17,8 +17,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 if(typeof Product=='undefined') {
     var Product = {};
@@ -144,13 +146,13 @@ Product.Bundle.prototype = {
     },
 
     changeOptionQty: function (element, event) {
-    	var checkQty = true;
-    	if (typeof(event) != 'undefined') {
-	    	if (event.keyCode == 8 || event.keyCode == 46) {
-	    		checkQty = false;
-	    	}
-    	}
-    	if (checkQty && (Number(element.value) == 0 || isNaN(Number(element.value)))) {
+        var checkQty = true;
+        if (typeof(event) != 'undefined') {
+            if (event.keyCode == 8 || event.keyCode == 46) {
+                checkQty = false;
+            }
+        }
+        if (checkQty && (Number(element.value) == 0 || isNaN(Number(element.value)))) {
             element.value = 1;
         }
         parts = element.id.split('-');

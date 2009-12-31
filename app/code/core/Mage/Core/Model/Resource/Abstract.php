@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Core
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Core
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -104,9 +104,9 @@ abstract class Mage_Core_Model_Resource_Abstract
             }
         }
 
-    	if (empty($date)) {
-    		return new Zend_Db_Expr('NULL');
-    	}
+        if (empty($date)) {
+            return new Zend_Db_Expr('NULL');
+        }
 
         if (!is_numeric($date)) {
             $date = strtotime($date);

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +35,7 @@
 class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert_Parser_Abstract
 {
 
-	public function parse()
+    public function parse()
     {
         $fDel = $this->getVar('delimiter', ',');
         $fEnc = $this->getVar('enclose', '"');

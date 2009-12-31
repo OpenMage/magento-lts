@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Sales
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Sales
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
@@ -85,9 +85,9 @@ CREATE TABLE `{$installer->getTable('sales_flat_order_item')}` (
     `base_row_invoiced` decimal(12,4) NOT NULL default '0.0000',
 
     `row_weight` decimal(12,4) default '0.0000',
-    
-	`gift_message_id` int(10) default NULL,                   
-	`gift_message_available` int(10) default NULL,      
+
+    `gift_message_id` int(10) default NULL,
+    `gift_message_available` int(10) default NULL,
 
     PRIMARY KEY  (`item_id`),
     KEY `IDX_ORDER` (`order_id`)
@@ -160,9 +160,9 @@ foreach ($items as $itemData) {
     );
 
     foreach ($itemData as $key => $value) {
-    	if (isset($itemFields[$key])) {
-    	    $newItemData[$key] = $value;
-    	}
+        if (isset($itemFields[$key])) {
+            $newItemData[$key] = $value;
+        }
     }
 
     $installer->getConnection()->insert($installer->getTable('sales_flat_order_item'), $newItemData);

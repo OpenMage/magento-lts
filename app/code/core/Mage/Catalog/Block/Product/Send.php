@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -34,11 +34,11 @@
  */
 class Mage_Catalog_Block_Product_Send extends Mage_Catalog_Block_Product_Abstract
 {
-	public function __construct(){
-		parent::__construct();
-	}
+    public function __construct(){
+        parent::__construct();
+    }
 
-	/**
+    /**
      * Retrieve username for form field
      *
      * @return string
@@ -46,12 +46,12 @@ class Mage_Catalog_Block_Product_Send extends Mage_Catalog_Block_Product_Abstrac
 
     public function getUserName()
     {
-    	return Mage::getSingleton('customer/session')->getCustomer()->getName();
+        return Mage::getSingleton('customer/session')->getCustomer()->getName();
     }
 
     public function getEmail()
     {
-    	return (string)Mage::getSingleton('customer/session')->getCustomer()->getEmail();
+        return (string)Mage::getSingleton('customer/session')->getCustomer()->getEmail();
     }
 
     public function getProductId()
@@ -59,9 +59,9 @@ class Mage_Catalog_Block_Product_Send extends Mage_Catalog_Block_Product_Abstrac
         return $this->getRequest()->getParam('id');
     }
 
-	public function getMaxRecipients()
-	{
-	    $sendToFriendModel = Mage::registry('send_to_friend_model');
-	    return $sendToFriendModel->getMaxRecipients();
-	}
+    public function getMaxRecipients()
+    {
+        $sendToFriendModel = Mage::registry('send_to_friend_model');
+        return $sendToFriendModel->getMaxRecipients();
+    }
 }

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -46,23 +46,23 @@
         <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Manage Titles (Size, Color, etc.)') ?></h4>
     </div>
     <div class="box">
-		    <div class="hor-scroll">
-	        <table class="dynamic-grid" cellspacing="0" id="attribute-labels-table">
-	            <tr>
-	            <?php foreach ($this->getStores() as $_store): ?>
-	                <th><?php echo $_store->getName() ?></th>
-	            <?php endforeach; ?>
-	            </tr>
-	            <tr>
-	                <?php $_labels = $this->getLabelValues() ?>
-	                <?php foreach ($this->getStores() as $_store): ?>
-	                <td>
-	                    <input class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif; ?>" type="text" name="frontend_label[<?php echo $_store->getId() ?>]" value="<?php echo $this->htmlEscape($_labels[$_store->getId()]) ?>" />
-	                </td>
-	                <?php endforeach; ?>
-	            </tr>
-	        </table>
-		    </div>
+            <div class="hor-scroll">
+            <table class="dynamic-grid" cellspacing="0" id="attribute-labels-table">
+                <tr>
+                <?php foreach ($this->getStores() as $_store): ?>
+                    <th><?php echo $_store->getName() ?></th>
+                <?php endforeach; ?>
+                </tr>
+                <tr>
+                    <?php $_labels = $this->getLabelValues() ?>
+                    <?php foreach ($this->getStores() as $_store): ?>
+                    <td>
+                        <input class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif; ?>" type="text" name="frontend_label[<?php echo $_store->getId() ?>]" value="<?php echo $this->htmlEscape($_labels[$_store->getId()]) ?>" />
+                    </td>
+                    <?php endforeach; ?>
+                </tr>
+            </table>
+            </div>
     </div>
 </div>
 <br/>
@@ -71,30 +71,30 @@
     <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Manage Options (values of your attribute)') ?></h4>
     </div>
     <div class="box">
-		<div class="hor-scroll">
-	        <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
-	            <tr id="attribute-options-table">
-		            <?php foreach ($this->getStores() as $_store): ?>
-		                <th><?php echo $_store->getName() ?></th>
-		            <?php endforeach; ?>
-		                <th><?php echo Mage::helper('catalog')->__('Position') ?></th>
-		                <th class="nobr a-center"><?php echo Mage::helper('catalog')->__('Is Default') ?></th>
-		                <th><?php echo $this->getAddNewButtonHtml() ?></th>
-		            </tr>
-		    	    <tr class="no-display template" id="row-template">
-		                <?php foreach ($this->getStores() as $_store): ?>
-		                <td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif; ?>" type="text" /></td>
-		                <?php endforeach; ?>
-		                <td class="a-center"><input class="input-text" type="text" name="option[order][{{id}}]" value="{{sort_order}}" /></td>
-		                <td><input class="input-radio" type="radio" name="default[]" value="{{id}}" /></td>
-		                <td class="a-left">
-		                    <input type="hidden" class="delete-flag" name="option[delete][{{id}}]" value="" />
-		                    <?php echo $this->getDeleteButtonHtml() ?>
-		                </td>
-		            </tr>
-	        </table>
-		</div>
-		<input type="hidden" id="option-count-check" value="" />
+        <div class="hor-scroll">
+            <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
+                <tr id="attribute-options-table">
+                    <?php foreach ($this->getStores() as $_store): ?>
+                        <th><?php echo $_store->getName() ?></th>
+                    <?php endforeach; ?>
+                        <th><?php echo Mage::helper('catalog')->__('Position') ?></th>
+                        <th class="nobr a-center"><?php echo Mage::helper('catalog')->__('Is Default') ?></th>
+                        <th><?php echo $this->getAddNewButtonHtml() ?></th>
+                    </tr>
+                    <tr class="no-display template" id="row-template">
+                        <?php foreach ($this->getStores() as $_store): ?>
+                        <td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif; ?>" type="text" /></td>
+                        <?php endforeach; ?>
+                        <td class="a-center"><input class="input-text" type="text" name="option[order][{{id}}]" value="{{sort_order}}" /></td>
+                        <td><input class="input-radio" type="radio" name="default[]" value="{{id}}" /></td>
+                        <td class="a-left">
+                            <input type="hidden" class="delete-flag" name="option[delete][{{id}}]" value="" />
+                            <?php echo $this->getDeleteButtonHtml() ?>
+                        </td>
+                    </tr>
+            </table>
+        </div>
+        <input type="hidden" id="option-count-check" value="" />
     </div>
 </div>
 <script type="text/javascript">
@@ -124,8 +124,8 @@ var attributeOption = {
     add : function(data) {
         this.template = new Template(this.templateText, this.templateSyntax);
         if(!data.id){
-    		data = {};
-    		data.id  = 'option_'+this.itemCount;
+            data = {};
+            data.id  = 'option_'+this.itemCount;
         }
         if (!data.intype)
             data.intype = optionDefaultInputType;

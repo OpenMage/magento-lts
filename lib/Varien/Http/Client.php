@@ -33,6 +33,11 @@
  */
 class Varien_Http_Client extends Zend_Http_Client
 {
+    /**
+     * Internal flag to allow decoding of request body
+     *
+     * @var bool
+     */
     protected $_urlEncodeBody = true;
 
     public function __construct($uri = null, $config = null)
@@ -56,15 +61,27 @@ class Varien_Http_Client extends Zend_Http_Client
         return parent::request($method);
     }
 
+    /**
+     * Change value of internal flag to disable/enable custom prepare functionality
+     *
+     * @param bool $flag
+     * @return Varien_Http_Client
+     */
     public function setUrlEncodeBody($flag)
     {
         $this->_urlEncodeBody = $flag;
         return $this;
     }
 
-    protected function prepare_body()
+    /**
+     * Adding custom functionality to decode data after
+     * standard prepare functionality
+     *
+     * @return string
+     */
+    protected function _prepareBody()
     {
-        $body = parent::prepare_body();
+        $body = parent::_prepareBody();
 
         if (!$this->_urlEncodeBody && $body) {
             $body = urldecode($body);

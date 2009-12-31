@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_GoogleBase
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_GoogleBase
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,25 +34,25 @@
 class Mage_GoogleBase_Model_Mysql4_Type_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
 
-	protected function _construct()
-	{
-		$this->_init('googlebase/type');
-	}
+    protected function _construct()
+    {
+        $this->_init('googlebase/type');
+    }
 
-	protected function _initSelect()
-	{
-	    parent::_initSelect();
-	    $this->_joinAttributeSet();
-	    return $this;
-	}
+    protected function _initSelect()
+    {
+        parent::_initSelect();
+        $this->_joinAttributeSet();
+        return $this;
+    }
 
-	/**
-	 * Add total count of Items for each type
-	 *
-	 * @return Mage_GoogleBase_Model_Mysql4_Type_Collection
-	 */
-	public function addItemsCount()
-	{
+    /**
+     * Add total count of Items for each type
+     *
+     * @return Mage_GoogleBase_Model_Mysql4_Type_Collection
+     */
+    public function addItemsCount()
+    {
         $this->getSelect()
             ->joinLeft(
                 array('items'=>$this->getTable('googlebase/items')),
@@ -60,32 +60,32 @@ class Mage_GoogleBase_Model_Mysql4_Type_Collection extends Mage_Core_Model_Mysql
                 array('items_total' => 'COUNT(items.item_id)'))
             ->group('main_table.type_id');
         return $this;
-	}
+    }
 
-	/**
-	 * Add country ISO filter to collection
-	 *
-	 * @param string $iso Two-letter country ISO code
-	 * @return Mage_GoogleBase_Model_Mysql4_Type_Collection
-	 */
-	public function addCountryFilter($iso)
-	{
+    /**
+     * Add country ISO filter to collection
+     *
+     * @param string $iso Two-letter country ISO code
+     * @return Mage_GoogleBase_Model_Mysql4_Type_Collection
+     */
+    public function addCountryFilter($iso)
+    {
         $this->getSelect()->where('target_country=?', $iso);
         return $this;
-	}
+    }
 
-	/**
-	 * Join Attribute Set data
-	 *
-	 * @return Mage_GoogleBase_Model_Mysql4_Type_Collection
-	 */
-	protected function _joinAttributeSet()
-	{
+    /**
+     * Join Attribute Set data
+     *
+     * @return Mage_GoogleBase_Model_Mysql4_Type_Collection
+     */
+    protected function _joinAttributeSet()
+    {
         $this->getSelect()
             ->join(
                 array('set'=>$this->getTable('eav/attribute_set')),
                 'main_table.attribute_set_id=set.attribute_set_id',
                 array('attribute_set_name' => 'set.attribute_set_name'));
         return $this;
-	}
+    }
 }

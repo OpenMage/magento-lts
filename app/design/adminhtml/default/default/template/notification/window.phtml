@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    design_default
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -32,98 +32,46 @@
 <?php if ($this->canShow()): ?>
 <script type="text/javascript">
 //<![CDATA[
-AC_FL_RunContent = 0;
+    var messagePopupClosed = false;
+    function openMessagePopup() {
+        var height = $('html-body').getHeight();
+        $('message-popup-window-mask').setStyle({'height':height+'px'});
+        toggleSelectsUnderBlock($('message-popup-window-mask'), false);
+        Element.show('message-popup-window-mask');
+        $('message-popup-window').addClassName('show');
+    }
+
+    function closeMessagePopup() {
+        toggleSelectsUnderBlock($('message-popup-window-mask'), true);
+        Element.hide('message-popup-window-mask');
+        $('message-popup-window').removeClassName('show');
+        messagePopupClosed = true;
+    }
+
+    Event.observe(window, 'load', openMessagePopup);
+    Event.observe(window, 'keyup', function(evt) {
+        if(messagePopupClosed) return;
+        var code;
+        if (evt.keyCode) code = evt.keyCode;
+        else if (evt.which) code = evt.which;
+        if (code == Event.KEY_ESC) {
+            closeMessagePopup();
+        }
+    });
 //]]>
 </script>
-<script src="<?php echo $this->getJsUrl() ?>flash/AC_RunActiveContent.js" type="text/javascript"></script>
-<script type="text/javascript">
-//<![CDATA[
-function openMessagePopupWindow()
-{
-    var height = $('html-body').getHeight();
-    // instead of Element.clonePosition() get height from $$('#html-body .wrapper') and set it for mask block
-    $('message-popup-window-mask').setStyle({'height':height+'px'});
-    toggleSelectsUnderBlock($('message-popup-window-mask'), false);
-    Element.show('message-popup-window-mask');
-}
-
-function popupMessageDetailsWindow(url)
-{
-    window.open(url);
-}
-
-function closeMessagePopupWindow()
-{
-    toggleSelectsUnderBlock($('message-popup-window-mask'), true);
-    Element.hide('message-popup-window-mask');
-}
-
-function messagePopupWindow_DoFSCommand(command, args) {
-	window[command].call(null, args);
-}
-
-if (navigator.appName && navigator.appName.indexOf("Microsoft") != -1 && navigator.userAgent.indexOf("Windows") != -1 && navigator.userAgent.indexOf("Windows 3.1") == -1) {
-	document.write('<script language=\"VBScript\"\>\n');
-	document.write('On Error Resume Next\n');
-	document.write('Sub messagePopupWindow_FSCommand(ByVal command, ByVal args)\n');
-	document.write('	Call messagePopupWindow_DoFSCommand(command, args)\n');
-	document.write('End Sub\n');
-	document.write('<\/script\>\n');
-}
-
-function getFlashVars()
-{
-    var result = '';
-    result += 'headerText=<b><?php echo $this->getHeaderText(); ?></b>&';
-    result += 'closeText=<?php echo $this->getCloseText(); ?>&';
-    result += 'readDetailsText=<?php echo $this->getReadDetailsText(); ?>&';
-    result += 'noticeText=<?php echo $this->getNoticeText(); ?>&';
-    result += 'minorText=<?php echo $this->getMinorText(); ?>&';
-    result += 'majorText=<?php echo $this->getMajorText(); ?>&';
-    result += 'criticalText=<?php echo $this->getCriticalText(); ?>&';
-    result += 'messageText=<?php echo $this->getNoticeMessageText(); ?>&';
-    result += 'detailsUrl=<?php echo $this->getNoticeMessageUrl(); ?>&';
-    result += 'messageSeverity=<?php echo $this->getNoticeSeverity(); ?>';
-
-    return result;
-}
-//]]>
-</script>
-
-<div id="message-popup-window-mask" style="display:none;">
-<script type="text/javascript">
-//<![CDATA[
-if (AC_FL_RunContent == 0) {
-    alert("This page requires AC_RunActiveContent.js.");
-} else {
-    AC_FL_RunContent(
-        'codebase', 'https://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0',
-        'width', '415',
-        'height', '140',
-        'src', '<?php echo $this->getObjectUrl(); ?>',
-        'quality', 'high',
-        'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
-        'align', 'middle',
-        'play', 'true',
-        'loop', 'true',
-        'scale', 'showall',
-        'wmode', 'window',
-        'devicefont', 'false',
-        'id', 'messagePopupWindow',
-        'bgcolor', '#fdf4eb',
-        'name', 'messagePopupWindow',
-        'menu', 'false',
-        'allowFullScreen', 'false',
-        'allowScriptAccess','always',
-        'movie', '<?php echo $this->getObjectUrl(); ?>',
-        'salign', '',
-        'FlashVars', getFlashVars(),
-        'class', 'flash-window'
-    );
-
-    Event.observe(window, 'load', openMessagePopupWindow);
-}
-//]]>
-</script>
+<div id="message-popup-window-mask" style="display:none;"></div>
+<div id="message-popup-window" class="message-popup">
+    <div class="message-popup-head">
+        <a href="#" onclick="closeMessagePopup(); return false;" title="<?php echo $this->getCloseText(); ?>"><span><?php echo $this->getCloseText(); ?></span></a>
+        <h2><?php echo $this->getHeaderText(); ?></h2>
+    </div>
+    <div class="message-popup-content">
+        <div class="message">
+            <span class="message-icon message-<?php echo $this->getSeverityText();?>" style="background-image:url(<?php echo $this->getSeverityIconsUrl() ?>);"><?php echo $this->getSeverityText();?></span>
+            <p class="message-text"><?php echo $this->getNoticeMessageText(); ?></p>
+        </div>
+        <p class="read-more"><a href="<?php echo $this->getNoticeMessageUrl(); ?>" onclick="this.target='_blank';"><?php echo $this->getReadDetailsText(); ?></a></p>
+    </div>
 </div>
 <?php endif; ?>

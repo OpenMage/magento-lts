@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
@@ -69,31 +69,31 @@ $storesData = $installer->getConnection()->fetchAll("
 ");
 
 foreach ($storesData as $storeData) {
-	$storeId   = $storeData['store_id'];
-	$websiteId = $storeData['website_id'];
-	$path      = $storeData['root_path'];
+    $storeId   = $storeData['store_id'];
+    $websiteId = $storeData['website_id'];
+    $path      = $storeData['root_path'];
 
-	$query = "INSERT INTO {$categoryIndexTable}
-	   (`category_id`, `product_id`, `position`, `is_parent`, `store_id`, `visibility`)
-	SELECT
-	   ci.category_id,
-	   ci.product_id,
-	   ci.position,
-	   ci.is_parent,
-	   {$storeId},
-	   ep.visibility
-	FROM
-	   $categoryIndexTable AS ci
-	   INNER JOIN {$installer->getTable('catalog/product_website')} AS pw
-	       ON pw.product_id=ci.product_id AND pw.website_id={$websiteId}
-	   INNER JOIN {$installer->getTable('catalog/category')} AS c
-	       ON c.entity_id=ci.category_id AND c.path LIKE '{$path}%'
-	   INNER JOIN {$installer->getTable('catalog/product_enabled_index')} AS ep
-	       ON ep.product_id=ci.product_id AND ep.store_id={$storeId}
+    $query = "INSERT INTO {$categoryIndexTable}
+       (`category_id`, `product_id`, `position`, `is_parent`, `store_id`, `visibility`)
+    SELECT
+       ci.category_id,
+       ci.product_id,
+       ci.position,
+       ci.is_parent,
+       {$storeId},
+       ep.visibility
+    FROM
+       $categoryIndexTable AS ci
+       INNER JOIN {$installer->getTable('catalog/product_website')} AS pw
+           ON pw.product_id=ci.product_id AND pw.website_id={$websiteId}
+       INNER JOIN {$installer->getTable('catalog/category')} AS c
+           ON c.entity_id=ci.category_id AND c.path LIKE '{$path}%'
+       INNER JOIN {$installer->getTable('catalog/product_enabled_index')} AS ep
+           ON ep.product_id=ci.product_id AND ep.store_id={$storeId}
     WHERE
         ci.store_id=0";
 
-	$installer->run($query);
+    $installer->run($query);
 }
 
 $installer->getConnection()->delete($categoryIndexTable, 'store_id=0');

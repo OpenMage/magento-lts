@@ -194,6 +194,14 @@ function updateElementAtCursor(el, value, win) {
     }
 }
 
+// Firebug detection
+function firebugEnabled() {
+    if(window.console && window.console.firebug) {
+        return true;
+    }
+    return false;
+}
+
 /********** Ajax session expiration ***********/
 
 

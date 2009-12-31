@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Core
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Core
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -237,7 +237,7 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
     {
         $tags = parent::_getCacheTags();
         foreach ($tags as $key => $value) {
-        	$tags[$key] = Mage::app()->prepareCacheId($value);
+            $tags[$key] = Mage::app()->prepareCacheId($value);
         }
         $tags[] = Mage_Core_Model_App::CACHE_TAG;
         return $tags;

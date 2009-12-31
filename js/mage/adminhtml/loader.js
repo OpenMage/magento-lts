@@ -56,9 +56,10 @@ Ajax.Request.addMethods({
         if (state == 'Complete') {
             try {
                 this._complete = true;
-                if (response.responseJSON && typeof(response.responseJSON) == 'object') {
-                    if (response.responseJSON.ajaxExpired && response.responseJSON.ajaxRedirect) {
-                        window.location.replace(response.responseJSON.ajaxRedirect);
+                if (response.responseText.isJSON()) {
+                    var jsonObject = response.responseText.evalJSON();
+                    if (jsonObject.ajaxExpired && jsonObject.ajaxRedirect) {
+                        window.location.replace(jsonObject.ajaxRedirect);
                         throw new SessionError('session expired');
                     }
                 }
@@ -144,7 +145,7 @@ varienLoader.prototype = {
         }
 
         if (typeof(params.updaterId) != 'undefined') {
-            new Ajax.Updater(params.updaterId, url, {
+            new varienUpdater(params.updaterId, url, {
                 evalScripts : true,
                 onComplete: this.processResult.bind(this),
                 onFailure: this._processFailure.bind(this)
@@ -256,3 +257,16 @@ function toggleSelectsUnderBlock(block, flag){
 }
 
 Ajax.Responders.register(varienLoaderHandler.handler);
+
+var varienUpdater = Class.create(Ajax.Updater, {
+    updateContent: function($super, responseText) {
+        if (responseText.isJSON()) {
+            var responseJSON = responseText.evalJSON();
+            if (responseJSON.ajaxExpired && responseJSON.ajaxRedirect) {
+                window.location.replace(responseJSON.ajaxRedirect);
+            }
+        } else {
+            $super(responseText);
+        }
+    }
+});

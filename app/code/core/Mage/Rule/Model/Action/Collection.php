@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Rule
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Rule
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -87,10 +87,10 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
 
     public function asHtml()
     {
-    	$html = $this->getTypeElement()->toHtml().'Perform following actions: ';
-    	if ($this->getId()!='1') {
-    	    $html.= $this->getRemoveLinkHtml();
-    	}
+        $html = $this->getTypeElement()->toHtml().'Perform following actions: ';
+        if ($this->getId()!='1') {
+            $html.= $this->getRemoveLinkHtml();
+        }
         return $html;
     }
    public function getNewChildElement()

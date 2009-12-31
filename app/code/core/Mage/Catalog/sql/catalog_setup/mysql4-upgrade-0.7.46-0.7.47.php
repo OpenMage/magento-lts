@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
@@ -107,9 +107,9 @@ foreach ($websiteIds as $websiteId) {
     ");
     foreach ($storeIds as $storeId) {
         if (!$storeId) {
-        	continue;
+            continue;
         }
-    	$installer->run("
+        $installer->run("
 INSERT INTO {$installer->getTable('catalog_product_enabled_index')}
     SELECT t_v_default.entity_id, {$storeId}, IFNULL(t_v.value, t_v_default.value)
         FROM {$installer->getTable('catalog_product_entity_int')} AS t_v_default
@@ -123,7 +123,7 @@ INSERT INTO {$installer->getTable('catalog_product_enabled_index')}
         WHERE
             t_v_default.attribute_id='{$visibilityAttributeId}' AND t_v_default.store_id=0
             AND (IFNULL(t_s.value, t_s_default.value)=".Mage_Catalog_Model_Product_Status::STATUS_ENABLED.")
-    	");
+        ");
     }
 }
 

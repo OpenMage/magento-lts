@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Core
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Core
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -493,10 +493,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public function isAdminUrlSecure()
     {
         if ($this->_isAdminSecure === null) {
-        	$this->_isAdminSecure = Mage::getStoreConfigFlag(
-        	   Mage_Core_Model_Url::XML_PATH_SECURE_IN_ADMIN,
-        	   $this->getId()
-        	);
+            $this->_isAdminSecure = Mage::getStoreConfigFlag(
+            Mage_Core_Model_Url::XML_PATH_SECURE_IN_ADMIN,
+            $this->getId()
+            );
         }
         return $this->_isAdminSecure;
     }
@@ -504,10 +504,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public function isFrontUrlSecure()
     {
         if ($this->_isFrontSecure === null) {
-        	$this->_isFrontSecure = Mage::getStoreConfigFlag(
-        	   Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
-        	   $this->getId()
-        	);
+            $this->_isFrontSecure = Mage::getStoreConfigFlag(
+            Mage_Core_Model_Url::XML_PATH_SECURE_IN_FRONT,
+            $this->getId()
+            );
         }
         return $this->_isFrontSecure;
     }
@@ -841,9 +841,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         $query = Mage::getSingleton('core/url')->escape(ltrim(Mage::app()->getRequest()->getRequestString(), '/'));
 
         if (Mage::app()->getStore()->isCurrentlySecure()) {
-        	$parsedUrl = parse_url($this->getUrl('', array('_secure' => true)));
+            $parsedUrl = parse_url($this->getUrl('', array('_secure' => true)));
         } else {
-        	$parsedUrl = parse_url($this->getUrl(''));
+            $parsedUrl = parse_url($this->getUrl(''));
         }
         $parsedQuery = array();
         if (isset($parsedUrl['query'])) {
@@ -897,9 +897,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @return Mage_Core_Model_Store
      */
-    protected function _afterDelte()
+    protected function _afterDelete()
     {
-        parent::_afterDelte();
+        parent::_afterDelete();
         Mage::getConfig()->removeCache();
         return $this;
     }

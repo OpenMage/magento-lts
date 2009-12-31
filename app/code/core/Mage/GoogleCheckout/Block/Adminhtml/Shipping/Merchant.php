@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_GoogleCheckout
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Merchant
@@ -69,12 +69,12 @@ class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Merchant
         $html .= '</select>';
 
         $html .= '<div style="margin:5px 0 10px;">';
-		$html .= '<label>'.$this->__('Default price:').'</label> ';
+        $html .= '<label>'.$this->__('Default price:').'</label> ';
         $html .= '<input class="input-text" style="width:70px;" name="'.$this->getElement()->getName().'[price][]" value="'.$this->_getValue('price/'.$i).'" '.$this->_getDisabled().'/> ';
 
         $html .= $this->_getRemoveRowButtonHtml();
         $html .= '</div>';
-		$html .= '</li>';
+        $html .= '</li>';
 
         return $html;
     }

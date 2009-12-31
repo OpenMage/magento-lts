@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Customer
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Customer
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -62,68 +62,68 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
         return $this->_cartItemsCount;
     }
 
-	public function getWishlist()
-	{
-		if( !$this->_wishlist ) {
-			$this->_wishlist = Mage::getModel('wishlist/wishlist')
-				->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer());
-			$this->_wishlist->getItemCollection()
-				->addAttributeToSelect('name')
-				->addAttributeToSelect('price')
+    public function getWishlist()
+    {
+        if( !$this->_wishlist ) {
+            $this->_wishlist = Mage::getModel('wishlist/wishlist')
+                ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer());
+            $this->_wishlist->getItemCollection()
+                ->addAttributeToSelect('name')
+                ->addAttributeToSelect('price')
                 ->addAttributeToSelect('small_image')
-				->addAttributeToFilter('store_id', array('in' => $this->_wishlist->getSharedStoreIds()))
-				->addAttributeToSort('added_at', 'desc')
+                ->addAttributeToFilter('store_id', array('in' => $this->_wishlist->getSharedStoreIds()))
+                ->addAttributeToSort('added_at', 'desc')
                 ->setCurPage(1)
-				->setPageSize(3)
-				->load();
-		}
+                ->setPageSize(3)
+                ->load();
+        }
 
-		return $this->_wishlist->getItemCollection();
-	}
+        return $this->_wishlist->getItemCollection();
+    }
 
-	public function getWishlistCount()
-	{
-	    return $this->getWishlist()->getSize();
-	}
+    public function getWishlistCount()
+    {
+        return $this->getWishlist()->getSize();
+    }
 
-	public function getWishlistAddToCartLink($wishlistItem)
-	{
-	    return Mage::getUrl('wishlist/index/cart', array('item' => $wishlistItem->getId()));
-	}
+    public function getWishlistAddToCartLink($wishlistItem)
+    {
+        return Mage::getUrl('wishlist/index/cart', array('item' => $wishlistItem->getId()));
+    }
 
- 	public function getCompareItems()
- 	{
- 		if( !$this->_compareItems ) {
- 			$this->_compareItems = Mage::getResourceModel('catalog/product_compare_item_collection')
- 				->setStoreId(Mage::app()->getStore()->getId());
-			$this->_compareItems->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
-			$this->_compareItems
-				->addAttributeToSelect('name')
-				->useProductItem()
-				->load();
+     public function getCompareItems()
+     {
+         if( !$this->_compareItems ) {
+             $this->_compareItems = Mage::getResourceModel('catalog/product_compare_item_collection')
+                 ->setStoreId(Mage::app()->getStore()->getId());
+            $this->_compareItems->setCustomerId(Mage::getSingleton('customer/session')->getCustomerId());
+            $this->_compareItems
+                ->addAttributeToSelect('name')
+                ->useProductItem()
+                ->load();
 
- 		}
+         }
 
- 		return $this->_compareItems;
- 	}
+         return $this->_compareItems;
+     }
 
- 	public function getCompareJsObjectName()
- 	{
- 		return "dashboardSidebarCompareJsObject";
- 	}
+     public function getCompareJsObjectName()
+     {
+         return "dashboardSidebarCompareJsObject";
+     }
 
- 	public function getCompareRemoveUrlTemplate()
- 	{
- 		return $this->getUrl('catalog/product_compare/remove',array('product'=>'#{id}'));
- 	}
+     public function getCompareRemoveUrlTemplate()
+     {
+         return $this->getUrl('catalog/product_compare/remove',array('product'=>'#{id}'));
+     }
 
- 	public function getCompareAddUrlTemplate()
- 	{
- 		return $this->getUrl('catalog/product_compare/add',array('product'=>'#{id}'));
- 	}
+     public function getCompareAddUrlTemplate()
+     {
+         return $this->getUrl('catalog/product_compare/add',array('product'=>'#{id}'));
+     }
 
- 	public function getCompareUrl()
- 	{
- 		return $this->getUrl('catalog/product_compare');
- 	}
+     public function getCompareUrl()
+     {
+         return $this->getUrl('catalog/product_compare');
+     }
 }

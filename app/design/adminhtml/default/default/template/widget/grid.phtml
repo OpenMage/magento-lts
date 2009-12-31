@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
@@ -116,58 +116,58 @@ $numColumns = sizeof($this->getColumns());
 <?php echo $this->getMassactionBlockHtml() ?>
 <?php endif ?>
 <div class="grid">
-	<div class="hor-scroll">
-	<table cellspacing="0" class="data" id="<?php echo $this->getId() ?>_table">
-	    <?php foreach ($this->getColumns() as $_column): ?>
-	    <col <?php echo $_column->getHtmlProperty() ?> />
+    <div class="hor-scroll">
+    <table cellspacing="0" class="data" id="<?php echo $this->getId() ?>_table">
+        <?php foreach ($this->getColumns() as $_column): ?>
+        <col <?php echo $_column->getHtmlProperty() ?> />
         <?php if ($_column->getEditable() && !$_column->getEditOnly()) : ?>
         <col <?php echo $_column->getHtmlProperty() ?> />
         <?php endif ?>
-	    <?php endforeach; ?>
-	    <?php if ($this->getHeadersVisibility() || $this->getFilterVisibility()): ?>
-	        <thead>
-	            <?php if ($this->getHeadersVisibility()): ?>
-	                <tr class="headings">
-	                <?php foreach ($this->getColumns() as $_column): ?>
-	                    <th<?php echo $_column->getHeaderHtmlProperty() ?>><span class="nobr"><?php echo $_column->getHeaderHtml() ?></span></th>
-	                <?php endforeach; ?>
-	                </tr>
-	            <?php endif; ?>
-	            <?php if ($this->getFilterVisibility()): ?>
-	                <tr class="filter">
-	                <?php $i=0;foreach ($this->getColumns() as $_column): ?>
-	                    <th<?php echo $_column->getHeaderHtmlProperty() ?>><?php echo $_column->getFilterHtml() ?></th>
-	                <?php endforeach; ?>
-	                </tr>
-	            <?php endif ?>
-	        </thead>
-	    <?php endif; ?>
-	    <?php if ($this->getCountTotals()): ?>
-	        <tfoot>
-	            <tr>
-	            <?php foreach ($this->getColumns() as $_column): ?>
-	                <th class="<?php echo $_column->getCssProperty() ?>"><?php echo $_column->getRowField($_column->getGrid()->getTotals()) ?>&nbsp;</th>
-	            <?php endforeach; ?>
-	            </tr>
-	         </tfoot>
-	    <?php endif; ?>
-	    <tbody>
-	    <?php if (($this->getCollection()->getSize()>0) && (!$this->getIsCollapsed())): ?>
-	    <?php foreach ($this->getCollection() as $_index=>$_item): ?>
-	        <tr title="<?php echo $this->getRowUrl($_item) ?>"<?php if ($_class = $this->getRowClass($_item)):?> class="<?php echo $_class; ?>"<?php endif;?> >
-	        <?php $i=0;foreach ($this->getColumns() as $_column): ?>
-	            <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns?'last':'' ?>"><?php echo (($_html = $_column->getRowField($_item)) != '' ? $_html : '&nbsp;') ?></td>
-	        <?php endforeach; ?>
-	        </tr>
-	    <?php endforeach; ?>
-	    <?php elseif ($this->getEmptyText()): ?>
-	    	<tr>
-	    		<td class="empty-text <?php echo $this->getEmptyTextClass() ?>" colspan="100"><?php echo $this->getEmptyText() ?></td>
-	    	</tr>
-	    <?php endif; ?>
-	    </tbody>
-	</table>
-	</div>
+        <?php endforeach; ?>
+        <?php if ($this->getHeadersVisibility() || $this->getFilterVisibility()): ?>
+            <thead>
+                <?php if ($this->getHeadersVisibility()): ?>
+                    <tr class="headings">
+                    <?php foreach ($this->getColumns() as $_column): ?>
+                        <th<?php echo $_column->getHeaderHtmlProperty() ?>><span class="nobr"><?php echo $_column->getHeaderHtml() ?></span></th>
+                    <?php endforeach; ?>
+                    </tr>
+                <?php endif; ?>
+                <?php if ($this->getFilterVisibility()): ?>
+                    <tr class="filter">
+                    <?php $i=0;foreach ($this->getColumns() as $_column): ?>
+                        <th<?php echo $_column->getHeaderHtmlProperty() ?>><?php echo $_column->getFilterHtml() ?></th>
+                    <?php endforeach; ?>
+                    </tr>
+                <?php endif ?>
+            </thead>
+        <?php endif; ?>
+        <?php if ($this->getCountTotals()): ?>
+            <tfoot>
+                <tr>
+                <?php foreach ($this->getColumns() as $_column): ?>
+                    <th class="<?php echo $_column->getCssProperty() ?>"><?php echo $_column->getRowField($_column->getGrid()->getTotals()) ?>&nbsp;</th>
+                <?php endforeach; ?>
+                </tr>
+            </tfoot>
+        <?php endif; ?>
+        <tbody>
+        <?php if (($this->getCollection()->getSize()>0) && (!$this->getIsCollapsed())): ?>
+        <?php foreach ($this->getCollection() as $_index=>$_item): ?>
+            <tr title="<?php echo $this->getRowUrl($_item) ?>"<?php if ($_class = $this->getRowClass($_item)):?> class="<?php echo $_class; ?>"<?php endif;?> >
+            <?php $i=0;foreach ($this->getColumns() as $_column): ?>
+                <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns?'last':'' ?>"><?php echo (($_html = $_column->getRowField($_item)) != '' ? $_html : '&nbsp;') ?></td>
+            <?php endforeach; ?>
+            </tr>
+        <?php endforeach; ?>
+        <?php elseif ($this->getEmptyText()): ?>
+            <tr>
+                <td class="empty-text <?php echo $this->getEmptyTextClass() ?>" colspan="100"><?php echo $this->getEmptyText() ?></td>
+            </tr>
+        <?php endif; ?>
+        </tbody>
+    </table>
+    </div>
 </div>
 <?php if($this->canDisplayContainer()): ?>
 </div>

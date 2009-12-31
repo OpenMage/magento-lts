@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_GoogleOptimizer
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_GoogleOptimizer
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -68,9 +68,9 @@ class Mage_GoogleOptimizer_Model_Code_Product extends Mage_GoogleOptimizer_Model
         if ($attributes = $this->getAttributes()) {
             $attributesCount = 0;
             foreach ($attributes as $_attributeId=>$_attributeValue) {
-            	if ($_attributeValue != '') {
+                if ($_attributeValue != '') {
                     $attributesCount++;
-            	}
+                }
             }
             if ($attributesCount && $attributesCount <= self::DEFAULT_COUNT_OF_ATTRIBUTES) {
                 $attributesFlag = true;

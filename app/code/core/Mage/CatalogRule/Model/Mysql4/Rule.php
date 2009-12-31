@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_CatalogRule
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_CatalogRule
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -359,24 +359,24 @@ class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
                 array($fieldAlias=>$tableAlias.'.value')
             );
         } else {
-	        foreach (Mage::app()->getWebsites() as $website) {
-	            $websiteId  = $website->getId();
-	            $defaultGroup = $website->getDefaultGroup();
-	            if ($defaultGroup instanceof Mage_Core_Model_Store_Group) {
-	                $storeId    = $defaultGroup->getDefaultStoreId();
-	            } else {
+            foreach (Mage::app()->getWebsites() as $website) {
+                $websiteId  = $website->getId();
+                $defaultGroup = $website->getDefaultGroup();
+                if ($defaultGroup instanceof Mage_Core_Model_Store_Group) {
+                    $storeId    = $defaultGroup->getDefaultStoreId();
+                } else {
                     $storeId    = Mage_Core_Model_App::ADMIN_STORE_ID;
                 }
 
-	            $storeId    = $defaultGroup->getDefaultStoreId();
-	            $tableAlias = 'pp'.$websiteId;
-	            $fieldAlias = 'website_'.$websiteId.'_price';
-	            $select->joinLeft(
-	                array($tableAlias=>$priceTable),
-	                sprintf($joinCondition, $tableAlias, $storeId),
-	                array($fieldAlias=>$tableAlias.'.value')
-	            );
-	        }
+                $storeId    = $defaultGroup->getDefaultStoreId();
+                $tableAlias = 'pp'.$websiteId;
+                $fieldAlias = 'website_'.$websiteId.'_price';
+                $select->joinLeft(
+                    array($tableAlias=>$priceTable),
+                    sprintf($joinCondition, $tableAlias, $storeId),
+                    array($fieldAlias=>$tableAlias.'.value')
+                );
+            }
         }
         return $read->query($select);
     }
@@ -510,6 +510,15 @@ class Mage_CatalogRule_Model_Mysql4_Rule extends Mage_Core_Model_Mysql4_Abstract
                 $this->_saveRuleProductPrices($dayPrices);
             }
             $this->_saveRuleProductPrices($dayPrices);
+
+            $write->delete($this->getTable('catalogrule/rule_group_website'), array());
+
+            $select = $write->select()
+                ->distinct(true)
+                ->from($this->getTable('catalogrule/rule_product'), array('rule_id', 'customer_group_id', 'website_id'));
+            $query = $select->insertFromSelect($this->getTable('catalogrule/rule_group_website'));
+            $write->query($query);
+
             $write->commit();
         } catch (Exception $e) {
             $write->rollback();

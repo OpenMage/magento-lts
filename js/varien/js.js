@@ -326,11 +326,11 @@ Varien.searchForm.prototype = {
                 paramName: this.field.name,
                 minChars: 2,
                 updateElement: this._selectAutocompleteItem.bind(this),
-                onShow : function(element, update) { 
+                onShow : function(element, update) {
                     if(!update.style.position || update.style.position=='absolute') {
                         update.style.position = 'absolute';
                         Position.clone(element, update, {
-                            setHeight: false, 
+                            setHeight: false,
                             offsetTop: element.offsetHeight
                         });
                     }
@@ -467,3 +467,13 @@ function truncateOptions() {
 Event.observe(window, 'load', function(){
    truncateOptions();
 });
+
+if (!("console" in window) || !("firebug" in console))
+{
+    var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml",
+    "group", "groupEnd", "time", "timeEnd", "count", "trace", "profile", "profileEnd"];
+
+    window.console = {};
+    for (var i = 0; i < names.length; ++i)
+        window.console[names[i]] = function() {}
+}

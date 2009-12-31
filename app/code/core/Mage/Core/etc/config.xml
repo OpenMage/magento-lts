@@ -19,16 +19,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Core
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    Mage
+ * @package     Mage_Core
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
         <Mage_Core>
-             <version>0.8.13</version>
+             <version>0.8.14</version>
         </Mage_Core>
     </modules>
 
@@ -251,13 +251,14 @@
                 <use_http_via>0</use_http_via>
                 <use_http_x_forwarded_for>0</use_http_x_forwarded_for>
                 <use_http_user_agent>0</use_http_user_agent>
+                <use_frontend_sid>1</use_frontend_sid>
             </session>
 
             <browser_capabilities>
                 <cookies>1</cookies>
                 <javascript>1</javascript>
             </browser_capabilities>
-            
+
         </web>
 
         <admin>

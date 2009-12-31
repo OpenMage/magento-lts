@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Sales
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Sales
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -992,23 +992,18 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             return $this->getBillingAddress()->getTotals();
         }
 
-        $totals = null;
-        // Going through all quote addresses and sum their totals
+        $shippingAddress = $this->getShippingAddress();
+        $totals = $shippingAddress->getTotals();
+        // Going through all quote addresses and merge their totals
         foreach ($this->getAddressesCollection() as $address) {
-            if ($address->isDeleted()) {
+            if ($address->isDeleted() || $address === $shippingAddress) {
                 continue;
             }
-            if (!$totals) {
-                $totals = $address->getTotals();
-            } else {
-                foreach ($address->getTotals() as $code => $total) {
-                    if (isset($totals[$code])) {
-                        $totals[$code]->setValue($totals[$code]->getValue()+$total->getValue());
-                        $totals[$code]->setValueExclTax($totals[$code]->getValueExclTax()+$total->getValueExclTax());
-                        $totals[$code]->setValueInclTax($totals[$code]->getValueInclTax()+$total->getValueInclTax());
-                    } else {
-                        $totals[$code] = $total;
-                    }
+            foreach ($address->getTotals() as $code => $total) {
+                if (isset($totals[$code])) {
+                    $totals[$code]->merge($total);
+                } else {
+                    $totals[$code] = $total;
                 }
             }
         }

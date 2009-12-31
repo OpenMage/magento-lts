@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
@@ -50,13 +50,13 @@ $installer->getConnection()->dropColumn($productTable, 'store_id');
 $installer->getConnection()->dropColumn($productTable, 'is_active');
 
 try {
-	$installer->run("
-	INSERT INTO {$this->getTable('catalog_product_website')}
-		SELECT DISTINCT ps.product_id, cs.website_id
-		FROM {$this->getTable('catalog_product_store')} ps, {$this->getTable('core_store')} cs
-		WHERE cs.store_id=ps.store_id AND ps.store_id>0;
-	DROP TABLE IF EXISTS {$this->getTable('catalog_product_store')};
-	");
+    $installer->run("
+    INSERT INTO {$this->getTable('catalog_product_website')}
+        SELECT DISTINCT ps.product_id, cs.website_id
+        FROM {$this->getTable('catalog_product_store')} ps, {$this->getTable('core_store')} cs
+        WHERE cs.store_id=ps.store_id AND ps.store_id>0;
+    DROP TABLE IF EXISTS {$this->getTable('catalog_product_store')};
+    ");
 } catch (Exception $e) {
 }
 
@@ -68,7 +68,7 @@ try {
 } catch (Exception $e) {
 }
 try {
-	$this->run("DROP TABLE IF EXISTS `{$this->getTable('catalog/category_tree')}`;");
+    $this->run("DROP TABLE IF EXISTS `{$this->getTable('catalog/category_tree')}`;");
 } catch (Exception $e) {
 }
 

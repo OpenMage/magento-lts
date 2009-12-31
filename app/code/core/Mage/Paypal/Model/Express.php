@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Paypal
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Paypal
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -539,5 +539,15 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     public function isInitializeNeeded()
     {
         return is_object(Mage::registry('_singleton/checkout/type_onepage'));
+    }
+
+    /**
+     * Check whether is visible on cart page
+     *
+     * @return bool
+     */
+    public function isVisibleOnCartPage()
+    {
+        return (bool)$this->getConfigData('visible_on_cart');
     }
 }

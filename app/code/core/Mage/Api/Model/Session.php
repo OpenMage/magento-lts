@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Api
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Api
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -139,17 +139,17 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         $acl = $this->getAcl();
 
         if ($user && $acl) {
-    	    try {
-        	    if ($acl->isAllowed($user->getAclRole(), 'all', null)){
-        	        return true;
-        	    }
-    	    } catch (Exception $e) {}
+            try {
+                if ($acl->isAllowed($user->getAclRole(), 'all', null)){
+                    return true;
+                }
+            } catch (Exception $e) {}
 
-        	try {
+            try {
                 return $acl->isAllowed($user->getAclRole(), $resource, $privilege);
-        	} catch (Exception $e) {
-        	    return false;
-        	}
+            } catch (Exception $e) {
+                return false;
+            }
         }
         return false;
     }

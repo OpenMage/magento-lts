@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,6 +36,9 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
 {
     const XML_PATH_CHECKOUT_SIDEBAR_COUNT   = 'checkout/sidebar/count';
 
+    /**
+     * Class constructor
+     */
     public function __construct()
     {
         parent::__construct();
@@ -72,19 +75,30 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
 
     /**
      * Get shopping cart subtotal.
+     *
      * It will include tax, if required by config settings.
      *
-     * @return decimal
+     * @param   bool $skipTax flag for getting price with tax or not. Ignored in case when we display just subtotal incl.tax
+     * @return  decimal
      */
-    public function getSubtotal($skipTax = false)
+    public function getSubtotal($skipTax = true)
     {
         $subtotal = 0;
         $totals = $this->getTotals();
+        $config = Mage::getSingleton('tax/config');
         if (isset($totals['subtotal'])) {
-            $subtotal = $totals['subtotal']->getValue();
-            if (!$skipTax) {
-                if ((!$this->helper('tax')->displayCartBothPrices()) && $this->helper('tax')->displayCartPriceInclTax()) {
-                    $subtotal = $this->_addTax($subtotal);
+            if ($config->displayCartSubtotalBoth()) {
+                if ($skipTax) {
+                    $subtotal = $totals['subtotal']->getValueExclTax();
+                } else {
+                    $subtotal = $totals['subtotal']->getValueInclTax();
+                }
+            } elseif($config->displayCartSubtotalInclTax()) {
+                $subtotal = $totals['subtotal']->getValueInclTax();
+            } else {
+                $subtotal = $totals['subtotal']->getValue();
+                if (!$skipTax && isset($totals['tax'])) {
+                    $subtotal+= $totals['tax']->getValue();
                 }
             }
         }
@@ -99,12 +113,19 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
      */
     public function getSubtotalInclTax()
     {
-        if (!$this->helper('tax')->displayCartBothPrices()) {
+        if (!Mage::getSingleton('tax/config')->displayCartSubtotalBoth()) {
             return 0;
         }
-        return $this->_addTax($this->getSubtotal(true));
+        return $this->getSubtotal(false);
     }
 
+    /**
+     * Add tax to amount
+     *
+     * @param float $price
+     * @param bool $exclShippingTax
+     * @return float
+     */
     private function _addTax($price, $exclShippingTax=true) {
         $totals = $this->getTotals();
         if (isset($totals['tax'])) {
@@ -117,27 +138,53 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
         return $price;
     }
 
+    /**
+     * Get shipping tax amount
+     *
+     * @return float
+     */
     protected function _getShippingTaxAmount()
     {
         return $this->getQuote()->getShippingAddress()->getShippingTaxAmount();
     }
 
+    /**
+     * Get shopping cart items qty based on configuration (summary qty or items qty)
+     *
+     * @return int | float
+     */
     public function getSummaryCount()
     {
         return Mage::getSingleton('checkout/cart')->getSummaryQty();
     }
 
+    /**
+     * Get incl/excl tax label
+     *
+     * @param bool $flag
+     * @return string
+     */
     public function getIncExcTax($flag)
     {
         $text = Mage::helper('tax')->getIncExcText($flag);
         return $text ? ' ('.$text.')' : '';
     }
 
+    /**
+     * Check if one page checkout is available
+     *
+     * @return bool
+     */
     public function isPossibleOnepageCheckout()
     {
         return $this->helper('checkout')->canOnepageCheckout();
     }
 
+    /**
+     * Get one page checkout page url
+     *
+     * @return bool
+     */
     public function getCheckoutUrl()
     {
         return $this->helper('checkout/url')->getCheckoutUrl();

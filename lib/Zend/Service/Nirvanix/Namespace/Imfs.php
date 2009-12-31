@@ -17,7 +17,7 @@
  * @subpackage Nirvanix
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Imfs.php 16971 2009-07-22 18:05:45Z mikaelkael $
+ * @version    $Id: Imfs.php 18287 2009-09-18 20:22:42Z padraic $
  */
 
 /**
@@ -82,7 +82,7 @@ class Zend_Service_Nirvanix_Namespace_Imfs extends Zend_Service_Nirvanix_Namespa
         $this->_httpClient->resetParameters();
         $this->_httpClient->setUri("http://{$host}/Upload.ashx");
         $this->_httpClient->setParameterPost('uploadToken', $uploadToken);
-        $this->_httpClient->setParameterPost('destFolderPath', dirname($filePath));
+        $this->_httpClient->setParameterPost('destFolderPath', str_replace('\\', '/',dirname($filePath)));
         $this->_httpClient->setFileUpload(basename($filePath), 'uploadFile', $data, $mimeType);
         $response = $this->_httpClient->request(Zend_Http_Client::POST);
 

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -55,9 +55,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
          */
         if (!Mage::registry('product')->getId()) {
             foreach ($attributes as $attribute) {
-            	if (!isset($values[$attribute->getAttributeCode()])) {
-            	    $values[$attribute->getAttributeCode()] = $attribute->getDefaultValue();
-            	}
+                if (!isset($values[$attribute->getAttributeCode()])) {
+                    $values[$attribute->getAttributeCode()] = $attribute->getDefaultValue();
+                }
             }
         }
 
@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
             'image'   => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_image'),
             'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean')
         );
- 
+
         $response = new Varien_Object();
         $response->setTypes(array());
         Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', array('response'=>$response));
@@ -82,7 +82,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
         foreach ($response->getTypes() as $typeName=>$typeClass) {
             $result[$typeName] = $typeClass;
         }
-        
+
         return $result;
     }
 

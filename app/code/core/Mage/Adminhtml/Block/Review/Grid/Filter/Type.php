@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,24 +34,24 @@
 
 class Mage_Adminhtml_Block_Review_Grid_Filter_Type extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
-	protected function _getOptions()
-	{
-		return array(
-		      array('label'=>'', 'value'=>''),
-		      array('label'=>Mage::helper('review')->__('Administrator'), 'value'=>1),
-		      array('label'=>Mage::helper('review')->__('Customer'), 'value'=>2),
-		      array('label'=>Mage::helper('review')->__('Guest'), 'value'=>3)
-		);
-	}
+    protected function _getOptions()
+    {
+        return array(
+              array('label'=>'', 'value'=>''),
+              array('label'=>Mage::helper('review')->__('Administrator'), 'value'=>1),
+              array('label'=>Mage::helper('review')->__('Customer'), 'value'=>2),
+              array('label'=>Mage::helper('review')->__('Guest'), 'value'=>3)
+        );
+    }
 
-	public function getCondition()
-	{
+    public function getCondition()
+    {
         if ($this->getValue() == 1) {
-        	return 1;
+            return 1;
         } elseif ($this->getValue() == 2) {
-        	return 2;
+            return 2;
         } else {
-        	return 3;
+            return 3;
         }
-	}
+    }
 }// Class Mage_Adminhtml_Block_Review_Grid_Filter_Type END

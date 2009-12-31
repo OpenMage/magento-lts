@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Eav
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Eav
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -531,5 +531,19 @@ class Mage_Eav_Model_Mysql4_Entity_Attribute extends Mage_Core_Model_Mysql4_Abst
             $values[$row['store_id']] = $row['value'];
         }
         return $values;
+    }
+
+    /**
+     * Load by given attributes ids and return only exist attribute ids
+     *
+     * @param array $attributeIds
+     * @return array
+     */
+    public function getValidAttributeIds($attributeIds)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getMainTable(), array('attribute_id'))
+            ->where('attribute_id in (?)', $attributeIds);
+        return $this->_getReadAdapter()->fetchCol($select);
     }
 }

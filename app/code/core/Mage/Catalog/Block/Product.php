@@ -18,50 +18,50 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 class Mage_Catalog_Block_Product extends Mage_Core_Block_Template
 {
-	protected $_finalPrice = array();
+    protected $_finalPrice = array();
 
-	public function getProduct()
-	{
-		if (!$this->getData('product') instanceof Mage_Catalog_Model_Product) {
-			if ($this->getData('product')->getProductId()) {
-				$productId = $this->getData('product')->getProductId();
-			}
-			if ($productId) {
-				$product = Mage::getModel('catalog/product')->load($productId);
-				if ($product) {
-					$this->setProduct($product);
-				}
-			}
-		}
-		return $this->getData('product');
-	}
+    public function getProduct()
+    {
+        if (!$this->getData('product') instanceof Mage_Catalog_Model_Product) {
+            if ($this->getData('product')->getProductId()) {
+                $productId = $this->getData('product')->getProductId();
+            }
+            if ($productId) {
+                $product = Mage::getModel('catalog/product')->load($productId);
+                if ($product) {
+                    $this->setProduct($product);
+                }
+            }
+        }
+        return $this->getData('product');
+    }
 
-	public function getPrice()
-	{
-		return $this->getProduct()->getPrice();
-	}
+    public function getPrice()
+    {
+        return $this->getProduct()->getPrice();
+    }
 
-	public function getFinalPrice()
-	{
-		if (!isset($this->_finalPrice[$this->getProduct()->getId()])) {
-			$this->_finalPrice[$this->getProduct()->getId()] = $this->getProduct()->getFinalPrice();
-		}
-		return $this->_finalPrice[$this->getProduct()->getId()];
-	}
+    public function getFinalPrice()
+    {
+        if (!isset($this->_finalPrice[$this->getProduct()->getId()])) {
+            $this->_finalPrice[$this->getProduct()->getId()] = $this->getProduct()->getFinalPrice();
+        }
+        return $this->_finalPrice[$this->getProduct()->getId()];
+    }
 
-	public function getPriceHtml($product)
-	{
-		$this->setTemplate('catalog/product/price.phtml');
-		$this->setProduct($product);
-		return $this->toHtml();
-	}
+    public function getPriceHtml($product)
+    {
+        $this->setTemplate('catalog/product/price.phtml');
+        $this->setProduct($product);
+        return $this->toHtml();
+    }
 }

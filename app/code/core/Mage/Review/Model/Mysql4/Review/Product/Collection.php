@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Review
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Review
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -236,9 +236,9 @@ class Mage_Review_Model_Mysql4_Review_Product_Collection extends Mage_Catalog_Mo
                 break;
             case 'type':
                 if($condition == 1) {
-                	$this->getSelect()->where('rdt.customer_id = 0');
+                    $this->getSelect()->where('rdt.customer_id = 0');
                 } elseif ($condition == 2) {
-                	$this->getSelect()->where('rdt.customer_id > 0');
+                    $this->getSelect()->where('rdt.customer_id > 0');
                 } else {
                     $this->getSelect()->where('rdt.customer_id IS NULL');
                 }
@@ -263,10 +263,10 @@ class Mage_Review_Model_Mysql4_Review_Product_Collection extends Mage_Catalog_Mo
     protected function _afterLoad()
     {
         parent::_afterLoad();
-    	if ($this->_addStoreDataFlag) {
-    	    $this->_addStoreData();
-    	}
-    	return $this;
+        if ($this->_addStoreDataFlag) {
+            $this->_addStoreData();
+        }
+        return $this;
     }
 
     protected function _addStoreData()

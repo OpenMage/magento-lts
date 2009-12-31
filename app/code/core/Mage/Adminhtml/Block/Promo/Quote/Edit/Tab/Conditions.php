@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -93,7 +93,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Conditions
             'legend'=>Mage::helper('salesrule')->__('Apply the rule only if the following conditions are met (leave blank for all products)')
         ))->setRenderer($renderer);
 
-    	$fieldset->addField('conditions', 'text', array(
+        $fieldset->addField('conditions', 'text', array(
             'name' => 'conditions',
             'label' => Mage::helper('salesrule')->__('Conditions'),
             'title' => Mage::helper('salesrule')->__('Conditions'),
@@ -103,7 +103,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Conditions
             'legend'=>Mage::helper('salesrule')->__('Apply the rule to cart items matching the following conditions')
         ))->setRenderer($renderer);
 
-    	$fieldset->addField('actions', 'text', array(
+        $fieldset->addField('actions', 'text', array(
             'name' => 'actions',
             'label' => Mage::helper('salesrule')->__('Apply to'),
             'title' => Mage::helper('salesrule')->__('Apply to'),

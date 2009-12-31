@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Customer
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Customer
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -33,7 +33,7 @@
  */
 class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
 {
-	protected $_subscription = null;
+    protected $_subscription = null;
 
     public function getCustomer()
     {
@@ -77,25 +77,25 @@ class Mage_Customer_Block_Account_Dashboard extends Mage_Core_Block_Template
 
     public function getSubscriptionObject()
     {
-    	if(is_null($this->_subscription)) {
-			$this->_subscription = Mage::getModel('newsletter/subscriber')->loadByCustomer($this->getCustomer());
-    	}
+        if(is_null($this->_subscription)) {
+            $this->_subscription = Mage::getModel('newsletter/subscriber')->loadByCustomer($this->getCustomer());
+        }
 
-    	return $this->_subscription;
+        return $this->_subscription;
     }
 
     public function getManageNewsletterUrl()
     {
-    	return $this->getUrl('*/newsletter/manage');
+        return $this->getUrl('*/newsletter/manage');
     }
 
     public function getSubscriptionText()
     {
-    	if($this->getSubscriptionObject()->isSubscribed()) {
-    		return Mage::helper('customer')->__('You are currently subscribed to our newsletter');
-    	}
+        if($this->getSubscriptionObject()->isSubscribed()) {
+            return Mage::helper('customer')->__('You are currently subscribed to our newsletter');
+        }
 
-    	return Mage::helper('customer')->__('You are currently not subscribed to our newsletter');
+        return Mage::helper('customer')->__('You are currently not subscribed to our newsletter');
     }
 
     public function getPrimaryAddresses()

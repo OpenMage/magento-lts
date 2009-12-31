@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -103,7 +103,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 'url'       => $this->getUrl('*/*/productTags', array('_current' => true)),
             ));
         }
-        
+
         $this->_updateActiveTab();
         Varien_Profiler::stop('customer/tabs');
         return parent::_beforeToHtml();
@@ -111,12 +111,12 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
 
     protected function _updateActiveTab()
     {
-    	$tabId = $this->getRequest()->getParam('tab');
-    	if( $tabId ) {
-    		$tabId = preg_replace("#{$this->getId()}_#", '', $tabId);
-    		if($tabId) {
-    			$this->setActiveTab($tabId);
-    		}
-    	}
+        $tabId = $this->getRequest()->getParam('tab');
+        if( $tabId ) {
+            $tabId = preg_replace("#{$this->getId()}_#", '', $tabId);
+            if($tabId) {
+                $this->setActiveTab($tabId);
+            }
+        }
     }
 }

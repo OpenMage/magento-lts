@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -140,7 +140,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
         $opt = array();
         $opt = array(''=>$this->__('Any Attribute Set'));
         if ($options) foreach($options as $index => $value) {
-        	$opt[$index]  = $value;
+            $opt[$index]  = $value;
         }
         //array_slice($options, 0, 0, array(''=>$this->__('Any Attribute Set')));
         return $opt;

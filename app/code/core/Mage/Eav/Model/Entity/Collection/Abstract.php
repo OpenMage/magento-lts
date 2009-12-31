@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Eav
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Eav
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -989,7 +989,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
         foreach ($this->_selectAttributes as $attributeCode => $attributeId) {
             $attribute = Mage::getSingleton('eav/config')->getCollectionAttribute($entity->getType(), $attributeCode);
             if ($attribute && !$attribute->isStatic()) {
-            	$tableAttributes[$attribute->getBackendTable()][] = $attributeId;
+                $tableAttributes[$attribute->getBackendTable()][] = $attributeId;
             }
         }
 
@@ -1020,7 +1020,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
     protected function _getLoadAttributesSelect($table, $attributeIds=array())
     {
         if (empty($attributeIds)) {
-        	$attributeIds = $this->_selectAttributes;
+            $attributeIds = $this->_selectAttributes;
         }
         $entityIdField = $this->getEntity()->getEntityIdField();
         $select = $this->getConnection()->select()

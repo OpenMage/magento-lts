@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -255,7 +255,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     public function setBaseFile($file)
     {
-    	if (($file) && (0 !== strpos($file, '/', 0))) {
+        if (($file) && (0 !== strpos($file, '/', 0))) {
             $file = '/' . $file;
         }
         $baseDir = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
@@ -413,7 +413,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
     /**
      * Add watermark to image
-     * size param in format 100x200 
+     * size param in format 100x200
      *
      * @param string $fileName
      * @param string $position
@@ -431,11 +431,11 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        if ($position) 
+        if ($position)
            $this->setWatermarkPosition($position);
-        if ($size) 
+        if ($size)
             $this->setWatermarkSize($size);
-        if ($width) 
+        if ($width)
             $this->setWatermarkWidth($width);
         if ($heigth)
             $this->setWatermarkHeigth($heigth);
@@ -443,7 +443,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             $this->setImageOpacity($imageOpacity);
 
         $filePath = $this->_getWatermarkFilePath();
-        
+
         if($filePath) {
             $this->getImageProcessor()
                 ->setWatermarkPosition( $this->getWatermarkPosition() )
@@ -501,7 +501,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         return file_exists($this->_newFile);
     }
-    
+
     /**
      * Set watermark file name
      *
@@ -527,7 +527,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     /**
      * Get relative watermark file path
      * or false if file not found
-     * 
+     *
      * @return string | bool
      */
     protected function _getWatermarkFilePath()
@@ -580,7 +580,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         return $this->_watermarkPosition;
     }
-    
+
     /**
      * Set watermark image opacity
      *

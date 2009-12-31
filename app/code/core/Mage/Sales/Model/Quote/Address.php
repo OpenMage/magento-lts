@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Sales
- * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Sales
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -38,6 +38,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     const TYPE_SHIPPING = 'shipping';
     const RATES_FETCH = 1;
     const RATES_RECALCULATE = 2;
+
+    protected $_eventPrefix = 'sales_quote_address';
+    protected $_eventObject = 'quote_address';
 
     /**
      * Quote object
@@ -245,7 +248,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 if (!$aItem->getQuoteItemImported()) {
                     $qItem = $this->getQuote()->getItemById($aItem->getQuoteItemId());
                     if ($qItem) {
-                        $this->addItem($aItem);
+                        //$this->addItem($aItem);
                         $aItem->importQuoteItem($qItem);
                     }
                 }
@@ -329,7 +332,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     }
 
     /**
-     * Retrieve Item object by id
+     * Get address item object by id without
      *
      * @param int $itemId
      * @return Mage_Sales_Model_Quote_Address_Item
@@ -337,6 +340,22 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     public function getItemById($itemId)
     {
         foreach ($this->getItemsCollection() as $item) {
+            if ($item->getId()==$itemId) {
+                return $item;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Get prepared not deleted item
+     *
+     * @param $itemId
+     * @return Mage_Sales_Model_Quote_Address_Item
+     */
+    public function getValidItemById($itemId)
+    {
+        foreach ($this->getAllItems() as $item) {
             if ($item->getId()==$itemId) {
                 return $item;
             }
@@ -586,8 +605,32 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         $request->setDestStreet($this->getStreet(-1));
         $request->setDestCity($this->getCity());
         $request->setDestPostcode($this->getPostcode());
-        $request->setPackageValue($this->getBaseSubtotal());
-        $request->setPackageValueWithDiscount($this->getBaseSubtotalWithDiscount());
+
+        /**
+         * Count total amount and total discount for shipping. Only not virtual quote items.
+         * Fix bug #15971
+         */
+        $quoteItems = $this->getAllItems();
+        $subtotal = 0;
+        $discountAmount = 0;
+        foreach ($quoteItems as $quoteItem) {
+            if (!$quoteItem->getParentItem() && !$quoteItem->getProduct()->isVirtual()) {
+                $subtotal += $quoteItem->getRowTotal();
+                $discountAmount += $quoteItem->getDiscountAmount();
+                if ($quoteItem->getHasChildren()) {
+                    foreach ($quoteItem->getChildren() as $child) {
+                        $discountAmount += $child->getDiscountAmount();
+                    }
+                }
+            }
+        }
+
+        $request->setPackageValue($subtotal);
+        $request->setPackageValueWithDiscount($subtotal - $discountAmount);
+        /**
+         * End fix
+         */
+
         $request->setPackageWeight($this->getWeight());
         $request->setPackageQty($this->getItemQty());
 
@@ -927,7 +970,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function getBaseSubtotalWithDiscount()
     {
-        return $this->getBaseSubtotal()-$this->getBaseDiscountAmount();
+        return $this->getBaseSubtotal()+$this->getBaseDiscountAmount();
     }
 
     /**
@@ -937,6 +980,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     public function getSubtotalWithDiscount()
     {
-        return $this->getSubtotal()-$this->getDiscountAmount();
+        return $this->getSubtotal()+$this->getDiscountAmount();
     }
 }

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Tag
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Tag
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -132,7 +132,7 @@ class Mage_Tag_Model_Mysql4_Tag_Collection extends Mage_Core_Model_Mysql4_Collec
                 )
                 ->group('main_table.tag_id');
 
-            if (! is_null($limit)) {
+            if (!is_null($limit)) {
                 $this->getSelect()->limit($limit);
             }
 
@@ -235,26 +235,31 @@ class Mage_Tag_Model_Mysql4_Tag_Collection extends Mage_Core_Model_Mysql4_Collec
         return $sql;
     }
 
+    /**
+     * Add filter by store
+     *
+     * @param array | int $storeId
+     * @param bool $allFilter
+     * @return Mage_Tag_Model_Mysql4_Tag_Collection
+     */
     public function addStoreFilter($storeId, $allFilter = true)
     {
         if (!$this->getFlag('store_filter')) {
-            if (!is_array($storeId)) {
-                $storeId = array($storeId);
-            }
-            $this->getSelect()->join(array(
-                'summary_store'=>$this->getTable('summary')),
-                'main_table.tag_id = summary_store.tag_id
-                AND summary_store.store_id IN (' . implode(',', $storeId) . ')',
-                array());
+
+            $this->getSelect()->join(
+                array('summary_store'=>$this->getTable('summary')),
+                'main_table.tag_id = summary_store.tag_id' . $this->getConnection()->quoteInto(
+                    ' AND summary.store_id IN (?)', $storeId
+                )
+            );
 
             $this->getSelect()->group('summary_store.tag_id');
 
             if($this->getFlag('relation') && $allFilter) {
-                $this->getSelect()->where('relation.store_id IN (' . implode(',', $storeId) . ')');
+                $this->getSelect()->where('relation.store_id IN (?)', $storeId);
             }
-
             if($this->getFlag('prelation') && $allFilter) {
-                $this->getSelect()->where('prelation.store_id IN (' . implode(',', $storeId) . ')');
+                $this->getSelect()->where('prelation.store_id IN (?)', $storeId);
             }
 
             $this->setFlag('store_filter', true);

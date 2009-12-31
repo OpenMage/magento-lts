@@ -18,15 +18,31 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Checkout
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Checkout
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 class Mage_Checkout_Model_Type_Onepage
 {
+    /**
+     * Error message of "customer already exists"
+     *
+     * @var string
+     */
+    private $_customerEmailExistsMessage = '';
+
+    /**
+     * Set customer already exists message
+     * @return Mage_Checkout_Model_Type_Onepage
+     */
+    public function __construct()
+    {
+        $this->_customerEmailExistsMessage = Mage::helper('checkout')->__('There is already a customer registered using this email address. Please login using this email address or enter a different email address to register your account.');
+    }
+
     /**
      * Enter description here...
      *
@@ -63,6 +79,16 @@ class Mage_Checkout_Model_Type_Onepage
                 }
             }
         }
+
+        /**
+         * Reset multishipping flag before any manipulations with quote address
+         * addAddress method for quote object related on this flag
+         */
+        if ($this->getQuote()->getIsMultiShipping()) {
+            $this->getQuote()->setIsMultiShipping(false);
+            $this->getQuote()->save();
+        }
+
         /*
         * want to laod the correct customer information by assiging to address
         * instead of just loading from sales/quote_address
@@ -70,10 +96,6 @@ class Mage_Checkout_Model_Type_Onepage
         $customer = Mage::getSingleton('customer/session')->getCustomer();
         if ($customer) {
             $this->getQuote()->assignCustomer($customer);
-        }
-        if ($this->getQuote()->getIsMultiShipping()) {
-            $this->getQuote()->setIsMultiShipping(false);
-            $this->getQuote()->save();
         }
         return $this;
     }
@@ -160,7 +182,7 @@ class Mage_Checkout_Model_Type_Onepage
         if (!$this->getQuote()->getCustomerId() && Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
             if ($this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())) {
                 return array('error' => 1,
-                    'message' => Mage::helper('checkout')->__('There is already a customer registered using this email address')
+                    'message' => $this->_customerEmailExistsMessage
                 );
             }
         }
@@ -411,12 +433,24 @@ class Mage_Checkout_Model_Type_Onepage
      */
     public function saveOrder()
     {
-
         $this->validateOrder();
         $billing = $this->getQuote()->getBillingAddress();
         if (!$this->getQuote()->isVirtual()) {
             $shipping = $this->getQuote()->getShippingAddress();
         }
+
+        /*
+         * Check if before this step checkout method was not defined use default values.
+         * Related to issue with some browsers when checkout method was not saved during first step.
+         */
+        if (!$this->getQuote()->getCheckoutMethod()) {
+            if (Mage::helper('checkout')->isAllowedGuestCheckout($this->getQuote(), $this->getQuote()->getStore())) {
+                $this->getQuote()->setCheckoutMethod(Mage_Sales_Model_Quote::CHECKOUT_METHOD_GUEST);
+            } else {
+                $this->getQuote()->setCheckoutMethod(Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER);
+            }
+        }
+
         switch ($this->getQuote()->getCheckoutMethod()) {
         case Mage_Sales_Model_Quote::CHECKOUT_METHOD_GUEST:
             if (!$this->getQuote()->isAllowedGuestCheckout()) {
@@ -530,7 +564,7 @@ class Mage_Checkout_Model_Type_Onepage
         // check again, if customer exists
         if ($this->getQuote()->getCheckoutMethod() == Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER) {
             if ($this->_customerEmailExists($customer->getEmail(), Mage::app()->getWebsite()->getId())) {
-                Mage::throwException(Mage::helper('checkout')->__('There is already a customer registered using this email address'));
+                Mage::throwException($this->_customerEmailExistsMessage);
             }
         }
         $order->place();
@@ -555,11 +589,15 @@ class Mage_Checkout_Model_Type_Onepage
                 $shipping->setCustomerId($customer->getId())->setCustomerAddressId($customerShippingId);
             }
 
-            if ($customer->isConfirmationRequired()) {
-                $customer->sendNewAccountEmail('confirmation');
-            }
-            else {
-                $customer->sendNewAccountEmail();
+            try {
+                if ($customer->isConfirmationRequired()) {
+                    $customer->sendNewAccountEmail('confirmation');
+                }
+                else {
+                    $customer->sendNewAccountEmail();
+                }
+            } catch (Exception $e) {
+                Mage::logException($e);
             }
         }
 
@@ -591,7 +629,11 @@ class Mage_Checkout_Model_Type_Onepage
          * we only want to send to customer about new order when there is no redirect to third party
          */
         if(!$redirectUrl){
-            $order->sendNewOrderEmail();
+            try {
+                $order->sendNewOrderEmail();
+            } catch (Exception $e) {
+                Mage::logException($e);
+            }
         }
 
         if ($this->getQuote()->getCheckoutMethod(true)==Mage_Sales_Model_Quote::CHECKOUT_METHOD_REGISTER

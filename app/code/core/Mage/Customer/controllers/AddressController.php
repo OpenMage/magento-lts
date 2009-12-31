@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Customer
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Customer
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -132,7 +132,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                     $this->_getSession()->setAddressFormData($this->getRequest()->getPost());
                     if (is_array($accressValidation)) {
                         foreach ($accressValidation as $errorMessage) {
-                        	$this->_getSession()->addError($errorMessage);
+                            $this->_getSession()->addError($errorMessage);
                         }
                     } else {
                         $this->_getSession()->addError($this->__('Can\'t save address'));

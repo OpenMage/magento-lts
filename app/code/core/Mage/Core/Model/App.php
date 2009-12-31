@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -723,7 +723,7 @@ class Mage_Core_Model_App
         } elseif ($id instanceof Mage_Core_Model_Website) {
             return $id;
         } elseif ($id === true) {
-        	return $this->_website;
+            return $this->_website;
         }
 
         if (empty($this->_websites[$id])) {

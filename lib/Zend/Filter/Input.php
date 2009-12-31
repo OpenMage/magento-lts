@@ -16,7 +16,7 @@
  * @package    Zend_Filter
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Input.php 17758 2009-08-22 21:07:23Z thomas $
+ * @version    $Id: Input.php 18186 2009-09-17 18:57:00Z matthew $
  */
 
 /**
@@ -740,19 +740,21 @@ class Zend_Filter_Input
             if (!isset($validatorRule[self::ALLOW_EMPTY])) {
                 $validatorRule[self::ALLOW_EMPTY] = $this->_defaults[self::ALLOW_EMPTY];
             }
+
             if (!isset($validatorRule[self::MESSAGES])) {
                 $validatorRule[self::MESSAGES] = array();
             } else if (!is_array($validatorRule[self::MESSAGES])) {
                 $validatorRule[self::MESSAGES] = array($validatorRule[self::MESSAGES]);
-            } else if (!array_intersect_key($validatorList, $validatorRule[self::MESSAGES])) {
+            } else if (array_intersect_key($validatorList, $validatorRule[self::MESSAGES])) {
                 // There are now corresponding numeric keys in the validation rule messages array
                 // Treat it as a named messages list for all rule validators
-                /** @todo Update documentation to describe this possibility */
                 $unifiedMessages = $validatorRule[self::MESSAGES];
                 $validatorRule[self::MESSAGES] = array();
 
                 foreach ($validatorList as $key => $validator) {
-                    $validatorRule[self::MESSAGES][$key] = $unifiedMessages;
+                    if (array_key_exists($key, $unifiedMessages)) {
+                        $validatorRule[self::MESSAGES][$key] = $unifiedMessages[$key];
+                    }
                 }
             }
 
@@ -766,12 +768,17 @@ class Zend_Filter_Input
                     if (is_string($validator) || is_array($validator)) {
                         $validator = $this->_getValidator($validator);
                     }
+
                     if (isset($validatorRule[self::MESSAGES][$key])) {
                         $value = $validatorRule[self::MESSAGES][$key];
                         if (is_array($value)) {
                             $validator->setMessages($value);
                         } else {
                             $validator->setMessage($value);
+                        }
+
+                        if ($validator instanceof Zend_Validate_NotEmpty) {
+                            $this->_defaults[self::NOT_EMPTY_MESSAGE] = $value;
                         }
                     }
 
@@ -882,12 +889,14 @@ class Zend_Filter_Input
                         $emptyFieldsFound = true;
                     }
                 }
+
                 if ($emptyFieldsFound) {
                     $this->_invalidMessages[$validatorRule[self::RULE]] = $messages;
                     $this->_invalidErrors[$validatorRule[self::RULE]]   = array_unique(call_user_func_array('array_merge', $errorsList));
                     return;
                 }
             }
+
             if (!$validatorRule[self::VALIDATOR_CHAIN]->isValid($data)) {
                 $this->_invalidMessages[$validatorRule[self::RULE]] = $validatorRule[self::VALIDATOR_CHAIN]->getMessages();
                 $this->_invalidErrors[$validatorRule[self::RULE]] = $validatorRule[self::VALIDATOR_CHAIN]->getErrors();
@@ -899,12 +908,10 @@ class Zend_Filter_Input
             $fieldName = reset($fieldNames);
             $field     = reset($data);
 
-
             $failed = false;
             if (!is_array($field)) {
                 $field = array($field);
             }
-
 
             $notEmptyValidator = $this->_getValidator('NotEmpty');
             $notEmptyValidator->setMessage($this->_getNotEmptyMessage($validatorRule[self::RULE], $fieldName));

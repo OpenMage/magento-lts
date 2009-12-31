@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -803,7 +803,6 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
             $select = $write->select()
                 ->from($this->getTable('catalog/category'))
                 ->where('entity_id=?', $category);
-            Mage::log($select->assemble());
             $row    = $write->fetchRow($select);
             if (!$row) {
                 return $this;
@@ -811,14 +810,12 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
 
             $stores = $this->getStoresRootCategories();
             $path   = explode('/', $row['path']);
-            Mage::log($path);
             foreach ($stores as $storeId => $rootCategoryId) {
                 if (in_array($rootCategoryId, $path)) {
                     $attributeValues = $this->_getAttributeValues($category, $storeId);
                     $data = new Varien_Object($row);
                     $data->addData($attributeValues[$category])
                         ->setStoreId($storeId);
-                    Mage::log($data->debug());
                     $this->_synchronize($data);
                 } else {
                     $where = $write->quoteInto('entity_id=?', $category);

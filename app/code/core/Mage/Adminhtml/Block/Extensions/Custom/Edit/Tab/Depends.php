@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -47,26 +47,26 @@ class Mage_Adminhtml_Block_Extensions_Custom_Edit_Tab_Depends
 
         $fieldset = $form->addFieldset('depends_php_fieldset', array('legend'=>Mage::helper('adminhtml')->__('PHP Version')));
 
-    	$fieldset->addField('depends_php_min', 'text', array(
+        $fieldset->addField('depends_php_min', 'text', array(
             'name' => 'depends_php_min',
             'label' => Mage::helper('adminhtml')->__('Minimum'),
             'required' => true,
             'value' => '5.2.0',
         ));
 
-    	$fieldset->addField('depends_php_max', 'text', array(
+        $fieldset->addField('depends_php_max', 'text', array(
             'name' => 'depends_php_max',
             'label' => Mage::helper('adminhtml')->__('Maximum'),
             'required' => true,
             'value' => '6.0.0',
         ));
 
-    	$fieldset->addField('depends_php_recommended', 'text', array(
+        $fieldset->addField('depends_php_recommended', 'text', array(
             'name' => 'depends_php_recommended',
             'label' => Mage::helper('adminhtml')->__('Recommended'),
         ));
 
-    	$fieldset->addField('depends_php_exclude', 'text', array(
+        $fieldset->addField('depends_php_exclude', 'text', array(
             'name' => 'depends_php_exclude',
             'label' => Mage::helper('adminhtml')->__('Exclude (comma separated)'),
         ));

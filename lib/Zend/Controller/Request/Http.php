@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Http.php 16933 2009-07-21 20:24:35Z matthew $
+ * @version    $Id: Http.php 18310 2009-09-19 17:50:02Z ralph $
  */
 
 /** Zend_Controller_Request_Abstract */
@@ -83,6 +83,12 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      * @var array
      */
     protected $_params = array();
+
+    /**
+     * Raw request body
+     * @var string|false
+     */
+    protected $_rawBody;
 
     /**
      * Alias keys for request parameters
@@ -386,6 +392,14 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
         if ($requestUri === null) {
             if (isset($_SERVER['HTTP_X_REWRITE_URL'])) { // check this first so IIS will catch
                 $requestUri = $_SERVER['HTTP_X_REWRITE_URL'];
+            } elseif (
+                // IIS7 with URL Rewrite: make sure we get the unencoded url (double slash problem)
+                isset($_SERVER['IIS_WasUrlRewritten'])
+                && $_SERVER['IIS_WasUrlRewritten'] == '1'
+                && isset($_SERVER['UNENCODED_URL'])
+                && $_SERVER['UNENCODED_URL'] != ''
+                ) {
+                $requestUri = $_SERVER['UNENCODED_URL'];
             } elseif (isset($_SERVER['REQUEST_URI'])) {
                 $requestUri = $_SERVER['REQUEST_URI'];
                 // Http proxy reqs setup request uri with scheme and host [and port] + the url path, only use url path
@@ -715,12 +729,19 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      */
     public function getParams()
     {
-        $return = $this->_params;
-        if (isset($_GET) && is_array($_GET)) {
-            $return += $_GET;
+        $return       = $this->_params;
+        $paramSources = $this->getParamSources();
+        if (in_array('_GET', $paramSources) 
+            && isset($_GET) 
+            && is_array($_GET)
+        ) { 
+            $return += $_GET; 
         }
-        if (isset($_POST) && is_array($_POST)) {
-            $return += $_POST;
+        if (in_array('_POST', $paramSources) 
+            && isset($_POST) 
+            && is_array($_POST)
+        ) { 
+            $return += $_POST; 
         }
         return $return;
     }
@@ -919,13 +940,16 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      */
     public function getRawBody()
     {
-        $body = file_get_contents('php://input');
+        if (null === $this->_rawBody) {
+            $body = file_get_contents('php://input');
 
-        if (strlen(trim($body)) > 0) {
-            return $body;
+            if (strlen(trim($body)) > 0) {
+                $this->_rawBody = $body;
+            } else {
+                $this->_rawBody = false;
+            }
         }
-
-        return false;
+        return $this->_rawBody;
     }
 
     /**

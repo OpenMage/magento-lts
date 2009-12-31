@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Tag
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Tag
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -161,6 +161,18 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
             ->setStoreId($this->getStoreId())
             ->setCustomerId(null)
             ->getProductIds();
+    }
+
+    /**
+     * Checks is available current tag in specified store
+     *
+     * @param int $storeId
+     * @return bool
+     */
+    public function isAvailableInStore($storeId = null)
+    {
+        $storeId = (is_null($storeId)) ? Mage::app()->getStore()->getId() : $storeId;
+        return in_array($storeId, $this->getVisibleInStoreIds());
     }
 
     protected function _beforeDelete()

@@ -83,7 +83,8 @@ Control.Slider = Class.create({
 
     this.track.observe("mousedown", this.eventMouseDown);
     document.observe("mouseup", this.eventMouseUp);
-    this.track.parentNode.parentNode.observe("mousemove", this.eventMouseMove);
+    $(this.track.parentNode.parentNode).observe("mousemove", this.eventMouseMove);
+
 
     this.initialized = true;
   },
@@ -98,6 +99,7 @@ Control.Slider = Class.create({
   },
   setDisabled: function(){
     this.disabled = true;
+    this.track.parentNode.className = this.track.parentNode.className + ' disabled';
   },
   setEnabled: function(){
     this.disabled = false;

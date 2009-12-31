@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_GoogleCheckout
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Applicable_Countries
@@ -32,8 +32,8 @@ class Mage_GoogleCheckout_Block_Adminhtml_Shipping_Applicable_Countries
 
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
-		$html = parent::_getElementHtml($element);
-		$html .= $this->_appendJs($element);
+        $html = parent::_getElementHtml($element);
+        $html .= $this->_appendJs($element);
         return $html;
     }
 

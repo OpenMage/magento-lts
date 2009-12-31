@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Core
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Core
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 #require_once 'Mage/Core/Model/Mysql4.php';
@@ -84,12 +84,12 @@ class Mage_Core_Model_Mysql4_Resource
 
         if ($this -> getDbVersion($resName)) {
             self::$_versions[$resName] = $version;
-        	$condition = $this->_write->quoteInto('code=?', $resName);
-        	return $this->_write->update($this->_resTable, $dbModuleInfo, $condition);
+            $condition = $this->_write->quoteInto('code=?', $resName);
+            return $this->_write->update($this->_resTable, $dbModuleInfo, $condition);
         }
         else {
             self::$_versions[$resName] = $version;
-        	return $this->_write->insert($this->_resTable, $dbModuleInfo);
+            return $this->_write->insert($this->_resTable, $dbModuleInfo);
         }
     }
 }

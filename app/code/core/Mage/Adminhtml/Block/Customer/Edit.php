@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -90,22 +90,22 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
     protected function _prepareLayout()
     {
         if (!Mage::registry('current_customer')->isReadonly()) {
-        	$this->_addButton('save_and_continue', array(
+            $this->_addButton('save_and_continue', array(
                 'label'     => Mage::helper('customer')->__('Save And Continue Edit'),
                 'onclick'   => 'saveAndContinueEdit(\''.$this->_getSaveAndContinueUrl().'\')',
                 'class' => 'save'
             ), 10);
         }
 
-    	return parent::_prepareLayout();
+        return parent::_prepareLayout();
     }
 
     protected function _getSaveAndContinueUrl()
     {
-    	return $this->getUrl('*/*/save', array(
+        return $this->getUrl('*/*/save', array(
             '_current'  => true,
             'back'      => 'edit',
-    	    'tab'       => '{{tab_id}}'
+            'tab'       => '{{tab_id}}'
         ));
     }
 }

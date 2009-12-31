@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -38,8 +38,28 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     protected $_priceBlockDefaultTemplate = 'catalog/product/price.phtml';
     protected $_tierPriceDefaultTemplate  = 'catalog/product/view/tierprices.phtml';
     protected $_priceBlockTypes = array();
+    /**
+     * Flag which allow/disallow to use link for as low as price
+     *
+     * @var bool
+     */
+    protected $_useLinkForAsLowAs = true;
 
     protected $_reviewsHelperBlock;
+
+    /**
+     * Default product amount per row
+     *
+     * @var int
+     */
+    protected $_defaultColumnCount = 3;
+
+    /**
+     * Product amount per row depending on custom page layout of category
+     *
+     * @var array
+     */
+    protected $_columnCountLayoutDepend = array();
 
     /**
      * Retrieve url for add product to cart
@@ -132,6 +152,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             ->setProduct($product)
             ->setDisplayMinimalPrice($displayMinimalPrice)
             ->setIdSuffix($idSuffix)
+            ->setUseLinkForAsLowAs($this->_useLinkForAsLowAs)
             ->toHtml();
     }
 
@@ -342,5 +363,80 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         }
 
         return false;
+    }
+
+    /**
+     * Retrieve product amount per row
+     *
+     * @return int
+     */
+    public function getColumnCount()
+    {
+        if (!$this->_getData('column_count')) {
+            $pageLayout = $this->getPageLayout();
+            if ($pageLayout && $this->getColumnCountLayoutDepend($pageLayout->getCode())) {
+                $this->setData(
+                    'column_count',
+                    $this->getColumnCountLayoutDepend($pageLayout->getCode())
+                );
+            } else {
+                $this->setData('column_count', $this->_defaultColumnCount);
+            }
+        }
+
+        return (int) $this->_getData('column_count');
+    }
+
+    /**
+     * Add row size depends on page layout
+     *
+     * @param string $pageLayout
+     * @param int $rowSize
+     * @return Mage_Catalog_Block_Product_List
+     */
+    public function addColumnCountLayoutDepend($pageLayout, $columnCount)
+    {
+        $this->_columnCountLayoutDepend[$pageLayout] = $columnCount;
+        return $this;
+    }
+
+    /**
+     * Remove row size depends on page layout
+     *
+     * @param string $pageLayout
+     * @return Mage_Catalog_Block_Product_List
+     */
+    public function removeColumnCountLayoutDepend($pageLayout)
+    {
+        if (isset($this->_columnCountLayoutDepend[$pageLayout])) {
+            unset($this->_columnCountLayoutDepend[$pageLayout]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Retrieve row size depends on page layout
+     *
+     * @param string $pageLayout
+     * @return int|boolean
+     */
+    public function getColumnCountLayoutDepend($pageLayout)
+    {
+        if (isset($this->_columnCountLayoutDepend[$pageLayout])) {
+            return $this->_columnCountLayoutDepend[$pageLayout];
+        }
+
+        return false;
+    }
+
+    /**
+     * Retrieve current page layout
+     *
+     * @return Varien_Object
+     */
+    public function getPageLayout()
+    {
+        return $this->helper('page/layout')->getCurrentPageLayout();
     }
 }

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Reports
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Reports
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -31,36 +31,36 @@
  * @package    Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
- 
+
 class Mage_Reports_Model_Mysql4_Wishlist_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
 {
     protected $wishlistTable;
-        
+
     public function setWishlistTable($value)
     {
         $this->_wishlistTable = $value;
         return $this;
     }
-    
+
     public function getWishlistTable()
     {
         return $this->_wishlistTable;
     }
-    
+
     protected function _construct()
     {
         $this->_init('wishlist/wishlist');
-        
+
         $this->setWishlistTable(Mage::getSingleton('core/resource')->getTableName('wishlist/wishlist'));
     }
-        
+
     public function getWishlistCustomerCount()
-    {   
+    {
         $collection = Mage::getResourceModel('customer/customer_collection');
         $collection->load();
-        
+
         $customers = $collection->count();
-        
+
         $collection = Mage::getResourceModel('customer/customer_collection');
         $collection->getSelect()->from(array('wt' => $this->getWishlistTable()))
                     ->where('wt.customer_id=e.entity_id')
@@ -69,9 +69,9 @@ class Mage_Reports_Model_Mysql4_Wishlist_Collection extends Mage_Core_Model_Mysq
         $count = $collection->count();
         return array(($count*100)/$customers, $count);
     }
-    
+
     public function getSharedCount()
-    {          
+    {
         $collection = Mage::getResourceModel('customer/customer_collection');
         $collection->getSelect()->from(array('wt' => $this->getWishlistTable()))
                     ->where('wt.customer_id=e.entity_id')
@@ -80,5 +80,5 @@ class Mage_Reports_Model_Mysql4_Wishlist_Collection extends Mage_Core_Model_Mysq
         $collection->load();
         return $collection->count();
     }
-    
+
 }

@@ -364,6 +364,13 @@
             </complexType>
         </schema>
     </types>
+    <message name="catalogProductCurrentStoreRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogProductCurrentStoreResponse">
+        <part name="storeView" type="xsd:int" />
+    </message>
     <message name="catalogProductListRequest">
         <part name="sessionId" type="xsd:string" />
         <part name="filters" type="typens:filters" />
@@ -431,6 +438,13 @@
     <message name="catalogProductDeleteResponse">
         <part name="result" type="xsd:int" />
     </message>
+    <message name="catalogProductAttributeCurrentStoreRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeCurrentStoreResponse">
+        <part name="storeView" type="xsd:int" />
+    </message>
     <message name="catalogProductAttributeListRequest">
         <part name="sessionId" type="xsd:string" />
         <part name="setId" type="xsd:int" />
@@ -474,6 +488,13 @@
     </message>
     <message name="catalogProductAttributeTierPriceUpdateResponse">
         <part name="result" type="xsd:int" />
+    </message>
+    <message name="catalogProductAttributeMediaCurrentStoreRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="storeView" type="xsd:string" />
+    </message>
+    <message name="catalogProductAttributeMediaCurrentStoreResponse">
+        <part name="storeView" type="xsd:int" />
     </message>
     <message name="catalogProductAttributeMediaListRequest">
         <part name="sessionId" type="xsd:string" />
@@ -693,7 +714,7 @@
         <part name="storeView" type="xsd:string" />
     </message>
     <message name="catalogCategoryAttributeCurrentStoreResponse">
-        <part name="result" type="xsd:int" />
+        <part name="storeView" type="xsd:int" />
     </message>
     <message name="catalogCategoryAttributeListRequest">
         <part name="sessionId" type="xsd:string" />
@@ -787,8 +808,8 @@
         </operation>
         <operation name="catalogProductCurrentStore">
             <documentation>Set/Get current store view</documentation>
-            <input message="typens:catalogCategoryCurrentStoreRequest" />
-            <output message="typens:catalogCategoryCurrentStoreResponse" />
+            <input message="typens:catalogProductCurrentStoreRequest" />
+            <output message="typens:catalogProductCurrentStoreResponse" />
         </operation>
         <operation name="catalogProductList">
             <documentation>Retrieve products list by filters</documentation>
@@ -827,8 +848,8 @@
         </operation>
         <operation name="catalogProductAttributeCurrentStore">
             <documentation>Set/Get current store view</documentation>
-            <input message="typens:catalogCategoryCurrentStoreRequest" />
-            <output message="typens:catalogCategoryCurrentStoreResponse" />
+            <input message="typens:catalogProductAttributeCurrentStoreRequest" />
+            <output message="typens:catalogProductAttributeCurrentStoreResponse" />
         </operation>
         <operation name="catalogProductAttributeList">
             <documentation>Retrieve attribute list</documentation>
@@ -862,8 +883,8 @@
         </operation>
         <operation name="catalogProductAttributeMediaCurrentStore">
             <documentation>Set/Get current store view</documentation>
-            <input message="typens:catalogCategoryCurrentStoreRequest" />
-            <output message="typens:catalogCategoryCurrentStoreResponse" />
+            <input message="typens:catalogProductAttributeMediaCurrentStoreRequest" />
+            <output message="typens:catalogProductAttributeMediaCurrentStoreResponse" />
         </operation>
         <operation name="catalogProductAttributeMediaList">
             <documentation>Retrieve product image list</documentation>

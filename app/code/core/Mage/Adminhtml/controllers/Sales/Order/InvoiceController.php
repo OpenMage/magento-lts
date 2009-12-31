@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -73,7 +73,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
              * Check invoice create availability
              */
             if (!$order->canInvoice()) {
-                $this->_getSession()->addError($this->__('Can not do invoice for order'));
+                $this->_getSession()->addError($this->__('Order does not allow to create an invoice.'));
                 return false;
             }
 
@@ -290,6 +290,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     public function saveAction()
     {
         $data = $this->getRequest()->getPost('invoice');
+        $orderId = $this->getRequest()->getParam('order_id');
         try {
             if ($invoice = $this->_initInvoice()) {
 
@@ -322,41 +323,47 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 }
                 $transactionSave->save();
 
-                /**
-                 * Sending emails
-                 */
+                if (!empty($data['do_shipment'])) {
+                    $this->_getSession()->addSuccess($this->__('Invoice and shipment have been successfully created.'));
+                }
+                else {
+                    $this->_getSession()->addSuccess($this->__('Invoice has been successfully created.'));
+                }
+
+                // send invoice/shipment emails
                 $comment = '';
                 if (isset($data['comment_customer_notify'])) {
                     $comment = $data['comment_text'];
                 }
-                $invoice->sendEmail(!empty($data['send_email']), $comment);
+                try {
+                    $invoice->sendEmail(!empty($data['send_email']), $comment);
+                } catch (Exception $e) {
+                    Mage::logException($e);
+                    $this->_getSession()->addError($this->__('Unable to send invoice email.'));
+                }
                 if ($shipment) {
-                    $shipment->sendEmail(!empty($data['send_email']));
+                    try {
+                        $shipment->sendEmail(!empty($data['send_email']));
+                    } catch (Exception $e) {
+                        Mage::logException($e);
+                        $this->_getSession()->addError($this->__('Unable to send shipment email.'));
+                    }
                 }
-
-                if (!empty($data['do_shipment'])) {
-                    $this->_getSession()->addSuccess($this->__('Invoice and shipment was successfully created.'));
-                }
-                else {
-                    $this->_getSession()->addSuccess($this->__('Invoice was successfully created.'));
-                }
-
-                $this->_redirect('*/sales_order/view', array('order_id' => $invoice->getOrderId()));
-                return;
+                $this->_redirect('*/sales_order/view', array('order_id' => $orderId));
             }
             else {
                 $this->_forward('noRoute');
-                return;
             }
+            return;
         }
         catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
         catch (Exception $e) {
-            $this->_getSession()->addError($this->__('Can not save invoice'));
+            $this->_getSession()->addError($this->__('Failed to save invoice.'));
+            Mage::logException($e);
         }
-
-        $this->_redirect('*/*/new', array('order_id' => $this->getRequest()->getParam('order_id')));
+        $this->_redirect('*/*/new', array('order_id' => $orderId));
     }
 
 

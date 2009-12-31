@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Paypal
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Paypal
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -56,7 +56,9 @@ class Mage_Paypal_Block_Link_Shortcut extends Mage_Core_Block_Template
     public function _toHtml()
     {
         $quote = Mage::getSingleton('checkout/session')->getQuote();
-        if (!Mage::getModel('paypal/express')->isAvailable($quote) || !$quote->validateMinimumAmount()) {
+        $paypalModel = Mage::getModel('paypal/express');
+        if (!$paypalModel->isAvailable($quote) || !$paypalModel->isVisibleOnCartPage()
+            || !$quote->validateMinimumAmount()) {
             return '';
         }
         return parent::_toHtml();

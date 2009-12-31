@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Core
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Core
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -63,7 +63,7 @@ class Mage_Core_Model_Resource_Setup
         } else {
             $this->_connectionConfig = $config->getResourceConnectionConfig(self::DEFAULT_SETUP_CONNECTION);
         }
-        
+
         $modName = (string)$this->_resourceConfig->setup->module;
         $this->_moduleConfig = $config->getModuleConfig($modName);
         $this->_conn = Mage::getSingleton('core/resource')->getConnection($this->_resourceName);
@@ -388,7 +388,6 @@ class Mage_Core_Model_Resource_Setup
                 $sql .= $this->_conn->quoteInto(" and $parentField=?", $parentId);
             }
             $this->_setupCache[$table][$parentId][$id] = $this->_conn->fetchRow($sql, $id);
-            $this->_conn->fetchAll($sql, $id);
         }
         if (is_null($field)) {
             return $this->_setupCache[$table][$parentId][$id];

@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Catalog
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
@@ -92,10 +92,10 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Tierprice
             $adapter->quoteInto('entity_id=?', $productId)
         );
         if (!is_null($websiteId)) {
-            $where[] = $adapter->quoteInto('website_id=?', $websiteId);
+            $conds[] = $adapter->quoteInto('website_id=?', $websiteId);
         }
         if (!is_null($priceId)) {
-            $where[] = $adapter->quoteInto($this->getIdFieldName() . '=?', $priceId);
+            $conds[] = $adapter->quoteInto($this->getIdFieldName() . '=?', $priceId);
         }
         $where = join(' AND ', $conds);
 
@@ -111,9 +111,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Tierprice
     public function savePriceData(Varien_Object $priceObject)
     {
         $adapter = $this->_getWriteAdapter();
-        Mage::log($priceObject->debug());
         $data    = $this->_prepareDataForTable($priceObject, $this->getMainTable());
-        Mage::log($data);
         if (!empty($data[$this->getIdFieldName()])) {
             $where = $adapter->quoteInto($this->getIdFieldName() . '=?', $data[$this->getIdFieldName()]);
             unset($data[$this->getIdFieldName()]);

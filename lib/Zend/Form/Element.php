@@ -32,7 +32,7 @@
  * @subpackage Element
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Element.php 17506 2009-08-10 11:30:24Z yoshida@zend.co.jp $
+ * @version    $Id: Element.php 18190 2009-09-17 20:29:52Z matthew $
  */
 class Zend_Form_Element implements Zend_Validate_Interface
 {
@@ -120,6 +120,12 @@ class Zend_Form_Element implements Zend_Validate_Interface
      * @var bool
      */
     protected $_isError = false;
+
+    /**
+     * Has the element been manually marked as invalid?
+     * @var bool
+     */
+    protected $_isErrorForced = false;
 
     /**
      * Element label
@@ -1339,6 +1345,11 @@ class Zend_Form_Element implements Zend_Validate_Interface
             }
         }
 
+        // If element manually flagged as invalid, return false
+        if ($this->_isErrorForced) {
+            return false;
+        }
+
         return $result;
     }
 
@@ -1416,6 +1427,7 @@ class Zend_Form_Element implements Zend_Validate_Interface
         } else {
             $this->_messages = $messages;
         }
+        $this->_isErrorForced = true;
         return $this;
     }
 

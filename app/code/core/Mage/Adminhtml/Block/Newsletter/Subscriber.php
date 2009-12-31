@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_Adminhtml
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -34,63 +34,63 @@
 
 class Mage_Adminhtml_Block_Newsletter_Subscriber extends Mage_Adminhtml_Block_Template
 {
-	/**
-	 * Queue collection
-	 *
-	 * @var Mage_Newsletter_Model_Mysql4_Queue_Collection
-	 */
-	protected $_queueCollection = null;
+    /**
+     * Queue collection
+     *
+     * @var Mage_Newsletter_Model_Mysql4_Queue_Collection
+     */
+    protected $_queueCollection = null;
 
-	/**
-	 * Constructor
-	 *
-	 * Initializes block
-	 */
-	public function __construct()
-	{
-		$this->setTemplate('newsletter/subscriber/list.phtml');
-	}
-
-	/**
-	 * Prepares block to render
-	 *
-	 * @return Mage_Adminhtml_Block_Newsletter_Subscriber
-	 */
-	protected function _beforeToHtml()
-	{
-		$this->setChild('grid', $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid','grid'));
-		return parent::_beforeToHtml();
-	}
-
-	/**
-	 * Return queue collection with loaded neversent queues
-	 *
-	 * @return Mage_Newsletter_Model_Mysql4_Queue_Collection
-	 */
-	public function getQueueCollection()
-	{
-		if(is_null($this->_queueCollection)) {
-			$this->_queueCollection = Mage::getResourceSingleton('newsletter/queue_collection')
-				->addTemplateInfo()
-				->addOnlyUnsentFilter()
-				->load();
-		}
-
-		return $this->_queueCollection;
-	}
-
-	public function getShowQueueAdd()
+    /**
+     * Constructor
+     *
+     * Initializes block
+     */
+    public function __construct()
     {
-    	return $this->getChild('grid')->getShowQueueAdd();
+        $this->setTemplate('newsletter/subscriber/list.phtml');
     }
 
-	/**
-	 * Return list of neversent queues for select
-	 *
-	 * @return array
-	 */
-	public function getQueueAsOptions( )
-	{
-		return $this->getQueueCollection()->toOptionArray();
-	}
+    /**
+     * Prepares block to render
+     *
+     * @return Mage_Adminhtml_Block_Newsletter_Subscriber
+     */
+    protected function _beforeToHtml()
+    {
+        $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/newsletter_subscriber_grid','grid'));
+        return parent::_beforeToHtml();
+    }
+
+    /**
+     * Return queue collection with loaded neversent queues
+     *
+     * @return Mage_Newsletter_Model_Mysql4_Queue_Collection
+     */
+    public function getQueueCollection()
+    {
+        if(is_null($this->_queueCollection)) {
+            $this->_queueCollection = Mage::getResourceSingleton('newsletter/queue_collection')
+                ->addTemplateInfo()
+                ->addOnlyUnsentFilter()
+                ->load();
+        }
+
+        return $this->_queueCollection;
+    }
+
+    public function getShowQueueAdd()
+    {
+        return $this->getChild('grid')->getShowQueueAdd();
+    }
+
+    /**
+     * Return list of neversent queues for select
+     *
+     * @return array
+     */
+    public function getQueueAsOptions( )
+    {
+        return $this->getQueueCollection()->toOptionArray();
+    }
 }

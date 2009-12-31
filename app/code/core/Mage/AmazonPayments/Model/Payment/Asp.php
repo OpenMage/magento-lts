@@ -18,10 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Mage
- * @package    Mage_AmazonPayments
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category    Mage
+ * @package     Mage_AmazonPayments
+ * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -324,7 +324,7 @@ class Mage_AmazonPayments_Model_Payment_Asp extends Mage_Payment_Model_Method_Ab
      */
     public function processInvoice($invoice, $payment)
     {
-    	if (!is_null($payment->getCcTransId()) &&
+        if (!is_null($payment->getCcTransId()) &&
             is_null($payment->getLastTransId()) &&
             is_null($invoice->getTransactionId())) {
 
