@@ -221,7 +221,7 @@ if(!window.Flex) {
                     }
                 }
             }
-            
+
             if (file.status == 'full_complete' && !file.response.isJSON()) {
                 file.status = 'error';
             }

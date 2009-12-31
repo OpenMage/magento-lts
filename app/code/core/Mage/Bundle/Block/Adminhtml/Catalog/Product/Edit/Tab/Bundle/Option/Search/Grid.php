@@ -177,12 +177,13 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
         return Mage::app()->getStore();
     }
 
+    /**
+     * Retrieve array of allowed product types for bundle selection product
+     *
+     * @return array
+     */
     public function getAllowedSelectionTypes()
     {
-        $config = Mage::getConfig()->getNode('global/catalog/product/type/bundle')->asArray();
-        return array_keys($config['allowed_selection_types']);
+        return Mage::helper('bundle')->getAllowedSelectionTypes();
     }
-
-
 }
-

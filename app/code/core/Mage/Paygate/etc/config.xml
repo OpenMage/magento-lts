@@ -95,6 +95,7 @@
                 <title>Credit Card (Authorize.net)</title>
                 <trans_key backend_model="adminhtml/system_config_backend_encrypted"/>
                 <allowspecific>0</allowspecific>
+                <currency>USD</currency>
             </authorizenet>
 
             <verisign>

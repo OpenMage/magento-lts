@@ -52,75 +52,134 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
     }
 
     /**
-     * Retrive full order history
-     *
+     * Compose and get order full history.
+     * Consists of the status history comments as well as of invoices, shipments and creditmemos creations
+     * @return array
      */
-    public function getFullHistory(){
+    public function getFullHistory()
+    {
         $order = $this->getOrder();
 
-        $_fullHistory = array();
-        foreach ($order->getAllStatusHistory() as $_history){
-            $_fullHistory[$_history->getEntityId()] =
-                $this->_prepareHistoryItem(
-                    $_history->getStatusLabel(),
-                    $_history->getIsCustomerNotified(),
-                    $_history->getCreatedAtDate());
+        $history = array();
+        foreach ($order->getAllStatusHistory() as $orderComment){
+            $history[$orderComment->getEntityId()] = $this->_prepareHistoryItem(
+                $orderComment->getStatusLabel(),
+                $orderComment->getIsCustomerNotified(),
+                $orderComment->getCreatedAtDate(),
+                $orderComment->getComment()
+            );
         }
 
         foreach ($order->getCreditmemosCollection() as $_memo){
-            $_fullHistory[$_memo->getEntityId()] =
+            $history[$_memo->getEntityId()] =
                 $this->_prepareHistoryItem($this->__('Credit Memo #%s created', $_memo->getIncrementId()),
                     $_memo->getEmailSent(), $_memo->getCreatedAtDate());
 
             foreach ($_memo->getCommentsCollection() as $_comment){
-                $_fullHistory[$_comment->getEntityId()] =
+                $history[$_comment->getEntityId()] =
                     $this->_prepareHistoryItem($this->__('Credit Memo #%s comment added', $_memo->getIncrementId()),
                         $_comment->getIsCustomerNotified(), $_comment->getCreatedAtDate(), $_comment->getComment());
             }
         }
 
         foreach ($order->getShipmentsCollection() as $_shipment){
-            $_fullHistory[$_shipment->getEntityId()] =
+            $history[$_shipment->getEntityId()] =
                 $this->_prepareHistoryItem($this->__('Shipment #%s created', $_shipment->getIncrementId()),
                     $_shipment->getEmailSent(), $_shipment->getCreatedAtDate());
 
             foreach ($_shipment->getCommentsCollection() as $_comment){
-                $_fullHistory[$_comment->getEntityId()] =
+                $history[$_comment->getEntityId()] =
                     $this->_prepareHistoryItem($this->__('Shipment #%s comment added', $_shipment->getIncrementId()),
                         $_comment->getIsCustomerNotified(), $_comment->getCreatedAtDate(), $_comment->getComment());
             }
         }
 
         foreach ($order->getInvoiceCollection() as $_invoice){
-            $_fullHistory[$_invoice->getEntityId()] =
+            $history[$_invoice->getEntityId()] =
                 $this->_prepareHistoryItem($this->__('Invoice #%s created', $_invoice->getIncrementId()),
                     $_invoice->getEmailSent(), $_invoice->getCreatedAtDate());
 
             foreach ($_invoice->getCommentsCollection() as $_comment){
-                $_fullHistory[$_comment->getEntityId()] =
+                $history[$_comment->getEntityId()] =
                     $this->_prepareHistoryItem($this->__('Invoice #%s comment added', $_invoice->getIncrementId()),
                         $_comment->getIsCustomerNotified(), $_comment->getCreatedAtDate(), $_comment->getComment());
             }
         }
 
         foreach ($order->getTracksCollection() as $_track){
-            $_fullHistory[$_track->getEntityId()] =
+            $history[$_track->getEntityId()] =
                 $this->_prepareHistoryItem($this->__('Tracking number %s for %s assigned', $_track->getNumber(), $_track->getTitle()),
                     false, $_track->getCreatedAtDate());
         }
 
-        krsort($_fullHistory);
-        return $_fullHistory;
+        krsort($history);
+        return $history;
     }
 
+    /**
+     * Status history date/datetime getter
+     * @param array $item
+     * @return string
+     */
+    public function getItemCreatedAt(array $item, $dateType = 'date', $format = 'medium')
+    {
+        if (!isset($item['created_at'])) {
+            return '';
+        }
+        if ('date' === $dateType) {
+            return $this->helper('core')->formatDate($item['created_at'], $format);
+        }
+        return $this->helper('core')->formatTime($item['created_at'], $format);
+    }
+
+    /**
+     * Status history item title getter
+     * @param array $item
+     * @return string
+     */
+    public function getItemTitle(array $item)
+    {
+        return (isset($item['title']) ? $this->htmlEscape($item['title']) : '');
+    }
+
+    /**
+     * Check whether status history comment is with customer notification
+     * @param array $item
+     * @return bool
+     */
+    public function isItemNotified(array $item, $isSimpleCheck = true)
+    {
+        if ($isSimpleCheck) {
+            return !empty($item['notified']);
+        }
+        return isset($item['notified']) && false !== $item['notified'];
+    }
+
+    /**
+     * Status history item comment getter
+     * @param array $item
+     * @return string
+     */
+    public function getItemComment(array $item)
+    {
+        return (isset($item['comment']) ? $this->htmlEscape($item['comment']) : '');
+    }
+
+    /**
+     * Map history items as array
+     * @param string $label
+     * @param bool $notified
+     * @param Zend_Date $created
+     * @param string $comment
+     */
     protected function _prepareHistoryItem($label, $notified, $created, $comment = '')
     {
         return array(
-                'title' => $label,
-                'notified' => $notified,
-                'comment' => $comment,
-                'created_at' => $created
-            );
+            'title'      => $label,
+            'notified'   => $notified,
+            'comment'    => $comment,
+            'created_at' => $created
+        );
     }
 
     /**

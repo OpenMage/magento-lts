@@ -97,15 +97,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </enabled>
-                        <upload_root translate="label comment">
-                            <label>Images Upload Folder</label>
-                            <comment>path within the media directory</comment>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </upload_root>
                     </fields>
                 </wysiwyg>
             </groups>

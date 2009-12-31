@@ -97,16 +97,15 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Init indexing process after attribute data commit
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     * @return Mage_CatalogInventory_Model_Stock_Item
      */
-    protected function _afterSaveCommit()
+    public function afterCommitCallback()
     {
-        parent::_afterSaveCommit();
+        parent::afterCommitCallback();
 
         Mage::getSingleton('index/indexer')->processEntityAction(
             $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );
-
         return $this;
     }
 
@@ -289,5 +288,52 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     public function _getDefaultSourceModel()
     {
         return 'eav/entity_attribute_source_table';
+    }
+
+    /**
+     * Check is an attribute used in EAV index
+     *
+     * @return bool
+     */
+    public function isIndexable()
+    {
+        // exclude price attribute
+        if ($this->getAttributeCode() == 'price') {
+            return false;
+        }
+
+        if (!$this->getIsFilterableInSearch() && !$this->getIsVisibleInAdvancedSearch() && !$this->getIsFilterable()) {
+            return false;
+        }
+
+        $backendType    = $this->getBackendType();
+        $frontendInput  = $this->getFrontendInput();
+
+        if ($backendType == 'int' && $frontendInput == 'select') {
+            return true;
+        } else if ($backendType == 'varchar' && $frontendInput == 'multiselect') {
+            return true;
+        } else if ($backendType == 'decimal') {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Retrieve index type for indexable attribute
+     *
+     * @return string|false
+     */
+    public function getIndexType()
+    {
+        if (!$this->isIndexable()) {
+            return false;
+        }
+        if ($this->getBackendType() == 'decimal') {
+            return 'decimal';
+        }
+
+        return 'source';
     }
 }

@@ -327,9 +327,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getCategoryIds()
     {
-        if (!$this->hasData('category_ids')) {
+        if (! $this->hasData('category_ids')) {
             $wasLocked = false;
             if ($this->isLockedAttribute('category_ids')) {
+                $wasLocked = true;
                 $this->unlockAttribute('category_ids');
             }
             $ids = $this->_getResource()->getCategoryIds($this);
@@ -339,7 +340,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             }
         }
 
-        return $this->_getData('category_ids');
+        return (array) $this->_getData('category_ids');
     }
 
     /**
@@ -435,7 +436,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if ($this->getCanSaveCustomOptions()) {
             $options = $this->getProductOptions();
             if (is_array($options)) {
-                $this->setIsCustomOptionChanged();
+                $this->setIsCustomOptionChanged(true);
                 foreach ($this->getProductOptions() as $option) {
                     $this->getOptionInstance()->addOption($option);
                     if ((!isset($option['is_delete'])) || $option['is_delete'] != '1') {
@@ -509,9 +510,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      *
      * @return Mage_Catalog_Model_Product
      */
-    protected function _afterSaveCommit()
+    public function afterCommitCallback()
     {
-        parent::_afterSaveCommit();
+        parent::afterCommitCallback();
         Mage::getSingleton('index/indexer')->processEntityAction(
             $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );
@@ -526,8 +527,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     protected function _beforeDelete()
     {
-        $this->cleanCache();
         $this->_protectFromNonAdmin();
+        $this->cleanCache();
         Mage::getSingleton('index/indexer')->logEvent(
             $this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
         );

@@ -27,24 +27,25 @@
 <div class="entry-edit">
     <fieldset>
         <ul class="note-list">
-        <?php foreach ($this->getFullHistory() as $_history): ?>
+        <?php foreach ($this->getFullHistory() as $_item): ?>
             <li>
-                <strong><?php echo $this->helper('core')->formatDate($_history['created_at'], 'medium') ?></strong>
-                <?php echo $this->helper('core')->formatTime($_history['created_at'], 'medium') ?><span class="separator">|</span>
-                <strong><?php echo $_history['title']?></strong>
-                <?php if ($_history['notified'] !== false): ?>
-                <span class="separator">|</span><small><?php echo $this->helper('sales')->__('Customer') ?>
-                <strong class="subdue"><?php if ($_history['notified']): ?>
-                <?php echo $this->helper('sales')->__('Notified') ?>
-                <img src="<?php echo $this->getSkinUrl('images/ico_success.gif') ?>" width="16" height="16" alt="" />
-                <?php else: ?>
-                <?php echo $this->helper('sales')->__('Not Notified') ?>
-                <?php endif; ?>
-                <?php endif; ?>
-                </strong></small>
-                    <?php if($_history['comment']): ?>
-                        <br/><?php echo $_history['comment'] ?>
+                <strong><?php echo $this->getItemCreatedAt($_item) ?></strong>
+                <?php echo $this->getItemCreatedAt($_item, 'time') ?><span class="separator">|</span>
+                <strong><?php echo $this->getItemTitle($_item) ?></strong>
+                <?php if ($this->isItemNotified($_item, false)): ?>
+                    <span class="separator">|</span><small><?php echo $this->helper('sales')->__('Customer') ?>
+                    <strong class="subdue">
+                    <?php if ($this->isItemNotified($_item)): ?>
+                        <?php echo $this->helper('sales')->__('Notified') ?>
+                        <img src="<?php echo $this->getSkinUrl('images/ico_success.gif') ?>" width="16px" height="16px" alt="" />
+                    <?php else: ?>
+                        <?php echo $this->helper('sales')->__('Not Notified') ?>
                     <?php endif; ?>
+                    </strong></small>
+                <?php endif; ?>
+                <?php if ($_comment = $this->getItemComment($_item)): ?>
+                    <br/><?php echo $_comment ?>
+                <?php endif; ?>
             </li>
         <?php endforeach; ?>
         </ul>

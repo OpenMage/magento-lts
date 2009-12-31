@@ -377,6 +377,8 @@ class Mage_Core_Model_Layout_Update
         foreach ($updateXml->children() as $child) {
             if (strtolower($child->getName())=='update' && isset($child['handle'])) {
                 $this->merge((string)$child['handle']);
+                // Adding merged layout handle to the list of applied hanles
+                $this->addHandle((string)$child['handle']);
             }
         }
         return $this;
@@ -388,11 +390,14 @@ class Mage_Core_Model_Layout_Update
      * @param string $area
      * @param string $package
      * @param string $theme
-     * @param integer $storeId
+     * @param integer|null $storeId
      * @return Mage_Core_Model_Layout_Element
      */
-    public function getFileLayoutUpdatesXml($area, $package, $theme, $storeId)
+    public function getFileLayoutUpdatesXml($area, $package, $theme, $storeId = null)
     {
+        if (null === $storeId) {
+            $storeId = Mage::app()->getStore()->getId();
+        }
         /* @var $design Mage_Core_Model_Design_Package */
         $design = Mage::getSingleton('core/design_package');
         $layoutXml = null;

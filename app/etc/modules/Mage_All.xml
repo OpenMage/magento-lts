@@ -144,6 +144,7 @@
                 <Mage_Rule />
                 <Mage_Catalog />
                 <Mage_Customer />
+                <Mage_Payment />
             </depends>
         </Mage_Sales>
         <Mage_SalesRule>
@@ -151,7 +152,8 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Rule />
-                <Mage_Catalog />
+        <Mage_Catalog />
+        <Mage_Sales />
             </depends>
         </Mage_SalesRule>
         <Mage_Checkout>
@@ -197,6 +199,8 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Paygate />
+                <Mage_Checkout />
+                <Mage_Sales />
             </depends>
         </Mage_Paypal>
         <Mage_PaypalUk>
@@ -204,6 +208,9 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Paygate />
+                <Mage_Checkout />
+                <Mage_Sales />
+                <Mage_Paypal />
             </depends>
         </Mage_PaypalUk>
         <Mage_GoogleCheckout>
@@ -234,6 +241,7 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Core />
+                <Mage_Cms />
             </depends>
         </Mage_Poll>
         <Mage_Rating>

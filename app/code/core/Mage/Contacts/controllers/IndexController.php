@@ -83,6 +83,11 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 if (!Zend_Validate::is(trim($post['email']), 'EmailAddress')) {
                     $error = true;
                 }
+
+                if (Zend_Validate::is(trim($post['hideit']), 'NotEmpty')) {
+                    $error = true;
+                }
+
                 if ($error) {
                     throw new Exception();
                 }

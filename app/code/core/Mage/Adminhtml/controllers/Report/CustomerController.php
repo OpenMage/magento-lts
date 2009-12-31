@@ -62,7 +62,7 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
     {
         $fileName   = 'new_accounts.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_customer_accounts_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -74,7 +74,7 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
     {
         $fileName   = 'accounts.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_customer_accounts_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -96,7 +96,7 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
     {
         $fileName   = 'customers_orders.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_customer_orders_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -108,7 +108,7 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
     {
         $fileName   = 'customers_orders.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_customer_orders_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -130,7 +130,7 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
     {
         $fileName   = 'cuatomer_totals.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_customer_totals_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -142,7 +142,7 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
     {
         $fileName   = 'customer_totals.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_customer_totals_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }

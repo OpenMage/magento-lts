@@ -131,28 +131,27 @@ class Mage_Customer_Model_Entity_Customer extends Mage_Eav_Model_Entity_Abstract
      */
     protected function _saveAddresses(Mage_Customer_Model_Customer $customer)
     {
+        $defaultBillingId   = $customer->getData('default_billing');
+        $defaultShippingId  = $customer->getData('default_shipping');
         foreach ($customer->getAddresses() as $address) {
             if ($address->getData('_deleted')) {
-                if ($address->getId() == $customer->getData('default_billing')) {
+                if ($address->getId() == $defaultBillingId) {
                     $customer->setData('default_billing', null);
                 }
-                if ($address->getId() == $customer->getData('default_shipping')) {
+                if ($address->getId() == $defaultShippingId) {
                     $customer->setData('default_shipping', null);
                 }
                 $address->delete();
-            }
-            else {
+            } else {
                 $address->setParentId($customer->getId())
                     ->setStoreId($customer->getStoreId())
                     ->save();
-                if ($address->getIsPrimaryBilling()
-                    && $address->getId() != $customer->getData('default_billing'))
-                {
+                if (($address->getIsPrimaryBilling() || $address->getIsDefaultBilling())
+                    && $address->getId() != $defaultBillingId) {
                     $customer->setData('default_billing', $address->getId());
                 }
-                if ($address->getIsPrimaryShipping()
-                    && $address->getId() != $customer->getData('default_shipping'))
-                {
+                if (($address->getIsPrimaryShipping() || $address->getIsDefaultShipping())
+                    && $address->getId() != $defaultShippingId) {
                     $customer->setData('default_shipping', $address->getId());
                 }
             }

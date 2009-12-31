@@ -395,15 +395,29 @@ varienGridMassaction.prototype = {
         this.getOldCallback('init_row')(grid, row);
     },
     onGridRowClick: function(grid, evt) {
+
         var tdElement = Event.findElement(evt, 'td');
+        var trElement = Event.findElement(evt, 'tr');
 
         if(!$(tdElement).down('input')) {
             if($(tdElement).down('a') || $(tdElement).down('select')) {
                 return;
             }
-            var trElement = Event.findElement(evt, 'tr');
             if (trElement.title) {
                 setLocation(trElement.title);
+            }
+            else{
+                var checkbox = Element.select(trElement, 'input');
+                var isInput  = Event.element(evt).tagName == 'input';
+                var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
+
+                if(checked) {
+                    this.checkedString = varienStringArray.add(checkbox[0].value, this.checkedString);
+                } else {
+                    this.checkedString = varienStringArray.remove(checkbox[0].value, this.checkedString);
+                }
+                this.grid.setCheckboxChecked(checkbox[0], checked);
+                this.updateCount();
             }
             return;
         }

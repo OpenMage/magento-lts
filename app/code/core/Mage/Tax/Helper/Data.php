@@ -123,7 +123,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function priceIncludesTax($store=null)
     {
-        return $this->_config->priceIncludesTax($store);
+        return $this->_config->priceIncludesTax($store) || $this->_config->getNeedUseShippingExcludeTax();
     }
 
     /**
@@ -345,19 +345,46 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Get all tax rates for all product tax classes
+     * Get all tax rates JSON for all product tax classes
      *
      * array(
      *      value_{$productTaxVlassId} => $rate
      * )
-     *
-     * @return array
+     * @deprecated after 1.4 - please use getAllRatesByProductClass
+     * @return string
      */
     public function getTaxRatesByProductClass()
     {
+        return $this->_getAllRatesByProductClass();
+    }
+
+    /**
+     * Get all tax rates JSON for all product tax classes of specific store
+     *
+     * array(
+     *      value_{$productTaxVlassId} => $rate
+     * )
+     * @return string
+     */
+    public function getAllRatesByProductClass($store=null)
+    {
+        return $this->_getAllRatesByProductClass($store);
+    }
+
+
+    /**
+     * Get all tax rates JSON for all product tax classes of specific store
+     *
+     * array(
+     *      value_{$productTaxVlassId} => $rate
+     * )
+     * @return string
+     */
+    protected function _getAllRatesByProductClass($store=null)
+    {
         $result = array();
         $calc = Mage::getSingleton('tax/calculation');
-        $rates = $calc->getRatesForAllProductTaxClasses($calc->getRateRequest());
+        $rates = $calc->getRatesForAllProductTaxClasses($calc->getRateOriginRequest($store));
 
         foreach ($rates as $class=>$rate) {
             $result["value_{$class}"] = $rate;
@@ -655,16 +682,34 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_config->discountTax($store);
     }
 
+    /**
+     * Get value of "Apply Tax On" custom/original price configuration settings
+     *
+     * @param $store
+     * @return 0|1
+     */
     public function getTaxBasedOn($store = null)
     {
         return Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_BASED_ON, $store);
     }
 
+    /**
+     * Check if tax can be applied to custom price
+     *
+     * @param $store
+     * @return bool
+     */
     public function applyTaxOnCustomPrice($store = null)
     {
         return ((int) Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_APPLY_ON, $store) == 0);
     }
 
+    /**
+     * Check if tax should be applied just to original price
+     *
+     * @param $store
+     * @return bool
+     */
     public function applyTaxOnOriginalPrice($store = null)
     {
         return ((int) Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_APPLY_ON, $store) == 1);

@@ -182,14 +182,21 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             'class' => 'validate-digits',
         ));
 
+        $fieldset->addField('is_wysiwyg_enabled', 'select', array(
+            'name' => 'is_wysiwyg_enabled',
+            'label' => Mage::helper('catalog')->__('Enable WYSIWYG'),
+            'title' => Mage::helper('catalog')->__('Enable WYSIWYG'),
+            'values' => $yesnoSource,
+        ));
+
         $htmlAllowed = $fieldset->addField('is_html_allowed_on_front', 'select', array(
             'name' => 'is_html_allowed_on_front',
             'label' => Mage::helper('catalog')->__('Allow HTML-tags on Front-end'),
             'title' => Mage::helper('catalog')->__('Allow HTML-tags on Front-end'),
             'values' => $yesnoSource,
         ));
-        if (!$attributeObject->getId()) {
-            $htmlAllowed->setValue(1);
+        if (!$attributeObject->getId() || $attributeObject->getIsWysiwygEnabled()) {
+            $attributeObject->setIsHtmlAllowedOnFront(1);
         }
 
         $fieldset->addField('is_visible_on_front', 'select', array(

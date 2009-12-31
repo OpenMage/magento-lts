@@ -60,7 +60,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
             $preparedString = $string;
             $preparedlength = $length;
             if (!$breakWords) {
-                $preparedString = preg_replace('/\s+?(\S+)?$/', '', $this->substr($string, 0, $length + 1));
+                $preparedString = preg_replace('/\s+?(\S+)?$/u', '', $this->substr($string, 0, $length + 1));
                 $preparedlength = $this->strlen($preparedString);
             }
             $remainder = $this->substr($string, $preparedlength, $originalLength);
@@ -71,30 +71,31 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Passthrough to iconv_strlen()
+     * Retrieve string length using default charset
      *
-     * @param string $str
+     * @param string $string
      * @return int
      */
-    public function strlen($str)
+    public function strlen($string)
     {
-        return iconv_strlen($str, self::ICONV_CHARSET);
+        return iconv_strlen($string, self::ICONV_CHARSET);
     }
 
     /**
      * Passthrough to iconv_substr()
      *
-     * @param string $str
+     * @param string $string
      * @param int $offset
      * @param int $length
      * @return string
      */
-    public function substr($str, $offset, $length = null)
+    public function substr($string, $offset, $length = null)
     {
+        $string = $this->cleanString($string);
         if (is_null($length)) {
-            $length = $this->strlen($str) - $offset;
+            $length = $this->strlen($string) - $offset;
         }
-        return iconv_substr($str, $offset, $length, self::ICONV_CHARSET);
+        return iconv_substr($string, $offset, $length, self::ICONV_CHARSET);
     }
 
     /**
@@ -112,7 +113,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         $newStr = '';
         foreach ($str as $part) {
             if ($this->strlen($part) >= $length) {
-                $lastDelimetr = iconv_strpos($this->strrev($part), $needle, null, self::ICONV_CHARSET);
+                $lastDelimetr = $this->strpos($this->strrev($part), $needle);
                 $tmpNewStr = '';
                 $tmpNewStr = $this->substr($this->strrev($part), 0, $lastDelimetr) . $insert . $this->substr($this->strrev($part), $lastDelimetr);
                 $newStr .= $this->strrev($tmpNewStr);
@@ -164,7 +165,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
         // trim
         if ($trim) {
-            $str = trim(preg_replace('/\s{2,}/is', ' ', $str));
+            $str = trim(preg_replace('/\s{2,}/siu', ' ', $str));
         }
         // do a usual str_split, but safe for our encoding
         if ((!$keepWords) || ($length < 2)) {
@@ -174,7 +175,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
         // split smartly, keeping words
         else {
-            $split = preg_split('/(' . $wordSeparatorRegex . '+)/is', $str, null, PREG_SPLIT_DELIM_CAPTURE);
+            $split = preg_split('/(' . $wordSeparatorRegex . '+)/siu', $str, null, PREG_SPLIT_DELIM_CAPTURE);
             $i        = 0;
             $space    = '';
             $spaceLen = 0;
@@ -240,8 +241,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     function splitWords($str, $uniqueOnly = false, $maxWordLength = 0, $wordSeparatorRegexp = '\s')
     {
         $result = array();
-        $split = preg_split('#' . $wordSeparatorRegexp . '#si', $str, null, PREG_SPLIT_NO_EMPTY);
-        foreach ($split as $key => $word) {
+        $split = preg_split('#' . $wordSeparatorRegexp . '#siu', $str, null, PREG_SPLIT_NO_EMPTY);
+        foreach ($split as $word) {
             if ($uniqueOnly) {
                 $result[$word] = $word;
             }
@@ -263,6 +264,19 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      */
     public function cleanString($string)
     {
-        return iconv(self::ICONV_CHARSET, self::ICONV_CHARSET . '//IGNORE', $string);
+        return '"libiconv"' == ICONV_IMPL ? iconv(self::ICONV_CHARSET, self::ICONV_CHARSET . '//IGNORE', $string) : $string;
+    }
+
+    /**
+     * Find position of first occurrence of a string
+     *
+     * @param string $haystack
+     * @param string $needle
+     * @param int $offset
+     * @return int|false
+     */
+    public function strpos($haystack, $needle, $offset = null)
+    {
+        return iconv_strpos($haystack, $needle, $offset, self::ICONV_CHARSET);
     }
 }

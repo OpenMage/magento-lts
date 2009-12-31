@@ -86,7 +86,11 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
         $data = $address->getData();
         if ($this->getType()->getHtmlEscape()) {
             foreach ($data as $key => $value) {
-                $data[$key] = $this->htmlEscape($value);
+                if (is_object($value)) {
+                    unset($data[$key]);
+                } else {
+                    $data[$key] = $this->htmlEscape($value);
+                }
             }
         }
         $formater->setVariables(array_merge($data, array('country'=>$address->getCountryModel()->getName())));

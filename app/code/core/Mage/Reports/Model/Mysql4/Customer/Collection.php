@@ -104,7 +104,7 @@ class Mage_Reports_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_
         $_joinCondition .= $this->getConnection()->quoteInto(' AND order_state.value<>? ', Mage_Sales_Model_Order::STATE_CANCELED);
 
         $this->getSelect()
-            ->from('', array("orders_count" => "COUNT(order_state.entity_id)"))
+            ->columns(array("orders_count" => "COUNT(order_state.entity_id)"))
             ->joinLeft(
                 array('order_state' => $stateAttr->getBackend()->getTable()),
                 $_joinCondition,
@@ -155,8 +155,8 @@ class Mage_Reports_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_
         }
 
         $this->getSelect()
-            ->from('', array("orders_avg_amount" => "AVG({$expr})"))
-            ->from('', array("orders_sum_amount" => "SUM({$expr})"));
+            ->columns(array("orders_avg_amount" => "AVG({$expr})"))
+            ->columns(array("orders_sum_amount" => "SUM({$expr})"));
 
         return $this;
     }
@@ -183,7 +183,7 @@ class Mage_Reports_Model_Mysql4_Customer_Collection extends Mage_Customer_Model_
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->from("", "count(DISTINCT e.entity_id)");
+        $countSelect->columns("count(DISTINCT e.entity_id)");
         $sql = $countSelect->__toString();
         return $sql;
     }

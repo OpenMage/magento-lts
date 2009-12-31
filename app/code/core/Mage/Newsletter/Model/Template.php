@@ -179,7 +179,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
      */
     public function getProcessedTemplate(array $variables = array(), $usePreprocess = false)
     {
-        $processor = Mage::getModel('core/email_template_filter');
+        $processor = Mage::helper('newsletter')->getTemplateProcessor();
+        /* @var $processor Mage_Newsletter_Model_Template_Filter */
 
         if (!$this->_preprocessFlag) {
             $variables['this'] = $this;
@@ -190,10 +191,28 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Abstract
             ->setVariables($variables);
 
         if ($usePreprocess && $this->isPreprocessed()) {
-            return $processor->filter($this->getTemplateTextPreprocessed());
+            return $processor->filter($this->getPreparedTemplateText(true));
         }
 
-        return $processor->filter($this->getTemplateText());
+        return $processor->filter($this->getPreparedTemplateText());
+    }
+
+    /**
+     * Makes additional text preparations for HTML templates
+     *
+     * @param bool $usePreprocess Use Preprocessed text or original text
+     * @return string
+     */
+    public function getPreparedTemplateText($usePreprocess = false)
+    {
+        $text = $usePreprocess ? $this->getTemplateTextPreprocessed() : $this->getTemplateText();
+
+        if ($this->_preprocessFlag || $this->isPlain() || !$this->getTemplateStyles()) {
+            return $text;
+        }
+        // wrap styles into style tag
+        $html = "<style type=\"text/css\">\n%s\n</style>\n%s";
+        return sprintf($html, $this->getTemplateStyles(), $text);
     }
 
     /**

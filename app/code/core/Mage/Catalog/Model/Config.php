@@ -189,7 +189,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             $attributeSetId = $this->getAttributeSetId($attributeSetId);
         }
         $name = strtolower($name);
-        return isset($this->_attributeGroupsById[$attributeSetId][$name]) ? $this->_attributeGroupsById[$attributeSetId][$name] : false;
+        return isset($this->_attributeGroupsByName[$attributeSetId][$name]) ? $this->_attributeGroupsByName[$attributeSetId][$name] : false;
     }
 
     public function loadProductTypes()

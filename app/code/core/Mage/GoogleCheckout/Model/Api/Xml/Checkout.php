@@ -100,7 +100,6 @@ EOT;
         $shippingDiscount = (float)$this->getQuote()->getShippingAddress()->getBaseDiscountAmount();
         $billingDiscount = (float)$this->getQuote()->getBillingAddress()->getBaseDiscountAmount();
         if ($discount = $billingDiscount + $shippingDiscount) {
-            $discount = -$discount;
             $xml .= <<<EOT
             <item>
                 <merchant-item-id>_INTERNAL_DISCOUNT_</merchant-item-id>

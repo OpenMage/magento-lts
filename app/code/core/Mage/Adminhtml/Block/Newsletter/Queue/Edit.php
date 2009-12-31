@@ -80,6 +80,11 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
 
     protected function _prepareLayout()
     {
+        // Load Wysiwyg on demand and Prepare layout
+        if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
+            $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
+        }
+
         $this->setChild('save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
@@ -118,21 +123,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
                 )
         );
 
-        $this->setChild('toggle_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(
-                    array(
-                        'label'   => Mage::helper('newsletter')->__('Toggle Editor'),
-                        'onclick' => 'queueControl.toggleEditor();'
-                    )
-                )
-        );
         return parent::_prepareLayout();
-    }
-
-    public function getToggleButtonHtml()
-    {
-        return $this->getChildHtml('toggle_button');
     }
 
     public function getSaveButtonHtml()

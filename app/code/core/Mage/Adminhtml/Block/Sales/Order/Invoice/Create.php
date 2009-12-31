@@ -44,13 +44,6 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create extends Mage_Adminhtml_Blo
 
         $this->_removeButton('save');
         $this->_removeButton('delete');
-
-        /*$this->_addButton('submit_invoice', array(
-            'label'     => Mage::helper('sales')->__('Submit Invoice'),
-            'class'     => 'save submit-button',
-            'onclick'   => '$(\'edit_form\').submit()',
-            )
-        );*/
     }
 
     /**
@@ -63,25 +56,23 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create extends Mage_Adminhtml_Blo
         return Mage::registry('current_invoice');
     }
 
+    /**
+     * Retrieve text for header
+     *
+     * @return string
+     */
     public function getHeaderText()
     {
-        if ($this->getInvoice()->getOrder()->getForcedDoShipmentWithInvoice()) {
-            $_label = ' and Shipment';
-        } else {
-            $_label = '';
-        }
-        $header = Mage::helper('sales')->__('New Invoice%s for Order #%s',
-            $_label,
-            $this->getInvoice()->getOrder()->getRealOrderId()
-        );
-        /*$header = Mage::helper('sales')->__('New Invoice for Order #%s | Order Date: %s | Customer Name: %s',
-            $this->getInvoice()->getOrder()->getRealOrderId(),
-            $this->formatDate($this->getInvoice()->getOrder()->getCreatedAt(), 'medium', true),
-            $this->getInvoice()->getOrder()->getCustomerName()
-        );*/
-        return $header;
+        return ($this->getInvoice()->getOrder()->getForcedDoShipmentWithInvoice())
+            ? Mage::helper('sales')->__('New Invoice and Shipment for Order #%s', $this->getInvoice()->getOrder()->getRealOrderId())
+            : Mage::helper('sales')->__('New Invoice for Order #%s', $this->getInvoice()->getOrder()->getRealOrderId());
     }
 
+    /**
+     * Retrieve back url
+     *
+     * @return string
+     */
     public function getBackUrl()
     {
         return $this->getUrl('*/sales_order/view', array('order_id'=>$this->getInvoice()->getOrderId()));

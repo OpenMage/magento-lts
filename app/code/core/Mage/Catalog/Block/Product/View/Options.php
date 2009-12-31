@@ -150,7 +150,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
                 }
                 $priceValue = $_tmpPriceValues;
             } else {
-                $priceValue = Mage::helper('core')->currency($option->getPrice(), false, false);
+                $priceValue = Mage::helper('core')->currency($option->getPrice(true), false, false);
             }
             $config[$option->getId()] = $priceValue;
         }

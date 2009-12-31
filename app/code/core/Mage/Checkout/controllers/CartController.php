@@ -150,6 +150,12 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     {
         $cart   = $this->_getCart();
         $params = $this->getRequest()->getParams();
+        if (isset($params['qty'])) {
+            $filter = new Zend_Filter_LocalizedToNormalized(
+                array('locale' => Mage::app()->getLocale()->getLocaleCode())
+            );
+            $params['qty'] = $filter->filter($params['qty']);
+        }
 
         $product= $this->_initProduct();
         $related= $this->getRequest()->getParam('related_product');
@@ -248,6 +254,14 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         try {
             $cartData = $this->getRequest()->getParam('cart');
             if (is_array($cartData)) {
+                $filter = new Zend_Filter_LocalizedToNormalized(
+                    array('locale' => Mage::app()->getLocale()->getLocaleCode())
+                );
+                foreach ($cartData as $index => $data) {
+                    if (isset($data['qty'])) {
+                        $cartData[$index]['qty'] = $filter->filter($data['qty']);
+                    }
+                }
                 $cart = $this->_getCart();
                 $cart->updateItems($cartData)
                     ->save();

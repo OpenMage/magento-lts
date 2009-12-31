@@ -447,7 +447,9 @@ abstract class Mage_Core_Model_Mysql4_Abstract extends Mage_Core_Model_Resource_
      */
     public function addUniqueField($field)
     {
-        $this->_initUniqueFields();
+        if (is_null($this->_uniqueFields)) {
+            $this->_initUniqueFields();
+        }
         if(is_array($this->_uniqueFields) ) {
             $this->_uniqueFields[] = $field;
         }

@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Paypal>
-            <version>0.7.2</version>
+            <version>0.7.3</version>
         </Mage_Paypal>
     </modules>
     <global>
@@ -69,6 +69,29 @@
                 </states>
             </order>
         </sales>
+        <payment>
+            <cc>
+                <types>
+                    <SS translate="name">
+                        <code>SS</code>
+                        <name>Maestro/Solo</name>
+                        <order>40</order>
+                    </SS>
+                </types>
+            </cc>
+        </payment>
+        <fieldsets>
+            <sales_convert_quote_payment>
+                <account_status><to_order_payment>*</to_order_payment></account_status>
+                <address_status><to_order_payment>*</to_order_payment></address_status>
+                <protection_eligibility><to_order_payment>*</to_order_payment></protection_eligibility>
+            </sales_convert_quote_payment>
+            <sales_convert_order_payment>
+                <account_status><to_quote_payment>*</to_quote_payment></account_status>
+                <address_status><to_quote_payment>*</to_quote_payment></address_status>
+                <protection_eligibility><to_quote_payment>*</to_quote_payment></protection_eligibility>
+            </sales_convert_order_payment>
+        </fieldsets>
     </global>
     <frontend>
         <secure_url>
@@ -102,6 +125,13 @@
         </layout>
     </frontend>
     <adminhtml>
+        <layout>
+            <updates>
+                <paypal>
+                    <file>paypal.xml</file>
+                </paypal>
+            </updates>
+        </layout>
         <translate>
             <modules>
                 <Mage_Paypal>
@@ -112,39 +142,70 @@
             </modules>
         </translate>
     </adminhtml>
-
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Mage_Paypal before="Mage_Adminhtml">Mage_Paypal_Adminhtml</Mage_Paypal>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
     <default>
         <paypal>
             <wpp>
+                <business_account backend_model="adminhtml/system_config_backend_encrypted"/>
                 <api_password backend_model="adminhtml/system_config_backend_encrypted"/>
                 <api_signature backend_model="adminhtml/system_config_backend_encrypted"/>
                 <api_username backend_model="adminhtml/system_config_backend_encrypted"/>
+                <paypal_hdrimg></paypal_hdrimg>
+                <paypal_hdrbordercolor></paypal_hdrbordercolor>
+                <paypal_hdrbackcolor></paypal_hdrbackcolor>
+                <paypal_payflowcolor></paypal_payflowcolor>
+                <button_flavor>dynamic</button_flavor>
+                <button_type>ec-shortcut</button_type>
             </wpp>
             <wps>
                 <business_account backend_model="adminhtml/system_config_backend_encrypted"/>
             </wps>
         </paypal>
         <payment>
-            <paypal_express>
-                <payment_action>Authorization</payment_action>
+            <paypal_express translate="title">
                 <model>paypal/express</model>
-                <title>Paypal Express</title>
+                <title>PayPal</title>
+                <payment_action>Sale</payment_action><!-- Don't add to translation -->
                 <allowspecific>0</allowspecific>
+                <solution_type>Sole</solution_type><!-- Don't add to translation -->
+                <line_item>1</line_item>
+                <fraud_order_status>fraud_order</fraud_order_status>
+                <fraud_filter>0</fraud_filter>
             </paypal_express>
-            <paypal_direct>
-                <payment_action>Authorization</payment_action>
+            <paypal_direct translate="title">
+                <payment_action>Sale</payment_action><!-- Don't add to translation -->
                 <model>paypal/direct</model>
-                <title>Paypal Direct</title>
+                <title>Debit or Credit Card</title>
                 <cctypes>AE,VI,MC,DI</cctypes>
                 <allowspecific>0</allowspecific>
+                <fraud_order_status>fraud_order</fraud_order_status>
+                <fraud_filter>0</fraud_filter>
+                <centinel>0</centinel>
+                <centinel_processor_id></centinel_processor_id>
+                <centinel_merchant_id></centinel_merchant_id>
+                <centinel_password></centinel_password>
+                <centinel_maps_url>https://centineltest.cardinalcommerce.com/maps/txns.asp</centinel_maps_url>
+                <centinel_timeout_connect>100</centinel_timeout_connect>
+                <centinel_timeout_read>100</centinel_timeout_read>
             </paypal_direct>
-            <paypal_standard>
-                  <model>paypal/standard</model>
-                  <title>Paypal Standard</title>
-                  <types>IPN</types>
-                  <allowspecific>0</allowspecific>
-                  <transaction_type>O</transaction_type>
-                  <order_status>pending_paypal</order_status>
+            <paypal_standard translate="title">
+                <model>paypal/standard</model>
+                <title>PayPal</title>
+                <types>IPN</types>
+                <allowspecific>0</allowspecific>
+                <payment_action>Sale</payment_action>
+                <transaction_type>I</transaction_type>
+                <order_status>pending_paypal</order_status>
             </paypal_standard>
         </payment>
     </default>

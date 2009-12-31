@@ -95,9 +95,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     }
 
     /**
-     * Place payment information
-     *
-     * This method is called when order will be placed
+     * Authorize or authorize and capture payment on gateway, if applicable
+     * This method is supposed to be called only when order is placed
      *
      * @return Mage_Sales_Model_Order_Payment
      */
@@ -122,34 +121,27 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
          * validating payment method again
          */
         $methodInstance->validate();
-        if ($action = $methodInstance->getConfigData('payment_action')) {
+        if ($action = $methodInstance->getConfigPaymentAction()) {
             /**
              * Run action declared for payment method in configuration
              */
 
             if ($methodInstance->isInitializeNeeded()) {
-                $methodInstance->initialize($action, $stateObject);
+                /**
+                 * For method initialization we have to use original config value for payment action
+                 */
+                $methodInstance->initialize($methodInstance->getConfigData('payment_action'), $stateObject);
             } else {
+                $orderState = Mage_Sales_Model_Order::STATE_PROCESSING;
                 switch ($action) {
                     case Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE:
-                    case Mage_Paypal_Model_Api_Abstract::PAYMENT_TYPE_AUTH:
-                        $methodInstance->authorize($this, $this->getOrder()->getBaseTotalDue());
-
                         $this->setAmountAuthorized($this->getOrder()->getTotalDue());
-                        $this->setBaseAmountAuthorized($this->getOrder()->getBaseTotalDue());
-
-                        $orderState = Mage_Sales_Model_Order::STATE_PROCESSING;
+                        $this->_authorize(true, $this->getOrder()->getBaseTotalDue()); // base amount will be set inside
                         break;
                     case Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE_CAPTURE:
-                    case Mage_Paypal_Model_Api_Abstract::PAYMENT_TYPE_SALE:
-                        $invoice = $this->_invoice();
-
                         $this->setAmountAuthorized($this->getOrder()->getTotalDue());
                         $this->setBaseAmountAuthorized($this->getOrder()->getBaseTotalDue());
-
-                        $orderState = $this->getOrder()->getIsVirtual()
-                            ? Mage_Sales_Model_Order::STATE_COMPLETE
-                            : Mage_Sales_Model_Order::STATE_PROCESSING;
+                        $this->capture(null);
                         break;
                     default:
                         break;
@@ -194,61 +186,136 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     }
 
     /**
-     * Capture payment
+     * Capture the payment online
+     * Requires an invoice. If there is no invoice specified, will automatically prepare an invoice for order
+     * Updates transactions hierarchy, if required
+     * Updates payment totals, updates order status and adds proper comments
      *
      * @return Mage_Sales_Model_Order_Payment
      */
     public function capture($invoice)
     {
+/**
+ * TODO
+ * capture should be allowed only when there is no parent transaction id
+ * or the parent transaction id is a non-voided authorization
+ */
+
         if (is_null($invoice)) {
             $invoice = $this->_invoice();
+            return $this; // @see Mage_Sales_Model_Order_Invoice::capture()
         }
 
         Mage::dispatchEvent('sales_order_payment_capture', array('payment' => $this, 'invoice' => $invoice));
 
+        $amountToCapture = $this->_formatAmount($invoice->getBaseGrandTotal());
         $this->getMethodInstance()
             ->setStore($this->getOrder()->getStoreId())
-            ->capture($this, sprintf('%.2f', $invoice->getBaseGrandTotal()));
-        $this->getMethodInstance()->processInvoice($invoice, $this);
+            ->capture($this, $amountToCapture);
+
+        // update transactions, set order state (order will close itself if required)
+        $transaction = $this->_addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE, $invoice);
+        $message = $this->_appendTransactionToMessage($transaction,
+            Mage::helper('sales')->__('Captured amount of %s online.', $amountToCapture)
+        );
+        $this->getOrder()->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
+        $this->getMethodInstance()->processInvoice($invoice, $this); // should be deprecated
         return $this;
     }
 
+    /**
+     * Process a capture notification from a payment gateway for specified amount
+     * Creates an invoice automatically if the amount covers the order base grand total completely
+     * Updates transactions hierarchy, if required
+     * Prevents transaction double processing
+     * Updates payment totals, updates order status and adds proper comments
+     *
+     * @param float $amount
+     * @return Mage_Sales_Model_Order_Payment
+     */
+    public function registerCaptureNotification($amount)
+    {
+        $this->_avoidDoubleTransactionProcessing();
+        $order   = $this->getOrder();
+        $invoice = null;
+        $amount  = (float)$amount;
+        if (!$amount) {
+            Mage::throwException(Mage::helper('sales')->__('Impossible to process transaction with zero amount.'));
+        }
+
+        // prepare invoice if total paid is going to be equal to order grand total
+        // possible bug: we are not protected from case when order grand total != total authorized
+        if ((float)$order->getBaseGrandTotal() === ((float)$this->getBaseAmountPaid() + $amount)) {
+            // ok, we may create an invoice
+            if (!$order->canInvoice()) {
+                Mage::throwException(Mage::helper('sales')->__('Order does not allow to create an invoice.'));
+            }
+            $invoice = $order->prepareInvoice()->register()->pay();
+            $order->addRelatedObject($invoice);
+        } else {
+            $this->_updateTotals(array('base_amount_paid' => $amount));
+            // shipping captured amount should be updated with the invoice
+        }
+
+        // update transactions, set order state (order will close itself later if required)
+        $transaction = $this->_addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE, $invoice);
+        $message = $this->_prependMessage(
+            Mage::helper('sales')->__('Registered notification about captured amount of %s.', $this->_formatAmount($amount))
+        );
+        $message = $this->_appendTransactionToMessage($transaction, $message);
+        $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
+        if ($invoice) {
+            $this->setCreatedInvoice($invoice);
+        }
+        return $this;
+    }
 
     /**
-     * Register payment fact
+     * Process authorization notification
      *
-     * @param   unknown_type $invoice
-     * @return  unknown
+     * @see self::_authorize()
+     * @param float $amount
+     * @return Mage_Sales_Model_Order_Payment
+     */
+    public function registerAuthorizationNotification($amount)
+    {
+        $this->_avoidDoubleTransactionProcessing();
+        return $this->_authorize(false, $amount);
+    }
+
+    /**
+     * Register payment fact: update self totals from the invoice
+     *
+     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @return Mage_Sales_Model_Order_Payment
      */
     public function pay($invoice)
     {
-        $this->setAmountPaid($this->getAmountPaid()+$invoice->getGrandTotal());
-        $this->setBaseAmountPaid($this->getBaseAmountPaid()+$invoice->getBaseGrandTotal());
-
-        $this->setShippingCaptured($this->getShippingCaptured()+$invoice->getShippingAmount());
-        $this->setBaseShippingCaptured($this->getBaseShippingCaptured()+$invoice->getBaseShippingAmount());
-
+        $this->_updateTotals(array(
+            'amount_paid' => $invoice->getGrandTotal(),
+            'base_amount_paid' => $invoice->getBaseGrandTotal(),
+            'shipping_captured' => $invoice->getShippingAmount(),
+            'base_shipping_captured' => $invoice->getBaseShippingAmount(),
+        ));
         Mage::dispatchEvent('sales_order_payment_pay', array('payment' => $this, 'invoice' => $invoice));
-
         return $this;
     }
 
     /**
-     * Cancel invoice
+     * Cancel specified invoice: update self totals from it
      *
-     * @param   unknown_type $invoice
-     * @return  unknown
+     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @return Mage_Sales_Model_Order_Payment
      */
     public function cancelInvoice($invoice)
     {
-        $this->setAmountPaid($this->getAmountPaid()-$invoice->getGrandTotal());
-        $this->setBaseAmountPaid($this->getBaseAmountPaid()-$invoice->getBaseGrandTotal());
-
-        $this->setShippingCaptured($this->getShippingCaptured()-$invoice->getShippingAmount());
-        $this->setBaseShippingCaptured($this->getBaseShippingCaptured()-$invoice->getBaseShippingAmount());
-
+        $this->_updateTotals(array(
+            'amount_paid' => -1 * $invoice->getGrandTotal(),
+            'base_amount_paid' => -1 * $invoice->getBaseGrandTotal(),
+            'shipping_captured' => -1 * $invoice->getShippingAmount(),
+            'base_shipping_captured' => -1 * $invoice->getBaseShippingAmount(),
+        ));
         Mage::dispatchEvent('sales_order_payment_cancel_invoice', array('payment' => $this, 'invoice' => $invoice));
-
         return $this;
     }
 
@@ -281,52 +348,142 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         return $this->getMethodInstance()->canVoid($document);
     }
 
+    /**
+     * Void payment online
+     *
+     * @see self::_void()
+     * @param Varien_Object $document
+     * @return Mage_Sales_Model_Order_Payment
+     */
     public function void(Varien_Object $document)
     {
-        $this->getMethodInstance()
-            ->setStore($this->getOrder()->getStoreId())
-            ->processBeforeVoid($document, $this);
-        //$this->getMethodInstance()->void($document);
-        $this->getMethodInstance()->void($this);
-
+        $this->_void(true);
         Mage::dispatchEvent('sales_order_payment_void', array('payment' => $this, 'invoice' => $document));
-
         return $this;
     }
 
+    /**
+     * Process void notification
+     *
+     * @see self::_void()
+     * @param float $amount
+     * @return Mage_Sales_Model_Payment
+     */
+    public function registerVoidNotification($amount = null)
+    {
+        $this->_avoidDoubleTransactionProcessing();
+        return $this->_void(false, $amount);
+    }
+
+    /**
+     * Refund payment online or offline, depending on whether there is invoice set in the creditmemo instance
+     * Updates transactions hierarchy, if required
+     * Updates payment totals, updates order status and adds proper comments
+     *
+     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @return Mage_Sales_Model_Order_Payment
+     */
     public function refund($creditmemo)
     {
-        if ($this->getMethodInstance()->canRefund() && $creditmemo->getDoTransaction()) {
+        $baseAmountToRefund = $this->_formatAmount($creditmemo->getBaseGrandTotal());
+        $order = $this->getOrder();
+
+        // call refund from gateway if required
+        $invoice = null;
+        $gateway = $this->getMethodInstance();
+        if ($gateway->canRefund() && $creditmemo->getDoTransaction()) {
             $this->setCreditmemo($creditmemo);
-            if ($creditmemo->getInvoice()) {
-                $this->getMethodInstance()->setStore($this->getOrder()->getStoreId());
-                $this->getMethodInstance()->processBeforeRefund($creditmemo->getInvoice(), $this);
-                $this->getMethodInstance()->refund($this, $creditmemo->getBaseGrandTotal());
-                $this->getMethodInstance()->processCreditmemo($creditmemo, $this);
+            $invoice = $creditmemo->getInvoice();
+            if ($invoice) {
+                $gateway->setStore($this->getOrder()->getStoreId())
+                    ->processBeforeRefund($invoice, $this) // should be deprecated
+                    ->refund($this, $baseAmountToRefund)
+                    ->processCreditmemo($creditmemo, $this) // should be deprecated
+                ;
             }
         }
 
-        $this->setAmountRefunded($this->getAmountRefunded()+$creditmemo->getGrandTotal());
-        $this->setBaseAmountRefunded($this->getBaseAmountRefunded()+$creditmemo->getBaseGrandTotal());
+        // update self totals from creditmemo
+        $this->_updateTotals(array(
+            'amount_refunded' => $creditmemo->getGrandTotal(),
+            'base_amount_refunded' => $baseAmountToRefund,
+            'shipping_refunded' => $creditmemo->getShippingAmount(),
+            'base_shipping_refunded' => $creditmemo->getBaseShippingAmount()
+        ));
 
-        $this->setShippingRefunded($this->getShippingRefunded()+$creditmemo->getShippingAmount());
-        $this->setBaseShippingRefunded($this->getBaseShippingRefunded()+$creditmemo->getBaseShippingAmount());
+        // update transactions and order state
+        $transaction = $this->_addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND, $creditmemo);
+        if ($invoice) {
+            $message = Mage::helper('sales')->__('Refunded amount of %s online.', $baseAmountToRefund);
+        } else {
+            $message = Mage::helper('sales')->__('Refunded amount of %s offline.', $baseAmountToRefund);
+        }
+        $message = $this->_appendTransactionToMessage($transaction, $message);
+        $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
 
         Mage::dispatchEvent('sales_order_payment_refund', array('payment' => $this, 'creditmemo' => $creditmemo));
-
         return $this;
     }
 
+    /**
+     * Process payment refund notification
+     * Updates transactions hierarchy, if required
+     * Prevents transaction double processing
+     * Updates payment totals, updates order status and adds proper comments
+     * TODO: potentially a full capture can be refunded. In this case if there was only one invoice for that transaction
+     *       then we should create a creditmemo from invoice and also refund it offline
+     *
+     * @param float $amount
+     * @return Mage_Sales_Model_Order_Payment
+     */
+    public function registerRefundNotification($amount)
+    {
+        $this->_avoidDoubleTransactionProcessing();
+        $order = $this->getOrder();
+
+        // create an offline creditmemo (from order), if the entire grand total of order is covered by this refund
+        $creditmemo = null;
+        if ($amount == $order->getBaseGrandTotal()) {
+            /*
+            $creditmemo = $order->prepareCreditmemo()->register()->refund();
+            $this->_updateTotals(array(
+                'amount_refunded' => $creditmemo->getGrandTotal(),
+                'shipping_refunded' => $creditmemo->getShippingRefunded(),
+                'base_shipping_refunded' => $creditmemo->getBaseShippingRefunded()
+            ));
+            $order->addRelatedObject($creditmemo);
+            $this->setCreatedCreditmemo($creditmemo);
+            */
+        }
+        $this->_updateTotals(array('base_amount_refunded' => $amount));
+
+        // update transactions and order state
+        $transaction = $this->_addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_REFUND, $creditmemo);
+        $message = $this->_prependMessage(
+            Mage::helper('sales')->__('Registered notification about refunded amount of %s.', $this->_formatAmount($amount))
+        );
+        $message = $this->_appendTransactionToMessage($transaction, $message);
+        $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
+        return $this;
+    }
+
+    /**
+     * Cancel a creditmemo: substract its totals from the payment
+     *
+     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @return Mage_Sales_Model_Order_Payment
+     */
     public function cancelCreditmemo($creditmemo)
     {
-        $this->setAmountRefunded($this->getAmountRefunded()-$creditmemo->getGrandTotal());
-        $this->setBaseAmountRefunded($this->getBaseAmountRefunded()-$creditmemo->getBaseGrandTotal());
-
-        $this->setShippingRefunded($this->getShippingRefunded()-$creditmemo->getShippingAmount());
-        $this->setBaseShippingRefunded($this->getBaseShippingRefunded()-$creditmemo->getBaseShippingAmount());
-
-        Mage::dispatchEvent('sales_order_payment_cancel_creditmemo', array('payment' => $this, 'creditmemo' => $creditmemo));
-
+        $this->_updateTotals(array(
+            'amount_refunded' => -1 * $creditmemo->getGrandTotal(),
+            'base_amount_refunded' => -1 * $creditmemo->getBaseGrandTotal(),
+            'shipping_refunded' => -1 * $creditmemo->getShippingAmount(),
+            'base_shipping_refunded' => -1 * $creditmemo->getBaseShippingAmount()
+        ));
+        Mage::dispatchEvent('sales_order_payment_cancel_creditmemo',
+            array('payment' => $this, 'creditmemo' => $creditmemo)
+        );
         return $this;
     }
 
@@ -339,5 +496,254 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         Mage::dispatchEvent('sales_order_payment_cancel', array('payment' => $this));
 
         return $this;
+    }
+
+    /**
+     * Authorize payment either online or offline (process auth notification)
+     * Updates transactions hierarchy, if required
+     * Prevents transaction double processing
+     * Updates payment totals, updates order status and adds proper comments
+     *
+     * @param bool $isOnline
+     * @param float $amount
+     * @return Mage_Sales_Model_Order_Payment
+     */
+    protected function _authorize($isOnline, $amount)
+    {
+        // only 1 authorization per payment
+        if ((float)$this->getBaseAmountAuthorized()) {
+            Mage::throwException(Mage::helper('sales')->__('Payment can be authorized only once.'));
+        }
+
+        // update totals
+        $amount = $this->_formatAmount($amount, true);
+        $this->setBaseAmountAuthorized($amount);
+
+        // do online authorization
+        $order = $this->getOrder();
+        if ($isOnline) {
+            $this->getMethodInstance()->setStore($order->getStoreId())->authorize($this, $amount);
+        }
+
+        // update transactions, order state and add comments
+        $message = $this->_prependMessage($isOnline
+            ? Mage::helper('sales')->__('Authorized amount of %s.', $amount)
+            : Mage::helper('sales')->__('Registered notification about authorized amount of %s.', $amount)
+        );
+        $transaction = $this->_addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
+        $message = $this->_appendTransactionToMessage($transaction, $message);
+        $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
+
+        return $this;
+    }
+
+    /**
+     * Void payment either online or offline (process void notification)
+     * NOTE: that in some cases authorization can be voided after a capture. In such case it makes sense to use
+     *       the amount void amount, for informational purposes.
+     * If voiding entire authorization, the order will be canceled.
+     * Updates transactions hierarchy, if required
+     * Prevents transaction double processing
+     * Updates payment totals, updates order status and adds proper comments
+     *
+     * @param bool $isOnline
+     * @param float $amount
+     * @return Mage_Sales_Model_Order_Payment
+     */
+    protected function _void($isOnline, $amount = null)
+    {
+        $order = $this->getOrder();
+
+        // do online void. This may set a transaction
+        if ($isOnline) {
+            $this->getMethodInstance()->setStore($order->getStoreId())->void($this);
+        }
+
+        // if the authorization was untouched, we may cancel the order
+        // but only if the payment auth amount equals to order grand total
+        $mayCancelOrder = false;
+        if ($order->getBaseGrandTotal() == $this->getBaseAmountAuthorized()) {
+            $parentTxnId = $this->getParentTransactionId();
+            $authTransaction = null;
+            if ($parentTxnId) {
+                $authTransaction = Mage::getModel('sales/order_payment_transaction')
+                    ->setOrderPaymentObject($this)
+                    ->loadByTxnId($parentTxnId);
+                if ($authTransaction->canVoidAuthorizationCompletely()) {
+                    $mayCancelOrder = true;
+                    $amount = (float)$order->getBaseGrandTotal();
+                }
+            }
+        }
+
+        if ($amount) {
+            $this->_updateTotals(array('base_amount_canceled' => $amount));
+            $amount = $this->_formatAmount($amount);
+        }
+
+        // update transactions, order state and add comments
+        $transaction = $this->_addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID);
+        $message = $this->_prependMessage($isOnline ? Mage::helper('sales')->__('Voided authorization.')
+            : Mage::helper('sales')->__('Registered a Void notification.'));
+        if ($amount) {
+            $message .= ' ' . Mage::helper('sales')->__('Amount: %s.', $amount);
+        }
+        $message = $this->_appendTransactionToMessage($transaction, $message);
+        if ($mayCancelOrder) {
+            $order->registerCancellation($message, false);
+        } else {
+            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message); // or better to put on hold?
+        }
+        return $this;
+    }
+
+//    /**
+//     * TODO: implement this
+//     * @param Mage_Sales_Model_Order_Invoice $invoice
+//     * @return Mage_Sales_Model_Order_Payment
+//     */
+//    public function cancelCapture($invoice = null)
+//    {
+//    }
+
+    /**
+     * Create transaction, prepare its insertion into hierarchy and add its information to payment and comments
+     *
+     * To add transactions and related information, the following information should be set to payment before processing:
+     * - transaction_id
+     * - parent_transaction_id (optional)
+     * - is_transaction_closed (optional) - whether transaction should be closed or open (closed by default)
+     *
+     * If the sales document is specified, it will be linked to the transaction as related for future usage.
+     * Currently transaction ID is set into the sales object
+     *
+     * This method writes the added transaction ID into last_trans_id field of the payment object
+     *
+     * @param string $type
+     * @param Mage_Sales_Model_Abstract $salesDocument
+     * @return null|Mage_Sales_Model_Order_Payment_Transaction
+     */
+    protected function _addTransaction($type, $salesDocument = null)
+    {
+        // look for set transaction ids
+        $transactionId = $this->getTransactionId();
+        if (null !== $transactionId) {
+            // set basic parameters
+            $transaction = Mage::getModel('sales/order_payment_transaction')
+                ->setOrderPaymentObject($this)
+                ->setTxnType($type)
+                ->setTxnId($transactionId);
+            $this->setLastTransId($transactionId);
+
+            // special state whether transaction is closed
+            if ($this->hasIsTransactionClosed()) {
+                $transaction->setIsClosed((int)$this->getIsTransactionClosed());
+            }
+
+            // build chain with parent transaction
+            $parentTransactionId = $this->getParentTransactionId();
+            if ($parentTransactionId) {
+                $transaction->setParentTxnId($parentTransactionId);
+            }
+
+            if ($salesDocument && $salesDocument instanceof Mage_Sales_Model_Abstract) {
+                $salesDocument->setTransactionId($transactionId);
+                // TODO: linking transaction with the sales document
+            }
+            $this->setCreatedTransaction($transaction);
+            $this->getOrder()->addRelatedObject($transaction);
+            return $transaction;
+        }
+    }
+
+    /**
+     * Totals updater utility method
+     * Updates self totals by keys in data array('key' => $delta)
+     *
+     * @param array $data
+     */
+    private function _updateTotals($data)
+    {
+        foreach ($data as $key => $amount) {
+            if (null !== $amount) {
+                $was = $this->getDataUsingMethod($key);
+                $this->setDataUsingMethod($key, $was + $amount);
+            }
+        }
+    }
+
+    /**
+     * Prevent double processing of the same transaction by a payment notification
+     * Uses either specified txn_id or the transaction id that was set before
+     *
+     * @param string $txnId
+     * @throws Mage_Core_Exception
+     */
+    protected function _avoidDoubleTransactionProcessing($txnId = null)
+    {
+        if (null === $txnId) {
+            $txnId = $this->getTransactionId();
+        }
+        if ($txnId) {
+            $transaction = Mage::getModel('sales/order_payment_transaction')
+                ->setOrderPaymentObject($this)
+                ->loadByTxnId($txnId);
+            if ($transaction->getId()) {
+                Mage::throwException(
+                    Mage::helper('sales')->__('Transaction "%s" was already processed.', $transaction->getTxnId())
+                );
+            }
+        }
+    }
+
+    /**
+     * Append transaction ID (if any) message to the specified message
+     *
+     * @param Mage_Sales_Model_Order_Payment_Transaction|null $transaction
+     * @param string $message
+     * @return string
+     */
+    private function _appendTransactionToMessage($transaction, $message)
+    {
+        if ($transaction) {
+            $message .= ' ' . Mage::helper('sales')->__('Transaction ID: "%s".', $transaction->getTxnId());
+        }
+        return $message;
+    }
+
+    /**
+     * Prepend a "prepared_message" that may be set to the payment instance before, to the specified message
+     * Prepends value to the specified string or to the comment of specified order status history item instance
+     *
+     * @param string|Mage_Sales_Model_Order_Status_History $messagePrependTo
+     * @return string|Mage_Sales_Model_Order_Status_History
+     */
+    private function _prependMessage($messagePrependTo)
+    {
+        $preparedMessage = $this->getPreparedMessage();
+        if ($preparedMessage) {
+            if (is_string($preparedMessage)) {
+                return $preparedMessage . ' ' . $messagePrependTo;
+            }
+            elseif (is_object($preparedMessage) && ($preparedMessage instanceof Mage_Sales_Model_Order_Status_History)) {
+                $comment = $preparedMessage->getComment() . ' ' . $messagePrependTo;
+                $preparedMessage->setComment($comment);
+                return $comment;
+            }
+        }
+        return $messagePrependTo;
+    }
+
+    /**
+     * Round up and cast specified amount to float or string
+     *
+     * @param string|float $amount
+     * @param bool $asFloat
+     * @return string|float
+     */
+    protected function _formatAmount($amount, $asFloat = false)
+    {
+        $amount = sprintf('%.2F', $amount); // "f" depends on locale, "F" doesn't
+        return $asFloat ? (float)$amount : $amount;
     }
 }

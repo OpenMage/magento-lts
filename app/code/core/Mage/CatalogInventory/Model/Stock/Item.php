@@ -389,11 +389,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
                     }
                     $result->setItemBackorders($backorderQty);
                     if ($this->getBackorders() == Mage_CatalogInventory_Model_Stock::BACKORDERS_YES_NOTIFY) {
-                        $result->setMessage(Mage::helper('cataloginventory')->__('This product is not available in the requested quantity. %d of the items will be backordered.',
-                            $backorderQty,
-                            $this->getProductName())
-                            )
-                        ;
+                        $result->setMessage(Mage::helper('cataloginventory')->__('This product is not available in the requested quantity. %s of the items will be backordered.', ($backorderQty * 1), $this->getProductName()));
                     }
                 }
             }
@@ -475,31 +471,19 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Processing object after save data
+     * Process stock status index on item after commit
      *
      * @return Mage_CatalogInventory_Model_Stock_Item
      */
-    protected function _afterSave()
+    public function afterCommitCallback()
     {
-        parent::_afterSave();
-//        Mage::getSingleton('cataloginventory/stock_status')
-//            ->changeItemStatus($this);
-        return $this;
-    }
-
-    /**
-     * Init indexing process after stock item data commit
-     *
-     * @return Mage_CatalogInventory_Model_Stock_Item
-     */
-    protected function _afterSaveCommit()
-    {
-        parent::_afterSaveCommit();
+        parent::afterCommitCallback();
         Mage::getSingleton('index/indexer')->processEntityAction(
             $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
         );
         return $this;
     }
+
 
     /**
      * Retrieve Stock Availability

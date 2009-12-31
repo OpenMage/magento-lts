@@ -81,6 +81,6 @@ class Mage_Rss_OrderController extends Mage_Core_Controller_Front_Action
             $this->_currentArea = 'adminhtml';
             Mage::helper('rss')->authAdmin('sales/order');
         }
-        parent::preDispatch();
+        return parent::preDispatch();
     }
 }

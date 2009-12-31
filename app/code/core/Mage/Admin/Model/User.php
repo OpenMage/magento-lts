@@ -228,10 +228,14 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function authenticate($username, $password)
     {
+        $config = Mage::getStoreConfigFlag('admin/security/use_case_sensitive_login');
         $result = false;
+
         try {
             $this->loadByUsername($username);
-            if ($this->getId() && Mage::helper('core')->validateHash($password, $this->getPassword())) {
+            $sensitive = ($config) ? $username==$this->getUsername() : true;
+
+            if ($sensitive && $this->getId() && Mage::helper('core')->validateHash($password, $this->getPassword())) {
                 if ($this->getIsActive() != '1') {
                     Mage::throwException(Mage::helper('adminhtml')->__('This account is inactive.'));
                 }

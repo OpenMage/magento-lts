@@ -146,6 +146,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection ext
                 'customer_id'   => 'customer_id',
                 'visitor_id'    => 'visitor_id',
                 'item_store_id' => 'store_id',
+                'catalog_compare_item_id' => 'catalog_compare_item_id'
             ),
             $this->getConditionForJoin()
         );

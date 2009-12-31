@@ -102,5 +102,15 @@
                 </Mage_Rating>
             </modules>
         </translate>
+        <events>
+            <catalog_product_delete_after_done>
+                <observers>
+                    <rating>
+                        <class>rating/observer</class>
+                        <method>processProductAfterDeleteEvent</method>
+                    </rating>
+                </observers>
+            </catalog_product_delete_after_done>
+        </events>
     </adminhtml>
 </config>

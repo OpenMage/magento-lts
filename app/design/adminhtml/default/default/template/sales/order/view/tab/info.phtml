@@ -56,7 +56,7 @@
             </div>
             <fieldset>
                 <?php  if ($_order->getTracksCollection()->count()) : ?>
-                <a href="#" id="linkId" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopUpUrlByOrderId($_order->getId()) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?php echo $this->__('Track order') ?>"><?php echo $this->__('Track order') ?></a>
+                <a href="#" id="linkId" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_order) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?php echo $this->__('Track order') ?>"><?php echo $this->__('Track order') ?></a>
                 <br/>
                 <?php endif; ?>
                 <?php if ($_order->getShippingDescription()): ?>

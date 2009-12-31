@@ -39,14 +39,14 @@ abstract class Mage_Eav_Model_Entity_Abstract
     /**
      * Read connection
      *
-     * @var Zend_Db_Adapter_Abstract
+     * @var Varien_Db_Adapter_Pdo_Mysql
      */
     protected $_read;
 
     /**
      * Write connection
      *
-     * @var Zend_Db_Adapter_Abstract
+     * @var Varien_Db_Adapter_Pdo_Mysql
      */
     protected $_write;
 
@@ -142,6 +142,20 @@ abstract class Mage_Eav_Model_Entity_Abstract
     protected $_sortingSetId = null;
 
     /**
+     * Entity attribute values per backend table to delete
+     *
+     * @var array
+     */
+    protected $_attributeValuesToDelete = array();
+
+    /**
+     * Entity attribute values per backend table to save
+     *
+     * @var array
+     */
+    protected $_attributeValuesToSave   = array();
+
+    /**
      * Set connections for entity operations
      *
      * @param Zend_Db_Adapter_Abstract $read
@@ -166,7 +180,7 @@ abstract class Mage_Eav_Model_Entity_Abstract
     /**
      * Retrieve connection for read data
      *
-     * @return Zend_Db_Adapter_Abstract
+     * @return Varien_Db_Adapter_Pdo_Mysql
      */
     protected function _getReadAdapter()
     {
@@ -176,7 +190,7 @@ abstract class Mage_Eav_Model_Entity_Abstract
     /**
      * Retrieve connection for write data
      *
-     * @return Zend_Db_Adapter_Abstract
+     * @return Varien_Db_Adapter_Pdo_Mysql
      */
     protected function _getWriteAdapter()
     {
@@ -186,7 +200,7 @@ abstract class Mage_Eav_Model_Entity_Abstract
     /**
      * Retrieve read DB connection
      *
-     * @return Zend_Db_Adapter_Abstract
+     * @return Varien_Db_Adapter_Pdo_Mysql
      */
     public function getReadConnection()
     {
@@ -196,7 +210,7 @@ abstract class Mage_Eav_Model_Entity_Abstract
     /**
      * Retrieve write DB connection
      *
-     * @return Zend_Db_Adapter_Abstract
+     * @return Varien_Db_Adapter_Pdo_Mysql
      */
     public function getWriteConnection()
     {
@@ -1148,6 +1162,8 @@ abstract class Mage_Eav_Model_Entity_Abstract
             }
         }
 
+        $this->_processAttributeValues();
+
         return $this;
     }
 
@@ -1161,15 +1177,16 @@ abstract class Mage_Eav_Model_Entity_Abstract
      */
     protected function _insertAttribute($object, $attribute, $value)
     {
-        $entityIdField = $attribute->getBackend()->getEntityIdField();
-        $row = array(
-            $entityIdField  => $object->getId(),
-            'entity_type_id'=> $object->getEntityTypeId(),
-            'attribute_id'  => $attribute->getId(),
-            'value'         => $this->_prepareValueForSave($value, $attribute),
-        );
-        $this->_getWriteAdapter()->insert($attribute->getBackend()->getTable(), $row);
-        return $this;
+        return $this->_saveAttribute($object, $attribute, $value);
+
+//        $row = array(
+//            $entityIdField  => $object->getId(),
+//            'entity_type_id'=> $object->getEntityTypeId(),
+//            'attribute_id'  => $attribute->getId(),
+//            'value'         => $this->_prepareValueForSave($value, $attribute),
+//        );
+//        $this->_getWriteAdapter()->insert($attribute->getBackend()->getTable(), $row);
+//        return $this;
     }
 
     /**
@@ -1183,10 +1200,65 @@ abstract class Mage_Eav_Model_Entity_Abstract
      */
     protected function _updateAttribute($object, $attribute, $valueId, $value)
     {
-        $this->_getWriteAdapter()->update($attribute->getBackend()->getTable(),
-            array('value' => $this->_prepareValueForSave($value, $attribute)),
-            'value_id='.(int)$valueId
+        return $this->_saveAttribute($object, $attribute, $value);
+//        $this->_getWriteAdapter()->update($attribute->getBackend()->getTable(),
+//            array('value' => $this->_prepareValueForSave($value, $attribute)),
+//            'value_id='.(int)$valueId
+//        );
+//        return $this;
+    }
+
+    /**
+     * Save entity attribute value
+     *
+     * Collect for mass save
+     *
+     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param mixed $value
+     * @return Mage_Eav_Model_Entity_Abstract
+     */
+    protected function _saveAttribute($object, $attribute, $value)
+    {
+        $table = $attribute->getBackend()->getTable();
+        if (!isset($this->_attributeValuesToSave[$table])) {
+            $this->_attributeValuesToSave[$table] = array();
+        }
+
+        $entityIdField = $attribute->getBackend()->getEntityIdField();
+
+        $data   = array(
+            'entity_type_id'    => $object->getEntityTypeId(),
+            $entityIdField      => $object->getId(),
+            'attribute_id'      => $attribute->getId(),
+            'value'             => $this->_prepareValueForSave($value, $attribute)
         );
+
+        $this->_attributeValuesToSave[$table][] = $data;
+
+        return $this;
+    }
+
+    /**
+     * Save and detele collected attribute values
+     *
+     * @return Mage_Eav_Model_Entity_Abstract
+     */
+    protected function _processAttributeValues()
+    {
+        $adapter = $this->_getWriteAdapter();
+        foreach ($this->_attributeValuesToSave as $table => $data) {
+            $adapter->insertOnDuplicate($table, $data, array('value'));
+        }
+
+        foreach ($this->_attributeValuesToDelete as $table => $valueIds) {
+            $adapter->delete($table, array('value_id IN(?)' => $valueIds));
+        }
+
+        // reset data arrays
+        $this->_attributeValuesToSave   = array();
+        $this->_attributeValuesToDelete = array();
+
         return $this;
     }
 
@@ -1219,11 +1291,24 @@ abstract class Mage_Eav_Model_Entity_Abstract
         foreach ($info as $itemData) {
             $valueIds[] = $itemData['value_id'];
         }
-        if (!empty($valueIds)) {
-            $condition = $this->_getWriteAdapter()->quoteInto('value_id IN (?)', $valueIds);
-            $this->_getWriteAdapter()->delete($table, $condition);
+
+        if (empty($valueIds)) {
+            return $this;
         }
+
+        if (isset($this->_attributeValuesToDelete[$table])) {
+            $this->_attributeValuesToDelete[$table] = array_merge($this->_attributeValuesToDelete[$table], $valueIds);
+        } else {
+            $this->_attributeValuesToDelete[$table] = $valueIds;
+        }
+
         return $this;
+
+//        if (!empty($valueIds)) {
+//            $condition = $this->_getWriteAdapter()->quoteInto('value_id IN (?)', $valueIds);
+//            $this->_getWriteAdapter()->delete($table, $condition);
+//        }
+//        return $this;
     }
 
     /**
@@ -1279,6 +1364,8 @@ abstract class Mage_Eav_Model_Entity_Abstract
             $this->_getWriteAdapter()->rollback();
             throw $e;
         }
+
+        $this->_processAttributeValues();
 
         return $this;
     }

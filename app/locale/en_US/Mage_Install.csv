@@ -76,6 +76,7 @@
 "Password Confirmation","Password Confirmation"
 "Path ""%s"" must be writable","Path ""%s"" must be writable"
 "Personal Information","Personal Information"
+"Please correct user data and try again.","Please correct user data and try again."
 "Please make sure that <code>mod_rewrite</code> is enabled in Apache configuration.","Please make sure that <code>mod_rewrite</code> is enabled in Apache configuration."
 "Please note that it is much less stable than beta.","Please note that it is much less stable than beta."
 "Please note that only UNIX, Linux and Mac OSX shells are currently supported. For Windows use the '%s' option.","Please note that only UNIX, Linux and Mac OSX shells are currently supported. For Windows use the '%s' option."

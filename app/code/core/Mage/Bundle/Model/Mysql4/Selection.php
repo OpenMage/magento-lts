@@ -160,29 +160,19 @@ class Mage_Bundle_Model_Mysql4_Selection extends Mage_Core_Model_Mysql4_Abstract
     }
 
     /**
-     * Retrieve parent ids array by requered child
+     * Retrieve array of related bundle product ids by selection product id(s)
      *
      * @param int|array $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
     {
-        $parentIds = array();
+        $adapter = $this->_getReadAdapter();
+        $select  = $adapter->select()
+            ->distinct(true)
+            ->from($this->getMainTable(), 'parent_product_id')
+            ->where('product_id IN(?)', $childId);
 
-        $select = $this->_getReadAdapter()->select()
-            ->from(
-                array('tbl_selection' => $this->getMainTable()),
-                array('product_id', 'parent_product_id', 'option_id'))
-            ->join(
-                array('tbl_option' => $this->getTable('bundle/option')),
-                '`tbl_option`.`option_id` = `tbl_selection`.`option_id`',
-                array('required')
-            )
-            ->where('`tbl_selection`.`product_id` IN(?)', $childId);
-        foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
-            $parentIds[] = $row['parent_product_id'];
-        }
-
-        return $parentIds;
+        return $adapter->fetchCol($select);
     }
 }

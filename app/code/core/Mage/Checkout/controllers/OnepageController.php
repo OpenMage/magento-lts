@@ -79,6 +79,11 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         return false;
     }
 
+    /**
+     * Get shipping method step html
+     *
+     * @return string
+     */
     protected function _getShippingMethodsHtml()
     {
         $layout = $this->getLayout();
@@ -90,6 +95,11 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         return $output;
     }
 
+    /**
+     * Get payment method step html
+     *
+     * @return string
+     */
     protected function _getPaymentMethodsHtml()
     {
         $layout = $this->getLayout();
@@ -112,13 +122,18 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         return $output;
     }
 
+    /**
+     * Get order review step html
+     *
+     * @return string
+     */
     protected function _getReviewHtml()
     {
         return $this->getLayout()->getBlock('root')->toHtml();
     }
 
     /**
-     * Enter description here...
+     * Get one page checkout model
      *
      * @return Mage_Checkout_Model_Type_Onepage
      */
@@ -149,7 +164,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             return;
         }
         Mage::getSingleton('checkout/session')->setCartWasUpdated(false);
-        Mage::getSingleton('customer/session')->setBeforeAuthUrl($this->getRequest()->getRequestUri());
+        Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', array('_secure'=>true)));
         $this->getOnepage()->initCheckout();
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
@@ -187,6 +202,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->renderLayout();
     }
 
+    /**
+     * Order success action
+     */
     public function successAction()
     {
         if (!$this->getOnepage()->getCheckout()->getLastSuccessQuoteId()) {
@@ -245,6 +263,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         }
     }
 
+    /**
+     * Save checkout method
+     */
     public function saveMethodAction()
     {
         if ($this->_expireAjax()) {
@@ -281,11 +302,8 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                         'name' => 'payment-method',
                         'html' => $this->_getPaymentMethodsHtml()
                     );
-                }
-                elseif (isset($data['use_for_shipping']) && $data['use_for_shipping'] == 1) {
-
-                   $result['goto_section'] = 'shipping_method';
-
+                } elseif (isset($data['use_for_shipping']) && $data['use_for_shipping'] == 1) {
+                    $result['goto_section'] = 'shipping_method';
                     $result['update_section'] = array(
                         'name' => 'shipping-method',
                         'html' => $this->_getShippingMethodsHtml()
@@ -293,8 +311,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
                     $result['allow_sections'] = array('shipping');
                     $result['duplicateBillingInfo'] = 'true';
-                }
-                else {
+                } else {
                     $result['goto_section'] = 'shipping';
                 }
             }
@@ -303,6 +320,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         }
     }
 
+    /**
+     * Shipping address save action
+     */
     public function saveShippingAction()
     {
         if ($this->_expireAjax()) {
@@ -320,15 +340,13 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                     'html' => $this->_getShippingMethodsHtml()
                 );
             }
-
-//            $this->loadLayout('checkout_onepage_shippingMethod');
-//            $result['shipping_methods_html'] = $this->getLayout()->getBlock('root')->toHtml();
-//            $result['shipping_methods_html'] = $this->_getShippingMethodsHtml();
-
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
 
+    /**
+     * Shipping method save action
+     */
     public function saveShippingMethodAction()
     {
         if ($this->_expireAjax()) {
@@ -349,12 +367,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                     'name' => 'payment-method',
                     'html' => $this->_getPaymentMethodsHtml()
                 );
-
-//                $result['payment_methods_html'] = $this->_getPaymentMethodsHtml();
             }
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
-
     }
 
     /**
@@ -405,6 +420,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
+    /**
+     * Create order action
+     */
     public function saveOrderAction()
     {
         if ($this->_expireAjax()) {
@@ -430,8 +448,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $redirectUrl = $this->getOnepage()->getCheckout()->getRedirectUrl();
             $result['success'] = true;
             $result['error']   = false;
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
             Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $e->getMessage());
             $result['success'] = false;
@@ -455,8 +472,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             }
 
             $this->getOnepage()->getQuote()->save();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::logException($e);
             Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $e->getMessage());
             $result['success']  = false;

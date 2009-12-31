@@ -204,6 +204,20 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * Return dependency block object
+     *
+     * @return Mage_Adminhtml_Block_Widget_Form_Element_Dependence
+     */
+    protected function _getDependence()
+    {
+        if (!$this->getChild('element_dependense')){
+            $this->setChild('element_dependense',
+                $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence'));
+        }
+        return $this->getChild('element_dependense');
+    }
+
+    /**
      * Init fieldset fields
      *
      * @param Varien_Data_Form_Element_Fieldset $fieldset
@@ -265,6 +279,18 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     $model->setPath($path)->setValue($data)->afterLoad();
                     $data = $model->getValue();
                 }
+
+                if ($e->depends) {
+                    foreach ($e->depends->children() as $dependent) {
+                        $dependentId = $section->getName() . '_' . $group->getName() . '_' . $fieldPrefix . $dependent->getName();
+                        $dependentValue = (string) $dependent;
+                        $this->_getDependence()
+                            ->addFieldMap($id, $id)
+                            ->addFieldMap($dependentId, $dependentId)
+                            ->addFieldDependence($id, $dependentId, $dependentValue);
+                    }
+                }
+
                 $field = $fieldset->addField($id, $fieldType, array(
                     'name'                  => $name,
                     'label'                 => $label,
@@ -303,6 +329,19 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         return $this;
     }
 
+    /**
+     * Append dependence block at then end of form block
+     *
+     *
+     */
+    protected function _afterToHtml($html)
+    {
+        if ($this->_getDependence()) {
+            $html .= $this->_getDependence()->toHtml();
+        }
+        $html = parent::_afterToHtml($html);
+        return $html;
+    }
 
     /**
      * Enter description here...

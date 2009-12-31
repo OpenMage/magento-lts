@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments
     public function __construct()
     {
         parent::__construct();
-        $this->setId('order_shipments_grid');
+        $this->setId('order_shipments');
         $this->setUseAjax(true);
     }
 

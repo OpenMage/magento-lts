@@ -31,7 +31,7 @@
  * @package    Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Core_Model_Mysql4_Email_Template
+class Mage_Core_Model_Mysql4_Email_Template extends Mage_Core_Model_Mysql4_Abstract
 {
 
     /**
@@ -51,36 +51,15 @@ class Mage_Core_Model_Mysql4_Email_Template
     protected $_read;
 
     /**
-     * Constructor
+     * Initialize email template resource model
      *
-     * Initializes resource
      */
-    public function __construct()
+    public function _construct()
     {
-        $this->_templateTable = Mage::getSingleton('core/resource')->getTableName('core/email_template');
-        $this->_read = Mage::getSingleton('core/resource')->getConnection('core_read');
-        $this->_write = Mage::getSingleton('core/resource')->getConnection('core_write');
-    }
-
-    /**
-     * Load template from DB
-     *
-     * @param  int $templateId
-     * @return array
-     */
-    public function load($templateId)
-    {
-        $select = $this->_read->select()
-            ->from($this->_templateTable)
-            ->where('template_id=?', $templateId);
-
-        $result = $this->_read->fetchRow($select);
-
-        if (!$result) {
-            return array();
-        }
-
-        return $result;
+        $this->_init('core/email_template', 'template_id');
+        $this->_templateTable = $this->getTable('core/email_template');
+        $this->_read = $this->_getReadAdapter();
+        $this->_write = $this->_getWriteAdapter();
     }
 
     /**
@@ -132,107 +111,44 @@ class Mage_Core_Model_Mysql4_Email_Template
         }
     }
 
-    /**
-     * Save template to DB
+   /**
+     * Set template type, added at and modified at time
      *
-     * @param   Mage_Core_Model_Email_Template $template
-     * @return  Mage_Core_Model_Mysql_Email_Template
+     * @param Varien_Object $object
      */
-    public function save(Mage_Core_Model_Email_Template $template)
+    protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        $this->_write->beginTransaction();
-        try {
-            $data = $this->_prepareSave($template);
-            if($template->getId()) {
-                $this->_write->update($this->_templateTable, $data,
-                                      $this->_write->quoteInto('template_id=?',$template->getId()));
-            } else {
-                $this->_write->insert($this->_templateTable, $data);
-                $template->setId($this->_write->lastInsertId($this->_templateTable));
-            }
-
-            $this->_write->commit();
+        if(!$object->getAddedAt()) {
+            $object->setAddedAt(Mage::getSingleton('core/date')->gmtDate());
+            $object->setModifiedAt(Mage::getSingleton('core/date')->gmtDate());
         }
-        catch (Exception $e) {
-            $this->_write->rollBack();
-            throw $e;
-        }
+        $object->setTemplateType((int)$object->getTemplateType());
+        return parent::_beforeSave($object);
     }
 
     /**
-     * Prepares template for saving, validates input data
+     * Retrieve config scope and scope id of specified email template by email pathes
      *
-     * @param   Mage_Core_Model_Email_Template $template
-     * @return  array
+     * @param array $paths
+     * @param int|string $templateId
+     * @return array
      */
-    protected function _prepareSave(Mage_Core_Model_Email_Template $template)
+    public function getSystemConfigByPathsAndTemplateId($paths, $templateId)
     {
-        $data = array();
-        $data['template_code'] 			= $template->getTemplateCode();
-        $data['template_text'] 			= $template->getTemplateText();
-        $data['template_type'] 			= (int) $template->getTemplateType();
-        $data['template_subject'] 		= $template->getTemplateSubject();
-        $data['template_sender_name'] 	= $template->getTemplateSenderName();
-        $data['template_sender_email'] 	= $template->getTemplateSenderEmail();
-
-        if(!$template->getAddedAt()) {
-            $template->setAddedAt(Mage::getSingleton('core/date')->gmtDate());
-            $template->setModifiedAt(Mage::getSingleton('core/date')->gmtDate());
+        $adapter = $this->_getReadAdapter();
+        $orWhere = array();
+        foreach ($paths as $path) {
+            $orWhere[] = $adapter->quoteInto('path = ?', $path);
         }
+        $select = $this->_read->select()
+            ->from($this->getTable('core/config_data'), array('scope', 'scope_id', 'path'))
+            ->where('value=?', $templateId)
+            ->where(join(' OR ', $orWhere));
 
-        $data['modified_at']	 = $template->getModifiedAt();
-        $data['added_at']	 	 = $template->getAddedAt();
-
-        if($this->checkCodeUsage($template)) {
-            Mage::throwException(Mage::helper('core')->__('Duplicate Of Template Code'));
+        $result = $this->_read->fetchAll($select);
+        if (!$result) {
+            return array();
         }
-
-        $validators = array(
-            'template_code' 		=> array(Zend_Filter_Input::ALLOW_EMPTY => false),
-            #'template_type' 		=> 'Alnum',
-            #'template_sender_email' => 'EmailAddress',
-            #'template_sender_name'	=> array(Zend_Filter_Input::ALLOW_EMPTY => false)
-        );
-
-        $validateInput = new Zend_Filter_Input(array(), $validators, $data);
-        if(!$validateInput->isValid()) {
-            $errorString = '';
-
-            foreach($validateInput->getMessages() as $message) {
-                if(is_array($message)) {
-                    foreach($message as $str) {
-                        $errorString.= $str . "\n";
-                    }
-                } else {
-                    $errorString.= $message . "\n";
-                }
-
-            }
-
-            Mage::throwException($errorString);
-        }
-
-        return $data;
-    }
-
-    /**
-     * Delete template record in DB.
-     *
-     * @param   int $templateId
-     * @return  Mage_Core_Model_Mysql_Email_Template
-     */
-    public function delete($templateId)
-    {
-        $this->_write->beginTransaction();
-        try {
-            $this->_write->delete($this->_templateTable, $this->_write->quoteInto('template_id=?', $templateId));
-            $this->_write->commit();
-        }
-        catch(Exception $e) {
-            $this->_write->rollBack();
-            Mage::throwException(Mage::helper('core')->__('Cannot Delete Email Template'));
-        }
-
-        return $this;
+        return $result;
     }
 }

@@ -353,7 +353,8 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             $this->_getSession()->addError($e->getMessage());
         }
         catch (Exception $e) {
-            $this->_getSession()->addError($this->__('Can not save credit memo'));
+            Mage::logException($e);
+            $this->_getSession()->addError($this->__('Cannot save Credit Memo.'));
         }
         $this->_redirect('*/*/new', array('_current' => true));
     }

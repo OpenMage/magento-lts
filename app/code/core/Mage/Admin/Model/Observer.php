@@ -50,8 +50,8 @@ class Mage_Admin_Model_Observer
             if (!$user || !$user->getId()) {
                 if ($request->getPost('login')) {
                     $postLogin  = $request->getPost('login');
-                    $username   = $postLogin['username'];
-                    $password   = $postLogin['password'];
+                    $username   = isset($postLogin['username']) ? $postLogin['username'] : '';
+                    $password   = isset($postLogin['password']) ? $postLogin['password'] : '';
                     $user = $session->login($username, $password, $request);
                     $request->setPost('login', null);
                 }

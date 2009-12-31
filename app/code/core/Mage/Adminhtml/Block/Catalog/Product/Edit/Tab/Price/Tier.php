@@ -314,6 +314,22 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier
     }
 
     /**
+     * Returns customized price column header
+     * that was seted through set...
+     *
+     * @param string $default
+     * @return string
+     */
+    public function getPriceValidation($default)
+    {
+        if ($this->hasData('price_validation')) {
+            return $this->getData('price_validation');
+        } else {
+            return $default;
+        }
+    }
+
+    /**
      * Retrieve Tier Price entity attribute
      *
      * @return Mage_Catalog_Model_Resource_Eav_Attribute

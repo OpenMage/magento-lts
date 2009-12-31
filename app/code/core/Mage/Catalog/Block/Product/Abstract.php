@@ -439,4 +439,24 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     {
         return $this->helper('page/layout')->getCurrentPageLayout();
     }
+
+    /**
+     * If exists price template block, retrieve price blocks from it
+     *
+     * @return Mage_Catalog_Block_Product_Abstract
+     */
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+
+        /* @var $block Mage_Catalog_Block_Product_Price_Template */
+        $block = $this->getLayout()->getBlock('catalog_product_price_template');
+        if ($block) {
+            foreach ($block->getPriceBlockTypes() as $type => $priceBlock) {
+                $this->addPriceBlockType($type, $priceBlock['block'], $priceBlock['template']);
+            }
+        }
+
+        return $this;
+    }
 }

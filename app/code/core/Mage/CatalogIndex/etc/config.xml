@@ -73,8 +73,8 @@
             <catalogindex_mysql4>
                 <class>Mage_CatalogIndex_Model_Mysql4</class>
                 <entities>
-                    <eav><table>catalogindex_eav</table></eav>
-                    <price><table>catalogindex_price</table></price>
+                    <eav><table>catalog_product_index_eav</table></eav>
+                    <price><table>catalog_product_index_price</table></price>
                     <minimal_price><table>catalogindex_minimal_price</table></minimal_price>
                     <aggregation><table>catalogindex_aggregation</table></aggregation>
                     <aggregation_tag><table>catalogindex_aggregation_tag</table></aggregation_tag>
@@ -256,14 +256,14 @@
 
     <crontab>
         <jobs>
-            <catalogindex_reindex_all>
-                <schedule><cron_expr>0 2 * * *</cron_expr></schedule>
-                <run><model>catalogindex/observer::reindexAll</model></run>
-            </catalogindex_reindex_all>
-            <catalogindex_run_queued>
-                <schedule><cron_expr>* * * * *</cron_expr></schedule>
-                <run><model>catalogindex/observer::runQueuedIndexing</model></run>
-            </catalogindex_run_queued>
+<!--            <catalogindex_reindex_all>-->
+<!--                <schedule><cron_expr>0 2 * * *</cron_expr></schedule>-->
+<!--                <run><model>catalogindex/observer::reindexAll</model></run>-->
+<!--            </catalogindex_reindex_all>-->
+<!--            <catalogindex_run_queued>-->
+<!--                <schedule><cron_expr>* * * * *</cron_expr></schedule>-->
+<!--                <run><model>catalogindex/observer::runQueuedIndexing</model></run>-->
+<!--            </catalogindex_run_queued>-->
         </jobs>
     </crontab>
 </config>

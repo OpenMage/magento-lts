@@ -55,6 +55,20 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     protected $_product;
 
     /**
+     * Count of sent in last period
+     *
+     * @var int
+     */
+    protected $_sentCount;
+
+    /**
+     * Last values for Cookie
+     *
+     * @var string
+     */
+    protected $_lastCookieValue = array();
+
+    /**
      * Initialize resource model
      *
      */
@@ -80,12 +94,15 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      * @return array
      */
     public function toOptionArray()
-    {
-        return array();
+    {        return array();
     }
 
     public function send()
     {
+        if ($this->isExceedLimit()){
+            Mage::throwException(Mage::helper('sendfriend')->__('You have exceeded limit of %d sends in an hour', $this->getMaxSendsToFriend()));
+        }
+
         /* @var $translate Mage_Core_Model_Translate */
         $translate = Mage::getSingleton('core/translate');
         $translate->setTranslateInline(false);
@@ -126,6 +143,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         }
 
         $translate->setTranslateInline(true);
+        $this->_incrementSentCount();
 
         return $this;
     }
@@ -164,23 +182,6 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
                 $errors[] = Mage::helper('sendfriend')->__('You input invalid email address for recipient');
                 break;
             }
-        }
-
-        switch ($this->_getHelper()->getLimitBy()) {
-            case Mage_Sendfriend_Helper_Data::CHECK_COOKIE:
-                $amount = $this->_amountByCookies();
-                break;
-
-            case Mage_Sendfriend_Helper_Data::CHECK_IP:
-                $amount = $this->_amountByIp();
-                break;
-            default:
-                $amount = 0;
-                break;
-        }
-
-        if ($amount >= $this->getMaxSendsToFriend()){
-            $errors[] = Mage::helper('sendfriend')->__('You have exceeded limit of %d sends in an hour', $this->getMaxSendsToFriend());
         }
 
         $maxRecipients = $this->getMaxRecipients();
@@ -241,6 +242,28 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     public function getRemoteAddr()
     {
         return $this->_getData('_remote_addr');
+    }
+
+    /**
+     * Set Website Id
+     *
+     * @param int $id - website id
+     * @return Mage_Sendfriend_Model_Sendfriend
+     */
+    public function setWebsiteId($id)
+    {
+        $this->setData('_website_id', $id);
+        return $this;
+    }
+
+    /**
+     * Retrieve Website Id
+     *
+     * @return int
+     */
+    public function getWebsiteId()
+    {
+        return $this->_getData('_website_id');
     }
 
     /**
@@ -352,8 +375,10 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve Send count by IP
-     *
+     * @deprecated after 1.3.2.4
+     * For get count sent letters use Mage_Sendfriend_Model_Sendfriend::getSentCount
+     * or Mage_Sendfriend_Model_Sendfriend::isExceedLimit
+     * 
      * @param int $ip
      * @param int $startTime
      * @return int
@@ -411,16 +436,72 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve amount by cookie
+     * Check if user is exceed limit
      *
+     * @return boolean
+     */
+    public function isExceedLimit()
+    {
+        return $this->getSentCount() >= $this->getMaxSendsToFriend();
+    }
+
+    /**
+     * Return count of sent in last period
+     * 
+     * @param bool $useCache - flag, is allow to use value of attribute of model if it is processed last time 
      * @return int
      */
-    protected function _amountByCookies()
+    public function getSentCount($useCache = true)
+    {
+        if ($useCache && !is_null($this->_sentCount)) {
+            return $this->_sentCount;
+        }
+
+        switch ($this->_getHelper()->getLimitBy()) {
+            case Mage_Sendfriend_Helper_Data::CHECK_COOKIE:
+                return $this->_sentCount = $this->_sentCountByCookies(false);
+            case Mage_Sendfriend_Helper_Data::CHECK_IP:
+                return $this->_sentCount = $this->_sentCountByIp(false);
+            default:
+                return 0;
+        }
+    }
+
+    /**
+     * Increase count of sent
+     * 
+     * @return int
+     */
+    protected function _incrementSentCount()
+    {
+        switch ($this->_getHelper()->getLimitBy()) {
+            case Mage_Sendfriend_Helper_Data::CHECK_COOKIE:
+                return $this->_sentCount = $this->_sentCountByCookies(true);
+            case Mage_Sendfriend_Helper_Data::CHECK_IP:
+                return $this->_sentCount = $this->_sentCountByIp(true);
+            default:
+                return 0;
+        }
+    }
+
+    /**
+     * Return count of sent in last period by cookie
+     *
+     * @param bool $increment - flag, increase count before return value 
+     * @return int
+     */
+    protected function _sentCountByCookies($increment = false)
     {
         $cookie   = $this->_getHelper()->getCookieName();
         $time     = time();
         $newTimes = array();
-        $oldTimes = $this->getCookie()->get($cookie);
+
+        if (isset($this->_lastCookieValue[$cookie])) {
+            $oldTimes = $this->_lastCookieValue[$cookie];
+        } else {
+            $oldTimes = $this->getCookie()->get($cookie);
+        }
+
         if ($oldTimes) {
             $oldTimes = explode(',', $oldTimes);
             foreach ($oldTimes as $oldTime) {
@@ -431,36 +512,36 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
             }
         }
 
-        $amount = count($newTimes);
-        $newTimes[] = $time;
+        if ($increment) {
+            $newTimes[] = $time;
+            $newValue = implode(',', $newTimes);
+            $this->getCookie()->set($cookie, $newValue);
+            $this->_lastCookieValue[$cookie] = $newValue;
+        }
 
-        $this->getCookie()->set($cookie, implode(',', $newTimes));
-
-        return $amount;
+        return count($newTimes);
     }
-
     /**
-     * Retrieve amount by IP address
+     * Return count of sent in last period by IP address
      *
+     * @param bool $increment - flag, increase count before return value
      * @return int
      */
-    protected function _amountByIp()
+    protected function _sentCountByIp($increment = false)
     {
         $time   = time();
         $period = $this->_getHelper()->getPeriod();
+        $websiteId = $this->getWebsiteId();
 
-        // delete expired logs
-        $this->_getResource()->deleteLogsBefore($time - $period);
+        if ($increment) {
+            // delete expired logs
+            $this->_getResource()->deleteLogsBefore($time - $period);
+            // add new item
+            $this->_getResource()->addSendItem($this->getRemoteAddr(), $time, $websiteId);
+        }
 
-        $amount = $this->getSendCount($this->_ip, time() - $this->_period);
-
-        $this->setIp($this->getRemoteAddr())
-            ->setTime($time)
-            ->save();
-
-        return $amount;
+        return $this->_getResource()->getSendCount($this, $this->getRemoteAddr(), time() - $period, $websiteId); 
     }
-
     /**
      * Register self in global register with name send_to_friend_model
      *
@@ -472,5 +553,27 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
             Mage::register('send_to_friend_model', $this);
         }
         return $this;
+    }
+
+    /**
+     * @deprecated after 1.3.2.4
+     * use Mage_Sendfriend_Model_Sendfriend::_sentCountByCookies
+     * 
+     * @return int
+     */
+    protected function _amountByCookies()
+    {
+        return $this->_sentCountByCookies(true);
+    }
+
+    /**
+     * @deprecated after 1.3.2.4
+     * use Mage_Sendfriend_Model_Sendfriend::_sentCountByIp
+     *
+     * @return int
+     */
+    protected function _amountByIp()
+    {
+        return $this->_sentCountByIp(true);
     }
 }

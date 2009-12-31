@@ -540,11 +540,14 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
             }
             $_type = '';
             $_is_unsigned = '';
-            switch ($column['DATA_TYPE']) {
+             switch ($column['DATA_TYPE']) {
                 case 'smallint':
                 case 'int':
                     $_type = $column['DATA_TYPE'] . '(11)';
                     $_is_unsigned = (bool)$column['UNSIGNED'];
+                    if ($column['DEFAULT'] === '') {
+                        $column['DEFAULT'] = null;
+                    }
                     break;
                 case 'varchar':
                     $_type = $column['DATA_TYPE'] . '(' . $column['LENGTH'] . ')';
@@ -557,6 +560,9 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat extends Mage_Core_Mod
                 case 'decimal':
                     $_type = $columns['DATA_TYPE'] . '(' . $column['PRECISION'] . ',' . $column['SCALE'] . ')';
                     $_is_unsigned = null;
+                    if ($column['DEFAULT'] === '') {
+                        $column['DEFAULT'] = null;
+                    }
                     break;
             }
             $columns[$column['COLUMN_NAME']] = array(

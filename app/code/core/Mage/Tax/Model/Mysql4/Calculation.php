@@ -56,6 +56,21 @@ class Mage_Tax_Model_Mysql4_Calculation extends Mage_Core_Model_Mysql4_Abstract
         return $this->_getReadAdapter()->fetchCol($select);
     }
 
+    /**
+     * Get tax rate information: calculation process data and tax rate
+     * 
+     * @param   Varien_Object $request
+     * @return  array
+     */
+    public function getRateInfo($request)
+    {
+        $rates = $this->_getRates($request);
+        return array(
+            'process'   => $this->getCalculationProcess($request, $rates),
+            'value'     => $this->_calculateRate($rates)
+        );
+    }
+    
     public function getRate($request)
     {
         return $this->_calculateRate($this->_getRates($request));

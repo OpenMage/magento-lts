@@ -110,13 +110,16 @@ class Mage_Tax_Model_Observer
 
         $additionalCalculations = $response->getAdditionalCalculations();
         $calculation = Mage::helper('tax')->getPriceTaxSql(
-            $table . '.min_price', 'IFNULL(tax_class_c.value, tax_class_d.value)'
+            $table . '.min_price', $table.'.tax_class_id'
         );
 
         if (!empty($calculation)) {
             $additionalCalculations[] = $calculation;
             $response->setAdditionalCalculations($additionalCalculations);
-            Mage::helper('tax')->joinTaxClass($select, $storeId, $table);
+            /**
+             * Tax class presented in price index table
+             */
+            //Mage::helper('tax')->joinTaxClass($select, $storeId, $table);
         }
 
         return $this;

@@ -115,12 +115,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      */
     public function displayTotalsIncludeTax()
     {
-        if (Mage::helper('tax')->priceIncludesTax($this->getStore())) {
-            $res = Mage::helper('tax')->displayCartPriceInclTax($this->getStore()) ||
-                Mage::helper('tax')->displayCartBothPrices($this->getStore());
-        } else {
-            $res = Mage::helper('tax')->displayCartPriceInclTax($this->getStore());
-        }
+        $res = Mage::getSingleton('tax/config')->displayCartSubtotalInclTax($this->getStore())
+            || Mage::getSingleton('tax/config')->displayCartSubtotalBoth($this->getStore());
         return $res;
     }
 
@@ -128,6 +124,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     {
         $address = $this->getQuote()->getShippingAddress();
         if ($this->displayTotalsIncludeTax()) {
+            if ($address->getSubtotalInclTax()) {
+                return $address->getSubtotalInclTax();
+            }
             return $address->getSubtotal()+$address->getTaxAmount();
         } else {
             return $address->getSubtotal();

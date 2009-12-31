@@ -38,19 +38,6 @@
  */
 class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 {
-    /**
-     * Checkout methods
-     */
-    const CHECKOUT_METHOD_REGISTER = 'register';
-    const CHECKOUT_METHOD_GUEST = 'guest';
-    const CHECKOUT_METHOD_LOGIN_IN = 'login_in';
-
-    /**
-     * Performance +30% without cache
-     */
-//    const CACHE_TAG         = 'sales_quote';
-//    protected $_cacheTag    = 'sales_quote';
-
     protected $_eventPrefix = 'sales_quote';
     protected $_eventObject = 'quote';
 
@@ -194,6 +181,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->setIsChanged(0);
         }
 
+        if ($this->_customer) {
+            $this->setCustomerId($this->_customer->getId());
+        }
+
         parent::_beforeSave();
     }
 
@@ -280,6 +271,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function setCustomer(Mage_Customer_Model_Customer $customer)
     {
         $this->_customer = $customer;
+        $this->setCustomerId($customer->getId());
         Mage::helper('core')->copyFieldset('customer_account', 'to_quote', $customer, $this);
         return $this;
     }
@@ -314,20 +306,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->setCustomerTaxClassId($classId);
         //}
         return $this->getData('customer_tax_class_id');
-    }
-
-    /**
-     * Return quote checkout method code
-     *
-     * @param boolean $originalMethod if true return defined method from begining
-     * @return string
-     */
-    public function getCheckoutMethod($originalMethod = false)
-    {
-        if ($this->getCustomerId() && !$originalMethod) {
-            return self::CHECKOUT_METHOD_LOGIN_IN;
-        }
-        return $this->_getData('checkout_method');
     }
 
     /**
@@ -1048,6 +1026,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         return $messages;
     }
 
+    /**
+     * Generate new increment order id and associate it with current quote
+     *
+     * @return Mage_Sales_Model_Quote
+     */
     public function reserveOrderId()
     {
         if (!$this->getReservedOrderId()) {
@@ -1146,16 +1129,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Check is allow Guest Checkout
-     *
-     * @return bool
-     */
-    public function isAllowedGuestCheckout()
-    {
-        return Mage::helper('checkout')->isAllowedGuestCheckout($this, $this->getStoreId());
-    }
-
-    /**
      * Merge quotes
      *
      * @param   Mage_Sales_Model_Quote $quote
@@ -1241,5 +1214,42 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->collectTotals()->save();
         }
         return parent::_afterLoad();
+    }
+
+
+
+
+
+    /**
+     * @deprecated after 1.4 beta1 - one page checkout responsibility
+     */
+    const CHECKOUT_METHOD_REGISTER  = 'register';
+    const CHECKOUT_METHOD_GUEST     = 'guest';
+    const CHECKOUT_METHOD_LOGIN_IN  = 'login_in';
+
+    /**
+     * Return quote checkout method code
+     *
+     * @deprecated after 1.4 beta1 it is checkout module responsibility
+     * @param boolean $originalMethod if true return defined method from begining
+     * @return string
+     */
+    public function getCheckoutMethod($originalMethod = false)
+    {
+        if ($this->getCustomerId() && !$originalMethod) {
+            return self::CHECKOUT_METHOD_LOGIN_IN;
+        }
+        return $this->_getData('checkout_method');
+    }
+
+    /**
+     * Check is allow Guest Checkout
+     *
+     * @deprecated after 1.4 beta1 it is checkout module responsibility
+     * @return bool
+     */
+    public function isAllowedGuestCheckout()
+    {
+        return Mage::helper('checkout')->isAllowedGuestCheckout($this, $this->getStoreId());
     }
 }

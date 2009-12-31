@@ -33,6 +33,14 @@
  */
 class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
 {
+    /**
+     * rating entity codes
+     *
+     */
+    const ENTITY_PRODUCT_CODE           = 'product';
+    const ENTITY_PRODUCT_REVIEW_CODE    = 'product_review';
+    const ENTITY_REVIEW_CODE            = 'review';
+
     public function __construct()
     {
         $this->_init('rating/rating');
@@ -94,5 +102,16 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     {
         $this->setReviewId($reviewId);
         return $this->_getResource()->getReviewSummary($this, $onlyForCurrentStore);
+    }
+
+    /**
+     * Get rating entity type id by code
+     *
+     * @param string $entityCode
+     * @return int
+     */
+    public function getEntityIdByCode($entityCode)
+    {
+        return $this->getResource()->getEntityIdByCode($entityCode);
     }
 }

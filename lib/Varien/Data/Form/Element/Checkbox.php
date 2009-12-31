@@ -42,7 +42,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
 
     public function getHtmlAttributes()
     {
-        return array('type', 'title', 'class', 'style', 'checked', 'onclick', 'onchange', 'disabled');
+        return array('type', 'title', 'class', 'style', 'checked', 'onclick', 'onchange', 'disabled', 'tabindex');
     }
 
     public function getElementHtml()

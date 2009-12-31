@@ -113,6 +113,10 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         return false;
     }
 
+    /**
+     * Create main block for standard form
+     *
+     */
     public function createFormBlock($name)
     {
         $block = $this->getLayout()->createBlock('paypal/standard_form', $name)
@@ -144,16 +148,21 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
     }
 
-    public function canCapture()
-    {
-        return false;
-    }
-
+    /**
+     * Return Order place redirect url
+     *
+     * @return string
+     */
     public function getOrderPlaceRedirectUrl()
     {
           return Mage::getUrl('paypal/standard/redirect', array('_secure' => true));
     }
 
+    /**
+     * Return form field array
+     *
+     * @return array
+     */
     public function getStandardCheckoutFormFields()
     {
         if ($this->getQuote()->getIsVirtual()) {
@@ -182,7 +191,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
             'business'          => Mage::getStoreConfig('paypal/wps/business_account'),
             'return'            => Mage::getUrl('paypal/standard/success',array('_secure' => true)),
             'cancel_return'     => Mage::getUrl('paypal/standard/cancel',array('_secure' => false)),
-            'notify_url'        => Mage::getUrl('paypal/standard/ipn'),
+            'notify_url'        => Mage::getUrl('paypal/ipn/standard'),
             'invoice'           => $this->getCheckout()->getLastRealOrderId(),
             'currency_code'     => $currency_code,
             'address_override'  => 1,
@@ -197,7 +206,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
             'bn'                => 'Varien_Cart_WPS_US'
         );
 
-        $logoUrl = Mage::getStoreConfig('paypal/wps/logo_url');
+        $logoUrl = Mage::getStoreConfig('paypal/style/logo_url');
         if($logoUrl){
              $sArr = array_merge($sArr, array(
                   'cpp_header_image' => $logoUrl
@@ -217,8 +226,8 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         */
         if ($transaciton_type=='O') {
             $businessName = Mage::getStoreConfig('paypal/wps/business_name');
-            $storeName = Mage::getStoreConfig('store/system/name');
-            $amount = ($a->getBaseSubtotal()+$b->getBaseSubtotal())-($a->getBaseDiscountAmount()+$b->getBaseDiscountAmount());
+            $storeName = Mage::getStoreConfig('system/store/name');
+            $amount = $a->getBaseSubtotal()+$b->getBaseSubtotal()+$a->getBaseDiscountAmount()+$b->getBaseDiscountAmount();
             $sArr = array_merge($sArr, array(
                     'cmd'           => '_ext-enter',
                     'redirect_cmd'  => '_xclick',
@@ -251,7 +260,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
                         'item_name_'.$i      => $item->getName(),
                         'item_number_'.$i      => $item->getSku(),
                         'quantity_'.$i      => $item->getQty(),
-                        'amount_'.$i      => sprintf('%.2f', ($item->getBaseCalculationPrice() - $item->getBaseDiscountAmount())),
+                        'amount_'.$i      => sprintf('%.2f', ($item->getBaseCalculationPrice() + $item->getBaseDiscountAmount())),
                     ));
                     if($item->getBaseTaxAmount()>0){
                         $sArr = array_merge($sArr, array(
@@ -312,6 +321,10 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         return $rArr;
     }
 
+    /**
+     * Return request url, all information will be sended to this url
+     * @return string
+     */
     public function getPaypalUrl()
     {
          if (Mage::getStoreConfig('paypal/wps/sandbox_flag')==1) {
@@ -322,170 +335,41 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
          return $url;
     }
 
+    /**
+     * Get debug flag value
+     *
+     * @return bool
+     */
     public function getDebug()
     {
         return Mage::getStoreConfig('paypal/wps/debug_flag');
     }
 
 
+    /**
+     * Process IPN request, store data in comments
+     * @deprecated after 1.4.0.0-alpha3
+     */
     public function ipnPostSubmit()
     {
-        $sReq = '';
-        $sReqDebug = '';
-        foreach($this->getIpnFormData() as $k=>$v) {
-            $sReq .= '&'.$k.'='.urlencode(stripslashes($v));
-            $sReqDebug .= '&'.$k.'=';
-
-        }
-        //append ipn commdn
-        $sReq .= "&cmd=_notify-validate";
-        $sReq = substr($sReq, 1);
-
-        if ($this->getDebug()) {
-            $debug = Mage::getModel('paypal/api_debug')
-                    ->setApiEndpoint($this->getPaypalUrl())
-                    ->setRequestBody($sReq)
-                    ->save();
-        }
-        $http = new Varien_Http_Adapter_Curl();
-        $http->write(Zend_Http_Client::POST,$this->getPaypalUrl(), '1.1', array(), $sReq);
-        $response = $http->read();
-        $response = preg_split('/^\r?$/m', $response, 2);
-        $response = trim($response[1]);
-        if ($this->getDebug()) {
-            $debug->setResponseBody($response)->save();
-        }
-
-         //when verified need to convert order into invoice
-        $id = $this->getIpnFormData('invoice');
-        $order = Mage::getModel('sales/order');
-        $order->loadByIncrementId($id);
-
-        if ($response=='VERIFIED') {
-            if (!$order->getId()) {
-                /*
-                * need to have logic when there is no order with the order id from paypal
-                */
-
-            } else {
-
-                if ($this->getIpnFormData('mc_gross')!=$order->getBaseGrandTotal()) {
-                    //when grand total does not equal, need to have some logic to take care
-                    $order->addStatusToHistory(
-                        $order->getStatus(),//continue setting current order status
-                        Mage::helper('paypal')->__('Order total amount does not match paypal gross total amount')
-                    );
-                    $order->save();
-                } else {
-                    /*
-                    //quote id
-                    $quote_id = $order->getQuoteId();
-                    //the customer close the browser or going back after submitting payment
-                    //so the quote is still in session and need to clear the session
-                    //and send email
-                    if ($this->getQuote() && $this->getQuote()->getId()==$quote_id) {
-                        $this->getCheckout()->clear();
-                        $order->sendNewOrderEmail();
-                    }
-                    */
-
-                    /*
-                    if payer_status=verified ==> transaction in sale mode
-                    if transactin in sale mode, we need to create an invoice
-                    otherwise transaction in authorization mode
-                    */
-                    if ($this->getIpnFormData('payment_status') == 'Completed') {
-                       if (!$order->canInvoice()) {
-                           //when order cannot create invoice, need to have some logic to take care
-                           $order->addStatusToHistory(
-                                $order->getStatus(), // keep order status/state
-                                Mage::helper('paypal')->__('Error in creating an invoice', true),
-                                $notified = true
-                           );
-
-                       } else {
-                           //need to save transaction id
-                           $order->getPayment()->setTransactionId($this->getIpnFormData('txn_id'));
-                           //need to convert from order into invoice
-                           $invoice = $order->prepareInvoice();
-                           $invoice->register()->pay();
-                           Mage::getModel('core/resource_transaction')
-                               ->addObject($invoice)
-                               ->addObject($invoice->getOrder())
-                               ->save();
-                           $order->setState(
-                               Mage_Sales_Model_Order::STATE_COMPLETE, true,
-                               Mage::helper('paypal')->__('Invoice #%s created', $invoice->getIncrementId()),
-                               $notified = true
-                           );
-                       }
-                    } else {
-                        $newOrderStatus = $this->getConfigData('order_status', $order->getStoreId());
-                        if (empty($newOrderStatus)) {
-                            $newOrderStatus = true;
-                        }
-                        $order->setState(
-                            Mage_Sales_Model_Order::STATE_PROCESSING, $newOrderStatus,
-                            Mage::helper('paypal')->__('Received IPN verification'),
-                            $notified = true
-                        );
-                    }
-
-                    $ipnCustomerNotified = true;
-                    if (!$order->getPaypalIpnCustomerNotified()) {
-                        $ipnCustomerNotified = false;
-                        $order->setPaypalIpnCustomerNotified(1);
-                    }
-
-                    $order->save();
-
-                    if (!$ipnCustomerNotified) {
-                        $order->sendNewOrderEmail();
-                    }
-
-                }//else amount the same and there is order obj
-                //there are status added to order
-            }
-        }else{
-            /*
-            Canceled_Reversal
-            Completed
-            Denied
-            Expired
-            Failed
-            Pending
-            Processed
-            Refunded
-            Reversed
-            Voided
-            */
-            $payment_status= $this->getIpnFormData('payment_status');
-            $comment = $payment_status;
-            if ($payment_status == 'Pending') {
-                $comment .= ' - ' . $this->getIpnFormData('pending_reason');
-            } elseif ( ($payment_status == 'Reversed') || ($payment_status == 'Refunded') ) {
-                $comment .= ' - ' . $this->getIpnFormData('reason_code');
-            }
-            //response error
-            if (!$order->getId()) {
-                /*
-                * need to have logic when there is no order with the order id from paypal
-                */
-            } else {
-                $order->addStatusToHistory(
-                    $order->getStatus(),//continue setting current order status
-                    Mage::helper('paypal')->__('Paypal IPN Invalid %s.', $comment)
-                );
-                $order->save();
-            }
-        }
+        $ipn = Mage::getModel('paypal/ipn');
+        $ipn->setIpnFormData($this->getIpnFormData())->processIpnRequest();
     }
 
+    /**
+     * Get initialized flag status
+     * @return true
+     */
     public function isInitializeNeeded()
     {
         return true;
     }
 
+    /**
+     * Instantiate state and set it to state onject
+     * //@param
+     * //@param
+     */
     public function initialize($paymentAction, $stateObject)
     {
         $state = Mage_Sales_Model_Order::STATE_PENDING_PAYMENT;

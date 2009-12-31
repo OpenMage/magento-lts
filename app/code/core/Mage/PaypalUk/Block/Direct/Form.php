@@ -29,9 +29,24 @@
  */
 class Mage_PaypalUk_Block_Direct_Form extends Mage_Payment_Block_Form_Cc
 {
+
+    /**
+     * Payment method object getter
+     * @return Mage_PayPalUk_Model_Direct
+     */
     protected function _getDirect()
     {
         return Mage::getSingleton('paypaluk/direct');
+    }
+
+    /**
+     * Set 3dsecure-specific parameters
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setJsObjectName('payPalUkCentinel');
+        $this->setCentinelIframeId('paypaluk_3dsecure_iframe');
     }
 
     /**
@@ -90,7 +105,7 @@ class Mage_PaypalUk_Block_Direct_Form extends Mage_Payment_Block_Form_Cc
 
     /**
      * Add UK domestic cards additional fields as child block
-     * 
+     *
      * Forks a clone, but with a different form
      *
      * @return Mage_PaypalUk_Block_Direct_Form
@@ -102,5 +117,25 @@ class Mage_PaypalUk_Block_Direct_Form extends Mage_Payment_Block_Form_Cc
             $child->setTemplate('paypaluk/direct/form.phtml')
         );
         return parent::_beforeToHtml();
+    }
+
+    /**
+     * Return 3D secure validate url
+     *
+     * @return string
+     */
+    public function getValidateUrl()
+    {
+        return $this->getUrl('paypaluk/direct/lookup', array('_secure' => true));
+    }
+
+    /**
+     * Return formated centinel js object name
+     *
+     * @return string
+     */
+    public function getCentinelJsObjectName()
+    {
+        return $this->getJsObjectName();
     }
 }

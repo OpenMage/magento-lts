@@ -63,8 +63,10 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
         $filterableAttributes = $this->_getFilterableAttributes();
         foreach ($filterableAttributes as $attribute) {
             $filterBlockName = $this->_getAttributeFilterBlockName();
-            if ($attribute->getFrontendInput() == 'price') {
+            if ($attribute->getAttributeCode() == 'price') {
                 $filterBlockName = 'catalog/layer_filter_price';
+            } else if ($attribute->getBackendType() == 'decimal') {
+                $filterBlockName = 'catalog/layer_filter_decimal';
             }
 
             $this->setChild($attribute->getAttributeCode().'_filter',

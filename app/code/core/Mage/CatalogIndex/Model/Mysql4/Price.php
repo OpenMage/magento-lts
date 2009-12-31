@@ -89,7 +89,7 @@ class Mage_CatalogIndex_Model_Mysql4_Price extends Mage_CatalogIndex_Model_Mysql
         }
 
         $select
-            ->from('', "MAX(price_table.value".implode('', $response->getAdditionalCalculations()).")")
+            ->columns("MAX(price_table.value".implode('', $response->getAdditionalCalculations()).")")
             ->where('price_table.website_id = ?', $this->getWebsiteId())
             ->where('price_table.attribute_id = ?', $attribute->getId());
 
@@ -122,7 +122,7 @@ class Mage_CatalogIndex_Model_Mysql4_Price extends Mage_CatalogIndex_Model_Mysql
 
         $fields = array('count'=>'COUNT(DISTINCT price_table.entity_id)', 'range'=>"FLOOR(((price_table.value".implode('', $response->getAdditionalCalculations()).")*{$this->getRate()})/{$range})+1");
 
-        $select->from('', $fields)
+        $select->columns($fields)
             ->group('range')
             ->where('price_table.website_id = ?', $this->getWebsiteId())
             ->where('price_table.attribute_id = ?', $attribute->getId());

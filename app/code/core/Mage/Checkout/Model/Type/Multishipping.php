@@ -216,6 +216,16 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
                 }
             }
 
+            /**
+             * Delete all not virtual quote items which are not added to shipping address
+             * MultisippingQty should be defined for each quote item when it processed with _addShippingItem
+             */
+            foreach ($quote->getAllItems() as $_item) {
+                if (!$_item->getProduct()->getIsVirtual() && !$_item->getMultisippingQty()) {
+                    $_item->delete();
+                }
+            }
+
             if ($billingAddress = $quote->getBillingAddress()) {
                 $quote->removeAddress($billingAddress->getId());
             }
@@ -247,16 +257,26 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
      */
     protected function _addShippingItem($quoteItemId, $data)
     {
-        $qty       = isset($data['qty']) ? (int) $data['qty'] : 0;
-        $qty       = $qty > 0 ? $qty : 1;
+        $qty       = isset($data['qty']) ? (int) $data['qty'] : 1;
+        //$qty       = $qty > 0 ? $qty : 1;
         $addressId = isset($data['address']) ? (int) $data['address'] : false;
         $quoteItem = $this->getQuote()->getItemById($quoteItemId);
 
         if ($addressId && $quoteItem) {
+            /**
+             * Decrease quote item QTY if address item has QTY 0 and skip this item processing
+             */
+            if ($qty === 0) {
+                $quoteItemQty = $quoteItem->getQty();
+                if ($quoteItemQty > 0) {
+                    $quoteItem->setQty($quoteItemQty-1);
+                }
+                return $this;
+            }
             $quoteItem->setMultisippingQty((int)$quoteItem->getMultisippingQty()+$qty);
             $quoteItem->setQty($quoteItem->getMultisippingQty());
             $address = $this->getCustomer()->getAddressById($addressId);
-            if ($address) {
+            if ($address->getId()) {
                 if (!$quoteAddress = $this->getQuote()->getShippingAddressByCustomerAddressId($addressId)) {
                     $quoteAddress = Mage::getModel('sales/quote_address')->importCustomerAddress($address);
                     $this->getQuote()->addShippingAddress($quoteAddress);

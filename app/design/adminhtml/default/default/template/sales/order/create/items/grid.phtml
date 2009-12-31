@@ -368,8 +368,6 @@
         <?php endif; ?>
     <?php endif; ?>
 
-
-
                         </td>
                         <?php if($this->isGiftMessagesAvailable()): ?>
                         <td class="a-center">
@@ -392,17 +390,16 @@
         </table>
     </div>
     <table cellspacing="0" width="100%">
-    <col width="50%" />
-    <col width="50%" />
+        <col width="50%" />
+        <col width="50%" />
         <tr>
-            <td><small><?php echo $this->getInclExclTaxMessage(); ?></small></td>
-            <td rowspan="2" class="a-right"><?php echo $this->getButtonHtml($this->helper('sales')->__('Update Items and Qty\'s'),'order.itemsUpdate()'); ?></td>
-        </tr>
-        <tr>
-            <td><div id="order-coupons"><?php echo $this->getChildHtml() ?></div></td>
+            <td class="a-left"><small><?php echo $this->getInclExclTaxMessage(); ?></small></td>
+            <td class="a-right"><?php echo $this->getButtonHtml($this->helper('sales')->__('Update Items and Qty\'s'),'order.itemsUpdate()'); ?></td>
         </tr>
     </table>
-    <br/>
+    <br />
+    <div id="order-coupons"><?php echo $this->getChildHtml() ?></div>
+    <div class="clear"></div>
     <script type="text/javascript">order.itemsOnchangeBind()</script>
 </div>
 <?php endif; ?>

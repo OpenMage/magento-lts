@@ -39,7 +39,7 @@ error_reporting(E_ALL | E_STRICT);
  */
 $compilerConfig = 'includes/config.php';
 if (file_exists($compilerConfig)) {
-    include($compilerConfig);
+    include $compilerConfig;
 }
 
 $mageFilename = 'app/Mage.php';

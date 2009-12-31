@@ -84,7 +84,7 @@ class Mage_Customer_Model_Entity_Customer_Collection extends Mage_Eav_Model_Enti
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $countSelect->reset(Zend_Db_Select::COLUMNS);
 
-        $countSelect->from('', 'COUNT(*)');
+        $countSelect->columns('COUNT(*)');
         $countSelect->resetJoinLeft();
 
         return $countSelect;

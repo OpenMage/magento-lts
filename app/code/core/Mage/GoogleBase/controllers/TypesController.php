@@ -34,6 +34,18 @@
 */
 class Mage_GoogleBase_TypesController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * Dispatches controller_action_postdispatch_adminhtml Event (as not Adminhtml router)
+     */
+    public function postDispatch()
+    {
+        parent::postDispatch();
+        if ($this->getFlag('', self::FLAG_NO_POST_DISPATCH)) {
+            return;
+        }
+        Mage::dispatchEvent('controller_action_postdispatch_adminhtml', array('controller_action' => $this));
+    }
+
     protected function _initItemType()
     {
         Mage::register('current_item_type', Mage::getModel('googlebase/type'));

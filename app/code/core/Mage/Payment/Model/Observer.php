@@ -51,7 +51,7 @@ class Mage_Payment_Model_Observer
             return $this;
         }
 
-        if ($order->getState() === Mage_Sales_Model_Order::STATE_CANCELED ||
+        if ($order->isCanceled() ||
             $order->getState() === Mage_Sales_Model_Order::STATE_CLOSED ) {
             return $this;
         }

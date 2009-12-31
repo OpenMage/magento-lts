@@ -17,7 +17,7 @@
  * @subpackage Value
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Integer.php 17759 2009-08-22 21:26:21Z lars $
+ * @version    $Id: Integer.php 18443 2009-09-30 13:35:47Z lars $
  */
 
 
@@ -62,6 +62,4 @@ class Zend_XmlRpc_Value_Integer extends Zend_XmlRpc_Value_Scalar
     {
         return $this->_value;
     }
-
 }
-

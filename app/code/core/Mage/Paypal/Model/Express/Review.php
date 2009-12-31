@@ -24,7 +24,10 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ *
+ * Express Review Session class
+ */
 class Mage_Paypal_Model_Express_Review
 {
     /**

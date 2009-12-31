@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Cms>
-            <version>0.7.11</version>
+            <version>0.7.13</version>
         </Mage_Cms>
     </modules>
     <frontend>
@@ -86,16 +86,6 @@
                 </Mage_Cms>
             </modules>
         </translate>
-        <events>
-            <cms_wysiwyg_config_prepare>
-                <observers>
-                    <cms_widget_observer>
-                        <class>cms/observer</class>
-                        <method>prepareWidgetsPluginConfig</method>
-                    </cms_widget_observer>
-                </observers>
-            </cms_wysiwyg_config_prepare>
-        </events>
         <layout>
             <updates>
                 <cms>
@@ -103,6 +93,46 @@
                 </cms>
             </updates>
         </layout>
+        <cms>
+            <browser>
+                <dirs>
+                    <exclude>
+                        <catalog_dir regexp="0">catalog</catalog_dir>
+                        <downloadable>downloadable</downloadable>
+                        <flex_dir>flex</flex_dir>
+                        <import>import</import>
+                        <tmp>tmp</tmp>
+                    </exclude>
+                    <include></include>
+                </dirs>
+                <extensions>
+                    <allowed>
+                        <jpg>1</jpg>
+                        <jpeg>1</jpeg>
+                        <png>1</png>
+                        <gif>1</gif>
+                    </allowed>
+                    <image_allowed>
+                        <jpg>1</jpg>
+                        <jpeg>1</jpeg>
+                        <png>1</png>
+                        <gif>1</gif>
+                    </image_allowed>
+                    <media_allowed>
+                        <flv>1</flv>
+                        <swf>1</swf>
+                        <avi>1</avi>
+                        <mov>1</mov>
+                        <rm>1</rm>
+                        <wmv>1</wmv>
+                    </media_allowed>
+                </extensions>
+                <window_width>1000</window_width>
+                <window_height>600</window_height>
+                <resize_width>100</resize_width>
+                <resize_height>75</resize_height>
+            </browser>
+        </cms>
     </adminhtml>
     <global>
         <models>
@@ -125,9 +155,6 @@
                     <block_store>
                         <table>cms_block_store</table>
                     </block_store>
-                    <widget>
-                        <table>cms_widget</table>
-                    </widget>
                 </entities>
             </cms_mysql4>
         </models>
@@ -175,14 +202,6 @@
         <cms>
             <wysiwyg>
                 <enabled>enabled</enabled>
-                <upload_root>content/images</upload_root>
-                <browser_allowed_extensions>jpg,jpeg,png,gif</browser_allowed_extensions>
-                <browser_image_allowed_extensions>jpg,jpeg,png,gif</browser_image_allowed_extensions>
-                <browser_media_allowed_extensions>flv,swf,avi,mov,rm,wmv</browser_media_allowed_extensions>
-                <browser_window_width>1000</browser_window_width>
-                <browser_window_height>800</browser_window_height>
-                <browser_resize_width>100</browser_resize_width>
-                <browser_resize_height>75</browser_resize_height>
             </wysiwyg>
         </cms>
     </default>

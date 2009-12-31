@@ -141,7 +141,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
 
         $product = Mage::getModel('catalog/product');
         /* @var $product Mage_Catalog_Model_Product */
-        $product->setStoreId($this->_getStoreId($store))
+        $product->setStoreId($this->_getStoreId())
             ->setAttributeSetId($set)
             ->setTypeId($type)
             ->setSku($sku);

@@ -74,6 +74,8 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
                 ->setType('db')
                 ->setPath(Mage::getBaseDir("var") . DS . "backups");
 
+            Mage::register('backup_model', $backup);
+
             $backupDb->createBackup($backup);
             $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Backup successfully created'));
         }
@@ -119,6 +121,8 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
                 ->setType($this->getRequest()->getParam('type'))
                 ->setPath(Mage::getBaseDir("var") . DS . "backups")
                 ->deleteFile();
+
+            Mage::register('backup_model', $backup);
 
             $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Backup record was deleted'));
         }

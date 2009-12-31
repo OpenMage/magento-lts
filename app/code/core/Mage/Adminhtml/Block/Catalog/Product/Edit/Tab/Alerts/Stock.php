@@ -85,7 +85,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Stock extends Mage_Ad
 
         $this->addColumn('send_date', array(
             'header'    => Mage::helper('catalog')->__('Last Notification'),
-            'index'     => 'last_send_date',
+            'index'     => 'send_date',
             'type'      => 'date'
         ));
 

@@ -33,11 +33,19 @@
  */
 class Mage_PaypalUk_Block_Link_Shortcut extends Mage_Core_Block_Template
 {
+    /**
+     * Return checkout url, on click to checkout now button
+     *
+     */
     public function getCheckoutUrl()
     {
         return $this->getUrl('paypaluk/express/shortcut', array('_secure'=>true));
     }
 
+    /**
+     * Checkout now button image
+     * @return string
+     */
     public function getImageUrl()
     {
         $locale = Mage::app()->getLocale()->getLocaleCode();
@@ -48,13 +56,18 @@ class Mage_PaypalUk_Block_Link_Shortcut extends Mage_Core_Block_Template
         return 'https://www.paypal.com/'.$locale.'/i/btn/btn_xpressCheckout.gif';
     }
 
+    /**
+     * Render block html output
+     * @return string
+     */
     public function _toHtml()
     {
-        if (Mage::getStoreConfigFlag('payment/paypaluk_express/active')
-            && Mage::getSingleton('checkout/session')->getQuote()->validateMinimumAmount()) {
+        $quote = Mage::getSingleton('checkout/session')->getQuote();
+        $paypalUkModel = Mage::getModel('paypaluk/express');
+        if ($paypalUkModel->isAvailable($quote) && $paypalUkModel->isVisibleOnCartPage()
+            && $quote->validateMinimumAmount()) {
             return parent::_toHtml();
         }
-
         return '';
     }
 }

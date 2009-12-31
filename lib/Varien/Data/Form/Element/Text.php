@@ -48,6 +48,6 @@ class Varien_Data_Form_Element_Text extends Varien_Data_Form_Element_Abstract
 
     public function getHtmlAttributes()
     {
-        return array('type', 'title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'maxlength');
+        return array('type', 'title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'readonly', 'maxlength', 'tabindex');
     }
 }

@@ -46,7 +46,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     protected $_infoBlockType = 'payment/info';
 
     /**
-     * Availability options
+     * Payment Method features
+     * @var bool
      */
     protected $_isGateway               = false;
     protected $_canAuthorize            = false;
@@ -59,6 +60,12 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     protected $_canUseCheckout          = true;
     protected $_canUseForMultishipping  = true;
     protected $_isInitializeNeeded      = false;
+    /**
+     * TODO: whether a captured transaction may be voided by this gateway
+     * This may happen when amount is captured, but not settled
+     * @var bool
+     */
+    protected $_canCancelInvoice        = false;
 
     public function __construct()
     {
@@ -327,12 +334,27 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         return $this;
     }
 
+    /**
+     * Set capture transaction ID to invoice for informational purposes
+     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @return Mage_Payment_Model_Method_Abstract
+     */
     public function processInvoice($invoice, $payment)
     {
         $invoice->setTransactionId($payment->getLastTransId());
         return $this;
     }
 
+    /**
+     * Set refund transaction id to payment object for informational purposes
+     * Candidate to be deprecated:
+     * there can be multiple refunds per payment, thus payment.refund_transaction_id doesn't make big sense
+     *
+     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @return Mage_Payment_Model_Method_Abstract
+     */
     public function processBeforeRefund($invoice, $payment)
     {
         $payment->setRefundTransactionId($invoice->getTransactionId());
@@ -357,6 +379,12 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         return $this;
     }
 
+    /**
+     * Set transaction ID into creditmemo for informational purposes
+     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @return Mage_Payment_Model_Method_Abstract
+     */
     public function processCreditmemo($creditmemo, $payment)
     {
         $creditmemo->setTransactionId($payment->getLastTransId());
@@ -374,6 +402,14 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         return $this;
     }
 
+    /**
+     * @deprecated after 1.4.0.0-alpha3
+     * this method doesn't make sense, because invoice must not void entire authorization
+     * there should be method for invoice cancellation
+     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @return Mage_Payment_Model_Method_Abstract
+     */
     public function processBeforeVoid($invoice, $payment)
     {
         $payment->setVoidTransactionId($invoice->getTransactionId());
@@ -474,5 +510,16 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     public function initialize($paymentAction, $stateObject)
     {
         return $this;
+    }
+
+    /**
+     * Get config peyment action url
+     * Used to universalize payment actions when processing payment place
+     *
+     * @return string
+     */
+    public function getConfigPaymentAction()
+    {
+        return $this->getConfigData('payment_action');
     }
 }

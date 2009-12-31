@@ -40,6 +40,8 @@ class Mage_Sales_Model_Order_Invoice_Total_Subtotal extends Mage_Sales_Model_Ord
         $subtotalInclTax= 0;
         $baseSubtotalInclTax = 0;
 
+        $order = $invoice->getOrder();
+
         foreach ($invoice->getAllItems() as $item) {
             $item->calcRowTotal();
 
@@ -52,7 +54,10 @@ class Mage_Sales_Model_Order_Invoice_Total_Subtotal extends Mage_Sales_Model_Ord
             $subtotalInclTax+= $item->getRowTotalInclTax();
             $baseSubtotalInclTax += $item->getBaseRowTotalInclTax();
         }
-
+        $allowedSubtotal = $order->getSubtotal()-$order->getSubtotalInvoiced();
+        $baseAllowedSubtotal = $order->getBaseSubtotal()-$order->getBaseSubtotalInvoiced();
+        $subtotal = min($allowedSubtotal, $subtotal);
+        $baseSubtotal = min($baseAllowedSubtotal, $baseSubtotal);
         $invoice->setSubtotal($subtotal);
         $invoice->setBaseSubtotal($baseSubtotal);
         $invoice->setSubtotalInclTax($subtotalInclTax);

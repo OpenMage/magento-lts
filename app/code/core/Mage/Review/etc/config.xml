@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Review>
-            <version>0.7.5</version>
+            <version>0.7.6</version>
         </Mage_Review>
     </modules>
     <global>
@@ -84,6 +84,16 @@
                 </Mage_Review>
             </modules>
         </translate>
+        <events>
+            <catalog_product_delete_after_done>
+                <observers>
+                    <review>
+                        <class>review/observer</class>
+                        <method>processProductAfterDeleteEvent</method>
+                    </review>
+                </observers>
+            </catalog_product_delete_after_done>
+        </events>
     </adminhtml>
     <frontend>
         <routers>

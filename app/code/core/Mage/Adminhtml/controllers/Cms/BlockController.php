@@ -109,8 +109,17 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
     {
         // check if data sent
         if ($data = $this->getRequest()->getPost()) {
+
+            $id = $this->getRequest()->getParam('block_id');
+            $model = Mage::getModel('cms/block')->load($id);
+            if (!$model->getId() && $id) {
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('enterprise_banner')->__('This Block no longer exists'));
+                $this->_redirect('*/*/');
+                return;
+            }
+
             // init model and set data
-            $model = Mage::getModel('cms/block');
+
             $model->setData($data);
 
             // try to save it

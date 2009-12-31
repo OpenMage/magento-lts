@@ -47,6 +47,23 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 
     const XML_PATH_SENDING_SET_RETURN_PATH      = Mage_Core_Model_Email_Template::XML_PATH_SENDING_SET_RETURN_PATH;
 
+    /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'newsletter_subscriber';
+
+    /**
+     * Parameter name in event
+     *
+     * In observe method you can use $observer->getEvent()->getObject() in this case
+     *
+     * @var string
+     */
+    protected $_eventObject = 'subscriber';
+
+
     protected $_isStatusChanged = false;
 
     /**

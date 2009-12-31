@@ -42,6 +42,7 @@ class Mage_Adminhtml_Block_Report_Sales_Tax_Grid extends Mage_Adminhtml_Block_Re
 
     protected function _prepareCollection()
     {
+        $this->setSubReportSize(null);
         parent::_prepareCollection();
         $this->getCollection()->initReport('reports/tax_collection');
     }

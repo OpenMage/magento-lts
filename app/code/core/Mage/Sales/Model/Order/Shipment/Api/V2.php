@@ -128,7 +128,6 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
              $this->_fault('data_invalid', Mage::helper('sales')->__('Can not do shipment for order.'));
         }
 
-        $shipment    = $convertor->toShipment($order);
          /* @var $shipment Mage_Sales_Model_Order_Shipment */
         $shipment = $order->prepareShipment($itemsQty);
         if ($shipment) {

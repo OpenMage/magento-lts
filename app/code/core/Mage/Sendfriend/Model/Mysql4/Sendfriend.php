@@ -49,9 +49,10 @@ class Mage_Sendfriend_Model_Mysql4_Sendfriend extends Mage_Core_Model_Mysql4_Abs
      * @param Mage_Sendfriend_Model_Sendfriend $object
      * @param int $ip
      * @param int $startTime
+     * @param int $websiteId
      * @return int
      */
-    public function getSendCount($object, $ip, $startTime)
+    public function getSendCount($object, $ip, $startTime, $websiteId = null)
     {
         $select = $this->_getReadAdapter()->select()
             ->from(
@@ -60,8 +61,33 @@ class Mage_Sendfriend_Model_Mysql4_Sendfriend extends Mage_Core_Model_Mysql4_Abs
             ->where('ip=?', $ip)
             ->where('time>=?', $startTime);
 
+        if ($websiteId) {
+            $select->where('website_id=?', $websiteId);
+        }
+
         $row = $this->_getReadAdapter()->fetchRow($select);
         return $row['count'];
+    }
+
+    /**
+     * Add sended email by ip item
+     *
+     * @param int $ip
+     * @param int $startTime
+     * @param int $websiteId
+     * @return Mage_Sendfriend_Model_Mysql4_Sendfriend
+     */
+    public function addSendItem($ip, $startTime, $websiteId)
+    {
+        $this->_getWriteAdapter()->insert(
+            $this->getTable('sendfriend'),
+            array(
+                    'ip' => $ip,
+                    'time' => $startTime,
+                    'website_id' => $websiteId
+                 )
+        );
+        return $this;
     }
 
     /**

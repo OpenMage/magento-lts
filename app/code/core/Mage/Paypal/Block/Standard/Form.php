@@ -24,12 +24,20 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Display PayPal Standard payment form
+ */
 
 class Mage_Paypal_Block_Standard_Form extends Mage_Payment_Block_Form
 {
+    /**
+     * Setup template url for PayPal Standsrd payment form
+     * @return Mage_Paypal_Block_Standard_Form
+     */
     protected function _construct()
     {
         $this->setTemplate('paypal/standard/form.phtml');
         parent::_construct();
+        return $this;
     }
 }

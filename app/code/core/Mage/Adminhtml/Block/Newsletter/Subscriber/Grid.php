@@ -197,6 +197,11 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
              'url'          => $this->getUrl('*/*/massUnsubscribe')
         ));
 
+        $this->getMassactionBlock()->addItem('delete', array(
+             'label'        => Mage::helper('newsletter')->__('Delete'),
+             'url'          => $this->getUrl('*/*/massDelete')
+        ));
+
         return $this;
     }
 }

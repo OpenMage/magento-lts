@@ -135,23 +135,27 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
             }
 
             if( $this->getRequest()->getParam('id', false) ) {
-                $this->addTab('reviews', array(
-                    'label' => Mage::helper('catalog')->__('Product Reviews'),
-                    'url'   => $this->getUrl('*/*/reviews', array('_current' => true)),
-                    'class' => 'ajax',
-                ));
+                if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/reviews_ratings')){
+                    $this->addTab('reviews', array(
+                        'label' => Mage::helper('catalog')->__('Product Reviews'),
+                        'url'   => $this->getUrl('*/*/reviews', array('_current' => true)),
+                        'class' => 'ajax',
+                    ));
+                }
+                if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/tag')){
+                    $this->addTab('tags', array(
+                     'label'     => Mage::helper('catalog')->__('Product Tags'),
+                     'url'   => $this->getUrl('*/*/tagGrid', array('_current' => true)),
+                     'class' => 'ajax',
+                    ));
 
-                $this->addTab('tags', array(
-                    'label'     => Mage::helper('catalog')->__('Product Tags'),
-                    'url'   => $this->getUrl('*/*/tagGrid', array('_current' => true)),
-                    'class' => 'ajax',
-                ));
+                    $this->addTab('customers_tags', array(
+                        'label'     => Mage::helper('catalog')->__('Customers Tagged Product'),
+                        'url'   => $this->getUrl('*/*/tagCustomerGrid', array('_current' => true)),
+                        'class' => 'ajax',
+                    ));
+                }
 
-                $this->addTab('customers_tags', array(
-                    'label'     => Mage::helper('catalog')->__('Customers Tagged Product'),
-                    'url'   => $this->getUrl('*/*/tagCustomerGrid', array('_current' => true)),
-                    'class' => 'ajax',
-                ));
             }
 
             /**

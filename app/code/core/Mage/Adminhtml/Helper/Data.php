@@ -93,4 +93,29 @@ class Mage_Adminhtml_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return false;
     }
+
+    /**
+     * Decode filter string
+     *
+     * @param string $filterString
+     * @return data
+     */
+    public function prepareFilterString($filterString)
+    {
+        $data = array();
+        $filterString = base64_decode($filterString);
+        parse_str($filterString, $data);
+        array_walk_recursive($data, array($this, 'decodeFilter'));
+        return $data;
+    }
+
+    /**
+     * Decode URL encoded filter value recursive callback method
+     *
+     * @param string $value
+     */
+    public function decodeFilter(&$value)
+    {
+        $value = rawurldecode($value);
+    }
 }

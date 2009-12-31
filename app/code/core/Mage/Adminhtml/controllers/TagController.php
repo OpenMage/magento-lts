@@ -39,8 +39,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
         $this->loadLayout()
             ->_setActiveMenu('catalog/tag')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Catalog'), Mage::helper('adminhtml')->__('Catalog'))
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Tags'), Mage::helper('adminhtml')->__('Tags'))
-        ;
+            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Tags'), Mage::helper('adminhtml')->__('Tags'));
+
         return $this;
     }
 
@@ -51,15 +51,16 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
      */
     protected function _initTag()
     {
-        $id = $this->getRequest()->getParam('tag_id');
-        $storeId = $this->getRequest()->getParam('store');
         $model = Mage::getModel('tag/tag');
-        if ($id) {
+
+        if (($id = $this->getRequest()->getParam('tag_id'))) {
             $model->load($id);
-            if (!$model->getId()) {
+
+            if (! $model->getId()) {
                 return false;
             }
-            $model->setStoreId($storeId);
+
+            $model->setStoreId($this->getRequest()->getParam('store'));
         }
 
         Mage::register('current_tag', $model);
@@ -73,17 +74,6 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
      */
     public function indexAction()
     {
-        /**
-         * setting status parameter for grid filter for non-ajax request
-         *
-         */
-        if ($this->getRequest()->getParam('pending') && !$this->getRequest()->getParam('isAjax')) {
-            $this->getRequest()->setParam('filter', base64_encode('status=' . Mage_Tag_Model_Tag::STATUS_PENDING));
-        }
-        elseif (!$this->getRequest()->getParam('isAjax')) {
-            $this->getRequest()->setParam('filter', '');
-        }
-
         $this->_initAction()
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('All Tags'), Mage::helper('adminhtml')->__('All Tags'))
             ->_setActiveMenu('catalog/tag/all')
@@ -98,9 +88,17 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     public function ajaxGridAction()
     {
         $this->loadLayout();
-        $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/tag_tag_grid')->toHtml()
-        );
+        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/tag_tag_grid')->toHtml());
+    }
+
+    /**
+     * Action to draw pending tags grid loaded by ajax
+     *
+     */
+    public function ajaxPendingGridAction()
+    {
+        $this->loadLayout();
+        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/tag_grid_pending')->toHtml());
     }
 
     /**
@@ -118,19 +116,13 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
      */
     public function editAction()
     {
-        if (0 === (int)$this->getRequest()->getParam('store')) {
-            $this->_redirect('*/*/*/', array('store' => Mage::app()->getAnyStoreView()->getId(), '_current' => true));
-            return;
+        if (! (int) $this->getRequest()->getParam('store')) {
+            return $this->_redirect('*/*/*/', array('store' => Mage::app()->getAnyStoreView()->getId(), '_current' => true));
         }
 
-        if (!$model = $this->_initTag()) {
-            Mage::getSingleton('adminhtml/session')->addError(
-                Mage::helper('adminhtml')->__('Wrong Tag specified')
-            );
-            $this->_redirect('*/*/index', array(
-                'store' => $this->getRequest()->getParam('store')
-            ));
-            return;
+        if (! ($model = $this->_initTag())) {
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Wrong Tag specified'));
+            return $this->_redirect('*/*/index', array('store' => $this->getRequest()->getParam('store')));
         }
 
         $model->addSummary($this->getRequest()->getParam('store'));
@@ -163,14 +155,10 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
             $data['store']              = $postData['store_id'];
 
             if (!$model = $this->_initTag()) {
-                Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('adminhtml')->__('Wrong Tag specified')
-                );
-                $this->_redirect('*/*/index', array(
-                    'store' => $data['store']
-                ));
-                return;
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Wrong Tag specified'));
+                return $this->_redirect('*/*/index', array('store' => $data['store']));
             }
+
             $model->addData($data);
 
             if (isset($postData['tag_assigned_products'])) {
@@ -179,101 +167,50 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 $tagRelationModel->addRelations($model, $productIds);
             }
 
-            switch( $this->getRequest()->getParam('ret') ) {
-                case 'all':
-                    $url = $this->getUrl('*/*/index', array(
-                        'customer_id' => $this->getRequest()->getParam('customer_id'),
-                        'product_id' => $this->getRequest()->getParam('product_id'),
-                    ));
-                    break;
-
-                case 'pending':
-                    $url = $this->getUrl('*/tag/pending', array(
-                        'customer_id' => $this->getRequest()->getParam('customer_id'),
-                        'product_id' => $this->getRequest()->getParam('product_id'),
-                    ));
-                    break;
-
-                default:
-                    $url = $this->getUrl('*/*/index', array(
-                        'customer_id' => $this->getRequest()->getParam('customer_id'),
-                        'product_id' => $this->getRequest()->getParam('product_id'),
-                    ));
-            }
-
             try {
                 $model->save();
                 $model->aggregate();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Tag was successfully saved'));
                 Mage::getSingleton('adminhtml/session')->setTagData(false);
 
-                if ($this->getRequest()->getParam('ret') == 'edit') {
-                    $url = $this->getUrl('*/tag/edit', array(
-                        'tag_id'    => $model->getId(),
-                        'store'  => $model->getStoreId()
-                    ));
+                if (($continue = $this->getRequest()->getParam('continue'))) {
+                    return $this->_redirect('*/tag/edit', array('tag_id' => $model->getId(), 'store' => $model->getStoreId(), 'ret' => $continue));
+                } else {
+                    return $this->_redirect('*/tag/' . $this->getRequest()->getParam('ret', 'index'));
                 }
-
-                $this->getResponse()->setRedirect($url);
-                return;
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setTagData($data);
-                $this->_redirect('*/*/edit', array(
-                    'tag_id' => $model->getId(),
-                    'store'  => $model->getStoreId()
-                ));
-                return;
+
+                return $this->_redirect('*/*/edit', array('tag_id' => $model->getId(), 'store' => $model->getStoreId()));
             }
         }
-        $this->getResponse()->setRedirect($url);
+
+        return $this->_redirect('*/tag/index', array('_current' => true));
     }
 
     /**
      * Delete tag action
      *
+     * @return void
      */
     public function deleteAction()
     {
-        if ($id = $this->getRequest()->getParam('tag_id')) {
+        $model   = $this->_initTag();
+        $session = Mage::getSingleton('adminhtml/session');
 
-            switch( $this->getRequest()->getParam('ret') ) {
-                case 'all':
-                    $url = $this->getUrl('*/*/', array(
-                        'customer_id' => $this->getRequest()->getParam('customer_id'),
-                        'product_id' => $this->getRequest()->getParam('product_id'),
-                    ));
-                    break;
-
-                case 'pending':
-                    $url = $this->getUrl('*/tag/pending', array(
-                        'customer_id' => $this->getRequest()->getParam('customer_id'),
-                        'product_id' => $this->getRequest()->getParam('product_id'),
-                    ));
-                    break;
-
-                default:
-                    $url = $this->getUrl('*/*/', array(
-                        'customer_id' => $this->getRequest()->getParam('customer_id'),
-                        'product_id' => $this->getRequest()->getParam('product_id'),
-                    ));
-            }
-
+        if ($model && $model->getId()) {
             try {
-                $model = $this->_initTag();
                 $model->delete();
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Tag was successfully deleted'));
-                $this->getResponse()->setRedirect($url);
-                return;
+                $session->addSuccess(Mage::helper('adminhtml')->__('Tag was successfully deleted'));
+            } catch (Exception $e) {
+                $session->addError($e->getMessage());
             }
-            catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->_redirect('*/*/edit', array('tag_id' => $this->getRequest()->getParam('tag_id')));
-                return;
-            }
+        } else {
+            $session->addError(Mage::helper('adminhtml')->__('Unable to find a tag to delete'));
         }
-        Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Unable to find a tag to delete'));
-        $this->getResponse()->setRedirect($url);
+
+        $this->getResponse()->setRedirect($this->getUrl('*/tag/' . $this->getRequest()->getParam('ret', 'index')));
     }
 
     /**
@@ -318,9 +255,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     public function productAction()
     {
         $this->_initTag();
-        $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/tag_product_grid')->toHtml()
-        );
+        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/tag_product_grid')->toHtml());
     }
 
     /**
@@ -330,9 +265,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     public function customerAction()
     {
         $this->_initTag();
-        $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('adminhtml/tag_customer_grid')->toHtml()
-        );
+        $this->getResponse()->setBody($this->getLayout()->createBlock('adminhtml/tag_customer_grid')->toHtml());
     }
 
     /**
@@ -357,8 +290,8 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
-        $ret = $this->getRequest()->getParam('ret') ? $this->getRequest()->getParam('ret') : 'index';
-        $this->_redirect('*/*/'.$ret);
+
+        $this->_redirect('*/*/' . $this->getRequest()->getParam('ret', 'index'));
     }
 
     /**

@@ -71,7 +71,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     {
         $fileName   = 'products_bestsellers.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_product_ordered_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -84,7 +84,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     {
         $fileName   = 'products_bestsellers.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_product_ordered_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -111,7 +111,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
         $fileName   = 'products_ordered.csv';
         $content    = $this->getLayout()
             ->createBlock('adminhtml/report_product_sold_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -125,7 +125,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
         $fileName   = 'products_ordered.xml';
         $content    = $this->getLayout()
             ->createBlock('adminhtml/report_product_sold_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -151,7 +151,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     {
         $fileName   = 'products_mostviewed.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_product_viewed_grid')
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -164,7 +164,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     {
         $fileName   = 'products_mostviewed.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_product_viewed_grid')
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -191,7 +191,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
         $fileName   = 'products_lowstock.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_product_lowstock_grid')
             ->setSaveParametersInSession(true)
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -205,7 +205,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
         $fileName   = 'products_lowstock.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_product_lowstock_grid')
             ->setSaveParametersInSession(true)
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -232,7 +232,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
         $fileName   = 'products_downloads.csv';
         $content    = $this->getLayout()->createBlock('adminhtml/report_product_downloads_grid')
             ->setSaveParametersInSession(true)
-            ->getCsv();
+            ->getCsvFile();
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -246,7 +246,7 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
         $fileName   = 'products_downloads.xml';
         $content    = $this->getLayout()->createBlock('adminhtml/report_product_downloads_grid')
             ->setSaveParametersInSession(true)
-            ->getExcel($fileName);
+            ->getExcelFile($fileName);
 
         $this->_prepareDownloadResponse($fileName, $content);
     }

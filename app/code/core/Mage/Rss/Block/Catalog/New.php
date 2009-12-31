@@ -31,7 +31,7 @@
  * @package    Mage_Rss
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Abstract
+class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
 {
     protected function _construct()
     {
@@ -116,11 +116,7 @@ getFinalPrice() - used in shopping cart calculations
             '<td  style="text-decoration:none;">'.$product->getDescription();
 
         if ($allowedPriceInRss) {
-            $description .= '<p> Price:' . Mage::helper('core')->currency($product->getPrice());
-            if ($product->getPrice() != $product->getFinalPrice()){
-                $description .= ' Special Price:' . Mage::helper('core')->currency($product->getFinalPrice());
-            }
-            $description .= '</p>';
+            $description .= $this->getPriceHtml($product,true);
         }
 
         $description .= '</td>'.

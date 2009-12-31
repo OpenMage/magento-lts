@@ -46,30 +46,64 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Abstract
     }
 
     /**
-     * Get array last added items
+     * Retrieve count of display recently added items
+     *
+     * @return int
+     */
+    public function getItemCount()
+    {
+        $count = $this->getData('item_count');
+        if (is_null($count)) {
+            $count = Mage::getStoreConfig(self::XML_PATH_CHECKOUT_SIDEBAR_COUNT);
+            $this->setData('item_count', $count);
+        }
+        return $count;
+    }
+
+    /**
+     * Get array of last added items
      *
      * @return array
      */
     public function getRecentItems($count = null)
     {
         if ($count === null) {
-            $count = $this->getData('item_count');
+            $count = $this->getItemCount();
         }
-        if ($count === null) {
-            $count = Mage::getStoreConfig(self::XML_PATH_CHECKOUT_SIDEBAR_COUNT);
-        }
+
         $items = array();
         if (!$this->getSummaryCount()) {
             return $items;
         }
+
         $i = 0;
+        $storeId  = Mage::app()->getStore()->getId();
         $allItems = array_reverse($this->getItems());
         foreach ($allItems as $item) {
+            /* @var $item Mage_Sales_Model_Quote_Item */
+            if (!$item->getProduct()->isVisibleInSiteVisibility()) {
+                if ($item->getStoreId() == $storeId) {
+                    continue;
+                }
+                $productId = $item->getProduct()->getId();
+                $products  = Mage::getResourceSingleton('catalog/url')
+                    ->getRewriteByProductStore(array($productId => $item->getStoreId()));
+                if (!isset($products[$productId])) {
+                    continue;
+                }
+                $urlDataObject = new Varien_Object($products[$productId]);
+                if (!in_array($urlDataObject->getVisibility(), $item->getProduct()->getVisibleInSiteVisibilities())) {
+                    continue;
+                }
+                $item->getProduct()->setUrlDataObject($urlDataObject);
+            }
+
             $items[] = $item;
             if (++$i == $count) {
                 break;
             }
         }
+
         return $items;
     }
 

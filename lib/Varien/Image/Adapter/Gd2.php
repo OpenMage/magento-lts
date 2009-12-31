@@ -49,7 +49,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $fileName = ( !isset($destination) ) ? $this->_fileName : $destination;
 
         if( isset($destination) && isset($newName) ) {
-            $fileName = $destination . "/" . $fileName;
+            $fileName = $destination . "/" . $newName;
         } elseif( isset($destination) && !isset($newName) ) {
             $info = pathinfo($destination);
             $fileName = $destination;
@@ -77,11 +77,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         if ($isAlpha) {
             $this->_fillBackgroundColor($this->_imageHandler);
         }
-        
+
         $functionParameters = array();
         $functionParameters[] = $this->_imageHandler;
         $functionParameters[] = $fileName;
-        
+
         // set quality param for JPG file type
         if (!is_null($this->quality()) && $this->_fileType == IMAGETYPE_JPEG)
         {

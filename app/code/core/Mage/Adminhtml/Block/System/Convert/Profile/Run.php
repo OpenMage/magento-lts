@@ -111,6 +111,11 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
             echo '<li id="liFinished" style="display:none;">';
             echo '<img src="'.Mage::getDesign()->getSkinUrl('images/note_msg_icon.gif').'" class="v-middle" style="margin-right:5px"/>';
             echo $this->__("Finished profile execution.");
+
+            if($profile->getEntityType() == 'product' && $profile->getDirection() == 'import') {
+                echo $this->__(" Please wait while we are refreshing indexes.");
+            }
+
             echo '</li>';
 
 
@@ -288,6 +293,5 @@ function addProfileRow(data) {
         echo "</ul>";
         */
         echo '</body></html>';
-        exit;
     }
 }

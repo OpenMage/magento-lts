@@ -106,13 +106,14 @@ class Mage_Catalog_Model_Product_Type_Price
      * @param   Mage_Catalog_Model_Product $product
      * @return  double
      */
-    public function getTierPrice($qty=null, $product)
+    public function getTierPrice($qty = null, $product)
     {
         $allGroups = Mage_Customer_Model_Group::CUST_GROUP_ALL;
         $prices = $product->getData('tier_price');
 
         if (is_null($prices)) {
-            if ($attribute = $product->getResource()->getAttribute('tier_price')) {
+            $attribute = $product->getResource()->getAttribute('tier_price');
+            if ($attribute) {
                 $attribute->getBackend()->afterLoad($product);
                 $prices = $product->getData('tier_price');
             }
@@ -153,15 +154,28 @@ class Mage_Catalog_Model_Product_Type_Price
                     // found tier qty is same as current tier qty but current tier group is ALL_GROUPS
                     continue;
                 }
-                $prevPrice  = $price['website_price'];
-                $prevQty    = $price['price_qty'];
-                $prevGroup  = $price['cust_group'];
+                if ($price['website_price'] < $prevPrice) {
+                    $prevPrice  = $price['website_price'];
+                    $prevQty    = $price['price_qty'];
+                    $prevGroup  = $price['cust_group'];
+                }
             }
             return $prevPrice;
         } else {
-            foreach ($prices as $i=>$price) {
-                if ($price['cust_group']!=$custGroup && $price['cust_group']!=$allGroups) {
+            $qtyCache = array();
+            foreach ($prices as $i => $price) {
+                if ($price['cust_group'] != $custGroup && $price['cust_group'] != $allGroups) {
                     unset($prices[$i]);
+                } else if (isset($qtyCache[$price['price_qty']])) {
+                    $j = $qtyCache[$price['price_qty']];
+                    if ($prices[$j]['website_price'] > $price['website_price']) {
+                        unset($prices[$j]);
+                        $qtyCache[$price['price_qty']] = $i;
+                    } else {
+                        unset($prices[$i]);
+                    }
+                } else {
+                    $qtyCache[$price['price_qty']] = $i;
                 }
             }
         }
@@ -325,5 +339,15 @@ class Mage_Catalog_Model_Product_Type_Price
             }
         }
         return $finalPrice;
+    }
+
+    /**
+     * Check is tier price value fixed or percent of original price
+     *
+     * @return bool
+     */
+    public function isTierPriceFixed()
+    {
+        return true;
     }
 }

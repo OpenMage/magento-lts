@@ -28,9 +28,11 @@
 /**
  * Bundle Product Price Index Resource model
  *
- * @category   Mage
- * @package    Mage_Bundle
- * @author     Magento Core Team <core@magentocommerce.com>
+ * @category    Mage
+ * @package     Mage_Bundle
+ * @author      Magento Core Team <core@magentocommerce.com>
+ * @deprecated  since 1.4.0.0
+ * @see         Mage_Bundle_Model_Mysql4_Indexer_Price
  */
 class Mage_Bundle_Model_Mysql4_Price_Index extends Mage_Core_Model_Mysql4_Abstract
 {
@@ -123,7 +125,7 @@ class Mage_Bundle_Model_Mysql4_Price_Index extends Mage_Core_Model_Mysql4_Abstra
                 array('e' => $this->getTable('catalog/product')),
                 array('entity_id'))
             ->where('e.type_id=?', 'bundle');
-        if ($product instanceof Mage_Core_Model_Product) {
+        if ($product instanceof Mage_Catalog_Model_Product) {
             $select->where('e.entity_id=?', $product->getId());
         }
         elseif ($product instanceof Mage_Catalog_Model_Product_Condition_Interface) {

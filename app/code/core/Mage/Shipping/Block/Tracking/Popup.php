@@ -88,6 +88,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
      /**
+      * @deprecated after 1.4.0.0-alpha3
       * Initialize order model instance
       *
       * @return Mage_Sales_Model_Order || false
@@ -104,6 +105,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
+     * @deprecated after 1.4.0.0-alpha3
      * Initialize ship model instance
      *
      * @return Mage_Sales_Model_Order_Shipment || false
@@ -120,24 +122,18 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
 
+    /**
+     * Retrieve array of tracking info
+     *
+     * @return array
+     */
     public function getTrackingInfo()
     {
-        $hash = Mage::helper('shipping')->decodeTrackingHash($this->getRequest()->getParam('hash'));
-        if (!empty($hash)) {
-            $this->setData($hash['key'], $hash['id']);
-            $this->setProtectCode($hash['hash']);
-        }
-
-        if ($this->getOrderId()>0) {
-            return $this->getTrackingInfoByOrder();
-        } elseif($this->getShipId()>0) {
-            return $this->getTrackingInfoByShip();
-        } else {
-            return $this->getTrackingInfoByTrackId();
-        }
+        return Mage::registry('current_shipping_info')->getTrackingInfo();
     }
 
     /**
+     * @deprecated after 1.4.0.0-alpha3
      * Retrieve all tracking by orders id
      *
      * @return array
@@ -162,6 +158,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
+     * @deprecated after 1.4.0.0-alpha3
      * Retrieve all tracking by ship id
      *
      * @return array
@@ -184,6 +181,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     }
 
     /**
+     * @deprecated after 1.4.0.0-alpha3
      * Retrieve tracking by tracking entity id
      *
      * @return array

@@ -74,17 +74,6 @@
                 </states>
             </order>
         </sales>
-        <payment>
-            <cc>
-                <types>
-                    <SS>
-                        <code>SS</code>
-                        <name>Maestro/Solo</name>
-                        <order>40</order>
-                    </SS>
-                </types>
-            </cc>
-        </payment>
     </global>
     <frontend>
         <secure_url>
@@ -117,6 +106,13 @@
         </layout>
     </frontend>
     <adminhtml>
+        <layout>
+            <updates>
+                <paypaluk>
+                    <file>paypaluk.xml</file>
+                </paypaluk>
+            </updates>
+        </layout>
         <translate>
             <modules>
                 <Mage_PaypalUk>
@@ -127,7 +123,17 @@
             </modules>
         </translate>
     </adminhtml>
-
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Mage_PaypalUk before="Mage_Adminhtml">Mage_PaypalUk_Adminhtml</Mage_PaypalUk>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
     <default>
         <paypal>
             <wpuk>
@@ -135,21 +141,33 @@
                 <partner>PayPalUK</partner>
                 <user backend_model="adminhtml/system_config_backend_encrypted"/>
                 <pwd backend_model="adminhtml/system_config_backend_encrypted"/>
+                <paypal_hdrimg></paypal_hdrimg>
+                <paypal_hdrbordercolor></paypal_hdrbordercolor>
+                <paypal_hdrbackcolor></paypal_hdrbackcolor>
+                <paypal_payflowcolor></paypal_payflowcolor>
             </wpuk>
         </paypal>
         <payment>
-            <paypaluk_express>
-                <payment_action>authorize</payment_action>
+            <paypaluk_express translate="title">
                 <model>paypaluk/express</model>
-                <title>PaypalUk Express</title>
+                <title>PayPal</title>
                 <allowspecific>0</allowspecific>
+                <line_item>1</line_item>
+                <payment_action>Sale</payment_action><!-- Don't add to translation -->
             </paypaluk_express>
-            <paypaluk_direct>
-                <payment_action>authorize</payment_action>
+            <paypaluk_direct translate="title">
+                <payment_action>Sale</payment_action><!-- Don't add to translation -->
                 <model>paypaluk/direct</model>
-                <title>PaypalUk Direct</title>
-                <cctypes>AE,VI,MC,DI</cctypes>
+                <title>Debit or Credit Card</title>
+                <cctypes>AE,VI,MC,DI,SS</cctypes>
                 <allowspecific>0</allowspecific>
+                <centinel>0</centinel>
+                <centinel_processor_id></centinel_processor_id>
+                <centinel_merchant_id></centinel_merchant_id>
+                <centinel_password></centinel_password>
+                <centinel_maps_url>https://centineltest.cardinalcommerce.com/maps/txns.asp</centinel_maps_url>
+                <centinel_timeout_connect>100</centinel_timeout_connect>
+                <centinel_timeout_read>100</centinel_timeout_read>
             </paypaluk_direct>
         </payment>
     </default>

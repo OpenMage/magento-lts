@@ -44,16 +44,31 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         return Mage::getSingleton('paypal/express_review');
     }
 
+    /**
+     * Return quote billing address
+     *
+     * @return Mage_Sales_Quote_Address
+     */
     public function getBillingAddress()
     {
         return $this->getReview()->getQuote()->getBillingAddress();
     }
 
+    /**
+     * Return quote shipping address
+     *
+     * @return Mage_Sales_Quote_Address
+     */
     public function getShippingAddress()
     {
         return $this->getReview()->getQuote()->getShippingAddress();
     }
 
+    /**
+     * Return address base on quote shipping address
+     *
+     * @return Mage_Sales_Quote_Address
+     */
     public function getAddress()
     {
         if (empty($this->_address)) {
@@ -62,6 +77,11 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         return $this->_address;
     }
 
+    /**
+     * Return shipping rates
+     *
+     * @return array
+     */
     public function getShippingRates()
     {
         if (empty($this->_rates)) {
@@ -81,6 +101,12 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         return $this->_rates;
     }
 
+    /**
+     * Return carrier name from config, base on carrier code
+     *
+     * @param $carrierCode string
+     * @return string
+     */
     public function getCarrierName($carrierCode)
     {
         if ($name = Mage::getStoreConfig('carriers/'.$carrierCode.'/title')) {
@@ -89,26 +115,55 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         return $carrierCode;
     }
 
+    /**
+     * get shipping method
+     *
+     * @return string
+     */
     public function getAddressShippingMethod()
     {
         return $this->getAddress()->getShippingMethod();
     }
 
+    /**
+     * set payment method.
+     *
+     * @param $varName string
+     */
     public function setMethod($varName)
     {
         $this->_method=$varName;
     }
 
+    /**
+     * Return formated shipping price
+     *
+     * @param $price float
+     * @param $flag bool
+     *
+     * @return bool
+     */
     public function getShippingPrice($price, $flag)
     {
         return $this->formatPrice($this->helper('tax')->getShippingPrice($price, $flag, $this->getAddress()));
     }
 
+    /**
+     * Format price base on store convert price method
+     *
+     * @param $price float
+     * @return string
+     */
     public function formatPrice($price)
     {
         return $this->getReview()->getQuote()->getStore()->convertPrice($price, true);
     }
 
+    /**
+     * Return quote virtual status
+     *
+     * @return bool
+     */
     public function isVirtual()
     {
         return $this->getReview()->getQuote()->getIsVirtual();

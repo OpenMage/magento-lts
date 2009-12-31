@@ -40,7 +40,7 @@ class Mage_CatalogRule_Model_Mysql4_Rule_Product_Price_Collection extends Mage_C
         $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $idsSelect->reset(Zend_Db_Select::COLUMNS);
-        $idsSelect->from(null, 'main_table.product_id');
+        $idsSelect->columns('main_table.product_id');
         $idsSelect->distinct(true);
         return $this->getConnection()->fetchCol($idsSelect);
     }

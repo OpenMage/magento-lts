@@ -38,6 +38,7 @@
     </adminhtml_catalog_product_index>
 
     <adminhtml_catalog_product_new>
+        <update handle="editor"/>
         <reference name="content">
             <block type="adminhtml/catalog_product_edit" name="product_edit"></block>
         </reference>
@@ -45,11 +46,13 @@
             <block type="adminhtml/catalog_product_edit_tabs" name="product_tabs"></block>
         </reference>
         <reference name="js">
-            <block type="adminhtml/template" template="catalog/product/js.phtml" name="catalog_product_js"></block>
+            <block type="adminhtml/catalog_product_edit_js" template="catalog/product/js.phtml" name="catalog_product_js"></block>
+            <block type="core/template" template="catalog/wysiwyg/js.phtml"/>
         </reference>
     </adminhtml_catalog_product_new>
 
     <adminhtml_catalog_product_edit>
+        <update handle="editor"/>
         <reference name="content">
             <block type="adminhtml/catalog_product_edit" name="product_edit"></block>
         </reference>
@@ -58,7 +61,8 @@
             <block type="adminhtml/catalog_product_edit_tabs" name="product_tabs"></block>
         </reference>
         <reference name="js">
-            <block type="adminhtml/template" template="catalog/product/js.phtml" name="catalog_product_js"></block>
+            <block type="adminhtml/catalog_product_edit_js" template="catalog/product/js.phtml" name="catalog_product_js"></block>
+            <block type="core/template" template="catalog/wysiwyg/js.phtml"/>
         </reference>
     </adminhtml_catalog_product_edit>
 
@@ -150,7 +154,7 @@ Layout handle for grouped products
             <action method="addTab"><name>super</name><block>adminhtml/catalog_product_edit_tab_super_group</block></action>
         </reference>
     </adminhtml_catalog_product_grouped>
- 
+
     <adminhtml_catalog_product_supergroup>
         <block type="core/text_list" name="root">
             <block type="adminhtml/catalog_product_edit_tab_super_group" name="catalog.product.edit.tab.super.group" />
@@ -170,7 +174,7 @@ Layout handle for grouped products
             </block>
         </block>
     </adminhtml_catalog_product_supergroup>
-    
+
     <adminhtml_catalog_product_supergroupgridonly>
         <block type="core/text_list" name="root">
             <block type="adminhtml/catalog_product_edit_tab_super_group" name="catalog.product.edit.tab.super.group" />
@@ -210,13 +214,17 @@ Layout handle for configurable products
             <block type="adminhtml/catalog_product_edit_action_attribute" name="attribute" template="catalog/product/edit/action/attribute.phtml" />
         </reference>
     </adminhtml_catalog_product_action_attribute_edit>
-    
+
     <adminhtml_catalog_category_edit>
+        <update handle="editor"/>
         <reference name="left">
             <block name="category.tree" type="adminhtml/catalog_category_tree" template="catalog/category/tree.phtml" />
         </reference>
         <reference name="content">
             <block name="category.edit"  type="adminhtml/catalog_category_edit" template="catalog/category/edit.phtml" />
+        </reference>
+        <reference name="js">
+            <block type="core/template" template="catalog/wysiwyg/js.phtml"/>
         </reference>
     </adminhtml_catalog_category_edit>
 

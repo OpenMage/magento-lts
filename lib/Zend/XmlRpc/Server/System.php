@@ -17,7 +17,7 @@
  * @subpackage Server
  * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: System.php 17803 2009-08-24 21:22:58Z matthew $
+ * @version    $Id: System.php 18443 2009-09-30 13:35:47Z lars $
  */
 
 /**
@@ -38,8 +38,8 @@ class Zend_XmlRpc_Server_System
 
     /**
      * Constructor
-     * 
-     * @param  Zend_XmlRpc_Server $server 
+     *
+     * @param  Zend_XmlRpc_Server $server
      * @return void
      */
     public function __construct(Zend_XmlRpc_Server $server)

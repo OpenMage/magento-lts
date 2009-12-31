@@ -132,15 +132,19 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
                 Mage_Newsletter_Model_Queue::STATUS_NEVER,
                 Mage_Newsletter_Model_Queue::STATUS_PAUSE))) {
 
+            $widgetFilters = array('is_email_compatible' => 1);
+            $wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(array('widget_filters' => $widgetFilters));
+            if ($queue->getTemplate()->isPlain()) {
+                $wysiwygConfig->setEnabled(false);
+            }
             $fieldset->addField('text','editor', array(
                 'name'      => 'text',
-                'wysiwyg'   => false,
                 'label'     => Mage::helper('newsletter')->__('Message'),
                 'state'     => 'html',
-                'theme'     => 'advanced',
                 'required'  => true,
                 'value'     => $queue->getTemplate()->getTemplateTextPreprocessed(),
                 'style'     => 'width:98%; height: 600px;',
+                'config'    => $wysiwygConfig
             ));
         } else {
             $fieldset->addField('text','text', array(

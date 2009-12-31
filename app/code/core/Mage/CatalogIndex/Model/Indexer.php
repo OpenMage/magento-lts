@@ -614,7 +614,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                 $additionalCalculations[$code] = $response->getAdditionalCalculations();
 
                                 if ($indexer->isAttributeIdUsed()) {
-                                    $filter[$code]->where("$table.attribute_id = ?", $attribute->getId());
+                                    //$filter[$code]->where("$table.attribute_id = ?", $attribute->getId());
                                 }
                             }
                             if (is_array($values[$code])) {
@@ -630,14 +630,14 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
                                     if (strlen($values[$code]['from'])>0) {
                                         $filter[$code]->where(
-                                            "($table.value".implode('', $additionalCalculations[$code]).")*{$rateConversion} >= ?",
+                                            "($table.min_price".implode('', $additionalCalculations[$code]).")*{$rateConversion} >= ?",
                                             $values[$code]['from']
                                         );
                                     }
 
                                     if (strlen($values[$code]['to'])>0) {
                                         $filter[$code]->where(
-                                            "($table.value".implode('', $additionalCalculations[$code]).")*{$rateConversion} <= ?",
+                                            "($table.min_price".implode('', $additionalCalculations[$code]).")*{$rateConversion} <= ?",
                                             $values[$code]['to']
                                         );
                                     }

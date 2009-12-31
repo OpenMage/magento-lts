@@ -381,11 +381,7 @@ class Mage_Core_Model_Locale
      */
     public function getAllowLocales()
     {
-        $data = Mage::getConfig()->getNode(self::XML_PATH_ALLOW_CODES)->asArray();
-        if ($data) {
-            return array_keys($data);
-        }
-        return array();
+        return Mage::getSingleton('core/locale_config')->getAllowedLocales();
     }
 
     /**
@@ -399,12 +395,8 @@ class Mage_Core_Model_Locale
         if (Mage::isInstalled()) {
             $data = Mage::app()->getStore()->getConfig(self::XML_PATH_ALLOW_CURRENCIES_INSTALLED);
             return explode(',', $data);
-        }
-        else {
-            $data = Mage::getConfig()->getNode(self::XML_PATH_ALLOW_CURRENCIES)->asArray();
-            if ($data) {
-                return array_keys($data);
-            }
+        } else {
+            $data = Mage::getSingleton('core/locale_config')->getAllowedCurrencies();
         }
         return $data;
     }

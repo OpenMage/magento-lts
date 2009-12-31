@@ -148,6 +148,8 @@ class Mage_AmazonPayments_AspController extends Mage_Core_Controller_Front_Actio
      */
     public function notificationAction()
     {
-        $this->getPayment()->processNotification($this->getRequest()->getParams());
+        if (!$this->getPayment()->processNotification($this->getRequest()->getParams())) {
+            $this->_forward('noRoute');
+        }
     }
 }

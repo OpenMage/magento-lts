@@ -1070,6 +1070,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      */
     public function createEntityTables($baseName, array $options=array())
     {
+        $sql = '';
+
         if (empty($options['no-main'])) {
             $sql = "
 DROP TABLE IF EXISTS `{$baseName}`;

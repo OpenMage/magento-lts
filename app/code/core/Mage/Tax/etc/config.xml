@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Mage_Tax>
-            <version>0.7.10</version>
+            <version>0.7.11</version>
         </Mage_Tax>
     </modules>
     <global>
@@ -55,6 +55,12 @@
                     <tax_calculation_rule>
                         <table>tax_calculation_rule</table>
                     </tax_calculation_rule>
+                    <tax_order_aggregated_created>
+                        <table>tax_order_aggregated_created</table>
+                    </tax_order_aggregated_created>
+                    <tax_order_aggregated_updated>
+                        <table>tax_order_aggregated_updated</table>
+                    </tax_order_aggregated_updated>
                 </entities>
             </tax_mysql4>
         </models>
@@ -131,11 +137,6 @@
                         <renderer>tax/checkout_tax</renderer>
                         <admin_renderer>adminhtml/sales_order_create_totals_tax</admin_renderer>
                     </tax>
-                    <!--<tax_discount>
-                        <class>tax/sales_total_quote_discount</class>
-                        <after>tax,discount</after>
-                        <before>grand_total</before>
-                    </tax_discount>-->
                     <subtotal>
                         <renderer>tax/checkout_subtotal</renderer>
                         <admin_renderer>adminhtml/sales_order_create_totals_subtotal</admin_renderer>

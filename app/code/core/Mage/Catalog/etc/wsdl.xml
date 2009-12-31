@@ -407,7 +407,7 @@
         <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductUpdateResponse">
-        <part name="result" type="xsd:int" />
+        <part name="result" type="xsd:boolean" />
     </message>
     <message name="catalogProductSetSpecialPriceRequest">
         <part name="sessionId" type="xsd:string" />
@@ -424,7 +424,7 @@
     <message name="catalogProductGetSpecialPriceRequest">
         <part name="sessionId" type="xsd:string" />
         <part name="product" type="xsd:string" />
-        <part name="storeView " type="xsd:string" />
+        <part name="storeView" type="xsd:string" />
         <part name="productIdentifierType" type="xsd:string" />
     </message>
     <message name="catalogProductGetSpecialPriceResponse">

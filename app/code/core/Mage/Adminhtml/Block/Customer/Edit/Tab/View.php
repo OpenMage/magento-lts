@@ -156,7 +156,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
             $html = $address->format('html');
         }
         else {
-            $html = Mage::helper('customer')->__("Customer doesn't have primary billing address");
+            $html = Mage::helper('customer')->__('Customer doesn\'t have default billing address');
         }
         return $html;
     }

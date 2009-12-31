@@ -160,6 +160,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
      */
     public function getRowUrl($row)
     {
-        return $row->getCustomerId() ? $this->getUrl('*/customer/edit', array('id' => $row->getCustomerId())) : '';
+        return (Mage::getSingleton('admin/session')->isAllowed('customer/manage') && $row->getCustomerId())
+            ? $this->getUrl('*/customer/edit', array('id' => $row->getCustomerId())) : '';
     }
 }

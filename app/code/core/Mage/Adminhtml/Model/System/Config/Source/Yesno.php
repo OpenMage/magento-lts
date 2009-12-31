@@ -23,14 +23,24 @@
  * @copyright   Copyright (c) 2009 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+/**
+ * Used in creating options for Yes|No config value selection
+ *
+ */
 class Mage_Adminhtml_Model_System_Config_Source_Yesno
 {
 
+    /**
+     * Options getter
+     *
+     * @return array
+     */
     public function toOptionArray()
     {
         return array(
-            array('value'=>1, 'label'=>Mage::helper('adminhtml')->__('Yes')),
-            array('value'=>0, 'label'=>Mage::helper('adminhtml')->__('No')),
+            array('value' => 1, 'label'=>Mage::helper('adminhtml')->__('Yes')),
+            array('value' => 0, 'label'=>Mage::helper('adminhtml')->__('No')),
         );
     }
 

@@ -250,7 +250,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
 //        $this->getSelect()
 //            ->joinLeft(array("order_items2" => $tableName),
 //                "order_items2.entity_id = `order_items`.entity_id and order_items2.attribute_id = {$attrId}", array())
-//            ->from("", array("items" => "sum(order_items2.{$fieldName})"));
+//            ->columns(array("items" => "sum(order_items2.{$fieldName})"));
 
         $countSql = clone $this->getSelect();
         $countSql->reset();
@@ -261,7 +261,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
             ->where("`order_items`.`order_id` = `e`.`entity_id`")
             ->where("`order_items2`.`parent_item_id` is NULL");
 
-        $this->getSelect()->from("", array("items" => "SUM((".$countSql."))"));
+        $this->getSelect()->columns(array("items" => "SUM((".$countSql."))"));
 
         return $this;
     }
@@ -301,8 +301,8 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
                     array('base_total_refunded'))
                 ->addExpressionAttributeToSelect(
                     'profit',
-                    'SUM({{base_total_paid}}) - SUM({{base_total_refunded}}) - SUM({{base_total_invoiced_cost}})',
-                    array('base_total_paid', 'base_total_refunded', 'base_total_invoiced_cost'));
+                    'SUM({{base_subtotal_invoiced}}) + SUM({{base_discount_refunded}}) - SUM({{base_subtotal_refunded}}) - SUM({{base_discount_invoiced}}) - SUM({{base_total_invoiced_cost}})',
+                    array('base_subtotal_invoiced', 'base_discount_refunded', 'base_subtotal_refunded', 'base_discount_invoiced', 'base_total_invoiced_cost'));
         } else {
             $this->addExpressionAttributeToSelect(
                     'subtotal',
@@ -334,8 +334,8 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
                     array('base_total_refunded', 'base_to_global_rate'))
                 ->addExpressionAttributeToSelect(
                     'profit',
-                    'SUM({{base_total_paid}}*{{base_to_global_rate}}) - SUM({{base_total_refunded}}*{{base_to_global_rate}}) - SUM({{base_total_invoiced_cost}}*{{base_to_global_rate}})',
-                    array('base_total_paid', 'base_total_refunded', 'base_total_invoiced_cost', 'base_to_global_rate'));
+                    'SUM({{base_subtotal_invoiced}}*{{base_to_global_rate}}) + SUM({{base_discount_refunded}}*{{base_to_global_rate}}) - SUM({{base_subtotal_refunded}}*{{base_to_global_rate}}) - SUM({{base_discount_invoiced}}*{{base_to_global_rate}}) - SUM({{base_total_invoiced_cost}}*{{base_to_global_rate}})',
+                    array('base_subtotal_invoiced', 'base_discount_refunded', 'base_subtotal_refunded', 'base_discount_invoiced', 'base_total_invoiced_cost', 'base_to_global_rate'));
         }
 
         return $this;
@@ -363,7 +363,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
         //TODO: add full name logic
         $this->joinAttribute('firstname', 'customer/firstname', 'customer_id');
         $this->joinAttribute('lastname', 'customer/lastname', 'customer_id');
-        $this->getSelect()->from("", array('name' => 'CONCAT(_table_firstname.value," ", _table_lastname.value)'));
+        $this->getSelect()->columns(array('name' => 'CONCAT(_table_firstname.value," ", _table_lastname.value)'));
         return $this;
     }
 
@@ -376,7 +376,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
     {
         $this->addAttributeToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED));
         $this->getSelect()
-            ->from('', array("orders_count" => "COUNT(e.entity_id)"));
+            ->columns(array("orders_count" => "COUNT(e.entity_id)"));
 
         return $this;
     }
@@ -421,8 +421,8 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
         }
 
         $this->getSelect()
-            ->from('', array("orders_avg_amount" => "AVG({$expr})"))
-            ->from('', array("orders_sum_amount" => "SUM({$expr})"));
+            ->columns(array("orders_avg_amount" => "AVG({$expr})"))
+            ->columns(array("orders_sum_amount" => "SUM({$expr})"));
 
         return $this;
     }
@@ -462,7 +462,7 @@ class Mage_Reports_Model_Mysql4_Order_Collection extends Mage_Sales_Model_Entity
         $countSelect->reset(Zend_Db_Select::COLUMNS);
         $countSelect->reset(Zend_Db_Select::GROUP);
         $countSelect->reset(Zend_Db_Select::HAVING);
-        $countSelect->from("", "count(DISTINCT e.entity_id)");
+        $countSelect->columns("count(DISTINCT e.entity_id)");
 
         $sql = $countSelect->__toString();
 

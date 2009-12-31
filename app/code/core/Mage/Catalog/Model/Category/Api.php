@@ -121,18 +121,15 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function tree($parentId = null, $store = null)
     {
-        $tree = Mage::getResourceSingleton('catalog/category_tree')
-                ->load();
-
         if (is_null($parentId) && !is_null($store)) {
             $parentId = Mage::app()->getStore($this->_getStoreId($store))->getRootCategoryId();
         } elseif (is_null($parentId)) {
             $parentId = 1;
         }
 
+        /* @var $tree Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree */
         $tree = Mage::getResourceSingleton('catalog/category_tree')
             ->load();
-        /* @var $tree Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree */
 
         $root = $tree->getNodeById($parentId);
 
@@ -236,7 +233,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function create($parentId, $categoryData, $store = null)
     {
-        $parent_category = $this->_initCategory($parentId);
+        $parent_category = $this->_initCategory($parentId, $store);
         $category = Mage::getModel('catalog/category')
             ->setStoreId($this->_getStoreId($store));
 

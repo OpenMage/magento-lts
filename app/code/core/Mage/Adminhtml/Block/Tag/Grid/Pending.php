@@ -29,17 +29,23 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_Grid
 {
-
+    /**
+     * Constructor
+     *
+     * @return void
+     */
     public function __construct()
     {
         parent::__construct();
-        $this->setId('pending_grid');
-        $this->setDefaultSort('name');
-        $this->setDefaultDir('ASC');
+        $this->setId('pending_grid')
+             ->setDefaultSort('name')
+             ->setDefaultDir('ASC')
+             ->setUseAjax(true)
+             ->setSaveParametersInSession(true);
     }
 
     protected function _prepareCollection()
@@ -92,24 +98,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
             'index'     => 'popularity',
             'type'      => 'number',
         ));
-
-        /*
-        $this->addColumn('status', array(
-            'header'    => Mage::helper('tag')->__('Status'),
-            'width'     => '90px',
-            'index'     => 'status',
-            'type'      => 'options',
-            'filter'    => false,
-            'sortable'  => false,
-            'options'    => array(
-                Mage_Tag_Model_Tag::STATUS_DISABLED => Mage::helper('tag')->__('Disabled'),
-                Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('tag')->__('Pending'),
-                Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('tag')->__('Approved'),
-            ),
-        ));
-        */
-
-          // Collection for stores filters
+        // Collection for stores filters
         if (!$collection = Mage::registry('stores_select_collection')) {
             $collection =  Mage::app()->getStore()->getResourceCollection()
                 ->load();
@@ -126,49 +115,29 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
             ));
         }
 
-        $this->addColumn('actions', array(
-            'header'    => Mage::helper('tag')->__('Actions'),
-            'width'     => '100px',
-            'type'      => 'action',
-            'sortable'  => false,
-            'filter'    => false,
-            'actions'    => array(
-                array(
-                    'caption'   => Mage::helper('tag')->__('Edit Tag'),
-                    'url'       => $this->getUrl('*/*/edit', array('ret' => 'pending', 'tag_id'=>'$tag_id')),
-                ),
-                array(
-                    'caption'   => Mage::helper('tag')->__('View Products'),
-                    'url'       => $this->getUrl('*/*/product', array('ret' => 'pending', 'tag_id'=>'$tag_id')),
-                ),
-
-                array(
-                    'caption'   => Mage::helper('tag')->__('View Customers'),
-                    'url'       => $this->getUrl('*/*/customer', array('ret' => 'pending', 'tag_id'=>'$tag_id')),
-                )
-            ),
-        ));
-
         return parent::_prepareColumns();
     }
 
+    /**
+     * Retrives row click URL
+     *
+     * @param  mixed $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array(
-            'tag_id' => $row->getId(),
-            'ret'    => 'pending',
-        ));
+        return $this->getUrl('*/*/edit', array('tag_id' => $row->getId(), 'ret' => 'pending'));
     }
 
     protected function _addColumnFilterToCollection($column)
     {
-         if($column->getIndex()=='stores') {
-                $this->getCollection()->addStoreFilter($column->getFilter()->getCondition(), false);
-         } else {
-                parent::_addColumnFilterToCollection($column);
-         }
+        if($column->getIndex() == 'stores') {
+            $this->getCollection()->addStoreFilter($column->getFilter()->getCondition(), false);
+        } else {
+            parent::_addColumnFilterToCollection($column);
+        }
 
-         return $this;
+        return $this;
     }
 
     protected function _prepareMassaction()
@@ -203,4 +172,13 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
         return $this;
     }
 
+    /*
+     * Retrieves Grid Url
+     *
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/tag/ajaxPendingGrid', array('_current' => true));
+    }
 }

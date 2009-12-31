@@ -89,7 +89,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option extends Mage_Core_Mo
 
                 $baseCurrency = Mage::app()->getBaseCurrencyCode();
 
-                $storeIds = $object->getProduct()->getStoreIds();
+                $storeIds = Mage::app()->getStore($object->getStoreId())->getWebsite()->getStoreIds();
                 if (is_array($storeIds)) {
                     foreach ($storeIds as $storeId) {
                         if ($object->getPriceType() == 'fixed') {

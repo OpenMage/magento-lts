@@ -38,7 +38,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      *
      * @var array
      */
-    protected $_publicActions = array('view');
+    protected $_publicActions = array('view', 'index');
 
     /**
      * Additional initialization

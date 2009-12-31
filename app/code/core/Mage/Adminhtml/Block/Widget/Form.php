@@ -52,10 +52,13 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
         $this->setDestElementId('edit_form');
         $this->setShowGlobalIcon(false);
     }
-
+    
     /**
-     * Prepare block children and data
+     * Preparing global layout
      *
+     * You can redefine this method in child classes for changin layout
+     *
+     * @return Mage_Core_Block_Abstract
      */
     protected function _prepareLayout()
     {
@@ -68,6 +71,8 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
         Varien_Data_Form::setFieldsetElementRenderer(
             $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element')
         );
+        
+        return parent::_prepareLayout();
     }
 
     /**

@@ -38,7 +38,7 @@ class Mage_Reports_Model_Mysql4_Tag_Customer_Collection extends Mage_Tag_Model_M
     public function addTagedCount()
     {
         $this->getSelect()
-            ->from('', array('taged' => 'count(tr.tag_relation_id)'));
+            ->columns(array('taged' => 'count(tr.tag_relation_id)'));
             //->order('taged desc');
         return $this;
     }

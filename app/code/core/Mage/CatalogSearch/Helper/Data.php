@@ -140,7 +140,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getEscapedQueryText()
     {
-        return $this->htmlEscape($this->getQueryText());
+        return $this->getQueryText();
     }
 
     /**
@@ -164,7 +164,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->_getUrl('catalogsearch/result', array(
             '_query' => array(self::QUERY_VAR_NAME => $query),
-            '_secure' => true
+            '_secure' => Mage::app()->getFrontController()->getRequest()->isSecure()
         ));
     }
 

@@ -166,7 +166,7 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
         $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $idsSelect->reset(Zend_Db_Select::COLUMNS);
-        $idsSelect->from(null,
+        $idsSelect->columns(
             'main_table.' . $this->getResource()->getIdFieldName()
         );
         return $this->getConnection()->fetchCol($idsSelect);
@@ -223,9 +223,39 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
         return $this;
     }
 
+    /**
+     * Check if cache can be used for collection
+     *
+     * @return bool
+     */
     protected function _canUseCache()
     {
-        return Mage::app()->useCache('collections');
+        return Mage::app()->useCache('collections') && !empty($this->_cacheConf);
+    }
+
+    /**
+     * Load cached data for select
+     *
+     * @param Zend_Db_Select $select
+     * @return string | false
+     */
+    protected function _loadCache($select)
+    {
+        $data = Mage::app()->loadCache($this->_getSelectCacheId($select));
+        return $data;
+    }
+
+    /**
+     * Save collection data to cache
+     *
+     * @param array $data
+     * @param Zend_Db_Select $select
+     * @return unknown_type
+     */
+    protected function _saveCache($data, $select)
+    {
+        Mage::app()->saveCache(serialize($data), $this->_getSelectCacheId($select), $this->_getCacheTags());
+        return $this;
     }
 
     /**
@@ -236,9 +266,6 @@ abstract class Mage_Core_Model_Mysql4_Collection_Abstract extends Varien_Data_Co
     protected function _getCacheTags()
     {
         $tags = parent::_getCacheTags();
-        foreach ($tags as $key => $value) {
-            $tags[$key] = Mage::app()->prepareCacheId($value);
-        }
         $tags[] = Mage_Core_Model_App::CACHE_TAG;
         return $tags;
     }

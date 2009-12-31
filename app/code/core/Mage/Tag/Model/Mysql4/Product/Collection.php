@@ -425,7 +425,7 @@ class Mage_Tag_Model_Mysql4_Product_Collection extends Mage_Catalog_Model_Resour
             . ($this->getFlag('distinct') ? 'DISTINCT ' : '')
             . $field . ')');
 
-        $countSelect->from(null, $expr);
+        $countSelect->columns($expr);
 
         return $countSelect;
     }

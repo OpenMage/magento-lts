@@ -678,16 +678,19 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public function getCurrentCurrency()
     {
         $currency = $this->getData('current_currency');
+
         if (is_null($currency)) {
-            $currency = Mage::getModel('directory/currency')->load($this->getCurrentCurrencyCode());
-            if ($this->getBaseCurrency()->getRate($currency)) {
-                $this->setData('current_currency', $currency);
+            $currency     = Mage::getModel('directory/currency')->load($this->getCurrentCurrencyCode());
+            $baseCurrency = $this->getBaseCurrency();
+
+            if (! $baseCurrency->getRate($currency)) {
+                $currency = $baseCurrency;
+                $this->setCurrentCurrencyCode($baseCurrency->getCode());
             }
-            else {
-                $this->setData('current_currency', $this->getBaseCurrency());
-                $this->setCurrentCurrencyCode($this->getBaseCurrency()->getCode());
-            }
+
+            $this->setData('current_currency', $currency);
         }
+
         return $currency;
     }
 

@@ -31,6 +31,8 @@
  */
 class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
 {
+    const XML_PATH_REDIRECT_TO_CART         = 'checkout/cart/redirect_to_cart';
+
     /**
      * Retrieve cart instance
      *
@@ -147,5 +149,16 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
     public function getIsVirtualQuote()
     {
         return $this->getQuote()->isVirtual();
+    }
+
+    /**
+     * Checks if customer should be redirected to shopping cart after adding a product
+     *
+     * @param int|string|Mage_Core_Model_Store $store
+     * @return bool
+     */
+    public function getShouldRedirectToCart($store = null)
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_REDIRECT_TO_CART, $store);
     }
 }

@@ -703,7 +703,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
                     continue;
                 }
                 $fieldList[] = $attributeCode;
-                $select->from(null, $attributeCode);
+                $select->columns($attributeCode, 'e');
             }
         }
 
@@ -954,7 +954,7 @@ class Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Flat_Indexer
             if ($columnName == 'entity_id' || $columnName == 'child_id' || $columnName == 'is_child') {
                 continue;
             }
-            $select->from(null, array($columnName => new Zend_Db_Expr('`t1`.`'. $columnName.'`')));
+            $select->columns(array($columnName => new Zend_Db_Expr('`t1`.`'. $columnName.'`')));
         }
         $select
             ->joinLeft(

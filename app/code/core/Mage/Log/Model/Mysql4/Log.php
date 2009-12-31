@@ -44,36 +44,6 @@ class Mage_Log_Model_Mysql4_Log extends Mage_Core_Model_Mysql4_Abstract
     }
 
     /**
-     * Start resource transaction
-     *
-     * @return Mage_Log_Model_Mysql4_Log
-     */
-    public function beginTransaction()
-    {
-        return $this;
-    }
-
-    /**
-     * Commit resource transaction
-     *
-     * @return Mage_Log_Model_Mysql4_Log
-     */
-    public function commit()
-    {
-        return $this;
-    }
-
-    /**
-     * Roll back resource transaction
-     *
-     * @return Mage_Log_Model_Mysql4_Log
-     */
-    public function rollBack()
-    {
-        return $this;
-    }
-
-    /**
      * Clean logs
      *
      * @param Mage_Log_Model_Log $object

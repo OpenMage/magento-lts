@@ -113,6 +113,13 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
         return $this;
     }
 
+    /**
+     * Retrieve store values for form
+     *
+     * @param bool $empty
+     * @param bool $all
+     * @return array
+     */
     public function getStoreValuesForForm($empty = false, $all = false)
     {
         $options = array();
@@ -165,6 +172,71 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
             }
         }
         return $options;
+    }
+
+    /**
+     * Retrieve stores structure
+     *
+     * @param bool $isAll
+     * @param array $storeIds
+     * @param array $groupIds
+     * @param array $websiteIds
+     * @return array
+     */
+    public function getStoresStructure($isAll = false, $storeIds = array(), $groupIds = array(), $websiteIds = array())
+    {
+        $out = array();
+        $websites = $this->getWebsiteCollection();
+
+        if ($isAll) {
+            $out[] = array(
+                'value' => 0,
+                'label' => Mage::helper('adminhtml')->__('All Store Views')
+            );
+        }
+
+        foreach ($websites as $website) {
+
+            $websiteId = $website->getId();
+            if ($websiteIds && !in_array($websiteId, $websiteIds)) {
+                continue;
+            }
+            $out[$websiteId] = array(
+                'value' => $websiteId,
+                'label' => $website->getName()
+            );
+
+            foreach ($website->getGroups() as $group) {
+
+                $groupId = $group->getId();
+                if ($groupIds && !in_array($groupId, $groupIds)) {
+                    continue;
+                }
+                $out[$websiteId]['children'][$groupId] = array(
+                    'value' => $groupId,
+                    'label' => $group->getName()
+                );
+
+                foreach ($group->getStores() as $store) {
+
+                    $storeId = $store->getId();
+                    if ($storeIds && !in_array($storeId, $storeIds)) {
+                        continue;
+                    }
+                    $out[$websiteId]['children'][$groupId]['children'][$storeId] = array(
+                        'value' => $storeId,
+                        'label' => $store->getName()
+                    );
+                }
+                if (empty($out[$websiteId]['children'][$groupId]['children'])) {
+                    unset($out[$websiteId]['children'][$groupId]);
+                }
+            }
+            if (empty($out[$websiteId]['children'])) {
+                unset($out[$websiteId]);
+            }
+        }
+        return $out;
     }
 
     /**

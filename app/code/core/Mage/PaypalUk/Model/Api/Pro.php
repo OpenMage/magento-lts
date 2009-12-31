@@ -94,6 +94,9 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
     protected $_validVoidTransState = array(3,6,9);
 
 /*********************** DIRECT PAYMENT ***************************/
+    /**
+     * Process a credit card payment.
+     */
     public function callDoDirectPayment()
     {
         $p = $this->getPayment();
@@ -109,6 +112,19 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
             'AMT'           => $this->getAmount(),
             'BUTTONSOURCE'   => $this->getButtonSourceDp(),
         );
+
+        if ($this->getMpiVendor()) {
+            $proArr['AUTHSTATUS3D'] = $this->getAuthStatus();
+            $proArr['MPIVENDOR3DS'] = $this->getMpiVendor();
+            $proArr['CAVV']         = $this->getCavv();
+            $proArr['ECI3D']          = $this->getEci3d();
+            $proArr['XID']          = $this->getXid();
+        }
+
+        if ($lineItems = $this->getLineItems()) {
+            $lineItemArray = $this->_prepareLineItem($lineItems, $this->getItemAmount(), $this->getItemTaxAmount(), $this->getShippingAmount(), $this->getDiscountAmount());
+            $proArr = array_merge($proArr, $lineItemArray);
+        }
 
         if($this->getTrxtype()==self::TRXTYPE_AUTH_ONLY || $this->getTrxtype()==self::TRXTYPE_SALE){
             $proArr = array_merge(array(
@@ -172,6 +188,11 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
 
 
 /*********************** EXPRESS PAYMENT ***************************/
+    /**
+     * Return post paypal url
+     *
+     * @return string
+     */
     public function getPaypalUrl()
     {
         if (!$this->hasPaypalUrl()) {
@@ -190,6 +211,12 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
         return $url . $this->getToken();
     }
 
+    /**
+     * Initiates an Express Checkout transaction.
+     * Optionally, the SetExpressCheckout APIoperation can set up billing
+     * agreements for reference transactionsand recurring payments.
+     *
+     */
     public function callSetExpressCheckout()
     {
         $proArr = array(
@@ -197,8 +224,12 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
             'AMT'           => $this->getAmount(),
             'ACTION'        => self::ACIONT_SET_EXPRESS,
             'CURRENCY'      => $this->getCurrencyCode(),
-            "RETURNURL"     => $this->getReturnUrl(),
+            'RETURNURL'     => $this->getReturnUrl(),
             'CANCELURL'     => $this->getCancelUrl(),
+            'HDRIMG'        => $this->getStyleConfigData('paypal_hdrimg'),
+            'HDRBORDERCOLOR' => $this->getStyleConfigData('paypal_hdrbordercolor'),
+            'HDRBACKCOLOR'   => $this->getStyleConfigData('paypal_hdrbackcolor'),
+            'PAYFLOWCOLOR'   => $this->getStyleConfigData('paypal_payflowcolor')
         );
 
         $this->setUserAction(self::USER_ACTION_CONTINUE);
@@ -219,6 +250,11 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
             $this->setUserAction(self::USER_ACTION_COMMIT);
         }
 
+        if ($lineItems = $this->getLineItems()) {
+            $lineItemArray = $this->_prepareLineItem($lineItems, $this->getItemAmount(), $this->getItemTaxAmount(), $this->getShippingAmount(), $this->getDiscountAmount());
+            $proArr = array_merge($proArr, $lineItemArray);
+        }
+
         $result = $this->postRequest($proArr);
 
         if ($result && $result->getResultCode()==self::RESPONSE_CODE_APPROVED) {
@@ -236,6 +272,9 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
          return $this;
     }
 
+    /**
+     * Obtain information about an Express Checkout transaction.
+     */
     public function callGetExpressCheckoutDetails()
     {
         $proArr = array(
@@ -272,7 +311,7 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
             $a->setRegion($result->getShiptostate());
             $a->setPostcode($result->getShiptozip());
             $a->setCountry($result->getShiptocountry());
-            $a->setTelephone(Mage::helper('paypalUk')->__('N/A'));
+            $a->setTelephone(Mage::helper('paypal')->__('N/A'));
 //echo "<hr>";
 //print_r($a->getData());
 //echo "<hr>";
@@ -287,6 +326,12 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
          return $this;
     }
 
+    /**
+     * Completes an Express Checkout transaction.
+     * If you set up a billing agreement in your SetExpressCheckout APIcall,
+     * the billing agreement is created when you call
+     * the DoExpressCheckoutPayment APIoperation.
+     */
     public function callDoExpressCheckoutPayment()
     {
          /* Gather the information to make the final call to
@@ -303,6 +348,11 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
             'CURRENCY'      => $this->getCurrencyCode(),
             'BUTTONSOURCE'  => $this->getButtonSourceEc(),
         );
+
+        if ($lineItems = $this->getLineItems()) {
+            $lineItemArray = $this->_prepareLineItem($lineItems, $this->getItemAmount(), $this->getItemTaxAmount(), $this->getShippingAmount(), $this->getDiscountAmount());
+            $proArr = array_merge($proArr, $lineItemArray);
+        }
 
         $result = $this->postRequest($proArr);
 
@@ -350,6 +400,11 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
         return $nvpArray;
     }
 
+    /**
+     * Send post request to paypal
+     *
+     * @return Mage_PaypalUk_Model_Api_Result
+     */
     public function postRequest(array $proArr)
     {
         $proArr = array_merge(array(
@@ -457,6 +512,11 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
         return $result;
     }
 
+    /**
+     * Generate random request id
+     *
+     * @return string
+     */
     protected function _generateRequestId()
     {
         return Mage::helper('core')->uniqHash();
@@ -483,7 +543,7 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
         if ($result && $result->getResultCode()==self::RESPONSE_CODE_APPROVED) {
             if ($result->getTransstate()>1000) {
                 $errorArr['code'] = $result->getResultCode();
-                $errorArr['message'] = Mage::helper('paypalUk')->__('Voided transaction');
+                $errorArr['message'] = Mage::helper('paypal')->__('Voided transaction');
                 $this->setError($errorArr);
                 return false;
             } elseif(in_array($result->getTransstate(),$this->_validVoidTransState)) {
@@ -493,7 +553,7 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
         }
 
         $errorArr['code'] = $result->getResultCode();
-        $errorArr['message'] = $result->getRespmsg() ? $result->getRespmsg() : Mage::helper('paypalUk')->__('Error in inquriing the transaction');
+        $errorArr['message'] = $result->getRespmsg() ? $result->getRespmsg() : Mage::helper('paypal')->__('Error in inquriing the transaction');
         $this->setError($errorArr);
         return false;
     }
@@ -511,7 +571,7 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
             'TENDER'        => self::TENDER_CC,
             'ORIGID'        => $this->getTransactionId(),
         );
-        $this->getTrxtype(self::TRXTYPE_DELAYED_VOID);
+        $this->setTrxtype(self::TRXTYPE_DELAYED_VOID);
         $result = $this->postRequest($proArr);
 
         if ($result && $result->getResultCode()==self::RESPONSE_CODE_APPROVED) {
@@ -519,7 +579,7 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
             return $this;
         }
         $errorArr['code'] = $result->getResultCode();
-        $errorArr['message'] = $result->getRespmsg() ? $result->getRespmsg() : Mage::helper('paypalUk')->__('Error in voiding the transaction');
+        $errorArr['message'] = $result->getRespmsg() ? $result->getRespmsg() : Mage::helper('paypal')->__('Error in voiding the transaction');
         $this->setError($errorArr);
         return false;
     }
@@ -548,8 +608,52 @@ class Mage_PaypalUk_Model_Api_Pro extends  Mage_PaypalUk_Model_Api_Abstract
         }
 
         $errorArr['code'] = $result->getResultCode();
-        $errorArr['message'] = $result->getRespmsg() ? $result->getRespmsg() : Mage::helper('paypalUk')->__('Error in voiding the transaction');
+        $errorArr['message'] = $result->getRespmsg() ? $result->getRespmsg() : Mage::helper('paypal')->__('Error in voiding the transaction');
         $this->setError($errorArr);
         return false;
     }
+
+    /**
+     * Prepare Line item array to move in paypal, canculate all fields
+     *
+     * @param $items Mage_Sales_Model_Entity_Quote_Item_Collection
+     * @param $shippingAmount float
+     * @param $discountAmount float
+     *
+     * @return array
+     */
+    protected function _prepareLineItem($lineItems, $itemAmount, $itemTaxAmount, $shippingAmount, $discountAmount)
+    {
+
+        $proArr = array();
+        $itemAmt = 0;
+        $taxItemAmt = 0;
+        foreach($lineItems as $index => $item) {
+            if ($item->getName() && $item->getBaseRowTotal()) {
+                $proArr['L_NAME' . $index]      = $item->getName();
+                $proArr['L_NUMBER' . $index]    = $item->getProductId();
+                $proArr['L_COST' . $index]       = (float)$item->getBaseCalculationPrice();
+                $proArr['L_AMT' . $index]       = (float)$item->getBaseCalculationPrice();
+                $proArr['L_QTY' . $index]       = $item->getTotalQty();
+                $proArr['L_DESC' . $index]      = $item->getDescription();
+                $proArr['L_TAXAMT' . $index]    = (float)($item->getBaseTaxAmount() / $item->getTotalQty());
+            }
+        }
+
+        if ($discountAmount > 0) {
+            $index++;
+            $proArr['L_NAME' . $index]      = Mage::helper('paypal')->__('Discount');
+            $proArr['L_NUMBER' . $index]    = 0;
+            $proArr['L_COST' . $index]       = (float) $discountAmount;
+            $proArr['L_QTY' . $index]       = 1;
+            $proArr['L_DESC' . $index]      = Mage::helper('paypal')->__('Discount');
+            $proArr['L_TAXAMT' . $index]    = 0;
+        }
+
+        $proArr['TAXAMT'] = (float) round($itemTaxAmount,2);
+        $proArr['ITEMAMT']= (float) ($itemAmount + $discountAmount);
+        $proArr['FREIGHTAMT'] = (float) $shippingAmount;
+        return $proArr;
+    }
+
 }

@@ -459,7 +459,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
             $fullExpression = str_replace('{{' . $attributeItem . '}}', $attrField, $fullExpression);
         }
 
-        $this->getSelect()->from(null, array($alias=>$fullExpression));
+        $this->getSelect()->columns(array($alias=>$fullExpression));
 
         $this->_joinFields[$alias] = array(
             'table' => false,
@@ -821,7 +821,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
         $idsSelect->reset(Zend_Db_Select::LIMIT_COUNT);
         $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $idsSelect->reset(Zend_Db_Select::COLUMNS);
-        $idsSelect->from(null, 'e.'.$this->getEntity()->getIdFieldName());
+        $idsSelect->columns('e.'.$this->getEntity()->getIdFieldName());
         $idsSelect->limit($limit, $offset);
         return $idsSelect;
     }
@@ -849,7 +849,7 @@ class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Collection_D
         $idsSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $idsSelect->reset(Zend_Db_Select::COLUMNS);
         $idsSelect->reset(Zend_Db_Select::GROUP);
-        $idsSelect->from(null, 'e.'.$this->getEntity()->getIdFieldName());
+        $idsSelect->columns('e.'.$this->getEntity()->getIdFieldName());
         return $idsSelect;
     }
 

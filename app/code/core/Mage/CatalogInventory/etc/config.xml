@@ -87,7 +87,7 @@
                 <observers>
                     <inventory>
                         <class>cataloginventory/observer</class>
-                        <method>addStockStatusToPrepareIndexSelect</method>
+                        <method>prepareCatalogProductIndexSelect</method>
                     </inventory>
                 </observers>
             </catalog_product_prepare_index_select>
@@ -213,6 +213,16 @@
                 <cataloginventory_stock>
                     <model>cataloginventory/indexer_stock</model>
                 </cataloginventory_stock>
+                <catalog_product_attribute>
+                    <depends>
+                        <cataloginventory_stock />
+                    </depends>
+                </catalog_product_attribute>
+                <catalog_product_price>
+                    <depends>
+                        <cataloginventory_stock />
+                    </depends>
+                </catalog_product_price>
             </indexer>
         </index>
     </global>

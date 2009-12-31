@@ -25,7 +25,7 @@
  */
 
 /**
- * Abstract class for PaypalUk Debug
+ * Abstract class for PayflowUk Pro Debug
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */

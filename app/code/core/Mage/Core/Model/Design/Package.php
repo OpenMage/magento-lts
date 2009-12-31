@@ -27,10 +27,15 @@
 
 class Mage_Core_Model_Design_Package
 {
-    const DEFAULT_AREA      = 'frontend';
-    const DEFAULT_PACKAGE   = 'default';
-    const DEFAULT_THEME     = 'default';
-    const FALLBACK_THEME    = 'default';
+    const DEFAULT_AREA    = 'frontend';
+    const DEFAULT_PACKAGE = 'default';
+    const DEFAULT_THEME   = 'default';
+    const BASE_PACKAGE    = 'base';
+
+    /**
+     * @deprecated after 1.4.0.0-alpha3
+     */
+    const FALLBACK_THEME  = 'default';
 
     private static $_regexMatchCache      = array();
     private static $_customThemeTypeCache = array();
@@ -71,6 +76,13 @@ class Mage_Core_Model_Design_Package
     protected $_rootDir;
 
     protected $_config = null;
+
+    /**
+     * Whether theme/skin hierarchy should be checked via fallback mechanism
+     * @TODO: implement setter for this value
+     * @var bool
+     */
+    protected $_shouldFallback = true;
 
     /**
      * Set store
@@ -198,6 +210,9 @@ class Mage_Core_Model_Design_Package
 
     /**
      * Declare design package theme params
+     * Polymorph method:
+     * 1) if 1 parameter specified, sets everything to this value
+     * 2) if 2 parameters, treats 1st as key and 2nd as value
      *
      * @return Mage_Core_Model_Design_Package
      */
@@ -304,14 +319,10 @@ class Mage_Core_Model_Design_Package
     }
 
     /**
-     * Get absolute file path for requested file or false if doesn't exist
+     * Check whether requested file exists in specified theme params
      *
      * Possible params:
-     * - _type:
-     * 	 - layout
-     *   - template
-     *   - skin
-     *   - translate
+     * - _type: layout|template|skin|locale
      * - _package: design package, if not set = default
      * - _theme: if not set = default
      * - _file: path relative to theme root
@@ -319,34 +330,69 @@ class Mage_Core_Model_Design_Package
      * @see Mage_Core_Model_Config::getBaseDir
      * @param string $file
      * @param array $params
-     * @return string|boolean
-     *
+     * @return string|false
      */
     public function validateFile($file, array $params)
     {
-        Varien_Profiler::start(__METHOD__);
+        $fileName = $this->_renderFilename($file, $params);
+        $testFile = (empty($params['_relative']) ? '' : Mage::getBaseDir('design') . DS) . $fileName;
+        if (!file_exists($testFile)) {
+            return false;
+        }
+        return $fileName;
+    }
+
+    /**
+     * Get filename by specified theme parameters
+     *
+     * @param array $file
+     * @param $params
+     * @return string
+     */
+    protected function _renderFilename($file, array $params)
+    {
         switch ($params['_type']) {
             case 'skin':
-                $fileName = $this->getSkinBaseDir($params);
+                $dir = $this->getSkinBaseDir($params);
                 break;
 
             case 'locale':
-                $fileName = $this->getLocaleBasedir($params);
+                $dir = $this->getLocaleBasedir($params);
                 break;
 
             default:
-                $fileName = $this->getBaseDir($params);
+                $dir = $this->getBaseDir($params);
                 break;
         }
-        $fileName.= DS.$file;
+        return $dir . DS . $file;
+    }
 
-        $testFile = (empty($params['_relative']) ? '' : Mage::getBaseDir('design').DS) . $fileName;
-
-        if ($this->getDefaultTheme()!==$params['_theme'] && !file_exists($testFile)) {
-            return false;
+    /**
+     * Check for files existence by specified scheme
+     *
+     * If fallback enabled, the first found file will be returned. Otherwise the base package / default theme file,
+     *   regardless of found or not.
+     * If disabled, the lookup won't be performed to spare filesystem calls.
+     *
+     * @param string $file
+     * @param array &$params
+     * @param array $fallbackScheme
+     * @return string
+     */
+    protected function _fallback($file, array &$params, array $fallbackScheme = array(array()))
+    {
+        if ($this->_shouldFallback) {
+            foreach ($fallbackScheme as $try) {
+                $params = array_merge($params, $try);
+                $filename = $this->validateFile($file, $params);
+                if ($filename) {
+                    return $filename;
+                }
+            }
+            $params['_package'] = self::BASE_PACKAGE;
+            $params['_theme']   = self::DEFAULT_THEME;
         }
-        Varien_Profiler::stop(__METHOD__);
-        return $fileName;
+        return $this->_renderFilename($file, $params);
     }
 
     /**
@@ -362,25 +408,19 @@ class Mage_Core_Model_Design_Package
     {
         Varien_Profiler::start(__METHOD__);
         $this->updateParamDefaults($params);
-        $filename = $this->validateFile($file, $params);
-        if (false===$filename) {
-            $params['_theme'] = $this->getFallbackTheme();
-            $filename = $this->validateFile($file, $params);
-            if (false===$filename) {
-                if ($this->getDefaultTheme()===$params['_theme']) {
-                    return $params['_default'];
-                }
-                $params['_theme'] = $this->getDefaultTheme();
-                $filename = $this->validateFile($file, $params);
-                if (false===$filename) {
-                    return $params['_default'];
-                }
-            }
-        }
+        $result = $this->_fallback($file, $params, array(
+            array(),
+            array('_theme' => $this->getFallbackTheme()),
+            array('_theme' => self::DEFAULT_THEME),
+        ));
         Varien_Profiler::stop(__METHOD__);
-        return $filename;
+        return $result;
     }
 
+    /**
+     * Default theme getter
+     * @return string
+     */
     public function getFallbackTheme()
     {
         return Mage::getStoreConfig('design/theme/default', $this->getStore());
@@ -411,7 +451,7 @@ class Mage_Core_Model_Design_Package
      * @param array $params
      * @return string
      */
-    public function getSkinUrl($file=null, array $params=array())
+    public function getSkinUrl($file = null, array $params = array())
     {
         Varien_Profiler::start(__METHOD__);
         if (empty($params['_type'])) {
@@ -422,36 +462,32 @@ class Mage_Core_Model_Design_Package
         }
         $this->updateParamDefaults($params);
         if (!empty($file)) {
-            $filename = $this->validateFile($file, $params);
-            if (false===$filename) {
-
-                $params['_theme'] = $this->getFallbackTheme();
-                $filename = $this->validateFile($file, $params);
-                if (false===$filename) {
-                    if ($this->getDefaultTheme()===$params['_theme']) {
-                        return $params['_default'];
-                    }
-                    $params['_theme'] = $this->getDefaultTheme();
-                    $filename = $this->validateFile($file, $params);
-                    if (false===$filename) {
-                        return $params['_default'];
-                    }
-                }
-
-            }
+            $result = $this->_fallback($file, $params, array(
+                array(),
+                array('_theme' => $this->getFallbackTheme()),
+                array('_theme' => self::DEFAULT_THEME),
+            ));
         }
-
-        $url = $this->getSkinBaseUrl($params).(!empty($file) ? $file : '');
+        $result = $this->getSkinBaseUrl($params) . (empty($file) ? '' : $file);
         Varien_Profiler::stop(__METHOD__);
-        return $url;
+        return $result;
     }
 
+    /**
+     * Design packages list getter
+     * @return array
+     */
     public function getPackageList()
     {
         $directory = Mage::getBaseDir('design') . DS . 'frontend';
         return $this->_listDirectories($directory);
     }
 
+    /**
+     * Design package (optional) themes list getter
+     * @param string $package
+     * @return string
+     */
     public function getThemeList($package = null)
     {
         $result = array();
@@ -468,7 +504,15 @@ class Mage_Core_Model_Design_Package
         return $result;
     }
 
-    private function _listDirectories($path, $fullPath = false){
+    /**
+     * Directories lister utility method
+     *
+     * @param string $path
+     * @param string|false $fullPath
+     * @return array
+     */
+    private function _listDirectories($path, $fullPath = false)
+    {
         $result = array();
         $dir = opendir($path);
         if ($dir) {

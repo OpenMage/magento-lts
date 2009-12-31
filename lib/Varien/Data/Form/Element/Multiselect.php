@@ -86,7 +86,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
 
     public function getHtmlAttributes()
     {
-        return array('title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'size');
+        return array('title', 'class', 'style', 'onclick', 'onchange', 'disabled', 'size', 'tabindex');
     }
 
     public function getDefaultHtml()

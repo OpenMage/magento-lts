@@ -29,9 +29,10 @@ class Mage_Adminhtml_Block_Tax_Rate_Grid extends Mage_Adminhtml_Block_Widget_Gri
     public function __construct()
     {
         parent::__construct();
-        $this->setSaveParametersInSession(true);
         $this->setDefaultSort('region_name');
         $this->setDefaultDir('asc');
+        $this->setId('tax_rate_grid');
+        $this->setSaveParametersInSession(true);
     }
 
     protected function _prepareCollection()
